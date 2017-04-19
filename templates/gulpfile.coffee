@@ -4,9 +4,6 @@ pug = require 'gulp-pug'
 watch = require 'gulp-watch'
 copy = require 'gulp-copy'
 
-server = express()
-server.use express.static './public'
-server.listen 8080
 
 gulp.task 'pug', ->
   gulp.src 'src/screens/*.pug'
@@ -16,6 +13,9 @@ gulp.task 'pug', ->
 
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.*' , ['pug']
+  server = express()
+  server.use express.static './public'
+  server.listen 8080
 
 gulp.task 'copy', ->
   gulp.src 'node_modules/uswds/dist/**/*'
