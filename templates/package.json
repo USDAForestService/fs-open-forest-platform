@@ -1,0 +1,20 @@
+{
+    "name": "templates",
+    "version": "0.0.1",
+    "author": "gsa-tts",
+    "private": true,
+    "devDependencies": {
+        "coffee-script": "1.12.3",
+        "express": "4.14.1",
+        "gulp-pug": "3.2.0",
+        "gulp-watch": "4.3.11",
+        "gulp-copy": "1.0.0",
+        "gulp": "3.9.1",
+        "node-sass": "4.5.2",
+        "pug": "2.0.0-beta11",
+        "uswds": "1.0.0"
+    },
+    "scripts": {
+        "start": "npm prune; npm install; ./node_modules/.bin/gulp"
+    }
+}
