@@ -5,4 +5,6 @@ node_js:
 
 before_script:
   - cd templates; npm install
-#script: ./templates/node_modules/.bin/gulp copy; ./templates/node_modules/.bin/gulp pug;
+script: 
+  - node_modules/.bin/gulp copy
+  - node_modules/.bin/gulp pug;
