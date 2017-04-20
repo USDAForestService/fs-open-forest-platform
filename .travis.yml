@@ -6,10 +6,3 @@ before_script:
 script:
 - node_modules/.bin/gulp copy
 - node_modules/.bin/gulp pug
-deploy:
-  provider: s3
-  access_key_id: AKIAIT65JOIGLPNUCWEQ
-  secret_access_key:
-    secure: P9c1TWqEBAbxFDF/F5sWUmXqEtWRDTlqQ3vEGSfH4RyffuZgUYRT6DXjCXNClghzJE5r+RRbzzEUA4GlOPiqg0HmzVzY38j8TGxRLk2Dqnk6s0UXlczY3dunBRY9/E/0mlBAKVJqQ9drxrpT9OYj372TJdiC+xJCgjBQKdW2fFC7M1r212QAceo54d1x+C28ZHBE6+0NLa8lyMeeJphx5aNK5P72Y4N3lYRczKlocAFbUz1WM3N4Dqfyd1EKp4NFRMEju27sbS6WShISNvyZ8jPeAz8CeQbw6JaC5VNPeE3wKljjeMX6ulTpRquNX3N0xrpV5X0R56nP0UNyXfdkpfgU9eiXIHdPlMIhmUtw32UxAjWGfA5gUU94uS1/TJ6xks3m98nfOPG9jlmN7VW+OgulH+nvFnMFJm4wP5gH43sgzYjc9K1dhV0HTqmJscEDmN9d479WsiShLGZ4mTn/n1+q+Ilik5XnovXcEihB8LYyeJZglToot3mwcT67Gye8tKeu78Lihncil/H2iLYAeMB2AJFekDFAPRMtWiIIqox/EW8S+++xHE+VeLxXpDeCPMKejCIofNGKxlpOSL5jQAiuG+TYAUqi9xOuiKGAP/XG043QpU0J5miPpECZdxvXfvn40qbqHvAUAv0CXGALad445v3yOn5ZBp6SOhakDuc=
-  bucket: flexion-18f-fs-intake-module
-  skip_cleanup: true
