@@ -6,4 +6,3 @@ before_script:
 script:
 - node_modules/.bin/gulp copy
 - node_modules/.bin/gulp pug
-- pa11y-ci
