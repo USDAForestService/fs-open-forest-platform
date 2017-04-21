@@ -15,7 +15,7 @@ exit
 fi
 
 if [ $SPACE = 'fs-intake-prod' ]; then
-  NAME="fs-intake"
+  NAME="forest-service-epermit"
   MANIFEST="./manifests/manifest.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
