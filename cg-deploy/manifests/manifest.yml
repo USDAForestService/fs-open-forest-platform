@@ -1,6 +1,6 @@
 ---
 applications:
-- name: forest-service-intake
+- name: forest-service-epermit
   path: ../../templates/dist
   memory: 64M
   host: forest-service-intake
