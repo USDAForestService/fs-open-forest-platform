@@ -5,10 +5,67 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title U.S. Forest Service Intake Module
     link(rel="stylesheet" href="uswds/css/uswds.css")
+    style.
+      hr {margin: 30px 0;}
   body
-    header
-      h1 U.S. Forest Service Intake Module
-    main
+    a.usa-skipnav(href='#main-content') Skip to main content
+    header.usa-header.usa-header-extended(role='banner')
+      .usa-banner
+        .usa-accordion
+          header.usa-banner-header
+            .usa-grid.usa-banner-inner
+              img(src='/uswds/img/favicons/favicon-57.png', alt='U.S. flag')
+              p An official website of the United States government
+              button.usa-accordion-button.usa-banner-button(aria-expanded='false', aria-controls='gov-banner')
+                span.usa-banner-button-text Here&apos;s how you know
+      .usa-navbar
+        button.usa-menu-btn Menu
+        #logo.usa-logo
+          em.usa-logo-text
+            a(href='#', title='Home', aria-label='Home') Forest Service e-Permitting
+      nav.usa-nav(role='navigation')
+        .usa-nav-inner
+          button.usa-nav-close
+            img(src='/assets/img/close.svg', alt='close')
+          ul.usa-nav-primary.usa-accordion
+            li
+              a.usa-nav-link(href='#')
+                span Nav Link
+            li
+              a.usa-nav-link(href='#') 
+                span Nav Link
+    main#main-content
       block content
-    footer
-      p Footer
+    footer.usa-footer.usa-footer-medium(role='contentinfo')
+      .usa-grid.usa-footer-return-to-top
+        a(href='#') Return to top
+      .usa-footer-primary-section
+        .usa-grid-full
+          nav.usa-footer-nav
+            ul.usa-unstyled-list
+              li.usa-width-one-fourth.usa-footer-primary-content
+                a.usa-footer-primary-link(href='javascript:void(0);') Link
+              li.usa-width-one-fourth.usa-footer-primary-content
+                a.usa-footer-primary-link(href='javascript:void(0);') Link
+              li.usa-width-one-fourth.usa-footer-primary-content
+                a.usa-footer-primary-link(href='javascript:void(0);') Link
+              li.usa-width-one-fourth.usa-footer-primary-content
+                a.usa-footer-primary-link(href='javascript:void(0);') Link
+      .usa-footer-secondary_section
+        .usa-grid
+          .usa-footer-logo.usa-width-one-half
+            img.usa-footer-circle-124(src='/uswds/img/logo-img.png', alt='Logo image')
+            h3.usa-footer-logo-heading Forest Service
+          .usa-footer-contact-links.usa-width-one-half
+            a.usa-link-facebook(href='javascript:void(0);')
+              span Facebook
+            a.usa-link-twitter(href='https://twitter.com/forestservice')
+              span Twitter
+            a.usa-link-youtube(href='https://www.youtube.com/user/usdaForestService')
+              span YouTube
+            a.usa-link-rss(href='javascript:void(0);')
+              span RSS
+            address
+              h3.usa-footer-contact-heading Agency Contact Center
+              p (800) CALL-GOVT
+              a(href='mailto:info@agency.gov') info@agency.gov
