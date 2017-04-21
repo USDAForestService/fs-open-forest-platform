@@ -2,7 +2,7 @@ extends ../layout.pug
 block content
   section.usa-section
     .usa-grid
-      h2 Apply for a noncommercial group use permit
+      h1 Apply for a noncommercial group use permit
       
       p All form fields are required unless otherwise noted.
       
@@ -24,7 +24,7 @@ block content
             
           label.usa-input(for="state" required) State
           select#state(name="state" required)
-            option(value="")
+            option(value="" selected)
             option(value="Illinois") Illinois
             option(value="Wisconsin") Wisconsin
             
@@ -77,7 +77,7 @@ block content
             .usa-form-group.usa-form-group-year
               label(for="start-hour") Hour
               select#start-hour.usa-input-inline(name="start-hour" required)
-                option(value="")
+                option(value="" selected)
                 option(value="1") 1
                 option(value="2") 2
                 option(value="3") 3
@@ -93,7 +93,7 @@ block content
             .usa-form-group.usa-form-group-year
               label(for="start-minutes") Minutes
               select#start-minutes.usa-input-inline(name="start-minutes" required)
-                option(value="")
+                option(value="" selected)
                 option(value="00") 00
                 option(value="15") 15
                 option(value="30") 30
@@ -101,7 +101,7 @@ block content
             .usa-form-group.usa-form-group-year
               label(for="start-period") AM / PM
               select#start-period.usa-input-inline(name="start-period" required)
-                option(value="")
+                option(value="" selected)
                 option(value="AM") AM
                 option(value="PM") PM
                 
