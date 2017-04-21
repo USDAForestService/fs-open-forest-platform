@@ -6,3 +6,16 @@ before_script:
 script:
 - node_modules/.bin/gulp copy
 - node_modules/.bin/gulp pug
+deploy:
+  - provider: script
+    script: "./cg-deploy/deploy.sh fs-intake-prod"
+    skip_cleanup: true
+    on:
+      repo: 18F/fs-middlelayer-api
+      branch: master
+  - provider: script
+    script: "./cg-deploy/deploy.sh fs-intake-staging"
+    skip_cleanup: true
+    on:
+      repo: flexion/fs-intake-module
+      branch: master
