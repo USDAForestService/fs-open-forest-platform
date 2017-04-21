@@ -6,25 +6,25 @@ copy = require 'gulp-copy'
 
 gulp.task 'server', ->
   server = express()
-  server.use express.static './public'
+  server.use express.static './dist'
   server.listen 4200 
 
 gulp.task 'pug', ->
   gulp.src 'src/screens/*.pug'
   .pipe pug
     pretty: true
-  .pipe gulp.dest 'public'
+  .pipe gulp.dest 'dist'
 
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.*' , ['pug']
   server = express()
-  server.use express.static './public'
+  server.use express.static './dist'
   server.listen 8080
 
 gulp.task 'copy', ->
   gulp.src 'node_modules/uswds/dist/**/*'
   .pipe copy '.'
-  .pipe gulp.dest 'public/uswds'
+  .pipe gulp.dest 'dist/uswds'
 
 gulp.task('build', ['copy', 'pug'])
 gulp.task('default', ['server', 'copy', 'pug', 'watch'])
