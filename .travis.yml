@@ -6,6 +6,8 @@ before_script:
 script:
 - node_modules/.bin/gulp copy
 - node_modules/.bin/gulp pug
+before_deploy:
+- cd ..
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
