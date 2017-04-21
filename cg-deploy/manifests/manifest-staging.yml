@@ -1,9 +1,8 @@
 ---
 applications:
 - name: fs-intake-staging
-  path: templates/dist
+  path: ../../templates/dist
   memory: 64M
-  domain: fr.cloud.gov
   host: fs-intake-staging
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
