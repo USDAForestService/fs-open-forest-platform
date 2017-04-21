@@ -2,12 +2,14 @@ language: node_js
 node_js:
 - '7'
 before_script:
+- pwd
 - cd templates; npm install
 script:
 - node_modules/.bin/gulp copy
 - node_modules/.bin/gulp pug
 before_deploy:
 - cd ..
+- pwd
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
