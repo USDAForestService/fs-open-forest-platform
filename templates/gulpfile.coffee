@@ -7,7 +7,7 @@ copy = require 'gulp-copy'
 gulp.task 'server', ->
   server = express()
   server.use express.static './public'
-  server.listen 8080
+  server.listen 8080 
 
 gulp.task 'pug', ->
   gulp.src 'src/screens/*.pug'

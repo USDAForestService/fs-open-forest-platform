@@ -6,11 +6,12 @@
   "devDependencies": {
     "coffee-script": "1.12.3",
     "express": "4.14.1",
+    "gulp": "3.9.1",
+    "gulp-copy": "1.0.0",
     "gulp-pug": "3.2.0",
     "gulp-watch": "4.3.11",
-    "gulp-copy": "1.0.0",
-    "gulp": "3.9.1",
     "node-sass": "4.5.2",
+    "pa11y-ci": "^1.1.1",
     "pug": "2.0.0-beta11",
     "uswds": "1.0.0"
   },
