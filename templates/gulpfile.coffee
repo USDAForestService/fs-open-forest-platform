@@ -4,9 +4,10 @@ pug = require 'gulp-pug'
 watch = require 'gulp-watch'
 copy = require 'gulp-copy'
 
-server = express()
-server.use express.static './public'
-server.listen 8080
+gulp.task 'server', ->
+  server = express()
+  server.use express.static './public'
+  server.listen 8080
 
 gulp.task 'pug', ->
   gulp.src 'src/screens/*.pug'
@@ -22,5 +23,5 @@ gulp.task 'copy', ->
   .pipe copy '.'
   .pipe gulp.dest 'public/uswds'
 
-
-gulp.task('default', ['copy', 'pug', 'watch'])
+gulp.task('build', ['copy', 'pug'])
+gulp.task('default', ['server', 'copy', 'pug', 'watch'])
