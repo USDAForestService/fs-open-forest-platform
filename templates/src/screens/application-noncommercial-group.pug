@@ -49,9 +49,6 @@ block content
           label.usa-input(for="activity-description") Description of proposed activity
           textarea#activity-description(name="activity-description" required)
             
-          label.usa-input(for="name") Location and description of National Forest system lands and facilities applicant would like to use
-          input#name(name="name" type="text" required)
-            
           label.usa-input(for="location") Location and description of National Forest system lands and facilities applicant would like to use
           input#location(name="location" type="text" required)
             
@@ -64,7 +61,7 @@ block content
           input#spectators(name="spectators" type="number" required)
           
           fieldset
-            label Start Date
+            legend Start Date
             .usa-form-group.usa-form-group-month
               label(for="start-month") Month
               input#start-month.usa-input-inline(name="start-location" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required)
@@ -76,7 +73,7 @@ block content
               input#start-year.usa-input-inline(name="start-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required)
                 
           fieldset
-            label Start Time
+            legend Start Time 
             .usa-form-group.usa-form-group-year
               label(for="start-hour") Hour
               select#start-hour.usa-input-inline(name="start-hour" required)
@@ -94,7 +91,7 @@ block content
                 option(value="11") 11
                 option(value="12") 12
             .usa-form-group.usa-form-group-year
-              label(for="start-hour") Minutes
+              label(for="start-minutes") Minutes
               select#start-minutes.usa-input-inline(name="start-minutes" required)
                 option(value="")
                 option(value="00") 00
@@ -102,8 +99,8 @@ block content
                 option(value="30") 30
                 option(value="45") 45
             .usa-form-group.usa-form-group-year
-              label(for="start-hour") AM / PM
-              select#start-minutes.usa-input-inline(name="start-minutes" required)
+              label(for="start-period") AM / PM
+              select#start-period.usa-input-inline(name="start-period" required)
                 option(value="")
                 option(value="AM") AM
                 option(value="PM") PM

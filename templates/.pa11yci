@@ -1,5 +1,6 @@
 { 
     "urls": [
-        "http://localhost:8080/application-noncommercial-group.html"
+        "http://localhost:4200",
+        "http://localhost:4200/application-noncommercial-group.html"
     ]
 }
