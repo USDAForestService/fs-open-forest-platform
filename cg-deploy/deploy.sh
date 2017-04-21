@@ -1,7 +1,8 @@
 set -e
 
 export PATH=$HOME:$PATH
-travis_retry curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
+#travis_retry curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
+curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
 tar xzvf $HOME/cf.tgz -C $HOME
 cf install-plugin autopilot -f -r CF-Community
 
@@ -16,12 +17,12 @@ fi
 
 if [ $SPACE = 'fs-intake-prod' ]; then
   NAME="forest-service-epermit"
-  MANIFEST="./manifests/manifest.yml"
+  MANIFEST="./cg-deploy/manifests/manifest.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
 elif [ $SPACE = 'fs-intake-staging' ]; then
   NAME="fs-intake-staging"
-  MANIFEST="./manifests/manifest-staging.yml"
+  MANIFEST="./cg-deploy/manifests/manifest-staging.yml"
   CF_USERNAME=$CF_USERNAME_DEV
   CF_PASSWORD=$CF_PASSWORD_DEV
 else
