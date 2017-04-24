@@ -1,3 +1,4 @@
 templates/node_modules
 templates/public
 templates/dist
+templates/yarn.lock
