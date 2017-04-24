@@ -10,25 +10,25 @@ block content
         fieldset
           legend Applicant Information
         
-          label.usa-input(for="name" class="usa-input-required") Name of group or event
+          label.usa-input(for="name") Name of group or event
           input#name(name="name" type="text" required)
             
-          label.usa-input(for="address" class="usa-input-required") Address of group or contact
+          label.usa-input(for="address") Address of group or contact
           input#address(name="address" type="text" required)
             
           label.usa-input(for="address-line-2") Address Line 2 (optional)
           input#address-line-2(name="address-line-2" type="text")
             
-          label.usa-input(for="city" required class="usa-input-required") City
+          label.usa-input(for="city" required) City
           input#city(name="city" type="text")
             
-          label.usa-input(for="state" required class="usa-input-required") State
+          label.usa-input(for="state" required) State
           select#state(name="state" required)
             option(value="" selected)
             option(value="Illinois") Illinois
             option(value="Wisconsin") Wisconsin
             
-          label.usa-input(for="zip" class="usa-input-required") ZIP
+          label.usa-input(for="zip") ZIP
           input#zip(name="zip" type="number" minlength="5" maxlength="5" required)
 
           label.usa-input(for="website") Website (optional)
@@ -37,7 +37,7 @@ block content
           label.usa-input(for="email") Email Address (optional)
           input#email(name="email" type="email")
             
-          label.usa-input(for="phone-day" class="usa-input-required") Day Phone
+          label.usa-input(for="phone-day") Day Phone
           input#phone-day(name="phone-day" type="tel" required)
             
           label.usa-input(for="phone-day") Evening Phone (optional)
@@ -49,17 +49,17 @@ block content
           
           legend Event Details
           
-          label.usa-input(for="activity-description" class="usa-input-required") Description of proposed activity
+          label.usa-input(for="activity-description") Description of proposed activity
           textarea#activity-description(name="activity-description" required)
             
-          label.usa-input(for="location" class="usa-input-required") Location and description of National Forest system lands and facilities applicant would like to use
+          label.usa-input(for="location") Location and description of National Forest system lands and facilities applicant would like to use
           input#location(name="location" type="text" required)
             
-          label.usa-input(for="participants" class="usa-input-required") Estimated number of participants
+          label.usa-input(for="participants") Estimated number of participants
           span.help-text.usa-form-hint This is the number of people who will directly participate in the event.
           input#participants(name="participants" type="number" required)
             
-          label.usa-input(for="spectators" class="usa-input-required") Estimated number of spectators
+          label.usa-input(for="spectators") Estimated number of spectators
           span.help-text.usa-form-hint If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators
           input#spectators(name="spectators" type="number" required)
           
@@ -116,7 +116,7 @@ block content
         fieldset
           legend Permit Holders
           
-          label.usa-input(for="permit-holder-name" class="usa-input-required") Permit holder name
+          label.usa-input(for="permit-holder-name") Permit holder name
           input#permit-holder-name(name="permit-holder-name" type="text" required)
             
           label.usa-input(for="permit-holder-name") Is the contact address above the same as the permit holder?
@@ -127,7 +127,7 @@ block content
         fieldset
           legend Signature
         
-          label.usa-input(for="signature" class="usa-input-required") Type your initials here as a signature on your application
+          label.usa-input(for="signature") Type your initials here as a signature on your application
           input#signature(name="signature" type="text" required)
           
         button.usa-button-big(type="submit") Submit Your Application
