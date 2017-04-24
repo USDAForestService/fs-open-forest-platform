@@ -16,20 +16,28 @@ gulp.task 'pug', ->
   .pipe gulp.dest 'dist'
 
 gulp.task 'sass', ->
-  gulp.src 'src/*.sass'
+  gulp.src 'src/*.scss'
   .pipe sass()
   .pipe gulp.dest 'dist'
 
 gulp.task 'watch', ->
   gulp.watch 'src/**/*.*' , ['pug', 'sass']
 
-gulp.task 'copyStyles', ->
-  gulp.src 'node_modules/uswds/dist/**/*'
-  .pipe gulp.dest 'dist/uswds'
+gulp.task 'copyUswdsFonts', ->
+  gulp.src 'node_modules/uswds/dist/fonts/**/*'
+  .pipe gulp.dest 'dist/fonts'
+
+gulp.task 'copyUswdsImages', ->
+  gulp.src 'node_modules/uswds/dist/img/**/*'
+  .pipe gulp.dest 'dist/img'
+
+gulp.task 'copyUswdsJs', ->
+  gulp.src 'node_modules/uswds/dist/js/**/*'
+  .pipe gulp.dest 'dist/js'
 
 gulp.task 'copyImages', ->
-  gulp.src 'src/images/*.*'
-  .pipe gulp.dest 'dist/'
+  gulp.src 'src/img/*.*'
+  .pipe gulp.dest 'dist/img'
 
-gulp.task('build', ['copyStyles', 'copyImages', 'pug', 'sass'])
-gulp.task('default', ['server', 'copyStyles', 'copyImages', 'pug', 'sass', 'watch'])
+gulp.task('build', ['copyUswdsFonts', 'copyUswdsImages', 'copyUswdsJs', 'copyImages', 'pug', 'sass'])
+gulp.task('default', ['server', 'copyUswdsFonts', 'copyUswdsImages', 'copyUswdsJs', 'copyImages', 'pug', 'sass', 'watch'])
