@@ -5,8 +5,7 @@ before_script:
 - pwd
 - cd templates; npm install
 script:
-- node_modules/.bin/gulp copy
-- node_modules/.bin/gulp pug
+- npm run build
 before_deploy:
 - cd ..
 - pwd

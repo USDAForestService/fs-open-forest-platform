@@ -1,0 +1,17 @@
+.usa-header {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/header.jpg);
+    background-position: center center;
+    a {
+        color: $white;
+    }
+    .usa-logo {
+        float: none;
+        width: 100%;
+        text-align: center;
+        .fs-logo {
+            max-width: 150px;
+            margin: 0 auto 1em;
+            display: block;
+        }
+    }
+}
