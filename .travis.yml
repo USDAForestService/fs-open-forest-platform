@@ -3,6 +3,7 @@ node_js:
 - "iojs"
 - '7'
 before_script:
+- npm install -g yarn
 - cd templates; npm install
 script:
 - npm run build
