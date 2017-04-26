@@ -16,7 +16,7 @@ checkForSecondPermitHolder = (state) ->
 describe 'Apply for a noncommercial group use permit', ->
   it 'should display the permit name in the header', ->
     browser.ignoreSynchronization = true
-    browser.get 'http://10.0.1.23:4200/application-noncommercial-group.html'
+    browser.get 'http://localhost:4200/application-noncommercial-group.html'
     expect(element(By.css('h1')).getText()).toEqual 'Apply for a noncommercial group use permit'
   it 'should default the "Permit holder address same as group address checkbox" to checked', ->
     expect(element(By.id('first-permit-holder-same-address')).isSelected()).toBe(true)
