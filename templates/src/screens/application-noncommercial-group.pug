@@ -180,8 +180,6 @@ block content
           input#first-permit-holder-same-address(name="first-permit-holder-same-address" type="checkbox" checked)
           label.usa-input(for="first-permit-holder-same-address") Permit holder address same as group address
           
-          button#add-permit-holder.usa-button-gray(type="button") Add another permit holder
-          
           .first-permit-holder-address
             
             label.usa-input(for="first-permit-holder-address") Address
@@ -189,6 +187,8 @@ block content
               
             label.usa-input(for="first-permit-holder-address-line-2") Address Line 2 (optional)
             input#first-permit-holder-address-line-2(name="first-permit-holder-address-line-2" type="text")
+              
+        button#add-permit-holder.usa-button-gray(type="button") Add another permit holder
 
         hr
         
@@ -224,6 +224,9 @@ block content
       
       script.
         $('.secondary-permit-holder').hide();
+        $('.first-permit-holder-address').hide();
+        $('.second-permit-holder-address').hide();
+        
         $('#add-permit-holder').click(function() {
           $('.secondary-permit-holder').show();
           $('#add-permit-holder').hide();
@@ -234,4 +237,10 @@ block content
           $('#add-permit-holder').show();
         });
         
+        $('#first-permit-holder-same-address').click(function() {
+          $('.first-permit-holder-address').toggle();
+        });
         
+        $('#second-permit-holder-same-address').click(function() {
+          $('.second-permit-holder-address').toggle();
+        });
