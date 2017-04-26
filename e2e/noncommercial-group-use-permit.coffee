@@ -24,3 +24,6 @@ describe 'Apply for a noncommercial group use permit', ->
     # TODO: city should not be present
     # TODO: state should not be present
     # TODO: zip should not be present
+  it 'should display a new permit holder name when the Add new permit holder button is clicked', ->
+    element(By.id('add-permit-holder')).click()
+    expect(element(By.id('second-permit-holder-name')).isPresent()).toBe true
