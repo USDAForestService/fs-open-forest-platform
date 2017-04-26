@@ -3,13 +3,11 @@ node_js:
 - "iojs"
 - '7'
 before_script:
-- pwd
 - cd templates; npm install
 script:
 - npm run build
 before_deploy:
 - cd ..
-- pwd
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
