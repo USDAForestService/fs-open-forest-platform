@@ -188,6 +188,18 @@ block content
             label.usa-input(for="first-permit-holder-address-line-2") Address Line 2 (optional)
             input#first-permit-holder-address-line-2(name="first-permit-holder-address-line-2" type="text")
               
+            label.usa-input(for="first-permit-holder-city" required) City
+            input#first-permit-holder-city(name="first-permit-holder-city" type="text")
+              
+            label.usa-input(for="first-permit-holder-state" required) State
+            select#first-permit-holder-state(name="first-permit-holder-state" required)
+              option(value="" selected)
+              option(value="Illinois") Illinois
+              option(value="Wisconsin") Wisconsin
+              
+            label.usa-input(for="first-permit-holder-zip") ZIP
+            input#first-permit-holder-zip(name="first-permit-holder-zip" type="number" minlength="5" maxlength="5" required)
+                
         button#add-permit-holder.usa-button-gray(type="button") Add another permit holder
 
         hr
@@ -211,7 +223,19 @@ block content
                 
               label.usa-input(for="second-permit-holder-address-line-2") Address Line 2 (optional)
               input#second-permit-holder-address-line-2(name="second-permit-holder-address-line-2" type="text")
-        
+                
+              label.usa-input(for="second-permit-holder-city" required) City
+              input#second-permit-holder-city(name="second-permit-holder-city" type="text")
+                
+              label.usa-input(for="second-permit-holder-state" required) State
+              select#second-permit-holder-state(name="second-permit-holder-state" required)
+                option(value="" selected)
+                option(value="Illinois") Illinois
+                option(value="Wisconsin") Wisconsin
+                
+              label.usa-input(for="second-permit-holder-zip") ZIP
+              input#second-permit-holder-zip(name="second-permit-holder-zip" type="number" minlength="5" maxlength="5" required)
+                    
           hr
         
         fieldset
