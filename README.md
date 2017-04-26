@@ -1,5 +1,5 @@
 # U.S. Forest Service Intake Module
-Module for intake of special use applications for Forest Service Application Permits
+Module for intake of special use applications for Forest Service Application Permits.
 
 ## Contributing
 
