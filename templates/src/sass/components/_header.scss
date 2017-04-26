@@ -6,12 +6,20 @@
     }
     .usa-logo {
         float: none;
-        width: 100%;
-        text-align: center;
         .fs-logo {
-            max-width: 150px;
-            margin: 0 auto 1em;
-            display: block;
+            width: 32px;
+            float: left;
+            margin-right: 0.5em;
+            @media(min-width: $nav-width) {
+                width: 75px;
+                display: block;
+                margin-bottom: 3rem;
+            }
+        }
+        .usa-logo-text {
+            @media(min-width: $nav-width) {
+                line-height: 79px;
+            }
         }
     }
 }
