@@ -171,17 +171,48 @@ block content
                 
         hr
         
-        fieldset
-          legend Permit Holders
+        fieldset.primary-permit-holder
+          legend Primary Permit Holder
         
-          label.usa-input(for="permit-holder-name") Permit holder name
-          input#permit-holder-name(name="permit-holder-name" type="text" required)
+          label.usa-input(for="first-permit-holder-name") Permit holder name
+          input#first-permit-holder-name(name="first-permit-holder-name" type="text" required)
           
-          input#same-address(name="same-address" type="checkbox" checked)
-          label.usa-input(for="same-address") Permit holder address same as group address 
-          button.usa-button-gray(type="button") Add another permit holder
-        
+          input#first-permit-holder-same-address(name="first-permit-holder-same-address" type="checkbox" checked)
+          label.usa-input(for="first-permit-holder-same-address") Permit holder address same as group address
+          
+          button#add-permit-holder.usa-button-gray(type="button") Add another permit holder
+          
+          .first-permit-holder-address
+            
+            label.usa-input(for="first-permit-holder-address") Address
+            input#first-permit-holder-address(name="first-permit-holder-address-1" type="text" required)
+              
+            label.usa-input(for="first-permit-holder-address-line-2") Address Line 2 (optional)
+            input#first-permit-holder-address-line-2(name="first-permit-holder-address-line-2" type="text")
+
         hr
+        
+        .secondary-permit-holder
+          fieldset
+            legend Secondary Permit Holder
+            
+            button.hide-secondary-permit-holder.usa-button-outline(type="button") Remove
+
+            label.usa-input(for="second-permit-holder-name") Permit holder name
+            input#second-permit-holder-name(name="second-permit-holder-name" type="text" required)
+              
+            input#second-permit-holder-same-address(name="second-permit-holder-same-address" type="checkbox" checked)
+            label.usa-input(for="second-permit-holder-same-address") Permit holder address same as group address
+            
+            .second-permit-holder-address
+              
+              label.usa-input(for="second-permit-holder-address") Address
+              input#second-permit-holder-address(name="second-permit-holder-address-1" type="text" required)
+                
+              label.usa-input(for="second-permit-holder-address-line-2") Address Line 2 (optional)
+              input#second-permit-holder-address-line-2(name="second-permit-holder-address-line-2" type="text")
+        
+          hr
         
         fieldset
           legend Signature
@@ -191,6 +222,16 @@ block content
         
         button.usa-button-big(type="submit") Submit Your Application
       
-      p 18 U.S.C. § 1001 makes it a crime for any person knowingly and willfully to make to any department or agency of the United States any false, fictitious, or fraudulent statements or representations as to any matter within its jurisdiction. Anyone who knowingly or willfully makes or uses any false writing shall be fined not more than $10,000 or imprisoned not more than five years, or both.
-
-      p FS-2700-3b (OMB No. 0596-0082)
+      script.
+        $('.secondary-permit-holder').hide();
+        $('#add-permit-holder').click(function() {
+          $('.secondary-permit-holder').show();
+          $('#add-permit-holder').hide();
+        });
+        
+        $('.hide-secondary-permit-holder').click(function() {
+          $('.secondary-permit-holder').hide();
+          $('#add-permit-holder').show();
+        });
+        
+        
