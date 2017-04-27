@@ -1,16 +1,68 @@
 .usa-nav {
-    background-color: $fs-green;
-    .usa-nav-primary {
-        button[aria-expanded=false] {
+  background-color: $fs-green;
+  .usa-nav-primary {
+    margin-top: 1.5em;
+    @media(min-width: $nav-width) {
+      margin-top: 0;
+    }
+    li {
+      border-top: none;
+      a,
+      span,
+      button {
+        color: $fs-white;
+        font-size: 18px;
+        @media(min-width: $nav-width) {
+          font-size: 16px;
+        }
+        &:hover {
+          background-color: transparent;
+          @media(min-width: $nav-width) {
+            background-color: $fs-green-darker;
+
+          }
+        }
+      }
+      .usa-nav-link {
+        &:hover {
+          span, a {
+            border-bottom: none;
+          }
+        }
+      }
+      button {
+        &[aria-expanded=false]{
+          background-image: url(../img/plus-white.png) !important;
+          background-image: url(../img/plus-white.svg) !important;
+          @media(min-width: $nav-width) {
             background-image: url(../img/angle-arrow-down-hover.png) !important;
             background-image: url(../img/angle-arrow-down-hover.svg) !important;
+          }
+        }
+        &[aria-expanded=true]{
+          background-image: url(../img/minus-white.png) !important;
+          background-image: url(../img/minus-white.svg) !important;
+          @media(min-width: $nav-width) {
+            background-color: $fs-green-darker;
+          }
+          span {
+            border-bottom: none;
+          }
+        }
+      }
+      ul.usa-nav-submenu {
+        @media(min-width: $nav-width) {
+          background-color: $fs-green-darker;
         }
         li {
-            a,
-            span {
-                color: $white;
-                font-size: 12px;
-            }
+          a,
+          span,
+          button {
+            font-size: 14px;
+            font-weight: normal;
+          }
         }
+      }
     }
+  }
 }
