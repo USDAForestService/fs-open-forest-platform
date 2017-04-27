@@ -49,6 +49,21 @@ html(lang="en")
                 li
                   a(href="#")
                     Example Permit
+          div.usa-nav-secondary
+            form.usa-search.usa-search-small.js-search-form
+              div(role="search")
+                label.usa-sr-only(for="seach-field-small")
+                  Seach small 
+                input#search-field-small(type="search" name="search")
+                button(type="submit")
+                  span.usa-sr-only Search
+            ul.usa-unstyled-list.usa-nav-secondary-links
+              li.js-search-button-container
+                button.usa-header-search-button.js-search-button
+                  span Search 
+              li
+                a(href="#")
+                  span Login
     main#main-content
       block content
     footer.usa-footer.usa-footer-medium(role="contentinfo")
