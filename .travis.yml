@@ -3,19 +3,18 @@ node_js:
 - "iojs"
 - '7'
 before_script:
-- pwd
+- npm install -g yarn
 - cd templates; npm install
 script:
 - npm run build
 before_deploy:
 - cd ..
-- pwd
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
     skip_cleanup: true
     on:
-      repo: 18F/fs-middlelayer-api
+      repo: 18F/fs-intake-module
       branch: master
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-staging"
