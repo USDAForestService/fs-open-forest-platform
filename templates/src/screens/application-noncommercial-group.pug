@@ -6,7 +6,7 @@ block content
       
       p All form fields are required unless otherwise noted.
       
-      form
+      form.usa-form-large
         fieldset
           legend Applicant Information
         
@@ -30,18 +30,37 @@ block content
             
           label.usa-input(for="zip") ZIP
           input#zip(name="zip" type="number" minlength="5" maxlength="5" required)
+
+          label.usa-input(for="website") Website (optional)
+          input#website(name="website" type="url")
             
           label.usa-input(for="email") Email Address (optional)
           input#email(name="email" type="email")
             
-          label.usa-input(for="phone-day") Day Phone
-          input#phone-day(name="phone-day" type="tel" required)
+          fieldset
+            legend Day Phone
+            .usa-form-group.usa-form-group-year
+              input#day-phone-1.usa-input-inline(name="day-phone-1" type="number" min="000" max="999" placeholder="555" required)
+            .usa-form-group.usa-form-group-year
+              input#day-phone-2.usa-input-inline(name="day-phone-2" type="number" min="000" max="999" placeholder="555" required)
+            .usa-form-group.usa-form-group-year
+              input#day-phone-3.usa-input-inline(name="day-phone-3" type="number" min="0000" max="9999" placeholder="5555" required)
+            .usa-form-group.usa-form-group-year
+              input#day-phone-4.usa-input-inline(name="day-phone-4" type="number" min="0000" max="9999" placeholder="EXT")
             
-          label.usa-input(for="phone-day") Evening Phone (optional)
-          input#phone-evening(name="phone-day" type="tel")
-          
+          fieldset
+            legend Evening Phone
+            .usa-form-group.usa-form-group-year
+              input#evening-phone-1.usa-input-inline(name="evening-phone-1" type="number" min="000" max="999" placeholder="555" required)
+            .usa-form-group.usa-form-group-year
+              input#evening-phone-2.usa-input-inline(name="evening-phone-2" type="number" min="000" max="999" placeholder="555" required)
+            .usa-form-group.usa-form-group-year
+              input#evening-phone-3.usa-input-inline(name="evening-phone-3" type="number" min="0000" max="9999" placeholder="5555" required)
+            .usa-form-group.usa-form-group-year
+              input#evening-phone-4.usa-input-inline(name="evening-phone-4" type="number" min="0000" max="9999" placeholder="EXT")
+
         hr
-          
+
         fieldset
           
           legend Event Details
@@ -64,14 +83,14 @@ block content
             legend Start Date
             .usa-form-group.usa-form-group-month
               label(for="start-month") Month
-              input#start-month.usa-input-inline(name="start-location" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required)
+              input#start-month.usa-input-inline(name="start-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required)
             .usa-form-group.usa-form-group-day
               label(for="start-day") Day
-              input#start-day.usa-input-inline(name="start-location" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required)
+              input#start-day.usa-input-inline(name="start-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required)
             .usa-form-group.usa-form-group-year
               label(for="start-year") Year
               input#start-year.usa-input-inline(name="start-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required)
-                
+                  
           fieldset
             legend Start Time 
             .usa-form-group.usa-form-group-year
@@ -104,31 +123,148 @@ block content
                 option(value="" selected)
                 option(value="AM") AM
                 option(value="PM") PM
+
+          fieldset
+            legend End Date
+            .usa-form-group.usa-form-group-month
+              label(for="end-month") Month
+              input#end-month.usa-input-inline(name="end-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required)
+            .usa-form-group.usa-form-group-day
+              label(for="end-day") Day
+              input#end-day.usa-input-inline(name="end-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required)
+            .usa-form-group.usa-form-group-year
+              label(for="end-year") Year
+              input#end-year.usa-input-inline(name="end-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required)
+
+          fieldset
+            legend End Time 
+            .usa-form-group.usa-form-group-year
+              label(for="end-hour") Hour
+              select#end-hour.usa-input-inline(name="end-hour" required)
+                option(value="" selected)
+                option(value="1") 1
+                option(value="2") 2
+                option(value="3") 3
+                option(value="4") 4
+                option(value="5") 5
+                option(value="6") 6
+                option(value="7") 7
+                option(value="8") 8
+                option(value="9") 9
+                option(value="10") 10
+                option(value="11") 11
+                option(value="12") 12
+            .usa-form-group.usa-form-group-year
+              label(for="end-minutes") Minutes
+              select#end-minutes.usa-input-inline(name="end-minutes" required)
+                option(value="" selected)
+                option(value="00") 00
+                option(value="15") 15
+                option(value="30") 30
+                option(value="45") 45
+            .usa-form-group.usa-form-group-year
+              label(for="end-period") AM / PM
+              select#end-period.usa-input-inline(name="end-period" required)
+                option(value="" selected)
+                option(value="AM") AM
+                option(value="PM") PM
                 
-          p TODO: End Time after review
-          p TODO: Discuss Number Spinners https://css-tricks.com/snippets/css/turn-off-number-input-spinners/
+        hr
+        
+        fieldset.primary-permit-holder
+          legend Primary Permit Holder
+        
+          label.usa-input(for="first-permit-holder-name") Permit holder name
+          input#first-permit-holder-name(name="first-permit-holder-name" type="text" required)
+          
+          input#first-permit-holder-same-address(name="first-permit-holder-same-address" type="checkbox" checked)
+          label.usa-input(for="first-permit-holder-same-address") Permit holder address same as group address
+          
+          .first-permit-holder-address
+            
+            label.usa-input(for="first-permit-holder-address") Address
+            input#first-permit-holder-address(name="first-permit-holder-address-1" type="text" required)
+              
+            label.usa-input(for="first-permit-holder-address-line-2") Address Line 2 (optional)
+            input#first-permit-holder-address-line-2(name="first-permit-holder-address-line-2" type="text")
+              
+            label.usa-input(for="first-permit-holder-city" required) City
+            input#first-permit-holder-city(name="first-permit-holder-city" type="text")
+              
+            label.usa-input(for="first-permit-holder-state" required) State
+            select#first-permit-holder-state(name="first-permit-holder-state" required)
+              option(value="" selected)
+              option(value="Illinois") Illinois
+              option(value="Wisconsin") Wisconsin
+              
+            label.usa-input(for="first-permit-holder-zip") ZIP
+            input#first-permit-holder-zip(name="first-permit-holder-zip" type="number" minlength="5" maxlength="5" required)
+                
+        button#add-permit-holder.usa-button-gray(type="button") Add another permit holder
 
         hr
-          
-        fieldset
-          legend Permit Holders
-          
-          label.usa-input(for="permit-holder-name") Permit holder name
-          input#permit-holder-name(name="permit-holder-name" type="text" required)
+        
+        .secondary-permit-holder
+          fieldset
+            legend Secondary Permit Holder
             
-          label.usa-input(for="permit-holder-name") Is the contact address above the same as the permit holder?
-          p TODO: Implement Peter's Mockup for this when ready
-          
-        hr
-          
+            button#hide-secondary-permit-holder.hide-secondary-permit-holder.usa-button-outline(type="button") Remove
+
+            label.usa-input(for="second-permit-holder-name") Permit holder name
+            input#second-permit-holder-name(name="second-permit-holder-name" type="text" required)
+              
+            input#second-permit-holder-same-address(name="second-permit-holder-same-address" type="checkbox" checked)
+            label.usa-input(for="second-permit-holder-same-address") Permit holder address same as group address
+            
+            .second-permit-holder-address
+              
+              label.usa-input(for="second-permit-holder-address") Address
+              input#second-permit-holder-address(name="second-permit-holder-address-1" type="text" required)
+                
+              label.usa-input(for="second-permit-holder-address-line-2") Address Line 2 (optional)
+              input#second-permit-holder-address-line-2(name="second-permit-holder-address-line-2" type="text")
+                
+              label.usa-input(for="second-permit-holder-city" required) City
+              input#second-permit-holder-city(name="second-permit-holder-city" type="text")
+                
+              label.usa-input(for="second-permit-holder-state" required) State
+              select#second-permit-holder-state(name="second-permit-holder-state" required)
+                option(value="" selected)
+                option(value="Illinois") Illinois
+                option(value="Wisconsin") Wisconsin
+                
+              label.usa-input(for="second-permit-holder-zip") ZIP
+              input#second-permit-holder-zip(name="second-permit-holder-zip" type="number" minlength="5" maxlength="5" required)
+                    
+          hr
+        
         fieldset
           legend Signature
-        
+      
           label.usa-input(for="signature") Type your initials here as a signature on your application
           input#signature(name="signature" type="text" required)
-          
-        button.usa-button-big(type="submit") Submit Your Application
         
-        p 18 U.S.C. § 1001 makes it a crime for any person knowingly and willfully to make to any department or agency of the United States any false, fictitious, or fraudulent statements or representations as to any matter within its jurisdiction. Anyone who knowingly or willfully makes or uses any false writing shall be fined not more than $10,000 or imprisoned not more than five years, or both.
-
-        p FS-2700-3b (OMB No. 0596-0082)
+        button.usa-button-big(type="submit") Submit Your Application
+      
+      script.
+        $('.secondary-permit-holder').hide();
+        $('.first-permit-holder-address').hide();
+        $('.second-permit-holder-address').hide();
+        
+        $('#add-permit-holder').click(function() {
+          $('.secondary-permit-holder').show();
+          $('#add-permit-holder').hide();
+        });
+        
+        $('.hide-secondary-permit-holder').click(function() {
+          $('.secondary-permit-holder').hide();
+          $('#add-permit-holder').show();
+        });
+        
+        $('#first-permit-holder-same-address').click(function() {
+          $('.first-permit-holder-address').toggle();
+        });
+        
+        $('#second-permit-holder-same-address').click(function() {
+          $('.second-permit-holder-address').toggle();
+        });
