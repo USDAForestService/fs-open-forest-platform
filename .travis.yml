@@ -6,6 +6,7 @@ node_js:
 - '7'
 before_script:
 - pwd
+-nvm install 7
 - cd templates; npm install
 script:
 - npm run build
