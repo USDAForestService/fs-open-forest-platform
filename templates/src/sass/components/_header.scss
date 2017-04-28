@@ -1,25 +1,73 @@
 .usa-header {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/header.jpg);
-    background-position: center center;
-    a {
-        color: $white;
+  background: $fs-tan;
+  .usa-logo {
+    float: none;
+    .usda-branding {
+      img.usda-logo {
+        float: left;
+      }
     }
-    .usa-logo {
-        float: none;
-        .fs-logo {
-            width: 32px;
-            float: left;
-            margin-right: 0.5em;
-            @media(min-width: $nav-width) {
-                width: 75px;
-                display: block;
-                margin-bottom: 3rem;
-            }
+    .fs-branding {
+      img.fs-logo {
+        float: left;
+        margin: -6px 0 0 10px;
+        position: relative;
+        z-index: 10;
+      }
+      .fs-name-slogan {
+        float: left;
+        .fs-name {
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 17px;
+          margin-left: 10px;
+          @media(min-width: $nav-width){
+            font-size: 19px;
+            line-height: 19px;
+          }
         }
-        .usa-logo-text {
-            @media(min-width: $nav-width) {
-                line-height: 79px;
-            }
+        .fs-slogan {
+          clear: both;
+          float: left;
+          font-size: 10px;
+          line-height: 15px;
+          margin-left: 10px;
+          @media(min-width: $nav-width){
+            font-size: 14px;
+            line-height: 18px;
+          }
         }
+      }
     }
+    .usda-link {
+      border-top: solid 2px $medium-grey;
+      clear: both;
+      display: none;
+      float: left;
+      line-height: 30px;
+      margin-top: -8px;
+      padding-right: 150px;
+      position: relative;
+      z-index: 1;
+      @media(min-width: $nav-width) {
+        display: block;
+      }
+    }
+    // .fs-logo {
+    //   width: 32px;
+    //   float: left;
+    //   margin-right: 0.5em;
+    //   @media(min-width: $nav-width) {
+    //     width: 75px;
+    //     display: block;
+    //     margin-bottom: 3rem;
+    //   }
+    // }
+    // .usa-logo-text {
+    //   @media(min-width: $nav-width) {
+    //     line-height: 79px;
+    //   }
+    // }
+  }
 }
