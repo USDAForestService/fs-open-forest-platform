@@ -1,0 +1,25 @@
+.usa-header {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/header.jpg);
+    background-position: center center;
+    a {
+        color: $white;
+    }
+    .usa-logo {
+        float: none;
+        .fs-logo {
+            width: 32px;
+            float: left;
+            margin-right: 0.5em;
+            @media(min-width: $nav-width) {
+                width: 75px;
+                display: block;
+                margin-bottom: 3rem;
+            }
+        }
+        .usa-logo-text {
+            @media(min-width: $nav-width) {
+                line-height: 79px;
+            }
+        }
+    }
+}
