@@ -1,3 +1,15 @@
 .usa-footer-circle-124 {
     height: 124px;
 }
+
+.usa-footer-primary_section {
+  background: $fs-tan;
+}
+
+.usa-footer-secondary_section {
+  background: $fs-green;
+  color: white;
+  a {
+    color: white;
+  }
+}
