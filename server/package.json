@@ -4,10 +4,9 @@
   "version": "0.0.1",
   "description": "fs-intake-module",
   "dependencies": {
-    "coffee-script": "1.12.4",
     "express": "4.15.2"
   },
   "scripts": {
-    "start": "./node_modules/.bin/coffee app.coffee"
+    "start": "node --harmony_default_parameters app.es6"
   }
 }
