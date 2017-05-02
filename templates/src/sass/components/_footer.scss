@@ -1,12 +1,30 @@
-.usa-footer-circle-124 {
-    height: 124px;
+.fs-footer-logo {
+  height: 60px;
+  display: inline-block;
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+}
+
+.usa-footer-logo-heading {
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+  h2 {
+    font-size: 16px;
+    margin: 0;
+  }
+  h3 {
+    font-size: 14px;
+    margin: 0;
+  }
 }
 
 .usa-footer-primary-section {
   background: $fs-brown;
+  color: white;
   font-size: 14px;
   font-weight: normal;
-  .usa-footer-primary-link {
+  a, .usa-footer-primary-link {
     color: white;
     font-weight: normal;
   }
