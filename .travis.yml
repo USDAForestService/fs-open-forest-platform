@@ -18,7 +18,7 @@ deploy:
     script: "./cg-deploy/deploy.sh fs-intake-prod"
     skip_cleanup: true
     on:
-      repo: 18F/fs-middlelayer-api
+      repo: 18F/fs-intake-module
       branch: master
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-staging"
