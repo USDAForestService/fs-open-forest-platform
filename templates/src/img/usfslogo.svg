@@ -13,7 +13,7 @@
 	<!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
 ]>
 <svg  version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
-	 xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="50" height="55" viewBox="0 0 300 332.834"
+	 xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="100" height="110" viewBox="0 0 300 332.834"
 	 overflow="visible" enable-background="new 0 0 300 332.834" xml:space="preserve">
 <switch>
 	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
