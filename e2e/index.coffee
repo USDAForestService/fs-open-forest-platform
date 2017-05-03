@@ -2,7 +2,7 @@ describe 'US forest service landing page', ->
   it 'should contain a greeting in the header', ->
     browser.ignoreSynchronization = true
     browser.get 'http://localhost:4200/'
-    expect(element(By.css('h1')).getText()).toEqual 'Header Placeholder'
+    expect(element(By.css('h1')).getText()).toEqual 'U.S. Forest Service e-Permitting'
   it 'should open a panel explaining what .gov means when heres how you know link is clicked', ->
     #TODO this is resulting in a element not visibile error
     # element(By.id('header-usa-accordion-button')).click()
