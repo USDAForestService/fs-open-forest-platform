@@ -2,7 +2,7 @@
 ---
 applications:
 - name: fs-intake-api
-path: ../../../server
+  path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 128M
   instances: 1
