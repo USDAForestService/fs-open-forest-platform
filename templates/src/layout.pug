@@ -5,12 +5,11 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title US Forest Service ePermit
     link(rel="stylesheet" href="forest-service.css")
-    link(rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon")
-    link(rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png")
-    link(rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png")
-    link(rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png")
-    link(rel="manifest" href="/img/favicon/manifest.json")
-    link(rel="mask-icon" href="/img/favicon/safari-pinned-tab.svg" color="#2c1e13")
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/manifest.json")
+    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#2c1e13")
     meta(name="theme-color" content="#ffffff")
     script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
     script(type="text/javascript" src="/js/uswds.js")
@@ -37,12 +36,17 @@ html(lang="en")
       .usa-navbar
         button.usa-menu-btn Menu
         #logo.usa-logo
+          div.usda-branding
+            a(href="//www.usda.gov" target="_blank")
+              img.usda-logo(src="/img/usdalogo.svg" alt="USDA Logo" width="50")
           div.fs-branding
             a(href="//fs.fed.us" target="_blank")
               img.fs-logo(src="/img/usfslogo.svg" alt="US Forest Service Logo" width="50")
               div.fs-name-slogan
                 span.fs-name U.S. FOREST SERVICE
                 span.fs-slogan Caring for the land and serving people
+          div.usda-link 
+            a(href="//www.usda.gov" target="_blank") United States Department of Agriculture
       nav.usa-nav(role="navigation")
         .usa-nav-inner
           button.usa-nav-close
