@@ -37,7 +37,7 @@ gulp.task 'copyUswdsJs', ->
 
 gulp.task 'copyFavicons', ->
   gulp.src 'src/favicons/**/*.*'
-  .pipe gulp.dest 'dist/js'
+  .pipe gulp.dest 'dist/'
 
 gulp.task 'copyImages', ->
   gulp.src 'src/img/*.*'
@@ -61,5 +61,5 @@ gulp.task 'default', [
   'copyImages'
   'pug'
   'sass'
-  'watch
+  'watch'
 ]
