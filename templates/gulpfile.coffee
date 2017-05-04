@@ -35,9 +35,31 @@ gulp.task 'copyUswdsJs', ->
   gulp.src 'node_modules/uswds/dist/js/**/*'
   .pipe gulp.dest 'dist/js'
 
+gulp.task 'copyFavicons', ->
+  gulp.src 'src/favicons/**/*.*'
+  .pipe gulp.dest 'dist/js'
+
 gulp.task 'copyImages', ->
   gulp.src 'src/img/*.*'
   .pipe gulp.dest 'dist/img'
 
-gulp.task('build', ['copyUswdsFonts', 'copyUswdsImages', 'copyUswdsJs', 'copyImages', 'pug', 'sass'])
-gulp.task('default', ['server', 'copyUswdsFonts', 'copyUswdsImages', 'copyUswdsJs', 'copyImages', 'pug', 'sass', 'watch'])
+gulp.task 'build', [
+  'copyFavicons'
+  'copyUswdsFonts'
+  'copyUswdsImages'
+  'copyUswdsJs'
+  'copyImages'
+  'pug'
+  'sass'
+]
+gulp.task 'default', [
+  'copyFavicons'
+  'server'
+  'copyUswdsFonts'
+  'copyUswdsImages'
+  'copyUswdsJs'
+  'copyImages'
+  'pug'
+  'sass'
+  'watch
+]
