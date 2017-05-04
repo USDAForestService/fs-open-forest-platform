@@ -25,4 +25,4 @@ deploy:
     skip_cleanup: true
     on:
       repo: flexion/fs-intake-module
-      branch: master
+      condition: ${TRAVIS_BRANCH:0:7} = "sprint-"
