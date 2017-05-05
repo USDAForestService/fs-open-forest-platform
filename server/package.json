@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "description": "fs-intake-module",
   "dependencies": {
-    "express": "4.15.2"
+    "express": "4.15.2",
+    "body-parser": "1.17.1"
   },
   "scripts": {
     "start": "node --harmony_default_parameters app.es6"
