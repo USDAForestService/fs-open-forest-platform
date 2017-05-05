@@ -10,6 +10,7 @@
         z-index: 10;
         width: 50px;
         @media(min-width: $nav-width){
+          margin-bottom: 20px;
           width: 100px;
         }
       }
@@ -36,6 +37,16 @@
           @media(min-width: $nav-width){
             font-size: 20px;
             line-height: 22px;
+          }
+        }
+        .beta-label {
+          float: left;
+          line-height: 30px;
+          margin-left: 10px;
+          margin-top: -16px;
+          @media(min-width: $nav-width){
+            clear: both;
+            margin-top: 0;
           }
         }
       }
