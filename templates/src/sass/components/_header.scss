@@ -53,3 +53,26 @@
     }
   }
 }
+
+.fs-official {
+  background-color: $fs-dark-grey;
+  color: $white;
+  .usa-banner-inner {
+    font-size: 11px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .usa-accordion-button.usa-banner-button {
+    color: $white;
+  }
+
+  .usa-accordion-button.usa-banner-button::after {
+    background-image: url(/img/angle-arrow-down-primary-white.svg);
+    margin-left: 5px;
+  }
+
+  .usa-banner-button-text {
+    color: white;
+    border-bottom-color: $white;
+  }
+}
