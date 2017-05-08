@@ -15,7 +15,7 @@
     "pa11y-ci": "1.1.1",
     "protractor": "5.1.1",
     "pug": "2.0.0-beta11",
-    "uswds": "1.0.0"
+    "uswds": "1.1.0"
   },
   "scripts": {
     "start": "yarn install; ./node_modules/.bin/gulp",
