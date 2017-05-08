@@ -8,10 +8,10 @@ block content
       #application-review
         form#approve-form(action="/change/2/approved/" method="post")
           input(type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm")
-          button(type="submit" name="approve") Approve Application
+          button#approve-application-btn(type="submit" name="approve") Approve Application
         form#deny-form(action="/change/2/not_approved/" method="post")
           input(type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm")
-          button(type="submit" name="returned") Return Application 
+          button#return-application-btn(type="submit" name="returned") Return Application 
           span#deny-error-message.usa-input-error-message(role="alert") Please enter an explanation for your denial
           label(for="returned-reason") Reason for returning application
           textarea#returned-reason(name="returned-reason")
