@@ -25,3 +25,5 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 // retrieve an existing noncommercial application
 
 app.listen(8080);
+
+module.exports = app;
