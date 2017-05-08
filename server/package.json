@@ -1,0 +1,12 @@
+{
+  "name": "fs-intake-module",
+  "private": true,
+  "version": "0.0.1",
+  "description": "fs-intake-module",
+  "dependencies": {
+    "express": "4.15.2"
+  },
+  "scripts": {
+    "start": "node --harmony_default_parameters app.es6"
+  }
+}
