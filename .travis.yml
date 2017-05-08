@@ -1,12 +1,15 @@
-language: node_js
+language: java
+jdk:
+  - oraclejdk8
 node_js:
-- "iojs"
-- '7'
+  - "iojs"
+  - '7'
 before_script:
+- nvm install 7
 - npm install -g yarn
 - cd templates; npm install
 script:
-- npm run build
+  - npm run build
 before_deploy:
 - cd ..
 deploy:
