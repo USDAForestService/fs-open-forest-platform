@@ -7,9 +7,10 @@ node_js:
 before_script:
   - pwd
   - nvm install 7
-  - cd templates; npm install
+#  - cd templates; npm install
 script:
-  - npm run build
+#  - npm run build
+  - ./run-builds.sh
 before_deploy:
   - cd ..
   - pwd
