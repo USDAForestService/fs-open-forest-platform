@@ -1,0 +1,30 @@
+{
+    "region": "31",
+    "forest": "50",
+    "district": "50",
+    "authorizingOfficerName": "WILLIAM L.NOXON",
+    "authorizingOfficerTitle": "null",
+    "applicantInfo": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "dayPhone": {
+            "areaCode": 541,
+            "number": 8156141,
+            "extension": "0",
+            "phoneType": "BUSINESS"
+        },
+        "emailAddress": "test@email.org",
+        "mailingAddress": "ON ANW 0953",
+        "mailingCity": "ALBANY",
+        "mailingState": "OR",
+        "mailingZIP": "97321"
+    },
+    "type": "noncommercial",
+    "noncommercialFields": {
+        "activityDescription": "PROVIDING WHITEWATER OUTFITTING AND GUIDING ACTIVITIES ON NATIONAL FOREST LANDS",
+        "locationDescription": "string",
+        "startDateTime": "2013-01-12T12:00:00Z",
+        "endDateTime": "2013-01-19T12:00:00Z",
+        "numberParticipants": 45
+    }
+}
