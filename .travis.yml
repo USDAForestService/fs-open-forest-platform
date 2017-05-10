@@ -26,4 +26,4 @@ deploy:
     on:
       repo: flexion/fs-intake-module
 #      condition: ${TRAVIS_BRANCH:0:7} = "sprint-"
-      branch: "sprint-3-development"
+      branch: "sprint-2-development"
