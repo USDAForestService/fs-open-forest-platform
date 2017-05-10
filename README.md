@@ -16,7 +16,7 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 
 ### For development:
 
-`cd frontend`
+`cd templates`
 
 `npm install`
 
