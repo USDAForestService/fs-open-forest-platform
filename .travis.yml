@@ -7,12 +7,12 @@ node_js:
 before_script:
   - pwd
   - nvm install 7
-  - cd templates; npm install
+#  - cd templates; npm install
 script:
-  - npm run build
+#  - npm run build
+  - ./run-builds.sh
 before_deploy:
-  - cd ..
-  - pwd
+- cd ..
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
@@ -25,4 +25,5 @@ deploy:
     skip_cleanup: true
     on:
       repo: flexion/fs-intake-module
-      branch: master
+#      condition: ${TRAVIS_BRANCH:0:7} = "sprint-"
+      branch: "sprint-2-development"

@@ -1,0 +1,21 @@
+extends ../layout.pug
+block content
+  section.usa-section
+    .usa-grid
+      h1 login
+      .usa-width-one-full
+      form#login-form(method='post')
+        input(type='hidden', name='csrfmiddlewaretoken', value='VyatKgnGdgXVhzo4bHWYBsF3ljk2IiUWhclge2oviFJ1inaZ4mdjEEUQcOCVo0BD')
+        p
+          label(for='id_username') Username:
+          input#id_username(autofocus='', maxlength='254', name='username', type='text', required='')
+        p
+          label(for='id_password') Password:
+          input#id_password(name='password', type='password', required='')
+        button(type='submit') Login
+
+        script.
+          $("#login-form").on("submit", function(event) {
+            event.preventDefault();
+            window.location.replace('/permit-application-list.html');
+          });
