@@ -1,0 +1,104 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title US Forest Service ePermit
+    link(rel="stylesheet" href="forest-service.css")
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/manifest.json")
+    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#2c1e13")
+    meta(name="theme-color" content="#ffffff")
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
+    script(type="text/javascript" src="/js/uswds.js")
+  body
+    a.usa-skipnav(href="#main-content") Skip to main content
+    header.usa-header.usa-header-extended(role="banner")
+      .usa-banner
+        .fs-official.usa-accordion
+          header.usa-banner-header
+            .usa-grid.usa-banner-inner
+              img.fs-flag-icon(src="/img/favicons/favicon-57.png" alt="U.S. flag")
+              p An official website of the United States government
+              button.usa-accordion-button.usa-banner-button(aria-expanded="false" aria-controls="gov-banner")
+                span.usa-banner-button-text Here&apos;s how you know
+          #gov-banner.usa-banner-content.usa-grid.usa-accordion-content
+            .usa-banner-guidance-gov.usa-width-one-half
+              img.usa-banner-icon.usa-media_block-img(src="/img/icon-dot-gov-white.svg" alt="DOT gov")
+              .usa-media_block-body
+                p
+                  strong
+                    The .gov means it’s official.
+                  br
+                  Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
+      .usa-navbar
+        button.usa-menu-btn Menu
+        #logo.usa-logo
+          div.fs-branding
+            a(href="//fs.fed.us" target="_blank")
+              img.fs-logo(src="/img/usfslogo.svg" alt="US Forest Service Logo" width="50")
+              div.fs-name-slogan
+                span.fs-name U.S. FOREST SERVICE
+                span.fs-slogan Caring for the land and serving people
+                div.beta-label
+                  span.usa-label beta
+      nav.usa-nav(role="navigation")
+        .usa-nav-inner
+          button.usa-nav-close
+            img(src="/img/close-white.svg" alt="close")
+          ul.usa-nav-primary.usa-accordion
+            li
+              a.usa-nav-link(href="#") Find another permit  
+          div.usa-nav-secondary
+            form.usa-search.usa-search-small.js-search-form
+              div(role="search")
+                label.usa-sr-only(for="seach-field-small")
+                  Seach small 
+                input#search-field-small(type="search" name="search")
+                button(type="submit")
+                  span.usa-sr-only Search
+            ul.usa-unstyled-list.usa-nav-secondary-links
+              li.js-search-button-container
+                button#header-search-button.usa-header-search-button.js-search-button Search 
+              li
+                a(href="/login.html")
+                  span Login
+    main#main-content
+      app-root
+    footer.usa-footer.usa-footer-slim(role="contentinfo")
+      .usa-footer-primary-section
+        .usa-grid
+          ul.usa-unstyled-list.usa-width-three-fourths
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="http://www.usda.gov/wps/portal/usda/usdahome") USDA.gov
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="http://www.usda.gov/wps/portal/usda/usdahome?navtype=FT&navid=PRIVACY_POLICY") Privacy Policy
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="https://oig.hhs.gov/") Office of Inspector General
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="https://www.fs.fed.us/about-agency") About Us
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="http://www.dm.usda.gov/foia/") FOIA
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="https://www.eeoc.gov/eeoc/statistics/nofear/qanda.cfm") No Fear Data Act
+            li.usa-width-one-fourth
+              a.usa-footer-primary-link(href="https://www.fs.fed.us/about-agency/budget-performance") Budget and Performance
+          address.usa-width-one-fourth
+            p (800) 832-1355
+            a(href="mailto:fs-permitting-project@gsa.gov") fs-permitting-project@gsa.gov
+      .usa-footer-secondary_section
+        .usa-grid
+          .usa-width-two-thirds
+            img.fs-footer-logo(src="/img/usfslogo.svg" alt="Forest Service Logo")
+            .usa-footer-logo-heading
+              h2 U.S. FOREST Service
+              h3 Caring for the land and serving people
+          .usa-footer-contact-links.usa-width-one-third
+            a.usa-link-facebook(href="https://www.facebook.com/USForestService/")
+              span Facebook
+            a.usa-link-twitter(href="https://twitter.com/forestservice")
+              span Twitter
+            a.usa-link-youtube(href="https://www.youtube.com/user/usdaForestService")
+              span YouTube
