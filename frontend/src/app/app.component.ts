@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import template = require('./app.component.pug');
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: template.toString(),
+  // styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'app works!';
