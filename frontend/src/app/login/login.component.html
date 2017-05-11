@@ -1,0 +1,18 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1>login</h1>
+    <div class="usa-width-one-full"></div>
+    <form id="login-form" method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value="VyatKgnGdgXVhzo4bHWYBsF3ljk2IiUWhclge2oviFJ1inaZ4mdjEEUQcOCVo0BD"/>
+      <p>
+        <label for="id_username">Username:</label>
+        <input id="id_username" autofocus="" maxlength="254" name="username" type="text" required=""/>
+      </p>
+      <p>
+        <label for="id_password">Password:</label>
+        <input id="id_password" name="password" type="password" required=""/>
+      </p>
+      <button type="submit" routerLink="/permit-application-list">Login</button>
+    </form>
+  </div>
+</section>
