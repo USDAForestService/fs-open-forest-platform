@@ -74,7 +74,7 @@
             <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="number" min="0000" max="9999" placeholder="5555" required [(ngModel)]="application.dayPhone3" #dayPhone3="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="number" min="0000" max="9999" placeholder="EXT" />
+            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="number" min="0000" max="9999" placeholder="EXT" [(ngModel)]="application.dayPhoneExt" />
           </div>
         </fieldset>
         <span class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Phone is required</span>
@@ -103,134 +103,100 @@
         <span class="usa-input-error-message" role="alert" [hidden]="participants.valid || participants.untouched">Participants is required</span>
 
         <label class="usa-input" for="spectators">Estimated number of spectators</label><span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators</span>
-        <input id="spectators" name="spectators" type="number" required [(ngModel)]="application.spectators" #spectators="ngModel"/>
+        <input id="spectators" name="spectators" type="number" required [(ngModel)]="application.spectators" #spectators="ngModel" />
         <span class="usa-input-error-message" role="alert" [hidden]="spectators.valid || spectators.untouched">Spectators is required</span>
 
 
 
 
 
-        <!-- <fieldset>
+        <fieldset>
           <legend>Start Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="start-month">Month</label>
-            <input class="usa-input-inline" id="start-month" name="start-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required="required" />
+            <input class="usa-input-inline" id="start-month" name="start-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required [(ngModel)]="application.startMonth" #startMonth="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-day">
             <label for="start-day">Day</label>
-            <input class="usa-input-inline" id="start-day" name="start-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required="required" />
+            <input class="usa-input-inline" id="start-day" name="start-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required [(ngModel)]="application.startDay" #startDay="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-year">Year</label>
-            <input class="usa-input-inline" id="start-year" name="start-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required="required" />
+            <input class="usa-input-inline" id="start-year" name="start-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required [(ngModel)]="application.startYear" #startYear="ngModel" />
           </div>
-        </fieldset> -->
+        </fieldset>
+        <span class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required</span>
 
-
-
-
-
-        <!-- <fieldset>
+        <fieldset>
           <legend>Start Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-hour">Hour</label>
-            <select class="usa-input-inline" id="start-hour" name="start-hour" required="required">
+            <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.startHour" #startHour="ngModel">
               <option value="" selected="selected"></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
+              <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-minutes">Minutes</label>
-            <select class="usa-input-inline" id="start-minutes" name="start-minutes" required="required">
+            <select class="usa-input-inline" id="start-minutes" name="start-minutes" required [(ngModel)]="application.startMinutes" #startMinutes="ngModel">
               <option value="" selected="selected"></option>
-              <option value="00">00</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
+              <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-period">AM / PM</label>
-            <select class="usa-input-inline" id="start-period" name="start-period" required="required">
+            <select class="usa-input-inline" id="start-period" name="start-period" required [(ngModel)]="application.startPeriod" #startPeriod="ngModel">
               <option value="" selected="selected"></option>
               <option value="AM">AM</option>
               <option value="PM">PM</option>
             </select>
           </div>
-        </fieldset> -->
+        </fieldset>
+        <span class="usa-input-error-message" role="alert" [hidden]="(startHour.valid || startHour.untouched) && (startMinutes.valid || startMinutes.untouched) && (startPeriod.valid || startPeriod.untouched)">Start time is required</span>
 
-
-
-
-        <!-- <fieldset>
+        <fieldset>
           <legend>End Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="end-month">Month</label>
-            <input class="usa-input-inline" id="end-month" name="end-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required="required" />
+            <input class="usa-input-inline" id="end-month" name="end-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required [(ngModel)]="application.endMonth" #endMonth="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-day">
             <label for="end-day">Day</label>
-            <input class="usa-input-inline" id="end-day" name="end-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required="required" />
+            <input class="usa-input-inline" id="end-day" name="end-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required [(ngModel)]="application.endDay" #endDay="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-year">Year</label>
-            <input class="usa-input-inline" id="end-year" name="end-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required="required" />
+            <input class="usa-input-inline" id="end-year" name="end-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required [(ngModel)]="application.endYear" #endYear="ngModel" />
           </div>
-        </fieldset> -->
+        </fieldset>
+        <span class="usa-input-error-message" role="alert" [hidden]="(endMonth.valid || endMonth.untouched) && (endDay.valid || endDay.untouched) && (endYear.valid || endYear.untouched)">End date is required</span>
 
-
-        <!-- <fieldset>
+        <fieldset>
           <legend>End Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-hour">Hour</label>
-            <select class="usa-input-inline" id="end-hour" name="end-hour" required="required">
+            <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.endHour" #endHour="ngModel">
               <option value="" selected="selected"></option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
+              <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-minutes">Minutes</label>
-            <select class="usa-input-inline" id="end-minutes" name="end-minutes" required="required">
+            <select class="usa-input-inline" id="end-minutes" name="end-minutes" required [(ngModel)]="application.endMinutes" #endMinutes="ngModel">
               <option value="" selected="selected"></option>
-              <option value="00">00</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
+              <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-period">AM / PM</label>
-            <select class="usa-input-inline" id="end-period" name="end-period" required="required">
+            <select class="usa-input-inline" id="end-period" name="end-period" required [(ngModel)]="application.endPeriod" #endPeriod="ngModel">
               <option value="" selected="selected"></option>
               <option value="AM">AM</option>
               <option value="PM">PM</option>
             </select>
           </div>
-        </fieldset> -->
-
-
+        </fieldset>
+        <span class="usa-input-error-message" role="alert" [hidden]="(endHour.valid || endHour.untouched) && (endMinutes.valid || endMinutes.untouched) && (endPeriod.valid || endPeriod.untouched)">End time is required</span>
 
       </fieldset>
 

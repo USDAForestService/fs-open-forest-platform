@@ -63,6 +63,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     'Wyoming'
   ];
 
+  hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '010', '11', '12'];
+  minutes = ['00', '15', '30', '45'];
+
   onSubmit() {
     console.log('submit');
   }
