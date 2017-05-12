@@ -30,7 +30,7 @@ deployment:
       - cd frontend; yarn run build;
       - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
-    branch: 173_angular_deployment
+    branch: sprint-3-development 
     owner: flexion
     commands:
       - cd frontend; yarn run build;
