@@ -10,7 +10,6 @@ dependencies:
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - rm google-chrome.deb
   override:
-    - cd frontend; yarn
     - ./run-builds.sh
   cache_directories:
     - ~/.cache/yarn
