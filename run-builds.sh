@@ -3,5 +3,5 @@ cd frontend
 yarn
 cd ../server
 yarn
-yarn install -g jasmine
+yarn global add jasmine
 jasmine --config=jasmine.json
