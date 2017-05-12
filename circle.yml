@@ -23,3 +23,7 @@ test:
   post:
     - cp -r frontend/test_results $CIRCLE_TEST_REPORTS/
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
+deployment:
+  staging:
+    branch: sprint-3-development
+    commands: "./cg-deploy/deploy.sh fs-intake-staging"
