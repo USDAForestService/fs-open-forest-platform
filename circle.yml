@@ -23,8 +23,15 @@ test:
   post:
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
 deployment:
+  prod:
+    branch: master
+    owner: 18F
+    commands:
+      - cd frontend; yarn run build;
+      - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
     branch: 173_angular_deployment
+    owner: flexion
     commands:
       - cd frontend; yarn run build;
       - ./cg-deploy/deploy.sh fs-intake-staging
