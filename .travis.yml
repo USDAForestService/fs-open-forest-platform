@@ -11,8 +11,6 @@ before_script:
 script:
 #  - npm run build
   - ./run-builds.sh
-before_deploy:
-- cd ..
 deploy:
   - provider: script
     script: "./cg-deploy/deploy.sh fs-intake-prod"
