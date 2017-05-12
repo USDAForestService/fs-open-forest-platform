@@ -27,8 +27,8 @@ elif [ $SPACE = 'fs-intake-staging' ]; then
   FRONTEND_MANIFEST="./cg-deploy/manifests/staging/manifest-frontend-staging.yml"
   API_NAME="fs-intake-api-staging"
   API_MANIFEST="./cg-deploy/manifests/production/manifest-api-staging.yml"
-  CF_USERNAME=$CF_USERNAME_DEV
-  CF_PASSWORD=$CF_PASSWORD_DEV
+  CF_USERNAME=$CF_USERNAME
+  CF_PASSWORD=$CF_PASSWORD
 else
 echo "Unknown space: $SPACE"
 exit

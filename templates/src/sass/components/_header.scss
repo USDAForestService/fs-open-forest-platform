@@ -1,25 +1,78 @@
 .usa-header {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(img/header.jpg);
-    background-position: center center;
-    a {
-        color: $white;
-    }
-    .usa-logo {
-        float: none;
-        .fs-logo {
-            width: 32px;
-            float: left;
-            margin-right: 0.5em;
-            @media(min-width: $nav-width) {
-                width: 75px;
-                display: block;
-                margin-bottom: 3rem;
-            }
+  background: $fs-tan;
+  .usa-logo {
+    float: none;
+    .fs-branding {
+      img.fs-logo {
+        float: left;
+        margin: -6px 0 0 10px;
+        position: relative;
+        z-index: 10;
+        width: 50px;
+        @media(min-width: $nav-width){
+          margin-bottom: 20px;
+          width: 100px;
         }
-        .usa-logo-text {
-            @media(min-width: $nav-width) {
-                line-height: 79px;
-            }
+      }
+      .fs-name-slogan {
+        float: left;
+        .fs-name {
+          float: left;
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 17px;
+          margin-left: 10px;
+          @media(min-width: $nav-width){
+            font-size: 24px;
+            line-height: 26px;
+            margin-top: 17px;
+          }
         }
+        .fs-slogan {
+          clear: both;
+          float: left;
+          font-size: 10px;
+          line-height: 15px;
+          margin-left: 10px;
+          @media(min-width: $nav-width){
+            font-size: 20px;
+            line-height: 22px;
+          }
+        }
+        .beta-label {
+          float: left;
+          line-height: 30px;
+          margin-left: 10px;
+          margin-top: -16px;
+          @media(min-width: $nav-width){
+            clear: both;
+            margin-top: 0;
+          }
+        }
+      }
     }
+  }
+}
+
+.fs-official {
+  background-color: $fs-dark-grey;
+  color: $white;
+  .usa-banner-inner {
+    font-size: 11px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .usa-accordion-button.usa-banner-button {
+    color: $white;
+  }
+
+  .usa-accordion-button.usa-banner-button::after {
+    background-image: url(/img/angle-arrow-down-primary-white.svg);
+    margin-left: 5px;
+  }
+
+  .usa-banner-button-text {
+    color: white;
+    border-bottom-color: $white;
+  }
 }
