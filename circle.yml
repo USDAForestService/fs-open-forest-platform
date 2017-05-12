@@ -11,6 +11,8 @@ dependencies:
     - rm google-chrome.deb
   override:
     - cd frontend; yarn
+    - cd server; npm install
+    - cd server; jasmine --config=jasmine.json
   cache_directories:
     - ~/.cache/yarn
 test:
@@ -21,9 +23,10 @@ test:
     - cd frontend; yarn run test:ci
     - cd frontend; yarn run e2e:ci
   post:
-    - cp -r frontend/test_results $CIRCLE_TEST_REPORTS/
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
 deployment:
   staging:
-    branch: sprint-3-development
-    commands: "./cg-deploy/deploy.sh fs-intake-staging"
+    branch: 173_angular_deployment
+    commands:
+      - cd frontend; yarn run build;
+      - ./cg-deploy/deploy.sh fs-intake-staging
