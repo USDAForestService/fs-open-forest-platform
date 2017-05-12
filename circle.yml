@@ -11,8 +11,7 @@ dependencies:
     - rm google-chrome.deb
   override:
     - cd frontend; yarn
-    - cd server; npm install
-    - cd server; jasmine --config=jasmine.json
+    - ./run-builds.sh
   cache_directories:
     - ~/.cache/yarn
 test:
