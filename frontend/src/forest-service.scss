@@ -1,0 +1,6 @@
+// TODO: Remove these unnecessary variables, they're only here for USWDS defaults!
+$helvetica: 'helvetica';
+$georgia: 'georgia';
+
+@import '../node_modules/uswds/src/stylesheets/core/_defaults.scss';
+@import 'sass/_all.scss';
