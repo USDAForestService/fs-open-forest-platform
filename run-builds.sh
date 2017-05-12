@@ -1,7 +1,7 @@
 
-cd templates
-npm install
-npm run build
+cd frontend
+yarn
 cd ../server
-npm install
+yarn
+yarn global add jasmine
 jasmine --config=jasmine.json
