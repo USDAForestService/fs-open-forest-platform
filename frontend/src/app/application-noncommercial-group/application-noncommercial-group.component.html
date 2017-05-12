@@ -5,45 +5,57 @@
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit()">
       <fieldset>
         <legend>Applicant Information</legend>
-        <label class="usa-input" for="name">Name of group or event</label>
-        <input id="name" name="name" type="text" required="required" />
-        <label class="usa-input" for="address">Address of group or contact</label>
-        <input id="address" name="address" type="text" required="required" />
-        <label class="usa-input" for="address-line-2">Address Line 2 (optional)</label>
-        <input id="address-line-2" name="address-line-2" type="text" />
 
+        <label class="usa-input" for="name">Name of Group or Event</label>
+        <input id="name" name="name" type="text" required [(ngModel)]="application.name" #name="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Name is required</span>
+
+        <label class="usa-input" for="address">Address of Group or Contact</label>
+        <input id="address" name="address" type="text" required [(ngModel)]="application.address" #address="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Address is required</span>
+
+        <label class="usa-input" for="address-line-2">Address Line 2 (optional)</label>
+        <input id="address-line-2" name="address-line-2" type="text" [(ngModel)]="application.addressLine2" />
 
         <label class="usa-input" for="city">City</label>
-        <input id="city" name="city" type="text" [(ngModel)]="application.city" #city="ngModel" required />
-        <span id="city-error-message" class="usa-input-error-message" id="input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
+        <input id="city" name="city" type="text" required [(ngModel)]="application.city" #city="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
 
-
-        <label class="usa-input" for="state" required="required">State</label>
-        <select id="state" name="state" required="required">
+        <label class="usa-input" for="state">State</label>
+        <select id="state" name="state" required [(ngModel)]="application.state" #state="ngModel">
           <option value="" selected="selected"></option>
           <option *ngFor="let state of states" [value]="state">{{state}}</option>
         </select>
+        <span class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
+
         <label class="usa-input" for="zip">ZIP</label>
-        <input id="zip" name="zip" type="number" minlength="5" maxlength="5" required="required" />
+        <input id="zip" name="zip" type="number" minlength="5" maxlength="5" required [(ngModel)]="application.zip" #zip="ngModel"/>
+        <span class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">ZIP is required</span>
+
         <label class="usa-input" for="website">Website (optional)</label>
-        <input id="website" name="website" type="url" />
+        <input id="website" name="website" type="url" [(ngModel)]="application.website" />
+
         <label class="usa-input" for="email">Email Address (optional)</label>
-        <input id="email" name="email" type="email" />
+        <input id="email" name="email" type="email" [(ngModel)]="application.email" />
+
+
         <fieldset>
           <legend>Day Phone</legend>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="number" min="000" max="999" placeholder="555" required="required" />
+            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="number" min="000" max="999" placeholder="555" required />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="number" min="000" max="999" placeholder="555" required="required" />
+            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="number" min="000" max="999" placeholder="555" required />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="number" min="0000" max="9999" placeholder="5555" required="required" />
+            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="number" min="0000" max="9999" placeholder="5555" required />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="number" min="0000" max="9999" placeholder="EXT" />
           </div>
         </fieldset>
+
+
         <fieldset>
           <legend>Evening Phone</legend>
           <div class="usa-form-group usa-form-group-year">
@@ -60,7 +72,9 @@
           </div>
         </fieldset>
       </fieldset>
+
       <hr/>
+      
       <fieldset>
         <legend>Event Details</legend>
         <label class="usa-input" for="activity-description">Description of proposed activity</label>
