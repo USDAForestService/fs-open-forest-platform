@@ -1,9 +1,9 @@
 ---
 applications:
-- name: forest-service-epermit
-  path: ../../templates/dist
+- name: fs-intake-staging
+  path: ../../../templates/dist
   memory: 64M
-  host: forest-service-intake
+  host: fs-intake-staging
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
     FORCE_HTTPS: true
