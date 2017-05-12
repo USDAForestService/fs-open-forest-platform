@@ -23,8 +23,8 @@ if [ $SPACE = 'fs-intake-prod' ]; then
 elif [ $SPACE = 'fs-intake-staging' ]; then
   NAME="fs-intake-staging"
   MANIFEST="./cg-deploy/manifests/manifest-staging.yml"
-  CF_USERNAME=$CF_USERNAME_DEV
-  CF_PASSWORD=$CF_PASSWORD_DEV
+  CF_USERNAME=$CF_USERNAME
+  CF_PASSWORD=$CF_PASSWORD
 else
 echo "Unknown space: $SPACE"
 exit
