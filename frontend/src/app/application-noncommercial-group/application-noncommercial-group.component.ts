@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
+  application = {};
+
+  states = [
+    'Wisconsin',
+    'Illinois'
+  ];
+
+  onSubmit() {
+    console.log('submit');
+  }
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }
