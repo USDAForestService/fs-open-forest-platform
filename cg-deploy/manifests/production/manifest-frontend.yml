@@ -1,7 +1,7 @@
 ---
 applications:
 - name: forest-service-epermit
-  path: ../../../templates/dist
+  path: ../../../frontend/dist
   memory: 64M
   host: forest-service-intake
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
