@@ -26,7 +26,7 @@ elif [ $SPACE = 'fs-intake-staging' ]; then
   FRONTEND_NAME="fs-intake-staging"
   FRONTEND_MANIFEST="./cg-deploy/manifests/staging/manifest-frontend-staging.yml"
   API_NAME="fs-intake-api-staging"
-  API_MANIFEST="./cg-deploy/manifests/production/manifest-api-staging.yml"
+  API_MANIFEST="./cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
 else
