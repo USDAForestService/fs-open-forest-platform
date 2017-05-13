@@ -1,7 +1,7 @@
 ---
 applications:
 - name: fs-intake-staging
-  path: ../../../templates/dist
+  path: ../../../frontend/dist
   memory: 64M
   host: fs-intake-staging
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
