@@ -32,16 +32,16 @@
       }
       button {
         &[aria-expanded=false]{
-          background-image: url(../img/plus-white.png) !important;
-          background-image: url(../img/plus-white.svg) !important;
+          background-image: url(/img/plus-white.png) !important;
+          background-image: url(/img/plus-white.svg) !important;
           @media(min-width: $nav-width) {
-            background-image: url(../img/angle-arrow-down-hover.png) !important;
-            background-image: url(../img/angle-arrow-down-hover.svg) !important;
+            background-image: url(/img/angle-arrow-down-hover.png) !important;
+            background-image: url(/img/angle-arrow-down-hover.svg) !important;
           }
         }
         &[aria-expanded=true]{
-          background-image: url(../img/minus-white.png) !important;
-          background-image: url(../img/minus-white.svg) !important;
+          background-image: url(/img/minus-white.png) !important;
+          background-image: url(/img/minus-white.svg) !important;
           @media(min-width: $nav-width) {
             background-color: $fs-green-darker;
           }
