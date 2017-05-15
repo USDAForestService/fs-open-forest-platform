@@ -59,7 +59,7 @@
         <span class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">ZIP is required</span>
 
         <label class="usa-input" for="email">Email address</label>
-        <input id="email" name="email" type="email" required [(ngModel)]="application.email" #email="ngModel" />
+        <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.email" #email="ngModel" />
         <span class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Email address is required</span>
 
         <fieldset>
