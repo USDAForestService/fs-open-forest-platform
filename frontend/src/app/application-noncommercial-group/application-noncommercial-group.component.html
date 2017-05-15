@@ -65,16 +65,16 @@
         <fieldset>
           <legend>Phone</legend>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.dayPhone1" #dayPhone1="ngModel" />
+            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.dayPhone1" #dayPhone1="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.dayPhone2" #dayPhone2="ngModel" />
+            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.dayPhone2" #dayPhone2="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="number" min="0000" max="9999" placeholder="5555" required [(ngModel)]="application.dayPhone3" #dayPhone3="ngModel" />
+            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.dayPhone3" #dayPhone3="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="number" min="0000" max="9999" placeholder="EXT" [(ngModel)]="application.dayPhoneExt" />
+            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.dayPhoneExt" />
           </div>
         </fieldset>
         <span class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Phone is required</span>
@@ -85,16 +85,16 @@
         <fieldset *ngIf="additionalPhone">
           <legend>Secondary Phone</legend>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.nightPhone1" #nightPhone1="ngModel" />
+            <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.nightPhone1" #nightPhone1="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-2" name="night-phone-2" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.nightPhone2" #nightPhone2="ngModel" />
+            <input class="usa-input-inline" id="night-phone-2" name="night-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.nightPhone2" #nightPhone2="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-3" name="night-phone-3" type="number" min="0000" max="9999" placeholder="5555" required [(ngModel)]="application.nightPhone3" #nightPhone3="ngModel" />
+            <input class="usa-input-inline" id="night-phone-3" name="night-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.nightPhone3" #nightPhone3="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-4" name="night-phone-4" type="number" min="0000" max="9999" placeholder="EXT" [(ngModel)]="application.nightPhoneExt" />
+            <input class="usa-input-inline" id="night-phone-4" name="night-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.nightPhoneExt" />
           </div>
         </fieldset>
 
@@ -205,15 +205,15 @@
           <legend>Start Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="start-month">Month</label>
-            <input class="usa-input-inline" id="start-month" name="start-month" type="number" min="1" max="12" pattern="0?[1-9]|1[012]" required [(ngModel)]="application.startMonth" #startMonth="ngModel" />
+            <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="0?[1-9]|1[012]" required [(ngModel)]="application.startMonth" #startMonth="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-day">
             <label for="start-day">Day</label>
-            <input class="usa-input-inline" id="start-day" name="start-day" type="number" min="1" max="31" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required [(ngModel)]="application.startDay" #startDay="ngModel" />
+            <input class="usa-input-inline" id="start-day" name="start-day" type="text" minlength="1" maxlength="2" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" required [(ngModel)]="application.startDay" #startDay="ngModel" />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-year">Year</label>
-            <input class="usa-input-inline" id="start-year" name="start-year" type="number" min="1900" max="2000" pattern="[0-9]{4}" required [(ngModel)]="application.startYear" #startYear="ngModel" />
+            <input class="usa-input-inline" id="start-year" name="start-year" type="text" minlength="4" maxlength="4" pattern="[0-9]{4}" required [(ngModel)]="application.startYear" #startYear="ngModel" />
           </div>
         </fieldset>
         <span class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required</span>
