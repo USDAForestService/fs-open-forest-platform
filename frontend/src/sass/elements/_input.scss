@@ -11,3 +11,11 @@ fieldset {
 .usa-form-hint {
   font-size: 15px;
 }
+
+input.ng-valid.ng-touched, select.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
+  border: 3px solid $fs-green;
+}
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border: 3px solid $color-secondary-dark;
+}
