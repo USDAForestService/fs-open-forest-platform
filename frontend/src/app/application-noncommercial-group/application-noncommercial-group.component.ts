@@ -9,6 +9,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   application = {};
   applicantType = 'individual';
+  primaryPermitHolderSameAddress = true;
+  secondaryPermitHolderSameAddress = true;
 
   states = [
     'Alabama',
