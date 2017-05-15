@@ -19,5 +19,8 @@
   "scripts": {
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha"
+  },
+  "engines": {
+    "node": "6.10.2"
   }
 }
