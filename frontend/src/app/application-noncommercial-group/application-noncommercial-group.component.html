@@ -6,9 +6,9 @@
       <fieldset>
         <legend>Applicant Information</legend>
 
-        <label class="usa-input" for="name">Name of Group or Event</label>
+        <label class="usa-input" for="name">Name of group or event</label>
         <input id="name" name="name" type="text" required [(ngModel)]="application.name" #name="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Name is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Name of group or event is required</span>
 
         <fieldset>
           <legend>Are you applying as an individual or organization?</legend>
@@ -36,9 +36,9 @@
           <span class="usa-input-error-message" role="alert" [hidden]="organizationName.valid || organizationName.untouched">Organization name is required</span>
         </div>
 
-        <label class="usa-input" for="address">Address of Group or Contact</label>
+        <label class="usa-input" for="address">Address of group or contact</label>
         <input id="address" name="address" type="text" required [(ngModel)]="application.address" #address="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Address is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Address of group or contact is required</span>
 
         <label class="usa-input" for="address-line-2">Address Line 2 (optional)</label>
         <input id="address-line-2" name="address-line-2" type="text" [(ngModel)]="application.addressLine2" />
@@ -58,9 +58,9 @@
         <input id="zip" name="zip" type="number" minlength="5" maxlength="5" required [(ngModel)]="application.zip" #zip="ngModel" />
         <span class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">ZIP is required</span>
 
-        <label class="usa-input" for="email">Email Address</label>
+        <label class="usa-input" for="email">Email address</label>
         <input id="email" name="email" type="email" required [(ngModel)]="application.email" #email="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Email is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Email address is required</span>
 
         <fieldset>
           <legend>Phone</legend>
@@ -79,9 +79,104 @@
         </fieldset>
         <span class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Phone is required</span>
 
-        <label class="usa-input" for="website">Website (optional)</label>
-        <input id="website" name="website" type="url" [(ngModel)]="application.website" />
+        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" />
+        <label class="usa-input" for="add-additional-phone">Add additional phone</label>
 
+        <fieldset *ngIf="additionalPhone">
+          <legend>Secondary Phone</legend>
+          <div class="usa-form-group usa-form-group-year">
+            <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.nightPhone1" #nightPhone1="ngModel" />
+          </div>
+          <div class="usa-form-group usa-form-group-year">
+            <input class="usa-input-inline" id="night-phone-2" name="night-phone-2" type="number" min="000" max="999" placeholder="555" required [(ngModel)]="application.nightPhone2" #nightPhone2="ngModel" />
+          </div>
+          <div class="usa-form-group usa-form-group-year">
+            <input class="usa-input-inline" id="night-phone-3" name="night-phone-3" type="number" min="0000" max="9999" placeholder="5555" required [(ngModel)]="application.nightPhone3" #nightPhone3="ngModel" />
+          </div>
+          <div class="usa-form-group usa-form-group-year">
+            <input class="usa-input-inline" id="night-phone-4" name="night-phone-4" type="number" min="0000" max="9999" placeholder="EXT" [(ngModel)]="application.nightPhoneExt" />
+          </div>
+        </fieldset>
+
+        <div *ngIf="applicantType === 'organization'">
+          <label class="usa-input" for="website">Website (optional)</label>
+          <input id="website" name="website" type="url" [(ngModel)]="application.website" />
+        </div>
+
+      </fieldset>
+
+      <fieldset *ngIf="applicantType === 'organization'">
+        <legend>Primary Permit Holder</legend>
+
+        <label class="usa-input" for="primary-permit-holder-name">Primary permit holder name</label>
+        <input id="primary-permit-holder-name" name="primary-permit-holder-name" type="text" required [(ngModel)]="application.primaryPermitHolderName" #primaryPermitHolderName="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderName.valid || primaryPermitHolderName.untouched">Primary permit holder name is required</span>
+
+        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" />
+        <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address same as organization address</label>
+
+        <div *ngIf="!primaryPermitHolderSameAddress">
+          <label class="usa-input" for="primary-permit-holder-address">Address</label>
+          <input id="primary-permit-holder-address" name="primary-permit-holder-address" type="text" required [(ngModel)]="application.primaryPermitHolderAddress" #primaryPermitHolderAddress="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderAddress.valid || primaryPermitHolderAddress.untouched">Address is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-address-line-2">Address Line 2 (optional)</label>
+          <input id="primary-permit-holder-address-line-2" name="primary-permit-holder-address-line-2" type="text" [(ngModel)]="application.primaryPermitHolderAddressLine2" />
+
+          <label class="usa-input" for="primary-permit-holder-city">City</label>
+          <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.primaryPermitHolderCity" #primaryPermitHolderCity="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-state">State</label>
+          <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.primaryPermitHolderState" #primaryPermitHolderState="ngModel">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+          </select>
+          <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
+          <input id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="number" minlength="5" maxlength="5" required [(ngModel)]="application.zip" #primaryPermitHolderZip="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">ZIP is required</span>
+        </div>
+
+      </fieldset>
+
+      <button class="usa-button-gray" id="add-permit-holder" type="button" *ngIf="!viewSecondaryPermitHolder" (click)="viewSecondaryPermitHolder = !viewSecondaryPermitHolder">Add a secondary permit holder</button>
+
+      <fieldset *ngIf="viewSecondaryPermitHolder">
+        <button class="hide-secondary-permit-holder usa-button-outline" id="hide-secondary-permit-holder" type="button" (click)="viewSecondaryPermitHolder = !viewSecondaryPermitHolder">Remove</button>
+        <legend>Secondary Permit Holder</legend>
+
+        <label class="usa-input" for="secondary-permit-holder-name">Secondary permit holder name</label>
+        <input id="secondary-permit-holder-name" name="secondary-permit-holder-name" type="text" required [(ngModel)]="application.secondaryPermitHolderName" #secondaryPermitHolderName="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderName.valid || secondaryPermitHolderName.untouched">Secondary permit holder name is required</span>
+
+        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" />
+        <label class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as organization address</label>
+
+        <div *ngIf="!secondaryPermitHolderSameAddress">
+          <label class="usa-input" for="secondary-permit-holder-address">Address</label>
+          <input id="secondary-permit-holder-address" name="secondary-permit-holder-address" type="text" required [(ngModel)]="application.secondaryPermitHolderAddress" #secondaryPermitHolderAddress="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderAddress.valid || secondaryPermitHolderAddress.untouched">Address is required</span>
+
+          <label class="usa-input" for="secondary-permit-holder-address-line-2">Address Line 2 (optional)</label>
+          <input id="secondary-permit-holder-address-line-2" name="secondary-permit-holder-address-line-2" type="text" [(ngModel)]="application.secondaryPermitHolderAddressLine2" />
+
+          <label class="usa-input" for="secondary-permit-holder-city">City</label>
+          <input id="secondary-permit-holder-city" name="secondary-permit-holder-city" type="text" required [(ngModel)]="application.secondaryPermitHolderCity" #secondaryPermitHolderCity="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderCity.valid || secondaryPermitHolderCity.untouched">City is required</span>
+
+          <label class="usa-input" for="secondary-permit-holder-state">State</label>
+          <select id="secondary-permit-holder-state" name="secondary-permit-holder-state" required [(ngModel)]="application.secondaryPermitHolderState" #secondaryPermitHolderState="ngModel">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+          </select>
+          <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderState.valid || secondaryPermitHolderState.untouched">State is required</span>
+
+          <label class="usa-input" for="secondary-permit-holder-zip">ZIP</label>
+          <input id="secondary-permit-holder-zip" name="secondary-permit-holder-zip" type="number" minlength="5" maxlength="5" required [(ngModel)]="application.zip" #secondaryPermitHolderZip="ngModel" />
+          <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderZip.valid || secondaryPermitHolderZip.untouched">ZIP is required</span>
+        </div>
 
       </fieldset>
 
@@ -105,10 +200,6 @@
         <label class="usa-input" for="spectators">Estimated number of spectators</label><span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators</span>
         <input id="spectators" name="spectators" type="number" required [(ngModel)]="application.spectators" #spectators="ngModel" />
         <span class="usa-input-error-message" role="alert" [hidden]="spectators.valid || spectators.untouched">Spectators is required</span>
-
-
-
-
 
         <fieldset>
           <legend>Start Date</legend>
@@ -200,82 +291,17 @@
 
       </fieldset>
 
-
       <hr/>
-
-
-      <!-- <fieldset class="primary-permit-holder">
-        <legend>Primary Permit Holder</legend>
-        <label class="usa-input" for="first-permit-holder-name">Permit holder name</label>
-        <input id="first-permit-holder-name" name="first-permit-holder-name" type="text" required="required" />
-        <input id="first-permit-holder-same-address" name="first-permit-holder-same-address" type="checkbox" checked="checked" />
-        <label class="usa-input" for="first-permit-holder-same-address">Permit holder address same as group address</label>
-        <div class="first-permit-holder-address">
-          <label class="usa-input" for="first-permit-holder-address">Address</label>
-          <input id="first-permit-holder-address" name="first-permit-holder-address-1" type="text" required="required" />
-          <label class="usa-input" for="first-permit-holder-address-line-2">Address Line 2 (optional)</label>
-          <input id="first-permit-holder-address-line-2" name="first-permit-holder-address-line-2" type="text" />
-          <label class="usa-input" for="first-permit-holder-city" required="required">City</label>
-          <input id="first-permit-holder-city" name="first-permit-holder-city" type="text" />
-          <label class="usa-input" for="first-permit-holder-state" required="required">State</label>
-          <select id="first-permit-holder-state" name="first-permit-holder-state" required="required">
-            <option value="" selected="selected"></option>
-            <option value="Illinois">Illinois</option>
-            <option value="Washington">Washington </option>
-            <option value="Wisconsin">Wisconsin</option>
-          </select>
-          <label class="usa-input" for="first-permit-holder-zip">ZIP</label>
-          <input id="first-permit-holder-zip" name="first-permit-holder-zip" type="number" minlength="5" maxlength="5" required="required" />
-        </div>
-      </fieldset> -->
-
-
-
-
-      <!-- <button class="usa-button-gray" id="add-permit-holder" type="button">Add another permit holder</button>
-      <hr/> -->
-
-
-
-      <!-- <div class="secondary-permit-holder">
-        <fieldset>
-          <legend>Secondary Permit Holder</legend>
-          <button class="hide-secondary-permit-holder usa-button-outline" id="hide-secondary-permit-holder" type="button">Remove</button>
-          <label class="usa-input" for="second-permit-holder-name">Permit holder name</label>
-          <input id="second-permit-holder-name" name="second-permit-holder-name" type="text" required="required" />
-          <input id="second-permit-holder-same-address" name="second-permit-holder-same-address" type="checkbox" checked="checked" />
-          <label class="usa-input" for="second-permit-holder-same-address">Permit holder address same as group address</label>
-          <div class="second-permit-holder-address">
-            <label class="usa-input" for="second-permit-holder-address">Address</label>
-            <input id="second-permit-holder-address" name="second-permit-holder-address-1" type="text" required="required" />
-            <label class="usa-input" for="second-permit-holder-address-line-2">Address Line 2 (optional)</label>
-            <input id="second-permit-holder-address-line-2" name="second-permit-holder-address-line-2" type="text" />
-            <label class="usa-input" for="second-permit-holder-city" required="required">City</label>
-            <input id="second-permit-holder-city" name="second-permit-holder-city" type="text" />
-            <label class="usa-input" for="second-permit-holder-state" required="required">State</label>
-            <select id="second-permit-holder-state" name="second-permit-holder-state" required="required">
-              <option value="" selected="selected"></option>
-              <option value="Illinois">Illinois</option>
-              <option value="Wisconsin">Wisconsin</option>
-            </select>
-            <label class="usa-input" for="second-permit-holder-zip">ZIP</label>
-            <input id="second-permit-holder-zip" name="second-permit-holder-zip" type="number" minlength="5" maxlength="5" required="required" />
-          </div>
-        </fieldset>
-        <hr/>
-      </div> -->
-
-
 
       <fieldset>
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application</label>
-        <input id="signature" name="signature" type="text" required [(ngModel)]="application.signature" #signature="ngModel"/>
+        <input id="signature" name="signature" type="text" required [(ngModel)]="application.signature" #signature="ngModel" />
         <span class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Signature is required</span>
       </fieldset>
 
-
       <button class="usa-button-big" type="submit" [disabled]="!form.valid">Submit Your Application</button>
+
     </form>
   </div>
 </section>
