@@ -24,7 +24,8 @@ const appRoutes: Routes = [
   { path: 'pg-flow-step-2', component: PgFlowStep2Component },
   { path: 'pg-flow-reg-person', component: PgFlowRegPersonComponent },
   { path: 'pg-flow-reg-person-friend-family', component: PgFlowRegPersonFriendFamilyComponent },
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
