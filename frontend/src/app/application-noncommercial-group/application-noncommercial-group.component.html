@@ -6,9 +6,9 @@
       <fieldset>
         <legend>Applicant Information</legend>
 
-        <label class="usa-input" for="name">Name of group or event</label>
+        <label class="usa-input" for="name">Event name</label>
         <input id="name" name="name" type="text" required [(ngModel)]="application.name" #name="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Name of group or event is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required</span>
 
         <fieldset>
           <legend>Are you applying as an individual or organization?</legend>
@@ -36,11 +36,11 @@
           <span class="usa-input-error-message" role="alert" [hidden]="organizationName.valid || organizationName.untouched">Organization name is required</span>
         </div>
 
-        <label class="usa-input" for="address">Address of group or contact</label>
+        <label class="usa-input" for="address">Address line 1</label>
         <input id="address" name="address" type="text" required [(ngModel)]="application.address" #address="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Address of group or contact is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Address line 1 is required</span>
 
-        <label class="usa-input" for="address-line-2">Address Line 2 (optional)</label>
+        <label class="usa-input" for="address-line-2">Address line 2 (optional)</label>
         <input id="address-line-2" name="address-line-2" type="text" [(ngModel)]="application.addressLine2" />
 
         <label class="usa-input" for="city">City</label>
@@ -55,12 +55,12 @@
         <span class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
 
         <label class="usa-input" for="zip">ZIP</label>
-        <input id="zip" name="zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.zip" #zip="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">ZIP is required</span>
+        <input id="zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.zip" #zip="ngModel" />
+        <span class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required</span>
 
         <label class="usa-input" for="email">Email address</label>
         <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.email" #email="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Email address is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required</span>
 
         <fieldset>
           <legend>Phone</legend>
@@ -77,7 +77,7 @@
             <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.dayPhoneExt" />
           </div>
         </fieldset>
-        <span class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Phone is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Valid phone is required</span>
 
         <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" />
         <label class="usa-input" for="add-additional-phone">Add additional phone</label>
@@ -185,9 +185,6 @@
       <fieldset>
         <legend>Event Details</legend>
 
-        <label class="usa-input" for="activity-description">Description of proposed activity</label>
-        <textarea id="activity-description" name="activity-description" required [(ngModel)]="application.activityDescription" #activityDescription="ngModel"></textarea>
-        <span class="usa-input-error-message" role="alert" [hidden]="activityDescription.valid || activityDescription.untouched">Activity Description is required</span>
 
         <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use</label>
         <input id="location" name="location" type="text" required [(ngModel)]="application.location" #location="ngModel" />
@@ -198,8 +195,18 @@
         <span class="usa-input-error-message" role="alert" [hidden]="participants.valid || participants.untouched">Participants is required</span>
 
         <label class="usa-input" for="spectators">Estimated number of spectators</label><span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators</span>
-        <input id="spectators" name="spectators" type="number" required [(ngModel)]="application.spectators" #spectators="ngModel" />
-        <span class="usa-input-error-message" role="alert" [hidden]="spectators.valid || spectators.untouched">Spectators is required</span>
+        <input id="spectators" name="spectators" type="number" [(ngModel)]="application.spectators" #spectators="ngModel" />
+
+
+        <label class="usa-input" for="activity-description">Description of proposed activity</label>
+        <textarea id="activity-description" name="activity-description" required [(ngModel)]="application.activityDescription" #activityDescription="ngModel"></textarea>
+        <span class="usa-input-error-message" role="alert" [hidden]="activityDescription.valid || activityDescription.untouched">Activity Description is required</span>
+
+
+
+
+
+
 
         <fieldset>
           <legend>Start Date</legend>
