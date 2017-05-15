@@ -1,4 +1,5 @@
 'use strict';
+
 let express =  require('express');
 let bodyParser = require('body-parser');
 
@@ -24,7 +25,7 @@ let extractField = (errorObj, withArg) => {
     // assumption is that the string otherwise is 'instance.<field>'
     return errorObj.property.substring(9) + '.' + errorObj.argument;
   } else {
-    return errorObj.property.substring(9)
+    return errorObj.property.substring(9);
   }
 };
 
@@ -40,7 +41,7 @@ let createNoncommercialTempApp = (req, res) => {
     for (var error of result.errors) {
       if (error.name === 'required') {
         errorArr.push(error.name + '-' + extractField(error, true));
-      } else if (error.name === 'enum' || error.name === 'pattern')  {
+      } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type')  {
         errorArr.push(error.name + '-' + extractField(error, false));
       }
     }
@@ -50,9 +51,9 @@ let createNoncommercialTempApp = (req, res) => {
     res.status(400).json(errorRet);
   } else {
     req.body['tempControlNumber'] = 1;
-    res.status(200).json(req.body);
+    res.status(201).json(req.body);
   }
-}
+};
 
 // POST /permits/applications/special-uses/noncommercial/
 // creates a new noncommercial application
