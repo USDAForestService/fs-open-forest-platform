@@ -1,7 +1,6 @@
 
-cd templates
-npm install
-npm run build
+cd frontend
+yarn
 cd ../server
-npm install
-npm test
+yarn
+yarn global add mocha
