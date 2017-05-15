@@ -1,12 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NoncommercialGroup } from './_models/noncommercial-group';
+import { ApplicationNoncommercialGroupService } from './application-noncommercial-group-service';
+
 @Component({
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html',
+  providers: [ ApplicationNoncommercialGroupService ],
   styleUrls: ['./application-noncommercial-group.component.scss']
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
+  errorMessage: string;
+  applications: NoncommercialGroup[];
+  mode = 'Observable';
+
+// TODO: move to const file
   application = {
     startMonth: undefined,
     startDay: undefined,
@@ -77,6 +86,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
+  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
+
   startDateChangeHandler() {
     if (
       this.application.startMonth &&
@@ -96,11 +107,16 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      console.log('submit');
+      // console.log('submit');
+      this.applicationNoncommercialGroupService.create(form)
+        .subscribe(
+          () => {
+            console.log('success')
+          }
+        )
     }
   }
 
-  constructor() { }
 
   ngOnInit() { }
 
