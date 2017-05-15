@@ -153,7 +153,8 @@
         <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderName.valid || secondaryPermitHolderName.untouched">Secondary permit holder name is required</span>
 
         <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" />
-        <label class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as organization address</label>
+        <label *ngIf="applicantType === 'individual'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as primary permit holder address</label>
+        <label *ngIf="applicantType === 'organization'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as organization address</label>
 
         <div *ngIf="!secondaryPermitHolderSameAddress">
           <label class="usa-input" for="secondary-permit-holder-address">Address</label>
