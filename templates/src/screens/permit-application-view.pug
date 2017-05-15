@@ -1,0 +1,127 @@
+extends ../layout.pug
+block content
+  section.usa-section
+    .usa-grid
+      h1 Received Application
+      h2 Permit Status:
+        span#permit-status
+      #application-review
+        form#approve-form(action="/change/2/approved/" method="post")
+          input(type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm")
+          button#approve-application-btn(type="submit" name="approve") Approve Application
+        form#deny-form(action="/change/2/not_approved/" method="post")
+          input(type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm")
+          button#return-application-btn(type="submit" name="returned") Return Application 
+          span#deny-error-message.usa-input-error-message(role="alert") Please enter an explanation for your denial
+          label(for="returned-reason") Reason for returning application
+          textarea#returned-reason(name="returned-reason")
+      p You will receive an email notification from the Forest Service in a few days about whether your permit has been approved. If you do not hear back from the Forest Service, please call XXX-XXX-XXXX. Please review your information to make sure it is correct.
+      table
+        tr
+          th(scope="col") Name of group or event
+          td(scope="row") Christopher Sample Event
+        tr
+          th(scope="col") Address of group or contact
+          td(scope="row") 123 anywhere
+        tr
+          th(scope="col") Address (line 2)
+          td(scope="row")
+        tr
+          th(scope="col") City
+          td(scope="row") Charlotte
+        tr
+          th(scope="col") State
+          td(scope="row") NC
+        tr
+          th(scope="col") ZIP
+          td(scope="row") 28213
+        tr
+          th(scope="col") Email address
+          td(scope="row") christophermcmillan@criterion508.com
+        tr
+          th(scope="col") Phone (day)
+          td(scope="row") 123-456-7890
+        tr
+          th(scope="col") Phone (evening)
+          td(scope="row")
+        tr
+          th(scope="col") Description of proposed activity
+          td(scope="row") asdjfalsd;fljasldfajsdlfa;jsdfla;sdfja
+        tr
+          th(scope="col")
+            | Location and description of National Forest system lands and facilities applicant would like to use
+          td(scope="row") Charlotte Park
+        tr
+          th(scope="col") Estimated number of participants
+          td(scope="row") 25
+        tr
+          th(scope="col") Estimated number of spectators
+          td(scope="row") 50
+        tr
+          th(scope="col") Start date and time
+          td(scope="row") Nov. 7, 2016, midnight
+        tr
+          th(scope="col") End date and time
+          td(scope="row") Nov. 8, 2016, midnight
+        tr
+          th(scope="col") Permit holder name
+          td(scope="row") Christopher
+        tr
+          th(scope="col") Address 1
+          td(scope="row") 123 anywhere
+        tr
+          th(scope="col") Address 2
+          td(scope="row")
+        tr
+          th(scope="col") City
+          td(scope="row") Charlotte
+        tr
+          th(scope="col") State
+          td(scope="row") NC
+        tr
+          th(scope="col") ZIP
+          td(scope="row") 28213
+        tr
+          th(scope="col") Permit holder name
+          td(scope="row")
+        tr
+          th(scope="col") Address 1
+          td(scope="row")
+        tr
+          th(scope="col") Address 2
+          td(scope="row")
+        tr
+          th(scope="col") City
+          td(scope="row")
+        tr
+          th(scope="col") State
+          td(scope="row")
+        tr
+          th(scope="col") ZIP
+          td(scope="row")
+        tr
+          th(scope="col") Type your initials here as a signature on your application
+          td(scope="row")
+            
+            
+      script.
+        $("#approve-form").on("submit", function(event) {
+          event.preventDefault();
+          $("#permit-status").html(" Approved");
+          hideStatusForms();
+        });
+        
+        $("#deny-form button").on("click", function(event) {
+          event.preventDefault();
+          var reason = $("#returned-reason").val();
+          if(reason.length < 1) {
+            $("#deny-error-message").css('display', 'block');
+          } else {
+            $("#permit-status").html(" Returned");
+            hideStatusForms();
+          }
+        });
+        
+        function hideStatusForms() {
+          $('#application-review').css('display', 'none');
+        }
