@@ -16,19 +16,24 @@ exit
 fi
 
 if [ $SPACE = 'fs-intake-prod' ]; then
-  NAME="forest-service-epermit"
-  MANIFEST="./cg-deploy/manifests/manifest.yml"
+  FRONTEND_NAME="forest-service-epermit"
+  FRONTEND_MANIFEST="./cg-deploy/manifests/production/manifest-frontend.yml"
+  API_NAME="fs-intake-api"
+  API_MANIFEST="./cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
 elif [ $SPACE = 'fs-intake-staging' ]; then
-  NAME="fs-intake-staging"
-  MANIFEST="./cg-deploy/manifests/manifest-staging.yml"
-  CF_USERNAME=$CF_USERNAME_DEV
-  CF_PASSWORD=$CF_PASSWORD_DEV
+  FRONTEND_NAME="fs-intake-staging"
+  FRONTEND_MANIFEST="./cg-deploy/manifests/staging/manifest-frontend-staging.yml"
+  API_NAME="fs-intake-api-staging"
+  API_MANIFEST="./cg-deploy/manifests/staging/manifest-api-staging.yml"
+  CF_USERNAME=$CF_USERNAME
+  CF_PASSWORD=$CF_PASSWORD
 else
 echo "Unknown space: $SPACE"
 exit
 fi
 
 cf login --a $API --u $CF_USERNAME --p $CF_PASSWORD --o $ORG -s $SPACE
-cf zero-downtime-push $NAME -f $MANIFEST
+cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
+cf zero-downtime-push $API_NAME -f $API_MANIFEST
