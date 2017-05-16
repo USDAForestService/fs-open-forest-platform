@@ -12,94 +12,121 @@ import { ApplicationNoncommercialGroupService } from './application-noncommercia
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   errorMessage: string;
-  applications: NoncommercialGroup[];
   mode = 'Observable';
 
-// TODO: move to const file
-  application = {
-    startMonth: undefined,
-    startDay: undefined,
-    startYear: undefined,
-    endMonth: undefined,
-    endDay: undefined,
-    endYear: undefined,
-  };
+  // application = new NoncommercialGroup();
 
-  applicantType = 'individual';
+  application = {
+   "region": "11",
+   "forest": "11",
+   "district": "11",
+   "authorizingOfficerName": "string",
+   "authorizingOfficerTitle": "string",
+   "eventName": "string",
+   "applicantInfo": {
+     "name": "string",
+     "secondaryName": "string",
+     "firstName": "string",
+     "lastName": "string",
+     "dayPhone": {
+       "areaCode": 555,
+       "prefix": 555,
+       "number": 5555,
+       "phoneType": ""
+     },
+     "eveningPhone": {
+       "areaCode": 555,
+       "prefix": 555,
+       "number": 5555,
+       "phoneType": ""
+     },
+     "emailAddress": "test@test.com",
+     "mailingAddress": "string",
+     "mailingAddress2": "string",
+     "mailingCity": "string",
+     "mailingState": "string",
+     "mailingZIP": "55555",
+     "secondaryMailingAddress": "string",
+     "secondaryMailingAddress2": "string",
+     "secondaryMailingCity": "string",
+     "secondaryMailingState": "string",
+     "secondaryMailingZIP": "55555",
+     "organizationName": "string",
+     "website": "string",
+     "orgType": "Individual"
+   },
+   "type": "noncommercial",
+   "noncommercialFields": {
+     "activityDescription": "string",
+     "locationDescription": "string",
+     "startDateTime": "2018-01-01T01:01:01Z",
+     "endDateTime": "2018-01-01T01:01:01Z",
+     "startMonth": "01",
+     "startDay": "01",
+     "startYear": "2018",
+     "endMonth": "01",
+     "endDay": "01",
+     "endYear": "2018",
+     "startHour": "01",
+     "startMinutes": "01",
+     "startPeriod": "AM",
+     "endHour": "01",
+     "endMinutes": "01",
+     "endPeriod": "AM",
+     "numberParticipants": 0
+   }
+  }
+
   primaryPermitHolderSameAddress = true;
   secondaryPermitHolderSameAddress = true;
   submitted = false;
 
+
+
   states = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire ',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming'
+    'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI',
+    'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN',
+    'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH',
+    'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA',
+    'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW'
   ];
+
+  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
+
+// TODO: move to const file
+  // application = {
+  //   name: undefined,
+  //   startMonth: undefined,
+  //   startDay: undefined,
+  //   startYear: undefined,
+  //   endMonth: undefined,
+  //   endDay: undefined,
+  //   endYear: undefined,
+  // };
+
+  // applicantType = 'individual';
+  // primaryPermitHolderSameAddress = true;
+  // secondaryPermitHolderSameAddress = true;
+  // submitted = false;
+  //
+
 
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
-  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
 
   startDateChangeHandler() {
     if (
-      this.application.startMonth &&
-      this.application.startDay &&
-      this.application.startYear &&
-      !this.application.endMonth &&
-      !this.application.endDay &&
-      !this.application.endYear
+      this.application.noncommercialFields.startMonth &&
+      this.application.noncommercialFields.startDay &&
+      this.application.noncommercialFields.startYear &&
+      !this.application.noncommercialFields.endMonth &&
+      !this.application.noncommercialFields.endDay &&
+      !this.application.noncommercialFields.endYear
     ) {
-      this.application.endMonth = this.application.startMonth;
-      this.application.endDay = this.application.startDay;
-      this.application.endYear = this.application.startYear;
+      this.application.noncommercialFields.endMonth = this.application.noncommercialFields.startMonth;
+      this.application.noncommercialFields.endDay = this.application.noncommercialFields.startDay;
+      this.application.noncommercialFields.endYear = this.application.noncommercialFields.startYear;
     }
   }
 
@@ -107,8 +134,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      // console.log('submit');
-      this.applicationNoncommercialGroupService.create(form)
+      console.log('submit');
+      this.applicationNoncommercialGroupService.create(this.application)
         .subscribe(
           () => {
             console.log('success')
@@ -118,6 +145,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
 }
