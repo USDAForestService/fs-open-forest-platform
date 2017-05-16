@@ -31,13 +31,13 @@
           </ul>
         </fieldset>
 
-        <div *ngIf="application.type === 'individual'">
+        <div *ngIf="application.applicantInfo.orgType === 'Individual'">
           <label class="usa-input" for="first-permit-holder-name">Primary permit holder name</label>
           <input id="first-permit-holder-name" name="first-permit-holder-name" type="text" required [(ngModel)]="application.applicantInfo.name" #primaryPermitHolderName="ngModel" />
           <span class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderName.valid || primaryPermitHolderName.untouched">Primary permit holder name is required</span>
         </div>
 
-        <div *ngIf="applicantType === 'organization'">
+        <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="organization-name">Organization name</label>
           <input id="organization-name" name="organization-name" type="text" required [(ngModel)]="application.applicantInfo.organizationName" #organizationName="ngModel" />
           <span class="usa-input-error-message" role="alert" [hidden]="organizationName.valid || organizationName.untouched">Organization name is required</span>
@@ -105,14 +105,14 @@
           </div>
         </fieldset>
 
-        <div *ngIf="applicantType === 'organization'">
+        <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="website">Website (optional)</label>
           <input id="website" name="website" type="url" [(ngModel)]="application.applicantInfo.website" />
         </div>
 
       </fieldset>
 
-      <fieldset *ngIf="applicantType === 'organization'">
+      <fieldset *ngIf="application.applicantInfo.orgType === 'Corporation'">
         <legend>Primary Permit Holder</legend>
 
         <label class="usa-input" for="primary-permit-holder-name">Primary permit holder name</label>
@@ -160,8 +160,8 @@
         <span class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderName.valid || secondaryPermitHolderName.untouched">Secondary permit holder name is required</span>
 
         <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" />
-        <label *ngIf="applicantType === 'individual'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as primary permit holder address</label>
-        <label *ngIf="applicantType === 'organization'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as organization address</label>
+        <label *ngIf="application.applicantInfo.orgType === 'Individual'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as primary permit holder address</label>
+        <label *ngIf="application.applicantInfo.orgType === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address same as organization address</label>
 
         <div *ngIf="!secondaryPermitHolderSameAddress">
           <label class="usa-input" for="secondary-permit-holder-address">Address</label>
