@@ -6,8 +6,6 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { NoncommercialGroup } from './_models/noncommercial-group';
-
 @Injectable()
 export class ApplicationNoncommercialGroupService {
 
