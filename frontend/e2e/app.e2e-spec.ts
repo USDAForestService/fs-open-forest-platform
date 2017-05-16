@@ -9,6 +9,6 @@ describe('frontend App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('U.S. Forest Service e-Permitting');
   });
 });
