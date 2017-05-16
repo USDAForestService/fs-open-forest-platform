@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NoncommercialGroup } from './_models/noncommercial-group';
 import { ApplicationNoncommercialGroupService } from './application-noncommercial-group-service';
 
 @Component({
