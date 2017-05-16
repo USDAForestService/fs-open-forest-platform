@@ -18,6 +18,19 @@ v.addSchema(schemas.commonFieldsSchema);
 let app = express();
 app.use(bodyParser.json());
 
+// middleware that will add the Access-Control-Allow-Origin header to everything
+app.use(function(req, res, next) {
+  res.set('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+// set these headers on all of the OPTIONS preflight responses
+app.options('*', function(req, res) {
+  res.set('Access-Control-Allow-Headers', 'accept, content-type');
+  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.send();
+});
+
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
     return errorObj.argument;
