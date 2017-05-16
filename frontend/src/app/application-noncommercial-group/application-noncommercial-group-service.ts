@@ -15,20 +15,9 @@ export class ApplicationNoncommercialGroupService {
 
   constructor (private http: Http) {}
 
-  // create(noncommercialGroup: NoncommercialGroup): Observable<NoncommercialGroup> {
-  // create(noncommercialGroup: NoncommercialGroup): Observable<NoncommercialGroup> {
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
-  //
-  //   return this.http.post(this.postEndpoint, {noncommercialGroup}, options)
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
-
-  // create(noncommercialGroup: NoncommercialGroup): Observable<NoncommercialGroup> {
   create(data) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.postEndpoint, data, options)
       .map(this.extractData)
@@ -36,7 +25,7 @@ export class ApplicationNoncommercialGroupService {
   }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body.data || { };
   }
 
