@@ -1,0 +1,10 @@
+
+---
+applications:
+- name: fs-intake-api-staging
+  path: ../../../server
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  memory: 128M
+  instances: 1
+  services:
+    - fs-intake-api-staging-db
