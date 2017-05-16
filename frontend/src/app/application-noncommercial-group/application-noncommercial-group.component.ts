@@ -14,68 +14,66 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   errorMessage: string;
   mode = 'Observable';
 
-  // application = new NoncommercialGroup();
-
   application = {
-   "region": "11",
-   "forest": "11",
-   "district": "11",
-   "authorizingOfficerName": "string",
-   "authorizingOfficerTitle": "string",
-   "eventName": "string",
-   "applicantInfo": {
-     "name": "string",
-     "secondaryName": "string",
-     "firstName": "string",
-     "lastName": "string",
-     "dayPhone": {
-       "areaCode": 555,
-       "prefix": 555,
-       "number": 5555,
-       "phoneType": ""
+   'region': '11',
+   'forest': '11',
+   'district': '11',
+   'authorizingOfficerName': 'string',
+   'authorizingOfficerTitle': 'string',
+   'eventName': 'string',
+   'applicantInfo': {
+     'name': 'string',
+     'secondaryName': 'string',
+     'firstName': 'string',
+     'lastName': 'string',
+     'dayPhone': {
+       'areaCode': 555,
+       'prefix': 555,
+       'number': 5555,
+       'phoneType': ''
      },
-     "eveningPhone": {
-       "areaCode": 555,
-       "prefix": 555,
-       "number": 5555,
-       "phoneType": ""
+     'eveningPhone': {
+       'areaCode': 555,
+       'prefix': 555,
+       'number': 5555,
+       'phoneType': ''
      },
-     "emailAddress": "test@test.com",
-     "mailingAddress": "string",
-     "mailingAddress2": "string",
-     "mailingCity": "string",
-     "mailingState": "string",
-     "mailingZIP": "55555",
-     "secondaryMailingAddress": "string",
-     "secondaryMailingAddress2": "string",
-     "secondaryMailingCity": "string",
-     "secondaryMailingState": "string",
-     "secondaryMailingZIP": "55555",
-     "organizationName": "string",
-     "website": "string",
-     "orgType": "Individual"
+     'emailAddress': 'test@test.com',
+     'mailingAddress': 'string',
+     'mailingAddress2': 'string',
+     'mailingCity': 'string',
+     'mailingState': 'string',
+     'mailingZIP': '55555',
+     'secondaryMailingAddress': 'string',
+     'secondaryMailingAddress2': 'string',
+     'secondaryMailingCity': 'string',
+     'secondaryMailingState': 'string',
+     'secondaryMailingZIP': '55555',
+     'organizationName': 'string',
+     'website': 'string',
+     'orgType': 'Individual'
    },
-   "type": "noncommercial",
-   "noncommercialFields": {
-     "activityDescription": "string",
-     "locationDescription": "string",
-     "startDateTime": "2018-01-01T01:01:01Z",
-     "endDateTime": "2018-01-01T01:01:01Z",
-     "startMonth": "01",
-     "startDay": "01",
-     "startYear": "2018",
-     "endMonth": "01",
-     "endDay": "01",
-     "endYear": "2018",
-     "startHour": "01",
-     "startMinutes": "01",
-     "startPeriod": "AM",
-     "endHour": "01",
-     "endMinutes": "01",
-     "endPeriod": "AM",
-     "numberParticipants": 0
+   'type': 'noncommercial',
+   'noncommercialFields': {
+     'activityDescription': 'string',
+     'locationDescription': 'string',
+     'startDateTime': '2018-01-01T01:01:01Z',
+     'endDateTime': '2018-01-01T01:01:01Z',
+     'startMonth': '01',
+     'startDay': '01',
+     'startYear': '2018',
+     'endMonth': '01',
+     'endDay': '01',
+     'endYear': '2018',
+     'startHour': '01',
+     'startMinutes': '01',
+     'startPeriod': 'AM',
+     'endHour': '01',
+     'endMinutes': '01',
+     'endPeriod': 'AM',
+     'numberParticipants': 0
    }
-  }
+ };
 
   primaryPermitHolderSameAddress = true;
   secondaryPermitHolderSameAddress = true;
@@ -91,29 +89,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW'
   ];
 
-  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
-
-// TODO: move to const file
-  // application = {
-  //   name: undefined,
-  //   startMonth: undefined,
-  //   startDay: undefined,
-  //   startYear: undefined,
-  //   endMonth: undefined,
-  //   endDay: undefined,
-  //   endYear: undefined,
-  // };
-
-  // applicantType = 'individual';
-  // primaryPermitHolderSameAddress = true;
-  // secondaryPermitHolderSameAddress = true;
-  // submitted = false;
-  //
-
-
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
+  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
 
   startDateChangeHandler() {
     if (
@@ -138,9 +117,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationNoncommercialGroupService.create(this.application)
         .subscribe(
           () => {
-            console.log('success')
+            console.log('success');
           }
-        )
+        );
     }
   }
 
