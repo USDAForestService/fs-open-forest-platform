@@ -16,12 +16,12 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 
 ### For development:
 
-`cd templates`
+`yarn global add @angular/cli`
 
-`npm install`
+`cd frontend`
 
-`npm start` and visit http://localhost:4200
+`yarn`
 
-To build: `npm run dev` and results will be in the public directory
+`ng serve` and visit http://localhost:4200
 
 To run pa11y accessibility tests, add the urls that you would like to test to .pa11yci file. Then run `pa11y-ci` from the templates directory.
