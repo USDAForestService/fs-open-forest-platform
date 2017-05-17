@@ -27,8 +27,7 @@
         <div id="gov-banner" class="usa-banner-content usa-grid usa-accordion-content">
           <div class="usa-banner-guidance-gov usa-width-one-half"><img src="/assets/img/icon-dot-gov-white.svg" alt="DOT gov" class="usa-banner-icon usa-media_block-img">
             <div class="usa-media_block-body">
-              <p><strong>.gov means it’s official.</strong> Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”)
-                bar.
+              <p><strong>.gov means it’s official.</strong> Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
               </p>
             </div>
           </div>
@@ -41,7 +40,7 @@
         <div class="fs-branding">
           <a href="//fs.fed.us" target="_blank"><img src="/assets/img/usfslogo.svg" alt="US Forest Service Logo" width="50" class="fs-logo">
             <div class="fs-name-slogan"><span class="fs-name">U.S. FOREST SERVICE</span><span class="fs-slogan">Caring for the land and serving people</span>
-              <div class="beta-label"><span class="usa-label">beta</span></div>
+              <!-- <div class="beta-label"><span class="usa-label">beta</span></div> -->
             </div>
           </a>
         </div>
@@ -54,15 +53,6 @@
           <li><a href="/" class="usa-nav-link">Find another permit  </a></li>
         </ul>
         <div class="usa-nav-secondary">
-          <form class="usa-search usa-search-small js-search-form">
-            <div role="search">
-              <label for="seach-field-small" class="usa-sr-only">
-                <Seach>small </Seach>
-              </label>
-              <input id="search-field-small" type="search" name="search">
-              <button type="submit"><span class="usa-sr-only">Search</span></button>
-            </div>
-          </form>
           <ul class="usa-unstyled-list usa-nav-secondary-links">
             <li class="js-search-button-container">
               <button id="header-search-button" class="usa-header-search-button js-search-button">Search </button>
@@ -74,23 +64,24 @@
     </nav>
   </header>
   <main id="main-content">
-    <app-root>Loading...</app-root>
+    <app-root></app-root>
   </main>
   <footer role="contentinfo" class="usa-footer usa-footer-slim">
     <div class="usa-footer-primary-section">
       <div class="usa-grid">
-        <ul class="usa-unstyled-list usa-width-three-fourths">
-          <li class="usa-width-one-fourth"><a href="http://www.usda.gov/wps/portal/usda/usdahome" class="usa-footer-primary-link">USDA.gov</a></li>
-          <li class="usa-width-one-fourth"><a href="http://www.usda.gov/wps/portal/usda/usdahome?navtype=FT&amp;navid=PRIVACY_POLICY" class="usa-footer-primary-link">Privacy Policy</a></li>
-          <li class="usa-width-one-fourth"><a href="https://oig.hhs.gov/" class="usa-footer-primary-link">Office of Inspector General</a></li>
-          <li class="usa-width-one-fourth"><a href="https://www.fs.fed.us/about-agency" class="usa-footer-primary-link">About Us</a></li>
-          <li class="usa-width-one-fourth"><a href="http://www.dm.usda.gov/foia/" class="usa-footer-primary-link">FOIA</a></li>
-          <li class="usa-width-one-fourth"><a href="https://www.eeoc.gov/eeoc/statistics/nofear/qanda.cfm" class="usa-footer-primary-link">No Fear Data Act</a></li>
-          <li class="usa-width-one-fourth"><a href="https://www.fs.fed.us/about-agency/budget-performance" class="usa-footer-primary-link">Budget and Performance</a></li>
+        <ul class="usa-unstyled-list fs-footer-links">
+          <li class="fs-footer-item"><a href="http://www.usda.gov/wps/portal/usda/usdahome">USDA.gov</a></li>
+          <li class="fs-footer-item"><a href="http://www.usda.gov/wps/portal/usda/usdahome?navtype=FT&amp;navid=PRIVACY_POLICY">Privacy Policy</a></li>
+          <li class="fs-footer-item"><a href="https://oig.hhs.gov/">Office of Inspector General</a></li>
+          <li class="fs-footer-item"><a href="https://www.fs.fed.us/about-agency">About Us</a></li>
+          <li class="fs-footer-item"><a href="http://www.dm.usda.gov/foia/">FOIA</a></li>
+          <li class="fs-footer-item"><a href="https://www.eeoc.gov/eeoc/statistics/nofear/qanda.cfm">No Fear Data Act</a></li>
+          <li class="fs-footer-item"><a href="https://www.fs.fed.us/about-agency/budget-performance">Budget and Performance</a></li>
         </ul>
-        <address class="usa-width-one-fourth">
-            <p>(800) 832-1355</p><a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a>
-          </address>
+        <ul class="usa-unstyled-list">
+          <li class="fs-footer-item">(800) 832-1355</li>
+          <li class="fs-footer-item"><a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a></li>
+        </ul>
       </div>
     </div>
     <div class="usa-footer-secondary_section">
@@ -101,8 +92,11 @@
             <h3>Caring for the land and serving people</h3>
           </div>
         </div>
-        <div class="usa-footer-contact-links usa-width-one-third"><a href="https://www.facebook.com/USForestService/" class="usa-link-facebook"><span>Facebook</span></a><a href="https://twitter.com/forestservice" class="usa-link-twitter"><span>Twitter</span></a><a href="https://www.youtube.com/user/usdaForestService"
-          class="usa-link-youtube"><span>YouTube</span></a></div>
+        <div class="usa-footer-contact-links usa-width-one-third">
+          <a href="https://www.facebook.com/USForestService/" class="usa-link-facebook"><span>Facebook</span></a>
+          <a href="https://twitter.com/forestservice" class="usa-link-twitter"><span>Twitter</span></a>
+          <a href="https://www.youtube.com/user/usdaForestService" class="usa-link-youtube"><span>YouTube</span></a>
+        </div>
       </div>
     </div>
   </footer>
