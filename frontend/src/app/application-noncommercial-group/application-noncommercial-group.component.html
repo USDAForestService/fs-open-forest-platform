@@ -13,12 +13,8 @@
           </div>
         </div>
 
-        <label class="usa-input" for="name">Event name</label>
-        <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
-        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required</span>
-
         <fieldset>
-          <legend>Are you applying as an individual or organization?</legend>
+          <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
           <ul class="usa-unstyled-list">
             <li>
               <input id="individual" type="radio" name="applicant-type" value="Individual" [(ngModel)]="application.applicantInfo.orgType">
@@ -70,7 +66,7 @@
         <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required</span>
 
         <fieldset>
-          <legend>Phone</legend>
+          <legend class="fs-mini-legend">Phone</legend>
           <div class="usa-form-group usa-form-group-year">
             <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.dayPhone.areaCode" #dayPhone1="ngModel" />
           </div>
@@ -90,7 +86,7 @@
         <label class="usa-input" for="add-additional-phone">Add additional phone</label>
 
         <fieldset *ngIf="additionalPhone">
-          <legend>Secondary Phone</legend>
+          <legend class="fs-mini-legend">Secondary Phone</legend>
           <div class="usa-form-group usa-form-group-year">
             <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.eveningPhone.areaCode" #nightPhone1="ngModel" />
           </div>
@@ -194,6 +190,11 @@
 
       <fieldset>
         <legend>Event Details</legend>
+
+        <label class="usa-input" for="name">Event name</label>
+        <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
+        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required</span>
+
         <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use</label>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required</span>
@@ -207,13 +208,12 @@
         <span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators</span>
         <input id="spectators" name="spectators" type="number" [(ngModel)]="application.noncommercialFields.spectators" #spectators="ngModel" />
 
-
         <label class="usa-input" for="activity-description">Description of proposed activity</label>
         <textarea id="activity-description" name="activity-description" required [(ngModel)]="application.noncommercialFields.activityDescription" #activityDescription="ngModel"></textarea>
         <span id="activity-description-error" class="usa-input-error-message" role="alert" [hidden]="activityDescription.valid || activityDescription.untouched">Activity Description is required</span>
 
         <fieldset>
-          <legend>Start Date</legend>
+          <legend class="fs-mini-legend">Start Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="start-month">Month</label>
             <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.startMonth" #startMonth="ngModel" (change)="startDateChangeHandler()" />
@@ -230,7 +230,7 @@
         <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required</span>
 
         <fieldset>
-          <legend>Start Time </legend>
+          <legend class="fs-mini-legend">Start Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-hour">Hour</label>
             <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.noncommercialFields.startHour" #startHour="ngModel">
@@ -257,7 +257,7 @@
         <span id="start-time-error" class="usa-input-error-message" role="alert" [hidden]="(startHour.valid || startHour.untouched) && (startMinutes.valid || startMinutes.untouched) && (startPeriod.valid || startPeriod.untouched)">Start time is required</span>
 
         <fieldset>
-          <legend>End Date</legend>
+          <legend class="fs-mini-legend">End Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="end-month">Month</label>
             <input class="usa-input-inline" id="end-month" name="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.endMonth" #endMonth="ngModel" />
@@ -274,7 +274,7 @@
         <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(endMonth.valid || endMonth.untouched) && (endDay.valid || endDay.untouched) && (endYear.valid || endYear.untouched)">End date is required</span>
 
         <fieldset>
-          <legend>End Time </legend>
+          <legend class="fs-mini-legend">End Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-hour">Hour</label>
             <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.noncommercialFields.endHour" #endHour="ngModel">
