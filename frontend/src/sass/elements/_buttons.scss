@@ -4,3 +4,18 @@
       background: $fs-green-darker;
     }
 }
+
+.usa-button {
+  background-color: $fs-orange !important;
+  color: $fs-charcoal !important;
+}
+
+.usa-button:hover {
+  background-color: $fs-orange-dark !important;
+  color: $fs-charcoal !important;
+}
+
+.usa-button:active {
+  background-color: $fs-orange-darkest !important;
+  color: $fs-charcoal !important;
+}
