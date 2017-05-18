@@ -8,10 +8,27 @@ fieldset {
   margin: 20px 0 0 0;
 }
 
+legend {
+  color: $fs-green;
+}
+
 .fs-mini-legend {
+  color: black;
   font-size: 17px;
   font-weight: 700;
   padding-top: 10px;
+}
+
+.fs-datetimer-legend {
+  color: black;
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 10px;
+}
+
+label {
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .usa-form-hint {
