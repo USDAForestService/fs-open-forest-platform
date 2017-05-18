@@ -117,11 +117,11 @@
         <legend>Primary Permit Holder</legend>
 
         <label class="usa-input" for="primary-permit-holder-first-name2">Primary permit holder first name</label>
-        <input id="primary-permit-holder-first-name2" name="first-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.firstName" #primaryPermitHolderFirstName="ngModel" />
+        <input id="primary-permit-holder-first-name2" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.firstName" #primaryPermitHolderFirstName="ngModel" />
         <span id="primary-permit-holder-first-name-error2" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required</span>
 
         <label class="usa-input" for="primary-permit-holder-last-name2">Primary permit holder last name</label>
-        <input id="primary-permit-holder-last-name2" name="first-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.lastName" #primaryPermitHolderLastName="ngModel" />
+        <input id="primary-permit-holder-last-name2" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.lastName" #primaryPermitHolderLastName="ngModel" />
         <span id="primary-permit-holder-last-name-error2" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required</span>
 
         <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" />
@@ -225,7 +225,7 @@
         <span id="activity-description-error" class="usa-input-error-message" role="alert" [hidden]="activityDescription.valid || activityDescription.untouched">Activity Description is required</span>
 
         <fieldset>
-          <legend class="fs-mini-legend">Start Date</legend>
+          <legend class="fs-datetime-legend">Start Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="start-month">Month</label>
             <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.startMonth" #startMonth="ngModel" (change)="startDateChangeHandler()" />
@@ -242,7 +242,7 @@
         <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required</span>
 
         <fieldset>
-          <legend class="fs-mini-legend">Start Time </legend>
+          <legend class="fs-datetime-legend">Start Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-hour">Hour</label>
             <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.noncommercialFields.startHour" #startHour="ngModel">
@@ -269,7 +269,7 @@
         <span id="start-time-error" class="usa-input-error-message" role="alert" [hidden]="(startHour.valid || startHour.untouched) && (startMinutes.valid || startMinutes.untouched) && (startPeriod.valid || startPeriod.untouched)">Start time is required</span>
 
         <fieldset>
-          <legend class="fs-mini-legend">End Date</legend>
+          <legend class="fs-datetime-legend">End Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="end-month">Month</label>
             <input class="usa-input-inline" id="end-month" name="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.endMonth" #endMonth="ngModel" />
@@ -286,7 +286,7 @@
         <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(endMonth.valid || endMonth.untouched) && (endDay.valid || endDay.untouched) && (endYear.valid || endYear.untouched)">End date is required</span>
 
         <fieldset>
-          <legend class="fs-mini-legend">End Time </legend>
+          <legend class="fs-datetime-legend">End Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-hour">Hour</label>
             <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.noncommercialFields.endHour" #endHour="ngModel">
@@ -322,7 +322,7 @@
         <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Signature is required</span>
       </fieldset>
 
-      <button class="usa-button-big" type="submit">Submit Your Application</button>
+      <button class="usa-button usa-button-big" type="submit">Submit Your Application</button>
 
     </form>
   </div>
