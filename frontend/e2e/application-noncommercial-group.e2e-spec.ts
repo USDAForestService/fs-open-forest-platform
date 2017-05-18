@@ -48,7 +48,7 @@ describe('Apply for a noncommercial group use permit', () => {
     'primary-permit-holder-last-name-error',
     'Primary permit holder last name is required'
   );
-  fieldValidation.validateSimpleTextField('address', 'address-error', 'Address line 1 is required');
+  fieldValidation.validateSimpleTextField('address', 'address-error', 'Street address 1 is required');
   fieldValidation.validateSimpleTextField('city', 'city-error', 'City is required');
   fieldValidation.validateSimpleTextField('state', 'state-error', 'State is required');
   fieldValidation.validateNumberField('zip', 'zip-error', 'Valid ZIP code is required');
@@ -115,7 +115,7 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateSimpleTextField(
     'primary-permit-holder-address',
     'primary-permit-holder-address-error',
-    'Address line 1 is required'
+    'Street address 1 is required'
   );
   fieldValidation.validateSimpleTextField('primary-permit-holder-city', 'primary-permit-holder-city-error', 'City is required');
   fieldValidation.validateSimpleTextField('primary-permit-holder-state', 'primary-permit-holder-state-error', 'State is required');
