@@ -62,7 +62,7 @@
         <span id="state-error" class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
 
         <label class="usa-input" for="zip">ZIP</label>
-        <input id="zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.mailingZIP" #zip="ngModel" />
+        <input class="usa-input-medium" id="zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.mailingZIP" #zip="ngModel" />
         <span id="zip-error" class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required</span>
 
         <label class="usa-input" for="email">Email address</label>
@@ -143,7 +143,7 @@
           <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
 
           <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
-          <input id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryMailingZip" #primaryPermitHolderZip="ngModel" />
+          <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryMailingZip" #primaryPermitHolderZip="ngModel" />
           <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required</span>
         </div>
 
@@ -184,7 +184,7 @@
           <span id="secondary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderState.valid || secondaryPermitHolderState.untouched">State is required</span>
 
           <label class="usa-input" for="secondary-permit-holder-zip">ZIP</label>
-          <input id="secondary-permit-holder-zip" name="secondary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.secondaryMailingZIP" #secondaryPermitHolderZip="ngModel" />
+          <input class="usa-input-medium" id="secondary-permit-holder-zip" name="secondary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.secondaryMailingZIP" #secondaryPermitHolderZip="ngModel" />
           <span id="secondary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderZip.valid || secondaryPermitHolderZip.untouched">Valid ZIP code is required</span>
         </div>
 
