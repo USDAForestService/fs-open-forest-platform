@@ -39,13 +39,13 @@ describe('Apply for a noncommercial group use permit', () => {
   });
   fieldValidation.validateSimpleTextField('name', 'name-error', 'Event name is required');
   fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-first-name',
-    'primary-permit-holder-first-name-error',
+    'primary-permit-holder-first-name1',
+    'primary-permit-holder-first-name-error1',
     'Primary permit holder first name is required'
   );
   fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-last-name',
-    'primary-permit-holder-last-name-error',
+    'primary-permit-holder-last-name1',
+    'primary-permit-holder-last-name-error1',
     'Primary permit holder last name is required'
   );
   fieldValidation.validateSimpleTextField('address', 'address-error', 'Street address 1 is required');
@@ -62,23 +62,23 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateMinMax('day-phone-3', 'day-phone-error', 4, 4, true);
   it('should select individual by default', () => {
     expect(element(by.id('individual')).isSelected()).toBe(true);
-    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(true);
+    expect(element(by.id('primary-permit-holder-first-name1')).isPresent()).toBe(true);
     expect(element(by.id('organization')).isSelected()).toBe(false);
     expect(element(by.id('organization-name')).isPresent()).toBe(false);
   });
   it('should not display primary permit holder if applying as individual', () => {
-    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(false);
+    expect(element(by.id('primary-permit-holder-first-name2')).isPresent()).toBe(false);
   });
   it('should display organizaton name if organization is selected, and hide individual name', () => {
     element(by.id('organization')).click();
     expect(element(by.id('individual')).isSelected()).toBe(false);
-    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(false);
+    expect(element(by.id('primary-permit-holder-first-name1')).isPresent()).toBe(false);
     expect(element(by.id('organization')).isSelected()).toBe(true);
     expect(element(by.id('organization-name')).isPresent()).toBe(true);
   });
   fieldValidation.validateSimpleTextField('organization-name', 'organization-name-error', 'Organization name is required');
   it('should display primary permit holder if applying as an organization', () => {
-    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(true);
+    expect(element(by.id('primary-permit-holder-first-name2')).isPresent()).toBe(true);
   });
   it('should not select addional phone by default', () => {
     expect(element(by.id('add-additional-phone')).isSelected()).toBe(false);
@@ -104,8 +104,8 @@ describe('Apply for a noncommercial group use permit', () => {
     expect(element(by.id('primary-permit-holder-same-address')).isSelected()).toBe(true);
   });
   fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-first-name',
-    'primary-permit-holder-first-name-error',
+    'primary-permit-holder-first-name2',
+    'primary-permit-holder-first-name-error2',
     'Primary permit holder first name is required'
   );
   it('should show primary permit holder address fields if same checkbox is unchecked', () => {
