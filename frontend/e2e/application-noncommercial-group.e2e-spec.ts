@@ -151,7 +151,7 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateSimpleTextField(
     'secondary-permit-holder-address',
     'secondary-permit-holder-address-error',
-    'Address line 1 is required'
+    'Street address 1 is required'
   );
   fieldValidation.validateSimpleTextField('secondary-permit-holder-city', 'secondary-permit-holder-city-error', 'City is required');
   fieldValidation.validateSimpleTextField('secondary-permit-holder-state', 'secondary-permit-holder-state-error', 'State is required');
