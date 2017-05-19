@@ -152,7 +152,7 @@ describe('Apply for a noncommercial group use permit', () => {
     expect(element(by.id('secondary-permit-holder-name')).isPresent()).toBe(true);
     return checkForSecondPermitHolderAddress(false);
   });
-  it('should hide secondary permit holder name and address fields, but remain secondary permit holder name if add input is unchecked', () => {
+  it('should hide secondary permit holder name and address fields if add secondary input is unchecked', () => {
     element(by.id('add-secondary-permit-holder')).click();
     expect(element(by.id('secondary-permit-holder-name')).isPresent()).toBe(false);
     return checkForSecondPermitHolderAddress(false);
