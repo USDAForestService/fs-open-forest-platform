@@ -6,7 +6,9 @@
   "dependencies": {
     "express": "4.15.2",
     "body-parser": "1.17.1",
-    "jsonschema": "1.1.1"
+    "jsonschema": "1.1.1",
+    "sequelize": "^3.30.4",
+    "pg": "^6.2.2"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
