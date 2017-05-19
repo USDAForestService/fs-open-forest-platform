@@ -81,6 +81,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
  };
 
   primaryPermitHolderSameAddress = true;
+  viewSecondaryPermitHolder = false;
   secondaryPermitHolderSameAddress = true;
   submitted = false;
 
