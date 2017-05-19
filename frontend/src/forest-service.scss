@@ -4,3 +4,7 @@ $georgia: 'georgia';
 
 @import '../node_modules/uswds/src/stylesheets/core/_defaults.scss';
 @import 'sass/_all.scss';
+
+body {
+  background-color: $fs-tan;
+}
