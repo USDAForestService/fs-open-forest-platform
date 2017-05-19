@@ -153,11 +153,13 @@
 
       </fieldset>
 
-      <button class="usa-button-gray" id="add-permit-holder" type="button" *ngIf="!viewSecondaryPermitHolder" (click)="viewSecondaryPermitHolder = !viewSecondaryPermitHolder">Add a secondary permit holder</button>
-      <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
+      <fieldset>
+        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" />
+        <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder</label>
+        <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
+      </fieldset>
 
       <fieldset *ngIf="viewSecondaryPermitHolder">
-        <button class="hide-secondary-permit-holder usa-button-outline" id="hide-secondary-permit-holder" type="button" (click)="viewSecondaryPermitHolder = !viewSecondaryPermitHolder">Remove</button>
         <legend>Secondary Permit Holder</legend>
 
         <label class="usa-input" for="secondary-permit-holder-first-name">Secondary permit holder first name</label>
