@@ -12,8 +12,8 @@ var testURL = '/permits/applications/special-uses/noncommercial';
 
 var noncommercialFactory = factory.factory(noncommercialInput);
 
-var chai = require('chai');
-var expect = chai.expect;
+//var chai = require('chai');
+//var expect = chai.expect;
 
 describe('noncommercial tests', () => {
 
