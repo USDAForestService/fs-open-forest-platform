@@ -8,8 +8,35 @@ fieldset {
   margin: 20px 0 0 0;
 }
 
+legend {
+  color: $fs-green;
+}
+
+.fs-mini-legend {
+  color: black;
+  font-size: 17px;
+  font-weight: 700;
+  padding-top: 10px;
+}
+
+.fs-datetime-legend {
+  color: black;
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 10px;
+}
+
+label {
+  font-size: 17px;
+  font-weight: 700;
+}
+
 .usa-form-hint {
   font-size: 15px;
+}
+
+.usa-form-group label {
+  margin-top: 8px;
 }
 
 input.ng-valid.ng-touched, select.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
