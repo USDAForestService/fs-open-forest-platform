@@ -3,13 +3,14 @@ import { browser, element, by, Key } from 'protractor';
 export class FieldValidation {
 
   validateSimpleTextField(id, errorId, error, group = false) {
+    const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {
-      element(by.id(id)).sendKeys(Key.TAB);
+      queryInput.sendKeys(Key.TAB);
       expect(element(by.id(errorId)).getText()).toEqual(error);
     });
     if (! group) {
       it('should hide error if ' + id + ' field has text', () => {
-        element(by.id(id)).sendKeys('text');
+        queryInput.sendKeys('text');
         expect(element(by.id(errorId)).isDisplayed()).toBe(false);
       });
     }
