@@ -103,11 +103,11 @@ describe('Apply for a noncommercial group use permit', () => {
   it('should default the "Permit holder address same as group address checkbox" to checked', () => {
     expect(element(by.id('primary-permit-holder-same-address')).isSelected()).toBe(true);
   });
-  fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-first-name2',
-    'primary-permit-holder-first-name-error2',
-    'Primary permit holder first name is required'
-  );
+  // fieldValidation.validateSimpleTextField(
+  //   'primary-permit-holder-first-name2',
+  //   'primary-permit-holder-first-name-error2',
+  //   'Primary permit holder first name is required'
+  // );
   it('should show primary permit holder address fields if same checkbox is unchecked', () => {
     element(by.id('primary-permit-holder-same-address')).click();
     return checkForPrimaryPermitHolderAddress(true);
