@@ -15,9 +15,11 @@ import { PgFlowStep1Component } from './pg-flow-step-1/pg-flow-step-1.component'
 import { PgFlowStep2Component } from './pg-flow-step-2/pg-flow-step-2.component';
 import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-person.component';
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
+import { ApplicationSubmittedComponent } from './application-noncommercial-group/application-submitted/application-submitted.component';
 
 const appRoutes: Routes = [
   { path: 'application-noncommercial-group', component: ApplicationNoncommercialGroupComponent },
+  { path: 'application-noncommercial-group/submitted', component: ApplicationSubmittedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'permit-application-list', component: PermitApplicationListComponent },
   { path: 'permit-application-view', component: PermitApplicationViewComponent },
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     PgFlowStep1Component,
     PgFlowStep2Component,
     PgFlowRegPersonComponent,
-    PgFlowRegPersonFriendFamilyComponent
+    PgFlowRegPersonFriendFamilyComponent,
+    ApplicationSubmittedComponent
   ],
   imports: [
     BrowserModule,
