@@ -320,8 +320,8 @@
       <fieldset>
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application</label>
-        <input id="signature" name="signature" type="text" required [(ngModel)]="application.signature" #signature="ngModel" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Signature is required</span>
+        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" required [(ngModel)]="application.signature" #signature="ngModel" />
+        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Initials are required</span>
       </fieldset>
 
       <button class="usa-button usa-button-big" type="submit">Submit Your Application</button>
