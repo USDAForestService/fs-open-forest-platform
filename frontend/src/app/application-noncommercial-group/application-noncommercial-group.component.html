@@ -13,6 +13,15 @@
           </div>
         </div>
 
+        <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">There are errors in your application</h3>
+            <ul class="usa-alert-text">
+              <li *ngFor="let error of apiErrors">{{error}}</li>
+            </ul>
+          </div>
+        </div>
+
         <fieldset>
           <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
           <ul class="usa-unstyled-list">
