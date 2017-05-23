@@ -1,0 +1,6 @@
+var path = require('path');
+
+module.exports = {
+  'config': '.sequelize.js',
+  'migrations-path': path.resolve('./', 'dba/migrations')
+}
