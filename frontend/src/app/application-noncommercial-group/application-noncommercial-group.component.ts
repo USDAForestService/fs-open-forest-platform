@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { ApplicationNoncommercialGroupService } from './application-noncommercial-group-service';
 
+import {Router, ActivatedRoute} from '@angular/router';
+
+
 @Component({
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html',
@@ -98,7 +101,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
-  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
+  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService, private router: Router) { }
 
   startDateChangeHandler() {
     if (
@@ -124,6 +127,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         .subscribe(
           () => {
             console.log('success');
+            this.router.navigate(['application-noncommercial-group/submitted']);
           }
         );
     }
