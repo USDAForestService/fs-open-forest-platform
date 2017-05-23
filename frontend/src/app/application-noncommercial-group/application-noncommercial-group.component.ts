@@ -13,7 +13,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
-  errorMessage: string;
+  apiErrors: any;
   mode = 'Observable';
 
   application = {
@@ -80,8 +80,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
      'endMinutes': '',
      'endPeriod': 'AM',
      'numberParticipants': ''
-   }
- };
+    }
+  };
 
   primaryPermitHolderSameAddress = true;
   viewSecondaryPermitHolder = false;
@@ -128,11 +128,14 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
           () => {
             console.log('success');
             this.router.navigate(['application-noncommercial-group/submitted']);
+          },
+          (e: any) => {
+            this.apiErrors =  e;
+            window.scroll(0, 0);
           }
         );
     }
   }
-
 
   ngOnInit() {
 
