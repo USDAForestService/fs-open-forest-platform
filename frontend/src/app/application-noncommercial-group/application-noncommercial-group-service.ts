@@ -20,7 +20,6 @@ export class ApplicationNoncommercialGroupService {
     return this.http.post(this.postEndpoint, data, options)
       .map(this.extractData)
       .catch(this.handleError);
-    //  .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   private extractData(res: Response) {
@@ -29,18 +28,14 @@ export class ApplicationNoncommercialGroupService {
   }
 
   private handleError (error: Response | any) {
-    let errMsg: string;
-    let err: any;
+    let errors: any;
     if (error instanceof Response) {
       const body = error.json() || '';
-      // err = body.error || JSON.stringify(body);
-      err = body.errors;
-    //  errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errors = body.errors;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errors = ['Server error'];
     }
-    console.error(err);
-    return Observable.throw(err);
+    console.error(errors);
+    return Observable.throw(errors);
   }
-
 }
