@@ -28,16 +28,14 @@ export class ApplicationNoncommercialGroupService {
   }
 
   private handleError (error: Response | any) {
-    let errMsg: string;
+    let errors: any;
     if (error instanceof Response) {
       const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      errors = body.errors;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errors = ['Server error'];
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+    console.error(errors);
+    return Observable.throw(errors);
   }
-
 }
