@@ -34,6 +34,6 @@ echo "Unknown space: $SPACE"
 exit
 fi
 
-cf login --a $API --u $CF_USERNAME --p $CF_PASSWORD --o $ORG -s $SPACE
+cf login -a $API -u $CF_USERNAME -p $CF_PASSWORD -o $ORG -s $SPACE
 cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
 cf zero-downtime-push $API_NAME -f $API_MANIFEST
