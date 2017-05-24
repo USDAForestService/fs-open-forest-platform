@@ -87,6 +87,72 @@ var noncommercialFieldsSchema = {
     'formName':{
       'default':'FS-2700-3b',
       'type':'string'
+    },
+    'startMonth' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[012]$',
+      'type' : 'string'
+    },
+    'startDay' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[0-9]|2[0-9]|3[01]$',
+      'type' : 'string'
+    },
+    'startYear' : {
+      'default' : '',
+      'pattern' : '^[0-9]{4}$',
+      'type' : 'string'
+    },
+    'endMonth' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[012]$',
+      'type' : 'string'
+    },
+    'endDay' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[0-9]|2[0-9]|3[01]$',
+      'type' : 'string'
+    },
+    'endYear' : {
+      'default' : '',
+      'pattern' : '^[0-9]{4}$',
+      'type' : 'string'
+    },
+    'startHour' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[012]$',
+      'type' : 'string'
+    },
+    'startMinutes' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'type' : 'string'
+    },
+    'startPeriod' : {
+      'default' : '',
+      'enum':[
+        'AM',
+        'PM'
+      ],
+      'type' : 'string'
+    },
+    'endHour' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|1[012]$',
+      'type' : 'string'
+    },
+    'endMinutes' : {
+      'default' : '',
+      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'type' : 'string'
+    },
+    'endPeriod' : {
+      'default' : '',
+      'enum':[
+        'AM',
+        'PM'
+      ],
+      'type' : 'string'
     }
   },
   'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants']
@@ -98,14 +164,17 @@ var phoneNumberSchema = {
   'properties': {
     'areaCode': {
       'default':0,
-    //  'format': 'areaCodeFormat',
+      'pattern' : '^[0-9]{3}$',
+      'type': 'integer'
+    },
+    'prefix': {
+      'default':0,
       'pattern' : '^[0-9]{3}$',
       'type': 'integer'
     },
     'number': {
       'default':0,
-      //'format': 'phoneNumberFormat',
-      'pattern' : '^[0-9]{7}$',
+      'pattern' : '^[0-9]{4}$',
       'type': 'integer'
     },
     'extension': {
@@ -118,7 +187,7 @@ var phoneNumberSchema = {
       'type': 'string'
     }
   },
-  'required': ['areaCode', 'number', 'phoneType']
+  'required': ['areaCode', 'prefix', 'number', 'phoneType']
 };
 
 var applicantInfoBaseSchema = {
@@ -142,6 +211,21 @@ var applicantInfoBaseSchema = {
       'pattern':'^(([^<>()\\[\\]\\\\.,;:\\s@\']+(\\.[^<>()\\[\\]\\\\.,;:\\s@\']+)*)|(\'.+\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
       'type': 'string'
     },
+    'address' : { '$ref' : '/address' },
+    'primaryAddress' : { '$ref' : '/address' },
+    'secondaryAddress' : { '$ref' : '/address' },
+    'website':{
+      'default':'',
+      'type': 'string'
+    }
+  },
+  'required': ['firstName', 'lastName', 'dayPhone', 'emailAddress', 'address']
+};
+
+var addressSchema = {
+  'id' : '/address',
+  'type' : 'object',
+  'properties' : {
     'mailingAddress': {
       'default':'',
       'type': 'string'
@@ -163,13 +247,9 @@ var applicantInfoBaseSchema = {
       'default':'',
       'pattern':'^[0-9]{5}$|^[0-9]{9}$',
       'type': 'string'
-    },
-    'website':{
-      'default':'',
-      'type': 'string'
     }
   },
-  'required': ['firstName', 'lastName', 'dayPhone', 'emailAddress', 'mailingAddress', 'mailingCity', 'mailingZIP', 'mailingState']
+  'required' : ['mailingAddress', 'mailingCity', 'mailingState', 'mailingZIP']
 };
 
 var commonFieldsSchema = {
@@ -225,3 +305,4 @@ module.exports.noncommercialFieldsSchema = noncommercialFieldsSchema;
 module.exports.phoneNumberSchema = phoneNumberSchema;
 module.exports.applicantInfoBaseSchema = applicantInfoBaseSchema;
 module.exports.commonFieldsSchema = commonFieldsSchema;
+module.exports.addressSchema = addressSchema;
