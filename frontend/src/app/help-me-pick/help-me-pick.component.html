@@ -1,0 +1,51 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1>Help me pick a permit</h1>
+
+    <div *ngIf="id == 1">
+      <p>Are you charging a participation fee for your activity?</p>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/5">Yes</a>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/2">No</a>
+    </div>
+
+    <div *ngIf="id == 2">
+      <p>Is the purpose of your activity selling goods or services?</p>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/5">Yes</a>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/3">No</a>
+    </div>
+
+    <div *ngIf="id == 3">
+      <p>Does your activity involve more than 75 people (spectators and participants)?</p>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/7">Yes</a>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/4">No</a>
+    </div>
+
+    <div *ngIf="id == 4">
+      <p>Your activity does not require a permit. Thanks for checking!</p>
+    </div>
+
+    <div *ngIf="id == 5">
+      <p>Does your activity involve guiding or outfitting?</p>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/8">Yes</a>
+      <a class="usa-button" type="button" routerLink="/help-me-pick/6">No</a>
+    </div>
+
+    <div *ngIf="id == 6">
+      <p>Your activity requires a permit, but not one available online. Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie...</p>
+      <a class="usa-button" type="button">Learn more</a>
+    </div>
+
+    <div *ngIf="id == 7">
+      <p>You can apply for a noncommercial group use application online.</p>
+      <a class="usa-button" type="button" routerLink="/application-noncommercial-group">Apply now</a>
+    </div>
+
+    <div *ngIf="id == 8">
+      <p>You can apply for a temporary outfitter and guide permit online.</p>
+      <a class="usa-button" type="button">Apply now</a>
+      <p>Learn more about other permit types (available via a paper application)</p>
+      <a class="usa-button" type="button">Learn more</a>
+    </div>
+
+  </div>
+</section>
