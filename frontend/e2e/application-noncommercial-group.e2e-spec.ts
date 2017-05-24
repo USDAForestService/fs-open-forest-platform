@@ -131,7 +131,7 @@ describe('Apply for a noncommercial group use permit', () => {
   });
   it('should show secondary permit holder name field but hide secondary address fields if add input is checked', () => {
     element(by.id('add-secondary-permit-holder')).click();
-    expect(element(by.id('secondary-permit-holder-name')).isPresent()).toBe(true);
+    expect(element(by.id('secondary-permit-holder-first-name')).isPresent()).toBe(true);
     return checkForSecondPermitHolderAddress(false);
   });
   fieldValidation.validateSimpleTextField(
@@ -194,5 +194,5 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateSimpleTextField('end-minutes', 'end-time-error', 'End time is required', true);
   fieldValidation.validateSimpleTextField('end-period', 'end-time-error', 'End time is required', true);
 
-  fieldValidation.validateSimpleTextField('signature', 'signature-error', 'Signature is required');
+  fieldValidation.validateSimpleTextField('signature', 'signature-error', 'Initials are required');
 });
