@@ -4,24 +4,26 @@
   "version": "0.0.1",
   "description": "fs-intake-module",
   "dependencies": {
-    "express": "4.15.2",
     "body-parser": "1.17.1",
+    "express": "4.15.2",
     "jsonschema": "1.1.1",
-    "sequelize": "^3.30.4",
-    "pg": "^6.2.2"
+    "pg": "^6.2.2",
+    "sequelize": "^3.30.4"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.1",
-    "supertest": "3.0.0",
-    "unionized": "4.12.0",
-    "mocha": "^3.2.0",
     "chai": "^3.5.0",
+    "eslint-config-google": "^0.7.1",
+    "eslint": "^3.19.0",
+    "mocha": "^3.2.0",
+    "path": "^0.12.7",
     "sequelize-cli": "^2.7.0",
-    "path": "^0.12.7"
+    "supertest": "3.0.0",
+    "nodemon": "1.11.0",
+    "unionized": "4.12.0"
   },
   "scripts": {
     "start": "node --harmony_default_parameters app.es6",
+    "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
     "test": "mocha"
   },
   "engines": {
