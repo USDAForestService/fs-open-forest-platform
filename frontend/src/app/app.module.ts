@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
-import { ApplicationNoncommercialGroupService } from './application-noncommercial-group/application-noncommercial-group-service';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './permit-application-list/permit-application-list.component';
@@ -18,6 +17,8 @@ import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-perso
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
+
+import { ApplicationService } from './admin/application.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ApplicationNoncommercialGroupService],
+  providers: [ApplicationService],
   bootstrap: [AppComponent]
 })
 

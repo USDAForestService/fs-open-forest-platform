@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApplicationNoncommercialGroupService } from './application-noncommercial-group-service';
+import { ApplicationService } from '../admin/application.service';
 
 import {Router, ActivatedRoute} from '@angular/router';
 
@@ -8,7 +8,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html',
-  providers: [ ApplicationNoncommercialGroupService ],
+  providers: [ ApplicationService ],
   styleUrls: ['./application-noncommercial-group.component.scss']
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
@@ -144,7 +144,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
-  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService, private router: Router) { }
+  constructor(private applicationService: ApplicationService, private router: Router) { }
 
   startDateChangeHandler() {
     if (
@@ -166,7 +166,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       window.scroll(0, 0);
     } else {
       console.log('submit');
-      this.applicationNoncommercialGroupService.create(this.application)
+      this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
           () => {
             console.log('success');
