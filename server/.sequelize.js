@@ -23,6 +23,4 @@ if (dbParams.hostname !== 'localhost') {
   };
 }
 
-console.log(dbConfig);
-
 module.exports = dbConfig;
