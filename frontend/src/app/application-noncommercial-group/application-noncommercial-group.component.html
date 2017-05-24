@@ -66,7 +66,7 @@
         <label class="usa-input" for="state">State</label>
         <select id="state" name="state" required [(ngModel)]="application.applicantInfo.mailingState" #state="ngModel">
           <option value="" selected="selected"></option>
-          <option *ngFor="let state of states" [value]="state">{{state}}</option>
+          <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
         </select>
         <span id="state-error" class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
 
@@ -151,7 +151,7 @@
           <label class="usa-input" for="primary-permit-holder-state">State</label>
           <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryMailingState" #primaryPermitHolderState="ngModel">
             <option value="" selected="selected"></option>
-            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
           </select>
           <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
 
@@ -198,7 +198,7 @@
           <label class="usa-input" for="secondary-permit-holder-state">State</label>
           <select id="secondary-permit-holder-state" name="secondary-permit-holder-state" required [(ngModel)]="application.applicantInfo.secondaryMailingState" #secondaryPermitHolderState="ngModel">
             <option value="" selected="selected"></option>
-            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+            <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
           </select>
           <span id="secondary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderState.valid || secondaryPermitHolderState.untouched">State is required</span>
 
