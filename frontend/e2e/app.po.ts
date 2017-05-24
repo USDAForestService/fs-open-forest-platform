@@ -12,6 +12,6 @@ export class FrontendPage {
 
 export class NoncommercialGroupForm {
   navigateTo() {
-    return browser.get('/#/application-noncommercial-group');
+    return browser.get('/#/applications/noncommercial-group-use/new');
   }
 }

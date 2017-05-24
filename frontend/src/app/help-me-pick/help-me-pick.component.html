@@ -1,0 +1,51 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1>Help me pick a permit</h1>
+
+    <div *ngIf="id == 1">
+      <p>Are you charging a participation fee for your activity?</p>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/5">Yes</button>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/2">No</button>
+    </div>
+
+    <div *ngIf="id == 2">
+      <p>Is the purpose of your activity selling goods or services?</p>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/5">Yes</button>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/3">No</button>
+    </div>
+
+    <div *ngIf="id == 3">
+      <p>Does your activity involve more than 75 people (spectators and participants)?</p>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/7">Yes</button>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/4">No</button>
+    </div>
+
+    <div *ngIf="id == 4">
+      <p>Your activity does not require a permit. Thanks for checking!</p>
+    </div>
+
+    <div *ngIf="id == 5">
+      <p>Does your activity involve guiding or outfitting?</p>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/8">Yes</button>
+      <button class="usa-button" type="button" routerLink="/help-me-pick/6">No</button>
+    </div>
+
+    <div *ngIf="id == 6">
+      <p>Your activity requires a permit, but not one available online. Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie...</p>
+      <button class="usa-button" type="button">Learn more</button>
+    </div>
+
+    <div *ngIf="id == 7">
+      <p>You can apply for a noncommercial group use application online.</p>
+      <button class="usa-button" type="button" routerLink="/application-noncommercial-group">Apply now</button>
+    </div>
+
+    <div *ngIf="id == 8">
+      <p>You can apply for a temporary outfitter and guide permit online.</p>
+      <button class="usa-button" type="button">Apply now</button>
+      <p>Learn more about other permit types (available via a paper application)</p>
+      <button class="usa-button" type="button">Learn more</button>
+    </div>
+
+  </div>
+</section>
