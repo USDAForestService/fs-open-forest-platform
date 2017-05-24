@@ -10,7 +10,8 @@
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "e2e:ci": "ng e2e --watch=false --progress=false"
+    "e2e:ci": "ng e2e --watch=false --progress=false",
+    "pa11y": "pa11y-ci"
   },
   "private": true,
   "dependencies": {
@@ -37,9 +38,10 @@
     "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "pa11y-ci": "^1.1.1",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
