@@ -1,5 +1,5 @@
-import { NgModule }              from '@angular/core';
-import { RouterModule, Routes }  from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationNoncommercialGroupService } from './application-noncommercial-group/application-noncommercial-group-service';
@@ -12,13 +12,15 @@ import { PgFlowStep2Component } from './pg-flow-step-2/pg-flow-step-2.component'
 import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-person.component';
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
+import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 
 const appRoutes: Routes = [
   { path: 'applications/noncommercial-group-use/new', component: ApplicationNoncommercialGroupComponent },
   { path: 'applications/submitted', component: ApplicationSubmittedComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'permit-application-list', component: PermitApplicationListComponent },
-  { path: 'permit-application-view', component: PermitApplicationViewComponent },
+  { path: 'admin/applications', component: PermitApplicationListComponent },
+  { path: 'admin/applications/:id', component: PermitApplicationViewComponent },
+  { path: 'help-me-pick/:id', component: HelpMePickComponent },
   { path: 'pg-flow-step-1', component: PgFlowStep1Component },
   { path: 'pg-flow-step-2', component: PgFlowStep2Component },
   { path: 'pg-flow-reg-person', component: PgFlowRegPersonComponent },

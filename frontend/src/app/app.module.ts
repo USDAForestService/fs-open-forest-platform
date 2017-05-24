@@ -17,6 +17,7 @@ import { PgFlowStep2Component } from './pg-flow-step-2/pg-flow-step-2.component'
 import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-person.component';
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
+import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ApplicationSubmittedComponent } from './application-submitted/applicati
     PgFlowStep2Component,
     PgFlowRegPersonComponent,
     PgFlowRegPersonFriendFamilyComponent,
-    ApplicationSubmittedComponent
+    ApplicationSubmittedComponent,
+    HelpMePickComponent
   ],
   imports: [
     BrowserModule,
