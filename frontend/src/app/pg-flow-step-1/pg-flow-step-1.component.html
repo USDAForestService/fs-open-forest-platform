@@ -1,13 +1,37 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1>Apply for a Permit</h1>
-    <p>If you know which permit you need, click on the permit link below to fill out and submit that permit. If you're not sure which permit is the right permit for you, click on the "Help Me Find a Permit" button and we'll guide you to the correct permit.</p>
-    <p>
-      <a class="usa-button" routerLink="/applications/noncommercial-group-use/new">Noncommercial Permit</a>
-      <button class="usa-button" type="button">Commercial Permit</button>
-      <button class="usa-button" type="button">Temp Outfitter's Permit</button>
-      <button class="usa-button" type="button">Another Permit</button>
-    </p>
-    <p><a class="usa-button" routerLink="/pg-flow-step-2">Help me find a Permit</a></p>
+    <div class="usa-width-one-whole description">
+      <h1>Apply for a Permit</h1>
+      <p>If you know which permit you need, click on the permit link below to fill out and submit that permit. If you’re not sure which permit is the right permit for you, click on the “Help Me Find the Right Permit Type” button and we’ll guide you to the correct permit.</p>
+    </div>
   </div>
+  <div class="usa-grid">
+    <div class="usa-width-one-half wrapper">
+      <div class="option-background" id="noncommercial-background"></div>
+      <div class="option-content option-content-one-half">
+        <h2>Non-commercial Permit</h2>
+        <p>For a non-commercial activity involving a group of 75 or more people, either as participants or spectators. Non-commercial means there’s no entry/participation fee and the primary purpose of the event isn’t selling goods or services.</p>
+      </div>
+      <a class="usa-button usa-button-big" routerLink="/applications/noncommercial-group-use/new">Noncommercial Permit</a>
+    </div>
+    <div class="usa-width-one-half wrapper">
+      <div class="option-background" id="tempoutfitter-background"></div>
+      <div class="option-content option-content-one-half">
+        <h2>Temporary Outfitter’s Permit</h2>
+        <p>For outfitters &amp; guides, temporary use permits allow short-term, non-renewable outfitting and guiding in increments of 50 service days, up to a maximum of 200 service days in a 180-day period.</p>
+      </div>
+      <a class="usa-button usa-button-big" routerLink="/applications/temp-outfitters/new">Temp Outfitter's Permit</a>
+    </div>
+  </div>
+  <div class="usa-grid">
+    <div class="usa-width-one-whole wrapper">
+      <div class="option-background" id="notsure-background"></div>
+      <div class="option-content">
+        <h2>I’m Not Sure</h2>
+        <p>If none of the above permit types sound like what you’re looking for we can assist you if you can click on the button below and answer some questions for us.</p>
+      </div>
+      <a class="usa-button usa-button-big" routerLink="/pg-flow-step-2">Help me find a Permit</a>
+    </div>
+  </div>
+
 </section>
