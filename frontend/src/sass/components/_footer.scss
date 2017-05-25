@@ -53,8 +53,10 @@
 
 .usa-footer-secondary_section {
   background: $fs-brown;
-  color: $white;
   padding: 20px 0;
+  h2, h3 {
+    color: $white;
+  }
   @media(max-width: $medium-screen) {
     text-align: center;
     a {
