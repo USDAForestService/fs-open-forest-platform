@@ -117,6 +117,10 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+app.get('/uptime', function(req, res) {
+  res.send('Uptime: ' + process.uptime() + ' seconds');
+});
+
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
     return errorObj.argument;
@@ -237,6 +241,7 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 // GET /permits/applications
 // retrieves all applications in the system
 app.get('/permits/applications', getAllApps);
+
 
 
 app.listen(8080);
