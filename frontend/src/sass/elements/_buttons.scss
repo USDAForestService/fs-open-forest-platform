@@ -5,6 +5,8 @@
     }
 }
 
+// TODO: refactor button classes to fs-*
+
 .usa-button {
   background-color: $fs-orange !important;
   color: $fs-charcoal !important;
@@ -18,4 +20,17 @@
 .usa-button:active {
   background-color: $fs-orange-darkest !important;
   color: $white !important;
+}
+
+.fs-button-secondary {
+  background-color: $fs-tan !important;
+}
+
+.fs-button-secondary:hover {
+  background-color: $fs-tan-dark !important;
+}
+
+.fs-button-secondary:active {
+  background-color: $fs-tan-darker !important;
+  color: $black !important;
 }
