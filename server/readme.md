@@ -18,6 +18,12 @@ To remove that data from the database run:
 
 To start the server for development: `DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn dev` and visit http://localhost:8080
 
+To run eslint for linting:
+
+`npm run lint`
+
+The linting results will be put into `server/lint-results.html`.
+
 ## Noncommercial Endpoints
 
 ```POST /permits/applications/special-uses/noncommercial/```

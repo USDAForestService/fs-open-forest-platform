@@ -139,7 +139,7 @@ let createNoncommercialTempApp = (req, res) => {
   let errorRet = {};
 
   if (result.errors.length > 0) {
-    console.log(result);
+    //console.log(result);
     for (var error of result.errors) {
       if (error.name === 'required') {
         errorArr.push(error.name + '-' + extractField(error, true));
