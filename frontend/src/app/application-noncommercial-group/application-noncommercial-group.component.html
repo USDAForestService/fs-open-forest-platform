@@ -37,42 +37,67 @@
         </fieldset>
 
         <div *ngIf="application.applicantInfo.orgType === 'Individual'">
-          <label class="usa-input" for="primary-permit-holder-first-name1">Primary permit holder first name</label>
-          <input id="primary-permit-holder-first-name1" name="first-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.firstName" #primaryPermitHolderFirstName="ngModel" />
-          <span id="primary-permit-holder-first-name-error1" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required</span>
+          <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
+          <input id="primary-permit-holder-first-name" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.primaryFirstName" #primaryPermitHolderFirstName="ngModel" />
+          <span id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required</span>
 
-          <label class="usa-input" for="primary-permit-holder-last-name1">Primary permit holder last name</label>
-          <input id="primary-permit-holder-last-name1" name="first-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.lastName" #primaryPermitHolderLastName="ngModel" />
-          <span id="primary-permit-holder-last-name-error1" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required</span>
+          <label class="usa-input" for="primary-permit-holder-last-name">Primary permit holder last name</label>
+          <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
+          <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-address">Street address 1</label>
+          <input id="primary-permit-holder-address" name="primary-permit-holder-address" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress" #primaryPermitHolderAddress="ngModel" />
+          <span id="primary-permit-holder-address-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderAddress.valid || primaryPermitHolderAddress.untouched">Street address 1 is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-address-line-2">Street address 2 (optional)</label>
+          <input id="primary-permit-holder-address-line-2" name="primary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress2" />
+
+          <label class="usa-input" for="primary-permit-holder-city">City</label>
+          <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
+          <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-state">State</label>
+          <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
+          </select>
+          <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
+
+          <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
+          <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingZip" #primaryPermitHolderZip="ngModel" />
+          <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required</span>
+
+
         </div>
+
 
         <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="organization-name">Organization name</label>
           <input id="organization-name" name="organization-name" type="text" required [(ngModel)]="application.applicantInfo.organizationName" #organizationName="ngModel" />
           <span id="organization-name-error" class="usa-input-error-message" role="alert" [hidden]="organizationName.valid || organizationName.untouched">Organization name is required</span>
+
+          <label class="usa-input" for="address">Street address 1</label>
+          <input id="organization-address" name="address" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingAddress" #address="ngModel" />
+          <span id="organization-address-error" class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Street address 1 is required</span>
+
+          <label class="usa-input" for="address-line-2">Street address 2 (optional)</label>
+          <input id="organization-address-line-2" name="address-line-2" type="text" [(ngModel)]="application.applicantInfo.organizationAddress.mailingAddress2" />
+
+          <label class="usa-input" for="city">City</label>
+          <input id="organization-city" name="city" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingCity" #city="ngModel" />
+          <span id="organization-city-error" class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
+
+          <label class="usa-input" for="state">State</label>
+          <select id="organization-state" name="state" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingState" #state="ngModel">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
+          </select>
+          <span id="organization-state-error" class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
+
+          <label class="usa-input" for="zip">ZIP</label>
+          <input class="usa-input-medium" id="organization-zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingZIP" #zip="ngModel" />
+          <span id="organization-zip-error" class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required</span>
         </div>
-
-        <label class="usa-input" for="address">Street address 1</label>
-        <input id="address" name="address" type="text" required [(ngModel)]="application.applicantInfo.address.mailingAddress" #address="ngModel" />
-        <span id="address-error" class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Street address 1 is required</span>
-
-        <label class="usa-input" for="address-line-2">Street address 2 (optional)</label>
-        <input id="address-line-2" name="address-line-2" type="text" [(ngModel)]="application.applicantInfo.address.mailingAddress2" />
-
-        <label class="usa-input" for="city">City</label>
-        <input id="city" name="city" type="text" required [(ngModel)]="application.applicantInfo.address.mailingCity" #city="ngModel" />
-        <span id="city-error" class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
-
-        <label class="usa-input" for="state">State</label>
-        <select id="state" name="state" required [(ngModel)]="application.applicantInfo.address.mailingState" #state="ngModel">
-          <option value="" selected="selected"></option>
-          <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-        </select>
-        <span id="state-error" class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required</span>
-
-        <label class="usa-input" for="zip">ZIP</label>
-        <input class="usa-input-medium" id="zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.address.mailingZIP" #zip="ngModel" />
-        <span id="zip-error" class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required</span>
 
         <label class="usa-input" for="email">Email address</label>
         <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.applicantInfo.emailAddress" #email="ngModel" />
@@ -125,13 +150,13 @@
       <fieldset *ngIf="application.applicantInfo.orgType === 'Corporation'">
         <legend>Primary Permit Holder</legend>
 
-        <label class="usa-input" for="primary-permit-holder-first-name2">Primary permit holder first name</label>
-        <input id="primary-permit-holder-first-name2" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.firstName" #primaryPermitHolderFirstName="ngModel" />
-        <span id="primary-permit-holder-first-name-error2" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required</span>
+        <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
+        <input id="primary-permit-holder-first-name" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.primaryFirstName" #primaryPermitHolderFirstName="ngModel" />
+        <span id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required</span>
 
-        <label class="usa-input" for="primary-permit-holder-last-name2">Primary permit holder last name</label>
-        <input id="primary-permit-holder-last-name2" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.lastName" #primaryPermitHolderLastName="ngModel" />
-        <span id="primary-permit-holder-last-name-error2" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required</span>
+        <label class="usa-input" for="primary-permit-holder-last-name">Primary permit holder last name</label>
+        <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
+        <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required</span>
 
         <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" />
         <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address same as organization address</label>
