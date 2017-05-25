@@ -1,5 +1,5 @@
 {
-    "region": "31",
+    "region": "10",
     "forest": "50",
     "district": "50",
     "authorizingOfficerName": "WILLIAM L.NOXON",
@@ -9,15 +9,18 @@
         "lastName": "Doe",
         "dayPhone": {
             "areaCode": 541,
-            "number": 8156141,
+            "prefix": 815,
+            "number": 6141,
             "extension": "0",
             "phoneType": "BUSINESS"
         },
         "emailAddress": "test@email.org",
-        "mailingAddress": "ON ANW 0953",
-        "mailingCity": "ALBANY",
-        "mailingState": "OR",
-        "mailingZIP": "97321"
+        "address": {
+          "mailingAddress": "ON ANW 0953",
+          "mailingCity": "ALBANY",
+          "mailingState": "OR",
+          "mailingZIP": "97321"
+        }
     },
     "type": "noncommercial",
     "noncommercialFields": {
