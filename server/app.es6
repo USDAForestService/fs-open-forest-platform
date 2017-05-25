@@ -80,7 +80,8 @@ const NoncommercialApplication = sequelize.define('noncommercialApplications', {
   noncommercialFieldsEndPeriod: { type: Sequelize.STRING, field: 'noncomm_fields_end_period' },
   noncommercialFieldsNumberParticipants: { type: Sequelize.STRING, field: 'noncomm_fields_num_participants' },
   createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
-  updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
+  updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
+  status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status'}
 }, {
   timestamps: true
 });
@@ -216,6 +217,12 @@ let createNoncommercialTempApp = (req, res) => {
   }
 };
 
+let getAllApps = (req, res) => {
+  NoncommercialApplication.findAll().then(allApps => {
+    res.status(200).json(allApps);
+  });
+};
+
 // POST /permits/applications/special-uses/noncommercial/
 // creates a new noncommercial application
 app.post('/permits/applications/special-uses/noncommercial', createNoncommercialTempApp);
@@ -226,6 +233,11 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 
 // GET /permits/applications/special-uses/noncommercial/:tempControlNumber
 // retrieve an existing noncommercial application
+
+// GET /permits/applications
+// retrieves all applications in the system
+app.get('/permits/applications', getAllApps);
+
 
 app.listen(8080);
 
