@@ -1,6 +1,14 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Applications</h1>
+    <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">There are errors preventing your data from loading</h3>
+        <ul class="usa-alert-text">
+          <li *ngFor="let error of apiErrors">{{error}}</li>
+        </ul>
+      </div>
+    </div>
     <table id="applications-list">
       <thead>
         <tr>
@@ -15,77 +23,14 @@
         <tr></tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Christopher Sample Event</th>
-          <td>Charlotte Park</td>
-          <td>Nov. 7, 2016, 12:00 P.M.</td>
-          <td>Nov. 8, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 12:58 P.M.</td>
-          <td>Returned</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Matthew</th>
-          <td>Hell</td>
-          <td>Nov. 4, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 5:24 P.M.</td>
-          <td>Received</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Pizza Party</th>
-          <td>downtown</td>
-          <td>Nov. 5, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 1:20 P.M.</td>
-          <td>Received</td>
-          <td><a href="#">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Chris Smaple Event</th>
-          <td>Charlotte Park</td>
-          <td>Nov. 7, 2016, 12:00 P.M.</td>
-          <td>Nov. 8, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 12:42 P.M.</td>
-          <td>Received</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Saddle Club Annual Event</th>
-          <td>Horsetooth Mountain</td>
-          <td>Nov. 11, 2016, 12:00 P.M.</td>
-          <td>Nov. 11, 2016, 12:00 P.M.</td>
-          <td>Nov. 4, 2016, 2:14 P.M.</td>
-          <td>Received</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Test</th>
-          <td>Test</td>
-          <td>Feb. 23, 2017, 12:00 P.M.</td>
-          <td>Feb. 23, 2017, 12:00 P.M.</td>
-          <td>Feb. 23, 2017, 6:58 P.M.</td>
-          <td>Accepted</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Colin</th>
-          <td>Test</td>
-          <td>Feb. 23, 2017, 12:00 P.M.</td>
-          <td>Feb. 23, 2017, 12:00 P.M.</td>
-          <td>Feb. 23, 2017, 7:10 P.M.</td>
-          <td>Accepted</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
-        </tr>
-        <tr>
-          <th scope="row">Test</th>
-          <td>Good description of location</td>
-          <td>April 18, 2017, 6:19 P.M.</td>
-          <td>April 18, 2017, 6:19 P.M.</td>
-          <td>April 18, 2017, 6:21 P.M.</td>
-          <td>Accepted</td>
-          <td><a routerLink="/permit-application-view">View</a></td>
+        <tr *ngFor="let applicaiton of applications">
+          <th scope="row">{{application.eventName}}</th>
+          <th>{{application.noncommercialFieldsLocationDescription}}</th>
+          <th>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}}</th>
+          <th>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}}</th>
+          <th>{{application.createdAt| date:'M/d/y'}}</th>
+          <th>{{application.status}}</th>
+          <th><a routerLink="/permit-application-view">View</a></th>
         </tr>
       </tbody>
     </table>

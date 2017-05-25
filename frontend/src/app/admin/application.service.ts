@@ -7,17 +7,23 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class ApplicationNoncommercialGroupService {
+export class ApplicationService {
 
-  private postEndpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications/special-uses/noncommercial/';
+  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
 
   constructor (private http: Http) {}
 
-  create(data) {
+  create(data, type) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.postEndpoint, data, options)
+    return this.http.post(this.endpoint + '' + type, data, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  get(params = '') {
+    return this.http.get(this.endpoint + '' + params)
       .map(this.extractData)
       .catch(this.handleError);
   }

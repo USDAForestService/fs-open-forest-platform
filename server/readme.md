@@ -2,7 +2,7 @@
 
 A running Postgresql database is required in order to run the server locally.  Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
-Then run `npm install` to install dependencies.
+Then run `yarn install` to install dependencies.
 
 To setup the database run
 
@@ -16,7 +16,7 @@ To remove that data from the database run:
 
 `DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> ./node_modules/sequelize-cli/bin/sequelize db:seed:undo:all`
 
-To start the server for development: `DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> npm start` and visit http://localhost:8080
+To start the server for development: `DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn dev` and visit http://localhost:8080
 
 ## Noncommercial Endpoints
 
