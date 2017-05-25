@@ -27,7 +27,7 @@
     "test": "mocha",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
-    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./test/noncommercial.js"
+    "lint": "eslint -c ./.eslintrc.json -f html -o ./lint-results.html ./app.es6 ./test/noncommercial.js"
   },
   "engines": {
     "node": "6.10.2"
