@@ -20,6 +20,7 @@ test:
     - ./test-runner.sh
   post:
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
+    - cp server/lint-results.html $CIRCLE_ARTIFACTS
 deployment:
   prod:
     branch: master
