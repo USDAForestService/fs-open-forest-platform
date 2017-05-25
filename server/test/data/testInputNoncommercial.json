@@ -14,8 +14,27 @@
             "extension": "0",
             "phoneType": "BUSINESS"
         },
+        "eveningPhone": {
+          "areaCode": 0,
+          "prefix": 0,
+          "number": 0,
+          "extension": "0",
+          "phoneType": "BUSINESS"
+        },
         "emailAddress": "test@email.org",
         "address": {
+          "mailingAddress": "ON ANW 0953",
+          "mailingCity": "ALBANY",
+          "mailingState": "OR",
+          "mailingZIP": "97321"
+        },
+        "primaryAddress": {
+          "mailingAddress": "ON ANW 0953",
+          "mailingCity": "ALBANY",
+          "mailingState": "OR",
+          "mailingZIP": "97321"
+        },
+        "secondaryAddress": {
           "mailingAddress": "ON ANW 0953",
           "mailingCity": "ALBANY",
           "mailingState": "OR",

@@ -10,6 +10,8 @@ var noncommercialInput = require('./data/testInputNoncommercial.json');
 
 var testURL = '/permits/applications/special-uses/noncommercial';
 
+var testGetURL = '/permits/applications';
+
 var noncommercialFactory = factory.factory(noncommercialInput);
 
 //var chai = require('chai');
@@ -19,13 +21,13 @@ describe('noncommercial tests', () => {
 
   describe('POST tests', () => {
 
-    it('should return a 200 response and tempControlNumber of 1', (done) => {
+    it('should return a 200 response and a db generated applicationId', (done) => {
       request(server)
 				.post(testURL)
         .set('Accept', 'application/json')
         .send(noncommercialFactory.create())
 				.expect('Content-Type', /json/)
-        .expect(/"tempControlNumber":1/)
+        .expect(/"applicationId":[\d]+/)
         .expect(201, done);
     });
 
@@ -97,6 +99,16 @@ describe('noncommercial tests', () => {
         .expect(400, done);
     });
 
+  });
+
+  describe('GET tests', () => {
+    it('should return one noncommercial application', (done) => {
+      request(server)
+        .get(testGetURL)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(200, done);
+    });
   });
 
 });
