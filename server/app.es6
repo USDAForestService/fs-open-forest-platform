@@ -195,8 +195,17 @@ let translateFromDatabaseToJSON = (input) => {
     "forest": input.forest,
     "type": input.type,
     "eventName": input.eventName,
-    "signature": input.signature
+    "signature": input.signature,
+    "status": input.status,
+    "createdAt": input.createdAt
   }
+}
+
+let translateArrayFromDatabaseToJSON = (applications) => {
+  for (var i = 0; i < applications.length; i++) {
+    applications[i] = translateFromDatabaseToJSON(applications[i]);
+  }
+  return applications;
 }
 
 // populates an applicationId on the object before return
@@ -206,7 +215,6 @@ let createNoncommercialTempApp = (req, res) => {
   let errorRet = {};
 
   if (result.errors.length > 0) {
-    //console.log(result);
     for (var error of result.errors) {
       if (error.name === 'required') {
         errorArr.push(error.name + '-' + extractField(error, true));
@@ -303,7 +311,7 @@ let getApp = (req, res) => {
 
 let getAllApps = (req, res) => {
   NoncommercialApplication.findAll().then(allApps => {
-    res.status(200).json(allApps);
+    res.status(200).json(translateArrayFromDatabaseToJSON(allApps));
   });
 };
 
