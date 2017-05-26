@@ -18,6 +18,14 @@ const checkForSecondPermitHolderAddress = function (state) {
   expect(element(by.id('secondary-permit-holder-zip')).isPresent()).toBe(state);
 };
 
+const checkForOrganizationAddress = function (state) {
+  expect(element(by.id('organization-address')).isPresent()).toBe(state);
+  expect(element(by.id('organization-address-line-2')).isPresent()).toBe(state);
+  expect(element(by.id('organization-city')).isPresent()).toBe(state);
+  expect(element(by.id('organization-state')).isPresent()).toBe(state);
+  expect(element(by.id('organization-zip')).isPresent()).toBe(state);
+};
+
 const checkForAdditionalPhone = function (state) {
   expect(element(by.id('night-phone-1')).isPresent()).toBe(state);
   expect(element(by.id('night-phone-2')).isPresent()).toBe(state);
@@ -39,20 +47,24 @@ describe('Apply for a noncommercial group use permit', () => {
   });
   fieldValidation.validateSimpleTextField('name', 'name-error', 'Event name is required');
   fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-first-name1',
-    'primary-permit-holder-first-name-error1',
+    'primary-permit-holder-first-name',
+    'primary-permit-holder-first-name-error',
     'Primary permit holder first name is required'
   );
   fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-last-name1',
-    'primary-permit-holder-last-name-error1',
+    'primary-permit-holder-last-name',
+    'primary-permit-holder-last-name-error',
     'Primary permit holder last name is required'
   );
-  fieldValidation.validateSimpleTextField('address', 'address-error', 'Street address 1 is required');
-  fieldValidation.validateSimpleTextField('city', 'city-error', 'City is required');
-  fieldValidation.validateSimpleTextField('state', 'state-error', 'State is required');
-  fieldValidation.validateNumberField('zip', 'zip-error', 'Valid ZIP code is required');
-  fieldValidation.validateMinMax('zip', 'zip-error', 5, 5);
+  fieldValidation.validateSimpleTextField(
+    'primary-permit-holder-address',
+    'primary-permit-holder-address-error',
+    'Street address 1 is required'
+  );
+  fieldValidation.validateSimpleTextField('primary-permit-holder-city', 'primary-permit-holder-city-error', 'City is required');
+  fieldValidation.validateSimpleTextField('primary-permit-holder-state', 'primary-permit-holder-state-error', 'State is required');
+  fieldValidation.validateNumberField('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 'Valid ZIP code is required');
+  fieldValidation.validateMinMax('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 5, 5);
   fieldValidation.validateEmailField('email', 'email-error', 'Valid email address is required');
   fieldValidation.validateNumberField('day-phone-1', 'day-phone-error', 'Valid phone is required');
   fieldValidation.validateMinMax('day-phone-1', 'day-phone-error', 3, 3, true);
@@ -62,23 +74,26 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateMinMax('day-phone-3', 'day-phone-error', 4, 4, true);
   it('should select individual by default', () => {
     expect(element(by.id('individual')).isSelected()).toBe(true);
-    expect(element(by.id('primary-permit-holder-first-name1')).isPresent()).toBe(true);
+    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(true);
+    expect(element(by.id('primary-permit-holder-last-name')).isPresent()).toBe(true);
     expect(element(by.id('organization')).isSelected()).toBe(false);
     expect(element(by.id('organization-name')).isPresent()).toBe(false);
+    checkForPrimaryPermitHolderAddress(true);
   });
-  it('should not display primary permit holder if applying as individual', () => {
-    expect(element(by.id('primary-permit-holder-first-name2')).isPresent()).toBe(false);
+  it('should not display organziation by default', () => {
+    checkForOrganizationAddress(false);
   });
-  it('should display organizaton name if organization is selected, and hide individual name', () => {
+  it('should display organization name if organization is selected, and hide individual name', () => {
     element(by.id('organization')).click();
     expect(element(by.id('individual')).isSelected()).toBe(false);
-    expect(element(by.id('primary-permit-holder-first-name1')).isPresent()).toBe(false);
     expect(element(by.id('organization')).isSelected()).toBe(true);
     expect(element(by.id('organization-name')).isPresent()).toBe(true);
+    checkForPrimaryPermitHolderAddress(false);
+    checkForOrganizationAddress(true);
   });
   fieldValidation.validateSimpleTextField('organization-name', 'organization-name-error', 'Organization name is required');
   it('should display primary permit holder if applying as an organization', () => {
-    expect(element(by.id('primary-permit-holder-first-name2')).isPresent()).toBe(true);
+    expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(true);
   });
   it('should not select addional phone by default', () => {
     expect(element(by.id('add-additional-phone')).isSelected()).toBe(false);
@@ -112,15 +127,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('primary-permit-holder-same-address')).click();
     return checkForPrimaryPermitHolderAddress(true);
   });
-  fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-address',
-    'primary-permit-holder-address-error',
-    'Street address 1 is required'
-  );
-  fieldValidation.validateSimpleTextField('primary-permit-holder-city', 'primary-permit-holder-city-error', 'City is required');
-  fieldValidation.validateSimpleTextField('primary-permit-holder-state', 'primary-permit-holder-state-error', 'State is required');
-  fieldValidation.validateNumberField('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 'Valid ZIP code is required');
-  fieldValidation.validateMinMax('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 5, 5);
   it('should hide primary permit holder address fields if "permit holder same as organization address" is checked', () => {
     element(by.id('primary-permit-holder-same-address')).click();
     return checkForPrimaryPermitHolderAddress(false);
