@@ -1,6 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Apply for a Noncommercial Group Use Permit</h1>
+    <p class="usa-font-lead">{{forest}}</p>
     <p>All form fields are required unless otherwise noted.</p>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <fieldset>
@@ -243,7 +244,7 @@
         <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required</span>
 
-        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use</label>
+        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use within {{forest}}</label>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required</span>
 
