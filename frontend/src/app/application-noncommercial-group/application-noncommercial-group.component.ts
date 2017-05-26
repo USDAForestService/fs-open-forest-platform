@@ -79,10 +79,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
      'endDay': '',
      'endYear': '',
      'startHour': '',
-     'startMinutes': '',
+     'startMinutes': '00',
      'startPeriod': 'AM',
      'endHour': '',
-     'endMinutes': '',
+     'endMinutes': '00',
      'endPeriod': 'AM',
      'numberParticipants': ''
     }
