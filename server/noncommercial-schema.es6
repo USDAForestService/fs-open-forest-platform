@@ -197,7 +197,7 @@ var phoneNumberSchema = {
       'type': 'string'
     }
   },
-  'required': ['areaCode', 'prefix', 'number', 'phoneType']
+  'required': ['areaCode', 'prefix', 'number']
 };
 
 var applicantInfoBaseSchema = {
