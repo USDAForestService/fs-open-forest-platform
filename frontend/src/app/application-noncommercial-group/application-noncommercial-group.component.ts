@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ApplicationService } from '../admin/application.service';
 
+import { Application } from '../admin/application';
+
 import {Router, ActivatedRoute} from '@angular/router';
 
 
@@ -15,78 +17,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   apiErrors: any;
   mode = 'Observable';
-
-  application = {
-   'region': '11',
-   'forest': '11',
-   'district': '11',
-   'authorizingOfficerName': '',
-   'authorizingOfficerTitle': '',
-   'eventName': '',
-   'applicantInfo': {
-     'organizationName': '',
-     'website': '',
-     'orgType': 'Individual',
-     'dayPhone': {
-       'areaCode': '',
-       'prefix': '',
-       'number': '',
-       'phoneType': ''
-     },
-     'eveningPhone': {
-       'areaCode': '',
-       'prefix': '',
-       'number': '',
-       'phoneType': ''
-     },
-     'emailAddress': '',
-     'organizationAddress': {
-       'mailingAddress': '',
-       'mailingAddress2': '',
-       'mailingCity': '',
-       'mailingState': '',
-       'mailingZIP': '',
-     },
-     'primaryFirstName': '',
-     'primaryLastName': '',
-     'primaryAddress': {
-       'mailingAddress': '',
-       'mailingAddress2': '',
-       'mailingCity': '',
-       'mailingState': '',
-       'mailingZIP': '',
-     },
-     'secondaryFirstName': '',
-     'secondaryLastName': '',
-     'secondaryAddress': {
-       'mailingAddress': '',
-       'mailingAddress2': '',
-       'mailingCity': '',
-       'mailingState': '',
-       'mailingZIP': '',
-     }
-   },
-   'type': 'noncommercial',
-   'noncommercialFields': {
-     'activityDescription': '',
-     'locationDescription': '',
-     'startDateTime': '2018-01-01T01:01:01Z',
-     'endDateTime': '2018-01-01T01:01:01Z',
-     'startMonth': '',
-     'startDay': '',
-     'startYear': '',
-     'endMonth': '',
-     'endDay': '',
-     'endYear': '',
-     'startHour': '',
-     'startMinutes': '',
-     'startPeriod': 'AM',
-     'endHour': '',
-     'endMinutes': '',
-     'endPeriod': 'AM',
-     'numberParticipants': ''
-    }
-  };
+  application = new Application();
 
   primaryPermitHolderSameAddress = true;
   viewSecondaryPermitHolder = false;
@@ -186,7 +117,12 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.application.district = '11';
+    this.application.region = '11';
+    this.application.forest = '11';
+    this.application.applicantInfo.orgType = 'Individual';
+    this.application.noncommercialFields.startMinutes = '00';
+    this.application.noncommercialFields.endMinutes = '00';
   }
 
 }
