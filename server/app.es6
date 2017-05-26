@@ -141,6 +141,83 @@ let collateErrors = (result, errorArr, prefix) => {
   }
 };
 
+let translateFromDatabaseToJSON = (input) => {
+  return {
+    "applicantInfo": {
+      "dayPhone": {
+        "areaCode": input.applicantInfoDayPhoneAreaCode,
+        "prefix": input.applicantInfoDayPhonePrefix,
+        "number": input.applicantInfoDayPhoneNumber
+      },
+      "eveningPhone": {
+        "areaCode": input.applicantInfoEveningPhoneAreaCode,
+        "prefix": input.applicantInfoEveningPhonePrefix,
+        "number": input.applicantInfoEveningPhoneNumber
+      },
+      "primaryAddress": {
+        "mailingAddress": input.applicantInfoPrimaryMailingAddress,
+        "mailingAddress2": input.applicantInfoPrimaryMailingAddress2,
+        "mailingCity": input.applicantInfoPrimaryMailingCity,
+        "mailingState": input.applicantInfoPrimaryMailingState,
+        "mailingZip": input.applicantInfoPrimaryMailingZIP
+      },
+      "organizationAddress": {
+        "mailingAddress": input.applicantInfoOrgMailingAddress,
+        "mailingAddress2": input.applicantInfoOrgMailingAddress2,
+        "mailingCity": input.applicantInfoOrgMailingCity,
+        "mailingState": input.applicantInfoOrgMailingState,
+        "mailingZip": input.applicantInfoOrgMailingZIP
+      },
+      "secondaryAddress": {
+        "mailingAddress": input.applicantInfoSecondaryMailingAddress,
+        "mailingAddress2": input.applicantInfoSecondaryMailingAddress2,
+        "mailingCity": input.applicantInfoSecondaryMailingCity,
+        "mailingState": input.applicantInfoSecondaryMailingState,
+        "mailingZip": input.applicantInfoSecondaryMailingZIP
+      },
+      "orgType": input.type,
+      "primaryFirstName": input.applicantInfoPrimaryFirstName,
+      "primaryLastName": input.applicantInfoPrimaryLastName,
+      "secondaryFirstName": input.applicantInfoSecondaryFirstName,
+      "secondaryLastName": input.applicantInfoSecondaryLastName,
+      "emailAddress": input.applicantInfoEmailAddress
+    },
+    "noncommercialFields": {
+      "activityDescription": input.noncommercialFieldsActivityDescription,
+      "endDay": input.noncommercialFieldsEndDay,
+      "endHour": input.noncommercialFieldsEndHour,
+      "endMinutes": input.noncommercialFieldsEndMinutes,
+      "endMonth": input.noncommercialFieldsEndMonth,
+      "endPeriod": input.noncommercialFieldsEndPeriod,
+      "endYear": input.noncommercialFieldsEndYear,
+      "locationDescription": input.noncommercialFieldsLocationDescription,
+      "numberParticipants": input.noncommercialFieldsNumberParticipants,
+      "spectators": input.noncommercialFieldsNumberSpectators,
+      "startDay": input.noncommercialFieldsStartDay,
+      "startHour": input.noncommercialFieldsStartHour,
+      "startMinutes": input.noncommercialFieldsStartMinutes,
+      "startMonth": input.noncommercialFieldsStartMonth,
+      "startPeriod": input.noncommercialFieldsStartPeriod,
+      "startYear": input.noncommercialFieldsStartYear
+    },
+    "district": input.district,
+    "region": input.region,
+    "forest": input.forest,
+    "type": input.type,
+    "eventName": input.eventName,
+    "signature": input.signature,
+    "status": input.status,
+    "createdAt": input.createdAt
+  }
+}
+
+let translateArrayFromDatabaseToJSON = (applications) => {
+  for (var i = 0; i < applications.length; i++) {
+    applications[i] = translateFromDatabaseToJSON(applications[i]);
+  }
+  return applications;
+}
+
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
 
@@ -265,9 +342,23 @@ let createNoncommercialTempApp = (req, res) => {
   }
 };
 
+let updateApp = (req, res) => {
+  res.send('not yet implemented');
+}
+
+let getApp = (req, res) => {
+  NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
+    if(app) {
+      res.status(200).json(translateFromDatabaseToJSON(app));
+    } else {
+      res.status(404);
+    }
+  });
+};
+
 let getAllApps = (req, res) => {
   NoncommercialApplication.findAll().then(allApps => {
-    res.status(200).json(allApps);
+    res.status(200).json(translateArrayFromDatabaseToJSON(allApps));
   });
 };
 
@@ -278,9 +369,10 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
 // may not be able to update everything wholesale due to possible field audit requirements
+app.put('/permits/applications/:id', updateApp);
 
 // GET /permits/applications/special-uses/noncommercial/:tempControlNumber
-// retrieve an existing noncommercial application
+app.get('/permits/applications/:id', getApp);
 
 // GET /permits/applications
 // retrieves all applications in the system

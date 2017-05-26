@@ -1,13 +1,15 @@
 export class Application {
-  region: string;
-  forest: string;
-  district: string;
+  applicantInfo: ApplicantInfo;
+  id: number;
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
+  district: string;
   eventName: string;
-  type: string;
-  applicantInfo: ApplicantInfo;
+  forest: string;
   noncommercialFields: NoncommercialFields;
+  region: string;
+  signature: string;
+  type: string;
   constructor() {
     this.applicantInfo = new ApplicantInfo();
     this.noncommercialFields = new NoncommercialFields();
@@ -15,34 +17,34 @@ export class Application {
 }
 
 export class ApplicantInfo {
-  organizationName: string;
-  website: string;
-  orgType: string;
   dayPhone: Phone;
-  eveningPhone: Phone;
   emailAddress: string;
+  eveningPhone: Phone;
   organizationAddress: Address;
+  organizationName: string;
+  orgType: string;
+  primaryAddress: Address;
   primaryFirstName: string;
   primaryLastName: string;
-  primaryAddress: Address;
+  secondaryAddress: Address;
   secondaryFirstName: string;
   secondaryLastName: string;
-  secondaryAddress: Address;
+  website: string;
   constructor() {
     this.dayPhone = new Phone();
     this.eveningPhone = new Phone();
-    this.primaryAddress = new Address();
     this.organizationAddress = new Address();
+    this.primaryAddress = new Address();
     this.secondaryAddress = new Address();
   }
 }
 
 export class Phone {
   areaCode: string;
-  prefix: string;
-  number: string;
   extension: string;
+  number: string;
   phoneType: string;
+  prefix: string;
 }
 
 export class Address {
@@ -55,21 +57,21 @@ export class Address {
 
 export class NoncommercialFields {
   activityDescription: string;
-  locationDescription: string;
-  startDateTime: string;
   endDateTime: string;
-  startMonth: string;
-  startDay: string;
-  startYear: string;
-  endMonth: string;
   endDay: string;
+  endMonth: string;
   endYear: string;
-  startHour: string;
-  startMinutes: string;
-  startPeriod: string;
   endHour: string;
   endMinutes: string;
   endPeriod: string;
+  locationDescription: string;
   numberParticipants: string;
   spectators: string;
+  startDateTime: string;
+  startDay: string;
+  startMonth: string;
+  startYear: string;
+  startHour: string;
+  startMinutes: string;
+  startPeriod: string;
 }

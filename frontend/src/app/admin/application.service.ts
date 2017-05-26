@@ -11,29 +11,40 @@ import { Application } from './application';
 @Injectable()
 export class ApplicationService {
 
-//  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
-  private endpoint = 'http://localhost:8080/permits/applications';
+  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
+//  private endpoint = 'http://localhost:8080/permits/applications';
 
   constructor (private http: Http) {}
 
-  create(data, type) {
+  create(body, type) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint + '' + type, data, options)
-      .map(this.extractData)
+    return this.http.post(this.endpoint + '' + type, body, options)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   get(params = '') {
     return this.http.get(this.endpoint + '' + params)
-      .map(this.extractData)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || { };
+  getOne(id) {
+    return this.http.get(this.endpoint + '/' + id)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  update(body: Application, type): Observable<Application[]> {
+    const bodyString = JSON.stringify(body);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.endpoint + '' + type + '/' + body.id, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   private handleError (error: Response | any) {
