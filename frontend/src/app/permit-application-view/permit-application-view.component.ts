@@ -28,15 +28,15 @@ export class PermitApplicationViewComponent implements OnInit {
         (e: any) => {
           console.log(e);
         }
-      )
+      );
   }
 
   updateApplicationStatus(application, status) {
     application.status = status;
     this.applicationService.update(application, '/special-uses/noncommercial/')
       .subscribe(
-        (application: any) => {
-          console.log(application);
+        (data: any) => {
+          console.log(data);
         },
         (e: any) => {
           console.log(e);
