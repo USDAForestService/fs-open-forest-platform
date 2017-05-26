@@ -105,8 +105,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
           () => {
-            console.log('success');
-            this.router.navigate(['application-noncommercial-group/submitted']);
+            this.router.navigate(['applications/submitted']);
           },
           (e: any) => {
             this.apiErrors =  e;
@@ -120,9 +119,12 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.application.district = '11';
     this.application.region = '11';
     this.application.forest = '11';
+    this.application.type = 'noncommercial';
     this.application.applicantInfo.orgType = 'Individual';
     this.application.noncommercialFields.startMinutes = '00';
     this.application.noncommercialFields.endMinutes = '00';
+    this.application.noncommercialFields.startDateTime = '2018-01-01T01:01:01Z';
+    this.application.noncommercialFields.endDateTime = '2018-01-01T01:01:01Z';
   }
 
 }
