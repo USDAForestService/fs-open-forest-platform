@@ -232,14 +232,14 @@ let createNoncommercialTempApp = (req, res) => {
   }
 
   // if there is an evening phone, validate it
-  if (req.body.applicantInfo.eveningPhone) {
+  if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
     result = v.validate(req.body.applicantInfo.eveningPhone, schemas.phoneNumberSchema, validatorOptions);
     collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
   }
 
   // if the orgType is Individual, then primaryAddress is required
   if (req.body.applicantInfo.orgType === 'Individual') {
-    if (req.body.applicantInfo.primaryAddress) {
+    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
       collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     } else {
@@ -249,23 +249,23 @@ let createNoncommercialTempApp = (req, res) => {
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
   if (req.body.applicantInfo.orgType === 'Corporation') {
-    if (req.body.applicantInfo.organizationAddress) {
+    if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.organizationAddress, schemas.addressSchema, validatorOptions);
       collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
     } else {
       errorArr.push('required-applicantInfo.organizationAddress');
     }
 
-    if (req.body.applicantInfo.primaryAddress) {
+    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
       collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     }
   }
 
   // if secondaryAddress exists, then validate it
-  if (req.body.applicantInfo.secondaryMailingAddress) {
-    result = v.validate(req.body.applicantInfo.secondaryMailingAddress, schemas.addressSchema, validatorOptions);
-    collateErrors(result, errorArr, 'applicantInfo.secondaryMailingAddress.');
+  if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
+    result = v.validate(req.body.applicantInfo.secondaryAddress, schemas.addressSchema, validatorOptions);
+    collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
   }
 
   if (errorArr.length > 0) {
