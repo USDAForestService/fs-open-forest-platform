@@ -131,21 +131,67 @@ let extractField = (errorObj, withArg) => {
   }
 };
 
+let collateErrors = (result, errorArr, prefix) => {
+  for (var error of result.errors) {
+    if (error.name === 'required') {
+      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
+    } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type')  {
+      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
+    }
+  }
+};
+
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
-  let result = v.validate(req.body, schemas.noncommercialSchema, validatorOptions);
+
   let errorArr = [];
   let errorRet = {};
 
+  // overall validation
+  let result = v.validate(req.body, schemas.noncommercialSchema, validatorOptions);
   if (result.errors.length > 0) {
-    //console.log(result);
-    for (var error of result.errors) {
-      if (error.name === 'required') {
-        errorArr.push(error.name + '-' + extractField(error, true));
-      } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type')  {
-        errorArr.push(error.name + '-' + extractField(error, false));
-      }
+    collateErrors(result, errorArr);
+  }
+
+  // if there is an evening phone, validate it
+  if (req.body.applicantInfo.eveningPhone) {
+    result = v.validate(req.body.applicantInfo.eveningPhone, schemas.phoneNumberSchema, validatorOptions);
+    collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
+  }
+
+  // if the orgType is Individual, then primaryAddress is required
+  if (req.body.applicantInfo.orgType === 'Individual') {
+    if (req.body.applicantInfo.primaryAddress) {
+      result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
+      collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
+    } else {
+      errorArr.push('required-applicantInfo.primaryAddress');
     }
+  }
+
+  // if the orgType is Corporation, then organizationAddress is required and might have a primary address
+  if (req.body.applicantInfo.orgType === 'Corporation') {
+    if (req.body.applicantInfo.organizationAddress) {
+      result = v.validate(req.body.applicantInfo.organizationAddress, schemas.addressSchema, validatorOptions);
+      collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
+    } else {
+      errorArr.push('required-applicantInfo.organizationAddress');
+    }
+
+    if (req.body.applicantInfo.primaryAddress) {
+      result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
+      collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
+    }
+  }
+
+  // if secondaryAddress exists, then validate it
+  if (req.body.applicantInfo.secondaryMailingAddress) {
+    result = v.validate(req.body.applicantInfo.secondaryMailingAddress, schemas.addressSchema, validatorOptions);
+    collateErrors(result, errorArr, 'applicantInfo.secondaryMailingAddress.');
+  }
+
+  if (errorArr.length > 0) {
+    //console.log(errorArr);
 
     errorRet['errors'] = errorArr;
 
