@@ -105,8 +105,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
           () => {
-            console.log('success');
-            this.router.navigate(['application-noncommercial-group/submitted']);
+            this.router.navigate(['applications/submitted']);
           },
           (e: any) => {
             this.apiErrors =  e;
