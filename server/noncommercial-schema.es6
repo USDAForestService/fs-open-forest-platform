@@ -82,7 +82,7 @@ var noncommercialFieldsSchema = {
     },
     'numberParticipants': {
       'default': '0',
-      'type': 'string'
+      'type': 'integer'
     },
     'formName':{
       'default':'FS-2700-3b',
@@ -125,7 +125,12 @@ var noncommercialFieldsSchema = {
     },
     'startMinutes' : {
       'default' : '',
-      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'enum':[
+        '00',
+        '15',
+        '30',
+        '45',
+      ],
       'type' : 'string'
     },
     'startPeriod' : {
@@ -143,7 +148,12 @@ var noncommercialFieldsSchema = {
     },
     'endMinutes' : {
       'default' : '',
-      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'enum':[
+        '00',
+        '15',
+        '30',
+        '45',
+      ],
       'type' : 'string'
     },
     'endPeriod' : {
@@ -187,7 +197,7 @@ var phoneNumberSchema = {
       'type': 'string'
     }
   },
-  'required': ['areaCode', 'prefix', 'number', 'phoneType']
+  'required': ['areaCode', 'prefix', 'number']
 };
 
 var applicantInfoBaseSchema = {
@@ -215,22 +225,23 @@ var applicantInfoBaseSchema = {
       'type': 'string'
     },
     'dayPhone': { '$ref': '/phoneNumber' },
-    'eveningPhone': { '$ref': '/phoneNumber' },
+    'anyOf': [
+      {'eveningPhone': { '$ref': '/phoneNumber' }},
+      {'secondaryAddress' : { '$ref' : '/address' }},
+      {'organizationAddress' : { '$ref' : '/address' }},
+      {'primaryAddress' : { '$ref' : '/address' }}
+    ],
     'emailAddress': {
       'default':'',
       'pattern':'^(([^<>()\\[\\]\\\\.,;:\\s@\']+(\\.[^<>()\\[\\]\\\\.,;:\\s@\']+)*)|(\'.+\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
       'type': 'string'
     },
-    'organizationAddress' : { '$ref' : '/address' },
-    'primaryAddress' : { '$ref' : '/address' },
-    'secondaryAddress' : { '$ref' : '/address' },
     'website':{
       'default':'',
       'type': 'string'
     }
   },
   'required': ['primaryFirstName', 'primaryLastName', 'dayPhone', 'emailAddress']
-  // either primaryAddress or organizationAddress
 };
 
 var addressSchema = {

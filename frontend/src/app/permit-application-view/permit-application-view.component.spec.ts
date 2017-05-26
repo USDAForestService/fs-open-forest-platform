@@ -19,7 +19,4 @@ describe('PermitApplicationViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

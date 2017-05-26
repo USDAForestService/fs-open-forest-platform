@@ -6,6 +6,8 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
+import { Application } from './application';
+
 @Injectable()
 export class ApplicationService {
 
@@ -14,24 +16,35 @@ export class ApplicationService {
 
   constructor (private http: Http) {}
 
-  create(data, type) {
+  create(body, type) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint + '' + type, data, options)
-      .map(this.extractData)
+    return this.http.post(this.endpoint + '' + type, body, options)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   get(params = '') {
     return this.http.get(this.endpoint + '' + params)
-      .map(this.extractData)
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || { };
+  getOne(id) {
+    return this.http.get(this.endpoint + '/' + id)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
+  }
+
+  update(body: Application): Observable<Application[]> {
+    const bodyString = JSON.stringify(body);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.endpoint + '/' + body.applicationId, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   private handleError (error: Response | any) {
