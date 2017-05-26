@@ -18,7 +18,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
   mode = 'Observable';
   application = new Application();
-
+  forest = 'Mt. Baker-Snoqualmie National Forest';
   primaryPermitHolderSameAddress = true;
   viewSecondaryPermitHolder = false;
   secondaryPermitHolderSameAddress = true;
