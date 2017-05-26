@@ -209,7 +209,7 @@ let createNoncommercialTempApp = (req, res) => {
       noncommercialFieldsEndHour: req.body.noncommercialFields.endHour,
       noncommercialFieldsEndMinutes: req.body.noncommercialFields.endMinutes,
       noncommercialFieldsEndPeriod: req.body.noncommercialFields.endPeriod,
-      noncommercialFieldsNumberParticipants: req.body.noncommercialFields.numParticipants
+      noncommercialFieldsNumberParticipants: req.body.noncommercialFields.numberParticipants
     }).then((noncommApp) => {
       req.body['applicationId'] = noncommApp.applicationId;
       res.status(201).json(req.body);

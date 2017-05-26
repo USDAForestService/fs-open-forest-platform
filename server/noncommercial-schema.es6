@@ -82,7 +82,7 @@ var noncommercialFieldsSchema = {
     },
     'numberParticipants': {
       'default': '0',
-      'type': 'string'
+      'type': 'integer'
     },
     'formName':{
       'default':'FS-2700-3b',
@@ -125,7 +125,12 @@ var noncommercialFieldsSchema = {
     },
     'startMinutes' : {
       'default' : '',
-      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'enum':[
+        '00',
+        '15',
+        '30',
+        '45',
+      ],
       'type' : 'string'
     },
     'startPeriod' : {
@@ -143,7 +148,12 @@ var noncommercialFieldsSchema = {
     },
     'endMinutes' : {
       'default' : '',
-      'pattern' : '^0?[1-9]|[1-5][0-9]$',
+      'enum':[
+        '00',
+        '15',
+        '30',
+        '45',
+      ],
       'type' : 'string'
     },
     'endPeriod' : {
@@ -187,7 +197,7 @@ var phoneNumberSchema = {
       'type': 'string'
     }
   },
-  'required': ['areaCode', 'prefix', 'number', 'phoneType']
+//  'required': ['areaCode', 'prefix', 'number', 'phoneType']
 };
 
 var applicantInfoBaseSchema = {
@@ -260,7 +270,7 @@ var addressSchema = {
       'type': 'string'
     }
   },
-  'required' : ['mailingAddress', 'mailingCity', 'mailingState', 'mailingZIP']
+//  'required' : ['mailingAddress', 'mailingCity', 'mailingState', 'mailingZIP']
 };
 
 var commonFieldsSchema = {
