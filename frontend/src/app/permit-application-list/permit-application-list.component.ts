@@ -32,6 +32,19 @@ export class PermitApplicationListComponent implements OnInit {
       );
   }
 
+  updateApplicationStatus(application, status) {
+    application.status = status;
+    this.applicationService.update(application, '/special-uses/noncommercial/')
+      .subscribe(
+        (application: any) => {
+          console.log(application);
+        },
+        (e: any) => {
+          console.log(e);
+        }
+      );
+  }
+
   ngOnInit() {
     this.getApplications();
   }
