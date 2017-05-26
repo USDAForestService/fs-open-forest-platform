@@ -24,9 +24,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
    'authorizingOfficerTitle': '',
    'eventName': '',
    'applicantInfo': {
-     'name': '',
-     'firstName': '',
-     'lastName': '',
+     'organizationName': '',
+     'website': '',
+     'orgType': 'Individual',
      'dayPhone': {
        'areaCode': '',
        'prefix': '',
@@ -40,13 +40,15 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
        'phoneType': ''
      },
      'emailAddress': '',
-     'address': {
+     'organizationAddress': {
        'mailingAddress': '',
        'mailingAddress2': '',
        'mailingCity': '',
        'mailingState': '',
        'mailingZIP': '',
      },
+     'primaryFirstName': '',
+     'primaryLastName': '',
      'primaryAddress': {
        'mailingAddress': '',
        'mailingAddress2': '',
@@ -62,10 +64,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
        'mailingCity': '',
        'mailingState': '',
        'mailingZIP': '',
-     },
-     'organizationName': '',
-     'website': '',
-     'orgType': 'Individual'
+     }
    },
    'type': 'noncommercial',
    'noncommercialFields': {
