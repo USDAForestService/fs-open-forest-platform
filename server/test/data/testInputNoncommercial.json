@@ -5,24 +5,17 @@
     "authorizingOfficerName": "WILLIAM L.NOXON",
     "authorizingOfficerTitle": "null",
     "applicantInfo": {
-        "firstName": "John",
-        "lastName": "Doe",
+        "primaryFirstName": "John",
+        "primaryLastName": "Doe",
         "dayPhone": {
-            "areaCode": 541,
-            "prefix": 815,
-            "number": 6141,
+            "areaCode": "541",
+            "prefix": "815",
+            "number": "6141",
             "extension": "0",
             "phoneType": "BUSINESS"
         },
-        "eveningPhone": {
-          "areaCode": 0,
-          "prefix": 0,
-          "number": 0,
-          "extension": "0",
-          "phoneType": "BUSINESS"
-        },
         "emailAddress": "test@email.org",
-        "address": {
+        "organizationAddress": {
           "mailingAddress": "ON ANW 0953",
           "mailingCity": "ALBANY",
           "mailingState": "OR",
@@ -47,6 +40,6 @@
         "locationDescription": "string",
         "startDateTime": "2013-01-12T12:00:00Z",
         "endDateTime": "2013-01-19T12:00:00Z",
-        "numberParticipants": 45
+        "numberParticipants": "45"
     }
 }

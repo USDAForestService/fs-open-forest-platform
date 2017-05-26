@@ -74,7 +74,7 @@ describe('noncommercial tests', () => {
     });
 
     it('should return a type error for applicantInfo.dayPhone.areaCode', (done) => {
-      let data = noncommercialFactory.create({ 'applicantInfo.dayPhone.areaCode' : 'invalid' });
+      let data = noncommercialFactory.create({ 'applicantInfo.dayPhone.areaCode' : 555 });
 
       request(server)
         .post(testURL)
