@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ApplicationService {
 
-//  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
-  private endpoint = 'http://localhost:8080/permits/applications';
+  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
+//  private endpoint = 'http://localhost:8080/permits/applications';
 
   constructor (private http: Http) {}
 
