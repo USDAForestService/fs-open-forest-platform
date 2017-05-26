@@ -143,81 +143,81 @@ let collateErrors = (result, errorArr, prefix) => {
 
 let translateFromDatabaseToJSON = (input) => {
   return {
-    "applicantInfo": {
-      "dayPhone": {
-        "areaCode": input.applicantInfoDayPhoneAreaCode,
-        "prefix": input.applicantInfoDayPhonePrefix,
-        "number": input.applicantInfoDayPhoneNumber
+    'applicantInfo': {
+      'dayPhone': {
+        'areaCode': input.applicantInfoDayPhoneAreaCode,
+        'prefix': input.applicantInfoDayPhonePrefix,
+        'number': input.applicantInfoDayPhoneNumber
       },
-      "eveningPhone": {
-        "areaCode": input.applicantInfoEveningPhoneAreaCode,
-        "prefix": input.applicantInfoEveningPhonePrefix,
-        "number": input.applicantInfoEveningPhoneNumber
+      'eveningPhone': {
+        'areaCode': input.applicantInfoEveningPhoneAreaCode,
+        'prefix': input.applicantInfoEveningPhonePrefix,
+        'number': input.applicantInfoEveningPhoneNumber
       },
-      "primaryAddress": {
-        "mailingAddress": input.applicantInfoPrimaryMailingAddress,
-        "mailingAddress2": input.applicantInfoPrimaryMailingAddress2,
-        "mailingCity": input.applicantInfoPrimaryMailingCity,
-        "mailingState": input.applicantInfoPrimaryMailingState,
-        "mailingZip": input.applicantInfoPrimaryMailingZIP
+      'primaryAddress': {
+        'mailingAddress': input.applicantInfoPrimaryMailingAddress,
+        'mailingAddress2': input.applicantInfoPrimaryMailingAddress2,
+        'mailingCity': input.applicantInfoPrimaryMailingCity,
+        'mailingState': input.applicantInfoPrimaryMailingState,
+        'mailingZip': input.applicantInfoPrimaryMailingZIP
       },
-      "organizationAddress": {
-        "mailingAddress": input.applicantInfoOrgMailingAddress,
-        "mailingAddress2": input.applicantInfoOrgMailingAddress2,
-        "mailingCity": input.applicantInfoOrgMailingCity,
-        "mailingState": input.applicantInfoOrgMailingState,
-        "mailingZip": input.applicantInfoOrgMailingZIP
+      'organizationAddress': {
+        'mailingAddress': input.applicantInfoOrgMailingAddress,
+        'mailingAddress2': input.applicantInfoOrgMailingAddress2,
+        'mailingCity': input.applicantInfoOrgMailingCity,
+        'mailingState': input.applicantInfoOrgMailingState,
+        'mailingZip': input.applicantInfoOrgMailingZIP
       },
-      "secondaryAddress": {
-        "mailingAddress": input.applicantInfoSecondaryMailingAddress,
-        "mailingAddress2": input.applicantInfoSecondaryMailingAddress2,
-        "mailingCity": input.applicantInfoSecondaryMailingCity,
-        "mailingState": input.applicantInfoSecondaryMailingState,
-        "mailingZip": input.applicantInfoSecondaryMailingZIP
+      'secondaryAddress': {
+        'mailingAddress': input.applicantInfoSecondaryMailingAddress,
+        'mailingAddress2': input.applicantInfoSecondaryMailingAddress2,
+        'mailingCity': input.applicantInfoSecondaryMailingCity,
+        'mailingState': input.applicantInfoSecondaryMailingState,
+        'mailingZip': input.applicantInfoSecondaryMailingZIP
       },
-      "orgType": input.type,
-      "primaryFirstName": input.applicantInfoPrimaryFirstName,
-      "primaryLastName": input.applicantInfoPrimaryLastName,
-      "secondaryFirstName": input.applicantInfoSecondaryFirstName,
-      "secondaryLastName": input.applicantInfoSecondaryLastName,
-      "emailAddress": input.applicantInfoEmailAddress
+      'orgType': input.type,
+      'primaryFirstName': input.applicantInfoPrimaryFirstName,
+      'primaryLastName': input.applicantInfoPrimaryLastName,
+      'secondaryFirstName': input.applicantInfoSecondaryFirstName,
+      'secondaryLastName': input.applicantInfoSecondaryLastName,
+      'emailAddress': input.applicantInfoEmailAddress
     },
-    "noncommercialFields": {
-      "activityDescription": input.noncommercialFieldsActivityDescription,
-      "endDay": input.noncommercialFieldsEndDay,
-      "endHour": input.noncommercialFieldsEndHour,
-      "endMinutes": input.noncommercialFieldsEndMinutes,
-      "endMonth": input.noncommercialFieldsEndMonth,
-      "endPeriod": input.noncommercialFieldsEndPeriod,
-      "endYear": input.noncommercialFieldsEndYear,
-      "locationDescription": input.noncommercialFieldsLocationDescription,
-      "numberParticipants": input.noncommercialFieldsNumberParticipants,
-      "spectators": input.noncommercialFieldsNumberSpectators,
-      "startDay": input.noncommercialFieldsStartDay,
-      "startHour": input.noncommercialFieldsStartHour,
-      "startMinutes": input.noncommercialFieldsStartMinutes,
-      "startMonth": input.noncommercialFieldsStartMonth,
-      "startPeriod": input.noncommercialFieldsStartPeriod,
-      "startYear": input.noncommercialFieldsStartYear
+    'noncommercialFields': {
+      'activityDescription': input.noncommercialFieldsActivityDescription,
+      'endDay': input.noncommercialFieldsEndDay,
+      'endHour': input.noncommercialFieldsEndHour,
+      'endMinutes': input.noncommercialFieldsEndMinutes,
+      'endMonth': input.noncommercialFieldsEndMonth,
+      'endPeriod': input.noncommercialFieldsEndPeriod,
+      'endYear': input.noncommercialFieldsEndYear,
+      'locationDescription': input.noncommercialFieldsLocationDescription,
+      'numberParticipants': input.noncommercialFieldsNumberParticipants,
+      'spectators': input.noncommercialFieldsNumberSpectators,
+      'startDay': input.noncommercialFieldsStartDay,
+      'startHour': input.noncommercialFieldsStartHour,
+      'startMinutes': input.noncommercialFieldsStartMinutes,
+      'startMonth': input.noncommercialFieldsStartMonth,
+      'startPeriod': input.noncommercialFieldsStartPeriod,
+      'startYear': input.noncommercialFieldsStartYear
     },
-    "district": input.district,
-    "region": input.region,
-    "forest": input.forest,
-    "type": input.type,
-    "eventName": input.eventName,
-    "signature": input.signature,
-    "status": input.status,
-    "createdAt": input.createdAt,
-    "applicationId": input.applicationId
-  }
-}
+    'district': input.district,
+    'region': input.region,
+    'forest': input.forest,
+    'type': input.type,
+    'eventName': input.eventName,
+    'signature': input.signature,
+    'status': input.status,
+    'createdAt': input.createdAt,
+    'applicationId': input.applicationId
+  };
+};
 
 let translateArrayFromDatabaseToJSON = (applications) => {
   for (var i = 0; i < applications.length; i++) {
     applications[i] = translateFromDatabaseToJSON(applications[i]);
   }
   return applications;
-}
+};
 
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
@@ -345,7 +345,7 @@ let createNoncommercialTempApp = (req, res) => {
 
 let updateApp = (req, res) => {
   res.send('not yet implemented');
-}
+};
 
 let getApp = (req, res) => {
   NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
