@@ -13,7 +13,7 @@ import { ApplicationService } from '../admin/application.service';
 @Injectable()
 export class PermitApplicationListComponent implements OnInit {
 
-  applications: Application[] = [];
+  applications: any;
   apiErrors: any;
 
   constructor( private applicationService: ApplicationService ) { }
