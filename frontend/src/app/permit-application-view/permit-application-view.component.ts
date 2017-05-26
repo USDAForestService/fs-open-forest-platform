@@ -33,7 +33,7 @@ export class PermitApplicationViewComponent implements OnInit {
 
   updateApplicationStatus(application, status) {
     application.status = status;
-    this.applicationService.update(application, '/special-uses/noncommercial/')
+    this.applicationService.update(application)
       .subscribe(
         (data: any) => {
           console.log(data);

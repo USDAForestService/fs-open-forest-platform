@@ -5,7 +5,7 @@
     <div id="application-review">
       <form id="approve-form" action="/change/2/approved/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm"/>
-        <button id="approve-application-btn" type="submit" name="approve" (click)="updateApplicationStatus('accepted')">Accept Application</button>
+        <button id="approve-application-btn" type="submit" name="approve" (click)="updateApplicationStatus(application, 'accepted')">Accept Application</button>
       </form>
       <form id="deny-form" action="/change/2/not_approved/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm"/>
@@ -19,114 +19,6 @@
       <tr>
         <th scope="col">Name of group or event</th>
         <td scope="row">{{application.eventName}}</td>
-      </tr>
-      <tr>
-        <th scope="col">Address of group or contact</th>
-        <td scope="row">123 anywhere</td>
-      </tr>
-      <tr>
-        <th scope="col">Address (line 2)</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">City</th>
-        <td scope="row">Charlotte</td>
-      </tr>
-      <tr>
-        <th scope="col">State</th>
-        <td scope="row">NC</td>
-      </tr>
-      <tr>
-        <th scope="col">ZIP</th>
-        <td scope="row">28213</td>
-      </tr>
-      <tr>
-        <th scope="col">Email address</th>
-        <td scope="row">christophermcmillan@criterion508.com</td>
-      </tr>
-      <tr>
-        <th scope="col">Phone (day)</th>
-        <td scope="row">123-456-7890</td>
-      </tr>
-      <tr>
-        <th scope="col">Phone (evening)</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">Description of proposed activity</th>
-        <td scope="row">asdjfalsd;fljasldfajsdlfa;jsdfla;sdfja</td>
-      </tr>
-      <tr>
-        <th scope="col">Location and description of National Forest system lands and facilities applicant would like to use</th>
-        <td scope="row">Charlotte Park</td>
-      </tr>
-      <tr>
-        <th scope="col">Estimated number of participants</th>
-        <td scope="row">25</td>
-      </tr>
-      <tr>
-        <th scope="col">Estimated number of spectators</th>
-        <td scope="row">50</td>
-      </tr>
-      <tr>
-        <th scope="col">Start date and time</th>
-        <td scope="row">Nov. 7, 2016, midnight</td>
-      </tr>
-      <tr>
-        <th scope="col">End date and time</th>
-        <td scope="row">Nov. 8, 2016, midnight</td>
-      </tr>
-      <tr>
-        <th scope="col">Permit holder name</th>
-        <td scope="row">Christopher</td>
-      </tr>
-      <tr>
-        <th scope="col">Address 1</th>
-        <td scope="row">123 anywhere</td>
-      </tr>
-      <tr>
-        <th scope="col">Address 2</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">City</th>
-        <td scope="row">Charlotte</td>
-      </tr>
-      <tr>
-        <th scope="col">State</th>
-        <td scope="row">NC</td>
-      </tr>
-      <tr>
-        <th scope="col">ZIP</th>
-        <td scope="row">28213</td>
-      </tr>
-      <tr>
-        <th scope="col">Permit holder name</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">Address 1</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">Address 2</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">City</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">State</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">ZIP</th>
-        <td scope="row"></td>
-      </tr>
-      <tr>
-        <th scope="col">Type your initials here as a signature on your application</th>
-        <td scope="row"></td>
       </tr>
     </table>
   </div>
