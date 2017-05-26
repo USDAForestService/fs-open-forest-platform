@@ -207,7 +207,8 @@ let translateFromDatabaseToJSON = (input) => {
     "eventName": input.eventName,
     "signature": input.signature,
     "status": input.status,
-    "createdAt": input.createdAt
+    "createdAt": input.createdAt,
+    "applicationId": input.applicationId
   }
 }
 
