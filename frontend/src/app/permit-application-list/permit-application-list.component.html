@@ -30,7 +30,7 @@
           <td>{{application.noncommercialFieldsEndDateTime | date:'M/d/y'}}</td>
           <td>{{application.createdAt | date:'M/d/y'}}</td>
           <td>{{application.status}}</td>
-          <td><a class="usa-button" routerLink="/permit-application-view">View</a></td>
+          <td><a class="usa-button" routerLink="/admin/applications/{{application.id}}">View</a></td>
           <!-- <td>{{application.eventName}}</td>
           <td>{{application.noncommercialFieldsLocationDescription}}</td>
           <td>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}}</td>

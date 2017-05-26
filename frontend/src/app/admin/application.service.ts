@@ -31,6 +31,12 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
+  getOne(id) {
+    return this.http.get(this.endpoint + '/' + id)
+      .map((res:Response) => res.json())
+      .catch(this.handleError);
+  }
+
   update(body: Application, type): Observable<Application[]> {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
