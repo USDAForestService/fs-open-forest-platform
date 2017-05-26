@@ -24,13 +24,20 @@
       </thead>
       <tbody>
         <tr *ngFor="let application of applications">
-          <th scope="row">{{application.eventName}}</th>
-          <th>{{application.noncommercialFieldsLocationDescription}}</th>
-          <th>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}}</th>
-          <th>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}}</th>
-          <th>{{application.createdAt| date:'M/d/y'}}</th>
-          <th>{{application.status}}</th>
-          <th><a routerLink="/permit-application-view">View</a></th>
+          <td>{{application.eventName}}</td>
+          <td>{{application.noncommercialFieldsActivityDescription}}</td>
+          <td>{{application.noncommercialFieldsStartDateTime | date:'M/d/y'}}</td>
+          <td>{{application.noncommercialFieldsEndDateTime | date:'M/d/y'}}</td>
+          <td>{{application.createdAt | date:'M/d/y'}}</td>
+          <td>{{application.status}}</td>
+          <td></td>
+          <!-- <td>{{application.eventName}}</td>
+          <td>{{application.noncommercialFieldsLocationDescription}}</td>
+          <td>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}}</td>
+          <td>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}}</td>
+          <td>{{application.createdAt| date:'M/d/y'}}</td>
+          <td>{{application.status}}</td>
+          <td><a routerLink="/permit-application-view">View</a></td> -->
         </tr>
       </tbody>
     </table>
