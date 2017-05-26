@@ -56,6 +56,8 @@ export class Address {
 export class NoncommercialFields {
   activityDescription: string;
   locationDescription: string;
+  startDateTime: string;
+  endDateTime: string;
   startMonth: string;
   startDay: string;
   startYear: string;
