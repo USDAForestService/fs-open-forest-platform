@@ -1,15 +1,15 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Received Application</h1>
-    <h2>Permit Status:<span id="permit-status"></span></h2>
+    <h2>Permit Status:<span id="permit-status">{{application.status}}</span></h2>
     <div id="application-review">
       <form id="approve-form" action="/change/2/approved/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm"/>
-        <button id="approve-application-btn" type="submit" name="approve">Approve Application</button>
+        <button id="approve-application-btn" type="submit" name="approve" (click)="updateApplicationStatus('accepted')">Accept Application</button>
       </form>
       <form id="deny-form" action="/change/2/not_approved/" method="post">
         <input type="hidden" name="csrfmiddlewaretoken" value="SIDDgHb1xoieY5JbS78q9XJnQxvO1dWFemOqKtcQCN4kZTv6LMpLc9YaH2NHHVDm"/>
-        <button id="return-application-btn" type="submit" name="returned">Return Application </button><span class="usa-input-error-message" id="deny-error-message" role="alert">Please enter an explanation for your denial</span>
+        <button id="return-application-btn" type="submit" name="returned" (click)="updateApplicationStatus(application, 'returned')">Return Application </button><span class="usa-input-error-message" id="deny-error-message" role="alert">Please enter an explanation for your denial</span>
         <label for="returned-reason">Reason for returning application</label>
         <textarea id="returned-reason" name="returned-reason"></textarea>
       </form>
@@ -18,7 +18,7 @@
     <table>
       <tr>
         <th scope="col">Name of group or event</th>
-        <td scope="row">Christopher Sample Event</td>
+        <td scope="row">{{application.eventName}}</td>
       </tr>
       <tr>
         <th scope="col">Address of group or contact</th>
