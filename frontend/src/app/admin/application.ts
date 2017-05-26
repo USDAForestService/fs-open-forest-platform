@@ -50,7 +50,7 @@ export class Address {
   mailingAddress2: string;
   mailingCity: string;
   mailingState: string;
-  mailingZip: string;
+  mailingZIP: string;
 }
 
 export class NoncommercialFields {
@@ -68,5 +68,6 @@ export class NoncommercialFields {
   endHour: string;
   endMinutes: string;
   endPeriod: string;
-  numParticipants: string;
+  numberParticipants: string;
+  spectators: string;
 }
