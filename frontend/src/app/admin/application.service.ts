@@ -21,19 +21,19 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.endpoint + '' + type, body, options)
-      .map((res:Response) => res.json())
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   get(params = '') {
     return this.http.get(this.endpoint + '' + params)
-      .map((res:Response) => res.json())
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   getOne(id) {
     return this.http.get(this.endpoint + '/' + id)
-      .map((res:Response) => res.json())
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
@@ -43,7 +43,7 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers });
 
     return this.http.put(this.endpoint + '' + type + '/' + body.id, body, options)
-      .map((res:Response) => res.json())
+      .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
