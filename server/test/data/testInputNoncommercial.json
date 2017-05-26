@@ -15,19 +15,7 @@
             "phoneType": "BUSINESS"
         },
         "emailAddress": "test@email.org",
-        "organizationAddress": {
-          "mailingAddress": "ON ANW 0953",
-          "mailingCity": "ALBANY",
-          "mailingState": "OR",
-          "mailingZIP": "97321"
-        },
         "primaryAddress": {
-          "mailingAddress": "ON ANW 0953",
-          "mailingCity": "ALBANY",
-          "mailingState": "OR",
-          "mailingZIP": "97321"
-        },
-        "secondaryAddress": {
           "mailingAddress": "ON ANW 0953",
           "mailingCity": "ALBANY",
           "mailingState": "OR",
@@ -40,6 +28,6 @@
         "locationDescription": "string",
         "startDateTime": "2013-01-12T12:00:00Z",
         "endDateTime": "2013-01-19T12:00:00Z",
-        "numberParticipants": "45"
+        "numberParticipants": 45
     }
 }

@@ -99,10 +99,24 @@ describe('noncommercial tests', () => {
         .expect(400, done);
     });
 
+    it('should return a required error for evening area code', (done) => {
+      let data = noncommercialFactory.create(
+        { 'applicantInfo.eveningPhone.prefix' : '555',
+          'applicantInfo.eveningPhone.number' : '5555'});
+
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(/"required-applicantInfo.eveningPhone.areaCode"/)
+        .expect(400, done);
+    });
+
   });
 
   describe('GET tests', () => {
-    it('should return one noncommercial application', (done) => {
+    it('should return at least one noncommercial application', (done) => {
       request(server)
         .get(testGetURL)
         .expect('Content-Type', /json/)
