@@ -125,7 +125,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.application.noncommercialFields.endMinutes = '00';
     this.application.noncommercialFields.startDateTime = '2018-01-01T01:01:01Z';
     this.application.noncommercialFields.endDateTime = '2018-01-01T01:01:01Z';
-
   }
 
 }
