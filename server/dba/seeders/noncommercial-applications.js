@@ -4,22 +4,22 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
 
     let noncommApps = [{
-      region: '10',
+      region: '99',
       forest: '50',
       district: '50',
       authorizing_officer_name: 'WILLIAM L.NOXON',
       authorizing_officer_title: null,
-      applicant_info_first_name: 'John',
-      applicant_info_last_name: 'Doe',
+      applicant_info_primary_first_nm: 'John',
+      applicant_info_primary_last_nm: 'Doe',
       applicant_info_day_phone_areacd: 541,
       applicant_info_day_phone_prefix: 815,
       applicant_info_day_phone_number: 6141,
       applicant_info_day_phone_type: 'BUSINESS',
       applicant_info_email_address: 'test@email.org',
-      applicant_info_mailing_address: 'ON ANW 0953',
-      applicant_info_mailing_city: 'ALBANY',
-      applicant_info_mailing_state: 'OR',
-      applicant_info_mailing_zip: '97321',
+      appl_info_pri_mailing_address: 'ON ANW 0953',
+      appl_info_pri_mailing_city: 'ALBANY',
+      appl_info_pri_mailing_state: 'OR',
+      appl_info_pri_mailing_zip: '97321',
       type: 'noncommercial',
       noncomm_fields_activity_descr: 'PROVIDING WHITEWATER OUTFITTING AND GUIDING ACTIVITIES ON NATIONAL FOREST LANDS',
       noncomm_fields_location_descr: 'string',
@@ -35,7 +35,7 @@ module.exports = {
   },
   down: function(queryInterface, Sequelize) {
     return queryInterface.bulkDelete('noncommercialApplications', [
-			{region: ['10']}
+			{region: ['99']}
     ]);
   }
 };

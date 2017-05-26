@@ -81,8 +81,8 @@ var noncommercialFieldsSchema = {
       'type': 'string'
     },
     'numberParticipants': {
-      'default':0,
-      'type': 'integer'
+      'default': '0',
+      'type': 'string'
     },
     'formName':{
       'default':'FS-2700-3b',
@@ -163,19 +163,19 @@ var phoneNumberSchema = {
   'type': 'object',
   'properties': {
     'areaCode': {
-      'default':0,
+      'default': '0',
       'pattern' : '^[0-9]{3}$',
-      'type': 'integer'
+      'type': 'string'
     },
     'prefix': {
-      'default':0,
+      'default': '0',
       'pattern' : '^[0-9]{3}$',
-      'type': 'integer'
+      'type': 'string'
     },
     'number': {
-      'default':0,
+      'default': '0',
       'pattern' : '^[0-9]{4}$',
-      'type': 'integer'
+      'type': 'string'
     },
     'extension': {
       'default':'',
@@ -194,12 +194,22 @@ var applicantInfoBaseSchema = {
   'id':'/applicantInfoBase',
   'type':'object',
   'properties':{
-    'firstName': {
+    'primaryFirstName': {
       'default':'',
       'maxLength':255,
       'type': 'string'
     },
-    'lastName': {
+    'primaryLastName': {
+      'default':'',
+      'maxLength':255,
+      'type': 'string'
+    },
+    'secondaryFirstName': {
+      'default':'',
+      'maxLength':255,
+      'type': 'string'
+    },
+    'secondaryLastName': {
       'default':'',
       'maxLength':255,
       'type': 'string'
@@ -211,7 +221,7 @@ var applicantInfoBaseSchema = {
       'pattern':'^(([^<>()\\[\\]\\\\.,;:\\s@\']+(\\.[^<>()\\[\\]\\\\.,;:\\s@\']+)*)|(\'.+\'))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
       'type': 'string'
     },
-    'address' : { '$ref' : '/address' },
+    'organizationAddress' : { '$ref' : '/address' },
     'primaryAddress' : { '$ref' : '/address' },
     'secondaryAddress' : { '$ref' : '/address' },
     'website':{
@@ -219,7 +229,8 @@ var applicantInfoBaseSchema = {
       'type': 'string'
     }
   },
-  'required': ['firstName', 'lastName', 'dayPhone', 'emailAddress', 'address']
+  'required': ['primaryFirstName', 'primaryLastName', 'dayPhone', 'emailAddress']
+  // either primaryAddress or organizationAddress
 };
 
 var addressSchema = {
