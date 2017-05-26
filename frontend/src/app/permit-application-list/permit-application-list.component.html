@@ -26,8 +26,8 @@
         <tr *ngFor="let application of applications">
           <td>{{application.eventName}}</td>
           <td>{{application.noncommercialFieldsActivityDescription}}</td>
-          <td>{{application.noncommercialFieldsStartDateTime | date:'M/d/y'}}</td>
-          <td>{{application.noncommercialFieldsEndDateTime | date:'M/d/y'}}</td>
+          <td>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}} {{application.noncommercialFieldsStartHour}}:{{application.noncommercialFieldsStartMinutes}} {{application.noncommercialFieldsStartPeriod}}</td>
+          <td>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}} {{application.noncommercialFieldsEndHour}}:{{application.noncommercialFieldsEndMinutes}} {{application.noncommercialFieldsEndPeriod}}</td>
           <td>{{application.createdAt | date:'M/d/y'}}</td>
           <td>{{application.status}}</td>
           <td></td>
