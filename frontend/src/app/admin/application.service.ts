@@ -37,12 +37,12 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
-  update(body: Application, type): Observable<Application[]> {
+  update(body: Application): Observable<Application[]> {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(this.endpoint + '' + type + '/' + body.id, body, options)
+    return this.http.put(this.endpoint + '/' + body.applicationId, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }

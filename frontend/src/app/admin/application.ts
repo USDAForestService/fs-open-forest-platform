@@ -1,12 +1,13 @@
 export class Application {
   applicantInfo: ApplicantInfo;
-  id: number;
+  applicationId: number;
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
   district: string;
   eventName: string;
   forest: string;
   noncommercialFields: NoncommercialFields;
+  reasonForReturn: string;
   region: string;
   signature: string;
   type: string;
