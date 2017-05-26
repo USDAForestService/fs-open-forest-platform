@@ -25,19 +25,12 @@
       <tbody>
         <tr *ngFor="let application of applications">
           <td>{{application.eventName}}</td>
-          <td>{{application.noncommercialFieldsActivityDescription}}</td>
-          <td>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}} {{application.noncommercialFieldsStartHour}}:{{application.noncommercialFieldsStartMinutes}} {{application.noncommercialFieldsStartPeriod}}</td>
-          <td>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}} {{application.noncommercialFieldsEndHour}}:{{application.noncommercialFieldsEndMinutes}} {{application.noncommercialFieldsEndPeriod}}</td>
+          <td>{{application.noncommercialFields.locationDescription}}</td>
+          <td>{{application.noncommercialFields.startMonth}}/{{application.noncommercialFields.startDay}}/{{application.noncommercialFields.startYear}} {{application.noncommercialFields.startHour}}:{{application.noncommercialFields.startMinutes}} {{application.noncommercialFields.startPeriod}}</td>
+          <td>{{application.noncommercialFields.endMonth}}/{{application.noncommercialFields.endDay}}/{{application.noncommercialFields.endYear}} {{application.noncommercialFields.endHour}}:{{application.noncommercialFields.endMinutes}} {{application.noncommercialFields.endPeriod}}</td>
           <td>{{application.createdAt | date:'M/d/y'}}</td>
           <td>{{application.status}}</td>
-          <td></td>
-          <!-- <td>{{application.eventName}}</td>
-          <td>{{application.noncommercialFieldsLocationDescription}}</td>
-          <td>{{application.noncommercialFieldsStartMonth}}/{{application.noncommercialFieldsStartDay}}/{{application.noncommercialFieldsStartYear}}</td>
-          <td>{{application.noncommercialFieldsEndMonth}}/{{application.noncommercialFieldsEndDay}}/{{application.noncommercialFieldsEndYear}}</td>
-          <td>{{application.createdAt| date:'M/d/y'}}</td>
-          <td>{{application.status}}</td>
-          <td><a routerLink="/permit-application-view">View</a></td> -->
+          <td><a class="usa-button" routerLink="/admin/applications/{{application.id}}">View</a></td>
         </tr>
       </tbody>
     </table>
