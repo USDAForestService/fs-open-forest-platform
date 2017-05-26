@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Application } from '../admin/application';
 import { ApplicationService } from '../admin/application.service';
 
 @Component({
@@ -12,9 +13,8 @@ import { ApplicationService } from '../admin/application.service';
 @Injectable()
 export class PermitApplicationListComponent implements OnInit {
 
-  applications: any;
+  applications: Application[] = [];
   apiErrors: any;
-
 
   constructor( private applicationService: ApplicationService ) { }
 
@@ -22,8 +22,8 @@ export class PermitApplicationListComponent implements OnInit {
     this.applicationService.get()
       .subscribe(
         (applications: any) => {
-          console.log('success');
-          this.applications =  applications;
+          console.log('success', applications);
+          this.applications = applications;
         },
         (e: any) => {
           this.apiErrors =  e;
@@ -33,7 +33,7 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getApplications();
   }
 
 }
