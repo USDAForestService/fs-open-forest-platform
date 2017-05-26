@@ -120,6 +120,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.application.district = '11';
     this.application.region = '11';
     this.application.forest = '11';
+    this.application.type = 'noncommercial';
     this.application.applicantInfo.orgType = 'Individual';
     this.application.noncommercialFields.startMinutes = '00';
     this.application.noncommercialFields.endMinutes = '00';
