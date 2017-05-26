@@ -15,6 +15,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   apiErrors: any;
   mode = 'Observable';
+  forest = 'Mt. Baker-Snoqualmie National Forest';
 
   application = {
    'region': '11',
