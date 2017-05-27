@@ -2,6 +2,8 @@
 @import 'core/variables';
 // Elements -------------- //
 // Styles basic HTML elements
+@import 'elements/backgrounds';
+@import 'elements/borders';
 @import 'elements/breaks';
 @import 'elements/buttons';
 @import 'elements/input';
@@ -9,9 +11,11 @@
 @import 'elements/typography';
 @import 'elements/headers';
 // Components -------------- //
+@import 'components/breadcrumbs';
 @import 'components/footer';
 @import 'components/header';
 @import 'components/primary-nav';
 @import 'components/secondary-nav';
+@import 'components/usa-grid';
 // Pages -------------------- //
 @import 'pages/application-view';
