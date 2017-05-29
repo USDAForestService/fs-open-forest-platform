@@ -1,28 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-
-import { ApplicationService } from '../admin/application.service';
-
 import { Application } from '../admin/application';
-
+import { ApplicationService } from '../admin/application.service';
+import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 
 
 @Component({
-  selector: 'app-application-noncommercial-group',
-  templateUrl: './application-noncommercial-group.component.html',
   providers: [ ApplicationService ],
-  styleUrls: ['./application-noncommercial-group.component.scss']
+  selector: 'app-application-noncommercial-group',
+  styleUrls: ['./application-noncommercial-group.component.scss'],
+  templateUrl: './application-noncommercial-group.component.html'
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   apiErrors: any;
-  mode = 'Observable';
   application = new Application();
   forest = 'Mt. Baker-Snoqualmie National Forest';
+  mode = 'Observable';
   primaryPermitHolderSameAddress = true;
-  viewSecondaryPermitHolder = false;
   secondaryPermitHolderSameAddress = true;
   submitted = false;
+  viewSecondaryPermitHolder = false;
 
   states = [
     {short: 'AK', long: 'Alabama'},
@@ -101,11 +98,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      console.log('submit');
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
-          () => {
-            this.router.navigate(['applications/submitted']);
+          (persistedApplication) => {
+            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
           (e: any) => {
             this.apiErrors =  e;
