@@ -2,7 +2,7 @@ import { Application } from '../admin/application';
 import { ApplicationService } from '../admin/application.service';
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-
+import * as moment from 'moment/moment';
 
 @Component({
   providers: [ ApplicationService ],
@@ -20,6 +20,13 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   secondaryPermitHolderSameAddress = true;
   submitted = false;
   viewSecondaryPermitHolder = false;
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false
+  };
 
   states = [
     {short: 'AK', long: 'Alabama'},
@@ -94,8 +101,62 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     }
   }
 
+  dateTimeRangeValidator() {
+    if (
+      this.application.noncommercialFields.startMonth &&
+      this.application.noncommercialFields.startDay &&
+      this.application.noncommercialFields.startYear &&
+      this.application.noncommercialFields.startHour &&
+      this.application.noncommercialFields.startMinutes &&
+      this.application.noncommercialFields.startPeriod &&
+      this.application.noncommercialFields.endMonth &&
+      this.application.noncommercialFields.endDay &&
+      this.application.noncommercialFields.endYear &&
+      this.application.noncommercialFields.endHour &&
+      this.application.noncommercialFields.endMinutes &&
+      this.application.noncommercialFields.endPeriod
+    ) {
+      const format = 'YYYY-MM-DD HH:mm A';
+      const today = moment();
+      const startDateTime = moment(
+        this.application.noncommercialFields.startYear +
+        '-' +
+        this.application.noncommercialFields.startMonth +
+        '-' +
+        this.application.noncommercialFields.startDay +
+        ' ' +
+        this.application.noncommercialFields.startHour +
+        ':' +
+        this.application.noncommercialFields.startMinutes +
+        ' ' +
+        this.application.noncommercialFields.startPeriod
+      , format);
+      const endDateTime = moment(
+        this.application.noncommercialFields.endYear +
+        '-' +
+        this.application.noncommercialFields.endMonth +
+        '-' +
+        this.application.noncommercialFields.endDay +
+        ' ' +
+        this.application.noncommercialFields.endHour +
+        ':' +
+        this.application.noncommercialFields.endMinutes +
+        ' ' +
+        this.application.noncommercialFields.endPeriod
+      , format);
+      this.dateStatus.startDateTimeValid = startDateTime.isValid();
+      this.dateStatus.endDateTimeValid = endDateTime.isValid();
+      this.dateStatus.startBeforeEnd =  startDateTime.isBefore(endDateTime);
+      this.dateStatus.startAfterToday = today.isBefore(startDateTime);
+      this.dateStatus.hasErrors = !this.dateStatus.startDateTimeValid ||
+        !this.dateStatus.endDateTimeValid ||
+        !this.dateStatus.startBeforeEnd ||
+        !this.dateStatus.startAfterToday;
+    }
+  }
+
   onSubmit(form) {
-    if (!form.valid) {
+    if (!form.valid || this.dateStatus.hasErrors) {
       window.scroll(0, 0);
     } else {
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
@@ -119,6 +180,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.application.applicantInfo.orgType = 'Individual';
     this.application.noncommercialFields.startMinutes = '00';
     this.application.noncommercialFields.endMinutes = '00';
+    // TOOO: Remove these after the datetimes are removed from the DB with a migration
     this.application.noncommercialFields.startDateTime = '2018-01-01T01:01:01Z';
     this.application.noncommercialFields.endDateTime = '2018-01-01T01:01:01Z';
   }
