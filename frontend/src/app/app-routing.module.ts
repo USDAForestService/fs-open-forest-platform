@@ -15,7 +15,7 @@ import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 
 const appRoutes: Routes = [
   { path: 'applications/noncommercial-group-use/new', component: ApplicationNoncommercialGroupComponent },
-  { path: 'applications/submitted', component: ApplicationSubmittedComponent },
+  { path: 'applications/submitted/:id', component: ApplicationSubmittedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin/applications', component: PermitApplicationListComponent },
   { path: 'admin/applications/:id', component: PermitApplicationViewComponent },
