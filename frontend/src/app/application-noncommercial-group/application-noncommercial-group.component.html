@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+        <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
           <div class="usa-alert-body">
             <h3 class="usa-alert-heading">There are errors in your application</h3>
             <ul class="usa-alert-text">
@@ -265,38 +265,39 @@
           <legend class="fs-datetime-legend">Start Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="start-month">Month</label>
-            <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.startMonth" #startMonth="ngModel" (change)="startDateChangeHandler()" />
+            <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.startMonth" #startMonth="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
           </div>
           <div class="usa-form-group usa-form-group-day">
             <label for="start-day">Day</label>
-            <input class="usa-input-inline" id="start-day" name="start-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.startDay" #startDay="ngModel" (change)="startDateChangeHandler()" />
+            <input class="usa-input-inline" id="start-day" name="start-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.startDay" #startDay="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-year">Year</label>
-            <input class="usa-input-inline" id="start-year" name="start-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.startYear" #startYear="ngModel" (change)="startDateChangeHandler()" />
+            <input class="usa-input-inline" id="start-year" name="start-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.startYear" #startYear="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
           </div>
         </fieldset>
         <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required</span>
+        <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startDateTimeValid)">Start date is invalid</span>
 
         <fieldset>
           <legend class="fs-datetime-legend">Start Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-hour">Hour</label>
-            <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.noncommercialFields.startHour" #startHour="ngModel">
+            <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.noncommercialFields.startHour" #startHour="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-minutes">Minutes</label>
-            <select class="usa-input-inline" id="start-minutes" name="start-minutes" required [(ngModel)]="application.noncommercialFields.startMinutes" #startMinutes="ngModel">
+            <select class="usa-input-inline" id="start-minutes" name="start-minutes" required [(ngModel)]="application.noncommercialFields.startMinutes" #startMinutes="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="start-period">AM / PM</label>
-            <select class="usa-input-inline" id="start-period" name="start-period" required [(ngModel)]="application.noncommercialFields.startPeriod" #startPeriod="ngModel">
+            <select class="usa-input-inline" id="start-period" name="start-period" required [(ngModel)]="application.noncommercialFields.startPeriod" #startPeriod="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option value="AM">AM</option>
               <option value="PM">PM</option>
@@ -304,43 +305,46 @@
           </div>
         </fieldset>
         <span id="start-time-error" class="usa-input-error-message" role="alert" [hidden]="(startHour.valid || startHour.untouched) && (startMinutes.valid || startMinutes.untouched) && (startPeriod.valid || startPeriod.untouched)">Start time is required</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startBeforeEnd)">Start date and time must be before end date and time</span>
+        <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startAfterToday)">Start date and time must be in the future</span>
 
         <fieldset>
           <legend class="fs-datetime-legend">End Date</legend>
           <div class="usa-form-group usa-form-group-month">
             <label for="end-month">Month</label>
-            <input class="usa-input-inline" id="end-month" name="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.endMonth" #endMonth="ngModel" />
+            <input class="usa-input-inline" id="end-month" name="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.endMonth" #endMonth="ngModel" (change)="dateTimeRangeValidator();" />
           </div>
           <div class="usa-form-group usa-form-group-day">
             <label for="end-day">Day</label>
-            <input class="usa-input-inline" id="end-day" name="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.endDay" #endDay="ngModel" />
+            <input class="usa-input-inline" id="end-day" name="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.endDay" #endDay="ngModel" (change)="dateTimeRangeValidator();" />
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-year">Year</label>
-            <input class="usa-input-inline" id="end-year" name="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.endYear" #endYear="ngModel" />
+            <input class="usa-input-inline" id="end-year" name="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.endYear" #endYear="ngModel" (change)="dateTimeRangeValidator();" />
           </div>
         </fieldset>
         <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(endMonth.valid || endMonth.untouched) && (endDay.valid || endDay.untouched) && (endYear.valid || endYear.untouched)">End date is required</span>
+        <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.endDateTimeValid)">End date is invalid</span>
 
         <fieldset>
           <legend class="fs-datetime-legend">End Time </legend>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-hour">Hour</label>
-            <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.noncommercialFields.endHour" #endHour="ngModel">
+            <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.noncommercialFields.endHour" #endHour="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-minutes">Minutes</label>
-            <select class="usa-input-inline" id="end-minutes" name="end-minutes" required [(ngModel)]="application.noncommercialFields.endMinutes" #endMinutes="ngModel">
+            <select class="usa-input-inline" id="end-minutes" name="end-minutes" required [(ngModel)]="application.noncommercialFields.endMinutes" #endMinutes="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
             </select>
           </div>
           <div class="usa-form-group usa-form-group-year">
             <label for="end-period">AM / PM</label>
-            <select class="usa-input-inline" id="end-period" name="end-period" required [(ngModel)]="application.noncommercialFields.endPeriod" #endPeriod="ngModel">
+            <select class="usa-input-inline" id="end-period" name="end-period" required [(ngModel)]="application.noncommercialFields.endPeriod" #endPeriod="ngModel" (change)="dateTimeRangeValidator();" >
               <option value="" selected="selected"></option>
               <option value="AM">AM</option>
               <option value="PM">PM</option>
