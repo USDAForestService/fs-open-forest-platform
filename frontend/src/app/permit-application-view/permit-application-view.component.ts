@@ -1,14 +1,13 @@
+import { Application } from '../admin/application';
+import { ApplicationService } from '../admin/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Application } from '../admin/application';
-import { ApplicationService } from '../admin/application.service';
-
 @Component({
-  selector: 'app-permit-application-view',
-  templateUrl: './permit-application-view.component.html',
   providers: [ ApplicationService ],
-  styleUrls: ['./permit-application-view.component.scss']
+  selector: 'app-permit-application-view',
+  styleUrls: ['./permit-application-view.component.scss'],
+  templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {
 
@@ -26,6 +25,7 @@ export class PermitApplicationViewComponent implements OnInit {
       .subscribe(
         application => this.application = application,
         (e: any) => {
+          // TODO: talk to Peter about how to handle
           console.log(e);
         }
       );
@@ -36,9 +36,10 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.update(application)
       .subscribe(
         (data: any) => {
-          console.log(data);
+          this.router.navigate(['admin/applications']);
         },
         (e: any) => {
+          // TODO: talk to Peter about how to handle
           console.log(e);
         }
       );

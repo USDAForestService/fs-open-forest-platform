@@ -22,11 +22,10 @@ export class PermitApplicationListComponent implements OnInit {
     this.applicationService.get()
       .subscribe(
         (applications: any) => {
-          console.log('success', applications);
           this.applications = applications;
         },
         (e: any) => {
-          this.apiErrors =  e;
+          this.apiErrors = e;
           window.scroll(0, 0);
         }
       );

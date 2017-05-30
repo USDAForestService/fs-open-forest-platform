@@ -344,7 +344,16 @@ let createNoncommercialTempApp = (req, res) => {
 };
 
 let updateApp = (req, res) => {
-  res.send('not yet implemented');
+  NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
+    if(app) {
+      app.status = req.body.status
+      app.save().then(() => {
+        res.status(200).json(translateFromDatabaseToJSON(app));
+      });
+    } else {
+      res.status(404);
+    }
+  });
 };
 
 let getApp = (req, res) => {
