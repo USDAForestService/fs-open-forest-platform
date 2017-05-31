@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PermitApplicationListComponent } from './permit-application-list.component';
+import { FormsModule } from '@angular/forms';
 
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
@@ -8,7 +9,7 @@ describe('PermitApplicationListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PermitApplicationListComponent ]
+      declarations: [ PermitApplicationListComponent ],
     })
     .compileComponents();
   }));
@@ -19,7 +20,4 @@ describe('PermitApplicationListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
 });

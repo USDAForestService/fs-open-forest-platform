@@ -1,97 +1,90 @@
+import { Application } from '../admin/application';
+import { ApplicationService } from '../admin/application.service';
 import { Component, OnInit } from '@angular/core';
-
-import { ApplicationNoncommercialGroupService } from './application-noncommercial-group-service';
+import {Router, ActivatedRoute} from '@angular/router';
+import * as moment from 'moment/moment';
 
 @Component({
+  providers: [ ApplicationService ],
   selector: 'app-application-noncommercial-group',
-  templateUrl: './application-noncommercial-group.component.html',
-  providers: [ ApplicationNoncommercialGroupService ],
-  styleUrls: ['./application-noncommercial-group.component.scss']
+  styleUrls: ['./application-noncommercial-group.component.scss'],
+  templateUrl: './application-noncommercial-group.component.html'
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
-  errorMessage: string;
+  apiErrors: any;
+  application = new Application();
+  forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
-
-  application = {
-   'region': '11',
-   'forest': '11',
-   'district': '11',
-   'authorizingOfficerName': 'string',
-   'authorizingOfficerTitle': 'string',
-   'eventName': 'string',
-   'applicantInfo': {
-     'name': 'string',
-     'secondaryName': 'string',
-     'firstName': 'string',
-     'lastName': 'string',
-     'dayPhone': {
-       'areaCode': 555,
-       'prefix': 555,
-       'number': 5555,
-       'phoneType': ''
-     },
-     'eveningPhone': {
-       'areaCode': 555,
-       'prefix': 555,
-       'number': 5555,
-       'phoneType': ''
-     },
-     'emailAddress': 'test@test.com',
-     'mailingAddress': 'string',
-     'mailingAddress2': 'string',
-     'mailingCity': 'string',
-     'mailingState': 'string',
-     'mailingZIP': '55555',
-     'secondaryMailingAddress': 'string',
-     'secondaryMailingAddress2': 'string',
-     'secondaryMailingCity': 'string',
-     'secondaryMailingState': 'string',
-     'secondaryMailingZIP': '55555',
-     'organizationName': 'string',
-     'website': 'string',
-     'orgType': 'Individual'
-   },
-   'type': 'noncommercial',
-   'noncommercialFields': {
-     'activityDescription': 'string',
-     'locationDescription': 'string',
-     'startDateTime': '2018-01-01T01:01:01Z',
-     'endDateTime': '2018-01-01T01:01:01Z',
-     'startMonth': '01',
-     'startDay': '01',
-     'startYear': '2018',
-     'endMonth': '01',
-     'endDay': '01',
-     'endYear': '2018',
-     'startHour': '01',
-     'startMinutes': '01',
-     'startPeriod': 'AM',
-     'endHour': '01',
-     'endMinutes': '01',
-     'endPeriod': 'AM',
-     'numberParticipants': 0
-   }
- };
-
   primaryPermitHolderSameAddress = true;
   secondaryPermitHolderSameAddress = true;
   submitted = false;
-
-
+  viewSecondaryPermitHolder = false;
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false
+  };
 
   states = [
-    'AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI',
-    'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN',
-    'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH',
-    'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA',
-    'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW'
+    {short: 'AK', long: 'Alabama'},
+    {short: 'AL', long: 'Alaska'},
+    {short: 'AR', long: 'Arizona'},
+    {short: 'AZ', long: 'Arkansas'},
+    {short: 'CA', long: 'California'},
+    {short: 'CO', long: 'Colorado'},
+    {short: 'CT', long: 'Connecticut'},
+    {short: 'DE', long: 'Delaware'},
+    {short: 'FL', long: 'Florida'},
+    {short: 'GA', long: 'Georgia'},
+    {short: 'HI', long: 'Hawaii'},
+    {short: 'ID', long: 'Idaho'},
+    {short: 'IL', long: 'Illinois'},
+    {short: 'IN', long: 'Indiana'},
+    {short: 'IA', long: 'Iowa'},
+    {short: 'KS', long: 'Kansas'},
+    {short: 'KY', long: 'Kentucky'},
+    {short: 'LA', long: 'Louisiana'},
+    {short: 'ME', long: 'Maine'},
+    {short: 'MD', long: 'Maryland'},
+    {short: 'MA', long: 'Massachusetts'},
+    {short: 'MI', long: 'Michigan'},
+    {short: 'MN', long: 'Minnesota'},
+    {short: 'MS', long: 'Mississippi'},
+    {short: 'MO', long: 'Missouri'},
+    {short: 'MT', long: 'Montana'},
+    {short: 'NE', long: 'Nebraska'},
+    {short: 'NV', long: 'Nevada'},
+    {short: 'NH', long: 'New Hampshire'},
+    {short: 'NJ', long: 'New Jersey'},
+    {short: 'NM', long: 'New Mexico'},
+    {short: 'NY', long: 'New York'},
+    {short: 'NC', long: 'North Carolina'},
+    {short: 'ND', long: 'North Dakota'},
+    {short: 'OH', long: 'Ohio'},
+    {short: 'OK', long: 'Oklahoma'},
+    {short: 'OR', long: 'Oregon'},
+    {short: 'PA', long: 'Pennsylvania'},
+    {short: 'RI', long: 'Rhode Island'},
+    {short: 'SC', long: 'South Carolina'},
+    {short: 'SD', long: 'South Dakota'},
+    {short: 'TN', long: 'Tennessee'},
+    {short: 'TX', long: 'Texas'},
+    {short: 'UT', long: 'Utah'},
+    {short: 'VT', long: 'Vermont'},
+    {short: 'VA', long: 'Virginia'},
+    {short: 'WA', long: 'Washington'},
+    {short: 'WV', long: 'West Virginia'},
+    {short: 'WI', long: 'Wisconsin'},
+    {short: 'WY', long: 'Wyoming'}
   ];
 
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
 
-  constructor(private applicationNoncommercialGroupService: ApplicationNoncommercialGroupService) { }
+  constructor(private applicationService: ApplicationService, private router: Router) { }
 
   startDateChangeHandler() {
     if (
@@ -108,23 +101,88 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     }
   }
 
+  dateTimeRangeValidator() {
+    if (
+      this.application.noncommercialFields.startMonth &&
+      this.application.noncommercialFields.startDay &&
+      this.application.noncommercialFields.startYear &&
+      this.application.noncommercialFields.startHour &&
+      this.application.noncommercialFields.startMinutes &&
+      this.application.noncommercialFields.startPeriod &&
+      this.application.noncommercialFields.endMonth &&
+      this.application.noncommercialFields.endDay &&
+      this.application.noncommercialFields.endYear &&
+      this.application.noncommercialFields.endHour &&
+      this.application.noncommercialFields.endMinutes &&
+      this.application.noncommercialFields.endPeriod
+    ) {
+      const format = 'YYYY-MM-DD HH:mm A';
+      const today = moment();
+      const startDateTime = moment(
+        this.application.noncommercialFields.startYear +
+        '-' +
+        this.application.noncommercialFields.startMonth +
+        '-' +
+        this.application.noncommercialFields.startDay +
+        ' ' +
+        this.application.noncommercialFields.startHour +
+        ':' +
+        this.application.noncommercialFields.startMinutes +
+        ' ' +
+        this.application.noncommercialFields.startPeriod
+      , format);
+      const endDateTime = moment(
+        this.application.noncommercialFields.endYear +
+        '-' +
+        this.application.noncommercialFields.endMonth +
+        '-' +
+        this.application.noncommercialFields.endDay +
+        ' ' +
+        this.application.noncommercialFields.endHour +
+        ':' +
+        this.application.noncommercialFields.endMinutes +
+        ' ' +
+        this.application.noncommercialFields.endPeriod
+      , format);
+      this.dateStatus.startDateTimeValid = startDateTime.isValid();
+      this.dateStatus.endDateTimeValid = endDateTime.isValid();
+      this.dateStatus.startBeforeEnd =  startDateTime.isBefore(endDateTime);
+      this.dateStatus.startAfterToday = today.isBefore(startDateTime);
+      this.dateStatus.hasErrors = !this.dateStatus.startDateTimeValid ||
+        !this.dateStatus.endDateTimeValid ||
+        !this.dateStatus.startBeforeEnd ||
+        !this.dateStatus.startAfterToday;
+    }
+  }
+
   onSubmit(form) {
-    if (!form.valid) {
+    if (!form.valid || this.dateStatus.hasErrors) {
       window.scroll(0, 0);
     } else {
-      console.log('submit');
-      this.applicationNoncommercialGroupService.create(this.application)
+      this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
-          () => {
-            console.log('success');
+          (persistedApplication) => {
+            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+          },
+          (e: any) => {
+            this.apiErrors =  e;
+            window.scroll(0, 0);
           }
         );
     }
   }
 
-
   ngOnInit() {
-
+    this.application.district = '11';
+    this.application.region = '11';
+    this.application.forest = '11';
+    this.application.type = 'noncommercial';
+    this.application.applicantInfo.orgType = 'Individual';
+    this.application.noncommercialFields.startMinutes = '00';
+    this.application.noncommercialFields.endMinutes = '00';
+    // TOOO: Remove these after the datetimes are removed from the DB with a migration
+    this.application.noncommercialFields.startDateTime = '2018-01-01T01:01:01Z';
+    this.application.noncommercialFields.endDateTime = '2018-01-01T01:01:01Z';
   }
 
 }
