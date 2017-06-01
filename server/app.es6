@@ -346,7 +346,7 @@ let createNoncommercialTempApp = (req, res) => {
 let updateApp = (req, res) => {
   NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
     if(app) {
-      app.status = req.body.status
+      app.status = req.body.status;
       app.save().then(() => {
         res.status(200).json(translateFromDatabaseToJSON(app));
       });
