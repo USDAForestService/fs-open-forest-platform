@@ -7,9 +7,11 @@
     "body-parser": "1.17.1",
     "express": "4.15.2",
     "jsonschema": "1.1.1",
+    "moment": "2.18.1",
     "pg": "^6.2.2",
-    "sequelize": "^3.30.4",
-    "sequelize-cli": "^2.7.0"
+    "request": "2.81.0",
+    "sequelize-cli": "^2.7.0",
+    "sequelize": "^3.30.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -23,12 +25,12 @@
     "unionized": "4.12.0"
   },
   "scripts": {
-    "start": "node --harmony_default_parameters app.es6",
     "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
-    "test": "mocha",
+    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./test/noncommercial.js",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
-    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./test/noncommercial.js",
+    "start": "node --harmony_default_parameters app.es6",
+    "test": "mocha"
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha"
   },
   "engines": {

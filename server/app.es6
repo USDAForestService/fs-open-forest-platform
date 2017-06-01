@@ -1,12 +1,15 @@
 'use strict';
 
-let express =  require('express');
 let bodyParser = require('body-parser');
-
-//------------------------------
-
-let url = require('url');
+let express =  require('express');
+let request = require('request');
+let moment = require('moment');
 let Sequelize = require('sequelize');
+let url = require('url');
+
+const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
+const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
+const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
 
 const sequelizeOptions = {
   dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
@@ -141,6 +144,10 @@ let collateErrors = (result, errorArr, prefix) => {
   }
 };
 
+let buildTimestamp = (year, month, day, hours, minutes, period) => {
+  return moment(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ' ' + period, 'YYYY-MM-DD HH:mm A').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+};
+
 let translateFromDatabaseToJSON = (input) => {
   return {
     'applicantInfo': {
@@ -219,6 +226,107 @@ let translateArrayFromDatabaseToJSON = (applications) => {
   return applications;
 };
 
+let translateFromIntakeToMiddleLayer = (input) => {
+  let result = {
+    'region': input.region,
+    'forest': input.forest,
+    'district': input.district,
+    'authorizingOfficerName': 'Placeholder', // TODO: Add value when user has authenticated
+    'authorizingOfficerTitle': 'Placeholder', // TODO: Add value when user has authenticated
+    'applicantInfo': {
+      'firstName': input.applicantInfoPrimaryFirstName,
+      'lastName': input.applicantInfoPrimaryLastName,
+      'dayPhone': {
+        'areaCode': input.applicantInfoDayPhoneAreaCode,
+        'number': input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
+        'extension': input.applicantInfoDayPhoneExtension || undefined,
+        'phoneType': 'standard'
+      },
+      'eveningPhone': {
+        'areaCode': input.applicantInfoEveningPhoneAreaCode || input.applicantInfoDayPhoneAreaCode,
+        'number': (input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber) || (input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber),
+        'extension': input.applicantInfoEveningPhoneExtension || input.applicantInfoDayPhoneExtension || undefined,
+        'phoneType': 'standard'
+      },
+      'emailAddress': input.applicantInfoEmailAddress,
+      'organizationName': input.applicantInfoOrganizationName || undefined,
+      'website': input.applicantInfoWebsite || undefined,
+      'orgType': input.applicantInfoOrgType
+    },
+    'type': input.type,
+    'noncommercialFields': {
+      'activityDescription': input.noncommercialFieldsActivityDescription,
+      'locationDescription': input.noncommercialFieldsLocationDescription,
+      'startDateTime': buildTimestamp(
+        input.noncommercialFieldsStartYear,
+        input.noncommercialFieldsStartMonth,
+        input.noncommercialFieldsStartDay,
+        input.noncommercialFieldsStartHour,
+        input.noncommercialFieldsStartMinutes,
+        input.noncommercialFieldsStartPeriod
+      ),
+      'endDateTime': buildTimestamp(
+        input.noncommercialFieldsEndYear,
+        input.noncommercialFieldsEndMonth,
+        input.noncommercialFieldsEndDay,
+        input.noncommercialFieldsEndHour,
+        input.noncommercialFieldsEndMinutes,
+        input.noncommercialFieldsEndPeriod
+      ),
+      'numberParticipants': Number(input.noncommercialFieldsNumberParticipants)
+    }
+  };
+
+  if (input.applicantInfoOrgType === 'Person') {
+    result.applicantInfo.mailingAddress = input.applicantInfoPrimaryMailingAddress;
+    result.applicantInfo.mailingAddress2 = input.applicantInfoPrimaryMailingAddress2 || undefined;
+    result.applicantInfo.mailingCity = input.applicantInfoPrimaryMailingCity;
+    result.applicantInfo.mailingState = input.applicantInfoPrimaryMailingState;
+    result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
+  }
+
+  if (input.applicantInfoOrgType === 'Organization') {
+    result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
+    result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
+    result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
+    result.applicantInfo.mailingState = input.applicantInfoOrgMailingState;
+    result.applicantInfo.mailingZIP = input.applicantInfoOrgMailingZIP;
+  }
+
+  return result;
+};
+
+let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
+
+  let authOptions = {
+    url: middleLayerBaseUrl + 'auth',
+    json: true,
+    body: { username: middleLayerUsername, password: middleLayerPassword }
+  };
+
+  let acceptanceOptions = {
+    url: middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+    headers: { 'x-access-token': undefined },
+    json: true,
+    body: translateFromIntakeToMiddleLayer(application)
+  };
+
+  request.post(authOptions, (error, response, body) => {
+    if (error || response.statusCode !== 200) {
+      failureCallback(error || response);
+    } else {
+      acceptanceOptions.headers['x-access-token'] = body.token;
+      request.post(acceptanceOptions, (error, response, body) => {
+        if (error || response.statusCode !== 200) {
+          failureCallback(error || response);
+        } else {
+          successCallback(body);
+        }
+      });
+    }
+  });
+};
+
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
 
@@ -238,7 +346,7 @@ let createNoncommercialTempApp = (req, res) => {
   }
 
   // if the orgType is Individual, then primaryAddress is required
-  if (req.body.applicantInfo.orgType === 'Individual') {
+  if (req.body.applicantInfo.orgType === 'Person') {
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
       collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
@@ -269,15 +377,11 @@ let createNoncommercialTempApp = (req, res) => {
   }
 
   if (errorArr.length > 0) {
-    //console.log(errorArr);
-
     errorRet['errors'] = errorArr;
-
     res.status(400).json(errorRet);
   } else {
 
     // create the noncommercial app object and persist
-
     NoncommercialApplication.create({
       region: req.body.region,
       forest: req.body.forest,
@@ -347,9 +451,23 @@ let updateApp = (req, res) => {
   NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
     if(app) {
       app.status = req.body.status;
-      app.save().then(() => {
-        res.status(200).json(translateFromDatabaseToJSON(app));
-      });
+      if (app.status === 'Accepted') {
+        sendAcceptedNoncommercialApplicationToMiddleLayer(app,
+          (response) => {
+            app.controlNumber = response.controlNumber;
+            app.save().then(() => {
+              res.status(200).json(translateFromDatabaseToJSON(app));
+            });
+          },
+          (error) => {
+            res.status(400).send(error);
+          }
+        );
+      } else {
+        app.save().then(() => {
+          res.status(200).json(translateFromDatabaseToJSON(app));
+        });
+      }
     } else {
       res.status(404);
     }
@@ -388,8 +506,7 @@ app.get('/permits/applications/:id', getApp);
 // retrieves all applications in the system
 app.get('/permits/applications', getAllApps);
 
-
-
 app.listen(8080);
 
+// needed for testing
 module.exports = app;
