@@ -7,6 +7,8 @@ export class Application {
   eventName: string;
   forest: string;
   noncommercialFields: NoncommercialFields;
+  tempOutfittersFields: TempOutfittersFields;
+  tempOutfittersFiles: TempOutfittersFiles;
   reasonForReturn: string;
   region: string;
   signature: string;
@@ -14,6 +16,8 @@ export class Application {
   constructor() {
     this.applicantInfo = new ApplicantInfo();
     this.noncommercialFields = new NoncommercialFields();
+    this.tempOutfittersFiles = new TempOutfittersFiles();
+    this.tempOutfittersFields = new TempOutfittersFields();
   }
 }
 
@@ -75,4 +79,22 @@ export class NoncommercialFields {
   startHour: string;
   startMinutes: string;
   startPeriod: string;
+}
+
+export class TempOutfittersFields {
+  individualCitizen: boolean;
+  smallBusiness: boolean;
+  activityDescription: string;
+  advertisingURL: string;
+  advertisingDescription: string;
+  clientCharges: string;
+  experienceList: string;
+}
+
+export class TempOutfittersFiles {
+  guideDocumentation: File;
+  acknowledgementOfRiskForm: File;
+  insuranceCertificate: File;
+  goodStandingEvidence: File;
+  operatingPlan: File;
 }

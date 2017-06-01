@@ -10,6 +10,9 @@
     "pg": "^6.2.2",
     "request": "2.81.0",
     "sequelize": "^3.30.4"
+    "request": "2.81.0",
+    "sequelize": "^3.30.4",
+    "sequelize-cli": "^2.7.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -18,7 +21,6 @@
     "mocha": "^3.2.0",
     "nodemon": "1.11.0",
     "path": "^0.12.7",
-    "sequelize-cli": "^2.7.0",
     "supertest": "3.0.0",
     "unionized": "4.12.0"
   },
