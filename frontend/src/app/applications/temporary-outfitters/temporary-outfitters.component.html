@@ -1,0 +1,33 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <p class="usa-font-lead">{{forest}}</p>
+    <p>All form fields are required unless otherwise noted.</p>
+    <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <fieldset>
+        <legend>Applicant Information</legend>
+
+        <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">There are errors in your application</h3>
+            <p class="usa-alert-text">Please correct the errors before submitting.</p>
+          </div>
+        </div>
+
+        <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">There are errors in your application</h3>
+            <ul class="usa-alert-text">
+              <li *ngFor="let error of apiErrors">{{error}}</li>
+            </ul>
+          </div>
+        </div>
+
+        <label class="usa-input" for="guide-documentation">Guide Documentation</label>
+        <input class="usa-input" id="guide-documentation" name="guide-documentation" type="file" [(ngModel)]="application.tempOutfittersFiles.guideDocumentation" #guideDocumentation="ngModel" />
+
+      </fieldset>
+
+      <button class="usa-button usa-button-big" type="submit">Submit Your Application</button>
+    </form>
+  </div>
+</section>

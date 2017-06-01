@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
+import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './permit-application-list/permit-application-list.component';
@@ -17,6 +17,7 @@ import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-perso
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
+import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 
 import { ApplicationService } from './admin/application.service';
 
@@ -33,7 +34,8 @@ import { ApplicationService } from './admin/application.service';
     PgFlowRegPersonComponent,
     PgFlowRegPersonFriendFamilyComponent,
     ApplicationSubmittedComponent,
-    HelpMePickComponent
+    HelpMePickComponent,
+    TemporaryOutfittersComponent
   ],
   imports: [
     BrowserModule,
