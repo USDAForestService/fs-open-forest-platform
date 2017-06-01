@@ -40,13 +40,8 @@ var noncommercialApplicantInfoSchema = {
           'default':'',
           'description':'Organization Type',
           'enum':[
-            'Individual',
-            'Corporation',
-            'Limited Liability Company',
-            'Partnership or Association',
-            'State Government or Agency',
-            'Local Government or Agency',
-            'Nonprofit'
+            'Person',
+            'Corporation'
           ],
           'type':'string'
         }
