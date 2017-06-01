@@ -3,6 +3,7 @@
 let bodyParser = require('body-parser');
 let express =  require('express');
 let request = require('request');
+let moment = require('moment');
 let Sequelize = require('sequelize');
 let url = require('url');
 
@@ -143,6 +144,10 @@ let collateErrors = (result, errorArr, prefix) => {
   }
 };
 
+let buildTimestamp = (year, month, day, hours, minutes, period) => {
+  return moment(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ' ' + period, 'YYYY-MM-DD HH:mm A').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+};
+
 let translateFromDatabaseToJSON = (input) => {
   return {
     'applicantInfo': {
@@ -222,8 +227,7 @@ let translateArrayFromDatabaseToJSON = (applications) => {
 };
 
 let translateFromIntakeToMiddleLayer = (input) => {
-
-  return {
+  let result = {
     'region': input.region,
     'forest': input.forest,
     'district': input.district,
@@ -258,31 +262,27 @@ let translateFromIntakeToMiddleLayer = (input) => {
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
       'locationDescription': input.noncommercialFieldsLocationDescription,
-      'startDateTime':
-        input.noncommercialFieldsStartYear +
-        '-' +
-        input.noncommercialFieldsStartMonth +
-        '-' +
-        input.noncommercialFieldsStartDay +
-        'T' +
-        input.noncommercialFieldsStartHour +
-        ':' +
-        input.noncommercialFieldsStartMinutes +
-        ':00Z',
-      'endDateTime':
-        input.noncommercialFieldsEndYear +
-        '-' +
-        input.noncommercialFieldsEndMonth +
-        '-' +
-        input.noncommercialFieldsEndDay +
-        'T' +
-        input.noncommercialFieldsEndHour +
-        ':' +
-        input.noncommercialFieldsEndMinutes +
-        ':00Z',
+      'startDateTime': buildTimestamp(
+        input.noncommercialFieldsStartYear,
+        input.noncommercialFieldsStartMonth,
+        input.noncommercialFieldsStartDay,
+        input.noncommercialFieldsStartHour,
+        input.noncommercialFieldsStartMinutes,
+        input.noncommercialFieldsStartPeriod
+      ),
+      'endDateTime': buildTimestamp(
+        input.noncommercialFieldsEndYear,
+        input.noncommercialFieldsEndMonth,
+        input.noncommercialFieldsEndDay,
+        input.noncommercialFieldsEndHour,
+        input.noncommercialFieldsEndMinutes,
+        input.noncommercialFieldsEndPeriod
+      ),
       'numberParticipants': Number(input.noncommercialFieldsNumberParticipants)
     }
   };
+
+  return result;
 };
 
 let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
@@ -335,7 +335,7 @@ let createNoncommercialTempApp = (req, res) => {
   }
 
   // if the orgType is Individual, then primaryAddress is required
-  if (req.body.applicantInfo.orgType === 'Individual') {
+  if (req.body.applicantInfo.orgType === 'Person') {
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
       collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
