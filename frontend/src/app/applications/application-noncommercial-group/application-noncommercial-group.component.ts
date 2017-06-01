@@ -177,7 +177,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.application.region = '11';
     this.application.forest = '11';
     this.application.type = 'noncommercial';
-    this.application.applicantInfo.orgType = 'Individual';
+    this.application.applicantInfo.orgType = 'Person';
     this.application.noncommercialFields.startMinutes = '00';
     this.application.noncommercialFields.endMinutes = '00';
     // TOOO: Remove these after the datetimes are removed from the DB with a migration
