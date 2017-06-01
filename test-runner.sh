@@ -7,3 +7,4 @@ yarn run lint
 yarn migrate
 yarn seed
 yarn test
+yarn coverage
