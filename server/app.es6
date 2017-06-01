@@ -249,11 +249,6 @@ let translateFromIntakeToMiddleLayer = (input) => {
         'phoneType': 'standard'
       },
       'emailAddress': input.applicantInfoEmailAddress,
-      'mailingAddress': input.applicantInfoPrimaryMailingAddress || input.applicantInfoOrgMailingAddress,
-      'mailingAddress2': input.applicantInfoPrimaryMailingAddress2 || input.applicantInfoSecondaryMailingAddress2 || undefined,
-      'mailingCity': input.applicantInfoPrimaryMailingCity || input.applicantInfoSecondaryMailingCity,
-      'mailingState': input.applicantInfoPrimaryMailingState || input.applicantInfoSecondaryMailingState,
-      'mailingZIP': input.applicantInfoPrimaryMailingZIP || input.applicantInfoSecondaryMailingZIP,
       'organizationName': input.applicantInfoOrganizationName || undefined,
       'website': input.applicantInfoWebsite || undefined,
       'orgType': input.applicantInfoOrgType
@@ -281,6 +276,22 @@ let translateFromIntakeToMiddleLayer = (input) => {
       'numberParticipants': Number(input.noncommercialFieldsNumberParticipants)
     }
   };
+
+  if (input.applicantInfoOrgType === 'Person') {
+    result.applicantInfo.mailingAddress = input.applicantInfoPrimaryMailingAddress;
+    result.applicantInfo.mailingAddress2 = input.applicantInfoPrimaryMailingAddress2 || undefined;
+    result.applicantInfo.mailingCity = input.applicantInfoPrimaryMailingCity;
+    result.applicantInfo.mailingState = input.applicantInfoPrimaryMailingState;
+    result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
+  }
+
+  if (input.applicantInfoOrgType === 'Organization') {
+    result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
+    result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
+    result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
+    result.applicantInfo.mailingState = input.applicantInfoOrgMailingState;
+    result.applicantInfo.mailingZIP = input.applicantInfoOrgMailingZIP;
+  }
 
   return result;
 };
