@@ -1,5 +1,5 @@
-import { Application } from '../admin/application';
-import { ApplicationService } from '../admin/application.service';
+import { Application } from '../../admin/application';
+import { ApplicationService } from '../../admin/application.service';
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import * as moment from 'moment/moment';
