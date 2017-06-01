@@ -30,7 +30,7 @@
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
     "start": "node --harmony_default_parameters app.es6",
-    "test": "mocha"
+    "test": "mocha",
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha"
   },
   "engines": {
