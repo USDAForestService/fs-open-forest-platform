@@ -252,9 +252,7 @@ let translateFromIntakeToMiddleLayer = (input) => {
       'mailingZIP': input.applicantInfoPrimaryMailingZIP || input.applicantInfoSecondaryMailingZIP,
       'organizationName': input.applicantInfoOrganizationName || undefined,
       'website': input.applicantInfoWebsite || undefined,
-      // TODO: look at this enum with Scott
-      // 'orgType': input.applicantInfoOrgType
-      'orgType': 'Person'
+      'orgType': input.applicantInfoOrgType
     },
     'type': input.type,
     'noncommercialFields': {
@@ -498,3 +496,6 @@ app.get('/permits/applications/:id', getApp);
 app.get('/permits/applications', getAllApps);
 
 app.listen(8080);
+
+// needed for testing
+module.exports = app;
