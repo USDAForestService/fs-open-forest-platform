@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
+import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './permit-application-list/permit-application-list.component';
@@ -12,9 +12,11 @@ import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-perso
 import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
+import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 
 const appRoutes: Routes = [
   { path: 'applications/noncommercial-group-use/new', component: ApplicationNoncommercialGroupComponent },
+  { path: 'applications/temporary-outfitters/new', component: TemporaryOutfittersComponent },
   { path: 'applications/submitted/:id', component: ApplicationSubmittedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin/applications', component: PermitApplicationListComponent },

@@ -5,19 +5,22 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { environment } from '../../environments/environment';
 
 import { Application } from './application';
 
 @Injectable()
 export class ApplicationService {
 
-  private endpoint = 'https://fs-intake-api-staging.app.cloud.gov/permits/applications';
-//  private endpoint = 'http://localhost:8080/permits/applications';
+  private endpoint = environment.apiUrl + 'permits/applications';
 
   constructor (private http: Http) {}
 
-  create(body, type) {
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+  create(body, type, multipart = false) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    if (multipart) {
+      headers = new Headers({ 'Content-Type': 'application/json', 'enctype': 'multipart/form-data' });
+    }
     const options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.endpoint + '' + type, body, options)
