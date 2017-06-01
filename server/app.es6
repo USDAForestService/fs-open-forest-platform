@@ -285,7 +285,7 @@ let translateFromIntakeToMiddleLayer = (input) => {
   };
 };
 
-let sendAcceptedNoncommercialApplicationToMiddleLayer = function(application, successCallback, failureCallback) {
+let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
 
   let authOptions = {
     url: middleLayerBaseUrl + 'auth',
@@ -300,12 +300,12 @@ let sendAcceptedNoncommercialApplicationToMiddleLayer = function(application, su
     body: translateFromIntakeToMiddleLayer(application)
   };
 
-  request.post(authOptions, function(error, response, body) {
+  request.post(authOptions, (error, response, body) => {
     if (error || response.statusCode !== 200) {
       failureCallback(error || response);
     } else {
       acceptanceOptions.headers['x-access-token'] = body.token;
-      request.post(acceptanceOptions, function(error, response, body) {
+      request.post(acceptanceOptions, (error, response, body) => {
         if (error || response.statusCode !== 200) {
           failureCallback(error || response);
         } else {
@@ -442,13 +442,13 @@ let updateApp = (req, res) => {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
         sendAcceptedNoncommercialApplicationToMiddleLayer(app,
-          function(response) {
+          (response) => {
             app.controlNumber = response.controlNumber;
             app.save().then(() => {
               res.status(200).json(translateFromDatabaseToJSON(app));
             });
           },
-          function(error) {
+          (error) => {
             res.status(400).send(error);
           }
         );
