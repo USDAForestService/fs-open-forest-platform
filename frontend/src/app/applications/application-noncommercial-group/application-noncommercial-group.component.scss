@@ -1,1 +1,12 @@
 /** component level scss **/
+
+.fs-input-grid-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.fs-input-grid-wrapper input,
+.fs-input-grid-wrapper select {
+  margin-bottom: auto;
+}
