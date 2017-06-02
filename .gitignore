@@ -3,6 +3,9 @@ templates/public
 templates/dist
 templates/yarn.lock
 server/node_modules
+server/.nyc_output
+server/coverage
+server/*.orig
 
 # compiled output
 frontend/dist
