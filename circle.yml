@@ -21,6 +21,8 @@ test:
   post:
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
     - cp server/lint-results.html $CIRCLE_ARTIFACTS
+    - mkdir $CIRCLE_ARTIFACTS/server-coverage
+    - cp -r server/coverage $CIRCLE_ARTIFACTS/server-coverage/
 deployment:
   prod:
     branch: master
