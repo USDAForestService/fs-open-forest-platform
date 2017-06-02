@@ -53,24 +53,30 @@
           <label class="usa-input" for="primary-permit-holder-address-line-2">Street address 2 (optional)</label>
           <input id="primary-permit-holder-address-line-2" name="primary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress2" />
 
-          <label class="usa-input" for="primary-permit-holder-city">City</label>
-          <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
-          <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required</span>
-
-          <label class="usa-input" for="primary-permit-holder-state">State</label>
-          <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
-            <option value="" selected="selected"></option>
-            <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-          </select>
-          <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
-
-          <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
-          <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingZIP" #primaryPermitHolderZip="ngModel" />
-          <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required</span>
-
+          <div class="fs-input-grid-wrapper">
+            <div class="usa-input-grid usa-input-grid-medium" >
+              <label class="usa-input" for="primary-permit-holder-city">City</label>
+              <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
+              <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required</span>
+            </div>
+            <div class="usa-input-grid usa-input-grid-small" >
+              <label class="usa-input" for="primary-permit-holder-state">State</label>
+              <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
+                <option value="" selected="selected"></option>
+                <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
+              </select>
+              <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required</span>
+            </div>
+          </div>
+          <div class="fs-input-grid-wrapper">
+            <div class="usa-input-grid usa-input-grid-medium">
+              <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
+              <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingZIP" #primaryPermitHolderZip="ngModel" />
+              <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required</span>
+            </div>
+          </div>
 
         </div>
-
 
         <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="organization-name">Organization name</label>
@@ -84,9 +90,11 @@
           <label class="usa-input" for="address-line-2">Street address 2 (optional)</label>
           <input id="organization-address-line-2" name="address-line-2" type="text" [(ngModel)]="application.applicantInfo.organizationAddress.mailingAddress2" />
 
-          <label class="usa-input" for="city">City</label>
-          <input id="organization-city" name="city" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingCity" #city="ngModel" />
-          <span id="organization-city-error" class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
+          <div class="usa-input-grid-medium">
+            <label class="usa-input" for="city">City</label>
+            <input id="organization-city" name="city" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingCity" #city="ngModel" />
+            <span id="organization-city-error" class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required</span>
+          </div>
 
           <label class="usa-input" for="state">State</label>
           <select id="organization-state" name="state" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingState" #state="ngModel">
