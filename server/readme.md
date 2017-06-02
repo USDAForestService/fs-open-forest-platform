@@ -6,11 +6,11 @@ Then run `yarn install` to install dependencies.
 
 To setup the database run
 
-`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> ./node_modules/sequelize-cli/bin/sequelize db:migrate`
+`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn migrate`
 
 If you would like to seed the database with some test data, run:
 
-`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> ./node_modules/sequelize-cli/bin/sequelize db:seed:all`
+`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn seed`
 
 To remove that data from the database run:
 
@@ -20,9 +20,18 @@ To start the server for development: `DATABASE_URL=postgres://<user>:<pass>@loca
 
 To run eslint for linting:
 
-`npm run lint`
+`yarn lint`
 
 The linting results will be put into `server/lint-results.html`.
+
+To run all of the tests locally, be sure your Postgresql server is running then run:
+
+`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn test`
+
+To run code coverage locally, be sure your Postgresql server is running then run:
+
+`DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn coverage`
+
 
 ## Noncommercial Endpoints
 
