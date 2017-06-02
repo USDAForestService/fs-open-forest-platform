@@ -1,0 +1,42 @@
+{
+  "region": "string",
+  "forest": "string",
+  "district": "string",
+  "authorizingOfficerName": "string",
+  "authorizingOfficerTitle": "string",
+  "applicantInfo": {
+    "firstName": "string",
+    "lastName": "string",
+    "dayPhone": {
+      "areaCode": 0,
+      "number": 0,
+      "extension": "string",
+      "phoneType": "string"
+    },
+    "eveningPhone": {
+      "areaCode": 0,
+      "number": 0,
+      "extension": "string",
+      "phoneType": "string"
+    },
+    "emailAddress": "string",
+    "mailingAddress": "string",
+    "mailingAddress2": "string",
+    "mailingCity": "string",
+    "mailingState": "string",
+    "mailingZIP": "string",
+    "organizationName": "string",
+    "website": "string",
+    "orgType": "Association"
+  },
+  "type": "tempOutfitters",
+  "tempOutfitterFields": {
+    "individualIsCitizen": true,
+    "smallBusiness": true,
+    "activityDescription": "string",
+    "advertisingURL": "string",
+    "advertisingDescription": "string",
+    "clientCharges": "string",
+    "experienceList": "string"
+  }
+}
