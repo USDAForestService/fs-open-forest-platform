@@ -2,45 +2,38 @@
 
 let bodyParser = require('body-parser');
 let express =  require('express');
+let jsonschema = require('jsonschema');
 let request = require('request');
 
 let util = require('./util.es6');
-let NoncommercialApplication = require('./model-definitions/noncommercial-application.es6');
+let NoncommercialApplication = require('./models/noncommercial-application.es6');
 
 const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
 const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
 
-//------------------------------
+// JSON Validators
 
-let Validator = require('jsonschema').Validator;
-let v = new Validator();
+let validator = new jsonschema.Validator();
 let validatorOptions = { 'nestedErrors' : true };
 
-var schemas = require('./validation-schemas/noncommercial-schema.es6');
-v.addSchema(schemas.noncommercialSchema);
-v.addSchema(schemas.noncommercialApplicantInfoSchema);
-v.addSchema(schemas.noncommercialFieldsSchema);
-v.addSchema(schemas.phoneNumberSchema);
-v.addSchema(schemas.applicantInfoBaseSchema);
-v.addSchema(schemas.commonFieldsSchema);
-v.addSchema(schemas.addressSchema);
+let addressSchema = require('./json-schemas/address-schema.es6');
+let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
+let commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
+let noncommercialApplicantInfoSchema = require('./json-schemas/noncommercial-application-info-schema.es6');
+let noncommercialFieldsSchema = require('./json-schemas/noncommercial-fields-schema.es6');
+let noncommercialSchema = require('./json-schemas/noncommercial-schema.es6');
+let phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
 
-let app = express();
-app.use(bodyParser.json());
+validator.addSchema(addressSchema);
+validator.addSchema(applicantInfoBaseSchema);
+validator.addSchema(commonFieldsSchema);
+validator.addSchema(noncommercialApplicantInfoSchema);
+validator.addSchema(noncommercialFieldsSchema);
+validator.addSchema(noncommercialSchema);
+validator.addSchema(phoneNumberSchema);
 
-// middleware that will add the Access-Control-Allow-Origin header to everything
-app.use(function(req, res, next) {
-  res.set('Access-Control-Allow-Origin', '*');
-  next();
-});
-
-// set these headers on all of the OPTIONS preflight responses
-app.options('*', function(req, res) {
-  res.set('Access-Control-Allow-Headers', 'accept, content-type');
-  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
-  res.send();
-});
+// Controllers
 
 let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
 
@@ -80,21 +73,21 @@ let createNoncommercialTempApp = (req, res) => {
   let errorRet = {};
 
   // overall validation
-  let result = v.validate(req.body, schemas.noncommercialSchema, validatorOptions);
+  let result = validator.validate(req.body, noncommercialSchema, validatorOptions);
   if (result.errors.length > 0) {
     util.collateErrors(result, errorArr);
   }
 
   // if there is an evening phone, validate it
   if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
-    result = v.validate(req.body.applicantInfo.eveningPhone, schemas.phoneNumberSchema, validatorOptions);
+    result = validator.validate(req.body.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
     util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
   }
 
   // if the orgType is Individual, then primaryAddress is required
   if (req.body.applicantInfo.orgType === 'Person') {
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
+      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
       util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     } else {
       errorArr.push('required-applicantInfo.primaryAddress');
@@ -104,21 +97,21 @@ let createNoncommercialTempApp = (req, res) => {
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
   if (req.body.applicantInfo.orgType === 'Corporation') {
     if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-      result = v.validate(req.body.applicantInfo.organizationAddress, schemas.addressSchema, validatorOptions);
+      result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
       util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
     } else {
       errorArr.push('required-applicantInfo.organizationAddress');
     }
 
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
+      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
       util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     }
   }
 
   // if secondaryAddress exists, then validate it
   if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
-    result = v.validate(req.body.applicantInfo.secondaryAddress, schemas.addressSchema, validatorOptions);
+    result = validator.validate(req.body.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
     util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
   }
 
@@ -236,6 +229,26 @@ let getAllApps = (req, res) => {
   });
 };
 
+// server creation ----------------------------------------------------------
+
+let app = express();
+app.use(bodyParser.json());
+
+// middleware that will add the Access-Control-Allow-Origin header to everything
+app.use(function(req, res, next) {
+  res.set('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+// set these headers on all of the OPTIONS preflight responses
+app.options('*', function(req, res) {
+  res.set('Access-Control-Allow-Headers', 'accept, content-type');
+  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.send();
+});
+
+// Endpoints
+
 // POST /permits/applications/special-uses/noncommercial/
 // creates a new noncommercial application
 app.post('/permits/applications/special-uses/noncommercial', createNoncommercialTempApp);
@@ -256,7 +269,8 @@ app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
+// start the server
 app.listen(8080);
 
-// needed for testing
+// export needed for testing
 module.exports = app;
