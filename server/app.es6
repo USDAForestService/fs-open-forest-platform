@@ -3,90 +3,13 @@
 let bodyParser = require('body-parser');
 let express =  require('express');
 let request = require('request');
-let moment = require('moment');
-let Sequelize = require('sequelize');
-let url = require('url');
+
+let util = require('./util.es6');
+let NoncommercialApplication = require('./model-definitions/noncommercial-application.es6');
 
 const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
 const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
-
-const sequelizeOptions = {
-  dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
-};
-
-if (url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost') {
-  sequelizeOptions.dialectOptions = {
-    ssl: true
-  };
-}
-
-let sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
-
-const NoncommercialApplication = sequelize.define('noncommercialApplications', {
-  applicationId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'application_id' },
-  controlNumber: { type: Sequelize.STRING(50), field: 'control_number' },
-  region: { type: Sequelize.STRING(2), field: 'region' },
-  forest: { type: Sequelize.STRING(2), field: 'forest' },
-  district: { type: Sequelize.STRING(2), field: 'district' },
-  authorizingOfficerName: { type: Sequelize.STRING, field: 'authorizing_officer_name' },
-  authorizingOfficerTitle: { type: Sequelize.STRING, field: 'authorizing_officer_title' },
-  eventName: { type: Sequelize.STRING, field: 'event_name' },
-  applicantInfoPrimaryFirstName: { type: Sequelize.STRING, field: 'applicant_info_primary_first_nm' },
-  applicantInfoPrimaryLastName: { type: Sequelize.STRING, field: 'applicant_info_primary_last_nm' },
-  applicantInfoDayPhoneAreaCode: { type: Sequelize.STRING, field: 'applicant_info_day_phone_areacd' },
-  applicantInfoDayPhonePrefix: { type: Sequelize.STRING, field: 'applicant_info_day_phone_prefix' },
-  applicantInfoDayPhoneNumber: { type: Sequelize.STRING, field: 'applicant_info_day_phone_number' },
-  applicantInfoDayPhonePhoneType: { type: Sequelize.STRING, field: 'applicant_info_day_phone_type' },
-  applicantInfoEveningPhoneAreaCode: { type: Sequelize.STRING, field: 'applicant_info_eve_phone_areacd' },
-  applicantInfoEveningPhonePrefix: { type: Sequelize.STRING, field: 'applicant_info_eve_phone_prefix' },
-  applicantInfoEveningPhoneNumber: { type: Sequelize.STRING, field: 'applicant_info_eve_phone_number' },
-  applicantInfoEveningPhonePhoneType: { type: Sequelize.STRING, field: 'applicant_info_eve_phone_type' },
-  applicantInfoEmailAddress: { type: Sequelize.STRING, field: 'applicant_info_email_address' },
-  applicantInfoOrgMailingAddress: { type: Sequelize.STRING, field: 'applicant_info_org_mail_address' },
-  applicantInfoOrgMailingAddress2: { type: Sequelize.STRING, field: 'applicant_info_org_mail_addr2' },
-  applicantInfoOrgMailingCity: { type: Sequelize.STRING, field: 'applicant_info_org_mailing_city' },
-  applicantInfoOrgMailingState: { type: Sequelize.STRING, field: 'applicant_info_org_mail_state' },
-  applicantInfoOrgMailingZIP: { type: Sequelize.STRING, field: 'applicant_info_org_mailing_zip' },
-  applicantInfoPrimaryMailingAddress: { type: Sequelize.STRING, field: 'appl_info_pri_mailing_address' },
-  applicantInfoPrimaryMailingAddress2: { type: Sequelize.STRING, field: 'appl_info_pri_mailing_address2' },
-  applicantInfoPrimaryMailingCity: { type: Sequelize.STRING, field: 'appl_info_pri_mailing_city' },
-  applicantInfoPrimaryMailingState: { type: Sequelize.STRING, field: 'appl_info_pri_mailing_state' },
-  applicantInfoPrimaryMailingZIP: { type: Sequelize.STRING, field: 'appl_info_pri_mailing_zip' },
-  applicantInfoSecondaryMailingAddress: { type: Sequelize.STRING, field: 'appl_info_sec_mailing_address' },
-  applicantInfoSecondaryMailingAddress2: { type: Sequelize.STRING, field: 'appl_info_sec_mailing_address2' },
-  applicantInfoSecondaryMailingCity: { type: Sequelize.STRING, field: 'appl_info_sec_mailing_city' },
-  applicantInfoSecondaryMailingState: { type: Sequelize.STRING, field: 'appl_info_sec_mailing_state' },
-  applicantInfoSecondaryMailingZIP: { type: Sequelize.STRING, field: 'appl_info_sec_mailing_zip' },
-  applicantInfoOrganizationName: { type: Sequelize.STRING, field: 'applicant_info_org_name' },
-  applicantInfoWebsite: { type: Sequelize.STRING, field: 'applicant_info_website' },
-  applicantInfoOrgType: { type: Sequelize.STRING, field: 'applicant_info_org_type' },
-  applicantInfoSecondaryFirstName: { type: Sequelize.STRING, field: 'applicant_info_sec_first_name' },
-  applicantInfoSecondaryLastName: { type: Sequelize.STRING, field: 'applicant_info_sec_last_name' },
-  type: { type: Sequelize.STRING, field: 'type' },
-  noncommercialFieldsActivityDescription: { type: Sequelize.STRING, field: 'noncomm_fields_activity_descr' },
-  noncommercialFieldsLocationDescription: { type: Sequelize.STRING, field: 'noncomm_fields_location_descr' },
-  noncommercialFieldsStartDateTime: { type: Sequelize.STRING, field: 'noncomm_fields_start_date_time' },
-  noncommercialFieldsEndDateTime: { type: Sequelize.STRING, field: 'noncomm_fields_end_date_time' },
-  noncommercialFieldsStartMonth: { type: Sequelize.STRING, field: 'noncomm_fields_start_month' },
-  noncommercialFieldsStartDay: { type: Sequelize.STRING, field: 'noncomm_fields_start_day' },
-  noncommercialFieldsStartYear: { type: Sequelize.STRING, field: 'noncomm_fields_start_year' },
-  noncommercialFieldsEndMonth: { type: Sequelize.STRING, field: 'noncomm_fields_end_month' },
-  noncommercialFieldsEndDay: { type: Sequelize.STRING, field: 'noncomm_fields_end_day' },
-  noncommercialFieldsEndYear: { type: Sequelize.STRING, field: 'noncomm_fields_end_year' },
-  noncommercialFieldsStartHour: { type: Sequelize.STRING, field: 'noncomm_fields_start_hour' },
-  noncommercialFieldsStartMinutes: { type: Sequelize.STRING, field: 'noncomm_fields_start_minutes' },
-  noncommercialFieldsStartPeriod: { type: Sequelize.STRING, field: 'noncomm_fields_start_period' },
-  noncommercialFieldsEndHour: { type: Sequelize.STRING, field: 'noncomm_fields_end_hour' },
-  noncommercialFieldsEndMinutes: { type: Sequelize.STRING, field: 'noncomm_fields_end_minutes' },
-  noncommercialFieldsEndPeriod: { type: Sequelize.STRING, field: 'noncomm_fields_end_period' },
-  noncommercialFieldsNumberParticipants: { type: Sequelize.STRING, field: 'noncomm_fields_num_participants' },
-  createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
-  updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
-  status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status'}
-}, {
-  timestamps: true
-});
 
 //------------------------------
 
@@ -94,7 +17,7 @@ let Validator = require('jsonschema').Validator;
 let v = new Validator();
 let validatorOptions = { 'nestedErrors' : true };
 
-var schemas = require('./noncommercial-schema.es6');
+var schemas = require('./validation-schemas/noncommercial-schema.es6');
 v.addSchema(schemas.noncommercialSchema);
 v.addSchema(schemas.noncommercialApplicantInfoSchema);
 v.addSchema(schemas.noncommercialFieldsSchema);
@@ -119,183 +42,6 @@ app.options('*', function(req, res) {
   res.send();
 });
 
-app.get('/uptime', function(req, res) {
-  res.send('Uptime: ' + process.uptime() + ' seconds');
-});
-
-let extractField = (errorObj, withArg) => {
-  if (withArg && errorObj.property === 'instance') {
-    return errorObj.argument;
-  } else if (withArg) {
-    // assumption is that the string otherwise is 'instance.<field>'
-    return errorObj.property.substring(9) + '.' + errorObj.argument;
-  } else {
-    return errorObj.property.substring(9);
-  }
-};
-
-let collateErrors = (result, errorArr, prefix) => {
-  for (var error of result.errors) {
-    if (error.name === 'required') {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type')  {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
-    }
-  }
-};
-
-let buildTimestamp = (year, month, day, hours, minutes, period) => {
-  return moment(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ' ' + period, 'YYYY-MM-DD HH:mm A').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-};
-
-let translateFromDatabaseToJSON = (input) => {
-  return {
-    'applicantInfo': {
-      'dayPhone': {
-        'areaCode': input.applicantInfoDayPhoneAreaCode,
-        'prefix': input.applicantInfoDayPhonePrefix,
-        'number': input.applicantInfoDayPhoneNumber
-      },
-      'eveningPhone': {
-        'areaCode': input.applicantInfoEveningPhoneAreaCode,
-        'prefix': input.applicantInfoEveningPhonePrefix,
-        'number': input.applicantInfoEveningPhoneNumber
-      },
-      'primaryAddress': {
-        'mailingAddress': input.applicantInfoPrimaryMailingAddress,
-        'mailingAddress2': input.applicantInfoPrimaryMailingAddress2,
-        'mailingCity': input.applicantInfoPrimaryMailingCity,
-        'mailingState': input.applicantInfoPrimaryMailingState,
-        'mailingZip': input.applicantInfoPrimaryMailingZIP
-      },
-      'organizationAddress': {
-        'mailingAddress': input.applicantInfoOrgMailingAddress,
-        'mailingAddress2': input.applicantInfoOrgMailingAddress2,
-        'mailingCity': input.applicantInfoOrgMailingCity,
-        'mailingState': input.applicantInfoOrgMailingState,
-        'mailingZip': input.applicantInfoOrgMailingZIP
-      },
-      'secondaryAddress': {
-        'mailingAddress': input.applicantInfoSecondaryMailingAddress,
-        'mailingAddress2': input.applicantInfoSecondaryMailingAddress2,
-        'mailingCity': input.applicantInfoSecondaryMailingCity,
-        'mailingState': input.applicantInfoSecondaryMailingState,
-        'mailingZip': input.applicantInfoSecondaryMailingZIP
-      },
-      'orgType': input.type,
-      'primaryFirstName': input.applicantInfoPrimaryFirstName,
-      'primaryLastName': input.applicantInfoPrimaryLastName,
-      'secondaryFirstName': input.applicantInfoSecondaryFirstName,
-      'secondaryLastName': input.applicantInfoSecondaryLastName,
-      'emailAddress': input.applicantInfoEmailAddress
-    },
-    'noncommercialFields': {
-      'activityDescription': input.noncommercialFieldsActivityDescription,
-      'endDay': input.noncommercialFieldsEndDay,
-      'endHour': input.noncommercialFieldsEndHour,
-      'endMinutes': input.noncommercialFieldsEndMinutes,
-      'endMonth': input.noncommercialFieldsEndMonth,
-      'endPeriod': input.noncommercialFieldsEndPeriod,
-      'endYear': input.noncommercialFieldsEndYear,
-      'locationDescription': input.noncommercialFieldsLocationDescription,
-      'numberParticipants': input.noncommercialFieldsNumberParticipants,
-      'spectators': input.noncommercialFieldsNumberSpectators,
-      'startDay': input.noncommercialFieldsStartDay,
-      'startHour': input.noncommercialFieldsStartHour,
-      'startMinutes': input.noncommercialFieldsStartMinutes,
-      'startMonth': input.noncommercialFieldsStartMonth,
-      'startPeriod': input.noncommercialFieldsStartPeriod,
-      'startYear': input.noncommercialFieldsStartYear
-    },
-    'district': input.district,
-    'region': input.region,
-    'forest': input.forest,
-    'type': input.type,
-    'eventName': input.eventName,
-    'signature': input.signature,
-    'status': input.status,
-    'createdAt': input.createdAt,
-    'applicationId': input.applicationId
-  };
-};
-
-let translateArrayFromDatabaseToJSON = (applications) => {
-  for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToJSON(applications[i]);
-  }
-  return applications;
-};
-
-let translateFromIntakeToMiddleLayer = (input) => {
-  let result = {
-    'region': input.region,
-    'forest': input.forest,
-    'district': input.district,
-    'authorizingOfficerName': 'Placeholder', // TODO: Add value when user has authenticated
-    'authorizingOfficerTitle': 'Placeholder', // TODO: Add value when user has authenticated
-    'applicantInfo': {
-      'firstName': input.applicantInfoPrimaryFirstName,
-      'lastName': input.applicantInfoPrimaryLastName,
-      'dayPhone': {
-        'areaCode': input.applicantInfoDayPhoneAreaCode,
-        'number': input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
-        'extension': input.applicantInfoDayPhoneExtension || undefined,
-        'phoneType': 'standard'
-      },
-      'eveningPhone': {
-        'areaCode': input.applicantInfoEveningPhoneAreaCode || input.applicantInfoDayPhoneAreaCode,
-        'number': (input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber) || (input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber),
-        'extension': input.applicantInfoEveningPhoneExtension || input.applicantInfoDayPhoneExtension || undefined,
-        'phoneType': 'standard'
-      },
-      'emailAddress': input.applicantInfoEmailAddress,
-      'organizationName': input.applicantInfoOrganizationName || undefined,
-      'website': input.applicantInfoWebsite || undefined,
-      'orgType': input.applicantInfoOrgType
-    },
-    'type': input.type,
-    'noncommercialFields': {
-      'activityDescription': input.noncommercialFieldsActivityDescription,
-      'locationDescription': input.noncommercialFieldsLocationDescription,
-      'startDateTime': buildTimestamp(
-        input.noncommercialFieldsStartYear,
-        input.noncommercialFieldsStartMonth,
-        input.noncommercialFieldsStartDay,
-        input.noncommercialFieldsStartHour,
-        input.noncommercialFieldsStartMinutes,
-        input.noncommercialFieldsStartPeriod
-      ),
-      'endDateTime': buildTimestamp(
-        input.noncommercialFieldsEndYear,
-        input.noncommercialFieldsEndMonth,
-        input.noncommercialFieldsEndDay,
-        input.noncommercialFieldsEndHour,
-        input.noncommercialFieldsEndMinutes,
-        input.noncommercialFieldsEndPeriod
-      ),
-      'numberParticipants': Number(input.noncommercialFieldsNumberParticipants)
-    }
-  };
-
-  if (input.applicantInfoOrgType === 'Person') {
-    result.applicantInfo.mailingAddress = input.applicantInfoPrimaryMailingAddress;
-    result.applicantInfo.mailingAddress2 = input.applicantInfoPrimaryMailingAddress2 || undefined;
-    result.applicantInfo.mailingCity = input.applicantInfoPrimaryMailingCity;
-    result.applicantInfo.mailingState = input.applicantInfoPrimaryMailingState;
-    result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
-  }
-
-  if (input.applicantInfoOrgType === 'Organization') {
-    result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
-    result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
-    result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
-    result.applicantInfo.mailingState = input.applicantInfoOrgMailingState;
-    result.applicantInfo.mailingZIP = input.applicantInfoOrgMailingZIP;
-  }
-
-  return result;
-};
-
 let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
 
   let authOptions = {
@@ -308,7 +54,7 @@ let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCal
     url: middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: { 'x-access-token': undefined },
     json: true,
-    body: translateFromIntakeToMiddleLayer(application)
+    body: util.translateFromIntakeToMiddleLayer(application)
   };
 
   request.post(authOptions, (error, response, body) => {
@@ -336,20 +82,20 @@ let createNoncommercialTempApp = (req, res) => {
   // overall validation
   let result = v.validate(req.body, schemas.noncommercialSchema, validatorOptions);
   if (result.errors.length > 0) {
-    collateErrors(result, errorArr);
+    util.collateErrors(result, errorArr);
   }
 
   // if there is an evening phone, validate it
   if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
     result = v.validate(req.body.applicantInfo.eveningPhone, schemas.phoneNumberSchema, validatorOptions);
-    collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
+    util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
   }
 
   // if the orgType is Individual, then primaryAddress is required
   if (req.body.applicantInfo.orgType === 'Person') {
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
-      collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
+      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     } else {
       errorArr.push('required-applicantInfo.primaryAddress');
     }
@@ -359,21 +105,21 @@ let createNoncommercialTempApp = (req, res) => {
   if (req.body.applicantInfo.orgType === 'Corporation') {
     if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.organizationAddress, schemas.addressSchema, validatorOptions);
-      collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
+      util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
     } else {
       errorArr.push('required-applicantInfo.organizationAddress');
     }
 
     if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
       result = v.validate(req.body.applicantInfo.primaryAddress, schemas.addressSchema, validatorOptions);
-      collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
+      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
     }
   }
 
   // if secondaryAddress exists, then validate it
   if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
     result = v.validate(req.body.applicantInfo.secondaryAddress, schemas.addressSchema, validatorOptions);
-    collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
+    util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
   }
 
   if (errorArr.length > 0) {
@@ -456,7 +202,7 @@ let updateApp = (req, res) => {
           (response) => {
             app.controlNumber = response.controlNumber;
             app.save().then(() => {
-              res.status(200).json(translateFromDatabaseToJSON(app));
+              res.status(200).json(util.translateFromDatabaseToJSON(app));
             });
           },
           (error) => {
@@ -465,7 +211,7 @@ let updateApp = (req, res) => {
         );
       } else {
         app.save().then(() => {
-          res.status(200).json(translateFromDatabaseToJSON(app));
+          res.status(200).json(util.translateFromDatabaseToJSON(app));
         });
       }
     } else {
@@ -477,7 +223,7 @@ let updateApp = (req, res) => {
 let getApp = (req, res) => {
   NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
     if(app) {
-      res.status(200).json(translateFromDatabaseToJSON(app));
+      res.status(200).json(util.translateFromDatabaseToJSON(app));
     } else {
       res.status(404);
     }
@@ -486,7 +232,7 @@ let getApp = (req, res) => {
 
 let getAllApps = (req, res) => {
   NoncommercialApplication.findAll().then(allApps => {
-    res.status(200).json(translateArrayFromDatabaseToJSON(allApps));
+    res.status(200).json(util.translateArrayFromDatabaseToJSON(allApps));
   });
 };
 
@@ -505,6 +251,10 @@ app.get('/permits/applications/:id', getApp);
 // GET /permits/applications
 // retrieves all applications in the system
 app.get('/permits/applications', getAllApps);
+
+app.get('/uptime', function(req, res) {
+  res.send('Uptime: ' + process.uptime() + ' seconds');
+});
 
 app.listen(8080);
 
