@@ -72,21 +72,11 @@ util.translateFromDatabaseToJSON = (input) => {
     },
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
-      'endDay': input.noncommercialFieldsEndDay,
-      'endHour': input.noncommercialFieldsEndHour,
-      'endMinutes': input.noncommercialFieldsEndMinutes,
-      'endMonth': input.noncommercialFieldsEndMonth,
-      'endPeriod': input.noncommercialFieldsEndPeriod,
-      'endYear': input.noncommercialFieldsEndYear,
       'locationDescription': input.noncommercialFieldsLocationDescription,
       'numberParticipants': input.noncommercialFieldsNumberParticipants,
       'spectators': input.noncommercialFieldsSpectatorCount,
-      'startDay': input.noncommercialFieldsStartDay,
-      'startHour': input.noncommercialFieldsStartHour,
-      'startMinutes': input.noncommercialFieldsStartMinutes,
-      'startMonth': input.noncommercialFieldsStartMonth,
-      'startPeriod': input.noncommercialFieldsStartPeriod,
-      'startYear': input.noncommercialFieldsStartYear
+      'startDateTime': input.noncommercialFieldsStartDateTime,
+      'endDateTime': input.noncommercialFieldsEndDateTime
     },
     'district': input.district,
     'region': input.region,
@@ -138,22 +128,8 @@ util.translateFromIntakeToMiddleLayer = (input) => {
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
       'locationDescription': input.noncommercialFieldsLocationDescription,
-      'startDateTime': util.buildTimestamp(
-        input.noncommercialFieldsStartYear,
-        input.noncommercialFieldsStartMonth,
-        input.noncommercialFieldsStartDay,
-        input.noncommercialFieldsStartHour,
-        input.noncommercialFieldsStartMinutes,
-        input.noncommercialFieldsStartPeriod
-      ),
-      'endDateTime': util.buildTimestamp(
-        input.noncommercialFieldsEndYear,
-        input.noncommercialFieldsEndMonth,
-        input.noncommercialFieldsEndDay,
-        input.noncommercialFieldsEndHour,
-        input.noncommercialFieldsEndMinutes,
-        input.noncommercialFieldsEndPeriod
-      ),
+      'startDateTime': input.noncommercialFieldsStartDateTime,
+      'endDateTime': input.noncommercialFieldsEndDateTime,
       'numberParticipants': Number(input.noncommercialFieldsNumberParticipants)
     }
   };
