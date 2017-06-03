@@ -103,6 +103,10 @@ module.exports = {
         'PM'
       ],
       'type' : 'string'
+    },
+    'spectators': {
+      'default': '',
+      'type': 'integer'
     }
   },
   'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants']
