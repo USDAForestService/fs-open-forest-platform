@@ -179,7 +179,10 @@ let createNoncommercialTempApp = (req, res) => {
       noncommercialFieldsEndHour: req.body.noncommercialFields.endHour,
       noncommercialFieldsEndMinutes: req.body.noncommercialFields.endMinutes,
       noncommercialFieldsEndPeriod: req.body.noncommercialFields.endPeriod,
-      noncommercialFieldsNumberParticipants: req.body.noncommercialFields.numberParticipants
+      noncommercialFieldsNumberParticipants: req.body.noncommercialFields.numberParticipants,
+      noncommercialFieldsSpectatorCount: req.body.noncommercialFields.spectators,
+      signature: req.body.signature,
+      reasonForReturn: req.body.reasonForReturn
     }).then((noncommApp) => {
       req.body['applicationId'] = noncommApp.applicationId;
       res.status(201).json(req.body);
@@ -260,14 +263,14 @@ let s3 = new AWS.S3();
 const bucket = process.env.BUCKET_NAME;
 
 let streamToS3 = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: bucket,
-        key: function (req, file, cb) {
-            console.log(file);
-            cb(null, file.originalname); //use Date.now() for unique file keys
-        }
-    })
+  storage: multerS3({
+    s3: s3,
+    bucket: bucket,
+    key: function (req, file, cb) {
+      //console.log(file);
+      cb(null, file.originalname); //use Date.now() for unique file keys
+    }
+  })
 });
 
 // Endpoints
@@ -284,7 +287,7 @@ app.post('/permits/applications/special-uses/temp-outfitters', function (req, re
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), function (req, res, next) {
+app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), function (req, res) {
   res.status(201).end();
 });
 
