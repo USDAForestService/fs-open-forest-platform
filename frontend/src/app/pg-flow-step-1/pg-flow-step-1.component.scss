@@ -22,37 +22,21 @@ section {
   margin-bottom: 40px;
 }
 
-.option-background {
-  background-position: center center;
-  bottom: 0;
-  filter: brightness(0.4);
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
 .usa-button {
   margin: 0;
-  filter: brightness(1);
   position: relative;
 }
 
 #noncommercial-background {
-  background-image: url(/assets/img/non-commercial-photo.jpg);
+  background-image: url(/assets/img/non-commercial-photo-dark.jpg);
 }
 
 #tempoutfitter-background {
-  background-image: url(/assets/img/temp-outfitters-photo.jpg);
+  background-image: url(/assets/img/temp-outfitters-photo-dark.jpg);
 }
 
 #notsure-background {
-  background-image: url(/assets/img/help-me-find-permit-photo.jpg);
-}
-
-.option-content {
-  filter: brightness(1);
-  position: relative;
+  background-image: url(/assets/img/help-me-find-permit-photo-dark.jpg);
 }
 
 .option-content-one-half {
