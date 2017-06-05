@@ -96,7 +96,8 @@ util.translateFromDatabaseToJSON = (input) => {
     'signature': input.signature,
     'status': input.status,
     'createdAt': input.createdAt,
-    'applicationId': input.applicationId
+    'applicationId': input.applicationId,
+    'reasonForReturn': input.reasonForReturn
   };
 };
 
