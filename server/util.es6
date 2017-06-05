@@ -1,7 +1,5 @@
 'use strict';
 
-let moment = require('moment');
-
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
     return errorObj.argument;
@@ -14,10 +12,6 @@ let extractField = (errorObj, withArg) => {
 };
 
 let util = {};
-
-util.buildTimestamp = (year, month, day, hours, minutes, period) => {
-  return moment(year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ' ' + period, 'YYYY-MM-DD HH:mm A').format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-};
 
 util.collateErrors = (result, errorArr, prefix) => {
   for (var error of result.errors) {

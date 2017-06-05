@@ -36,11 +36,11 @@
         <div class="app-item">
           <h3 class="app-item-label">Start Date:</h3>
           <p class="app-item-value">
-            {{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+            {{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
           <h3 class="app-item-label">End Date:</h3>
           <p class="app-item-value">
-            {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+            {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
         </div>
         <div class="app-item">
