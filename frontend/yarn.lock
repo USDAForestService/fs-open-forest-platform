@@ -1274,6 +1274,10 @@ classlist-polyfill@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/classlist-polyfill/-/classlist-polyfill-1.2.0.tgz#935bc2dfd9458a876b279617514638bcaa964a2e"
 
+classlist.js@^1.1.20150312:
+  version "1.1.20150312"
+  resolved "https://registry.yarnpkg.com/classlist.js/-/classlist.js-1.1.20150312.tgz#1d70842f7022f08d9ac086ce69e5b250f2c57789"
+
 clean-css@4.0.x:
   version "4.0.12"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.0.12.tgz#a02e61707f1840bd3338f54dbc9acbda4e772fa3"
@@ -4054,6 +4058,10 @@ insert-module-globals@^7.0.0:
 interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
+
+intl@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
 
 invariant@^2.2.0:
   version "2.2.2"
@@ -8728,6 +8736,10 @@ wcwidth@^1.0.0:
   resolved "https://registry.yarnpkg.com/wcwidth/-/wcwidth-1.0.1.tgz#f0b0dcf915bc5ff1528afadb2c0e17b532da2fe8"
   dependencies:
     defaults "^1.0.3"
+
+web-animations-js@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.2.5.tgz#26ca1b34c1347332a0813f8b2bfe69664efa80aa"
 
 webdriver-js-extender@^1.0.0:
   version "1.0.0"
