@@ -5,10 +5,10 @@ section {
 }
 
 .wrapper {
+  background-position: top;
   color: white;
   margin-bottom: 15px;
   padding: 30px;
-  position: relative;
   h2 {
     color: white;
     margin-top: 0;
@@ -24,7 +24,6 @@ section {
 
 .usa-button {
   margin: 0;
-  position: relative;
 }
 
 #noncommercial-background {
