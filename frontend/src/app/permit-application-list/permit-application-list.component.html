@@ -28,8 +28,8 @@
           <td>{{application.noncommercialFields.locationDescription}}</td>
           <td>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
           <td>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
-          <td>{{application.createdAt | date:'M/d/y'}}</td>
-          <td>{{application.status}}</td>
+          <td>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
+          <td>{{ application.status }}</td>
           <td><a class="usa-button" routerLink="/admin/applications/{{application.applicationId}}">View</a></td>
         </tr>
       </tbody>

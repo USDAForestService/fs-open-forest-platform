@@ -160,7 +160,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid || this.dateStatus.hasErrors) {
       window.scroll(0, 0);
     } else {
-      const format = 'YYYY-MM-DD HH:mm A';
+      const inputFormat = 'YYYY-MM-DD HH:mm A';
+      const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       this.application.noncommercialFields.startDateTime = moment(
         this.application.noncommercialFields.startYear +
         '-' +
@@ -173,7 +174,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.application.noncommercialFields.startMinutes +
         ' ' +
         this.application.noncommercialFields.startPeriod
-      , format).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
+      , inputFormat).format(outputFormat) + 'Z';
       this.application.noncommercialFields.endDateTime = moment(
         this.application.noncommercialFields.endYear +
         '-' +
@@ -186,8 +187,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.application.noncommercialFields.endMinutes +
         ' ' +
         this.application.noncommercialFields.endPeriod
-      , format).format('YYYY-MM-DDTHH:mm:ss') + 'Z';
-
+      , inputFormat).format(outputFormat) + 'Z';
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
           (persistedApplication) => {
