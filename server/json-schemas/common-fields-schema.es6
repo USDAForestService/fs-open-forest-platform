@@ -40,6 +40,14 @@ module.exports = {
     'contCN':{
       'default':'',
       'type' : 'string'
+    },
+    'signature': {
+      'default': '',
+      'type': 'string'
+    },
+    'reasonForReturn': {
+      'default': '',
+      'type': 'string'
     }
   },
   'required': ['region', 'forest', 'district']

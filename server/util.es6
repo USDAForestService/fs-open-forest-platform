@@ -80,7 +80,7 @@ util.translateFromDatabaseToJSON = (input) => {
       'endYear': input.noncommercialFieldsEndYear,
       'locationDescription': input.noncommercialFieldsLocationDescription,
       'numberParticipants': input.noncommercialFieldsNumberParticipants,
-      'spectators': input.noncommercialFieldsNumberSpectators,
+      'spectators': input.noncommercialFieldsSpectatorCount,
       'startDay': input.noncommercialFieldsStartDay,
       'startHour': input.noncommercialFieldsStartHour,
       'startMinutes': input.noncommercialFieldsStartMinutes,
@@ -96,7 +96,8 @@ util.translateFromDatabaseToJSON = (input) => {
     'signature': input.signature,
     'status': input.status,
     'createdAt': input.createdAt,
-    'applicationId': input.applicationId
+    'applicationId': input.applicationId,
+    'reasonForReturn': input.reasonForReturn
   };
 };
 

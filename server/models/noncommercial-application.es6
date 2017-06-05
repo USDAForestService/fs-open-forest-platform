@@ -75,7 +75,10 @@ module.exports = sequelize.define('noncommercialApplications', {
   noncommercialFieldsNumberParticipants: { type: Sequelize.STRING, field: 'noncomm_fields_num_participants' },
   createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
   updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
-  status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status'}
+  status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status'},
+  signature: { type: Sequelize.STRING(3), field: 'signature'},
+  reasonForReturn: { type: Sequelize.STRING, field: 'reason_for_return'},
+  noncommercialFieldsSpectatorCount: { type: Sequelize.STRING, field: 'noncomm_fields_spectator_count'}
 }, {
   timestamps: true
 });
