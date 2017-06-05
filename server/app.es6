@@ -1,8 +1,11 @@
 'use strict';
 
+let AWS = require('aws-sdk');
 let bodyParser = require('body-parser');
 let express =  require('express');
 let jsonschema = require('jsonschema');
+let multer = require('multer');
+let multerS3 = require('multer-s3');
 let request = require('request');
 
 let util = require('./util.es6');
@@ -238,7 +241,11 @@ app.use(bodyParser.json());
 
 // middleware that will add the Access-Control-Allow-Origin header to everything
 app.use(function(req, res, next) {
-  res.set('Access-Control-Allow-Origin', '*');
+  var allowedOrigins = ['http://localhost:4200', 'https://fs-intake-staging.app.cloud.gov/'];
+  var origin = req.headers.origin;
+  if(allowedOrigins.indexOf(origin) > -1){
+    res.set('Access-Control-Allow-Origin', origin);
+  }
   next();
 });
 
@@ -246,7 +253,23 @@ app.use(function(req, res, next) {
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.set('Access-Control-Allow-Credentials', true);
   res.send();
+});
+
+// Upload to S3
+let s3 = new AWS.S3();
+const bucket = process.env.BUCKET_NAME;
+
+let streamToS3 = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: bucket,
+        key: function (req, file, cb) {
+            console.log(file);
+            cb(null, file.originalname); //use Date.now() for unique file keys
+        }
+    })
 });
 
 // Endpoints
@@ -254,6 +277,18 @@ app.options('*', function(req, res) {
 // POST /permits/applications/special-uses/noncommercial/
 // creates a new noncommercial application
 app.post('/permits/applications/special-uses/noncommercial', createNoncommercialTempApp);
+
+// POST /permits/applications/special-uses/temp-outfitters
+// TODO creates a new temp outfitter application
+app.post('/permits/applications/special-uses/temp-outfitters', function (req, res) {
+  res.status(201).end();
+});
+
+// POST /permits/applications/special-uses/temp-outfitters/file
+// Handles temp outfitter file upload and invokes streamToS3 function
+app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), function (req, res, next) {
+  res.status(201).end();
+});
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
