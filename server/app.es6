@@ -16,7 +16,9 @@ let NoncommercialApplication = require('./models/noncommercial-application.es6')
 const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
 const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
-const bucket = process.env.BUCKET_NAME;
+
+const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
+const bucket = envvar.s3[0].credentials.bucket;
 
 // JSON Validators
 
