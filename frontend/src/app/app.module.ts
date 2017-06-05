@@ -21,6 +21,9 @@ import { TemporaryOutfittersComponent } from './applications/temporary-outfitter
 
 import { ApplicationService } from './admin/application.service';
 
+import { FileSelectDirective, FileDropDirective, FileUploader } from '../../node_modules/ng2-file-upload/ng2-file-upload';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,9 @@ import { ApplicationService } from './admin/application.service';
     PgFlowRegPersonFriendFamilyComponent,
     ApplicationSubmittedComponent,
     HelpMePickComponent,
-    TemporaryOutfittersComponent
+    TemporaryOutfittersComponent,
+    FileSelectDirective,
+    FileDropDirective
   ],
   imports: [
     BrowserModule,
