@@ -45,7 +45,7 @@ export class ApplicationService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(this.endpoint + '/' + body.applicationId, body, options)
+    return this.http.put(this.endpoint + '/' + body.appControlNumber, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
