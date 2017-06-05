@@ -30,6 +30,8 @@
     "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
     "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./test/noncommercial.js",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
+    "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo",
+    "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
     "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
