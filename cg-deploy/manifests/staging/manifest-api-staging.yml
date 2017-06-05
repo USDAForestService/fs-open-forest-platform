@@ -8,3 +8,4 @@ applications:
   instances: 1
   services:
     - fs-intake-api-staging-db
+    - fs-intake-staging-s3
