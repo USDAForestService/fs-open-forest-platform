@@ -284,7 +284,7 @@ app.post('/permits/applications/special-uses/temp-outfitters', function (req, re
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', upload.array('file',1), function (req, res, next) {
+app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), function (req, res, next) {
   res.status(201).end();
 });
 
