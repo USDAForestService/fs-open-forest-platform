@@ -18,7 +18,7 @@ const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
-const bucket = envvar.s3[0].credentials.bucket;
+const bucket = VCAPServices.s3[0].credentials.bucket;
 
 // JSON Validators
 
