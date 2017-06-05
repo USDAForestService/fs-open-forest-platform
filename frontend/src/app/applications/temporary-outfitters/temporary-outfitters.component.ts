@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Application } from '../../admin/application';
 import { ApplicationService } from '../../admin/application.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FileSelectDirective, FileDropDirective, FileUploader } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -16,15 +18,28 @@ export class TemporaryOutfittersComponent implements OnInit {
   mode = 'Observable';
   submitted = false;
 
+  guideDocument: FileUploader = new FileUploader({
+    url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
+    queueLimit: 1
+
+  });
+
+  acknowledgementOfRiskForm: FileUploader = new FileUploader({
+    url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
+    queueLimit: 1
+  });
+
   constructor(private applicationService: ApplicationService, private router: Router) { }
 
   onSubmit(form) {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      this.applicationService.create(this.application, '/special-uses/noncommericial/', true)
+      this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
         .subscribe(
           (persistedApplication) => {
+            this.guideDocument.uploadAll();
+            this.acknowledgementOfRiskForm.uploadAll();
             this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
           (e: any) => {
@@ -69,5 +84,4 @@ export class TemporaryOutfittersComponent implements OnInit {
     this.application.tempOutfittersFields.clientCharges = 'charges';
     this.application.tempOutfittersFields.experienceList = 'experiece list';
   }
-
 }
