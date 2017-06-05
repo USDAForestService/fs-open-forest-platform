@@ -11,9 +11,12 @@ let request = require('request');
 let util = require('./util.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 
+// Environment variables
+
 const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
 const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
+const bucket = process.env.BUCKET_NAME;
 
 // JSON Validators
 
@@ -167,18 +170,6 @@ let createNoncommercialTempApp = (req, res) => {
       noncommercialFieldsLocationDescription: req.body.noncommercialFields.locationDescription,
       noncommercialFieldsStartDateTime: req.body.noncommercialFields.startDateTime,
       noncommercialFieldsEndDateTime: req.body.noncommercialFields.endDateTime,
-      noncommercialFieldsStartMonth: req.body.noncommercialFields.startMonth,
-      noncommercialFieldsStartDay: req.body.noncommercialFields.startDay,
-      noncommercialFieldsStartYear: req.body.noncommercialFields.startYear,
-      noncommercialFieldsEndMonth: req.body.noncommercialFields.endMonth,
-      noncommercialFieldsEndDay: req.body.noncommercialFields.endDay,
-      noncommercialFieldsEndYear: req.body.noncommercialFields.endYear,
-      noncommercialFieldsStartHour: req.body.noncommercialFields.startHour,
-      noncommercialFieldsStartMinutes: req.body.noncommercialFields.startMinutes,
-      noncommercialFieldsStartPeriod: req.body.noncommercialFields.startPeriod,
-      noncommercialFieldsEndHour: req.body.noncommercialFields.endHour,
-      noncommercialFieldsEndMinutes: req.body.noncommercialFields.endMinutes,
-      noncommercialFieldsEndPeriod: req.body.noncommercialFields.endPeriod,
       noncommercialFieldsNumberParticipants: req.body.noncommercialFields.numberParticipants,
       noncommercialFieldsSpectatorCount: req.body.noncommercialFields.spectators,
       signature: req.body.signature,
@@ -258,16 +249,16 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+// S3 Setup
+
 // Upload to S3
 let s3 = new AWS.S3();
-const bucket = process.env.BUCKET_NAME;
 
 let streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: bucket,
     key: function (req, file, cb) {
-      //console.log(file);
       cb(null, file.originalname); //use Date.now() for unique file keys
     }
   })
@@ -287,7 +278,7 @@ app.post('/permits/applications/special-uses/temp-outfitters', function (req, re
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), function (req, res) {
+app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), (req, res) => {
   res.status(201).end();
 });
 

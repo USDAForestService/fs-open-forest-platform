@@ -36,19 +36,11 @@
         <div class="app-item">
           <h3 class="app-item-label">Start Date:</h3>
           <p class="app-item-value">
-            {{ application.noncommercialFields.startMonth|date: 'MMM' }}
-            {{ application.noncommercialFields.startDay }},
-            {{ application.noncommercialFields.startYear }},
-            {{ application.noncommercialFields.startHour }}:{{ application.noncommercialFields.startMinutes }}
-            {{ application.noncommercialFields.startPeriod }}
+            {{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
           <h3 class="app-item-label">End Date:</h3>
           <p class="app-item-value">
-            {{ application.noncommercialFields.endMonth|date: 'MMM' }}
-            {{ application.noncommercialFields.endDay }},
-            {{ application.noncommercialFields.endYear }},
-            {{ application.noncommercialFields.endHour }}:{{ application.noncommercialFields.endMinutes }}
-            {{ application.noncommercialFields.endPeriod }}
+            {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
         </div>
         <div class="app-item">
@@ -64,7 +56,8 @@
           <p class="app-item-value">{{ application.noncommercialFields.numberParticipants }}</p>
         </div>
         <div class="app-item">
-          <h3 class="app-item-label"><i class="fa fa-check" aria-hidden="true"></i> Electronic Signature</h3>
+          <h3 class="app-item-label">Electronic Signature</h3>
+          <p class="app-item-value">{{ application.signature }}</p>
         </div>
       </div>
       <div class="usa-width-one-third">
