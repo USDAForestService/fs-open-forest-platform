@@ -11,7 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class PermitApplicationViewComponent implements OnInit {
 
-  id: number;
+  id: string;
   application = new Application();
 
   constructor(
