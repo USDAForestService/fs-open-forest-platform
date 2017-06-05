@@ -176,6 +176,7 @@ let createNoncommercialTempApp = (req, res) => {
       reasonForReturn: req.body.reasonForReturn
     }).then((noncommApp) => {
       req.body['applicationId'] = noncommApp.applicationId;
+      req.body['appControlNumber'] = noncommApp.appControlNumber;
       res.status(201).json(req.body);
     }).error((err) => {
       res.status(500).json(err);
@@ -184,7 +185,7 @@ let createNoncommercialTempApp = (req, res) => {
 };
 
 let updateApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
+  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}}).then(app => {
     if(app) {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
@@ -211,7 +212,7 @@ let updateApp = (req, res) => {
 };
 
 let getApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {application_id: req.params.id}}).then(app => {
+  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}}).then(app => {
     if(app) {
       res.status(200).json(util.translateFromDatabaseToJSON(app));
     } else {

@@ -17,6 +17,7 @@ let sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 module.exports = sequelize.define('noncommercialApplications', {
   applicationId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'application_id' },
+  appControlNumber: {type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, unique: true, field: 'app_control_number' },
   controlNumber: { type: Sequelize.STRING(50), field: 'control_number' },
   region: { type: Sequelize.STRING(2), field: 'region' },
   forest: { type: Sequelize.STRING(2), field: 'forest' },
