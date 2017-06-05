@@ -162,7 +162,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationService.create(this.application, '/special-uses/noncommercial/')
         .subscribe(
           (persistedApplication) => {
-            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+            this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
           },
           (e: any) => {
             this.apiErrors =  e;
