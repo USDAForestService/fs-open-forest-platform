@@ -81,7 +81,8 @@ util.translateFromDatabaseToJSON = (input) => {
     'status': input.status,
     'createdAt': input.createdAt,
     'applicationId': input.applicationId,
-    'reasonForReturn': input.reasonForReturn
+    'reasonForReturn': input.reasonForReturn,
+    'appControlNumber': input.appControlNumber
   };
 };
 

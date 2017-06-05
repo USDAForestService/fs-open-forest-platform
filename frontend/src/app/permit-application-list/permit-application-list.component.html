@@ -30,7 +30,7 @@
           <td>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
           <td>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
           <td>{{ application.status }}</td>
-          <td><a class="usa-button" routerLink="/admin/applications/{{application.applicationId}}">View</a></td>
+          <td><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">View</a></td>
         </tr>
       </tbody>
     </table>

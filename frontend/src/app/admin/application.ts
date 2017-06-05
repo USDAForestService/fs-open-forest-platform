@@ -1,6 +1,7 @@
 export class Application {
   applicantInfo: ApplicantInfo;
   applicationId: number;
+  appControlNumber: string;
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
   district: string;
