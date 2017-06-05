@@ -35,5 +35,19 @@ exit
 fi
 
 cf login -a $API -u $CF_USERNAME -p $CF_PASSWORD -o $ORG -s $SPACE
+
+# Remove venerable applications
+cf apps |
+while IFS= read -r LINE
+  do
+    PATTERN='(\w*-)+venerable'
+    suffix='-venerable'
+    if [[ "$LINE" =~ $PATTERN ]]; then
+      b=${LINE%$suffix*}
+      app=${b%$suffix*}
+       cf delete -f $app$suffix
+    fi
+  done
+
 cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
 cf zero-downtime-push $API_NAME -f $API_MANIFEST
