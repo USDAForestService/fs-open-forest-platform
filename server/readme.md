@@ -20,7 +20,7 @@ and on the command line as part of a command:
 The following environment variables are required:
 
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` JSON object that stores the name of the s3 bucket in the format `{"s3": [{"credentials": {"bucket": "bucket-name"}}]}`
+- `VCAP_SERVICES` JSON object that stores the name of the s3 bucket in the format `{"s3": [{"credentials": {"bucket": "bucket name", "access_key_id": "access key id", "region": "us-east-1", "secret_access_key": "secret access key"}}]}`
 - `MIDDLELAYER_BASE_URL` the base URL of the middle layer API
 - `MIDDLELAYER_USERNAME` the username to authenticate to the middle layer
 - `MIDDLELAYER_PASSWORD` the password to authenticate to the middle layer
