@@ -93,9 +93,9 @@ export class TempOutfittersFields {
 }
 
 export class TempOutfittersFiles {
-  guideDocumentation: File;
-  acknowledgementOfRiskForm: File;
-  insuranceCertificate: File;
-  goodStandingEvidence: File;
-  operatingPlan: File;
+  guideDocumentation: string;
+  acknowledgementOfRiskForm: string;
+  insuranceCertificate: string;
+  goodStandingEvidence: string;
+  operatingPlan: string;
 }
