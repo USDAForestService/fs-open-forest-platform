@@ -1,25 +1,32 @@
 .review-summary {
   background-color: #DAD7D0;
+  margin-bottom: 45px;
   padding: 20px;
 }
 
 .next-steps {
   background-color: #DAD7D0;
+  margin-bottom: 20px;
   padding: 20px;
   text-align: center;
-  margin-bottom: 20px;
   p {
     min-height: 100px;
   }
 }
 
 .step-number {
-  font-size: 20px;
-  line-height: 30px;
-  color: white;
   background-color: #076727;
-  display: inline-block;
   border-radius: 30px;
+  color: white;
+  display: inline-block;
+  font-size: 20px;
   height: 30px;
+  line-height: 30px;
   width: 30px;
+}
+
+.contact-details {
+  background-color: #DAD7D0;
+  margin-bottom: 45px;
+  padding: 20px;
 }
