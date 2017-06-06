@@ -4,6 +4,7 @@ export class Application {
   appControlNumber: string;
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
+  controlNumber: string;
   district: string;
   eventName: string;
   forest: string;
