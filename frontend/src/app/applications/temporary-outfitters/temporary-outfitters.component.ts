@@ -40,7 +40,8 @@ export class TemporaryOutfittersComponent implements OnInit {
           (persistedApplication) => {
             this.guideDocument.uploadAll();
             this.acknowledgementOfRiskForm.uploadAll();
-            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+            // TODO post file upload functionality
+            // this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
           (e: any) => {
             this.apiErrors =  e;
