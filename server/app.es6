@@ -18,6 +18,9 @@ const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
+const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
+const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
+const region = VCAPServices.s3[0].credentials.region;
 const bucket = VCAPServices.s3[0].credentials.bucket;
 
 // JSON Validators
@@ -236,11 +239,13 @@ app.use(bodyParser.json());
 
 // middleware that will add the Access-Control-Allow-Origin header to everything
 app.use(function(req, res, next) {
-  var allowedOrigins = ['http://localhost:4200', 'https://fs-intake-staging.app.cloud.gov/'];
   var origin = req.headers.origin;
-  if(allowedOrigins.indexOf(origin) > -1){
+  if(origin === 'http://localhost:4200'){
     res.set('Access-Control-Allow-Origin', origin);
+  } else {
+    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
   }
+  res.set('Access-Control-Allow-Credentials', true);
   next();
 });
 
@@ -248,14 +253,17 @@ app.use(function(req, res, next) {
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
-  res.set('Access-Control-Allow-Credentials', true);
   res.send();
 });
 
 // S3 Setup
 
 // Upload to S3
-let s3 = new AWS.S3();
+let s3 = new AWS.S3({
+  accessKeyId: accessKeyId,
+  secretAccessKey: secretAccessKey,
+  region: region
+});
 
 let streamToS3 = multer({
   storage: multerS3({
@@ -276,13 +284,13 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 // POST /permits/applications/special-uses/temp-outfitters
 // TODO creates a new temp outfitter application
 app.post('/permits/applications/special-uses/temp-outfitters', function (req, res) {
-  res.status(201).end();
+  res.status(201).json({"status": "Success"});
 });
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
 app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), (req, res) => {
-  res.status(201).end();
+  res.status(201).json({"status": "Success"});
 });
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber

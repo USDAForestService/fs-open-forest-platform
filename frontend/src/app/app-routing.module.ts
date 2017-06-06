@@ -16,7 +16,7 @@ import { TemporaryOutfittersComponent } from './applications/temporary-outfitter
 
 const appRoutes: Routes = [
   { path: 'applications/noncommercial-group-use/new', component: ApplicationNoncommercialGroupComponent },
-  { path: 'applications/temporary-outfitters/new', component: TemporaryOutfittersComponent },
+  { path: 'applications/temp-outfitters/new', component: TemporaryOutfittersComponent },
   { path: 'applications/submitted/:id', component: ApplicationSubmittedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin/applications', component: PermitApplicationListComponent },
