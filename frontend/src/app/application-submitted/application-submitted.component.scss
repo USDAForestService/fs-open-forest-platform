@@ -9,9 +9,6 @@
   margin-bottom: 20px;
   padding: 20px;
   text-align: center;
-  p {
-    min-height: 100px;
-  }
 }
 
 .step-number {
@@ -27,6 +24,10 @@
 
 .contact-details {
   background-color: #DAD7D0;
+  display: inline-block;
   margin-bottom: 45px;
   padding: 20px;
+  h3 {
+    margin-top: 0;
+  }
 }
