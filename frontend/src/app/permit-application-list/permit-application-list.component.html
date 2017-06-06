@@ -17,6 +17,7 @@
           <th scope="col">Start date</th>
           <th scope="col">End date</th>
           <th scope="col">Created</th>
+          <th scope="col">Control Number</th>
           <th scope="col">Status</th>
           <th scope="col">Actions</th>
         </tr>
@@ -29,6 +30,7 @@
           <td>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
           <td>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
           <td>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
+          <td>{{ application.controlNumber }}</td>
           <td>{{ application.status }}</td>
           <td><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">View</a></td>
         </tr>
