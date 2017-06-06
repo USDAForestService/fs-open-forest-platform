@@ -2,31 +2,26 @@ app-application-submitted {
 
   .review-summary {
     background-color: $fs-timberwolf;
-    margin-bottom: 45px;
     padding: 20px;
   }
 
   .next-steps {
     background-color: $fs-timberwolf;
-    margin-bottom: 20px;
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
+    margin-bottom: 10px;
     @media(min-width: $medium-screen) {
       p {
-        height: 170px;
+        height: 190px;
       }
     }
   }
 
   .step-number {
-    background-color: $fs-green;
-    border-radius: 30px;
-    color: white;
+    color: $fs-green;
     display: inline-block;
-    font-size: 20px;
-    height: 30px;
-    line-height: 30px;
-    width: 30px;
+    font-size: 50px;
+    font-weight: bold;
   }
 
   .contact-details {
@@ -34,7 +29,13 @@ app-application-submitted {
     display: inline-block;
     padding: 20px;
     h3 {
-      margin-top: 0;
+      margin: 0 auto;
+    }
+    .title-description {
+      margin-top: 2px;
+    }
+    .contact {
+      margin: 2px 0;
     }
   }
 
