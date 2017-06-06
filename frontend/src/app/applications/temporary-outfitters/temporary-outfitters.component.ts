@@ -35,11 +35,12 @@ export class TemporaryOutfittersComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-       this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
+      this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
         .subscribe(
           (persistedApplication) => {
             this.guideDocument.uploadAll();
             this.acknowledgementOfRiskForm.uploadAll();
+            // TODO post file upload functionality
             // this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
           (e: any) => {
