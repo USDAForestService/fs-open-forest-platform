@@ -18,6 +18,7 @@ import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-frien
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
+import { TrackScrollDirective } from './directives/scroll.directive';
 
 import { ApplicationService } from './admin/application.service';
 
@@ -40,13 +41,14 @@ import { FileSelectDirective, FileDropDirective, FileUploader } from '../../node
     HelpMePickComponent,
     TemporaryOutfittersComponent,
     FileSelectDirective,
-    FileDropDirective
+    FileDropDirective,
+    TrackScrollDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [ApplicationService],
   bootstrap: [AppComponent]

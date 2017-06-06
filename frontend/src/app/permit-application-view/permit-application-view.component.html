@@ -4,8 +4,10 @@
         <a routerLink="/admin/applications">Noncommercial group use applications</a> > <span>{{ application.eventName }}</span>
       </div>
     </div>
-    <div class="usa-grid thin-grey-shadow no-padding application-view">
+    <div class="usa-grid thin-grey-shadow no-padding application-view" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()" position="bottom" offset="50">
       <div class="usa-width-one-third white-background padded-background centered">
+        <span id="controlNumber">control number: {{ application.controlNumber }}</span>
+        <span id="status">status: {{ application.status }}</span>
         <h1>{{ application.eventName}}</h1>
         <div class="app-item">
           <h2 class="app-item-label">Primary Permit Holder:</h2>
@@ -54,6 +56,10 @@
         <div class="app-item">
           <h3 class="app-item-label">Number Attending</h3>
           <p class="app-item-value">{{ application.noncommercialFields.numberParticipants }}</p>
+        </div>
+        <div class="app-item">
+          <h3 class="app-item-label">Number Spectators</h3>
+          <p class="app-item-value">{{ application.noncommercialFields.spectators }}</p>
         </div>
         <div class="app-item">
           <h3 class="app-item-label">Electronic Signature</h3>
@@ -111,7 +117,7 @@
         </div>
       </div>
     </div>
-    <div class="app-ctas">
+    <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="application.status == 'Hold' || application.status == 'Received'">
       <button id="accept-application-btn" class="usa-button fs-button-green app-cta" name="Accept" (click)="updateApplicationStatus(application, 'Accepted')">Accept</button>
       <button id="hold-application-btn" class="usa-button-secondary app-cta" name="Hold" (click)="updateApplicationStatus(application, 'Hold')">Hold</button>
       <button id="return-application-btn" class="usa-button app-cta" name="Return"(click)="updateApplicationStatus(application, 'Returned')">Return</button>

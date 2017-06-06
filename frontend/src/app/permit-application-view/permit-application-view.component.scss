@@ -37,11 +37,24 @@
 }
 
 .app-ctas {
+  background: white;
+  bottom: 0;
+  box-shadow: 0px -10px 20px #999;
+  position: relative;
   text-align: center;
+  width: 100%;
+  z-index: 1000;
+  &.fixed {
+    position: fixed;
+  }
   .app-cta {
     width: 80%;
     @media(min-width: 600px) {
       width: 300px;
     }
   }
+}
+
+.usa-section {
+  padding-bottom: 0 !important;
 }
