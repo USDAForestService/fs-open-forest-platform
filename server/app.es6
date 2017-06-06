@@ -240,7 +240,7 @@ app.use(function(req, res, next) {
   if(origin === 'http://localhost:4200'){
     res.set('Access-Control-Allow-Origin', origin);
   } else {
-    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov/');
+    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
   }
   res.set('Access-Control-Allow-Credentials', true);
   next();
