@@ -18,6 +18,9 @@ const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
 const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
+const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
+const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
+const region = VCAPServices.s3[0].credentials.region;
 const bucket = VCAPServices.s3[0].credentials.bucket;
 
 // JSON Validators
@@ -256,7 +259,11 @@ app.options('*', function(req, res) {
 // S3 Setup
 
 // Upload to S3
-let s3 = new AWS.S3();
+let s3 = new AWS.S3({
+  accessKeyId: accessKeyId,
+  secretAccessKey: secretAccessKey,
+  region: region
+});
 
 let streamToS3 = multer({
   storage: multerS3({
