@@ -1,6 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1>Applications</h1>
+    <h1>Mount Baker-Snoqualmie National Forest</h1>
+    <h2>Non-commercial group use applications</h2>
     <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">There are errors preventing your data from loading</h3>
@@ -9,33 +10,6 @@
         </ul>
       </div>
     </div>
-    <table id="applications-list">
-      <thead>
-        <tr>
-          <th scope="col">Event name</th>
-          <th scope="col">Location</th>
-          <th scope="col">Start date</th>
-          <th scope="col">End date</th>
-          <th scope="col">Created</th>
-          <th scope="col">Control Number</th>
-          <th scope="col">Status</th>
-          <th scope="col">Actions</th>
-        </tr>
-        <tr></tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let application of applications">
-          <td>{{application.eventName}}</td>
-          <td>{{application.noncommercialFields.locationDescription}}</td>
-          <td>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
-          <td>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
-          <td>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</td>
-          <td>{{ application.controlNumber }}</td>
-          <td>{{ application.status }}</td>
-          <td><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">View</a></td>
-        </tr>
-      </tbody>
-    </table>
     <div class="application-list">
       <div class="application-field-list-labels">
         <div>Event name</div>
@@ -46,10 +20,15 @@
         <div>&nbsp;</div>
       </div>
       <div *ngFor="let application of applications" class="application-field-list-values">
+        <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
+        <label>Date Submitted</label>
         <div>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
+        <label>Date(s)</label>
         <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }} to {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
+        <label>Location</label>
         <div>{{ application.noncommercialFields.locationDescription }}</div>
+        <label>Permit Holder</label>
         <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
         <div><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
       </div>
