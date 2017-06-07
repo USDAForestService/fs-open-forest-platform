@@ -57,3 +57,16 @@
     }
   }
 }
+
+.on-hold {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  img {
+    height: 14px;
+    margin-right: 5px;
+    width: 14px;
+  }
+}
