@@ -1,7 +1,8 @@
 import { Application } from '../admin/application';
 import { ApplicationService } from '../admin/application.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   providers: [ ApplicationService ],
@@ -13,11 +14,13 @@ export class PermitApplicationViewComponent implements OnInit {
 
   id: string;
   application = new Application();
+  fixedCtas = false;
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private route: ActivatedRoute,
     private router: Router,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
   ) { }
 
   getApplication(id) {
@@ -50,6 +53,14 @@ export class PermitApplicationViewComponent implements OnInit {
       this.id = params['id'];
       this.getApplication(this.id);
     });
+  }
+
+  enter() {
+    this.fixedCtas = false;
+  }
+
+  leave() {
+    this.fixedCtas = true;
   }
 
 }
