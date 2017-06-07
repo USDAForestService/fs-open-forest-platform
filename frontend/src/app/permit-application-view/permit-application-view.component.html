@@ -9,7 +9,7 @@
         <h1>{{ application.eventName}}</h1>
         <div class="app-item">
           <h2 class="app-item-label">Primary permit holder:</h2>
-          <p class="app-item-value large">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLast }}</p>
+          <p class="app-item-value large">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</p>
         </div>
         <div class="app-item" *ngIf="application.applicantInfo.organizationName">
           <h2 class="app-item-label">Organization</h2>
