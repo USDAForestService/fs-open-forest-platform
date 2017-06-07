@@ -6,11 +6,9 @@
     </div>
     <div class="usa-grid thin-grey-shadow no-padding application-view" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()" position="bottom" offset="50">
       <div class="usa-width-one-third white-background padded-background centered">
-        <span id="controlNumber">control number: {{ application.controlNumber }}</span>
-        <span id="status">status: {{ application.status }}</span>
         <h1>{{ application.eventName}}</h1>
         <div class="app-item">
-          <h2 class="app-item-label">Primary Permit Holder:</h2>
+          <h2 class="app-item-label">Primary permit holder:</h2>
           <p class="app-item-value large">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLast }}</p>
         </div>
         <div class="app-item" *ngIf="application.applicantInfo.organizationName">
@@ -34,13 +32,13 @@
 
       </div>
       <div class="usa-width-one-third">
-        <h2>Event Details</h2>
+        <h2>Event details</h2>
         <div class="app-item">
-          <h3 class="app-item-label">Start Date:</h3>
+          <h3 class="app-item-label">Start date:</h3>
           <p class="app-item-value">
             {{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
-          <h3 class="app-item-label">End Date:</h3>
+          <h3 class="app-item-label">End date:</h3>
           <p class="app-item-value">
             {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
           </p>
@@ -54,20 +52,20 @@
           <p class="app-item-value">{{ application.noncommercialFields.activityDescription }}</p>
         </div>
         <div class="app-item">
-          <h3 class="app-item-label">Number Attending</h3>
+          <h3 class="app-item-label">Number attending</h3>
           <p class="app-item-value">{{ application.noncommercialFields.numberParticipants }}</p>
         </div>
         <div class="app-item">
-          <h3 class="app-item-label">Number Spectators</h3>
+          <h3 class="app-item-label">Number spectators</h3>
           <p class="app-item-value">{{ application.noncommercialFields.spectators }}</p>
         </div>
         <div class="app-item">
-          <h3 class="app-item-label">Electronic Signature</h3>
+          <h3 class="app-item-label">Electronic signature</h3>
           <p class="app-item-value">{{ application.signature }}</p>
         </div>
       </div>
       <div class="usa-width-one-third">
-        <h2>Primary Permit Holder</h2>
+        <h2>Primary permit holder</h2>
         <div *ngIf="application.applicantInfo.organizationName" class="app-item">
           <div class="app-item-value">
             <ul *ngIf="application.applicantInfo.organizationAddress">
@@ -100,7 +98,7 @@
           </div>
         </div>
         <div *ngIf="application.applicantInfo.secondaryFirstName" class="app-item">
-          <h2>Secondary Permit Holder</h2>
+          <h2>Secondary permit holder</h2>
           <div class="app-item-value">
             <ul *ngIf="!application.applicantInfo.secondaryAddress">
               <li>{{ application.applicantInfo.secondaryFirstName }} {{ application.applicantInfo.secondaryLastName }}</li>
