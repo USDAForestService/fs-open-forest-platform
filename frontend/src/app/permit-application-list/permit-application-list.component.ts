@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
 import { Application } from '../admin/application';
 import { ApplicationService } from '../admin/application.service';
+import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-permit-application-list',
@@ -17,6 +18,13 @@ export class PermitApplicationListComponent implements OnInit {
   apiErrors: any;
 
   constructor( private applicationService: ApplicationService ) { }
+
+  isApproachingDeadline(startDateTime) {
+    const now = moment();
+    const start = moment(startDateTime);
+    const deadline = moment().add(3, 'days');
+    return start.isBetween(now, deadline);
+  }
 
   getApplications() {
     this.applicationService.get()
