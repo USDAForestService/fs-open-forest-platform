@@ -1,27 +1,59 @@
 .application-list {
-  display: table;
-  border-collapse: collapse;
+  @media(min-width: 1000px) {
+    border-collapse: collapse;
+    display: table;
+  }
+  .usa-button {
+    margin: 0;
+  }
 }
 
 .application-field-list-labels {
-  display: table-row;
-  div {
-    display: table-cell;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 10px;
-    text-transform: uppercase;
-    vertical-align: middle;
+  @media(min-width: 1000px) {
+    display: table-row;
+    div {
+      display: table-cell;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 10px;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+  }
+  @media(max-width: 1000px) {
+    display: none;
   }
 }
 
 .application-field-list-values {
-  background-color: $white;
-  display: table-row;
-  border: 1px solid $black;
-  div {
-    display: table-cell;
-    padding: 10px;
-    vertical-align: middle;
+  @media(min-width: 1000px) {
+    background-color: $white;
+    border: 1px solid $black;
+    display: table-row;
+    label {
+      display: none;
+    }
+    div {
+      display: table-cell;
+      padding: 10px;
+      vertical-align: middle;
+    }
+  }
+  @media(max-width: 1000px) {
+    background-color: $white;
+    border: 1px solid $black;
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 0 5px 0;
+      max-width: 100%;
+      text-transform: uppercase;
+    }
+    div {
+      margin-bottom: 20px;
+    }
   }
 }
