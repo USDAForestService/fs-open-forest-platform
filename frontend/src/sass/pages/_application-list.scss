@@ -1,0 +1,27 @@
+.application-list {
+  display: table;
+  border-collapse: collapse;
+}
+
+.application-field-list-labels {
+  display: table-row;
+  div {
+    display: table-cell;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+}
+
+.application-field-list-values {
+  background-color: $white;
+  display: table-row;
+  border: 1px solid $black;
+  div {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+  }
+}

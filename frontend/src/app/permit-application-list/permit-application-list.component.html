@@ -36,5 +36,23 @@
         </tr>
       </tbody>
     </table>
+    <div class="application-list">
+      <div class="application-field-list-labels">
+        <div>Event name</div>
+        <div>Date Submitted</div>
+        <div>Date(s)</div>
+        <div>Location</div>
+        <div>Permit Holder</div>
+        <div>&nbsp;</div>
+      </div>
+      <div *ngFor="let application of applications" class="application-field-list-values">
+        <div><strong>{{ application.eventName }}</strong></div>
+        <div>{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
+        <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }} to {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
+        <div>{{ application.noncommercialFields.locationDescription }}</div>
+        <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
+        <div><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
+      </div>
+    </div>
   </div>
 </section>
