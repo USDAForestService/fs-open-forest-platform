@@ -13,15 +13,14 @@ let NoncommercialApplication = require('./models/noncommercial-application.es6')
 
 // Environment variables
 
-const middleLayerBaseUrl = process.env.MIDDLELAYER_BASE_URL;
-const middleLayerUsername = process.env.MIDDLELAYER_USERNAME;
-const middleLayerPassword = process.env.MIDDLELAYER_PASSWORD;
-
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
 const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
 const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
 const region = VCAPServices.s3[0].credentials.region;
 const bucket = VCAPServices.s3[0].credentials.bucket;
+const middleLayerBaseUrl = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_BASE_URL;
+const middleLayerUsername = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_USERNAME;
+const middleLayerPassword = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_PASSWORD;
 
 // JSON Validators
 
@@ -284,13 +283,13 @@ app.post('/permits/applications/special-uses/noncommercial', createNoncommercial
 // POST /permits/applications/special-uses/temp-outfitters
 // TODO creates a new temp outfitter application
 app.post('/permits/applications/special-uses/temp-outfitters', function (req, res) {
-  res.status(201).json({"status": "Success"});
+  res.status(201).json({'status': 'Success'});
 });
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
 app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), (req, res) => {
-  res.status(201).json({"status": "Success"});
+  res.status(201).json({'status': 'Success'});
 });
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
