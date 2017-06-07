@@ -15,7 +15,8 @@
         <div>&nbsp;</div>
         <div>Event name</div>
         <div>Date submitted</div>
-        <div>Date(s)</div>
+        <div>Start date</div>
+        <div>End date</div>
         <div>Location</div>
         <div>Permit holder</div>
         <div>&nbsp;</div>
@@ -29,9 +30,11 @@
         <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
         <label>Date submitted</label>
-        <div [ngClass]="{'deadline-warning': isApproachingDeadline(application.noncommercialFields.startDateTime)}">{{ application.createdAt | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
-        <label>Date(s)</label>
-        <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }} to {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</div>
+        <div [ngClass]="{'deadline-warning': isApproachingDeadline(application.noncommercialFields.startDateTime)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
+        <label>Start date</label>
+        <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <label>End date</label>
+        <div>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>Location</label>
         <div>{{ application.noncommercialFields.locationDescription }}</div>
         <label>Permit holder</label>
