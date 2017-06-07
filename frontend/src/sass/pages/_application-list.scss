@@ -1,3 +1,7 @@
+app-permit-application-list {
+  text-align: center;
+}
+
 .application-list {
   @media(min-width: 1000px) {
     border-collapse: collapse;
@@ -15,7 +19,7 @@
       display: table-cell;
       font-size: 14px;
       font-weight: bold;
-      padding: 10px;
+      padding: 20px;
       text-transform: uppercase;
       vertical-align: middle;
     }
@@ -35,7 +39,7 @@
     }
     div {
       display: table-cell;
-      padding: 10px;
+      padding: 20px;
       vertical-align: middle;
     }
   }
