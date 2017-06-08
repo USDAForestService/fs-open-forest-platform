@@ -55,3 +55,13 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 [type=checkbox]:checked + label::before, [type=radio]:checked + label::before {
     background-color: $fs-green;
 }
+
+.usa-file-input {
+  input[type='file'] {
+    cursor: pointer;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 100;
+  }
+}

@@ -17,19 +17,44 @@ export class TemporaryOutfittersComponent implements OnInit {
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   submitted = false;
+  guideDocument: FileUploader;
+  acknowledgementOfRiskForm: FileUploader;
+  errorMessage: string;
+  maxFileSize = 1*1024*1024;
+  allowedMimeType = ['image/jpeg', 'image/png', 'application/pdf'];
 
-  guideDocument: FileUploader = new FileUploader({
-    url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
-    queueLimit: 1
+  constructor(private applicationService: ApplicationService, private router: Router) {
+    this.guideDocument = new FileUploader({
+      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
+      maxFileSize: this.maxFileSize,
+      allowedMimeType: this.allowedMimeType,
+      queueLimit: 1
 
-  });
+    });
 
-  acknowledgementOfRiskForm: FileUploader = new FileUploader({
-    url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
-    queueLimit: 1
-  });
+    this.guideDocument.onWhenAddingFileFailed = (item, filter, options) => this.onWhenAddingFileFailed(item, filter, options);
 
-  constructor(private applicationService: ApplicationService, private router: Router) { }
+
+    this.acknowledgementOfRiskForm = new FileUploader({
+      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
+      maxFileSize: 1000,
+      queueLimit: 1
+    });
+  }
+
+  onWhenAddingFileFailed(item: any, filter: any, options: any) {
+    switch (filter.name) {
+        case 'fileSize':
+            this.errorMessage = 'Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)';
+            break;
+        case 'mimeType':
+            const allowedTypes = this.allowedMimeType.join();
+            this.errorMessage = 'Type "${item.type} is not allowed. Allowed types: "${allowedTypes}"';
+            break;
+        default:
+            this.errorMessage = 'Unknown error (filter is ${filter.name})';
+    }
+  }
 
   onSubmit(form) {
     if (!form.valid) {
