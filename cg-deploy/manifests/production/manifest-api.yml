@@ -8,4 +8,5 @@ applications:
   instances: 1
   services:
     - fs-intake-api-prod-db
+    - fs-intake-prod-s3
     - middlelayer-service
