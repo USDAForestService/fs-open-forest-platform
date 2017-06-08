@@ -202,9 +202,11 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   }
 
   ngOnInit() {
+    // hardcoded codes for Mount Baker-Snoqualmie National Forest
     this.application.district = '11';
-    this.application.region = '11';
-    this.application.forest = '11';
+    this.application.region = '06';
+    this.application.forest = '05';
+    // default application values
     this.application.type = 'noncommercial';
     this.application.applicantInfo.orgType = 'Person';
     this.application.noncommercialFields.startMinutes = '00';
