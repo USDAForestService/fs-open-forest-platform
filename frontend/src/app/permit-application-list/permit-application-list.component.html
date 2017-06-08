@@ -21,7 +21,7 @@
         <div>Permit holder</div>
         <div>&nbsp;</div>
       </div>
-      <div *ngFor="let application of applications" class="application-field-list-values">
+      <div *ngFor="let application of applications" *ngIf="application.status === 'Received' || application.status === 'Hold'" class="application-field-list-values">
         <div *ngIf="application.status === 'Hold'" class="on-hold"><img src="/assets/img/on-hold-icon.svg"><span>On hold</span></div>
         <div *ngIf="application.status === 'Received'">&nbsp;</div>
         <!-- TODO: remove these debugging status indicators -->
