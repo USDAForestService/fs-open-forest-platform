@@ -1,21 +1,12 @@
 'use strict';
 
-var request = require('supertest');
-
-var server = require('../app.es6');
-
 var factory = require('unionized');
-
 var noncommercialInput = require('./data/testInputNoncommercial.json');
-
-var testURL = '/permits/applications/special-uses/noncommercial';
-
-var testGetURL = '/permits/applications';
-
 var noncommercialFactory = factory.factory(noncommercialInput);
-
-//var chai = require('chai');
-//var expect = chai.expect;
+var request = require('supertest');
+var server = require('../app.es6');
+var testGetURL = '/permits/applications';
+var testURL = '/permits/applications/special-uses/noncommercial';
 
 describe('noncommercial tests', () => {
 
@@ -112,17 +103,42 @@ describe('noncommercial tests', () => {
         .expect(/"required-applicantInfo.eveningPhone.areaCode"/)
         .expect(400, done);
     });
-
   });
 
-  describe('GET tests', () => {
-    it('should return at least one noncommercial application', (done) => {
-      request(server)
-        .get(testGetURL)
-        .expect('Content-Type', /json/)
-        .expect(/"applicationId":[\d]+/)
-        .expect(200, done);
-    });
+  it('should return a required error for numberParticipants', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.numberParticipants = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.numberParticipants"/)
+      .expect(400, done);
+  });
+
+  it('should return a required error for spectator count', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.spectators = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.spectators"/)
+      .expect(400, done);
   });
 
 });
+
+describe('GET tests', () => {
+  it('should return at least one noncommercial application', (done) => {
+    request(server)
+      .get(testGetURL)
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+});
+
+// });
