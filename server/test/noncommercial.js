@@ -159,9 +159,15 @@ describe('GET tests', () => {
       .expect(400, done);
   });
 
-  it('should return a not found error when requesting a nonexistant application', (done) => {
+  it('should return a 404 error when requesting a nonexistant application', (done) => {
     request(server)
       .get(testGetURL + '/4dc61d60-a318-462f-8753-a57605303faa')
+      .expect(404, done);
+  });
+
+  it('should return a 404 error when requesting a nonexistant resource', (done) => {
+    request(server)
+      .get('/chocolates')
       .expect(404, done);
   });
 
