@@ -153,11 +153,16 @@ describe('GET tests', () => {
       .expect(200, done);
   });
 
-  // it('should return a not found error when requesting a nonexistant application', (done) => {
-  //   request(server)
-  //     .get(testGetURL + '/invalid')
-  //     .expect('Content-Type', /json/)
-  //     .expect(404, done);
-  // });
+  it('should return a 400 error when requesting a with a malformed uuid', (done) => {
+    request(server)
+      .get(testGetURL + '/invalid')
+      .expect(400, done);
+  });
+
+  it('should return a not found error when requesting a nonexistant application', (done) => {
+    request(server)
+      .get(testGetURL + '/4dc61d60-a318-462f-8753-a57605303faa')
+      .expect(404, done);
+  });
 
 });
