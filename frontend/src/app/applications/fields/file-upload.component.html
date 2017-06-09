@@ -7,5 +7,5 @@
   </label>
   <span *ngIf="!uploader.queue[0]">No file selected.</span>
   <button *ngIf="uploader.queue[0]" class="usa-button-secondary remove-file" (click)="uploader.queue[0].remove()">Remove</button>
-  <span id="guide-documentation-error" class="usa-input-error-message" role="alert" [hidden]="!errorMessage">{{errorMessage}}</span>
+  <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert">{{errorMessage}}</span>
 </div>
