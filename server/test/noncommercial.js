@@ -105,6 +105,18 @@ describe('noncommercial tests', () => {
     });
   });
 
+  it('should return a required error for event name', (done) => {
+    let data = noncommercialFactory.create();
+    data.eventName = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-eventName"/)
+      .expect(400, done);
+  });
+
   it('should return a required error for numberParticipants', (done) => {
     let data = noncommercialFactory.create();
     data.noncommercialFields.numberParticipants = undefined;
@@ -132,6 +144,7 @@ describe('noncommercial tests', () => {
 });
 
 describe('GET tests', () => {
+
   it('should return at least one noncommercial application', (done) => {
     request(server)
       .get(testGetURL)
@@ -139,6 +152,12 @@ describe('GET tests', () => {
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
   });
-});
 
-// });
+  // it('should return a not found error when requesting a nonexistant application', (done) => {
+  //   request(server)
+  //     .get(testGetURL + '/invalid')
+  //     .expect('Content-Type', /json/)
+  //     .expect(404, done);
+  // });
+
+});
