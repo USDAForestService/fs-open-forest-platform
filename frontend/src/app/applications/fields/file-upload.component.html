@@ -1,0 +1,11 @@
+<div class="usa-file-input" [ngClass]="{'file-selected': uploader.queue[0]}">
+  <div class="file-name" *ngIf="uploader.queue[0]">{{ uploader.queue[0].file.name }}</div>
+  <input name="{{name}}" type="file" id="{{name}}" ng2FileSelect [uploader]="uploader" />
+  <label class="usa-button" for="{{name}}">
+    <span *ngIf="!uploader.queue[0]">Choose file</span>
+    <span *ngIf="uploader.queue[0]">Replace</span>
+  </label>
+  <span *ngIf="!uploader.queue[0]">No file selected.</span>
+  <button *ngIf="uploader.queue[0]" class="usa-button-secondary remove-file" (click)="uploader.queue[0].remove()">Remove</button>
+  <span id="guide-documentation-error" class="usa-input-error-message" role="alert" [hidden]="!errorMessage">{{errorMessage}}</span>
+</div>

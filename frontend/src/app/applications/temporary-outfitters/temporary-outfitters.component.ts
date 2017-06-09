@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Application } from '../../admin/application';
 import { ApplicationService } from '../../admin/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FileSelectDirective, FileDropDirective, FileUploader } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
+import { FileSelectDirective, FileDropDirective, FileUploader, FileLikeObject, FileItem } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -17,44 +17,9 @@ export class TemporaryOutfittersComponent implements OnInit {
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   submitted = false;
-  guideDocument: FileUploader;
-  acknowledgementOfRiskForm: FileUploader;
-  errorMessage: string;
-  maxFileSize = 1*1024*1024;
-  allowedMimeType = ['image/jpeg', 'image/png', 'application/pdf'];
+  uploadFiles = false;
 
-  constructor(private applicationService: ApplicationService, private router: Router) {
-    this.guideDocument = new FileUploader({
-      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
-      maxFileSize: this.maxFileSize,
-      allowedMimeType: this.allowedMimeType,
-      queueLimit: 1
-
-    });
-
-    this.guideDocument.onWhenAddingFileFailed = (item, filter, options) => this.onWhenAddingFileFailed(item, filter, options);
-
-
-    this.acknowledgementOfRiskForm = new FileUploader({
-      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
-      maxFileSize: 1000,
-      queueLimit: 1
-    });
-  }
-
-  onWhenAddingFileFailed(item: any, filter: any, options: any) {
-    switch (filter.name) {
-        case 'fileSize':
-            this.errorMessage = 'Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)';
-            break;
-        case 'mimeType':
-            const allowedTypes = this.allowedMimeType.join();
-            this.errorMessage = 'Type "${item.type} is not allowed. Allowed types: "${allowedTypes}"';
-            break;
-        default:
-            this.errorMessage = 'Unknown error (filter is ${filter.name})';
-    }
-  }
+  constructor(private applicationService: ApplicationService, private router: Router) {}
 
   onSubmit(form) {
     if (!form.valid) {
@@ -63,8 +28,7 @@ export class TemporaryOutfittersComponent implements OnInit {
       this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
         .subscribe(
           (persistedApplication) => {
-            this.guideDocument.uploadAll();
-            this.acknowledgementOfRiskForm.uploadAll();
+            this.uploadFiles = true;
             // TODO post file upload functionality
             // this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
