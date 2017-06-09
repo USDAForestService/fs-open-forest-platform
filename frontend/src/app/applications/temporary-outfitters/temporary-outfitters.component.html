@@ -4,104 +4,48 @@
     <p>All form fields are required unless otherwise noted.</p>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <fieldset>
-        <legend>Applicant Information</legend>
+        <legend>Applicant information</legend>
 
         <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
           <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application</h3>
+            <h3 class="usa-alert-heading">There are errors in your application.</h3>
             <p class="usa-alert-text">Please correct the errors before submitting.</p>
           </div>
         </div>
 
         <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
           <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application</h3>
+            <h3 class="usa-alert-heading">There are errors in your application.</h3>
             <ul class="usa-alert-text">
               <li *ngFor="let error of apiErrors">{{error}}</li>
             </ul>
           </div>
         </div>
 
-        <label class="usa-input" for="guide-documentation">Guide Documentation</label>
-        <input class="usa-input" id="guide-documentation" name="guide-documentation" type="file" ng2FileSelect [uploader]="guideDocument" />
+        <h3>Guide documentation</h3>
+        <p>Please upload your guide documentation. File must be in .pdf format, and less than 1MB.</p>
+        <app-file-upload-field name="guideDocument" [uploadFiles]="uploadFiles"></app-file-upload-field>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th width="50%">Name</th>
-              <th>Size</th>
-              <th>Progress</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of guideDocument.queue">
-              <td><strong>{{ item?.file?.name }}</strong></td>
-              <td>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-              <td>{{ item.progress }}%</td>
-              <td class="text-center">
-                  <span *ngIf="item.isSuccess">success</span>
-                  <span *ngIf="item.isCancel">cancelled</span>
-                  <span *ngIf="item.isError">error</span>
-              </td>
-              <td nowrap>
-                <button type="button" class="usa-button" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                  <span class="glyphicon glyphicon-upload"></span> Upload
-                </button>
-                <button type="button" class="usa-button-gray" (click)="item.cancel()" [disabled]="!item.isUploading">
-                  <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                </button>
-                <button type="button" class="usa-button-secondary" (click)="item.remove()">
-                  <span class="glyphicon glyphicon-trash"></span> Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h3>Acknoledgement of risk form</h3>
+        <p>Please upload your acknoledgement of risk form. File must be in .pdf format, and less than 1MB.</p>
+        <app-file-upload-field name="acknowledgementOfRiskForm" [uploadFiles]="uploadFiles"></app-file-upload-field>
 
-        <label class="usa-input" for="guide-documentation">Acknowledgement of Risk Form</label>
-        <input class="usa-input" id="guide-documentation" name="guide-documentation" type="file" ng2FileSelect [uploader]="acknowledgementOfRiskForm" />
+        <h3>Insurance certificate</h3>
+        <p>Please upload your insurance certificate. File must be in .pdf format, and less than 1MB.</p>
+        <app-file-upload-field name="insuranceCertificate" [uploadFiles]="uploadFiles"></app-file-upload-field>
 
+        <h3>Good standing evidence</h3>
+        <p>Please upload your good standing evidence documentation. File must be in .pdf format, and less than 1MB.</p>
+        <app-file-upload-field name="goodStandingEvidence" [uploadFiles]="uploadFiles"></app-file-upload-field>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th width="50%">Name</th>
-              <th>Size</th>
-              <th>Progress</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of acknowledgementOfRiskForm.queue">
-              <td><strong>{{ item?.file?.name }}</strong></td>
-              <td>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-              <td>{{ item.progress }}%</td>
-              <td class="text-center">
-                  <span *ngIf="item.isSuccess">success</span>
-                  <span *ngIf="item.isCancel">cancelled</span>
-                  <span *ngIf="item.isError">error</span>
-              </td>
-              <td nowrap>
-                <button type="button" class="usa-button" (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-                  <span class="glyphicon glyphicon-upload"></span> Upload
-                </button>
-                <button type="button" class="usa-button-gray" (click)="item.cancel()" [disabled]="!item.isUploading">
-                  <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-                </button>
-                <button type="button" class="usa-button-secondary" (click)="item.remove()">
-                  <span class="glyphicon glyphicon-trash"></span> Remove
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h3>Operating plan</h3>
+        <p>Please upload your operating plan. File must be in .pdf format, and less than 1MB.</p>
+        <app-file-upload-field name="operatingPlan" [uploadFiles]="uploadFiles"></app-file-upload-field>
+
 
       </fieldset>
 
-      <button class="usa-button usa-button-big" type="submit">Submit Your Application</button>
+      <button class="usa-button usa-button-big" type="submit">Submit your application.</button>
     </form>
   </div>
 </section>
