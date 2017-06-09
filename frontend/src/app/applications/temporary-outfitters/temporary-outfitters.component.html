@@ -1,6 +1,7 @@
-<section class="usa-section">
+<section id="application" class="usa-section">
   <div class="usa-grid">
-    <p class="usa-font-lead">{{forest}}</p>
+    <h1>Apply for a temporary outfitters permit.</h1>
+    <h2 class="forest-name">{{forest}}</h2>
     <p>All form fields are required unless otherwise noted.</p>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <fieldset>
@@ -22,25 +23,35 @@
           </div>
         </div>
 
-        <h3>Guide documentation</h3>
-        <p>Please upload your guide documentation. File must be in .pdf format, and less than 1MB.</p>
-        <app-file-upload-field name="guideDocument" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <div id="guide-document-wrapper" class="usa-file-upload-wrapper">
+          <h3>Guide documentation</h3>
+          <p>Please upload your guide documentation. File must be in .pdf format, and less than 1MB.</p>
+          <app-file-upload-field name="guide-document" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        </div>
 
-        <h3>Acknoledgement of risk form</h3>
-        <p>Please upload your acknoledgement of risk form. File must be in .pdf format, and less than 1MB.</p>
-        <app-file-upload-field name="acknowledgementOfRiskForm" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <div id="acknoledgement-of-risk-form-wrapper" class="usa-file-upload-wrapper">
+          <h3>Acknoledgement of risk form</h3>
+          <p>Please upload your acknoledgement of risk form. File must be in .pdf format, and less than 1MB.</p>
+          <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        </div>
 
-        <h3>Insurance certificate</h3>
-        <p>Please upload your insurance certificate. File must be in .pdf format, and less than 1MB.</p>
-        <app-file-upload-field name="insuranceCertificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <div id="insurance-certificate-wrapper" class="usa-file-upload-wrapper">
+          <h3>Insurance certificate</h3>
+          <p>Please upload your insurance certificate. File must be in .pdf format, and less than 1MB.</p>
+          <app-file-upload-field name="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        </div>
 
-        <h3>Good standing evidence</h3>
-        <p>Please upload your good standing evidence documentation. File must be in .pdf format, and less than 1MB.</p>
-        <app-file-upload-field name="goodStandingEvidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper">
+          <h3>Good standing evidence</h3>
+          <p>Please upload your good standing evidence documentation. File must be in .pdf format, and less than 1MB.</p>
+          <app-file-upload-field name="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        </div>
 
-        <h3>Operating plan</h3>
-        <p>Please upload your operating plan. File must be in .pdf format, and less than 1MB.</p>
-        <app-file-upload-field name="operatingPlan" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <div id="operating-plan-wrapper" class="usa-file-upload-wrapper">
+          <h3>Operating plan</h3>
+          <p>Please upload your operating plan. File must be in .pdf format, and less than 1MB.</p>
+          <app-file-upload-field name="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        </div>
 
       </fieldset>
 
