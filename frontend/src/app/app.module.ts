@@ -6,7 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { ApplicationService } from './admin/application.service';
 import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
+import { FileUploader, FileSelectDirective } from '../../node_modules/ng2-file-upload/ng2-file-upload';
+import { FileUploadComponent } from './applications/fields/file-upload.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './permit-application-list/permit-application-list.component';
@@ -20,15 +23,12 @@ import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 import { TrackScrollDirective } from './directives/scroll.directive';
 
-import { ApplicationService } from './admin/application.service';
-
-import { FileSelectDirective, FileDropDirective, FileUploader } from '../../node_modules/ng2-file-upload/ng2-file-upload';
-
-
 @NgModule({
   declarations: [
     AppComponent,
     ApplicationNoncommercialGroupComponent,
+    FileUploadComponent,
+    FileSelectDirective,
     HomeComponent,
     LoginComponent,
     PermitApplicationListComponent,
@@ -40,8 +40,6 @@ import { FileSelectDirective, FileDropDirective, FileUploader } from '../../node
     ApplicationSubmittedComponent,
     HelpMePickComponent,
     TemporaryOutfittersComponent,
-    FileSelectDirective,
-    FileDropDirective,
     TrackScrollDirective
   ],
   imports: [
