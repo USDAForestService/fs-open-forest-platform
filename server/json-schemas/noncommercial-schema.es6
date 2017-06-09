@@ -8,6 +8,10 @@ module.exports = {
         'applicantInfo': {
           '$ref': '/noncommercialApplicantInfo'
         },
+        'eventName': {
+          'default':'',
+          'type': 'string'
+        },
         'type': {
           'default': 'noncommercial',
           'enum':[
@@ -20,7 +24,7 @@ module.exports = {
           '$ref': '/noncommercialFields'
         }
       },
-      'required': ['applicantInfo', 'type', 'noncommercialFields']
+      'required': ['applicantInfo', 'type', 'noncommercialFields', 'eventName']
     }
   ]
 };
