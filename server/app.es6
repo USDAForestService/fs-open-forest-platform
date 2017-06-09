@@ -216,13 +216,15 @@ let updateApp = (req, res) => {
 };
 
 let getApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}}).then(app => {
-    if(app) {
-      res.status(200).json(util.translateFromDatabaseToJSON(app));
-    } else {
-      res.status(404);
-    }
-  });
+  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}})
+    .then(app => {
+      if(app) {
+        res.status(200).json(util.translateFromDatabaseToJSON(app));
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => res.status(400).json(error.message));
 };
 
 let getAllApps = (req, res) => {
