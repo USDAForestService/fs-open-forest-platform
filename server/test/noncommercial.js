@@ -141,6 +141,54 @@ describe('noncommercial tests', () => {
       .expect(400, done);
   });
 
+  it('should return a required error for start date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.startDateTime = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.startDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a required error for end date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.endDateTime = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.endDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a pattern error for start date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.startDateTime = '2020';
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-noncommercialFields.startDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a pattern error for end date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.endDateTime = '2020';
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-noncommercialFields.endDateTime"/)
+      .expect(400, done);
+  });
+
 });
 
 describe('GET tests', () => {
@@ -155,7 +203,7 @@ describe('GET tests', () => {
 
   it('should return a 400 error when requesting a with a malformed uuid', (done) => {
     request(server)
-      .get(testGetURL + '/invalid')
+      .get(testGetURL + '/malformed-uuid')
       .expect(400, done);
   });
 
@@ -167,7 +215,7 @@ describe('GET tests', () => {
 
   it('should return a 404 error when requesting a nonexistant resource', (done) => {
     request(server)
-      .get('/chocolates')
+      .get('/nonexistant-resource')
       .expect(404, done);
   });
 
