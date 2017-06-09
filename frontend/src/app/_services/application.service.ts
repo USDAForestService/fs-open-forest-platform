@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 
-import { Application } from './application';
+import { Application } from '../_models/application';
 
 @Injectable()
 export class ApplicationService {
