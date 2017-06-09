@@ -220,3 +220,35 @@ describe('GET tests', () => {
   });
 
 });
+
+describe('Persistence tests', () => {
+
+  let intakeControlNumber = undefined;
+
+  it('should return a 200 response and a db generated applicationId', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialFactory.create())
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the app back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  // it('should return the same application from the database', (done) => {
+  //   request(server)
+  //     .get(testGetURL + '/' + intakeControlNumber)
+  //     .expect(200, noncommercialInput, done);
+  // });
+
+});
+
+// TODO: Primary permit holder
+// TODO: Secondary permit holder
+// TODO: Secondary permit holder with custom address
+// TODO: Only an organization address
+// TODO: Organization address with unique primary permit holder address
+// TODO: Organization address unique primary permit holder address and unique secondary permit holder address
