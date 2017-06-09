@@ -14,6 +14,7 @@ export class TemporaryOutfittersComponent implements OnInit {
 
   apiErrors: any;
   application = new Application();
+  applicationId: number;
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   submitted = false;
@@ -28,6 +29,7 @@ export class TemporaryOutfittersComponent implements OnInit {
       this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
         .subscribe(
           (persistedApplication) => {
+            this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
             // TODO post file upload functionality
             // this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
@@ -41,6 +43,7 @@ export class TemporaryOutfittersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.application.applicationId = 1;
     this.application.district = '11';
     this.application.region = '11';
     this.application.forest = '11';
