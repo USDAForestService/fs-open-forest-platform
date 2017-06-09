@@ -55,3 +55,45 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
 [type=checkbox]:checked + label::before, [type=radio]:checked + label::before {
     background-color: $fs-green;
 }
+
+.usa-file-input {
+  border: solid 1px $dark-grey;
+  padding: 10px;
+
+  &.file-selected {
+    background-image: url(/assets/img/checkmark.svg);
+    background-position-x: 94%;
+    background-position-y: 4%;
+    background-repeat: no-repeat;
+    background-size: 5%;
+    @media(min-width: $medium-screen) {
+      background-position-x: 94%;
+      background-position-y: 50%;
+      background-size: 8%;
+    }
+  }
+
+  .file-name {
+    margin-bottom: 6px;
+    overflow: hidden;
+    width: 90%;
+  }
+
+  input[type='file'] {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
+  label {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .remove-file {
+    cursor: pointer;
+  }
+}
