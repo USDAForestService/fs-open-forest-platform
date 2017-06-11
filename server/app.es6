@@ -14,8 +14,6 @@ let NoncommercialApplication = require('./models/noncommercial-application.es6')
 // Environment variables
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
-console.log(VCAPServices);
-console.log(VCAPServices.s3);
 const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
 const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
 const region = VCAPServices.s3[0].credentials.region;
