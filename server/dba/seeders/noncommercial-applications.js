@@ -14,7 +14,6 @@ module.exports = {
       applicant_info_day_phone_areacd: 541,
       applicant_info_day_phone_prefix: 815,
       applicant_info_day_phone_number: 6141,
-      applicant_info_day_phone_type: 'BUSINESS',
       applicant_info_email_address: 'test@email.org',
       appl_info_pri_mailing_address: 'ON ANW 0953',
       appl_info_pri_mailing_city: 'ALBANY',
@@ -26,9 +25,14 @@ module.exports = {
       noncomm_fields_start_date_time: '2013-01-12T12:00:00Z',
       noncomm_fields_end_date_time: '2013-01-19T12:00:00Z',
       noncomm_fields_num_participants: 45,
+      noncomm_fields_spectator_count: 50,
       created: 'now()',
       updated: 'now()',
-      status: 'Received'
+      status: 'Received',
+      event_name: 'test event',
+      applicant_info_org_type: 'Person',
+      signature: 'aaa',
+      app_control_number: '806d3550-309d-46ea-b12a-f021f7b3d447'
     }];
 
     return queryInterface.bulkInsert('noncommercialApplications', noncommApps);
