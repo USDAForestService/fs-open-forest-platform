@@ -14,6 +14,8 @@ let NoncommercialApplication = require('./models/noncommercial-application.es6')
 // Environment variables
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
+console.log(VCAPServices);
+console.log(VCAPServices.s3);
 const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
 const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
 const region = VCAPServices.s3[0].credentials.region;
@@ -143,11 +145,11 @@ let createNoncommercialTempApp = (req, res) => {
       applicantInfoDayPhoneAreaCode: req.body.applicantInfo.dayPhone.areaCode,
       applicantInfoDayPhonePrefix: req.body.applicantInfo.dayPhone.prefix,
       applicantInfoDayPhoneNumber: req.body.applicantInfo.dayPhone.number,
-      applicantInfoDayPhonePhoneType: req.body.applicantInfo.dayPhone.phoneType,
+      applicantInfoDayPhoneExtension: req.body.applicantInfo.dayPhone.extension,
       applicantInfoEveningPhoneAreaCode: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.areaCode : null,
       applicantInfoEveningPhonePrefix: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.prefix : null,
       applicantInfoEveningPhoneNumber: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.number : null,
-      applicantInfoEveningPhonePhoneType: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.phoneType : null,
+      applicantInfoEveningPhoneExtension: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.extension : null,
       applicantInfoEmailAddress: req.body.applicantInfo.emailAddress,
       applicantInfoOrgMailingAddress: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress : null,
       applicantInfoOrgMailingAddress2: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress2 : null,

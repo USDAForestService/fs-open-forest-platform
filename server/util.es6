@@ -29,12 +29,14 @@ util.translateFromDatabaseToJSON = (input) => {
       'dayPhone': {
         'areaCode': input.applicantInfoDayPhoneAreaCode,
         'prefix': input.applicantInfoDayPhonePrefix,
-        'number': input.applicantInfoDayPhoneNumber
+        'number': input.applicantInfoDayPhoneNumber,
+        'extension' : input.applicantInfoDayPhoneExtension
       },
       'eveningPhone': {
         'areaCode': input.applicantInfoEveningPhoneAreaCode,
         'prefix': input.applicantInfoEveningPhonePrefix,
-        'number': input.applicantInfoEveningPhoneNumber
+        'number': input.applicantInfoEveningPhoneNumber,
+        'extension': input.applicantInfoEveningPhoneExtension
       },
       'primaryAddress': {
         'mailingAddress': input.applicantInfoPrimaryMailingAddress,
