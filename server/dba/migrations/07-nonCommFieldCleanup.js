@@ -138,31 +138,23 @@ module.exports = {
       },
       {
         operation: 'change',
-        query: 'ALTER TABLE ' + TABLE_NAME + ' ALTER COLUMN noncomm_fields_num_participants '
-          + 'SET NOT NULL',
         field: 'noncomm_fields_num_participants',
         options: { type: Sequelize.STRING, allowNull: false }
       },
       {
         operation: 'raw',
         query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" '
-          + 'TYPE integer USING noncomm_fields_num_participants::integer',
-        field: 'noncomm_fields_num_participants',
-        options: { type: Sequelize.INTEGER, allowNull: false }
+          + 'TYPE integer USING noncomm_fields_num_participants::integer'
       },
       {
         operation: 'change',
-        query: 'ALTER TABLE ' + TABLE_NAME + ' ALTER COLUMN noncomm_fields_spectator_count '
-          + 'SET NOT NULL',
         field: 'noncomm_fields_spectator_count',
         options: { type: Sequelize.STRING, allowNull: false }
       },
       {
         operation: 'raw',
         query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" '
-          + 'TYPE integer USING noncomm_fields_spectator_count::integer',
-        field: 'noncomm_fields_spectator_count',
-        options: { type: Sequelize.INTEGER, allowNull: false }
+          + 'TYPE integer USING noncomm_fields_spectator_count::integer'
       },
       {
         operation: 'change',
@@ -250,7 +242,7 @@ module.exports = {
       {
         operation: 'change',
         field: 'applicant_info_eve_phone_areacd',
-        options: { type: Sequelize.STRING }
+        options: { type: Sequelize.STRING(3) }
       },
       {
         operation: 'change',
@@ -271,11 +263,6 @@ module.exports = {
         operation: 'change',
         field: 'applicant_info_eve_phone_number',
         options: { type: Sequelize.STRING }
-      },
-      {
-        operation: 'change',
-        field: 'app_control_number',
-        options: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, unique: true, allowNull: true }
       },
       {
         operation: 'change',
@@ -320,7 +307,7 @@ module.exports = {
       {
         operation: 'change',
         field: 'appl_info_pri_mailing_address',
-        options: { type: Sequelize.STRING, allowNull: false }
+        options: { type: Sequelize.STRING, allowNull: true }
       },
       {
         operation: 'change',
@@ -333,9 +320,19 @@ module.exports = {
         options: { type: Sequelize.STRING, allowNull: true }
       },
       {
+        operation: 'raw',
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" '
+          + 'TYPE varchar(255) USING noncomm_fields_num_participants::varchar'
+      },
+      {
         operation: 'change',
         field: 'noncomm_fields_num_participants',
         options: { type: Sequelize.STRING, allowNull: true }
+      },
+      {
+        operation: 'raw',
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" '
+          + 'TYPE varchar(255) USING noncomm_fields_spectator_count::varchar'
       },
       {
         operation: 'change',
@@ -371,6 +368,8 @@ module.exports = {
         return queryInterface.removeColumn(TABLE_NAME, operation.field);
       } else if (operation.operation === 'rename') {
         return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField);
+      } else if (operation.operation === 'raw') {
+        return queryInterface.sequelize.query(operation.query, { type: queryInterface.sequelize.QueryTypes.RAW });
       }
     });
   }
