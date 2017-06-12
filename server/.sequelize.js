@@ -10,8 +10,7 @@ const dbConfig = {
   host: dbParams.hostname,
   port: dbParams.port,
   dialect: dbParams.protocol.split(':')[0],
-  logging: console.log,
-  seederStorage: 'sequelize'
+  logging: console.log
 };
 
 if (dbParams.hostname !== 'localhost') {

@@ -21,10 +21,6 @@ module.exports = {
       'default':'',
       'pattern': '[\\d]+',
       'type': 'string'
-    },
-    'phoneType': {
-      'default':'',
-      'type': 'string'
     }
   },
   'required': ['areaCode', 'prefix', 'number']
