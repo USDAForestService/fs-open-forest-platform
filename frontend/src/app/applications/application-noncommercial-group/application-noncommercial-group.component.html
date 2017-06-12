@@ -190,7 +190,6 @@
               <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
               <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required.</span>
             </div>
-
             <div class="usa-input-grid usa-input-grid-small">
               <label class="usa-input" for="primary-permit-holder-state">State</label>
               <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
@@ -200,7 +199,6 @@
               <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required.</span>
             </div>
           </div>
-
           <div class="fs-input-grid-wrapper">
             <div class="usa-input-grid usa-input-grid-medium">
               <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
@@ -233,7 +231,7 @@
         <label *ngIf="application.applicantInfo.orgType === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
         <label *ngIf="application.applicantInfo.orgType === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
 
-        <div *ngIf="!secondaryPermitHolderSameAddress" style="background: green">
+        <div *ngIf="!secondaryPermitHolderSameAddress">
           <label class="usa-input" for="secondary-permit-holder-address">Street address 1</label>
           <input id="secondary-permit-holder-address" name="secondary-permit-holder-address" type="text" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingAddress" #secondaryPermitHolderAddress="ngModel" />
           <span id="secondary-permit-holder-address-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderAddress.valid || secondaryPermitHolderAddress.untouched">Street address 1 is required.</span>
@@ -241,16 +239,12 @@
           <label class="usa-input" for="secondary-permit-holder-address-line-2">Street address 2 (optional)</label>
           <input id="secondary-permit-holder-address-line-2" name="secondary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.secondaryAddress.mailingAddress2" />
 
-
-
-
           <div class="fs-input-grid-wrapper">
             <div class="usa-input-grid usa-input-grid-medium">
               <label class="usa-input" for="secondary-permit-holder-city">City</label>
               <input id="secondary-permit-holder-city" name="secondary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingCity" #secondaryPermitHolderCity="ngModel" />
               <span id="secondary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderCity.valid || secondaryPermitHolderCity.untouched">City is required.</span>
             </div>
-
             <div class="usa-input-grid usa-input-grid-small">
               <label class="usa-input" for="secondary-permit-holder-state">State</label>
               <select id="secondary-permit-holder-state" name="secondary-permit-holder-state" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingState" #secondaryPermitHolderState="ngModel">
@@ -260,7 +254,6 @@
               <span id="secondary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderState.valid || secondaryPermitHolderState.untouched">State is required.</span>
             </div>
           </div>
-
           <div class="fs-input-grid-wrapper">
             <div class="usa-input-grid usa-input-grid-medium">
               <label class="usa-input" for="secondary-permit-holder-zip">ZIP</label>
@@ -268,9 +261,6 @@
               <span id="secondary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderZip.valid || secondaryPermitHolderZip.untouched">Valid ZIP code is required.</span>
             </div>
           </div>
-
-
-
         </div>
 
       </fieldset>
