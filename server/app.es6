@@ -10,6 +10,7 @@ let request = require('request');
 
 let util = require('./util.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
+let ApplicationFile = require('./models/application-files.es6');
 
 // Environment variables
 
@@ -233,6 +234,23 @@ let getAllApps = (req, res) => {
   });
 };
 
+let createAppFile = (req, res) => {
+
+  ApplicationFile.create({
+    fileId: req.body.fileId,
+    applicationId: req.body.applicationId,
+    applicationType: req.body.applicationType,
+    s3FileName: req.body.s3FileName,
+    originalFileName: req.body.originalFileName
+  }).then((appfile) => {
+    req.body['fileId'] = appfile.fileId;
+    res.status(201).json(req.body);
+  }).error((err) => {
+    res.status(500).json(err);
+  });
+
+};
+
 // server creation ----------------------------------------------------------
 
 let app = express();
@@ -290,9 +308,7 @@ app.post('/permits/applications/special-uses/temp-outfitters', function (req, re
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), (req, res) => {
-  res.status(201).json({'status': 'Success'});
-});
+app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), createAppFile);
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
