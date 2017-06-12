@@ -3,8 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-help-me-pick',
-  templateUrl: './help-me-pick.component.html',
-  styleUrls: ['./help-me-pick.component.scss']
+  templateUrl: './help-me-pick.component.html'
 })
 export class HelpMePickComponent implements OnInit {
 
