@@ -169,7 +169,7 @@ let createNoncommercialTempApp = (req, res) => {
       applicantInfoWebsite: req.body.applicantInfo.website,
       applicantInfoOrgType: req.body.applicantInfo.orgType,
       applicantInfoSecondaryFirstName: req.body.applicantInfo.secondaryFirstName,
-      applicantInfoSecondaryLastName: req.body.applicantInfo.secondaryFirstName,
+      applicantInfoSecondaryLastName: req.body.applicantInfo.secondaryLastName,
       type: req.body.type,
       noncommercialFieldsActivityDescription: req.body.noncommercialFields.activityDescription,
       noncommercialFieldsLocationDescription: req.body.noncommercialFields.locationDescription,

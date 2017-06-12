@@ -1,5 +1,5 @@
-import { Application } from '../../admin/application';
-import { ApplicationService } from '../../admin/application.service';
+import { Application } from '../../_models/application';
+import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import * as moment from 'moment/moment';
@@ -7,7 +7,6 @@ import * as moment from 'moment/moment';
 @Component({
   providers: [ ApplicationService ],
   selector: 'app-application-noncommercial-group',
-  styleUrls: ['./application-noncommercial-group.component.scss'],
   templateUrl: './application-noncommercial-group.component.html'
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
