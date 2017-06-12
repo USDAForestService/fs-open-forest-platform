@@ -64,7 +64,9 @@ util.translateFromDatabaseToJSON = (input) => {
       'primaryLastName': input.applicantInfoPrimaryLastName,
       'secondaryFirstName': input.applicantInfoSecondaryFirstName || undefined,
       'secondaryLastName': input.applicantInfoSecondaryLastName || undefined,
-      'emailAddress': input.applicantInfoEmailAddress
+      'emailAddress': input.applicantInfoEmailAddress,
+      'organizationName': input.applicantInfoOrganizationName || undefined,
+      'website': input.applicantInfoWebsite || undefined
     },
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
@@ -141,7 +143,7 @@ util.translateFromIntakeToMiddleLayer = (input) => {
     result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
   }
 
-  if (input.applicantInfoOrgType === 'Organization') {
+  if (input.applicantInfoOrgType === 'Corporation') {
     result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
     result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
     result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
