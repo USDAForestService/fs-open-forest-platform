@@ -108,7 +108,7 @@
 
           <div class="fs-input-grid-wrapper">
             <label class="usa-input" for="zip">ZIP</label>
-            <input class="usa-input-medium" id="organization-zip" name="zip" type="text" minlength="5" maxlength="5" placeholder="55555" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingZIP" #zip="ngModel" />
+            <input class="usa-input-medium" id="organization-zip" name="zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingZIP" #zip="ngModel" />
             <span id="organization-zip-error" class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required.</span>
           </div>
 
