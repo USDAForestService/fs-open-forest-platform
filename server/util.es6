@@ -43,21 +43,21 @@ util.translateFromDatabaseToJSON = (input) => {
         'mailingAddress2': input.applicantInfoPrimaryMailingAddress2,
         'mailingCity': input.applicantInfoPrimaryMailingCity,
         'mailingState': input.applicantInfoPrimaryMailingState,
-        'mailingZip': input.applicantInfoPrimaryMailingZIP
+        'mailingZIP': input.applicantInfoPrimaryMailingZIP
       },
       'organizationAddress': {
         'mailingAddress': input.applicantInfoOrgMailingAddress,
         'mailingAddress2': input.applicantInfoOrgMailingAddress2,
         'mailingCity': input.applicantInfoOrgMailingCity,
         'mailingState': input.applicantInfoOrgMailingState,
-        'mailingZip': input.applicantInfoOrgMailingZIP
+        'mailingZIP': input.applicantInfoOrgMailingZIP
       },
       'secondaryAddress': {
         'mailingAddress': input.applicantInfoSecondaryMailingAddress,
         'mailingAddress2': input.applicantInfoSecondaryMailingAddress2,
         'mailingCity': input.applicantInfoSecondaryMailingCity,
         'mailingState': input.applicantInfoSecondaryMailingState,
-        'mailingZip': input.applicantInfoSecondaryMailingZIP
+        'mailingZIP': input.applicantInfoSecondaryMailingZIP
       },
       'orgType': input.type,
       'primaryFirstName': input.applicantInfoPrimaryFirstName,
