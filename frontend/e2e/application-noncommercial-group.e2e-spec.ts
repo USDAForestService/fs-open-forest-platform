@@ -43,7 +43,7 @@ describe('Apply for a noncommercial group use permit', () => {
   });
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit');
+    expect(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
   });
   fieldValidation.validateSimpleTextField('name', 'name-error', 'Event name is required.');
   fieldValidation.validateSimpleTextField(
