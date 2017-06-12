@@ -227,8 +227,9 @@ describe('Persistence tests', () => {
 
   let intakeControlNumber = undefined;
   let singlePermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolder);
+  let singlePermitHolderWithSecondaryPermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder);
 
-  it('should return a 200 response and a db generated applicationId', (done) => {
+  it('should persist an application with a primary permit holder', (done) => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
@@ -241,7 +242,7 @@ describe('Persistence tests', () => {
       .expect(201, done);
   });
 
-  it('should return the same application from the database', (done) => {
+  it('should return a persisted application with a primary permit holder', (done) => {
     request(server)
       .get(testGetURL + '/' + intakeControlNumber)
       .expect(function(res) {
@@ -254,9 +255,34 @@ describe('Persistence tests', () => {
       .expect(200, singlePermitHolderPersisted, done);
   });
 
+  it('should persist an application with a primary permit holder and a secondary permit holder', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder and a secondary permit holder', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderWithSecondaryPermitHolderPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderWithSecondaryPermitHolderPersisted, done);
+  });
+
 });
 
-// TODO: Secondary permit holder
 // TODO: Secondary permit holder with custom address
 // TODO: Only an organization address
 // TODO: Organization address with unique primary permit holder address
