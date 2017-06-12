@@ -1,5 +1,5 @@
-import { Application } from '../admin/application';
-import { ApplicationService } from '../admin/application.service';
+import { Application } from '../../_models/application';
+import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
@@ -7,8 +7,7 @@ import * as moment from 'moment/moment';
 @Component({
   selector: 'app-permit-application-list',
   templateUrl: './permit-application-list.component.html',
-  providers: [ ApplicationService ],
-  styleUrls: ['./permit-application-list.component.scss'],
+  providers: [ ApplicationService ]
 })
 
 @Injectable()
