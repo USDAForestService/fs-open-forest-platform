@@ -47,3 +47,4 @@ frontend/e2e/*.map
 # System Files
 .DS_Store
 Thumbs.db
+server/lint-results.html

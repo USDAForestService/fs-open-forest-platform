@@ -1,8 +1,10 @@
 'use strict';
 
+var _ = require('lodash');
 var factory = require('unionized');
 var noncommercialInput = require('./data/testInputNoncommercial.json');
 var noncommercialFactory = factory.factory(noncommercialInput);
+var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
 var server = require('../app.es6');
 var testGetURL = '/permits/applications';
@@ -224,29 +226,36 @@ describe('GET tests', () => {
 describe('Persistence tests', () => {
 
   let intakeControlNumber = undefined;
+  let singlePermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolder);
 
   it('should return a 200 response and a db generated applicationId', (done) => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
-      .send(noncommercialFactory.create())
+      .send(noncommercialTestData.singlePermitHolder)
       .expect('Content-Type', /json/)
       .expect(function(res) {
-        // record the intake control number so that we can the the app back out
+        // record the intake control number so that we can the the application back out
         intakeControlNumber = res.body.appControlNumber;
       })
       .expect(201, done);
   });
 
-  // it('should return the same application from the database', (done) => {
-  //   request(server)
-  //     .get(testGetURL + '/' + intakeControlNumber)
-  //     .expect(200, noncommercialInput, done);
-  // });
+  it('should return the same application from the database', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderPersisted, done);
+  });
 
 });
 
-// TODO: Primary permit holder
 // TODO: Secondary permit holder
 // TODO: Secondary permit holder with custom address
 // TODO: Only an organization address

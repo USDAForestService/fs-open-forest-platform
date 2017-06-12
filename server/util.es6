@@ -59,7 +59,7 @@ util.translateFromDatabaseToJSON = (input) => {
         'mailingState': input.applicantInfoSecondaryMailingState || undefined,
         'mailingZIP': input.applicantInfoSecondaryMailingZIP || undefined
       },
-      'orgType': input.type,
+      'orgType': input.applicantInfoOrgType,
       'primaryFirstName': input.applicantInfoPrimaryFirstName,
       'primaryLastName': input.applicantInfoPrimaryLastName,
       'secondaryFirstName': input.applicantInfoSecondaryFirstName || undefined,
