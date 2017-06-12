@@ -145,7 +145,9 @@ module.exports = {
       'orgType': 'Corporation',
       'primaryFirstName': 'Luke',
       'primaryLastName': 'Skywalker',
-      'emailAddress': 'luke@skywalker.com'
+      'emailAddress': 'luke@skywalker.com',
+      'organizationName': 'Rebel Alliance',
+      'website': 'http://www.starwars.com/'
     },
     'noncommercialFields': {
       'locationDescription': 'In the hills',
@@ -197,7 +199,9 @@ module.exports = {
       'primaryLastName': 'Skywalker',
       'secondaryFirstName': 'Han',
       'secondaryLastName': 'Solo',
-      'emailAddress': 'luke@skywalker.com'
+      'emailAddress': 'luke@skywalker.com',
+      'organizationName': 'Rebel Alliance',
+      'website': 'http://www.starwars.com/'
     },
     'noncommercialFields': {
       'locationDescription': 'In the hills',

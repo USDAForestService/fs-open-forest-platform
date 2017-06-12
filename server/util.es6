@@ -64,7 +64,9 @@ util.translateFromDatabaseToJSON = (input) => {
       'primaryLastName': input.applicantInfoPrimaryLastName,
       'secondaryFirstName': input.applicantInfoSecondaryFirstName || undefined,
       'secondaryLastName': input.applicantInfoSecondaryLastName || undefined,
-      'emailAddress': input.applicantInfoEmailAddress
+      'emailAddress': input.applicantInfoEmailAddress,
+      'organizationName': input.applicantInfoOrganizationName || undefined,
+      'website': input.applicantInfoWebsite || undefined
     },
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
