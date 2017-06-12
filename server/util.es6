@@ -30,41 +30,43 @@ util.translateFromDatabaseToJSON = (input) => {
         'areaCode': input.applicantInfoDayPhoneAreaCode,
         'prefix': input.applicantInfoDayPhonePrefix,
         'number': input.applicantInfoDayPhoneNumber,
-        'extension' : input.applicantInfoDayPhoneExtension
+        'extension' : input.applicantInfoDayPhoneExtension || undefined
       },
       'eveningPhone': {
-        'areaCode': input.applicantInfoEveningPhoneAreaCode,
-        'prefix': input.applicantInfoEveningPhonePrefix,
-        'number': input.applicantInfoEveningPhoneNumber,
-        'extension': input.applicantInfoEveningPhoneExtension
+        'areaCode': input.applicantInfoEveningPhoneAreaCode || undefined,
+        'prefix': input.applicantInfoEveningPhonePrefix || undefined,
+        'number': input.applicantInfoEveningPhoneNumber || undefined,
+        'extension': input.applicantInfoEveningPhoneExtension || undefined
       },
       'primaryAddress': {
-        'mailingAddress': input.applicantInfoPrimaryMailingAddress,
-        'mailingAddress2': input.applicantInfoPrimaryMailingAddress2,
-        'mailingCity': input.applicantInfoPrimaryMailingCity,
-        'mailingState': input.applicantInfoPrimaryMailingState,
-        'mailingZip': input.applicantInfoPrimaryMailingZIP
+        'mailingAddress': input.applicantInfoPrimaryMailingAddress || undefined,
+        'mailingAddress2': input.applicantInfoPrimaryMailingAddress2 || undefined,
+        'mailingCity': input.applicantInfoPrimaryMailingCity || undefined,
+        'mailingState': input.applicantInfoPrimaryMailingState || undefined,
+        'mailingZIP': input.applicantInfoPrimaryMailingZIP || undefined
       },
       'organizationAddress': {
-        'mailingAddress': input.applicantInfoOrgMailingAddress,
-        'mailingAddress2': input.applicantInfoOrgMailingAddress2,
-        'mailingCity': input.applicantInfoOrgMailingCity,
-        'mailingState': input.applicantInfoOrgMailingState,
-        'mailingZip': input.applicantInfoOrgMailingZIP
+        'mailingAddress': input.applicantInfoOrgMailingAddress || undefined,
+        'mailingAddress2': input.applicantInfoOrgMailingAddress2 || undefined,
+        'mailingCity': input.applicantInfoOrgMailingCity || undefined,
+        'mailingState': input.applicantInfoOrgMailingState || undefined,
+        'mailingZIP': input.applicantInfoOrgMailingZIP || undefined
       },
       'secondaryAddress': {
-        'mailingAddress': input.applicantInfoSecondaryMailingAddress,
-        'mailingAddress2': input.applicantInfoSecondaryMailingAddress2,
-        'mailingCity': input.applicantInfoSecondaryMailingCity,
-        'mailingState': input.applicantInfoSecondaryMailingState,
-        'mailingZip': input.applicantInfoSecondaryMailingZIP
+        'mailingAddress': input.applicantInfoSecondaryMailingAddress || undefined,
+        'mailingAddress2': input.applicantInfoSecondaryMailingAddress2 || undefined,
+        'mailingCity': input.applicantInfoSecondaryMailingCity || undefined,
+        'mailingState': input.applicantInfoSecondaryMailingState || undefined,
+        'mailingZIP': input.applicantInfoSecondaryMailingZIP || undefined
       },
-      'orgType': input.type,
+      'orgType': input.applicantInfoOrgType,
       'primaryFirstName': input.applicantInfoPrimaryFirstName,
       'primaryLastName': input.applicantInfoPrimaryLastName,
-      'secondaryFirstName': input.applicantInfoSecondaryFirstName,
-      'secondaryLastName': input.applicantInfoSecondaryLastName,
-      'emailAddress': input.applicantInfoEmailAddress
+      'secondaryFirstName': input.applicantInfoSecondaryFirstName || undefined,
+      'secondaryLastName': input.applicantInfoSecondaryLastName || undefined,
+      'emailAddress': input.applicantInfoEmailAddress,
+      'organizationName': input.applicantInfoOrganizationName || undefined,
+      'website': input.applicantInfoWebsite || undefined
     },
     'noncommercialFields': {
       'activityDescription': input.noncommercialFieldsActivityDescription,
@@ -83,9 +85,9 @@ util.translateFromDatabaseToJSON = (input) => {
     'status': input.status,
     'createdAt': input.createdAt,
     'applicationId': input.applicationId,
-    'reasonForReturn': input.reasonForReturn,
+    'reasonForReturn': input.reasonForReturn || undefined,
     'appControlNumber': input.appControlNumber,
-    'controlNumber': input.controlNumber
+    'controlNumber': input.controlNumber || undefined
   };
 };
 
@@ -141,7 +143,7 @@ util.translateFromIntakeToMiddleLayer = (input) => {
     result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
   }
 
-  if (input.applicantInfoOrgType === 'Organization') {
+  if (input.applicantInfoOrgType === 'Corporation') {
     result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
     result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
     result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;

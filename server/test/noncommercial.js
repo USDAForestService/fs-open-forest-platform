@@ -1,8 +1,10 @@
 'use strict';
 
+var _ = require('lodash');
 var factory = require('unionized');
 var noncommercialInput = require('./data/testInputNoncommercial.json');
 var noncommercialFactory = factory.factory(noncommercialInput);
+var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
 var server = require('../app.es6');
 var testGetURL = '/permits/applications';
@@ -141,6 +143,54 @@ describe('noncommercial tests', () => {
       .expect(400, done);
   });
 
+  it('should return a required error for start date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.startDateTime = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.startDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a required error for end date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.endDateTime = undefined;
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.endDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a pattern error for start date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.startDateTime = '2020';
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-noncommercialFields.startDateTime"/)
+      .expect(400, done);
+  });
+
+  it('should return a pattern error for end date', (done) => {
+    let data = noncommercialFactory.create();
+    data.noncommercialFields.endDateTime = '2020';
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-noncommercialFields.endDateTime"/)
+      .expect(400, done);
+  });
+
 });
 
 describe('GET tests', () => {
@@ -155,14 +205,161 @@ describe('GET tests', () => {
 
   it('should return a 400 error when requesting a with a malformed uuid', (done) => {
     request(server)
-      .get(testGetURL + '/invalid')
+      .get(testGetURL + '/malformed-uuid')
       .expect(400, done);
   });
 
-  it('should return a not found error when requesting a nonexistant application', (done) => {
+  it('should return a 404 error when requesting a nonexistant application', (done) => {
     request(server)
       .get(testGetURL + '/4dc61d60-a318-462f-8753-a57605303faa')
       .expect(404, done);
+  });
+
+  it('should return a 404 error when requesting a nonexistant resource', (done) => {
+    request(server)
+      .get('/nonexistant-resource')
+      .expect(404, done);
+  });
+
+});
+
+describe('Persistence tests', () => {
+
+  let intakeControlNumber = undefined;
+  let singlePermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolder);
+  let singlePermitHolderWithSecondaryPermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder);
+  let singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolderwithCustomAddress);
+  let singlePermitHolderOrganizationPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderOrganization);
+  let singlePermitHolderOrganizationWithCustomAddressesPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderOrganizationWithCustomAddresses);
+
+  it('should persist an application with a primary permit holder', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolder)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderPersisted, done);
+  });
+
+  it('should persist an application with a primary permit holder and a secondary permit holder', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder and a secondary permit holder', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderWithSecondaryPermitHolderPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderWithSecondaryPermitHolderPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderWithSecondaryPermitHolderPersisted, done);
+  });
+
+  it('should persist an application with a primary permit holder and a secondary permit holder with a custom address', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolderwithCustomAddress)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder and a secondary permit holder with a custom address', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted, done);
+  });
+
+  it('should persist an application with a primary permit holder for an organization', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganization)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder for an organization', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderOrganizationPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderOrganizationPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderOrganizationPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderOrganizationPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderOrganizationPersisted, done);
+  });
+
+  it('should persist an application for an organization with primary and secondary permit holder with unique addresses', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganizationWithCustomAddresses)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application for an organization with primary and secondary permit holder with unique addresses', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderOrganizationWithCustomAddressesPersisted, done);
   });
 
 });

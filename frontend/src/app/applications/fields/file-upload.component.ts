@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FileSelectDirective, FileUploader, FileLikeObject, FileItem } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
 import { environment } from '../../../environments/environment';
-import { Application } from '../../admin/application';
 
 @Component({
   selector: 'app-file-upload-field',
