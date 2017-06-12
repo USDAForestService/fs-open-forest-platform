@@ -1,5 +1,5 @@
-import { Application } from '../admin/application';
-import { ApplicationService } from '../admin/application.service';
+import { Application } from '../../_models/application';
+import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -7,7 +7,6 @@ import { DOCUMENT } from '@angular/platform-browser';
 @Component({
   providers: [ ApplicationService ],
   selector: 'app-permit-application-view',
-  styleUrls: ['./permit-application-view.component.scss'],
   templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {

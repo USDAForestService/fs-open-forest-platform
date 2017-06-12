@@ -169,7 +169,7 @@ let createNoncommercialTempApp = (req, res) => {
       applicantInfoWebsite: req.body.applicantInfo.website,
       applicantInfoOrgType: req.body.applicantInfo.orgType,
       applicantInfoSecondaryFirstName: req.body.applicantInfo.secondaryFirstName,
-      applicantInfoSecondaryLastName: req.body.applicantInfo.secondaryFirstName,
+      applicantInfoSecondaryLastName: req.body.applicantInfo.secondaryLastName,
       type: req.body.type,
       noncommercialFieldsActivityDescription: req.body.noncommercialFields.activityDescription,
       noncommercialFieldsLocationDescription: req.body.noncommercialFields.locationDescription,
@@ -236,7 +236,13 @@ let getAllApps = (req, res) => {
 
 let createAppFile = (req, res) => {
 
-  ApplicationFile.create({}).then((appfile) => {
+  ApplicationFile.create({
+    fileId: req.body.fileId,
+    applicationId: req.body.applicationId,
+    applicationType: req.body.applicationType,
+    s3FileName: req.body.s3FileName,
+    originalFileName: req.body.originalFileName
+  }).then((appfile) => {
     req.body['fileId'] = appfile.fileId;
     res.status(201).json(req.body);
   }).error((err) => {
