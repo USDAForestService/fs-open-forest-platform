@@ -141,7 +141,7 @@ util.translateFromIntakeToMiddleLayer = (input) => {
     result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
   }
 
-  if (input.applicantInfoOrgType === 'Organization') {
+  if (input.applicantInfoOrgType === 'Corporation') {
     result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
     result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
     result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
