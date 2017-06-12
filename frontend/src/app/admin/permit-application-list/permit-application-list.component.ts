@@ -20,7 +20,7 @@ export class PermitApplicationListComponent implements OnInit {
 
   isApproachingDeadline(startDateTime) {
     const now = moment();
-    const start = moment(startDateTime);
+    const start = moment(startDateTime, 'YYYY-MM-DDTHH:mm:ss');
     const deadline = moment().add(3, 'days');
     return start.isBetween(now, deadline);
   }

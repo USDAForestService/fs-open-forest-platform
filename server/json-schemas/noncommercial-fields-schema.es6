@@ -29,9 +29,9 @@ module.exports = {
       'type':'string'
     },
     'spectators': {
-      'default': '',
+      'default': '0',
       'type': 'integer'
     }
   },
-  'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants']
+  'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants', 'spectators']
 };

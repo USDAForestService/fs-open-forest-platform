@@ -143,11 +143,11 @@ let createNoncommercialTempApp = (req, res) => {
       applicantInfoDayPhoneAreaCode: req.body.applicantInfo.dayPhone.areaCode,
       applicantInfoDayPhonePrefix: req.body.applicantInfo.dayPhone.prefix,
       applicantInfoDayPhoneNumber: req.body.applicantInfo.dayPhone.number,
-      applicantInfoDayPhonePhoneType: req.body.applicantInfo.dayPhone.phoneType,
+      applicantInfoDayPhoneExtension: req.body.applicantInfo.dayPhone.extension,
       applicantInfoEveningPhoneAreaCode: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.areaCode : null,
       applicantInfoEveningPhonePrefix: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.prefix : null,
       applicantInfoEveningPhoneNumber: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.number : null,
-      applicantInfoEveningPhonePhoneType: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.phoneType : null,
+      applicantInfoEveningPhoneExtension: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.extension : null,
       applicantInfoEmailAddress: req.body.applicantInfo.emailAddress,
       applicantInfoOrgMailingAddress: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress : null,
       applicantInfoOrgMailingAddress2: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress2 : null,
@@ -216,13 +216,15 @@ let updateApp = (req, res) => {
 };
 
 let getApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}}).then(app => {
-    if(app) {
-      res.status(200).json(util.translateFromDatabaseToJSON(app));
-    } else {
-      res.status(404);
-    }
-  });
+  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}})
+    .then(app => {
+      if(app) {
+        res.status(200).json(util.translateFromDatabaseToJSON(app));
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => res.status(400).json(error.message));
 };
 
 let getAllApps = (req, res) => {
