@@ -228,6 +228,9 @@ describe('Persistence tests', () => {
   let intakeControlNumber = undefined;
   let singlePermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolder);
   let singlePermitHolderWithSecondaryPermitHolderPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder);
+  let singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolderwithCustomAddress);
+  let singlePermitHolderOrganizationPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderOrganization);
+  let singlePermitHolderOrganizationWithCustomAddressesPersisted = _.cloneDeep(noncommercialTestData.singlePermitHolderOrganizationWithCustomAddresses);
 
   it('should persist an application with a primary permit holder', (done) => {
     request(server)
@@ -281,9 +284,82 @@ describe('Persistence tests', () => {
       .expect(200, singlePermitHolderWithSecondaryPermitHolderPersisted, done);
   });
 
-});
+  it('should persist an application with a primary permit holder and a secondary permit holder with a custom address', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolderwithCustomAddress)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
 
-// TODO: Secondary permit holder with custom address
-// TODO: Only an organization address
-// TODO: Organization address with unique primary permit holder address
-// TODO: Organization address unique primary permit holder address and unique secondary permit holder address
+  it('should return a persisted application with a primary permit holder and a secondary permit holder with a custom address', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted, done);
+  });
+
+  it('should persist an application with a primary permit holder for an organization', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganization)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application with a primary permit holder for an organization', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderOrganizationPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderOrganizationPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderOrganizationPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderOrganizationPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderOrganizationPersisted, done);
+  });
+
+  it('should persist an application for an organization with primary and secondary permit holder with unique addresses', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganizationWithCustomAddresses)
+      .expect('Content-Type', /json/)
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
+      .expect(201, done);
+  });
+
+  it('should return a persisted application for an organization with primary and secondary permit holder with unique addresses', (done) => {
+    request(server)
+      .get(testGetURL + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.applicationId = res.body.applicationId;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.createdAt = res.body.createdAt;
+        singlePermitHolderOrganizationWithCustomAddressesPersisted.status = 'Received';
+      })
+      .expect(200, singlePermitHolderOrganizationWithCustomAddressesPersisted, done);
+  });
+
+});
