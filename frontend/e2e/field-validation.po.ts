@@ -66,4 +66,52 @@ export class FieldValidation {
       });
     });
   };
+
+  validateFileUploadField(id) {
+    const path = require('path');
+    const testErrorFile = path.resolve(__dirname, 'test-files/error-file-type.md');
+    const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
+    const chooseFile = element(by.css('#' + id + ' label'));
+    const input = element(by.css('#' + id + ' input[type="file"]'));
+
+    it('should have an input field', () => {
+      expect(input.isPresent()).toBe(true);
+    });
+
+    it('should not show an error by default', () => {
+      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
+    });
+
+    it('should not show replace and remove buttons by default', () => {
+      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
+      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
+    });
+
+    it('should display an error message if the file is not a valid type', () => {
+      input.sendKeys(testErrorFile);
+      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
+    });
+
+
+    it('should hide the error message if the file is a valid type', () => {
+      input.sendKeys(testSuccessFile);
+      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
+    });
+
+    it('should show replace and remove buttons if file is valid', () => {
+      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(true);
+      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Replace');
+    });
+
+    it('should display the file name if file is valid', () => {
+      expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
+    });
+
+    it('should remove file and cta buttons if remove button is clicked', () => {
+      element(by.css('#' + id + ' .remove-file')).click();
+      expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(false);
+      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
+      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
+    });
+  }
 }

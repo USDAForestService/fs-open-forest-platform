@@ -17,30 +17,6 @@ module.exports = {
       'pattern':'^[0-9]{2}$',
       'type' : 'string'
     },
-    'securityId':{
-      'default':'',
-      'type' : 'string'
-    },
-    'managingID':{
-      'default':'',
-      'type' : 'string'
-    },
-    'adminOrg':{
-      'default':'',
-      'type' : 'string'
-    },
-    'ePermitID':{
-      'default':'',
-      'type' : 'string'
-    },
-    'acres':{
-      'default': 0,
-      'type' : 'integer'
-    },
-    'contCN':{
-      'default':'',
-      'type' : 'string'
-    },
     'signature': {
       'default': '',
       'type': 'string'
@@ -50,5 +26,5 @@ module.exports = {
       'type': 'string'
     }
   },
-  'required': ['region', 'forest', 'district']
+  'required': ['region', 'forest', 'district', 'signature']
 };
