@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from '../../admin/application';
-import { ApplicationService } from '../../admin/application.service';
+import { Application } from '../../_models/application';
+import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileSelectDirective, FileDropDirective, FileUploader, FileLikeObject, FileItem } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-temporary-outfitters',
-  templateUrl: './temporary-outfitters.component.html',
-  styleUrls: ['./temporary-outfitters.component.scss']
+  templateUrl: './temporary-outfitters.component.html'
 })
 export class TemporaryOutfittersComponent implements OnInit {
 
