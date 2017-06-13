@@ -1,37 +1,55 @@
 module.exports = {
-  'id': '/noncommercialFields',
+  'id': '/tempOutfitterFields',
   'type': 'object',
   'properties': {
+    'individualIsCitizen': {
+      'default': false,
+      'type': 'boolean'
+    },
+    'smallBusiness': {
+      'default': false,
+      'type': 'boolean'
+    },
     'activityDescription': {
-      'default':'',
+      'default': '',
       'type': 'string'
     },
-    'locationDescription': {
-      'default':'',
+    'advertisingURL': {
+      'default': '',
       'type': 'string'
     },
-    'startDateTime': {
-      'default':'',
-      'pattern':'^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T(0\\d|1\\d|2[0-3]):(0\\d|1\\d|2[0-3]):(0\\d|1\\d|2[0-3])Z$',
+    'advertisingDescription': {
+      'default': '',
       'type': 'string'
     },
-    'endDateTime': {
-      'default':'',
-      'pattern':'^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T(0\\d|1\\d|2[0-3]):(0\\d|1\\d|2[0-3]):(0\\d|1\\d|2[0-3])Z$',
+    'clientCharges': {
+      'default': '',
       'type': 'string'
     },
-    'numberParticipants': {
-      'default': '0',
-      'type': 'integer'
+    'experienceList': {
+      'default': '',
+      'type': 'string'
     },
-    'formName':{
-      'default':'FS-2700-3b',
-      'type':'string'
-    },
-    'spectators': {
-      'default': '0',
-      'type': 'integer'
+    'formName': {
+      'default': 'FS-2700-3b',
+      'type': 'string'
     }
   },
-  'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants', 'spectators']
+  'allOf': [
+    {
+      'required': [
+        'activityDescription', 'clientCharges'
+      ]
+    },
+    {
+      'anyOf': [
+        {
+          'required': ['advertisingURL']
+        },
+        {
+          'required': ['advertisingDescription']
+        }
+      ]
+    }
+  ]
 };
