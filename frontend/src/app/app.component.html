@@ -34,7 +34,8 @@
     <div class="usa-nav-inner">
       <button class="usa-nav-close"><img src="/assets/img/close-white.svg" alt="close"></button>
       <ul class="usa-nav-primary usa-accordion">
-        <li><a href="/" class="usa-nav-link">Find another permit  </a></li>
+        <!-- TODO: Add nav links -->
+        <!-- <li><a href="/" class="usa-nav-link">Placeholder</a></li> -->
       </ul>
       <div class="usa-nav-secondary">
         <ul class="usa-unstyled-list usa-nav-secondary-links">
@@ -80,6 +81,11 @@
         <a href="https://www.facebook.com/USForestService/" class="usa-link-facebook"><span>Facebook</span></a>
         <a href="https://twitter.com/forestservice" class="usa-link-twitter"><span>Twitter</span></a>
         <a href="https://www.youtube.com/user/usdaForestService" class="usa-link-youtube"><span>YouTube</span></a>
+      </div>
+    </div>
+    <div class="usa-grid build-version">
+      <div class="usa-width-one-whole">
+        <p>version: {{ version }}, released on: {{ buildDate |  date: 'MM/dd/yyyy'  }}</p>
       </div>
     </div>
   </div>
