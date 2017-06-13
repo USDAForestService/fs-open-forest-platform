@@ -237,7 +237,6 @@ let getAllApps = (req, res) => {
 let createAppFile = (req, res) => {
 
   ApplicationFile.create({
-    fileId: req.body.fileId,
     applicationId: req.body.applicationId,
     applicationType: req.body.applicationType,
     s3FileName: req.body.s3FileName,
