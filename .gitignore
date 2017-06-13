@@ -3,3 +3,4 @@ templates/public
 templates/dist
 templates/yarn.lock
 server/node_modules
+server/.eslintrc.json
