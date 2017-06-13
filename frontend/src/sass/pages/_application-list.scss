@@ -1,0 +1,80 @@
+app-permit-application-list {
+  text-align: center;
+}
+
+.application-list {
+  @media(min-width: 1000px) {
+    border-collapse: collapse;
+    display: table;
+  }
+  .usa-button {
+    margin: 0;
+  }
+}
+
+.application-field-list-labels {
+  @media(min-width: 1000px) {
+    display: table-row;
+    div {
+      display: table-cell;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 20px;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+  }
+  @media(max-width: 1000px) {
+    display: none;
+  }
+}
+
+.application-field-list-values {
+  @media(min-width: 1000px) {
+    background-color: $white;
+    border: 1px solid $black;
+    display: table-row;
+    label {
+      display: none;
+    }
+    div {
+      display: table-cell;
+      padding: 20px;
+      vertical-align: middle;
+    }
+  }
+  @media(max-width: 1000px) {
+    background-color: $white;
+    border: 1px solid $black;
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 0 5px 0;
+      max-width: 100%;
+      text-transform: uppercase;
+    }
+    div {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.deadline-warning {
+  color: red;
+}
+
+.on-hold {
+  color: red;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  img {
+    height: 14px;
+    margin-right: 5px;
+    width: 14px;
+  }
+}

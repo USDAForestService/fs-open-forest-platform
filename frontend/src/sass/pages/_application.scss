@@ -1,0 +1,17 @@
+#application {
+  .forest-name {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  .fs-input-grid-wrapper:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .fs-input-grid-wrapper input,
+  .fs-input-grid-wrapper select {
+    margin-bottom: auto;
+  }
+}

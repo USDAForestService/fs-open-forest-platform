@@ -1,12 +1,11 @@
-import { Application } from '../admin/application';
-import { ApplicationService } from '../admin/application.service';
+import { Application } from '../_models/application';
+import { ApplicationService } from '../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   providers: [ ApplicationService ],
   selector: 'app-application-submitted',
-  styleUrls: ['./application-submitted.component.scss'],
   templateUrl: './application-submitted.component.html'
 })
 export class ApplicationSubmittedComponent implements OnInit {

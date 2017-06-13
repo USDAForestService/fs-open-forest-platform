@@ -1,0 +1,42 @@
+app-application-submitted {
+
+  .review-summary {
+    background-color: $fs-timberwolf;
+    padding: 20px;
+  }
+
+  .next-steps {
+    background-color: $fs-timberwolf;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    @media(min-width: $medium-screen) {
+      p {
+        height: 190px;
+      }
+    }
+  }
+
+  .step-number {
+    color: $fs-green;
+    display: inline-block;
+    font-size: 50px;
+    font-weight: bold;
+  }
+
+  .contact-details {
+    background-color: $fs-timberwolf;
+    display: inline-block;
+    padding: 20px;
+    h3 {
+      margin: 0 auto;
+    }
+    .title-description {
+      margin-top: 2px;
+    }
+    .contact {
+      margin: 2px 0;
+    }
+  }
+
+}
