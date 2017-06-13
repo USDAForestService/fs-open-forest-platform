@@ -245,9 +245,12 @@ let createAppFile = (req, res) => {
 
   ApplicationFile.create({
     applicationId: req.body.applicationId,
-    applicationType: req.body.applicationType,
-    s3FileName: req.body.s3FileName,
-    originalFileName: req.body.originalFileName
+    // applicationType: req.body.applicationType,
+    // s3FileName: req.body.s3FileName,
+    // originalFileName: req.body.originalFileName
+    applicationType: 'tempoutfitters',
+    s3FileName: 'test.pdf',
+    originalFileName: 'originalTest.pdf'
   }).then((appfile) => {
     req.body['fileId'] = appfile.fileId;
     res.status(201).json(req.body);
@@ -285,19 +288,19 @@ let createTempOutfitterApp = (req, res) => {
   }
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  if (req.body.applicantInfo.orgType === 'Corporation') {
-    if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-    } else {
-      errorArr.push('required-applicantInfo.organizationAddress');
-    }
-
-    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    }
-  }
+  // if (req.body.applicantInfo.orgType === 'Corporation') {
+  //   if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
+  //     result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
+  //     util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
+  //   } else {
+  //     errorArr.push('required-applicantInfo.organizationAddress');
+  //   }
+  //
+  //   if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
+  //     result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
+  //     util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
+  //   }
+  // }
 
   // if secondaryAddress exists, then validate it
   if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
