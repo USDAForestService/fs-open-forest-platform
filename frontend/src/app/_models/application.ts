@@ -9,8 +9,8 @@ export class Application {
   eventName: string;
   forest: string;
   noncommercialFields: NoncommercialFields;
-  tempOutfittersFields: TempOutfittersFields;
-  tempOutfittersFiles: TempOutfittersFiles;
+  tempOutfitterFields: TempOutfitterFields;
+  tempOutfitterFiles: TempOutfitterFiles;
   reasonForReturn: string;
   region: string;
   signature: string;
@@ -18,8 +18,8 @@ export class Application {
   constructor() {
     this.applicantInfo = new ApplicantInfo();
     this.noncommercialFields = new NoncommercialFields();
-    this.tempOutfittersFiles = new TempOutfittersFiles();
-    this.tempOutfittersFields = new TempOutfittersFields();
+    this.tempOutfitterFiles = new TempOutfitterFiles();
+    this.tempOutfitterFields = new TempOutfitterFields();
   }
 }
 
@@ -83,7 +83,7 @@ export class NoncommercialFields {
   startPeriod: string;
 }
 
-export class TempOutfittersFields {
+export class TempOutfitterFields {
   individualCitizen: boolean;
   smallBusiness: boolean;
   activityDescription: string;
@@ -93,7 +93,7 @@ export class TempOutfittersFields {
   experienceList: string;
 }
 
-export class TempOutfittersFiles {
+export class TempOutfitterFiles {
   guideDocumentation: string;
   acknowledgementOfRiskForm: string;
   insuranceCertificate: string;
