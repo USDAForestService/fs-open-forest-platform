@@ -12,9 +12,14 @@ export class FileUploadComponent implements OnChanges {
   @Input() name: string;
   @Input() uploadFiles: boolean;
 
-  allowedMimeType = ['image/jpeg', 'image/png', 'application/pdf'];
+  allowedMimeType = [
+    'application/msword',
+    'application/pdf',
+    'application/rtf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ];
   errorMessage: string;
-  maxFileSize = 1024 * 1024;
+  maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
   constructor() {
@@ -22,7 +27,7 @@ export class FileUploadComponent implements OnChanges {
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
       maxFileSize: this.maxFileSize,
       allowedMimeType: this.allowedMimeType,
-      queueLimit: 1
+      queueLimit: 2
     });
     this.uploader.onWhenAddingFileFailed = (item, filter, options) => this.onWhenAddingFileFailed(item, filter, options);
     this.uploader.onAfterAddingFile = (fileItem) => this.onAfterAddingFile(this.uploader);
