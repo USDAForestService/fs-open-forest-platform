@@ -46,7 +46,7 @@ export class TemporaryOutfittersComponent implements OnInit {
     this.application.district = '11';
     this.application.region = '11';
     this.application.forest = '11';
-    this.application.type = 'tempOutfitter';
+    this.application.type = 'tempOutfitters';
     this.application.authorizingOfficerName = 'officer name';
     this.application.authorizingOfficerTitle = 'officer title';
     this.application.applicantInfo.primaryFirstName = 'first';
@@ -67,13 +67,15 @@ export class TemporaryOutfittersComponent implements OnInit {
     this.application.applicantInfo.primaryAddress.mailingZIP = '55555';
     this.application.applicantInfo.organizationName = 'organization name';
     this.application.applicantInfo.website = 'http://www.test.com';
-    this.application.applicantInfo.orgType = 'Association';
-    this.application.tempOutfittersFields.individualCitizen = true;
-    this.application.tempOutfittersFields.smallBusiness = true;
-    this.application.tempOutfittersFields.activityDescription = 'description of activity';
-    this.application.tempOutfittersFields.advertisingURL = 'http://www.test.com';
-    this.application.tempOutfittersFields.advertisingDescription = 'description';
-    this.application.tempOutfittersFields.clientCharges = 'charges';
-    this.application.tempOutfittersFields.experienceList = 'experiece list';
+    this.application.applicantInfo.orgType = 'Corporation';
+    this.application.tempOutfitterFields.individualCitizen = true;
+    this.application.tempOutfitterFields.smallBusiness = true;
+    this.application.tempOutfitterFields.activityDescription = 'description of activity';
+    this.application.tempOutfitterFields.advertisingURL = 'http://www.test.com';
+    this.application.tempOutfitterFields.advertisingDescription = 'description';
+    this.application.tempOutfitterFields.clientCharges = 'charges';
+    this.application.tempOutfitterFields.experienceList = 'experiece list';
+    this.application.signature = 'afs';
+    this.application.eventName = 'test event';
   }
 }
