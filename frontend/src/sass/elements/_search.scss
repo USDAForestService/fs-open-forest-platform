@@ -1,0 +1,13 @@
+.usa-search {
+  button[type=submit]{
+    background-color: $fs-green;
+    &:hover {
+      background-color: $fs-green-darker;
+    }
+  }
+}
+.usa-nav-secondary {
+  .usa-header-search-button {
+    background-image: url(/assets/img/search-alt.svg);
+  }
+}
