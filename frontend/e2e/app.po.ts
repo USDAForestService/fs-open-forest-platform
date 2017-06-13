@@ -9,3 +9,9 @@ export class FrontendPage {
     return element(by.css('app-root h1')).getText();
   }
 }
+
+export class NoncommercialGroupForm {
+  navigateTo() {
+    return browser.get('/#/applications/noncommercial-group-use/new');
+  }
+}
