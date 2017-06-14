@@ -82,8 +82,7 @@ export class FieldValidation {
       expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
-    it('should not show replace and remove buttons by default', () => {
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
+    it('should not show replace buttons by default', () => {
       expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
     });
 
@@ -98,20 +97,12 @@ export class FieldValidation {
       expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
-    it('should show replace and remove buttons if file is valid', () => {
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(true);
+    it('should show replace buttons if file is valid', () => {
       expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Replace');
     });
 
     it('should display the file name if file is valid', () => {
       expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
-    });
-
-    it('should remove file and cta buttons if remove button is clicked', () => {
-      element(by.css('#' + id + ' .remove-file')).click();
-      expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(false);
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
-      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
     });
   }
 }
