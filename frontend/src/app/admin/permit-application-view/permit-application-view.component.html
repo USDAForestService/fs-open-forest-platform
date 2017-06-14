@@ -118,7 +118,7 @@
     <!-- <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="application.status == 'Hold' || application.status == 'Received'"> -->
     <div class="app-ctas" [class.fixed]="fixedCtas">
       <button id="accept-application-btn" class="usa-button fs-button-green app-cta" name="Accept" (click)="updateApplicationStatus(application, 'Accepted')">Accept</button>
-      <button id="hold-application-btn" class="usa-button-secondary app-cta" name="Hold" (click)="updateApplicationStatus(application, 'Hold')">Hold</button>
-      <button id="return-application-btn" class="usa-button app-cta" name="Return"(click)="updateApplicationStatus(application, 'Returned')">Return</button>
+      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="updateApplicationStatus(application, 'Hold')">Hold</button>
+      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="updateApplicationStatus(application, 'Returned')">Return</button>
     </div>
 </section>
