@@ -2,7 +2,7 @@ set -e
 
 export PATH=$HOME:$PATH
 #travis_retry curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
-curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
+curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.26.0"
 tar xzvf $HOME/cf.tgz -C $HOME
 cf install-plugin autopilot -f -r CF-Community
 
@@ -34,6 +34,6 @@ echo "Unknown space: $SPACE"
 exit
 fi
 
-cf login --a $API --u $CF_USERNAME --p $CF_PASSWORD --o $ORG -s $SPACE
+cf login -a $API -u $CF_USERNAME -p $CF_PASSWORD -o $ORG -s $SPACE
 cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
 cf zero-downtime-push $API_NAME -f $API_MANIFEST

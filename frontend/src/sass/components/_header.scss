@@ -5,7 +5,7 @@
     .fs-branding {
       img.fs-logo {
         float: left;
-        margin: -6px 0 0 10px;
+        margin: -6px 0 0 0;
         position: relative;
         z-index: 10;
         width: 50px;
@@ -22,6 +22,7 @@
           font-weight: bold;
           line-height: 17px;
           margin-left: 10px;
+          margin-top: 6px;
           @media(min-width: $nav-width){
             font-size: 24px;
             line-height: 26px;
@@ -55,13 +56,7 @@
 }
 
 .fs-official {
-  background-color: $fs-dark-grey;
   color: $white;
-  .usa-banner-inner {
-    font-size: 11px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
   .usa-accordion-button.usa-banner-button {
     color: $white;
   }
@@ -75,4 +70,28 @@
     color: white;
     border-bottom-color: $white;
   }
+}
+
+.usa-navbar {
+  @media(max-width: $nav-width){
+    height: 77px;
+  }
+}
+
+.fs-branding {
+  @media(max-width: $nav-width){
+    padding: 18px 0;
+  }
+}
+
+.usa-menu-btn {
+  height: 77px;
+}
+
+.usa-banner {
+  background-color: $fs-dark-grey;
+}
+
+.usa-banner-header {
+  font-size: 11px;
 }

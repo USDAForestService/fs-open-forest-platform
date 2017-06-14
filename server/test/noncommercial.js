@@ -10,22 +10,24 @@ var noncommercialInput = require('./data/testInputNoncommercial.json');
 
 var testURL = '/permits/applications/special-uses/noncommercial';
 
+var testGetURL = '/permits/applications';
+
 var noncommercialFactory = factory.factory(noncommercialInput);
 
-var chai = require('chai');
-var expect = chai.expect;
+//var chai = require('chai');
+//var expect = chai.expect;
 
 describe('noncommercial tests', () => {
 
   describe('POST tests', () => {
 
-    it('should return a 200 response and tempControlNumber of 1', (done) => {
+    it('should return a 200 response and a db generated applicationId', (done) => {
       request(server)
 				.post(testURL)
         .set('Accept', 'application/json')
         .send(noncommercialFactory.create())
 				.expect('Content-Type', /json/)
-        .expect(/"tempControlNumber":1/)
+        .expect(/"applicationId":[\d]+/)
         .expect(201, done);
     });
 
@@ -72,7 +74,7 @@ describe('noncommercial tests', () => {
     });
 
     it('should return a type error for applicantInfo.dayPhone.areaCode', (done) => {
-      let data = noncommercialFactory.create({ 'applicantInfo.dayPhone.areaCode' : 'invalid' });
+      let data = noncommercialFactory.create({ 'applicantInfo.dayPhone.areaCode' : 555 });
 
       request(server)
         .post(testURL)
@@ -97,6 +99,30 @@ describe('noncommercial tests', () => {
         .expect(400, done);
     });
 
+    it('should return a required error for evening area code', (done) => {
+      let data = noncommercialFactory.create(
+        { 'applicantInfo.eveningPhone.prefix' : '555',
+          'applicantInfo.eveningPhone.number' : '5555'});
+
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(/"required-applicantInfo.eveningPhone.areaCode"/)
+        .expect(400, done);
+    });
+
+  });
+
+  describe('GET tests', () => {
+    it('should return at least one noncommercial application', (done) => {
+      request(server)
+        .get(testGetURL)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(200, done);
+    });
   });
 
 });
