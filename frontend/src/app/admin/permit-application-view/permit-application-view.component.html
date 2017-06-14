@@ -59,10 +59,6 @@
           <h3 class="app-item-label">Number spectators</h3>
           <p class="app-item-value">{{ application.noncommercialFields.spectators }}</p>
         </div>
-        <div class="app-item">
-          <h3 class="app-item-label">Electronic signature</h3>
-          <p class="app-item-value">{{ application.signature }}</p>
-        </div>
       </div>
       <div class="usa-width-one-third">
         <h2>Primary permit holder</h2>
@@ -112,6 +108,12 @@
               <li>{{ application.applicantInfo.secondaryAddress.mailingCity }}, {{ application.applicantInfo.secondaryAddress.mailingState }} {{ application.applicantInfo.secondaryAddress.mailingZIP }}</li>
             </ul>
           </div>
+        </div>
+        <div class="app-item">
+          <h3 class="app-item-label">
+            <span *ngIf="application.signature" class="app-item-value electronic-signature-success"></span> 
+            Electronic signature
+          </h3>
         </div>
       </div>
     </div>
