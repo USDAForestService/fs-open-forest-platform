@@ -9,6 +9,7 @@
     "express": "4.15.2",
     "jsonschema": "1.1.1",
     "lodash": "4.17.4",
+    "moment": "2.18.1",
     "multer-s3": "^2.7.0",
     "multer": "^1.3.0",
     "pg": "^6.2.2",
