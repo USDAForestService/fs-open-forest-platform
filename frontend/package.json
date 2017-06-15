@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.13",
   "license": "MIT",
   "scripts": {
     "build": "ng build",
@@ -11,7 +11,8 @@
     "pa11y": "pa11y-ci",
     "start": "ng serve",
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
-    "test": "ng test"
+    "test": "ng test",
+    "update-version": "npm version patch && node ./replace.build.js"
   },
   "private": true,
   "dependencies": {
@@ -20,11 +21,16 @@
     "@angular/core": "^4.0.0",
     "@angular/forms": "^4.0.0",
     "@angular/http": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
+    "intl": "^1.2.5",
+    "ng2-file-upload": "^1.2.1",
+    "replace-in-file": "^2.5.0",
     "rxjs": "^5.1.0",
+    "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
@@ -35,18 +41,18 @@
     "codelyzer": "~2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
+    "karma": "~1.4.1",
     "karma-chrome-launcher": "~2.0.0",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "^0.2.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
     "karma-jasmine": "~1.1.0",
-    "karma": "~1.4.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "moment": "2.18.1",
     "pa11y-ci": "^1.1.1",
     "protractor": "~5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
-    "uswds": "1.1.0"
+    "uswds": "1.2.0-rc1"
   }
 }
