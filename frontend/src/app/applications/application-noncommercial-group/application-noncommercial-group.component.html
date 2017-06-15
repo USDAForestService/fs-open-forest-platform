@@ -1,11 +1,10 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <h1>Apply for a noncommercial group use permit.</h1>
-    <h2 class="forest-name">{{forest}}</h2>
-    <p>All form fields are required unless otherwise noted.</p>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
       <fieldset>
-        <legend>Applicant information</legend>
+        <legend>{{forest}}</legend>
+        <p>All form fields are required unless otherwise noted.</p>
 
         <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
           <div class="usa-alert-body">
@@ -24,7 +23,8 @@
         </div>
 
         <fieldset>
-          <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
+          <legend>Applicant information</legend>
+          <label for="applicant-type">Are you applying as an individual or organization?</label>
           <ul class="usa-unstyled-list">
             <li>
               <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
@@ -265,7 +265,7 @@
         <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required.</span>
 
-        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use within {{forest}}.</label>
+        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use.</label>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required.</span>
 
