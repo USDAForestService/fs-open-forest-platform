@@ -133,6 +133,14 @@ let createNoncommercialTempApp = (req, res) => {
     util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
   }
 
+  if(!util.validateDateTime(req.body.noncommercialFields.startDateTime)) {
+    errorArr.push('pattern-noncommercialFields.startDateTime');
+  }
+
+  if(!util.validateDateTime(req.body.noncommercialFields.endDateTime)) {
+    errorArr.push('pattern-noncommercialFields.endDateTime');
+  }
+
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
