@@ -1,126 +1,95 @@
 <section id="application-view" class="usa-section">
-    <div class="usa-grid no-padding">
-      <div class="usa-width-one-whole breadcrumbs">
-        <a routerLink="/admin/applications">Noncommercial group use applications</a> > <span>{{ application.eventName }}</span>
-      </div>
+  <div class="usa-grid">
+    <div class="breadcrumbs">
+      <a routerLink="/admin/applications">Noncommercial group use applications</a> > <span>{{ application.eventName }}</span>
     </div>
-    <div class="usa-grid thin-grey-shadow no-padding application" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()" position="bottom" offset="50">
-      <div class="usa-width-one-third white-background padded-background centered">
-        <h1>{{ application.eventName}}</h1>
-        <div class="app-item">
-          <h2 class="app-item-label">Primary permit holder:</h2>
-          <p class="app-item-value large">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</p>
+    <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()" position="bottom" offset="50">
+      <div class="usa-grid event-name no-padding padding-top-1">
+        <div class="usa-width-three-fourths">
+          <h1>{{ application.eventName}}</h1>
         </div>
-        <div class="app-item" *ngIf="application.applicantInfo.organizationName">
-          <h2 class="app-item-label">Organization</h2>
-          <p class="app-item-value large">{{ application.applicantInfo.organizationName }}</p>
-        </div>
-        <div class="app-item">
-          <h2 class="app-item-label">Email:</h2>
-          <p class="app-item-value large">{{ application.applicantInfo.emailAddress }}</p>
-        </div>
-        <div class="app-item" *ngIf="application.applicantInfo.dayPhone">
-          <h2 class="app-item-label">Phone:</h2>
-          <p class="app-item-value large">{{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}</p>
-        </div>
-
-        <div class="app-item">
-          <div class="button_wrapper">
-            <button class="usa-button-outline green">Edit</button>
-          </div>
-        </div>
-
-      </div>
-      <div class="usa-width-one-third">
-        <h2>Event details</h2>
-        <div class="app-item">
-          <h3 class="app-item-label">Start date:</h3>
-          <p class="app-item-value">
-            {{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
-          </p>
-          <h3 class="app-item-label">End date:</h3>
-          <p class="app-item-value">
-            {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
-          </p>
-        </div>
-        <div class="app-item">
-          <h3 class="app-item-label">Location:</h3>
-          <p class="app-item-value">{{ application.noncommercialFields.locationDescription }}</p>
-        </div>
-        <div class="app-item">
-          <h3 class="app-item-label">Description</h3>
-          <p class="app-item-value">{{ application.noncommercialFields.activityDescription }}</p>
-        </div>
-        <div class="app-item">
-          <h3 class="app-item-label">Number attending</h3>
-          <p class="app-item-value">{{ application.noncommercialFields.numberParticipants }}</p>
-        </div>
-        <div class="app-item">
-          <h3 class="app-item-label">Number spectators</h3>
-          <p class="app-item-value">{{ application.noncommercialFields.spectators }}</p>
+        <div class="usa-width-one-fourth">
+            <button class="usa-button-outline green edit-application">Edit</button>
         </div>
       </div>
-      <div class="usa-width-one-third">
-        <h2>Primary permit holder</h2>
-        <div *ngIf="application.applicantInfo.organizationName" class="app-item">
-          <div class="app-item-value">
-            <ul *ngIf="application.applicantInfo.organizationAddress">
-              <li>{{ application.applicantInfo.organizationName }}</li>
-              <li>{{ application.applicantInfo.organizationAddress.mailingAddress }}</li>
-              <li *ngIf="application.applicantInfo.organizationAddress.mailingAddress2">
-                {{ application.applicantInfo.organizationAddress.mailingAddress2 }}
-              </li>
-              <li>{{ application.applicantInfo.organizationAddress.mailingCity }}, {{ application.applicantInfo.organizationAddress.mailingState }} {{ application.applicantInfo.organizationAddress.mailingZIP }}</li>
-            </ul>
+      <div class="usa-grid margin-top-1 no-padding">
+        <div class="usa-width-one-half">
+          <h2 class="app-item-label padding-right-1">Primary permit holder</h2>
+          <div *ngIf="application.orgType == 'Corporation'" class="margin-bottom-1">
+            <span class="display-block">{{ application.applicantInfo.organizationName }}</span>
+            <span class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress }}</span>
+            <span *ngIf="application.applicantInfo.organizationAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress2 }}</span>
+            <span class="display-block">{{ application.applicantInfo.organizationAddress.mailingCity }}, {{ application.applicantInfo.organizationAddress.mailingState }} {{ application.applicantInfo.organizationAddress.mailingZIP }}</span>
           </div>
-        </div>
-        <div class="app-item">
-          <div class="app-item-value">
-            <ul *ngIf="!application.applicantInfo.primaryAddress">
-              <li>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</li>
-            </ul>
-            <ul *ngIf="application.applicantInfo.primaryAddress">
-              <li>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</li>
-              <li>{{ application.applicantInfo.primaryAddress.mailingAddress }}</li>
-              <li *ngIf="application.applicantInfo.primaryAddress.mailingAddress2">
-                {{ application.applicantInfo.primaryAddress.mailingAddress2 }}
-              </li>
-              <li>{{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}</li>
-            </ul>
-            <ul>
-              <li><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></li>
-              <li>{{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}</li>
-            </ul>
+          <div class="margin-bottom-1">
+            <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
+            <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
+            <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">
+              {{ application.applicantInfo.primaryAddress.mailingAddress2 }}
+            </span>
+            <span *ngIf="application.applicantInfo.primaryAddress.mailingCity && application.applicantInfo.primaryAddress.mailingState && application.applicantInfo.primaryAddress.mailingZip"
+              class="display-block">
+              {{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}
+            </span>
           </div>
-        </div>
-        <div *ngIf="application.applicantInfo.secondaryFirstName" class="app-item">
-          <h2>Secondary permit holder</h2>
-          <div class="app-item-value">
-            <ul *ngIf="!application.applicantInfo.secondaryAddress">
-              <li>{{ application.applicantInfo.secondaryFirstName }} {{ application.applicantInfo.secondaryLastName }}</li>
-            </ul>
-            <ul *ngIf="application.applicantInfo.secondaryAddress">
-              <li>{{ application.applicantInfo.secondaryFirstName }} {{ application.applicantInfo.secondaryLastName }}</li>
-              <li>{{ application.applicantInfo.secondaryAddress.mailingAddress }}</li>
-              <li *ngIf="application.applicantInfo.secondaryAddress.mailingAddress2">
+          <div class="margin-bottom-1">
+            <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
+            <span class="display-block">{{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}</span>
+            <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">{{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}</span>
+          </div>
+
+          <div *ngIf="application.applicantInfo.secondaryFirstName">
+            <h2>Secondary Permit Holder</h2>
+            <div>
+              <span class="display-block">{{ application.applicantInfo.secondaryFirstName }} {{ application.applicantInfo.secondaryLastName }}</span>
+              <span class="display-block">{{ application.applicantInfo.secondaryAddress.mailingAddress }}</span>
+              <span *ngIf="application.applicantInfo.secondaryAddress.mailingAddress2" class="display-block">
                 {{ application.applicantInfo.secondaryAddress.mailingAddress2 }}
-              </li>
-              <li>{{ application.applicantInfo.secondaryAddress.mailingCity }}, {{ application.applicantInfo.secondaryAddress.mailingState }} {{ application.applicantInfo.secondaryAddress.mailingZIP }}</li>
-            </ul>
+              </span>
+              <span *ngIf="application.applicantInfo.secondaryAddress.mailingCity && application.applicantInfo.secondaryAddress.mailingState && application.applicantInfo.secondaryAddress.mailingZip"
+                class="display-block">
+                {{ application.applicantInfo.secondaryAddress.mailingCity }}, {{ application.applicantInfo.secondaryAddress.mailingState }} {{ application.applicantInfo.secondaryAddress.mailingZIP }}
+              </span>
+            </div>
           </div>
         </div>
-        <div class="app-item">
-          <h3 class="app-item-label">
-            <span *ngIf="application.signature" class="app-item-value electronic-signature-success"></span> 
+
+        <div class="usa-width-one-half">
+          <h2>Event details</h2>
+
+          <h3>Start date:</h3>
+          <span>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</span>
+
+          <h3>End date:</h3>
+          <span>
+            {{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
+          </span>
+
+          <h3>Location:</h3>
+          <span>{{ application.noncommercialFields.locationDescription }}</span>
+
+          <h3>Description</h3>
+          <span>{{ application.noncommercialFields.activityDescription }}</span>
+
+          <h3>Number attending</h3>
+          <span>{{ application.noncommercialFields.numberParticipants }}</span>
+
+          <h3>Number spectators</h3>
+          <span>{{ application.noncommercialFields.spectators }}</span>
+
+          <h3>
+            <span *ngIf="application.signature" class="electronic-signature-success"></span>
             Electronic signature
           </h3>
+
         </div>
       </div>
     </div>
-    <!-- <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="application.status == 'Hold' || application.status == 'Received'"> -->
-    <div class="app-ctas" [class.fixed]="fixedCtas">
-      <button id="accept-application-btn" class="usa-button fs-button-green app-cta" name="Accept" (click)="updateApplicationStatus(application, 'Accepted')">Accept</button>
-      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="updateApplicationStatus(application, 'Hold')">Hold</button>
-      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="updateApplicationStatus(application, 'Returned')">Return</button>
-    </div>
+  </div>
+
+  <div class="app-ctas" [class.fixed]="fixedCtas">
+    <button id="accept-application-btn" class="usa-button fs-button-green app-cta" name="Accept" (click)="updateApplicationStatus(application, 'Accepted')">Accept</button>
+    <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="updateApplicationStatus(application, 'Hold')">Hold</button>
+    <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="updateApplicationStatus(application, 'Returned')">Return</button>
+  </div>
 </section>

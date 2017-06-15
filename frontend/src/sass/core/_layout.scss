@@ -1,0 +1,48 @@
+/** This file is for defining styles that effect the layout, e.g. floats and margins **/
+
+.clear {
+  clear: both;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-inline{
+  display: inline-block;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+@for $i from 1 through 6 {
+  .margin-bottom-#{$i} {
+    margin-bottom: #{$i}em !important;
+  }
+  .margin-left-#{$i} {
+    margin-left: #{$i}em !important;
+  }
+  .margin-right-#{$i} {
+    margin-right: #{$i}em !important;
+  }
+  .margin-top-#{$i} {
+    margin-top: #{$i}em !important;
+  }
+  .padding-bottom-#{$i} {
+    padding-bottom: #{$i}em !important;
+  }
+  .padding-left-#{$i} {
+    padding-left: #{$i}em !important;
+  }
+  .padding-right-#{$i} {
+    padding-right: #{$i}em !important;
+  }
+  .padding-top-#{$i} {
+    padding-top: #{$i}em !important;
+  }
+}
