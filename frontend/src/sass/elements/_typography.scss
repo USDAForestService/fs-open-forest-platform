@@ -1,9 +1,18 @@
 html,
 h1, h2, h3, h4,
-a
+a, p,
+span, div,
+input, select, textarea, label
+button
 {
-  color: $black;
   font-family: $font-sans !important;
+}
+
+html,
+h1, h2, h3, h4,
+a, a:visited
+{
+ color: $black;
 }
 
 h1 {
