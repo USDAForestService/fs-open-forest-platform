@@ -13,8 +13,7 @@ var testURL = '/permits/applications/special-uses/noncommercial';
 describe('noncommercial tests', () => {
 
   describe('POST tests', () => {
-
-    it('should return a 200 response and a db generated applicationId', (done) => {
+    it('should return a 201 response and a db generated applicationId', (done) => {
       request(server)
 				.post(testURL)
         .set('Accept', 'application/json')
@@ -22,6 +21,84 @@ describe('noncommercial tests', () => {
 				.expect('Content-Type', /json/)
         .expect(/"applicationId":[\d]+/)
         .expect(201, done);
+    });
+  });
+
+  describe('POST date validation tests', () => {
+    it('should return a 201 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = '2018-01-01T00:15:00Z';
+      data.noncommercialFields.endDateTime = '2018-06-30T23:30:00Z';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+
+    it('should return a 201 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = '2018-01-31T00:45:00Z';
+      data.noncommercialFields.endDateTime = '2018-12-31T23:00:00Z';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+
+    it('should return a 400 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = '2018-01-32T00:45:00Z';
+      data.noncommercialFields.endDateTime = '2018-13-31T23:00:00Z';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect(400, done);
+    });
+
+    it('should return a 400 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = '2018-32T00:45:00Z';
+      data.noncommercialFields.endDateTime = '2018-13-31T00:00Z';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect(400, done);
+    });
+
+    it('should return a 400 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = '2018-01-01T00:45:00';
+      data.noncommercialFields.endDateTime = '01-01T23:00:00Z';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect(400, done);
+    });
+
+    it('should return a 400 response', (done) => {
+      let data = noncommercialFactory.create();
+      data.noncommercialFields.startDateTime = 'what';
+      data.noncommercialFields.endDateTime = ' ';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect(400, done);
     });
 
   });
