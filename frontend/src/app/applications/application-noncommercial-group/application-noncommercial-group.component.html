@@ -118,42 +118,33 @@
         <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.applicantInfo.emailAddress" #email="ngModel" />
         <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required.</span>
 
-        <fieldset>
-          <legend class="fs-mini-legend">Phone</legend>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.dayPhone.areaCode" #dayPhone1="ngModel" />
+
+        <div class="fs-input-grid-wrapper">
+          <div class="usa-input-grid usa-input-grid-medium">
+            <label class="usa-input" for="day-phone">Phone number (10 digits)</label>
+            <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.dayPhone.tenDigit" #dayPhone="ngModel" />
+            <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="dayPhone.valid || dayPhone.untouched">Valid phone is required.</span>
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.dayPhone.prefix" #dayPhone2="ngModel" />
+          <div class="usa-input-grid usa-input-grid-small">
+            <label class="usa-input" for="day-ext">Ext (optional)</label>
+            <input class="usa-input" id="day-ext" name="day-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.dayPhone.ext" #dayExt="ngModel" />
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.applicantInfo.dayPhone.number" #dayPhone3="ngModel" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.applicantInfo.dayPhone.extension" />
-          </div>
-        </fieldset>
-        <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Valid phone is required.</span>
+        </div>
 
         <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" />
         <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
 
-        <fieldset *ngIf="additionalPhone">
-          <legend class="fs-mini-legend">Secondary phone</legend>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.eveningPhone.areaCode" #nightPhone1="ngModel" />
+        <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
+          <div class="usa-input-grid usa-input-grid-medium">
+            <label class="usa-input" for="evening-phone">Phone number (10 digits)</label>
+            <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.tenDigit" #eveningPhone="ngModel" />
+            <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone is required.</span>
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-2" name="night-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.eveningPhone.prefix" #nightPhone2="ngModel" />
+          <div class="usa-input-grid usa-input-grid-small">
+            <label class="usa-input" for="evening-ext">Ext (optional)</label>
+            <input class="usa-input" id="evening-ext" name="evening-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.eveningPhone.ext" #primaryDayExt="ngModel" />
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-3" name="night-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.applicantInfo.eveningPhone.number" #nightPhone3="ngModel" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-4" name="night-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.applicantInfo.eveningPhone.extension" />
-          </div>
-          <span id="night-phone-error" class="usa-input-error-message clear" role="alert" [hidden]="(nightPhone1.valid || nightPhone1.untouched) && (nightPhone2.valid || nightPhone2.untouched) && (nightPhone3.valid || nightPhone3.untouched)">Valid phone is required.</span>
-        </fieldset>
+        </div>
 
         <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="website">Website (optional)</label>
