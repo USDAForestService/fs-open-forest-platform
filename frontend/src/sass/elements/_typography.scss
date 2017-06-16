@@ -9,16 +9,30 @@ button
 }
 
 html,
-h1, h2, h3, h4,
-a, a:visited
+h1, h2, h3, h4
 {
  color: $black;
 }
+
+a {
+  color: $fs-green;
+  &:visited {
+    color: $fs-green;
+  }
+  &:hover {
+    color: $fs-green-darker;
+  }
+  &:active {
+    color: $fs-green-darkest;
+  }
+}
+
 
 h1 {
   font-weight: 700;
   font-size: 52px;
   line-height: 1.3em/68px;
+  color: $fs-green !important;
 }
 
 h2 {
