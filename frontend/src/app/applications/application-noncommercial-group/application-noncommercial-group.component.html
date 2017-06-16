@@ -122,7 +122,7 @@
         <div class="fs-input-grid-wrapper">
           <div class="usa-input-grid usa-input-grid-medium">
             <label class="usa-input" for="day-phone">Phone number (10 digits)</label>
-            <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.dayPhone.number" #dayPhone="ngModel" />
+            <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.dayPhone.tenDigit" #dayPhone="ngModel" />
             <span id="day-ext-error" class="usa-input-error-message" role="alert" [hidden]="dayPhone.valid || dayPhone.untouched">Valid phone number is required.</span>
           </div>
           <div class="usa-input-grid usa-input-grid-small">
@@ -137,7 +137,7 @@
         <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
           <div class="usa-input-grid usa-input-grid-medium">
             <label class="usa-input" for="evening-phone">Phone number (10 digits)</label>
-            <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.number" #eveningPhone="ngModel" />
+            <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.tenDigit" #eveningPhone="ngModel" />
             <span id="evening-ext-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone number is required.</span>
           </div>
           <div class="usa-input-grid usa-input-grid-small">

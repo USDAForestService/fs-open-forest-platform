@@ -47,6 +47,7 @@ export class ApplicantInfo {
 }
 
 export class Phone {
+  tenDigit: string;
   areaCode: string;
   extension: string;
   number: string;
