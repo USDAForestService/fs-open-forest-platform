@@ -138,7 +138,7 @@
           <div class="usa-input-grid usa-input-grid-medium">
             <label class="usa-input" for="evening-phone">Phone number (10 digits)</label>
             <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.tenDigit" #eveningPhone="ngModel" />
-            <span id="evening-ext-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone is required.</span>
+            <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone is required.</span>
           </div>
           <div class="usa-input-grid usa-input-grid-small">
             <label class="usa-input" for="evening-ext">Ext (optional)</label>
