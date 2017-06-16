@@ -265,7 +265,8 @@
         <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required.</span>
 
-        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use.</label>
+        <label class="usa-input" for="location">Location</label>
+        <span class="help-text usa-form-hint">Description of National Forest system lands and facilities you would like to use.</span>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required.</span>
 
