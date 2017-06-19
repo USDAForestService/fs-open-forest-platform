@@ -1,26 +1,30 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <h1>Apply for a temporary outfitters permit.</h1>
+    <h2>{{forest}}</h2>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+      <p class="form-directions">All form fields are required unless otherwise noted.</p>
+
+      <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <p class="usa-alert-text">Please correct the errors before submitting.</p>
+        </div>
+      </div>
+
+      <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <ul class="usa-alert-text">
+            <li *ngFor="let error of apiErrors">{{error}}</li>
+          </ul>
+        </div>
+      </div>
+
       <fieldset>
-        <legend>{{forest}}</legend>
-        <p>All form fields are required unless otherwise noted.</p>
 
-        <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
-        </div>
-
-        <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <ul class="usa-alert-text">
-              <li *ngFor="let error of apiErrors">{{error}}</li>
-            </ul>
-          </div>
-        </div>
+        <legend>Files</legend>
 
         <div id="guide-document-wrapper" class="usa-file-upload-wrapper">
           <h3>Guide documentation</h3>
