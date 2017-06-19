@@ -2,7 +2,6 @@
 
 var expect = require('chai').expect;
 var util = require('../util.es6');
-//var factory = require('unionized');
 var noncommercialModels = require('./data/noncommercial-model-test-data.es6');
 
 describe('util tests', () => {
