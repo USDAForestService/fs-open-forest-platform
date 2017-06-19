@@ -7,6 +7,24 @@ const TABLE_NAME = 'noncommercialApplications';
 // alter column sizes and types
 // remove phone type
 
+let doTransaction = (queryInterface, operations) => {
+  return queryInterface.sequelize.transaction( (trx) => {
+    return Promise.each(operations, (operation) => {
+      if (operation.operation === 'add') {
+        return queryInterface.addColumn(TABLE_NAME, operation.field, {type: operation.type}, {transaction: trx});
+      } else if (operation.operation === 'remove') {
+        return queryInterface.removeColumn(TABLE_NAME, operation.field, {transaction: trx});
+      } else if (operation.operation === 'rename') {
+        return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField, {transaction: trx});
+      } else if (operation.operation === 'change') {
+        return queryInterface.changeColumn(TABLE_NAME, operation.field, operation.options, {transaction: trx});
+      } else if (operation.operation === 'raw') {
+        return queryInterface.sequelize.query(operation.query, { type: queryInterface.sequelize.QueryTypes.RAW, transaction: trx });
+      }
+    });
+  });
+};
+
 module.exports = {
   up: function(queryInterface, Sequelize) {
 
@@ -38,20 +56,7 @@ module.exports = {
       }
     ];
 
-    return Promise.each(operations, (operation) => {
-      if (operation.operation === 'add') {
-        return queryInterface.addColumn(TABLE_NAME, operation.field, {type: operation.type});
-      } else if (operation.operation === 'remove') {
-        return queryInterface.removeColumn(TABLE_NAME, operation.field);
-      } else if (operation.operation === 'rename') {
-        return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField);
-      } else if (operation.operation === 'change') {
-        return queryInterface.changeColumn(TABLE_NAME, operation.field, operation.options);
-      } else if (operation.operation === 'raw') {
-        return queryInterface.sequelize.query(operation.query, { type: queryInterface.sequelize.QueryTypes.RAW });
-      }
-    });
-
+    return doTransaction(queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
 
@@ -83,16 +88,6 @@ module.exports = {
       }
     ];
 
-    return Promise.each(operations, (operation) => {
-      if (operation.operation === 'add') {
-        return queryInterface.addColumn(TABLE_NAME, operation.field, {type: operation.type});
-      } else if (operation.operation === 'remove') {
-        return queryInterface.removeColumn(TABLE_NAME, operation.field);
-      } else if (operation.operation === 'rename') {
-        return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField);
-      } else if (operation.operation === 'raw') {
-        return queryInterface.sequelize.query(operation.query, { type: queryInterface.sequelize.QueryTypes.RAW });
-      }
-    });
+    return doTransaction(queryInterface, operations);
   }
 };
