@@ -125,11 +125,11 @@
           </div>
           <div class="usa-input-grid usa-input-grid-small">
             <label class="usa-input" for="day-ext">Ext (optional)</label>
-            <input class="usa-input" id="day-ext" name="day-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.dayPhone.ext" #dayExt="ngModel" />
+            <input class="usa-input" id="day-ext" name="day-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.dayPhone.extension" #dayExt="ngModel" />
           </div>
         </div>
 
-        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" />
+        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" (change)="clearAdditionalPhone()" />
         <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
 
         <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
@@ -140,7 +140,7 @@
           </div>
           <div class="usa-input-grid usa-input-grid-small">
             <label class="usa-input" for="evening-ext">Ext (optional)</label>
-            <input class="usa-input" id="evening-ext" name="evening-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.eveningPhone.ext" #primaryDayExt="ngModel" />
+            <input class="usa-input" id="evening-ext" name="evening-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.eveningPhone.extension" #primaryDayExt="ngModel" />
           </div>
         </div>
 
@@ -162,7 +162,7 @@
         <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
         <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required.</span>
 
-        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" />
+        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" (change)="clearPrimaryPermitHolderAddress()" />
         <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
 
         <div *ngIf="!primaryPermitHolderSameAddress">
@@ -200,7 +200,7 @@
       </fieldset>
 
       <fieldset>
-        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" />
+        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" (change)="clearSecondaryPermitHolderName(); clearSecondaryPermitHolderAddress(); secondaryPermitHolderSameAddress = true" />
         <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </fieldset>
@@ -216,7 +216,7 @@
         <input id="secondary-permit-holder-last-name" name="secondary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.secondaryLastName" #secondaryPermitHolderLastName="ngModel" />
         <span id="secondary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderLastName.valid || secondaryPermitHolderLastName.untouched">Secondary permit holder last name is required.</span>
 
-        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" />
+        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" (change)="clearSecondaryPermitHolderAddress()" />
         <label *ngIf="application.applicantInfo.orgType === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
         <label *ngIf="application.applicantInfo.orgType === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
 
