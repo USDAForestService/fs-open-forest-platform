@@ -85,6 +85,32 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   constructor(private applicationService: ApplicationService, private router: Router) { }
 
+  clearAdditionalPhone() {
+    this.application.applicantInfo.eveningPhone.tenDigit = undefined;
+    this.application.applicantInfo.eveningPhone.extension = undefined;
+  }
+
+  clearPrimaryPermitHolderAddress() {
+    this.application.applicantInfo.primaryAddress.mailingAddress = undefined;
+    this.application.applicantInfo.primaryAddress.mailingAddress2 = undefined;
+    this.application.applicantInfo.primaryAddress.mailingCity = undefined;
+    this.application.applicantInfo.primaryAddress.mailingState = undefined;
+    this.application.applicantInfo.primaryAddress.mailingZIP = undefined;
+  }
+
+  clearSecondaryPermitHolderName() {
+    this.application.applicantInfo.secondaryFirstName = undefined;
+    this.application.applicantInfo.secondaryLastName = undefined;
+  }
+
+  clearSecondaryPermitHolderAddress() {
+    this.application.applicantInfo.secondaryAddress.mailingAddress = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingAddress2 = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingCity = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingState = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingZIP = undefined;
+  }
+
   startDateChangeHandler() {
     if (
       this.application.noncommercialFields.startMonth &&
