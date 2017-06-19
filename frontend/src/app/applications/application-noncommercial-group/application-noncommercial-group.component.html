@@ -1,41 +1,40 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <h1>Apply for a noncommercial group use permit.</h1>
+    <h2>{{forest}}</h2>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
-      <fieldset>
-        <legend>{{forest}}</legend>
-        <p>All form fields are required unless otherwise noted.</p>
 
-        <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
+      <p class="form-directions">All form fields are required unless otherwise noted.</p>
+
+      <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <p class="usa-alert-text">Please correct the errors before submitting.</p>
         </div>
+      </div>
 
-        <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <ul class="usa-alert-text">
-              <li *ngFor="let error of apiErrors">{{error}}</li>
-            </ul>
-          </div>
-        </div>
-
-        <fieldset>
-          <legend>Applicant information</legend>
-          <label for="applicant-type">Are you applying as an individual or organization?</label>
-          <ul class="usa-unstyled-list">
-            <li>
-              <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
-              <label for="individual">Individual</label>
-            </li>
-            <li>
-              <input id="organization" type="radio" name="applicant-type" value="Corporation" [(ngModel)]="application.applicantInfo.orgType">
-              <label for="organization">Organization</label>
-            </li>
+      <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <ul class="usa-alert-text">
+            <li *ngFor="let error of apiErrors">{{error}}</li>
           </ul>
-        </fieldset>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Applicant information</legend>
+        <label for="applicant-type">Are you applying as an individual or organization?</label>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
+            <label for="individual">Individual</label>
+          </li>
+          <li>
+            <input id="organization" type="radio" name="applicant-type" value="Corporation" [(ngModel)]="application.applicantInfo.orgType">
+            <label for="organization">Organization</label>
+          </li>
+        </ul>
 
         <div *ngIf="application.applicantInfo.orgType === 'Person'">
           <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
@@ -117,7 +116,6 @@
         <label class="usa-input" for="email">Email address</label>
         <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.applicantInfo.emailAddress" #email="ngModel" />
         <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required.</span>
-
 
         <div class="fs-input-grid-wrapper">
           <div class="usa-input-grid usa-input-grid-medium">
@@ -265,7 +263,8 @@
         <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required.</span>
 
-        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use.</label>
+        <label class="usa-input" for="location">Location</label>
+        <span class="help-text usa-form-hint">Description of National Forest system lands and facilities you would like to use.</span>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required.</span>
 
