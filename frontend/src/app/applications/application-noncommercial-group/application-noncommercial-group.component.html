@@ -6,19 +6,10 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+      <div *ngIf="(form._submitted && !form.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
-        </div>
-      </div>
-
-      <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
-        <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">There are errors in your application.</h3>
-          <ul class="usa-alert-text">
-            <li *ngFor="let error of apiErrors">{{error}}</li>
-          </ul>
         </div>
       </div>
 
