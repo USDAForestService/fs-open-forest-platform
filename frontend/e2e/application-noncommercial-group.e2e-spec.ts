@@ -27,10 +27,8 @@ const checkForOrganizationAddress = function (state) {
 };
 
 const checkForAdditionalPhone = function (state) {
-  expect(element(by.id('night-phone-1')).isPresent()).toBe(state);
-  expect(element(by.id('night-phone-2')).isPresent()).toBe(state);
-  expect(element(by.id('night-phone-3')).isPresent()).toBe(state);
-  expect(element(by.id('night-phone-4')).isPresent()).toBe(state);
+  expect(element(by.id('evening-phone')).isPresent()).toBe(state);
+  expect(element(by.id('evening-ext')).isPresent()).toBe(state);
 };
 
 describe('Apply for a noncommercial group use permit', () => {
@@ -66,12 +64,8 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateNumberField('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 'Valid ZIP code is required.');
   fieldValidation.validateMinMax('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 5, 5);
   fieldValidation.validateEmailField('email', 'email-error', 'Valid email address is required.');
-  fieldValidation.validateNumberField('day-phone-1', 'day-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('day-phone-1', 'day-phone-error', 3, 3, true);
-  fieldValidation.validateNumberField('day-phone-2', 'day-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('day-phone-2', 'day-phone-error', 3, 3, true);
-  fieldValidation.validateNumberField('day-phone-3', 'day-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('day-phone-3', 'day-phone-error', 4, 4, true);
+  fieldValidation.validateNumberField('day-phone', 'day-phone-error', 'Valid phone is required.');
+  fieldValidation.validateMinMax('day-phone', 'day-phone-error', 10, 10, true);
   it('should select individual by default', () => {
     expect(element(by.id('individual')).isSelected()).toBe(true);
     expect(element(by.id('primary-permit-holder-first-name')).isPresent()).toBe(true);
@@ -104,12 +98,8 @@ describe('Apply for a noncommercial group use permit', () => {
     expect(element(by.id('add-additional-phone')).isSelected()).toBe(true);
     return checkForAdditionalPhone(true);
   });
-  fieldValidation.validateNumberField('night-phone-1', 'night-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('night-phone-1', 'night-phone-error', 3, 3, true);
-  fieldValidation.validateNumberField('night-phone-2', 'night-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('night-phone-2', 'night-phone-error', 3, 3, true);
-  fieldValidation.validateNumberField('night-phone-3', 'night-phone-error', 'Valid phone is required.');
-  fieldValidation.validateMinMax('night-phone-3', 'night-phone-error', 4, 4, true);
+  fieldValidation.validateNumberField('evening-phone', 'evening-phone-error', 'Valid phone is required.');
+  fieldValidation.validateMinMax('evening-phone', 'evening-phone-error', 10, 10, true);
   it('should hide additional phone if add addtional phone checkbox is clicked', () => {
     element(by.id('add-additional-phone')).click();
     expect(element(by.id('add-additional-phone')).isSelected()).toBe(false);

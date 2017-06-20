@@ -85,6 +85,32 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   constructor(private applicationService: ApplicationService, private router: Router) { }
 
+  clearAdditionalPhone() {
+    this.application.applicantInfo.eveningPhone.tenDigit = undefined;
+    this.application.applicantInfo.eveningPhone.extension = undefined;
+  }
+
+  clearPrimaryPermitHolderAddress() {
+    this.application.applicantInfo.primaryAddress.mailingAddress = undefined;
+    this.application.applicantInfo.primaryAddress.mailingAddress2 = undefined;
+    this.application.applicantInfo.primaryAddress.mailingCity = undefined;
+    this.application.applicantInfo.primaryAddress.mailingState = undefined;
+    this.application.applicantInfo.primaryAddress.mailingZIP = undefined;
+  }
+
+  clearSecondaryPermitHolderName() {
+    this.application.applicantInfo.secondaryFirstName = undefined;
+    this.application.applicantInfo.secondaryLastName = undefined;
+  }
+
+  clearSecondaryPermitHolderAddress() {
+    this.application.applicantInfo.secondaryAddress.mailingAddress = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingAddress2 = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingCity = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingState = undefined;
+    this.application.applicantInfo.secondaryAddress.mailingZIP = undefined;
+  }
+
   startDateChangeHandler() {
     if (
       this.application.noncommercialFields.startMonth &&
@@ -159,6 +185,14 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid || this.dateStatus.hasErrors) {
       window.scroll(0, 0);
     } else {
+      this.application.applicantInfo.dayPhone.areaCode = this.application.applicantInfo.dayPhone.tenDigit.substring(0, 3);
+      this.application.applicantInfo.dayPhone.prefix = this.application.applicantInfo.dayPhone.tenDigit.substring(3, 6);
+      this.application.applicantInfo.dayPhone.number = this.application.applicantInfo.dayPhone.tenDigit.substring(6, 10);
+      if (this.application.applicantInfo.eveningPhone.tenDigit) {
+        this.application.applicantInfo.eveningPhone.areaCode = this.application.applicantInfo.eveningPhone.tenDigit.substring(0, 3);
+        this.application.applicantInfo.eveningPhone.prefix = this.application.applicantInfo.eveningPhone.tenDigit.substring(3, 6);
+        this.application.applicantInfo.eveningPhone.number = this.application.applicantInfo.eveningPhone.tenDigit.substring(6, 10);
+      }
       const inputFormat = 'YYYY-MM-DD HH:mm A';
       const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       this.application.noncommercialFields.startDateTime = moment(

@@ -1,41 +1,31 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <h1>Apply for a noncommercial group use permit.</h1>
-    <h2 class="forest-name">{{forest}}</h2>
-    <p>All form fields are required unless otherwise noted.</p>
+    <h2>{{forest}}</h2>
     <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+      <p class="form-directions">All form fields are required unless otherwise noted.</p>
+
+      <div *ngIf="(form._submitted && !form.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <p class="usa-alert-text">Please correct the errors before submitting.</p>
+        </div>
+      </div>
+
       <fieldset>
         <legend>Applicant information</legend>
-
-        <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
-        </div>
-
-        <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <ul class="usa-alert-text">
-              <li *ngFor="let error of apiErrors">{{error}}</li>
-            </ul>
-          </div>
-        </div>
-
-        <fieldset>
-          <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
-          <ul class="usa-unstyled-list">
-            <li>
-              <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
-              <label for="individual">Individual</label>
-            </li>
-            <li>
-              <input id="organization" type="radio" name="applicant-type" value="Corporation" [(ngModel)]="application.applicantInfo.orgType">
-              <label for="organization">Organization</label>
-            </li>
-          </ul>
-        </fieldset>
+        <label for="applicant-type">Are you applying as an individual or organization?</label>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
+            <label for="individual">Individual</label>
+          </li>
+          <li>
+            <input id="organization" type="radio" name="applicant-type" value="Corporation" [(ngModel)]="application.applicantInfo.orgType">
+            <label for="organization">Organization</label>
+          </li>
+        </ul>
 
         <div *ngIf="application.applicantInfo.orgType === 'Person'">
           <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
@@ -118,42 +108,32 @@
         <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.applicantInfo.emailAddress" #email="ngModel" />
         <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required.</span>
 
-        <fieldset>
-          <legend class="fs-mini-legend">Phone</legend>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-1" name="day-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.dayPhone.areaCode" #dayPhone1="ngModel" />
+        <div class="fs-input-grid-wrapper">
+          <div class="usa-input-grid usa-input-grid-medium">
+            <label class="usa-input" for="day-phone">Phone number (10 digits)</label>
+            <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.dayPhone.tenDigit" #dayPhone="ngModel" />
+            <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="dayPhone.valid || dayPhone.untouched">Valid phone is required.</span>
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-2" name="day-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.dayPhone.prefix" #dayPhone2="ngModel" />
+          <div class="usa-input-grid usa-input-grid-small">
+            <label class="usa-input" for="day-ext">Ext (optional)</label>
+            <input class="usa-input" id="day-ext" name="day-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.dayPhone.extension" #dayExt="ngModel" />
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-3" name="day-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.applicantInfo.dayPhone.number" #dayPhone3="ngModel" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="day-phone-4" name="day-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.applicantInfo.dayPhone.extension" />
-          </div>
-        </fieldset>
-        <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="(dayPhone1.valid || dayPhone1.untouched) && (dayPhone2.valid || dayPhone2.untouched) && (dayPhone3.valid || dayPhone3.untouched)">Valid phone is required.</span>
+        </div>
 
-        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" />
+        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" (change)="clearAdditionalPhone()" />
         <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
 
-        <fieldset *ngIf="additionalPhone">
-          <legend class="fs-mini-legend">Secondary phone</legend>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-1" name="night-phone-1" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.eveningPhone.areaCode" #nightPhone1="ngModel" />
+        <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
+          <div class="usa-input-grid usa-input-grid-medium">
+            <label class="usa-input" for="evening-phone">Phone number (10 digits)</label>
+            <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.tenDigit" #eveningPhone="ngModel" />
+            <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone is required.</span>
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-2" name="night-phone-2" type="text" minlength="3" maxlength="3" pattern="(^\d{3}$)" placeholder="555" required [(ngModel)]="application.applicantInfo.eveningPhone.prefix" #nightPhone2="ngModel" />
+          <div class="usa-input-grid usa-input-grid-small">
+            <label class="usa-input" for="evening-ext">Ext (optional)</label>
+            <input class="usa-input" id="evening-ext" name="evening-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.eveningPhone.extension" #primaryDayExt="ngModel" />
           </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-3" name="night-phone-3" type="text" minlength="4" maxlength="4" pattern="(^\d{4}$)" placeholder="5555" required [(ngModel)]="application.applicantInfo.eveningPhone.number" #nightPhone3="ngModel" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <input class="usa-input-inline" id="night-phone-4" name="night-phone-4" type="text" placeholder="EXT" [(ngModel)]="application.applicantInfo.eveningPhone.extension" />
-          </div>
-          <span id="night-phone-error" class="usa-input-error-message clear" role="alert" [hidden]="(nightPhone1.valid || nightPhone1.untouched) && (nightPhone2.valid || nightPhone2.untouched) && (nightPhone3.valid || nightPhone3.untouched)">Valid phone is required.</span>
-        </fieldset>
+        </div>
 
         <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
           <label class="usa-input" for="website">Website (optional)</label>
@@ -173,7 +153,7 @@
         <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
         <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required.</span>
 
-        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" />
+        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" (change)="clearPrimaryPermitHolderAddress()" />
         <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
 
         <div *ngIf="!primaryPermitHolderSameAddress">
@@ -211,7 +191,7 @@
       </fieldset>
 
       <fieldset>
-        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" />
+        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" (change)="clearSecondaryPermitHolderName(); clearSecondaryPermitHolderAddress(); secondaryPermitHolderSameAddress = true" />
         <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </fieldset>
@@ -227,7 +207,7 @@
         <input id="secondary-permit-holder-last-name" name="secondary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.secondaryLastName" #secondaryPermitHolderLastName="ngModel" />
         <span id="secondary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderLastName.valid || secondaryPermitHolderLastName.untouched">Secondary permit holder last name is required.</span>
 
-        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" />
+        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" (change)="clearSecondaryPermitHolderAddress()" />
         <label *ngIf="application.applicantInfo.orgType === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
         <label *ngIf="application.applicantInfo.orgType === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
 
@@ -274,7 +254,8 @@
         <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required.</span>
 
-        <label class="usa-input" for="location">Location and description of National Forest system lands and facilities applicant would like to use within {{forest}}.</label>
+        <label class="usa-input" for="location">Location</label>
+        <span class="help-text usa-form-hint">Description of National Forest system lands and facilities you would like to use.</span>
         <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
         <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required.</span>
 
@@ -393,7 +374,7 @@
         <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Initials are required.</span>
       </fieldset>
 
-      <button class="usa-button usa-button-big" type="submit">Submit your application.</button>
+      <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>
 
     </form>
   </div>

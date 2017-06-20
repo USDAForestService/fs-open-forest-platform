@@ -6,12 +6,13 @@ let express =  require('express');
 let jsonschema = require('jsonschema');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
-let request = require('request');
 
 let util = require('./util.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let ApplicationFile = require('./models/application-files.es6');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+
+let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
 
 // Environment variables
 
@@ -20,9 +21,6 @@ const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
 const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
 const region = VCAPServices.s3[0].credentials.region;
 const bucket = VCAPServices.s3[0].credentials.bucket;
-const middleLayerBaseUrl = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_BASE_URL;
-const middleLayerUsername = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_USERNAME;
-const middleLayerPassword = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_PASSWORD;
 
 // JSON Validators
 
@@ -52,37 +50,6 @@ validator.addSchema(tempOutfitterFieldsSchema);
 validator.addSchema(tempOutfitterSchema);
 
 // Controllers
-
-let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
-
-  let authOptions = {
-    url: middleLayerBaseUrl + 'auth',
-    json: true,
-    body: { username: middleLayerUsername, password: middleLayerPassword }
-  };
-
-  let acceptanceOptions = {
-    url: middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
-    headers: { 'x-access-token': undefined },
-    json: true,
-    body: util.translateFromIntakeToMiddleLayer(application)
-  };
-
-  request.post(authOptions, (error, response, body) => {
-    if (error || response.statusCode !== 200) {
-      failureCallback(error || response);
-    } else {
-      acceptanceOptions.headers['x-access-token'] = body.token;
-      request.post(acceptanceOptions, (error, response, body) => {
-        if (error || response.statusCode !== 200) {
-          failureCallback(error || response);
-        } else {
-          successCallback(body);
-        }
-      });
-    }
-  });
-};
 
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
@@ -131,6 +98,14 @@ let createNoncommercialTempApp = (req, res) => {
   if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
     result = validator.validate(req.body.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
     util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
+  }
+
+  if(!util.validateDateTime(req.body.noncommercialFields.startDateTime)) {
+    errorArr.push('pattern-noncommercialFields.startDateTime');
+  }
+
+  if(!util.validateDateTime(req.body.noncommercialFields.endDateTime)) {
+    errorArr.push('pattern-noncommercialFields.endDateTime');
   }
 
   if (errorArr.length > 0) {
