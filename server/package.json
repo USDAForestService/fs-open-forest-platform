@@ -9,6 +9,7 @@
     "express": "4.15.2",
     "jsonschema": "1.1.1",
     "lodash": "4.17.4",
+    "moment": "2.18.1",
     "multer-s3": "^2.7.0",
     "multer": "^1.3.0",
     "pg": "^6.2.2",
@@ -25,11 +26,13 @@
     "nyc": "^11.0.1",
     "path": "^0.12.7",
     "supertest": "3.0.0",
-    "unionized": "4.12.0"
+    "unionized": "4.12.0",
+    "nock": "^9.0.13",
+    "sinon": "^2.3.4"
   },
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
-    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js",
+    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo",
     "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
