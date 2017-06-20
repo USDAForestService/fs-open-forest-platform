@@ -9,10 +9,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
-import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-person.component';
-import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
-import { PgFlowStep1Component } from './pg-flow-step-1/pg-flow-step-1.component';
-import { PgFlowStep2Component } from './pg-flow-step-2/pg-flow-step-2.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 
@@ -24,10 +20,6 @@ const appRoutes: Routes = [
   { path: 'applications/temp-outfitters/new', component: TemporaryOutfittersComponent },
   { path: 'help-me-pick/:id', component: HelpMePickComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'pg-flow-reg-person-friend-family', component: PgFlowRegPersonFriendFamilyComponent },
-  { path: 'pg-flow-reg-person', component: PgFlowRegPersonComponent },
-  { path: 'pg-flow-step-1', component: PgFlowStep1Component },
-  { path: 'pg-flow-step-2', component: PgFlowStep2Component },
   { path: 'style-guide', component: StyleGuideComponent },
   { path: '', component: HomeComponent },
   { path: '**', component: HomeComponent }

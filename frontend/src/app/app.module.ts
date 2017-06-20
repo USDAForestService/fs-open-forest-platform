@@ -16,10 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
-import { PgFlowRegPersonComponent } from './pg-flow-reg-person/pg-flow-reg-person.component';
-import { PgFlowRegPersonFriendFamilyComponent } from './pg-flow-reg-person-friend-family/pg-flow-reg-person-friend-family.component';
-import { PgFlowStep1Component } from './pg-flow-step-1/pg-flow-step-1.component';
-import { PgFlowStep2Component } from './pg-flow-step-2/pg-flow-step-2.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 import { TrackScrollDirective } from './_directives/scroll.directive';
@@ -36,10 +32,6 @@ import { TrackScrollDirective } from './_directives/scroll.directive';
     LoginComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
-    PgFlowRegPersonComponent,
-    PgFlowRegPersonFriendFamilyComponent,
-    PgFlowStep1Component,
-    PgFlowStep2Component,
     StyleGuideComponent,
     TemporaryOutfittersComponent,
     TrackScrollDirective

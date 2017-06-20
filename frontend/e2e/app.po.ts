@@ -58,7 +58,7 @@ export class HelpMePick {
 
     it('should go back to step one', () => {
       browser.get('/');
-      element(by.id('do-i-need-permit')).click();
+      element(by.id('help-find-permit')).click();
       expect(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
     });
   }
