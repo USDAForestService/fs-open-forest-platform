@@ -4,6 +4,8 @@
 
 [![Code Climate Coverage](https://codeclimate.com/github/flexion/fs-intake-module/badges/coverage.svg)](https://codeclimate.com/github/flexion/fs-intake-module/coverage)
 
+[![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
+
 # U.S. Forest Service Intake Module
 Module for intake of special use applications for Forest Service Application Permits.
 
