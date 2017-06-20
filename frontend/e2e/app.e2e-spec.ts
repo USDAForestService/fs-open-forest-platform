@@ -12,28 +12,18 @@ describe('frontend App', () => {
 
   it('should display page title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('U.S. Forest Service permits');
+    expect(page.getParagraphText()).toEqual('Apply for a permit');
   });
 
-  it('should show calls to action', () => {
-    expect(element(by.id('do-i-need-permit')).isDisplayed()).toBeTruthy();
-    expect(element(by.id('apply-for-permit')).isDisplayed()).toBeTruthy();
-  });
-
-  it('should go to apply for permit page when button is clicked', () => {
-    element(by.id('apply-for-permit')).click();
-    expect(element(by.css('app-root h1')).getText()).toEqual('Apply for a permit');
-  });
-
-  it('should have ctas to apply for different permtis', () => {
+  it('should have ctas to apply for different permits', () => {
     expect(element(by.id('noncommercial-permit')).isDisplayed()).toBeTruthy();
     expect(element(by.id('temp-outfitters-permit')).isDisplayed()).toBeTruthy();
     expect(element(by.id('help-find-permit')).isDisplayed()).toBeTruthy();
   });
 
-  it('should go to help me pick wizard if do i need a permit button is clicked', () => {
+  it('should go to help me pick wizard if help me find permit button is clicked', () => {
     page.navigateTo();
-    element(by.id('do-i-need-permit')).click();
+    element(by.id('help-find-permit')).click();
     expect(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
   });
 
@@ -55,6 +45,5 @@ describe('frontend App', () => {
   helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
   helpMePick.landingPage('You can apply for a temporary outfitter and guide permit online.');
-
 
 });
