@@ -3,6 +3,10 @@
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
 
+Client: [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b)
+
+Server: [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0)
+
 # U.S. Forest Service Intake Module
 Module for intake of special use applications for Forest Service Application Permits.
 
