@@ -131,11 +131,11 @@ validate.validateNoncommercial = (obj) => {
   errorArr = validateSchema(validationObj);
 
   if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
-    errorArr.push('pattern-noncommercialFields.startDateTime');
+    errorArr.push('pattern-dateTimeRange.startDateTime');
   }
 
   if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
-    errorArr.push('pattern-noncommercialFields.endDateTime');
+    errorArr.push('pattern-dateTimeRange.endDateTime');
   }
 
   return errorArr;

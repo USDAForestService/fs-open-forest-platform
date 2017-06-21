@@ -81,7 +81,7 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolderBadStartDateTime.create());
 
       expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('pattern-noncommercialFields.startDateTime');
+      expect(errors[0]).to.equal('pattern-dateTimeRange.startDateTime');
 
     });
 
@@ -89,7 +89,7 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolderBadEndDateTime.create());
 
       expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('pattern-noncommercialFields.endDateTime');
+      expect(errors[0]).to.equal('pattern-dateTimeRange.endDateTime');
 
     });
 
