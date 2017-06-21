@@ -86,9 +86,13 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
   }
 
   .file-name {
-    margin-bottom: 6px;
-    overflow: hidden;
-    width: 90%;
+    display: inline-block;
+    margin: 0 10px 10px 0;
+    max-width: 90%;
+  }
+
+  .no-file-selected {
+    margin-right: 10px;
   }
 
   input[type='file'] {
