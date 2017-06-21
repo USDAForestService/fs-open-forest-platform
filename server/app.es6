@@ -3,15 +3,16 @@
 let AWS = require('aws-sdk');
 let bodyParser = require('body-parser');
 let express =  require('express');
-let jsonschema = require('jsonschema');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
-let request = require('request');
 
 let util = require('./util.es6');
+let validator = require('./validation.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let ApplicationFile = require('./models/application-files.es6');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+
+let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
 
 // Environment variables
 
@@ -20,126 +21,16 @@ const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
 const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
 const region = VCAPServices.s3[0].credentials.region;
 const bucket = VCAPServices.s3[0].credentials.bucket;
-const middleLayerBaseUrl = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_BASE_URL;
-const middleLayerUsername = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_USERNAME;
-const middleLayerPassword = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_PASSWORD;
-
-// JSON Validators
-
-let validator = new jsonschema.Validator();
-let validatorOptions = { 'nestedErrors' : true };
-
-let addressSchema = require('./json-schemas/address-schema.es6');
-let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
-let commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
-let noncommercialApplicantInfoSchema = require('./json-schemas/noncommercial-application-info-schema.es6');
-let noncommercialFieldsSchema = require('./json-schemas/noncommercial-fields-schema.es6');
-let noncommercialSchema = require('./json-schemas/noncommercial-schema.es6');
-let phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
-let tempOutfitterAppInfoSchema = require('./json-schemas/tempOutfitter-application-info-schema.es6');
-let tempOutfitterFieldsSchema = require('./json-schemas/tempOutfitter-fields-schema.es6');
-let tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
-
-validator.addSchema(addressSchema);
-validator.addSchema(applicantInfoBaseSchema);
-validator.addSchema(commonFieldsSchema);
-validator.addSchema(noncommercialApplicantInfoSchema);
-validator.addSchema(noncommercialFieldsSchema);
-validator.addSchema(noncommercialSchema);
-validator.addSchema(phoneNumberSchema);
-validator.addSchema(tempOutfitterAppInfoSchema);
-validator.addSchema(tempOutfitterFieldsSchema);
-validator.addSchema(tempOutfitterSchema);
 
 // Controllers
-
-let sendAcceptedNoncommercialApplicationToMiddleLayer = (application, successCallback, failureCallback) => {
-
-  let authOptions = {
-    url: middleLayerBaseUrl + 'auth',
-    json: true,
-    body: { username: middleLayerUsername, password: middleLayerPassword }
-  };
-
-  let acceptanceOptions = {
-    url: middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
-    headers: { 'x-access-token': undefined },
-    json: true,
-    body: util.translateFromIntakeToMiddleLayer(application)
-  };
-
-  request.post(authOptions, (error, response, body) => {
-    if (error || response.statusCode !== 200) {
-      failureCallback(error || response);
-    } else {
-      acceptanceOptions.headers['x-access-token'] = body.token;
-      request.post(acceptanceOptions, (error, response, body) => {
-        if (error || response.statusCode !== 200) {
-          failureCallback(error || response);
-        } else {
-          successCallback(body);
-        }
-      });
-    }
-  });
-};
 
 // populates an applicationId on the object before return
 let createNoncommercialTempApp = (req, res) => {
 
-  let errorArr = [];
+  //let errorArr = [];
   let errorRet = {};
 
-  // overall validation
-  let result = validator.validate(req.body, noncommercialSchema, validatorOptions);
-  if (result.errors.length > 0) {
-    util.collateErrors(result, errorArr);
-  }
-
-  // if there is an evening phone, validate it
-  if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
-    result = validator.validate(req.body.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
-  }
-
-  // if the orgType is Individual, then primaryAddress is required
-  if (req.body.applicantInfo.orgType === 'Person') {
-    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    } else {
-      errorArr.push('required-applicantInfo.primaryAddress');
-    }
-  }
-
-  // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  if (req.body.applicantInfo.orgType === 'Corporation') {
-    if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-    } else {
-      errorArr.push('required-applicantInfo.organizationAddress');
-    }
-
-    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    }
-  }
-
-  // if secondaryAddress exists, then validate it
-  if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
-    result = validator.validate(req.body.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
-  }
-
-  if(!util.validateDateTime(req.body.noncommercialFields.startDateTime)) {
-    errorArr.push('pattern-noncommercialFields.startDateTime');
-  }
-
-  if(!util.validateDateTime(req.body.noncommercialFields.endDateTime)) {
-    errorArr.push('pattern-noncommercialFields.endDateTime');
-  }
+  let errorArr = validator.validateNoncommercial(req.body);
 
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
@@ -270,51 +161,9 @@ let createAppFile = (req, res) => {
 
 let createTempOutfitterApp = (req, res) => {
 
-  let errorArr = [];
   let errorRet = {};
 
-  // overall validation
-  let result = validator.validate(req.body, tempOutfitterSchema, validatorOptions);
-  if (result.errors.length > 0) {
-    util.collateErrors(result, errorArr);
-  }
-
-  // if there is an evening phone, validate it
-  if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
-    result = validator.validate(req.body.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
-  }
-
-  // if the orgType is Individual, then primaryAddress is required
-  if (req.body.applicantInfo.orgType === 'Person') {
-    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    } else {
-      errorArr.push('required-applicantInfo.primaryAddress');
-    }
-  }
-
-  // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  // if (req.body.applicantInfo.orgType === 'Corporation') {
-  //   if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-  //   } else {
-  //     errorArr.push('required-applicantInfo.organizationAddress');
-  //   }
-  //
-  //   if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-  //   }
-  // }
-
-  // if secondaryAddress exists, then validate it
-  if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
-    result = validator.validate(req.body.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
-  }
+  let errorArr = validator.validateTempOutfitter(req.body);
 
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;

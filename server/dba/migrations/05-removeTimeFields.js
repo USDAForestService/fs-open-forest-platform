@@ -1,8 +1,9 @@
 'use strict';
 
-let Promise = require('bluebird');
+let doTransaction = require('./modules/transaction');
 
 const TABLE_NAME = 'noncommercialApplications';
+
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -58,16 +59,7 @@ module.exports = {
       }
     ];
 
-    return Promise.each(operations, (operation) => {
-      if (operation.operation === 'add') {
-        return queryInterface.addColumn(TABLE_NAME, operation.field, {type: operation.type});
-      } else if (operation.operation === 'remove') {
-        return queryInterface.removeColumn(TABLE_NAME, operation.field);
-      } else if (operation.operation === 'rename') {
-        return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField);
-      }
-    });
-
+    return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
 
@@ -134,14 +126,6 @@ module.exports = {
       }
     ];
 
-    return Promise.each(operations, (operation) => {
-      if (operation.operation === 'add') {
-        return queryInterface.addColumn(TABLE_NAME, operation.field, {type: operation.type});
-      } else if (operation.operation === 'remove') {
-        return queryInterface.removeColumn(TABLE_NAME, operation.field);
-      } else if (operation.operation === 'rename') {
-        return queryInterface.renameColumn(TABLE_NAME, operation.field, operation.newField);
-      }
-    });
+    return doTransaction(TABLE_NAME, queryInterface, operations);
   }
 };
