@@ -23,6 +23,8 @@ util.collateErrors = (result, errorArr, prefix) => {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
     }
   }
+
+  return errorArr;
 };
 
 util.translateFromDatabaseToJSON = (input) => {
