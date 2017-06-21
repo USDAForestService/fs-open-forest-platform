@@ -6,7 +6,7 @@ let Promise = require('bluebird');
 let doTransaction = (tableName, queryInterface, operations) => {
   return queryInterface.sequelize.transaction( (trx) => {
 
-    return Promise.each(moreOperations, (operation) => {
+    return Promise.each(operations, (operation) => {
       operation.transaction = trx;
       switch (operation.operation) {
         case 'add': {
