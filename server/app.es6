@@ -161,51 +161,9 @@ let createAppFile = (req, res) => {
 
 let createTempOutfitterApp = (req, res) => {
 
-  let errorArr = [];
   let errorRet = {};
 
-  // overall validation
-  let result = validator.validate(req.body, tempOutfitterSchema, validatorOptions);
-  if (result.errors.length > 0) {
-    util.collateErrors(result, errorArr);
-  }
-
-  // if there is an evening phone, validate it
-  if (req.body.applicantInfo.eveningPhone && Object.keys(req.body.applicantInfo.eveningPhone).length > 0) {
-    result = validator.validate(req.body.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
-  }
-
-  // if the orgType is Individual, then primaryAddress is required
-  if (req.body.applicantInfo.orgType === 'Person') {
-    if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-      result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-      util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    } else {
-      errorArr.push('required-applicantInfo.primaryAddress');
-    }
-  }
-
-  // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  // if (req.body.applicantInfo.orgType === 'Corporation') {
-  //   if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-  //   } else {
-  //     errorArr.push('required-applicantInfo.organizationAddress');
-  //   }
-  //
-  //   if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-  //   }
-  // }
-
-  // if secondaryAddress exists, then validate it
-  if (req.body.applicantInfo.secondaryAddress && Object.keys(req.body.applicantInfo.secondaryAddress).length > 0) {
-    result = validator.validate(req.body.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
-    util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
-  }
+  let errorArr = validator.validateTempOutfitter(req.body);
 
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
