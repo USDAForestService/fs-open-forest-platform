@@ -28,15 +28,6 @@ validator.addSchema(tempOutfitterAppInfoSchema);
 validator.addSchema(tempOutfitterFieldsSchema);
 validator.addSchema(tempOutfitterSchema);
 
-
-// refactor to take obj:
-// inputObj: inputObj,
-// schema: schema,
-// errors: errorArr,
-// prefix: errorPrefix,
-// required: true/false,
-// requiredKey: 'required-field'
-
 let validateSchema = (input) => {
 
   let result;
@@ -70,10 +61,6 @@ validate.validateNoncommercial = (obj) => {
   };
 
   errorArr = validateSchema(validationObj);
-  // let result = validator.validate(obj, noncommercialSchema, validatorOptions);
-  // if (result.errors.length > 0) {
-  //   util.collateErrors(result, errorArr);
-  // }
 
   validationObj = {
     inputObj: obj.applicantInfo.eveningPhone,
@@ -88,11 +75,6 @@ validate.validateNoncommercial = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  // if (obj.applicantInfo.eveningPhone && Object.keys(obj.applicantInfo.eveningPhone).length > 0) {
-  //   result = validator.validate(obj.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
-  //   util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
-  // }
-
   // if the orgType is Individual, then primaryAddress is required
   if (obj.applicantInfo.orgType === 'Person') {
 
@@ -106,13 +88,6 @@ validate.validateNoncommercial = (obj) => {
     };
 
     errorArr = validateSchema(validationObj);
-
-    // if (obj.applicantInfo.primaryAddress && Object.keys(obj.applicantInfo.primaryAddress).length > 0) {
-    //   result = validator.validate(obj.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-    //   util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    // } else {
-    //   errorArr.push('required-applicantInfo.primaryAddress');
-    // }
   }
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
@@ -129,13 +104,6 @@ validate.validateNoncommercial = (obj) => {
 
     errorArr = validateSchema(validationObj);
 
-    // if (obj.applicantInfo.organizationAddress && Object.keys(obj.applicantInfo.organizationAddress).length > 0) {
-    //   result = validator.validate(obj.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-    //   util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-    // } else {
-    //   errorArr.push('required-applicantInfo.organizationAddress');
-    // }
-
     validationObj = {
       inputObj: obj.applicantInfo.primaryAddress,
       schema: addressSchema,
@@ -146,11 +114,6 @@ validate.validateNoncommercial = (obj) => {
     };
 
     errorArr = validateSchema(validationObj);
-
-    // if (obj.applicantInfo.primaryAddress && Object.keys(obj.applicantInfo.primaryAddress).length > 0) {
-    //   result = validator.validate(obj.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-    //   util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    // }
   }
 
   // if secondaryAddress exists, then validate it
@@ -165,11 +128,6 @@ validate.validateNoncommercial = (obj) => {
   };
 
   errorArr = validateSchema(validationObj);
-
-  // if (obj.applicantInfo.secondaryAddress && Object.keys(obj.applicantInfo.secondaryAddress).length > 0) {
-  //   result = validator.validate(obj.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
-  //   util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
-  // }
 
   if(!util.validateDateTime(obj.noncommercialFields.startDateTime)) {
     errorArr.push('pattern-noncommercialFields.startDateTime');
@@ -199,11 +157,6 @@ validate.validateTempOutfitter = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  // let result = validator.validate(obj, tempOutfitterSchema, validatorOptions);
-  // if (result.errors.length > 0) {
-  //   util.collateErrors(result, errorArr);
-  // }
-
   // if there is an evening phone, validate it
 
   validationObj = {
@@ -216,11 +169,6 @@ validate.validateTempOutfitter = (obj) => {
   };
 
   errorArr = validateSchema(validationObj);
-
-  // if (obj.applicantInfo.eveningPhone && Object.keys(obj.applicantInfo.eveningPhone).length > 0) {
-  //   result = validator.validate(obj.applicantInfo.eveningPhone, phoneNumberSchema, validatorOptions);
-  //   util.collateErrors(result, errorArr, 'applicantInfo.eveningPhone.');
-  // }
 
   // if the orgType is Individual, then primaryAddress is required
   if (obj.applicantInfo.orgType === 'Person') {
@@ -235,29 +183,7 @@ validate.validateTempOutfitter = (obj) => {
     };
 
     errorArr = validateSchema(validationObj);
-
-    // if (obj.applicantInfo.primaryAddress && Object.keys(obj.applicantInfo.primaryAddress).length > 0) {
-    //   result = validator.validate(obj.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-    //   util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-    // } else {
-    //   errorArr.push('required-applicantInfo.primaryAddress');
-    // }
   }
-
-  // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  // if (req.body.applicantInfo.orgType === 'Corporation') {
-  //   if (req.body.applicantInfo.organizationAddress && Object.keys(req.body.applicantInfo.organizationAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.organizationAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.organizationAddress.');
-  //   } else {
-  //     errorArr.push('required-applicantInfo.organizationAddress');
-  //   }
-  //
-  //   if (req.body.applicantInfo.primaryAddress && Object.keys(req.body.applicantInfo.primaryAddress).length > 0) {
-  //     result = validator.validate(req.body.applicantInfo.primaryAddress, addressSchema, validatorOptions);
-  //     util.collateErrors(result, errorArr, 'applicantInfo.primaryAddress.');
-  //   }
-  // }
 
   // if secondaryAddress exists, then validate it
 
@@ -271,11 +197,6 @@ validate.validateTempOutfitter = (obj) => {
   };
 
   errorArr = validateSchema(validationObj);
-
-  // if (obj.applicantInfo.secondaryAddress && Object.keys(obj.applicantInfo.secondaryAddress).length > 0) {
-  //   result = validator.validate(obj.applicantInfo.secondaryAddress, addressSchema, validatorOptions);
-  //   util.collateErrors(result, errorArr, 'applicantInfo.secondaryAddress.');
-  // }
 
   return errorArr;
 
