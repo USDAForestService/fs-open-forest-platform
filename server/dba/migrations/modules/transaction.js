@@ -50,12 +50,25 @@ let addPreparations = (tableName, operations) => {
           break;
         }
         case 'change': {
+          try {
           if ( ! operation.options.allowNull ) {
-            moreOperations.push( changeNotNull(tableName, operation) );
+            let newOperation = changeNotNull(tableName, operation);
+            if (newOperation) {
+              moreOperations.push(newOperation);
+            }
           }
           // binary undefined I presume for now means string value rather than number
-          if (operation.options.type.options.length && operation.options.type.options.binary === undefined) {
-            moreOperations.push( changeStringLength(tableName, operation) );
+          if (   operation.options.type.options
+              && operation.options.type.options.length
+              && operation.options.type.options.binary === undefined) {
+            let newOperation = changeStringLength(tableName, operation);
+            if (newOperation) {
+              moreOperations.push(newOperation);
+            }
+          }
+          } catch (e) {
+            console.log(operation);
+            throw e;
           }
           break;
         }
@@ -74,11 +87,13 @@ let addPreparations = (tableName, operations) => {
 
 let changeNotNull =  (table, operation) => {
   let field   = operation.field;
-  let value   = operation.options.defaultValue;
+  let value   = operation.migrationDefaultValue;
   let options = {transaction: operation.transaction};
 
   if (value===undefined) {
-    return 'ERROR: options.defaultValue is required when setting allowNull to false';
+    console.log('WARNING: operation.migrationDefaultValue is recommended when setting allowNull to false for pre-migrations to remove nulls on '
+      +table+ '.' +field);
+    return undefined;
   }
 
   return {
