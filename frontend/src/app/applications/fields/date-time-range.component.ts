@@ -101,7 +101,6 @@ export class DateTimeRangeComponent implements OnInit {
       const inputFormat = 'YYYY-MM-DD HH:mm A';
       const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       const today = moment();
-      // TODO: put this function in a util / constants file
       const startDateTime = moment(
         values.startYear +
         '-' +
