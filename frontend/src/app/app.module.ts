@@ -1,6 +1,6 @@
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationService } from './_services/application.service';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
+import { ApplicationsModule } from './applications/applications.module';
 import { FileUploadComponent } from './applications/fields/file-upload.component';
 import { FileUploader, FileSelectDirective } from '../../node_modules/ng2-file-upload/ng2-file-upload';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -46,9 +47,11 @@ import { TrackScrollDirective } from './_directives/scroll.directive';
   ],
   imports: [
     AppRoutingModule,
+    ApplicationsModule,
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule
   ],
   providers: [ApplicationService],
   bootstrap: [AppComponent]
