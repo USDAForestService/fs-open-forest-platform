@@ -9,6 +9,7 @@ let validatorOptions = { 'nestedErrors' : true };
 let addressSchema = require('./json-schemas/address-schema.es6');
 let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
 let commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
+let dateTimeRangeSchema = require('./json-schemas/date-time-range-schema.es6');
 let noncommercialApplicantInfoSchema = require('./json-schemas/noncommercial-application-info-schema.es6');
 let noncommercialFieldsSchema = require('./json-schemas/noncommercial-fields-schema.es6');
 let noncommercialSchema = require('./json-schemas/noncommercial-schema.es6');
@@ -20,6 +21,7 @@ let tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
 validator.addSchema(addressSchema);
 validator.addSchema(applicantInfoBaseSchema);
 validator.addSchema(commonFieldsSchema);
+validator.addSchema(dateTimeRangeSchema);
 validator.addSchema(noncommercialApplicantInfoSchema);
 validator.addSchema(noncommercialFieldsSchema);
 validator.addSchema(noncommercialSchema);
@@ -128,11 +130,11 @@ validate.validateNoncommercial = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  if(!util.validateDateTime(obj.dateTimeRange.startDateTime)) {
+  if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
     errorArr.push('pattern-noncommercialFields.startDateTime');
   }
 
-  if(!util.validateDateTime(obj.dateTimeRange.endDateTime)) {
+  if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
     errorArr.push('pattern-noncommercialFields.endDateTime');
   }
 
