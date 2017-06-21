@@ -10,14 +10,6 @@ module.exports = {
       'default': '',
       'type': 'string'
     },
-    'startDateTime': {
-      'default':'',
-      'type': 'string'
-    },
-    'endDateTime': {
-      'default':'',
-      'type': 'string'
-    },
     'numberParticipants': {
       'default': '0',
       'type': 'integer'
@@ -31,5 +23,5 @@ module.exports = {
       'type': 'integer'
     }
   },
-  'required': ['activityDescription', 'locationDescription', 'startDateTime', 'endDateTime', 'numberParticipants', 'spectators']
+  'required': ['activityDescription', 'locationDescription', 'numberParticipants', 'spectators']
 };
