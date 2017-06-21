@@ -5,6 +5,7 @@ export interface Application {
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
   controlNumber: string;
+  dateTimeRange: DateTimeRange;
   district: string;
   eventName: string;
   forest: string;
@@ -50,8 +51,14 @@ export interface Address {
   mailingZIP: string;
 }
 
-export interface NoncommercialFields {
+export class NoncommercialFields {
   activityDescription: string;
+  locationDescription: string;
+  numberParticipants: string;
+  spectators: string;
+}
+
+export class DateTimeRange {
   endDateTime: string;
   endDay: string;
   endMonth: string;
@@ -59,9 +66,6 @@ export interface NoncommercialFields {
   endHour: string;
   endMinutes: string;
   endPeriod: string;
-  locationDescription: string;
-  numberParticipants: string;
-  spectators: string;
   startDateTime: string;
   startDay: string;
   startMonth: string;

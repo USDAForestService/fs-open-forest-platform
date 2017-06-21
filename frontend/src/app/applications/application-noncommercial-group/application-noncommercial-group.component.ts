@@ -2,12 +2,13 @@ import { Application } from '../../_models/application';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
+import { DateTimeRangeComponent } from '../fields/date-time-range.component';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [ ApplicationService, ApplicationFieldsService ],
+  providers: [ ApplicationService, ApplicationFieldsService, DateTimeRangeComponent ],
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html'
 })
@@ -97,6 +98,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
       }
     });
+  }
+
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
   }
 
   onSubmit(form) {
