@@ -117,7 +117,6 @@ validate.validateNoncommercial = (obj) => {
   }
 
   // if secondaryAddress exists, then validate it
-
   validationObj = {
     inputObj: obj.applicantInfo.secondaryAddress,
     schema: addressSchema,
@@ -129,11 +128,11 @@ validate.validateNoncommercial = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  if(!util.validateDateTime(obj.noncommercialFields.startDateTime)) {
+  if(!util.validateDateTime(obj.dateTimeRange.startDateTime)) {
     errorArr.push('pattern-noncommercialFields.startDateTime');
   }
 
-  if(!util.validateDateTime(obj.noncommercialFields.endDateTime)) {
+  if(!util.validateDateTime(obj.dateTimeRange.endDateTime)) {
     errorArr.push('pattern-noncommercialFields.endDateTime');
   }
 
@@ -145,7 +144,6 @@ validate.validateTempOutfitter = (obj) => {
   let errorArr = [];
 
   // overall validation
-
   let validationObj = {
     inputObj: obj,
     schema: tempOutfitterSchema,
@@ -158,7 +156,6 @@ validate.validateTempOutfitter = (obj) => {
   errorArr = validateSchema(validationObj);
 
   // if there is an evening phone, validate it
-
   validationObj = {
     inputObj: obj.applicantInfo.eveningPhone,
     schema: phoneNumberSchema,
@@ -186,7 +183,6 @@ validate.validateTempOutfitter = (obj) => {
   }
 
   // if secondaryAddress exists, then validate it
-
   validationObj = {
     inputObj: obj.applicantInfo.secondaryAddres,
     schema: addressSchema,
