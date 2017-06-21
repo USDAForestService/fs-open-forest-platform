@@ -23,8 +23,8 @@ describe('noncommercial tests', () => {
   describe('POST date validation tests', () => {
     it('should return a 201 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = '2018-01-01T00:15:00Z';
-      data.noncommercialFields.endDateTime = '2018-06-30T23:30:00Z';
+      data.dateTimeRange.startDateTime = '2018-01-01T00:15:00Z';
+      data.dateTimeRange.endDateTime = '2018-06-30T23:30:00Z';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
@@ -35,8 +35,8 @@ describe('noncommercial tests', () => {
 
     it('should return a 201 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = '2018-01-31T00:45:00Z';
-      data.noncommercialFields.endDateTime = '2018-12-31T23:00:00Z';
+      data.dateTimeRange.startDateTime = '2018-01-31T00:45:00Z';
+      data.dateTimeRange.endDateTime = '2018-12-31T23:00:00Z';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
@@ -47,53 +47,53 @@ describe('noncommercial tests', () => {
 
     it('should return a 400 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = '2018-01-32T00:45:00Z';
-      data.noncommercialFields.endDateTime = '2018-13-31T23:00:00Z';
+      data.dateTimeRange.startDateTime = '2018-01-32T00:45:00Z';
+      data.dateTimeRange.endDateTime = '2018-13-31T23:00:00Z';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
         .send(data)
         .expect('Content-Type', /json/)
-        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect({errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime']})
         .expect(400, done);
     });
 
     it('should return a 400 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = '2018-32T00:45:00Z';
-      data.noncommercialFields.endDateTime = '2018-13-31T00:00Z';
+      data.dateTimeRange.startDateTime = '2018-32T00:45:00Z';
+      data.dateTimeRange.endDateTime = '2018-13-31T00:00Z';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
         .send(data)
         .expect('Content-Type', /json/)
-        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect({errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime']})
         .expect(400, done);
     });
 
     it('should return a 400 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = '2018-01-01T00:45:00';
-      data.noncommercialFields.endDateTime = '01-01T23:00:00Z';
+      data.dateTimeRange.startDateTime = '2018-01-01T00:45:00';
+      data.dateTimeRange.endDateTime = '01-01T23:00:00Z';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
         .send(data)
         .expect('Content-Type', /json/)
-        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect({errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime']})
         .expect(400, done);
     });
 
     it('should return a 400 response', (done) => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.noncommercialFields.startDateTime = 'what';
-      data.noncommercialFields.endDateTime = ' ';
+      data.dateTimeRange.startDateTime = 'what';
+      data.dateTimeRange.endDateTime = ' ';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
         .send(data)
         .expect('Content-Type', /json/)
-        .expect({errors: ['pattern-noncommercialFields.startDateTime', 'pattern-noncommercialFields.endDateTime']})
+        .expect({errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime']})
         .expect(400, done);
     });
 
@@ -218,49 +218,49 @@ describe('noncommercial tests', () => {
 
   it('should return a required error for start date', (done) => {
     let data = noncommercialTestData.singlePermitHolder.create();
-    data.noncommercialFields.startDateTime = undefined;
+    data.dateTimeRange.startDateTime = undefined;
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(/"required-noncommercialFields.startDateTime"/)
+      .expect(/"required-dateTimeRange.startDateTime"/)
       .expect(400, done);
   });
 
   it('should return a required error for end date', (done) => {
     let data = noncommercialTestData.singlePermitHolder.create();
-    data.noncommercialFields.endDateTime = undefined;
+    data.dateTimeRange.endDateTime = undefined;
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(/"required-noncommercialFields.endDateTime"/)
+      .expect(/"required-dateTimeRange.endDateTime"/)
       .expect(400, done);
   });
 
   it('should return a pattern error for start date', (done) => {
     let data = noncommercialTestData.singlePermitHolder.create();
-    data.noncommercialFields.startDateTime = '2020';
+    data.dateTimeRange.startDateTime = '2020';
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(/"pattern-noncommercialFields.startDateTime"/)
+      .expect(/"pattern-dateTimeRange.startDateTime"/)
       .expect(400, done);
   });
 
   it('should return a pattern error for end date', (done) => {
     let data = noncommercialTestData.singlePermitHolder.create();
-    data.noncommercialFields.endDateTime = '2020';
+    data.dateTimeRange.endDateTime = '2020';
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(/"pattern-noncommercialFields.endDateTime"/)
+      .expect(/"pattern-dateTimeRange.endDateTime"/)
       .expect(400, done);
   });
 
