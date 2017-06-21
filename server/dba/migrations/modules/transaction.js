@@ -51,21 +51,21 @@ let addPreparations = (tableName, operations) => {
         }
         case 'change': {
           try {
-          if ( ! operation.options.allowNull ) {
-            let newOperation = changeNotNull(tableName, operation);
-            if (newOperation) {
-              moreOperations.push(newOperation);
+            if ( ! operation.options.allowNull ) {
+              let newOperation = changeNotNull(tableName, operation);
+              if (newOperation) {
+                moreOperations.push(newOperation);
+              }
             }
-          }
-          // binary undefined I presume for now means string value rather than number
-          if (   operation.options.type.options
-              && operation.options.type.options.length
-              && operation.options.type.options.binary === undefined) {
-            let newOperation = changeStringLength(tableName, operation);
-            if (newOperation) {
-              moreOperations.push(newOperation);
+            // binary undefined I presume for now means string value rather than number
+            if (   operation.options.type.options
+                && operation.options.type.options.length
+                && operation.options.type.options.binary === undefined) {
+              let newOperation = changeStringLength(tableName, operation);
+              if (newOperation) {
+                moreOperations.push(newOperation);
+              }
             }
-          }
           } catch (e) {
             console.log(operation);
             throw e;
