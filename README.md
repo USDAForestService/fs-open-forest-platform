@@ -2,10 +2,13 @@
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
+[![Codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/sprint-6-development/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 
-Client: [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b)
+Client:
+[![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b)
 
-Server: [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0)
+Server:
+[![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0)
 
 # U.S. Forest Service Intake Module
 Module for intake of special use applications for Forest Service Application Permits.
