@@ -98,8 +98,8 @@ export class DateTimeRangeComponent implements OnInit {
       values.endMinutes &&
       values.endPeriod
     ) {
-      console.log('hi');
-      const format = 'YYYY-MM-DD HH:mm A';
+      const inputFormat = 'YYYY-MM-DD HH:mm A';
+      const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       const today = moment();
       // TODO: put this function in a util / constants file
       const startDateTime = moment(
@@ -114,7 +114,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.startMinutes +
         ' ' +
         values.startPeriod
-      , format);
+      , inputFormat);
       const endDateTime = moment(
         values.endYear +
         '-' +
@@ -127,9 +127,9 @@ export class DateTimeRangeComponent implements OnInit {
         values.endMinutes +
         ' ' +
         values.endPeriod
-      , format);
-      this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime }});
-      this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime }});
+      , inputFormat);
+      this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' }});
+      this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' }});
       this.dateStatus.startDateTimeValid = startDateTime.isValid();
       this.dateStatus.endDateTimeValid = endDateTime.isValid();
       this.dateStatus.startBeforeEnd =  startDateTime.isBefore(endDateTime);
