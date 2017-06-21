@@ -83,7 +83,7 @@
         <input id="name" formControlName="eventName" type="text" />
         <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.eventName.valid || applicationForm.controls.eventName.untouched">Event name is required.</span>
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
-
+        <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
       </fieldset>
 
       <fieldset>

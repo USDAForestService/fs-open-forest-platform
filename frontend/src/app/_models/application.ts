@@ -5,6 +5,7 @@ export class Application {
   authorizingOfficerName: string;
   authorizingOfficerTitle: string;
   controlNumber: string;
+  dateTimeRange: DateTimeRange;
   district: string;
   eventName: string;
   forest: string;
@@ -17,6 +18,7 @@ export class Application {
   type: string;
   constructor() {
     this.applicantInfo = new ApplicantInfo();
+    this.dateTimeRange = new DateTimeRange();
     this.noncommercialFields = new NoncommercialFields();
     this.tempOutfitterFiles = new TempOutfitterFiles();
     this.tempOutfitterFields = new TempOutfitterFields();
@@ -65,6 +67,12 @@ export class Address {
 
 export class NoncommercialFields {
   activityDescription: string;
+  locationDescription: string;
+  numberParticipants: string;
+  spectators: string;
+}
+
+export class DateTimeRange {
   endDateTime: string;
   endDay: string;
   endMonth: string;
@@ -72,9 +80,6 @@ export class NoncommercialFields {
   endHour: string;
   endMinutes: string;
   endPeriod: string;
-  locationDescription: string;
-  numberParticipants: string;
-  spectators: string;
   startDateTime: string;
   startDay: string;
   startMonth: string;

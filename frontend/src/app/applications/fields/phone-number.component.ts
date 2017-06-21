@@ -16,11 +16,11 @@ export class PhoneNumberComponent implements OnInit {
 
   ngOnInit() {
     const dayPhone = this.formBuilder.group({
-      areaCode: [''],
-      extension: [''],
-      number: [''],
+      areaCode: [],
+      extension: [],
+      number: [],
       phoneType: ['dayPhone'],
-      prefix: [''],
+      prefix: [],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl('dayPhone', dayPhone );
@@ -43,11 +43,11 @@ export class PhoneNumberComponent implements OnInit {
 
   addAdditionalPhone() {
     const eveningPhone = this.formBuilder.group({
-      areaCode: [''],
-      extension: [''],
-      number: [''],
+      areaCode: [],
+      extension: [],
+      number: [],
       phoneType: ['eveningPhone'],
-      prefix: [''],
+      prefix: [],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl('eveningPhone', eveningPhone);

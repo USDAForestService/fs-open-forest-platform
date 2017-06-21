@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { ApplicationFieldsService } from './_services/application-fields.service';
 
 import { AddressComponent } from './fields/address.component';
+import { DateTimeRangeComponent } from './fields/date-time-range.component';
 import { EmailComponent } from './fields/email.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
@@ -17,6 +18,7 @@ import { WebsiteComponent } from './fields/website.component';
 @NgModule({
   declarations: [
     AddressComponent,
+    DateTimeRangeComponent,
     EmailComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
@@ -27,6 +29,7 @@ import { WebsiteComponent } from './fields/website.component';
   ],
   exports: [
     AddressComponent,
+    DateTimeRangeComponent,
     EmailComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
