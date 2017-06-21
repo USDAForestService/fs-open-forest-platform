@@ -2,389 +2,106 @@
   <div class="usa-grid">
     <h1>Apply for a noncommercial group use permit.</h1>
     <h2>{{forest}}</h2>
-    <form class="usa-form-large" #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit(applicationForm)" novalidate>
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
         </div>
       </div>
 
-      <div *ngIf="apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
-        <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">There are errors in your application.</h3>
-          <ul class="usa-alert-text">
-            <li *ngFor="let error of apiErrors">{{error}}</li>
-          </ul>
-        </div>
-      </div>
-
       <fieldset>
         <legend>Applicant information</legend>
-        <label for="applicant-type">Are you applying as an individual or organization?</label>
-        <ul class="usa-unstyled-list">
-          <li>
-            <input id="individual" type="radio" name="applicant-type" value="Person" [(ngModel)]="application.applicantInfo.orgType">
-            <label for="individual">Individual</label>
-          </li>
-          <li>
-            <input id="organization" type="radio" name="applicant-type" value="Corporation" [(ngModel)]="application.applicantInfo.orgType">
-            <label for="organization">Organization</label>
-          </li>
-        </ul>
 
-        <div *ngIf="application.applicantInfo.orgType === 'Person'">
-          <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
-          <input id="primary-permit-holder-first-name" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.primaryFirstName" #primaryPermitHolderFirstName="ngModel" />
-          <span id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required.</span>
+        <app-org-type [parentForm]="applicationForm"></app-org-type>
 
-          <label class="usa-input" for="primary-permit-holder-last-name">Primary permit holder last name</label>
-          <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
-          <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required.</span>
-
-          <label class="usa-input" for="primary-permit-holder-address">Street address 1</label>
-          <input id="primary-permit-holder-address" name="primary-permit-holder-address" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress" #primaryPermitHolderAddress="ngModel" />
-          <span id="primary-permit-holder-address-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderAddress.valid || primaryPermitHolderAddress.untouched">Street address 1 is required.</span>
-
-          <label class="usa-input" for="primary-permit-holder-address-line-2">Street address 2 (optional)</label>
-          <input id="primary-permit-holder-address-line-2" name="primary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress2" />
-
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="primary-permit-holder-city">City</label>
-              <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
-              <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required.</span>
-            </div>
-            <div class="usa-input-grid usa-input-grid-small">
-              <label class="usa-input" for="primary-permit-holder-state">State</label>
-              <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
-                <option value="" selected="selected"></option>
-                <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-              </select>
-              <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required.</span>
-            </div>
-          </div>
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
-              <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingZIP" #primaryPermitHolderZip="ngModel" />
-              <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required.</span>
-            </div>
-          </div>
-
+        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'">
+          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary"></app-permit-holder-name>
+          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
 
-        <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
-          <label class="usa-input" for="organization-name">Organization name</label>
-          <input id="organization-name" name="organization-name" type="text" required [(ngModel)]="application.applicantInfo.organizationName" #organizationName="ngModel" />
-          <span id="organization-name-error" class="usa-input-error-message" role="alert" [hidden]="organizationName.valid || organizationName.untouched">Organization name is required.</span>
-
-          <label class="usa-input" for="address">Street address 1</label>
-          <input id="organization-address" name="address" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingAddress" #address="ngModel" />
-          <span id="organization-address-error" class="usa-input-error-message" role="alert" [hidden]="address.valid || address.untouched">Street address 1 is required.</span>
-
-          <label class="usa-input" for="address-line-2">Street address 2 (optional)</label>
-          <input id="organization-address-line-2" name="address-line-2" type="text" [(ngModel)]="application.applicantInfo.organizationAddress.mailingAddress2" />
-
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="city">City</label>
-              <input id="organization-city" name="city" type="text" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingCity" #city="ngModel" />
-              <span id="organization-city-error" class="usa-input-error-message" role="alert" [hidden]="city.valid || city.untouched">City is required.</span>
-            </div>
-            <div class="usa-input-grid usa-input-grid-small">
-              <label class="usa-input" for="state">State</label>
-              <select id="organization-state" name="state" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingState" #state="ngModel">
-                <option value="" selected="selected"></option>
-                <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-              </select>
-              <span id="organization-state-error" class="usa-input-error-message" role="alert" [hidden]="state.valid || state.untouched">State is required.</span>
-            </div>
-          </div>
-
-          <div class="fs-input-grid-wrapper">
-            <label class="usa-input" for="zip">ZIP</label>
-            <input class="usa-input-medium" id="organization-zip" name="zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.organizationAddress.mailingZIP" #zip="ngModel" />
-            <span id="organization-zip-error" class="usa-input-error-message" role="alert" [hidden]="zip.valid || zip.untouched">Valid ZIP code is required.</span>
-          </div>
-
+        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo"></app-organization-name>
+          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
-        <label class="usa-input" for="email">Email address</label>
-        <input id="email" name="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" required [(ngModel)]="application.applicantInfo.emailAddress" #email="ngModel" />
-        <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="email.valid || email.untouched">Valid email address is required.</span>
+        <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
+        <app-phone-number [parentForm]="applicationForm.get('applicantInfo')"></app-phone-number>
 
-        <div class="fs-input-grid-wrapper">
-          <div class="usa-input-grid usa-input-grid-medium">
-            <label class="usa-input" for="day-phone">Phone number (10 digits)</label>
-            <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.dayPhone.tenDigit" #dayPhone="ngModel" />
-            <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="dayPhone.valid || dayPhone.untouched">Valid phone is required.</span>
-          </div>
-          <div class="usa-input-grid usa-input-grid-small">
-            <label class="usa-input" for="day-ext">Ext (optional)</label>
-            <input class="usa-input" id="day-ext" name="day-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.dayPhone.extension" #dayExt="ngModel" />
-          </div>
+        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+          <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
         </div>
-
-        <input id="add-additional-phone" name="add-additional-phone" type="checkbox" [(ngModel)]="additionalPhone" value="true" (change)="clearAdditionalPhone()" />
-        <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
-
-        <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
-          <div class="usa-input-grid usa-input-grid-medium">
-            <label class="usa-input" for="evening-phone">Phone number (10 digits)</label>
-            <input id="evening-phone" name="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" required [(ngModel)]="application.applicantInfo.eveningPhone.tenDigit" #eveningPhone="ngModel" />
-            <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="eveningPhone.valid || eveningPhone.untouched">Valid phone is required.</span>
-          </div>
-          <div class="usa-input-grid usa-input-grid-small">
-            <label class="usa-input" for="evening-ext">Ext (optional)</label>
-            <input class="usa-input" id="evening-ext" name="evening-ext" type="text" pattern="(^\d{4}$)" [(ngModel)]="application.applicantInfo.eveningPhone.extension" #primaryDayExt="ngModel" />
-          </div>
-        </div>
-
-        <div *ngIf="application.applicantInfo.orgType === 'Corporation'">
-          <label class="usa-input" for="website">Website (optional)</label>
-          <input id="website" name="website" type="url" [(ngModel)]="application.applicantInfo.website" />
-        </div>
-
       </fieldset>
 
-      <fieldset *ngIf="application.applicantInfo.orgType === 'Corporation'">
+      <fieldset *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
         <legend>Primary permit holder</legend>
+        <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary"></app-permit-holder-name>
 
-        <label class="usa-input" for="primary-permit-holder-first-name">Primary permit holder first name</label>
-        <input id="primary-permit-holder-first-name" name="primary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.primaryFirstName" #primaryPermitHolderFirstName="ngModel" />
-        <span id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderFirstName.valid || primaryPermitHolderFirstName.untouched">Primary permit holder first name is required.</span>
+        <ng-container formGroupName="applicantInfo">
+          <input id="primary-permit-holder-same-address" name="primaryAddressSameAsOrganization" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
+          <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
+        </ng-container>
 
-        <label class="usa-input" for="primary-permit-holder-last-name">Primary permit holder last name</label>
-        <input id="primary-permit-holder-last-name" name="primary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.primaryLastName" #primaryPermitHolderLastName="ngModel" />
-        <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderLastName.valid || primaryPermitHolderLastName.untouched">Primary permit holder last name is required.</span>
-
-        <input id="primary-permit-holder-same-address" name="primary-permit-holder-same-address" type="checkbox" [(ngModel)]="primaryPermitHolderSameAddress" (change)="clearPrimaryPermitHolderAddress()" />
-        <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
-
-        <div *ngIf="!primaryPermitHolderSameAddress">
-          <label class="usa-input" for="primary-permit-holder-address">Street address 1</label>
-          <input id="primary-permit-holder-address" name="primary-permit-holder-address" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress" #primaryPermitHolderAddress="ngModel" />
-          <span id="primary-permit-holder-address-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderAddress.valid || primaryPermitHolderAddress.untouched">Street address 1 is required.</span>
-
-          <label class="usa-input" for="primary-permit-holder-address-line-2">Street address 2 (optional)</label>
-          <input id="primary-permit-holder-address-line-2" name="primary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.primaryAddress.mailingAddress2" />
-
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="primary-permit-holder-city">City</label>
-              <input id="primary-permit-holder-city" name="primary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingCity" #primaryPermitHolderCity="ngModel" />
-              <span id="primary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderCity.valid || primaryPermitHolderCity.untouched">City is required.</span>
-            </div>
-            <div class="usa-input-grid usa-input-grid-small">
-              <label class="usa-input" for="primary-permit-holder-state">State</label>
-              <select id="primary-permit-holder-state" name="primary-permit-holder-state" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingState" #primaryPermitHolderState="ngModel">
-                <option value="" selected="selected"></option>
-                <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-              </select>
-              <span id="primary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderState.valid || primaryPermitHolderState.untouched">State is required.</span>
-            </div>
-          </div>
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="primary-permit-holder-zip">ZIP</label>
-              <input class="usa-input-medium" id="primary-permit-holder-zip" name="primary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.primaryAddress.mailingZIP" #primaryPermitHolderZip="ngModel" />
-              <span id="primary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="primaryPermitHolderZip.valid || primaryPermitHolderZip.untouched">Valid ZIP code is required.</span>
-            </div>
-          </div>
+        <div *ngIf="!applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
+          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
-
       </fieldset>
 
-      <fieldset>
-        <input id="add-secondary-permit-holder" name="add-secondary-permit-holder" type="checkbox" [(ngModel)]="viewSecondaryPermitHolder" (change)="clearSecondaryPermitHolderName(); clearSecondaryPermitHolderAddress(); secondaryPermitHolderSameAddress = true" />
-        <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
+      <fieldset formGroupName="applicantInfo">
+        <input id="add-secondary-permit-holder" name="addSecondaryPermitHolder" type="checkbox" formControlName="addSecondaryPermitHolder" />
+        <label class="usa-input" for="addSecondaryPermitHolder">Add a secondary permit holder.</label>
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </fieldset>
 
-      <fieldset *ngIf="viewSecondaryPermitHolder">
-        <legend>Secondary permit holder</legend>
+      <fieldset *ngIf="applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
+          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary"></app-permit-holder-name>
 
-        <label class="usa-input" for="secondary-permit-holder-first-name">Secondary permit holder first name</label>
-        <input id="secondary-permit-holder-first-name" name="secondary-permit-holder-first-name" type="text" required [(ngModel)]="application.applicantInfo.secondaryFirstName" #secondaryPermitHolderFirstName="ngModel" />
-        <span id="secondary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderFirstName.valid || secondaryPermitHolderFirstName.untouched">Secondary permit holder first name is required.</span>
+          <ng-container formGroupName="applicantInfo">
+            <input id="secondary-permit-holder-same-address" name="secondaryAddressSameAsPrimary" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
+            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondaryAddressSameAsPrimary">Secondary permit holder address is same as primary permit holder address.</label>
+            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondaryAddressSameAsPrimary">Secondary permit holder address is same as organization address.</label>
+          </ng-container>
 
-        <label class="usa-input" for="secondary-permit-holder-last-name">Secondary permit holder last name</label>
-        <input id="secondary-permit-holder-last-name" name="secondary-permit-holder-last-name" type="text" required [(ngModel)]="application.applicantInfo.secondaryLastName" #secondaryPermitHolderLastName="ngModel" />
-        <span id="secondary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderLastName.valid || secondaryPermitHolderLastName.untouched">Secondary permit holder last name is required.</span>
-
-        <input id="secondary-permit-holder-same-address" name="secondary-permit-holder-same-address" type="checkbox" [(ngModel)]="secondaryPermitHolderSameAddress" (change)="clearSecondaryPermitHolderAddress()" />
-        <label *ngIf="application.applicantInfo.orgType === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
-        <label *ngIf="application.applicantInfo.orgType === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
-
-        <div *ngIf="!secondaryPermitHolderSameAddress">
-          <label class="usa-input" for="secondary-permit-holder-address">Street address 1</label>
-          <input id="secondary-permit-holder-address" name="secondary-permit-holder-address" type="text" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingAddress" #secondaryPermitHolderAddress="ngModel" />
-          <span id="secondary-permit-holder-address-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderAddress.valid || secondaryPermitHolderAddress.untouched">Street address 1 is required.</span>
-
-          <label class="usa-input" for="secondary-permit-holder-address-line-2">Street address 2 (optional)</label>
-          <input id="secondary-permit-holder-address-line-2" name="secondary-permit-holder-address-line-2" type="text" [(ngModel)]="application.applicantInfo.secondaryAddress.mailingAddress2" />
-
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="secondary-permit-holder-city">City</label>
-              <input id="secondary-permit-holder-city" name="secondary-permit-holder-city" type="text" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingCity" #secondaryPermitHolderCity="ngModel" />
-              <span id="secondary-permit-holder-city-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderCity.valid || secondaryPermitHolderCity.untouched">City is required.</span>
-            </div>
-            <div class="usa-input-grid usa-input-grid-small">
-              <label class="usa-input" for="secondary-permit-holder-state">State</label>
-              <select id="secondary-permit-holder-state" name="secondary-permit-holder-state" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingState" #secondaryPermitHolderState="ngModel">
-                <option value="" selected="selected"></option>
-                <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
-              </select>
-              <span id="secondary-permit-holder-state-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderState.valid || secondaryPermitHolderState.untouched">State is required.</span>
-            </div>
-          </div>
-          <div class="fs-input-grid-wrapper">
-            <div class="usa-input-grid usa-input-grid-medium">
-              <label class="usa-input" for="secondary-permit-holder-zip">ZIP</label>
-              <input class="usa-input-medium" id="secondary-permit-holder-zip" name="secondary-permit-holder-zip" type="text" minlength="5" maxlength="5" pattern="(^\d{5}$)" required [(ngModel)]="application.applicantInfo.secondaryAddress.mailingZIP" #secondaryPermitHolderZip="ngModel" />
-              <span id="secondary-permit-holder-zip-error" class="usa-input-error-message" role="alert" [hidden]="secondaryPermitHolderZip.valid || secondaryPermitHolderZip.untouched">Valid ZIP code is required.</span>
-            </div>
-          </div>
-        </div>
+          <app-address
+            *ngIf="!applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').value"
+            [parentForm]="applicationForm.get('applicantInfo')"
+            formName="secondaryAddress"
+            type="secondary-permit-holder">
+          </app-address>
 
       </fieldset>
 
-      <hr/>
+      <hr />
 
       <fieldset>
         <legend>Event details</legend>
 
-        <label class="usa-input" for="name">Event name</label>
-        <input id="name" name="name" type="text" required [(ngModel)]="application.eventName" #name="ngModel" />
-        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="name.valid || name.untouched">Event name is required.</span>
+        <label class="usa-input" for="eventName">Event Name</label>
+        <input id="name" formControlName="eventName" type="text" />
+        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.eventName.valid || applicationForm.controls.eventName.untouched">Event name is required.</span>
+        <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
 
-        <label class="usa-input" for="location">Location</label>
-        <span class="help-text usa-form-hint">Description of National Forest system lands and facilities you would like to use.</span>
-        <input id="location" name="location" type="text" required [(ngModel)]="application.noncommercialFields.locationDescription" #location="ngModel" />
-        <span id="location-error" class="usa-input-error-message" role="alert" [hidden]="location.valid || location.untouched">Location is required.</span>
-
-        <label class="usa-input" for="participants">Estimated number of participants</label>
-        <span class="help-text usa-form-hint">This is the number of people who will directly participate in the event.</span>
-        <input id="participants" name="participants" type="number" required [(ngModel)]="application.noncommercialFields.numberParticipants" #participants="ngModel" />
-        <span id="participants-error" class="usa-input-error-message" role="alert" [hidden]="participants.valid || participants.untouched">Participants is required.</span>
-
-        <label class="usa-input" for="spectators">Estimated number of spectators</label>
-        <span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators.</span>
-        <input id="spectators" name="spectators" type="number" [(ngModel)]="application.noncommercialFields.spectators" #spectators="ngModel" />
-
-        <label class="usa-input" for="activity-description">Description of proposed activity</label>
-        <textarea id="activity-description" name="activity-description" required [(ngModel)]="application.noncommercialFields.activityDescription" #activityDescription="ngModel"></textarea>
-        <span id="activity-description-error" class="usa-input-error-message" role="alert" [hidden]="activityDescription.valid || activityDescription.untouched">Activity description is required.</span>
-
-        <fieldset>
-          <legend class="fs-datetime-legend">Start date</legend>
-          <div class="usa-form-group usa-form-group-month">
-            <label for="start-month">Month</label>
-            <input class="usa-input-inline" id="start-month" name="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.startMonth" #startMonth="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
-          </div>
-          <div class="usa-form-group usa-form-group-day">
-            <label for="start-day">Day</label>
-            <input class="usa-input-inline" id="start-day" name="start-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.startDay" #startDay="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="start-year">Year</label>
-            <input class="usa-input-inline" id="start-year" name="start-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.startYear" #startYear="ngModel" (change)="startDateChangeHandler(); dateTimeRangeValidator();" />
-          </div>
-        </fieldset>
-        <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(startMonth.valid || startMonth.untouched) && (startDay.valid || startDay.untouched) && (startYear.valid || startYear.untouched)">Start date is required.</span>
-        <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startDateTimeValid)">Start date is invalid.</span>
-
-        <fieldset>
-          <legend class="fs-datetime-legend">Start time </legend>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="start-hour">Hour</label>
-            <select class="usa-input-inline" id="start-hour" name="start-hour" required [(ngModel)]="application.noncommercialFields.startHour" #startHour="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
-            </select>
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="start-minutes">Minutes</label>
-            <select class="usa-input-inline" id="start-minutes" name="start-minutes" required [(ngModel)]="application.noncommercialFields.startMinutes" #startMinutes="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
-            </select>
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="start-period">AM / PM</label>
-            <select class="usa-input-inline" id="start-period" name="start-period" required [(ngModel)]="application.noncommercialFields.startPeriod" #startPeriod="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-        </fieldset>
-        <span id="start-time-error" class="usa-input-error-message" role="alert" [hidden]="(startHour.valid || startHour.untouched) && (startMinutes.valid || startMinutes.untouched) && (startPeriod.valid || startPeriod.untouched)">Start time is required.</span>
-        <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startBeforeEnd)">Start date and time must be before end date and time.</span>
-        <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startAfterToday)">Start date and time must be in the future.</span>
-
-        <fieldset>
-          <legend class="fs-datetime-legend">End date</legend>
-          <div class="usa-form-group usa-form-group-month">
-            <label for="end-month">Month</label>
-            <input class="usa-input-inline" id="end-month" name="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" required [(ngModel)]="application.noncommercialFields.endMonth" #endMonth="ngModel" (change)="dateTimeRangeValidator();" />
-          </div>
-          <div class="usa-form-group usa-form-group-day">
-            <label for="end-day">Day</label>
-            <input class="usa-input-inline" id="end-day" name="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" required [(ngModel)]="application.noncommercialFields.endDay" #endDay="ngModel" (change)="dateTimeRangeValidator();" />
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="end-year">Year</label>
-            <input class="usa-input-inline" id="end-year" name="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" required [(ngModel)]="application.noncommercialFields.endYear" #endYear="ngModel" (change)="dateTimeRangeValidator();" />
-          </div>
-        </fieldset>
-        <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(endMonth.valid || endMonth.untouched) && (endDay.valid || endDay.untouched) && (endYear.valid || endYear.untouched)">End date is required.</span>
-        <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.endDateTimeValid)">End date is invalid.</span>
-
-        <fieldset>
-          <legend class="fs-datetime-legend">End time </legend>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="end-hour">Hour</label>
-            <select class="usa-input-inline" id="end-hour" name="end-hour" required [(ngModel)]="application.noncommercialFields.endHour" #endHour="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
-            </select>
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="end-minutes">Minutes</label>
-            <select class="usa-input-inline" id="end-minutes" name="end-minutes" required [(ngModel)]="application.noncommercialFields.endMinutes" #endMinutes="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
-            </select>
-          </div>
-          <div class="usa-form-group usa-form-group-year">
-            <label for="end-period">AM / PM</label>
-            <select class="usa-input-inline" id="end-period" name="end-period" required [(ngModel)]="application.noncommercialFields.endPeriod" #endPeriod="ngModel" (change)="dateTimeRangeValidator();" >
-              <option value="" selected="selected"></option>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-        </fieldset>
-        <span id="end-time-error" class="usa-input-error-message" role="alert" [hidden]="(endHour.valid || endHour.untouched) && (endMinutes.valid || endMinutes.untouched) && (endPeriod.valid || endPeriod.untouched)">End time is required.</span>
       </fieldset>
-
-      <hr/>
 
       <fieldset>
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
-        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" required [(ngModel)]="application.signature" #signature="ngModel" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="signature.valid || signature.untouched">Initials are required.</span>
+        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" />
+        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
       </fieldset>
 
       <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>
 
     </form>
+
+    <div class="margin-top-2">
+      <div>myForm details:-</div>
+      <pre>Is myForm valid?: <br>{{applicationForm.valid | json}}</pre>
+      <pre>form value: <br>{{applicationForm.value | json}}</pre>
+    </div>
+
   </div>
 </section>
