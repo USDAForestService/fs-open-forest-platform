@@ -30,11 +30,11 @@
         <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
         <label>Date submitted</label>
-        <div [ngClass]="{'deadline-warning': isApproachingDeadline(application.noncommercialFields.startDateTime)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
+        <div [ngClass]="{'deadline-warning': isApproachingDeadline(application.dateTimeRange.startDateTime)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
         <label>Start date</label>
-        <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div>{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>End date</label>
-        <div>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div>{{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>Location</label>
         <div>{{ application.noncommercialFields.locationDescription }}</div>
         <label>Permit holder</label>
