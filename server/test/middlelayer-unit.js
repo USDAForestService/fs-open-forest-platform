@@ -70,12 +70,12 @@ describe('middle layer unit tests', () => {
 
     nock('http://localhost:8080')
       .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { status: 'success-suds' });
+      .reply(200, { status: 'success' });
 
     var success = (response) => {
       expect(response).to.not.be.null;
       expect(response.status, 'response.status should exist').to.not.be.undefined;
-      expect(response.status).to.equal('success-suds');
+      expect(response.status).to.equal('success');
       done();
     };
 
