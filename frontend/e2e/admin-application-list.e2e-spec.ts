@@ -11,16 +11,16 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display forest name', () => {
     list.navigateTo();
-    expect(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });
 
   it('should display applications sub-header', () => {
     list.navigateTo();
-    expect(element(by.css('app-root h2')).getText()).toEqual('Non-commercial group use applications');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Non-commercial group use applications');
   });
 
   it('should show table headings', () => {
-    expect(element(by.css('.application-list')).isPresent).toBeTruthy();
+    expect<any>(element(by.css('.application-list')).isPresent).toBeTruthy();
   });
 
 });
