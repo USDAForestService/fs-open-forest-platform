@@ -12,19 +12,19 @@ describe('frontend App', () => {
 
   it('should display page title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Apply for a permit');
+    expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
   });
 
   it('should have ctas to apply for different permits', () => {
-    expect(element(by.id('noncommercial-permit')).isDisplayed()).toBeTruthy();
-    expect(element(by.id('temp-outfitters-permit')).isDisplayed()).toBeTruthy();
-    expect(element(by.id('help-find-permit')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('noncommercial-permit')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('temp-outfitters-permit')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('help-find-permit')).isDisplayed()).toBeTruthy();
   });
 
   it('should go to help me pick wizard if help me find permit button is clicked', () => {
     page.navigateTo();
     element(by.id('help-find-permit')).click();
-    expect(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
   });
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
