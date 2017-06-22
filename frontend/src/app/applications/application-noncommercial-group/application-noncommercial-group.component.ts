@@ -1,11 +1,14 @@
 import { Application } from '../../_models/application';
 import { ApplicationService } from '../../_services/application.service';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import { DateTimeRangeComponent } from '../fields/date-time-range.component';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [ ApplicationService ],
+  providers: [ ApplicationService, ApplicationFieldsService, DateTimeRangeComponent ],
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html'
 })
@@ -18,7 +21,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   primaryPermitHolderSameAddress = true;
   secondaryPermitHolderSameAddress = true;
   submitted = false;
-  viewSecondaryPermitHolder = false;
+  applicantInfo: any;
+  orgType: any;
+
   dateStatus = {
     startDateTimeValid: true,
     endDateTimeValid: true,
@@ -27,201 +32,84 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     hasErrors: false
   };
 
-  states = [
-    {short: 'AK', long: 'Alabama'},
-    {short: 'AL', long: 'Alaska'},
-    {short: 'AR', long: 'Arizona'},
-    {short: 'AZ', long: 'Arkansas'},
-    {short: 'CA', long: 'California'},
-    {short: 'CO', long: 'Colorado'},
-    {short: 'CT', long: 'Connecticut'},
-    {short: 'DE', long: 'Delaware'},
-    {short: 'FL', long: 'Florida'},
-    {short: 'GA', long: 'Georgia'},
-    {short: 'HI', long: 'Hawaii'},
-    {short: 'ID', long: 'Idaho'},
-    {short: 'IL', long: 'Illinois'},
-    {short: 'IN', long: 'Indiana'},
-    {short: 'IA', long: 'Iowa'},
-    {short: 'KS', long: 'Kansas'},
-    {short: 'KY', long: 'Kentucky'},
-    {short: 'LA', long: 'Louisiana'},
-    {short: 'ME', long: 'Maine'},
-    {short: 'MD', long: 'Maryland'},
-    {short: 'MA', long: 'Massachusetts'},
-    {short: 'MI', long: 'Michigan'},
-    {short: 'MN', long: 'Minnesota'},
-    {short: 'MS', long: 'Mississippi'},
-    {short: 'MO', long: 'Missouri'},
-    {short: 'MT', long: 'Montana'},
-    {short: 'NE', long: 'Nebraska'},
-    {short: 'NV', long: 'Nevada'},
-    {short: 'NH', long: 'New Hampshire'},
-    {short: 'NJ', long: 'New Jersey'},
-    {short: 'NM', long: 'New Mexico'},
-    {short: 'NY', long: 'New York'},
-    {short: 'NC', long: 'North Carolina'},
-    {short: 'ND', long: 'North Dakota'},
-    {short: 'OH', long: 'Ohio'},
-    {short: 'OK', long: 'Oklahoma'},
-    {short: 'OR', long: 'Oregon'},
-    {short: 'PA', long: 'Pennsylvania'},
-    {short: 'RI', long: 'Rhode Island'},
-    {short: 'SC', long: 'South Carolina'},
-    {short: 'SD', long: 'South Dakota'},
-    {short: 'TN', long: 'Tennessee'},
-    {short: 'TX', long: 'Texas'},
-    {short: 'UT', long: 'Utah'},
-    {short: 'VT', long: 'Vermont'},
-    {short: 'VA', long: 'Virginia'},
-    {short: 'WA', long: 'Washington'},
-    {short: 'WV', long: 'West Virginia'},
-    {short: 'WI', long: 'Wisconsin'},
-    {short: 'WY', long: 'Wyoming'}
-  ];
+  public applicationForm: FormGroup;
 
-  hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  minutes = ['00', '15', '30', '45'];
 
-  constructor(private applicationService: ApplicationService, private router: Router) { }
+  constructor(
+    private applicationService: ApplicationService,
+    private applicationFieldsService: ApplicationFieldsService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.applicationForm = this.formBuilder.group({
+      district: ['11', [Validators.required]],
+      region: ['06', [Validators.required]],
+      forest: ['05', [Validators.required]],
+      type: ['noncommercial', [Validators.required]],
+      eventName: ['', [Validators.required]],
+      signature: ['', [Validators.required]],
+      applicantInfo: this.formBuilder.group({
+        addSecondaryPermitHolder: [false],
+        emailAddress: ['', Validators.required],
+        organizationName: [''],
+        orgType: ['Person', Validators.required],
+        primaryAddressSameAsOrganization: [true],
+        primaryFirstName: ['', [Validators.required]],
+        primaryLastName: ['', [Validators.required]],
+        secondaryAddressSameAsPrimary: [true],
+        secondaryFirstName: [''],
+        secondaryLastName: [''],
+        website: ['']
+      })
+    });
 
-  clearAdditionalPhone() {
-    this.application.applicantInfo.eveningPhone.tenDigit = undefined;
-    this.application.applicantInfo.eveningPhone.extension = undefined;
+    this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      if (type === 'Person') {
+        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
+        this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
+      } else if (type === 'Corporation') {
+        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+        this.applicationForm.get('applicantInfo.organizationName').setValidators(Validators.required);
+      }
+    });
+
+    this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').valueChanges.subscribe(value => {
+      if (value) {
+        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+      } else {
+        this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+      }
+    });
+
+    this.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').valueChanges.subscribe(value => {
+      if (value) {
+        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
+      } else {
+        this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
+      }
+    });
+
+    this.applicationForm.get('applicantInfo.addSecondaryPermitHolder').valueChanges.subscribe(value => {
+      if (value) {
+        this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(Validators.required);
+        this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(Validators.required);
+      } else {
+        this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
+        this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
+      }
+    });
   }
 
-  clearPrimaryPermitHolderAddress() {
-    this.application.applicantInfo.primaryAddress.mailingAddress = undefined;
-    this.application.applicantInfo.primaryAddress.mailingAddress2 = undefined;
-    this.application.applicantInfo.primaryAddress.mailingCity = undefined;
-    this.application.applicantInfo.primaryAddress.mailingState = undefined;
-    this.application.applicantInfo.primaryAddress.mailingZIP = undefined;
-  }
-
-  clearSecondaryPermitHolderName() {
-    this.application.applicantInfo.secondaryFirstName = undefined;
-    this.application.applicantInfo.secondaryLastName = undefined;
-  }
-
-  clearSecondaryPermitHolderAddress() {
-    this.application.applicantInfo.secondaryAddress.mailingAddress = undefined;
-    this.application.applicantInfo.secondaryAddress.mailingAddress2 = undefined;
-    this.application.applicantInfo.secondaryAddress.mailingCity = undefined;
-    this.application.applicantInfo.secondaryAddress.mailingState = undefined;
-    this.application.applicantInfo.secondaryAddress.mailingZIP = undefined;
-  }
-
-  startDateChangeHandler() {
-    if (
-      this.application.noncommercialFields.startMonth &&
-      this.application.noncommercialFields.startDay &&
-      this.application.noncommercialFields.startYear &&
-      !this.application.noncommercialFields.endMonth &&
-      !this.application.noncommercialFields.endDay &&
-      !this.application.noncommercialFields.endYear
-    ) {
-      this.application.noncommercialFields.endMonth = this.application.noncommercialFields.startMonth;
-      this.application.noncommercialFields.endDay = this.application.noncommercialFields.startDay;
-      this.application.noncommercialFields.endYear = this.application.noncommercialFields.startYear;
-    }
-  }
-
-  dateTimeRangeValidator() {
-    if (
-      this.application.noncommercialFields.startMonth &&
-      this.application.noncommercialFields.startDay &&
-      this.application.noncommercialFields.startYear &&
-      this.application.noncommercialFields.startHour &&
-      this.application.noncommercialFields.startMinutes &&
-      this.application.noncommercialFields.startPeriod &&
-      this.application.noncommercialFields.endMonth &&
-      this.application.noncommercialFields.endDay &&
-      this.application.noncommercialFields.endYear &&
-      this.application.noncommercialFields.endHour &&
-      this.application.noncommercialFields.endMinutes &&
-      this.application.noncommercialFields.endPeriod
-    ) {
-      const format = 'YYYY-MM-DD HH:mm A';
-      const today = moment();
-      // TODO: put this function in a util / constants file
-      const startDateTime = moment(
-        this.application.noncommercialFields.startYear +
-        '-' +
-        this.application.noncommercialFields.startMonth +
-        '-' +
-        this.application.noncommercialFields.startDay +
-        ' ' +
-        this.application.noncommercialFields.startHour +
-        ':' +
-        this.application.noncommercialFields.startMinutes +
-        ' ' +
-        this.application.noncommercialFields.startPeriod
-      , format);
-      const endDateTime = moment(
-        this.application.noncommercialFields.endYear +
-        '-' +
-        this.application.noncommercialFields.endMonth +
-        '-' +
-        this.application.noncommercialFields.endDay +
-        ' ' +
-        this.application.noncommercialFields.endHour +
-        ':' +
-        this.application.noncommercialFields.endMinutes +
-        ' ' +
-        this.application.noncommercialFields.endPeriod
-      , format);
-      this.dateStatus.startDateTimeValid = startDateTime.isValid();
-      this.dateStatus.endDateTimeValid = endDateTime.isValid();
-      this.dateStatus.startBeforeEnd =  startDateTime.isBefore(endDateTime);
-      this.dateStatus.startAfterToday = today.isBefore(startDateTime);
-      this.dateStatus.hasErrors = !this.dateStatus.startDateTimeValid ||
-        !this.dateStatus.endDateTimeValid ||
-        !this.dateStatus.startBeforeEnd ||
-        !this.dateStatus.startAfterToday;
-    }
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
   }
 
   onSubmit(form) {
+    this.submitted = true;
     if (!form.valid || this.dateStatus.hasErrors) {
       window.scroll(0, 0);
     } else {
-      this.application.applicantInfo.dayPhone.areaCode = this.application.applicantInfo.dayPhone.tenDigit.substring(0, 3);
-      this.application.applicantInfo.dayPhone.prefix = this.application.applicantInfo.dayPhone.tenDigit.substring(3, 6);
-      this.application.applicantInfo.dayPhone.number = this.application.applicantInfo.dayPhone.tenDigit.substring(6, 10);
-      if (this.application.applicantInfo.eveningPhone.tenDigit) {
-        this.application.applicantInfo.eveningPhone.areaCode = this.application.applicantInfo.eveningPhone.tenDigit.substring(0, 3);
-        this.application.applicantInfo.eveningPhone.prefix = this.application.applicantInfo.eveningPhone.tenDigit.substring(3, 6);
-        this.application.applicantInfo.eveningPhone.number = this.application.applicantInfo.eveningPhone.tenDigit.substring(6, 10);
-      }
-      const inputFormat = 'YYYY-MM-DD HH:mm A';
-      const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
-      this.application.noncommercialFields.startDateTime = moment(
-        this.application.noncommercialFields.startYear +
-        '-' +
-        this.application.noncommercialFields.startMonth +
-        '-' +
-        this.application.noncommercialFields.startDay +
-        ' ' +
-        this.application.noncommercialFields.startHour +
-        ':' +
-        this.application.noncommercialFields.startMinutes +
-        ' ' +
-        this.application.noncommercialFields.startPeriod
-      , inputFormat).format(outputFormat) + 'Z';
-      this.application.noncommercialFields.endDateTime = moment(
-        this.application.noncommercialFields.endYear +
-        '-' +
-        this.application.noncommercialFields.endMonth +
-        '-' +
-        this.application.noncommercialFields.endDay +
-        ' ' +
-        this.application.noncommercialFields.endHour +
-        ':' +
-        this.application.noncommercialFields.endMinutes +
-        ' ' +
-        this.application.noncommercialFields.endPeriod
-      , inputFormat).format(outputFormat) + 'Z';
-      this.applicationService.create(this.application, '/special-uses/noncommercial/')
+      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
         .subscribe(
           (persistedApplication) => {
             this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
@@ -235,15 +123,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    // hardcoded codes for Mount Baker-Snoqualmie National Forest
-    this.application.district = '11';
-    this.application.region = '06';
-    this.application.forest = '05';
-    // default application values
-    this.application.type = 'noncommercial';
-    this.application.applicantInfo.orgType = 'Person';
-    this.application.noncommercialFields.startMinutes = '00';
-    this.application.noncommercialFields.endMinutes = '00';
   }
 
 }
