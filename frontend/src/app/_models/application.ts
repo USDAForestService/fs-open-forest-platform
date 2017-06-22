@@ -29,6 +29,7 @@ export class ApplicantInfo {
   dayPhone: Phone;
   emailAddress: string;
   eveningPhone: Phone;
+  faxNumber: Phone;
   organizationAddress: Address;
   organizationName: string;
   orgType: string;
