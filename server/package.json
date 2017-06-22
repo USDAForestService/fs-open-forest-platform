@@ -18,9 +18,9 @@
     "sequelize-cli": "^2.7.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.1",
+    "chai": "^4.0.2",
+    "eslint": "^4.0.0",
+    "eslint-config-google": "^0.8.0",
     "mocha": "^3.2.0",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
