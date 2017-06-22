@@ -11,10 +11,10 @@ describe('noncommercial tests', () => {
   describe('POST tests', () => {
     it('should return a 201 response and a db generated applicationId', (done) => {
       request(server)
-				.post(testURL)
+        .post(testURL)
         .set('Accept', 'application/json')
         .send(noncommercialTestData.singlePermitHolder.create())
-				.expect('Content-Type', /json/)
+        .expect('Content-Type', /json/)
         .expect(/"applicationId":[\d]+/)
         .expect(201, done);
     });

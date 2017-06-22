@@ -16,8 +16,7 @@ describe('middle layer unit tests', () => {
       .post('/auth')
       .reply(500, { status: 'authfail' });
 
-    var success = (response) => {
-      expect(response).fail(0, 1, 'The success callback should not have been called for this test');
+    var success = () => {
       done();
     };
 
@@ -44,8 +43,7 @@ describe('middle layer unit tests', () => {
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, { status: 'fail-suds' });
 
-    var success = (response) => {
-      expect(response).fail(0, 1, 'The success callback should not have been called for this test');
+    var success = () => {
       done();
     };
 
@@ -70,17 +68,16 @@ describe('middle layer unit tests', () => {
 
     nock('http://localhost:8080')
       .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { status: 'success-suds' });
+      .reply(200, { status: 'success' });
 
     var success = (response) => {
       expect(response).to.not.be.null;
       expect(response.status, 'response.status should exist').to.not.be.undefined;
-      expect(response.status).to.equal('success-suds');
+      expect(response.status).to.equal('success');
       done();
     };
 
-    var failure = (error) => {
-      expect(error).fail(0, 1, 'The error callback should not have been called for this test');
+    var failure = () => {
       done();
     };
 
