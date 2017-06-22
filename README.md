@@ -4,10 +4,16 @@
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
 [![Codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/sprint-6-development/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 
-Client:
+Client dependencies:
+[![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594bdcc46725bd0063d1f2c0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594bdcc46725bd0063d1f2c0)
+
+Client transitive dependencies:
 [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f146725bd0063d1e34b)
 
-Server:
+Server dependencies:
+[![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594bdcc66725bd00456cc40a/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594bdcc66725bd00456cc40a)
+
+Server transitive dependencies:
 [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/594a9f1f6725bd00456cb6d0)
 
 # U.S. Forest Service Intake Module
