@@ -16,7 +16,7 @@ describe('middle layer unit tests', () => {
       .post('/auth')
       .reply(500, { status: 'authfail' });
 
-    var success = (response) => {
+    var success = () => {
       done();
     };
 
@@ -43,7 +43,7 @@ describe('middle layer unit tests', () => {
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, { status: 'fail-suds' });
 
-    var success = (response) => {
+    var success = () => {
       done();
     };
 
@@ -77,7 +77,7 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    var failure = (error) => {
+    var failure = () => {
       done();
     };
 
