@@ -6,21 +6,22 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="form._submitted && !form.valid" class="usa-alert usa-alert-error" role="alert">
+      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
         </div>
       </div>
 
-      <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
-        <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">There are errors in your application.</h3>
-          <ul class="usa-alert-text">
-            <li *ngFor="let error of apiErrors">{{error}}</li>
-          </ul>
-        </div>
-      </div>
+      <fieldset>
+        <legend>Applicant information</legend>
+        <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary"></app-permit-holder-name>
+        <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo"></app-organization-name>
+        <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
+        <app-phone-number [parentForm]="applicationForm.get('applicantInfo')"></app-phone-number>
+        <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
+        <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
+      </fieldset>
 
       <fieldset>
 
