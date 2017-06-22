@@ -1,0 +1,13 @@
+<ng-container [formGroup]="parentForm">
+  <label for="applicant-type">Are you applying as an individual or organization?</label>
+  <ul class="usa-unstyled-list" formGroupName="{{ formName }}">
+    <li>
+      <input id="individual" type="radio" name="orgType" value="Person" formControlName="orgType">
+      <label for="individual">Individual</label>
+    </li>
+    <li>
+      <input id="organization" type="radio" name="orgType" value="Corporation" formControlName="orgType">
+      <label for="organization">Organization</label>
+    </li>
+  </ul>
+</ng-container>

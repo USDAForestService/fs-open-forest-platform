@@ -77,6 +77,8 @@ util.translateFromDatabaseToJSON = (input) => {
       'locationDescription': input.noncommercialFieldsLocationDescription,
       'numberParticipants': input.noncommercialFieldsNumberParticipants,
       'spectators': input.noncommercialFieldsSpectatorCount,
+    },
+    'dateTimeRange': {
       'startDateTime': input.noncommercialFieldsStartDateTime,
       'endDateTime': input.noncommercialFieldsEndDateTime
     },

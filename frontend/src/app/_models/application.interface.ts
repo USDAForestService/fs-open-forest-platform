@@ -1,4 +1,4 @@
-export class Application {
+export interface Application {
   applicantInfo: ApplicantInfo;
   applicationId: number;
   appControlNumber: string;
@@ -16,16 +16,9 @@ export class Application {
   region: string;
   signature: string;
   type: string;
-  constructor() {
-    this.applicantInfo = new ApplicantInfo();
-    this.dateTimeRange = new DateTimeRange();
-    this.noncommercialFields = new NoncommercialFields();
-    this.tempOutfitterFiles = new TempOutfitterFiles();
-    this.tempOutfitterFields = new TempOutfitterFields();
-  }
 }
 
-export class ApplicantInfo {
+export interface ApplicantInfo {
   dayPhone: Phone;
   emailAddress: string;
   eveningPhone: Phone;
@@ -39,16 +32,9 @@ export class ApplicantInfo {
   secondaryFirstName: string;
   secondaryLastName: string;
   website: string;
-  constructor() {
-    this.dayPhone = new Phone();
-    this.eveningPhone = new Phone();
-    this.organizationAddress = new Address();
-    this.primaryAddress = new Address();
-    this.secondaryAddress = new Address();
-  }
 }
 
-export class Phone {
+export interface Phone {
   tenDigit: string;
   areaCode: string;
   extension: string;
@@ -57,7 +43,7 @@ export class Phone {
   prefix: string;
 }
 
-export class Address {
+export interface Address {
   mailingAddress: string;
   mailingAddress2: string;
   mailingCity: string;
@@ -89,7 +75,7 @@ export class DateTimeRange {
   startPeriod: string;
 }
 
-export class TempOutfitterFields {
+export interface TempOutfitterFields {
   individualCitizen: boolean;
   smallBusiness: boolean;
   activityDescription: string;
@@ -99,7 +85,7 @@ export class TempOutfitterFields {
   experienceList: string;
 }
 
-export class TempOutfitterFiles {
+export interface TempOutfitterFiles {
   guideDocumentation: string;
   acknowledgementOfRiskForm: string;
   insuranceCertificate: string;
