@@ -13,7 +13,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
   fieldValidation.validateFileUploadField('guide-document-wrapper');
