@@ -26,14 +26,20 @@ module.exports = (application, successCallback, failureCallback) => {
   };
 
   request.post(authOptions, (error, response, body) => {
+    console.log('******* response code: ', response.statusCode);
+    console.log('******* response body: ', body);
     if (error || response.statusCode !== 200) {
       failureCallback(error || response);
     } else {
       acceptanceOptions.headers['x-access-token'] = body.token;
       request.post(acceptanceOptions, (error, response, body) => {
+        console.log('******* response code: ', response.statusCode);
+        console.log('******* response body: ', body);
         if (error || response.statusCode !== 200) {
+          console.log('******* MIDDLE LAYER FAIL');
           failureCallback(error || response);
         } else {
+          console.log('******* MIDDLE LAYER SUCCESS');
           successCallback(body);
         }
       });
