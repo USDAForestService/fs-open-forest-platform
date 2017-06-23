@@ -42,6 +42,6 @@
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha"
   },
   "engines": {
-    "node": "6.10.2"
+    "node": "^6.10.3"
   }
 }

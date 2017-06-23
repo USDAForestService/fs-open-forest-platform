@@ -10,6 +10,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 export class NoncommercialFieldsComponent implements OnInit {
   @Input() parentForm: FormGroup;
   formName: string;
+
   noncommercialFields: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
