@@ -94,10 +94,32 @@ export class TempOutfitterFields {
   individualCitizen: boolean;
   smallBusiness: boolean;
   activityDescription: string;
+  activityDescriptionFields: ActivityDescriptionFields;
   advertisingURL: string;
   advertisingDescription: string;
   clientCharges: string;
   experienceList: string;
+  constructor() {
+    this.activityDescriptionFields = new ActivityDescriptionFields();
+  }
+}
+
+export class ActivityDescriptionFields {
+  numberServiceDaysRequested: number;
+  numberOfTrips: number;
+  dateTimeRange: DateTimeRange;
+  locationDescription: string;
+  servicesProvided: string;
+  audienceDescription: string;
+  listOfGovernmentFacilities: string;
+  listOfTemporaryImprovements: string;
+  statementOfMotorizedEquipment: string;
+  statementOfTransportationOfLivestock: string;
+  statementOfAssignedSite: string;
+  descriptionOfCleanupAndRestoration: string;
+  constructor() {
+    this.dateTimeRange = new DateTimeRange();
+  }
 }
 
 export class TempOutfitterFiles {
