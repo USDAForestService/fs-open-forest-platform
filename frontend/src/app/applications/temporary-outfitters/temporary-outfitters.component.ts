@@ -20,6 +20,8 @@ export class TemporaryOutfittersComponent implements OnInit {
   mode = 'Observable';
   submitted = false;
   uploadFiles = false;
+  goodStandingEvidenceMessage: string;
+  orgTypeFileUpload: boolean;
 
   applicationForm: FormGroup;
 
@@ -40,8 +42,51 @@ export class TemporaryOutfittersComponent implements OnInit {
         organizationName: [''],
         primaryFirstName: ['', [Validators.required]],
         primaryLastName: ['', [Validators.required]],
+        orgType: ['', [Validators.required]],
         website: ['']
+      }),
+      tempOutfittersFields: this.formBuilder.group({
+        individualCitizen: [''],
+        smallBusiness: [''],
+        advertisingDescription: ['', [Validators.required]],
+        advertisingURL: [''],
+        clientCharges: ['', [Validators.required]],
+        experienceList: ['']
       })
+
+    });
+
+    this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      switch (type) {
+        case 'individual':
+          this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'corporation':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'llc':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'partnership':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'stateGovernment':
+          this.goodStandingEvidenceMessage = '';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'localGovernment':
+          this.goodStandingEvidenceMessage = '';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'nonprofit':
+          this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
+          this.orgTypeFileUpload = true;
+          break;
+      }
     });
   }
 
