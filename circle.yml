@@ -35,7 +35,7 @@ deployment:
     branch: master
     owner: 18F
     commands:
-      - cd frontend; ng build --env=prod;
+      - cd frontend; ng build --prod --env=prod;
       - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
     branch: sprint-6-development
