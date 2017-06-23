@@ -6,19 +6,7 @@ import { FormGroup} from '@angular/forms';
   templateUrl: './org-type.component.html'
 })
 
-export class OrgTypeComponent implements OnInit {
-  @Input() parentForm: FormGroup;
-  applicantInfo: FormGroup;
-  formName: string;
-
-  constructor() {}
-
-  ngOnInit() {
-    this.formName = 'applicantInfo';
-    // this[this.formName] = this.formBuilder.group({
-    //   orgType : ['Person', [Validators.required]]
-    // });
-    // this.parentForm.addControl(this.formName, this[this.formName]);
-  }
-
+export class OrgTypeComponent {
+  @Input() applicantInfo: FormGroup;
+  @Input() type: string;
 }

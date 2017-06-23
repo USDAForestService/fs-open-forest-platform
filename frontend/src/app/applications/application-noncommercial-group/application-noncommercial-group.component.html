@@ -16,20 +16,20 @@
       <fieldset>
         <legend>Applicant information</legend>
 
-        <app-org-type [parentForm]="applicationForm"></app-org-type>
+        <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'">
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary"></app-permit-holder-name>
+          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
-          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo"></app-organization-name>
+          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Organization name"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
         <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-        <app-phone-number [parentForm]="applicationForm.get('applicantInfo')"></app-phone-number>
+        <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number"></app-phone-number>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
           <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
@@ -38,7 +38,7 @@
 
       <fieldset *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
         <legend>Primary permit holder</legend>
-        <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary"></app-permit-holder-name>
+        <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
 
         <ng-container formGroupName="applicantInfo">
           <input id="primary-permit-holder-same-address" name="primaryAddressSameAsOrganization" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
@@ -57,7 +57,7 @@
       </fieldset>
 
       <fieldset *ngIf="applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary"></app-permit-holder-name>
+          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary" name="Secondary permit holder"></app-permit-holder-name>
 
           <ng-container formGroupName="applicantInfo">
             <input id="secondary-permit-holder-same-address" name="secondaryAddressSameAsPrimary" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
