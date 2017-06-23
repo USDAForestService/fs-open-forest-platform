@@ -89,7 +89,7 @@ let createNoncommercialTempApp = (req, res) => {
       req.body['applicationId'] = noncommApp.applicationId;
       req.body['appControlNumber'] = noncommApp.appControlNumber;
       res.status(201).json(req.body);
-    }).error((err) => {
+    }).catch((err) => {
       res.status(500).json(err);
     });
   }
@@ -117,7 +117,7 @@ let updateApp = (req, res) => {
         });
       }
     } else {
-      res.status(404);
+      res.status(404).send();
     }
   });
 };

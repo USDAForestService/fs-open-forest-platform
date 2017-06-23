@@ -9,4 +9,5 @@ import { FormGroup } from '@angular/forms';
 export class PermitHolderNameComponent {
   @Input() applicantInfo: FormGroup;
   @Input() type: string;
+  @Input() name: string;
 }

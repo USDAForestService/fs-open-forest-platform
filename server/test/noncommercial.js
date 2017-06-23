@@ -2,9 +2,11 @@
 
 var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
+var nock = require('nock');
 var server = require('../app.es6');
 var testGetURL = '/permits/applications';
 var testURL = '/permits/applications/special-uses/noncommercial';
+var testPutURL = '/permits/applications/';
 
 describe('noncommercial tests', () => {
 
@@ -435,4 +437,141 @@ describe('Persistence tests', () => {
       .expect(200, singlePermitHolderOrganizationWithCustomAddressesPersisted, done);
   });
 
+});
+
+describe('Branch tests', () => {
+  it('creates a noncommercial app with undef evening phone', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderUndefEveningPhone.create())
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(201, done);
+  });
+
+  it('creates a noncommercial app with undef org address', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderUndefOrgAddress.create())
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(201, done);
+  });
+
+  it('creates a noncommercial app with undef primary address', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganizationUndefPrimaryAddress.create())
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(201, done);
+  });
+
+  it('creates a noncommercial app with undef secondary address', (done) => {
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolderOrganizationUndefSecondaryAddress.create())
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(201, done);
+  });
+
+  it('creates a noncommercial app with too long website', (done) => {
+
+    let testData = noncommercialTestData.singlePermitHolder.create();
+    testData.applicantInfo.website = 'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
+
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(testData)
+      .expect('Content-Type', /json/)
+      .expect(500, done);
+  });
+
+  it('updates a noncommercial app successfully with other than accept status', (done) => {
+
+    nock('http://localhost:8080')
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
+
+    nock('http://localhost:8080')
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
+
+    request(server)
+      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolder.create())
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+
+  });
+
+  it('app not found on update', (done) => {
+
+    nock.cleanAll();
+
+    nock('http://localhost:8080')
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
+
+    nock('http://localhost:8080')
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
+
+    request(server)
+      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d448')
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolder.create())
+      .expect(404, done);
+
+  });
+
+  it('updates a noncommercial app with accept status but fails middle layer', (done) => {
+
+    nock.cleanAll();
+
+    nock('http://localhost:8080')
+      .post('/auth')
+      .reply(201, { token: 'auth-token' });
+
+    nock('http://localhost:8080')
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(500, { status: 'fail' });
+
+    request(server)
+      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
+      .expect(400, done);
+
+  });
+
+  it('updates a noncommercial app successfully with accept status', (done) => {
+
+    nock.cleanAll();
+
+    nock('http://localhost:8080')
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
+
+    nock('http://localhost:8080')
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
+
+    request(server)
+      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .set('Accept', 'application/json')
+      .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+
+  });
 });

@@ -1,0 +1,48 @@
+<ng-container [formGroup]="parentForm">
+  <ng-container formGroupName="{{ activityDescription }}">
+    <fieldset>
+      <legend>Description of proposed activity</legend>
+
+      <label class="usa-input" for="number-service-days-requested">The number of service days requested (or quota equivalent).</label>
+      <input id="number-service-days-requested"  type="number" formControlName="numberServiceDaysRequested"  />
+
+      <label class="usa-input" for="number-of-trips">The anticipated number of trips and party size.</label>
+      <input id="number-of-trips"  type="number" formControlName="numberOfTrips" />
+
+      <fieldset>
+        <legend>Trip Itinerary</legend>
+
+        <app-date-time-range [parentForm]="parentForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+
+        <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations (include a map showing these locations).</label>
+        <input id="location-description"  type="text" formControlName="locationDescription" />
+      </fieldset>
+
+
+      <label class="usa-input" for="services-provided">Services that will be offered to clients (identify any services that will be provided by a party other than the holder).</label>
+      <input id="services-provided"  type="text" formControlName="servicesProvided" />
+
+      <label class="usa-input" for="audience-description">A description of your client base or audience.  </label>
+      <input id="audience-description" type="text" formControlName="audienceDescription" />
+
+      <label class="usa-input" for="list-of-government-facilities">A list of government facilities you propose to use, e.g., a boat launch, parking lot, or trailhead.</label>
+      <input id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities" />
+
+      <label class="usa-input" for="list-of-temporary-improvements">A list of temporary improvements or signs that you propose to use.</label>
+      <input id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" />
+
+      <label class="usa-input" for="statement-of-motorized-equipment">A statement of whether the proposed operations involve motorized equipment.</label>
+      <input id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment" />
+
+      <label class="usa-input" for="statement-of-transportation-of-livestock">A statement of whether the proposed operations involve transportation livestock, and if so, whether grazing is requested.</label>
+      <input id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock" />
+
+      <label class="usa-input" for="statement-of-assigned-site">A statement of whether an assigned site is requested.</label>
+      <input id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite" />
+
+      <label class="usa-input" for="description-of-cleanup-and-restoration">A description of cleanup and restoration during and after the proposed operations.</label>
+      <input id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" />
+
+    </fieldset>
+  </ng-container>
+</ng-container>

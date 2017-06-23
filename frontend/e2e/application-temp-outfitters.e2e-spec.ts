@@ -19,7 +19,7 @@ describe('Apply for a temp outfitters permit', () => {
   fieldValidation.validateFileUploadField('guide-document-wrapper');
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
   fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
-  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
+//  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
   fieldValidation.validateFileUploadField('operating-plan-wrapper');
 
 });

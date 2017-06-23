@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 export class PhoneNumberComponent implements OnInit {
   @Input() parentForm: FormGroup;
+  @Input() name: string;
   dayPhone = 'dayPhone';
   eveningPhone = 'eveningPhone';
   additionalPhone = false;
