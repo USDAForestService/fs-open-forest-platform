@@ -48,7 +48,7 @@
 
       <app-client-charges [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-client-charges>
 
-      <fieldset>
+      <fieldset id="guide-document-wrapper">
         <legend>Guide identification</legend>
         <ul>
           <li>Attach a list of all guides who would be working under the permit.</li>
@@ -62,7 +62,7 @@
 
       </fieldset>
 
-      <fieldset>
+      <fieldset id="operating-plan-wrapper">
         <legend>Operating plan</legend>
 
         <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
@@ -70,7 +70,7 @@
         <app-file-upload-field name="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <fieldset>
+      <fieldset id="insurance-certificate-wrapper">
         <legend>Liability insurance</legend>
 
         <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (see FSM 2713.1).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
@@ -78,7 +78,7 @@
         <app-file-upload-field name="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <fieldset>
+      <fieldset id="acknowledgement-of-risk-form-wrapper">
         <legend>Client's acknowledgement of risk form</legend>
 
         <p>If you plan to use an acknowledgment of risk form, attach a copy.</p>
