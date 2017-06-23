@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Application } from '../../_models/application';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FileSelectDirective, FileDropDirective, FileUploader, FileLikeObject, FileItem } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -18,20 +20,88 @@ export class TemporaryOutfittersComponent implements OnInit {
   mode = 'Observable';
   submitted = false;
   uploadFiles = false;
+  goodStandingEvidenceMessage: string;
+  orgTypeFileUpload: boolean;
 
-  constructor(private applicationService: ApplicationService, private router: Router) {}
+  applicationForm: FormGroup;
+
+  constructor(
+    private applicationService: ApplicationService,
+    private applicationFieldsService: ApplicationFieldsService,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    this.applicationForm = this.formBuilder.group({
+      district: ['11', [Validators.required]],
+      region: ['06', [Validators.required]],
+      forest: ['05', [Validators.required]],
+      type: ['tempOutfitters', [Validators.required]],
+      signature: ['', [Validators.required]],
+      applicantInfo: this.formBuilder.group({
+        emailAddress: ['', Validators.required],
+        organizationName: [''],
+        primaryFirstName: ['', [Validators.required]],
+        primaryLastName: ['', [Validators.required]],
+        orgType: ['', [Validators.required]],
+        website: ['']
+      }),
+      tempOutfittersFields: this.formBuilder.group({
+        individualCitizen: [''],
+        smallBusiness: [''],
+        advertisingDescription: ['', [Validators.required]],
+        advertisingURL: [''],
+        clientCharges: ['', [Validators.required]],
+        experienceList: ['']
+      })
+
+    });
+
+    this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      switch (type) {
+        case 'individual':
+          this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'corporation':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'llc':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'partnership':
+          this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
+          this.orgTypeFileUpload = true;
+          break;
+        case 'stateGovernment':
+          this.goodStandingEvidenceMessage = '';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'localGovernment':
+          this.goodStandingEvidenceMessage = '';
+          this.orgTypeFileUpload = false;
+          break;
+        case 'nonprofit':
+          this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
+          this.orgTypeFileUpload = true;
+          break;
+      }
+    });
+  }
 
   onSubmit(form) {
+    this.submitted = true;
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      this.applicationService.create(this.application, '/special-uses/temp-outfitters/')
+      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/')
         .subscribe(
           (persistedApplication) => {
             this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
             // TODO post file upload functionality
-            // this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+             this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
           },
           (e: any) => {
             this.apiErrors =  e;
@@ -42,40 +112,5 @@ export class TemporaryOutfittersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.application.applicationId = 1;
-    this.application.district = '11';
-    this.application.region = '11';
-    this.application.forest = '11';
-    this.application.type = 'tempOutfitters';
-    this.application.authorizingOfficerName = 'officer name';
-    this.application.authorizingOfficerTitle = 'officer title';
-    this.application.applicantInfo.primaryFirstName = 'first';
-    this.application.applicantInfo.primaryLastName = 'last';
-    this.application.applicantInfo.dayPhone.areaCode = '555';
-    this.application.applicantInfo.dayPhone.prefix = '555';
-    this.application.applicantInfo.dayPhone.number = '5555';
-    this.application.applicantInfo.dayPhone.extension = '5';
-    this.application.applicantInfo.eveningPhone.areaCode = '555';
-    this.application.applicantInfo.eveningPhone.prefix = '555';
-    this.application.applicantInfo.eveningPhone.number = '5555';
-    this.application.applicantInfo.eveningPhone.extension = '5';
-    this.application.applicantInfo.emailAddress = 'test@test.com';
-    this.application.applicantInfo.primaryAddress.mailingAddress = '444 easy st';
-    this.application.applicantInfo.primaryAddress.mailingAddress2 = 'apt #2';
-    this.application.applicantInfo.primaryAddress.mailingCity = 'Madison';
-    this.application.applicantInfo.primaryAddress.mailingState = 'WI';
-    this.application.applicantInfo.primaryAddress.mailingZIP = '55555';
-    this.application.applicantInfo.organizationName = 'organization name';
-    this.application.applicantInfo.website = 'http://www.test.com';
-    this.application.applicantInfo.orgType = 'Corporation';
-    this.application.tempOutfitterFields.individualCitizen = true;
-    this.application.tempOutfitterFields.smallBusiness = true;
-    this.application.tempOutfitterFields.activityDescription = 'description of activity';
-    this.application.tempOutfitterFields.advertisingURL = 'http://www.test.com';
-    this.application.tempOutfitterFields.advertisingDescription = 'description';
-    this.application.tempOutfitterFields.clientCharges = 'charges';
-    this.application.tempOutfitterFields.experienceList = 'experiece list';
-    this.application.signature = 'afs';
-    this.application.eventName = 'test event';
   }
 }
