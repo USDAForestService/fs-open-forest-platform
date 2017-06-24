@@ -5,6 +5,11 @@ machine:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/frontend/node_modules/.bin" # yarn
 dependencies:
   pre:
+    # swagger
+    - curl -L -o swagger-codegen-cli-2.2.1.jar https://oss.sonatype.org/content/repositories/releases/io/swagger/swagger-codegen-cli/2.2.1/swagger-codegen-cli-2.2.1.jar
+    - mkdir frontend/src/api
+    - java -jar swagger-codegen-cli-2.2.1.jar  generate -l html2 -i api/swagger.yml -o frontend/src/api
+    # chrome
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     - sudo dpkg -i google-chrome.deb
     - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
