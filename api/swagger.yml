@@ -1,4 +1,8 @@
 swagger: "2.0"
+#
+# there are many placeholders in this file that need filling in
+# I guessed at the name of the app and other values as well
+#
 info:
   description: "This is the application desc."
   version: "1.0.0"
@@ -8,7 +12,7 @@ info:
     email: "placeholder@fs.gov"
   license:
     name: "Open license"
-    # i forsee this being the 18F master branch at some point or other URL
+    # i foresee this being the 18F master branch at some point or other URL
     url: "https://github.com/flexion/fs-intake-module/blob/sprint-6-development/LICENSE.md"
 host: "localhost:8080"
 basePath: "/permits/applications"
@@ -203,18 +207,6 @@ paths:
           description: "App not found"
         405:
           description: "Validation exception"
-#securityDefinitions:
-#  petstore_auth:
-#    type: "oauth2"
-#    authorizationUrl: "http://localhost:8080/placeholder"
-#    flow: "implicit"
-#    scopes:
-#      write:pets: "modify pets in your account"
-#      read:pets: "read your pets"
-#  api_key:
-#    type: "apiKey"
-#    name: "api_key"
-#    in: "header"
 definitions:
   File:
     type: "object"
@@ -551,55 +543,6 @@ definitions:
         type: "string"
       noncommercialFieldsSpectatorCount:
         type: "integer"
-
-
-#      photoUrls:
-#        type: "array"
-#        xml:
-#          name: "photoUrl"
-#          wrapped: true
-#        items:
-#          type: "string"
-#      tags:
-#        type: "array"
-#        xml:
-#          name: "tag"
-#          wrapped: true
-#        items:
-#          $ref: "#/definitions/Tag"
-#      status:
-#        type: "string"
-#        description: "pet status in the store"
-#        enum:
-#        - "available"
-#        - "pending"
-#        - "sold"
-#      complete:
-#        type: "boolean"
-#        default: false
-#      photoUrls:
-#        type: "array"
-#        xml:
-#          name: "photoUrl"
-#          wrapped: true
-#        items:
-#          type: "string"
-#      tags:
-#        type: "array"
-#        xml:
-#          name: "tag"
-#          wrapped: true
-#        items:
-#          $ref: "#/definitions/Tag"
-#      status:
-#        type: "string"
-#        description: "pet status in the store"
-#        enum:
-#        - "available"
-#        - "pending"
-#        - "sold"
-#    xml:
-#      name: "Pet"
 externalDocs:
   description: "Find out more about Forest Service"
   url: "https://www.fs.fed.us/"
