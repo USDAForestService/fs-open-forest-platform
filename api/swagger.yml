@@ -1,0 +1,605 @@
+swagger: "2.0"
+info:
+  description: "This is the application desc."
+  version: "1.0.0"
+  title: "Forest Reservation System"
+  termsOfService: "/terms/placeholder"
+  contact:
+    email: "placeholder@fs.gov"
+  license:
+    name: "Open license"
+    # i forsee this being the 18F master branch at some point or other URL
+    url: "https://github.com/flexion/fs-intake-module/blob/sprint-6-development/LICENSE.md"
+host: "localhost:8080"
+basePath: "/permits/applications"
+tags:
+- name: "gov"
+  description: "Forest Reservation Application"
+  externalDocs:
+    description: "Find out more"
+    url: "http://placeholder.fs.gov"
+schemes:
+- "http"
+paths:
+  /:
+    get:
+      tags:
+      - "application"
+      summary: "get all existing applications"
+      description: "get all existing applications"
+      operationId: "getAllApp"
+      responses:
+        200:
+          description: "successful operation"
+  /{id}:
+    get:
+      tags:
+      - "application"
+      summary: "get an existing noncommercial application"
+      description: "get an existing noncommercial application"
+      operationId: "getApp"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "temp Control Number"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "App not found"
+        405:
+          description: "Validation exception"
+    put:
+      tags:
+      - "application"
+      summary: "update an existing noncommercial application"
+      description: "update an existing noncommercial application"
+      operationId: "updateApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "temp Control Number"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/noncommercialApplication"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "App not found"
+        405:
+          description: "Validation exception"
+#      security:
+#      - petstore_auth:
+#        - "write:pets"
+#        - "read:pets"
+  /special-uses/noncommercial:
+    post:
+      tags:
+      - "noncommercial"
+      summary: "creates a new noncommercial application"
+      description: "creates a new noncommercial application"
+      operationId: "createNoncommercialTempApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/noncommercialApplication"
+      responses:
+        405:
+          description: "Invalid Value"
+        201:
+          description: "Successful Creation"
+  /special-uses/temp-outfitters:
+    post:
+      tags:
+      - "temp-outfitters"
+      summary: "creates a new temp outfitter application"
+      description: "creates a new temp outfitter application"
+      operationId: "createTempOutfitterApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/tempOutfitterApp"
+      responses:
+        405:
+          description: "Invalid Value"
+        201:
+          description: "Successful Creation"
+    put:
+      tags:
+      - "temp-outfitters"
+      summary: "update an existing temp outfitter application"
+      description: "update an existing temp outfitter application"
+      operationId: "updateTempOutfitterApp"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/noncommercialApplication"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "App not found"
+        405:
+          description: "Validation exception"
+  /special-uses/temp-outfitters/file:
+    post:
+      tags:
+      - "temp-outfitters"
+      summary: "creates a new temp outfitter application file"
+      description: "creates a new temp outfitter application file"
+      operationId: "createAppFile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/File"
+      responses:
+        405:
+          description: "Invalid Value"
+        201:
+          description: "Successful Creation"
+    put:
+      tags:
+      - "temp-outfitters"
+      summary: "update an existing temp outfitter application file"
+      description: "update an existing temp outfitter application file"
+      operationId: "updateAppFile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "app object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/File"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "App not found"
+        405:
+          description: "Validation exception"
+#securityDefinitions:
+#  petstore_auth:
+#    type: "oauth2"
+#    authorizationUrl: "http://localhost:8080/placeholder"
+#    flow: "implicit"
+#    scopes:
+#      write:pets: "modify pets in your account"
+#      read:pets: "read your pets"
+#  api_key:
+#    type: "apiKey"
+#    name: "api_key"
+#    in: "header"
+definitions:
+  File:
+    type: "object"
+    required:
+    - "originalFileName"
+    properties:
+      file_id:
+        type: "integer"
+        format: "int64"
+      applicationId:
+        type: "integer"
+        format: "int64"
+      applicationType:
+        type: "string"
+      s3FileName:
+        type: "string"
+      originalFileName:
+        type: "string"
+        example: "example.jpg"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+  tempOutfitterApp:
+    type: "object"
+    required:
+    - "applicationId"
+    - "appControlNumber"
+    - "region"
+    - "forest"
+    - "district"
+    - "eventName"
+    - "applicantInfoPrimaryFirstName"
+    - "applicantInfoPrimaryLastName"
+    - "applicantInfoDayPhoneAreaCode"
+    - "applicantInfoDayPhonePrefix"
+    - "applicantInfoDayPhoneNumber"
+    - "applicantInfoEmailAddress"
+    - "applicantInfoPrimaryMailingAddress"
+    - "applicantInfoOrgType"
+    - "tempOutfitterFieldsIndividualCitizen"
+    - "tempOutfitterFieldsSmallBusiness"
+    - "type"
+    - "createdAt"
+    - "updatedAt"
+    - "status"
+    properties:
+      applicationId:
+        type: "integer"
+        format: "int64"
+      appControlNumber:
+        type: "string"
+        maxLength: 64
+      controlNumber:
+        type: "string"
+        maxLength: 50
+      region:
+        type: "string"
+        maxLength: 2
+      forest:
+        type: "string"
+        maxLength: 2
+      district:
+        type: "string"
+        maxLength: 2
+      authorizingOfficerName:
+        type: "string"
+      authorizingOfficerTitle:
+        type: "string"
+      eventName:
+        type: "string"
+      applicantInfoPrimaryFirstName:
+        type: "string"
+      applicantInfoPrimaryLastName:
+        type: "string"
+      applicantInfoDayPhoneAreaCode:
+        type: "string"
+        maxLength: 3
+      applicantInfoDayPhonePrefix:
+        type: "string"
+        maxLength: 3
+      applicantInfoDayPhoneNumber:
+        type: "string"
+        maxLength: 4
+      applicantInfoDayPhoneExtension:
+        type: "string"
+        maxLength: 10
+      applicantInfoEveningPhoneAreaCode:
+        type: "string"
+        maxLength: 3
+      applicantInfoEveningPhonePrefix:
+        type: "string"
+        maxLength: 3
+      applicantInfoEveningPhoneNumber:
+        type: "string"
+        maxLength: 4
+      applicantInfoEveningPhoneExtension:
+        type: "string"
+        maxLength: 10
+      applicantInfoEmailAddress:
+        type: "string"
+      applicantInfoOrgMailingAddress:
+        type: "string"
+      applicantInfoOrgMailingAddress2:
+        type: "string"
+      applicantInfoOrgMailingCity:
+        type: "string"
+      applicantInfoOrgMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoOrgMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoPrimaryMailingAddress:
+        type: "string"
+      applicantInfoPrimaryMailingAddress2:
+        type: "string"
+      applicantInfoPrimaryMailingCity:
+        type: "string"
+      applicantInfoPrimaryMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoPrimaryMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoSecondaryMailingAddress:
+        type: "string"
+      applicantInfoSecondaryMailingAddress2:
+        type: "string"
+      applicantInfoSecondaryMailingCity:
+        type: "string"
+      applicantInfoSecondaryMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoSecondaryMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoOrganizationName:
+        type: "string"
+      applicantInfoWebsite:
+        type: "string"
+      applicantInfoOrgType:
+        type: "string"
+      applicantInfoSecondaryFirstName:
+        type: "string"
+      applicantInfoSecondaryLastName:
+        type: "string"
+      type:
+        type: "string"
+      tempOutfitterFieldsActivityDescription:
+        type: "string"
+      tempOutfitterFieldsIndividualCitizen:
+        type: "boolean"
+      tempOutfitterFieldsSmallBusiness:
+        type: "boolean"
+      tempOutfitterFieldsAdvertisingUrl:
+        type: "string"
+      tempOutfitterFieldsAdvertisingDescription:
+        type: "string"
+      tempOutfitterFieldsClientCharges:
+        type: "string"
+      tempOutfitterFieldsExperienceList:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        default: "Received"
+      signature:
+        type: "string"
+        maxLength: 3
+      reasonForReturn:
+        type: "string"
+  noncommercialApplication:
+    type: "object"
+    required:
+    - "applicationId"
+    - "appControlNumber"
+    - "region"
+    - "forest"
+    - "district"
+    - "eventName"
+    - "applicantInfoPrimaryFirstName"
+    - "applicantInfoPrimaryLastName"
+    - "applicantInfoDayPhoneAreaCode"
+    - "applicantInfoDayPhonePrefix"
+    - "applicantInfoDayPhoneNumber"
+    - "applicantInfoEmailAddress"
+    - "applicantInfoPrimaryMailingAddress"
+    - "applicantInfoOrgType"
+    - "type"
+    - "noncommercialFieldsActivityDescription"
+    - "noncommercialFieldsLocationDescription"
+    - "noncommercialFieldsStartDateTime"
+    - "noncommercialFieldsEndDateTime"
+    - "noncommercialFieldsNumberParticipants"
+    - "createdAt"
+    - "updatedAt"
+    - "status"
+    - "noncommercialFieldsSpectatorCount"
+    properties:
+      applicationId:
+        type: "integer"
+        format: "int64"
+      appControlNumber:
+        type: "string"
+        maxLength: 64
+      controlNumber:
+        type: "string"
+        maxLength: 50
+      region:
+        type: "string"
+        maxLength: 2
+      forest:
+        type: "string"
+        maxLength: 2
+      district:
+        type: "string"
+        maxLength: 2
+      authorizingOfficerName:
+        type: "string"
+      authorizingOfficerTitle:
+        type: "string"
+      eventName:
+        type: "string"
+      applicantInfoPrimaryFirstName:
+        type: "string"
+      applicantInfoPrimaryLastName:
+        type: "string"
+      applicantInfoDayPhoneAreaCode:
+        type: "string"
+        maxLength: 3
+      applicantInfoDayPhonePrefix:
+        type: "string"
+        maxLength: 3
+      applicantInfoDayPhoneNumber:
+        type: "string"
+        maxLength: 4
+      applicantInfoDayPhoneExtension:
+        type: "string"
+        maxLength: 10
+      applicantInfoEveningPhoneAreaCode:
+        type: "string"
+        maxLength: 3
+      applicantInfoEveningPhonePrefix:
+        type: "string"
+        maxLength: 3
+      applicantInfoEveningPhoneNumber:
+        type: "string"
+        maxLength: 4
+      applicantInfoEveningPhoneExtension:
+        type: "string"
+        maxLength: 10
+      applicantInfoEmailAddress:
+        type: "string"
+      applicantInfoOrgMailingAddress:
+        type: "string"
+      applicantInfoOrgMailingAddress2:
+        type: "string"
+      applicantInfoOrgMailingCity:
+        type: "string"
+      applicantInfoOrgMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoOrgMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoPrimaryMailingAddress:
+        type: "string"
+      applicantInfoPrimaryMailingAddress2:
+        type: "string"
+      applicantInfoPrimaryMailingCity:
+        type: "string"
+      applicantInfoPrimaryMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoPrimaryMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoSecondaryMailingAddress:
+        type: "string"
+      applicantInfoSecondaryMailingAddress2:
+        type: "string"
+      applicantInfoSecondaryMailingCity:
+        type: "string"
+      applicantInfoSecondaryMailingState:
+        type: "string"
+        maxLength: 2
+      applicantInfoSecondaryMailingZIP:
+        type: "string"
+        maxLength: 5
+      applicantInfoOrganizationName:
+        type: "string"
+      applicantInfoWebsite:
+        type: "string"
+      applicantInfoOrgType:
+        type: "string"
+      applicantInfoSecondaryFirstName:
+        type: "string"
+      applicantInfoSecondaryLastName:
+        type: "string"
+      type:
+        type: "string"
+      noncommercialFieldsActivityDescription:
+        type: "string"
+        maxLength: 512
+      noncommercialFieldsLocationDescription:
+        type: "string"
+      noncommercialFieldsStartDateTime:
+        type: "string"
+      noncommercialFieldsEndDateTime:
+        type: "string"
+      noncommercialFieldsNumberParticipants:
+        type: "integer"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        default: "Received"
+      signature:
+        type: "string"
+        maxLength: 3
+      reasonForReturn:
+        type: "string"
+      noncommercialFieldsSpectatorCount:
+        type: "integer"
+
+
+#      photoUrls:
+#        type: "array"
+#        xml:
+#          name: "photoUrl"
+#          wrapped: true
+#        items:
+#          type: "string"
+#      tags:
+#        type: "array"
+#        xml:
+#          name: "tag"
+#          wrapped: true
+#        items:
+#          $ref: "#/definitions/Tag"
+#      status:
+#        type: "string"
+#        description: "pet status in the store"
+#        enum:
+#        - "available"
+#        - "pending"
+#        - "sold"
+#      complete:
+#        type: "boolean"
+#        default: false
+#      photoUrls:
+#        type: "array"
+#        xml:
+#          name: "photoUrl"
+#          wrapped: true
+#        items:
+#          type: "string"
+#      tags:
+#        type: "array"
+#        xml:
+#          name: "tag"
+#          wrapped: true
+#        items:
+#          $ref: "#/definitions/Tag"
+#      status:
+#        type: "string"
+#        description: "pet status in the store"
+#        enum:
+#        - "available"
+#        - "pending"
+#        - "sold"
+#    xml:
+#      name: "Pet"
+externalDocs:
+  description: "Find out more about Forest Service"
+  url: "https://www.fs.fed.us/"
