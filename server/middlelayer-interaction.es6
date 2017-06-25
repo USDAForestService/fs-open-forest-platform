@@ -3,23 +3,18 @@
 let request = require('request');
 
 let util = require('./util.es6');
-
-const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
-
-const middleLayerBaseUrl = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_BASE_URL;
-const middleLayerUsername = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_USERNAME;
-const middleLayerPassword = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_PASSWORD;
+let vcapServices = require('./vcap-services.es6');
 
 module.exports = (application, successCallback, failureCallback) => {
 
   let authOptions = {
-    url: middleLayerBaseUrl + 'auth',
+    url: vcapServices.middleLayerBaseUrl + 'auth',
     json: true,
-    body: { username: middleLayerUsername, password: middleLayerPassword }
+    body: { username: vcapServices.middleLayerUsername, password: vcapServices.middleLayerPassword }
   };
 
   let acceptanceOptions = {
-    url: middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+    url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: { 'x-access-token': undefined },
     json: true,
     body: util.translateFromIntakeToMiddleLayer(application)
