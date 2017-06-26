@@ -14,5 +14,6 @@ engines:
 exclude_paths:
 - frontend/node_modules/
 - server/node_modules/
+- server/test/
 ecmaFeatures:
   modules: true
