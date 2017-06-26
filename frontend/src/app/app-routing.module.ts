@@ -7,6 +7,7 @@ import { ApplicationSubmittedComponent } from './application-submitted/applicati
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { PermitApplicationConfirmComponent } from './admin/permit-application-confirm/permit-application-confirm.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -15,6 +16,7 @@ import { TemporaryOutfittersComponent } from './applications/temporary-outfitter
 const appRoutes: Routes = [
   { path: 'admin/applications', component: PermitApplicationListComponent },
   { path: 'admin/applications/:id', component: PermitApplicationViewComponent },
+  { path: 'admin/applications/:id/confirm', component: PermitApplicationConfirmComponent },
   { path: 'applications/noncommercial-group-use/new', component: ApplicationNoncommercialGroupComponent },
   { path: 'applications/submitted/:id', component: ApplicationSubmittedComponent },
   { path: 'applications/temp-outfitters/new', component: TemporaryOutfittersComponent },
