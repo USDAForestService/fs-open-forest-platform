@@ -12,6 +12,7 @@ import { ApplicationsModule } from './applications/applications.module';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { PermitApplicationConfirmComponent } from './admin/permit-application-confirm/permit-application-confirm.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -24,6 +25,7 @@ import { TrackScrollDirective } from './_directives/scroll.directive';
     HelpMePickComponent,
     HomeComponent,
     LoginComponent,
+    PermitApplicationConfirmComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     StyleGuideComponent,
