@@ -14,13 +14,7 @@ let TempOutfitterApplication = require('./models/tempoutfitter-application.es6')
 
 let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
 
-// Environment variables
-
-const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
-const accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
-const secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
-const region = VCAPServices.s3[0].credentials.region;
-const bucket = VCAPServices.s3[0].credentials.bucket;
+let vcapServices = require('./vcap-services.es6');
 
 // Controllers
 
@@ -89,7 +83,7 @@ let createNoncommercialTempApp = (req, res) => {
       req.body['applicationId'] = noncommApp.applicationId;
       req.body['appControlNumber'] = noncommApp.appControlNumber;
       res.status(201).json(req.body);
-    }).error((err) => {
+    }).catch((err) => {
       res.status(500).json(err);
     });
   }
@@ -117,7 +111,7 @@ let updateApp = (req, res) => {
         });
       }
     } else {
-      res.status(404);
+      res.status(404).send();
     }
   });
 };
@@ -257,15 +251,15 @@ app.options('*', function(req, res) {
 
 // Upload to S3
 let s3 = new AWS.S3({
-  accessKeyId: accessKeyId,
-  secretAccessKey: secretAccessKey,
-  region: region
+  accessKeyId: vcapServices.accessKeyId,
+  secretAccessKey: vcapServices.secretAccessKey,
+  region: vcapServices.region
 });
 
 let streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: bucket,
+    bucket: vcapServices.bucket,
     key: function (req, file, cb) {
       cb(null, file.originalname); //use Date.now() for unique file keys
     }
