@@ -28,7 +28,7 @@
         <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'">
-          <input id="individual-citizen" type="checkbox" formControlName="applicationForm.controls.tempOutfittersFields.individualCitizen" />
+          <input id="individual-citizen" type="checkbox" formControlName="applicationForm.controls.tempOutfittersFields.individualIsCitizen" />
           <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
         </div>
 
