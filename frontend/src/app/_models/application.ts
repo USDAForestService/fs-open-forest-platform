@@ -91,7 +91,7 @@ export class DateTimeRange {
 }
 
 export class TempOutfitterFields {
-  individualCitizen: boolean;
+  individualIsCitizen: boolean;
   smallBusiness: boolean;
   activityDescription: string;
   activityDescriptionFields: ActivityDescriptionFields;
