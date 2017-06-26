@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';;
+import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
 @Component({
