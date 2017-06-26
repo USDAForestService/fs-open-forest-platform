@@ -13,8 +13,8 @@ import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
 import { EmailComponent } from './fields/email.component';
 import { FaxComponent } from './fields/fax.component';
+import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
-import { FileUploader, FileSelectDirective } from '../../../node_modules/ng2-file-upload/ng2-file-upload';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
@@ -36,7 +36,6 @@ import { WebsiteComponent } from './fields/website.component';
     EmailComponent,
     ExperienceComponent,
     FaxComponent,
-    FileSelectDirective,
     FileUploadComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
@@ -57,7 +56,6 @@ import { WebsiteComponent } from './fields/website.component';
     EmailComponent,
     ExperienceComponent,
     FaxComponent,
-    FileSelectDirective,
     FileUploadComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
@@ -71,6 +69,7 @@ import { WebsiteComponent } from './fields/website.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FileUploadModule,
     FormsModule
   ],
   providers: [
