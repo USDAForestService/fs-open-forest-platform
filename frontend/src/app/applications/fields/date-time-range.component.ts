@@ -19,7 +19,7 @@ export class DateTimeRangeComponent implements OnInit {
     hasErrors: false
   };
 
-  dateTimeRange = FormGroup;
+  dateTimeRange: any;
 
   hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   minutes = ['00', '15', '30', '45'];
@@ -49,6 +49,7 @@ export class DateTimeRangeComponent implements OnInit {
       startPeriod: ['', [Validators.required]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
+    this.dateTimeRange = this.parentForm.get('dateTimeRange');
 
     const startDateFieldsToWatch = ['startMonth', 'startDay', 'startYear'];
     for (const field of startDateFieldsToWatch) {

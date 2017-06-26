@@ -3,7 +3,6 @@ import { Application } from '../../_models/application';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FileSelectDirective, FileDropDirective, FileUploader, FileLikeObject, FileItem } from '../../../../node_modules/ng2-file-upload/ng2-file-upload';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
