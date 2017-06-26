@@ -9,8 +9,6 @@ engines:
     enabled: true
   fixme:
     enabled: true
-  nodesecurity:
-    enabled: true
 exclude_paths:
 - frontend/node_modules/
 - server/node_modules/
