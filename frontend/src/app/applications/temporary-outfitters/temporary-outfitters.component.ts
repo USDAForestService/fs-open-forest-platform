@@ -45,7 +45,7 @@ export class TemporaryOutfittersComponent implements OnInit {
         website: ['']
       }),
       tempOutfittersFields: this.formBuilder.group({
-        individualCitizen: [''],
+        individualIsCitizen: [''],
         smallBusiness: [''],
         advertisingDescription: ['', [Validators.required]],
         advertisingURL: [''],
