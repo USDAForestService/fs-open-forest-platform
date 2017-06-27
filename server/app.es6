@@ -1,20 +1,14 @@
 'use strict';
 
-let AWS = require('aws-sdk');
 let bodyParser = require('body-parser');
 let express =  require('express');
-let multer = require('multer');
-let multerS3 = require('multer-s3');
 
 let util = require('./util.es6');
 let validator = require('./validation.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let ApplicationFile = require('./models/application-files.es6');
-let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
 
 let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
-
-let vcapServices = require('./vcap-services.es6');
+let tempOutfitter = require('./temp-outfitter.es6');
 
 // Controllers
 
@@ -134,95 +128,6 @@ let getAllApps = (req, res) => {
   });
 };
 
-let createAppFile = (req, res) => {
-
-  ApplicationFile.create({
-    applicationId: req.body.applicationId,
-    // applicationType: req.body.applicationType,
-    // s3FileName: req.body.s3FileName,
-    // originalFileName: req.body.originalFileName
-    applicationType: 'tempoutfitters',
-    s3FileName: 'test.pdf',
-    originalFileName: 'originalTest.pdf'
-  }).then((appfile) => {
-    req.body['fileId'] = appfile.fileId;
-    res.status(201).json(req.body);
-  }).error((err) => {
-    res.status(500).json(err);
-  });
-
-};
-
-let createTempOutfitterApp = (req, res) => {
-
-  let errorRet = {};
-
-  let errorArr = validator.validateTempOutfitter(req.body);
-
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    res.status(400).json(errorRet);
-  } else {
-
-    // create the temp outfitter app object and persist
-    TempOutfitterApplication.create({
-      region: req.body.region,
-      forest: req.body.forest,
-      district: req.body.district,
-      authorizingOfficerName: req.body.authorizingOfficerName,
-      authorizingOfficerTitle: req.body.authorizingOfficerTitle,
-      eventName: req.body.eventName,
-      applicantInfoPrimaryFirstName: req.body.applicantInfo.primaryFirstName,
-      applicantInfoPrimaryLastName: req.body.applicantInfo.primaryLastName,
-      applicantInfoDayPhoneAreaCode: req.body.applicantInfo.dayPhone.areaCode,
-      applicantInfoDayPhonePrefix: req.body.applicantInfo.dayPhone.prefix,
-      applicantInfoDayPhoneNumber: req.body.applicantInfo.dayPhone.number,
-      applicantInfoDayPhoneExtension: req.body.applicantInfo.dayPhone.extension,
-      applicantInfoEveningPhoneAreaCode: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.areaCode : null,
-      applicantInfoEveningPhonePrefix: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.prefix : null,
-      applicantInfoEveningPhoneNumber: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.number : null,
-      applicantInfoEveningPhoneExtension: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.extension : null,
-      applicantInfoEmailAddress: req.body.applicantInfo.emailAddress,
-      applicantInfoOrgMailingAddress: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress : null,
-      applicantInfoOrgMailingAddress2: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingAddress2 : null,
-      applicantInfoOrgMailingCity: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingCity : null,
-      applicantInfoOrgMailingState: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingState : null,
-      applicantInfoOrgMailingZIP: req.body.applicantInfo.organizationAddress ? req.body.applicantInfo.organizationAddress.mailingZIP : null,
-      applicantInfoPrimaryMailingAddress: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingAddress : null,
-      applicantInfoPrimaryMailingAddress2: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingAddress2 : null,
-      applicantInfoPrimaryMailingCity: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingCity : null,
-      applicantInfoPrimaryMailingState: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingState : null,
-      applicantInfoPrimaryMailingZIP: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingZIP : null,
-      applicantInfoSecondaryMailingAddress: req.body.applicantInfo.secondaryAddress ? req.body.applicantInfo.secondaryAddress.mailingAddress : null,
-      applicantInfoSecondaryMailingAddress2: req.body.applicantInfo.secondaryAddress ? req.body.applicantInfo.secondaryAddress.mailingAddress2 : null,
-      applicantInfoSecondaryMailingCity: req.body.applicantInfo.secondaryAddress ? req.body.applicantInfo.secondaryAddress.mailingCity : null,
-      applicantInfoSecondaryMailingState: req.body.applicantInfo.secondaryAddress ? req.body.applicantInfo.secondaryAddress.mailingState : null,
-      applicantInfoSecondaryMailingZIP: req.body.applicantInfo.secondaryAddress ? req.body.applicantInfo.secondaryAddress.mailingZIP : null,
-      applicantInfoOrganizationName: req.body.applicantInfo.organizationName,
-      applicantInfoWebsite: req.body.applicantInfo.website,
-      applicantInfoOrgType: req.body.applicantInfo.orgType,
-      applicantInfoSecondaryFirstName: req.body.applicantInfo.secondaryFirstName,
-      applicantInfoSecondaryLastName: req.body.applicantInfo.secondaryLastName,
-      type: req.body.type,
-      tempOutfitterFieldsIndividualCitizen: req.body.tempOutfitterFields.individualCitizen,
-      tempOutfitterFieldsSmallBusiness: req.body.tempOutfitterFields.smallBusiness,
-      tempOutfitterFieldsActivityDescription: req.body.tempOutfitterFields.activityDescription,
-      tempOutfitterFieldsAdvertisingUrl: req.body.tempOutfitterFields.advertisingURL,
-      tempOutfitterFieldsAdvertisingDescription: req.body.tempOutfitterFields.advertisingDescription,
-      tempOutfitterFieldsClientCharges: req.body.tempOutfitterFields.clientCharges,
-      tempOutfitterFieldsExperienceList: req.body.tempOutfitterFields.experienceList,
-      signature: req.body.signature,
-      reasonForReturn: req.body.reasonForReturn
-    }).then((tempOutfitterApp) => {
-      req.body['applicationId'] = tempOutfitterApp.applicationId;
-      req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
-      res.status(201).json(req.body);
-    }).error((err) => {
-      res.status(500).json(err);
-    });
-  }
-};
-
 // server creation ----------------------------------------------------------
 
 let app = express();
@@ -247,25 +152,6 @@ app.options('*', function(req, res) {
   res.send();
 });
 
-// S3 Setup
-
-// Upload to S3
-let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
-});
-
-let streamToS3 = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: vcapServices.bucket,
-    key: function (req, file, cb) {
-      cb(null, file.originalname); //use Date.now() for unique file keys
-    }
-  })
-});
-
 // Endpoints
 
 // POST /permits/applications/special-uses/noncommercial/
@@ -273,12 +159,12 @@ let streamToS3 = multer({
 app.post('/permits/applications/special-uses/noncommercial', createNoncommercialTempApp);
 
 // POST /permits/applications/special-uses/temp-outfitters
-// TODO creates a new temp outfitter application
-app.post('/permits/applications/special-uses/temp-outfitters', createTempOutfitterApp);
+// creates a new temp outfitter application
+app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.createTempOutfitterApp);
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', streamToS3.array('file',1), createAppFile);
+app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file',1), tempOutfitter.createAppFile);
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
