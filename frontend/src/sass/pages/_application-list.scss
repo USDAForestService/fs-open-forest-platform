@@ -6,6 +6,7 @@ app-permit-application-list {
   @media(min-width: 1000px) {
     border-collapse: collapse;
     display: table;
+    max-width: 980px;
   }
   .usa-button {
     margin: 0;
@@ -19,7 +20,7 @@ app-permit-application-list {
       display: table-cell;
       font-size: 14px;
       font-weight: bold;
-      padding: 20px;
+      padding: 20px 10px;
       text-transform: uppercase;
       vertical-align: middle;
     }
@@ -39,7 +40,7 @@ app-permit-application-list {
     }
     div {
       display: table-cell;
-      padding: 20px;
+      padding: 20px 10px;
       vertical-align: middle;
     }
   }
@@ -66,15 +67,7 @@ app-permit-application-list {
   color: red;
 }
 
-.on-hold {
-  color: red;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  img {
-    height: 14px;
-    margin-right: 5px;
-    width: 14px;
-  }
+.application-deadline-warning {
+  text-align: left;
+  border: 1px solid $black;
 }
