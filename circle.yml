@@ -35,6 +35,7 @@ deployment:
     branch: master
     owner: 18F
     commands:
+      - cd frontend; yarn run update-version;
       - cd frontend; ng build --prod --env=prod;
       - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
