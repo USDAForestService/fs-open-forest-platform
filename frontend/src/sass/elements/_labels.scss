@@ -1,0 +1,11 @@
+.usa-label {
+  &.green {
+    background-color: $fs-green;
+  }
+  &.orange {
+    background-color: $fs-orange;
+  }
+  &.red {
+    background-color: $fs-red;
+  }
+}
