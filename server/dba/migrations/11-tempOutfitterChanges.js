@@ -169,7 +169,8 @@ module.exports = {
       {
         operation: 'change',
         field: 'temp_outfitter_client_charges',
-        options: { type: Sequelize.STRING, allowNull: false }
+        options: { type: Sequelize.STRING, allowNull: false },
+        migrationDefaultValue: '0'
       }
     ];
 
