@@ -10,10 +10,6 @@ module.exports = {
       'default': false,
       'type': 'boolean'
     },
-    'activityDescription': {
-      'default': '',
-      'type': 'string'
-    },
     'advertisingURL': {
       'default': '',
       'type': 'string'
@@ -33,12 +29,15 @@ module.exports = {
     'formName': {
       'default': 'FS-2700-3b',
       'type': 'string'
+    },
+    'activityDescriptionFields': {
+      '$ref': '/activityDescriptionFields'
     }
   },
   'allOf': [
     {
       'required': [
-        'activityDescription', 'clientCharges'
+        'clientCharges', 'activityDescriptionFields'
       ]
     },
     {
