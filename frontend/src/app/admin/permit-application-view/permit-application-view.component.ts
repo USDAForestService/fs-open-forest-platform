@@ -13,6 +13,13 @@ export class PermitApplicationViewComponent implements OnInit {
   id: string;
   application = new Application();
   fixedCtas = false;
+  reasonOrCancel = {
+    buttonClass: 'fs-button-green',
+    confirmButtonText: '',
+    label: '',
+    open: false,
+    status: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -43,6 +50,32 @@ export class PermitApplicationViewComponent implements OnInit {
           console.log(e);
         }
       );
+  }
+
+  provideReasonOrCancel(status) {
+
+    switch(status) {
+      case 'Accepted':
+        this.reasonOrCancel.buttonClass = 'fs-button-green';
+        this.reasonOrCancel.confirmButtonText = 'Approve and notify applicant';
+        this.reasonOrCancel.label = 'Additional message for the permit holder.';
+        this.reasonOrCancel.status = status;
+        break;
+      case 'Hold':
+        this.reasonOrCancel.buttonClass = 'usa-button';
+        this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';
+        this.reasonOrCancel.label = 'Why is this application on hold?';
+        this.reasonOrCancel.status = status;
+        break;
+      case 'Returned':
+        this.reasonOrCancel.buttonClass = 'usa-button-secondary';
+        this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
+        this.reasonOrCancel.label = 'Why is this application being rejected.';
+        this.reasonOrCancel.status = status;
+        break;
+    }
+
+    this.reasonOrCancel.open = true;
   }
 
   ngOnInit() {

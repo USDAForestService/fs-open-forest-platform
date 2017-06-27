@@ -35,6 +35,35 @@
       box-sizing: border-box;
       max-width: 280px;
     }
+    #reason-for-action {
+      position: relative;
+      .close-reason-for-action {
+        background-image: url(/assets/img/close-black.svg);
+        background-size: cover;
+        cursor: pointer;
+        height: 45px;
+        position: absolute;
+        text-indent: -9999px;
+        top: 1em;
+        right: 18px;
+        width: 45px;
+      }
+      label {
+        text-align: left;
+        padding-top: 3em;
+        @media(min-width: $medium-screen) {
+          padding-top: 2em;
+        }
+      }
+      #reason-for-return {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .reason-for-action-buttons {
+        float: right;
+        margin: 1em 0;
+      }
+    }
   }
 }
 
