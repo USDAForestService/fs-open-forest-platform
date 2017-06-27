@@ -24,26 +24,26 @@ describe('frontend App', () => {
   it('should go to help me pick wizard if help me find permit button is clicked', () => {
     page.navigateTo();
     element(by.id('help-find-permit')).click();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit.');
   });
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
   helpMePick.questionStep('no', 'Does your activity involve more than 75 people (spectators and participants)?');
-  helpMePick.landingPage('Your activity does not require a permit. Thanks for checking!');
+  helpMePick.landingPage('Your activity does not require a permit.', 'Thanks for checking!');
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
   helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');
-  helpMePick.landingPage('You can apply for a noncommercial group use application online.');
+  helpMePick.landingPage('We\'ve found you a permit!', 'You can apply for a noncommercial group use application online.');
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('yes', 'Is the purpose of your activity selling goods or services?');
   helpMePick.questionStep('no', 'Does your activity involve guiding or outfitting?');
-  helpMePick.landingPage('Your activity requires a permit, but not one available online. Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie.');
+  helpMePick.landingPage('Your activity requires a permit, but not one available online.', 'Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie.');
 
   helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
-  helpMePick.landingPage('You can apply for a temporary outfitter and guide permit online.');
+  helpMePick.landingPage('We\'ve found you a permit!', 'You can apply for a temporary outfitter and guide permit online.');
 
 });
