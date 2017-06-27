@@ -54,7 +54,7 @@ export class PermitApplicationViewComponent implements OnInit {
 
   provideReasonOrCancel(status) {
 
-    switch(status) {
+    switch (status) {
       case 'Accepted':
         this.reasonOrCancel.buttonClass = 'fs-button-green';
         this.reasonOrCancel.confirmButtonText = 'Approve and notify applicant';
@@ -70,15 +70,17 @@ export class PermitApplicationViewComponent implements OnInit {
       case 'Returned':
         this.reasonOrCancel.buttonClass = 'usa-button-secondary';
         this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
-        this.reasonOrCancel.label = 'Why is this application being rejected.';
+        this.reasonOrCancel.label = 'Why is this application being rejected?';
         this.reasonOrCancel.status = status;
         break;
     }
 
     this.reasonOrCancel.open = true;
+    window.scrollTo(0, 200);
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getApplication(this.id);

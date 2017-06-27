@@ -7,7 +7,7 @@
       <div class="usa-grid event-name no-padding padding-top-1">
         <div class="usa-width-three-fourths">
           <h1>{{ application.eventName}}
-            <span class="usa-label" [ngClass]="{
+            <span *ngIf="application.status !== 'Received'" class="usa-label" [ngClass]="{
               'green': application.status === 'Accepted',
               'orange': application.status === 'Hold',
               'red': application.status === 'Returned'
