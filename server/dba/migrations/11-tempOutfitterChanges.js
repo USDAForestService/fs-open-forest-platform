@@ -12,19 +12,19 @@ module.exports = {
         operation: 'add',
         field: 'applicant_info_fax_areacd',
         type: Sequelize.STRING(3),
-        allowNull: false
+        allowNull: true
       },
       {
         operation: 'add',
         field: 'applicant_info_fax_prefix',
         type: Sequelize.STRING(3),
-        allowNull: false
+        allowNull: true
       },
       {
         operation: 'add',
         field: 'applicant_info_fax_number',
         type: Sequelize.STRING(4),
-        allowNull: false
+        allowNull: true
       },
       {
         operation: 'add',
@@ -251,7 +251,8 @@ module.exports = {
         operation: 'add',
         field: 'event_name',
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        migrationDefaultValue: 'event'
       },
       {
         operation: 'add',
