@@ -8,6 +8,9 @@ module.exports = {
         'applicantInfo': {
           '$ref': '/noncommercialApplicantInfo'
         },
+        'dateTimeRange': {
+          '$ref': '/dateTimeRange'
+        },
         'eventName': {
           'default':'',
           'type': 'string'
@@ -24,7 +27,7 @@ module.exports = {
           '$ref': '/noncommercialFields'
         }
       },
-      'required': ['applicantInfo', 'type', 'noncommercialFields', 'eventName']
+      'required': ['applicantInfo', 'dateTimeRange', 'type', 'noncommercialFields', 'eventName']
     }
   ]
 };
