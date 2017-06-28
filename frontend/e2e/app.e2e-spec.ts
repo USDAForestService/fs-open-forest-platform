@@ -24,7 +24,7 @@ describe('frontend App', () => {
   it('should go to help me pick wizard if help me find permit button is clicked', () => {
     page.navigateTo();
     element(by.id('help-find-permit')).click();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit.');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Are you charging a participation fee for your activity?');
   });
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
@@ -35,7 +35,7 @@ describe('frontend App', () => {
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
   helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');
-  helpMePick.landingPage('We\'ve found you a permit!', 'You can apply for a noncommercial group use application online.');
+  helpMePick.landingPage('The correct permit for you is the "noncommercial group use application."', 'You can apply online.');
 
   helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('yes', 'Is the purpose of your activity selling goods or services?');
@@ -44,6 +44,6 @@ describe('frontend App', () => {
 
   helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
   helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
-  helpMePick.landingPage('We\'ve found you a permit!', 'You can apply for a temporary outfitter and guide permit online.');
+  helpMePick.landingPage('The correct permit for you is the "temporary outfitter and guide permit."', 'You can apply online.');
 
 });

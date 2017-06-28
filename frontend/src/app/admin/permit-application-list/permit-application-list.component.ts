@@ -16,13 +16,36 @@ export class PermitApplicationListComponent implements OnInit {
   applications: any;
   apiErrors: any;
 
-  constructor( private applicationService: ApplicationService ) { }
+  constructor( private applicationService: ApplicationService ) {
+    this.applications = [];
+  }
 
-  isApproachingDeadline(startDateTime) {
+  isApproachingBeginDateTime(startDateTime) {
     const now = moment();
-    const start = moment(startDateTime, 'YYYY-MM-DDTHH:mm:ss');
-    const deadline = moment().add(3, 'days');
-    return start.isBetween(now, deadline);
+    const deadline = moment(startDateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'weeks');
+    return now.isAfter(deadline);
+  }
+
+  isOverOneDayOld(submittedDateTime) {
+    const now = moment();
+    const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(1, 'days');
+    return now.isAfter(deadline);
+  }
+
+  isOverTwoDaysOld(submittedDateTime) {
+    const now = moment();
+    const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(2, 'days');
+    return now.isAfter(deadline);
+  }
+
+  showAttentionAlert() {
+    let result = false;
+    this.applications.forEach((application) => {
+      if (this.isOverTwoDaysOld(application.createdAt)) {
+        result = true;
+      }
+    });
+    return result;
   }
 
   getApplications() {
