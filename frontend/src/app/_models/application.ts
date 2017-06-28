@@ -15,6 +15,7 @@ export class Application {
   reasonForReturn: string;
   region: string;
   signature: string;
+  status: string;
   type: string;
   constructor() {
     this.applicantInfo = new ApplicantInfo();
