@@ -23,8 +23,9 @@ export class ActivityDescriptionComponent implements OnInit {
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: [],
-      numberOfTrips: [],
+      numberServiceDaysRequested: ['', [Validators.required]],
+      numberOfTrips: ['', [Validators.required]],
+      partySize: ['', [Validators.required]],
       locationDescription: [],
       servicesProvided: [],
       audienceDescription: [],
