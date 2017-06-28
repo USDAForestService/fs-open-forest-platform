@@ -1,0 +1,7 @@
+<fieldset [formGroup]="tempOutfittersFields">
+  <legend>Experience</legend>
+  
+  <label class="usa-input" for="experience-list">List all permits for outfitting and guiding on National Forest System lands that you have held in the past 3 years.  If you received a performance evaluation from the Forest Service, attach a copy.   If you are relying on outfitting and guiding experience with other federal or state agencies, list any permits that you have held with those agencies in the past 3 years and provide a copy of any performance evaluations received.  List all citations or violations received in association with outfitting and guiding activities.</label>
+  <input id="experience-list" type="text" formControlName="experienceList" />
+  <span id="experience-list-error" class="usa-input-error-message" role="alert" [hidden]="tempOutfittersFields.controls.experienceList.valid || tempOutfittersFields.controls.experienceList.untouched">Experience list is required.</span>
+</fieldset>
