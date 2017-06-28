@@ -86,7 +86,7 @@ let addPreparations = (tableName, operations) => {
       // by default we always add a column with allowNull: true
       // then we need to ensure setting a default value
       // then changing to make allowNull: false
-      if ( ! operation.allowNull ) {
+      if (operation.allowNull !== undefined && Object.keys(operation.allowNull).length > 0 && (! operation.allowNull)) {
         try {
           let newOperation = changeNotNull(tableName, operation);
           if (newOperation) {
