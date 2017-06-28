@@ -30,7 +30,7 @@
       <div *ngFor="let application of applications" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
         <div *ngIf="application.status === 'Hold'"><span class="usa-label orange">Hold</span></div>
         <div *ngIf="application.status === 'Received'">
-          <div *ngIf="isOverTwoDaysOld(application.createdAt)"><span class="usa-label orange">Attention</span></div>
+          <div *ngIf="isOverTwoDaysOld(application.createdAt)"><div class="warning-icon"></div></div>
         </div>
         <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
