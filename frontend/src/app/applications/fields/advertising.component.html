@@ -1,14 +1,18 @@
 <ng-container [formGroup]="tempOutfittersFields">
   <fieldset>
+
     <legend>Advertising</legend>
-    <h3>Provide a current brochure and current advertising materials or website address.</h3>
+    <!-- <h3>Provide a current brochure and current advertising materials or website address.</h3> -->
 
-    <label class="usa-input" for="advertising-description">Adversting description</label>
-    <input id="advertising-description" type="text" formControlName="advertisingDescription" />
+    <label class="usa-input" for="advertising-description">Advertising description</label>
+    <p class="help-text usa-form-hint">Please describe your marketing plan.</p>
+    <textarea id="advertising-description" type="text" formControlName="advertisingDescription"></textarea>
     <span id="advertising-description-error" class="usa-input-error-message" role="alert" [hidden]="tempOutfittersFields.controls.advertisingDescription.valid || tempOutfittersFields.controls.advertisingDescription.untouched">Advertising description is required.</span>
+    <!-- TODO: validation -->
 
-    <label class="usa-input" for="advertising-url">Adversting description</label>
+    <label class="usa-input" for="advertising-url">Promotional website</label>
     <input id="advertising-url" type="url" formControlName="advertisingURL" />
+    <!-- TODO: validation -->
 
   </fieldset>
 </ng-container>

@@ -26,7 +26,7 @@ export class ActivityDescriptionComponent implements OnInit {
       numberServiceDaysRequested: ['', [Validators.required]],
       numberOfTrips: ['', [Validators.required]],
       partySize: ['', [Validators.required]],
-      locationDescription: [],
+      locationDescription: ['', [Validators.required]],
       servicesProvided: [],
       audienceDescription: [],
       listOfGovernmentFacilities: [],

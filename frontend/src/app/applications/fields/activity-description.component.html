@@ -17,33 +17,43 @@
 
       <app-date-time-range [parentForm]="parentForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
 
-      <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations (include a map showing these locations).</label>
-      <input id="location-description"  type="text" formControlName="locationDescription" />
+      <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations.</label>
+      <textarea id="location-description" type="text" formControlName="locationDescription"></textarea>
+      <span id="location-description-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.locationDescription').valid || parentForm.get('activityDescription.locationDescription').untouched">Location of routes is required.</span>
 
 
-      <label class="usa-input" for="services-provided">Services that will be offered to clients (identify any services that will be provided by a party other than the holder).</label>
-      <input id="services-provided"  type="text" formControlName="servicesProvided" />
+      <label class="usa-input" for="services-provided">Services being offered.</label>
+      <p class="help-text usa-form-hint">Services that will be offered to clients (also please document any services that will be provided by a party other than the holder).</p>
+      <textarea id="services-provided"  type="text" formControlName="servicesProvided"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="audience-description">A description of your client base or audience.  </label>
-      <input id="audience-description" type="text" formControlName="audienceDescription" />
+      <label class="usa-input" for="audience-description">Description of your client base or audience.  </label>
+      <textarea id="audience-description" type="text" formControlName="audienceDescription"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="list-of-government-facilities">A list of government facilities you propose to use, e.g., a boat launch, parking lot, or trailhead.</label>
-      <input id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities" />
+      <label class="usa-input" for="list-of-government-facilities">List of government facilities you propose to use, e.g., a boat launch, parking lot, or trailhead.</label>
+      <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="list-of-temporary-improvements">A list of temporary improvements or signs that you propose to use.</label>
-      <input id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" />
+      <label class="usa-input" for="list-of-temporary-improvements">List of temporary improvements or signs that you propose to use.</label>
+      <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="statement-of-motorized-equipment">A statement of whether the proposed operations involve motorized equipment.</label>
-      <input id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment" />
+      <label class="usa-input" for="statement-of-motorized-equipment">Statement of whether the proposed operations involve motorized equipment.</label>
+      <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="statement-of-transportation-of-livestock">A statement of whether the proposed operations involve transportation livestock, and if so, whether grazing is requested.</label>
-      <input id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock" />
+      <label class="usa-input" for="statement-of-transportation-of-livestock">Statement of whether the proposed operations involve transportation livestock, and if so, whether grazing is requested.</label>
+      <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="statement-of-assigned-site">A statement of whether an assigned site is requested.</label>
-      <input id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite" />
+      <label class="usa-input" for="statement-of-assigned-site">Statement of whether an assigned site is requested.</label>
+      <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite"></textarea>
+      <!-- TODO: validation -->
 
-      <label class="usa-input" for="description-of-cleanup-and-restoration">A description of cleanup and restoration during and after the proposed operations.</label>
-      <input id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" />
+      <label class="usa-input" for="description-of-cleanup-and-restoration">Description of cleanup and restoration during and after the proposed operations.</label>
+      <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration"></textarea>
+      <!-- TODO: validation -->
 
     </fieldset>
   </ng-container>
