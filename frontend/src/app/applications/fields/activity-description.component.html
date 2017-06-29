@@ -21,39 +21,58 @@
       <textarea id="location-description" type="text" formControlName="locationDescription"></textarea>
       <span id="location-description-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.locationDescription').valid || parentForm.get('activityDescription.locationDescription').untouched">Location of routes is required.</span>
 
-
       <label class="usa-input" for="services-provided">Services being offered.</label>
       <p class="help-text usa-form-hint">Services that will be offered to clients (also please document any services that will be provided by a party other than the holder).</p>
       <textarea id="services-provided"  type="text" formControlName="servicesProvided"></textarea>
-      <!-- TODO: validation -->
+      <span id="services-provided-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.servicesProvided').valid || parentForm.get('activityDescription.servicesProvided').untouched">A list of services provided is required.</span>
 
       <label class="usa-input" for="audience-description">Description of your client base or audience.  </label>
       <textarea id="audience-description" type="text" formControlName="audienceDescription"></textarea>
-      <!-- TODO: validation -->
+      <span id="audience-description-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.audienceDescription').valid || parentForm.get('activityDescription.audienceDescription').untouched">A description of your audience is required.</span>
 
-      <label class="usa-input" for="list-of-government-facilities">List of government facilities you propose to use, e.g., a boat launch, parking lot, or trailhead.</label>
-      <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities"></textarea>
-      <!-- TODO: validation -->
+      <input id="need-government-facilities" type="checkbox" formControlName="needGovernmentFacilities" />
+      <label class="usa-input" for="need-government-facilities">I would like to use government facilities, e.g., a boat launch, parking lot, or trailhead.</label>
+      <ng-container *ngIf="parentForm.get('activityDescription.needGovernmentFacilities').value">
+        <label class="usa-input" for="list-of-government-facilities">List facilities needed.</label>
+        <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities"></textarea>
+        <span id="list-of-government-facilities-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.listOfGovernmentFacilities').valid || parentForm.get('activityDescription.listOfGovernmentFacilities').untouched">A list of government facilities is required.</span>
+      </ng-container>
 
-      <label class="usa-input" for="list-of-temporary-improvements">List of temporary improvements or signs that you propose to use.</label>
-      <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements"></textarea>
-      <!-- TODO: validation -->
+      <input id="need-temporary-improvements" type="checkbox" formControlName="needTemporaryImprovements" />
+      <label class="usa-input" for="need-temporary-improvements">I propose to use temporary improvements or signs.</label>
+      <ng-container *ngIf="parentForm.get('activityDescription.needTemporaryImprovements').value">
+        <label class="usa-input" for="list-of-temporary-improvements">List of temporary improvements or signs that you propose to use.</label>
+        <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements"></textarea>
+        <span id="list-of-temporary-improvements-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.listOfTemporaryImprovements').valid || parentForm.get('activityDescription.listOfTemporaryImprovements').untouched">A list of temporary improvements is required.</span>
+      </ng-container>
 
-      <label class="usa-input" for="statement-of-motorized-equipment">Statement of whether the proposed operations involve motorized equipment.</label>
-      <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment"></textarea>
-      <!-- TODO: validation -->
+      <input id="have-motorized-equipment" type="checkbox" formControlName="haveMotorizedEquipment" />
+      <label class="usa-input" for="have-motorized-equipment">The proposed operations involve motorized equipment.</label>
+      <ng-container *ngIf="parentForm.get('activityDescription.haveMotorizedEquipment').value">
+        <label class="usa-input" for="statement-of-motorized-equipment">Description of the proposed operations involving motorized equipment.</label>
+        <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment"></textarea>
+        <span id="statement-of-motorized-equipment-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.statementOfMotorizedEquipment').valid || parentForm.get('activityDescription.statementOfMotorizedEquipment').untouched">A description of motorized equipment is required.</span>
+      </ng-container>
 
-      <label class="usa-input" for="statement-of-transportation-of-livestock">Statement of whether the proposed operations involve transportation livestock, and if so, whether grazing is requested.</label>
-      <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock"></textarea>
-      <!-- TODO: validation -->
+      <input id="have-livestock" type="checkbox" formControlName="haveLivestock" />
+      <label class="usa-input" for="have-livestock">The proposed operation involves the transportation of livestock.</label>
+      <ng-container *ngIf="parentForm.get('activityDescription.haveLivestock').value">
+        <label class="usa-input" for="statement-of-transportation-of-livestock">Description of the proposed operations involving the transportation of livestock, and whether grazing is requested.</label>
+        <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock"></textarea>
+        <span id="statement-of-transportation-of-livestock-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.statementOfTransportationOfLivestock').valid || parentForm.get('activityDescription.statementOfTransportationOfLivestock').untouched">A description of the transportation of livestock is required.</span>
+      </ng-container>
 
-      <label class="usa-input" for="statement-of-assigned-site">Statement of whether an assigned site is requested.</label>
-      <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite"></textarea>
-      <!-- TODO: validation -->
+      <input id="need-assigned-site" type="checkbox" formControlName="needAssignedSite" />
+      <label class="usa-input" for="need-assigned-site">An assigned site is requested.</label>
+      <ng-container *ngIf="parentForm.get('activityDescription.needAssignedSite').value">
+        <label class="usa-input" for="statement-of-assigned-site">Description of requested assigned site.</label>
+        <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite"></textarea>
+        <span id="statement-of-assigned-site-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.statementOfAssignedSite').valid || parentForm.get('activityDescription.statementOfAssignedSite').untouched">A description of assigned site is required.</span>
+      </ng-container>
 
       <label class="usa-input" for="description-of-cleanup-and-restoration">Description of cleanup and restoration during and after the proposed operations.</label>
       <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration"></textarea>
-      <!-- TODO: validation -->
+      <span id="description-of-cleanup-and-restoration-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.descriptionOfCleanupAndRestoration').valid || parentForm.get('activityDescription.descriptionOfCleanupAndRestoration').untouched">A description of cleanup and restoration is required.</span>
 
     </fieldset>
   </ng-container>
