@@ -17,6 +17,7 @@ let phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
 let tempOutfitterAppInfoSchema = require('./json-schemas/tempOutfitter-application-info-schema.es6');
 let tempOutfitterFieldsSchema = require('./json-schemas/tempOutfitter-fields-schema.es6');
 let tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
+let activityDescriptionFieldsSchema = require('./json-schemas/activityDescription-fields-schema.es6');
 
 validator.addSchema(addressSchema);
 validator.addSchema(applicantInfoBaseSchema);
@@ -29,6 +30,7 @@ validator.addSchema(phoneNumberSchema);
 validator.addSchema(tempOutfitterAppInfoSchema);
 validator.addSchema(tempOutfitterFieldsSchema);
 validator.addSchema(tempOutfitterSchema);
+validator.addSchema(activityDescriptionFieldsSchema);
 
 let validateSchema = (input) => {
 
@@ -169,29 +171,27 @@ validate.validateTempOutfitter = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  // if the orgType is Individual, then primaryAddress is required
-  if (obj.applicantInfo.orgType === 'Person') {
-
-    validationObj = {
-      inputObj: obj.applicantInfo.primaryAddress,
-      schema: addressSchema,
-      errors: errorArr,
-      prefix: 'applicantInfo.primaryAddress.',
-      required: true,
-      requiredKey: 'required-applicantInfo.primaryAddress'
-    };
-
-    errorArr = validateSchema(validationObj);
-  }
-
-  // if secondaryAddress exists, then validate it
+  // if there is a fax number, validate it
   validationObj = {
-    inputObj: obj.applicantInfo.secondaryAddres,
-    schema: addressSchema,
+    inputObj: obj.applicantInfo.faxNumber,
+    schema: phoneNumberSchema,
     errors: errorArr,
-    prefix: 'applicantInfo.secondaryAddress.',
+    prefix: 'applicantInfo.faxNumber.',
     required: false,
     requiredKey: undefined
+  };
+
+  errorArr = validateSchema(validationObj);
+
+  // primaryAddress is always required
+
+  validationObj = {
+    inputObj: obj.applicantInfo.primaryAddress,
+    schema: addressSchema,
+    errors: errorArr,
+    prefix: 'applicantInfo.primaryAddress.',
+    required: true,
+    requiredKey: 'required-applicantInfo.primaryAddress'
   };
 
   errorArr = validateSchema(validationObj);

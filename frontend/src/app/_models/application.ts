@@ -15,6 +15,7 @@ export class Application {
   reasonForReturn: string;
   region: string;
   signature: string;
+  status: string;
   type: string;
   constructor() {
     this.applicantInfo = new ApplicantInfo();
@@ -91,7 +92,7 @@ export class DateTimeRange {
 }
 
 export class TempOutfitterFields {
-  individualCitizen: boolean;
+  individualIsCitizen: boolean;
   smallBusiness: boolean;
   activityDescription: string;
   activityDescriptionFields: ActivityDescriptionFields;
