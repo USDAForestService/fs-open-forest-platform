@@ -32,7 +32,7 @@
   },
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
-    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js",
+    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo",
     "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
