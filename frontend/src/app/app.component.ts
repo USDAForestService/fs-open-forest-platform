@@ -14,12 +14,10 @@ export class AppComponent {
   currentRoute: string;
 
   constructor(router: Router) {
-    router.events.subscribe((url:any) => console.log(url));
-
     router.events.subscribe(scroll => {
-      let urlWithSegments = router.url.split('#');
+      const urlWithSegments = router.url.split('#');
 
-      if (urlWithSegments.length){
+      if (urlWithSegments.length) {
         this.currentRoute = urlWithSegments[0];
       } else {
         this.currentRoute = router.url;
@@ -28,7 +26,7 @@ export class AppComponent {
       if (scroll instanceof NavigationEnd) {
         const url = router.parseUrl(router.url);
         if (url.fragment) {
-          const element = document.querySelector("#" + url.fragment);
+          const element = document.querySelector('#' + url.fragment);
           if (element) { element.scrollIntoView(true); }
         }
       }
