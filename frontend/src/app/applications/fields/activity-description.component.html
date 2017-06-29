@@ -5,18 +5,20 @@
 
       <label class="usa-input" for="number-service-days-requested">The number of service days requested (or quota equivalent).</label>
       <input id="number-service-days-requested"  type="number" formControlName="numberServiceDaysRequested"  />
+      <span id="number-service-days-requested-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.numberServiceDaysRequested').valid || parentForm.get('activityDescription.numberServiceDaysRequested').untouched">Service days is required.</span>
 
-      <label class="usa-input" for="number-of-trips">The anticipated number of trips and party size.</label>
+      <label class="usa-input" for="number-of-trips">The anticipated number of trips.</label>
       <input id="number-of-trips"  type="number" formControlName="numberOfTrips" />
+      <span id="number-of-trips-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.numberOfTrips').valid || parentForm.get('activityDescription.numberOfTrips').untouched">Number of trips is required.</span>
 
-      <fieldset>
-        <legend>Trip Itinerary</legend>
+      <label class="usa-input" for="party-size">The anticipated party size.</label>
+      <input id="party-size"  type="number" formControlName="partySize" />
+      <span id="party-size-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('activityDescription.partySize').valid || parentForm.get('activityDescription.partySize').untouched">Party size is required.</span>
 
-        <app-date-time-range [parentForm]="parentForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+      <app-date-time-range [parentForm]="parentForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
 
-        <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations (include a map showing these locations).</label>
-        <input id="location-description"  type="text" formControlName="locationDescription" />
-      </fieldset>
+      <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations (include a map showing these locations).</label>
+      <input id="location-description"  type="text" formControlName="locationDescription" />
 
 
       <label class="usa-input" for="services-provided">Services that will be offered to clients (identify any services that will be provided by a party other than the holder).</label>

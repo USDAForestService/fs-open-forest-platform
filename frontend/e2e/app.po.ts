@@ -37,7 +37,7 @@ export class AdminApplicationView {
 export class HelpMePick {
   questionStep(cta, question) {
     it('should have a question', () => {
-      expect<any>(element(by.css('.question')).getText()).toEqual(question);
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual(question);
     });
 
     it('should have yes and no buttons', () => {
@@ -47,11 +47,14 @@ export class HelpMePick {
 
     it('should go to next question when ' + cta + ' is clicked', () => {
       element(by.css('.' + cta)).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
+      expect<any>(element(by.css('app-root h1')).isDisplayed()).toBeTruthy();
     });
   }
 
-  landingPage(message) {
+  landingPage(heading, message) {
+    it('should have a heading', () => {
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual(heading);
+    });
     it('should have a message', () => {
       expect<any>(element(by.css('.message')).getText()).toEqual(message);
     });
@@ -59,7 +62,7 @@ export class HelpMePick {
     it('should go back to step one', () => {
       browser.get('/');
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Help me pick a permit');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Are you charging a participation fee for your activity?');
     });
   }
 }
