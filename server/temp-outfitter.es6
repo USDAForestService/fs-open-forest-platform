@@ -77,11 +77,11 @@ tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
       applicantInfoEveningPhoneNumber: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.number : null,
       applicantInfoEveningPhoneExtension: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.extension : null,
       applicantInfoEmailAddress: req.body.applicantInfo.emailAddress,
-      applicantInfoPrimaryMailingAddress: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingAddress : null,
-      applicantInfoPrimaryMailingAddress2: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingAddress2 : null,
-      applicantInfoPrimaryMailingCity: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingCity : null,
-      applicantInfoPrimaryMailingState: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingState : null,
-      applicantInfoPrimaryMailingZIP: req.body.applicantInfo.primaryAddress ? req.body.applicantInfo.primaryAddress.mailingZIP : null,
+      applicantInfoPrimaryMailingAddress: req.body.applicantInfo.primaryAddress.mailingAddress,
+      applicantInfoPrimaryMailingAddress2: req.body.applicantInfo.primaryAddress.mailingAddress2,
+      applicantInfoPrimaryMailingCity: req.body.applicantInfo.primaryAddress.mailingCity,
+      applicantInfoPrimaryMailingState: req.body.applicantInfo.primaryAddress.mailingState,
+      applicantInfoPrimaryMailingZIP: req.body.applicantInfo.primaryAddress.mailingZIP,
       applicantInfoOrganizationName: req.body.applicantInfo.organizationName,
       applicantInfoWebsite: req.body.applicantInfo.website,
       applicantInfoOrgType: req.body.applicantInfo.orgType,
@@ -115,7 +115,7 @@ tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
       req.body['applicationId'] = tempOutfitterApp.applicationId;
       req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
       res.status(201).json(req.body);
-    }).error((err) => {
+    }).catch((err) => {
       res.status(500).json(err);
     });
   }
