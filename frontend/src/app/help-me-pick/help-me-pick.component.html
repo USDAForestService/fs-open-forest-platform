@@ -1,50 +1,53 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1>Help me pick a permit</h1>
-
+    <div class="breadcrumbs">
+      <a routerLink="/">Apply for a permit</a> > <span>Help me find a permit</span>
+    </div>
     <div *ngIf="id == 1">
-      <p class="question">Are you charging a participation fee for your activity?</p>
+      <h1>Are you charging a participation fee for your activity?</h1>
       <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
       <a class="usa-button no" type="button" routerLink="/help-me-pick/2">No</a>
     </div>
 
     <div *ngIf="id == 2">
-      <p class="question">Is the purpose of your activity selling goods or services?</p>
+      <h1>Is the purpose of your activity selling goods or services?</h1>
       <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
       <a class="usa-button no" type="button" routerLink="/help-me-pick/3">No</a>
     </div>
 
     <div *ngIf="id == 3">
-      <p class="question">Does your activity involve more than 75 people (spectators and participants)?</p>
+      <h1>Does your activity involve more than 75 people (spectators and participants)?</h1>
       <a class="usa-button yes" type="button" routerLink="/help-me-pick/7">Yes</a>
       <a class="usa-button no" type="button" routerLink="/help-me-pick/4">No</a>
     </div>
 
     <div *ngIf="id == 4">
-      <p class="message">Your activity does not require a permit. Thanks for checking!</p>
+      <h1>Your activity does not require a permit.</h1>
+      <p class="message">Thanks for checking!</p>
     </div>
 
     <div *ngIf="id == 5">
-      <p class="question">Does your activity involve guiding or outfitting?</p>
+      <h1>Does your activity involve guiding or outfitting?</h1>
       <a class="usa-button yes" type="button" routerLink="/help-me-pick/8">Yes</a>
       <a class="usa-button no" type="button" routerLink="/help-me-pick/6">No</a>
     </div>
 
     <div *ngIf="id == 6">
-      <p class="message">Your activity requires a permit, but not one available online. Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie.</p>
-      <a class="usa-button learn-more" type="button">Learn more</a>
+      <h1>Your activity requires a permit, but not one available online.</h1>
+      <p class="message">Learn about other permit types (available via a paper application) at Mt. Baker-Snowquaminie.</p>
+      <a href="//www.fs.usda.gov/main/mbs/passes-permits" target="_blank" class="usa-button learn-more" type="button">Learn more</a>
     </div>
 
     <div *ngIf="id == 7">
-      <p class="message">You can apply for a noncommercial group use application online.</p>
-      <a class="usa-button apply-now" type="button" routerLink="/applications/noncommercial-group-use/new">Apply now</a>
+      <h1>The correct permit for you is the "noncommercial group use application."</h1>
+      <p class="message">You can apply online.</p>
+      <a class="usa-button fs-button-green" type="button" routerLink="/applications/noncommercial-group-use/new">Apply now</a>
     </div>
 
     <div *ngIf="id == 8">
-      <p class="message">You can apply for a temporary outfitter and guide permit online.</p>
-      <a class="usa-button apply-now" type="button" routerLink="/applications/temp-outfitters/new">Apply now</a>
-      <p>Learn more about other permit types (available via a paper application).</p>
-      <a class="usa-button learn-more" type="button">Learn more</a>
+      <h1>The correct permit for you is the "temporary outfitter and guide permit."</h1>
+      <p class="message">You can apply online.</p>
+      <a class="usa-button fs-button-green" type="button" routerLink="/applications/temp-outfitters/new">Apply now</a>
     </div>
 
   </div>
