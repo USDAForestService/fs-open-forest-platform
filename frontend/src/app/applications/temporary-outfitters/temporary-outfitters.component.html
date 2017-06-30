@@ -92,7 +92,7 @@
         <p>I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
-        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" />
+        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
         <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
       </fieldset>
 

@@ -3,7 +3,7 @@
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
         <label class="usa-input" for="day-phone">{{ name }} (10 digits)</label>
-        <input id="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
+        <input id="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true" />
         <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('dayPhone.tenDigit').valid || parentForm.get('dayPhone.tenDigit').untouched">Valid phone is required.</span>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
@@ -20,7 +20,7 @@
     <ng-container formGroupName="{{ eveningPhone }}">
       <div class="usa-input-grid usa-input-grid-medium">
         <label class="usa-input" for="evening-phone">{{ name }} (10 digits)</label>
-        <input id="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
+        <input id="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true" />
         <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('eveningPhone.tenDigit').valid || parentForm.get('eveningPhone.tenDigit').untouched">Valid phone is required.</span>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
