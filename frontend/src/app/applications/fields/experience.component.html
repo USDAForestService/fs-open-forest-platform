@@ -6,7 +6,7 @@
     <label class="usa-input" for="have-national-forest-permits">I have held permits for outfitting and guiding on National Forest System lands in the past 3 years.</label>
     <ng-container *ngIf="parentForm.get('experienceFields.haveNationalForestPermits').value">
       <label class="usa-input" for="list-all-national-forest-permits">List all permits for outfitting and guiding on National Forest System lands that you have held in the past 3 years.</label>
-      <textarea id="list-all-national-forest-permits" formControlName="listAllNationalForestPermits"></textarea>
+      <textarea id="list-all-national-forest-permits" formControlName="listAllNationalForestPermits" aria-required="true"></textarea>
       <span id="list-all-national-forest-permits-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('experienceFields.listAllNationalForestPermits').valid || parentForm.get('experienceFields.listAllNationalForestPermits').untouched">A list of your US Forest Service permits is required.</span>
     </ng-container>
 
@@ -14,7 +14,7 @@
     <label class="usa-input" for="have-other-permits">I have held permits with other federal or state agencies in the past 3 years.</label>
     <ng-container *ngIf="parentForm.get('experienceFields.haveOtherPermits').value">
       <label class="usa-input" for="list-all-other-permits">List all permits that you have held with other federal or state agencies in the past 3 years.</label>
-      <textarea id="list-all-other-permits" formControlName="listAllOtherPermits"></textarea>
+      <textarea id="list-all-other-permits" formControlName="listAllOtherPermits" aria-required="true"></textarea>
       <span id="list-all-other-permits-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('experienceFields.listAllOtherPermits').valid || parentForm.get('experienceFields.listAllOtherPermits').untouched">A list of your other permits is required.</span>
     </ng-container>
 
@@ -22,7 +22,7 @@
     <label class="usa-input" for="have-citations">I have been issued citations or violations in association with outfitting and guiding activities.</label>
     <ng-container *ngIf="parentForm.get('experienceFields.haveCitations').value">
       <label class="usa-input" for="list-all-other-permits">List all citations or violations received in association with outfitting and guiding activities.</label>
-      <textarea id="list-all-citations" formControlName="listAllCitations"></textarea>
+      <textarea id="list-all-citations" formControlName="listAllCitations" aria-required="true"></textarea>
       <span id="list-all-citations-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('experienceFields.listAllCitations').valid || parentForm.get('experienceFields.listAllCitations').untouched">A list of your citations or violations is required.</span>
     </ng-container>
 
