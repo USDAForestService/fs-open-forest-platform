@@ -3,16 +3,16 @@
     <fieldset>
       <legend class="fs-datetime-legend">Start date</legend>
       <div class="usa-form-group usa-form-group-month">
-        <label for="startMonth">Month</label>
-        <input class="usa-input-inline" id="start-month" name="startMonth" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" />
+        <label for="start-month">Month</label>
+        <input class="usa-input-inline" id="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="startDay">Day</label>
-        <input class="usa-input-inline" id="start-day" name="startDay" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay"/>
+        <label for="start-day">Day</label>
+        <input class="usa-input-inline" id="start-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay"/>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startYear">Year</label>
-        <input class="usa-input-inline" id="start-year" name="startYear" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" />
+        <label for="start-year">Year</label>
+        <input class="usa-input-inline" id="start-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" />
       </div>
     </fieldset>
     <span id="start-date-error" class="usa-input-error-message" role="alert"
@@ -21,26 +21,26 @@
         (dateTimeRange.controls.startDay.valid || dateTimeRange.controls.startDay.untouched) &&
         (dateTimeRange.controls.startYear.valid || dateTimeRange.controls.startYear.untouched)
       ">Start date is required.</span>
-    <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startDateTimeValid)">Start date is invalid.</span>
+    <span class="usa-input-error-message" role="alert" *ngIf="dateStatus.startDateTimeValid">Start date is invalid.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">Start time </legend>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startHour">Hour</label>
-        <select class="usa-input-inline" id="start-hour" name="sstartHour" formControlName="startHour">
+        <label for="start-hour">Hour</label>
+        <select class="usa-input-inline" id="start-hour" formControlName="startHour">
           <option value="" selected="selected"></option>
           <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-minutes">Minutes</label>
-        <select class="usa-input-inline" id="start-minutes" name="startMinutes" formConrolName="startMinutes">
+        <select class="usa-input-inline" id="start-minutes" formConrolName="startMinutes">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startPeriod">AM / PM</label>
-        <select class="usa-input-inline" id="start-period" name="startPeriod" formControlName="startPeriod" >
+        <label for="start-period">AM / PM</label>
+        <select class="usa-input-inline" id="start-period" formControlName="startPeriod" >
           <option value="" selected="selected"></option>
           <option value="AM">AM</option>
           <option value="PM">PM</option>
@@ -59,16 +59,16 @@
     <fieldset>
       <legend class="fs-datetime-legend">End date</legend>
       <div class="usa-form-group usa-form-group-month">
-        <label for="endMonth">Month</label>
-        <input class="usa-input-inline" id="end-month" name="endMonth" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" />
+        <label for="end-month">Month</label>
+        <input class="usa-input-inline" id="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="endDay">Day</label>
-        <input class="usa-input-inline" id="end-day" name="endDay" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" />
+        <label for="end-day">Day</label>
+        <input class="usa-input-inline" id="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" />
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endYear">Year</label>
-        <input class="usa-input-inline" id="end-year" name="endYear" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" />
+        <label for="end-year">Year</label>
+        <input class="usa-input-inline" id="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" />
       </div>
     </fieldset>
     <span id="end-date-error" class="usa-input-error-message" role="alert"
@@ -77,26 +77,26 @@
         (dateTimeRange.controls.endDay.valid || dateTimeRange.controls.endDay.untouched) &&
         (dateTimeRange.controls.endYear.valid || dateTimeRange.controls.endYear.untouched)
       ">End date is required.</span>
-    <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.endDateTimeValid)">End date is invalid.</span>
+    <span class="usa-input-error-message" role="alert" *ngIf="dateStatus.endDateTimeValid">End date is invalid.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">End time </legend>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endHour">Hour</label>
-        <select class="usa-input-inline" id="end-hour" name="endHour" formControlName="endHour">
+        <label for="end-hour">Hour</label>
+        <select class="usa-input-inline" id="end-hour" formControlName="endHour">
           <option value="" selected="selected"></option>
           <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-minutes">Minutes</label>
-        <select class="usa-input-inline" id="end-minutes" name="endMinutes" formConrolName="endMinutes">
+        <select class="usa-input-inline" id="end-minutes" formConrolName="endMinutes">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endPeriod">AM / PM</label>
-        <select class="usa-input-inline" id="end-period" name="endPeriod" formControlName="endPeriod">
+        <label for="end-period">AM / PM</label>
+        <select class="usa-input-inline" id="end-period" formControlName="endPeriod">
           <option value="" selected="selected"></option>
           <option value="AM">AM</option>
           <option value="PM">PM</option>
