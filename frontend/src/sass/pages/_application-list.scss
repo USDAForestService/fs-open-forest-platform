@@ -67,6 +67,14 @@ app-permit-application-list {
   color: red;
 }
 
+div.warning-icon {
+  background-image: url('../node_modules/uswds/dist/img/alerts/warning.svg');
+  background-size: 40px 40px;
+  height: 40px;
+  padding: 0;
+  width: 40px;
+}
+
 .application-deadline-warning {
   text-align: left;
   border: 1px solid $black;

@@ -11,7 +11,7 @@ let doTransaction = (tableName, queryInterface, operations) => {
       operation.transaction = trx;
       switch (operation.operation) {
       case 'add': {
-        return queryInterface.addColumn(tableName, operation.field, {type: operation.type, allowNull: (operation.allowNull !== undefined ? operation.allowNull : true) }, {transaction: trx});
+        return queryInterface.addColumn(tableName, operation.field, { type: operation.type }, {transaction: trx});
       }
       case 'remove': {
         return queryInterface.removeColumn(tableName, operation.field, {transaction: trx});
@@ -78,17 +78,58 @@ let addPreparations = (tableName, operations) => {
     }
     }
     moreOperations.push(operation);
+    // if anything needs to be done AFTER the operation runs...
+    switch (operation.operation) {
+    case 'add': {
+      // in the case of adding a new column
+      // if the new column should be allowNull: false
+      // by default we always add a column with allowNull: true
+      // then we need to ensure setting a default value
+      // then changing to make allowNull: false
+      if (operation.allowNull !== undefined && Object.keys(operation.allowNull).length > 0 && (! operation.allowNull)) {
+        try {
+          let newOperation = changeNotNull(tableName, operation);
+          if (newOperation) {
+            moreOperations.push(newOperation);
+          }
+        } catch (e) {
+          console.log(operation);
+          throw e;
+        }
+        moreOperations.push({
+          operation: 'change',
+          field: operation.field,
+          options: { type: operation.type, allowNull: false }
+        });
+      }
+      break;
+    }
+    case 'remove': {
+      break;
+    }
+    case 'rename': {
+      break;
+    }
+    case 'change': {
+      break;
+    }
+    case 'raw': {
+      break;
+    }
+    default: {
+      return 'ERROR: missing operation type eg: add, change, rename, ...';
+    }
+    }
   }
   return moreOperations;
 };
-
 
 let changeNotNull =  (table, operation) => {
   let field   = operation.field;
   let value   = operation.migrationDefaultValue;
   let options = {transaction: operation.transaction};
 
-  if (value===undefined) {
+  if (value === undefined) {
     console.log('WARNING: operation.migrationDefaultValue is recommended when setting allowNull to false for pre-migrations to remove nulls on '
       +table+ '.' +field);
     return undefined;
@@ -97,11 +138,10 @@ let changeNotNull =  (table, operation) => {
   return {
     operation: 'raw',
     query: ' update "' +table+ '" '
-    + ' set "' +field+ '" = \'' +value+ "'"
+    + ' set "' +field+ '" = \'' +value+ '\''
     + ' where "' +field+ '" is null', options
   };
 };
-
 
 let changeStringLength = (table, operation) => {
   let field   = operation.field;
@@ -115,6 +155,5 @@ let changeStringLength = (table, operation) => {
     + ' where length("'+field+'") <' +length, options
   };
 };
-
 
 module.exports = doTransaction;
