@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
-  <label class="usa-input" for="emailAddress">Email address</label>
-  <input id="email" name="emailAddress" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" formControlName="emailAddress"/>
+  <label class="usa-input" for="email">Email address</label>
+  <input id="email" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" formControlName="emailAddress"/>
   <span id="email-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.emailAddress.valid || applicantInfo.controls.emailAddress.untouched">Valid email address is required.</span>
 </ng-container>
