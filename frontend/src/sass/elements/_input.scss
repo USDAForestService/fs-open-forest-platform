@@ -31,6 +31,10 @@ label {
   font-weight: 700;
 }
 
+.form-directions {
+  margin-bottom: 3em;
+}
+
 .usa-form-hint {
   color: $dark-grey;
   font-size: 15px;
@@ -60,6 +64,14 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
   border: solid 1px $dark-grey;
   padding: 10px;
 
+  &.valid {
+    border: solid 3px $fs-green;
+  }
+
+  &.invalid {
+    border: solid 3px $fs-red;
+  }
+
   &.file-selected {
     background-image: url(/assets/img/checkmark.svg);
     background-position-x: 94%;
@@ -74,9 +86,11 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
   }
 
   .file-name {
-    margin-bottom: 6px;
-    overflow: hidden;
-    width: 90%;
+    max-width: 90%;
+  }
+
+  .usa-button {
+    margin-bottom: 10px;
   }
 
   input[type='file'] {

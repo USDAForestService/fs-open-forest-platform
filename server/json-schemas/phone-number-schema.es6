@@ -18,9 +18,9 @@ module.exports = {
       'type': 'string'
     },
     'extension': {
-      'default':'',
+      'default': '',
       'pattern': '[\\d]+',
-      'type': 'string'
+      'type': ['string', null]
     }
   },
   'required': ['areaCode', 'prefix', 'number']

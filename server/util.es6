@@ -1,5 +1,7 @@
 'use strict';
 
+let moment = require('moment');
+
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
     return errorObj.argument;
@@ -21,6 +23,8 @@ util.collateErrors = (result, errorArr, prefix) => {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
     }
   }
+
+  return errorArr;
 };
 
 util.translateFromDatabaseToJSON = (input) => {
@@ -73,6 +77,8 @@ util.translateFromDatabaseToJSON = (input) => {
       'locationDescription': input.noncommercialFieldsLocationDescription,
       'numberParticipants': input.noncommercialFieldsNumberParticipants,
       'spectators': input.noncommercialFieldsSpectatorCount,
+    },
+    'dateTimeRange': {
       'startDateTime': input.noncommercialFieldsStartDateTime,
       'endDateTime': input.noncommercialFieldsEndDateTime
     },
@@ -152,6 +158,10 @@ util.translateFromIntakeToMiddleLayer = (input) => {
   }
 
   return result;
+};
+
+util.validateDateTime = (input) => {
+  return /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) && moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid();
 };
 
 module.exports = util;

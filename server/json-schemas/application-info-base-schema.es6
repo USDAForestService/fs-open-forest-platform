@@ -27,7 +27,8 @@ module.exports = {
       {'eveningPhone': { '$ref': '/phoneNumber' }},
       {'secondaryAddress' : { '$ref' : '/address' }},
       {'organizationAddress' : { '$ref' : '/address' }},
-      {'primaryAddress' : { '$ref' : '/address' }}
+      {'primaryAddress' : { '$ref' : '/address' }},
+      {'faxNumber': { '$ref': '/phoneNumber' }}
     ],
     'emailAddress': {
       'default':'',
