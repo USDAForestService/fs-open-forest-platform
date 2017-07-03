@@ -168,27 +168,5 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateNumberField('participants', 'participants-error', 'Participants is required.');
   fieldValidation.validateSimpleTextField('activity-description', 'activity-description-error', 'Activity description is required.');
 
-  fieldValidation.validateNumberField('end-month', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-month', 'start-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('start-day', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-day', 'start-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('start-year', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-year', 'start-date-error', 4, 4, true);
-
-  fieldValidation.validateSimpleTextField('start-hour', 'start-time-error', 'Start time is required.', true);
-  fieldValidation.validateSimpleTextField('start-minutes', 'start-time-error', 'Start time is required.', true);
-  fieldValidation.validateSimpleTextField('start-period', 'start-time-error', 'Start time is required.', true);
-
-  fieldValidation.validateNumberField('end-month', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-month', 'end-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('end-day', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-day', 'end-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('end-year', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-year', 'end-date-error', 4, 4, true);
-
-  fieldValidation.validateSimpleTextField('end-hour', 'end-time-error', 'End time is required.', true);
-  fieldValidation.validateSimpleTextField('end-minutes', 'end-time-error', 'End time is required.', true);
-  fieldValidation.validateSimpleTextField('end-period', 'end-time-error', 'End time is required.', true);
-
   fieldValidation.validateSimpleTextField('signature', 'signature-error', 'Initials are required.');
 });
