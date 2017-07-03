@@ -51,8 +51,8 @@
         (dateTimeRange.controls.endHour.touched && dateTimeRange.controls.endMinutes.touched && dateTimeRange.controls.endPeriod.touched) &&
         (dateTimeRange.controls.endHour.invalid || dateTimeRange.controls.endMinutes.invalid || dateTimeRange.controls.endPeriod.invalid)
       ">Start time is required.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endBeforeEnd">end date and time must be before end date and time.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endAfterToday">end date and time must be in the future.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd">end date and time must be before end date and time.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday">end date and time must be in the future.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">End date</legend>
