@@ -13,6 +13,9 @@ dependencies:
     - ./run-builds.sh
   cache_directories:
     - ~/.cache/yarn
+compile:
+  override:
+    - cd frontend; ng build --prod --env=prod;
 test:
   pre:
     - cd frontend; npm install -g protractor

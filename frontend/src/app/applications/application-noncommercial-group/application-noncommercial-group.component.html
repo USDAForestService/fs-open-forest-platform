@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
+      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -81,7 +81,7 @@
 
         <label class="usa-input" for="name">Event Name</label>
         <input id="name" formControlName="eventName" type="text" aria-required="true" />
-        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.eventName.valid || applicationForm.controls.eventName.untouched">Event name is required.</span>
+        <span id="name-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.eventName.invalid && applicationForm.controls.eventName.touched">Event name is required.</span>
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
         <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
       </fieldset>
@@ -90,7 +90,7 @@
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
         <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
+        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
       </fieldset>
 
       <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>
