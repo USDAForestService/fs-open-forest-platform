@@ -13,7 +13,9 @@ export class AppComponent {
   buildDate = environment.buildDate;
   currentRoute: string;
 
-  constructor(router: Router) {
+  constructor(
+    router: Router
+  ) {
     router.events.subscribe(scroll => {
       const urlWithSegments = router.url.split('#');
 

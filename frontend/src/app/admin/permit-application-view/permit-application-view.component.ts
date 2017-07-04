@@ -1,10 +1,11 @@
 import { Application } from '../../_models/application';
+import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit, HostListener, Inject } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  providers: [ ApplicationService ],
+  providers: [],
   selector: 'app-permit-application-view',
   templateUrl: './permit-application-view.component.html'
 })
@@ -22,9 +23,10 @@ export class PermitApplicationViewComponent implements OnInit {
   };
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
+    private alertService: AlertService,
     private applicationService: ApplicationService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   getApplication(id) {
@@ -40,6 +42,8 @@ export class PermitApplicationViewComponent implements OnInit {
 
   updateApplicationStatus(application, status) {
     application.status = status;
+    this.alertService.addSuccessMessage('yah!');
+    console.log('updating');
     this.applicationService.update(application)
       .subscribe(
         (data: any) => {
