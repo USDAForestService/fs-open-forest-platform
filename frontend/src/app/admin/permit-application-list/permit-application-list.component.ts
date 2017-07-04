@@ -1,13 +1,14 @@
 import { Application } from '../../_models/application';
+import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
 
 @Component({
+  providers: [],
   selector: 'app-permit-application-list',
-  templateUrl: './permit-application-list.component.html',
-  providers: [ ApplicationService ]
+  templateUrl: './permit-application-list.component.html'
 })
 
 @Injectable()
@@ -15,8 +16,12 @@ export class PermitApplicationListComponent implements OnInit {
 
   applications: any;
   apiErrors: any;
+  successMessage: String;
 
-  constructor( private applicationService: ApplicationService ) {
+  constructor(
+    private applicationService: ApplicationService,
+    private alertService: AlertService
+  ) {
     this.applications = [];
   }
 
@@ -63,6 +68,8 @@ export class PermitApplicationListComponent implements OnInit {
 
   ngOnInit() {
     this.getApplications();
+    this.successMessage = this.alertService.getSuccessMessage();
+    this.alertService.clear();
   }
 
 }
