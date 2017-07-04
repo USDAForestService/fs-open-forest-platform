@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
+import { TitleDirective } from './_directives/title.directive';
 import { TrackScrollDirective } from './_directives/scroll.directive';
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TrackScrollDirective } from './_directives/scroll.directive';
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     StyleGuideComponent,
+    TitleDirective,
     TrackScrollDirective
   ],
   imports: [
