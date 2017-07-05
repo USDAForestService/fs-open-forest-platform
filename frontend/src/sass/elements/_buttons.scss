@@ -8,15 +8,15 @@
 // TODO: refactor button classes to fs-*
 
 .usa-button {
-  background-color: $fs-orange !important;
-  color: $fs-charcoal !important;
+  background-color: $fs-brown !important;
+  color: $white !important;
   &:hover {
-    background-color: $fs-orange-dark !important;
+    background-color: $fs-brown-dark !important;
   }
 }
 
 .usa-button:active {
-  background-color: $fs-orange-darkest !important;
+  background-color: $black !important;
   color: $white !important;
 }
 
@@ -26,6 +26,7 @@
 
 .fs-button-secondary {
   background-color: $fs-tan !important;
+  color: $black !important;
   &:hover {
     background-color: $fs-tan-dark !important;
   }
@@ -52,20 +53,10 @@
 }
 
 .usa-button-outline {
-  @include button-outline($fs-orange);
-  &:hover {
-    @include button-outline($fs-orange-darkest);
-  }
   &.green {
     @include button-outline($fs-green);
     &:hover {
       @include button-outline($fs-green-darker);
-    }
-  }
-  &.red {
-    @include button-outline($fs-red);
-    &:hover {
-      @include button-outline($fs-red-darker);
     }
   }
 }
