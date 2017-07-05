@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
   templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   version = environment.version;
   buildDate = environment.buildDate;
@@ -15,6 +15,9 @@ export class AppComponent {
 
   constructor(router: Router) {
     router.events.subscribe(scroll => {
+      // Scroll to top of page on route change
+      window.scrollTo(0, 0);
+
       const urlWithSegments = router.url.split('#');
 
       if (urlWithSegments.length) {
@@ -31,5 +34,9 @@ export class AppComponent {
         }
       }
     });
+  }
+
+  ngOnInit() {
+    window.scrollTo(0, 0);
   }
 }
