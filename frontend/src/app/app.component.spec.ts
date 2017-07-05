@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
+import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -11,7 +12,8 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        UsaBannerComponent
       ],
     }).compileComponents();
   }));
