@@ -17,6 +17,7 @@ import { PermitApplicationViewComponent } from './admin/permit-application-view/
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TitleDirective } from './_directives/title.directive';
 import { TrackScrollDirective } from './_directives/scroll.directive';
+import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TrackScrollDirective } from './_directives/scroll.directive';
     PermitApplicationViewComponent,
     StyleGuideComponent,
     TitleDirective,
-    TrackScrollDirective
+    TrackScrollDirective,
+    UsaBannerComponent
   ],
   imports: [
     AppRoutingModule,
