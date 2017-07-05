@@ -19,10 +19,123 @@ $fs-orange-darkest: #b55e00;
 $fs-orange: #e99002;
 $fs-red: #e31c3d;
 $fs-red-darker: #cd2026;
+$fs-red-darkest: #981b1e;
 $fs-tan-dark: #e2dfd3;
 $fs-tan-darker: #d6d2c1;
 $fs-tan: #eeece5;
 $fs-white: #E6FAE9;
-$grey: #5b616b;
-$medium-grey: #dddddd;
-$white: #FFFFFF;
+
+// color demos for the style guide
+
+.demo-black {
+  background: $black;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-dark-grey {
+  background: $dark-grey;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-grey {
+  background: $grey;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-medium-grey {
+  background: $medium-grey;
+  border: 1px solid $black;
+  color: $black;
+  padding: 1em;
+}
+
+.demo-white {
+  background: $white;
+  border: 1px solid $black;
+  color: $black;
+  padding: 1em;
+}
+
+.demo-fs-brown {
+  background: $fs-brown;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-tan {
+  background: $fs-tan;
+  border: 1px solid $black;
+  color: $black;
+  padding: 1em;
+}
+
+.demo-fs-tan-dark {
+  background: $fs-tan-dark;
+  border: 1px solid $black;
+  color: $black;
+  padding: 1em;
+}
+
+.demo-fs-tan-darker {
+  background: $fs-tan-darker;
+  border: 1px solid $black;
+  color: $black;
+  padding: 1em;
+}
+
+.demo-fs-green {
+  background: $fs-green;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-green-darker {
+  background: $fs-green-darker;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-green-darkest {
+  background: $fs-green-darkest;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-orange {
+  background: $fs-orange;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-orange-dark {
+  background: $fs-orange-dark;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-orange-darkest {
+  background: $fs-orange-darkest;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-red {
+  background: $fs-red;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-red-darker {
+  background: $fs-red-darker;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-red-darkest {
+  background: $fs-red-darkest;
+  color: $white;
+  padding: 1em;
+}
