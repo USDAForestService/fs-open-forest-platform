@@ -7,21 +7,16 @@ $white: #FFFFFF;
 
 $fs-blue-light: #3e94cf;
 $fs-brown: #2e1e12;
-$fs-charcoal: #333;
-$fs-dark-grey: #494440;
+$fs-brown-dark: #261f1b;
 $fs-green-darker: #0a531b;
 $fs-green-darkest: #073d11;
 $fs-green: #076727;
-$fs-orange-dark: #d08002;
-$fs-orange-darkest: #b55e00;
-$fs-orange: #e99002;
 $fs-red: #e31c3d;
 $fs-red-darker: #cd2026;
 $fs-red-darkest: #981b1e;
 $fs-tan-dark: #e2dfd3;
 $fs-tan-darker: #d6d2c1;
 $fs-tan: #eeece5;
-$fs-white: #E6FAE9;
 
 // color demos for the style guide
 
@@ -44,8 +39,21 @@ $fs-white: #E6FAE9;
   padding: 1em;
 }
 
+.demo-fs-blue-light {
+  background: $fs-blue-light;
+  border: 1px solid $black;
+  color: $white;
+  padding: 1em;
+}
+
 .demo-fs-brown {
   background: $fs-brown;
+  color: $white;
+  padding: 1em;
+}
+
+.demo-fs-brown-dark {
+  background: $fs-brown-dark;
   color: $white;
   padding: 1em;
 }
@@ -85,24 +93,6 @@ $fs-white: #E6FAE9;
 
 .demo-fs-green-darkest {
   background: $fs-green-darkest;
-  color: $white;
-  padding: 1em;
-}
-
-.demo-fs-orange {
-  background: $fs-orange;
-  color: $white;
-  padding: 1em;
-}
-
-.demo-fs-orange-dark {
-  background: $fs-orange-dark;
-  color: $white;
-  padding: 1em;
-}
-
-.demo-fs-orange-darkest {
-  background: $fs-orange-darkest;
   color: $white;
   padding: 1em;
 }
