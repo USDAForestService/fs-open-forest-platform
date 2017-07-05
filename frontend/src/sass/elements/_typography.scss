@@ -19,6 +19,9 @@ a {
   &:active {
     color: $fs-green-darkest;
   }
+  &:focus {
+    box-shadow: 0 0 3px $fs-blue-light, 0 0 7px $fs-blue-light;
+  }
 }
 
 h1 {
