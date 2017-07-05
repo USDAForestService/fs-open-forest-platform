@@ -78,7 +78,6 @@ export class PermitApplicationViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getApplication(this.id);
