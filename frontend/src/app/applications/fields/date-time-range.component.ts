@@ -86,6 +86,10 @@ export class DateTimeRangeComponent implements OnInit {
     }
   }
 
+  parseDateTime(year, month, day, hour, minutes, period) {
+    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm A');
+  }
+
   dateTimeRangeValidator(values) {
     if (
       values.startMonth &&
@@ -101,35 +105,12 @@ export class DateTimeRangeComponent implements OnInit {
       values.endMinutes &&
       values.endPeriod
     ) {
-      const inputFormat = 'YYYY-MM-DD HH:mm A';
+
       const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       const today = moment();
-      const startDateTime = moment(
-        values.startYear +
-        '-' +
-        values.startMonth +
-        '-' +
-        values.startDay +
-        ' ' +
-        values.startHour +
-        ':' +
-        values.startMinutes +
-        ' ' +
-        values.startPeriod
-      , inputFormat);
-      const endDateTime = moment(
-        values.endYear +
-        '-' +
-        values.endMonth +
-        '-' +
-        values.endDay +
-        ' ' +
-        values.endHour +
-        ':' +
-        values.endMinutes +
-        ' ' +
-        values.endPeriod
-      , inputFormat);
+
+      const startDateTime = this.parseDateTime(values.startYear, values.startMonth, values.startDay, values.startHour, values.startMinutes, values.startPeriod);
+      const endDateTime = this.parseDateTime(values.endYear, values.endMonth, values.endDay, values.endHour, values.endMinutes, values.endPeriod);
       this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' }});
       this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' }});
       this.dateStatus.startDateTimeValid = startDateTime.isValid();
