@@ -1,4 +1,4 @@
-import { Application } from '../../_models/application';
+import { SpecialUseApplication } from '../../_models/special-use-application';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +15,7 @@ import * as moment from 'moment/moment';
 export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   apiErrors: any;
-  application = new Application();
+  application = new SpecialUseApplication();
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   primaryPermitHolderSameAddress = true;
