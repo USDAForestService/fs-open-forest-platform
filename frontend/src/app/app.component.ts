@@ -13,7 +13,9 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
 
-  constructor(router: Router) {
+  constructor(
+    router: Router
+  ) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);

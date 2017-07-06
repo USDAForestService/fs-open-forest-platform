@@ -1,4 +1,4 @@
-export class Application {
+export class SpecialUseApplication {
   applicantInfo: ApplicantInfo;
   applicationId: number;
   appControlNumber: string;

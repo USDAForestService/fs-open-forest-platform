@@ -1,5 +1,5 @@
-import { Application } from '../_models/application';
-import { ApplicationService } from '../_services/application.service';
+import { SpecialUseApplication } from '../../_models/special-use-application';
+import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class ApplicationSubmittedComponent implements OnInit {
 
-  application = new Application();
+  application = new SpecialUseApplication();
 
   constructor(
     private applicationService: ApplicationService,

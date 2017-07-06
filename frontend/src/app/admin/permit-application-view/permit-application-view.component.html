@@ -3,6 +3,12 @@
     <div class="breadcrumbs">
       <a routerLink="/admin/applications">Noncommercial group use applications</a> > <span>{{ application.eventName }}</span>
     </div>
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">{{ errorMessage }}</p>
+      </div>
+    </div>
     <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
       <div class="usa-grid event-name no-padding padding-top-1">
         <div class="usa-width-three-fourths">
