@@ -11,10 +11,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class PermitApplicationViewComponent implements OnInit {
 
-  application = new SpecialUseApplication();
-  errorMessage;
-  fixedCtas = false;
+  errorMessage: string;
   id: string;
+
+  application = new SpecialUseApplication();
+  fixedCtas = false;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
     confirmButtonText: '',
@@ -46,7 +47,9 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.update(application)
       .subscribe(
         (data: any) => {
-          if (status === 'Accepted') this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
+          if (status === 'Accepted') {
+            this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
+          }
           this.router.navigate(['admin/applications']);
         },
         (e: any) => {
