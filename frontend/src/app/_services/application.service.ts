@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 
-import { Application } from '../_models/application';
+import { SpecialUseApplication } from '../_models/special-use-application';
 
 @Injectable()
 export class ApplicationService {
@@ -40,7 +40,7 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
-  update(body: Application): Observable<Application[]> {
+  update(body: SpecialUseApplication): Observable<SpecialUseApplication[]> {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
