@@ -8,6 +8,7 @@ import { ActivityDescriptionComponent } from './fields/activity-description.comp
 import { AddressComponent } from './fields/address.component';
 import { AdvertisingComponent } from './fields/advertising.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
+import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
@@ -31,6 +32,7 @@ import { WebsiteComponent } from './fields/website.component';
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
+    ApplicationSubmittedComponent,
     ClientChargesComponent,
     DateTimeRangeComponent,
     EmailComponent,
@@ -51,6 +53,7 @@ import { WebsiteComponent } from './fields/website.component';
     AddressComponent,
     AdvertisingComponent,
     ApplicationNoncommercialGroupComponent,
+    ApplicationSubmittedComponent,
     ClientChargesComponent,
     DateTimeRangeComponent,
     EmailComponent,
