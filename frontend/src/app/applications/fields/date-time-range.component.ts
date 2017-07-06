@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { Hours, Minutes } from '../../_models/constants';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -21,8 +22,8 @@ export class DateTimeRangeComponent implements OnInit {
 
   dateTimeRange: any;
 
-  hours = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-  minutes = ['00', '15', '30', '45'];
+  hours = Hours;
+  minutes = Minutes;
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
