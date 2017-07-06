@@ -43,13 +43,17 @@ export class FileUploadComponent implements OnChanges {
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {
+    if (this.uploader.queue.length > 0) {
+      this.uploader.removeFromQueue(this.uploader.queue[0]);
+    }
     switch (filter.name) {
       case 'fileSize':
         this.errorMessage = `Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)`;
         break;
       case 'mimeType':
+        console.log(item);
         const allowedTypes = this.allowedMimeType.join();
-        this.errorMessage = `The file type "${item.type} is not allowed. The allowed file types are "${allowedTypes}"`;
+        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx., or .rtf`;
         break;
       default:
         this.errorMessage = `Unknown error (filter is ${filter.name})`;

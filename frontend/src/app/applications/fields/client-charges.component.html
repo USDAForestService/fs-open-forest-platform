@@ -1,10 +1,10 @@
 <ng-container [formGroup]="tempOutfittersFields">
   <fieldset>
     <legend>Client Charges</legend>
-    
+
     <label class="usa-input" for="client-charges">Provide a description of client charges and fees and what they cover.</label>
-    <input id="client-charges" type="text" formControlName="clientCharges" />
-    <span id="client-charges-error" class="usa-input-error-message" role="alert" [hidden]="tempOutfittersFields.controls.clientCharges.valid || tempOutfittersFields.controls.clientCharges.untouched">Client charges is required.</span>
+    <textarea id="client-charges" type="text" formControlName="clientCharges" aria-required="true"></textarea>
+    <span id="client-charges-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="tempOutfittersFields.controls.clientCharges.invalid && tempOutfittersFields.controls.clientCharges.touched">Client charges is required.</span>
 
   </fieldset>
 </ng-container>

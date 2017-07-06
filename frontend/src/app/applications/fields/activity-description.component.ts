@@ -26,15 +26,20 @@ export class ActivityDescriptionComponent implements OnInit {
       numberServiceDaysRequested: ['', [Validators.required]],
       numberOfTrips: ['', [Validators.required]],
       partySize: ['', [Validators.required]],
-      locationDescription: [],
-      servicesProvided: [],
-      audienceDescription: [],
-      listOfGovernmentFacilities: [],
-      listOfTemporaryImprovements: [],
-      statementOfMotorizedEquipment: [],
-      statementOfTransportationOfLivestock: [],
-      statementOfAssignedSite: [],
-      descriptionOfCleanupAndRestoration: []
+      locationDescription: ['', [Validators.required]],
+      servicesProvided: ['', [Validators.required]],
+      audienceDescription: ['', [Validators.required]],
+      needGovernmentFacilities: [false],
+      listOfGovernmentFacilities: ['', [Validators.required]],
+      needTemporaryImprovements: [false],
+      listOfTemporaryImprovements: ['', [Validators.required]],
+      haveMotorizedEquipment: [false],
+      statementOfMotorizedEquipment: ['', [Validators.required]],
+      haveLivestock: [false],
+      statementOfTransportationOfLivestock: ['', [Validators.required]],
+      needAssignedSite: [false],
+      statementOfAssignedSite: ['', [Validators.required]],
+      descriptionOfCleanupAndRestoration: ['', [Validators.required]]
     });
     this.parentForm.addControl('activityDescription', activityDescription);
   }

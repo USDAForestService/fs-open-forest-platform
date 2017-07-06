@@ -8,22 +8,20 @@
     }
 },
   "urls": [
-    "http://localhost:4200",
-    "http://localhost:4200/applications/noncommercial-group-use/new",
-    "http://localhost:4200/applications/submitted",
-    "http://localhost:4200/login",
-    "http://localhost:4200/admin/applications",
-    "http://localhost:4200/help-me-pick/1",
-    "http://localhost:4200/help-me-pick/2",
-    "http://localhost:4200/help-me-pick/3",
-    "http://localhost:4200/help-me-pick/4",
-    "http://localhost:4200/help-me-pick/5",
-    "http://localhost:4200/help-me-pick/6",
-    "http://localhost:4200/help-me-pick/7",
-    "http://localhost:4200/help-me-pick/8",
-    "http://localhost:4200/pg-flow-step-1",
-    "http://localhost:4200/pg-flow-step-2",
-    "http://localhost:4200/pg-flow-reg-person",
-    "http://localhost:4200/pg-flow-reg-person-friend-family"
+    "http://localhost:4200/#/",
+    "http://localhost:4200/#/admin/applications",
+    "http://localhost:4200/#/applications/noncommercial-group-use/new",
+    "http://localhost:4200/#/applications/temp-outfitters/new'",
+    "http://localhost:4200/#/applications/submitted",
+    "http://localhost:4200/#/login",
+    "http://localhost:4200/#/admin/applications",
+    "http://localhost:4200/#/help-me-pick/1",
+    "http://localhost:4200/#/help-me-pick/2",
+    "http://localhost:4200/#/help-me-pick/3",
+    "http://localhost:4200/#/help-me-pick/4",
+    "http://localhost:4200/#/help-me-pick/5",
+    "http://localhost:4200/#/help-me-pick/6",
+    "http://localhost:4200/#/help-me-pick/7",
+    "http://localhost:4200/#/help-me-pick/8"
   ]
 }

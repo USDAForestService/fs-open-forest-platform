@@ -1,10 +1,10 @@
 <div class="usa-file-input" [ngClass]="{'file-selected valid': uploader.queue[0], 'invalid': errorMessage}">
-  <input name="{{name}}" type="file" id="{{name}}" ng2FileSelect [uploader]="uploader" />
-  <label class="usa-button" [ngClass]="{'usa-button-outline green': uploader.queue[0]}" for="{{name}}">
+  <input name="{{name}}" type="file" id="{{name}}" ng2FileSelect [uploader]="uploader" aria-required="true" />
+  <label class="usa-button" [ngClass]="{'usa-button-outline green': uploader.queue[0]}" for="{{name}}" aria-live="polite">
     <span *ngIf="!uploader.queue[0]">Choose file</span>
     <span *ngIf="uploader.queue[0]">Replace</span>
   </label>
   <div *ngIf="!uploader.queue[0]">No file selected.</div>
   <div class="file-name" *ngIf="uploader.queue[0]">{{ uploader.queue[0].file.name }}</div>
-  <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert">{{errorMessage}}</span>
+  <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
 </div>

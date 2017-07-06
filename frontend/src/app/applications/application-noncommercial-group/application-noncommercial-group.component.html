@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" role="alert">
+      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -41,7 +41,7 @@
         <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
 
         <ng-container formGroupName="applicantInfo">
-          <input id="primary-permit-holder-same-address" name="primaryAddressSameAsOrganization" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
+          <input id="primary-permit-holder-same-address" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
           <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
         </ng-container>
 
@@ -50,19 +50,19 @@
         </div>
       </fieldset>
 
-      <fieldset formGroupName="applicantInfo">
-        <input id="add-secondary-permit-holder" name="addSecondaryPermitHolder" type="checkbox" formControlName="addSecondaryPermitHolder" />
-        <label class="usa-input" for="addSecondaryPermitHolder">Add a secondary permit holder.</label>
+      <ng-container formGroupName="applicantInfo">
+        <input id="add-secondary-permit-holder" type="checkbox" formControlName="addSecondaryPermitHolder" />
+        <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
-      </fieldset>
+      </ng-container>
 
-      <fieldset *ngIf="applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
+      <ng-container *ngIf="applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary" name="Secondary permit holder"></app-permit-holder-name>
 
           <ng-container formGroupName="applicantInfo">
-            <input id="secondary-permit-holder-same-address" name="secondaryAddressSameAsPrimary" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
-            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondaryAddressSameAsPrimary">Secondary permit holder address is same as primary permit holder address.</label>
-            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondaryAddressSameAsPrimary">Secondary permit holder address is same as organization address.</label>
+            <input id="secondary-permit-holder-same-address" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
+            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
+            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
           </ng-container>
 
           <app-address
@@ -72,16 +72,16 @@
             type="secondary-permit-holder">
           </app-address>
 
-      </fieldset>
+      </ng-container>
 
       <hr />
 
       <fieldset>
         <legend>Event details</legend>
 
-        <label class="usa-input" for="eventName">Event Name</label>
-        <input id="name" formControlName="eventName" type="text" />
-        <span id="name-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.eventName.valid || applicationForm.controls.eventName.untouched">Event name is required.</span>
+        <label class="usa-input" for="name">Event Name</label>
+        <input id="name" formControlName="eventName" type="text" aria-required="true" />
+        <span id="name-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.eventName.invalid && applicationForm.controls.eventName.touched">Event name is required.</span>
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
         <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
       </fieldset>
@@ -89,8 +89,8 @@
       <fieldset>
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
-        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
+        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
+        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
       </fieldset>
 
       <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>

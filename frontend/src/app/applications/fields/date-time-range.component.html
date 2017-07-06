@@ -1,46 +1,45 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{formName}}">
     <fieldset>
-      <legend class="fs-datetime-legend">Start date</legend>
+      <legend class="fs-datetime-legend">end date</legend>
       <div class="usa-form-group usa-form-group-month">
-        <label for="startMonth">Month</label>
-        <input class="usa-input-inline" id="start-month" name="startMonth" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" />
+        <label for="end-month">Month</label>
+        <input class="usa-input-inline" id="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" aria-required="true" />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="startDay">Day</label>
-        <input class="usa-input-inline" id="start-day" name="startDay" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay"/>
+        <label for="end-day">Day</label>
+        <input class="usa-input-inline" id="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" aria-required="true" />
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startYear">Year</label>
-        <input class="usa-input-inline" id="start-year" name="startYear" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" />
+        <label for="end-year">Year</label>
+        <input class="usa-input-inline" id="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" aria-required="true" />
       </div>
     </fieldset>
-    <span id="start-date-error" class="usa-input-error-message" role="alert"
-      [hidden]="
-        (dateTimeRange.controls.startMonth.valid || dateTimeRange.controls.startMonth.untouched) &&
-        (dateTimeRange.controls.startDay.valid || dateTimeRange.controls.startDay.untouched) &&
-        (dateTimeRange.controls.startYear.valid || dateTimeRange.controls.startYear.untouched)
-      ">Start date is required.</span>
-    <span id="start-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startDateTimeValid)">Start date is invalid.</span>
+    <span id="end-date-error" class="usa-input-error-message" role="alert"
+       aria-live="assertive" aria-hidden="false" *ngIf="
+        (dateTimeRange.controls.endMonth.touched && dateTimeRange.controls.endDay.touched && dateTimeRange.controls.endYear.touched) &&
+        (dateTimeRange.controls.endMonth.invalid || dateTimeRange.controls.endDay.invalid || dateTimeRange.controls.endYear.invalid)
+      ">end date is required.</span>
+    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endDateTimeValid">end date is invalid.</span>
 
     <fieldset>
-      <legend class="fs-datetime-legend">Start time </legend>
+      <legend class="fs-datetime-legend">end time </legend>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startHour">Hour</label>
-        <select class="usa-input-inline" id="start-hour" name="sstartHour" formControlName="startHour">
+        <label for="end-hour">Hour</label>
+        <select class="usa-input-inline" id="end-hour" formControlName="endHour" aria-required="true">
           <option value="" selected="selected"></option>
           <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="start-minutes">Minutes</label>
-        <select class="usa-input-inline" id="start-minutes" name="startMinutes" formConrolName="startMinutes">
+        <label for="end-minutes">Minutes</label>
+        <select class="usa-input-inline" id="end-minutes" formConrolName="endMinutes" aria-required="true">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="startPeriod">AM / PM</label>
-        <select class="usa-input-inline" id="start-period" name="startPeriod" formControlName="startPeriod" >
+        <label for="end-period">AM / PM</label>
+        <select class="usa-input-inline" id="end-period" formControlName="endPeriod" aria-required="true">
           <option value="" selected="selected"></option>
           <option value="AM">AM</option>
           <option value="PM">PM</option>
@@ -48,55 +47,53 @@
       </div>
     </fieldset>
     <span id="start-time-error" class="usa-input-error-message" role="alert"
-      [hidden]="
-        (dateTimeRange.controls.startHour.valid || dateTimeRange.controls.startHour.untouched) &&
-        (dateTimeRange.controls.startMinutes.valid || dateTimeRange.controls.startMinutes.untouched) &&
-        (dateTimeRange.controls.startPeriod.valid || dateTimeRange.controls.startPeriod.untouched)
+       aria-live="assertive" aria-hidden="false" *ngIf="
+        (dateTimeRange.controls.endHour.touched && dateTimeRange.controls.endMinutes.touched && dateTimeRange.controls.endPeriod.touched) &&
+        (dateTimeRange.controls.endHour.invalid || dateTimeRange.controls.endMinutes.invalid || dateTimeRange.controls.endPeriod.invalid)
       ">Start time is required.</span>
-    <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startBeforeEnd)">Start date and time must be before end date and time.</span>
-    <span class="usa-input-error-message" role="alert" [hidden]="(dateStatus.startAfterToday)">Start date and time must be in the future.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd">end date and time must be before end date and time.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday">end date and time must be in the future.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">End date</legend>
       <div class="usa-form-group usa-form-group-month">
-        <label for="endMonth">Month</label>
-        <input class="usa-input-inline" id="end-month" name="endMonth" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" />
+        <label for="end-month">Month</label>
+        <input class="usa-input-inline" id="end-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" aria-required="true" />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="endDay">Day</label>
-        <input class="usa-input-inline" id="end-day" name="endDay" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" />
+        <label for="end-day">Day</label>
+        <input class="usa-input-inline" id="end-day" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" aria-required="true" />
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endYear">Year</label>
-        <input class="usa-input-inline" id="end-year" name="endYear" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" />
+        <label for="end-year">Year</label>
+        <input class="usa-input-inline" id="end-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" aria-required="true" />
       </div>
     </fieldset>
     <span id="end-date-error" class="usa-input-error-message" role="alert"
-      [hidden]="
-        (dateTimeRange.controls.endMonth.valid || dateTimeRange.controls.endMonth.untouched) &&
-        (dateTimeRange.controls.endDay.valid || dateTimeRange.controls.endDay.untouched) &&
-        (dateTimeRange.controls.endYear.valid || dateTimeRange.controls.endYear.untouched)
+       aria-live="assertive" aria-hidden="false" *ngIf="
+        (dateTimeRange.controls.endMonth.touched && dateTimeRange.controls.endDay.touched && dateTimeRange.controls.endYear.touched) &&
+        (dateTimeRange.controls.endMonth.invalid || dateTimeRange.controls.endDay.invalid || dateTimeRange.controls.endYear.invalid)
       ">End date is required.</span>
-    <span id="end-date-error" class="usa-input-error-message" role="alert" [hidden]="(dateStatus.endDateTimeValid)">End date is invalid.</span>
+    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endDateTimeValid">End date is invalid.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">End time </legend>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endHour">Hour</label>
-        <select class="usa-input-inline" id="end-hour" name="endHour" formControlName="endHour">
+        <label for="end-hour">Hour</label>
+        <select class="usa-input-inline" id="end-hour" formControlName="endHour" aria-required="true">
           <option value="" selected="selected"></option>
           <option *ngFor="let hour of hours" [value]="hour">{{hour}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-minutes">Minutes</label>
-        <select class="usa-input-inline" id="end-minutes" name="endMinutes" formConrolName="endMinutes">
+        <select class="usa-input-inline" id="end-minutes" formConrolName="endMinutes" aria-required="true">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="endPeriod">AM / PM</label>
-        <select class="usa-input-inline" id="end-period" name="endPeriod" formControlName="endPeriod">
+        <label for="end-period">AM / PM</label>
+        <select class="usa-input-inline" id="end-period" formControlName="endPeriod" aria-required="true">
           <option value="" selected="selected"></option>
           <option value="AM">AM</option>
           <option value="PM">PM</option>
@@ -104,10 +101,9 @@
       </div>
     </fieldset>
     <span id="end-time-error" class="usa-input-error-message" role="alert"
-      [hidden]="
-        (dateTimeRange.controls.endHour.valid || dateTimeRange.controls.endHour.untouched) &&
-        (dateTimeRange.controls.endMinutes.valid || dateTimeRange.controls.endMinutes.untouched) &&
-        (dateTimeRange.controls.endPeriod.valid || dateTimeRange.controls.endPeriod.untouched)
+       aria-live="assertive" aria-hidden="false" *ngIf="
+       (dateTimeRange.controls.endHour.touched && dateTimeRange.controls.endMinutes.touched && dateTimeRange.controls.endPeriod.touched) &&
+       (dateTimeRange.controls.endHour.invalid || dateTimeRange.controls.endMinutes.invalid || dateTimeRange.controls.endPeriod.invalid)
       ">End time is required.</span>
 
   </ng-container>
