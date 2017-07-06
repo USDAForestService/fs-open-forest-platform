@@ -23,7 +23,6 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ApplicationSubmittedComponent,
     HelpMePickComponent,
     HomeComponent,
     LoginComponent,

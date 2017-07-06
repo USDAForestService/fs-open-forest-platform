@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationSubmittedComponent } from './application-submitted.component';
 import { HttpModule } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MockActivatedRoute, MockRouter} from '../_mocks/routes.mock';
+import { MockActivatedRoute, MockRouter} from '../../_mocks/routes.mock';
 
 describe('ApplicationSubmittedComponent', () => {
   let component: ApplicationSubmittedComponent;

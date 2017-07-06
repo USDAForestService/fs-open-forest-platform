@@ -1,5 +1,5 @@
-import { Application } from '../_models/application';
-import { ApplicationService } from '../_services/application.service';
+import { Application } from '../../_models/application';
+import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 

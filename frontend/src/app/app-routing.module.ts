@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
-import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
+import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
