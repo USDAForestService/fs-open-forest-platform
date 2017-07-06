@@ -152,6 +152,8 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+app.use('/api', express.static('api'));
+
 // Endpoints
 
 // POST /permits/applications/special-uses/noncommercial/
