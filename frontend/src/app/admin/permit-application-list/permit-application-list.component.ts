@@ -14,9 +14,10 @@ import * as moment from 'moment/moment';
 @Injectable()
 export class PermitApplicationListComponent implements OnInit {
 
-  applications: any;
   apiErrors: any;
-  successMessage: String;
+  applications: any;
+  errorMessage: string;
+  successMessage: string;
 
   constructor(
     private applicationService: ApplicationService,
