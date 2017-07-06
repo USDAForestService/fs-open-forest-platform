@@ -39,6 +39,7 @@ frontend/libpeerconnection.log
 frontend/npm-debug.log
 frontend/testem.log
 frontend/typings
+frontend/src/assets/typedoc
 localfiles
 
 # e2e
