@@ -1,8 +1,8 @@
-import { Application } from '../../_models/application';
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
+// import { SpecialUseApplication } from '../../_models/special-use-application';
 import * as moment from 'moment/moment';
 
 @Component({
