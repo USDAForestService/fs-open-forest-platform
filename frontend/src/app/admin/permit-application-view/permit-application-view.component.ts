@@ -11,9 +11,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class PermitApplicationViewComponent implements OnInit {
 
-  id: string;
   application = new Application();
+  errorMessage;
   fixedCtas = false;
+  id: string;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
     confirmButtonText: '',
@@ -34,24 +35,23 @@ export class PermitApplicationViewComponent implements OnInit {
       .subscribe(
         application => this.application = application,
         (e: any) => {
-          // TODO: talk to Peter about how to handle
-          console.log(e);
+          this.errorMessage = 'The application could not be found.'
+          window.scrollTo(0, 200);
         }
       );
   }
 
   updateApplicationStatus(application, status) {
     application.status = status;
-    this.alertService.addSuccessMessage('yah!');
-    console.log('updating');
     this.applicationService.update(application)
       .subscribe(
         (data: any) => {
+          if (status === 'Accepted') this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
           this.router.navigate(['admin/applications']);
         },
         (e: any) => {
-          // TODO: talk to Peter about how to handle
-          console.log(e);
+          this.errorMessage = 'There was an error updating this application.'
+          window.scrollTo(0, 200);
         }
       );
   }
