@@ -9,7 +9,7 @@ import { AlertService } from './_services/alert.service';
 import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './applications/applications.module';
-import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
+import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
