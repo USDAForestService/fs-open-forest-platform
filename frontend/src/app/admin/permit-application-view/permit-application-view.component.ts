@@ -59,28 +59,25 @@ export class PermitApplicationViewComponent implements OnInit {
         this.reasonOrCancel.buttonClass = 'fs-button-green';
         this.reasonOrCancel.confirmButtonText = 'Approve and notify applicant';
         this.reasonOrCancel.label = 'Additional message for the permit holder.';
-        this.reasonOrCancel.status = status;
         break;
       case 'Hold':
         this.reasonOrCancel.buttonClass = 'usa-button';
         this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';
         this.reasonOrCancel.label = 'Why is this application on hold?';
-        this.reasonOrCancel.status = status;
         break;
       case 'Returned':
         this.reasonOrCancel.buttonClass = 'usa-button-secondary';
         this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
         this.reasonOrCancel.label = 'Why is this application being rejected?';
-        this.reasonOrCancel.status = status;
         break;
     }
 
+    this.reasonOrCancel.status = status;
     this.reasonOrCancel.open = true;
     window.scrollTo(0, 200);
   }
 
   ngOnInit() {
-    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.getApplication(this.id);

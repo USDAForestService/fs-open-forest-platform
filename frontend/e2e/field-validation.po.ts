@@ -11,7 +11,7 @@ export class FieldValidation {
     if (! group) {
       it('should hide error if ' + id + ' field has text', () => {
         queryInput.sendKeys('text');
-        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
+        expect<any>(element(by.id(errorId)).isPresent()).toBe(false);
       });
     }
   };
@@ -21,14 +21,14 @@ export class FieldValidation {
     it('should not allow less than ' + minChars + 'characters', () => {
       queryInput.clear().then(function() {
         queryInput.sendKeys('5'.repeat(minChars - 1));
-        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(true);
+        expect<any>(element(by.id(errorId)).isPresent()).toBe(true);
       });
     });
     if (!group) {
       it('should not allow more than ' + maxChars + 'characters', () => {
         queryInput.clear().then(function() {
           queryInput.sendKeys('5'.repeat(maxChars + 1));
-          expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
+          expect<any>(element(by.id(errorId)).isPresent()).toBe(false);
         });
       });
     }
@@ -62,7 +62,7 @@ export class FieldValidation {
     it('should hide error if ' + id + ' field is a valid email address', () => {
       queryInput.clear().then(function() {
         queryInput.sendKeys('test@test.com');
-        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
+        expect<any>(element(by.id(errorId)).isPresent()).toBe(false);
       });
     });
   };
