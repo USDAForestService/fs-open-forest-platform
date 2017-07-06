@@ -15,12 +15,30 @@ export class AlertService {
     return this.successMessage;
   }
 
+  getWarningMessage() {
+    return this.warningMessage;
+  }
+
+  getErrorMessage() {
+    return this.errorMessage;
+  }
+
   addSuccessMessage(message) {
     this.successMessage = message;
   }
 
+  addWarningMessage(message) {
+    this.warningMessage = message;
+  }
+
+  addErrorMessage(message) {
+    this.errorMessage = message;
+  }
+
   clear() {
     this.successMessage = undefined;
+    this.warningMessage = undefined;
+    this.errorMessage = undefined;
   }
 
 }
