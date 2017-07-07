@@ -84,7 +84,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('list-all-citations')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
-    browser.sleep(30000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 });

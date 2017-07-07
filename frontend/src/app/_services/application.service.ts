@@ -12,7 +12,7 @@ import { SpecialUseApplication } from '../_models/special-use-application';
 @Injectable()
 export class ApplicationService {
 
-  private endpoint = environment.apiUrl + 'permits/applications/special-uses/noncommercial';
+  private endpoint = environment.apiUrl + 'permits/applications';
 
   constructor (private http: Http) {}
 
