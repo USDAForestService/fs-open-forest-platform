@@ -22,7 +22,7 @@
         <p class="usa-alert-text">You have one or more applications in the system that require immediate attention.</p>
       </div>
     </div>
-    <div *ngIf="true" class="usa-alert usa-alert-error application-deadline-warning">
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Error</h3>
         <p class="usa-alert-text">{{ errorMessage }}</p>
