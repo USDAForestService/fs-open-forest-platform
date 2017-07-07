@@ -5,7 +5,7 @@ let AWS = require('aws-sdk');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let util = require('./util.es6');
+// let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
 
