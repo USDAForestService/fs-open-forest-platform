@@ -102,7 +102,8 @@ describe('temp outfitter server tests', () => {
 
 describe('Persistence tests', () => {
 
-  let intakeControlNumber = undefined;
+  // uncomment the following line when the GET call below is implemented
+  //let intakeControlNumber = undefined;
 
   it('should persist an application', (done) => {
     request(server)
@@ -110,10 +111,11 @@ describe('Persistence tests', () => {
       .set('Accept', 'application/json')
       .send(tempOutfitterTestData.basicTempOutfitter.create())
       .expect('Content-Type', /json/)
-      .expect(function(res) {
-        // record the intake control number so that we can the the application back out
-        intakeControlNumber = res.body.appControlNumber;
-      })
+      // uncomment the following expect() when the GET call below is implemented
+      //.expect(function(res) {
+      // record the intake control number so that we can the the application back out
+      //intakeControlNumber = res.body.appControlNumber;
+      //})
       .expect(201, done);
   });
 
