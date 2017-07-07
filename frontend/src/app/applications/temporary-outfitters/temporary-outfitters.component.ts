@@ -44,9 +44,9 @@ export class TemporaryOutfittersComponent implements OnInit {
         orgType: ['', [Validators.required]],
         website: ['']
       }),
-      tempOutfittersFields: this.formBuilder.group({
-        individualIsCitizen: [''],
-        smallBusiness: [''],
+      tempOutfitterFields: this.formBuilder.group({
+        individualIsCitizen: [false],
+        smallBusiness: [false],
         advertisingDescription: ['', [Validators.required]],
         advertisingURL: [''],
         clientCharges: ['', [Validators.required]],

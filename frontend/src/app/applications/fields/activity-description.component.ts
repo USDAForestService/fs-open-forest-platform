@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 export class ActivityDescriptionComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
-  activityDescription = 'activityDescription';
+  activityDescriptionFields = 'activityDescriptionFields';
 
   dateStatus = {
     startDateTimeValid: true,
@@ -41,7 +41,7 @@ export class ActivityDescriptionComponent implements OnInit {
       statementOfAssignedSite: ['', [Validators.required]],
       descriptionOfCleanupAndRestoration: ['', [Validators.required]]
     });
-    this.parentForm.addControl('activityDescription', activityDescription);
+    this.parentForm.addControl('activityDescriptionFields', activityDescription);
   }
 
   updateDateStatus(dateStatus: any): void {
