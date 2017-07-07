@@ -5,30 +5,18 @@ info:
   title: "Forest Service Intake Module"
   license:
     name: "Open Source"
-    url: "https://github.com/flexion/fs-intake-module/blob/sprint-6-development/LICENSE.md"
+    url: "https://github.com/18F/fs-intake-module/LICENSE.md"
 basePath: "/"
 schemes:
 - "http"
 paths:
-  /permits/applications/:
+  /permits/applications/special-uses/noncommercial/{id}:
     get:
       tags:
-      - "application"
-      summary: "Retrieve all existing applications"
-      description: "Retrieves all existing applications. Currently only retrieves non-commercial applications."
-      operationId: "getAllApp"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "successful operation"
-  /permits/applications/{id}:
-    get:
-      tags:
-      - "application"
+      - "noncommercial"
       summary: "Retrieve an existing noncommercial application"
       description: "Retrieve an existing noncommercial application using the application control number"
-      operationId: "getApp"
+      operationId: "getNoncommApp"
       produces:
       - "application/json"
       parameters:
@@ -46,10 +34,10 @@ paths:
           description: "Application not found"
     put:
       tags:
-      - "application"
+      - "noncommercial"
       summary: "Update an existing noncommercial application"
       description: "Update an existing noncommercial application"
-      operationId: "updateApp"
+      operationId: "updateNoncommApp"
       consumes:
       - "application/json"
       produces:
@@ -74,6 +62,17 @@ paths:
         404:
           description: "Application not found"
   /permits/applications/special-uses/noncommercial:
+    get:
+      tags:
+      - "noncommercial"
+      summary: "Retrieve all existing non-commercial applications"
+      description: "Retrieves all existing non-commerical applications."
+      operationId: "getAllNoncommApp"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
     post:
       tags:
       - "noncommercial"
@@ -151,6 +150,40 @@ paths:
           description: "General Error"
         201:
           description: "Successful Creation"
+  /permits/applications/special-uses/temp-outfitters/{id}:
+    get:
+      tags:
+      - "temp-outfitters"
+      summary: "Retrieve an existing temp outfitter application"
+      description: "Retrieve an existing temp outfitter application using the application control number"
+      operationId: "getTempOutfitterApp"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "Control Number"
+        required: true
+        type: "uuid"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Application not found"
+  /uptime:
+    get:
+      tags:
+      - "general"
+      summary: "displays the uptime of the server"
+      description: "displays the uptime of the server"
+      operationId: "uptime"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful"
 definitions:
   File:
     type: "object"
