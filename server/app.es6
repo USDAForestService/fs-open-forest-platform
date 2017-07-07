@@ -46,20 +46,22 @@ app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.cre
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file',
-  tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
+app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
 // may not be able to update everything wholesale due to possible field audit requirements
-app.put('/permits/applications/:id', noncommercial.updateApp);
+app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.updateApp);
 
 // GET /permits/applications/special-uses/noncommercial/:tempControlNumber
-app.get('/permits/applications/:id', noncommercial.getApp);
+app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getApp);
+
+// GET /permits/applications/special-uses/temp-outfitters/:tempControlNumber
+app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getApp);
 
 // GET /permits/applications
 // retrieves all applications in the system
-app.get('/permits/applications', allAppFuncs.getAllApps);
+app.get('/permits/applications/special-uses/noncommercial', allAppFuncs.getAllApps);
 
 app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
