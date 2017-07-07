@@ -108,7 +108,6 @@ export class TempOutfitterFields {
 export class ActivityDescriptionFields {
   numberServiceDaysRequested: number;
   numberOfTrips: number;
-  dateTimeRange: DateTimeRange;
   locationDescription: string;
   servicesProvided: string;
   audienceDescription: string;
@@ -118,9 +117,6 @@ export class ActivityDescriptionFields {
   statementOfTransportationOfLivestock: string;
   statementOfAssignedSite: string;
   descriptionOfCleanupAndRestoration: string;
-  constructor() {
-    this.dateTimeRange = new DateTimeRange();
-  }
 }
 
 export class TempOutfitterFiles {

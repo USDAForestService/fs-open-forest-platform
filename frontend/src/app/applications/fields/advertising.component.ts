@@ -7,5 +7,5 @@ import { FormGroup } from '@angular/forms';
 })
 
 export class AdvertisingComponent {
-  @Input() tempOutfittersFields: FormGroup;
+  @Input() tempOutfitterFields: FormGroup;
 }
