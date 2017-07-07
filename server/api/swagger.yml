@@ -14,9 +14,11 @@ paths:
     get:
       tags:
       - "application"
-      summary: "get all existing applications"
-      description: "get all existing applications"
+      summary: "Retrieve all existing applications"
+      description: "Retrieves all existing applications. Currently only retrieves non-commercial applications."
       operationId: "getAllApp"
+      produces:
+      - "application/json"
       responses:
         200:
           description: "successful operation"
@@ -24,27 +26,29 @@ paths:
     get:
       tags:
       - "application"
-      summary: "get an existing noncommercial application"
-      description: "get an existing noncommercial application"
+      summary: "Retrieve an existing noncommercial application"
+      description: "Retrieve an existing noncommercial application using the application control number"
       operationId: "getApp"
+      produces:
+      - "application/json"
       parameters:
       - in: "path"
         name: "id"
-        description: "temp Control Number"
+        description: "Control Number"
         required: true
-        type: "string"
+        type: "uuid"
       responses:
+        200:
+          description: "Successful"
         400:
-          description: "Invalid ID supplied"
+          description: "Invalid input or other error"
         404:
-          description: "App not found"
-        405:
-          description: "Validation exception"
+          description: "Application not found"
     put:
       tags:
       - "application"
-      summary: "update an existing noncommercial application"
-      description: "update an existing noncommercial application"
+      summary: "Update an existing noncommercial application"
+      description: "Update an existing noncommercial application"
       operationId: "updateApp"
       consumes:
       - "application/json"
@@ -53,28 +57,28 @@ paths:
       parameters:
       - in: "path"
         name: "id"
-        description: "temp Control Number"
+        description: "Control Number"
         required: true
-        type: "string"
+        type: "uuid"
       - in: "body"
         name: "body"
-        description: "app object that needs to be added to the store"
+        description: "A non-commercial application object"
         required: true
         schema:
           $ref: "#/definitions/noncommercialApplication"
       responses:
+        200:
+          description: "Successful"
         400:
-          description: "Invalid ID supplied"
+          description: "Invalid input or other error"
         404:
-          description: "App not found"
-        405:
-          description: "Validation exception"
+          description: "Application not found"
   /permits/applications/special-uses/noncommercial:
     post:
       tags:
       - "noncommercial"
-      summary: "creates a new noncommercial application"
-      description: "creates a new noncommercial application"
+      summary: "Creates a new non-commercial application"
+      description: "Creates a new non-commercial application"
       operationId: "createNoncommercialTempApp"
       consumes:
       - "application/json"
@@ -83,21 +87,23 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "app object that needs to be added to the store"
+        description: "A non-commercial application object"
         required: true
         schema:
           $ref: "#/definitions/noncommercialApplication"
       responses:
-        405:
-          description: "Invalid Value"
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
         201:
           description: "Successful Creation"
   /permits/applications/special-uses/temp-outfitters:
     post:
       tags:
       - "temp-outfitters"
-      summary: "creates a new temp outfitter application"
-      description: "creates a new temp outfitter application"
+      summary: "Creates a new temp outfitter application"
+      description: "Creates a new temp outfitter application"
       operationId: "createTempOutfitterApp"
       consumes:
       - "application/json"
@@ -106,36 +112,43 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "app object that needs to be added to the store"
+        description: "A temp outfitter application object"
         required: true
         schema:
           $ref: "#/definitions/tempOutfitterApp"
       responses:
-        405:
-          description: "Invalid Value"
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
         201:
           description: "Successful Creation"
   /permits/applications/special-uses/temp-outfitters/file:
     post:
       tags:
       - "temp-outfitters"
-      summary: "creates a new temp outfitter application file"
-      description: "creates a new temp outfitter application file"
+      summary: "Uploads an associated file for an application"
+      description: "Uploads an associated file for an application"
       operationId: "createAppFile"
       consumes:
-      - "application/json"
+      - "multipart/form-data"
       produces:
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "app object that needs to be added to the store"
+        description: "File Association object"
         required: true
         schema:
           $ref: "#/definitions/File"
+      - in: "formData"
+        name: "file"
+        description: "Binary file sent in as a multi-part form field called 'file'"
+        required: true
+        type: "file"
       responses:
-        405:
-          description: "Invalid Value"
+        500:
+          description: "General Error"
         201:
           description: "Successful Creation"
 definitions:
@@ -144,9 +157,6 @@ definitions:
     required:
     - "originalFileName"
     properties:
-      file_id:
-        type: "integer"
-        format: "int64"
       applicationId:
         type: "integer"
         format: "int64"
@@ -157,45 +167,9 @@ definitions:
       originalFileName:
         type: "string"
         example: "example.jpg"
-      createdAt:
-        type: "string"
-        format: "date-time"
-      updatedAt:
-        type: "string"
-        format: "date-time"
-  tempOutfitterApp:
+  common:
     type: "object"
-    required:
-    - "applicationId"
-    - "appControlNumber"
-    - "region"
-    - "forest"
-    - "district"
-    - "eventName"
-    - "applicantInfoPrimaryFirstName"
-    - "applicantInfoPrimaryLastName"
-    - "applicantInfoDayPhoneAreaCode"
-    - "applicantInfoDayPhonePrefix"
-    - "applicantInfoDayPhoneNumber"
-    - "applicantInfoEmailAddress"
-    - "applicantInfoPrimaryMailingAddress"
-    - "applicantInfoOrgType"
-    - "tempOutfitterFieldsIndividualCitizen"
-    - "tempOutfitterFieldsSmallBusiness"
-    - "type"
-    - "createdAt"
-    - "updatedAt"
-    - "status"
     properties:
-      applicationId:
-        type: "integer"
-        format: "int64"
-      appControlNumber:
-        type: "string"
-        maxLength: 64
-      controlNumber:
-        type: "string"
-        maxLength: 50
       region:
         type: "string"
         maxLength: 2
@@ -209,271 +183,167 @@ definitions:
         type: "string"
       authorizingOfficerTitle:
         type: "string"
-      eventName:
-        type: "string"
-      applicantInfoPrimaryFirstName:
-        type: "string"
-      applicantInfoPrimaryLastName:
-        type: "string"
-      applicantInfoDayPhoneAreaCode:
-        type: "string"
-        maxLength: 3
-      applicantInfoDayPhonePrefix:
-        type: "string"
-        maxLength: 3
-      applicantInfoDayPhoneNumber:
-        type: "string"
-        maxLength: 4
-      applicantInfoDayPhoneExtension:
-        type: "string"
-        maxLength: 10
-      applicantInfoEveningPhoneAreaCode:
-        type: "string"
-        maxLength: 3
-      applicantInfoEveningPhonePrefix:
-        type: "string"
-        maxLength: 3
-      applicantInfoEveningPhoneNumber:
-        type: "string"
-        maxLength: 4
-      applicantInfoEveningPhoneExtension:
-        type: "string"
-        maxLength: 10
-      applicantInfoEmailAddress:
-        type: "string"
-      applicantInfoOrgMailingAddress:
-        type: "string"
-      applicantInfoOrgMailingAddress2:
-        type: "string"
-      applicantInfoOrgMailingCity:
-        type: "string"
-      applicantInfoOrgMailingState:
-        type: "string"
-        maxLength: 2
-      applicantInfoOrgMailingZIP:
-        type: "string"
-        maxLength: 5
-      applicantInfoPrimaryMailingAddress:
-        type: "string"
-      applicantInfoPrimaryMailingAddress2:
-        type: "string"
-      applicantInfoPrimaryMailingCity:
-        type: "string"
-      applicantInfoPrimaryMailingState:
-        type: "string"
-        maxLength: 2
-      applicantInfoPrimaryMailingZIP:
-        type: "string"
-        maxLength: 5
-      applicantInfoSecondaryMailingAddress:
-        type: "string"
-      applicantInfoSecondaryMailingAddress2:
-        type: "string"
-      applicantInfoSecondaryMailingCity:
-        type: "string"
-      applicantInfoSecondaryMailingState:
-        type: "string"
-        maxLength: 2
-      applicantInfoSecondaryMailingZIP:
-        type: "string"
-        maxLength: 5
-      applicantInfoOrganizationName:
-        type: "string"
-      applicantInfoWebsite:
-        type: "string"
-      applicantInfoOrgType:
-        type: "string"
-      applicantInfoSecondaryFirstName:
-        type: "string"
-      applicantInfoSecondaryLastName:
-        type: "string"
       type:
         type: "string"
-      tempOutfitterFieldsActivityDescription:
-        type: "string"
-      tempOutfitterFieldsIndividualCitizen:
-        type: "boolean"
-      tempOutfitterFieldsSmallBusiness:
-        type: "boolean"
-      tempOutfitterFieldsAdvertisingUrl:
-        type: "string"
-      tempOutfitterFieldsAdvertisingDescription:
-        type: "string"
-      tempOutfitterFieldsClientCharges:
-        type: "string"
-      tempOutfitterFieldsExperienceList:
-        type: "string"
-      createdAt:
-        type: "string"
-        format: "date-time"
-      updatedAt:
-        type: "string"
-        format: "date-time"
-      status:
-        type: "string"
-        default: "Received"
       signature:
         type: "string"
         maxLength: 3
       reasonForReturn:
         type: "string"
-  noncommercialApplication:
+  address:
     type: "object"
-    required:
-    - "applicationId"
-    - "appControlNumber"
-    - "region"
-    - "forest"
-    - "district"
-    - "eventName"
-    - "applicantInfoPrimaryFirstName"
-    - "applicantInfoPrimaryLastName"
-    - "applicantInfoDayPhoneAreaCode"
-    - "applicantInfoDayPhonePrefix"
-    - "applicantInfoDayPhoneNumber"
-    - "applicantInfoEmailAddress"
-    - "applicantInfoPrimaryMailingAddress"
-    - "applicantInfoOrgType"
-    - "type"
-    - "noncommercialFieldsActivityDescription"
-    - "noncommercialFieldsLocationDescription"
-    - "noncommercialFieldsStartDateTime"
-    - "noncommercialFieldsEndDateTime"
-    - "noncommercialFieldsNumberParticipants"
-    - "createdAt"
-    - "updatedAt"
-    - "status"
-    - "noncommercialFieldsSpectatorCount"
     properties:
-      applicationId:
-        type: "integer"
-        format: "int64"
-      appControlNumber:
+      mailingAddress:
         type: "string"
-        maxLength: 64
-      controlNumber:
+      mailingAddress2:
         type: "string"
-        maxLength: 50
-      region:
+      mailingCity:
+        type: "string"
+      mailingState:
         type: "string"
         maxLength: 2
-      forest:
+      mailingZIP:
         type: "string"
-        maxLength: 2
-      district:
-        type: "string"
-        maxLength: 2
-      authorizingOfficerName:
-        type: "string"
-      authorizingOfficerTitle:
-        type: "string"
-      eventName:
-        type: "string"
-      applicantInfoPrimaryFirstName:
-        type: "string"
-      applicantInfoPrimaryLastName:
-        type: "string"
-      applicantInfoDayPhoneAreaCode:
+        maxLength: 5
+  phone:
+    type: "object"
+    properties:
+      areaCode:
         type: "string"
         maxLength: 3
-      applicantInfoDayPhonePrefix:
+      prefix:
         type: "string"
         maxLength: 3
-      applicantInfoDayPhoneNumber:
+      number:
         type: "string"
         maxLength: 4
-      applicantInfoDayPhoneExtension:
+      extension:
         type: "string"
         maxLength: 10
-      applicantInfoEveningPhoneAreaCode:
+  commonApplicantInfo:
+    type: "object"
+    properties:
+      primaryFirstName:
         type: "string"
-        maxLength: 3
-      applicantInfoEveningPhonePrefix:
+      primaryLastName:
         type: "string"
-        maxLength: 3
-      applicantInfoEveningPhoneNumber:
+      dayPhone:
+        $ref: '#/definitions/phone'
+      eveningPhone:
+        $ref: '#/definitions/phone'
+      emailAddress:
         type: "string"
-        maxLength: 4
-      applicantInfoEveningPhoneExtension:
+      primaryAddress:
+        $ref: '#/definitions/address'
+      organizationName:
         type: "string"
-        maxLength: 10
-      applicantInfoEmailAddress:
+      website:
         type: "string"
-      applicantInfoOrgMailingAddress:
+      orgType:
         type: "string"
-      applicantInfoOrgMailingAddress2:
+  tempOutfitterApplicantInfo:
+    allOf:
+    - $ref: '#/definitions/commonApplicantInfo'
+    - type: "object"
+      properties:
+        faxNumber:
+          $ref: '#/definitions/phone'
+  noncommApplicantInfo:
+    allOf:
+    - $ref: '#/definitions/commonApplicantInfo'
+    - type: "object"
+      properties:
+        organizationAddress:
+          $ref: '#/definitions/address'
+        secondaryAddress:
+          $ref: '#/definitions/address'
+        secondaryFirstName:
+          type: "string"
+        secondaryLastName:
+          type: "string"
+  dateTimeRange:
+    type: "object"
+    properties:
+      endDateTime:
         type: "string"
-      applicantInfoOrgMailingCity:
+      startDateTime:
         type: "string"
-      applicantInfoOrgMailingState:
+  activityDescriptionFields:
+    type: "object"
+    properties:
+      numberServiceDaysRequested:
         type: "string"
-        maxLength: 2
-      applicantInfoOrgMailingZIP:
+      numberOfTrips:
         type: "string"
-        maxLength: 5
-      applicantInfoPrimaryMailingAddress:
+      dateTimeRange:
+        $ref: '#/definitions/dateTimeRange'
+      locationDescription:
         type: "string"
-      applicantInfoPrimaryMailingAddress2:
+      servicesProvided:
         type: "string"
-      applicantInfoPrimaryMailingCity:
+      audienceDescription:
         type: "string"
-      applicantInfoPrimaryMailingState:
+      listOfGovernmentFacilities:
         type: "string"
-        maxLength: 2
-      applicantInfoPrimaryMailingZIP:
+      listOfTemporaryImprovements:
         type: "string"
-        maxLength: 5
-      applicantInfoSecondaryMailingAddress:
+      statementOfMotorizedEquipment:
         type: "string"
-      applicantInfoSecondaryMailingAddress2:
+      statementOfTransportationOfLivestock:
         type: "string"
-      applicantInfoSecondaryMailingCity:
+      statementOfAssignedSite:
         type: "string"
-      applicantInfoSecondaryMailingState:
+      descriptionOfCleanupAndRestoration:
         type: "string"
-        maxLength: 2
-      applicantInfoSecondaryMailingZIP:
+  tempOutfitterFields:
+    type: "object"
+    properties:
+      individualIsCitizen:
+        type: "boolean"
+      smallBusiness:
+        type: "boolean"
+      advertisingURL:
         type: "string"
-        maxLength: 5
-      applicantInfoOrganizationName:
+      advertisingDescription:
         type: "string"
-      applicantInfoWebsite:
+      clientCharges:
         type: "string"
-      applicantInfoOrgType:
+      experienceList:
         type: "string"
-      applicantInfoSecondaryFirstName:
-        type: "string"
-      applicantInfoSecondaryLastName:
-        type: "string"
-      type:
-        type: "string"
-      noncommercialFieldsActivityDescription:
+      activityDescriptionFields:
+        $ref: '#/definitions/activityDescriptionFields'
+  noncommFields:
+    type: "object"
+    properties:
+      activityDescription:
         type: "string"
         maxLength: 512
-      noncommercialFieldsLocationDescription:
+      locationDescription:
         type: "string"
-      noncommercialFieldsStartDateTime:
-        type: "string"
-      noncommercialFieldsEndDateTime:
-        type: "string"
-      noncommercialFieldsNumberParticipants:
+      dateTimeRange:
+        $ref: '#/definitions/dateTimeRange'
+      numberParticipants:
         type: "integer"
-      createdAt:
-        type: "string"
-        format: "date-time"
-      updatedAt:
-        type: "string"
-        format: "date-time"
-      status:
-        type: "string"
-        default: "Received"
-      signature:
-        type: "string"
-        maxLength: 3
-      reasonForReturn:
-        type: "string"
-      noncommercialFieldsSpectatorCount:
+      spectators:
         type: "integer"
+  tempOutfitterApp:
+    allOf:
+    - $ref: '#/definitions/common'
+    - type: "object"
+      properties:
+        applicantInfo:
+          $ref: '#/definitions/tempOutfitterApplicantInfo'
+        tempOutfitterFields:
+          $ref: '#/definitions/tempOutfitterFields'
+  noncommercialApplication:
+    allOf:
+    - $ref: '#/definitions/common'
+    - type: "object"
+      properties:
+        applicantInfo:
+          $ref: '#/definitions/noncommApplicantInfo'
+        noncommercialFields:
+          $ref: '#/definitions/noncommFields'
 externalDocs:
   description: "Find out more about Forest Service"
   url: "https://www.fs.fed.us/"
