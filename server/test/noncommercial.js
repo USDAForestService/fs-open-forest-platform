@@ -4,9 +4,9 @@ var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
 var nock = require('nock');
 var server = require('../app.es6');
-var testGetURL = '/permits/applications';
+var testGetURL = '/permits/applications/special-uses/noncommercial';
 var testURL = '/permits/applications/special-uses/noncommercial';
-var testPutURL = '/permits/applications/';
+var testPutURL = '/permits/applications/special-uses/noncommercial';
 
 describe('noncommercial tests', () => {
 
@@ -504,7 +504,7 @@ describe('Branch tests', () => {
       .reply(200, { controlNumber: 'success' });
 
     request(server)
-      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
       .send(noncommercialTestData.singlePermitHolder.create())
       .expect('Content-Type', /json/)
@@ -526,7 +526,7 @@ describe('Branch tests', () => {
       .reply(200, { controlNumber: 'success' });
 
     request(server)
-      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d448')
+      .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d448')
       .set('Accept', 'application/json')
       .send(noncommercialTestData.singlePermitHolder.create())
       .expect(404, done);
@@ -546,7 +546,7 @@ describe('Branch tests', () => {
       .reply(500, { status: 'fail' });
 
     request(server)
-      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
       .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
       .expect(400, done);
@@ -566,7 +566,7 @@ describe('Branch tests', () => {
       .reply(200, { controlNumber: 'success' });
 
     request(server)
-      .put(testPutURL + '806d3550-309d-46ea-b12a-f021f7b3d447')
+      .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
       .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
       .expect('Content-Type', /json/)
