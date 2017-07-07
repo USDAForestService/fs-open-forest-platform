@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from '../../_models/application';
+import { SpecialUseApplication } from '../../_models/special-use-application';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 export class TemporaryOutfittersComponent implements OnInit {
 
   apiErrors: any;
-  application = new Application();
+  application = new SpecialUseApplication();
   applicationId: number;
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
@@ -44,9 +44,9 @@ export class TemporaryOutfittersComponent implements OnInit {
         orgType: ['', [Validators.required]],
         website: ['']
       }),
-      tempOutfittersFields: this.formBuilder.group({
-        individualIsCitizen: [''],
-        smallBusiness: [''],
+      tempOutfitterFields: this.formBuilder.group({
+        individualIsCitizen: [false],
+        smallBusiness: [false],
         advertisingDescription: ['', [Validators.required]],
         advertisingURL: [''],
         clientCharges: ['', [Validators.required]],
