@@ -4,9 +4,9 @@ var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
 var nock = require('nock');
 var server = require('../app.es6');
-var testGetURL = '/permits/applications';
+var testGetURL = '/permits/applications/special-uses/noncommercial';
 var testURL = '/permits/applications/special-uses/noncommercial';
-var testPutURL = '/permits/applications/';
+var testPutURL = '/permits/applications/special-uses/noncommercial';
 
 describe('noncommercial tests', () => {
 
