@@ -33,7 +33,7 @@
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-minutes">Minutes</label>
-        <select class="usa-input-inline" id="start-minutes" formConrolName="startMinutes" aria-required="true">
+        <select class="usa-input-inline" id="start-minutes" formControlName="startMinutes" aria-required="true">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
@@ -87,7 +87,7 @@
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-minutes">Minutes</label>
-        <select class="usa-input-inline" id="end-minutes" formConrolName="endMinutes" aria-required="true">
+        <select class="usa-input-inline" id="end-minutes" formControlName="endMinutes" aria-required="true">
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
