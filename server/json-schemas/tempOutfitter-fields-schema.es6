@@ -34,21 +34,15 @@ module.exports = {
       '$ref': '/activityDescriptionFields'
     }
   },
-  'allOf': [
-    {
-      'required': [
-        'clientCharges', 'activityDescriptionFields'
-      ]
-    },
-    {
-      'anyOf': [
-        {
-          'required': ['advertisingURL']
-        },
-        {
-          'required': ['advertisingDescription']
-        }
-      ]
-    }
-  ]
+  'allOf': [{
+    'required': [
+      'clientCharges', 'activityDescriptionFields'
+    ]
+  }, {
+    'anyOf': [{
+      'required': ['advertisingURL']
+    }, {
+      'required': ['advertisingDescription']
+    }]
+  }]
 };

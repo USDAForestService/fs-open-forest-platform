@@ -1,7 +1,7 @@
 'use strict';
 
 let bodyParser = require('body-parser');
-let express =  require('express');
+let express = require('express');
 
 let tempOutfitter = require('./temp-outfitter.es6');
 let noncommercial = require('./noncommercial.es6');
@@ -15,10 +15,12 @@ app.use(bodyParser.json());
 // middleware that will add the Access-Control-Allow-Origin header to everything
 app.use(function(req, res, next) {
   var origin = req.headers.origin;
-  if(origin === 'http://localhost:4200'){
+  if (origin === 'http://localhost:4200' || origin ===
+    'http://localhost:49152') {
     res.set('Access-Control-Allow-Origin', origin);
   } else {
-    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
+    res.set('Access-Control-Allow-Origin',
+      'https://fs-intake-staging.app.cloud.gov');
   }
   res.set('Access-Control-Allow-Credentials', true);
   next();
@@ -27,7 +29,8 @@ app.use(function(req, res, next) {
 // set these headers on all of the OPTIONS preflight responses
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
-  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.set('Access-Control-Allow-Methods',
+    'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
@@ -43,7 +46,8 @@ app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.cre
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file',1), tempOutfitter.createAppFile);
+app.post('/permits/applications/special-uses/temp-outfitters/file',
+  tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application

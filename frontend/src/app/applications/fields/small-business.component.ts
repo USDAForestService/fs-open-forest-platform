@@ -7,5 +7,5 @@ import { FormGroup } from '@angular/forms';
 })
 
 export class SmallBusinessComponent {
-  @Input() tempOutfittersFields: FormGroup;
+  @Input() tempOutfitterFields: FormGroup;
 }
