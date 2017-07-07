@@ -53,6 +53,9 @@ app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.up
 // GET /permits/applications/special-uses/noncommercial/:tempControlNumber
 app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getApp);
 
+// GET /permits/applications/special-uses/temp-outfitters/:tempControlNumber
+app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getApp);
+
 // GET /permits/applications
 // retrieves all applications in the system
 app.get('/permits/applications/special-uses/noncommercial', allAppFuncs.getAllApps);
