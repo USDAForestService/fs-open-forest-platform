@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "ng build",
+    "docs": "yarn run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
     "e2e:ci": "ng e2e --watch=false --progress=false",
     "e2e": "ng e2e",
     "lint": "ng lint",
@@ -12,6 +13,7 @@
     "start": "ng serve",
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
     "test": "ng test",
+    "typedoc": "typedoc",
     "update-version": "npm version patch && node ./replace.build.js"
   },
   "private": true,
@@ -52,7 +54,7 @@
     "protractor": "^5.1.2",
     "ts-node": "^3.1.0",
     "tslint": "^5.4.3",
-    "typescript": "^2.2.0",
+    "typescript": "2.3.4",
     "uswds": "^1.2.1"
   }
 }

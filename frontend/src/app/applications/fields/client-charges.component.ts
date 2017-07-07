@@ -7,5 +7,5 @@ import { FormGroup } from '@angular/forms';
 })
 
 export class ClientChargesComponent {
-  @Input() tempOutfittersFields: FormGroup;
+  @Input() tempOutfitterFields: FormGroup;
 }

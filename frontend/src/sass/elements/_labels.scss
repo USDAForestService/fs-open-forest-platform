@@ -1,12 +1,12 @@
 .usa-label {
-  &.green {
+  &.success {
     background-color: $fs-green;
   }
-  &.orange {
-    background-color: $fs-orange;
-    color: $black;
+  &.warning {
+    background-color: $fs-brown;
+    color: $white;
   }
-  &.red {
+  &.danger {
     background-color: $fs-red;
   }
 }

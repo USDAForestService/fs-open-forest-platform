@@ -10,10 +10,22 @@
         </ul>
       </div>
     </div>
+    <div *ngIf="successMessage" class="usa-alert usa-alert-success application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Success</h3>
+        <p class="usa-alert-text">{{ successMessage }}</p>
+      </div>
+    </div>
     <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Warning</h3>
         <p class="usa-alert-text">You have one or more applications in the system that require immediate attention.</p>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">{{ errorMessage }}</p>
       </div>
     </div>
     <div class="application-list">
@@ -28,7 +40,7 @@
         <div>&nbsp;</div>
       </div>
       <div *ngFor="let application of applications" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
-        <div *ngIf="application.status === 'Hold'"><span class="usa-label orange">Hold</span></div>
+        <div *ngIf="application.status === 'Hold'"><span class="usa-label warning">Hold</span></div>
         <div *ngIf="application.status === 'Received'">
           <div *ngIf="isOverTwoDaysOld(application.createdAt)"><div class="warning-icon"></div></div>
         </div>
@@ -44,7 +56,7 @@
         <div>{{ application.noncommercialFields.locationDescription }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
-        <div><a class="usa-button usa-button-outline green" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
+        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
       </div>
     </div>
   </div>
