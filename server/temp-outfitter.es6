@@ -1,12 +1,13 @@
 'use strict';
 
+let ApplicationFile = require('./models/application-files.es6');
 let AWS = require('aws-sdk');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
-let ApplicationFile = require('./models/application-files.es6');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let vcapServices = require('./vcap-services.es6');
+// let util = require('./util.es6');
 let validator = require('./validation.es6');
+let vcapServices = require('./vcap-services.es6');
 
 let tempOutfitterFuncs = {};
 
@@ -119,6 +120,20 @@ tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
       res.status(500).json(err);
     });
   }
+};
+
+tempOutfitterFuncs.getApp = (req, res) => {
+  TempOutfitterApplication.findOne({ 'where': {app_control_number: req.params.id}})
+    .then(app => {
+      if(app) {
+        // TODO: build temp outfitter translator
+        // res.status(200).json(util.translateFromDatabaseToJSON(app));
+        res.status(200).json('not yet implemented');
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => res.status(400).json(error.message));
 };
 
 module.exports = tempOutfitterFuncs;

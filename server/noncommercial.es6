@@ -1,9 +1,9 @@
 'use strict';
 
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let validator = require('./validation.es6');
 let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
 let util = require('./util.es6');
+let validator = require('./validation.es6');
 
 let noncommercialFuncs = {};
 
