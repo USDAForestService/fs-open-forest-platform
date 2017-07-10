@@ -17,6 +17,10 @@ describe('Apply for a temp outfitters permit', () => {
   });
 
 
+  fieldValidation.validateFileUploadField('guide-document-wrapper');
+  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
+  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
+  fieldValidation.validateFileUploadField('operating-plan-wrapper');
   it('should submit an application', () => {
     element(by.id('primary-permit-holder-first-name')).sendKeys('test');
     element(by.id('primary-permit-holder-last-name')).sendKeys('test');
@@ -72,10 +76,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('advertising-description')).sendKeys('test');
     element(by.id('advertising-url')).sendKeys('http://test.com');
     element(by.id('client-charges')).sendKeys('test');
-    fieldValidation.validateFileUploadField('guide-document-wrapper');
-    fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
-    fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
-    fieldValidation.validateFileUploadField('operating-plan-wrapper');
     element(by.id('have-national-forest-permits')).click();
     element(by.id('list-all-national-forest-permits')).sendKeys('test');
     element(by.id('have-other-permits')).click();
