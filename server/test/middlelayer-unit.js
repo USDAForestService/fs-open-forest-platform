@@ -9,18 +9,14 @@ var sendAcceptedNoncommercialApplicationToMiddleLayer = require('../middlelayer-
 var nock = require('nock');
 
 describe('middle layer unit tests', () => {
-
-  it('should fail middle layer auth', (done) => {
-
-    nock('http://localhost:8080')
-      .post('/auth')
-      .reply(500, { status: 'authfail' });
+  it('should fail middle layer auth', done => {
+    nock('http://localhost:8080').post('/auth').reply(500, { status: 'authfail' });
 
     var success = () => {
       done();
     };
 
-    var failure = (error) => {
+    var failure = error => {
       expect(error).to.not.be.null;
       expect(error.body, 'error.body should exist').to.not.be.undefined;
       expect(error.body.status, 'error.body.status should exist').to.not.be.undefined;
@@ -28,26 +24,19 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure);
-
+    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
   });
 
-  it('should pass middle layer auth, but fail mock middle layer send', (done) => {
-    nock('http://localhost:8080')
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
+  it('should pass middle layer auth, but fail mock middle layer send', done => {
+    nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080')
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(500, { status: 'fail-suds' });
+    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(500, { status: 'fail-suds' });
 
     var success = () => {
       done();
     };
 
-    var failure = (error) => {
+    var failure = error => {
       expect(error).to.not.be.null;
       expect(error.body, 'error.body should exist').to.not.be.undefined;
       expect(error.body.status, 'error.body.status should exist').to.not.be.undefined;
@@ -55,22 +44,15 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure);
-
+    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
   });
 
-  it('should pass middle layer auth, and pass middle layer send', (done) => {
-    nock('http://localhost:8080')
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
+  it('should pass middle layer auth, and pass middle layer send', done => {
+    nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080')
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { status: 'success' });
+    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(200, { status: 'success' });
 
-    var success = (response) => {
+    var success = response => {
       expect(response).to.not.be.null;
       expect(response.status, 'response.status should exist').to.not.be.undefined;
       expect(response.status).to.equal('success');
@@ -81,10 +63,6 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure);
-
+    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
   });
-
 });

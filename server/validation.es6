@@ -4,7 +4,7 @@ let jsonschema = require('jsonschema');
 let util = require('./util.es6');
 
 let validator = new jsonschema.Validator();
-let validatorOptions = { 'nestedErrors' : true };
+let validatorOptions = { nestedErrors: true };
 
 let addressSchema = require('./json-schemas/address-schema.es6');
 let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
@@ -32,8 +32,7 @@ validator.addSchema(tempOutfitterFieldsSchema);
 validator.addSchema(tempOutfitterSchema);
 validator.addSchema(activityDescriptionFieldsSchema);
 
-let validateSchema = (input) => {
-
+let validateSchema = input => {
   let result;
 
   if (input.inputObj && Object.keys(input.inputObj).length > 0) {
@@ -50,8 +49,7 @@ let validateSchema = (input) => {
 
 let validate = {};
 
-validate.validateNoncommercial = (obj) => {
-
+validate.validateNoncommercial = obj => {
   let errorArr = [];
 
   // overall validation
@@ -81,7 +79,6 @@ validate.validateNoncommercial = (obj) => {
 
   // if the orgType is Individual, then primaryAddress is required
   if (obj.applicantInfo.orgType === 'Person') {
-
     validationObj = {
       inputObj: obj.applicantInfo.primaryAddress,
       schema: addressSchema,
@@ -96,7 +93,6 @@ validate.validateNoncommercial = (obj) => {
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
   if (obj.applicantInfo.orgType === 'Corporation') {
-
     validationObj = {
       inputObj: obj.applicantInfo.organizationAddress,
       schema: addressSchema,
@@ -132,19 +128,18 @@ validate.validateNoncommercial = (obj) => {
 
   errorArr = validateSchema(validationObj);
 
-  if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
+  if (obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
     errorArr.push('pattern-dateTimeRange.startDateTime');
   }
 
-  if(obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
+  if (obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
     errorArr.push('pattern-dateTimeRange.endDateTime');
   }
 
   return errorArr;
 };
 
-validate.validateTempOutfitter = (obj) => {
-
+validate.validateTempOutfitter = obj => {
   let errorArr = [];
 
   // overall validation
@@ -197,7 +192,6 @@ validate.validateTempOutfitter = (obj) => {
   errorArr = validateSchema(validationObj);
 
   return errorArr;
-
 };
 
 module.exports = validate;
