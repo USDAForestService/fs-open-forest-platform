@@ -11,5 +11,4 @@ allAppFuncs.getAllApps = (req, res) => {
   });
 };
 
-
 module.exports = allAppFuncs;
