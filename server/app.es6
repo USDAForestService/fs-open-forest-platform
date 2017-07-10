@@ -34,7 +34,7 @@ app.options('*', function(req, res) {
   res.send();
 });
 
-app.use('/api', express.static('api'));
+app.use('/docs/api', express.static('docs/api'));
 
 // Endpoints
 
