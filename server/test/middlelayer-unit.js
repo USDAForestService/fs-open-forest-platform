@@ -8,11 +8,13 @@ var sendAcceptedNoncommercialApplicationToMiddleLayer = require('../middlelayer-
 
 var nock = require('nock');
 
+var vcap = require('../vcap-services.es6');
+
 describe('middle layer unit tests', () => {
 
   it('should fail middle layer auth', (done) => {
 
-    nock('http://localhost:8080')
+    nock(vcap.middleLayerBaseUrl)
       .post('/auth')
       .reply(500, { status: 'authfail' });
 
@@ -35,11 +37,11 @@ describe('middle layer unit tests', () => {
   });
 
   it('should pass middle layer auth, but fail mock middle layer send', (done) => {
-    nock('http://localhost:8080')
+    nock(vcap.middleLayerBaseUrl)
       .post('/auth')
       .reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080')
+    nock(vcap.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, { status: 'fail-suds' });
 
@@ -62,11 +64,11 @@ describe('middle layer unit tests', () => {
   });
 
   it('should pass middle layer auth, and pass middle layer send', (done) => {
-    nock('http://localhost:8080')
+    nock(vcap.middleLayerBaseUrl)
       .post('/auth')
       .reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080')
+    nock(vcap.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, { status: 'success' });
 
