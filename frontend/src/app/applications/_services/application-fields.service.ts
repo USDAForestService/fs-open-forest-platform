@@ -20,4 +20,14 @@ export class ApplicationFieldsService {
   removeAddress(parentForm, formName) {
     parentForm.removeControl(formName);
   }
+
+  simpleRequireToggle(toggleField, dataField) {
+    toggleField.valueChanges.subscribe(value => {
+      if (value) {
+        dataField.setValidators(Validators.required);
+      } else {
+        dataField.setValidators(null);
+      }
+    });
+  }
 }
