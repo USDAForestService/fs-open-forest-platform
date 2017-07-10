@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+      <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
