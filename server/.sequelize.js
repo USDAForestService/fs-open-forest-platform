@@ -17,7 +17,7 @@ if (dbParams.hostname !== 'localhost') {
   dbConfig.ssl = true;
   dbConfig.dialectOptions = {
     ssl: {
-      require:true
+      require: true
     }
   };
 }

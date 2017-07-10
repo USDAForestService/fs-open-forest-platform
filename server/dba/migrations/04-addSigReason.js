@@ -4,10 +4,8 @@ let doTransaction = require('./modules/transaction');
 
 const TABLE_NAME = 'noncommercialApplications';
 
-
 module.exports = {
   up: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'add',
@@ -29,7 +27,6 @@ module.exports = {
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'remove',

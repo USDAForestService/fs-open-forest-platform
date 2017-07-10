@@ -15,12 +15,10 @@ app.use(bodyParser.json());
 // middleware that will add the Access-Control-Allow-Origin header to everything
 app.use(function(req, res, next) {
   var origin = req.headers.origin;
-  if (origin === 'http://localhost:4200' || origin ===
-    'http://localhost:49152') {
+  if (origin === 'http://localhost:4200' || origin === 'http://localhost:49152') {
     res.set('Access-Control-Allow-Origin', origin);
   } else {
-    res.set('Access-Control-Allow-Origin',
-      'https://fs-intake-staging.app.cloud.gov');
+    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
   }
   res.set('Access-Control-Allow-Credentials', true);
   next();
@@ -29,8 +27,7 @@ app.use(function(req, res, next) {
 // set these headers on all of the OPTIONS preflight responses
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
-  res.set('Access-Control-Allow-Methods',
-    'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
