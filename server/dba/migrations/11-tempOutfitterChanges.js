@@ -6,7 +6,6 @@ const TABLE_NAME = 'tempOutfitterApplications';
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'add',
@@ -177,7 +176,6 @@ module.exports = {
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'remove',
@@ -336,7 +334,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_outfitter_client_charges',
         options: { type: Sequelize.STRING, allowNull: true }
-      },
+      }
     ];
 
     return doTransaction(TABLE_NAME, queryInterface, operations);
