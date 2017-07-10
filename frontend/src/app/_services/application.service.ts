@@ -11,33 +11,26 @@ import { SpecialUseApplication } from '../_models/special-use-application';
 
 @Injectable()
 export class ApplicationService {
-
   private endpoint = environment.apiUrl + 'permits/applications';
 
-  constructor (private http: Http) {}
+  constructor(private http: Http) {}
 
   create(body, type, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     if (multipart) {
-      headers = new Headers({ 'Content-Type': 'application/json', 'enctype': 'multipart/form-data' });
+      headers = new Headers({ 'Content-Type': 'application/json', enctype: 'multipart/form-data' });
     }
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint + '' + type, body, options)
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    return this.http.post(this.endpoint + '' + type, body, options).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   get(params = '') {
-    return this.http.get(this.endpoint + '' + params)
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    return this.http.get(this.endpoint + '' + params).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   getOne(id) {
-    return this.http.get(this.endpoint + '/' + id)
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    return this.http.get(this.endpoint + '/' + id).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   update(body: SpecialUseApplication): Observable<SpecialUseApplication[]> {
@@ -45,12 +38,10 @@ export class ApplicationService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(this.endpoint + '/' + body.appControlNumber, body, options)
-      .map((res: Response) => res.json())
-      .catch(this.handleError);
+    return this.http.put(this.endpoint + '/' + body.appControlNumber, body, options).map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  private handleError (error: Response | any) {
+  private handleError(error: Response | any) {
     let errors: any;
     if (error instanceof Response) {
       const body = error.json() || '';

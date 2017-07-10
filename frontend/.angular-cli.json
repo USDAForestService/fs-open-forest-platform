@@ -7,11 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "assets/img/*.*",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "assets/img/*.*", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -19,10 +15,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "../node_modules/uswds/src/stylesheets/_all.scss",
-        "forest-service.scss"
-      ],
+      "styles": ["../node_modules/uswds/src/stylesheets/_all.scss", "forest-service.scss"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

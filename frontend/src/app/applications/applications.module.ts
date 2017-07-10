@@ -25,7 +25,6 @@ import { SmallBusinessComponent } from './fields/small-business.component';
 import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-outfitters.component';
 import { WebsiteComponent } from './fields/website.component';
 
-
 @NgModule({
   declarations: [
     ActivityDescriptionComponent,
@@ -69,15 +68,7 @@ import { WebsiteComponent } from './fields/website.component';
     TemporaryOutfittersComponent,
     WebsiteComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FileUploadModule,
-    FormsModule
-  ],
-  providers: [
-    ApplicationFieldsService
-  ]
+  imports: [CommonModule, ReactiveFormsModule, FileUploadModule, FormsModule],
+  providers: [ApplicationFieldsService]
 })
-
 export class ApplicationsModule {}

@@ -6,17 +6,17 @@ describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
   let fixture: ComponentFixture<TemporaryOutfittersComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TemporaryOutfittersComponent ],
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [TemporaryOutfittersComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TemporaryOutfittersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 });

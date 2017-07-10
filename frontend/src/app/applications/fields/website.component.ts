@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-website',
   templateUrl: './website.component.html'
 })
-
 export class WebsiteComponent {
   @Input() applicantInfo: FormGroup;
 }
