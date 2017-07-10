@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-activity-description',
@@ -19,7 +20,7 @@ export class ActivityDescriptionComponent implements OnInit {
     hasErrors: false
   };
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) { }
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
@@ -30,18 +31,43 @@ export class ActivityDescriptionComponent implements OnInit {
       servicesProvided: ['', [Validators.required]],
       audienceDescription: ['', [Validators.required]],
       needGovernmentFacilities: [false],
-      listOfGovernmentFacilities: ['', [Validators.required]],
+      listOfGovernmentFacilities: [''],
       needTemporaryImprovements: [false],
-      listOfTemporaryImprovements: ['', [Validators.required]],
+      listOfTemporaryImprovements: [''],
       haveMotorizedEquipment: [false],
-      statementOfMotorizedEquipment: ['', [Validators.required]],
+      statementOfMotorizedEquipment: [''],
       haveLivestock: [false],
-      statementOfTransportationOfLivestock: ['', [Validators.required]],
+      statementOfTransportationOfLivestock: [''],
       needAssignedSite: [false],
-      statementOfAssignedSite: ['', [Validators.required]],
+      statementOfAssignedSite: [''],
       descriptionOfCleanupAndRestoration: ['', [Validators.required]]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
+
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('activityDescriptionFields.needGovernmentFacilities'),
+      this.parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')
+    );
+
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('activityDescriptionFields.needTemporaryImprovements'),
+      this.parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')
+    );
+
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('activityDescriptionFields.haveMotorizedEquipment'),
+      this.parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')
+    );
+
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('activityDescriptionFields.haveLivestock'),
+      this.parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')
+    );
+
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('activityDescriptionFields.needAssignedSite'),
+      this.parentForm.get('activityDescriptionFields.statementOfAssignedSite')
+    );
   }
 
   updateDateStatus(dateStatus: any): void {
