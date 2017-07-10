@@ -1,6 +1,6 @@
 import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key} from 'protractor';
+import { browser, element, by, Key } from 'protractor';
 
 describe('Apply for a temp outfitters permit', () => {
   let page: TempOutfittersForm;
@@ -35,7 +35,7 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeTruthy();
   });
 
-//  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
+  //  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
   fieldValidation.validateFileUploadField('guide-document-wrapper');
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
   fieldValidation.validateFileUploadField('insurance-certificate-wrapper');

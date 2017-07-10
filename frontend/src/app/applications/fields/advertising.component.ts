@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-advertising',
   templateUrl: './advertising.component.html'
 })
-
 export class AdvertisingComponent {
   @Input() tempOutfitterFields: FormGroup;
 }
