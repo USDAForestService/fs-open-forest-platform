@@ -34,6 +34,8 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+app.use('/docs/api', express.static('docs/api'));
+
 // Endpoints
 
 // POST /permits/applications/special-uses/noncommercial/
