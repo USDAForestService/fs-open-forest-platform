@@ -6,12 +6,12 @@ Then run `yarn install` to install dependencies.
 
 ## Environment variables
 
-There are a number of environment variables that are required to be set in order to run tests
+There are two environment variables that are required to be set in order to run tests
 and to run the server in general.  Please set up these environment variables either in your shell or on the command line.
 
 In general setting an environment variable in your shell is similar to:
 
-`set ENV_VAR=something`
+`export ENV_VAR=something`
 
 and on the command line as part of a command:
 
@@ -20,10 +20,7 @@ and on the command line as part of a command:
 The following environment variables are required:
 
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` JSON object that stores the name of the s3 bucket in the format `{"s3": [{"credentials": {"bucket": "bucket name", "access_key_id": "access key id", "region": "us-east-1", "secret_access_key": "secret access key"}}]}`
-- `MIDDLELAYER_BASE_URL` the base URL of the middle layer API
-- `MIDDLELAYER_USERNAME` the username to authenticate to the middle layer
-- `MIDDLELAYER_PASSWORD` the password to authenticate to the middle layer
+- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything with the exception of the middle layer URL which must be set to `http://localhost:8080` so that all the tests run. A sample value for `VCAP_SERVICES` is: `{"user-provided":[{"credentials":{"MIDDLELAYER_BASE_URL":"http://localhost:8080/","MIDDLELAYER_PASSWORD":"pass","MIDDLELAYER_USERNAME":"user"},"label":"user-provided","name":"middlelayer-service","syslog_drain_url":"","tags":[],"volume_mounts":[]}],"s3":[{"credentials":{"bucket": "bucket_name", "access_key_id": "", "region": "us-east-1", "secret_access_key": ""}}]}`
 
 ## Available commands
 
@@ -63,37 +60,6 @@ To run code coverage locally, be sure your Postgresql server is running then run
 
 `DATABASE_URL=postgres://<user>:<pass>@localhost:<port>/<dbname> yarn coverage`
 
+## Server API Documentation
 
-## Noncommercial Endpoints
-
-```POST /permits/applications/special-uses/noncommercial/```
-
-The body of the request must be a JSON object.
-
-Creates a new Noncommercial application.  Returns the created application with an application id added.
-
-Incoming JSON object is validated according to the [schemas](json-schemas/noncommercial-schema.es6) and data is stored into a table called noncommercialApplications.
-
-```POST /permits/applications/special-uses/temp-outfitters```
-
-The temp outfitters endpoint is not fully functional at this time.
-
-```POST /permits/applications/special-uses/temp-outfitters/file```
-
-This endpoint allows for a file to be uploaded to S3 and stored.  More details TBD.
-
-```PUT /permits/applications/:id```
-
-Update a single application.  Requires a JSON object for the application as the request body.
-
-```GET /permits/applications/:id```
-
-Retrieve a single application from the database.  Requires the app control number UUID.
-
-```GET /permits/applications```
-
-This endpoint retrieves all applications stored in the database.  Currently it only retrieves Noncommercial applications.  Will return a JSON array of Application objects.
-
-```GET /uptime```
-
-Returns the current uptime for the server.
+With your local Node server running, browse to http://localhost:8080/docs/api in order to view the interactive Swagger API documentation.  This documentation will allow interactive access to the API endpoints.
