@@ -6,16 +6,12 @@ import { Router, NavigationEnd } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-
 export class AppComponent implements OnInit {
-
   version = environment.version;
   buildDate = environment.buildDate;
   currentRoute: string;
 
-  constructor(
-    router: Router
-  ) {
+  constructor(router: Router) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
@@ -32,7 +28,9 @@ export class AppComponent implements OnInit {
         const url = router.parseUrl(router.url);
         if (url.fragment) {
           const element = document.querySelector('#' + url.fragment);
-          if (element) { element.scrollIntoView(true); }
+          if (element) {
+            element.scrollIntoView(true);
+          }
         }
       }
     });

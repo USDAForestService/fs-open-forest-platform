@@ -10,7 +10,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {
-
   errorMessage: string;
   id: string;
 
@@ -24,43 +23,35 @@ export class PermitApplicationViewComponent implements OnInit {
     status: ''
   };
 
-  constructor(
-    private alertService: AlertService,
-    private applicationService: ApplicationService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  constructor(private alertService: AlertService, private applicationService: ApplicationService, private route: ActivatedRoute, private router: Router) {}
 
   getApplication(id) {
-    this.applicationService.getOne(id)
-      .subscribe(
-        application => this.application = application,
-        (e: any) => {
-          this.errorMessage = 'The application could not be found.'
-          window.scrollTo(0, 200);
-        }
-      );
+    this.applicationService.getOne(id).subscribe(
+      application => (this.application = application),
+      (e: any) => {
+        this.errorMessage = 'The application could not be found.';
+        window.scrollTo(0, 200);
+      }
+    );
   }
 
   updateApplicationStatus(application, status) {
     application.status = status;
-    this.applicationService.update(application)
-      .subscribe(
-        (data: any) => {
-          if (status === 'Accepted') {
-            this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
-          }
-          this.router.navigate(['admin/applications']);
-        },
-        (e: any) => {
-          this.errorMessage = 'There was an error updating this application.'
-          window.scrollTo(0, 200);
+    this.applicationService.update(application).subscribe(
+      (data: any) => {
+        if (status === 'Accepted') {
+          this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
         }
-      );
+        this.router.navigate(['admin/applications']);
+      },
+      (e: any) => {
+        this.errorMessage = 'There was an error updating this application.';
+        window.scrollTo(0, 200);
+      }
+    );
   }
 
   provideReasonOrCancel(status) {
-
     switch (status) {
       case 'Accepted':
         this.reasonOrCancel.buttonClass = 'usa-button-primary-alt';
@@ -98,5 +89,4 @@ export class PermitApplicationViewComponent implements OnInit {
   leave() {
     this.fixedCtas = true;
   }
-
 }

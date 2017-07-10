@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-organization-name',
   templateUrl: './organization-name.component.html'
 })
-
 export class OrganizationNameComponent {
   @Input() applicantInfo: FormGroup;
   @Input() name: string;

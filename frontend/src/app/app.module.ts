@@ -33,19 +33,8 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     TrackScrollDirective,
     UsaBannerComponent
   ],
-  imports: [
-    AppRoutingModule,
-    ApplicationsModule,
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    AlertService,
-    ApplicationService
-  ],
+  imports: [AppRoutingModule, ApplicationsModule, BrowserModule, FormsModule, HttpModule, ReactiveFormsModule],
+  providers: [AlertService, ApplicationService],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {}
