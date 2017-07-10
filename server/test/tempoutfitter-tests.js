@@ -9,8 +9,7 @@ var url = '/permits/applications/special-uses/temp-outfitters';
 // var mockAws = require('aws-sdk-mock');
 
 describe('temp outfitter server tests', () => {
-
-  it('should return a 201 response and a db generated applicationId', (done) => {
+  it('should return a 201 response and a db generated applicationId', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
@@ -20,7 +19,7 @@ describe('temp outfitter server tests', () => {
       .expect(201, done);
   });
 
-  it('should return a 400 response and a name required error', (done) => {
+  it('should return a 400 response and a name required error', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
@@ -30,7 +29,7 @@ describe('temp outfitter server tests', () => {
       .expect(400, done);
   });
 
-  it('creates a temp outfitter app with undef evening phone', (done) => {
+  it('creates a temp outfitter app with undef evening phone', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
@@ -40,7 +39,7 @@ describe('temp outfitter server tests', () => {
       .expect(201, done);
   });
 
-  it('creates a temp outfitter app with undef fax number', (done) => {
+  it('creates a temp outfitter app with undef fax number', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
@@ -50,18 +49,14 @@ describe('temp outfitter server tests', () => {
       .expect(201, done);
   });
 
-  it('creates a temp outfitter app with too long website, 500 error', (done) => {
+  it('creates a temp outfitter app with too long website, 500 error', done => {
     let testData = tempOutfitterTestData.basicTempOutfitter.create();
-    testData.applicantInfo.website = 'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(testData)
-      .expect('Content-Type', /json/)
-      .expect(500, done);
+    testData.applicantInfo.website =
+      'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
+    request(server).post(url).set('Accept', 'application/json').send(testData).expect('Content-Type', /json/).expect(500, done);
   });
 
-// keep these as a starting point to get the s3 mocking working
+  // keep these as a starting point to get the s3 mocking working
   // it('should save a file to mock s3 and the db', (done) => {
   //
   //   mockAws.mock('S3', 'upload', (params, callback) => {
@@ -101,11 +96,10 @@ describe('temp outfitter server tests', () => {
 });
 
 describe('Persistence tests', () => {
-
   // uncomment the following line when the GET call below is implemented
   //let intakeControlNumber = undefined;
 
-  it('should persist an application', (done) => {
+  it('should persist an application', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
@@ -133,5 +127,4 @@ describe('Persistence tests', () => {
   //     })
   //     .expect(200, basicTempOutfitter, done);
   // });
-
 });
