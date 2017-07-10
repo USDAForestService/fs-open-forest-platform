@@ -7,6 +7,7 @@ var server = require('../app.es6');
 var testGetURL = '/permits/applications/special-uses/noncommercial';
 var testURL = '/permits/applications/special-uses/noncommercial';
 var testPutURL = '/permits/applications/special-uses/noncommercial';
+var vcap = require('../vcap-services.es6');
 
 describe('noncommercial tests', () => {
   describe('POST tests', () => {
@@ -408,9 +409,9 @@ describe('Branch tests', () => {
   });
 
   it('updates a noncommercial app successfully with other than accept status', done => {
-    nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
+    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
@@ -438,9 +439,9 @@ describe('Branch tests', () => {
   it('updates a noncommercial app with accept status but fails middle layer', done => {
     nock.cleanAll();
 
-    nock('http://localhost:8080').post('/auth').reply(201, { token: 'auth-token' });
+    nock(vcap.middleLayerBaseUrl).post('/auth').reply(201, { token: 'auth-token' });
 
-    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(500, { status: 'fail' });
+    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(500, { status: 'fail' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
@@ -452,9 +453,9 @@ describe('Branch tests', () => {
   it('updates a noncommercial app successfully with accept status', done => {
     nock.cleanAll();
 
-    nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
+    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
