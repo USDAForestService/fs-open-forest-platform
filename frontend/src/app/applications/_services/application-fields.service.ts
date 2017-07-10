@@ -24,10 +24,8 @@ export class ApplicationFieldsService {
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
       if (value) {
-        console.log('Value Required');
         dataField.setValidators(Validators.required);
       } else {
-        console.log('Value NOT Required');
         dataField.setValidators(null);
       }
     });
