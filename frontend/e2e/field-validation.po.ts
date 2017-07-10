@@ -1,20 +1,19 @@
 import { browser, element, by, Key } from 'protractor';
 
 export class FieldValidation {
-
   validateSimpleTextField(id, errorId, error, group = false) {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {
       queryInput.sendKeys(Key.TAB);
       expect<any>(element(by.id(errorId)).getText()).toEqual(error);
     });
-    if (! group) {
+    if (!group) {
       it('should hide error if ' + id + ' field has text', () => {
         queryInput.sendKeys('text');
         expect<any>(element(by.id(errorId)).isPresent()).toBe(false);
       });
     }
-  };
+  }
 
   validateMinMax(id, errorId, minChars, maxChars, group = false) {
     const queryInput = element(by.id(id));
@@ -47,7 +46,7 @@ export class FieldValidation {
         queryInput.sendKeys('111');
       });
     });
-  };
+  }
 
   validateEmailField(id, errorId, error) {
     const queryInput = element(by.id(id));
@@ -65,7 +64,7 @@ export class FieldValidation {
         expect<any>(element(by.id(errorId)).isPresent()).toBe(false);
       });
     });
-  };
+  }
 
   validateFileUploadField(id) {
     const path = require('path');
@@ -90,7 +89,6 @@ export class FieldValidation {
       input.sendKeys(testErrorFile);
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
     });
-
 
     it('should hide the error message if the file is a valid type', () => {
       input.sendKeys(testSuccessFile);

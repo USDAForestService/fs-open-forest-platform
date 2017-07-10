@@ -6,12 +6,11 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
   selector: 'app-experience',
   templateUrl: './experience.component.html'
 })
-
 export class ExperienceComponent implements OnInit {
   @Input() parentForm: FormGroup;
   experienceFields = 'experienceFields';
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) { }
+  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
 
   ngOnInit() {
     const experienceFields = this.formBuilder.group({
@@ -29,14 +28,8 @@ export class ExperienceComponent implements OnInit {
       this.parentForm.get('experienceFields.listAllNationalForestPermits')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
-      this.parentForm.get('experienceFields.haveOtherPermits'),
-      this.parentForm.get('experienceFields.listAllOtherPermits')
-    );
+    this.applicationFieldsService.simpleRequireToggle(this.parentForm.get('experienceFields.haveOtherPermits'), this.parentForm.get('experienceFields.listAllOtherPermits'));
 
-    this.applicationFieldsService.simpleRequireToggle(
-      this.parentForm.get('experienceFields.haveCitations'),
-      this.parentForm.get('experienceFields.listAllCitations')
-    );
+    this.applicationFieldsService.simpleRequireToggle(this.parentForm.get('experienceFields.haveCitations'), this.parentForm.get('experienceFields.listAllCitations'));
   }
 }

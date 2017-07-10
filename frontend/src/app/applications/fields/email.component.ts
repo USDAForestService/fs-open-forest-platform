@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-email',
   templateUrl: './email.component.html'
 })
-
 export class EmailComponent {
   @Input() applicantInfo: FormGroup;
 }
