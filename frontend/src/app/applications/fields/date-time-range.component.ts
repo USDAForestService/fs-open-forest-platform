@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output  } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Hours, Minutes } from '../../_models/constants';
@@ -6,9 +6,8 @@ import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-date-time-range',
-  templateUrl: './date-time-range.component.html',
+  templateUrl: './date-time-range.component.html'
 })
-
 export class DateTimeRangeComponent implements OnInit {
   @Input() parentForm: FormGroup;
   formName: string;
@@ -27,11 +26,9 @@ export class DateTimeRangeComponent implements OnInit {
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder) { }
-
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group({
       endDateTime: ['', [Validators.required]],
@@ -61,7 +58,20 @@ export class DateTimeRangeComponent implements OnInit {
       });
     }
 
-    const dateFieldsToWatch = ['startMonth', 'startDay', 'startYear', 'startHour', 'startMinutes', 'startPeriod', 'endMonth', 'endDay', 'endYear', 'endHour', 'endMinutes', 'endPeriod'];
+    const dateFieldsToWatch = [
+      'startMonth',
+      'startDay',
+      'startYear',
+      'startHour',
+      'startMinutes',
+      'startPeriod',
+      'endMonth',
+      'endDay',
+      'endYear',
+      'endHour',
+      'endMinutes',
+      'endPeriod'
+    ];
     for (const field of dateFieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
         const values = this.parentForm.get('dateTimeRange').value;
@@ -71,19 +81,11 @@ export class DateTimeRangeComponent implements OnInit {
     }
   }
 
-
   startDateChangeHandler(values) {
-    if (
-      values.startMonth &&
-      values.startDay &&
-      values.startYear.length === 4 &&
-      !values.endMonth &&
-      !values.endDay &&
-      !values.endYear
-    ) {
-      this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth }});
-      this.parentForm.patchValue({ dateTimeRange: { endDay: values.startDay }});
-      this.parentForm.patchValue({ dateTimeRange: { endYear: values.startYear }});
+    if (values.startMonth && values.startDay && values.startYear.length === 4 && !values.endMonth && !values.endDay && !values.endYear) {
+      this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth } });
+      this.parentForm.patchValue({ dateTimeRange: { endDay: values.startDay } });
+      this.parentForm.patchValue({ dateTimeRange: { endYear: values.startYear } });
     }
   }
 
@@ -106,23 +108,19 @@ export class DateTimeRangeComponent implements OnInit {
       values.endMinutes &&
       values.endPeriod
     ) {
-
       const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
       const today = moment();
 
       const startDateTime = this.parseDateTime(values.startYear, values.startMonth, values.startDay, values.startHour, values.startMinutes, values.startPeriod);
       const endDateTime = this.parseDateTime(values.endYear, values.endMonth, values.endDay, values.endHour, values.endMinutes, values.endPeriod);
-      this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' }});
-      this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' }});
+      this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' } });
+      this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' } });
       this.dateStatus.startDateTimeValid = startDateTime.isValid();
       this.dateStatus.endDateTimeValid = endDateTime.isValid();
-      this.dateStatus.startBeforeEnd =  startDateTime.isBefore(endDateTime);
+      this.dateStatus.startBeforeEnd = startDateTime.isBefore(endDateTime);
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
-      this.dateStatus.hasErrors = !this.dateStatus.startDateTimeValid ||
-        !this.dateStatus.endDateTimeValid ||
-        !this.dateStatus.startBeforeEnd ||
-        !this.dateStatus.startAfterToday;
+      this.dateStatus.hasErrors = !this.dateStatus.startDateTimeValid || !this.dateStatus.endDateTimeValid || !this.dateStatus.startBeforeEnd || !this.dateStatus.startAfterToday;
       this.updateDateStatus.emit(this.dateStatus);
     }
-   }
+  }
 }

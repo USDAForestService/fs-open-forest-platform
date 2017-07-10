@@ -6,7 +6,6 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
   selector: 'app-activity-description',
   templateUrl: './activity-description.component.html'
 })
-
 export class ActivityDescriptionComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
@@ -20,7 +19,7 @@ export class ActivityDescriptionComponent implements OnInit {
     hasErrors: false
   };
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) { }
+  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
@@ -73,5 +72,4 @@ export class ActivityDescriptionComponent implements OnInit {
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
   }
-
 }

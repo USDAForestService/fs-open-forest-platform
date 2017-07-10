@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AlertService {
-
   private successMessage;
   private warningMessage;
   private errorMessage;
 
-  constructor () {
+  constructor() {
     console.log('AlertService');
   }
 
@@ -40,5 +39,4 @@ export class AlertService {
     this.warningMessage = undefined;
     this.errorMessage = undefined;
   }
-
 }

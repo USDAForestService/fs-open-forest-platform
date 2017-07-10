@@ -6,12 +6,13 @@ describe('UsaBannerComponent', () => {
   let component: UsaBannerComponent;
   let fixture: ComponentFixture<UsaBannerComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UsaBannerComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [UsaBannerComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UsaBannerComponent);

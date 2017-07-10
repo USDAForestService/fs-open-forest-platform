@@ -11,7 +11,6 @@ import { environment } from '../../../environments/environment';
   templateUrl: './temporary-outfitters.component.html'
 })
 export class TemporaryOutfittersComponent implements OnInit {
-
   apiErrors: any;
   application = new SpecialUseApplication();
   applicationId: number;
@@ -52,7 +51,6 @@ export class TemporaryOutfittersComponent implements OnInit {
         clientCharges: ['', [Validators.required]],
         experienceList: ['']
       })
-
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
@@ -94,21 +92,19 @@ export class TemporaryOutfittersComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/')
-        .subscribe(
-          (persistedApplication) => {
-            this.applicationId = persistedApplication.applicationId;
-            this.uploadFiles = true;
-            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
-          },
-          (e: any) => {
-            this.apiErrors =  e;
-            window.scroll(0, 0);
-          }
-        );
+      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
+        persistedApplication => {
+          this.applicationId = persistedApplication.applicationId;
+          this.uploadFiles = true;
+          this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
