@@ -25,12 +25,12 @@ export class ApplicationService {
     return this.http.post(this.endpoint + '' + type, body, options).map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  get(params = '') {
+  get(params = '/special-uses/noncommercial') {
     return this.http.get(this.endpoint + '' + params).map((res: Response) => res.json()).catch(this.handleError);
   }
 
-  getOne(id) {
-    return this.http.get(this.endpoint + '/' + id).map((res: Response) => res.json()).catch(this.handleError);
+  getOne(id, params = '/special-uses/noncommercial/') {
+    return this.http.get(this.endpoint + '' + params + '' + id).map((res: Response) => res.json()).catch(this.handleError);
   }
 
   update(body: SpecialUseApplication): Observable<SpecialUseApplication[]> {
