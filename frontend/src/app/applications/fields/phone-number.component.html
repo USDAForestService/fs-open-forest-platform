@@ -1,0 +1,33 @@
+<ng-container [formGroup]="parentForm">
+  <ng-container formGroupName="{{ dayPhone }}">
+    <div class="fs-input-grid-wrapper">
+      <div class="usa-input-grid usa-input-grid-medium">
+        <label class="usa-input" for="tenDigit">{{ name }} (10 digits)</label>
+        <input id="day-phone" name="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
+        <span id="day-phone-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('dayPhone.tenDigit').valid || parentForm.get('dayPhone.tenDigit').untouched">Valid phone is required.</span>
+      </div>
+      <div class="usa-input-grid usa-input-grid-small">
+        <label class="usa-input" for="extension">Ext (optional)</label>
+        <input class="usa-input" id="day-ext" name="extension" type="text" pattern="(^\d{4}$)" formControlName="extension"/>
+      </div>
+    </div>
+  </ng-container>
+
+  <input id="add-additional-phone" name="add-additional-phone" type="checkbox" (change)="addOrRemoveAdditionalPhone()" />
+  <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
+
+  <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
+    <ng-container formGroupName="{{ eveningPhone }}">
+      <div class="usa-input-grid usa-input-grid-medium">
+        <label class="usa-input" for="tenDigit">{{ name }} (10 digits)</label>
+        <input id="evening-phone" name="tenDigit" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
+        <span id="evening-phone-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get('eveningPhone.tenDigit').valid || parentForm.get('eveningPhone.tenDigit').untouched">Valid phone is required.</span>
+      </div>
+      <div class="usa-input-grid usa-input-grid-small">
+        <label class="usa-input" for="evening-ext">Ext (optional)</label>
+        <input class="usa-input" id="evening-ext" name="extension" type="text" pattern="(^\d{4}$)" formControlName="extension"/>
+      </div>
+    </ng-container>
+  </div>
+
+</ng-container>

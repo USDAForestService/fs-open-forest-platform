@@ -4,10 +4,16 @@
     <h2>Non-commercial group use applications</h2>
     <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
       <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">There are errors preventing your data from loading</h3>
+        <h3 class="usa-alert-heading">There are errors preventing your data from loading.</h3>
         <ul class="usa-alert-text">
           <li *ngFor="let error of apiErrors">{{error}}</li>
         </ul>
+      </div>
+    </div>
+    <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Warning</h3>
+        <p class="usa-alert-text">You have one or more applications in the system that require immediate attention.</p>
       </div>
     </div>
     <div class="application-list">
@@ -22,24 +28,23 @@
         <div>&nbsp;</div>
       </div>
       <div *ngFor="let application of applications" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
-        <div *ngIf="application.status === 'Hold'" class="on-hold"><img src="/assets/img/on-hold-icon.svg"><span>On hold</span></div>
-        <div *ngIf="application.status === 'Received'">&nbsp;</div>
-        <!-- TODO: remove these debugging status indicators -->
-        <div *ngIf="application.status === 'Accepted'">👍</div>
-        <div *ngIf="application.status === 'Returned'">👎</div>
+        <div *ngIf="application.status === 'Hold'"><span class="usa-label orange">Hold</span></div>
+        <div *ngIf="application.status === 'Received'">
+          <div *ngIf="isOverTwoDaysOld(application.createdAt)"><span class="usa-label orange">Attention</span></div>
+        </div>
         <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
         <label>Date submitted</label>
-        <div [ngClass]="{'deadline-warning': isApproachingDeadline(application.noncommercialFields.startDateTime)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
+        <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
         <label>Start date</label>
-        <div>{{ application.noncommercialFields.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div [ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.dateTimeRange.startDateTime)}">{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>End date</label>
-        <div>{{ application.noncommercialFields.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div>{{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>Location</label>
         <div>{{ application.noncommercialFields.locationDescription }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
-        <div><a class="usa-button" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
+        <div><a class="usa-button usa-button-outline green" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
       </div>
     </div>
   </div>

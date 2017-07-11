@@ -1,5 +1,6 @@
 // Core -------------- //
 @import 'core/variables';
+@import 'core/layout';
 // Elements -------------- //
 // Styles basic HTML elements
 @import 'elements/backgrounds';
@@ -7,9 +8,9 @@
 @import 'elements/breaks';
 @import 'elements/buttons';
 @import 'elements/input';
+@import 'elements/labels';
 @import 'elements/search';
 @import 'elements/typography';
-@import 'elements/headers';
 // Components -------------- //
 @import 'components/breadcrumbs';
 @import 'components/footer';

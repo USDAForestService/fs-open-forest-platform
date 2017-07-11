@@ -1,0 +1,19 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - javascript
+        - typescript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+   paths:
+   - "server/**/*.es6"
+   - "frontend/**/*.ts"
+exclude_paths:
+- frontend/node_modules/
+- server/node_modules/
+- server/test/
