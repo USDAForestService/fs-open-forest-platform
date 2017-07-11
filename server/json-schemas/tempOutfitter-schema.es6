@@ -8,10 +8,6 @@ module.exports = {
         'applicantInfo': {
           '$ref': '/tempOutfitterApplicantInfo'
         },
-        'eventName': {
-          'default':'',
-          'type': 'string'
-        },
         'type': {
           'default': 'tempOutfitters',
           'enum':[
@@ -24,7 +20,7 @@ module.exports = {
           '$ref': '/tempOutfitterFields'
         }
       },
-      'required': ['applicantInfo', 'type', 'tempOutfitterFields', 'eventName']
+      'required': ['applicantInfo', 'type', 'tempOutfitterFields']
     }
   ]
 };

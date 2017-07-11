@@ -6,12 +6,12 @@ export class FieldValidation {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {
       queryInput.sendKeys(Key.TAB);
-      expect(element(by.id(errorId)).getText()).toEqual(error);
+      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
     });
     if (! group) {
       it('should hide error if ' + id + ' field has text', () => {
         queryInput.sendKeys('text');
-        expect(element(by.id(errorId)).isDisplayed()).toBe(false);
+        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
       });
     }
   };
@@ -21,14 +21,14 @@ export class FieldValidation {
     it('should not allow less than ' + minChars + 'characters', () => {
       queryInput.clear().then(function() {
         queryInput.sendKeys('5'.repeat(minChars - 1));
-        expect(element(by.id(errorId)).isDisplayed()).toBe(true);
+        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(true);
       });
     });
     if (!group) {
       it('should not allow more than ' + maxChars + 'characters', () => {
         queryInput.clear().then(function() {
           queryInput.sendKeys('5'.repeat(maxChars + 1));
-          expect(element(by.id(errorId)).isDisplayed()).toBe(false);
+          expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
         });
       });
     }
@@ -38,11 +38,11 @@ export class FieldValidation {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have data', () => {
       queryInput.sendKeys(Key.TAB);
-      expect(element(by.id(errorId)).getText()).toEqual(error);
+      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
     });
     it('should require ' + id + ' field to be a number', () => {
       queryInput.sendKeys('hi');
-      expect(element(by.id(errorId)).getText()).toEqual(error);
+      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
       queryInput.clear().then(function() {
         queryInput.sendKeys('111');
       });
@@ -53,16 +53,16 @@ export class FieldValidation {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have data', () => {
       queryInput.sendKeys(Key.TAB);
-      expect(element(by.id(errorId)).getText()).toEqual(error);
+      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
     });
     it('should require ' + id + ' field to have data and be a valid email address', () => {
       queryInput.sendKeys('text');
-      expect(element(by.id(errorId)).getText()).toEqual(error);
+      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
     });
     it('should hide error if ' + id + ' field is a valid email address', () => {
       queryInput.clear().then(function() {
         queryInput.sendKeys('test@test.com');
-        expect(element(by.id(errorId)).isDisplayed()).toBe(false);
+        expect<any>(element(by.id(errorId)).isDisplayed()).toBe(false);
       });
     });
   };
@@ -75,43 +75,34 @@ export class FieldValidation {
     const input = element(by.css('#' + id + ' input[type="file"]'));
 
     it('should have an input field', () => {
-      expect(input.isPresent()).toBe(true);
+      expect<any>(input.isPresent()).toBe(true);
     });
 
     it('should not show an error by default', () => {
-      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
+      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
-    it('should not show replace and remove buttons by default', () => {
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
-      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
+    it('should not show replace buttons by default', () => {
+      expect<any>(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
     });
 
     it('should display an error message if the file is not a valid type', () => {
       input.sendKeys(testErrorFile);
-      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
+      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
     });
 
 
     it('should hide the error message if the file is a valid type', () => {
       input.sendKeys(testSuccessFile);
-      expect(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
+      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
-    it('should show replace and remove buttons if file is valid', () => {
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(true);
-      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Replace');
+    it('should show replace buttons if file is valid', () => {
+      expect<any>(element(by.css('#' + id + ' label span')).getText()).toEqual('Replace');
     });
 
     it('should display the file name if file is valid', () => {
-      expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
-    });
-
-    it('should remove file and cta buttons if remove button is clicked', () => {
-      element(by.css('#' + id + ' .remove-file')).click();
-      expect(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(false);
-      expect(element(by.css('#' + id + ' .remove-file')).isPresent()).toBe(false);
-      expect(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
+      expect<any>(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
     });
   }
 }

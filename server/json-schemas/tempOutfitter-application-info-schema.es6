@@ -13,8 +13,13 @@ module.exports = {
           'default':'',
           'description':'Organization Type',
           'enum':[
-            'Person',
-            'Corporation'
+            'individual',
+            'corporation',
+            'llc',
+            'partnership',
+            'stateGovernment',
+            'localGovernment',
+            'nonprofit'
           ],
           'type':'string'
         }

@@ -1,60 +1,18 @@
 #application-view {
-  &.usa-section {
-    padding-bottom: 0 !important;
-  }
-  .application {
-    .usa-width-one-third {
-      padding-top: 2em;
-      &:first-child {
-        @media(min-width: $medium-screen) {
-          min-height: 570px;
-        }
-      }
-    }
-    h1 {
-      font-size: 32px;
-      @media (min-width: $medium-screen) and (max-width: $nav-width) {
-        font-size: 26px;
-      }
-      margin-bottom: 1em;
-    }
-    h2 {
-      font-size: 22px;
-      @media (min-width: ) and (max-width: $nav-width) {
-        font-size: 16px;
-      }
-    }
-    .app-item {
-      margin-bottom: 1em;
-      .app-item-label {
-        margin-bottom: 0;
-        margin-top: 0;
-        font-size: 18px;
-        @media (min-width: $medium-screen) and (max-width: $nav-width) {
-          font-size: 14px;
-        }
-      }
-      .app-item-value {
-        margin-bottom: 0;
-        margin-top: 0;
-        &.large {
-          font-size: 24px;
-          @media (min-width: $medium-screen) and (max-width: $nav-width) {
-            font-size: 16px;
-          }
-        }
-        ul {
-          list-style-type: none;
-          margin-left: 0;
-          padding-left: 0;
-          li {
-            padding: 0;
-            margin: 0;
-          }
-        }
-      }
+  padding-bottom: 0 !important;
+
+  .edit-application {
+    @media(min-width: $large-screen){
+      float: right;
     }
   }
+
+  // .application-details {
+  //   @media(max-width: 1060px) {
+  //     margin-left: 1em;
+  //     margin-right: 1em;
+  //   }
+  // }
 
   .app-ctas {
     background: white;
@@ -64,14 +22,54 @@
     text-align: center;
     width: 100%;
     z-index: 1000;
+    @media(max-width: $medium-screen) {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
     &.fixed {
       position: fixed;
     }
     .app-cta {
-      width: 80%;
-      @media(min-width: $medium-screen) {
-        width: 300px;
+      width: 30%;
+      margin: 1em 0.25em;
+      box-sizing: border-box;
+      max-width: 280px;
+    }
+    #reason-for-action {
+      position: relative;
+      .close-reason-for-action {
+        background-image: url(/assets/img/close-black.svg);
+        background-size: cover;
+        cursor: pointer;
+        height: 45px;
+        position: absolute;
+        text-indent: -9999px;
+        top: 1em;
+        right: 18px;
+        width: 45px;
+      }
+      label {
+        text-align: left;
+        padding-top: 3em;
+        @media(min-width: $medium-screen) {
+          padding-top: 2em;
+        }
+      }
+      #reason-for-return {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .reason-for-action-buttons {
+        float: right;
+        margin: 1em 0;
       }
     }
   }
+}
+
+.electronic-signature-success {
+  background: url(/assets/img/checkmark.svg) no-repeat;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
 }

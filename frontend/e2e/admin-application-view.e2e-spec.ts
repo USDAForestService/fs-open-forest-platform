@@ -11,6 +11,6 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display breadcrumbs', () => {
     page.navigateTo();
-    expect(element(by.css('.breadcrumbs')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.css('.breadcrumbs')).isDisplayed()).toBeTruthy();
   });
 });
