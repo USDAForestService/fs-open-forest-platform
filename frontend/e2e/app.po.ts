@@ -12,25 +12,25 @@ export class FrontendPage {
 
 export class NoncommercialGroupForm {
   navigateTo() {
-    return browser.get('/#/applications/noncommercial-group-use/new');
+    return browser.get('/applications/noncommercial-group-use/new');
   }
 }
 
 export class TempOutfittersForm {
   navigateTo() {
-    return browser.get('/#/applications/temp-outfitters/new');
+    return browser.get('/applications/temp-outfitters/new');
   }
 }
 
 export class AdminApplicationList {
   navigateTo() {
-    return browser.get('/#/admin/applications');
+    return browser.get('/admin/applications');
   }
 }
 
 export class AdminApplicationView {
   navigateTo() {
-    return browser.get('/#/admin/applications/234');
+    return browser.get('/admin/applications/234');
   }
 }
 
