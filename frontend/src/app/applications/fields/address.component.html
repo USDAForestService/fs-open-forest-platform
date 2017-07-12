@@ -1,32 +1,32 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{ formName }}">
-    <label class="usa-input" for="mailingAddress">Street address 1</label>
-    <input id="{{type}}-address" name="mailingAddress" type="text" formControlName="mailingAddress"/>
-    <span id="{{type}}-address-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get(formName + '.mailingAddress').valid || parentForm.get(formName + '.mailingAddress').untouched">Street address 1 is required.</span>
+    <label class="usa-input" for="{{type}}-address">Street address 1</label>
+    <input id="{{type}}-address" type="text" formControlName="mailingAddress" aria-required="true" />
+    <span id="{{type}}-address-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get(formName + '.mailingAddress').invalid && parentForm.get(formName + '.mailingAddress').touched">Street address 1 is required.</span>
 
-    <label class="usa-input" for="mailingAddress2">Street address 2 (optional)</label>
-    <input id="{{type}}-address-line-2" name="mailingAddress2" formControlName="mailingAddress2" />
+    <label class="usa-input" for="{{type}}-address-line-2">Street address 2 (optional)</label>
+    <input id="{{type}}-address-line-2" formControlName="mailingAddress2" />
 
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="mailingCity">City</label>
-        <input id="{{type}}-city" name="mailingCity" type="text" formControlName="mailingCity" />
-        <span id="{{type}}-city-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get(formName + '.mailingCity').valid || parentForm.get(formName + '.mailingCity').untouched">City is required.</span>
+        <label class="usa-input" for="{{type}}-city">City</label>
+        <input id="{{type}}-city" type="text" formControlName="mailingCity" aria-required="true" />
+        <span id="{{type}}-city-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get(formName + '.mailingCity').invalid && parentForm.get(formName + '.mailingCity').touched">City is required.</span>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
-        <label class="usa-input" for="mailingState">State</label>
-        <select id="{{type}}-state" name="mailingState" formControlName="mailingState">
+        <label class="usa-input" for="{{type}}-state">State</label>
+        <select id="{{type}}-state" formControlName="mailingState" aria-required="true">
           <option value="" selected="selected"></option>
           <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
         </select>
-        <span id="{{type}}-state-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get(formName + '.mailingState').valid || parentForm.get(formName + '.mailingState').untouched">State is required.</span>
+        <span id="{{type}}-state-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get(formName + '.mailingState').invalid && parentForm.get(formName + '.mailingState').touched">State is required.</span>
       </div>
     </div>
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="mailingZIP">ZIP</label>
-        <input class="usa-input-medium" id="{{type}}-zip" name="mailingZIP" formControlName="mailingZIP" minlength="5" maxlength="5" pattern="(^\d{5}$)" />
-        <span id="{{type}}-zip-error" class="usa-input-error-message" role="alert" [hidden]="parentForm.get(formName + '.mailingZIP').valid || parentForm.get(formName + '.mailingZIP').untouched">Valid ZIP code is required.</span>
+        <label class="usa-input" for="{{type}}-zip">ZIP</label>
+        <input class="usa-input-medium" id="{{type}}-zip" formControlName="mailingZIP" minlength="5" maxlength="5" pattern="(^\d{5}$)" aria-required="true" />
+        <span id="{{type}}-zip-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get(formName + '.mailingZIP').invalid && parentForm.get(formName + '.mailingZIP').touched">Valid ZIP code is required.</span>
       </div>
     </div>
   </ng-container>

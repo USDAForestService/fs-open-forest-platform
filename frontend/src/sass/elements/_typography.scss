@@ -1,17 +1,11 @@
 html,
-h1, h2, h3, h4, h5, h6,
-a, p,
-span, div,
-input, select, textarea, label,
-button
-{
-  font-family: $font-sans !important;
-}
-
-html,
 h1, h2, h3, h4
 {
  color: $black;
+}
+
+h1 {
+  margin-top: 0;
 }
 
 a {
@@ -20,54 +14,19 @@ a {
     color: $fs-green;
   }
   &:hover {
-    color: $fs-green-darker;
+    color: $fs-green-dark;
   }
   &:active {
-    color: $fs-green-darkest;
+    color: $fs-green-darker;
+  }
+  &:focus {
+    box-shadow: 0 0 3px $fs-blue-light, 0 0 7px $fs-blue-light;
+    @extend .focus;
   }
 }
 
-
 h1 {
-  font-weight: 700;
-  font-size: 52px;
-  line-height: 1.3em/68px;
   color: $fs-green !important;
-}
-
-h2 {
-  font-weight: 300;
-  font-size: 40px;
-  line-height: 1.3em/52px;
-}
-
-h3 {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.3em/26px;
-}
-
-h4 {
-  font-weight: 700;
-  font-size: 17px;
-  line-height: 1.3em/22px;
-}
-
-h5 {
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1.3em/20px;
-}
-
-h6 {
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 1.3em/17px;
-  text-transform: uppercase;
-}
-
-h5, h6 {
-  font-family: $font-sans-alt;
 }
 
 .centered {

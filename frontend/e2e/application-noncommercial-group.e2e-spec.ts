@@ -1,8 +1,8 @@
 import { NoncommercialGroupForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key} from 'protractor';
+import { browser, element, by, Key } from 'protractor';
 
-const checkForPrimaryPermitHolderAddress = function (state) {
+const checkForPrimaryPermitHolderAddress = function(state) {
   expect<any>(element(by.id('primary-permit-holder-address')).isPresent()).toBe(state);
   expect<any>(element(by.id('primary-permit-holder-address-line-2')).isPresent()).toBe(state);
   expect<any>(element(by.id('primary-permit-holder-city')).isPresent()).toBe(state);
@@ -10,7 +10,7 @@ const checkForPrimaryPermitHolderAddress = function (state) {
   expect<any>(element(by.id('primary-permit-holder-zip')).isPresent()).toBe(state);
 };
 
-const checkForSecondPermitHolderAddress = function (state) {
+const checkForSecondPermitHolderAddress = function(state) {
   expect<any>(element(by.id('secondary-permit-holder-address')).isPresent()).toBe(state);
   expect<any>(element(by.id('secondary-permit-holder-address-line-2')).isPresent()).toBe(state);
   expect<any>(element(by.id('secondary-permit-holder-city')).isPresent()).toBe(state);
@@ -18,7 +18,7 @@ const checkForSecondPermitHolderAddress = function (state) {
   expect<any>(element(by.id('secondary-permit-holder-zip')).isPresent()).toBe(state);
 };
 
-const checkForOrganizationAddress = function (state) {
+const checkForOrganizationAddress = function(state) {
   expect<any>(element(by.id('organization-address')).isPresent()).toBe(state);
   expect<any>(element(by.id('organization-address-line-2')).isPresent()).toBe(state);
   expect<any>(element(by.id('organization-city')).isPresent()).toBe(state);
@@ -26,7 +26,7 @@ const checkForOrganizationAddress = function (state) {
   expect<any>(element(by.id('organization-zip')).isPresent()).toBe(state);
 };
 
-const checkForAdditionalPhone = function (state) {
+const checkForAdditionalPhone = function(state) {
   expect<any>(element(by.id('evening-phone')).isPresent()).toBe(state);
   expect<any>(element(by.id('evening-ext')).isPresent()).toBe(state);
 };
@@ -44,21 +44,9 @@ describe('Apply for a noncommercial group use permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
   });
   fieldValidation.validateSimpleTextField('name', 'name-error', 'Event name is required.');
-  fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-first-name',
-    'primary-permit-holder-first-name-error',
-    'Primary permit holder first name is required.'
-  );
-  fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-last-name',
-    'primary-permit-holder-last-name-error',
-    'Primary permit holder last name is required.'
-  );
-  fieldValidation.validateSimpleTextField(
-    'primary-permit-holder-address',
-    'primary-permit-holder-address-error',
-    'Street address 1 is required.'
-  );
+  fieldValidation.validateSimpleTextField('primary-permit-holder-first-name', 'primary-permit-holder-first-name-error', 'Primary permit holder first name is required.');
+  fieldValidation.validateSimpleTextField('primary-permit-holder-last-name', 'primary-permit-holder-last-name-error', 'Primary permit holder last name is required.');
+  fieldValidation.validateSimpleTextField('primary-permit-holder-address', 'primary-permit-holder-address-error', 'Street address 1 is required.');
   fieldValidation.validateSimpleTextField('primary-permit-holder-city', 'primary-permit-holder-city-error', 'City is required.');
   fieldValidation.validateSimpleTextField('primary-permit-holder-state', 'primary-permit-holder-state-error', 'State is required.');
   fieldValidation.validateNumberField('primary-permit-holder-zip', 'primary-permit-holder-zip-error', 'Valid ZIP code is required.');
@@ -130,25 +118,13 @@ describe('Apply for a noncommercial group use permit', () => {
     expect<any>(element(by.id('secondary-permit-holder-first-name')).isPresent()).toBe(true);
     return checkForSecondPermitHolderAddress(false);
   });
-  fieldValidation.validateSimpleTextField(
-    'secondary-permit-holder-first-name',
-    'secondary-permit-holder-first-name-error',
-    'Secondary permit holder first name is required.'
-  );
-  fieldValidation.validateSimpleTextField(
-    'secondary-permit-holder-last-name',
-    'secondary-permit-holder-last-name-error',
-    'Secondary permit holder last name is required.'
-  );
+  fieldValidation.validateSimpleTextField('secondary-permit-holder-first-name', 'secondary-permit-holder-first-name-error', 'Secondary permit holder first name is required.');
+  fieldValidation.validateSimpleTextField('secondary-permit-holder-last-name', 'secondary-permit-holder-last-name-error', 'Secondary permit holder last name is required.');
   it('should show secondary permit holder address fields if "secondary-permit-holder-same-address" is checked', () => {
     element(by.id('secondary-permit-holder-same-address')).click();
     return checkForSecondPermitHolderAddress(true);
   });
-  fieldValidation.validateSimpleTextField(
-    'secondary-permit-holder-address',
-    'secondary-permit-holder-address-error',
-    'Street address 1 is required.'
-  );
+  fieldValidation.validateSimpleTextField('secondary-permit-holder-address', 'secondary-permit-holder-address-error', 'Street address 1 is required.');
   fieldValidation.validateSimpleTextField('secondary-permit-holder-city', 'secondary-permit-holder-city-error', 'City is required.');
   fieldValidation.validateSimpleTextField('secondary-permit-holder-state', 'secondary-permit-holder-state-error', 'State is required.');
   fieldValidation.validateNumberField('secondary-permit-holder-zip', 'secondary-permit-holder-zip-error', 'Valid ZIP code is required.');
@@ -167,28 +143,6 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateSimpleTextField('location', 'location-error', 'Location is required.');
   fieldValidation.validateNumberField('participants', 'participants-error', 'Participants is required.');
   fieldValidation.validateSimpleTextField('activity-description', 'activity-description-error', 'Activity description is required.');
-
-  fieldValidation.validateNumberField('end-month', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-month', 'start-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('start-day', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-day', 'start-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('start-year', 'start-date-error', 'Start date is required.');
-  fieldValidation.validateMinMax('start-year', 'start-date-error', 4, 4, true);
-
-  fieldValidation.validateSimpleTextField('start-hour', 'start-time-error', 'Start time is required.', true);
-  fieldValidation.validateSimpleTextField('start-minutes', 'start-time-error', 'Start time is required.', true);
-  fieldValidation.validateSimpleTextField('start-period', 'start-time-error', 'Start time is required.', true);
-
-  fieldValidation.validateNumberField('end-month', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-month', 'end-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('end-day', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-day', 'end-date-error', 1, 2, true);
-  fieldValidation.validateNumberField('end-year', 'end-date-error', 'End date is required.');
-  fieldValidation.validateMinMax('end-year', 'end-date-error', 4, 4, true);
-
-  fieldValidation.validateSimpleTextField('end-hour', 'end-time-error', 'End time is required.', true);
-  fieldValidation.validateSimpleTextField('end-minutes', 'end-time-error', 'End time is required.', true);
-  fieldValidation.validateSimpleTextField('end-period', 'end-time-error', 'End time is required.', true);
 
   fieldValidation.validateSimpleTextField('signature', 'signature-error', 'Initials are required.');
 });

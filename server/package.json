@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "codecov": "^1.0.1",
     "eslint": "^4.0.0",
     "eslint-config-google": "^0.8.0",
     "mocha": "^3.2.0",
@@ -31,15 +32,16 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
-    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js",
+    "dev": "yarn; ./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
+    "lint": "eslint -f html -o ./lint-results.html ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo",
     "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
     "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
-    "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha"
+    "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha",
+    "report-coverage": "CODECOV_TOKEN=e61f7ed1-686a-4f48-95b3-02fa7085995e ./node_modules/nyc/bin/nyc report --reporter=lcov > coverage.lcov && codecov"
   },
   "engines": {
     "node": "^6.10.3"

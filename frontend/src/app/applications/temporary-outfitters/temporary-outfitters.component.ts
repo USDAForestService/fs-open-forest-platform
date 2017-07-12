@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from '../../_models/application';
+import { SpecialUseApplication } from '../../_models/special-use-application';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,9 +11,8 @@ import { environment } from '../../../environments/environment';
   templateUrl: './temporary-outfitters.component.html'
 })
 export class TemporaryOutfittersComponent implements OnInit {
-
   apiErrors: any;
-  application = new Application();
+  application = new SpecialUseApplication();
   applicationId: number;
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
@@ -44,15 +43,14 @@ export class TemporaryOutfittersComponent implements OnInit {
         orgType: ['', [Validators.required]],
         website: ['']
       }),
-      tempOutfittersFields: this.formBuilder.group({
-        individualIsCitizen: [''],
-        smallBusiness: [''],
+      tempOutfitterFields: this.formBuilder.group({
+        individualIsCitizen: [false],
+        smallBusiness: [false],
         advertisingDescription: ['', [Validators.required]],
         advertisingURL: [''],
         clientCharges: ['', [Validators.required]],
         experienceList: ['']
       })
-
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
@@ -94,22 +92,19 @@ export class TemporaryOutfittersComponent implements OnInit {
     if (!form.valid) {
       window.scroll(0, 0);
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/')
-        .subscribe(
-          (persistedApplication) => {
-            this.applicationId = persistedApplication.applicationId;
-            this.uploadFiles = true;
-            // TODO post file upload functionality
-             this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
-          },
-          (e: any) => {
-            this.apiErrors =  e;
-            window.scroll(0, 0);
-          }
-        );
+      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
+        persistedApplication => {
+          this.applicationId = persistedApplication.applicationId;
+          this.uploadFiles = true;
+          this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

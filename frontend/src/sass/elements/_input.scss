@@ -102,6 +102,10 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
     z-index: -1;
   }
 
+  input[type='file']:focus + label {
+    @extend .focus;
+  }
+
   label {
     margin-bottom: 0;
     margin-top: 0;

@@ -4,10 +4,8 @@ let doTransaction = require('./modules/transaction');
 
 const TABLE_NAME = 'noncommercialApplications';
 
-
 module.exports = {
   up: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'remove',
@@ -19,50 +17,49 @@ module.exports = {
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_start_year',
+        field: 'noncomm_fields_start_year'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_month',
+        field: 'noncomm_fields_end_month'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_day',
+        field: 'noncomm_fields_end_day'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_year',
+        field: 'noncomm_fields_end_year'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_start_hour',
+        field: 'noncomm_fields_start_hour'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_start_minutes',
+        field: 'noncomm_fields_start_minutes'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_start_period',
+        field: 'noncomm_fields_start_period'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_hour',
+        field: 'noncomm_fields_end_hour'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_minutes',
+        field: 'noncomm_fields_end_minutes'
       },
       {
         operation: 'remove',
-        field: 'noncomm_fields_end_period',
+        field: 'noncomm_fields_end_period'
       }
     ];
 
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'add',

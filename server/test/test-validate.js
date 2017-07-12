@@ -5,9 +5,7 @@ var validation = require('../validation.es6');
 var noncommercialTestData = require('./data/noncommercialTestData.es6');
 
 describe('validation tests', () => {
-
   describe('validate noncommercial apps', () => {
-
     it('should call validate with a valid single permit holder and return no errors', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolder.create());
 
@@ -26,7 +24,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.eveningPhone.areaCode');
-
     });
 
     it('should call validate with orgType of Person and a missing primary address and return an error', () => {
@@ -34,7 +31,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress');
-
     });
 
     it('should call validate with orgType of Person and a primary address with missing state and return an error', () => {
@@ -42,7 +38,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress.mailingState');
-
     });
 
     it('should call validate with orgType of Corporation and a missing org address and return an error', () => {
@@ -50,7 +45,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.organizationAddress');
-
     });
 
     it('should call validate with orgType of Corporation and an org address with missing state and return an error', () => {
@@ -58,7 +52,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.organizationAddress.mailingState');
-
     });
 
     it('should call validate with orgType of Corporation and a primary address with missing state and return an error', () => {
@@ -66,7 +59,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress.mailingState');
-
     });
 
     it('should call validate with a secondary address and missing state and return an error', () => {
@@ -74,7 +66,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.secondaryAddress.mailingState');
-
     });
 
     it('should call validate with an invalid startDateTime and return an error', () => {
@@ -82,7 +73,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('pattern-dateTimeRange.startDateTime');
-
     });
 
     it('should call validate with an invalid endDateTime and return an error', () => {
@@ -90,9 +80,6 @@ describe('validation tests', () => {
 
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('pattern-dateTimeRange.endDateTime');
-
     });
-
   });
-
 });
