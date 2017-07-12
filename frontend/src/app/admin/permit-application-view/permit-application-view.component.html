@@ -3,19 +3,25 @@
     <div class="breadcrumbs">
       <a routerLink="/admin/applications">Noncommercial group use applications</a> > <span>{{ application.eventName }}</span>
     </div>
-    <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()" position="bottom" offset="50">
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">{{ errorMessage }}</p>
+      </div>
+    </div>
+    <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
       <div class="usa-grid event-name no-padding padding-top-1">
         <div class="usa-width-three-fourths">
           <h1>{{ application.eventName}}
             <span *ngIf="application.status !== 'Received'" class="usa-label" [ngClass]="{
-              'green': application.status === 'Accepted',
-              'orange': application.status === 'Hold',
-              'red': application.status === 'Returned'
+              'success': application.status === 'Accepted',
+              'warning': application.status === 'Hold',
+              'danger': application.status === 'Returned'
             }">{{ application.status }}</span>
           </h1>
         </div>
         <div class="usa-width-one-fourth">
-            <button class="usa-button-outline green edit-application">Edit</button>
+          <button class="usa-button-outline">Edit</button>
         </div>
       </div>
       <div class="usa-grid margin-top-1 no-padding">
@@ -95,7 +101,7 @@
 
   <div class="app-ctas" [class.fixed]="fixedCtas">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
-      <button id="accept-application-btn" class="usa-button fs-button-green app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept</button>
+      <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept</button>
       <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold</button>
       <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject</button>
     </div>
@@ -105,7 +111,7 @@
         <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
         <textarea id="reason-for-return"></textarea>
         <div class="reason-for-action-buttons">
-          <button class="usa-button-outline green" (click)="reasonOrCancel.open = false;">Cancel</button>
+          <button class="usa-button-outline" (click)="reasonOrCancel.open = false;">Cancel</button>
           <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>
         </div>
       </div>
