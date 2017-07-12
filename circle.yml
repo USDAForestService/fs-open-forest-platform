@@ -45,7 +45,7 @@ deployment:
       - cd frontend; ng build --prod --env=prod;
       - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
-    branch: sprint-7-development
+    branch: sprint-8-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;
