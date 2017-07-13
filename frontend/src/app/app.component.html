@@ -1,28 +1,12 @@
-<a href="#main-content" class="usa-skipnav">Skip to main content</a>
+<ng-container appPageTitle></ng-container>
+<a [routerLink]="currentRoute" fragment="main-content" class="usa-skipnav">Skip to main content</a>
 <header role="banner" class="usa-header usa-header-extended">
-  <div class="usa-banner">
-    <div class="fs-official usa-accordion">
-      <header class="usa-banner-header">
-        <div class="usa-grid usa-banner-inner"><img src="/assets/img/favicon-57.png" alt="U.S. flag" class="fs-flag-icon">
-          <p>An official website of the United States government</p>
-          <button aria-expanded="false" aria-controls="gov-banner" class="usa-accordion-button usa-banner-button"><span class="usa-banner-button-text">Here&apos;s how you know</span></button>
-        </div>
-      </header>
-      <div id="gov-banner" class="usa-banner-content usa-grid usa-accordion-content">
-        <div class="usa-banner-guidance-gov usa-width-one-half"><img src="/assets/img/icon-dot-gov-white.svg" alt="DOT gov" class="usa-banner-icon usa-media_block-img">
-          <div class="usa-media_block-body">
-            <p><strong>.gov means it’s official.</strong> Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-usa-banner></app-usa-banner>
   <div class="usa-navbar">
     <button class="usa-menu-btn">Menu</button>
     <div id="logo" class="usa-logo">
       <div class="fs-branding">
-        <a href="//fs.fed.us" target="_blank"><img src="/assets/img/usfslogo.svg" alt="US Forest Service Logo" width="50" class="fs-logo">
+        <a routerLink="/" id="us-forest-service-logo"><img src="/assets/img/usfslogo.svg" alt="US Forest Service Logo" width="50" class="fs-logo">
           <div class="fs-name-slogan"><span class="fs-name">U.S. FOREST SERVICE</span><span class="fs-slogan">Caring for the land and serving people</span>
             <div class="beta-label"><span class="usa-label">beta</span></div>
           </div>
@@ -30,23 +14,6 @@
       </div>
     </div>
   </div>
-  <nav role="navigation" class="usa-nav">
-    <div class="usa-nav-inner">
-      <button class="usa-nav-close"><img src="/assets/img/close-white.svg" alt="close"></button>
-      <ul class="usa-nav-primary usa-accordion">
-        <!-- TODO: Add nav links -->
-        <!-- <li><a href="/" class="usa-nav-link">Placeholder</a></li> -->
-      </ul>
-      <div class="usa-nav-secondary">
-        <ul class="usa-unstyled-list usa-nav-secondary-links">
-          <li class="js-search-button-container">
-            <button id="header-search-button" class="usa-header-search-button js-search-button">Search </button>
-          </li>
-          <li><a href="/login"><span>Login</span></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 </header>
 <main id="main-content">
   <router-outlet></router-outlet>

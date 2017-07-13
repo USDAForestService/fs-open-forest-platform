@@ -1,20 +1,21 @@
 
 <div [formGroup]="applicantInfo" *ngIf="type === 'primary'">
-    <label class="usa-input" for="primaryFirstName">{{ name }} first name</label>
-    <input id="primary-permit-holder-first-name" name="primaryFirstName" type="text" formControlName="primaryFirstName"  />
-    <span id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.primaryFirstName.valid || applicantInfo.controls.primaryFirstName.untouched">Primary permit holder first name is required.</span>
+    <label class="usa-input" for="primary-permit-holder-first-name">{{ name }} first name</label>
+    <input id="primary-permit-holder-first-name" type="text" formControlName="primaryFirstName" aria-required="true" aria-controls="primary-permit-holder-first-name" />
+    <span aria-live="assertive" aria-hidden="false" id="primary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" *ngIf="applicantInfo.controls.primaryFirstName.invalid && applicantInfo.controls.primaryFirstName.touched">Primary permit holder first name is required.</span>
 
-    <label class="usa-input" for="primaryLastName">{{ name }} last name</label>
-    <input id="primary-permit-holder-last-name" name="primaryLastName" type="text" formControlName="primaryLastName" />
-    <span id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.primaryLastName.valid || applicantInfo.controls.primaryLastName.untouched">Primary permit holder last name is required.</span>
+
+    <label class="usa-input" for="primary-permit-holder-last-name">{{ name }} last name</label>
+    <input id="primary-permit-holder-last-name" type="text" formControlName="primaryLastName" aria-required="true" aria-controls="primary-permit-holder-last-name" />
+    <span aria-live="assertive" aria-hidden="false" id="primary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" *ngIf="applicantInfo.controls.primaryLastName.invalid && applicantInfo.controls.primaryLastName.touched">Primary permit holder last name is required.</span>
 </div>
 
 <div [formGroup]="applicantInfo" *ngIf="type === 'secondary'">
-    <label class="usa-input" for="secondaryFirstName">{{ name }} first name</label>
-    <input id="secondary-permit-holder-first-name" name="secondaryFirstName" type="text" formControlName="secondaryFirstName"  />
-    <span id="secondary-permit-holder-first-name-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.secondaryFirstName.valid || applicantInfo.controls.secondaryFirstName.untouched">Secondary permit holder first name is required.</span>
+    <label class="usa-input" for="secondary-permit-holder-first-name">{{ name }} first name</label>
+    <input id="secondary-permit-holder-first-name" type="text" formControlName="secondaryFirstName" aria-required="true" />
+    <span id="secondary-permit-holder-first-name-error" aria-live="assertive" aria-hidden="false" class="usa-input-error-message" role="alert" *ngIf="applicantInfo.controls.secondaryFirstName.invalid && applicantInfo.controls.secondaryFirstName.touched">Secondary permit holder first name is required.</span>
 
-    <label class="usa-input" for="secondaryLastName">{{ name }} last name</label>
-    <input id="secondary-permit-holder-last-name" name="secondaryLastName" type="text" formControlName="secondaryLastName" />
-    <span id="secondary-permit-holder-last-name-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.secondaryLastName.valid || applicantInfo.controls.secondaryLastName.untouched">Secondary permit holder last name is required.</span>
+    <label class="usa-input" for="secondary-permit-holder-last-name">{{ name }} last name</label>
+    <input id="secondary-permit-holder-last-name" type="text" formControlName="secondaryLastName" aria-required="true" />
+    <span id="secondary-permit-holder-last-name-error" aria-live="assertive" aria-hidden="false" class="usa-input-error-message" role="alert" *ngIf="applicantInfo.controls.secondaryLastName.invalid && applicantInfo.controls.secondaryLastName.touched">Secondary permit holder last name is required.</span>
 </div>

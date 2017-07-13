@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-client-charges',
   templateUrl: './client-charges.component.html'
 })
-
 export class ClientChargesComponent {
-  @Input() tempOutfittersFields: FormGroup;
+  @Input() tempOutfitterFields: FormGroup;
 }
