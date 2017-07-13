@@ -23,6 +23,7 @@ test:
   pre:
     - cd frontend; npm install -g protractor
   override:
+    - ./pa11y.sh
     - cd server; yarn run lint
     - cd server; yarn migrate
     - cd server; yarn seed
