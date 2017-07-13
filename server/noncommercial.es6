@@ -1,16 +1,14 @@
 'use strict';
 
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let validator = require('./validation.es6');
 let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
 let util = require('./util.es6');
+let validator = require('./validation.es6');
 
 let noncommercialFuncs = {};
 
 // populates an applicationId on the object before return
 noncommercialFuncs.createNoncommercialTempApp = (req, res) => {
-
-  //let errorArr = [];
   let errorRet = {};
 
   let errorArr = validator.validateNoncommercial(req.body);
@@ -19,7 +17,6 @@ noncommercialFuncs.createNoncommercialTempApp = (req, res) => {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
   } else {
-
     // create the noncommercial app object and persist
     NoncommercialApplication.create({
       region: req.body.region,
@@ -68,29 +65,32 @@ noncommercialFuncs.createNoncommercialTempApp = (req, res) => {
       noncommercialFieldsSpectatorCount: req.body.noncommercialFields.spectators,
       signature: req.body.signature,
       reasonForReturn: req.body.reasonForReturn
-    }).then((noncommApp) => {
-      req.body['applicationId'] = noncommApp.applicationId;
-      req.body['appControlNumber'] = noncommApp.appControlNumber;
-      res.status(201).json(req.body);
-    }).catch((err) => {
-      res.status(500).json(err);
-    });
+    })
+      .then(noncommApp => {
+        req.body['applicationId'] = noncommApp.applicationId;
+        req.body['appControlNumber'] = noncommApp.appControlNumber;
+        res.status(201).json(req.body);
+      })
+      .catch(err => {
+        res.status(500).json(err);
+      });
   }
 };
 
 noncommercialFuncs.updateApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}}).then(app => {
-    if(app) {
+  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+    if (app) {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
-        sendAcceptedNoncommercialApplicationToMiddleLayer(app,
-          (response) => {
+        sendAcceptedNoncommercialApplicationToMiddleLayer(
+          app,
+          response => {
             app.controlNumber = response.controlNumber;
             app.save().then(() => {
               res.status(200).json(util.translateFromDatabaseToJSON(app));
             });
           },
-          (error) => {
+          error => {
             res.status(400).send(error);
           }
         );
@@ -106,9 +106,9 @@ noncommercialFuncs.updateApp = (req, res) => {
 };
 
 noncommercialFuncs.getApp = (req, res) => {
-  NoncommercialApplication.findOne({ 'where': {app_control_number: req.params.id}})
+  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
-      if(app) {
+      if (app) {
         res.status(200).json(util.translateFromDatabaseToJSON(app));
       } else {
         res.status(404).send();

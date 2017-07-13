@@ -14,10 +14,14 @@ a {
     color: $fs-green;
   }
   &:hover {
-    color: $fs-green-darker;
+    color: $fs-green-dark;
   }
   &:active {
-    color: $fs-green-darkest;
+    color: $fs-green-darker;
+  }
+  &:focus {
+    box-shadow: 0 0 3px $fs-blue-light, 0 0 7px $fs-blue-light;
+    @extend .focus;
   }
 }
 

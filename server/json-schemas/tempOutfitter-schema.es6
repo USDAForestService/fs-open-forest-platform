@@ -1,26 +1,23 @@
 module.exports = {
-  'id':'/tempOutfitterPermit',
-  'type':'object',
-  'allOf':[
-    { '$ref': '/commonFields'},
+  id: '/tempOutfitterPermit',
+  type: 'object',
+  allOf: [
+    { $ref: '/commonFields' },
     {
-      'properties':{
-        'applicantInfo': {
-          '$ref': '/tempOutfitterApplicantInfo'
+      properties: {
+        applicantInfo: {
+          $ref: '/tempOutfitterApplicantInfo'
         },
-        'type': {
-          'default': 'tempOutfitters',
-          'enum':[
-            'noncommercial',
-            'tempOutfitters'
-          ],
-          'type': 'string'
+        type: {
+          default: 'tempOutfitters',
+          enum: ['noncommercial', 'tempOutfitters'],
+          type: 'string'
         },
-        'tempOutfitterFields': {
-          '$ref': '/tempOutfitterFields'
+        tempOutfitterFields: {
+          $ref: '/tempOutfitterFields'
         }
       },
-      'required': ['applicantInfo', 'type', 'tempOutfitterFields']
+      required: ['applicantInfo', 'type', 'tempOutfitterFields']
     }
   ]
 };

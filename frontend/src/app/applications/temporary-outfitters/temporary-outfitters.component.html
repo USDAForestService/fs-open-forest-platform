@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" role="alert">
+      <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -25,8 +25,8 @@
 
         <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
 
-        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'">
-          <input id="individual-citizen" type="checkbox" formControlName="applicationForm.controls.tempOutfittersFields.individualIsCitizen" />
+        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'" [formGroup]="applicationForm.controls.tempOutfitterFields">
+          <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
           <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
         </div>
 
@@ -36,15 +36,15 @@
           <app-file-upload-field name="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
         </div>
 
-        <app-small-business [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-small-business>
+        <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
 
       </fieldset>
 
-      <app-activity-description [parentForm]="applicationForm.get('tempOutfittersFields')"></app-activity-description>
+      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')"></app-activity-description>
 
-      <app-advertising [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-advertising>
+      <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
 
-      <app-client-charges [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-client-charges>
+      <app-client-charges [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-client-charges>
 
       <fieldset id="guide-document-wrapper">
         <legend>Guide identification</legend>
@@ -85,24 +85,19 @@
         <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <app-experience [parentForm]="applicationForm.get('tempOutfittersFields')"></app-experience>
+      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')"></app-experience>
 
       <fieldset>
         <legend>Signature</legend>
         <p>I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
-        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
+        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
+        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
       </fieldset>
 
-      <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>
+      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
     </form>
   </div>
 
-  <div class="margin-top-2">
-    <div>myForm details:-</div>
-    <pre>Is myForm valid?: <br>{{applicationForm.valid | json}}</pre>
-    <pre>form value: <br>{{applicationForm.value | json}}</pre>
-  </div>
 </section>

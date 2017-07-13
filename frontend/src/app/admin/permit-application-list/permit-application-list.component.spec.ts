@@ -7,17 +7,17 @@ describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
   let fixture: ComponentFixture<PermitApplicationListComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PermitApplicationListComponent ],
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [PermitApplicationListComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PermitApplicationListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 });
