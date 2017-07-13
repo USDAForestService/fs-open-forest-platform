@@ -15,7 +15,6 @@ app.use(function(req, res, next) {
   res.set('Access-Control-Allow-Origin', '*');
   next();
 });
-
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
@@ -27,25 +26,19 @@ app.use('/docs/api', express.static('docs/api'));
 
 /** Get all noncommercial permit applications. */
 app.get('/permits/applications/special-uses/noncommercial', noncommercial.getAll);
-
 /** Get a single noncommercial permit application. */
 app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getOne);
-
 /** Create a new noncommercial permit application. */
 app.post('/permits/applications/special-uses/noncommercial', noncommercial.create);
-
 /** Update a noncommercial permit application. */
 app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.update);
 
 /** Get all temp outfitter permit applications. */
 app.get('/permits/applications/special-uses/temp-outfitters', tempOutfitter.getAll);
-
 /** Get a temp outfitter permit application. */
 app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getOne);
-
 /** Create a new temp outfitter permit application. */
 app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.create);
-
 /** Handle temp outfitter file upload and invokes streamToS3 function. */
 app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.attachFile);
 
