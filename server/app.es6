@@ -2,72 +2,60 @@
 
 let bodyParser = require('body-parser');
 let express = require('express');
-
-let tempOutfitter = require('./temp-outfitter.es6');
 let noncommercial = require('./noncommercial.es6');
-let allAppFuncs = require('./application-general.es6');
-
-// server creation ----------------------------------------------------------
+let tempOutfitter = require('./temp-outfitter.es6');
 
 let app = express();
+
+/* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
-// middleware that will add the Access-Control-Allow-Origin header to everything
+/* Don't restrict access on the API from other origins. */
 app.use(function(req, res, next) {
-  var origin = req.headers.origin;
-  if (origin === 'http://localhost:4200' || origin === 'http://localhost:49152') {
-    res.set('Access-Control-Allow-Origin', origin);
-  } else {
-    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
-  }
-  res.set('Access-Control-Allow-Credentials', true);
+  res.set('Access-Control-Allow-Origin', '*');
   next();
 });
 
-// set these headers on all of the OPTIONS preflight responses
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
+/* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
 
-// Endpoints
+/** Get all noncommercial permit applications. */
+app.get('/permits/applications/special-uses/noncommercial', noncommercial.getAll);
 
-// POST /permits/applications/special-uses/noncommercial/
-// creates a new noncommercial application
-app.post('/permits/applications/special-uses/noncommercial', noncommercial.createNoncommercialTempApp);
+/** Get a single noncommercial permit application. */
+app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getOne);
 
-// POST /permits/applications/special-uses/temp-outfitters
-// creates a new temp outfitter application
-app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.createTempOutfitterApp);
+/** Create a new noncommercial permit application. */
+app.post('/permits/applications/special-uses/noncommercial', noncommercial.create);
 
-// POST /permits/applications/special-uses/temp-outfitters/file
-// Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
+/** Update a noncommercial permit application. */
+app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.update);
 
-// PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
-// updates an existing noncommercial application
-// may not be able to update everything wholesale due to possible field audit requirements
-app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.updateApp);
+/** Get all temp outfitter permit applications. */
+app.get('/permits/applications/special-uses/temp-outfitters', tempOutfitter.getAll);
 
-// GET /permits/applications/special-uses/noncommercial/:tempControlNumber
-app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getApp);
+/** Get a temp outfitter permit application. */
+app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getOne);
 
-// GET /permits/applications/special-uses/temp-outfitters/:tempControlNumber
-app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getApp);
+/** Create a new temp outfitter permit application. */
+app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.create);
 
-// GET /permits/applications
-// retrieves all applications in the system
-app.get('/permits/applications/special-uses/noncommercial', allAppFuncs.getAllApps);
+/** Handle temp outfitter file upload and invokes streamToS3 function. */
+app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.attachFile);
 
+/** Get the number of seconds that this instance has been running. */
 app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-// start the server
+/* Start the server. */
 app.listen(8080);
 
-// export needed for testing
+/* Export needed for testing. */
 module.exports = app;

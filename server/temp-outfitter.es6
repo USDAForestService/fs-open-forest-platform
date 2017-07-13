@@ -30,7 +30,7 @@ tempOutfitterFuncs.streamToS3 = multer({
   })
 });
 
-tempOutfitterFuncs.createAppFile = (req, res) => {
+tempOutfitterFuncs.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
     // applicationType: req.body.applicationType,
@@ -49,7 +49,7 @@ tempOutfitterFuncs.createAppFile = (req, res) => {
     });
 };
 
-tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
+tempOutfitterFuncs.create = (req, res) => {
   let errorRet = {};
 
   let errorArr = validator.validateTempOutfitter(req.body);
@@ -122,7 +122,7 @@ tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
   }
 };
 
-tempOutfitterFuncs.getApp = (req, res) => {
+tempOutfitterFuncs.getOne = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
@@ -134,6 +134,10 @@ tempOutfitterFuncs.getApp = (req, res) => {
       }
     })
     .catch(error => res.status(400).json(error.message));
+};
+
+tempOutfitterFuncs.getAll = (req, res) => {
+  res.status(200).json('not yet implemented');
 };
 
 module.exports = tempOutfitterFuncs;
