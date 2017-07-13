@@ -9,7 +9,7 @@ let TempOutfitterApplication = require('./models/tempoutfitter-application.es6')
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
 
-let tempOutfitterFuncs = {};
+let tempOutfitterRestHandlers = {};
 
 // S3 Setup
 
@@ -20,17 +20,17 @@ let s3 = new AWS.S3({
   region: vcapServices.region
 });
 
-tempOutfitterFuncs.streamToS3 = multer({
+tempOutfitterRestHandlers.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: vcapServices.bucket,
-    key: function(req, file, cb) {
-      cb(null, file.originalname); //use Date.now() for unique file keys
+    key: function(req, file, next) {
+      next(null, file.originalname); //use Date.now() for unique file keys
     }
   })
 });
 
-tempOutfitterFuncs.attachFile = (req, res) => {
+tempOutfitterRestHandlers.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
     // applicationType: req.body.applicationType,
@@ -49,7 +49,7 @@ tempOutfitterFuncs.attachFile = (req, res) => {
     });
 };
 
-tempOutfitterFuncs.create = (req, res) => {
+tempOutfitterRestHandlers.create = (req, res) => {
   let errorRet = {};
 
   let errorArr = validator.validateTempOutfitter(req.body);
@@ -122,7 +122,7 @@ tempOutfitterFuncs.create = (req, res) => {
   }
 };
 
-tempOutfitterFuncs.getOne = (req, res) => {
+tempOutfitterRestHandlers.getOne = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
@@ -136,8 +136,8 @@ tempOutfitterFuncs.getOne = (req, res) => {
     .catch(error => res.status(400).json(error.message));
 };
 
-tempOutfitterFuncs.getAll = (req, res) => {
+tempOutfitterRestHandlers.getAll = (req, res) => {
   res.status(200).json('not yet implemented');
 };
 
-module.exports = tempOutfitterFuncs;
+module.exports = tempOutfitterRestHandlers;
