@@ -32,7 +32,7 @@ export class ApplicationFieldsService {
 
   scrollToFirstError() {
     const elements = document.getElementsByClassName('usa-input-error-message');
-    if (elements.length == 0) {
+    if (elements.length === 0) {
       return;
     }
     elements[0].scrollIntoView();
