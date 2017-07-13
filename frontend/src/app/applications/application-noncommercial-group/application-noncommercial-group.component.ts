@@ -8,12 +8,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [ ApplicationService, ApplicationFieldsService, DateTimeRangeComponent ],
+  providers: [ApplicationService, ApplicationFieldsService, DateTimeRangeComponent],
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html'
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
-
   apiErrors: any;
   application = new SpecialUseApplication();
   forest = 'Mt. Baker-Snoqualmie National Forest';
@@ -33,7 +32,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   };
 
   public applicationForm: FormGroup;
-
 
   constructor(
     private applicationService: ApplicationService,
@@ -107,22 +105,19 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   onSubmit(form) {
     this.submitted = true;
     if (!form.valid || this.dateStatus.hasErrors) {
-      window.scroll(0, 0);
+      this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
-        .subscribe(
-          (persistedApplication) => {
-            this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
-          },
-          (e: any) => {
-            this.apiErrors =  e;
-            window.scroll(0, 0);
-          }
-        );
+      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/').subscribe(
+        persistedApplication => {
+          this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
     }
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
