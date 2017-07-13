@@ -7,8 +7,14 @@ let validator = require('./validation.es6');
 
 let noncommercialFuncs = {};
 
+noncommercialFuncs.getAll = (req, res) => {
+  NoncommercialApplication.findAll().then(allApps => {
+    res.status(200).json(util.translateArrayFromDatabaseToJSON(allApps));
+  });
+};
+
 // populates an applicationId on the object before return
-noncommercialFuncs.createNoncommercialTempApp = (req, res) => {
+noncommercialFuncs.create = (req, res) => {
   let errorRet = {};
 
   let errorArr = validator.validateNoncommercial(req.body);
@@ -77,7 +83,7 @@ noncommercialFuncs.createNoncommercialTempApp = (req, res) => {
   }
 };
 
-noncommercialFuncs.updateApp = (req, res) => {
+noncommercialFuncs.update = (req, res) => {
   NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
     if (app) {
       app.status = req.body.status;
@@ -105,7 +111,7 @@ noncommercialFuncs.updateApp = (req, res) => {
   });
 };
 
-noncommercialFuncs.getApp = (req, res) => {
+noncommercialFuncs.getOne = (req, res) => {
   NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
