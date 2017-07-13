@@ -37,7 +37,7 @@ export class TemporaryOutfittersComponent implements OnInit {
       signature: ['', [Validators.required]],
       applicantInfo: this.formBuilder.group({
         emailAddress: ['', Validators.required],
-        organizationName: [''],
+        organizationName: ['', Validators.required],
         primaryFirstName: ['', [Validators.required]],
         primaryLastName: ['', [Validators.required]],
         orgType: ['', [Validators.required]],
