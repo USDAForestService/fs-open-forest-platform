@@ -6,9 +6,7 @@ export class AlertService {
   private warningMessage;
   private errorMessage;
 
-  constructor() {
-    console.log('AlertService');
-  }
+  constructor() {}
 
   getSuccessMessage() {
     return this.successMessage;
