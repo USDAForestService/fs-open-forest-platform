@@ -37,4 +37,16 @@ export class ApplicationFieldsService {
     }
     elements[0].scrollIntoView();
   }
+
+  touchAllFields(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      control.updateValueAndValidity();
+
+      if (control.controls) {
+        console.log('hi');
+        this.touchAllFields(control);
+      }
+    });
+  }
 }

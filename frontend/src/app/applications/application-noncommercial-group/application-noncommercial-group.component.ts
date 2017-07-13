@@ -104,6 +104,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
