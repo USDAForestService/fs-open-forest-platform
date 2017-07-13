@@ -1,7 +1,7 @@
 'use strict';
 
 let bodyParser = require('body-parser');
-let express =  require('express');
+let express = require('express');
 
 let tempOutfitter = require('./temp-outfitter.es6');
 let noncommercial = require('./noncommercial.es6');
@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // middleware that will add the Access-Control-Allow-Origin header to everything
 app.use(function(req, res, next) {
   var origin = req.headers.origin;
-  if(origin === 'http://localhost:4200'){
+  if (origin === 'http://localhost:4200' || origin === 'http://localhost:49152') {
     res.set('Access-Control-Allow-Origin', origin);
   } else {
     res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
@@ -31,6 +31,8 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+app.use('/docs/api', express.static('docs/api'));
+
 // Endpoints
 
 // POST /permits/applications/special-uses/noncommercial/
@@ -43,19 +45,22 @@ app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.cre
 
 // POST /permits/applications/special-uses/temp-outfitters/file
 // Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file',1), tempOutfitter.createAppFile);
+app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
 
 // PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
 // updates an existing noncommercial application
 // may not be able to update everything wholesale due to possible field audit requirements
-app.put('/permits/applications/:id', noncommercial.updateApp);
+app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.updateApp);
 
 // GET /permits/applications/special-uses/noncommercial/:tempControlNumber
-app.get('/permits/applications/:id', noncommercial.getApp);
+app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getApp);
+
+// GET /permits/applications/special-uses/temp-outfitters/:tempControlNumber
+app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getApp);
 
 // GET /permits/applications
 // retrieves all applications in the system
-app.get('/permits/applications', allAppFuncs.getAllApps);
+app.get('/permits/applications/special-uses/noncommercial', allAppFuncs.getAllApps);
 
 app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');

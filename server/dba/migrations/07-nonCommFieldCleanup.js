@@ -7,10 +7,8 @@ const TABLE_NAME = 'noncommercialApplications';
 // alter column sizes and types
 // remove phone type
 
-
 module.exports = {
   up: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'add',
@@ -144,8 +142,7 @@ module.exports = {
       },
       {
         operation: 'raw',
-        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" '
-          + 'TYPE integer USING noncomm_fields_num_participants::integer'
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" ' + 'TYPE integer USING noncomm_fields_num_participants::integer'
       },
       {
         operation: 'change',
@@ -154,8 +151,7 @@ module.exports = {
       },
       {
         operation: 'raw',
-        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" '
-          + 'TYPE integer USING noncomm_fields_spectator_count::integer'
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" ' + 'TYPE integer USING noncomm_fields_spectator_count::integer'
       },
       {
         operation: 'change',
@@ -182,7 +178,6 @@ module.exports = {
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'remove',
@@ -309,8 +304,7 @@ module.exports = {
       },
       {
         operation: 'raw',
-        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" '
-          + 'TYPE varchar(255) USING noncomm_fields_num_participants::varchar'
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_num_participants" ' + 'TYPE varchar(255) USING noncomm_fields_num_participants::varchar'
       },
       {
         operation: 'change',
@@ -319,8 +313,7 @@ module.exports = {
       },
       {
         operation: 'raw',
-        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" '
-          + 'TYPE varchar(255) USING noncomm_fields_spectator_count::varchar'
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN "noncomm_fields_spectator_count" ' + 'TYPE varchar(255) USING noncomm_fields_spectator_count::varchar'
       },
       {
         operation: 'change',

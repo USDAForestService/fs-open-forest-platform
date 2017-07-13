@@ -4,7 +4,7 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('tempOutfitterApplications', {
       applicationId: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'application_id', allowNull: false },
-      appControlNumber: {type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, unique: true, field: 'app_control_number', allowNull: false },
+      appControlNumber: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, unique: true, field: 'app_control_number', allowNull: false },
       controlNumber: { type: Sequelize.STRING(50), field: 'control_number' },
       region: { type: Sequelize.STRING(2), field: 'region', allowNull: false },
       forest: { type: Sequelize.STRING(2), field: 'forest', allowNull: false },
@@ -53,9 +53,9 @@ module.exports = {
       tempOutfitterFieldsExperienceList: { type: Sequelize.STRING, field: 'temp_outfitter_exp_list' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' },
-      status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status'},
-      signature: { type: Sequelize.STRING(3), field: 'signature', allowNull: false},
-      reasonForReturn: { type: Sequelize.STRING, field: 'reason_for_return'}
+      status: { type: Sequelize.STRING, defaultValue: 'Received', field: 'status' },
+      signature: { type: Sequelize.STRING(3), field: 'signature', allowNull: false },
+      reasonForReturn: { type: Sequelize.STRING, field: 'reason_for_return' }
     });
   },
   down: function(queryInterface, Sequelize) {

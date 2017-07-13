@@ -1,71 +1,76 @@
 .usa-menu-btn {
-    background: $fs-green;
+  background: $fs-green;
+  &:hover {
+    background: $fs-green-darker;
+  }
+}
+
+.forest-service {
+
+  .usa-button {
+    background-color: $fs-brown;
+    color: $white;
     &:hover {
-      background: $fs-green-darker;
+      background-color: $fs-brown-dark;
     }
-}
-
-// TODO: refactor button classes to fs-*
-
-.usa-button {
-  background-color: $fs-orange !important;
-  color: $fs-charcoal !important;
-  &:hover {
-    background-color: $fs-orange-dark !important;
-  }
-}
-
-.usa-button:active {
-  background-color: $fs-orange-darkest !important;
-  color: $white !important;
-}
-
-.usa-button:active {
-  color: $white !important;
-}
-
-.fs-button-secondary {
-  background-color: $fs-tan !important;
-  &:hover {
-    background-color: $fs-tan-dark !important;
-  }
-}
-
-.fs-button-secondary:active {
-  background-color: $fs-tan-darker !important;
-  color: $black !important;
-}
-
-.fs-button-green {
-  background-color: $fs-green !important;
-  color: $white !important;
-  &:hover, :active {
-    background-color: $fs-green-darker !important;
-  }
-}
-
-@mixin button-outline($color) {
-  background-color: transparent !important;
-  box-shadow: inset 0 0 0 2px $color !important;
-  border-color: $color !important;
-  color: $color !important;
-}
-
-.usa-button-outline {
-  @include button-outline($fs-orange);
-  &:hover {
-    @include button-outline($fs-orange-darkest);
-  }
-  &.green {
-    @include button-outline($fs-green);
-    &:hover {
-      @include button-outline($fs-green-darker);
+    &:active {
+      background-color: $black;
     }
   }
-  &.red {
-    @include button-outline($fs-red);
-    &:hover {
-      @include button-outline($fs-red-darker);
+
+  .usa-button-inverse {
+    background-color: $fs-tan;
+    color: $black;
+    &:hover, &:hover:visited {
+      background-color: $fs-tan-dark;
+      color: $black;
+    }
+    &:active, &:active:visited {
+      background-color: $fs-tan-darker;
     }
   }
+
+  .usa-button-primary-alt {
+    background-color: $fs-green;
+    color: $white;
+    &:hover {
+      background-color: $fs-green-dark;
+    }
+    &:active {
+      background-color: $fs-green-darker;
+    }
+  }
+
+  .usa-button-secondary {
+    background-color: $fs-red;
+    color: $white;
+    &:hover {
+      background-color: $fs-red-dark;
+    }
+    &:active {
+      background-color: $fs-red-darker;
+    }
+  }
+
+  .usa-button-outline {
+    background-color: $transparent;
+    box-shadow: inset 0 0 0 2px $fs-green;
+    color: $fs-green;
+    &:hover, &:hover:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green-dark;
+      color: $fs-green-dark;
+    }
+    &:active {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green-darker;
+      color: $fs-green-darker;
+    }
+    &:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green;
+      color: $fs-green;
+    }
+  }
+
 }
