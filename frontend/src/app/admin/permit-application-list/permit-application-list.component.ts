@@ -1,22 +1,23 @@
-import { Application } from '../../_models/application';
+import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
+// import { SpecialUseApplication } from '../../_models/special-use-application';
 import * as moment from 'moment/moment';
 
 @Component({
+  providers: [],
   selector: 'app-permit-application-list',
-  templateUrl: './permit-application-list.component.html',
-  providers: [ ApplicationService ]
+  templateUrl: './permit-application-list.component.html'
 })
-
 @Injectable()
 export class PermitApplicationListComponent implements OnInit {
-
-  applications: any;
   apiErrors: any;
+  applications: any;
+  errorMessage: string;
+  successMessage: string;
 
-  constructor( private applicationService: ApplicationService ) {
+  constructor(private applicationService: ApplicationService, private alertService: AlertService) {
     this.applications = [];
   }
 
@@ -40,7 +41,7 @@ export class PermitApplicationListComponent implements OnInit {
 
   showAttentionAlert() {
     let result = false;
-    this.applications.forEach((application) => {
+    this.applications.forEach(application => {
       if (this.isOverTwoDaysOld(application.createdAt)) {
         result = true;
       }
@@ -49,20 +50,20 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   getApplications() {
-    this.applicationService.get()
-      .subscribe(
-        (applications: any) => {
-          this.applications = applications;
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
+    this.applicationService.get().subscribe(
+      (applications: any) => {
+        this.applications = applications;
+      },
+      (e: any) => {
+        this.apiErrors = e;
+        window.scroll(0, 0);
+      }
+    );
   }
 
   ngOnInit() {
     this.getApplications();
+    this.successMessage = this.alertService.getSuccessMessage();
+    this.alertService.clear();
   }
-
 }

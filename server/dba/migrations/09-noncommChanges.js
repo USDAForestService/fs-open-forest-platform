@@ -7,10 +7,8 @@ const TABLE_NAME = 'noncommercialApplications';
 // alter column sizes and types
 // remove phone type
 
-
 module.exports = {
   up: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'change',
@@ -42,7 +40,6 @@ module.exports = {
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
-
     let operations = [
       {
         operation: 'change',

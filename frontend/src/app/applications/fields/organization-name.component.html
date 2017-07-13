@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
-  <label class="usa-input" for="organizationName">{{ name }}</label>
-  <input id="organization-name" name="organizationName" type="text" formControlName="organizationName" />
-  <span id="organization-name-error" class="usa-input-error-message" role="alert" [hidden]="applicantInfo.controls.organizationName.valid || applicantInfo.controls.organizationName.untouched">Organization name is required.</span>
+  <label class="usa-input" for="organization-name">{{ name }}</label>
+  <input id="organization-name" type="text" formControlName="organizationName" aria-required="true" />
+  <span id="organization-name-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicantInfo.controls.organizationName.invalid && applicantInfo.controls.organizationName.touched">Organization name is required.</span>
 </ng-container>

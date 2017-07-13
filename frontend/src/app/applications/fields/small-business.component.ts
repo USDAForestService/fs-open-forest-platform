@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-small-business',
   templateUrl: './small-business.component.html'
 })
-
 export class SmallBusinessComponent {
-  @Input() tempOutfittersFields: FormGroup;
+  @Input() tempOutfitterFields: FormGroup;
 }

@@ -54,3 +54,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 Before running the tests make sure you are serving the app via `ng serve`.
+
+
+### typedoc
+
+#### Build typedoc
+
+Install typedoc globally: `yarn global add typedoc`
+
+`cd frontend`
+
+build typedoc `yarn run docs`
+
+typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
+
+
+Navigate to `/assets/typedoc/index.html`
