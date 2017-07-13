@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
 ];
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
+  imports: [RouterModule.forRoot(appRoutes, { useHash: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
