@@ -90,7 +90,7 @@ export class TemporaryOutfittersComponent implements OnInit {
   onSubmit(form) {
     this.submitted = true;
     if (!form.valid) {
-      window.scroll(0, 0);
+      this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
         persistedApplication => {
