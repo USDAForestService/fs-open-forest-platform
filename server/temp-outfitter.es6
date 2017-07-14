@@ -10,21 +10,25 @@ let vcapServices = require('./vcap-services.es6');
 
 let tempOutfitterRestHandlers = {};
 
-let translateFromApiToDatabase = input => {
+let translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
     applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
     applicantInfoDayPhoneNumber: input.applicantInfo.dayPhone.number,
     applicantInfoDayPhonePrefix: input.applicantInfo.dayPhone.prefix,
     applicantInfoEmailAddress: input.applicantInfo.emailAddress,
-    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.areaCode : null,
-    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.extension : null,
+    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null,
+    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.extension
+      : null,
     applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
     applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
-    applicantInfoFaxAreaCode: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.areaCode : null,
-    applicantInfoFaxExtension: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.extension : null,
-    applicantInfoFaxNumber: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.number : null,
-    applicantInfoFaxPrefix: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.prefix : null,
+    applicantInfoFaxAreaCode: input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null,
+    applicantInfoFaxExtension: input.applicantInfo.fax ? input.applicantInfo.fax.extension : null,
+    applicantInfoFaxNumber: input.applicantInfo.fax ? input.applicantInfo.fax.number : null,
+    applicantInfoFaxPrefix: input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null,
     applicantInfoOrganizationName: input.applicantInfo.organizationName,
     applicantInfoOrgType: input.applicantInfo.orgType,
     applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
@@ -42,19 +46,31 @@ let translateFromApiToDatabase = input => {
     reasonForReturn: input.reasonForReturn,
     region: input.region,
     signature: input.signature,
-    tempOutfitterFieldsActDescFieldsAudienceDesc: input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
-    tempOutfitterFieldsActDescFieldsDescCleanupRestoration: input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration,
-    tempOutfitterFieldsActDescFieldsEndDateTime: input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime,
-    tempOutfitterFieldsActDescFieldsListGovFacilities: input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities,
-    tempOutfitterFieldsActDescFieldsListTempImprovements: input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements,
-    tempOutfitterFieldsActDescFieldsLocationDesc: input.tempOutfitterFields.activityDescriptionFields.locationDescription,
-    tempOutfitterFieldsActDescFieldsNumServiceDaysReq: input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested,
+    tempOutfitterFieldsActDescFields: input.tempOutfitterFields.activityDescriptionFields.partySize,
+    tempOutfitterFieldsActDescFieldsAudienceDesc:
+      input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
+    tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
+      input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration,
+    tempOutfitterFieldsActDescFieldsEndDateTime:
+      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime,
+    tempOutfitterFieldsActDescFieldsListGovFacilities:
+      input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities,
+    tempOutfitterFieldsActDescFieldsListTempImprovements:
+      input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements,
+    tempOutfitterFieldsActDescFieldsLocationDesc:
+      input.tempOutfitterFields.activityDescriptionFields.locationDescription,
+    tempOutfitterFieldsActDescFieldsNumServiceDaysReq:
+      input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested,
     tempOutfitterFieldsActDescFieldsNumTrips: input.tempOutfitterFields.activityDescriptionFields.numberOfTrips,
     tempOutfitterFieldsActDescFieldsServProvided: input.tempOutfitterFields.activityDescriptionFields.servicesProvided,
-    tempOutfitterFieldsActDescFieldsStartDateTime: input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime,
-    tempOutfitterFieldsActDescFieldsStmtAssignedSite: input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite,
-    tempOutfitterFieldsActDescFieldsStmtMotorizedEquip: input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment,
-    tempOutfitterFieldsActDescFieldsStmtTransportLivestock: input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock,
+    tempOutfitterFieldsActDescFieldsStartDateTime:
+      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime,
+    tempOutfitterFieldsActDescFieldsStmtAssignedSite:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite,
+    tempOutfitterFieldsActDescFieldsStmtMotorizedEquip:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment,
+    tempOutfitterFieldsActDescFieldsStmtTransportLivestock:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock,
     tempOutfitterFieldsAdvertisingDescription: input.tempOutfitterFields.advertisingDescription,
     tempOutfitterFieldsAdvertisingUrl: input.tempOutfitterFields.advertisingURL,
     tempOutfitterFieldsClientCharges: input.tempOutfitterFields.clientCharges,
@@ -65,14 +81,90 @@ let translateFromApiToDatabase = input => {
   };
 };
 
-let translateFromDatabaseToApi = input => {
-  // TODO: build object
-  return input;
+let translateFromDatabaseToClient = input => {
+  return {
+    appControlNumber: input.appControlNumber,
+    applicationId: input.applicationId,
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
+    createdAt: input.createdAt,
+    district: input.district,
+    forest: input.forest,
+    reasonForReturn: input.reasonForReturn || undefined,
+    region: input.region,
+    signature: input.signature,
+    status: input.status,
+    type: input.type,
+    applicantInfo: {
+      emailAddress: input.applicantInfoEmailAddress,
+      primaryFirstName: input.applicantInfoPrimaryFirstName,
+      primaryLastName: input.applicantInfoPrimaryLastName,
+      primaryAddress: {
+        mailingAddress: input.applicantInfoPrimaryMailingAddress,
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2,
+        mailingCity: input.applicantInfoPrimaryMailingCity,
+        mailingState: input.applicantInfoPrimaryMailingState,
+        mailingZIP: input.applicantInfoPrimaryMailingZIP
+      },
+      website: input.applicantInfoWebsite,
+      organizationName: input.applicantInfoOrganizationName,
+      orgType: input.applicantInfoOrgType,
+      dayPhone: {
+        areaCode: input.applicantInfoDayPhoneAreaCode,
+        extension: input.applicantInfoDayPhoneExtension || undefined,
+        number: input.applicantInfoDayPhoneNumber,
+        prefix: input.applicantInfoDayPhonePrefix
+      },
+      eveningPhone: {
+        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
+        extension: input.applicantInfoEveningPhoneExtension || undefined,
+        number: input.applicantInfoEveningPhoneNumber || undefined,
+        prefix: input.applicantInfoEveningPhonePrefix || undefined
+      },
+      fax: {
+        areaCode: input.applicantInfoFaxAreaCode || undefined,
+        extension: input.applicantInfoFaxExtension || undefined,
+        number: input.applicantInfoFaxNumber || undefined,
+        prefix: input.applicantInfoFaxPrefix || undefined
+      }
+    },
+    tempOutfitterFields: {
+      advertisingDescription: input.tempOutfitterFieldsAdvertisingDescription,
+      advertisingURL: input.tempOutfitterFieldsAdvertisingUrl,
+      clientCharges: input.tempOutfitterFieldsClientCharges,
+      experienceList: input.tempOutfitterFieldsExperienceList,
+      individualIsCitizen: input.tempOutfitterFieldsIndividualCitizen,
+      smallBusiness: input.tempOutfitterFieldsSmallBusiness,
+      activityDescriptionFields: {
+        audienceDescription: input.tempOutfitterFieldsActDescFieldsAudienceDesc,
+        descriptionOfCleanupAndRestoration: input.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
+        haveLivestock: !!input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
+        haveMotorizedEquipment: !!input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
+        listOfGovernmentFacilities: input.tempOutfitterFieldsActDescFieldsListGovFacilities,
+        listOfTemporaryImprovements: input.tempOutfitterFieldsActDescFieldsListTempImprovements,
+        locationDescription: input.tempOutfitterFieldsActDescFieldsLocationDesc,
+        needAssignedSite: !!input.tempOutfitterFieldsActDescFieldsStmtAssignedSite,
+        needGovernmentFacilities: !!input.tempOutfitterFieldsActDescFieldsListGovFacilities,
+        needTemporaryImprovements: !!input.tempOutfitterFieldsActDescFieldsListTempImprovements,
+        numberOfTrips: input.tempOutfitterFieldsActDescFieldsNumTrips,
+        numberServiceDaysRequested: input.tempOutfitterFieldsActDescFieldsNumServiceDaysReq,
+        partySize: input.tempOutfitterFieldsActDescFieldsPartySize,
+        servicesProvided: input.tempOutfitterFieldsActDescFieldsServProvided,
+        statementOfAssignedSite: input.tempOutfitterFieldsActDescFieldsStmtAssignedSite,
+        statementOfMotorizedEquipment: input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
+        statementOfTransportationOfLivestock: input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
+        dateTimeRange: {
+          endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
+          startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime
+        }
+      }
+    }
+  };
 };
 
-let translateCollectionFromDatabaseToApi = applications => {
+let translateCollectionFromDatabaseToClient = applications => {
   for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToApi(applications[i]);
+    applications[i] = translateFromDatabaseToClient(applications[i]);
   }
   return applications;
 };
@@ -122,7 +214,7 @@ tempOutfitterRestHandlers.create = (req, res) => {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
   } else {
-    TempOutfitterApplication.create(translateFromApiToDatabase(req.body))
+    TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
@@ -138,18 +230,20 @@ tempOutfitterRestHandlers.getOne = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToApi(app));
+        res.status(200).json(translateFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
     })
-    .catch(error => res.status(500).json(error.message));
+    .catch(error => {
+      res.status(500).json(error.message);
+    });
 };
 
 tempOutfitterRestHandlers.getAll = (req, res) => {
   TempOutfitterApplication.findAll()
     .then(results => {
-      res.status(200).json(translateCollectionFromDatabaseToApi(results));
+      res.status(200).json(translateCollectionFromDatabaseToClient(results));
     })
     .catch(error => {
       res.status(500).json(error);

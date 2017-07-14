@@ -40,7 +40,11 @@ app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.
 /** Create a new temp outfitter permit application. */
 app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.create);
 /** Handle temp outfitter file upload and invokes streamToS3 function. */
-app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.attachFile);
+app.post(
+  '/permits/applications/special-uses/temp-outfitters/file',
+  tempOutfitter.streamToS3.array('file', 1),
+  tempOutfitter.attachFile
+);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', function(req, res) {

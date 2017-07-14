@@ -26,13 +26,19 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
+    sendAcceptedNoncommercialApplicationToMiddleLayer(
+      noncommercialModelData.noncommercialModelPerson.create(),
+      success,
+      failure
+    );
   });
 
   it('should pass middle layer auth, but fail mock middle layer send', done => {
     nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(500, { status: 'fail-suds' });
+    nock(vcap.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(500, { status: 'fail-suds' });
 
     var success = () => {
       done();
@@ -46,13 +52,19 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
+    sendAcceptedNoncommercialApplicationToMiddleLayer(
+      noncommercialModelData.noncommercialModelPerson.create(),
+      success,
+      failure
+    );
   });
 
   it('should pass middle layer auth, and pass middle layer send', done => {
     nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, { status: 'success' });
+    nock(vcap.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { status: 'success' });
 
     var success = response => {
       expect(response).to.not.be.null;
@@ -65,6 +77,10 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(noncommercialModelData.noncommercialModelPerson.create(), success, failure);
+    sendAcceptedNoncommercialApplicationToMiddleLayer(
+      noncommercialModelData.noncommercialModelPerson.create(),
+      success,
+      failure
+    );
   });
 });
