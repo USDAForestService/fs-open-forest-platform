@@ -22,7 +22,10 @@ export class ApplicationService {
     }
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint + '' + type, body, options).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http
+      .post(this.endpoint + '' + type, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   get(params = '/special-uses/noncommercial') {
@@ -30,7 +33,10 @@ export class ApplicationService {
   }
 
   getOne(id, params = '/special-uses/noncommercial/') {
-    return this.http.get(this.endpoint + '' + params + '' + id).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http
+      .get(this.endpoint + '' + params + '' + id)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   update(body: SpecialUseApplication): Observable<SpecialUseApplication[]> {
@@ -38,7 +44,10 @@ export class ApplicationService {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(this.endpoint + '/' + body.appControlNumber, body, options).map((res: Response) => res.json()).catch(this.handleError);
+    return this.http
+      .put(this.endpoint + '/special-uses/noncommercial/' + body.appControlNumber, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: Response | any) {
