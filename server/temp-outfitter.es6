@@ -25,10 +25,10 @@ let translateFromClientToDatabase = input => {
       : null,
     applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
     applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
-    applicantInfoFaxAreaCode: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.areaCode : null,
-    applicantInfoFaxExtension: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.extension : null,
-    applicantInfoFaxNumber: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.number : null,
-    applicantInfoFaxPrefix: input.applicantInfo.faxNumber ? input.applicantInfo.faxNumber.prefix : null,
+    applicantInfoFaxAreaCode: input.applicantInfo.faxNumber ? input.applicantInfo.fax.areaCode : null,
+    applicantInfoFaxExtension: input.applicantInfo.faxNumber ? input.applicantInfo.fax.extension : null,
+    applicantInfoFaxNumber: input.applicantInfo.faxNumber ? input.applicantInfo.fax.number : null,
+    applicantInfoFaxPrefix: input.applicantInfo.faxNumber ? input.applicantInfo.fax.prefix : null,
     applicantInfoOrganizationName: input.applicantInfo.organizationName,
     applicantInfoOrgType: input.applicantInfo.orgType,
     applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
@@ -115,7 +115,7 @@ let translateFromDatabaseToClient = input => {
         number: input.applicantInfoEveningPhoneNumber,
         prefix: input.applicantInfoEveningPhonePrefix
       },
-      faxNumber: {
+      fax: {
         areaCode: input.applicantInfoFaxAreaCode,
         extension: input.applicantInfoFaxExtension,
         number: input.applicantInfoFaxNumber,
