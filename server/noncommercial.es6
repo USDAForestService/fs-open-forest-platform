@@ -6,38 +6,72 @@ let validator = require('./validation.es6');
 
 let noncommercialRestHandlers = {};
 
-let translateFromApiToDatabase = input => {
+let translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
     applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
     applicantInfoDayPhoneNumber: input.applicantInfo.dayPhone.number,
     applicantInfoDayPhonePrefix: input.applicantInfo.dayPhone.prefix,
     applicantInfoEmailAddress: input.applicantInfo.emailAddress,
-    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.areaCode : null,
-    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.extension : null,
+    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null,
+    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.extension
+      : null,
     applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
     applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
     applicantInfoOrganizationName: input.applicantInfo.organizationName,
-    applicantInfoOrgMailingAddress: input.applicantInfo.organizationAddress ? input.applicantInfo.organizationAddress.mailingAddress : null,
-    applicantInfoOrgMailingAddress2: input.applicantInfo.organizationAddress ? input.applicantInfo.organizationAddress.mailingAddress2 : null,
-    applicantInfoOrgMailingCity: input.applicantInfo.organizationAddress ? input.applicantInfo.organizationAddress.mailingCity : null,
-    applicantInfoOrgMailingState: input.applicantInfo.organizationAddress ? input.applicantInfo.organizationAddress.mailingState : null,
-    applicantInfoOrgMailingZIP: input.applicantInfo.organizationAddress ? input.applicantInfo.organizationAddress.mailingZIP : null,
+    applicantInfoOrgMailingAddress: input.applicantInfo.organizationAddress
+      ? input.applicantInfo.organizationAddress.mailingAddress
+      : null,
+    applicantInfoOrgMailingAddress2: input.applicantInfo.organizationAddress
+      ? input.applicantInfo.organizationAddress.mailingAddress2
+      : null,
+    applicantInfoOrgMailingCity: input.applicantInfo.organizationAddress
+      ? input.applicantInfo.organizationAddress.mailingCity
+      : null,
+    applicantInfoOrgMailingState: input.applicantInfo.organizationAddress
+      ? input.applicantInfo.organizationAddress.mailingState
+      : null,
+    applicantInfoOrgMailingZIP: input.applicantInfo.organizationAddress
+      ? input.applicantInfo.organizationAddress.mailingZIP
+      : null,
     applicantInfoOrgType: input.applicantInfo.orgType,
     applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
     applicantInfoPrimaryLastName: input.applicantInfo.primaryLastName,
-    applicantInfoPrimaryMailingAddress: input.applicantInfo.primaryAddress ? input.applicantInfo.primaryAddress.mailingAddress : null,
-    applicantInfoPrimaryMailingAddress2: input.applicantInfo.primaryAddress ? input.applicantInfo.primaryAddress.mailingAddress2 : null,
-    applicantInfoPrimaryMailingCity: input.applicantInfo.primaryAddress ? input.applicantInfo.primaryAddress.mailingCity : null,
-    applicantInfoPrimaryMailingState: input.applicantInfo.primaryAddress ? input.applicantInfo.primaryAddress.mailingState : null,
-    applicantInfoPrimaryMailingZIP: input.applicantInfo.primaryAddress ? input.applicantInfo.primaryAddress.mailingZIP : null,
+    applicantInfoPrimaryMailingAddress: input.applicantInfo.primaryAddress
+      ? input.applicantInfo.primaryAddress.mailingAddress
+      : null,
+    applicantInfoPrimaryMailingAddress2: input.applicantInfo.primaryAddress
+      ? input.applicantInfo.primaryAddress.mailingAddress2
+      : null,
+    applicantInfoPrimaryMailingCity: input.applicantInfo.primaryAddress
+      ? input.applicantInfo.primaryAddress.mailingCity
+      : null,
+    applicantInfoPrimaryMailingState: input.applicantInfo.primaryAddress
+      ? input.applicantInfo.primaryAddress.mailingState
+      : null,
+    applicantInfoPrimaryMailingZIP: input.applicantInfo.primaryAddress
+      ? input.applicantInfo.primaryAddress.mailingZIP
+      : null,
     applicantInfoSecondaryFirstName: input.applicantInfo.secondaryFirstName,
     applicantInfoSecondaryLastName: input.applicantInfo.secondaryLastName,
-    applicantInfoSecondaryMailingAddress: input.applicantInfo.secondaryAddress ? input.applicantInfo.secondaryAddress.mailingAddress : null,
-    applicantInfoSecondaryMailingAddress2: input.applicantInfo.secondaryAddress ? input.applicantInfo.secondaryAddress.mailingAddress2 : null,
-    applicantInfoSecondaryMailingCity: input.applicantInfo.secondaryAddress ? input.applicantInfo.secondaryAddress.mailingCity : null,
-    applicantInfoSecondaryMailingState: input.applicantInfo.secondaryAddress ? input.applicantInfo.secondaryAddress.mailingState : null,
-    applicantInfoSecondaryMailingZIP: input.applicantInfo.secondaryAddress ? input.applicantInfo.secondaryAddress.mailingZIP : null,
+    applicantInfoSecondaryMailingAddress: input.applicantInfo.secondaryAddress
+      ? input.applicantInfo.secondaryAddress.mailingAddress
+      : null,
+    applicantInfoSecondaryMailingAddress2: input.applicantInfo.secondaryAddress
+      ? input.applicantInfo.secondaryAddress.mailingAddress2
+      : null,
+    applicantInfoSecondaryMailingCity: input.applicantInfo.secondaryAddress
+      ? input.applicantInfo.secondaryAddress.mailingCity
+      : null,
+    applicantInfoSecondaryMailingState: input.applicantInfo.secondaryAddress
+      ? input.applicantInfo.secondaryAddress.mailingState
+      : null,
+    applicantInfoSecondaryMailingZIP: input.applicantInfo.secondaryAddress
+      ? input.applicantInfo.secondaryAddress.mailingZIP
+      : null,
     applicantInfoWebsite: input.applicantInfo.website,
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -57,7 +91,7 @@ let translateFromApiToDatabase = input => {
   };
 };
 
-let translateFromDatabaseToApi = input => {
+let translateFromDatabaseToClient = input => {
   return {
     applicantInfo: {
       dayPhone: {
@@ -127,9 +161,9 @@ let translateFromDatabaseToApi = input => {
   };
 };
 
-let translateCollectionFromDatabaseToApi = applications => {
+let translateCollectionFromDatabaseToClient = applications => {
   for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToApi(applications[i]);
+    applications[i] = translateFromDatabaseToClient(applications[i]);
   }
   return applications;
 };
@@ -137,7 +171,7 @@ let translateCollectionFromDatabaseToApi = applications => {
 noncommercialRestHandlers.getAll = (req, res) => {
   NoncommercialApplication.findAll()
     .then(results => {
-      res.status(200).json(translateCollectionFromDatabaseToApi(results));
+      res.status(200).json(translateCollectionFromDatabaseToClient(results));
     })
     .catch(error => {
       res.status(500).json(error);
@@ -148,7 +182,7 @@ noncommercialRestHandlers.getOne = (req, res) => {
   NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToApi(app));
+        res.status(200).json(translateFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
@@ -169,7 +203,7 @@ noncommercialRestHandlers.create = (req, res) => {
     res.status(400).json(errorRet);
   } else {
     // create the noncommercial app object and persist
-    NoncommercialApplication.create(translateFromApiToDatabase(req.body))
+    NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
         req.body['applicationId'] = noncommApp.applicationId;
         req.body['appControlNumber'] = noncommApp.appControlNumber;
@@ -193,7 +227,7 @@ noncommercialRestHandlers.update = (req, res) => {
             app
               .save()
               .then(() => {
-                res.status(200).json(translateFromDatabaseToApi(app));
+                res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
                 res.status(500).json(error);
@@ -207,7 +241,7 @@ noncommercialRestHandlers.update = (req, res) => {
         app
           .save()
           .then(() => {
-            res.status(200).json(translateFromDatabaseToApi(app));
+            res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
             res.status(500).json(error);

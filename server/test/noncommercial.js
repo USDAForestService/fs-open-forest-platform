@@ -27,14 +27,24 @@ describe('noncommercial tests', () => {
       let data = noncommercialTestData.singlePermitHolder.create();
       data.dateTimeRange.startDateTime = '2018-01-01T00:15:00Z';
       data.dateTimeRange.endDateTime = '2018-06-30T23:30:00Z';
-      request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(201, done);
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
     });
 
     it('should return a 201 response', done => {
       let data = noncommercialTestData.singlePermitHolder.create();
       data.dateTimeRange.startDateTime = '2018-01-31T00:45:00Z';
       data.dateTimeRange.endDateTime = '2018-12-31T23:00:00Z';
-      request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(201, done);
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
     });
 
     it('should return a 400 response', done => {
@@ -94,14 +104,26 @@ describe('noncommercial tests', () => {
     it('should return a validation error for region', done => {
       let data = noncommercialTestData.singlePermitHolder.create({ region: 'midwest' });
 
-      request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/\{"errors":\["pattern-region"\]\}/).expect(400, done);
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(/\{"errors":\["pattern-region"\]\}/)
+        .expect(400, done);
     });
 
     it('should return a required error for region', done => {
       let data = noncommercialTestData.singlePermitHolder.create();
       data.region = undefined;
 
-      request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/\{"errors":\["required-region"\]\}/).expect(400, done);
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(/\{"errors":\["required-region"\]\}/)
+        .expect(400, done);
     });
 
     it('should return a required error for applicantInfo.dayPhone.areaCode', done => {
@@ -120,7 +142,13 @@ describe('noncommercial tests', () => {
     it('should return a type error for applicantInfo.dayPhone.areaCode', done => {
       let data = noncommercialTestData.singlePermitHolder.create({ 'applicantInfo.dayPhone.areaCode': 555 });
 
-      request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"type-applicantInfo.dayPhone.areaCode"/).expect(400, done);
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(/"type-applicantInfo.dayPhone.areaCode"/)
+        .expect(400, done);
     });
 
     it('should return a required error for region AND a pattern error for district', done => {
@@ -156,7 +184,13 @@ describe('noncommercial tests', () => {
   it('should return a required error for event name', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.eventName = undefined;
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"required-eventName"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-eventName"/)
+      .expect(400, done);
   });
 
   it('should return a required error for numberParticipants', done => {
@@ -174,31 +208,61 @@ describe('noncommercial tests', () => {
   it('should return a required error for spectator count', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.noncommercialFields.spectators = undefined;
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"required-noncommercialFields.spectators"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-noncommercialFields.spectators"/)
+      .expect(400, done);
   });
 
   it('should return a required error for start date', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.dateTimeRange.startDateTime = undefined;
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"required-dateTimeRange.startDateTime"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-dateTimeRange.startDateTime"/)
+      .expect(400, done);
   });
 
   it('should return a required error for end date', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.dateTimeRange.endDateTime = undefined;
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"required-dateTimeRange.endDateTime"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"required-dateTimeRange.endDateTime"/)
+      .expect(400, done);
   });
 
   it('should return a pattern error for start date', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.dateTimeRange.startDateTime = '2020';
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"pattern-dateTimeRange.startDateTime"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-dateTimeRange.startDateTime"/)
+      .expect(400, done);
   });
 
   it('should return a pattern error for end date', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
     data.dateTimeRange.endDateTime = '2020';
-    request(server).post(testURL).set('Accept', 'application/json').send(data).expect('Content-Type', /json/).expect(/"pattern-dateTimeRange.endDateTime"/).expect(400, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(data)
+      .expect('Content-Type', /json/)
+      .expect(/"pattern-dateTimeRange.endDateTime"/)
+      .expect(400, done);
   });
 });
 
@@ -298,7 +362,8 @@ describe('Persistence tests', () => {
       .get(testGetURL + '/' + intakeControlNumber)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
-        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.appControlNumber = res.body.appControlNumber;
+        singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.appControlNumber =
+          res.body.appControlNumber;
         singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.applicationId = res.body.applicationId;
         singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.createdAt = res.body.createdAt;
         singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.status = 'Received';
@@ -405,13 +470,20 @@ describe('Branch tests', () => {
     testData.applicantInfo.website =
       'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
 
-    request(server).post(testURL).set('Accept', 'application/json').send(testData).expect('Content-Type', /json/).expect(500, done);
+    request(server)
+      .post(testURL)
+      .set('Accept', 'application/json')
+      .send(testData)
+      .expect('Content-Type', /json/)
+      .expect(500, done);
   });
 
   it('updates a noncommercial app successfully with other than accept status', done => {
     nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
+    nock(vcap.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
@@ -427,7 +499,9 @@ describe('Branch tests', () => {
 
     nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
 
-    nock('http://localhost:8080').post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
+    nock('http://localhost:8080')
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d448')
@@ -441,7 +515,9 @@ describe('Branch tests', () => {
 
     nock(vcap.middleLayerBaseUrl).post('/auth').reply(201, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(500, { status: 'fail' });
+    nock(vcap.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(500, { status: 'fail' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
@@ -455,7 +531,9 @@ describe('Branch tests', () => {
 
     nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, { controlNumber: 'success' });
+    nock(vcap.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, { controlNumber: 'success' });
 
     request(server)
       .put(testPutURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
