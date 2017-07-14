@@ -146,18 +146,18 @@ let translateFromDatabaseToClient = input => {
       startDateTime: input.noncommercialFieldsStartDateTime,
       endDateTime: input.noncommercialFieldsEndDateTime
     },
+    appControlNumber: input.appControlNumber,
+    applicationId: input.applicationId,
+    controlNumber: input.controlNumber || undefined,
+    createdAt: input.createdAt,
     district: input.district,
-    region: input.region,
-    forest: input.forest,
-    type: input.type,
     eventName: input.eventName,
+    forest: input.forest,
+    reasonForReturn: input.reasonForReturn || undefined,
+    region: input.region,
     signature: input.signature,
     status: input.status,
-    createdAt: input.createdAt,
-    applicationId: input.applicationId,
-    reasonForReturn: input.reasonForReturn || undefined,
-    appControlNumber: input.appControlNumber,
-    controlNumber: input.controlNumber || undefined
+    type: input.type
   };
 };
 
