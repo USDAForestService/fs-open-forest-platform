@@ -91,6 +91,7 @@ let translateFromDatabaseToClient = input => {
     signature: input.signature,
     type: input.type,
     applicantInfo: {
+      emailAddress: input.applicantInfoEmailAddress,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
       primaryAddress: {
