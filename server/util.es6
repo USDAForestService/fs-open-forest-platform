@@ -45,7 +45,9 @@ util.translateFromIntakeToMiddleLayer = input => {
       },
       eveningPhone: {
         areaCode: input.applicantInfoEveningPhoneAreaCode || input.applicantInfoDayPhoneAreaCode,
-        number: input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber || input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
+        number:
+          input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber ||
+          input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
         extension: input.applicantInfoEveningPhoneExtension || input.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'standard'
       },
@@ -84,7 +86,10 @@ util.translateFromIntakeToMiddleLayer = input => {
 };
 
 util.validateDateTime = input => {
-  return /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) && moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid();
+  return (
+    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
+    moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid()
+  );
 };
 
 module.exports = util;
