@@ -101,14 +101,15 @@ describe('temp outfitter server tests', () => {
 });
 
 describe('Persistence tests', () => {
-  // uncomment the following line when the GET call below is implemented
   let intakeControlNumber = undefined;
+  let testData = tempOutfitterTestData.basicTempOutfitter.create();
+  let testDataPersisted = tempOutfitterTestData.basicTempOutfitter.create();
 
   it('should persist an application', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create())
+      .send(testData)
       .expect('Content-Type', /json/)
       .expect(function(res) {
         // record the intake control number so that we can the the application back out
@@ -117,18 +118,16 @@ describe('Persistence tests', () => {
       .expect(201, done);
   });
 
-  // TODO: uncomment when the GET call is ready
   it('should return a persisted application', done => {
-    let basicTempOutfitter = tempOutfitterTestData.basicTempOutfitter.create();
     request(server)
       .get(url + '/' + intakeControlNumber)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
-        basicTempOutfitter.appControlNumber = res.body.appControlNumber;
-        basicTempOutfitter.applicationId = res.body.applicationId;
-        basicTempOutfitter.createdAt = res.body.createdAt;
-        basicTempOutfitter.status = 'Received';
+        testDataPersisted.appControlNumber = res.body.appControlNumber;
+        testDataPersisted.applicationId = res.body.applicationId;
+        testDataPersisted.createdAt = res.body.createdAt;
+        testDataPersisted.status = 'Received';
       })
-      .expect(200, basicTempOutfitter, done);
+      .expect(200, testDataPersisted, done);
   });
 });

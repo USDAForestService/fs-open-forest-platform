@@ -25,10 +25,10 @@ let translateFromClientToDatabase = input => {
       : null,
     applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
     applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
-    applicantInfoFaxAreaCode: input.applicantInfo.faxNumber ? input.applicantInfo.fax.areaCode : null,
-    applicantInfoFaxExtension: input.applicantInfo.faxNumber ? input.applicantInfo.fax.extension : null,
-    applicantInfoFaxNumber: input.applicantInfo.faxNumber ? input.applicantInfo.fax.number : null,
-    applicantInfoFaxPrefix: input.applicantInfo.faxNumber ? input.applicantInfo.fax.prefix : null,
+    applicantInfoFaxAreaCode: input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null,
+    applicantInfoFaxExtension: input.applicantInfo.fax ? input.applicantInfo.fax.extension : null,
+    applicantInfoFaxNumber: input.applicantInfo.fax ? input.applicantInfo.fax.number : null,
+    applicantInfoFaxPrefix: input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null,
     applicantInfoOrganizationName: input.applicantInfo.organizationName,
     applicantInfoOrgType: input.applicantInfo.orgType,
     applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
@@ -46,6 +46,7 @@ let translateFromClientToDatabase = input => {
     reasonForReturn: input.reasonForReturn,
     region: input.region,
     signature: input.signature,
+    tempOutfitterFieldsActDescFields: input.tempOutfitterFields.activityDescriptionFields.partySize,
     tempOutfitterFieldsActDescFieldsAudienceDesc:
       input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
@@ -82,13 +83,17 @@ let translateFromClientToDatabase = input => {
 
 let translateFromDatabaseToClient = input => {
   return {
+    appControlNumber: input.appControlNumber,
+    applicationId: input.applicationId,
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
+    createdAt: input.createdAt,
     district: input.district,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn,
+    reasonForReturn: input.reasonForReturn || undefined,
     region: input.region,
     signature: input.signature,
+    status: input.status,
     type: input.type,
     applicantInfo: {
       emailAddress: input.applicantInfoEmailAddress,
@@ -106,21 +111,21 @@ let translateFromDatabaseToClient = input => {
       orgType: input.applicantInfoOrgType,
       dayPhone: {
         areaCode: input.applicantInfoDayPhoneAreaCode,
-        extension: input.applicantInfoDayPhoneExtension,
+        extension: input.applicantInfoDayPhoneExtension || undefined,
         number: input.applicantInfoDayPhoneNumber,
         prefix: input.applicantInfoDayPhonePrefix
       },
       eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode,
-        extension: input.applicantInfoEveningPhoneExtension,
-        number: input.applicantInfoEveningPhoneNumber,
-        prefix: input.applicantInfoEveningPhonePrefix
+        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
+        extension: input.applicantInfoEveningPhoneExtension || undefined,
+        number: input.applicantInfoEveningPhoneNumber || undefined,
+        prefix: input.applicantInfoEveningPhonePrefix || undefined
       },
       fax: {
-        areaCode: input.applicantInfoFaxAreaCode,
-        extension: input.applicantInfoFaxExtension,
-        number: input.applicantInfoFaxNumber,
-        prefix: input.applicantInfoFaxPrefix
+        areaCode: input.applicantInfoFaxAreaCode || undefined,
+        extension: input.applicantInfoFaxExtension || undefined,
+        number: input.applicantInfoFaxNumber || undefined,
+        prefix: input.applicantInfoFaxPrefix || undefined
       }
     },
     tempOutfitterFields: {
@@ -136,12 +141,15 @@ let translateFromDatabaseToClient = input => {
         listOfGovernmentFacilities: input.tempOutfitterFieldsActDescFieldsListGovFacilities,
         listOfTemporaryImprovements: input.tempOutfitterFieldsActDescFieldsListTempImprovements,
         locationDescription: input.tempOutfitterFieldsActDescFieldsLocationDesc,
+        partySize: input.tempOutfitterFieldsActDescFieldsPartySize,
         numberOfTrips: input.tempOutfitterFieldsActDescFieldsNumTrips,
         numberServiceDaysRequested: input.tempOutfitterFieldsActDescFieldsNumServiceDaysReq,
         servicesProvided: input.tempOutfitterFieldsActDescFieldsServProvided,
         statementOfAssignedSite: input.tempOutfitterFieldsActDescFieldsStmtAssignedSite,
         statementOfMotorizedEquipment: input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
+        haveMotorizedEquipment: !!input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
         statementOfTransportationOfLivestock: input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
+        haveLivestock: !!input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
         dateTimeRange: {
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
           startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime
