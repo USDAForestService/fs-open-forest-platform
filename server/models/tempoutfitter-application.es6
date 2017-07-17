@@ -142,7 +142,11 @@ module.exports = sequelize.define(
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration: {
       type: Sequelize.STRING,
       field: 'temp_out_act_desc_serv_cln_rest'
-    }
+    },
+    tempOutfitterFieldsActDescFieldsPartySize: { type: Sequelize.INTEGER, field: 'temp_out_act_desc_serv_pty_size', allowNull: false },
+    tempOutfitterFieldsExpAllCitations: { type: Sequelize.STRING, field: 'temp_outfitter_exp_all_citation' },
+    tempOutfitterFieldsExpNatForestPermits: { type: Sequelize.STRING, field: 'temp_outfitter_exp_nat_fst_pmts' },
+    tempOutfitterFieldsExpOtherPermits: { type: Sequelize.STRING, field: 'temp_outfitter_exp_oth_pmts' }
   },
   {
     timestamps: true
