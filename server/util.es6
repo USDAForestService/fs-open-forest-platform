@@ -129,8 +129,13 @@ util.getAllOpenApplications = (req, res) => {
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
     .then(results => {
-      results[0].concat(results[1]);
-      res.status(200).json(results[0]);
+      for (let item of results[0]) {
+        item.type = 'Noncommercial';
+      }
+      for (let item of results[1]) {
+        item.type = 'Temp Outfitter';
+      }
+      res.status(200).json(results[0].concat(results[1]));
     })
     .catch(errors => {
       res.status(500).json(errors);
