@@ -133,7 +133,7 @@ util.getAllOpenApplications = (req, res) => {
         item.type = 'Noncommercial';
       }
       for (let item of results[1]) {
-        item.type = 'Temp Outfitter';
+        item.type = 'Temp outfitter';
       }
       res.status(200).json(results[0].concat(results[1]));
     })
