@@ -31,11 +31,11 @@
     <div class="application-list">
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
+        <div>Type</div>
         <div>Event name</div>
         <div>Date submitted</div>
         <div>Start date</div>
         <div>End date</div>
-        <div>Location</div>
         <div>Permit holder</div>
         <div>&nbsp;</div>
       </div>
@@ -44,6 +44,8 @@
         <div *ngIf="application.status === 'Received'">
           <div *ngIf="isOverTwoDaysOld(application.createdAt)"><div class="warning-icon"></div></div>
         </div>
+        <label>Application type</label>
+        <div>{{ application.type }}</div>
         <label>Event name</label>
         <div><strong>{{ application.eventName }}</strong></div>
         <label>Date submitted</label>
@@ -52,8 +54,6 @@
         <div [ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.dateTimeRange.startDateTime)}">{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>End date</label>
         <div>{{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
-        <label>Location</label>
-        <div>{{ application.noncommercialFields.locationDescription }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
         <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
