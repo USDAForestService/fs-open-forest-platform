@@ -46,7 +46,6 @@ let translateFromClientToDatabase = input => {
     reasonForReturn: input.reasonForReturn,
     region: input.region,
     signature: input.signature,
-    tempOutfitterFieldsActDescFields: input.tempOutfitterFields.activityDescriptionFields.partySize,
     tempOutfitterFieldsActDescFieldsAudienceDesc:
       input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
@@ -77,7 +76,11 @@ let translateFromClientToDatabase = input => {
     tempOutfitterFieldsExperienceList: input.tempOutfitterFields.experienceList,
     tempOutfitterFieldsIndividualCitizen: input.tempOutfitterFields.individualIsCitizen,
     tempOutfitterFieldsSmallBusiness: input.tempOutfitterFields.smallBusiness,
-    type: input.type
+    type: input.type,
+    tempOutfitterFieldsActDescFieldsPartySize: input.tempOutfitterFields.activityDescriptionFields.partySize,
+    tempOutfitterFieldsExpAllCitations: input.tempOutfitterFields.experienceFields.listAllCitations,
+    tempOutfitterFieldsExpNatForestPermits: input.tempOutfitterFields.experienceFields.listAllNationalForestPermits,
+    tempOutfitterFieldsExpOtherPermits: input.tempOutfitterFields.experienceFields.listAllOtherPermits
   };
 };
 
@@ -157,6 +160,14 @@ let translateFromDatabaseToClient = input => {
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
           startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime
         }
+      },
+      experienceFields: {
+        haveCitations: input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0 ? true : false,
+        haveNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits !== undefined && input.tempOutfitterFieldsExpNatForestPermits.length > 0 ? true : false,
+        haveOtherPermits: input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0 ? true : false,
+        listAllCitations: input.tempOutfitterFieldsExpAllCitations,
+        listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
+        listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
       }
     }
   };
