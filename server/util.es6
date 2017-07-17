@@ -112,7 +112,7 @@ util.getAllOpenApplications = (req, res) => {
     order: [['createdAt', 'DESC']]
   });
   let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
-    attributess: [
+    attributes: [
       'appControlNumber',
       'applicantInfoOrganizationName',
       'applicantInfoPrimaryFirstName',
