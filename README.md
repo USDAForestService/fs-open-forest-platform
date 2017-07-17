@@ -70,3 +70,10 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 
 Navigate to `/assets/typedoc/index.html`
+
+### Enable html5 pushstate on cloud.gov
+In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
+
+This allows you to use urls like `/some/path` instead of `/#/some/path`
+
+[Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
