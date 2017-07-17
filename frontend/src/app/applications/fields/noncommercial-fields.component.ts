@@ -19,7 +19,7 @@ export class NoncommercialFieldsComponent implements OnInit {
     this[this.formName] = this.formBuilder.group({
       activityDescription: ['', [Validators.required]],
       locationDescription: ['', [Validators.required]],
-      numberParticipants: ['', [Validators.required]],
+      numberParticipants: ['', [Validators.required, Validators.minLength(1)]],
       spectators: ['', [Validators.required]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
