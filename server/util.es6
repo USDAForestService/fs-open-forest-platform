@@ -112,8 +112,9 @@ util.getAllOpenApplications = (req, res) => {
     order: [['createdAt', 'DESC']]
   });
   let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
-    attributes: [
+    attributess: [
       'appControlNumber',
+      'applicantInfoOrganizationName',
       'applicantInfoPrimaryFirstName',
       'applicantInfoPrimaryLastName',
       'applicationId',
@@ -128,7 +129,8 @@ util.getAllOpenApplications = (req, res) => {
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
     .then(results => {
-      res.status(200).json({ noncommercial: results[0], tempOutfitter: results[1] });
+      results[0].concat(results[1]);
+      res.status(200).json(results[0]);
     })
     .catch(errors => {
       res.status(500).json(errors);
