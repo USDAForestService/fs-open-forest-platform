@@ -8,7 +8,7 @@
       </div>
       <div class="usa-input-grid usa-input-grid-small">
         <label class="usa-input" for="day-ext">Ext (optional)</label>
-        <input class="usa-input" id="day-ext" type="text" pattern="(^\d{4}$)" formControlName="extension"/>
+        <input class="usa-input" id="day-ext" type="text" minlength="1" maxlength="6" formControlName="extension"/>
       </div>
     </div>
   </ng-container>
@@ -25,7 +25,7 @@
       </div>
       <div class="usa-input-grid usa-input-grid-small">
         <label class="usa-input" for="evening-ext">Ext (optional)</label>
-        <input class="usa-input" id="evening-ext" type="text" pattern="(^\d{4}$)" formControlName="extension"/>
+        <input class="usa-input" id="evening-ext" type="text" minlength="1" maxlength="6" formControlName="extension"/>
       </div>
     </ng-container>
   </div>

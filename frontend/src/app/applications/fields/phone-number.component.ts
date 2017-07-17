@@ -17,7 +17,7 @@ export class PhoneNumberComponent implements OnInit {
   ngOnInit() {
     const dayPhone = this.formBuilder.group({
       areaCode: [],
-      extension: [],
+      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
       number: [],
       phoneType: ['dayPhone'],
       prefix: [],
