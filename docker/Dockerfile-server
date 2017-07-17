@@ -8,5 +8,7 @@ ADD server /app
 # Make port 80 available to the world outside this container
 EXPOSE 8080
 
+ENV VCAP_SERVICES={\"user-provided\":[{\"credentials\":{\"MIDDLELAYER_BASE_URL\":\"http://localhost:8080/\",\"MIDDLELAYER_PASSWORD\":\"pass\",\"MIDDLELAYER_USERNAME\":\"user\"},\"label\":\"user-provided\",\"name\":\"middlelayer-service\",\"syslog_drain_url\":\"\",\"tags\":[],\"volume_mounts\":[]}],\"s3\":[{\"credentials\":{\"bucket\":\"bucket_name\",\"access_key_id\":\"\",\"region\":\"us-east-1\",\"secret_access_key\":\"\"}}]} DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/postgres
+
 # Run app.py when the container launches
 CMD ["node", "app.es6"]
