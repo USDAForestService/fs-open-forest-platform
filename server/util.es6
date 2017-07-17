@@ -1,6 +1,8 @@
 'use strict';
 
 let moment = require('moment');
+let NoncommercialApplication = require('./models/noncommercial-application.es6');
+let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
@@ -90,6 +92,47 @@ util.validateDateTime = input => {
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
     moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid()
   );
+};
+
+util.getAllOpenApplications = (req, res) => {
+  let noncommercialApplicationsPromise = NoncommercialApplication.findAll({
+    attributes: [
+      'appControlNumber',
+      'applicantInfoPrimaryFirstName',
+      'applicantInfoPrimaryLastName',
+      'applicationId',
+      'createdAt',
+      'eventName',
+      'noncommercialFieldsEndDateTime',
+      'noncommercialFieldsLocationDescription',
+      'noncommercialFieldsStartDateTime',
+      'status'
+    ],
+    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    order: [['createdAt', 'DESC']]
+  });
+  let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
+    attributes: [
+      'appControlNumber',
+      'applicantInfoPrimaryFirstName',
+      'applicantInfoPrimaryLastName',
+      'applicationId',
+      'createdAt',
+      'status',
+      'tempOutfitterFieldsActDescFieldsEndDateTime',
+      'tempOutfitterFieldsActDescFieldsLocationDesc',
+      'tempOutfitterFieldsActDescFieldsStartDateTime'
+    ],
+    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    order: [['createdAt', 'DESC']]
+  });
+  Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
+    .then(results => {
+      res.status(200).json({ noncommercial: results[0].length, tempOutfitter: results[1] });
+    })
+    .catch(errors => {
+      res.status(500).json(errors);
+    });
 };
 
 module.exports = util;
