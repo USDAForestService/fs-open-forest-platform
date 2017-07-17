@@ -521,7 +521,7 @@ describe('Branch tests', () => {
       .put(testURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
       .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
-      .expect(400, done);
+      .expect(500, done);
   });
 
   it('updates a noncommercial app successfully with accept status', done => {
