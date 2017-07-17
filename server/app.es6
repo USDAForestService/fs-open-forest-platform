@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let noncommercial = require('./noncommercial.es6');
 let tempOutfitter = require('./temp-outfitter.es6');
+let util = require('./util.es6');
 
 let app = express();
 
@@ -45,6 +46,9 @@ app.post(
   tempOutfitter.streamToS3.array('file', 1),
   tempOutfitter.attachFile
 );
+
+/** Get all applications with status on Received or Hold. */
+app.get('/permits/applications', util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', function(req, res) {

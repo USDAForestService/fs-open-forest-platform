@@ -7,7 +7,7 @@
 
     <label class="usa-input" for="participants">Estimated number of participants</label>
     <span class="help-text usa-form-hint">This is the number of people who will directly participate in the event.</span>
-    <input id="participants" type="number" formControlName="numberParticipants" aria-required="true" />
+    <input id="participants" type="number" formControlName="numberParticipants" aria-required="true" min="1" />
     <span id="participants-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="noncommercialFields.controls.numberParticipants.invalid && noncommercialFields.controls.numberParticipants.touched">Participants is required.</span>
 
     <label class="usa-input" for="spectators">Estimated number of spectators</label>
