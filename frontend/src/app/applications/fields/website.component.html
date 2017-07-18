@@ -1,4 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
   <label class="usa-input" for="website">Website (optional)</label>
-  <input id="website" name="website" type="url" formControlName="website" />
+  <input id="website" name="website" type="url"  formControlName="website" pattern="https?://.+" />
+  <span id="website-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicantInfo.controls.website.invalid && applicantInfo.controls.website.touched">Website requires a valid URL.</span>
 </ng-container>
