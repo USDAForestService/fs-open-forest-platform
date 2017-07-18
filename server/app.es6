@@ -2,12 +2,15 @@
 
 let bodyParser = require('body-parser');
 let express = require('express');
+let helmet = require('helmet');
 let noncommercial = require('./noncommercial.es6');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 
 let app = express();
 
+/* Use helmet for increatsed security. */
+app.use(helmet());
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
