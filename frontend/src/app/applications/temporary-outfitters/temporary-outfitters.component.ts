@@ -41,13 +41,13 @@ export class TemporaryOutfittersComponent implements OnInit {
         primaryFirstName: ['', [Validators.required]],
         primaryLastName: ['', [Validators.required]],
         orgType: ['', [Validators.required]],
-        website: ['']
+        website: ['', [Validators.pattern('https?://.+')]]
       }),
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [Validators.required]],
-        advertisingURL: [''],
+        advertisingURL: ['', [Validators.pattern('https?://.+')]],
         clientCharges: ['', [Validators.required]],
         experienceList: ['']
       })
