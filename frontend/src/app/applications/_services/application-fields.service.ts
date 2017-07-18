@@ -40,11 +40,11 @@ export class ApplicationFieldsService {
 
   touchAllFields(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-      control.updateValueAndValidity();
-
+      if (control.status === 'INVALID') {
+        control.markAsTouched();
+        control.updateValueAndValidity();
+      }
       if (control.controls) {
-        console.log('hi');
         this.touchAllFields(control);
       }
     });
