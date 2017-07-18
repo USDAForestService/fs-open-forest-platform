@@ -8,3 +8,13 @@ services:
       - "8080:8080"
     volumes:
       - ../server:/app
+      - /app/node_modules
+  frontend-server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
