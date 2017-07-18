@@ -1,5 +1,6 @@
 'use strict';
 
+let auth = require('basic-auth');
 let bodyParser = require('body-parser');
 let express = require('express');
 let helmet = require('helmet');
@@ -9,15 +10,25 @@ let util = require('./util.es6');
 
 let app = express();
 
-/* Use helmet for increatsed security. */
+/* Use helmet for increased security. */
 app.use(helmet());
+
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
-/* Don't restrict access on the API from other origins. */
+/* Don't restrict access on the API from other origins, use basic auth. */
 app.use(function(req, res, next) {
   res.set('Access-Control-Allow-Origin', '*');
-  next();
+  let user = auth(req);
+  if (!user || !user.name || !user.pass) {
+    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+    res.sendStatus(401);
+  }
+  if (user.name === 'username' && user.pass === 'password') {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
 });
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
