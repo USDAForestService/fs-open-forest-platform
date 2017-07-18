@@ -1,6 +1,24 @@
 # Use node 6.11 as the base image
 FROM node:6.11.1
 
+# create a top level node directory and copy the server package.json
+# into it
+# set the work dir to /node
+RUN mkdir -p /node
+COPY ./server/package.json /node
+WORKDIR /node
+
+# install the latest version of yarn
+RUN npm install yarn -g
+
+# run yarn to get all dependencies
+RUN yarn
+
+# change the node path env var to the new node_modules directory
+# and add the new node .bin to the path
+ENV NODE_PATH=/node/node_modules
+ENV PATH=/node/node_modules/.bin:$PATH
+
 # set the workdir as the /app directory
 # this dir is mapped to the server directory in the cloned repo
 WORKDIR /app
@@ -12,4 +30,4 @@ EXPOSE 8080
 ENV VCAP_SERVICES={\"user-provided\":[{\"credentials\":{\"MIDDLELAYER_BASE_URL\":\"http://localhost:8080/\",\"MIDDLELAYER_PASSWORD\":\"pass\",\"MIDDLELAYER_USERNAME\":\"user\"},\"label\":\"user-provided\",\"name\":\"middlelayer-service\",\"syslog_drain_url\":\"\",\"tags\":[],\"volume_mounts\":[]}],\"s3\":[{\"credentials\":{\"bucket\":\"bucket_name\",\"access_key_id\":\"\",\"region\":\"us-east-1\",\"secret_access_key\":\"\"}}]} DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/postgres
 
 # startup node with app.es6 when the container launches
-CMD ["node", "app.es6"]
+CMD ["/node/node_modules/.bin/nodemon", "--harmony_default_parameters", "app.es6"]
