@@ -3,7 +3,7 @@ app-permit-application-list {
 }
 
 .application-list {
-  @media(min-width: 1000px) {
+  @media (min-width: 1000px) {
     border-collapse: collapse;
     display: table;
     max-width: 980px;
@@ -14,7 +14,7 @@ app-permit-application-list {
 }
 
 .application-field-list-labels {
-  @media(min-width: 1000px) {
+  @media (min-width: 1000px) {
     display: table-row;
     div {
       display: table-cell;
@@ -25,13 +25,13 @@ app-permit-application-list {
       vertical-align: middle;
     }
   }
-  @media(max-width: 1000px) {
+  @media (max-width: 1000px) {
     display: none;
   }
 }
 
 .application-field-list-values {
-  @media(min-width: 1000px) {
+  @media (min-width: 1000px) {
     background-color: $white;
     border: 1px solid $black;
     display: table-row;
@@ -44,7 +44,7 @@ app-permit-application-list {
       vertical-align: middle;
     }
   }
-  @media(max-width: 1000px) {
+  @media (max-width: 1000px) {
     background-color: $white;
     border: 1px solid $black;
     margin-bottom: 10px;
@@ -69,6 +69,7 @@ app-permit-application-list {
 
 div.warning-icon {
   background-image: url('../node_modules/uswds/dist/img/alerts/warning.svg');
+  background-repeat: no-repeat;
   background-size: 40px 50px;
   height: 40px;
   padding: 0;
