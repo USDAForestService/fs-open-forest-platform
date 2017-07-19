@@ -145,4 +145,37 @@ describe('Apply for a noncommercial group use permit', () => {
   fieldValidation.validateSimpleTextField('activity-description', 'activity-description-error', 'Activity description is required.');
 
   fieldValidation.validateSimpleTextField('signature', 'signature-error', 'Initials are required.');
+
+  it('should submit an application with only the required fields populated', () => {
+    page.navigateTo();
+    element(by.id('individual')).click();
+    element(by.id('primary-permit-holder-first-name')).sendKeys('Micky');
+    element(by.id('primary-permit-holder-last-name')).sendKeys('Watson');
+    element(by.id('primary-permit-holder-address')).sendKeys('933 Easy St');
+    element(by.id('primary-permit-holder-city')).sendKeys('Madison');
+    element(by.id('primary-permit-holder-state')).sendKeys('WI');
+    element(by.id('primary-permit-holder-zip')).sendKeys('55555');
+    element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('day-phone')).sendKeys('3333333333');
+    element(by.id('name')).sendKeys('Walk in the park');
+    element(by.id('location')).sendKeys('Forest');
+    element(by.id('participants')).sendKeys('3');
+    element(by.id('spectators')).sendKeys('4');
+    element(by.id('activity-description')).sendKeys('Walking around');
+    element(by.id('start-month')).sendKeys('10');
+    element(by.id('start-day')).sendKeys('10');
+    element(by.id('start-year')).sendKeys('2020');
+    element(by.id('start-hour')).sendKeys('10');
+    element(by.id('start-minutes')).sendKeys('10');
+    element(by.id('start-period')).sendKeys('AM');
+    element(by.id('end-month')).sendKeys('10');
+    element(by.id('end-day')).sendKeys('10');
+    element(by.id('end-year')).sendKeys('2020');
+    element(by.id('end-hour')).sendKeys('10');
+    element(by.id('end-minutes')).sendKeys('10');
+    element(by.id('end-period')).sendKeys('PM');
+    element(by.id('signature')).sendKeys('SA');
+    element(by.id('submit-application')).click();
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+  });
 });
