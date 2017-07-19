@@ -12,5 +12,8 @@ vcapConstants.bucket = VCAPServices.s3[0].credentials.bucket;
 vcapConstants.middleLayerBaseUrl = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_BASE_URL;
 vcapConstants.middleLayerUsername = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_USERNAME;
 vcapConstants.middleLayerPassword = VCAPServices['user-provided'][0].credentials.MIDDLELAYER_PASSWORD;
+vcapConstants.intakeClientBaseUrl = VCAPServices['user-provided'][1].credentials.INTAKE_CLIENT_BASE_URL;
+vcapConstants.intakeUsername = VCAPServices['user-provided'][1].credentials.INTAKE_USERNAME;
+vcapConstants.intakePassword = VCAPServices['user-provided'][1].credentials.INTAKE_PASSWORD;
 
 module.exports = vcapConstants;
