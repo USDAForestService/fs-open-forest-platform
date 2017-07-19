@@ -33,8 +33,7 @@ let authenticator = function(req, res, next) {
   if (!user || !user.name || !user.pass) {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
     res.sendStatus(401);
-  }
-  if (user.name === vcapServices.intakeUsername && user.pass === vcapServices.intakePassword) {
+  } else if (user.name === vcapServices.intakeUsername && user.pass === vcapServices.intakePassword) {
     next();
   } else {
     res.sendStatus(401);
