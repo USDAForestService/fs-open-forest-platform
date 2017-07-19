@@ -7,6 +7,7 @@ let helmet = require('helmet');
 let noncommercial = require('./noncommercial.es6');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
+let vcapServices = require('./vcap-services.es6');
 
 let app = express();
 
@@ -17,7 +18,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 app.options('*', function(req, res) {
-  res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
   res.set('Access-Control-Allow-Credentials', true);
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
@@ -26,14 +27,14 @@ app.options('*', function(req, res) {
 
 /* Authentication middleware. */
 let authenticator = function(req, res, next) {
-  res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
   res.set('Access-Control-Allow-Credentials', true);
   let user = auth(req);
   if (!user || !user.name || !user.pass) {
     res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
     res.sendStatus(401);
   }
-  if (user.name === 'username' && user.pass === 'password') {
+  if (user.name === vcapServices.intakeUsername && user.pass === vcapServices.intakePassword) {
     next();
   } else {
     res.sendStatus(401);
