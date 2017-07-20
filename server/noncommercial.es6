@@ -161,23 +161,6 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateCollectionFromDatabaseToClient = applications => {
-  for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToClient(applications[i]);
-  }
-  return applications;
-};
-
-noncommercialRestHandlers.getAll = (req, res) => {
-  NoncommercialApplication.findAll()
-    .then(results => {
-      res.status(200).json(translateCollectionFromDatabaseToClient(results));
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-};
-
 noncommercialRestHandlers.getOne = (req, res) => {
   NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {

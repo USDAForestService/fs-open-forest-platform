@@ -162,22 +162,25 @@ let translateFromDatabaseToClient = input => {
         }
       },
       experienceFields: {
-        haveCitations: input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0 ? true : false,
-        haveNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits !== undefined && input.tempOutfitterFieldsExpNatForestPermits.length > 0 ? true : false,
-        haveOtherPermits: input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0 ? true : false,
+        haveCitations:
+          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
+            ? true
+            : false,
+        haveNationalForestPermits:
+          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0
+            ? true
+            : false,
+        haveOtherPermits:
+          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
+            ? true
+            : false,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
         listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
         listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
       }
     }
   };
-};
-
-let translateCollectionFromDatabaseToClient = applications => {
-  for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToClient(applications[i]);
-  }
-  return applications;
 };
 
 // S3 Setup
@@ -248,16 +251,6 @@ tempOutfitterRestHandlers.getOne = (req, res) => {
     })
     .catch(error => {
       res.status(500).json(error.message);
-    });
-};
-
-tempOutfitterRestHandlers.getAll = (req, res) => {
-  TempOutfitterApplication.findAll()
-    .then(results => {
-      res.status(200).json(translateCollectionFromDatabaseToClient(results));
-    })
-    .catch(error => {
-      res.status(500).json(error);
     });
 };
 
