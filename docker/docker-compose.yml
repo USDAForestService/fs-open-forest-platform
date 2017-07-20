@@ -1,6 +1,14 @@
 version: "3"
 services:
-  web-server:
+  fs-intake-postgres:
+    image: postgres:9.6.3
+    ports:
+      - "5433:5432"
+    networks:
+      - fs-intake
+    environment:
+      POSTGRES_PASSWORD: postgres
+  fs-intake-server:
     build:
       context: ..
       dockerfile: docker/Dockerfile-server
@@ -9,7 +17,13 @@ services:
     volumes:
       - ../server:/app
       - /app/node_modules
-  frontend-server:
+    depends_on:
+      - fs-intake-postgres
+    networks:
+      - fs-intake
+    links:
+      - fs-intake-postgres
+  fs-intake-frontend:
     build:
       context: ..
       dockerfile: docker/Dockerfile-frontend
@@ -18,3 +32,19 @@ services:
     volumes:
       - ../frontend:/app
       - /app/node_modules
+    depends_on:
+      - fs-intake-server
+    networks:
+      - fs-intake
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - fs-intake-postgres
+    networks:
+      - fs-intake
+    links:
+      - fs-intake-postgres
+networks:
+  fs-intake:
