@@ -5,6 +5,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -33,23 +34,23 @@ export class TemporaryOutfittersComponent implements OnInit {
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
-      type: ['tempOutfitters', [Validators.required]],
-      signature: ['', [Validators.required]],
+      type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
+      signature: ['', [Validators.required, alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         emailAddress: ['', Validators.required],
-        organizationName: [''],
-        primaryFirstName: ['', [Validators.required]],
-        primaryLastName: ['', [Validators.required]],
-        orgType: ['', [Validators.required]],
+        organizationName: ['', alphanumericValidator()],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
+        orgType: ['', [Validators.required, alphanumericValidator()]],
         website: ['', [Validators.pattern('https?://.+')]]
       }),
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
-        advertisingDescription: ['', [Validators.required]],
+        advertisingDescription: ['', [Validators.required, alphanumericValidator()]],
         advertisingURL: ['', [Validators.pattern('https?://.+')]],
-        clientCharges: ['', [Validators.required]],
-        experienceList: ['']
+        clientCharges: ['', [Validators.required, alphanumericValidator()]],
+        experienceList: ['', [alphanumericValidator()]]
       })
     });
 
@@ -93,17 +94,19 @@ export class TemporaryOutfittersComponent implements OnInit {
     if (!form.valid) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
-        persistedApplication => {
-          this.applicationId = persistedApplication.applicationId;
-          this.uploadFiles = true;
-          this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
+      this.applicationService
+        .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/')
+        .subscribe(
+          persistedApplication => {
+            this.applicationId = persistedApplication.applicationId;
+            this.uploadFiles = true;
+            this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scroll(0, 0);
+          }
+        );
     }
   }
 
