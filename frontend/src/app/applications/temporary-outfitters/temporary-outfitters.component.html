@@ -94,6 +94,7 @@
 
         <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
         <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
+        <span id="alphanumeric-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.hasError('alphanumericRequirement')">Field requires an alphanumeric character.</span>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
