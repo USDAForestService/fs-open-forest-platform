@@ -27,18 +27,29 @@
     </div>
     <h2>Contact Us</h2>
     <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
-    <div class="contact-details">
-      <h3>Place Holderson</h3>
+    <div class="contact-details" *ngIf="type === 'noncommercial'">
+      <h3>Noncommercial contact</h3>
+      <p class="title-description">Interesting title description.</p>
+      <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
+      <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
+    </div>
+    <div class="contact-details" *ngIf="type === 'temp-outfitter'">
+      <h3>Temp outfitter contact</h3>
       <p class="title-description">Interesting title description.</p>
       <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
       <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
     </div>
     <h2>Thank you for your interest in our National Forests.</h2>
     <p>The links listed below contain information about the National Forest system and how you can safefly and successfully enjoy them.</p>
-    <p>
-      <a class="usa-button" href="https://fs.fed.us/">Placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Placeholder Link</a>
+    <p *ngIf="type === 'noncommercial'">
+      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+    </p>
+    <p *ngIf="type === 'temp-outfitter'">
+      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
+      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
+      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
     </p>
   </div>
 </section>
