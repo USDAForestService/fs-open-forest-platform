@@ -9,4 +9,5 @@ applications:
   services:
     - fs-intake-api-prod-db
     - fs-intake-prod-s3
+    - intake-client-service
     - middlelayer-service

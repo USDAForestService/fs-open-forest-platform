@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 
 var noncommercialModelData = require('./data/noncommercial-model-test-data.es6');
 
-var sendAcceptedNoncommercialApplicationToMiddleLayer = require('../middlelayer-interaction.es6');
+var middlelayer = require('../middlelayer-interaction.es6');
 
 var nock = require('nock');
 
@@ -26,11 +26,10 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(
-      noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure
-    );
+    middlelayer
+      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .then(success)
+      .catch(failure);
   });
 
   it('should pass middle layer auth, but fail mock middle layer send', done => {
@@ -52,11 +51,10 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(
-      noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure
-    );
+    middlelayer
+      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .then(success)
+      .catch(failure);
   });
 
   it('should pass middle layer auth, and pass middle layer send', done => {
@@ -77,10 +75,9 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    sendAcceptedNoncommercialApplicationToMiddleLayer(
-      noncommercialModelData.noncommercialModelPerson.create(),
-      success,
-      failure
-    );
+    middlelayer
+      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .then(success)
+      .catch(failure);
   });
 });
