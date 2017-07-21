@@ -2,6 +2,7 @@
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
 [![Dependency Status](https://www.versioneye.com/user/projects/59721f9e368b08004cede291/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59721f9e368b08004cede291)
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
+[![codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/sprint-6-development/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
