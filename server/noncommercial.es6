@@ -1,7 +1,7 @@
 'use strict';
 
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let sendAcceptedNoncommercialApplicationToMiddleLayer = require('./middlelayer-interaction.es6');
+let middlelayer = require('./middlelayer-interaction.es6');
 let validator = require('./validation.es6');
 
 let noncommercialRestHandlers = {};
@@ -161,23 +161,6 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateCollectionFromDatabaseToClient = applications => {
-  for (var i = 0; i < applications.length; i++) {
-    applications[i] = translateFromDatabaseToClient(applications[i]);
-  }
-  return applications;
-};
-
-noncommercialRestHandlers.getAll = (req, res) => {
-  NoncommercialApplication.findAll()
-    .then(results => {
-      res.status(200).json(translateCollectionFromDatabaseToClient(results));
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-};
-
 noncommercialRestHandlers.getOne = (req, res) => {
   NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
@@ -220,9 +203,9 @@ noncommercialRestHandlers.update = (req, res) => {
     if (app) {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
-        sendAcceptedNoncommercialApplicationToMiddleLayer(
-          app,
-          response => {
+        middlelayer
+          .acceptNoncommercialPermitApplication(app)
+          .then(response => {
             app.controlNumber = response.controlNumber;
             app
               .save()
@@ -232,11 +215,10 @@ noncommercialRestHandlers.update = (req, res) => {
               .catch(error => {
                 res.status(500).json(error);
               });
-          },
-          error => {
-            res.status(400).send(error);
-          }
-        );
+          })
+          .catch(error => {
+            res.status(500).json(error);
+          });
       } else {
         app
           .save()

@@ -31,11 +31,11 @@
     <div class="application-list">
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
+        <div>Type</div>
         <div>Event name</div>
         <div>Date submitted</div>
         <div>Start date</div>
         <div>End date</div>
-        <div>Location</div>
         <div>Permit holder</div>
         <div>&nbsp;</div>
       </div>
@@ -44,18 +44,21 @@
         <div *ngIf="application.status === 'Received'">
           <div *ngIf="isOverTwoDaysOld(application.createdAt)"><div class="warning-icon"></div></div>
         </div>
+        <label>Application type</label>
+        <div>{{ application.type }}</div>
         <label>Event name</label>
-        <div><strong>{{ application.eventName }}</strong></div>
+        <div *ngIf="application.type === 'Noncommercial'"><strong>{{ application.eventName }}</strong></div>
+        <div *ngIf="application.type === 'Temp outfitter'"><strong>{{ application.applicantInfoOrganizationName }}</strong></div>
         <label>Date submitted</label>
         <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
         <label>Start date</label>
-        <div [ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.dateTimeRange.startDateTime)}">{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.noncommercialFieldsStartDateTime)}">{{ application.noncommercialFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>End date</label>
-        <div>{{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
-        <label>Location</label>
-        <div>{{ application.noncommercialFields.locationDescription }}</div>
+        <div *ngIf="application.type === 'Noncommercial'">{{ application.noncommercialFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>Permit holder</label>
-        <div>{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</div>
+        <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
       </div>
     </div>

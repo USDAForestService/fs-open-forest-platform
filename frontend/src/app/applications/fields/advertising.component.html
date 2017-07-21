@@ -10,8 +10,8 @@
     <span id="advertising-description-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="tempOutfitterFields.controls.advertisingDescription.invalid && tempOutfitterFields.controls.advertisingDescription.touched">Advertising description is required.</span>
 
     <label class="usa-input" for="advertising-url">Promotional website (optional)</label>
-    <input id="advertising-url" type="url" formControlName="advertisingURL" />
-    <!-- TODO: validation -->
+    <input id="advertising-url" type="url" formControlName="advertisingURL" pattern="https?://.+" />
+    <span id="advertising-url-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="tempOutfitterFields.controls.advertisingURL.invalid && tempOutfitterFields.controls.advertisingURL.touched">Website requires a valid URL.</span>
 
   </fieldset>
 </ng-container>

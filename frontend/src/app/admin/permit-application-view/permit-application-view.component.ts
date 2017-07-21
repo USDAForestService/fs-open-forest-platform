@@ -23,7 +23,12 @@ export class PermitApplicationViewComponent implements OnInit {
     status: ''
   };
 
-  constructor(private alertService: AlertService, private applicationService: ApplicationService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private alertService: AlertService,
+    private applicationService: ApplicationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   getApplication(id) {
     this.applicationService.getOne(id).subscribe(
@@ -42,9 +47,15 @@ export class PermitApplicationViewComponent implements OnInit {
         if (status === 'Accepted') {
           this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
         }
+        if (status === 'Hold') {
+          this.alertService.addSuccessMessage('Permit application successfully put on hold.');
+        }
+        if (status === 'Returned') {
+          this.alertService.addSuccessMessage('Permit application successfully rejected.');
+        }
         this.router.navigate(['admin/applications']);
       },
-      (e: any) => {
+      (error: any) => {
         this.errorMessage = 'There was an error updating this application.';
         window.scrollTo(0, 200);
       }
