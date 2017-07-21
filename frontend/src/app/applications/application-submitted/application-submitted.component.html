@@ -1,55 +1,63 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1>Submitted for review!</h1>
-    <p class="review-summary">
-      Your permit application for <strong>{{application.eventName}}</strong> has been submitted for review, but is <strong>NOT APPROVED</strong> until you hear from a special use administrator.
-      Submitting an application does not guarantee your permit will be approved.
-      <strong>A confirmation email was sent to {{application.applicantInfo.emailAddress}}.</strong>
-    </p>
-    <h2>What Happens Next?</h2>
-    <div class="usa-grid-full">
-      <div class="next-steps usa-width-one-fourth">
-        <span class="step-number">1</span>
-        <p><strong>Your application will be reviewed by our staff within 48 hours.</strong></p>
-      </div>
-      <div class="next-steps usa-width-one-fourth">
-        <span class="step-number">2</span>
-        <p><strong>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</strong></p>
-      </div>
-      <div class="next-steps usa-width-one-fourth">
-        <span class="step-number">3</span>
-        <p><strong>Once your application has been reviewed by our staff, you will be notified of the application status.</strong></p>
-      </div>
-      <div class="next-steps usa-width-one-fourth">
-        <span class="step-number">4</span>
-        <p><strong>If your application is approved, you will receive your permit via U.S. mail within 2 weeks of approval.</strong></p>
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">{{ errorMessage }}</p>
       </div>
     </div>
-    <h2>Contact Us</h2>
-    <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
-    <div class="contact-details" *ngIf="type === 'noncommercial'">
-      <h3>Noncommercial contact</h3>
-      <p class="title-description">Interesting title description.</p>
-      <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
-      <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
-    </div>
-    <div class="contact-details" *ngIf="type === 'temp-outfitter'">
-      <h3>Temp outfitter contact</h3>
-      <p class="title-description">Interesting title description.</p>
-      <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
-      <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
-    </div>
-    <h2>Thank you for your interest in our National Forests.</h2>
-    <p>The links listed below contain information about the National Forest system and how you can safefly and successfully enjoy them.</p>
-    <p *ngIf="type === 'noncommercial'">
-      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-    </p>
-    <p *ngIf="type === 'temp-outfitter'">
-      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-      <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-    </p>
+    <ng-container *ngIf="!errorMessage">
+      <h1>Submitted for review!</h1>
+      <p class="review-summary">
+        Your permit application for <strong>{{application.eventName}}</strong> has been submitted for review, but is <strong>NOT APPROVED</strong> until you hear from a special use administrator.
+        Submitting an application does not guarantee your permit will be approved.
+        <strong>A confirmation email was sent to {{application.applicantInfo.emailAddress}}.</strong>
+      </p>
+      <h2>What Happens Next?</h2>
+      <div class="usa-grid-full">
+        <div class="next-steps usa-width-one-fourth">
+          <span class="step-number">1</span>
+          <p><strong>Your application will be reviewed by our staff within 48 hours.</strong></p>
+        </div>
+        <div class="next-steps usa-width-one-fourth">
+          <span class="step-number">2</span>
+          <p><strong>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</strong></p>
+        </div>
+        <div class="next-steps usa-width-one-fourth">
+          <span class="step-number">3</span>
+          <p><strong>Once your application has been reviewed by our staff, you will be notified of the application status.</strong></p>
+        </div>
+        <div class="next-steps usa-width-one-fourth">
+          <span class="step-number">4</span>
+          <p><strong>If your application is approved, you will receive your permit via U.S. mail within 2 weeks of approval.</strong></p>
+        </div>
+      </div>
+      <h2>Contact Us</h2>
+      <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
+      <div class="contact-details" *ngIf="type === 'noncommercial'">
+        <h3>Noncommercial contact</h3>
+        <p class="title-description">Interesting title description.</p>
+        <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
+        <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
+      </div>
+      <div class="contact-details" *ngIf="type === 'temp-outfitter'">
+        <h3>Temp outfitter contact</h3>
+        <p class="title-description">Interesting title description.</p>
+        <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
+        <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
+      </div>
+      <h2>Thank you for your interest in our National Forests.</h2>
+      <p>The links listed below contain information about the National Forest system and how you can safefly and successfully enjoy them.</p>
+      <p *ngIf="type === 'noncommercial'">
+        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
+      </p>
+      <p *ngIf="type === 'temp-outfitter'">
+        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
+        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
+        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
+      </p>
+    </ng-container>
   </div>
 </section>
