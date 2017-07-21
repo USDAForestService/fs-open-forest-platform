@@ -7,12 +7,15 @@ var server = require('../app.es6');
 var testURL = '/permits/applications/special-uses/noncommercial';
 var vcap = require('../vcap-services.es6');
 
+var auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
+
 describe('noncommercial tests', () => {
   describe('POST tests', () => {
     it('should return a 201 response and a db generated applicationId', done => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(noncommercialTestData.singlePermitHolder.create())
         .expect('Content-Type', /json/)
         .expect(/"applicationId":[\d]+/)
@@ -28,6 +31,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(201, done);
@@ -40,6 +44,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(201, done);
@@ -52,6 +57,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect({ errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime'] })
@@ -65,6 +71,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect({ errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime'] })
@@ -78,6 +85,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect({ errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime'] })
@@ -91,6 +99,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect({ errors: ['pattern-dateTimeRange.startDateTime', 'pattern-dateTimeRange.endDateTime'] })
@@ -105,6 +114,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/\{"errors":\["pattern-region"\]\}/)
@@ -118,6 +128,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/\{"errors":\["required-region"\]\}/)
@@ -131,6 +142,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/\{"errors":\["required-applicantInfo.dayPhone.areaCode"\]\}/)
@@ -143,6 +155,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/"type-applicantInfo.dayPhone.areaCode"/)
@@ -156,6 +169,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/"required-region"/)
@@ -172,6 +186,7 @@ describe('noncommercial tests', () => {
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
+        .set('Authorization', auth)
         .send(data)
         .expect('Content-Type', /json/)
         .expect(/"required-applicantInfo.eveningPhone.areaCode"/)
@@ -185,6 +200,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"required-eventName"/)
@@ -197,6 +213,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"required-noncommercialFields.numberParticipants"/)
@@ -209,6 +226,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"required-noncommercialFields.spectators"/)
@@ -221,6 +239,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"required-dateTimeRange.startDateTime"/)
@@ -233,6 +252,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"required-dateTimeRange.endDateTime"/)
@@ -245,6 +265,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"pattern-dateTimeRange.startDateTime"/)
@@ -257,6 +278,7 @@ describe('noncommercial tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
       .expect(/"pattern-dateTimeRange.endDateTime"/)
@@ -265,20 +287,16 @@ describe('noncommercial tests', () => {
 });
 
 describe('GET tests', () => {
-  it('should return at least one noncommercial application', done => {
-    request(server).get(testURL).expect('Content-Type', /json/).expect(/"applicationId":[\d]+/).expect(200, done);
-  });
-
   it('should return a 400 error when requesting a with a malformed uuid', done => {
-    request(server).get(testURL + '/malformed-uuid').expect(400, done);
+    request(server).get(testURL + '/malformed-uuid').set('Authorization', auth).expect(400, done);
   });
 
   it('should return a 404 error when requesting a nonexistant application', done => {
-    request(server).get(testURL + '/4dc61d60-a318-462f-8753-a57605303faa').expect(404, done);
+    request(server).get(testURL + '/4dc61d60-a318-462f-8753-a57605303faa').set('Authorization', auth).expect(404, done);
   });
 
   it('should return a 404 error when requesting a nonexistant resource', done => {
-    request(server).get('/nonexistant-resource').expect(404, done);
+    request(server).get('/nonexistant-resource').set('Authorization', auth).expect(404, done);
   });
 });
 
@@ -294,6 +312,7 @@ describe('Persistence tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolder.create())
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -306,6 +325,7 @@ describe('Persistence tests', () => {
   it('should return a persisted application with a primary permit holder', done => {
     request(server)
       .get(testURL + '/' + intakeControlNumber)
+      .set('Authorization', auth)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
         singlePermitHolderPersisted.appControlNumber = res.body.appControlNumber;
@@ -320,6 +340,7 @@ describe('Persistence tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolder.create())
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -332,6 +353,7 @@ describe('Persistence tests', () => {
   it('should return a persisted application with a primary permit holder and a secondary permit holder', done => {
     request(server)
       .get(testURL + '/' + intakeControlNumber)
+      .set('Authorization', auth)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
         singlePermitHolderWithSecondaryPermitHolderPersisted.appControlNumber = res.body.appControlNumber;
@@ -346,6 +368,7 @@ describe('Persistence tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderWithSecondaryPermitHolderwithCustomAddress.create())
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -358,6 +381,7 @@ describe('Persistence tests', () => {
   it('should return a persisted application with a primary permit holder and a secondary permit holder with a custom address', done => {
     request(server)
       .get(testURL + '/' + intakeControlNumber)
+      .set('Authorization', auth)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
         singlePermitHolderWithSecondaryPermitHolderwithCustomAddressPersisted.appControlNumber =
@@ -373,6 +397,7 @@ describe('Persistence tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderOrganization.create())
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -385,6 +410,7 @@ describe('Persistence tests', () => {
   it('should return a persisted application with a primary permit holder for an organization', done => {
     request(server)
       .get(testURL + '/' + intakeControlNumber)
+      .set('Authorization', auth)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
         singlePermitHolderOrganizationPersisted.appControlNumber = res.body.appControlNumber;
@@ -399,6 +425,7 @@ describe('Persistence tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderOrganizationWithCustomAddresses.create())
       .expect('Content-Type', /json/)
       .expect(function(res) {
@@ -411,6 +438,7 @@ describe('Persistence tests', () => {
   it('should return a persisted application for an organization with primary and secondary permit holder with unique addresses', done => {
     request(server)
       .get(testURL + '/' + intakeControlNumber)
+      .set('Authorization', auth)
       .expect(function(res) {
         // update the object with values only present after saving to the DB
         singlePermitHolderOrganizationWithCustomAddressesPersisted.appControlNumber = res.body.appControlNumber;
@@ -427,6 +455,7 @@ describe('Branch tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderUndefEveningPhone.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -437,6 +466,7 @@ describe('Branch tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderUndefOrgAddress.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -447,6 +477,7 @@ describe('Branch tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderOrganizationUndefPrimaryAddress.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -457,6 +488,7 @@ describe('Branch tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolderOrganizationUndefSecondaryAddress.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -471,6 +503,7 @@ describe('Branch tests', () => {
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(testData)
       .expect('Content-Type', /json/)
       .expect(500, done);
@@ -486,6 +519,7 @@ describe('Branch tests', () => {
     request(server)
       .put(testURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolder.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -504,6 +538,7 @@ describe('Branch tests', () => {
     request(server)
       .put(testURL + '/806d3550-309d-46ea-b12a-f021f7b3d448')
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolder.create())
       .expect(404, done);
   });
@@ -520,6 +555,7 @@ describe('Branch tests', () => {
     request(server)
       .put(testURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
       .expect(500, done);
   });
@@ -536,6 +572,7 @@ describe('Branch tests', () => {
     request(server)
       .put(testURL + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
+      .set('Authorization', auth)
       .send(noncommercialTestData.singlePermitHolder.create({ status: 'Accepted' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
