@@ -17,7 +17,8 @@
     "pg": "^6.2.2",
     "request": "^2.81.0",
     "sequelize": "^4.2.0",
-    "sequelize-cli": "^2.7.0"
+    "sequelize-cli": "^2.7.0",
+    "snyk": "^1.36.2"
   },
   "devDependencies": {
     "chai": "^4.0.2",
@@ -43,9 +44,12 @@
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha",
-    "report-coverage": "CODECOV_TOKEN=e61f7ed1-686a-4f48-95b3-02fa7085995e ./node_modules/nyc/bin/nyc report --reporter=lcov > coverage.lcov && codecov"
+    "report-coverage": "CODECOV_TOKEN=e61f7ed1-686a-4f48-95b3-02fa7085995e ./node_modules/nyc/bin/nyc report --reporter=lcov > coverage.lcov && codecov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": "^6.10.3"
-  }
+  },
+  "snyk": true
 }
