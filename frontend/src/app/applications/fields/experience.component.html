@@ -1,7 +1,30 @@
-<fieldset [formGroup]="tempOutfittersFields">
-  <legend>Experience</legend>
-  
-  <label class="usa-input" for="experience-list">List all permits for outfitting and guiding on National Forest System lands that you have held in the past 3 years.  If you received a performance evaluation from the Forest Service, attach a copy.   If you are relying on outfitting and guiding experience with other federal or state agencies, list any permits that you have held with those agencies in the past 3 years and provide a copy of any performance evaluations received.  List all citations or violations received in association with outfitting and guiding activities.</label>
-  <input id="experience-list" type="text" formControlName="experienceList" />
-  <span id="experience-list-error" class="usa-input-error-message" role="alert" [hidden]="tempOutfittersFields.controls.experienceList.valid || tempOutfittersFields.controls.experienceList.untouched">Experience list is required.</span>
-</fieldset>
+<ng-container [formGroup]="parentForm">
+  <fieldset formGroupName="{{ experienceFields }}">
+    <legend>Experience</legend>
+
+    <input id="have-national-forest-permits" type="checkbox" formControlName="haveNationalForestPermits" />
+    <label class="usa-input" for="have-national-forest-permits">I have held permits for outfitting and guiding on National Forest System lands in the past 3 years.</label>
+    <ng-container *ngIf="parentForm.get('experienceFields.haveNationalForestPermits').value">
+      <label class="usa-input" for="list-all-national-forest-permits">List all permits for outfitting and guiding on National Forest System lands that you have held in the past 3 years.</label>
+      <textarea id="list-all-national-forest-permits" formControlName="listAllNationalForestPermits" aria-required="true"></textarea>
+      <span id="list-all-national-forest-permits-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('experienceFields.listAllNationalForestPermits').invalid && parentForm.get('experienceFields.listAllNationalForestPermits').touched">A list of your US Forest Service permits is required.</span>
+    </ng-container>
+
+    <input id="have-other-permits" type="checkbox" formControlName="haveOtherPermits" />
+    <label class="usa-input" for="have-other-permits">I have held permits with other federal or state agencies in the past 3 years.</label>
+    <ng-container *ngIf="parentForm.get('experienceFields.haveOtherPermits').value">
+      <label class="usa-input" for="list-all-other-permits">List all permits that you have held with other federal or state agencies in the past 3 years.</label>
+      <textarea id="list-all-other-permits" formControlName="listAllOtherPermits" aria-required="true"></textarea>
+      <span id="list-all-other-permits-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('experienceFields.listAllOtherPermits').invalid && parentForm.get('experienceFields.listAllOtherPermits').touched">A list of your other permits is required.</span>
+    </ng-container>
+
+    <input id="have-citations" type="checkbox" formControlName="haveCitations" />
+    <label class="usa-input" for="have-citations">I have been issued citations or violations in association with outfitting and guiding activities.</label>
+    <ng-container *ngIf="parentForm.get('experienceFields.haveCitations').value">
+      <label class="usa-input" for="list-all-other-permits">List all citations or violations received in association with outfitting and guiding activities.</label>
+      <textarea id="list-all-citations" formControlName="listAllCitations" aria-required="true"></textarea>
+      <span id="list-all-citations-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('experienceFields.listAllCitations').invalid && parentForm.get('experienceFields.listAllCitations').touched">A list of your citations or violations is required.</span>
+    </ng-container>
+
+  </fieldset>
+</ng-container>

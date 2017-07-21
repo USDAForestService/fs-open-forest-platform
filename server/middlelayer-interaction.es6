@@ -6,7 +6,6 @@ let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
 
 module.exports = (application, successCallback, failureCallback) => {
-
   let authOptions = {
     url: vcapServices.middleLayerBaseUrl + 'auth',
     json: true,

@@ -1,7 +1,11 @@
 .thin-grey-border {
-  border: solid 1px $grey;
+  border: solid 1px $dark-grey;
 }
 
 .thin-grey-shadow {
   box-shadow: 0 0 0 2px $dark-grey ;
+}
+
+.focus {
+  box-shadow: 0 0 3px $fs-blue-light, 0 0 7px $fs-blue-light;
 }

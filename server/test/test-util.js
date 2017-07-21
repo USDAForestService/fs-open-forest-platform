@@ -5,9 +5,7 @@ var util = require('../util.es6');
 var noncommercialModels = require('./data/noncommercial-model-test-data.es6');
 
 describe('util tests', () => {
-
   describe('collate errors tests', () => {
-
     it('should push an error string with a prefix onto the error array for enum error', () => {
       let result = {
         errors: [
@@ -24,7 +22,6 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('enum-prefixtest.testfield');
-
     });
 
     it('should push an error string without a prefix onto the error array for enum error', () => {
@@ -43,7 +40,6 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('enum-testfield');
-
     });
 
     it('should push an error string without a prefix onto the error array for required error not just instance', () => {
@@ -63,7 +59,6 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-testObj.testField');
-
     });
 
     it('should push an error string without a prefix onto the error array for required error just instance', () => {
@@ -83,7 +78,6 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-testField');
-
     });
 
     it('should push an error string with a prefix onto the error array for required error just instance', () => {
@@ -103,9 +97,7 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-prefixtest.testField');
-
     });
-
   });
 
   describe('test intake to middle layer', () => {
@@ -113,15 +105,12 @@ describe('util tests', () => {
       let result = util.translateFromIntakeToMiddleLayer(noncommercialModels.noncommercialModelPerson.create());
 
       expect(result.applicantInfo.mailingAddress).to.equal('111 Oak St');
-
     });
 
     it('should correctly put the org address in middle layer object', () => {
       let result = util.translateFromIntakeToMiddleLayer(noncommercialModels.noncommercialModelOrg.create());
 
       expect(result.applicantInfo.mailingAddress).to.equal('999 Birch St');
-
     });
   });
-
 });

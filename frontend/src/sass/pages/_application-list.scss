@@ -20,7 +20,7 @@ app-permit-application-list {
       display: table-cell;
       font-size: 14px;
       font-weight: bold;
-      padding: 20px 10px;
+      padding: 10px;
       text-transform: uppercase;
       vertical-align: middle;
     }
@@ -40,7 +40,7 @@ app-permit-application-list {
     }
     div {
       display: table-cell;
-      padding: 20px 10px;
+      padding: 10px;
       vertical-align: middle;
     }
   }
@@ -67,7 +67,15 @@ app-permit-application-list {
   color: red;
 }
 
-.application-deadline-warning {
+div.warning-icon {
+  background-image: url('../node_modules/uswds/dist/img/alerts/warning.svg');
+  background-size: 40px 50px;
+  height: 40px;
+  padding: 0;
+  width: 50px;
+}
+
+app-permit-application-list .usa-alert {
   text-align: left;
   border: 1px solid $black;
 }

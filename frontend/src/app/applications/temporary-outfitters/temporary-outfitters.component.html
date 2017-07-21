@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" role="alert">
+      <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -15,10 +15,8 @@
 
       <fieldset>
         <legend>Applicant information</legend>
-        <h3>Applicant Name</h3>
         <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Applicant"></app-permit-holder-name>
         <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
-        <h3>Applicant's complete address</h3>
         <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
         <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
@@ -27,8 +25,8 @@
 
         <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
 
-        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'">
-          <input id="individual-citizen" type="checkbox" formControlName="applicationForm.controls.tempOutfittersFields.individualIsCitizen" />
+        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'" [formGroup]="applicationForm.controls.tempOutfitterFields">
+          <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
           <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
         </div>
 
@@ -38,15 +36,15 @@
           <app-file-upload-field name="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
         </div>
 
-        <app-small-business [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-small-business>
+        <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
 
       </fieldset>
 
-      <app-activity-description [parentForm]="applicationForm.get('tempOutfittersFields')"></app-activity-description>
+      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')"></app-activity-description>
 
-      <app-advertising [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-advertising>
+      <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
 
-      <app-client-charges [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-client-charges>
+      <app-client-charges [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-client-charges>
 
       <fieldset id="guide-document-wrapper">
         <legend>Guide identification</legend>
@@ -66,6 +64,7 @@
         <legend>Operating plan</legend>
 
         <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
+        <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx">click here</a> to download one.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
         <app-file-upload-field name="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
@@ -73,37 +72,32 @@
       <fieldset id="insurance-certificate-wrapper">
         <legend>Liability insurance</legend>
 
-        <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (see FSM 2713.1).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
+        <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
         <app-file-upload-field name="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
       <fieldset id="acknowledgement-of-risk-form-wrapper">
-        <legend>Client's acknowledgement of risk form</legend>
+        <legend>Client's acknowledgement of risk form (optional)</legend>
 
         <p>If you plan to use an acknowledgment of risk form, attach a copy.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
         <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <app-experience [tempOutfittersFields]="applicationForm.controls.tempOutfittersFields"></app-experience>
+      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')"></app-experience>
 
       <fieldset>
         <legend>Signature</legend>
-        <h3>I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</h3>
+        <p>I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
-        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" [hidden]="applicationForm.controls.signature.valid || applicationForm.controls.signature.untouched">Initials are required.</span>
+        <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
+        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
       </fieldset>
 
-      <button class="fs-button-green usa-button-big" type="submit">Submit your application.</button>
+      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
     </form>
   </div>
 
-  <div class="margin-top-2">
-    <div>myForm details:-</div>
-    <pre>Is myForm valid?: <br>{{applicationForm.valid | json}}</pre>
-    <pre>form value: <br>{{applicationForm.value | json}}</pre>
-  </div>
 </section>
