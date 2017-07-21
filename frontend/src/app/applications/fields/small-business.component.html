@@ -1,5 +1,9 @@
-<ng-container [formGroup]="tempOutfittersFields">
-  <p>Under the Regulatory Flexibility Act, a small entity is a firm that is "independently owned and operated" and "not dominant in its field of operation."  The United States Small Business Administration has developed size standards to identify what is considered a small business.  Under these standards, a business with annual receipts of less than $6.5 million constitutes a small business for recreation industries.  Additionally, a small organization is any nonprofit enterprise that is independently owned and operated and not dominant in its field.  A small government jurisdiction is a government of a city, county, town, township, village, school district, or special district with a population of less than 50,000.</p>
+<ng-container [formGroup]="tempOutfitterFields">
+  <hr>
   <input id="small-business" type="checkbox" formControlName="smallBusiness" />
-  <label class="usa-input" for="small-business">Under these criteria, are you a small entity?</label>
+  <label class="usa-input" for="small-business">Are you a small entity?</label>
+  <p class="help-text usa-form-hint">Please see the description below.</p>
+  <h6>
+    Under the Regulatory Flexibility Act, a small entity is a firm that is "independently owned and operated" and "not dominant in its field of operation."  The United States Small Business Administration has developed size standards to identify what is considered a small business.  Under these standards, a business with annual receipts of less than $6.5 million constitutes a small business for recreation industries.  Additionally, a small organization is any nonprofit enterprise that is independently owned and operated and not dominant in its field.  A small government jurisdiction is a government of a city, county, town, township, village, school district, or special district with a population of less than 50,000.
+  </h6>
 </ng-container>

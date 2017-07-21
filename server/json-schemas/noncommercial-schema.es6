@@ -1,33 +1,30 @@
 module.exports = {
-  'id':'/noncommercialPermit',
-  'type':'object',
-  'allOf':[
-    { '$ref': '/commonFields'},
+  id: '/noncommercialPermit',
+  type: 'object',
+  allOf: [
+    { $ref: '/commonFields' },
     {
-      'properties':{
-        'applicantInfo': {
-          '$ref': '/noncommercialApplicantInfo'
+      properties: {
+        applicantInfo: {
+          $ref: '/noncommercialApplicantInfo'
         },
-        'dateTimeRange': {
-          '$ref': '/dateTimeRange'
+        dateTimeRange: {
+          $ref: '/dateTimeRange'
         },
-        'eventName': {
-          'default':'',
-          'type': 'string'
+        eventName: {
+          default: '',
+          type: 'string'
         },
-        'type': {
-          'default': 'noncommercial',
-          'enum':[
-            'noncommercial',
-            'tempOutfitters'
-          ],
-          'type': 'string'
+        type: {
+          default: 'noncommercial',
+          enum: ['noncommercial', 'tempOutfitters'],
+          type: 'string'
         },
-        'noncommercialFields': {
-          '$ref': '/noncommercialFields'
+        noncommercialFields: {
+          $ref: '/noncommercialFields'
         }
       },
-      'required': ['applicantInfo', 'dateTimeRange', 'type', 'noncommercialFields', 'eventName']
+      required: ['applicantInfo', 'dateTimeRange', 'type', 'noncommercialFields', 'eventName']
     }
   ]
 };

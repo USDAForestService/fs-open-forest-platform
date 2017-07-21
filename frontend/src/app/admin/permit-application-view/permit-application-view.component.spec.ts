@@ -6,17 +6,17 @@ describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PermitApplicationViewComponent ]
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [PermitApplicationViewComponent]
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PermitApplicationViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 });
