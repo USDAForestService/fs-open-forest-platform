@@ -27,7 +27,7 @@ WORKDIR /app
 EXPOSE 8080
 
 # env vars for VCAP_SERVICES and DATABASE_URL
-ENV VCAP_SERVICES={\"user-provided\":[{\"credentials\":{\"MIDDLELAYER_BASE_URL\":\"http://localhost:8080/\",\"MIDDLELAYER_PASSWORD\":\"pass\",\"MIDDLELAYER_USERNAME\":\"user\"},\"label\":\"user-provided\",\"name\":\"middlelayer-service\",\"syslog_drain_url\":\"\",\"tags\":[],\"volume_mounts\":[]}],\"s3\":[{\"credentials\":{\"bucket\":\"bucket_name\",\"access_key_id\":\"\",\"region\":\"us-east-1\",\"secret_access_key\":\"\"}}]} DATABASE_URL=postgresql://postgres:postgres@fs-intake-postgres:5432/postgres
+ENV VCAP_SERVICES={\"user-provided\":[{\"credentials\":{\"MIDDLELAYER_BASE_URL\":\"http://localhost:8080/\",\"MIDDLELAYER_PASSWORD\":\"pass\",\"MIDDLELAYER_USERNAME\":\"user\"},\"label\":\"user-provided\",\"name\":\"middlelayer-service\",\"syslog_drain_url\":\"\",\"tags\":[],\"volume_mounts\":[]},{\"credentials\":{\"INTAKE_CLIENT_BASE_URL\":\"http://localhost:4200\",\"INTAKE_PASSWORD\":\"password\",\"INTAKE_USERNAME\":\"username\"},\"label\":\"user-provided\",\"name\":\"intake-client-service\",\"syslog_drain_url\":\"\",\"tags\":[],\"volume_mounts\":[]}],\"s3\":[{\"credentials\":{\"bucket\":\"bucket_name\",\"access_key_id\":\"\",\"region\":\"us-east-1\",\"secret_access_key\":\"\"}}]} DATABASE_URL=postgresql://postgres:postgres@fs-intake-postgres:5432/postgres
 
 # symlink the node_modules directory into the app dir
 RUN ln -s /node/node_modules /app/node_modules
