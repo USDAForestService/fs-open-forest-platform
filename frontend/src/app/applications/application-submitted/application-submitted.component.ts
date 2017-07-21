@@ -12,6 +12,7 @@ export class ApplicationSubmittedComponent implements OnInit {
   application = new SpecialUseApplication();
   // TODO Use type in teh template to filter content. type = 'noncommercial' or 'temp-outfitter'
   type: string;
+  errorMessage: string;
 
   constructor(private applicationService: ApplicationService, private route: ActivatedRoute, private router: Router) {}
 
@@ -21,8 +22,7 @@ export class ApplicationSubmittedComponent implements OnInit {
       this.applicationService.getOne(params['id']).subscribe(
         application => (this.application = application),
         (e: any) => {
-          // TODO: Get feedback from Peter on how to handle
-          console.log(e);
+          this.errorMessage = 'The application could not be found.';
         }
       );
     });
