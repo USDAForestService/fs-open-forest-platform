@@ -93,8 +93,7 @@
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
         <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
-        <span id="alphanumeric-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.hasError('alphanumericRequirement')">Field requires an alphanumeric character.</span>
+        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
