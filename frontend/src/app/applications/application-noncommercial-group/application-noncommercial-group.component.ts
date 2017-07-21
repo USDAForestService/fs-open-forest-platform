@@ -108,15 +108,17 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/').subscribe(
-        persistedApplication => {
-          this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
+      this.applicationService
+        .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
+        .subscribe(
+          persistedApplication => {
+            this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.applicationId}`]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scroll(0, 0);
+          }
+        );
     }
   }
 
