@@ -89,20 +89,20 @@ As an alternative to installing all the development tools necessary to run the e
   1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
 
 	```	
-	> cd fs-intake-module
-	> cd docker
+$ cd fs-intake-module
+$ cd docker
 	```	
 
   4. Now use Docker Compose to build and start the containers.
 
 	```
-	> docker-compose up --build --force-recreate
+$ docker-compose up --build --force-recreate
 	```	
 
   5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
 
 	```	
-	fs-intake-frontend_1  | webpack: Compiled successfully.
+fs-intake-frontend_1  | webpack: Compiled successfully.
 	```	
 
   6. The containers and servers are now running. There are four containers:
