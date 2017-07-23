@@ -88,24 +88,25 @@ As an alternative to installing all the development tools necessary to run the e
 
   1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
 
-	```
+	
    		> cd fs-intake-module
     	> cd docker
-	```
+	
 
   1. Now use Docker Compose to build and start the containers.
 
-	```
+	
     	> docker-compose up --build --force-recreate
-	```
+	
 
   1. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
 
-	```
+	
     	fs-intake-frontend_1  | webpack: Compiled successfully.
-	```
+	
 
   1. The containers and servers are now running. There are four containers:
+  
 
     - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
 
@@ -120,6 +121,7 @@ As an alternative to installing all the development tools necessary to run the e
       - Username: postgres
       - Password: postgres
       - Database: postgres
+      
 
 1. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
 
