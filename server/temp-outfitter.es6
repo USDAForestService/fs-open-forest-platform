@@ -5,11 +5,183 @@ let AWS = require('aws-sdk');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-// let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
 
-let tempOutfitterFuncs = {};
+let tempOutfitterRestHandlers = {};
+
+let translateFromClientToDatabase = input => {
+  return {
+    applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
+    applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
+    applicantInfoDayPhoneNumber: input.applicantInfo.dayPhone.number,
+    applicantInfoDayPhonePrefix: input.applicantInfo.dayPhone.prefix,
+    applicantInfoEmailAddress: input.applicantInfo.emailAddress,
+    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null,
+    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone
+      ? input.applicantInfo.eveningPhone.extension
+      : null,
+    applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
+    applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
+    applicantInfoFaxAreaCode: input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null,
+    applicantInfoFaxExtension: input.applicantInfo.fax ? input.applicantInfo.fax.extension : null,
+    applicantInfoFaxNumber: input.applicantInfo.fax ? input.applicantInfo.fax.number : null,
+    applicantInfoFaxPrefix: input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null,
+    applicantInfoOrganizationName: input.applicantInfo.organizationName,
+    applicantInfoOrgType: input.applicantInfo.orgType,
+    applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
+    applicantInfoPrimaryLastName: input.applicantInfo.primaryLastName,
+    applicantInfoPrimaryMailingAddress: input.applicantInfo.primaryAddress.mailingAddress,
+    applicantInfoPrimaryMailingAddress2: input.applicantInfo.primaryAddress.mailingAddress2,
+    applicantInfoPrimaryMailingCity: input.applicantInfo.primaryAddress.mailingCity,
+    applicantInfoPrimaryMailingState: input.applicantInfo.primaryAddress.mailingState,
+    applicantInfoPrimaryMailingZIP: input.applicantInfo.primaryAddress.mailingZIP,
+    applicantInfoWebsite: input.applicantInfo.website,
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
+    district: input.district,
+    forest: input.forest,
+    reasonForReturn: input.reasonForReturn,
+    region: input.region,
+    signature: input.signature,
+    tempOutfitterFieldsActDescFieldsAudienceDesc:
+      input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
+    tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
+      input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration,
+    tempOutfitterFieldsActDescFieldsEndDateTime:
+      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime,
+    tempOutfitterFieldsActDescFieldsListGovFacilities:
+      input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities,
+    tempOutfitterFieldsActDescFieldsListTempImprovements:
+      input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements,
+    tempOutfitterFieldsActDescFieldsLocationDesc:
+      input.tempOutfitterFields.activityDescriptionFields.locationDescription,
+    tempOutfitterFieldsActDescFieldsNumServiceDaysReq:
+      input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested,
+    tempOutfitterFieldsActDescFieldsNumTrips: input.tempOutfitterFields.activityDescriptionFields.numberOfTrips,
+    tempOutfitterFieldsActDescFieldsServProvided: input.tempOutfitterFields.activityDescriptionFields.servicesProvided,
+    tempOutfitterFieldsActDescFieldsStartDateTime:
+      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime,
+    tempOutfitterFieldsActDescFieldsStmtAssignedSite:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite,
+    tempOutfitterFieldsActDescFieldsStmtMotorizedEquip:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment,
+    tempOutfitterFieldsActDescFieldsStmtTransportLivestock:
+      input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock,
+    tempOutfitterFieldsAdvertisingDescription: input.tempOutfitterFields.advertisingDescription,
+    tempOutfitterFieldsAdvertisingUrl: input.tempOutfitterFields.advertisingURL,
+    tempOutfitterFieldsClientCharges: input.tempOutfitterFields.clientCharges,
+    tempOutfitterFieldsExperienceList: input.tempOutfitterFields.experienceList,
+    tempOutfitterFieldsIndividualCitizen: input.tempOutfitterFields.individualIsCitizen,
+    tempOutfitterFieldsSmallBusiness: input.tempOutfitterFields.smallBusiness,
+    type: input.type,
+    tempOutfitterFieldsActDescFieldsPartySize: input.tempOutfitterFields.activityDescriptionFields.partySize,
+    tempOutfitterFieldsExpAllCitations: input.tempOutfitterFields.experienceFields.listAllCitations,
+    tempOutfitterFieldsExpNatForestPermits: input.tempOutfitterFields.experienceFields.listAllNationalForestPermits,
+    tempOutfitterFieldsExpOtherPermits: input.tempOutfitterFields.experienceFields.listAllOtherPermits
+  };
+};
+
+let translateFromDatabaseToClient = input => {
+  return {
+    appControlNumber: input.appControlNumber,
+    applicationId: input.applicationId,
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
+    createdAt: input.createdAt,
+    district: input.district,
+    forest: input.forest,
+    reasonForReturn: input.reasonForReturn || undefined,
+    region: input.region,
+    signature: input.signature,
+    status: input.status,
+    type: input.type,
+    applicantInfo: {
+      emailAddress: input.applicantInfoEmailAddress,
+      primaryFirstName: input.applicantInfoPrimaryFirstName,
+      primaryLastName: input.applicantInfoPrimaryLastName,
+      primaryAddress: {
+        mailingAddress: input.applicantInfoPrimaryMailingAddress,
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2,
+        mailingCity: input.applicantInfoPrimaryMailingCity,
+        mailingState: input.applicantInfoPrimaryMailingState,
+        mailingZIP: input.applicantInfoPrimaryMailingZIP
+      },
+      website: input.applicantInfoWebsite,
+      organizationName: input.applicantInfoOrganizationName,
+      orgType: input.applicantInfoOrgType,
+      dayPhone: {
+        areaCode: input.applicantInfoDayPhoneAreaCode,
+        extension: input.applicantInfoDayPhoneExtension || undefined,
+        number: input.applicantInfoDayPhoneNumber,
+        prefix: input.applicantInfoDayPhonePrefix
+      },
+      eveningPhone: {
+        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
+        extension: input.applicantInfoEveningPhoneExtension || undefined,
+        number: input.applicantInfoEveningPhoneNumber || undefined,
+        prefix: input.applicantInfoEveningPhonePrefix || undefined
+      },
+      fax: {
+        areaCode: input.applicantInfoFaxAreaCode || undefined,
+        extension: input.applicantInfoFaxExtension || undefined,
+        number: input.applicantInfoFaxNumber || undefined,
+        prefix: input.applicantInfoFaxPrefix || undefined
+      }
+    },
+    tempOutfitterFields: {
+      advertisingDescription: input.tempOutfitterFieldsAdvertisingDescription,
+      advertisingURL: input.tempOutfitterFieldsAdvertisingUrl,
+      clientCharges: input.tempOutfitterFieldsClientCharges,
+      experienceList: input.tempOutfitterFieldsExperienceList,
+      individualIsCitizen: input.tempOutfitterFieldsIndividualCitizen,
+      smallBusiness: input.tempOutfitterFieldsSmallBusiness,
+      activityDescriptionFields: {
+        audienceDescription: input.tempOutfitterFieldsActDescFieldsAudienceDesc,
+        descriptionOfCleanupAndRestoration: input.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
+        haveLivestock: !!input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
+        haveMotorizedEquipment: !!input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
+        listOfGovernmentFacilities: input.tempOutfitterFieldsActDescFieldsListGovFacilities,
+        listOfTemporaryImprovements: input.tempOutfitterFieldsActDescFieldsListTempImprovements,
+        locationDescription: input.tempOutfitterFieldsActDescFieldsLocationDesc,
+        needAssignedSite: !!input.tempOutfitterFieldsActDescFieldsStmtAssignedSite,
+        needGovernmentFacilities: !!input.tempOutfitterFieldsActDescFieldsListGovFacilities,
+        needTemporaryImprovements: !!input.tempOutfitterFieldsActDescFieldsListTempImprovements,
+        numberOfTrips: input.tempOutfitterFieldsActDescFieldsNumTrips,
+        numberServiceDaysRequested: input.tempOutfitterFieldsActDescFieldsNumServiceDaysReq,
+        partySize: input.tempOutfitterFieldsActDescFieldsPartySize,
+        servicesProvided: input.tempOutfitterFieldsActDescFieldsServProvided,
+        statementOfAssignedSite: input.tempOutfitterFieldsActDescFieldsStmtAssignedSite,
+        statementOfMotorizedEquipment: input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
+        statementOfTransportationOfLivestock: input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
+        dateTimeRange: {
+          endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
+          startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime
+        }
+      },
+      experienceFields: {
+        haveCitations:
+          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
+            ? true
+            : false,
+        haveNationalForestPermits:
+          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0
+            ? true
+            : false,
+        haveOtherPermits:
+          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
+            ? true
+            : false,
+        listAllCitations: input.tempOutfitterFieldsExpAllCitations,
+        listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
+        listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
+      }
+    }
+  };
+};
 
 // S3 Setup
 
@@ -20,17 +192,17 @@ let s3 = new AWS.S3({
   region: vcapServices.region
 });
 
-tempOutfitterFuncs.streamToS3 = multer({
+tempOutfitterRestHandlers.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: vcapServices.bucket,
-    key: function(req, file, cb) {
-      cb(null, file.originalname); //use Date.now() for unique file keys
+    key: function(req, file, next) {
+      next(null, file.originalname); //use Date.now() for unique file keys
     }
   })
 });
 
-tempOutfitterFuncs.createAppFile = (req, res) => {
+tempOutfitterRestHandlers.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
     // applicationType: req.body.applicationType,
@@ -49,68 +221,14 @@ tempOutfitterFuncs.createAppFile = (req, res) => {
     });
 };
 
-tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
+tempOutfitterRestHandlers.create = (req, res) => {
   let errorRet = {};
-
   let errorArr = validator.validateTempOutfitter(req.body);
-
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
   } else {
-    // create the temp outfitter app object and persist
-    TempOutfitterApplication.create({
-      region: req.body.region,
-      forest: req.body.forest,
-      district: req.body.district,
-      authorizingOfficerName: req.body.authorizingOfficerName,
-      authorizingOfficerTitle: req.body.authorizingOfficerTitle,
-      applicantInfoPrimaryFirstName: req.body.applicantInfo.primaryFirstName,
-      applicantInfoPrimaryLastName: req.body.applicantInfo.primaryLastName,
-      applicantInfoDayPhoneAreaCode: req.body.applicantInfo.dayPhone.areaCode,
-      applicantInfoDayPhonePrefix: req.body.applicantInfo.dayPhone.prefix,
-      applicantInfoDayPhoneNumber: req.body.applicantInfo.dayPhone.number,
-      applicantInfoDayPhoneExtension: req.body.applicantInfo.dayPhone.extension,
-      applicantInfoEveningPhoneAreaCode: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.areaCode : null,
-      applicantInfoEveningPhonePrefix: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.prefix : null,
-      applicantInfoEveningPhoneNumber: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.number : null,
-      applicantInfoEveningPhoneExtension: req.body.applicantInfo.eveningPhone ? req.body.applicantInfo.eveningPhone.extension : null,
-      applicantInfoEmailAddress: req.body.applicantInfo.emailAddress,
-      applicantInfoPrimaryMailingAddress: req.body.applicantInfo.primaryAddress.mailingAddress,
-      applicantInfoPrimaryMailingAddress2: req.body.applicantInfo.primaryAddress.mailingAddress2,
-      applicantInfoPrimaryMailingCity: req.body.applicantInfo.primaryAddress.mailingCity,
-      applicantInfoPrimaryMailingState: req.body.applicantInfo.primaryAddress.mailingState,
-      applicantInfoPrimaryMailingZIP: req.body.applicantInfo.primaryAddress.mailingZIP,
-      applicantInfoOrganizationName: req.body.applicantInfo.organizationName,
-      applicantInfoWebsite: req.body.applicantInfo.website,
-      applicantInfoOrgType: req.body.applicantInfo.orgType,
-      type: req.body.type,
-      tempOutfitterFieldsIndividualCitizen: req.body.tempOutfitterFields.individualIsCitizen,
-      tempOutfitterFieldsSmallBusiness: req.body.tempOutfitterFields.smallBusiness,
-      tempOutfitterFieldsAdvertisingUrl: req.body.tempOutfitterFields.advertisingURL,
-      tempOutfitterFieldsAdvertisingDescription: req.body.tempOutfitterFields.advertisingDescription,
-      tempOutfitterFieldsClientCharges: req.body.tempOutfitterFields.clientCharges,
-      tempOutfitterFieldsExperienceList: req.body.tempOutfitterFields.experienceList,
-      signature: req.body.signature,
-      reasonForReturn: req.body.reasonForReturn,
-      applicantInfoFaxAreaCode: req.body.applicantInfo.faxNumber ? req.body.applicantInfo.faxNumber.areaCode : null,
-      applicantInfoFaxPrefix: req.body.applicantInfo.faxNumber ? req.body.applicantInfo.faxNumber.prefix : null,
-      applicantInfoFaxNumber: req.body.applicantInfo.faxNumber ? req.body.applicantInfo.faxNumber.number : null,
-      applicantInfoFaxExtension: req.body.applicantInfo.faxNumber ? req.body.applicantInfo.faxNumber.extension : null,
-      tempOutfitterFieldsActDescFieldsNumServiceDaysReq: req.body.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested,
-      tempOutfitterFieldsActDescFieldsNumTrips: req.body.tempOutfitterFields.activityDescriptionFields.numberOfTrips,
-      tempOutfitterFieldsActDescFieldsEndDateTime: req.body.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime,
-      tempOutfitterFieldsActDescFieldsStartDateTime: req.body.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime,
-      tempOutfitterFieldsActDescFieldsLocationDesc: req.body.tempOutfitterFields.activityDescriptionFields.locationDescription,
-      tempOutfitterFieldsActDescFieldsServProvided: req.body.tempOutfitterFields.activityDescriptionFields.servicesProvided,
-      tempOutfitterFieldsActDescFieldsAudienceDesc: req.body.tempOutfitterFields.activityDescriptionFields.audienceDescription,
-      tempOutfitterFieldsActDescFieldsListGovFacilities: req.body.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities,
-      tempOutfitterFieldsActDescFieldsListTempImprovements: req.body.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements,
-      tempOutfitterFieldsActDescFieldsStmtMotorizedEquip: req.body.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment,
-      tempOutfitterFieldsActDescFieldsStmtTransportLivestock: req.body.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock,
-      tempOutfitterFieldsActDescFieldsStmtAssignedSite: req.body.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite,
-      tempOutfitterFieldsActDescFieldsDescCleanupRestoration: req.body.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration
-    })
+    TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
@@ -122,18 +240,18 @@ tempOutfitterFuncs.createTempOutfitterApp = (req, res) => {
   }
 };
 
-tempOutfitterFuncs.getApp = (req, res) => {
+tempOutfitterRestHandlers.getOne = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
-        // TODO: build temp outfitter translator
-        // res.status(200).json(util.translateFromDatabaseToJSON(app));
-        res.status(200).json('not yet implemented');
+        res.status(200).json(translateFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
     })
-    .catch(error => res.status(400).json(error.message));
+    .catch(error => {
+      res.status(500).json(error.message);
+    });
 };
 
-module.exports = tempOutfitterFuncs;
+module.exports = tempOutfitterRestHandlers;

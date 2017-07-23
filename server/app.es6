@@ -1,73 +1,81 @@
 'use strict';
 
+let auth = require('basic-auth');
 let bodyParser = require('body-parser');
 let express = require('express');
-
-let tempOutfitter = require('./temp-outfitter.es6');
+let helmet = require('helmet');
 let noncommercial = require('./noncommercial.es6');
-let allAppFuncs = require('./application-general.es6');
-
-// server creation ----------------------------------------------------------
+let tempOutfitter = require('./temp-outfitter.es6');
+let util = require('./util.es6');
+let vcapServices = require('./vcap-services.es6');
 
 let app = express();
+
+/* Use helmet for increased security. */
+app.use(helmet());
+
+/* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
-// middleware that will add the Access-Control-Allow-Origin header to everything
-app.use(function(req, res, next) {
-  var origin = req.headers.origin;
-  if (origin === 'http://localhost:4200' || origin === 'http://localhost:49152') {
-    res.set('Access-Control-Allow-Origin', origin);
-  } else {
-    res.set('Access-Control-Allow-Origin', 'https://fs-intake-staging.app.cloud.gov');
-  }
-  res.set('Access-Control-Allow-Credentials', true);
-  next();
-});
-
-// set these headers on all of the OPTIONS preflight responses
 app.options('*', function(req, res) {
+  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
+  res.set('Access-Control-Allow-Credentials', true);
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
+/* Authentication middleware. */
+let authenticator = function(req, res, next) {
+  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
+  res.set('Access-Control-Allow-Credentials', true);
+  let user = auth(req);
+  if (process.env.PLATFORM === 'CircleCI') {
+    next();
+    return;
+  }
+  if (!user || !user.name || !user.pass) {
+    res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+    res.sendStatus(401);
+  } else if (user.name === vcapServices.intakeUsername && user.pass === vcapServices.intakePassword) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+};
+
+/* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
 
-// Endpoints
+/** Get a single noncommercial permit application. */
+app.get('/permits/applications/special-uses/noncommercial/:id', authenticator, noncommercial.getOne);
+/** Create a new noncommercial permit application. */
+app.post('/permits/applications/special-uses/noncommercial', authenticator, noncommercial.create);
+/** Update a noncommercial permit application. */
+app.put('/permits/applications/special-uses/noncommercial/:id', authenticator, noncommercial.update);
 
-// POST /permits/applications/special-uses/noncommercial/
-// creates a new noncommercial application
-app.post('/permits/applications/special-uses/noncommercial', noncommercial.createNoncommercialTempApp);
+/** Get a temp outfitter permit application. */
+app.get('/permits/applications/special-uses/temp-outfitters/:id', authenticator, tempOutfitter.getOne);
+/** Create a new temp outfitter permit application. */
+app.post('/permits/applications/special-uses/temp-outfitters', authenticator, tempOutfitter.create);
+/** Handle temp outfitter file upload and invokes streamToS3 function. */
+app.post(
+  '/permits/applications/special-uses/temp-outfitters/file',
+  authenticator,
+  tempOutfitter.streamToS3.array('file', 1),
+  tempOutfitter.attachFile
+);
 
-// POST /permits/applications/special-uses/temp-outfitters
-// creates a new temp outfitter application
-app.post('/permits/applications/special-uses/temp-outfitters', tempOutfitter.createTempOutfitterApp);
+/** Get all applications with status on Received or Hold. */
+app.get('/permits/applications', authenticator, util.getAllOpenApplications);
 
-// POST /permits/applications/special-uses/temp-outfitters/file
-// Handles temp outfitter file upload and invokes streamToS3 function
-app.post('/permits/applications/special-uses/temp-outfitters/file', tempOutfitter.streamToS3.array('file', 1), tempOutfitter.createAppFile);
-
-// PUT /permits/applications/special-uses/noncommercial/:tempControlNumber
-// updates an existing noncommercial application
-// may not be able to update everything wholesale due to possible field audit requirements
-app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.updateApp);
-
-// GET /permits/applications/special-uses/noncommercial/:tempControlNumber
-app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getApp);
-
-// GET /permits/applications/special-uses/temp-outfitters/:tempControlNumber
-app.get('/permits/applications/special-uses/temp-outfitters/:id', tempOutfitter.getApp);
-
-// GET /permits/applications
-// retrieves all applications in the system
-app.get('/permits/applications/special-uses/noncommercial', allAppFuncs.getAllApps);
-
+/** Get the number of seconds that this instance has been running. */
 app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-// start the server
+/* Start the server. */
 app.listen(8080);
 
-// export needed for testing
+/* Export needed for testing. */
 module.exports = app;

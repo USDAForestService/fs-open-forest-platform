@@ -41,13 +41,13 @@ export class TemporaryOutfittersComponent implements OnInit {
         primaryFirstName: ['', [Validators.required]],
         primaryLastName: ['', [Validators.required]],
         orgType: ['', [Validators.required]],
-        website: ['']
+        website: ['', [Validators.pattern('https?://.+')]]
       }),
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [Validators.required]],
-        advertisingURL: [''],
+        advertisingURL: ['', [Validators.pattern('https?://.+')]],
         clientCharges: ['', [Validators.required]],
         experienceList: ['']
       })
@@ -89,8 +89,9 @@ export class TemporaryOutfittersComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid) {
-      window.scroll(0, 0);
+      this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
         persistedApplication => {
