@@ -81,7 +81,8 @@
 
         <label class="usa-input" for="name">Event Name</label>
         <input id="name" formControlName="eventName" type="text" aria-required="true" />
-        <span id="name-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.eventName.invalid && applicationForm.controls.eventName.touched">Event name is required.</span>
+        <app-error-message id="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
+
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
         <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
       </fieldset>
@@ -90,18 +91,12 @@
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
         <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
+        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
 
     </form>
-
-    <div class="margin-top-2">
-  <div>myForm details:-</div>
-  <pre>Is myForm valid?: <br>{{applicationForm.valid | json}}</pre>
-  <pre>form value: <br>{{applicationForm.value | json}}</pre>
-</div>
 
   </div>
 </section>
