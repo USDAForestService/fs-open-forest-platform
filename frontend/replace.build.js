@@ -5,14 +5,14 @@ var newDate = new Date();
 const versionOptions = {
   files: 'src/environments/environment.prod.ts',
   from: /version: '(.*)'/g,
-  to: `version: ${buildVersion}`,
+  to: `version: '${buildVersion}'`,
   allowEmptyPaths: false
 };
 
 const dateOptions = {
   files: 'src/environments/environment.prod.ts',
   from: /buildDate: '(.*)'/g,
-  to: `buildDate: ${newDate}`,
+  to: `buildDate: '${newDate}'`,
   allowEmptyPaths: false
 };
 
