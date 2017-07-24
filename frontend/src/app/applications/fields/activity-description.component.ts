@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Component({
   selector: 'app-activity-description',
@@ -23,12 +24,12 @@ export class ActivityDescriptionComponent implements OnInit {
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: ['', [Validators.required]],
-      numberOfTrips: ['', [Validators.required]],
-      partySize: ['', [Validators.required]],
-      locationDescription: ['', [Validators.required]],
-      servicesProvided: ['', [Validators.required]],
-      audienceDescription: ['', [Validators.required]],
+      numberServiceDaysRequested: ['', [Validators.required, alphanumericValidator()]],
+      numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
+      partySize: ['', [Validators.required, alphanumericValidator()]],
+      locationDescription: ['', [Validators.required, alphanumericValidator()]],
+      servicesProvided: ['', [Validators.required, alphanumericValidator()]],
+      audienceDescription: ['', [Validators.required, alphanumericValidator()]],
       needGovernmentFacilities: [false],
       listOfGovernmentFacilities: [''],
       needTemporaryImprovements: [false],
@@ -39,7 +40,7 @@ export class ActivityDescriptionComponent implements OnInit {
       statementOfTransportationOfLivestock: [''],
       needAssignedSite: [false],
       statementOfAssignedSite: [''],
-      descriptionOfCleanupAndRestoration: ['', [Validators.required]]
+      descriptionOfCleanupAndRestoration: ['', [Validators.required, alphanumericValidator()]]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 
