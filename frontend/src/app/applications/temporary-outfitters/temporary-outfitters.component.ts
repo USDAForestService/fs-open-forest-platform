@@ -22,6 +22,7 @@ export class TemporaryOutfittersComponent implements OnInit {
   goodStandingEvidenceMessage: string;
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
+  pointOfView = 'We';
 
   constructor(
     private applicationService: ApplicationService,
@@ -46,7 +47,7 @@ export class TemporaryOutfittersComponent implements OnInit {
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
-        advertisingDescription: ['', [Validators.required, alphanumericValidator()]],
+        advertisingDescription: ['', [alphanumericValidator()]],
         advertisingURL: ['', [Validators.pattern('https?://.+')]],
         clientCharges: ['', [Validators.required, alphanumericValidator()]],
         experienceList: ['', [alphanumericValidator()]]
@@ -54,9 +55,11 @@ export class TemporaryOutfittersComponent implements OnInit {
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      this.pointOfView = 'We';
       switch (type) {
         case 'individual':
           this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+          this.pointOfView = 'I';
           this.orgTypeFileUpload = false;
           break;
         case 'corporation':

@@ -10,6 +10,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 export class ActivityDescriptionComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
+  @Input() pointOfView: string;
   activityDescriptionFields = 'activityDescriptionFields';
 
   dateStatus = {
@@ -24,7 +25,7 @@ export class ActivityDescriptionComponent implements OnInit {
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: ['', [Validators.required, alphanumericValidator()]],
+      numberServiceDaysRequested: ['', [alphanumericValidator()]],
       numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
       partySize: ['', [Validators.required, alphanumericValidator()]],
       locationDescription: ['', [Validators.required, alphanumericValidator()]],

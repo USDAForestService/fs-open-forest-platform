@@ -41,7 +41,7 @@
 
       </fieldset>
 
-      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')"></app-activity-description>
+      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-activity-description>
 
       <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
 
@@ -86,7 +86,7 @@
         <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')"></app-experience>
+      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-experience>
 
       <fieldset>
         <legend>Signature</legend>
