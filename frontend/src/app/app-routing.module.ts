@@ -18,7 +18,11 @@ const appRoutes: Routes = [
     component: PermitApplicationListComponent,
     data: { title: 'Application administration listing' }
   },
-  { path: 'admin/applications/:id', component: PermitApplicationViewComponent, data: { title: 'View application' } },
+  {
+    path: 'admin/applications/:type/:id',
+    component: PermitApplicationViewComponent,
+    data: { title: 'View application' }
+  },
   {
     path: 'applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,

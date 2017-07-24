@@ -3,9 +3,9 @@
 var request = require('supertest');
 var tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
 var server = require('../app.es6');
-var url = '/permits/applications/special-uses/temp-outfitters';
+var url = '/permits/applications/special-uses/temp-outfitter';
 
-// var postFileURL = '/permits/applications/special-uses/temp-outfitters/file';
+// var postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
 // var mockAws = require('aws-sdk-mock');
 
 describe('temp outfitter server tests', () => {
@@ -23,7 +23,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.primaryFirstName': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.primaryFirstName': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"required-applicantInfo.primaryFirstName"/)
       .expect(400, done);
@@ -33,7 +37,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.eveningPhone': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.eveningPhone': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, done);
@@ -43,7 +51,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.faxNumber': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.faxNumber': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, done);
