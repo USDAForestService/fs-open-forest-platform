@@ -55,12 +55,12 @@ app.post('/permits/applications/special-uses/noncommercial', authenticator, nonc
 app.put('/permits/applications/special-uses/noncommercial/:id', authenticator, noncommercial.update);
 
 /** Get a temp outfitter permit application. */
-app.get('/permits/applications/special-uses/temp-outfitters/:id', authenticator, tempOutfitter.getOne);
+app.get('/permits/applications/special-uses/temp-outfitter/:id', authenticator, tempOutfitter.getOne);
 /** Create a new temp outfitter permit application. */
-app.post('/permits/applications/special-uses/temp-outfitters', authenticator, tempOutfitter.create);
+app.post('/permits/applications/special-uses/temp-outfitter', authenticator, tempOutfitter.create);
 /** Handle temp outfitter file upload and invokes streamToS3 function. */
 app.post(
-  '/permits/applications/special-uses/temp-outfitters/file',
+  '/permits/applications/special-uses/temp-outfitter/file',
   authenticator,
   tempOutfitter.streamToS3.array('file', 1),
   tempOutfitter.attachFile

@@ -97,10 +97,10 @@ paths:
           description: "General server error"
         201:
           description: "Successful Creation"
-  /permits/applications/special-uses/temp-outfitters:
+  /permits/applications/special-uses/temp-outfitter:
     post:
       tags:
-      - "temp-outfitters"
+      - "temp-outfitter"
       summary: "Creates a new temp outfitter application"
       description: "Creates a new temp outfitter application"
       operationId: "createTempOutfitterApp"
@@ -122,10 +122,10 @@ paths:
           description: "General server error"
         201:
           description: "Successful Creation"
-  /permits/applications/special-uses/temp-outfitters/file:
+  /permits/applications/special-uses/temp-outfitter/file:
     post:
       tags:
-      - "temp-outfitters"
+      - "temp-outfitter"
       summary: "Uploads an associated file for an application"
       description: "Uploads an associated file for an application"
       operationId: "createAppFile"
@@ -150,10 +150,10 @@ paths:
           description: "General Error"
         201:
           description: "Successful Creation"
-  /permits/applications/special-uses/temp-outfitters/{id}:
+  /permits/applications/special-uses/temp-outfitter/{id}:
     get:
       tags:
-      - "temp-outfitters"
+      - "temp-outfitter"
       summary: "Retrieve an existing temp outfitter application"
       description: "Retrieve an existing temp outfitter application using the application control number"
       operationId: "getTempOutfitterApp"
