@@ -17,7 +17,8 @@ export class DateTimeRangeComponent implements OnInit {
     endDateTimeValid: true,
     startBeforeEnd: true,
     startAfterToday: true,
-    hasErrors: false
+    hasErrors: false,
+    dateTimeSpan: 0
   };
 
   dateTimeRange: any;
@@ -150,6 +151,7 @@ export class DateTimeRangeComponent implements OnInit {
       this.dateStatus.endDateTimeValid = endDateTime.isValid();
       this.dateStatus.startBeforeEnd = startDateTime.isBefore(endDateTime);
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
+      this.dateStatus.dateTimeSpan = startDateTime.diff(endDateTime, 'days') + 1;
       this.dateStatus.hasErrors =
         !this.dateStatus.startDateTimeValid ||
         !this.dateStatus.endDateTimeValid ||
