@@ -18,14 +18,15 @@ export class ActivityDescriptionComponent implements OnInit {
     endDateTimeValid: true,
     startBeforeEnd: true,
     startAfterToday: true,
-    hasErrors: false
+    hasErrors: false,
+    dateTimeSpan: 0
   };
 
   constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: ['', [alphanumericValidator()]],
+      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator()]],
       numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
       partySize: ['', [Validators.required, alphanumericValidator()]],
       locationDescription: ['', [Validators.required, alphanumericValidator()]],
