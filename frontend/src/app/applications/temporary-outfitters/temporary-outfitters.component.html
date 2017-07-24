@@ -28,6 +28,7 @@
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'" [formGroup]="applicationForm.controls.tempOutfitterFields">
           <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
           <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
+          <app-error-message id="individual-citizen-error" name="Citizen" [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
         </div>
 
         <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">

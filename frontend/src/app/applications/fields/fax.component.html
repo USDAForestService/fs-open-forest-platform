@@ -4,11 +4,12 @@
       <div class="usa-input-grid usa-input-grid-medium">
         <label class="usa-input" for="fax">{{ name }} (10 digits, optional)</label>
         <input id="fax" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
-        <span id="fax-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('fax.tenDigit').invalid && parentForm.get('fax.tenDigit').touched">Fax number is required if fax extension has been entered.</span>
+        <app-error-message id="fax-error" name="Fax number" [control]="parentForm.get('fax.tenDigit')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
         <label class="usa-input" for="fax-extension">Ext (optional)</label>
         <input class="usa-input" id="fax-extension" type="text" minLength="1" maxLength="6" formControlName="extension" />
+        <app-error-message id="fax-extension-error" name="Fax extension" [control]="parentForm.get('fax.extension')"></app-error-message>
       </div>
     </div>
   </ng-container>

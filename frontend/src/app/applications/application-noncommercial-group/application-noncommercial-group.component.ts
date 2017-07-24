@@ -1,10 +1,11 @@
-import { SpecialUseApplication } from '../../_models/special-use-application';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
 import { DateTimeRangeComponent } from '../fields/date-time-range.component';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SpecialUseApplication } from '../../_models/special-use-application';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -44,20 +45,20 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
       type: ['noncommercial', [Validators.required]],
-      eventName: ['', [Validators.required]],
-      signature: ['', [Validators.required]],
+      eventName: ['', [Validators.required, alphanumericValidator()]],
+      signature: ['', [Validators.required, alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', Validators.required],
-        organizationName: [''],
+        emailAddress: ['', [Validators.required, alphanumericValidator()]],
+        organizationName: ['', [alphanumericValidator()]],
         orgType: ['Person', Validators.required],
         primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required]],
-        primaryLastName: ['', [Validators.required]],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
         secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: [''],
-        secondaryLastName: [''],
-        website: ['']
+        secondaryFirstName: ['', [alphanumericValidator()]],
+        secondaryLastName: ['', [alphanumericValidator()]],
+        website: ['', [alphanumericValidator()]]
       })
     });
 
@@ -67,7 +68,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
       } else if (type === 'Corporation') {
         this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
-        this.applicationForm.get('applicantInfo.organizationName').setValidators(Validators.required);
+        this.applicationForm
+          .get('applicantInfo.organizationName')
+          .setValidators([Validators.required, alphanumericValidator()]);
       }
     });
 
@@ -89,8 +92,12 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
     this.applicationForm.get('applicantInfo.addSecondaryPermitHolder').valueChanges.subscribe(value => {
       if (value) {
-        this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(Validators.required);
-        this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(Validators.required);
+        this.applicationForm
+          .get('applicantInfo.secondaryFirstName')
+          .setValidators([Validators.required, alphanumericValidator()]);
+        this.applicationForm
+          .get('applicantInfo.secondaryLastName')
+          .setValidators([Validators.required, alphanumericValidator()]);
       } else {
         this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
         this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
@@ -108,15 +115,17 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/').subscribe(
-        persistedApplication => {
-          this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
+      this.applicationService
+        .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
+        .subscribe(
+          persistedApplication => {
+            this.router.navigate(['applications/submitted/' + persistedApplication.appControlNumber]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scroll(0, 0);
+          }
+        );
     }
   }
 

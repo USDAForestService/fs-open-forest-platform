@@ -5,37 +5,37 @@
 
       <label class="usa-input" for="number-service-days-requested">The number of service days requested (or quota equivalent).</label>
       <input id="number-service-days-requested"  type="number" formControlName="numberServiceDaysRequested" aria-required="true" />
-      <span id="number-service-days-requested-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.numberServiceDaysRequested').invalid &&parentForm.get('activityDescriptionFields.numberServiceDaysRequested').touched">Service days is required.</span>
+      <app-error-message id="number-service-days-requested-error" name="Service days" [control]="parentForm.get('activityDescriptionFields.numberServiceDaysRequested')"></app-error-message>
 
       <label class="usa-input" for="number-of-trips">The anticipated number of trips.</label>
       <input id="number-of-trips"  type="number" formControlName="numberOfTrips" aria-required="true" />
-      <span id="number-of-trips-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.numberOfTrips').invalid && parentForm.get('activityDescriptionFields.numberOfTrips').touched">Number of trips is required.</span>
+      <app-error-message id="number-of-trips-error" name="Number of trips" [control]="parentForm.get('activityDescriptionFields.numberOfTrips')"></app-error-message>
 
       <label class="usa-input" for="party-size">The anticipated party size.</label>
       <input id="party-size"  type="number" formControlName="partySize" aria-required="true" />
-      <span id="party-size-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.partySize').invalid && parentForm.get('activityDescriptionFields.partySize').touched">Party size is required.</span>
+      <app-error-message id="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
 
       <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
 
       <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations.</label>
       <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"></textarea>
-      <span id="location-description-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.locationDescription').invalid && parentForm.get('activityDescriptionFields.locationDescription').touched">Location of routes is required.</span>
+      <app-error-message id="location-description-error" name="Location of routes" [control]="parentForm.get('activityDescriptionFields.locationDescription')"></app-error-message>
 
       <label class="usa-input" for="services-provided">Services being offered.</label>
       <p class="help-text usa-form-hint">Services that will be offered to clients (also please document any services that will be provided by a party other than the holder).</p>
       <textarea id="services-provided"  type="text" formControlName="servicesProvided" aria-required="true"></textarea>
-      <span id="services-provided-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.servicesProvided').invalid && parentForm.get('activityDescriptionFields.servicesProvided').touched">A list of services provided is required.</span>
+      <app-error-message id="services-provided-error" name="A list of services provided" [control]="parentForm.get('activityDescriptionFields.servicesProvided')"></app-error-message>
 
-      <label class="usa-input" for="audience-description">Description of your client base or audience.  </label>
+      <label class="usa-input" for="audience-description">Description of your client base or audience.</label>
       <textarea id="audience-description" type="text" formControlName="audienceDescription" aria-required="true"></textarea>
-      <span id="audience-description-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.audienceDescription').invalid && parentForm.get('activityDescriptionFields.audienceDescription').touched">A description of your audience is required.</span>
+      <app-error-message id="audience-description-error" name="A description of your audience" [control]="parentForm.get('activityDescriptionFields.audienceDescription')"></app-error-message>
 
       <input id="need-government-facilities" type="checkbox" formControlName="needGovernmentFacilities" />
       <label class="usa-input" for="need-government-facilities">I would like to use government facilities, e.g., a boat launch, parking lot, or trailhead.</label>
       <ng-container *ngIf="parentForm.get('activityDescriptionFields.needGovernmentFacilities').value">
         <label class="usa-input" for="list-of-government-facilities">List facilities needed.</label>
         <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities" aria-required="true"></textarea>
-        <span id="list-of-government-facilities-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.listOfGovernmentFacilities').invalid && parentForm.get('activityDescriptionFields.listOfGovernmentFacilities').touched">A list of government facilities is required.</span>
+        <app-error-message id="list-of-government-facilities-error" name="A list of government facilities" [control]="parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')"></app-error-message>
       </ng-container>
 
       <input id="need-temporary-improvements" type="checkbox" formControlName="needTemporaryImprovements" />
@@ -43,7 +43,7 @@
       <ng-container *ngIf="parentForm.get('activityDescriptionFields.needTemporaryImprovements').value">
         <label class="usa-input" for="list-of-temporary-improvements">List of temporary improvements or signs that you propose to use.</label>
         <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" aria-required="true"></textarea>
-        <span id="list-of-temporary-improvements-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.listOfTemporaryImprovements').invalid && parentForm.get('activityDescriptionFields.listOfTemporaryImprovements').touched">A list of temporary improvements is required.</span>
+        <app-error-message id="list-of-temporary-improvements-error" name="A list of temporary improvements" [control]="parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')"></app-error-message>
       </ng-container>
 
       <input id="have-motorized-equipment" type="checkbox" formControlName="haveMotorizedEquipment" />
@@ -51,7 +51,7 @@
       <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveMotorizedEquipment').value">
         <label class="usa-input" for="statement-of-motorized-equipment">Description of the proposed operations involving motorized equipment.</label>
         <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment" aria-required="true"></textarea>
-        <span id="statement-of-motorized-equipment-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment').invalid && parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment').touched">A description of motorized equipment is required.</span>
+        <app-error-message id="statement-of-motorized-equipment-error" name="A description of motorized equipment" [control]="parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')"></app-error-message>
       </ng-container>
 
       <input id="have-livestock" type="checkbox" formControlName="haveLivestock" />
@@ -59,7 +59,7 @@
       <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveLivestock').value">
         <label class="usa-input" for="statement-of-transportation-of-livestock">Description of the proposed operations involving the transportation of livestock, and whether grazing is requested.</label>
         <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock" aria-required="true"></textarea>
-        <span id="statement-of-transportation-of-livestock-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock').invalid && parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock').touched">A description of the transportation of livestock is required.</span>
+        <app-error-message id="statement-of-transportation-of-livestock-error" name="A description of the transportation of livestock" [control]="parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')"></app-error-message>
       </ng-container>
 
       <input id="need-assigned-site" type="checkbox" formControlName="needAssignedSite" />
@@ -67,12 +67,12 @@
       <ng-container *ngIf="parentForm.get('activityDescriptionFields.needAssignedSite').value">
         <label class="usa-input" for="statement-of-assigned-site">Description of requested assigned site.</label>
         <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite" aria-required="true"></textarea>
-        <span id="statement-of-assigned-site-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.statementOfAssignedSite').invalid && parentForm.get('activityDescriptionFields.statementOfAssignedSite').touched">A description of assigned site is required.</span>
+        <app-error-message id="statement-of-assigned-site-error" name="A description of assigned site" [control]="parentForm.get('activityDescriptionFields.statementOfAssignedSite')"></app-error-message>
       </ng-container>
 
       <label class="usa-input" for="description-of-cleanup-and-restoration">Description of cleanup and restoration during and after the proposed operations.</label>
       <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" aria-required="true"></textarea>
-      <span id="description-of-cleanup-and-restoration-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration').invalid && parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration').touched">A description of cleanup and restoration is required.</span>
+      <app-error-message id="description-of-cleanup-and-restoration-error" name="A description of cleanup and restoration" [control]="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration')"></app-error-message>
 
     </fieldset>
   </ng-container>
