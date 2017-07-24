@@ -94,7 +94,7 @@ export class TemporaryOutfittersComponent implements OnInit {
       this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService
-        .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/')
+        .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
         .subscribe(
           persistedApplication => {
             this.applicationId = persistedApplication.applicationId;
