@@ -4,8 +4,10 @@ export class FieldValidation {
   validateSimpleTextField(id, errorId, error, group = false) {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {
-      queryInput.sendKeys(Key.TAB);
-      expect<any>(element(by.id(errorId)).getText()).toEqual(error);
+      queryInput.sendKeys('text');
+      queryInput.clear().then(function() {
+        expect<any>(element(by.id(errorId)).getText()).toEqual(error);
+      });
     });
     if (!group) {
       it('should hide error if ' + id + ' field has text', () => {

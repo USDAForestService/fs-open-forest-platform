@@ -23,7 +23,7 @@
   a:hover {
     text-decoration: underline;
   }
-  @media(min-width: $large-screen){
+  @media (min-width: $large-screen) {
     width: 24%;
   }
 }
@@ -39,31 +39,42 @@
   display: inline-block;
   margin: 0;
   vertical-align: middle;
-  h2 {
-    font-size: 13px;
-    font-style: normal;
-    margin: 0;
-  }
-  h3 {
-    font-size: 10px;
-    font-style: normal;
-    margin: 0;
+  .fs-name-slogan {
+    float: left;
+    .fs-name {
+      color: $white;
+      float: left;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 17px;
+      margin-left: 4px;
+    }
+    .fs-slogan {
+      clear: both;
+      color: $white;
+      float: left;
+      font-size: 12px;
+      line-height: 15px;
+      margin-left: 4px;
+    }
   }
 }
 
 .usa-footer-secondary_section {
   background: $fs-brown;
   padding: 20px 0;
-  h2, h3 {
+  h2,
+  h3 {
     color: $white;
   }
-  @media(max-width: $medium-screen) {
+  @media (max-width: $medium-screen) {
     text-align: center;
     a {
       margin: 0 3px !important;
       vertical-align: middle;
     }
-    h2, h3 {
+    h2,
+    h3 {
       text-align: left;
     }
   }

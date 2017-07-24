@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class PermitApplicationViewComponent implements OnInit {
   errorMessage: string;
   id: string;
+  type: string;
 
   application = new SpecialUseApplication();
   fixedCtas = false;
@@ -23,10 +24,15 @@ export class PermitApplicationViewComponent implements OnInit {
     status: ''
   };
 
-  constructor(private alertService: AlertService, private applicationService: ApplicationService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private alertService: AlertService,
+    private applicationService: ApplicationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  getApplication(id) {
-    this.applicationService.getOne(id).subscribe(
+  getApplication(type, id) {
+    this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
         this.errorMessage = 'The application could not be found.';
@@ -42,9 +48,15 @@ export class PermitApplicationViewComponent implements OnInit {
         if (status === 'Accepted') {
           this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
         }
+        if (status === 'Hold') {
+          this.alertService.addSuccessMessage('Permit application successfully put on hold.');
+        }
+        if (status === 'Returned') {
+          this.alertService.addSuccessMessage('Permit application successfully rejected.');
+        }
         this.router.navigate(['admin/applications']);
       },
-      (e: any) => {
+      (error: any) => {
         this.errorMessage = 'There was an error updating this application.';
         window.scrollTo(0, 200);
       }
@@ -77,8 +89,9 @@ export class PermitApplicationViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.type = params['type'];
       this.id = params['id'];
-      this.getApplication(this.id);
+      this.getApplication(this.type, this.id);
     });
   }
 

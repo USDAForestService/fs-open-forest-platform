@@ -28,6 +28,7 @@
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'" [formGroup]="applicationForm.controls.tempOutfitterFields">
           <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
           <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
+          <app-error-message id="individual-citizen-error" name="Citizen" [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
         </div>
 
         <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
@@ -93,7 +94,7 @@
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
         <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
+        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
