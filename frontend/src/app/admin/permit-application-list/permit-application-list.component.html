@@ -1,7 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Mount Baker-Snoqualmie National Forest</h1>
-    <h2>Non-commercial group use applications</h2>
+    <h2>Permit applications</h2>
     <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">There are errors preventing your data from loading.</h3>
@@ -52,14 +52,18 @@
         <label>Date submitted</label>
         <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt)}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
         <label>Start date</label>
-        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.noncommercialFieldsStartDateTime)}">{{ application.noncommercialFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
-        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.noncommercialFieldsStartDateTime)}">
+          {{ application.noncommercialFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+        </div>
+        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
+          {{ application.tempOutfitterFieldsActDescFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+        </div>
         <label>End date</label>
         <div *ngIf="application.type === 'Noncommercial'">{{ application.noncommercialFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
-        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.appControlNumber}}">Details</a></div>
+        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.type | spacesToDashes | stringToLower }}/{{application.appControlNumber}}">Details</a></div>
       </div>
     </div>
   </div>

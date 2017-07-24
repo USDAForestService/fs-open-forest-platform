@@ -48,7 +48,7 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
-      .put(this.endpoint + '/special-uses/noncommercial/' + body.appControlNumber, body, options)
+      .put(this.endpoint + '/special-uses/' + body.type + '/' + body.appControlNumber, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
