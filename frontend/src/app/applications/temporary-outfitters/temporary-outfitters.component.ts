@@ -102,7 +102,7 @@ export class TemporaryOutfittersComponent implements OnInit {
           persistedApplication => {
             this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
-            this.router.navigate([`applications/temp-outfitter/submitted/${persistedApplication.applicationId}`]);
+            this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
           },
           (e: any) => {
             this.apiErrors = e;
