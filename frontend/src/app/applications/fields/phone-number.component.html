@@ -15,7 +15,7 @@
   </ng-container>
 
   <input id="add-additional-phone" name="add-additional-phone" type="checkbox" (change)="addOrRemoveAdditionalPhone()" />
-  <label class="usa-input" for="add-additional-phone">Add additional phone.</label>
+  <label class="usa-input" id="add-additional-phone-label" for="add-additional-phone">Add additional phone.</label>
 
   <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
     <ng-container formGroupName="{{ eveningPhone }}">
