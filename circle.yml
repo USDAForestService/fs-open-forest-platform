@@ -18,7 +18,7 @@ dependencies:
 compile:
   override:
     - cd frontend; yarn run docs;
-    - cd frontend; ng build --prod --env=prod;
+    - cd frontend; yarn dist;
 test:
   pre:
     - cd frontend; npm install -g protractor
@@ -44,12 +44,12 @@ deployment:
     owner: 18F
     commands:
       - cd frontend; yarn run update-version;
-      - cd frontend; ng build --prod --env=prod;
+      - cd frontend; yarn dist;
       - ./cg-deploy/deploy.sh fs-intake-prod
   staging:
     branch: sprint-8-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;
-      - cd frontend; ng build --prod --env=prod;
+      - cd frontend; yarn dist;
       - ./cg-deploy/deploy.sh fs-intake-staging
