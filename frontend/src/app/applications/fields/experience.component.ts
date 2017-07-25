@@ -8,6 +8,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 })
 export class ExperienceComponent implements OnInit {
   @Input() parentForm: FormGroup;
+  @Input() pointOfView: string;
   experienceFields = 'experienceFields';
 
   constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
@@ -28,8 +29,14 @@ export class ExperienceComponent implements OnInit {
       this.parentForm.get('experienceFields.listAllNationalForestPermits')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(this.parentForm.get('experienceFields.haveOtherPermits'), this.parentForm.get('experienceFields.listAllOtherPermits'));
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('experienceFields.haveOtherPermits'),
+      this.parentForm.get('experienceFields.listAllOtherPermits')
+    );
 
-    this.applicationFieldsService.simpleRequireToggle(this.parentForm.get('experienceFields.haveCitations'), this.parentForm.get('experienceFields.listAllCitations'));
+    this.applicationFieldsService.simpleRequireToggle(
+      this.parentForm.get('experienceFields.haveCitations'),
+      this.parentForm.get('experienceFields.listAllCitations')
+    );
   }
 }
