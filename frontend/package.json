@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "ng build",
+    "dist": "ng build --prod --env=prod --aot=false",
     "docs": "yarn run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
     "e2e:ci": "ng e2e --watch=false --progress=false",
     "e2e": "ng e2e",

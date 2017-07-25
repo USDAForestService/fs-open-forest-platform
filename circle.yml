@@ -18,7 +18,7 @@ dependencies:
 compile:
   override:
     - cd frontend; yarn run docs;
-    - cd frontend; ng build --prod --env=prod;
+    - cd frontend; yarn dist;
 test:
   pre:
     - cd frontend; npm install -g protractor
