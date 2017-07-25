@@ -39,6 +39,7 @@ describe('Apply for a noncommercial group use permit', () => {
   beforeEach(() => {
     page = new NoncommercialGroupForm();
   });
+
   it('should display the permit name in the header', () => {
     page.navigateTo();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
@@ -46,7 +47,6 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should submit an application as individual with only the required fields populated', () => {
     page.navigateTo();
-    element(by.id('individual')).click();
     element(by.id('primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.id('primary-permit-holder-last-name')).sendKeys('Watson');
     element(by.id('primary-permit-holder-address')).sendKeys('933 Easy St');
@@ -79,7 +79,7 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should submit an application as an organization with all fields populated', () => {
     page.navigateTo();
-    element(by.id('organization')).click();
+    element(by.id('organization-label')).click();
     element(by.id('organization-name')).sendKeys('Test organization');
     element(by.id('organization-address')).sendKeys('933 Easy St');
     element(by.id('organization-city')).sendKeys('Madison');
@@ -88,21 +88,21 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('day-ext')).sendKeys('2222');
-    element(by.id('add-additional-phone')).click();
+    element(by.id('add-additional-phone-label')).click();
     element(by.id('evening-phone')).sendKeys('1111111111');
     element(by.id('evening-ext')).sendKeys('1111');
     element(by.id('website')).sendKeys('http://test.com');
     element(by.id('primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.id('primary-permit-holder-last-name')).sendKeys('Watson');
-    element(by.id('primary-permit-holder-same-address')).click();
+    element(by.id('primary-permit-holder-same-address-label')).click();
     element(by.id('primary-permit-holder-address')).sendKeys('933 Easy St');
     element(by.id('primary-permit-holder-city')).sendKeys('Madison');
     element(by.id('primary-permit-holder-state')).sendKeys('WI');
     element(by.id('primary-permit-holder-zip')).sendKeys('55555');
-    element(by.id('add-secondary-permit-holder')).click();
+    element(by.id('add-secondary-permit-holder-label')).click();
     element(by.id('secondary-permit-holder-first-name')).sendKeys('Micky');
     element(by.id('secondary-permit-holder-last-name')).sendKeys('Watson');
-    element(by.id('secondary-permit-holder-same-address')).click();
+    element(by.id('secondary-permit-holder-same-address-label')).click();
     element(by.id('secondary-permit-holder-address')).sendKeys('933 Easy St');
     element(by.id('secondary-permit-holder-city')).sendKeys('Madison');
     element(by.id('secondary-permit-holder-state')).sendKeys('WI');
