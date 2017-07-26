@@ -9,4 +9,5 @@ applications:
   services:
     - fs-intake-api-staging-db
     - fs-intake-staging-s3
+    - intake-client-service
     - middlelayer-service

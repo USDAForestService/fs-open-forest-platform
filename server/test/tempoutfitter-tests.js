@@ -3,9 +3,9 @@
 var request = require('supertest');
 var tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
 var server = require('../app.es6');
-var url = '/permits/applications/special-uses/temp-outfitters';
+var url = '/permits/applications/special-uses/temp-outfitter';
 
-// var postFileURL = '/permits/applications/special-uses/temp-outfitters/file';
+// var postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
 // var mockAws = require('aws-sdk-mock');
 
 describe('temp outfitter server tests', () => {
@@ -23,7 +23,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.primaryFirstName': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.primaryFirstName': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"required-applicantInfo.primaryFirstName"/)
       .expect(400, done);
@@ -33,7 +37,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.eveningPhone': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.eveningPhone': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, done);
@@ -43,7 +51,11 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create({ 'applicantInfo.faxNumber': undefined }))
+      .send(
+        tempOutfitterTestData.basicTempOutfitter.create({
+          'applicantInfo.faxNumber': undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, done);
@@ -53,7 +65,12 @@ describe('temp outfitter server tests', () => {
     let testData = tempOutfitterTestData.basicTempOutfitter.create();
     testData.applicantInfo.website =
       'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
-    request(server).post(url).set('Accept', 'application/json').send(testData).expect('Content-Type', /json/).expect(500, done);
+    request(server)
+      .post(url)
+      .set('Accept', 'application/json')
+      .send(testData)
+      .expect('Content-Type', /json/)
+      .expect(500, done);
   });
 
   // keep these as a starting point to get the s3 mocking working
@@ -96,35 +113,33 @@ describe('temp outfitter server tests', () => {
 });
 
 describe('Persistence tests', () => {
-  // uncomment the following line when the GET call below is implemented
-  //let intakeControlNumber = undefined;
+  let intakeControlNumber = undefined;
+  let testData = tempOutfitterTestData.basicTempOutfitter.create();
+  let testDataPersisted = tempOutfitterTestData.basicTempOutfitter.create();
 
   it('should persist an application', done => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create())
+      .send(testData)
       .expect('Content-Type', /json/)
-      // uncomment the following expect() when the GET call below is implemented
-      //.expect(function(res) {
-      // record the intake control number so that we can the the application back out
-      //intakeControlNumber = res.body.appControlNumber;
-      //})
+      .expect(function(res) {
+        // record the intake control number so that we can the the application back out
+        intakeControlNumber = res.body.appControlNumber;
+      })
       .expect(201, done);
   });
 
-  // TODO: uncomment when the GET call is ready
-  // it('should return a persisted application', (done) => {
-  //   let basicTempOutfitter = tempOutfitterTestData.basicTempOutfitter.create();
-  //   request(server)
-  //     .get(url + '/' + intakeControlNumber)
-  //     .expect(function(res) {
-  //       // update the object with values only present after saving to the DB
-  //       basicTempOutfitter.appControlNumber = res.body.appControlNumber;
-  //       basicTempOutfitter.applicationId = res.body.applicationId;
-  //       basicTempOutfitter.createdAt = res.body.createdAt;
-  //       basicTempOutfitter.status = 'Received';
-  //     })
-  //     .expect(200, basicTempOutfitter, done);
-  // });
+  it('should return a persisted application', done => {
+    request(server)
+      .get(url + '/' + intakeControlNumber)
+      .expect(function(res) {
+        // update the object with values only present after saving to the DB
+        testDataPersisted.appControlNumber = res.body.appControlNumber;
+        testDataPersisted.applicationId = res.body.applicationId;
+        testDataPersisted.createdAt = res.body.createdAt;
+        testDataPersisted.status = 'Received';
+      })
+      .expect(200, testDataPersisted, done);
+  });
 });

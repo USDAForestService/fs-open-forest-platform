@@ -15,24 +15,6 @@ export class AppComponent implements OnInit {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
-
-      const urlWithSegments = router.url.split('#');
-
-      if (urlWithSegments.length) {
-        this.currentRoute = urlWithSegments[0];
-      } else {
-        this.currentRoute = router.url;
-      }
-
-      if (scroll instanceof NavigationEnd) {
-        const url = router.parseUrl(router.url);
-        if (url.fragment) {
-          const element = document.querySelector('#' + url.fragment);
-          if (element) {
-            element.scrollIntoView(true);
-          }
-        }
-      }
     });
   }
 
