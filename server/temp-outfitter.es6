@@ -254,4 +254,22 @@ tempOutfitterRestHandlers.getOne = (req, res) => {
     });
 };
 
+tempOutfitterRestHandlers.update = (req, res) => {
+  TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+    if (app) {
+      app.status = req.body.status;
+      app
+        .save()
+        .then(() => {
+          res.status(200).json(translateFromDatabaseToClient(app));
+        })
+        .catch(error => {
+          res.status(500).json(error);
+        });
+    } else {
+      res.status(404).send();
+    }
+  });
+};
+
 module.exports = tempOutfitterRestHandlers;
