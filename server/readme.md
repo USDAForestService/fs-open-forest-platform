@@ -20,7 +20,35 @@ and on the command line as part of a command:
 The following environment variables are required:
 
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: `{"user-provided":[{"credentials":{"MIDDLELAYER_BASE_URL":"http://localhost:8080/","MIDDLELAYER_PASSWORD":"pass","MIDDLELAYER_USERNAME":"user"},"label":"user-provided","name":"middlelayer-service","syslog_drain_url":"","tags":[],"volume_mounts":[]}],"s3":[{"credentials":{"bucket": "bucket_name", "access_key_id": "", "region": "us-east-1", "secret_access_key": ""}}]}`
+- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: ```{
+  "user-provided": [
+    {
+      "credentials": {
+        "MIDDLELAYER_BASE_URL": "https://fs-middlelayer-api-staging.app.cloud.gov/",
+        "MIDDLELAYER_PASSWORD": "password",
+        "MIDDLELAYER_USERNAME": "username"
+      },
+      "label": "user-provided",
+      "name": "middlelayer-service",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "INTAKE_CLIENT_BASE_URL": "http://localhost:4200",
+        "INTAKE_PASSWORD": "password",
+        "INTAKE_USERNAME": "username"
+      },
+      "label": "user-provided",
+      "name": "intake-client-service",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    }
+  ],
+  "s3": [{ "credentials": { "bucket": "bucket_name" } }]
+}```
 
 ## Available commands
 
