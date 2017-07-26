@@ -43,7 +43,7 @@ export class PermitApplicationViewComponent implements OnInit {
 
   updateApplicationStatus(application, status) {
     application.status = status;
-    this.applicationService.update(application).subscribe(
+    this.applicationService.update(application, this.type).subscribe(
       (data: any) => {
         if (status === 'Accepted') {
           this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
