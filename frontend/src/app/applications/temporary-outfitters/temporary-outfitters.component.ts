@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SpecialUseApplication } from '../../_models/special-use-application';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SpecialUseApplication } from '../../_models/special-use-application';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -20,8 +21,8 @@ export class TemporaryOutfittersComponent implements OnInit {
   uploadFiles = false;
   goodStandingEvidenceMessage: string;
   orgTypeFileUpload: boolean;
-
   applicationForm: FormGroup;
+  pointOfView = 'We';
 
   constructor(
     private applicationService: ApplicationService,
@@ -33,30 +34,32 @@ export class TemporaryOutfittersComponent implements OnInit {
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
-      type: ['tempOutfitters', [Validators.required]],
-      signature: ['', [Validators.required]],
+      type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
+      signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         emailAddress: ['', Validators.required],
-        organizationName: ['', Validators.required],
-        primaryFirstName: ['', [Validators.required]],
-        primaryLastName: ['', [Validators.required]],
-        orgType: ['', [Validators.required]],
-        website: ['']
+        organizationName: ['', alphanumericValidator()],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
+        orgType: ['', [Validators.required, alphanumericValidator()]],
+        website: ['', [Validators.pattern('https?://.+')]]
       }),
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
-        advertisingDescription: ['', [Validators.required]],
-        advertisingURL: [''],
-        clientCharges: ['', [Validators.required]],
-        experienceList: ['']
+        advertisingDescription: ['', [alphanumericValidator()]],
+        advertisingURL: ['', [Validators.pattern('https?://.+')]],
+        clientCharges: ['', [Validators.required, alphanumericValidator()]],
+        experienceList: ['', [alphanumericValidator()]]
       })
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      this.pointOfView = 'We';
       switch (type) {
         case 'individual':
           this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+          this.pointOfView = 'I';
           this.orgTypeFileUpload = false;
           break;
         case 'corporation':
@@ -89,20 +92,23 @@ export class TemporaryOutfittersComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid) {
-      window.scroll(0, 0);
+      this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService.create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitters/').subscribe(
-        persistedApplication => {
-          this.applicationId = persistedApplication.applicationId;
-          this.uploadFiles = true;
-          this.router.navigate(['applications/submitted/' + persistedApplication.applicationId]);
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
+      this.applicationService
+        .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
+        .subscribe(
+          persistedApplication => {
+            this.applicationId = persistedApplication.applicationId;
+            this.uploadFiles = true;
+            this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scroll(0, 0);
+          }
+        );
     }
   }
 

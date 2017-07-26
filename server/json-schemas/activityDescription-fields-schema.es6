@@ -48,6 +48,10 @@ module.exports = {
     descriptionOfCleanupAndRestoration: {
       default: '',
       type: 'string'
+    },
+    partySize: {
+      default: '0',
+      type: 'integer'
     }
   }
 };

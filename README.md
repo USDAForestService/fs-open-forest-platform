@@ -1,7 +1,8 @@
 [![FS ePermit API](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
-[![Dependency Status](https://www.versioneye.com/user/projects/59514bd96725bd003e61adb8/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59514bd96725bd003e61adb8)
+[![Dependency Status](https://www.versioneye.com/user/projects/59721f9e368b08004cede291/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59721f9e368b08004cede291)
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
+[![codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/sprint-8-development/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
@@ -70,3 +71,10 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 
 Navigate to `/assets/typedoc/index.html`
+
+### Enable html5 pushstate on cloud.gov
+In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
+
+This allows you to use urls like `/some/path` instead of `/#/some/path`
+
+[Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
