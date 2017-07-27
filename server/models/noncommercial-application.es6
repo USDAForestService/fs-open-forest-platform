@@ -7,7 +7,8 @@ const sequelizeOptions = {
   dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
 };
 
-if (url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost') {
+if (url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost'
+    && url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres') {
   sequelizeOptions.dialectOptions = {
     ssl: true
   };
