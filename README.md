@@ -78,3 +78,50 @@ In order to enable pushstate for single page apps on cloud.gov using the static 
 This allows you to use urls like `/some/path` instead of `/#/some/path`
 
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
+
+### Docker Environment
+
+As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
+
+1. Install Docker for your platform at https://www.docker.com/.  Make sure that the Docker service is started.
+
+1. Clone this repository.
+
+1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
+
+    ```	
+    $ cd fs-intake-module
+    $ cd docker
+    ```	
+
+4. Now use Docker Compose to build and start the containers.
+
+    ```
+    $ docker-compose up --build --force-recreate
+    ```	
+
+5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
+
+    ```	
+    fs-intake-frontend_1  | webpack: Compiled successfully.
+    ```	
+
+6. The containers and servers are now running. There are four containers:
+  
+    - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
+
+    - fs-intake-server - This container runs the server side Node application.  It can be accessed in the browser at http://localhost:8080.
+
+    - fs-intake-postgres - This container runs the PostgreSQL database server.
+
+    - adminer - This container runs a PHP based database administration application.  It can be accessed at http://localhost:8081.  The front page for Adminer is a database login page.  The values to use are:
+
+        - System: PostgreSQL
+        - Server: fs-intake-postgres:5432
+        - Username: postgres
+        - Password: postgres
+        - Database: postgres
+      
+7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
+
+8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
