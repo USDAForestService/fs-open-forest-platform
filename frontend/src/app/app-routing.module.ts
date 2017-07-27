@@ -38,6 +38,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
