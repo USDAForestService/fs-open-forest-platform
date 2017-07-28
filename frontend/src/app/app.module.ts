@@ -10,9 +10,12 @@ import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './applications/applications.module';
 import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
+import { AuthGuard } from './_services/auth.guard';
+import { AuthenticationService } from './_services/authentication.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './login/logout.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { PermitApplicationViewDetailsComponent } from './admin/permit-application-view/permit-application-view-details.component';
@@ -29,6 +32,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     HelpMePickComponent,
     HomeComponent,
     LoginComponent,
+    LogoutComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     PermitApplicationViewDetailsComponent,
@@ -40,7 +44,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     UsaBannerComponent
   ],
   imports: [AppRoutingModule, ApplicationsModule, BrowserModule, FormsModule, HttpModule, ReactiveFormsModule],
-  providers: [AlertService, ApplicationService],
+  providers: [AlertService, ApplicationService, AuthGuard, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
