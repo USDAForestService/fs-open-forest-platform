@@ -8,7 +8,7 @@ let noncommercial = require('./noncommercial.es6');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
-let loginGov = require('auth/login-gov.es6');
+let loginGov = require('./auth/login-gov.es6');
 
 let app = express();
 
