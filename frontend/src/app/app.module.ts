@@ -20,7 +20,6 @@ import { PermitApplicationListComponent } from './admin/permit-application-list/
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { PermitApplicationViewDetailsComponent } from './admin/permit-application-view/permit-application-view-details.component';
 import { SpacesToDashesPipe } from './_pipes/spaces-to-dashes.pipe';
-import { StringToLowerPipe } from './_pipes/string-to-lower.pipe';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TitleDirective } from './_directives/title.directive';
 import { TrackScrollDirective } from './_directives/scroll.directive';
@@ -37,7 +36,6 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     PermitApplicationViewComponent,
     PermitApplicationViewDetailsComponent,
     SpacesToDashesPipe,
-    StringToLowerPipe,
     StyleGuideComponent,
     TitleDirective,
     TrackScrollDirective,
