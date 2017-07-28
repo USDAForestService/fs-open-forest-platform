@@ -19,17 +19,23 @@ passport.use(
   )
 );
 
-router.get('/auth',
+router.get('/login',
   passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
     console.log('in the login auth handler');
   }
 );
 
-router.post('/response',
+router.post('/callback',
   passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
     console.log('in the login response handler');
+  }
+);
+
+router.get('/logout',
+  function(req, res) {
+    console.log('in the logout handler');
   }
 );
 
