@@ -77,7 +77,7 @@ app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-app.use('/login', loginGov.router);
+app.use('/auth/login-gov/saml', loginGov.router);
 
 /* Start the server. */
 app.listen(8080);
