@@ -20,7 +20,9 @@
         <span class="display-block">{{ application.applicantInfo.organizationName }}</span>
         <span class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress }}</span>
         <span *ngIf="application.applicantInfo.organizationAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress2 }}</span>
-        <span class="display-block">{{ application.applicantInfo.organizationAddress.mailingCity }}, {{ application.applicantInfo.organizationAddress.mailingState }} {{ application.applicantInfo.organizationAddress.mailingZIP }}</span>
+        <span class="display-block">
+          {{ application.applicantInfo.organizationAddress.mailingCity }}, {{ application.applicantInfo.organizationAddress.mailingState }} {{ application.applicantInfo.organizationAddress.mailingZIP }}
+        </span>
       </div>
       <div class="margin-bottom-1">
         <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
@@ -35,8 +37,12 @@
       </div>
       <div class="margin-bottom-1">
         <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
-        <span class="display-block">{{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}</span>
-        <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">{{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}</span>
+        <span class="display-block">
+          {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
+        </span>
+        <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">
+          {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
+        </span>
       </div>
 
       <div *ngIf="application.applicantInfo.secondaryFirstName">
