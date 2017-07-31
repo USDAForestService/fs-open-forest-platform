@@ -1,8 +1,8 @@
 'use strict';
 
-let middlelayerAuth = require('./middlelayer-auth.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
+let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
 
@@ -229,7 +229,8 @@ noncommercial.acceptNoncommercialPermitApplication = application => {
     body: translateFromIntakeToMiddleLayer(application)
   };
   return new Promise((resolve, reject) => {
-    middlelayerAuth()
+    util
+      .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
         request.post(requestOptions, (error, response, body) => {
