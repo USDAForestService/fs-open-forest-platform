@@ -2,7 +2,6 @@
 
 var expect = require('chai').expect;
 var noncommercial = require('../noncommercial.es6');
-// var middlelayer = require('../middlelayer-auth.es6');
 var nock = require('nock');
 var noncommercialModelData = require('./data/noncommercial-model-test-data.es6');
 var vcap = require('../vcap-services.es6');
