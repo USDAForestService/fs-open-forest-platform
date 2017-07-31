@@ -30,6 +30,7 @@ let authenticator = function(req, res, next) {
   res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
   res.set('Access-Control-Allow-Credentials', true);
   let user = auth(req);
+  /* Selenium can't handle basic auth, so turn it off when we're testing on CircleCI. */
   if (process.env.PLATFORM === 'CircleCI') {
     next();
     return;
