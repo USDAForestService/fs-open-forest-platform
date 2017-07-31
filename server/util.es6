@@ -2,7 +2,9 @@
 
 let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
+let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+let vcapServices = require('./vcap-services.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
@@ -140,6 +142,23 @@ util.getAllOpenApplications = (req, res) => {
     .catch(errors => {
       res.status(500).json(errors);
     });
+};
+
+util.middleLayerAuth = () => {
+  let requestOptions = {
+    url: vcapServices.middleLayerBaseUrl + 'auth',
+    json: true,
+    body: { username: vcapServices.middleLayerUsername, password: vcapServices.middleLayerPassword }
+  };
+  return new Promise((resolve, reject) => {
+    request.post(requestOptions, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || response);
+      } else {
+        resolve(body.token);
+      }
+    });
+  });
 };
 
 module.exports = util;
