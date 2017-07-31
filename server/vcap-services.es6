@@ -2,8 +2,6 @@
 
 let _ = require('lodash');
 
-// Environment variables
-
 const vcapConstants = {};
 
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
@@ -29,5 +27,14 @@ vcapConstants.intakeUsername = _.find(VCAPServices['user-provided'], {
 vcapConstants.intakePassword = _.find(VCAPServices['user-provided'], {
   name: 'intake-client-service'
 }).credentials.INTAKE_PASSWORD;
+vcapConstants.loginGovCert = _.find(VCAPServices['user-provided'], {
+  name: 'login.gov'
+}).cert;
+vcapConstants.loginGovEntryPoint = _.find(VCAPServices['user-provided'], {
+  name: 'login.gov'
+}).entryPoint;
+vcapConstants.loginGovIssuer = _.find(VCAPServices['user-provided'], {
+  name: 'login.gov'
+}).issuer;
 
 module.exports = vcapConstants;
