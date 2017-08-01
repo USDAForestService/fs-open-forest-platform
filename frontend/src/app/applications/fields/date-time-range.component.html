@@ -22,7 +22,7 @@
       ">Start date is required.</span>
     <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startDateTimeValid">Start date is invalid.</span>
 
-    <fieldset>
+    <fieldset *ngIf="!dateOnly">
       <legend class="fs-datetime-legend">Start time </legend>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-hour">Hour</label>
@@ -48,6 +48,7 @@
     </fieldset>
     <span id="start-time-error" class="usa-input-error-message" role="alert"
        aria-live="assertive" aria-hidden="false" *ngIf="
+        !dateOnly &&
         (dateTimeRange.controls.startHour.touched && dateTimeRange.controls.startMinutes.touched && dateTimeRange.controls.startPeriod.touched) &&
         (dateTimeRange.controls.startHour.invalid || dateTimeRange.controls.startMinutes.invalid || dateTimeRange.controls.startPeriod.invalid)
       ">Start time is required.</span>
@@ -76,7 +77,7 @@
       ">End date is required.</span>
     <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endDateTimeValid">End date is invalid.</span>
 
-    <fieldset>
+    <fieldset *ngIf="!dateOnly">
       <legend class="fs-datetime-legend">End time </legend>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-hour">Hour</label>
@@ -102,6 +103,7 @@
     </fieldset>
     <span id="end-time-error" class="usa-input-error-message" role="alert"
        aria-live="assertive" aria-hidden="false" *ngIf="
+       !dateOnly &&
        (dateTimeRange.controls.endHour.touched && dateTimeRange.controls.endMinutes.touched && dateTimeRange.controls.endPeriod.touched) &&
        (dateTimeRange.controls.endHour.invalid || dateTimeRange.controls.endMinutes.invalid || dateTimeRange.controls.endPeriod.invalid)
       ">End time is required.</span>

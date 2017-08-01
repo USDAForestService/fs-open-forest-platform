@@ -27,19 +27,21 @@ module.exports = {
       },
       dayPhone: {
         areaCode: '123',
-        extension: null,
+        extension: '987',
         number: '7890',
-        phoneType: 'dayPhone',
-        prefix: '456',
-        tenDigit: '1234567890'
+        prefix: '456'
+      },
+      eveningPhone: {
+        areaCode: '456',
+        extension: '678',
+        number: '8900',
+        prefix: '321'
       },
       fax: {
-        areaCode: null,
-        extension: null,
-        number: null,
-        phoneType: 'fax',
-        prefix: null,
-        tenDigit: ''
+        areaCode: '123',
+        extension: '4567',
+        number: '8901',
+        prefix: '234'
       }
     },
     tempOutfitterFields: {
@@ -69,19 +71,7 @@ module.exports = {
         descriptionOfCleanupAndRestoration: 'Cleanup',
         dateTimeRange: {
           endDateTime: '2018-12-12T16:00:00Z',
-          endDay: '12',
-          endMonth: '12',
-          endYear: '2018',
-          endHour: '04',
-          endMinutes: '00',
-          endPeriod: 'PM',
-          startDateTime: '2018-12-12T14:00:00Z',
-          startDay: '12',
-          startMonth: '12',
-          startYear: '2018',
-          startHour: '02',
-          startMinutes: '00',
-          startPeriod: 'PM'
+          startDateTime: '2018-12-12T14:00:00Z'
         }
       },
       experienceFields: {

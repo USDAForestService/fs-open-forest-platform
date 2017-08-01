@@ -12,25 +12,25 @@ export class FrontendPage {
 
 export class NoncommercialGroupForm {
   navigateTo() {
-    return browser.get('/#/applications/noncommercial-group-use/new');
+    return browser.get('/applications/noncommercial-group-use/new');
   }
 }
 
 export class TempOutfittersForm {
   navigateTo() {
-    return browser.get('/#/applications/temp-outfitters/new');
+    return browser.get('/applications/temp-outfitters/new');
   }
 }
 
 export class AdminApplicationList {
   navigateTo() {
-    return browser.get('/#/admin/applications');
+    return browser.get('/admin/applications');
   }
 }
 
 export class AdminApplicationView {
   navigateTo() {
-    return browser.get('/#/admin/applications/234');
+    return browser.get('/admin/applications/noncommercial/234');
   }
 }
 
@@ -62,7 +62,9 @@ export class HelpMePick {
     it('should go back to step one', () => {
       browser.get('/');
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Are you charging a participation fee for your activity?');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+        'Are you charging a participation fee for your activity?'
+      );
     });
   }
 }

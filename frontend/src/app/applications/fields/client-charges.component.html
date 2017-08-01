@@ -4,7 +4,7 @@
 
     <label class="usa-input" for="client-charges">Provide a description of client charges and fees and what they cover.</label>
     <textarea id="client-charges" type="text" formControlName="clientCharges" aria-required="true"></textarea>
-    <span id="client-charges-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="tempOutfitterFields.controls.clientCharges.invalid && tempOutfitterFields.controls.clientCharges.touched">Client charges is required.</span>
+    <app-error-message id="client-charges-error" name="Client charges" [control]="tempOutfitterFields.controls.clientCharges"></app-error-message>
 
   </fieldset>
 </ng-container>

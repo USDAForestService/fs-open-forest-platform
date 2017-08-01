@@ -42,7 +42,7 @@
 
         <ng-container formGroupName="applicantInfo">
           <input id="primary-permit-holder-same-address" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
-          <label class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
+          <label id="primary-permit-holder-same-address-label" class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
         </ng-container>
 
         <div *ngIf="!applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
@@ -52,7 +52,7 @@
 
       <ng-container formGroupName="applicantInfo">
         <input id="add-secondary-permit-holder" type="checkbox" formControlName="addSecondaryPermitHolder" />
-        <label class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
+        <label id="add-secondary-permit-holder-label" class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </ng-container>
 
@@ -61,8 +61,8 @@
 
           <ng-container formGroupName="applicantInfo">
             <input id="secondary-permit-holder-same-address" type="checkbox" formControlName="secondaryAddressSameAsPrimary" type="checkbox" />
-            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
-            <label *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
+            <label id="secondary-permit-holder-same-address-label" *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as primary permit holder address.</label>
+            <label id="secondary-permit-holder-same-address-label" *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'" class="usa-input" for="secondary-permit-holder-same-address">Secondary permit holder address is same as organization address.</label>
           </ng-container>
 
           <app-address
@@ -81,7 +81,8 @@
 
         <label class="usa-input" for="name">Event Name</label>
         <input id="name" formControlName="eventName" type="text" aria-required="true" />
-        <span id="name-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.eventName.invalid && applicationForm.controls.eventName.touched">Event name is required.</span>
+        <app-error-message id="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
+
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
         <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
       </fieldset>
@@ -90,7 +91,7 @@
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
         <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
+        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
