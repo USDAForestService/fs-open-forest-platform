@@ -4,11 +4,12 @@ let auth = require('basic-auth');
 let bodyParser = require('body-parser');
 let express = require('express');
 let helmet = require('helmet');
+let loginGov = require('./auth/login-gov.es6');
 let noncommercial = require('./noncommercial.es6');
+let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
-let loginGov = require('./auth/login-gov.es6');
 
 let app = express();
 
@@ -18,6 +19,11 @@ app.use(helmet());
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
+/* Setup passport. */
+loginGov.setup();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
   res.set('Access-Control-Allow-Credentials', true);
@@ -26,7 +32,7 @@ app.options('*', function(req, res) {
   res.send();
 });
 
-/* Authentication middleware. */
+/* Basic HTTP authentication middleware. */
 let authenticator = function(req, res, next) {
   res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
   res.set('Access-Control-Allow-Credentials', true);
