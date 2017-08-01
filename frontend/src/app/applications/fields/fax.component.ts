@@ -8,20 +8,33 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 export class FaxComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
-  fax = 'fax';
+  formName: string;
+  fax: any;
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    const fax = this.formBuilder.group({
+    this.formName = 'fax';
+    this[this.formName] = this.formBuilder.group({
       areaCode: [],
-      extension: [],
+      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
       number: [],
       phoneType: ['fax'],
       prefix: [],
       tenDigit: ['', [Validators.minLength(10), Validators.maxLength(10)]]
     });
-    this.parentForm.addControl('fax', fax);
+    this.parentForm.addControl(this.formName, this[this.formName]);
+    this.fax = this.parentForm.get('fax');
+
+    this.parentForm.get('fax.extension').valueChanges.subscribe(value => {
+      if (value) {
+        this.parentForm.get('fax.tenDigit').setValidators([Validators.minLength(10), Validators.maxLength(10), Validators.required]);
+        this.parentForm.get('fax.tenDigit').updateValueAndValidity();
+      } else {
+        this.parentForm.get('fax.tenDigit').setValidators([Validators.minLength(10), Validators.maxLength(10)]);
+        this.parentForm.get('fax.tenDigit').updateValueAndValidity();
+      }
+    });
 
     this.parentForm.get('fax.tenDigit').valueChanges.subscribe(value => {
       this.parentForm.patchValue({ fax: { areaCode: value.substring(0, 3) } });

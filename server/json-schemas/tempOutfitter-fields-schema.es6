@@ -32,6 +32,9 @@ module.exports = {
     },
     activityDescriptionFields: {
       $ref: '/activityDescriptionFields'
+    },
+    experienceFields: {
+      $ref: '/experienceFields'
     }
   },
   allOf: [

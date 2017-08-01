@@ -6,6 +6,7 @@ let util = require('./util.es6');
 let validator = new jsonschema.Validator();
 let validatorOptions = { nestedErrors: true };
 
+let activityDescriptionFieldsSchema = require('./json-schemas/activityDescription-fields-schema.es6');
 let addressSchema = require('./json-schemas/address-schema.es6');
 let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
 let commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
@@ -17,7 +18,7 @@ let phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
 let tempOutfitterAppInfoSchema = require('./json-schemas/tempOutfitter-application-info-schema.es6');
 let tempOutfitterFieldsSchema = require('./json-schemas/tempOutfitter-fields-schema.es6');
 let tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
-let activityDescriptionFieldsSchema = require('./json-schemas/activityDescription-fields-schema.es6');
+let experienceFieldsSchema = require('./json-schemas/experience-fields-schema.es6');
 
 validator.addSchema(addressSchema);
 validator.addSchema(applicantInfoBaseSchema);
@@ -31,6 +32,7 @@ validator.addSchema(tempOutfitterAppInfoSchema);
 validator.addSchema(tempOutfitterFieldsSchema);
 validator.addSchema(tempOutfitterSchema);
 validator.addSchema(activityDescriptionFieldsSchema);
+validator.addSchema(experienceFieldsSchema);
 
 let validateSchema = input => {
   let result;
