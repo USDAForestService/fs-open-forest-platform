@@ -221,7 +221,7 @@ let translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
-noncommercial.acceptNoncommercialPermitApplication = application => {
+noncommercial.acceptApplication = application => {
   let requestOptions = {
     url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: {},
@@ -290,7 +290,7 @@ noncommercial.update = (req, res) => {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
         noncommercial
-          .acceptNoncommercialPermitApplication(app)
+          .acceptApplication(app)
           .then(response => {
             app.controlNumber = response.controlNumber;
             app
