@@ -14,6 +14,12 @@ let vcapServices = require('./vcap-services.es6');
 
 let tempOutfitter = {};
 
+let s3 = new AWS.S3({
+  accessKeyId: vcapServices.accessKeyId,
+  secretAccessKey: vcapServices.secretAccessKey,
+  region: vcapServices.region
+});
+
 let translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
@@ -253,7 +259,6 @@ tempOutfitter.acceptApplication = application => {
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
         request.post(requestOptions, (error, response, body) => {
-          console.log('----------------', body);
           if (error || response.statusCode !== 200) {
             reject(error || response);
           } else {
@@ -266,15 +271,6 @@ tempOutfitter.acceptApplication = application => {
       });
   });
 };
-
-// S3 Setup
-
-// Upload to S3
-let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
-});
 
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
