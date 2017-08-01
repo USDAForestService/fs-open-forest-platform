@@ -241,18 +241,27 @@ let translateFromIntakeToMiddleLayer = () => {
 };
 
 tempOutfitter.acceptApplication = application => {
+  ApplicationFile.findAll({
+    where: { applicationId: application.applicationId }
+  }).then(results => {
+    for (let item of results) {
+      console.log(item.s3FileName, item.documentType);
+    }
+  });
+
   let requestOptions = {
     url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
     headers: {},
     formData: {
       body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
-      guideDocumentation: fs.createReadStream('./test.pdf'),
-      acknowledgementOfRiskForm: fs.createReadStream('./test.pdf'),
-      insuranceCertificate: fs.createReadStream('./test.pdf'),
-      goodStandingEvidence: fs.createReadStream('./test.pdf'),
-      operatingPlan: fs.createReadStream('./test.pdf')
+      guideDocumentation: require('fs').createReadStream('./from-s3.pdf'),
+      acknowledgementOfRiskForm: require('fs').createReadStream('./test.pdf'),
+      insuranceCertificate: require('fs').createReadStream('./test.pdf'),
+      goodStandingEvidence: require('fs').createReadStream('./test.pdf'),
+      operatingPlan: require('fs').createReadStream('./test.pdf')
     }
   };
+
   return new Promise((resolve, reject) => {
     util
       .middleLayerAuth()
