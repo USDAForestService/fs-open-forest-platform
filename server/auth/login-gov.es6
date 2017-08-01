@@ -21,23 +21,18 @@ passport.use(
   )
 );
 
-router.get(
-  '/auth/login-gov/saml/login',
-  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
-  function(req, res) {
-    console.log('in the login auth handler');
-  }
-);
+router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), function(req, res) {
+  console.log('in the login auth handler');
+});
 
-router.post(
-  '/auth/login-gov/saml/callback',
-  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
-  function(req, res) {
-    console.log('in the login response handler');
-  }
-);
+router.post('/callback', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), function(
+  req,
+  res
+) {
+  console.log('in the login response handler');
+});
 
-router.get('/auth/login-gov/saml/logout', function(req, res) {
+router.get('/logout', function(req, res) {
   console.log('in the logout handler');
 });
 
