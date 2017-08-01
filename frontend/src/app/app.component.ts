@@ -10,7 +10,6 @@ export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
   currentRoute: string;
-  scrollExecuted: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     router.events.subscribe(scroll => {
