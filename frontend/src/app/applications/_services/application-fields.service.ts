@@ -32,11 +32,14 @@ export class ApplicationFieldsService {
   }
 
   scrollToFirstError() {
-    const elements = document.getElementsByClassName('usa-input-error-message');
-    if (elements.length === 0) {
+    const elements = document.getElementsByClassName('ng-invalid');
+    const invalidInputs = Array.prototype.filter.call(elements, function(element) {
+      return element.nodeName === 'INPUT';
+    });
+    if (invalidInputs.length === 0) {
       return;
     }
-    elements[0].scrollIntoView();
+    invalidInputs[0].scrollIntoView();
   }
 
   touchAllFields(formGroup: FormGroup) {
