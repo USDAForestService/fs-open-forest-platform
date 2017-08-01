@@ -2,6 +2,7 @@
 
 let ApplicationFile = require('./models/application-files.es6');
 let AWS = require('aws-sdk');
+let cryptoRandomString = require('crypto-random-string');
 let fs = require('fs');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
@@ -279,8 +280,11 @@ tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: vcapServices.bucket,
+    metadata: function(req, file, next) {
+      next(null, null, Object.assign({}, req.body));
+    },
     key: function(req, file, next) {
-      next(null, file.originalname); //use Date.now() for unique file keys
+      next(null, `${cryptoRandomString(20)}/${file.originalname}`);
     }
   })
 });
@@ -288,12 +292,10 @@ tempOutfitter.streamToS3 = multer({
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
-    // applicationType: req.body.applicationType,
-    // s3FileName: req.body.s3FileName,
-    // originalFileName: req.body.originalFileName
     applicationType: 'tempoutfitters',
-    s3FileName: 'test.pdf',
-    originalFileName: 'originalTest.pdf'
+    documentType: req.body.documentType,
+    s3FileName: req.files[0].key,
+    originalFileName: req.files[0].key
   })
     .then(appfile => {
       req.body['fileId'] = appfile.fileId;
