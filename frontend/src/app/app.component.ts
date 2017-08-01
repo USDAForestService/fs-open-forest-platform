@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
 
-  constructor(router: Router) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);

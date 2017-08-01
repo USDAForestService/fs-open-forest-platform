@@ -1,5 +1,6 @@
 'use strict';
 
+let applicationId = '';
 let ApplicationFile = require('./models/application-files.es6');
 let AWS = require('aws-sdk');
 let multer = require('multer');
@@ -7,6 +8,7 @@ let multerS3 = require('multer-s3');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
+let cryptoRandomString = require('crypto-random-string');
 
 let tempOutfitterRestHandlers = {};
 
@@ -196,8 +198,11 @@ tempOutfitterRestHandlers.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: vcapServices.bucket,
+    metadata: function(req, file, next) {
+      next(null, null, Object.assign({}, req.body));
+    },
     key: function(req, file, next) {
-      next(null, file.originalname); //use Date.now() for unique file keys
+      next(null, `${cryptoRandomString(20)}/${file.originalname}`);
     }
   })
 });
@@ -205,12 +210,10 @@ tempOutfitterRestHandlers.streamToS3 = multer({
 tempOutfitterRestHandlers.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
-    // applicationType: req.body.applicationType,
-    // s3FileName: req.body.s3FileName,
-    // originalFileName: req.body.originalFileName
     applicationType: 'tempoutfitters',
-    s3FileName: 'test.pdf',
-    originalFileName: 'originalTest.pdf'
+    documentType: req.body.documentType,
+    s3FileName: req.files[0].key,
+    originalFileName: req.files[0].key
   })
     .then(appfile => {
       req.body['fileId'] = appfile.fileId;
@@ -241,7 +244,11 @@ tempOutfitterRestHandlers.create = (req, res) => {
 };
 
 tempOutfitterRestHandlers.getOne = (req, res) => {
-  TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
+  TempOutfitterApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (app) {
         res.status(200).json(translateFromDatabaseToClient(app));
@@ -255,7 +262,11 @@ tempOutfitterRestHandlers.getOne = (req, res) => {
 };
 
 tempOutfitterRestHandlers.update = (req, res) => {
-  TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+  TempOutfitterApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  }).then(app => {
     if (app) {
       app.status = req.body.status;
       app
