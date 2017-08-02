@@ -7,7 +7,7 @@ applications:
   memory: 128M
   instances: 1
   services:
-    - fs-intake-api-staging-db
-    - fs-intake-staging-s3
+    - intake-s3
+    - intake-db
     - intake-client-service
     - middlelayer-service
