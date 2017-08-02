@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
   currentRoute: string;
+  apiurl = environment.apiUrl;
 
   constructor(router: Router) {
     router.events.subscribe(scroll => {
