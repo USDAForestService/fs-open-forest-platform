@@ -43,7 +43,7 @@ deployment:
     commands:
       - cd frontend; yarn run update-version;
       - cd frontend; ng build --prod --env=prod;
-      - ./cg-deploy/deploy.sh fs-intake-prod
+      - ./cg-deploy/deploy.sh public-production
   staging:
     branch: sprint-7-development
     owner: flexion

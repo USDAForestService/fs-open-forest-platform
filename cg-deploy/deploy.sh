@@ -15,7 +15,7 @@ echo "Usage: deploy <space>"
 exit
 fi
 
-if [ $SPACE = 'fs-intake-prod' ]; then
+if [ $SPACE = 'public-production' ]; then
   FRONTEND_NAME="forest-service-epermit"
   FRONTEND_MANIFEST="./cg-deploy/manifests/production/manifest-frontend.yml"
   API_NAME="fs-intake-api"
