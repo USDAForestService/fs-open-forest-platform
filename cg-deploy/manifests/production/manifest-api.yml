@@ -8,6 +8,6 @@ applications:
   instances: 1
   services:
     - intake-s3
-    - intake-s3
+    - intake-db
     - intake-client-service
     - middlelayer-service
