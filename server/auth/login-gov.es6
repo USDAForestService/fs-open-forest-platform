@@ -10,13 +10,15 @@ loginGov.setup = () => {
   passport.use(
     new SamlStrategy(
       {
-        path: '/auth/login-gov/saml/callback',
         cert: vcapServices.loginGovCert,
         entryPoint: vcapServices.loginGovEntryPoint,
-        issuer: vcapServices.loginGovIssuer
+        issuer: vcapServices.loginGovIssuer,
+        path: '/auth/login-gov/saml/callback',
+        privateKey: vcapServices.loginGovPrivateKey,
+        signatureAlgorithm: 'sha256'
       },
       function(profile, done) {
-        console.log(profile, done);
+        console.log('new saml strategy callback', profile, done);
       }
     )
   );
@@ -24,19 +26,23 @@ loginGov.setup = () => {
 
 loginGov.router = router;
 
-router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), function(req, res) {
-  console.log('in the login auth handler');
+router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
+  console.log('in the login auth handler', req.body);
+  passport.authenticate('saml', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  });
 });
 
-router.post('/callback', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), function(
-  req,
-  res
-) {
-  console.log('in the login response handler');
+router.post('/callback', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
+  console.log('in the login response handler', req.body);
+  res.redirect('/');
 });
 
-router.get('/logout', function(req, res) {
-  console.log('in the logout handler');
+router.get('/logout', (req, res) => {
+  console.log('in the logout handler', req.body);
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = loginGov;
