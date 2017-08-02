@@ -52,4 +52,4 @@ deployment:
     commands:
       - cd frontend; yarn run update-version;
       - cd frontend; yarn dist;
-      - ./cg-deploy/deploy.sh fs-intake-staging
+      - ./cg-deploy/deploy.sh public-staging
