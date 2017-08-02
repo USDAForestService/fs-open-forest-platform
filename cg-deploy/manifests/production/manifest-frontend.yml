@@ -3,7 +3,7 @@ applications:
 - name: forest-service-epermit
   path: ../../../frontend/dist
   memory: 64M
-  host: forest-service-intake
+  host: forest-service-epermit
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
     FORCE_HTTPS: true
