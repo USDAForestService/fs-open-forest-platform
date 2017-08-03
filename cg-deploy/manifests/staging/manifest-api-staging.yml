@@ -11,3 +11,4 @@ applications:
     - intake-db
     - intake-client-service
     - middlelayer-service
+    - login-service-provider
