@@ -14,8 +14,8 @@ import { AuthGuard } from './_services/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './login/logout.component';
+import { LoginFormComponent } from './login/login-form.component';
+import { AuthenticatedComponent } from './login/authenticated.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { PermitApplicationViewDetailsComponent } from './admin/permit-application-view/permit-application-view-details.component';
@@ -30,8 +30,8 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     AppComponent,
     HelpMePickComponent,
     HomeComponent,
-    LoginComponent,
-    LogoutComponent,
+    LoginFormComponent,
+    AuthenticatedComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     PermitApplicationViewDetailsComponent,
