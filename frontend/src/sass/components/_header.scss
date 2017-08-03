@@ -9,9 +9,20 @@
         position: relative;
         z-index: 10;
         width: 50px;
-        @media(min-width: $nav-width){
+        @media (min-width: $nav-width) {
           margin-bottom: 20px;
           width: 100px;
+        }
+      }
+      img.usda-logo {
+        float: left;
+        margin: -6px 5px 0 0;
+        position: relative;
+        z-index: 10;
+        width: 50px;
+        @media (min-width: $nav-width) {
+          margin: -16px 10px 20px 0;
+          width: 120px;
         }
       }
       .fs-name-slogan {
@@ -23,7 +34,7 @@
           line-height: 17px;
           margin-left: 10px;
           margin-top: 6px;
-          @media(min-width: $nav-width){
+          @media (min-width: $nav-width) {
             font-size: 24px;
             line-height: 26px;
             margin-top: 17px;
@@ -35,7 +46,7 @@
           font-size: 10px;
           line-height: 15px;
           margin-left: 10px;
-          @media(min-width: $nav-width){
+          @media (min-width: $nav-width) {
             font-size: 20px;
             line-height: 22px;
           }
@@ -45,7 +56,7 @@
           line-height: 30px;
           margin-left: 10px;
           margin-top: -16px;
-          @media(min-width: $nav-width){
+          @media (min-width: $nav-width) {
             clear: both;
             margin-top: 0;
           }
@@ -78,13 +89,13 @@
 }
 
 .usa-navbar {
-  @media(max-width: $nav-width){
+  @media (max-width: $nav-width) {
     height: 77px;
   }
 }
 
 .fs-branding {
-  @media(max-width: $nav-width){
+  @media (max-width: $nav-width) {
     padding: 18px 0;
   }
 }
