@@ -45,11 +45,11 @@ deployment:
     commands:
       - cd frontend; yarn run update-version;
       - cd frontend; yarn dist;
-      - ./cg-deploy/deploy.sh fs-intake-prod
+      - ./cg-deploy/deploy.sh public-production
   staging:
     branch: sprint-8-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;
       - cd frontend; yarn dist;
-      - ./cg-deploy/deploy.sh fs-intake-staging
+      - ./cg-deploy/deploy.sh public-staging
