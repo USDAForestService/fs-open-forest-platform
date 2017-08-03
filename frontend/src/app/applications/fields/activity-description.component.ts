@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Component({
   selector: 'app-activity-description',
@@ -9,6 +10,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 export class ActivityDescriptionComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
+  @Input() pointOfView: string;
   activityDescriptionFields = 'activityDescriptionFields';
 
   dateStatus = {
@@ -16,19 +18,20 @@ export class ActivityDescriptionComponent implements OnInit {
     endDateTimeValid: true,
     startBeforeEnd: true,
     startAfterToday: true,
-    hasErrors: false
+    hasErrors: false,
+    dateTimeSpan: 0
   };
 
   constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: ['', [Validators.required]],
-      numberOfTrips: ['', [Validators.required]],
-      partySize: ['', [Validators.required]],
-      locationDescription: ['', [Validators.required]],
-      servicesProvided: ['', [Validators.required]],
-      audienceDescription: ['', [Validators.required]],
+      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator()]],
+      numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
+      partySize: ['', [Validators.required, alphanumericValidator()]],
+      locationDescription: ['', [Validators.required, alphanumericValidator()]],
+      servicesProvided: ['', [Validators.required, alphanumericValidator()]],
+      audienceDescription: ['', [Validators.required, alphanumericValidator()]],
       needGovernmentFacilities: [false],
       listOfGovernmentFacilities: [''],
       needTemporaryImprovements: [false],
@@ -39,7 +42,7 @@ export class ActivityDescriptionComponent implements OnInit {
       statementOfTransportationOfLivestock: [''],
       needAssignedSite: [false],
       statementOfAssignedSite: [''],
-      descriptionOfCleanupAndRestoration: ['', [Validators.required]]
+      descriptionOfCleanupAndRestoration: ['', [Validators.required, alphanumericValidator()]]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 

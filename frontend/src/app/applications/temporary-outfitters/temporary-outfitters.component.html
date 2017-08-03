@@ -27,7 +27,8 @@
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'individual'" [formGroup]="applicationForm.controls.tempOutfitterFields">
           <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
-          <label class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
+          <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
+          <app-error-message id="individual-citizen-error" name="Citizen" [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
         </div>
 
         <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
@@ -40,7 +41,7 @@
 
       </fieldset>
 
-      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')"></app-activity-description>
+      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-activity-description>
 
       <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
 
@@ -85,7 +86,7 @@
         <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
       </fieldset>
 
-      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')"></app-experience>
+      <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-experience>
 
       <fieldset>
         <legend>Signature</legend>
@@ -93,7 +94,7 @@
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
         <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <span id="signature-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="applicationForm.controls.signature.invalid && applicationForm.controls.signature.touched">Initials are required.</span>
+        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
