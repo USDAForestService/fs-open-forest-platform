@@ -2,16 +2,19 @@
   <fieldset>
 
     <legend>Advertising</legend>
+
     <!-- <h3>Provide a current brochure and current advertising materials or website address.</h3> -->
 
-    <label class="usa-input" for="advertising-description">Advertising description</label>
-    <p class="help-text usa-form-hint">Please describe your marketing plan.</p>
-    <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"></textarea>
-    <span id="advertising-description-error" class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="tempOutfitterFields.controls.advertisingDescription.invalid && tempOutfitterFields.controls.advertisingDescription.touched">Advertising description is required.</span>
-
     <label class="usa-input" for="advertising-url">Promotional website (optional)</label>
-    <input id="advertising-url" type="url" formControlName="advertisingURL" />
-    <!-- TODO: validation -->
+    <input id="advertising-url" type="url" formControlName="advertisingURL" pattern="https?://.+" />
+    <span id="advertising-url-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false"
+      *ngIf="tempOutfitterFields.controls.advertisingURL.invalid && tempOutfitterFields.controls.advertisingURL.touched">Website requires a valid URL.</span>
+    <app-error-message id="advertising-url-error" name="Advertising url" [control]="tempOutfitterFields.controls.advertisingURL"></app-error-message>
+
+    <label class="usa-input" for="advertising-description">Advertising description (optional)</label>
+    <p class="help-text usa-form-hint">Any other marketing details related to your trips.</p>
+    <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"></textarea>
+    <app-error-message id="advertising-description-error" name="Advertising description" [control]="tempOutfitterFields.controls.advertisingDescription"></app-error-message>
 
   </fieldset>
 </ng-container>

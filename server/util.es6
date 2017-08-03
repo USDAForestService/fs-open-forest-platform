@@ -1,6 +1,8 @@
 'use strict';
 
 let moment = require('moment');
+let NoncommercialApplication = require('./models/noncommercial-application.es6');
+let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
@@ -27,83 +29,6 @@ util.collateErrors = (result, errorArr, prefix) => {
   return errorArr;
 };
 
-util.translateFromDatabaseToJSON = input => {
-  return {
-    applicantInfo: {
-      dayPhone: {
-        areaCode: input.applicantInfoDayPhoneAreaCode,
-        prefix: input.applicantInfoDayPhonePrefix,
-        number: input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoDayPhoneExtension || undefined
-      },
-      eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
-        prefix: input.applicantInfoEveningPhonePrefix || undefined,
-        number: input.applicantInfoEveningPhoneNumber || undefined,
-        extension: input.applicantInfoEveningPhoneExtension || undefined
-      },
-      primaryAddress: {
-        mailingAddress: input.applicantInfoPrimaryMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoPrimaryMailingCity || undefined,
-        mailingState: input.applicantInfoPrimaryMailingState || undefined,
-        mailingZIP: input.applicantInfoPrimaryMailingZIP || undefined
-      },
-      organizationAddress: {
-        mailingAddress: input.applicantInfoOrgMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoOrgMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoOrgMailingCity || undefined,
-        mailingState: input.applicantInfoOrgMailingState || undefined,
-        mailingZIP: input.applicantInfoOrgMailingZIP || undefined
-      },
-      secondaryAddress: {
-        mailingAddress: input.applicantInfoSecondaryMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoSecondaryMailingCity || undefined,
-        mailingState: input.applicantInfoSecondaryMailingState || undefined,
-        mailingZIP: input.applicantInfoSecondaryMailingZIP || undefined
-      },
-      orgType: input.applicantInfoOrgType,
-      primaryFirstName: input.applicantInfoPrimaryFirstName,
-      primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: input.applicantInfoSecondaryFirstName || undefined,
-      secondaryLastName: input.applicantInfoSecondaryLastName || undefined,
-      emailAddress: input.applicantInfoEmailAddress,
-      organizationName: input.applicantInfoOrganizationName || undefined,
-      website: input.applicantInfoWebsite || undefined
-    },
-    noncommercialFields: {
-      activityDescription: input.noncommercialFieldsActivityDescription,
-      locationDescription: input.noncommercialFieldsLocationDescription,
-      numberParticipants: input.noncommercialFieldsNumberParticipants,
-      spectators: input.noncommercialFieldsSpectatorCount
-    },
-    dateTimeRange: {
-      startDateTime: input.noncommercialFieldsStartDateTime,
-      endDateTime: input.noncommercialFieldsEndDateTime
-    },
-    district: input.district,
-    region: input.region,
-    forest: input.forest,
-    type: input.type,
-    eventName: input.eventName,
-    signature: input.signature,
-    status: input.status,
-    createdAt: input.createdAt,
-    applicationId: input.applicationId,
-    reasonForReturn: input.reasonForReturn || undefined,
-    appControlNumber: input.appControlNumber,
-    controlNumber: input.controlNumber || undefined
-  };
-};
-
-util.translateArrayFromDatabaseToJSON = applications => {
-  for (var i = 0; i < applications.length; i++) {
-    applications[i] = util.translateFromDatabaseToJSON(applications[i]);
-  }
-  return applications;
-};
-
 util.translateFromIntakeToMiddleLayer = input => {
   let result = {
     region: input.region,
@@ -122,7 +47,9 @@ util.translateFromIntakeToMiddleLayer = input => {
       },
       eveningPhone: {
         areaCode: input.applicantInfoEveningPhoneAreaCode || input.applicantInfoDayPhoneAreaCode,
-        number: input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber || input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
+        number:
+          input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber ||
+          input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
         extension: input.applicantInfoEveningPhoneExtension || input.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'standard'
       },
@@ -161,7 +88,58 @@ util.translateFromIntakeToMiddleLayer = input => {
 };
 
 util.validateDateTime = input => {
-  return /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) && moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid();
+  return (
+    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
+    moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid()
+  );
+};
+
+util.getAllOpenApplications = (req, res) => {
+  let noncommercialApplicationsPromise = NoncommercialApplication.findAll({
+    attributes: [
+      'appControlNumber',
+      'applicantInfoPrimaryFirstName',
+      'applicantInfoPrimaryLastName',
+      'applicationId',
+      'createdAt',
+      'eventName',
+      'noncommercialFieldsEndDateTime',
+      'noncommercialFieldsLocationDescription',
+      'noncommercialFieldsStartDateTime',
+      'status'
+    ],
+    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    order: [['createdAt', 'DESC']]
+  });
+  let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
+    attributes: [
+      'appControlNumber',
+      'applicantInfoOrganizationName',
+      'applicantInfoPrimaryFirstName',
+      'applicantInfoPrimaryLastName',
+      'applicationId',
+      'createdAt',
+      'status',
+      'tempOutfitterFieldsActDescFieldsEndDateTime',
+      'tempOutfitterFieldsActDescFieldsLocationDesc',
+      'tempOutfitterFieldsActDescFieldsStartDateTime'
+    ],
+    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    order: [['createdAt', 'DESC']]
+  });
+  Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
+    .then(results => {
+      for (let item of results[0]) {
+        item.type = 'Noncommercial';
+      }
+      for (let item of results[1]) {
+        item.type = 'Temp outfitter';
+      }
+      res.status(200).json(results[0].concat(results[1]));
+    })
+    .catch(errors => {
+      res.status(500).json(errors);
+    });
 };
 
 module.exports = util;

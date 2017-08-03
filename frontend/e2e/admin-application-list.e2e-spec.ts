@@ -16,7 +16,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display applications sub-header', () => {
     list.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Non-commercial group use applications');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Permit applications');
   });
 
   it('should show table headings', () => {
