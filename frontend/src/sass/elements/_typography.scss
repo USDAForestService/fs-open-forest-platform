@@ -1,7 +1,9 @@
 html,
-h1, h2, h3, h4
-{
- color: $black;
+h1,
+h2,
+h3,
+h4 {
+  color: $black;
 }
 
 h1 {
@@ -31,4 +33,8 @@ h1 {
 
 .centered {
   text-align: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

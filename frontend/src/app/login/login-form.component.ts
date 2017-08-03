@@ -4,10 +4,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html'
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
   user: FormGroup;
   referrer: string;
 

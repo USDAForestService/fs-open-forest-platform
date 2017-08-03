@@ -3,15 +3,21 @@
   .usa-logo {
     float: none;
     .fs-branding {
-      img.fs-logo {
+      @media (max-width: $nav-width) {
+        padding: 18px 0;
+      }
+      #us-forest-service-logo {
         float: left;
-        margin: -6px 0 0 0;
-        position: relative;
-        z-index: 10;
-        width: 50px;
-        @media (min-width: $nav-width) {
-          margin-bottom: 20px;
-          width: 100px;
+        img.fs-logo {
+          float: left;
+          margin: -6px 0 0 0;
+          position: relative;
+          z-index: 10;
+          width: 50px;
+          @media (min-width: $nav-width) {
+            margin-bottom: 20px;
+            width: 100px;
+          }
         }
       }
       img.usda-logo {
@@ -64,6 +70,25 @@
       }
     }
   }
+  .usa-navbar {
+    @media (max-width: $nav-width) {
+      height: 100px;
+    }
+    .authentication {
+      float: left;
+      clear: both;
+      margin-left: 18px;
+      margin-top: 5px;
+      @media (min-width: $nav-width) {
+        float: right;
+        margin-top: 32px;
+        clear: none;
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 .fs-official {
@@ -88,18 +113,6 @@
   }
 }
 
-.usa-navbar {
-  @media (max-width: $nav-width) {
-    height: 77px;
-  }
-}
-
-.fs-branding {
-  @media (max-width: $nav-width) {
-    padding: 18px 0;
-  }
-}
-
 .usa-menu-btn {
   height: 77px;
 }
@@ -110,8 +123,4 @@
 
 .usa-banner-header {
   font-size: 11px;
-}
-
-#us-forest-service-logo {
-  float: left;
 }
