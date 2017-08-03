@@ -27,17 +27,21 @@ vcapConstants.intakeUsername = _.find(VCAPServices['user-provided'], {
 vcapConstants.intakePassword = _.find(VCAPServices['user-provided'], {
   name: 'intake-client-service'
 }).credentials.INTAKE_PASSWORD;
-vcapConstants.loginGovCert = _.find(VCAPServices['user-provided'], {
-  name: 'login.gov'
-}).cert;
-vcapConstants.loginGovEntryPoint = _.find(VCAPServices['user-provided'], {
-  name: 'login.gov'
-}).entryPoint;
-vcapConstants.loginGovIssuer = _.find(VCAPServices['user-provided'], {
-  name: 'login.gov'
-}).issuer;
-vcapConstants.loginGovPrivateKey = _.find(VCAPServices['user-provided'], {
-  name: 'login.gov'
-}).privateKey;
+vcapConstants.loginGovCert =
+  _.find(VCAPServices['user-provided'], {
+    name: 'login.gov'
+  }).cert || './fake-cert.txt';
+vcapConstants.loginGovEntryPoint =
+  _.find(VCAPServices['user-provided'], {
+    name: 'login.gov'
+  }).entryPoint || 'https://idp.dev.login.gov/api/saml/auth';
+vcapConstants.loginGovIssuer =
+  _.find(VCAPServices['user-provided'], {
+    name: 'login.gov'
+  }).issuer || 'urn:gov:gsa:SAML:2.0.profiles:sp:sso:dev';
+vcapConstants.loginGovPrivateKey =
+  _.find(VCAPServices['user-provided'], {
+    name: 'login.gov'
+  }).privateKey || 'fake-proivate-key';
 
 module.exports = vcapConstants;
