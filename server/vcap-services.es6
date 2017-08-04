@@ -58,15 +58,15 @@ vcapConstants.intakePassword = _.find(VCAPServices['user-provided'], {
 // Login.gov
 vcapConstants.loginGovCert = _.find(VCAPServices['user-provided'], {
   name: 'login-service-provider'
-}).cert;
+}).credentials.cert;
 vcapConstants.loginGovEntryPoint = _.find(VCAPServices['user-provided'], {
   name: 'login-service-provider'
-}).entryPoint;
+}).credentials.entrypoint;
 vcapConstants.loginGovIssuer = _.find(VCAPServices['user-provided'], {
   name: 'login-service-provider'
-}).issuer;
+}).credentials.issuer;
 vcapConstants.loginGovPrivateKey = _.find(VCAPServices['user-provided'], {
   name: 'login-service-provider'
-}).privateKey;
+}).credentials.privatekey;
 
 module.exports = vcapConstants;
