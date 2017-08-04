@@ -16,6 +16,9 @@ let app = express();
 /* Use helmet for increased security. */
 app.use(helmet());
 
+/* Download login.gov cert. */
+util.prepareCerts();
+
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 
