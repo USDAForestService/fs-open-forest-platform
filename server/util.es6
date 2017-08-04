@@ -165,9 +165,9 @@ util.middleLayerAuth = () => {
 
 util.prepareCerts = () => {
   let s3 = new AWS.S3({
-    accessKeyId: vcapServices.certAccessKeyId,
-    secretAccessKey: vcapServices.certSecretAccessKey,
-    region: vcapServices.certRegion
+    accessKeyId: vcapServices.certsAccessKeyId,
+    secretAccessKey: vcapServices.certsSecretAccessKey,
+    region: vcapServices.certsRegion
   });
 
   s3
