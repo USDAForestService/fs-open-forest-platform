@@ -3,7 +3,6 @@
 let ApplicationFile = require('./models/application-files.es6');
 let AWS = require('aws-sdk');
 let cryptoRandomString = require('crypto-random-string');
-let fs = require('fs');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
 let request = require('request');
@@ -240,44 +239,73 @@ let translateFromIntakeToMiddleLayer = () => {
   return result;
 };
 
-tempOutfitter.acceptApplication = application => {
-  ApplicationFile.findAll({
-    where: { applicationId: application.applicationId }
-  }).then(results => {
-    for (let item of results) {
-      console.log(item.s3FileName, item.documentType);
-    }
-  });
-
-  let requestOptions = {
-    url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
-    headers: {},
-    formData: {
-      body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
-      guideDocumentation: require('fs').createReadStream('./from-s3.pdf'),
-      acknowledgementOfRiskForm: require('fs').createReadStream('./test.pdf'),
-      insuranceCertificate: require('fs').createReadStream('./test.pdf'),
-      goodStandingEvidence: require('fs').createReadStream('./test.pdf'),
-      operatingPlan: require('fs').createReadStream('./test.pdf')
-    }
-  };
-
+let getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
-    util
-      .middleLayerAuth()
-      .then(token => {
-        requestOptions.headers['x-access-token'] = token;
-        request.post(requestOptions, (error, response, body) => {
-          if (error || response.statusCode !== 200) {
-            reject(error || response);
-          } else {
-            resolve(body);
+    s3.getObject({ Bucket: vcapServices.bucket, Key: key }, (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ fileBuffer: data.Body, documentType });
+      }
+    });
+  });
+};
+
+let getAllFiles = applicationId => {
+  return new Promise((resolve, reject) => {
+    ApplicationFile.findAll({
+      where: { applicationId: applicationId }
+    })
+      .then(results => {
+        let filePromises = [];
+        for (let item of results) {
+          filePromises.push(getFile(item.s3FileName, item.documentType));
+        }
+        Promise.all(filePromises).then(results => {
+          let files = {};
+          for (let item of results) {
+            files[item.documentType] = item.fileBuffer;
           }
+          resolve(files);
         });
       })
       .catch(error => {
         reject(error);
       });
+  });
+};
+
+tempOutfitter.acceptApplication = application => {
+  return new Promise((resolve, reject) => {
+    getAllFiles(application.applicationId).then(files => {
+      let requestOptions = {
+        url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+        headers: {},
+        formData: {
+          body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
+          guideDocumentation: files['guide-document'],
+          acknowledgementOfRiskForm: files['acknowledgement-of-risk-form'],
+          insuranceCertificate: files['insurance-certificate'],
+          goodStandingEvidence: files['good-standing-evidence'],
+          operatingPlan: files['operating-plan']
+        }
+      };
+      util
+        .middleLayerAuth()
+        .then(token => {
+          requestOptions.headers['x-access-token'] = token;
+          request.post(requestOptions, (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+              reject(error || response);
+            } else {
+              resolve(body);
+            }
+          });
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   });
 };
 
