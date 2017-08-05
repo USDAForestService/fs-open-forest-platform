@@ -10,7 +10,7 @@ loginGov.setup = () => {
   passport.use(
     new SamlStrategy(
       {
-        cert: vcapServices.loginGovCert,
+        cert: './login-gov-cert',
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
         path: '/auth/login-gov/saml/callback',

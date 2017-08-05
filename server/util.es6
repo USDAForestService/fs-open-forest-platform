@@ -1,5 +1,7 @@
 'use strict';
 
+let AWS = require('aws-sdk');
+let fs = require('fs');
 let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
@@ -159,6 +161,19 @@ util.middleLayerAuth = () => {
       }
     });
   });
+};
+
+util.prepareCerts = () => {
+  let s3 = new AWS.S3({
+    accessKeyId: vcapServices.certsAccessKeyId,
+    secretAccessKey: vcapServices.certsSecretAccessKey,
+    region: vcapServices.certsRegion
+  });
+
+  s3
+    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovCert })
+    .createReadStream()
+    .pipe(fs.createWriteStream('./login-gov-cert'));
 };
 
 module.exports = util;
