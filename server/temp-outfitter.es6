@@ -284,10 +284,14 @@ tempOutfitter.acceptApplication = application => {
         formData: {
           body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
           guideDocumentation: files['guide-document'],
-          acknowledgementOfRiskForm: files['acknowledgement-of-risk-form'],
-          insuranceCertificate: files['insurance-certificate'],
-          goodStandingEvidence: files['good-standing-evidence'],
-          operatingPlan: files['operating-plan']
+          acknowledgementOfRiskForm: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
+          insuranceCertificate: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
+          goodStandingEvidence: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
+          operatingPlan: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+          // acknowledgementOfRiskForm: files['acknowledgement-of-risk-form'],
+          // insuranceCertificate: files['insurance-certificate'],
+          // goodStandingEvidence: files['good-standing-evidence'],
+          // operatingPlan: files['operating-plan']
         }
       };
       util
