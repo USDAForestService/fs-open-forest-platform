@@ -245,7 +245,7 @@ let getFile = (key, documentType) => {
       if (error) {
         reject(error);
       } else {
-        resolve({ fileBuffer: data.Body, documentType });
+        resolve({ fileBuffer: data.Body, documentType: documentType, key: key });
       }
     });
   });
@@ -264,7 +264,7 @@ let getAllFiles = applicationId => {
         Promise.all(filePromises).then(results => {
           let files = {};
           for (let item of results) {
-            files[item.documentType] = item.fileBuffer;
+            files[item.documentType] = { buffer: item.fileBuffer, filename: item.key };
           }
           resolve(files);
         });
@@ -283,17 +283,53 @@ tempOutfitter.acceptApplication = application => {
         headers: {},
         formData: {
           body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
-          guideDocumentation: files['guide-document'],
-          acknowledgementOfRiskForm: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
-          insuranceCertificate: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
-          goodStandingEvidence: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]),
-          operatingPlan: Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
-          // acknowledgementOfRiskForm: files['acknowledgement-of-risk-form'],
-          // insuranceCertificate: files['insurance-certificate'],
-          // goodStandingEvidence: files['good-standing-evidence'],
-          // operatingPlan: files['operating-plan']
+          insuranceCertificate: {
+            value: files['insurance-certificate'].buffer,
+            options: {
+              filename: files['insurance-certificate'].filename,
+              contentType: util.getContentType(files['insurance-certificate'].filename)
+            }
+          },
+          operatingPlan: {
+            value: files['operating-plan'].buffer,
+            options: {
+              filename: files['operating-plan'].filename,
+              contentType: util.getContentType(files['operating-plan'].filename)
+            }
+          }
         }
       };
+
+      if (files['guide-document']) {
+        requestOptions.formData.guideDocumentation = {
+          value: files['guide-document'].buffer,
+          options: {
+            filename: files['guide-document'].filename,
+            contentType: util.getContentType(files['guide-document'].filename)
+          }
+        };
+      }
+
+      if (files['good-standing-evidence']) {
+        requestOptions.formData.goodStandingEvidence = {
+          value: files['good-standing-evidence'].buffer,
+          options: {
+            filename: files['good-standing-evidence'].filename,
+            contentType: util.getContentType(files['good-standing-evidence'].filename)
+          }
+        };
+      }
+
+      if (files['acknowledgement-of-risk-form']) {
+        requestOptions.formData.acknowledgementOfRiskForm = {
+          value: files['acknowledgement-of-risk-form'].buffer,
+          options: {
+            filename: files['acknowledgement-of-risk-form'].filename,
+            contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
+          }
+        };
+      }
+
       util
         .middleLayerAuth()
         .then(token => {
