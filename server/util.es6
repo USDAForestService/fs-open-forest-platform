@@ -164,7 +164,6 @@ util.middleLayerAuth = () => {
 };
 
 util.prepareCerts = () => {
-  console.log('---- before getting cert');
   let s3 = new AWS.S3({
     accessKeyId: vcapServices.certsAccessKeyId,
     secretAccessKey: vcapServices.certsSecretAccessKey,
@@ -172,11 +171,9 @@ util.prepareCerts = () => {
   });
 
   s3
-    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovCert })
+    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey })
     .createReadStream()
-    .pipe(fs.createWriteStream('./login-gov-cert'));
-
-  console.log('---- after getting cert');
+    .pipe(fs.createWriteStream('./login-gov-key'));
 };
 
 module.exports = util;
