@@ -119,6 +119,4 @@ export class TemporaryOutfittersComponent implements DoCheck {
       this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
     }
   }
-
-  ngOnInit() {}
 }
