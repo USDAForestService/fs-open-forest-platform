@@ -13,7 +13,7 @@ vcapConstants.accessKeyId = _.find(VCAPServices['s3'], {
 }).credentials.access_key_id;
 vcapConstants.secretAccessKey = _.find(VCAPServices['s3'], {
   name: 'intake-s3'
-}).credentials.access_key_id;
+}).credentials.secret_access_key;
 vcapConstants.region = _.find(VCAPServices['s3'], {
   name: 'intake-s3'
 }).credentials.region;
@@ -29,7 +29,7 @@ vcapConstants.certsAccessKeyId = _.find(VCAPServices['s3'], {
 }).credentials.access_key_id;
 vcapConstants.certsSecretAccessKey = _.find(VCAPServices['s3'], {
   name: 'certs'
-}).credentials.access_key_id;
+}).credentials.secret_access_key;
 vcapConstants.certsRegion = _.find(VCAPServices['s3'], {
   name: 'certs'
 }).credentials.region;
