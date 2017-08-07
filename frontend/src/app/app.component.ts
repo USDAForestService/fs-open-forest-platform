@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   currentRoute: string;
   apiurl = environment.apiUrl;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);

@@ -23,7 +23,7 @@ describe('middle layer unit tests', () => {
     };
 
     noncommercial
-      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .acceptApplication(noncommercialModelData.noncommercialModelPerson.create())
       .then(success)
       .catch(failure);
   });
@@ -48,7 +48,7 @@ describe('middle layer unit tests', () => {
     };
 
     noncommercial
-      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .acceptApplication(noncommercialModelData.noncommercialModelPerson.create())
       .then(success)
       .catch(failure);
   });
@@ -72,7 +72,7 @@ describe('middle layer unit tests', () => {
     };
 
     noncommercial
-      .acceptNoncommercialPermitApplication(noncommercialModelData.noncommercialModelPerson.create())
+      .acceptApplication(noncommercialModelData.noncommercialModelPerson.create())
       .then(success)
       .catch(failure);
   });
