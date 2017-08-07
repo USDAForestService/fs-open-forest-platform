@@ -1,7 +1,7 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { SpecialUseApplication } from '../../_models/special-use-application';
   selector: 'app-temporary-outfitters',
   templateUrl: './temporary-outfitters.component.html'
 })
-export class TemporaryOutfittersComponent implements OnInit {
+export class TemporaryOutfittersComponent implements DoCheck {
   apiErrors: any;
   application = new SpecialUseApplication();
   applicationId: number;
@@ -19,6 +19,7 @@ export class TemporaryOutfittersComponent implements OnInit {
   mode = 'Observable';
   submitted = false;
   uploadFiles = false;
+  filesUploaded = false;
   goodStandingEvidenceMessage: string;
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
@@ -100,9 +101,10 @@ export class TemporaryOutfittersComponent implements OnInit {
         .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
         .subscribe(
           persistedApplication => {
+            this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
-            this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+            this.filesUploaded = true;
           },
           (e: any) => {
             this.apiErrors = e;
@@ -112,5 +114,9 @@ export class TemporaryOutfittersComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngDoCheck() {
+    if (this.filesUploaded) {
+      this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+    }
+  }
 }

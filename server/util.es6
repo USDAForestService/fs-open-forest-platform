@@ -176,4 +176,23 @@ util.prepareCerts = () => {
     .pipe(fs.createWriteStream('./login-gov-key'));
 };
 
+let getExtension = filename => {
+  return filename.split('.').reverse()[0];
+};
+
+util.getContentType = filename => {
+  if (getExtension(filename) === 'pdf') {
+    return 'application/pdf';
+  }
+  if (getExtension(filename) === 'rtf') {
+    return 'application/rtf';
+  }
+  if (getExtension(filename) === 'doc') {
+    return 'application/msword';
+  }
+  if (getExtension(filename) === 'docx') {
+    return 'application/msword';
+  }
+};
+
 module.exports = util;
