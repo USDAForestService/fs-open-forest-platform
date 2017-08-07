@@ -7,7 +7,7 @@ import { ApplicationSubmittedComponent } from './applications/application-submit
 import { AuthGuard } from './_services/auth.guard';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { LoginFormComponent } from './login/login-form.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
-  { path: 'login', component: LoginComponent, data: { title: 'Login' } },
+  { path: 'login', component: LoginFormComponent, data: { title: 'Login' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
