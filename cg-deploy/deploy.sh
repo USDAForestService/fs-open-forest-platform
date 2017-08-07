@@ -7,7 +7,7 @@ tar xzvf $HOME/cf.tgz -C $HOME
 cf install-plugin autopilot -f -r CF-Community
 
 API="https://api.fr.cloud.gov"
-ORG="gsa-acq-proto"
+ORG="usda-forest-service"
 SPACE=$1
 
 if [ $# -ne 1 ]; then
@@ -15,14 +15,14 @@ echo "Usage: deploy <space>"
 exit
 fi
 
-if [ $SPACE = 'fs-intake-prod' ]; then
+if [ $SPACE = 'public-production' ]; then
   FRONTEND_NAME="forest-service-epermit"
   FRONTEND_MANIFEST="./cg-deploy/manifests/production/manifest-frontend.yml"
   API_NAME="fs-intake-api"
   API_MANIFEST="./cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
-elif [ $SPACE = 'fs-intake-staging' ]; then
+elif [ $SPACE = 'public-staging' ]; then
   FRONTEND_NAME="fs-intake-staging"
   FRONTEND_MANIFEST="./cg-deploy/manifests/staging/manifest-frontend-staging.yml"
   API_NAME="fs-intake-api-staging"

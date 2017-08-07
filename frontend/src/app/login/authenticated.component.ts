@@ -5,10 +5,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-logout',
-  templateUrl: './logout.component.html'
+  selector: 'app-authenticated',
+  templateUrl: './authenticated.component.html'
 })
-export class LogoutComponent implements OnInit {
+export class AuthenticatedComponent implements OnInit {
   isAuthenticated: boolean;
 
   constructor(

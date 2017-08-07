@@ -10,12 +10,20 @@ export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
   currentRoute: string;
+  apiurl = environment.apiUrl;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
     });
+  }
+
+  gotoHashtag(fragment: string) {
+    const element = document.querySelector('#' + fragment);
+    if (element) {
+      element.scrollIntoView();
+    }
   }
 
   ngOnInit() {
