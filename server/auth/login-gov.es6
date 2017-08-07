@@ -10,11 +10,11 @@ loginGov.setup = () => {
   passport.use(
     new SamlStrategy(
       {
-        cert: './login-gov-cert',
+        cert: vcapServices.loginGovCert,
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
         path: '/auth/login-gov/saml/callback',
-        privateKey: vcapServices.loginGovPrivateKey,
+        privateKey: './login-gov-key',
         signatureAlgorithm: 'sha256'
       },
       function(profile, done) {
