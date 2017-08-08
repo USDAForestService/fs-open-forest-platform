@@ -20,6 +20,11 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeFalsy();
   });
 
+  fieldValidation.validateFileUploadField('guide-document-wrapper');
+  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
+  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
+  fieldValidation.validateFileUploadField('operating-plan-wrapper');
+
   it('should not submit application if not all required fields are entered', () => {
     element(by.id('primary-permit-holder-first-name')).sendKeys('test');
     element(by.id('primary-permit-holder-last-name')).sendKeys('test');
@@ -36,10 +41,6 @@ describe('Apply for a temp outfitters permit', () => {
   });
 
   //  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
-  fieldValidation.validateFileUploadField('guide-document-wrapper');
-  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
-  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
-  fieldValidation.validateFileUploadField('operating-plan-wrapper');
 
   it('should submit an application with only the required fields populated', () => {
     element(by.id('email')).sendKeys('test@test.com');
