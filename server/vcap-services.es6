@@ -5,8 +5,6 @@ let _ = require('lodash');
 const vcapConstants = {};
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
 
-console.log('---- before getting intake s3 values');
-
 // Intake S3
 vcapConstants.accessKeyId = _.find(VCAPServices['s3'], {
   name: 'intake-s3'
@@ -21,8 +19,6 @@ vcapConstants.bucket = _.find(VCAPServices['s3'], {
   name: 'intake-s3'
 }).credentials.bucket;
 
-console.log('---- before getting cert s3 values');
-
 // Certs S3
 vcapConstants.certsAccessKeyId = _.find(VCAPServices['s3'], {
   name: 'certs'
@@ -36,8 +32,6 @@ vcapConstants.certsRegion = _.find(VCAPServices['s3'], {
 vcapConstants.certsBucket = _.find(VCAPServices['s3'], {
   name: 'certs'
 }).credentials.bucket;
-
-console.log('---- after getting cert s3 values');
 
 // Middle layer
 vcapConstants.middleLayerBaseUrl = _.find(VCAPServices['user-provided'], {
