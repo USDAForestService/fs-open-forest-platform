@@ -32,7 +32,7 @@ export class TemporaryOutfittersComponent implements OnInit {
     hasErrors: false
   };
 
-  fileUploadHasError = false;
+  invalidFileUpload: boolean;
 
   constructor(
     private applicationService: ApplicationService,
@@ -104,15 +104,21 @@ export class TemporaryOutfittersComponent implements OnInit {
     this.dateStatus = dateStatus;
   }
 
-  setFileUploadHasError() {
-    this.fileUploadHasError = true;
+  checkFileUploadValidity() {
+    const untouchedRequired = document.querySelectorAll('.usa-file-input.ng-untouched.required');
+    const invalid = document.querySelectorAll('.usa-file-input.ng-invalid');
+    if (untouchedRequired.length || invalid.length) {
+      this.invalidFileUpload = true;
+    } else {
+      this.invalidFileUpload = false;
+    }
   }
 
   onSubmit(form) {
-    this.fileUploadHasError = false;
     this.submitted = true;
+    this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
-    if (!form.valid || this.dateStatus.hasErrors || this.fileUploadHasError) {
+    if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService
