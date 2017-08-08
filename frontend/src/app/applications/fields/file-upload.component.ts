@@ -24,8 +24,6 @@ export class FileUploadComponent implements OnChanges {
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
-  @Output() setFileUploadHasError: EventEmitter<any> = new EventEmitter<any>();
-
   constructor() {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
@@ -73,7 +71,6 @@ export class FileUploadComponent implements OnChanges {
     if (this.checkFileUploadHasError) {
       if (this.required && !this.uploader.queue[0]) {
         this.errorMessage = `${this.name} is required.`;
-        this.setFileUploadHasError.emit(true);
       }
     }
   }
