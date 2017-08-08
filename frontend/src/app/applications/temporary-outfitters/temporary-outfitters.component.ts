@@ -24,6 +24,16 @@ export class TemporaryOutfittersComponent implements OnInit {
   applicationForm: FormGroup;
   pointOfView = 'We';
 
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false
+  };
+
+  fileUploadHasError = false;
+
   constructor(
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
@@ -90,10 +100,19 @@ export class TemporaryOutfittersComponent implements OnInit {
     });
   }
 
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
+  }
+
+  setFileUploadHasError() {
+    this.fileUploadHasError = true;
+  }
+
   onSubmit(form) {
+    this.fileUploadHasError = false;
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
-    if (!form.valid) {
+    if (!form.valid || this.dateStatus.hasErrors || this.fileUploadHasError) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
@@ -9,12 +9,22 @@ import { environment } from '../../../environments/environment';
 export class FileUploadComponent implements OnChanges {
   @Input() applicationId: number;
   @Input() name: string;
+  @Input() type: string;
   @Input() uploadFiles: boolean;
+  @Input() required: boolean;
+  @Input() checkFileUploadHasError: boolean;
 
-  allowedMimeType = ['application/msword', 'application/pdf', 'application/rtf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+  allowedMimeType = [
+    'application/msword',
+    'application/pdf',
+    'application/rtf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ];
   errorMessage: string;
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
+
+  @Output() setFileUploadHasError: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
     this.uploader = new FileUploader({
@@ -23,7 +33,8 @@ export class FileUploadComponent implements OnChanges {
       allowedMimeType: this.allowedMimeType,
       queueLimit: 2
     });
-    this.uploader.onWhenAddingFileFailed = (item, filter, options) => this.onWhenAddingFileFailed(item, filter, options);
+    this.uploader.onWhenAddingFileFailed = (item, filter, options) =>
+      this.onWhenAddingFileFailed(item, filter, options);
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
   }
 
@@ -58,6 +69,12 @@ export class FileUploadComponent implements OnChanges {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId };
     if (this.uploadFiles) {
       this.uploader.uploadAll();
+    }
+    if (this.checkFileUploadHasError) {
+      if (this.required && !this.uploader.queue[0]) {
+        this.errorMessage = `${this.name} is required.`;
+        this.setFileUploadHasError.emit(true);
+      }
     }
   }
 }

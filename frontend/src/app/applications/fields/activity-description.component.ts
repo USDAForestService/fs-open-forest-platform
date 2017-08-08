@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
@@ -21,6 +21,8 @@ export class ActivityDescriptionComponent implements OnInit {
     hasErrors: false,
     dateTimeSpan: 0
   };
+
+  @Output() updateRootDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
 
@@ -74,5 +76,6 @@ export class ActivityDescriptionComponent implements OnInit {
 
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
+    this.updateRootDateStatus.emit(dateStatus);
   }
 }
