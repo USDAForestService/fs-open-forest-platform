@@ -192,47 +192,56 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateFromIntakeToMiddleLayer = () => {
+let translateFromIntakeToMiddleLayer = application => {
   let result = {
-    region: '11',
-    forest: '11',
-    district: '11',
-    authorizingOfficerName: 'Khaleesi',
-    authorizingOfficerTitle: 'Mother of Dragons',
+    region: application.region,
+    forest: application.forest,
+    district: application.district,
+    authorizingOfficerName: application.authorizingOfficerName,
+    authorizingOfficerTitle: application.authorizingOfficerTitle,
     applicantInfo: {
-      firstName: 'Grey',
-      lastName: 'Worm',
+      firstName: application.applicantInfoPrimaryFirstName,
+      lastName: application.applicantInfoPrimaryLastName,
       dayPhone: {
-        areaCode: '321',
-        number: '7654321',
-        extension: '2345',
+        areaCode: application.applicantInfoDayPhoneAreaCode,
+        number: application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
+        extension: application.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'day'
       },
       eveningPhone: {
-        areaCode: '123',
-        number: '1234567',
-        extension: '1234',
+        areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
+        number:
+          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
+          application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
+        extension:
+          application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'evening'
       },
-      emailAddress: 'test@test.com',
-      mailingAddress: '123 Easy Street',
-      mailingAddress2: 'Apt 2',
-      mailingCity: 'Evanston',
-      mailingState: 'IL',
-      mailingZIP: '60201',
-      organizationName: 'My House',
-      website: 'http://website.com',
-      orgType: 'Association'
+      emailAddress: application.applicantInfoEmailAddress,
+      mailingAddress: application.applicantInfoPrimaryMailingAddress,
+      mailingAddress2: application.applicantInfoPrimaryMailingAddress2,
+      mailingCity: application.applicantInfoPrimaryMailingCity,
+      mailingState: application.applicantInfoPrimaryMailingState,
+      mailingZIP: application.applicantInfoPrimaryMailingZIP,
+      organizationName: application.applicantInfoOrganizationName,
+      website: application.applicantInfoWebsite,
+      orgType: application.applicantInfoOrgType
     },
     type: 'tempOutfitters',
     tempOutfitterFields: {
-      individualIsCitizen: true,
-      smallBusiness: true,
-      activityDescription: 'Fun Activity',
-      advertisingURL: 'http://advertising.com',
-      advertisingDescription: 'Fun Advertising',
-      clientCharges: 'Much value',
-      experienceList: 'Such experience, wow!'
+      individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
+      smallBusiness: application.tempOutfitterFieldsSmallBusiness,
+      activityDescription:
+        ' Location Description: ' +
+        application.tempOutfitterFieldsActDescFieldsLocationDesc +
+        ' Services Provided: ' +
+        application.tempOutfitterFieldsActDescFieldsServProvided +
+        ' Audience Description: ' +
+        application.tempOutfitterFieldsActDescFieldsAudienceDesc,
+      advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
+      advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
+      clientCharges: application.tempOutfitterFieldsClientCharges,
+      experienceList: application.tempOutfitterFieldsExperienceList
     }
   };
 
