@@ -12,7 +12,19 @@ module.exports = {
         orgType: {
           default: '',
           description: 'Organization Type',
-          enum: ['individual', 'corporation', 'llc', 'partnership', 'stateGovernment', 'localGovernment', 'nonprofit'],
+          enum: [
+            'Association',
+            'Corporation',
+            'Education',
+            'Federal Government',
+            'State Government',
+            'Local Govt',
+            'Married Common Property',
+            'Limited Liability Company (LLC)',
+            'Limited Liability Partnership (LLP)',
+            'Person',
+            'Trust'
+          ],
           type: 'string'
         }
       },
