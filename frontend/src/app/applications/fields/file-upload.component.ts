@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
@@ -9,21 +9,30 @@ import { environment } from '../../../environments/environment';
 export class FileUploadComponent implements OnChanges {
   @Input() applicationId: number;
   @Input() name: string;
+  @Input() type: string;
   @Input() uploadFiles: boolean;
+  @Input() required: boolean;
+  @Input() checkFileUploadHasError: boolean;
 
-  allowedMimeType = ['application/msword', 'application/pdf', 'application/rtf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+  allowedMimeType = [
+    'application/msword',
+    'application/pdf',
+    'application/rtf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ];
   errorMessage: string;
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
   constructor() {
     this.uploader = new FileUploader({
-      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitters/file',
+      url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
       allowedMimeType: this.allowedMimeType,
       queueLimit: 2
     });
-    this.uploader.onWhenAddingFileFailed = (item, filter, options) => this.onWhenAddingFileFailed(item, filter, options);
+    this.uploader.onWhenAddingFileFailed = (item, filter, options) =>
+      this.onWhenAddingFileFailed(item, filter, options);
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
   }
 
@@ -45,7 +54,6 @@ export class FileUploadComponent implements OnChanges {
         this.errorMessage = `Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)`;
         break;
       case 'mimeType':
-        console.log(item);
         const allowedTypes = this.allowedMimeType.join();
         this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx., or .rtf`;
         break;
@@ -55,9 +63,14 @@ export class FileUploadComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.uploader.options.additionalParameter = { applicationId: this.applicationId };
+    this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
       this.uploader.uploadAll();
+    }
+    if (this.checkFileUploadHasError) {
+      if (this.required && !this.uploader.queue[0]) {
+        this.errorMessage = `${this.name} is required.`;
+      }
     }
   }
 }

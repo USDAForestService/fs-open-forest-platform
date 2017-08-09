@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class ApplicationSubmittedComponent implements OnInit {
   application = new SpecialUseApplication();
-  // TODO Use type in teh template to filter content. type = 'noncommercial' or 'temp-outfitter'
+  // TODO Use type in the template to filter content. type = 'noncommercial' or 'temp-outfitter'
   type: string;
   errorMessage: string;
 
@@ -19,7 +19,7 @@ export class ApplicationSubmittedComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.type = params['type'];
-      this.applicationService.getOne(params['id']).subscribe(
+      this.applicationService.getOne(params['id'], `/special-uses/${this.type}/`).subscribe(
         application => (this.application = application),
         (e: any) => {
           this.errorMessage = 'The application could not be found.';

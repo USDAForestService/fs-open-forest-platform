@@ -6,7 +6,7 @@
 
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-      <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+      <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors || invalidFileUpload" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">There are errors in your application.</h3>
           <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -34,14 +34,14 @@
         <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
           <h3>{{ goodStandingEvidenceMessage }}</h3>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+          <app-file-upload-field name="File" type="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted"></app-file-upload-field>
         </div>
 
         <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
 
       </fieldset>
 
-      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-activity-description>
+      <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView" (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
 
       <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
 
@@ -57,7 +57,7 @@
         </ul>
 
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-        <app-file-upload-field name="guide-document" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <app-file-upload-field name="Guide document" type="guide-document" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted"></app-file-upload-field>
 
       </fieldset>
 
@@ -67,7 +67,7 @@
         <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
         <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx">click here</a> to download one.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-        <app-file-upload-field name="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <app-file-upload-field name="Operating plan" type="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted"></app-file-upload-field>
       </fieldset>
 
       <fieldset id="insurance-certificate-wrapper">
@@ -75,7 +75,7 @@
 
         <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-        <app-file-upload-field name="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <app-file-upload-field name="Liability insurance" type="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted"></app-file-upload-field>
       </fieldset>
 
       <fieldset id="acknowledgement-of-risk-form-wrapper">
@@ -83,7 +83,7 @@
 
         <p>If you plan to use an acknowledgment of risk form, attach a copy.</p>
         <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-        <app-file-upload-field name="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId"></app-file-upload-field>
+        <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted"></app-file-upload-field>
       </fieldset>
 
       <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-experience>

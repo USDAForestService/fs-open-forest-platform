@@ -13,7 +13,7 @@
         Submitting an application does not guarantee your permit will be approved.
         <strong>A confirmation email was sent to {{application.applicantInfo.emailAddress}}.</strong>
       </p>
-      <h2>What Happens Next?</h2>
+      <h2>What happens next?</h2>
       <div class="usa-grid-full">
         <div class="next-steps usa-width-one-fourth">
           <span class="step-number">1</span>
@@ -42,22 +42,10 @@
       </div>
       <div class="contact-details" *ngIf="type === 'temp-outfitter'">
         <h3>Temp outfitter contact</h3>
-        <p class="title-description">Interesting title description.</p>
         <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
         <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
       </div>
       <h2>Thank you for your interest in our National Forests.</h2>
-      <p>The links listed below contain information about the National Forest system and how you can safefly and successfully enjoy them.</p>
-      <p *ngIf="type === 'noncommercial'">
-        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-        <a class="usa-button" href="https://fs.fed.us/">Noncommercial placeholder Link</a>
-      </p>
-      <p *ngIf="type === 'temp-outfitter'">
-        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-        <a class="usa-button" href="https://fs.fed.us/">Temp-outfitter placeholder Link</a>
-      </p>
     </ng-container>
   </div>
 </section>
