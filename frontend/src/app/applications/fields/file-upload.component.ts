@@ -63,7 +63,7 @@ export class FileUploadComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.name };
+    this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
       this.uploader.uploadAll();
     }
