@@ -65,8 +65,17 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 
-  it('should submit an application', () => {
+  it('should navigate back to temp outfitter', () => {
     page.navigateTo();
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
+  });
+
+  fieldValidation.validateFileUploadField('guide-document-wrapper');
+  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
+  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
+  fieldValidation.validateFileUploadField('operating-plan-wrapper');
+
+  it('should submit an application', () => {
     element(by.id('primary-permit-holder-first-name')).sendKeys('test');
     element(by.id('primary-permit-holder-last-name')).sendKeys('test');
     element(by.id('organization-name')).sendKeys('test');
