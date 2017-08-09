@@ -68,32 +68,32 @@ export class TemporaryOutfittersComponent implements DoCheck {
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.pointOfView = 'We';
       switch (type) {
-        case 'individual':
+        case 'Person':
           this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
           this.pointOfView = 'I';
           this.orgTypeFileUpload = false;
           break;
-        case 'corporation':
+        case 'Corporation':
           this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
           this.orgTypeFileUpload = true;
           break;
-        case 'llc':
+        case 'Limited Liability Company (LLC)':
           this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
           this.orgTypeFileUpload = true;
           break;
-        case 'partnership':
+        case 'Limited Liability Partnership (LLP)':
           this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
           this.orgTypeFileUpload = true;
           break;
-        case 'stateGovernment':
+        case 'State Government':
           this.goodStandingEvidenceMessage = '';
           this.orgTypeFileUpload = false;
           break;
-        case 'localGovernment':
+        case 'Local Govt':
           this.goodStandingEvidenceMessage = '';
           this.orgTypeFileUpload = false;
           break;
-        case 'nonprofit':
+        case 'Association':
           this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
           this.orgTypeFileUpload = true;
           break;
