@@ -24,6 +24,7 @@ import { PermitHolderNameComponent } from './fields/permit-holder-name.component
 import { PhoneNumberComponent } from './fields/phone-number.component';
 import { SmallBusinessComponent } from './fields/small-business.component';
 import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-outfitters.component';
+import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
 import { WebsiteComponent } from './fields/website.component';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { WebsiteComponent } from './fields/website.component';
     PhoneNumberComponent,
     SmallBusinessComponent,
     TemporaryOutfittersComponent,
+    TempOutfitterLeftNavComponent,
     WebsiteComponent
   ],
   exports: [
@@ -69,6 +71,7 @@ import { WebsiteComponent } from './fields/website.component';
     PhoneNumberComponent,
     SmallBusinessComponent,
     TemporaryOutfittersComponent,
+    TempOutfitterLeftNavComponent,
     WebsiteComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, FileUploadModule, FormsModule],
