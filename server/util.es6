@@ -1,8 +1,12 @@
 'use strict';
 
+let AWS = require('aws-sdk');
+let fs = require('fs');
 let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
+let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+let vcapServices = require('./vcap-services.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
@@ -140,6 +144,55 @@ util.getAllOpenApplications = (req, res) => {
     .catch(errors => {
       res.status(500).json(errors);
     });
+};
+
+util.middleLayerAuth = () => {
+  let requestOptions = {
+    url: vcapServices.middleLayerBaseUrl + 'auth',
+    json: true,
+    body: { username: vcapServices.middleLayerUsername, password: vcapServices.middleLayerPassword }
+  };
+  return new Promise((resolve, reject) => {
+    request.post(requestOptions, (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        reject(error || response);
+      } else {
+        resolve(body.token);
+      }
+    });
+  });
+};
+
+util.prepareCerts = () => {
+  let s3 = new AWS.S3({
+    accessKeyId: vcapServices.certsAccessKeyId,
+    secretAccessKey: vcapServices.certsSecretAccessKey,
+    region: vcapServices.certsRegion
+  });
+
+  s3
+    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey })
+    .createReadStream()
+    .pipe(fs.createWriteStream('./login-gov-key'));
+};
+
+let getExtension = filename => {
+  return filename.split('.').reverse()[0];
+};
+
+util.getContentType = filename => {
+  if (getExtension(filename) === 'pdf') {
+    return 'application/pdf';
+  }
+  if (getExtension(filename) === 'rtf') {
+    return 'application/rtf';
+  }
+  if (getExtension(filename) === 'doc') {
+    return 'application/msword';
+  }
+  if (getExtension(filename) === 'docx') {
+    return 'application/msword';
+  }
 };
 
 module.exports = util;

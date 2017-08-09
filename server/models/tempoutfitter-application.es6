@@ -7,7 +7,10 @@ const sequelizeOptions = {
   dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
 };
 
-if (url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost') {
+if (
+  url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
+  url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
+) {
   sequelizeOptions.dialectOptions = {
     ssl: true
   };
@@ -143,7 +146,11 @@ module.exports = sequelize.define(
       type: Sequelize.STRING,
       field: 'temp_out_act_desc_serv_cln_rest'
     },
-    tempOutfitterFieldsActDescFieldsPartySize: { type: Sequelize.INTEGER, field: 'temp_out_act_desc_serv_pty_size', allowNull: false },
+    tempOutfitterFieldsActDescFieldsPartySize: {
+      type: Sequelize.INTEGER,
+      field: 'temp_out_act_desc_serv_pty_size',
+      allowNull: false
+    },
     tempOutfitterFieldsExpAllCitations: { type: Sequelize.STRING, field: 'temp_outfitter_exp_all_citation' },
     tempOutfitterFieldsExpNatForestPermits: { type: Sequelize.STRING, field: 'temp_outfitter_exp_nat_fst_pmts' },
     tempOutfitterFieldsExpOtherPermits: { type: Sequelize.STRING, field: 'temp_outfitter_exp_oth_pmts' }

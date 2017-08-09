@@ -6,8 +6,6 @@ export class AlertService {
   private warningMessage;
   private errorMessage;
 
-  constructor() {}
-
   getSuccessMessage() {
     return this.successMessage;
   }

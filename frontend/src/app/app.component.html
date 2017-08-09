@@ -1,10 +1,13 @@
 <ng-container appPageTitle></ng-container>
-<a [routerLink]="currentRoute" fragment="main-content" class="usa-skipnav">Skip to main content</a>
+<a [routerLink]="currentRoute" fragment="main-content" class="usa-skipnav" (click)="gotoHashtag('main-content')">Skip to main content</a>
 <header role="banner" class="usa-header usa-header-extended">
   <app-usa-banner></app-usa-banner>
   <div class="usa-navbar">
     <div id="logo" class="usa-logo">
       <div class="fs-branding">
+        <a href="//usda.gov">
+          <img src="/assets/img/usda.svg" class="usda-logo" alt="United States Department of Agriculture Logo" />
+        </a>
         <a routerLink="/" id="us-forest-service-logo"><img src="/assets/img/usfslogo.svg" alt="US Forest Service Logo" width="50" class="fs-logo">
           <div class="fs-name-slogan"><span class="fs-name">U.S. FOREST SERVICE</span><span class="fs-slogan">Caring for the land and serving people</span>
             <div class="beta-label"><span class="usa-label">beta</span></div>
@@ -12,6 +15,7 @@
         </a>
       </div>
     </div>
+    <app-authenticated></app-authenticated>
   </div>
 </header>
 <main id="main-content">
@@ -37,7 +41,8 @@
   </div>
   <div class="usa-footer-secondary_section">
     <div class="usa-grid">
-      <div class="usa-width-two-thirds"><img src="/assets/img/usfslogo.svg" alt="Forest Service Logo" class="fs-footer-logo">
+      <div class="usa-width-two-thirds">
+        <img src="/assets/img/usfslogo.svg" alt="Forest Service Logo" class="fs-footer-logo">
         <div class="usa-footer-logo-heading">
           <div class="fs-name-slogan">
             <span class="fs-name">U.S. FOREST SERVICE</span>
