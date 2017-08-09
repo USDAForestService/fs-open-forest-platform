@@ -5,6 +5,6 @@
     <span *ngIf="uploader.queue[0]">Replace</span>
   </label>
   <div *ngIf="!uploader.queue[0]">No file selected.</div>
-  <div class="file-name" *ngIf="uploader.queue[0]">{{ uploader.queue[0].file.type}}</div>
+  <div class="file-name" *ngIf="uploader.queue[0]">{{ uploader.queue[0].file.name}}</div>
   <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
 </div>
