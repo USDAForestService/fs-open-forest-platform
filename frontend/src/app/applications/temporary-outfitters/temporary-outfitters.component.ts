@@ -74,6 +74,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
           this.orgTypeFileUpload = false;
           break;
         case 'Corporation':
+          console.log(type);
           this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
           this.orgTypeFileUpload = true;
           break;
@@ -93,7 +94,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
           this.goodStandingEvidenceMessage = '';
           this.orgTypeFileUpload = false;
           break;
-        case 'Association':
+        case 'Nonprofit':
           this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
           this.orgTypeFileUpload = true;
           break;
