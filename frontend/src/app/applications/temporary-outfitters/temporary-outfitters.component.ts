@@ -25,6 +25,16 @@ export class TemporaryOutfittersComponent implements DoCheck {
   applicationForm: FormGroup;
   pointOfView = 'We';
 
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false
+  };
+
+  invalidFileUpload: boolean;
+
   constructor(
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
@@ -91,10 +101,25 @@ export class TemporaryOutfittersComponent implements DoCheck {
     });
   }
 
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
+  }
+
+  checkFileUploadValidity() {
+    const untouchedRequired = document.querySelectorAll('.usa-file-input.ng-untouched.required');
+    const invalid = document.querySelectorAll('.usa-file-input.ng-invalid');
+    if (untouchedRequired.length || invalid.length) {
+      this.invalidFileUpload = true;
+    } else {
+      this.invalidFileUpload = false;
+    }
+  }
+
   onSubmit(form) {
     this.submitted = true;
+    this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
-    if (!form.valid) {
+    if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
       this.applicationService

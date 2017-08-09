@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 
@@ -9,7 +9,10 @@ import { environment } from '../../../environments/environment';
 export class FileUploadComponent implements OnChanges {
   @Input() applicationId: number;
   @Input() name: string;
+  @Input() type: string;
   @Input() uploadFiles: boolean;
+  @Input() required: boolean;
+  @Input() checkFileUploadHasError: boolean;
 
   allowedMimeType = [
     'application/msword',
@@ -63,6 +66,11 @@ export class FileUploadComponent implements OnChanges {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.name };
     if (this.uploadFiles) {
       this.uploader.uploadAll();
+    }
+    if (this.checkFileUploadHasError) {
+      if (this.required && !this.uploader.queue[0]) {
+        this.errorMessage = `${this.name} is required.`;
+      }
     }
   }
 }
