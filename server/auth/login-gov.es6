@@ -10,6 +10,7 @@ loginGov.setup = () => {
   passport.use(
     new SamlStrategy(
       {
+        authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
         cert: vcapServices.loginGovCert,
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
