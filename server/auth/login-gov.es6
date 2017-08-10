@@ -27,20 +27,28 @@ loginGov.setup = () => {
 
 loginGov.router = router;
 
-router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
-  console.log('in the login auth handler', req.body);
-  passport.authenticate('saml', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  });
-});
+router.get(
+  '/auth/login-gov/saml/login',
+  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+  (req, res) => {
+    console.log('in the login auth handler', req.body);
+    passport.authenticate('saml', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    });
+  }
+);
 
-router.post('/callback', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
-  console.log('in the login response handler', req.body);
-  res.redirect('/');
-});
+router.post(
+  '/auth/login-gov/saml/callback',
+  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
+  (req, res) => {
+    console.log('in the login response handler', req.body);
+    res.redirect('/');
+  }
+);
 
-router.get('/logout', (req, res) => {
+router.get('/auth/login-gov/saml/logout', (req, res) => {
   console.log('in the logout handler', req.body);
   req.logout();
   res.redirect('/');
