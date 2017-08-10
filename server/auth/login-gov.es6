@@ -39,14 +39,10 @@ router.get(
   }
 );
 
-router.post(
-  '/auth/login-gov/saml/callback',
-  passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
-  (req, res) => {
-    console.log('in the login response handler', req.body);
-    res.redirect('/');
-  }
-);
+router.post('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
+  console.log('in the login response handler', req.body);
+  res.redirect('/');
+});
 
 router.get('/auth/login-gov/saml/logout', (req, res) => {
   console.log('in the logout handler', req.body);
