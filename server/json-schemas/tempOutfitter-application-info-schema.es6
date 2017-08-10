@@ -17,12 +17,13 @@ module.exports = {
             'Corporation',
             'Education',
             'Federal Government',
-            'State Government',
-            'Local Govt',
-            'Married Common Property',
             'Limited Liability Company (LLC)',
             'Limited Liability Partnership (LLP)',
+            'Local Govt',
+            'Married Common Property',
+            'Nonprofit',
             'Person',
+            'State Government',
             'Trust'
           ],
           type: 'string'
