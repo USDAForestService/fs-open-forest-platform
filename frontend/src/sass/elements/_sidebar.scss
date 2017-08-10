@@ -1,0 +1,8 @@
+.fixed-sidebar {
+  display: none;
+  @media (min-width: $large-screen) {
+    display: block;
+    position: fixed;
+    width: 227px;
+  }
+}
