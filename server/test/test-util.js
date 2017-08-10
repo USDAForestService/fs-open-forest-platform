@@ -2,7 +2,6 @@
 
 var expect = require('chai').expect;
 var util = require('../util.es6');
-var noncommercialModels = require('./data/noncommercial-model-test-data.es6');
 
 describe('util tests', () => {
   describe('collate errors tests', () => {
@@ -97,20 +96,6 @@ describe('util tests', () => {
 
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-prefixtest.testField');
-    });
-  });
-
-  describe('test intake to middle layer', () => {
-    it('should correctly put the person address in middle layer object', () => {
-      let result = util.translateFromIntakeToMiddleLayer(noncommercialModels.noncommercialModelPerson.create());
-
-      expect(result.applicantInfo.mailingAddress).to.equal('111 Oak St');
-    });
-
-    it('should correctly put the org address in middle layer object', () => {
-      let result = util.translateFromIntakeToMiddleLayer(noncommercialModels.noncommercialModelOrg.create());
-
-      expect(result.applicantInfo.mailingAddress).to.equal('999 Birch St');
     });
   });
 });
