@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
+import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -13,6 +14,7 @@ export class FileUploadComponent implements OnChanges {
   @Input() uploadFiles: boolean;
   @Input() required: boolean;
   @Input() checkFileUploadHasError: boolean;
+  @Input() field: FormControl;
 
   allowedMimeType = [
     'application/msword',
@@ -37,12 +39,14 @@ export class FileUploadComponent implements OnChanges {
   }
 
   onAfterAddingFile(uploader) {
+    console.log(uploader.queue[0]);
     if (uploader.queue.length > 0) {
       this.errorMessage = '';
     }
     if (uploader.queue.length > 1) {
       uploader.removeFromQueue(uploader.queue[0]);
     }
+    this.field.patchValue(uploader.queue[0].file.name);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {

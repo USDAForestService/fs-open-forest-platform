@@ -52,4 +52,19 @@ export class ApplicationFieldsService {
       }
     });
   }
+
+  doesControlHaveErrors(formGroup: FormGroup) {
+    if (!formGroup) {
+      return false;
+    }
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      if (control.errors && control.touched) {
+        return true;
+      }
+      if (control.controls) {
+        this.doesControlHaveErrors(control);
+      }
+    });
+    return false;
+  }
 }

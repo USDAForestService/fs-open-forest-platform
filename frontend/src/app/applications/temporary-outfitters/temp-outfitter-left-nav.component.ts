@@ -1,3 +1,4 @@
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -7,8 +8,23 @@ import { FormGroup } from '@angular/forms';
 })
 export class TempOutfitterLeftNavComponent implements OnInit {
   @Input() applicationForm: any;
+  applicantInfoErrors: boolean;
+  activityDescriptionErrors: boolean;
+  experienceErrors: boolean;
 
-  constructor() {}
+  constructor(private applicationFieldsService: ApplicationFieldsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.applicationForm.controls.applicantInfo.valueChanges.subscribe(data => {
+      this.applicantInfoErrors = this.applicationFieldsService.doesControlHaveErrors(
+        this.applicationForm.controls.applicantInfo
+      );
+      // this.activityDescriptionErrors = this.applicationFieldsService.doesControlHaveErrors(
+      //   this.applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields
+      // );
+      // this.experienceErrors = this.applicationFieldsService.doesControlHaveErrors(
+      //   this.applicationForm.controls.tempOutfitterFields.controls.experienceFields
+      // );
+    });
+  }
 }
