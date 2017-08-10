@@ -29,17 +29,10 @@ loginGov.router = router;
 
 router.get('/auth/login-gov/saml/login', passport.authenticate('saml'));
 
-router.post(
-  '/auth/login-gov/saml/callback',
-  (req, res) => {
-    console.log('---- /auth/login-gov/saml/callback', req, res);
-  },
-  passport.authenticate('saml'),
-  (req, res) => {
-    console.log('in the callback response handler', req.body);
-    res.redirect('/');
-  }
-);
+router.post('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
+  console.log('in the callback response handler', req.body);
+  res.redirect('/');
+});
 
 router.get('/auth/login-gov/saml/logout', (req, res) => {
   console.log('in the logout handler', req.body);
