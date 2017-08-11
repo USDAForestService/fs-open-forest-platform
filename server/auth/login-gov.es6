@@ -27,8 +27,7 @@ loginGov.setup = () => {
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
         path: '/auth/login-gov/saml/callback',
-        privateKey: './login-gov-key',
-        decryptionPvk: vcapServices.loginGovCert,
+        // privateKey: './login-gov-key',
         signatureAlgorithm: 'sha256'
       },
       function(profile, done) {
