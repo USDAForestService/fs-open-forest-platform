@@ -1,0 +1,49 @@
+.fixed-sidebar {
+  display: none;
+  @media (min-width: $large-screen) {
+    display: block;
+    position: fixed;
+    width: 227px;
+    top: 2em;
+  }
+}
+
+.usa-sidenav-list a.usa-current {
+  border-color: $fs-green;
+  color: $fs-green;
+}
+
+.usa-sidenav-list li {
+  a {
+    color: $fs-green;
+    padding-right: 20px;
+    position: relative;
+    &:hover {
+      color: $fs-green;
+    }
+    .status-icon {
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 22px;
+      position: absolute;
+      width: 22px;
+      right: 0;
+      top: 22%;
+    }
+  }
+  &.ng-valid {
+    a {
+      .status-icon {
+        background-image: url(/assets/img/checkmark.svg);
+      }
+    }
+  }
+  &.ng-invalid {
+    a {
+      color: $fs-red;
+      .status-icon {
+        background-image: url(/assets/img/error-icon.svg);
+      }
+    }
+  }
+}
