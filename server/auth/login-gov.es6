@@ -8,6 +8,17 @@ let loginGov = {};
 
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
+
+  passport.serializeUser(function(user, done) {
+    console.log('------ passport.serializeUser', user);
+    done(null, user);
+  });
+
+  passport.deserializeUser(function(user, done) {
+    console.log('------ passport.deserializeUser', user);
+    done(null, user);
+  });
+
   passport.use(
     new SamlStrategy(
       {
