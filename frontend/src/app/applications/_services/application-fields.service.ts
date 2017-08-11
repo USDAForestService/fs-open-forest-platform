@@ -52,4 +52,30 @@ export class ApplicationFieldsService {
       }
     });
   }
+
+  doesControlHaveErrors(formGroup: FormGroup) {
+    let errors = false;
+    if (!formGroup) {
+      return errors;
+    }
+    errors = (<any>Object).values(formGroup.controls).some(control => {
+      return this.loopChildControlsForErrors(control) || (control.errors && control.touched);
+    });
+    return errors;
+  }
+
+  loopChildControlsForErrors(formGroup: FormGroup) {
+    if (formGroup.controls) {
+      const errors = (<any>Object).values(formGroup.controls).some(control => {
+        if (control.errors && control.touched) {
+          return true;
+        }
+        if (control.controls) {
+          this.loopChildControlsForErrors(control);
+        }
+      });
+      return errors;
+    }
+    return;
+  }
 }
