@@ -27,6 +27,7 @@ if (process.env.PLATFORM !== 'CircleCI') {
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /* Setup passport. */
 loginGov.setup();

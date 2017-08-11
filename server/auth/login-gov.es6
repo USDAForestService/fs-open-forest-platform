@@ -26,7 +26,7 @@ loginGov.setup = () => {
         cert: vcapServices.loginGovCert,
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
-        path: '/auth/login-gov/saml/callback?path',
+        path: '/auth/login-gov/saml/callback',
         privateKey: './login-gov-key',
         signatureAlgorithm: 'sha256'
       },
@@ -52,7 +52,8 @@ router.post(
   '/auth/login-gov/saml/callback',
   passport.authenticate('saml', {
     successRedirect: '/test?callback-success',
-    failureRedirect: '/test?callback-fail'
+    failureRedirect: '/test?callback-fail',
+    failureFlash: true
   }),
   (req, res) => {
     console.log('in the POST callback response handler', req.body);
