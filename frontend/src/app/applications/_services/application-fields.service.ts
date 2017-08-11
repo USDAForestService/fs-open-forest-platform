@@ -66,7 +66,7 @@ export class ApplicationFieldsService {
 
   loopChildControlsForErrors(formGroup: FormGroup) {
     if (formGroup.controls) {
-      let errors = (<any>Object).values(formGroup.controls).some(control => {
+      const errors = (<any>Object).values(formGroup.controls).some(control => {
         if (control.errors && control.touched) {
           return true;
         }
