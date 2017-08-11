@@ -7,6 +7,7 @@ let router = require('express').Router();
 let loginGov = {};
 
 loginGov.setup = () => {
+  console.log('------------ in loginGov.setup');
   passport.use(
     new SamlStrategy(
       {
@@ -20,6 +21,7 @@ loginGov.setup = () => {
       },
       function(profile, done) {
         console.log('new saml strategy callback', profile, done);
+        return done(null, {});
       }
     )
   );
