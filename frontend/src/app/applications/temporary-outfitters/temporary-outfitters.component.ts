@@ -1,7 +1,7 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, DoCheck, ElementRef, HostListener } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,6 +15,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
   apiErrors: any;
   application = new SpecialUseApplication();
   applicationId: number;
+  currentSection: any;
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   submitted = false;
@@ -36,6 +37,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
   invalidFileUpload: boolean;
 
   constructor(
+    private element: ElementRef,
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
     private router: Router,
@@ -142,6 +144,16 @@ export class TemporaryOutfittersComponent implements DoCheck {
           }
         );
     }
+  }
+
+  elementInView(event) {
+    if (event.value) {
+      this.currentSection = event;
+    }
+  }
+
+  leave() {
+    console.log('left');
   }
 
   ngDoCheck() {

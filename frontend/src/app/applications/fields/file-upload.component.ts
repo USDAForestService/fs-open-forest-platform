@@ -39,7 +39,6 @@ export class FileUploadComponent implements OnChanges {
   }
 
   onAfterAddingFile(uploader) {
-    console.log(uploader.queue[0]);
     if (uploader.queue.length > 0) {
       this.errorMessage = '';
     }
@@ -47,6 +46,9 @@ export class FileUploadComponent implements OnChanges {
       uploader.removeFromQueue(uploader.queue[0]);
     }
     this.field.patchValue(uploader.queue[0].file.name);
+    this.field.markAsTouched();
+    this.field.updateValueAndValidity();
+    this.field.setErrors(null);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {
@@ -63,6 +65,12 @@ export class FileUploadComponent implements OnChanges {
         break;
       default:
         this.errorMessage = `Unknown error (filter is ${filter.name})`;
+    }
+
+    this.field.markAsTouched();
+    this.field.updateValueAndValidity();
+    if (this.errorMessage) {
+      this.field.setErrors({ error: this.errorMessage });
     }
   }
 

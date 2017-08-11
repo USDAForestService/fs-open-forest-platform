@@ -54,17 +54,28 @@ export class ApplicationFieldsService {
   }
 
   doesControlHaveErrors(formGroup: FormGroup) {
+    let errors = false;
     if (!formGroup) {
-      return false;
+      return errors;
     }
-    (<any>Object).values(formGroup.controls).forEach(control => {
-      if (control.errors && control.touched) {
-        return true;
-      }
-      if (control.controls) {
-        this.doesControlHaveErrors(control);
-      }
+    errors = (<any>Object).values(formGroup.controls).some(control => {
+      return this.loopChildControlsForErrors(control) || (control.errors && control.touched);
     });
-    return false;
+    return errors;
+  }
+
+  loopChildControlsForErrors(formGroup: FormGroup) {
+    if (formGroup.controls) {
+      let errors = (<any>Object).values(formGroup.controls).some(control => {
+        if (control.errors && control.touched) {
+          return true;
+        }
+        if (control.controls) {
+          this.loopChildControlsForErrors(control);
+        }
+      });
+      return errors;
+    }
+    return;
   }
 }

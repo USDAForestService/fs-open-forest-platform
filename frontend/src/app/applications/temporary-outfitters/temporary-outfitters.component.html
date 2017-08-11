@@ -1,6 +1,6 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
-    <app-temp-outfitter-left-nav class="usa-width-one-fourth" [applicationForm]="applicationForm"></app-temp-outfitter-left-nav>
+    <app-temp-outfitter-left-nav class="usa-width-one-fourth" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
     <div class="usa-width-three-fourths">
       <h1>Apply for a temporary outfitters permit.</h1>
       <h2>{{forest}}</h2>
@@ -15,7 +15,10 @@
           </div>
         </div>
 
-        <fieldset>
+        <fieldset id="section-applicant-info"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Applicant information</legend>
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Applicant"></app-permit-holder-name>
           <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
@@ -43,13 +46,25 @@
 
         </fieldset>
 
-        <app-activity-description [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView" (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
+        <app-activity-description id="section-activity-description" [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView" (updateRootDateStatus)="updateDateStatus($event)"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">></app-activity-description>
 
-        <app-advertising [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-advertising>
+        <app-advertising id="section-advertising" [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)"></app-advertising>
 
-        <app-client-charges [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-client-charges>
+        <app-client-charges id="section-client-charges" [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)"></app-client-charges>
 
-        <fieldset id="guide-document-wrapper">
+        <fieldset id="section-guide-identification"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Guide identification</legend>
           <ul>
             <li>Attach a list of all guides who would be working under the permit.</li>
@@ -63,7 +78,10 @@
 
         </fieldset>
 
-        <fieldset id="operating-plan-wrapper">
+        <fieldset id="section-operating-plan"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Operating plan</legend>
 
           <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
@@ -72,7 +90,10 @@
           <app-file-upload-field name="Operating plan" type="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
         </fieldset>
 
-        <fieldset id="insurance-certificate-wrapper">
+        <fieldset id="section-liability-insurance"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Liability insurance</legend>
 
           <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
@@ -80,7 +101,10 @@
           <app-file-upload-field name="Liability insurance" type="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
         </fieldset>
 
-        <fieldset id="acknowledgement-of-risk-form-wrapper">
+        <fieldset id="section-acknowledgement-of-risk"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Client's acknowledgement of risk form (optional)</legend>
 
           <p>If you plan to use an acknowledgment of risk form, attach a copy.</p>
@@ -88,9 +112,15 @@
           <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
         </fieldset>
 
-        <app-experience [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"></app-experience>
+        <app-experience id="section-experience" [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)"></app-experience>
 
-        <fieldset>
+        <fieldset id="section-signature"
+          in-viewport
+          [inViewportOptions]="{ partial: true}"
+          (inViewportAction)="elementInView($event)">
           <legend>Signature</legend>
           <p>I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
           <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
