@@ -24,10 +24,12 @@ loginGov.setup = () => {
       {
         authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
         cert: vcapServices.loginGovCert,
+        generateServiceProviderMetadata: vcapServices.loginGovCert,
         entryPoint: vcapServices.loginGovEntryPoint,
         issuer: vcapServices.loginGovIssuer,
         path: '/auth/login-gov/saml/callback',
         privateKey: './login-gov-key',
+        decryptionPvk: './login-gov-key',
         signatureAlgorithm: 'sha256'
       },
       function(profile, done) {
