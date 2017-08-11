@@ -115,7 +115,7 @@ util.prepareCerts = () => {
   s3
     .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey })
     .createReadStream()
-    .pipe(fs.createWriteStream('./login-gov-key'));
+    .pipe(fs.createWriteStream('./login-gov.key'));
 };
 
 let getExtension = filename => {
