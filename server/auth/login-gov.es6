@@ -1,3 +1,4 @@
+let fs = require('fs');
 let passport = require('passport');
 let SamlStrategy = require('passport-saml').Strategy;
 let vcapServices = require('../vcap-services.es6');
@@ -9,6 +10,24 @@ let loginGov = {};
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
 
+  let samlStrategy = new SamlStrategy(
+    {
+      authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
+      cert: vcapServices.loginGovCert,
+      entryPoint: vcapServices.loginGovEntryPoint,
+      issuer: vcapServices.loginGovIssuer,
+      path: '/auth/login-gov/saml/callback',
+      // privateKey: './login-gov-key',
+      signatureAlgorithm: 'sha256'
+    },
+    function(profile, done) {
+      console.log('new saml strategy callback', profile, done);
+      return done(null, {});
+    }
+  );
+
+  samlStrategy.generateServiceProviderMetadata(fs.readFileSync('./login-gov-key', 'utf-8'));
+
   passport.serializeUser(function(user, done) {
     console.log('------ passport.serializeUser', user);
     done(null, user);
@@ -19,23 +38,7 @@ loginGov.setup = () => {
     done(null, user);
   });
 
-  passport.use(
-    new SamlStrategy(
-      {
-        authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
-        cert: vcapServices.loginGovCert,
-        entryPoint: vcapServices.loginGovEntryPoint,
-        issuer: vcapServices.loginGovIssuer,
-        path: '/auth/login-gov/saml/callback',
-        // privateKey: './login-gov-key',
-        signatureAlgorithm: 'sha256'
-      },
-      function(profile, done) {
-        console.log('new saml strategy callback', profile, done);
-        return done(null, {});
-      }
-    )
-  );
+  passport.use(samlStrategy);
 };
 
 loginGov.router = router;
