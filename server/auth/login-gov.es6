@@ -29,9 +29,13 @@ loginGov.router = router;
 
 router.get('/auth/login-gov/saml/login', passport.authenticate('saml'));
 
-router.post('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
+router.get('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
   console.log('in the callback response handler', req.body);
-  res.redirect('/');
+  res.redirect('/test');
+});
+
+router.get('/test', (req, res) => {
+  res.send(':-)');
 });
 
 router.get('/auth/login-gov/saml/logout', (req, res) => {
