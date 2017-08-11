@@ -48,11 +48,6 @@ router.get(
   })
 );
 
-router.get('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
-  console.log('in the GET callback response handler', req.body);
-  res.redirect('/test');
-});
-
 router.post(
   '/auth/login-gov/saml/callback',
   passport.authenticate('saml', {
