@@ -26,7 +26,9 @@ loginGov.setup = () => {
     }
   );
 
-  samlStrategy.generateServiceProviderMetadata(fs.readFileSync('./login-gov-key', 'utf-8'));
+  if (process.env.PLATFORM !== 'CircleCI') {
+    samlStrategy.generateServiceProviderMetadata(fs.readFileSync('./login-gov-key', 'utf-8'));
+  }
 
   passport.serializeUser(function(user, done) {
     console.log('------ passport.serializeUser', user);
