@@ -18,6 +18,7 @@ loginGov.setup = () => {
       issuer: vcapServices.loginGovIssuer,
       path: '/auth/login-gov/saml/callback',
       // privateKey: './login-gov-key',
+      decryptionPvk: fs.readFileSync('./login-gov-key'),
       signatureAlgorithm: 'sha256'
     },
     function(profile, done) {
@@ -25,11 +26,6 @@ loginGov.setup = () => {
       return done(null, {});
     }
   );
-
-  if (process.env.PLATFORM !== 'CircleCI') {
-    samlStrategy.generateServiceProviderMetadata(vcapServices.loginGovCert);
-    // samlStrategy.generateServiceProviderMetadata(fs.readFileSync('./login-gov-key'));
-  }
 
   passport.serializeUser(function(user, done) {
     console.log('------ passport.serializeUser', user);
