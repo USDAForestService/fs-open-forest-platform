@@ -153,10 +153,6 @@ export class TemporaryOutfittersComponent implements DoCheck {
     }
   }
 
-  leave() {
-    console.log('left');
-  }
-
   ngDoCheck() {
     if (this.filesUploaded) {
       this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
