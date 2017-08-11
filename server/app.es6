@@ -18,20 +18,19 @@ app.use(helmet());
 
 /* Download login.gov cert. */
 if (process.env.PLATFORM !== 'CircleCI') {
-  try {
-    util.prepareCerts();
-  } catch (e) {
-    console.log(e);
-  }
+  util.prepareCerts();
 }
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /* Setup passport. */
-loginGov.setup();
-app.use(passport.initialize());
-app.use(passport.session());
+if (process.env.PLATFORM !== 'CircleCI') {
+  loginGov.setup();
+  app.use(passport.initialize());
+  app.use(passport.session());
+}
 
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
@@ -93,7 +92,7 @@ app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-app.use('/auth/login-gov/saml', loginGov.router);
+app.use(loginGov.router);
 
 /* Start the server. */
 app.listen(8080);

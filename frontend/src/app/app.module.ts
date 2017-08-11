@@ -21,11 +21,11 @@ import { AuthenticatedComponent } from './login/authenticated.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { PermitApplicationViewDetailsComponent } from './admin/permit-application-view/permit-application-view-details.component';
+import { SharedModule } from './_shared/shared.module';
 import { SortArray } from './_pipes/sort-array.pipe';
 import { SpacesToDashesPipe } from './_pipes/spaces-to-dashes.pipe';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TitleDirective } from './_directives/title.directive';
-import { TrackScrollDirective } from './_directives/scroll.directive';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 
 @NgModule({
@@ -44,10 +44,9 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     SpacesToDashesPipe,
     StyleGuideComponent,
     TitleDirective,
-    TrackScrollDirective,
     UsaBannerComponent
   ],
-  imports: [AppRoutingModule, ApplicationsModule, BrowserModule, FormsModule, HttpModule, ReactiveFormsModule],
+  imports: [AppRoutingModule, ApplicationsModule, BrowserModule, HttpModule, SharedModule],
   providers: [AlertService, ApplicationService, AuthGuard, AuthenticationService],
   bootstrap: [AppComponent]
 })
