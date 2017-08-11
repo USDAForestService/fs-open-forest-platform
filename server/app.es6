@@ -27,6 +27,7 @@ if (process.env.PLATFORM !== 'CircleCI') {
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /* Setup passport. */
 loginGov.setup();
@@ -93,7 +94,7 @@ app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-app.use('/auth/login-gov/saml', loginGov.router);
+app.use(loginGov.router);
 
 /* Start the server. */
 app.listen(8080);
