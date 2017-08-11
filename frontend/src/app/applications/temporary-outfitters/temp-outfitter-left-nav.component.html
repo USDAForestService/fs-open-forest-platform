@@ -1,37 +1,33 @@
 &nbsp;
-  <ul class="usa-sidenav-list fixed-sidebar">
-    <li [ngClass]="{
-      'ng-valid': applicationForm.controls.applicantInfo.valid,
-      'ng-untouched': applicationForm.controls.applicantInfo.invalid && !applicantInfoErrors,
-      'ng-invalid': applicantInfoErrors
-    }">
-      <a class="usa-current">STEP 1: Applicant information <span *ngIf="applicationForm.controls.applicantInfo.status">{{applicationForm.controls.applicantInfo.status}}</span></a>
+  <ul class="usa-sidenav-list" [ngClass]="{'fixed-sidebar': fixedSidebar}">
+    <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-applicant-info'}">STEP 1: Applicant information <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 2: Description of proposed activity <span *ngIf="applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields.valid">valid</span></a>
+    <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-activity-description'}">STEP 2: Description of proposed activity <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 3: Advertising <span *ngIf="applicationForm.controls.tempOutfitterFields.controls.advertisingURL.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-advertising'}">STEP 3: Advertising <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 4: Client charges <span *ngIf="applicationForm.controls.tempOutfitterFields.controls.clientCharges.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-client-charges'}">STEP 4: Client charges <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 5: Guide identification <span *ngIf="applicationForm.controls.guideIdentification.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.guideIdentification)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-guide-identification'}">STEP 5: Guide identification <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 6: Operating plan <span *ngIf="applicationForm.controls.operatingPlan.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.operatingPlan)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-operating-plan'}">STEP 6: Operating plan <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 7: Liability insurance <span *ngIf="applicationForm.controls.liabilityInsurance.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.liabilityInsurance)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-liability-insurance'}">STEP 7: Liability insurance <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 8: Acknowledgement of risk form <span *ngIf="applicationForm.controls.acknowledgementOfRisk.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.acknowledgementOfRisk)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-acknowledgement-of-risk'}">STEP 8: Acknowledgement of risk form <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 9: Experience <span *ngIf="applicationForm.controls.tempOutfitterFields.controls.experienceFields.valid">valid</span></a>
+    <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-experience'}">STEP 9: Experience <span class="status-icon"></span></a>
     </li>
-    <li>
-      <a>STEP 10: Signature <span *ngIf="applicationForm.controls.signature.valid">valid</span></a>
+    <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
+      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-signature'}">STEP 10: Signature <span class="status-icon"></span></a>
     </li>
   </ul>
