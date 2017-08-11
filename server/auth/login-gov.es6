@@ -34,10 +34,17 @@ router.get('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req,
   res.redirect('/test');
 });
 
-router.post('/auth/login-gov/saml/callback', passport.authenticate('saml'), (req, res) => {
-  console.log('in the POST callback response handler', req.body);
-  res.redirect('/test');
-});
+router.post(
+  '/auth/login-gov/saml/callback',
+  passport.authenticate('saml', {
+    successRedirect: '/test?success',
+    failureRedirect: '/test?fail'
+  }),
+  (req, res) => {
+    console.log('in the POST callback response handler', req.body);
+    res.redirect('/test');
+  }
+);
 
 router.get('/test', (req, res) => {
   res.send(':-)');
