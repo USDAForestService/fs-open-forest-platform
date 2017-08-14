@@ -1,7 +1,7 @@
 import { SpecialUseApplication } from '../../_models/special-use-application';
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
