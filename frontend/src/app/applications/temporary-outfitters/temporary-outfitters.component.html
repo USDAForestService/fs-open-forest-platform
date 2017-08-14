@@ -82,12 +82,13 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Operating plan</legend>
+          <legend>Operating plan (optional)</legend>
 
-          <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
+          <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
+          <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
           <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx">click here</a> to download one.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
+          <app-file-upload-field name="Operating plan" type="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-liability-insurance"
@@ -131,7 +132,7 @@
 
         <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
       </form>
-      
+
     </div>
   </div>
 </section>
