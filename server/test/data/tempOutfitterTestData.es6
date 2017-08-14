@@ -54,7 +54,7 @@ module.exports = {
       activityDescriptionFields: {
         numberServiceDaysRequested: 2,
         numberOfTrips: 3,
-        partySize: 4,
+        partySize: '4',
         locationDescription: 'Start and end',
         servicesProvided: 'Services',
         audienceDescription: 'Description',
