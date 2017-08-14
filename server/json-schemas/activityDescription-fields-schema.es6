@@ -51,7 +51,7 @@ module.exports = {
     },
     partySize: {
       default: '0',
-      type: 'integer'
+      type: 'string'
     }
   }
 };
