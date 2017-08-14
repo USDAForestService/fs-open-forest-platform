@@ -24,10 +24,9 @@ describe('noncommercial tests', () => {
   });
 
   describe('POST date validation tests', () => {
-    it(`should not allow sql injection (little Bobby Tables) to succeed and drop a table.
-        If it succeeds, subsequent tests will fail.`, done => {
+    it('should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.applicantInfo.primaryFirstName = `Robert'); DROP TABLE noncommercialApplications; --`;
+      data.applicantInfo.primaryFirstName = 'Robert\'); DROP TABLE noncommercialApplications; --';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
