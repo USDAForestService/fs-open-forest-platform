@@ -25,8 +25,8 @@ The following environment variables are required:
     {
       "credentials": {
         "MIDDLELAYER_BASE_URL": "https://fs-middlelayer-api-staging.app.cloud.gov/",
-        "MIDDLELAYER_PASSWORD": "password",
-        "MIDDLELAYER_USERNAME": "username"
+        "MIDDLELAYER_PASSWORD": "<ENTER PASSWORD HERE>",
+        "MIDDLELAYER_USERNAME": "<ENTER USERNAME HERE>"
       },
       "label": "user-provided",
       "name": "middlelayer-service",
@@ -45,9 +45,41 @@ The following environment variables are required:
       "syslog_drain_url": "",
       "tags": [],
       "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "cert": "40a4ce56c7494ed37649/test.pdf",
+        "entrypoint": "https://idp.int.login.gov/api/saml/auth",
+        "issuer": "urn:gov:gsa:SAML:2.0.profiles:sp:sso:usda-forestservice:epermit-dev",
+        "privatekey": "<ENTER SAML KEY HERE>"
+      },
+      "label": "user-provided",
+      "name": "login-service-provider",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
     }
   ],
-  "s3": [{ "credentials": { "bucket": "bucket_name" } }]
+  "s3": [
+    {
+      "name": "intake-s3",
+      "credentials": {
+        "bucket": "flexion-test",
+        "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
+        "region": "us-east-1",
+        "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
+      }
+    },
+    {
+      "name": "certs",
+      "credentials": {
+        "bucket": "flexion-test",
+        "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
+        "region": "us-east-1",
+        "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
+      }
+    }
+  ]
 }```
 
 ## Available commands
@@ -82,9 +114,11 @@ To run eslint for linting:
 
 The linting results will be put into `server/lint-results.html`.
 
-To run all of the tests locally, be sure your Postgresql server is running then run:
-
-`yarn test`
+To run all of the tests locally, be sure your Postgresql server is running and then run:
+```bash
+export PLATFORM='CircleCI'
+yarn test
+```
 
 To run code coverage locally, be sure your Postgresql server is running then run:
 
