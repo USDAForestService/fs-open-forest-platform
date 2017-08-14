@@ -27,6 +27,12 @@ export class PermitApplicationListComponent implements OnInit {
     return now.isAfter(deadline);
   }
 
+  isPastDate(dateTime) {
+    const now = moment();
+    const pastDate = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss');
+    return now.isAfter(pastDate);
+  }
+
   isOverOneDayOld(submittedDateTime) {
     const now = moment();
     const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(1, 'days');
