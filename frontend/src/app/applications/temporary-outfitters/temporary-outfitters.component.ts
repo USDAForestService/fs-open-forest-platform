@@ -1,7 +1,7 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, DoCheck, ElementRef, HostListener } from '@angular/core';
+import { Component, DoCheck, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -41,7 +41,8 @@ export class TemporaryOutfittersComponent implements DoCheck {
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private renderer: Renderer2
   ) {
     this.applicationForm = this.formBuilder.group({
       district: ['11', [Validators.required]],
@@ -149,7 +150,14 @@ export class TemporaryOutfittersComponent implements DoCheck {
 
   elementInView(event) {
     if (event.value) {
-      this.currentSection = event;
+      this.renderer.addClass(event.target, 'in-view');
+    } else {
+      this.renderer.removeClass(event.target, 'in-view');
+    }
+
+    const viewableElements = document.getElementsByClassName('in-view');
+    if (viewableElements[0]) {
+      this.currentSection = viewableElements[0].id;
     }
   }
 
