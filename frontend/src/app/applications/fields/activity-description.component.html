@@ -15,6 +15,7 @@
       <app-error-message id="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
 
       <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations.</label>
+      <p class="help-text usa-form-hint">Include trailheads, specific routes, latitude and longitude or any landmarks that you think would accurately describe areas you will be using within the forest.</p>
       <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"></textarea>
       <app-error-message id="location-description-error" name="Location of routes" [control]="parentForm.get('activityDescriptionFields.locationDescription')"></app-error-message>
 
