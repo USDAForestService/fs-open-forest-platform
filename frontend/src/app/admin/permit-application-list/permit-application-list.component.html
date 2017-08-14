@@ -33,34 +33,33 @@
         <div>&nbsp;</div>
         <div>Type</div>
         <div>Event name</div>
-        <div>Date submitted</div>
+        <div>Submitted</div>
         <div>Start date</div>
         <div>End date</div>
         <div>Permit holder</div>
         <div>&nbsp;</div>
       </div>
-      <div *ngFor="let application of applications" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
+      <div *ngFor="let application of applications | SortArray: '-createdAt'" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
         <div *ngIf="application.status === 'Hold'"><span class="usa-label warning">Hold</span></div>
         <div *ngIf="application.status === 'Received'">
-          <div *ngIf="isOverTwoDaysOld(application.createdAt)"><div class="warning-icon"></div></div>
         </div>
-        <label>Application type</label>
+        <label>Type</label>
         <div>{{ application.type }}</div>
         <label>Event name</label>
         <div *ngIf="application.type === 'Noncommercial'"><strong>{{ application.eventName }}</strong></div>
         <div *ngIf="application.type === 'Temp outfitter'"><strong>{{ application.applicantInfoOrganizationName }}</strong></div>
-        <label>Date submitted</label>
-        <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | date: 'MM/dd/yyyy' }}</div>
+        <label>Submitted</label>
+        <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
-        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.noncommercialFieldsStartDateTime)}">
-          {{ application.noncommercialFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isPastDate(application.noncommercialFieldsStartDateTime)}">
+          {{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
-        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isApproachingBeginDateTime(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
-          {{ application.tempOutfitterFieldsActDescFieldsStartDateTime | date: 'MM/dd/yyyy hh:mm a' }}
+        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isPastDate(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
+          {{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label>End date</label>
-        <div *ngIf="application.type === 'Noncommercial'">{{ application.noncommercialFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
-        <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | date: 'MM/dd/yyyy hh:mm a' }}</div>
+        <div *ngIf="application.type === 'Noncommercial'">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.type | spacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
