@@ -118,8 +118,8 @@ util.prepareCerts = () => {
       if (error) {
         reject(error);
       }
-      console.log('------------ S3 response', data.Body.length);
-      resolve(data.Body);
+      console.log('------------ S3 response', data.Body.toString().length);
+      resolve(data.Body.toString());
     });
   });
 };
