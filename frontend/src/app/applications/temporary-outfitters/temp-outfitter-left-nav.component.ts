@@ -49,6 +49,7 @@ export class TempOutfitterLeftNavComponent implements OnInit {
     const element = document.querySelector('#' + fragment);
     if (element) {
       element.scrollIntoView();
+      this.currentSection = fragment;
     }
   }
 
