@@ -45,6 +45,14 @@ export class TempOutfitterLeftNavComponent implements OnInit {
     this.fixedSidebar = window.scrollY > 220 ? true : false;
   }
 
+  gotoHashtag(fragment: string) {
+    const element = document.querySelector('#' + fragment);
+    if (element) {
+      element.scrollIntoView();
+      this.currentSection = fragment;
+    }
+  }
+
   ngOnInit() {
     this.applicationForm.valueChanges.subscribe(data => {
       this.applicantInfoErrors = this.applicationFieldsService.doesControlHaveErrors(

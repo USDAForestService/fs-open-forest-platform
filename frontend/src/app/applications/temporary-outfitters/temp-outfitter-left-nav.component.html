@@ -1,33 +1,33 @@
 &nbsp;
   <ul class="usa-sidenav-list" [ngClass]="{'fixed-sidebar': fixedSidebar}">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-applicant-info'}">STEP 1: Applicant information <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-applicant-info')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}">STEP 1: Applicant information <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-activity-description'}">STEP 2: Description of proposed activity <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-activity-description')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-activity-description'}">STEP 2: Description of proposed activity <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-advertising'}">STEP 3: Advertising <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-advertising')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-advertising'}">STEP 3: Advertising <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-client-charges'}">STEP 4: Client charges <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-client-charges')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-client-charges'}">STEP 4: Client charges <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.guideIdentification)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-guide-identification'}">STEP 5: Guide identification <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-guide-identification')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-guide-identification'}">STEP 5: Guide identification <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.operatingPlan)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-operating-plan'}">STEP 6: Operating plan <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-operating-plan')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-operating-plan'}">STEP 6: Operating plan <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.liabilityInsurance)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-liability-insurance'}">STEP 7: Liability insurance <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-liability-insurance')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-liability-insurance'}">STEP 7: Liability insurance <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.acknowledgementOfRisk)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-acknowledgement-of-risk'}">STEP 8: Acknowledgement of risk form <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-acknowledgement-of-risk')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-acknowledgement-of-risk'}">STEP 8: Acknowledgement of risk form <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-experience'}">STEP 9: Experience <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-experience')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-experience'}">STEP 9: Experience <span class="status-icon"></span></a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
-      <a [ngClass]="{'usa-current': currentSection && currentSection.target.id === 'section-signature'}">STEP 10: Signature <span class="status-icon"></span></a>
+      <a (click)="gotoHashtag('section-signature')" [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}">STEP 10: Signature <span class="status-icon"></span></a>
     </li>
   </ul>
