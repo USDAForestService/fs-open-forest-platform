@@ -1,6 +1,6 @@
 let passport = require('passport');
 let SamlStrategy = require('passport-saml').Strategy;
-let util = require('./util.es6');
+let util = require('../util.es6');
 let vcapServices = require('../vcap-services.es6');
 
 let router = require('express').Router();
