@@ -37,6 +37,7 @@ loginGov.setup = () => {
       done(null, user);
     });
 
+    console.log('------ loginGovDecryptionCert: ' + vcapServices.loginGovDecryptionCert.slice(0, 25));
     samlStrategy.generateServiceProviderMetadata(vcapServices.loginGovDecryptionCert);
     passport.use(samlStrategy);
   });
