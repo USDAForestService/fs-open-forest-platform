@@ -10,7 +10,7 @@ let loginGov = {};
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
   util.prepareCerts().then(decryptionPvk => {
-    console.log('------------', decryptionPvk.slice(0, 10));
+    console.log('------------ key slice', decryptionPvk.slice(0, 25));
     let samlStrategy = new SamlStrategy(
       {
         authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
