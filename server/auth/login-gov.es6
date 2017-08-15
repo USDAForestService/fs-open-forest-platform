@@ -9,7 +9,7 @@ let loginGov = {};
 
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
-  console.log('------------', fs.fstatSync('./login-gov.key'));
+  console.log('------------', fs.statSync('./login-gov.key'));
 
   let samlStrategy = new SamlStrategy(
     {
