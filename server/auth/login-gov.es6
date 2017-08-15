@@ -17,9 +17,7 @@ loginGov.setup = () => {
         privateKey: './login-gov-key',
         signatureAlgorithm: 'sha256'
       },
-      function(profile, done) {
-        console.log('new saml strategy callback', profile, done);
-      }
+      function(profile, done) {}
     )
   );
 };
@@ -27,7 +25,6 @@ loginGov.setup = () => {
 loginGov.router = router;
 
 router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
-  console.log('in the login auth handler', req.body);
   passport.authenticate('saml', {
     successRedirect: '/',
     failureRedirect: '/login'
@@ -35,12 +32,10 @@ router.get('/login', passport.authenticate('saml', { failureRedirect: '/', failu
 });
 
 router.post('/callback', passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res) => {
-  console.log('in the login response handler', req.body);
   res.redirect('/');
 });
 
 router.get('/logout', (req, res) => {
-  console.log('in the logout handler', req.body);
   req.logout();
   res.redirect('/');
 });

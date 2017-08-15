@@ -18,11 +18,7 @@ app.use(helmet());
 
 /* Download login.gov cert. */
 if (process.env.PLATFORM !== 'CircleCI') {
-  try {
-    util.prepareCerts();
-  } catch (e) {
-    console.log(e);
-  }
+  util.prepareCerts();
 }
 
 /* Parse request bodies as JSON. */
