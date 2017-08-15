@@ -1,7 +1,6 @@
 'use strict';
 
 let AWS = require('aws-sdk');
-let fs = require('fs');
 let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
