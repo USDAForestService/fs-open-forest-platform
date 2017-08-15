@@ -1,6 +1,6 @@
-let fs = require('fs');
 let passport = require('passport');
 let SamlStrategy = require('passport-saml').Strategy;
+let util = require('./util.es6');
 let vcapServices = require('../vcap-services.es6');
 
 let router = require('express').Router();
@@ -9,35 +9,36 @@ let loginGov = {};
 
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
-  console.log('------------', fs.statSync('./login-gov.key'));
+  util.prepareCerts().then(decryptionPvk => {
+    console.log('------------', decryptionPvk.slice(0, 10));
+    let samlStrategy = new SamlStrategy(
+      {
+        authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
+        cert: vcapServices.loginGovCert,
+        entryPoint: vcapServices.loginGovEntryPoint,
+        issuer: vcapServices.loginGovIssuer,
+        path: '/auth/login-gov/saml/callback',
+        decryptionPvk: decryptionPvk,
+        signatureAlgorithm: 'sha256'
+      },
+      function(profile, done) {
+        console.log('new saml strategy callback', profile, done);
+        return done(null, {});
+      }
+    );
 
-  let samlStrategy = new SamlStrategy(
-    {
-      authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
-      cert: vcapServices.loginGovCert,
-      entryPoint: vcapServices.loginGovEntryPoint,
-      issuer: vcapServices.loginGovIssuer,
-      path: '/auth/login-gov/saml/callback',
-      decryptionPvk: fs.readFileSync('./login-gov.key', 'utf-8'),
-      signatureAlgorithm: 'sha256'
-    },
-    function(profile, done) {
-      console.log('new saml strategy callback', profile, done);
-      return done(null, {});
-    }
-  );
+    passport.serializeUser(function(user, done) {
+      console.log('------ passport.serializeUser', user);
+      done(null, user);
+    });
 
-  passport.serializeUser(function(user, done) {
-    console.log('------ passport.serializeUser', user);
-    done(null, user);
+    passport.deserializeUser(function(user, done) {
+      console.log('------ passport.deserializeUser', user);
+      done(null, user);
+    });
+
+    passport.use(samlStrategy);
   });
-
-  passport.deserializeUser(function(user, done) {
-    console.log('------ passport.deserializeUser', user);
-    done(null, user);
-  });
-
-  passport.use(samlStrategy);
 };
 
 loginGov.router = router;

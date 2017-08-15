@@ -112,10 +112,17 @@ util.prepareCerts = () => {
     region: vcapServices.certsRegion
   });
 
-  s3
-    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey })
-    .createReadStream()
-    .pipe(fs.createWriteStream('./login-gov.key'));
+  let fileParameters = { Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey };
+
+  return new Promise((resolve, reject) => {
+    s3.getObject(fileParameters, (error, data) => {
+      if (error) {
+        reject(error);
+      }
+      console.log('------------ S3 response', data.Body.length);
+      resolve(data.Body);
+    });
+  });
 };
 
 let getExtension = filename => {
