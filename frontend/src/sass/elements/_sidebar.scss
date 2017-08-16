@@ -1,11 +1,18 @@
-.fixed-sidebar {
+.usa-sidenav-list {
   display: none;
-  @media (min-width: $large-screen) {
-    display: block;
+  @include transition(0.3s, ease-in-out);
+  &.sticky {
     position: fixed;
-    width: 227px;
     top: 2em;
   }
+  @media (min-width: $large-screen) {
+    display: block;
+    width: 295px;
+  }
+}
+
+.usa-sidenav-list > li {
+  border-top: solid 1px $dark-grey;
 }
 
 .usa-sidenav-list a.usa-current {
