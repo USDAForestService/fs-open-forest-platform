@@ -9,8 +9,11 @@ let loginGov = {};
 
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
-  util.prepareCerts().then(decryptionPvk => {
+  util.prepareCerts().then(s3Results => {
+    let decryptionPvk = s3Results[0];
+    let decryptionCert = s3Results[1];
     console.log('------------ key slice', decryptionPvk.slice(0, 25));
+    console.log('------------ cert slice', decryptionCert.slice(0, 25));
     let samlStrategy = new SamlStrategy(
       {
         authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
@@ -37,8 +40,7 @@ loginGov.setup = () => {
       done(null, user);
     });
 
-    console.log('------ loginGovDecryptionCert: ' + vcapServices.loginGovDecryptionCert.slice(0, 25));
-    samlStrategy.generateServiceProviderMetadata(vcapServices.loginGovDecryptionCert);
+    samlStrategy.generateServiceProviderMetadata(decryptionCert);
     passport.use(samlStrategy);
   });
 };
