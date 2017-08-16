@@ -14,6 +14,7 @@ loginGov.setup = () => {
     let decryptionCert = s3Results[1];
     console.log('------------ key slice', decryptionPvk.slice(0, 25));
     console.log('------------ cert slice', decryptionCert.slice(0, 25));
+    console.log('------------ loginGovCert slice', vcapServices.loginGovCert.slice(0, 25));
     let samlStrategy = new SamlStrategy(
       {
         authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
