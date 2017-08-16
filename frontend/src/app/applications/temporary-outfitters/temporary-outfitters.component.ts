@@ -60,7 +60,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
         goodStandingEvidence: ['']
       }),
       guideIdentification: [''],
-      operatingPlan: ['', [Validators.required]],
+      operatingPlan: [''],
       liabilityInsurance: ['', [Validators.required]],
       acknowledgementOfRisk: [''],
       tempOutfitterFields: this.formBuilder.group({
