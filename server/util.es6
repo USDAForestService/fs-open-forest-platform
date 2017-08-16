@@ -53,7 +53,16 @@ util.getAllOpenApplications = (req, res) => {
       'noncommercialFieldsStartDateTime',
       'status'
     ],
-    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    where: {
+      $or: [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ]
+    },
     order: [['createdAt', 'DESC']]
   });
   let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
@@ -69,7 +78,16 @@ util.getAllOpenApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsLocationDesc',
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
-    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    where: {
+      $or: [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ]
+    },
     order: [['createdAt', 'DESC']]
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
@@ -91,7 +109,10 @@ util.middleLayerAuth = () => {
   let requestOptions = {
     url: vcapServices.middleLayerBaseUrl + 'auth',
     json: true,
-    body: { username: vcapServices.middleLayerUsername, password: vcapServices.middleLayerPassword }
+    body: {
+      username: vcapServices.middleLayerUsername,
+      password: vcapServices.middleLayerPassword
+    }
   };
   return new Promise((resolve, reject) => {
     request.post(requestOptions, (error, response, body) => {
@@ -112,23 +133,35 @@ util.prepareCerts = () => {
   });
 
   let loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
-    s3.getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey }, (error, data) => {
-      if (error) {
-        reject(error);
+    s3.getObject(
+      {
+        Bucket: vcapServices.certsBucket,
+        Key: vcapServices.loginGovPrivateKey
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        }
+        console.log('------------ loginGovPrivateKey S3 response', data.Body.toString('utf8').length);
+        resolve(data.Body.toString('utf8'));
       }
-      console.log('------------ loginGovPrivateKey S3 response', data.Body.toString('utf8').length);
-      resolve(data.Body.toString('utf8'));
-    });
+    );
   });
 
   let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
-    s3.getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovDecryptionCert }, (error, data) => {
-      if (error) {
-        reject(error);
+    s3.getObject(
+      {
+        Bucket: vcapServices.certsBucket,
+        Key: vcapServices.loginGovDecryptionCert
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        }
+        console.log('------------ loginGovDecryptionCert S3 response', data.Body.toString('utf8').length);
+        resolve(data.Body.toString('utf8'));
       }
-      console.log('------------ loginGovDecryptionCert S3 response', data.Body.toString('utf8').length);
-      resolve(data.Body.toString('utf8'));
-    });
+    );
   });
 
   return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise]);
@@ -150,6 +183,12 @@ util.getContentType = filename => {
   }
   if (getExtension(filename) === 'docx') {
     return 'application/msword';
+  }
+  if (getExtension(filename) === 'xls') {
+    return 'application/vnd.ms-excel';
+  }
+  if (getExtension(filename) === 'xlsx') {
+    return 'application/vnd.ms-excel';
   }
 };
 
