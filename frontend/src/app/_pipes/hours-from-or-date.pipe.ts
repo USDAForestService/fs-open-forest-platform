@@ -10,7 +10,7 @@ export class HoursFromOrDate implements PipeTransform {
 
     if (hours <= hoursFrom) {
       const hourOrHours = hours > 1 ? 'hours' : 'hour';
-      return `${hours} ${hourOrHours} ago.`;
+      return `${hours} ${hourOrHours} ago`;
     } else {
       return moment(value, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY');
     }
