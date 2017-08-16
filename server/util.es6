@@ -119,20 +119,20 @@ util.prepareCerts = () => {
       console.log('------------ loginGovPrivateKey S3 response', data.Body.toString('utf8').length);
       resolve(data.Body.toString('utf8'));
     });
-
-    let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
-      s3.getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovDecryptionCert }, (error, data) => {
-        if (error) {
-          reject(error);
-        }
-        console.log('------------ loginGovDecryptionCert S3 response', data.Body.toString('utf8').length);
-        resolve(data.Body.toString('utf8'));
-      });
-
-    return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise])
-
   });
-});
+
+  let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
+    s3.getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovDecryptionCert }, (error, data) => {
+      if (error) {
+        reject(error);
+      }
+      console.log('------------ loginGovDecryptionCert S3 response', data.Body.toString('utf8').length);
+      resolve(data.Body.toString('utf8'));
+    });
+  });
+
+  return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise]);
+};
 
 let getExtension = filename => {
   return filename.split('.').reverse()[0];
