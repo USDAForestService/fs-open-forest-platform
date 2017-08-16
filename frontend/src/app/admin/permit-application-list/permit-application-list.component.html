@@ -62,7 +62,7 @@
         <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
-        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.type | spacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
+        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.type | SpacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
       </div>
     </div>
   </div>
