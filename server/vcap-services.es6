@@ -45,6 +45,6 @@ vcapConstants.loginGovCert = loginGovService.credentials.cert;
 vcapConstants.loginGovEntryPoint = loginGovService.credentials.entrypoint;
 vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
 vcapConstants.loginGovPrivateKey = loginGovService.credentials.privatekey;
-vcapConstants.loginGovDecryptionCert = loginGovService.credentials.decryptioncert;
+vcapConstants.loginGovDecryptionCert = loginGovService.credentials.decryptcert;
 
 module.exports = vcapConstants;
