@@ -80,20 +80,26 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Guide identification</legend>
+          <legend>Guide identification (optional)</legend>
           <ul>
-            <li>Attach a list of all guides who would be working under the permit.</li>
+            <li>Include a list of all guides who would be working under the permit.</li>
+            <li>Include relevant licensing information if applicable.</li>
             <li>Describe your requirements for employment and staff training programs.</li>
-            <li>Attach copies of current CPR and First Aid certifications, Wilderness First Responder cards, and other applicable certifications for guides.  Please do not send copies of social security cards or passports.  Send driver’s licenses only if driving is part of the outfitting and guiding service.</li>
-            <li>If the state in which your activity would occur requires licensing for outfitters and guides, include a copy of relevant licenses.</li>
+            <li>Include applicable certifications for guides and their expiration dates.</li>
+            <li>Please do not enter social security or passport numbers.</li>
+            <li>Include driver license numbers only if driving is part of the outfitting and guiding service.</li>
           </ul>
+          <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
+          <p>If you need a guide identification template, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here</a> to download one.</p>
 
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
           <app-file-upload-field name="Guide document" type="guide-document"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.guideIdentification"></app-file-upload-field>
+            [field]="applicationForm.controls.guideIdentification"
+            allowXls="true"
+            ></app-file-upload-field>
 
         </fieldset>
 
@@ -105,7 +111,7 @@
 
           <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
           <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
-          <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx">click here</a> to download one.</p>
+          <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here</a> to download one.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
           <app-file-upload-field name="Operating plan" type="operating-plan"
             [uploadFiles]="uploadFiles"

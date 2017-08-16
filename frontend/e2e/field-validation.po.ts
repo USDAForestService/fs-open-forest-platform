@@ -68,10 +68,13 @@ export class FieldValidation {
     });
   }
 
-  validateFileUploadField(id) {
+  validateFileUploadField(id, type = 'pdf') {
     const path = require('path');
     const testErrorFile = path.resolve(__dirname, 'test-files/error-file-type.md');
-    const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
+    let testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
+    if (type === 'xls') {
+      testSuccessFile = path.resolve(__dirname, 'test-files/test.xlsx');
+    }
     const chooseFile = element(by.css('#' + id + ' label'));
     const input = element(by.css('#' + id + ' input[type="file"]'));
 

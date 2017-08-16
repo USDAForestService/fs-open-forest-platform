@@ -39,7 +39,7 @@ describe('Apply for a temp outfitters permit', () => {
   testSidebarLink('experience');
   testSidebarLink('signature');
 
-  fieldValidation.validateFileUploadField('section-guide-identification');
+  fieldValidation.validateFileUploadField('section-guide-identification', 'xls');
   fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');
   fieldValidation.validateFileUploadField('section-liability-insurance');
   fieldValidation.validateFileUploadField('section-operating-plan');
@@ -93,7 +93,7 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
-  fieldValidation.validateFileUploadField('section-guide-identification');
+  fieldValidation.validateFileUploadField('section-guide-identification', 'xls');
   fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');
   fieldValidation.validateFileUploadField('section-liability-insurance');
   fieldValidation.validateFileUploadField('section-operating-plan');
