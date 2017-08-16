@@ -8,7 +8,7 @@
   display: block;
 }
 
-.display-inline{
+.display-inline {
   display: inline-block;
 }
 
@@ -44,5 +44,20 @@
   }
   .padding-top-#{$i} {
     padding-top: #{$i}em !important;
+  }
+}
+
+@for $i from 1 through 6 {
+  .negative-margin-bottom-#{$i} {
+    margin-bottom: -#{$i}em !important;
+  }
+  .negative-margin-left-#{$i} {
+    margin-left: -#{$i}em !important;
+  }
+  .negative-margin-right-#{$i} {
+    margin-right: -#{$i}em !important;
+  }
+  .negative-margin-top-#{$i} {
+    margin-top: -#{$i}em !important;
   }
 }
