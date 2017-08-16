@@ -2,6 +2,13 @@ import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
+const testSidebarLink = function(section) {
+  it(`should highlight ${section} if link is clicked`, () => {
+    element(by.id(`nav-${section}`)).click();
+    expect<any>(element(by.id(`nav-${section}`)).getAttribute('class')).toMatch('usa-current');
+  });
+};
+
 describe('Apply for a temp outfitters permit', () => {
   let page: TempOutfittersForm;
   let fieldValidation: FieldValidation;
@@ -9,6 +16,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   beforeEach(() => {
     page = new TempOutfittersForm();
+    browser.driver.manage().window().setSize(1400, 900);
   });
 
   it('should display the permit name in the header', () => {
@@ -19,6 +27,17 @@ describe('Apply for a temp outfitters permit', () => {
   it('should not show errors by default', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeFalsy();
   });
+
+  testSidebarLink('applicant-info');
+  testSidebarLink('activity-description');
+  testSidebarLink('advertising');
+  testSidebarLink('client-charges');
+  testSidebarLink('guide-identification');
+  testSidebarLink('operating-plan');
+  testSidebarLink('liability-insurance');
+  testSidebarLink('acknowledgement-of-risk');
+  testSidebarLink('experience');
+  testSidebarLink('signature');
 
   fieldValidation.validateFileUploadField('section-guide-identification');
   fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');

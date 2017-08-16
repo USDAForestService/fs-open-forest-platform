@@ -1,6 +1,7 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
-    <app-temp-outfitter-left-nav class="usa-width-one-third" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
+    <app-temp-outfitter-left-nav class="usa-width-one-third"
+      [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
     <div class="usa-width-two-thirds temp-outfitter-main-content">
       <h1>Apply for a temporary outfitters permit.</h1>
       <h2>{{forest}}</h2>
@@ -8,7 +9,9 @@
 
         <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
-        <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors || invalidFileUpload" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+        <div id="form-errors"
+          *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors || invalidFileUpload"
+          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
           <div class="usa-alert-body">
             <h3 class="usa-alert-heading">There are errors in your application.</h3>
             <p class="usa-alert-text">Please correct the errors before submitting.</p>
@@ -20,7 +23,8 @@
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
           <legend>Applicant information</legend>
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Applicant"></app-permit-holder-name>
+          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
+            type="primary" name="Applicant"></app-permit-holder-name>
           <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
           <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
@@ -30,33 +34,41 @@
 
           <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
 
-          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'" [formGroup]="applicationForm.controls.tempOutfitterFields">
+          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
+            [formGroup]="applicationForm.controls.tempOutfitterFields">
             <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
             <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-            <app-error-message id="individual-citizen-error" name="Citizen" [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
+            <app-error-message id="individual-citizen-error" name="Citizen"
+              [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
           </div>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
             <h3>{{ goodStandingEvidenceMessage }}</h3>
             <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-            <app-file-upload-field name="File" type="good-standing-evidence" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"></app-file-upload-field>
+            <app-file-upload-field name="File" type="good-standing-evidence" [uploadFiles]="uploadFiles"
+              [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"></app-file-upload-field>
           </div>
 
           <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
 
         </fieldset>
 
-        <app-activity-description id="section-activity-description" [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView" (updateRootDateStatus)="updateDateStatus($event)"
+        <app-activity-description id="section-activity-description"
+          [parentForm]="applicationForm.get('tempOutfitterFields')"
+          [pointOfView]="pointOfView"
+          (updateRootDateStatus)="updateDateStatus($event)"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">></app-activity-description>
 
-        <app-advertising id="section-advertising" [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
+        <app-advertising id="section-advertising"
+          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-advertising>
 
-        <app-client-charges id="section-client-charges" [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
+        <app-client-charges id="section-client-charges"
+          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-client-charges>
@@ -74,7 +86,11 @@
           </ul>
 
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="Guide document" type="guide-document" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.guideIdentification"></app-file-upload-field>
+          <app-file-upload-field name="Guide document" type="guide-document"
+            [uploadFiles]="uploadFiles"
+            [applicationId]="applicationId"
+            [checkFileUploadHasError]="submitted"
+            [field]="applicationForm.controls.guideIdentification"></app-file-upload-field>
 
         </fieldset>
 
@@ -87,7 +103,12 @@
           <p>Attach an operating plan that addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
           <p>If you need an operating plan template, <a href="/assets/files/operating-plan-template.docx">click here</a> to download one.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
+          <app-file-upload-field name="Operating plan" type="operating-plan"
+            [uploadFiles]="uploadFiles"
+            [applicationId]="applicationId"
+            required="true"
+            [checkFileUploadHasError]="submitted"
+            [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-liability-insurance"
@@ -98,7 +119,12 @@
 
           <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="Liability insurance" type="insurance-certificate" [uploadFiles]="uploadFiles" [applicationId]="applicationId" required="true" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
+          <app-file-upload-field name="Liability insurance" type="insurance-certificate"
+            [uploadFiles]="uploadFiles"
+            [applicationId]="applicationId"
+            required="true"
+            [checkFileUploadHasError]="submitted"
+            [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-acknowledgement-of-risk"
@@ -109,10 +135,16 @@
 
           <p>If you plan to use an acknowledgment of risk form, attach a copy.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form" [uploadFiles]="uploadFiles" [applicationId]="applicationId" [checkFileUploadHasError]="submitted" [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
+          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
+            [uploadFiles]="uploadFiles"
+            [applicationId]="applicationId"
+            [checkFileUploadHasError]="submitted"
+            [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
         </fieldset>
 
-        <app-experience id="section-experience" [parentForm]="applicationForm.get('tempOutfitterFields')" [pointOfView]="pointOfView"
+        <app-experience id="section-experience"
+          [parentForm]="applicationForm.get('tempOutfitterFields')"
+          [pointOfView]="pointOfView"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-experience>
