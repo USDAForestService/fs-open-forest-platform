@@ -56,18 +56,39 @@ router.get(
   })
 );
 
-router.post(
-  '/auth/login-gov/saml/callback',
-  passport.authenticate('saml', {
-    successRedirect: '/test?callback-success',
-    failureRedirect: '/test?callback-fail',
-    failureFlash: true
-  }),
-  (req, res) => {
-    console.log('in the POST callback response handler', req.body);
-    res.redirect('/test');
-  }
-);
+// router.post(
+//   '/auth/login-gov/saml/callback',
+//   passport.authenticate('saml', {
+//     successRedirect: '/test?callback-success',
+//     failureRedirect: '/test?callback-fail',
+//     failureFlash: true
+//   }),
+//   (req, res) => {
+//     console.log('in the POST callback response handler', req.body);
+//     res.redirect('/test');
+//   }
+// );
+router.post('/auth/login-gov/saml/callback', (req, res, next) => {
+  passport.authenticate('saml', (err, user, info) => {
+    console.log('++++++ err:', err);
+    console.log('++++++ user:', user);
+    console.log('++++++ info:', info);
+    if (err) {
+      return next(err); // will generate a 500 error
+    }
+    // Generate a JSON response reflecting authentication status
+    if (!user) {
+      return res.send({ success: false, message: 'authentication failed' });
+    }
+    req.login(user, loginErr => {
+      if (loginErr) {
+        console.log('++++++ loginErr:', loginErr);
+        return next(loginErr);
+      }
+      return res.send({ success: true, message: 'authentication succeeded' });
+    });
+  })(req, res, next);
+});
 
 router.get('/test', (req, res) => {
   res.send(':-)');
