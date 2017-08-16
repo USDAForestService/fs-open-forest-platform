@@ -2,7 +2,7 @@
   <ng-container formGroupName="{{ activityDescriptionFields }}">
     <fieldset>
       <legend>Description of proposed activity</legend>
-
+      <p>Please fill out the following fields to the best of your knowledge at this point.</p>
       <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
 
       <label class="usa-input" for="number-of-trips">The anticipated number of trips.</label>
