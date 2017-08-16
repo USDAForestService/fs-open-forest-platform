@@ -27,6 +27,7 @@ export class ApplicationFieldsService {
         dataField.setValidators([Validators.required, alphanumericValidator()]);
       } else {
         dataField.setValidators(null);
+        dataField.updateValueAndValidity();
       }
     });
   }
@@ -39,6 +40,11 @@ export class ApplicationFieldsService {
       return;
     }
     invalidElements[0].scrollIntoView();
+  }
+
+  touchField(control: FormControl) {
+    control.markAsTouched();
+    control.updateValueAndValidity();
   }
 
   touchAllFields(formGroup: FormGroup) {

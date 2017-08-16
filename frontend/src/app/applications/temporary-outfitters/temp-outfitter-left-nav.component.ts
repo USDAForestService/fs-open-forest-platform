@@ -1,18 +1,19 @@
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, HostListener } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-temp-outfitter-left-nav',
   templateUrl: './temp-outfitter-left-nav.component.html'
 })
-export class TempOutfitterLeftNavComponent implements OnInit {
+export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   @Input() applicationForm: any;
   @Input() currentSection: any;
   applicantInfoErrors: boolean;
   activityDescriptionErrors: boolean;
   experienceErrors: boolean;
-  fixedSidebar: boolean;
+  stickySidebar: boolean;
+  pushSidebarUp: boolean;
 
   constructor(private applicationFieldsService: ApplicationFieldsService) {}
 
@@ -30,6 +31,9 @@ export class TempOutfitterLeftNavComponent implements OnInit {
 
   getGroupStatus(group: FormGroup, errors) {
     if (group.valid) {
+      if (group.untouched) {
+        return 'ng-untouched';
+      }
       return 'ng-valid';
     }
     if (errors) {
@@ -42,7 +46,8 @@ export class TempOutfitterLeftNavComponent implements OnInit {
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    this.fixedSidebar = window.scrollY > 220 ? true : false;
+    this.stickySidebar = window.scrollY > 220 ? true : false;
+    this.pushSidebarUp = window.scrollY > 7000 ? true : false;
   }
 
   gotoHashtag(fragment: string) {
@@ -50,6 +55,23 @@ export class TempOutfitterLeftNavComponent implements OnInit {
     if (element) {
       element.scrollIntoView();
       this.currentSection = fragment;
+    }
+  }
+
+  ngOnChanges() {
+    let field = null;
+    switch (this.currentSection) {
+      case 'section-acknowledgement-of-risk':
+        field = this.applicationForm.controls.acknowledgementOfRisk;
+        break;
+      case 'section-experience':
+        field = this.applicationForm.controls.tempOutfitterFields.controls.experienceFields.controls
+          .listAllNationalForestPermits;
+        break;
+    }
+
+    if (field) {
+      this.applicationFieldsService.touchField(field);
     }
   }
 
