@@ -16,11 +16,6 @@ let app = express();
 /* Use helmet for increased security. */
 app.use(helmet());
 
-/* Download login.gov cert. */
-if (process.env.PLATFORM !== 'CircleCI') {
-  util.prepareCerts();
-}
-
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
