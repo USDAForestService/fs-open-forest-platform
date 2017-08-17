@@ -1,13 +1,9 @@
 .usa-sidenav-list {
   display: none;
-  @include transition(0.3s, ease-in-out);
-  &.sticky {
-    position: fixed;
-    top: 2em;
-  }
-  @media (min-width: $large-screen) {
+  margin-right: 14px;
+  @include transition(0.3s, ease-out);
+  @media (min-width: $medium-screen) {
     display: block;
-    width: 295px;
   }
 }
 
@@ -24,7 +20,7 @@
   a {
     color: $fs-green;
     cursor: pointer;
-    padding-right: 20px;
+    padding-right: 24px;
     position: relative;
     &:hover {
       color: $fs-green;
@@ -37,6 +33,13 @@
       width: 22px;
       right: 0;
       top: 22%;
+    }
+    @media (min-width: $medium-screen) and (max-width: $large-screen) {
+      font-size: 14px;
+      .status-icon {
+        width: 17px;
+        height: 17px;
+      }
     }
   }
   &.ng-valid {

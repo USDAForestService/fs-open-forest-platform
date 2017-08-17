@@ -12,8 +12,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   applicantInfoErrors: boolean;
   activityDescriptionErrors: boolean;
   experienceErrors: boolean;
-  stickySidebar: boolean;
-  pushSidebarUp: boolean;
+  scrollAmount: string;
 
   constructor(private applicationFieldsService: ApplicationFieldsService) {}
 
@@ -46,8 +45,21 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    this.stickySidebar = window.scrollY > 220 ? true : false;
-    this.pushSidebarUp = window.scrollY > 7000 ? true : false;
+    let scrollPosition = window.scrollY;
+
+    if (scrollPosition > 400 && scrollPosition < 7100) {
+      scrollPosition = scrollPosition - 100;
+    }
+
+    if (window.innerWidth > 1199 && scrollPosition > 7100) {
+      scrollPosition = 7100;
+    }
+
+    if (window.innerWidth < 1200 && scrollPosition > 7500) {
+      scrollPosition = 7500;
+    }
+
+    this.scrollAmount = `${scrollPosition.toString()}px`;
   }
 
   gotoHashtag(fragment: string) {
@@ -61,6 +73,15 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   ngOnChanges() {
     let field = null;
     switch (this.currentSection) {
+      case 'section-advertising':
+        field = this.applicationForm.controls.tempOutfitterFields.controls.advertisingURL;
+        break;
+      case 'section-guide-identification':
+        field = this.applicationForm.controls.guideIdentification;
+        break;
+      case 'section-operating-plan':
+        field = this.applicationForm.controls.operatingPlan;
+        break;
       case 'section-acknowledgement-of-risk':
         field = this.applicationForm.controls.acknowledgementOfRisk;
         break;
