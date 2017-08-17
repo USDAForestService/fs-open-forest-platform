@@ -1,3 +1,9 @@
+.temp-outfitter-main-content {
+  @media (max-width: $large-screen) {
+    width: 100%;
+  }
+}
+
 #section-applicant-info {
   margin-bottom: 1em;
 }
