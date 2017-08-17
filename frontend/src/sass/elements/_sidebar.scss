@@ -1,8 +1,10 @@
 .usa-sidenav-list {
   display: none;
   margin-right: 14px;
-  @include transition(0.3s, ease-out);
-  @media (min-width: $medium-screen) {
+  position: absolute;
+  width: 296px;
+  top: 250px;
+  @media (min-width: $large-screen) {
     display: block;
   }
 }
