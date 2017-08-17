@@ -41,10 +41,7 @@ vcapConstants.intakePassword = intakeService.credentials.INTAKE_PASSWORD;
 let loginGovService = VCAPServices['user-provided'].find(element => {
   return element.name === 'login-service-provider';
 });
-vcapConstants.loginGovCert = loginGovService.credentials.cert;
-vcapConstants.loginGovEntryPoint = loginGovService.credentials.entrypoint;
 vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
-vcapConstants.loginGovPrivateKey = loginGovService.credentials.privatekey;
-vcapConstants.loginGovDecryptionCert = loginGovService.credentials.decryptcert;
+// vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
 
 module.exports = vcapConstants;
