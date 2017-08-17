@@ -52,8 +52,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      console.log(footer.getBoundingClientRect().top + ' - ' + window.scrollY);
-
       if (nav.getBoundingClientRect().top < 20) {
         this.top = '40px';
         this.bottom = 'auto';
@@ -86,8 +84,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     if (window.innerWidth < 1200 && scrollPosition > 7500) {
       scrollPosition = 7500;
     }
-
-    // this.scrollAmount = `${scrollPosition.toString()}px`;
   }
 
   gotoHashtag(fragment: string) {
