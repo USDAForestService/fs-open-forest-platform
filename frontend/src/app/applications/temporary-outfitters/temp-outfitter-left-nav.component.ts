@@ -12,8 +12,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   applicantInfoErrors: boolean;
   activityDescriptionErrors: boolean;
   experienceErrors: boolean;
-  stickySidebar: boolean;
-  pushSidebarUp: boolean;
+  scrollAmount: string;
 
   constructor(private applicationFieldsService: ApplicationFieldsService) {}
 
@@ -46,8 +45,21 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    this.stickySidebar = window.scrollY > 220 ? true : false;
-    this.pushSidebarUp = window.scrollY > 7000 ? true : false;
+    let scrollPosition = window.scrollY;
+
+    if (scrollPosition > 400 && scrollPosition < 7100) {
+      scrollPosition = scrollPosition - 100;
+    }
+
+    if (window.innerWidth > 1199 && scrollPosition > 7100) {
+      scrollPosition = 7100;
+    }
+
+    if (window.innerWidth < 1200 && scrollPosition > 7500) {
+      scrollPosition = 7500;
+    }
+
+    this.scrollAmount = `${scrollPosition.toString()}px`;
   }
 
   gotoHashtag(fragment: string) {
