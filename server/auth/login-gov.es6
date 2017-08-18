@@ -24,16 +24,19 @@ loginGov.setup = () => {
       console.log('----- loginGovIssuer: ', loginGovIssuer);
 
       let client = new loginGovIssuer.Client({
-        client_id: vcapServices.loginGovIssuer,
+        client_id: vcapServices.loginGovIssuer
+      });
+
+      let params = {
+        redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
         acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
         response_type: 'code',
-        scope: 'openid email',
-        redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback'
-      });
+        scope: 'email'
+      };
 
       passport.use(
         'oidc',
-        new Strategy(client, (tokenset, userinfo, done) => {
+        new Strategy({ client, params }, (tokenset, userinfo, done) => {
           console.log('----- tokenset: ', tokenset);
           console.log('----- access_token: ', tokenset.access_token);
           console.log('----- id_token', tokenset.id_token);
