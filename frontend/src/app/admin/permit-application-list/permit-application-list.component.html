@@ -39,7 +39,9 @@
         <div>Permit holder</div>
         <div>&nbsp;</div>
       </div>
-      <div *ngFor="let application of applications | SortArray: '-createdAt'" [hidden]="application.status !== 'Received' && application.status !== 'Hold'" class="application-field-list-values">
+      <div *ngFor="let application of applications | SortArray: 'createdAt'"
+        [hidden]="application.status !== 'Received' && application.status !== 'Hold'"
+        class="application-field-list-values">
         <div *ngIf="application.status === 'Hold'"><span class="usa-label warning">Hold</span></div>
         <div *ngIf="application.status === 'Received'">
         </div>
@@ -51,10 +53,10 @@
         <label>Submitted</label>
         <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
-        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isPastDate(application.noncommercialFieldsStartDateTime)}">
+        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.noncommercialFieldsStartDateTime)}">
           {{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
-        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isPastDate(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
+        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
           {{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label>End date</label>

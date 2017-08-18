@@ -44,6 +44,12 @@ export class PermitApplicationListComponent implements OnInit {
     return now.isAfter(deadline);
   }
 
+  isWeekAwayOrPast(dateTime) {
+    const now = moment();
+    const warning = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'weeks');
+    return now.isAfter(warning);
+  }
+
   showAttentionAlert() {
     let result = false;
     this.applications.forEach(application => {
