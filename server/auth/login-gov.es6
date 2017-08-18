@@ -9,6 +9,7 @@ let loginGov = {};
 
 let basicAuthOptions = {
   headers: {
+    Host: 'idp.int.login.gov',
     Authorization:
       'Basic ' +
       new Buffer(vcapServices.loginGovIdpUsername + ':' + vcapServices.loginGovIdpPassword).toString('base64')
