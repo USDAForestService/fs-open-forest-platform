@@ -39,10 +39,7 @@ describe('Apply for a temp outfitters permit', () => {
   testSidebarLink('experience');
   testSidebarLink('signature');
 
-  fieldValidation.validateFileUploadField('section-guide-identification', 'xls');
-  fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');
   fieldValidation.validateFileUploadField('section-liability-insurance');
-  fieldValidation.validateFileUploadField('section-operating-plan');
 
   it('should display good standing evidence upload field if organization is clicked', () => {
     element(by.id('organization-label')).click();
