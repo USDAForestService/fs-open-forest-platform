@@ -61,8 +61,12 @@ util.getAllOpenApplications = (req, res) => {
         {
           status: 'Hold'
         }
-      ]
+      ],
+      noncommercialFieldsEndDateTime: {
+        $gt: new Date()
+      }
     },
+
     order: [['createdAt', 'DESC']]
   });
   let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
@@ -86,7 +90,10 @@ util.getAllOpenApplications = (req, res) => {
         {
           status: 'Hold'
         }
-      ]
+      ],
+      tempOutfitterFieldsActDescFieldsEndDateTime: {
+        $gt: new Date()
+      }
     },
     order: [['createdAt', 'DESC']]
   });

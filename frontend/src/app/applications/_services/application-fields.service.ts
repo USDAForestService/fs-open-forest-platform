@@ -48,15 +48,16 @@ export class ApplicationFieldsService {
   }
 
   touchAllFields(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach(control => {
-      if (control.status === 'INVALID') {
-        control.markAsTouched();
-        control.updateValueAndValidity();
-      }
-      if (control.controls) {
-        this.touchAllFields(control);
-      }
-    });
+    if (formGroup.controls) {
+      (<any>Object).keys(formGroup.controls).forEach(c => {
+        const control = formGroup.controls[c];
+        if (control.status === 'INVALID') {
+          control.markAsTouched();
+          control.updateValueAndValidity();
+        }
+        this.touchAllFields(<FormGroup>control);
+      });
+    }
   }
 
   doesControlHaveErrors(formGroup: FormGroup) {
@@ -64,20 +65,23 @@ export class ApplicationFieldsService {
     if (!formGroup) {
       return errors;
     }
-    errors = (<any>Object).values(formGroup.controls).some(control => {
-      return this.loopChildControlsForErrors(control) || (control.errors && control.touched);
+    errors = (<any>Object).keys(formGroup.controls).some(control => {
+      return (
+        this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]) ||
+        (formGroup.controls[control].errors && formGroup.controls[control].touched)
+      );
     });
     return errors;
   }
 
   loopChildControlsForErrors(formGroup: FormGroup) {
     if (formGroup.controls) {
-      const errors = (<any>Object).values(formGroup.controls).some(control => {
-        if (control.errors && control.touched) {
+      const errors = (<any>Object).keys(formGroup.controls).some(control => {
+        if (formGroup.controls[control].errors && formGroup.controls[control].touched) {
           return true;
         }
         if (control.controls) {
-          this.loopChildControlsForErrors(control);
+          this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]);
         }
       });
       return errors;

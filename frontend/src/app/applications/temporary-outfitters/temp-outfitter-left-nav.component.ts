@@ -13,6 +13,9 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   activityDescriptionErrors: boolean;
   experienceErrors: boolean;
   scrollAmount: string;
+  bottom: string;
+  top: string;
+  position: string;
 
   constructor(private applicationFieldsService: ApplicationFieldsService) {}
 
@@ -45,7 +48,30 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
+    const nav = document.getElementById('temp-outfitter-nav');
+    const footer = document.getElementById('footer');
+
+    if (nav) {
+      if (nav.getBoundingClientRect().top < 20) {
+        this.top = '40px';
+        this.bottom = 'auto';
+        this.position = 'fixed';
+      }
+
+      if (footer.getBoundingClientRect().top < 700) {
+        const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
+        this.top = 'auto';
+        this.bottom = bottom.toString() + 'px';
+        this.position = 'fixed';
+      }
+    }
+
     let scrollPosition = window.scrollY;
+
+    if (scrollPosition < 200) {
+      this.top = '250px';
+      this.position = 'absolute';
+    }
 
     if (scrollPosition > 400 && scrollPosition < 7100) {
       scrollPosition = scrollPosition - 100;
@@ -58,8 +84,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     if (window.innerWidth < 1200 && scrollPosition > 7500) {
       scrollPosition = 7500;
     }
-
-    this.scrollAmount = `${scrollPosition.toString()}px`;
   }
 
   gotoHashtag(fragment: string) {
