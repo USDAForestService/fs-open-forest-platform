@@ -21,7 +21,8 @@
     "request": "^2.81.0",
     "sequelize-cli": "^2.7.0",
     "sequelize": "^4.2.0",
-    "snyk": "^1.36.2"
+    "snyk": "^1.36.2",
+    "express-session": "^1.15.5"
   },
   "devDependencies": {
     "chai": "^4.0.2",
