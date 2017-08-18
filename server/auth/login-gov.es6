@@ -62,7 +62,7 @@ router.get(
   })
 );
 
-router.post(
+router.get(
   '/auth/login-gov/openid/callback',
   passport.authenticate('oidc', {
     successRedirect: '/successRedirect',
