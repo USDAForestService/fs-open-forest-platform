@@ -7,9 +7,15 @@ let router = require('express').Router();
 
 let loginGov = {};
 
+let basicAuthOptions = {
+  headers: {
+    Authorization: 'Basic ' + new Buffer('USERNAME' + ':' + 'PASSWORD'.loginGovIssuer).toString('base64')
+  }
+};
+
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
-  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration')
+  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration', basicAuthOptions)
     .then(loginGovIssuer => {
       console.log('----- loginGovIssuer: ', loginGovIssuer);
 
