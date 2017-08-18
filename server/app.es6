@@ -10,6 +10,7 @@ let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
+var session = require('express-session');
 
 let app = express();
 
@@ -19,6 +20,13 @@ app.use(helmet());
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(
+  session({
+    secret: 'secret',
+    name: 'sessionId'
+  })
+);
 
 /* Setup passport. */
 if (process.env.PLATFORM !== 'CircleCI') {
