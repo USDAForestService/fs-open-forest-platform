@@ -1,5 +1,5 @@
 &nbsp;
-  <ul class="usa-sidenav-list" [style.marginTop]="scrollAmount">
+  <ul id="temp-outfitter-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
       <a id="nav-applicant-info" (click)="gotoHashtag('section-applicant-info')"
         [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}">
