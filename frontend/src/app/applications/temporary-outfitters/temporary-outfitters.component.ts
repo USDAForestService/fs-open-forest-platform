@@ -83,7 +83,6 @@ export class TemporaryOutfittersComponent implements DoCheck {
           this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
           break;
         case 'Corporation':
-          console.log(type);
           this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
           this.orgTypeFileUpload = true;
           this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
