@@ -17,7 +17,7 @@ let basicAuthOptions = {
 };
 
 loginGov.setup = () => {
-  console.log('------------ in loginGov.setup');
+  console.log('------------ in loginGov.setup ', vcapServices.loginGovIdpUsername, vcapServices.loginGovIdpPassword);
   Issuer.defaultHttpOptions = basicAuthOptions;
   Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration')
     .then(loginGovIssuer => {

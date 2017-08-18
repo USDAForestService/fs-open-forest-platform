@@ -42,6 +42,8 @@ let loginGovService = VCAPServices['user-provided'].find(element => {
   return element.name === 'login-service-provider';
 });
 vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
+vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
+vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
 // vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
 
 module.exports = vcapConstants;
