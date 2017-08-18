@@ -11,7 +11,6 @@ export class ErrorMessageComponent {
   @Input() name: string;
 
   parseErrors(errors) {
-    console.log(errors);
     let message = '';
     if (errors.email) {
       message += `${this.name} requires a valid email address. `;
