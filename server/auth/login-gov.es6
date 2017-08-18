@@ -1,103 +1,83 @@
 let passport = require('passport');
-let SamlStrategy = require('passport-saml').Strategy;
-let util = require('../util.es6');
 let vcapServices = require('../vcap-services.es6');
+let Issuer = require('openid-client').Issuer;
+let Strategy = require('openid-client').Strategy;
 
 let router = require('express').Router();
 
 let loginGov = {};
 
+let basicAuthOptions = {
+  headers: {
+    Host: 'idp.int.login.gov',
+    Authorization:
+      'Basic ' +
+      new Buffer(vcapServices.loginGovIdpUsername + ':' + vcapServices.loginGovIdpPassword).toString('base64')
+  }
+};
+
 loginGov.setup = () => {
-  console.log('------------ in loginGov.setup');
-  util.prepareCerts().then(s3Results => {
-    let decryptionPvk = s3Results[0];
-    let decryptionCert = s3Results[1];
-    console.log('------------ key slice', decryptionPvk.slice(0, 25));
-    console.log('------------ cert slice', decryptionCert.slice(0, 25));
-    console.log('------------ loginGovCert slice', vcapServices.loginGovCert.slice(0, 25));
-    let samlStrategy = new SamlStrategy(
-      {
-        authnContext: 'http://idmanagement.gov/ns/assurance/loa/1',
-        cert: vcapServices.loginGovCert,
-        entryPoint: vcapServices.loginGovEntryPoint,
-        issuer: vcapServices.loginGovIssuer,
-        path: '/auth/login-gov/saml/callback',
-        decryptionPvk: decryptionPvk,
-        signatureAlgorithm: 'sha256'
-      },
-      function(profile, done) {
-        console.log('new saml strategy callback', profile, done);
-        return done(null, {});
-      }
-    );
+  console.log('------------ in loginGov.setup ', vcapServices.loginGovIdpUsername, vcapServices.loginGovIdpPassword);
+  Issuer.defaultHttpOptions = basicAuthOptions;
+  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration')
+    .then(loginGovIssuer => {
+      console.log('----- loginGovIssuer: ', loginGovIssuer);
 
-    passport.serializeUser(function(user, done) {
-      console.log('------ passport.serializeUser', user);
-      done(null, user);
+      let client = new loginGovIssuer.Client({
+        client_id: vcapServices.loginGovIssuer,
+        acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
+        response_type: 'code',
+        scope: 'openid email',
+        redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback'
+      });
+
+      passport.use(
+        'oidc',
+        new Strategy(client, (tokenset, userinfo, done) => {
+          console.log('----- tokenset: ', tokenset);
+          console.log('----- access_token: ', tokenset.access_token);
+          console.log('----- id_token', tokenset.id_token);
+          console.log('----- claims', tokenset.claims);
+          console.log('----- userinfo: ', userinfo);
+          console.log('----- done: ', done);
+          return done(null, false);
+        })
+      );
+    })
+    .catch(error => {
+      console.log('----- loginGovIssuer error: ', error);
     });
-
-    passport.deserializeUser(function(user, done) {
-      console.log('------ passport.deserializeUser', user);
-      done(null, user);
-    });
-
-    samlStrategy.generateServiceProviderMetadata(decryptionCert);
-    passport.use(samlStrategy);
-  });
 };
 
 loginGov.router = router;
 
 router.get(
-  '/auth/login-gov/saml/login',
-  passport.authenticate('saml', {
-    successRedirect: '/test?login-success',
-    failureRedirect: '/test?login-fail'
+  '/auth/login-gov/openid/login',
+  passport.authenticate('oidc', {
+    failureRedirect: '/failureRedirect',
+    failureFlash: true
   })
 );
 
-// router.post(
-//   '/auth/login-gov/saml/callback',
-//   passport.authenticate('saml', {
-//     successRedirect: '/test?callback-success',
-//     failureRedirect: '/test?callback-fail',
-//     failureFlash: true
-//   }),
-//   (req, res) => {
-//     console.log('in the POST callback response handler', req.body);
-//     res.redirect('/test');
-//   }
-// );
-router.post('/auth/login-gov/saml/callback', (req, res, next) => {
-  passport.authenticate('saml', (err, user, info) => {
-    console.log('++++++ err:', err);
-    console.log('++++++ user:', user);
-    console.log('++++++ info:', info);
-    if (err) {
-      return next(err); // will generate a 500 error
-    }
-    // Generate a JSON response reflecting authentication status
-    if (!user) {
-      return res.send({ success: false, message: 'authentication failed' });
-    }
-    req.login(user, loginErr => {
-      if (loginErr) {
-        console.log('++++++ loginErr:', loginErr);
-        return next(loginErr);
-      }
-      return res.send({ success: true, message: 'authentication succeeded' });
-    });
-  })(req, res, next);
+router.post(
+  '/auth/login-gov/openid/callback',
+  passport.authenticate('oidc', {
+    successRedirect: '/successRedirect',
+    failureRedirect: '/failureRedirect',
+    failureFlash: true
+  }),
+  (req, res) => {
+    console.log('in the POST callback response handler', req.body);
+    res.redirect('/test');
+  }
+);
+
+router.get('/failureRedirect', (req, res) => {
+  res.send(':-(');
 });
 
-router.get('/test', (req, res) => {
+router.get('/successRedirect', (req, res) => {
   res.send(':-)');
-});
-
-router.get('/auth/login-gov/saml/logout', (req, res) => {
-  console.log('in the logout handler', req.body);
-  req.logout();
-  res.redirect('/');
 });
 
 module.exports = loginGov;

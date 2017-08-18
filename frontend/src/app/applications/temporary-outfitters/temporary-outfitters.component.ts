@@ -51,7 +51,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
       type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
-        emailAddress: ['', Validators.required],
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
         organizationName: ['', alphanumericValidator()],
         primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
         primaryLastName: ['', [Validators.required, alphanumericValidator()]],
