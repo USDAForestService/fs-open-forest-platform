@@ -17,7 +17,8 @@ let basicAuthOptions = {
 
 loginGov.setup = () => {
   console.log('------------ in loginGov.setup');
-  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration', basicAuthOptions)
+  Issuer.defaultHttpOptions = basicAuthOptions;
+  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration')
     .then(loginGovIssuer => {
       console.log('----- loginGovIssuer: ', loginGovIssuer);
 
