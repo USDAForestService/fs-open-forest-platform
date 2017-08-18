@@ -31,7 +31,9 @@ loginGov.setup = () => {
         redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
         acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
         response_type: 'code',
-        scope: 'email'
+        scope: 'openid email',
+        prompt: 'select_account'
+        // nonce:
       };
 
       passport.use(
