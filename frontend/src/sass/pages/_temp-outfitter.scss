@@ -1,5 +1,5 @@
 .temp-outfitter-main-content {
-  @media (max-width: $large-screen) {
+  @media (max-width: $nav-width - 1) {
     width: 100%;
   }
 }

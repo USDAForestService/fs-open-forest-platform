@@ -4,7 +4,7 @@
   position: absolute;
   width: 296px;
   top: 250px;
-  @media (min-width: $large-screen) {
+  @media (min-width: $nav-width) {
     display: block;
   }
 }
@@ -35,13 +35,6 @@
       width: 22px;
       right: 0;
       top: 22%;
-    }
-    @media (min-width: $medium-screen) and (max-width: $large-screen) {
-      font-size: 14px;
-      .status-icon {
-        width: 17px;
-        height: 17px;
-      }
     }
   }
   &.ng-valid {
