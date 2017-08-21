@@ -40,6 +40,7 @@ export class ApplicationFieldsService {
       return;
     }
     invalidElements[0].scrollIntoView();
+    document.getElementById(invalidElements[0].getAttribute('id')).focus();
   }
 
   touchField(control: FormControl) {
