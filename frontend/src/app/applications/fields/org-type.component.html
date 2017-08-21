@@ -1,5 +1,5 @@
-<ng-container [formGroup]="applicantInfo" *ngIf="type === 'simple'">
-  <label for="applicant-type">Are you applying as an individual or organization?</label>
+<fieldset [formGroup]="applicantInfo" *ngIf="type === 'simple'">
+  <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
   <ul class="usa-unstyled-list">
     <li>
       <input id="individual" type="radio" value="Person" formControlName="orgType">
@@ -10,10 +10,10 @@
       <label for="organization" id="organization-label">Organization</label>
     </li>
   </ul>
-</ng-container>
+</fieldset>
 
-<ng-container [formGroup]="applicantInfo" *ngIf="type === 'complex'">
-  <label for="applicant-type">As an applicant, are you:</label>
+<fieldset [formGroup]="applicantInfo" *ngIf="type === 'complex'">
+  <legend class="fs-mini-legend">As an applicant, are you:</legend>
   <ul class="usa-unstyled-list">
     <li>
       <input id="individual" type="radio" value="Person" formControlName="orgType">
@@ -45,4 +45,4 @@
     </li>
   </ul>
 
-</ng-container>
+</fieldset>
