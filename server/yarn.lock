@@ -3355,9 +3355,9 @@ open@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
-openid-client@^1.12.1:
+"openid-client@https://github.com/dubharmonic/node-openid-client":
   version "1.12.1"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.12.1.tgz#73ea05c498196c55fc1e218442b444c8f6026878"
+  resolved "https://github.com/dubharmonic/node-openid-client#b21817e640bf2690cf89d8aefb5681e537fcb2b6"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
