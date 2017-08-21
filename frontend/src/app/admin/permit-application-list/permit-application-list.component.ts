@@ -46,7 +46,7 @@ export class PermitApplicationListComponent implements OnInit {
 
   isWeekAwayOrPast(dateTime) {
     const now = moment();
-    const warning = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'weeks');
+    const warning = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(1, 'weeks');
     return now.isAfter(warning);
   }
 

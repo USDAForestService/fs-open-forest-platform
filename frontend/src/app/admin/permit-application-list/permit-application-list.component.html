@@ -51,7 +51,7 @@
         <div *ngIf="application.type === 'Noncommercial'"><strong>{{ application.eventName }}</strong></div>
         <div *ngIf="application.type === 'Temp outfitter'"><strong>{{ application.applicantInfoOrganizationName }}</strong></div>
         <label>Submitted</label>
-        <div [ngClass]="{'deadline-warning': isOverOneDayOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
+        <div [ngClass]="{'deadline-warning': isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
         <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.noncommercialFieldsStartDateTime)}">
           {{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
