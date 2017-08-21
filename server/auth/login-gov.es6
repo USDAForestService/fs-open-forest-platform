@@ -32,8 +32,8 @@ loginGov.setup = () => {
         acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
         response_type: 'code',
         scope: 'openid email',
-        prompt: 'select_account'
-        // nonce:
+        prompt: 'select_account',
+        nonce: '12345678901234567890123456789012'
       };
 
       passport.use(
