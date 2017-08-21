@@ -88,4 +88,22 @@ describe('PermitApplicationListComponent', () => {
   it('should not show attention alert if there are no applications over 2 days old', () => {
     expect(component.showAttentionAlert()).toBeFalsy();
   });
+
+  it('should return true if start date is less than one week away', () => {
+    const now = moment();
+    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(6, 'days');
+    expect(component.isWeekAwayOrPast(date)).toBeTruthy();
+  });
+
+  it('should return true if start date is past', () => {
+    const now = moment();
+    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'days');
+    expect(component.isWeekAwayOrPast(date)).toBeTruthy();
+  });
+
+  it('should return false if start date more than a week away', () => {
+    const now = moment();
+    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(2, 'weeks');
+    expect(component.isWeekAwayOrPast(date)).toBeFalsy();
+  });
 });
