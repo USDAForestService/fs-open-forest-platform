@@ -220,8 +220,8 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
 aws-sdk@^2.62.0:
-  version "2.100.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.100.0.tgz#fc0fbca7690d6c28effd28bd51fe85f7dba42bff"
+  version "2.101.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.101.0.tgz#1252c364b840eba1ae0b8cd8c1accf78bfa14d96"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -3353,7 +3353,7 @@ open@^0.0.5:
 
 "openid-client@https://github.com/dubharmonic/node-openid-client":
   version "1.12.1"
-  resolved "https://github.com/dubharmonic/node-openid-client#8d3f4084fde85259e607d2bac8858ce2004f2688"
+  resolved "https://github.com/dubharmonic/node-openid-client#d7fddf5c3c14be23fb88236059bc6c19d2e39484"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
