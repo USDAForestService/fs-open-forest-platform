@@ -10,12 +10,16 @@ let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
+var morgan = require('morgan');
 var session = require('express-session');
 
 let app = express();
 
 /* Use helmet for increased security. */
 app.use(helmet());
+
+/* Use morgan for increased logging. */
+app.use(morgan('combined'));
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
