@@ -149,7 +149,6 @@ util.prepareCerts = () => {
         if (error) {
           reject(error);
         }
-        console.log('------------ loginGovPrivateKey S3 response', data.Body.toString('utf8').length);
         resolve(data.Body.toString('utf8'));
       }
     );
@@ -165,7 +164,6 @@ util.prepareCerts = () => {
         if (error) {
           reject(error);
         }
-        console.log('------------ loginGovDecryptionCert S3 response', data.Body.toString('utf8').length);
         resolve(data.Body.toString('utf8'));
       }
     );
