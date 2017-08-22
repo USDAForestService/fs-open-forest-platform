@@ -59,8 +59,7 @@ loginGov.router = router;
 router.get(
   '/auth/login-gov/openid/login',
   passport.authenticate('oidc', {
-    failureRedirect: '/failureRedirect',
-    failureFlash: true
+    failureRedirect: '/failureRedirect'
   })
 );
 
@@ -68,8 +67,7 @@ router.get(
   '/auth/login-gov/openid/callback',
   passport.authenticate('oidc', {
     successRedirect: '/successRedirect',
-    failureRedirect: '/failureRedirect',
-    failureFlash: true
+    failureRedirect: '/failureRedirect'
   }),
   (req, res) => {
     console.log('in the POST callback response handler', req.body);
@@ -78,6 +76,7 @@ router.get(
 );
 
 router.get('/failureRedirect', (req, res) => {
+  console.log('/failureRedirect', req);
   res.send(':-(');
 });
 
