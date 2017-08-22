@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     const element = document.querySelector('#' + fragment);
     if (element) {
       element.scrollIntoView();
+      document.getElementById('fragment').focus();
     }
   }
 

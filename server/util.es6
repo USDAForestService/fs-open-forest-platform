@@ -1,7 +1,6 @@
 'use strict';
 
 let AWS = require('aws-sdk');
-let fs = require('fs');
 let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
@@ -33,64 +32,6 @@ util.collateErrors = (result, errorArr, prefix) => {
   return errorArr;
 };
 
-util.translateFromIntakeToMiddleLayer = input => {
-  let result = {
-    region: input.region,
-    forest: input.forest,
-    district: input.district,
-    authorizingOfficerName: 'Placeholder', // TODO: Add value when user has authenticated
-    authorizingOfficerTitle: 'Placeholder', // TODO: Add value when user has authenticated
-    applicantInfo: {
-      firstName: input.applicantInfoPrimaryFirstName,
-      lastName: input.applicantInfoPrimaryLastName,
-      dayPhone: {
-        areaCode: input.applicantInfoDayPhoneAreaCode,
-        number: input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoDayPhoneExtension || undefined,
-        phoneType: 'standard'
-      },
-      eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || input.applicantInfoDayPhoneAreaCode,
-        number:
-          input.applicantInfoEveningPhonePrefix + input.applicantInfoEveningPhoneNumber ||
-          input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoEveningPhoneExtension || input.applicantInfoDayPhoneExtension || undefined,
-        phoneType: 'standard'
-      },
-      emailAddress: input.applicantInfoEmailAddress,
-      organizationName: input.applicantInfoOrganizationName || undefined,
-      website: input.applicantInfoWebsite || undefined,
-      orgType: input.applicantInfoOrgType
-    },
-    type: input.type,
-    noncommercialFields: {
-      activityDescription: input.noncommercialFieldsActivityDescription,
-      locationDescription: input.noncommercialFieldsLocationDescription,
-      startDateTime: input.noncommercialFieldsStartDateTime,
-      endDateTime: input.noncommercialFieldsEndDateTime,
-      numberParticipants: Number(input.noncommercialFieldsNumberParticipants)
-    }
-  };
-
-  if (input.applicantInfoOrgType === 'Person') {
-    result.applicantInfo.mailingAddress = input.applicantInfoPrimaryMailingAddress;
-    result.applicantInfo.mailingAddress2 = input.applicantInfoPrimaryMailingAddress2 || undefined;
-    result.applicantInfo.mailingCity = input.applicantInfoPrimaryMailingCity;
-    result.applicantInfo.mailingState = input.applicantInfoPrimaryMailingState;
-    result.applicantInfo.mailingZIP = input.applicantInfoPrimaryMailingZIP;
-  }
-
-  if (input.applicantInfoOrgType === 'Corporation') {
-    result.applicantInfo.mailingAddress = input.applicantInfoOrgMailingAddress;
-    result.applicantInfo.mailingAddress2 = input.applicantInfoOrgMailingAddress2 || undefined;
-    result.applicantInfo.mailingCity = input.applicantInfoOrgMailingCity;
-    result.applicantInfo.mailingState = input.applicantInfoOrgMailingState;
-    result.applicantInfo.mailingZIP = input.applicantInfoOrgMailingZIP;
-  }
-
-  return result;
-};
-
 util.validateDateTime = input => {
   return (
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
@@ -112,7 +53,20 @@ util.getAllOpenApplications = (req, res) => {
       'noncommercialFieldsStartDateTime',
       'status'
     ],
-    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    where: {
+      $or: [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ],
+      noncommercialFieldsEndDateTime: {
+        $gt: new Date()
+      }
+    },
+
     order: [['createdAt', 'DESC']]
   });
   let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
@@ -128,7 +82,19 @@ util.getAllOpenApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsLocationDesc',
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
-    where: { $or: [{ status: 'Received' }, { status: 'Hold' }] },
+    where: {
+      $or: [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ],
+      tempOutfitterFieldsActDescFieldsEndDateTime: {
+        $gt: new Date()
+      }
+    },
     order: [['createdAt', 'DESC']]
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
@@ -150,7 +116,10 @@ util.middleLayerAuth = () => {
   let requestOptions = {
     url: vcapServices.middleLayerBaseUrl + 'auth',
     json: true,
-    body: { username: vcapServices.middleLayerUsername, password: vcapServices.middleLayerPassword }
+    body: {
+      username: vcapServices.middleLayerUsername,
+      password: vcapServices.middleLayerPassword
+    }
   };
   return new Promise((resolve, reject) => {
     request.post(requestOptions, (error, response, body) => {
@@ -170,10 +139,37 @@ util.prepareCerts = () => {
     region: vcapServices.certsRegion
   });
 
-  s3
-    .getObject({ Bucket: vcapServices.certsBucket, Key: vcapServices.loginGovPrivateKey })
-    .createReadStream()
-    .pipe(fs.createWriteStream('./login-gov-key'));
+  let loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
+    s3.getObject(
+      {
+        Bucket: vcapServices.certsBucket,
+        Key: vcapServices.loginGovPrivateKey
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(data.Body.toString('utf8'));
+      }
+    );
+  });
+
+  let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
+    s3.getObject(
+      {
+        Bucket: vcapServices.certsBucket,
+        Key: vcapServices.loginGovDecryptionCert
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(data.Body.toString('utf8'));
+      }
+    );
+  });
+
+  return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise]);
 };
 
 let getExtension = filename => {
@@ -192,6 +188,12 @@ util.getContentType = filename => {
   }
   if (getExtension(filename) === 'docx') {
     return 'application/msword';
+  }
+  if (getExtension(filename) === 'xls') {
+    return 'application/vnd.ms-excel';
+  }
+  if (getExtension(filename) === 'xlsx') {
+    return 'application/vnd.ms-excel';
   }
 };
 

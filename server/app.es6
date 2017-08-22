@@ -10,24 +10,34 @@ let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
+var morgan = require('morgan');
+var session = require('express-session');
 
 let app = express();
 
 /* Use helmet for increased security. */
 app.use(helmet());
 
-/* Download login.gov cert. */
-if (process.env.PLATFORM !== 'CircleCI') {
-  util.prepareCerts();
-}
+/* Use morgan for increased logging. */
+app.use(morgan('combined'));
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(
+  session({
+    secret: 'secret',
+    name: 'sessionId'
+  })
+);
 
 /* Setup passport. */
-loginGov.setup();
-app.use(passport.initialize());
-app.use(passport.session());
+if (process.env.PLATFORM !== 'CircleCI') {
+  loginGov.setup();
+  app.use(passport.initialize());
+  app.use(passport.session());
+}
 
 app.options('*', function(req, res) {
   res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
@@ -89,7 +99,7 @@ app.get('/uptime', function(req, res) {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-app.use('/auth/login-gov/saml', loginGov.router);
+app.use(loginGov.router);
 
 /* Start the server. */
 app.listen(8080);

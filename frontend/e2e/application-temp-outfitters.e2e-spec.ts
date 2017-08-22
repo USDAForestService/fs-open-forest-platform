@@ -2,6 +2,13 @@ import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
+const testSidebarLink = function(section) {
+  it(`should highlight ${section} if link is clicked`, () => {
+    element(by.id(`nav-${section}`)).click();
+    expect<any>(element(by.id(`nav-${section}`)).getAttribute('class')).toMatch('usa-current');
+  });
+};
+
 describe('Apply for a temp outfitters permit', () => {
   let page: TempOutfittersForm;
   let fieldValidation: FieldValidation;
@@ -9,6 +16,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   beforeEach(() => {
     page = new TempOutfittersForm();
+    browser.driver.manage().window().setSize(1400, 900);
   });
 
   it('should display the permit name in the header', () => {
@@ -20,10 +28,25 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeFalsy();
   });
 
-  fieldValidation.validateFileUploadField('guide-document-wrapper');
-  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
-  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
-  fieldValidation.validateFileUploadField('operating-plan-wrapper');
+  testSidebarLink('applicant-info');
+  testSidebarLink('activity-description');
+  testSidebarLink('advertising');
+  testSidebarLink('client-charges');
+  testSidebarLink('guide-identification');
+  testSidebarLink('operating-plan');
+  testSidebarLink('liability-insurance');
+  testSidebarLink('acknowledgement-of-risk');
+  testSidebarLink('experience');
+  testSidebarLink('signature');
+
+  fieldValidation.validateFileUploadField('section-liability-insurance');
+
+  it('should display good standing evidence upload field if organization is clicked', () => {
+    element(by.id('organization-label')).click();
+    expect<any>(element(by.id('good-standing-evidence-wrapper')).isPresent()).toBeTruthy();
+  });
+
+  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
 
   it('should not submit application if not all required fields are entered', () => {
     element(by.id('primary-permit-holder-first-name')).sendKeys('test');
@@ -40,11 +63,8 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeTruthy();
   });
 
-  //  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
-
   it('should submit an application with only the required fields populated', () => {
     element(by.id('email')).sendKeys('test@test.com');
-    element(by.id('organization-label')).click();
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
     element(by.id('start-month')).sendKeys('10');
@@ -70,10 +90,10 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
-  fieldValidation.validateFileUploadField('guide-document-wrapper');
-  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form-wrapper');
-  fieldValidation.validateFileUploadField('insurance-certificate-wrapper');
-  fieldValidation.validateFileUploadField('operating-plan-wrapper');
+  fieldValidation.validateFileUploadField('section-guide-identification', 'xls');
+  fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');
+  fieldValidation.validateFileUploadField('section-liability-insurance');
+  fieldValidation.validateFileUploadField('section-operating-plan');
 
   it('should submit an application', () => {
     element(by.id('primary-permit-holder-first-name')).sendKeys('test');

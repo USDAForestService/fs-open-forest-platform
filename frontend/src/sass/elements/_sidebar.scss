@@ -1,0 +1,55 @@
+.usa-sidenav-list {
+  display: none;
+  margin-right: 14px;
+  position: absolute;
+  width: 296px;
+  top: 250px;
+  @media (min-width: $nav-width) {
+    display: block;
+  }
+}
+
+.usa-sidenav-list > li {
+  border-top: solid 1px $dark-grey;
+}
+
+.usa-sidenav-list a.usa-current {
+  border-color: $fs-green;
+  color: $fs-green;
+}
+
+.usa-sidenav-list li {
+  a {
+    color: $fs-green;
+    cursor: pointer;
+    padding-right: 24px;
+    position: relative;
+    &:hover {
+      color: $fs-green;
+    }
+    .status-icon {
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 22px;
+      position: absolute;
+      width: 22px;
+      right: 0;
+      top: 22%;
+    }
+  }
+  &.ng-valid {
+    a {
+      .status-icon {
+        background-image: url(/assets/img/checkmark.svg);
+      }
+    }
+  }
+  &.ng-invalid {
+    a {
+      color: $fs-red;
+      .status-icon {
+        background-image: url(/assets/img/error-icon.svg);
+      }
+    }
+  }
+}

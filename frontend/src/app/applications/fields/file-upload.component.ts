@@ -1,18 +1,21 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
+import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-file-upload-field',
   templateUrl: './file-upload.component.html'
 })
-export class FileUploadComponent implements OnChanges {
+export class FileUploadComponent implements OnChanges, OnInit {
   @Input() applicationId: number;
   @Input() name: string;
   @Input() type: string;
   @Input() uploadFiles: boolean;
   @Input() required: boolean;
   @Input() checkFileUploadHasError: boolean;
+  @Input() field: FormControl;
+  @Input() allowXls: boolean;
 
   allowedMimeType = [
     'application/msword',
@@ -43,6 +46,10 @@ export class FileUploadComponent implements OnChanges {
     if (uploader.queue.length > 1) {
       uploader.removeFromQueue(uploader.queue[0]);
     }
+    this.field.patchValue(uploader.queue[0].file.name);
+    this.field.markAsTouched();
+    this.field.updateValueAndValidity();
+    this.field.setErrors(null);
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {
@@ -54,11 +61,24 @@ export class FileUploadComponent implements OnChanges {
         this.errorMessage = `Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)`;
         break;
       case 'mimeType':
-        const allowedTypes = this.allowedMimeType.join();
-        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx., or .rtf`;
+        const xls = this.allowXls ? '.xls, .xlsx, ' : '';
+        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, ${xls}or .rtf`;
         break;
       default:
         this.errorMessage = `Unknown error (filter is ${filter.name})`;
+    }
+
+    this.field.markAsTouched();
+    this.field.updateValueAndValidity();
+    if (this.errorMessage) {
+      this.field.setErrors({ error: this.errorMessage });
+    }
+  }
+
+  ngOnInit() {
+    if (this.allowXls) {
+      this.allowedMimeType.push('application/vnd.ms-excel');
+      this.allowedMimeType.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     }
   }
 
