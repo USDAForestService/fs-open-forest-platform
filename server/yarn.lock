@@ -3,8 +3,8 @@
 
 
 "@types/geojson@^1.0.0":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.2.tgz#b02d10ab028e2928ac592a051aaa4981a1941d03"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.3.tgz#fbcf7fa5eb6dd108d51385cc6987ec1f24214523"
 
 "@types/node@^6.0.48":
   version "6.0.87"
@@ -3353,7 +3353,7 @@ open@^0.0.5:
 
 "openid-client@https://github.com/dubharmonic/node-openid-client":
   version "1.12.1"
-  resolved "https://github.com/dubharmonic/node-openid-client#bf23c0149c048b42f819b4dfff52b497f72d3d61"
+  resolved "https://github.com/dubharmonic/node-openid-client#79dd9bdaaaa9f6d733607c71c104e7aabc3f525b"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"

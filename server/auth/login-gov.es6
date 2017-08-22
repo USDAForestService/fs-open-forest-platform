@@ -77,7 +77,7 @@ router.get(
 );
 
 router.get('/failureRedirect', (req, res) => {
-  console.log('/failureRedirect', req);
+  // console.log('/failureRedirect', req);
   res.send(':-(');
 });
 
