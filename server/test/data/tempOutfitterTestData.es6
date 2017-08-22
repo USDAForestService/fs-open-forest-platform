@@ -16,7 +16,7 @@ module.exports = {
       organizationName: '',
       primaryFirstName: 'Theodore',
       primaryLastName: 'Twombly',
-      orgType: 'individual',
+      orgType: 'Person',
       website: 'http://twombly.com',
       primaryAddress: {
         mailingAddress: '2345 Central Street',
@@ -54,7 +54,7 @@ module.exports = {
       activityDescriptionFields: {
         numberServiceDaysRequested: 2,
         numberOfTrips: 3,
-        partySize: 4,
+        partySize: '4',
         locationDescription: 'Start and end',
         servicesProvided: 'Services',
         audienceDescription: 'Description',

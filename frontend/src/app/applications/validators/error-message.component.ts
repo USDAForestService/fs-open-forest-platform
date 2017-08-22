@@ -12,6 +12,9 @@ export class ErrorMessageComponent {
 
   parseErrors(errors) {
     let message = '';
+    if (errors.email) {
+      message += `${this.name} requires a valid email address. `;
+    }
     if (errors.required) {
       message += `${this.name} is required. `;
     }
@@ -23,6 +26,9 @@ export class ErrorMessageComponent {
     }
     if (errors.alphanumericRequirement) {
       message += `${this.name} requires at least one alphanumeric character. `;
+    }
+    if (errors.pattern && errors.pattern.requiredPattern === '^https?://.+$') {
+      message += `${this.name} requires a valid URL and must include http://.`;
     }
     return message;
   }
