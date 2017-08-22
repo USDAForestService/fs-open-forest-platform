@@ -24,7 +24,8 @@ loginGov.setup = () => {
       console.log('----- loginGovIssuer: ', loginGovIssuer);
 
       let client = new loginGovIssuer.Client({
-        client_id: vcapServices.loginGovIssuer
+        client_id: vcapServices.loginGovIssuer,
+        client_secret: 'thisisaveryspecialsecret'
       });
 
       let params = {
