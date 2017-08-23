@@ -9,6 +9,7 @@ let loginGov = {};
 
 let basicAuthOptions = {
   headers: {
+    'Content-Type': 'application/json',
     Host: 'idp.int.login.gov',
     Authorization:
       'Basic ' +
