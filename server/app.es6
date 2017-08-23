@@ -23,7 +23,11 @@ app.use(morgan('combined'));
 
 /* Parse request bodies as JSON. */
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 
 app.use(
   session({
