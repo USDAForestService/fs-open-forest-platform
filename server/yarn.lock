@@ -3357,7 +3357,7 @@ open@^0.0.5:
 
 "openid-client@https://github.com/dubharmonic/node-openid-client":
   version "1.12.1"
-  resolved "https://github.com/dubharmonic/node-openid-client#fb76898b2028306eb1efa484125ea58a93a17e86"
+  resolved "https://github.com/dubharmonic/node-openid-client#4358b31d3c69a139b37afbe1f506d7ff5a8df3f6"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
