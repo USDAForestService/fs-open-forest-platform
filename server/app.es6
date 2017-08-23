@@ -1,6 +1,5 @@
 'use strict';
 
-let auth = require('basic-auth');
 let bodyParser = require('body-parser');
 let express = require('express');
 let helmet = require('helmet');
