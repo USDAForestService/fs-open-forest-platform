@@ -34,8 +34,6 @@ let intakeService = VCAPServices['user-provided'].find(element => {
   return element.name === 'intake-client-service';
 });
 vcapConstants.intakeClientBaseUrl = intakeService.credentials.INTAKE_CLIENT_BASE_URL;
-vcapConstants.intakeUsername = intakeService.credentials.INTAKE_USERNAME;
-vcapConstants.intakePassword = intakeService.credentials.INTAKE_PASSWORD;
 
 // Login.gov
 let loginGovService = VCAPServices['user-provided'].find(element => {
