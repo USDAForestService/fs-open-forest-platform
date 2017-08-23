@@ -1,5 +1,6 @@
 'use strict';
 
+let auth = require('basic-auth');
 let bodyParser = require('body-parser');
 let express = require('express');
 let helmet = require('helmet');
@@ -50,31 +51,41 @@ app.options('*', function(req, res) {
   res.send();
 });
 
+/* Basic HTTP authentication middleware. */
+let authenticator = function(req, res, next) {
+  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
+  res.set('Access-Control-Allow-Credentials', true);
+  let user = auth(req);
+  next();
+  return;
+};
+
 /* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
 
 /** Get a single noncommercial permit application. */
-app.get('/permits/applications/special-uses/noncommercial/:id', noncommercial.getOne);
+app.get('/permits/applications/special-uses/noncommercial/:id', authenticator, noncommercial.getOne);
 /** Create a new noncommercial permit application. */
-app.post('/permits/applications/special-uses/noncommercial', noncommercial.create);
+app.post('/permits/applications/special-uses/noncommercial', authenticator, noncommercial.create);
 /** Update a noncommercial permit application. */
-app.put('/permits/applications/special-uses/noncommercial/:id', noncommercial.update);
+app.put('/permits/applications/special-uses/noncommercial/:id', authenticator, noncommercial.update);
 
 /** Get a temp outfitter permit application. */
-app.get('/permits/applications/special-uses/temp-outfitter/:id', tempOutfitter.getOne);
+app.get('/permits/applications/special-uses/temp-outfitter/:id', authenticator, tempOutfitter.getOne);
 /** Create a new temp outfitter permit application. */
-app.post('/permits/applications/special-uses/temp-outfitter', tempOutfitter.create);
+app.post('/permits/applications/special-uses/temp-outfitter', authenticator, tempOutfitter.create);
 /** Update a temp outfitter permit application. */
-app.put('/permits/applications/special-uses/temp-outfitter/:id', tempOutfitter.update);
+app.put('/permits/applications/special-uses/temp-outfitter/:id', authenticator, tempOutfitter.update);
 /** Handle temp outfitter file upload and invokes streamToS3 function. */
 app.post(
   '/permits/applications/special-uses/temp-outfitter/file',
+  authenticator,
   tempOutfitter.streamToS3.array('file', 1),
   tempOutfitter.attachFile
 );
 
 /** Get all applications with status on Received or Hold. */
-app.get('/permits/applications', util.getAllOpenApplications);
+app.get('/permits/applications', authenticator, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', function(req, res) {
