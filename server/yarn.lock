@@ -7,8 +7,8 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-1.0.3.tgz#fbcf7fa5eb6dd108d51385cc6987ec1f24214523"
 
 "@types/node@^6.0.48":
-  version "6.0.87"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.87.tgz#5ab5774f8351a33a935099fa6be850aa0b0ad564"
+  version "6.0.88"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
 
 abbrev@1, abbrev@^1.0.7:
   version "1.1.0"
@@ -3355,9 +3355,9 @@ open@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
-openid-client@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.13.0.tgz#430b55ddffa2d4eb218cf0a225040693f511fcf3"
+"openid-client@https://github.com/dubharmonic/node-openid-client":
+  version "1.12.1"
+  resolved "https://github.com/dubharmonic/node-openid-client#610e26986052084c88fcd4e2fb50886ded63b669"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
@@ -4346,8 +4346,8 @@ snyk-try-require@^1.1.1, snyk-try-require@^1.2.0:
     then-fs "^2.0.0"
 
 snyk@^1.36.2:
-  version "1.40.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.40.0.tgz#d09e94bb5e415e795e52e000607e6446928e81ed"
+  version "1.40.1"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.40.1.tgz#36120e6ab1659185db33fd3404377152bb92cdf2"
   dependencies:
     abbrev "^1.0.7"
     ansi-escapes "^1.3.0"
