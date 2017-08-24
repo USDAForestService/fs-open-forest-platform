@@ -1,6 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1>login</h1>
+    <h1 *ngIf="type==='admin'">Special use login</h1>
+    <h1 *ngIf="type!=='admin'">Login</h1>
     <div class="usa-width-one-full"></div>
     <form id="login-form" [formGroup]="user" (ngSubmit)="login(user)" novalidate>
       <input type="hidden" name="csrfmiddlewaretoken" value="VyatKgnGdgXVhzo4bHWYBsF3ljk2IiUWhclge2oviFJ1inaZ4mdjEEUQcOCVo0BD"/>
