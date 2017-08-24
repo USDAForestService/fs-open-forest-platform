@@ -25,7 +25,8 @@ loginGov.setup = () => {
       console.log('----- loginGovIssuer: ', loginGovIssuer);
 
       let client = new loginGovIssuer.Client({
-        client_id: vcapServices.loginGovIssuer
+        client_id: vcapServices.loginGovIssuer,
+        token_endpoint_auth_method: 'private_key_jwt'
       });
 
       let params = {
