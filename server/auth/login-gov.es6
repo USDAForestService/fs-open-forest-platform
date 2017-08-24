@@ -34,8 +34,8 @@ loginGov.setup = () => {
         prompt: 'select_account',
         redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
         response_type: 'code',
-        scope: 'openid+email',
-        state: 'abcdefghijklmnopabcdefghijklmnop'
+        scope: 'openid email',
+        state: 'abcdefghijklmnopabcdefghijklmnopDEBUG'
       };
 
       passport.use(
