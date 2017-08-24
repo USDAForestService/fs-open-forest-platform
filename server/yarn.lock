@@ -2377,8 +2377,8 @@ istanbul-lib-hook@^1.0.7:
     append-transform "^0.4.0"
 
 istanbul-lib-instrument@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-1.7.4.tgz#e9fd920e4767f3d19edc765e2d6b3f5ccbd0eea8"
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/istanbul-lib-instrument/-/istanbul-lib-instrument-1.7.5.tgz#adb596f8f0cb8b95e739206351a38a586af21b1e"
   dependencies:
     babel-generator "^6.18.0"
     babel-template "^6.16.0"
@@ -2883,8 +2883,8 @@ mem@^1.1.0:
     mimic-fn "^1.0.0"
 
 memoizee@^0.4.3:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/memoizee/-/memoizee-0.4.5.tgz#1bc3ea1e4be056dd475d521979d7be3d5e5b21c8"
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/memoizee/-/memoizee-0.4.6.tgz#04393e4541373921a88274ffc86d084d288614bb"
   dependencies:
     d "1"
     es5-ext "^0.10.13"
@@ -3355,9 +3355,9 @@ open@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
-"openid-client@https://github.com/dubharmonic/node-openid-client":
-  version "1.12.1"
-  resolved "https://github.com/dubharmonic/node-openid-client#4358b31d3c69a139b37afbe1f506d7ff5a8df3f6"
+openid-client@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.13.0.tgz#430b55ddffa2d4eb218cf0a225040693f511fcf3"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
@@ -4139,8 +4139,8 @@ sequelize-cli@^2.7.0:
     yargs "^8.0.1"
 
 sequelize@^4.2.0:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.7.1.tgz#68ecdd532aecf38127239fd0777010b3c0e9e991"
+  version "4.7.3"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.7.3.tgz#c5354712fb6fc62a80d39fac30ae5bce8f860343"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"
