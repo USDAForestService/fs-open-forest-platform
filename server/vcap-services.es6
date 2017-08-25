@@ -1,33 +1,49 @@
 'use strict';
 
-let _ = require('lodash');
-
-// Environment variables
-
 const vcapConstants = {};
-
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
-vcapConstants.accessKeyId = VCAPServices.s3[0].credentials.access_key_id;
-vcapConstants.secretAccessKey = VCAPServices.s3[0].credentials.secret_access_key;
-vcapConstants.region = VCAPServices.s3[0].credentials.region;
-vcapConstants.bucket = VCAPServices.s3[0].credentials.bucket;
-vcapConstants.middleLayerBaseUrl = _.find(VCAPServices['user-provided'], {
-  name: 'middlelayer-service'
-}).credentials.MIDDLELAYER_BASE_URL;
-vcapConstants.middleLayerUsername = _.find(VCAPServices['user-provided'], {
-  name: 'middlelayer-service'
-}).credentials.MIDDLELAYER_USERNAME;
-vcapConstants.middleLayerPassword = _.find(VCAPServices['user-provided'], {
-  name: 'middlelayer-service'
-}).credentials.MIDDLELAYER_PASSWORD;
-vcapConstants.intakeClientBaseUrl = _.find(VCAPServices['user-provided'], {
-  name: 'intake-client-service'
-}).credentials.INTAKE_CLIENT_BASE_URL;
-vcapConstants.intakeUsername = _.find(VCAPServices['user-provided'], {
-  name: 'intake-client-service'
-}).credentials.INTAKE_USERNAME;
-vcapConstants.intakePassword = _.find(VCAPServices['user-provided'], {
-  name: 'intake-client-service'
-}).credentials.INTAKE_PASSWORD;
+
+// Intake S3
+let intakeS3 = VCAPServices['s3'].find(element => {
+  return element.name === 'intake-s3';
+});
+vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
+vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
+vcapConstants.region = intakeS3.credentials.region;
+vcapConstants.bucket = intakeS3.credentials.bucket;
+
+// Certs S3
+let certsS3 = VCAPServices['s3'].find(element => {
+  return element.name === 'certs';
+});
+vcapConstants.certsAccessKeyId = certsS3.credentials.access_key_id;
+vcapConstants.certsSecretAccessKey = certsS3.credentials.secret_access_key;
+vcapConstants.certsRegion = certsS3.credentials.region;
+vcapConstants.certsBucket = certsS3.credentials.bucket;
+
+// Middle layer
+let middlelayerService = VCAPServices['user-provided'].find(element => {
+  return element.name === 'middlelayer-service';
+});
+vcapConstants.middleLayerBaseUrl = middlelayerService.credentials.MIDDLELAYER_BASE_URL;
+vcapConstants.middleLayerUsername = middlelayerService.credentials.MIDDLELAYER_USERNAME;
+vcapConstants.middleLayerPassword = middlelayerService.credentials.MIDDLELAYER_PASSWORD;
+
+// Intake
+let intakeService = VCAPServices['user-provided'].find(element => {
+  return element.name === 'intake-client-service';
+});
+vcapConstants.intakeClientBaseUrl = intakeService.credentials.INTAKE_CLIENT_BASE_URL;
+vcapConstants.intakeUsername = intakeService.credentials.INTAKE_USERNAME;
+vcapConstants.intakePassword = intakeService.credentials.INTAKE_PASSWORD;
+
+// Login.gov
+let loginGovService = VCAPServices['user-provided'].find(element => {
+  return element.name === 'login-service-provider';
+});
+vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
+vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
+vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
+// vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
 
 module.exports = vcapConstants;

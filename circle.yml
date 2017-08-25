@@ -35,7 +35,6 @@ test:
     - ./run-e2e.sh;
   post:
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
-    - cp server/lint-results.html $CIRCLE_ARTIFACTS
     - mkdir $CIRCLE_ARTIFACTS/server-coverage
     - cp -r server/coverage $CIRCLE_ARTIFACTS/server-coverage/
 deployment:
@@ -47,7 +46,7 @@ deployment:
       - cd frontend; yarn dist;
       - ./cg-deploy/deploy.sh public-production
   staging:
-    branch: sprint-8-development
+    branch: sprint-11-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;

@@ -1,4 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
@@ -10,7 +11,8 @@ describe('AppComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
-        declarations: [AppComponent, UsaBannerComponent]
+        declarations: [AppComponent, UsaBannerComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();
     })
   );
