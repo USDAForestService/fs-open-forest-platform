@@ -37,9 +37,10 @@ app.use(
 
 /* Setup passport. */
 if (process.env.PLATFORM !== 'CircleCI') {
-  loginGov.setup();
-  app.use(passport.initialize());
-  app.use(passport.session());
+  loginGov.setup(function() {
+    app.use(passport.initialize());
+    app.use(passport.session());
+  });
 }
 
 let accessControl = function(req, res, next) {

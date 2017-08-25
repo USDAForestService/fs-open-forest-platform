@@ -18,7 +18,7 @@ let basicAuthOptions = {
   }
 };
 
-loginGov.setup = () => {
+loginGov.setup = (cb) => {
   console.log(
     '------------ in loginGov.setup ',
     vcapServices.loginGovIdpUsername,
@@ -66,13 +66,16 @@ loginGov.setup = () => {
               return done(null, false);
             })
           );
+          cb();
         })
         .catch(error => {
           console.log('----- key error: ', error);
+          cb(error);
         });
     })
     .catch(error => {
       console.log('----- loginGovIssuer error: ', error);
+      cb(error);
     });
 };
 
