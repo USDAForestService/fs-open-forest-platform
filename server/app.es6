@@ -90,7 +90,6 @@ let createRoutes = function() {
 /* Setup passport. */
 if (process.env.PLATFORM !== 'CircleCI') {
   loginGov.setup(function() {
-    console.log('---------- in setup callback');
     app.use(passport.initialize());
     app.use(passport.session());
     createRoutes();
