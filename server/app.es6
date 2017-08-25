@@ -42,7 +42,7 @@ let accessControl = function(req, res, next) {
   return;
 };
 
-let createRoutes = function () {
+let createRoutes = function() {
   app.options('*', accessControl, function(req, res) {
     res.set('Access-Control-Allow-Headers', 'accept, content-type');
     res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
@@ -85,19 +85,19 @@ let createRoutes = function () {
 
   /* Start the server. */
   app.listen(8080);
-}
+};
 
 /* Setup passport. */
 if (process.env.PLATFORM !== 'CircleCI') {
   loginGov.setup(function() {
+    console.log('---------- in setup callback');
     app.use(passport.initialize());
     app.use(passport.session());
-    createRoutes()
+    createRoutes();
   });
 } else {
-  createRoutes()
+  createRoutes();
 }
-
 
 /* Export needed for testing. */
 module.exports = app;
