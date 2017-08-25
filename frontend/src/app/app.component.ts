@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,21 @@ export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
   currentRoute: string;
+  apiurl = environment.apiUrl;
 
-  constructor(router: Router) {
+  constructor(private router: Router) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
     });
+  }
+
+  gotoHashtag(fragment: string) {
+    const element = document.querySelector('#' + fragment);
+    if (element) {
+      element.scrollIntoView();
+      document.getElementById('fragment').focus();
+    }
   }
 
   ngOnInit() {

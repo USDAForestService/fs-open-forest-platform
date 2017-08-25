@@ -1,6 +1,7 @@
 // Core -------------- //
 @import 'core/variables';
 @import 'core/layout';
+@import 'core/mixins';
 // Elements -------------- //
 // Styles basic HTML elements
 @import 'elements/backgrounds';
@@ -10,6 +11,7 @@
 @import 'elements/input';
 @import 'elements/labels';
 @import 'elements/search';
+@import 'elements/sidebar';
 @import 'elements/typography';
 // Components -------------- //
 @import 'components/breadcrumbs';
@@ -24,3 +26,4 @@
 @import 'pages/application-list';
 @import 'pages/home';
 @import 'pages/style-guide';
+@import 'pages/temp-outfitter';

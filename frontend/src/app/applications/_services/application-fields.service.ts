@@ -27,27 +27,66 @@ export class ApplicationFieldsService {
         dataField.setValidators([Validators.required, alphanumericValidator()]);
       } else {
         dataField.setValidators(null);
+        dataField.updateValueAndValidity();
       }
     });
   }
 
   scrollToFirstError() {
-    const elements = document.getElementsByClassName('usa-input-error-message');
-    if (elements.length === 0) {
+    const invalidElements = document.querySelectorAll(
+      'input.ng-invalid, select.ng-invalid, textarea.invalid, .usa-file-input.ng-invalid, .ng-untouched.required'
+    );
+    if (invalidElements.length === 0) {
       return;
     }
-    elements[0].scrollIntoView();
+    invalidElements[0].scrollIntoView();
+    document.getElementById(invalidElements[0].getAttribute('id')).focus();
+  }
+
+  touchField(control: FormControl) {
+    control.markAsTouched();
+    control.updateValueAndValidity();
   }
 
   touchAllFields(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach(control => {
-      if (control.status === 'INVALID') {
-        control.markAsTouched();
-        control.updateValueAndValidity();
-      }
-      if (control.controls) {
-        this.touchAllFields(control);
-      }
+    if (formGroup.controls) {
+      (<any>Object).keys(formGroup.controls).forEach(c => {
+        const control = formGroup.controls[c];
+        if (control.status === 'INVALID') {
+          control.markAsTouched();
+          control.updateValueAndValidity();
+        }
+        this.touchAllFields(<FormGroup>control);
+      });
+    }
+  }
+
+  doesControlHaveErrors(formGroup: FormGroup) {
+    let errors = false;
+    if (!formGroup) {
+      return errors;
+    }
+    errors = (<any>Object).keys(formGroup.controls).some(control => {
+      return (
+        this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]) ||
+        (formGroup.controls[control].errors && formGroup.controls[control].touched)
+      );
     });
+    return errors;
+  }
+
+  loopChildControlsForErrors(formGroup: FormGroup) {
+    if (formGroup.controls) {
+      const errors = (<any>Object).keys(formGroup.controls).some(control => {
+        if (formGroup.controls[control].errors && formGroup.controls[control].touched) {
+          return true;
+        }
+        if (control.controls) {
+          this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]);
+        }
+      });
+      return errors;
+    }
+    return;
   }
 }

@@ -1,7 +1,7 @@
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 fieldset {
@@ -44,31 +44,36 @@ label {
   margin-top: 8px;
 }
 
-input.ng-valid.ng-touched, select.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
+input.ng-valid.ng-touched,
+select.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
   border: 3px solid $fs-green;
 }
 
-input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
   border: 3px solid $color-secondary-dark;
 }
 
 [type=radio]:checked + label::before {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $fs-green;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $fs-green;
 }
 
-[type=checkbox]:checked + label::before, [type=radio]:checked + label::before {
-    background-color: $fs-green;
+[type=checkbox]:checked + label::before,
+[type=radio]:checked + label::before {
+  background-color: $fs-green;
 }
 
 .usa-file-input {
   border: solid 1px $dark-grey;
   padding: 10px;
 
-  &.valid {
+  &.ng-valid {
     border: solid 3px $fs-green;
   }
 
-  &.invalid {
+  &.ng-invalid {
     border: solid 3px $fs-red;
   }
 
@@ -78,7 +83,7 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.n
     background-position-y: 4%;
     background-repeat: no-repeat;
     background-size: 5%;
-    @media(min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
       background-position-x: 94%;
       background-position-y: 50%;
       background-size: 8%;
