@@ -23,6 +23,7 @@ frontend/.idea
 *.launch
 .settings/
 *.sublime-workspace
+.env
 
 # IDE - VSCode
 .vscode/*

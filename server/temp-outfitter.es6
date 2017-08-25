@@ -2,13 +2,22 @@
 
 let ApplicationFile = require('./models/application-files.es6');
 let AWS = require('aws-sdk');
+let cryptoRandomString = require('crypto-random-string');
 let multer = require('multer');
 let multerS3 = require('multer-s3');
+let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
 
-let tempOutfitterRestHandlers = {};
+let tempOutfitter = {};
+
+let s3 = new AWS.S3({
+  accessKeyId: vcapServices.accessKeyId,
+  secretAccessKey: vcapServices.secretAccessKey,
+  region: vcapServices.region
+});
 
 let translateFromClientToDatabase = input => {
   return {
@@ -183,34 +192,197 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-// S3 Setup
+let translateFromIntakeToMiddleLayer = application => {
+  let result = {
+    region: application.region,
+    forest: application.forest,
+    district: application.district,
+    authorizingOfficerName: application.authorizingOfficerName,
+    authorizingOfficerTitle: application.authorizingOfficerTitle,
+    applicantInfo: {
+      firstName: application.applicantInfoPrimaryFirstName,
+      lastName: application.applicantInfoPrimaryLastName,
+      dayPhone: {
+        areaCode: application.applicantInfoDayPhoneAreaCode,
+        number: application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
+        extension: application.applicantInfoDayPhoneExtension || undefined,
+        phoneType: 'day'
+      },
+      eveningPhone: {
+        areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
+        number:
+          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
+          application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
+        extension:
+          application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
+        phoneType: 'evening'
+      },
+      emailAddress: application.applicantInfoEmailAddress,
+      mailingAddress: application.applicantInfoPrimaryMailingAddress,
+      mailingAddress2: application.applicantInfoPrimaryMailingAddress2,
+      mailingCity: application.applicantInfoPrimaryMailingCity,
+      mailingState: application.applicantInfoPrimaryMailingState,
+      mailingZIP: application.applicantInfoPrimaryMailingZIP,
+      organizationName: application.applicantInfoOrganizationName,
+      website: application.applicantInfoWebsite,
+      orgType: application.applicantInfoOrgType
+    },
+    type: 'tempOutfitters',
+    tempOutfitterFields: {
+      individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
+      smallBusiness: application.tempOutfitterFieldsSmallBusiness,
+      activityDescription:
+        ' Location Description: ' +
+        application.tempOutfitterFieldsActDescFieldsLocationDesc +
+        ' Services Provided: ' +
+        application.tempOutfitterFieldsActDescFieldsServProvided +
+        ' Audience Description: ' +
+        application.tempOutfitterFieldsActDescFieldsAudienceDesc,
+      advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
+      advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
+      clientCharges: application.tempOutfitterFieldsClientCharges,
+      experienceList: application.tempOutfitterFieldsExperienceList
+    }
+  };
 
-// Upload to S3
-let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
-});
+  // nonprofit isn't an option on the middle layer
+  if (result.applicantInfo.orgType === 'Nonprofit') {
+    result.applicantInfo.orgType = 'Corporation';
+  }
 
-tempOutfitterRestHandlers.streamToS3 = multer({
+  return result;
+};
+
+let getFile = (key, documentType) => {
+  return new Promise((resolve, reject) => {
+    s3.getObject({ Bucket: vcapServices.bucket, Key: key }, (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({ fileBuffer: data.Body, documentType: documentType, key: key });
+      }
+    });
+  });
+};
+
+let getAllFiles = applicationId => {
+  return new Promise((resolve, reject) => {
+    ApplicationFile.findAll({
+      where: { applicationId: applicationId }
+    })
+      .then(results => {
+        let filePromises = [];
+        for (let item of results) {
+          filePromises.push(getFile(item.s3FileName, item.documentType));
+        }
+        Promise.all(filePromises).then(results => {
+          let files = {};
+          for (let item of results) {
+            files[item.documentType] = { buffer: item.fileBuffer, filename: item.key };
+          }
+          resolve(files);
+        });
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+tempOutfitter.acceptApplication = application => {
+  return new Promise((resolve, reject) => {
+    getAllFiles(application.applicationId).then(files => {
+      let requestOptions = {
+        url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+        headers: {},
+        formData: {
+          body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
+          insuranceCertificate: {
+            value: files['insurance-certificate'].buffer,
+            options: {
+              filename: files['insurance-certificate'].filename,
+              contentType: util.getContentType(files['insurance-certificate'].filename)
+            }
+          },
+          operatingPlan: {
+            value: files['operating-plan'].buffer,
+            options: {
+              filename: files['operating-plan'].filename,
+              contentType: util.getContentType(files['operating-plan'].filename)
+            }
+          }
+        }
+      };
+
+      if (files['guide-document']) {
+        requestOptions.formData.guideDocumentation = {
+          value: files['guide-document'].buffer,
+          options: {
+            filename: files['guide-document'].filename,
+            contentType: util.getContentType(files['guide-document'].filename)
+          }
+        };
+      }
+
+      if (files['good-standing-evidence']) {
+        requestOptions.formData.goodStandingEvidence = {
+          value: files['good-standing-evidence'].buffer,
+          options: {
+            filename: files['good-standing-evidence'].filename,
+            contentType: util.getContentType(files['good-standing-evidence'].filename)
+          }
+        };
+      }
+
+      if (files['acknowledgement-of-risk-form']) {
+        requestOptions.formData.acknowledgementOfRiskForm = {
+          value: files['acknowledgement-of-risk-form'].buffer,
+          options: {
+            filename: files['acknowledgement-of-risk-form'].filename,
+            contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
+          }
+        };
+      }
+
+      util
+        .middleLayerAuth()
+        .then(token => {
+          requestOptions.headers['x-access-token'] = token;
+          request.post(requestOptions, (error, response, body) => {
+            if (error || response.statusCode !== 200) {
+              reject(error || response);
+            } else {
+              resolve(body);
+            }
+          });
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  });
+};
+
+tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: vcapServices.bucket,
+    metadata: function(req, file, next) {
+      next(null, null, Object.assign({}, req.body));
+    },
     key: function(req, file, next) {
-      next(null, file.originalname); //use Date.now() for unique file keys
+      next(null, `${cryptoRandomString(20)}/${file.originalname}`);
     }
   })
 });
 
-tempOutfitterRestHandlers.attachFile = (req, res) => {
+tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.create({
     applicationId: req.body.applicationId,
-    // applicationType: req.body.applicationType,
-    // s3FileName: req.body.s3FileName,
-    // originalFileName: req.body.originalFileName
     applicationType: 'tempoutfitters',
-    s3FileName: 'test.pdf',
-    originalFileName: 'originalTest.pdf'
+    documentType: req.body.documentType,
+    s3FileName: req.files[0].key,
+    originalFileName: req.files[0].key
   })
     .then(appfile => {
       req.body['fileId'] = appfile.fileId;
@@ -221,7 +393,7 @@ tempOutfitterRestHandlers.attachFile = (req, res) => {
     });
 };
 
-tempOutfitterRestHandlers.create = (req, res) => {
+tempOutfitter.create = (req, res) => {
   let errorRet = {};
   let errorArr = validator.validateTempOutfitter(req.body);
   if (errorArr.length > 0) {
@@ -240,7 +412,7 @@ tempOutfitterRestHandlers.create = (req, res) => {
   }
 };
 
-tempOutfitterRestHandlers.getOne = (req, res) => {
+tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
     .then(app => {
       if (app) {
@@ -254,22 +426,41 @@ tempOutfitterRestHandlers.getOne = (req, res) => {
     });
 };
 
-tempOutfitterRestHandlers.update = (req, res) => {
+tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
     if (app) {
       app.status = req.body.status;
-      app
-        .save()
-        .then(() => {
-          res.status(200).json(translateFromDatabaseToClient(app));
-        })
-        .catch(error => {
-          res.status(500).json(error);
-        });
+      if (app.status === 'Accepted') {
+        tempOutfitter
+          .acceptApplication(app)
+          .then(response => {
+            app.controlNumber = response.controlNumber;
+            app
+              .save()
+              .then(() => {
+                res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch(error => {
+                res.status(500).json(error);
+              });
+          })
+          .catch(error => {
+            res.status(500).json(error);
+          });
+      } else {
+        app
+          .save()
+          .then(() => {
+            res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch(error => {
+            res.status(500).json(error);
+          });
+      }
     } else {
       res.status(404).send();
     }
   });
 };
 
-module.exports = tempOutfitterRestHandlers;
+module.exports = tempOutfitter;
