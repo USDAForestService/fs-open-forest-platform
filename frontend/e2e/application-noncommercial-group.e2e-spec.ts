@@ -42,6 +42,7 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
+    element(by.id('login')).click();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
   });
 

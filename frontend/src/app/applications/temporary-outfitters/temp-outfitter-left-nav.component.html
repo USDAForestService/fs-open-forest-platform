@@ -1,0 +1,53 @@
+&nbsp;
+  <ul id="temp-outfitter-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+    <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
+      <a id="nav-applicant-info" (click)="gotoHashtag('section-applicant-info')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}">
+        STEP 1: Applicant information <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors)">
+      <a id="nav-activity-description" (click)="gotoHashtag('section-activity-description')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-activity-description'}">
+        STEP 2: Description of proposed activity <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL)">
+      <a id="nav-advertising" (click)="gotoHashtag('section-advertising')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-advertising'}">
+        STEP 3: Advertising <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges)">
+      <a id="nav-client-charges" (click)="gotoHashtag('section-client-charges')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-client-charges'}">
+        STEP 4: Client charges <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.guideIdentification)">
+      <a id="nav-guide-identification" (click)="gotoHashtag('section-guide-identification')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-guide-identification'}">
+        STEP 5: Guide identification <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.operatingPlan)">
+      <a id="nav-operating-plan" (click)="gotoHashtag('section-operating-plan')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-operating-plan'}">
+        STEP 6: Operating plan <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.liabilityInsurance)">
+      <a id="nav-liability-insurance" (click)="gotoHashtag('section-liability-insurance')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-liability-insurance'}">
+        STEP 7: Liability insurance <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.acknowledgementOfRisk)">
+      <a id="nav-acknowledgement-of-risk" (click)="gotoHashtag('section-acknowledgement-of-risk')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-acknowledgement-of-risk'}">
+        STEP 8: Acknowledgement of risk form <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors)">
+      <a id="nav-experience" (click)="gotoHashtag('section-experience')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-experience'}">
+        STEP 9: Experience <span class="status-icon"></span></a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
+      <a id="nav-signature" (click)="gotoHashtag('section-signature')"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}">
+        STEP 10: Signature <span class="status-icon"></span></a>
+    </li>
+  </ul>
