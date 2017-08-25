@@ -1,7 +1,7 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 export class LoginFormComponent implements OnInit {
   user: FormGroup;
   referrer: string;
+  type: string;
 
   constructor(
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+
     this.user = this.formBuilder.group({
       username: ['username', [Validators.required]],
       password: ['password', [Validators.required]]
@@ -23,11 +26,13 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(document.referrer);
+    this.route.params.subscribe(params => {
+      this.type = params['type'];
+    });
   }
 
   login() {
-    this.authenticationService.login(this.user.get('username').value, this.user.get('password').value);
+    this.authenticationService.login(this.user.get('username').value, this.user.get('password').value, this.type);
     this.router.navigate([localStorage.getItem('requestingUrl')]);
   }
 }

@@ -26,7 +26,7 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
 #### Install angular cli
-Run `yarn install -g @angular/cli`
+Run `yarn add global @angular/cli`
 
 #### Navigate to frontend directory
 
@@ -89,25 +89,25 @@ As an alternative to installing all the development tools necessary to run the e
 
 1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
 
-    ```	
+    ```
     $ cd fs-intake-module
     $ cd docker
-    ```	
+    ```
 
 4. Now use Docker Compose to build and start the containers.
 
     ```
     $ docker-compose up --build --force-recreate
-    ```	
+    ```
 
 5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
 
-    ```	
+    ```
     fs-intake-frontend_1  | webpack: Compiled successfully.
-    ```	
+    ```
 
 6. The containers and servers are now running. There are four containers:
-  
+
     - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
 
     - fs-intake-server - This container runs the server side Node application.  It can be accessed in the browser at http://localhost:8080.
@@ -121,7 +121,7 @@ As an alternative to installing all the development tools necessary to run the e
         - Username: postgres
         - Password: postgres
         - Database: postgres
-      
+
 7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.

@@ -7,7 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": ["assets", "assets/img/*.*", "Staticfile"],
+      "assets": ["assets", "assets/img/*.*", "Staticfile", "Staticfile.auth"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",

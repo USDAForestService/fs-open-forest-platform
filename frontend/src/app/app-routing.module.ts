@@ -17,6 +17,7 @@ const appRoutes: Routes = [
   {
     path: 'admin/applications',
     component: PermitApplicationListComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Application administration listing' }
   },
   {
@@ -42,7 +43,7 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
-  { path: 'login', component: LoginFormComponent, data: { title: 'Login' } },
+  { path: 'login/:type', component: LoginFormComponent, data: { title: 'Login' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
