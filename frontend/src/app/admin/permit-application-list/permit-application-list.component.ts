@@ -2,7 +2,6 @@ import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
-// import { SpecialUseApplication } from '../../_models/special-use-application';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -27,6 +26,12 @@ export class PermitApplicationListComponent implements OnInit {
     return now.isAfter(deadline);
   }
 
+  isPastDate(dateTime) {
+    const now = moment();
+    const pastDate = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss');
+    return now.isAfter(pastDate);
+  }
+
   isOverOneDayOld(submittedDateTime) {
     const now = moment();
     const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(1, 'days');
@@ -37,6 +42,12 @@ export class PermitApplicationListComponent implements OnInit {
     const now = moment();
     const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(2, 'days');
     return now.isAfter(deadline);
+  }
+
+  isWeekAwayOrPast(dateTime) {
+    const now = moment();
+    const warning = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(1, 'weeks');
+    return now.isAfter(warning);
   }
 
   showAttentionAlert() {

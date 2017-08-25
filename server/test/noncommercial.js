@@ -24,6 +24,18 @@ describe('noncommercial tests', () => {
   });
 
   describe('POST date validation tests', () => {
+    it('should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
+      let data = noncommercialTestData.singlePermitHolder.create();
+      data.applicantInfo.primaryFirstName = 'Robert\'); DROP TABLE noncommercialApplications; --';
+      request(server)
+        .post(testURL)
+        .set('Accept', 'application/json')
+        .set('Authorization', auth)
+        .send(data)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+
     it('should return a 201 response', done => {
       let data = noncommercialTestData.singlePermitHolder.create();
       data.dateTimeRange.startDateTime = '2018-01-01T00:15:00Z';

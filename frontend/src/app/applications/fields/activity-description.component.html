@@ -2,7 +2,7 @@
   <ng-container formGroupName="{{ activityDescriptionFields }}">
     <fieldset>
       <legend>Description of proposed activity</legend>
-
+      <p>Please fill out the following fields to the best of your knowledge at this point.</p>
       <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
 
       <label class="usa-input" for="number-of-trips">The anticipated number of trips.</label>
@@ -10,10 +10,12 @@
       <app-error-message id="number-of-trips-error" name="Number of trips" [control]="parentForm.get('activityDescriptionFields.numberOfTrips')"></app-error-message>
 
       <label class="usa-input" for="party-size">The anticipated party size.</label>
-      <input id="party-size"  type="number" formControlName="partySize" aria-required="true" />
+      <p class="help-text usa-form-hint">If you are planning multiple trips or unsure of the exact party size, you can enter a range of smallest party size to largest party size. For example you could enter 5-25.</p>
+      <input id="party-size"  type="text" formControlName="partySize" aria-required="true" />
       <app-error-message id="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
 
       <label class="usa-input" for="location-description">Location of routes and starting and ending points for the proposed operations.</label>
+      <p class="help-text usa-form-hint">Include trailheads, specific routes, latitude and longitude or any landmarks that you think would accurately describe areas you will be using within the forest.</p>
       <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"></textarea>
       <app-error-message id="location-description-error" name="Location of routes" [control]="parentForm.get('activityDescriptionFields.locationDescription')"></app-error-message>
 
