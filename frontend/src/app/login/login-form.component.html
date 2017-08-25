@@ -1,0 +1,19 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1 *ngIf="type==='admin'">Special use login</h1>
+    <h1 *ngIf="type!=='admin'">Login</h1>
+    <div class="usa-width-one-full"></div>
+    <form id="login-form" [formGroup]="user" (ngSubmit)="login(user)" novalidate>
+      <input type="hidden" name="csrfmiddlewaretoken" value="VyatKgnGdgXVhzo4bHWYBsF3ljk2IiUWhclge2oviFJ1inaZ4mdjEEUQcOCVo0BD"/>
+      <p>
+        <label for="id_username">Username:</label>
+        <input id="id_username" autofocus="" maxlength="254" name="username" type="text" formControlName="username"/>
+      </p>
+      <p>
+        <label for="id_password">Password:</label>
+        <input id="id_password" name="password" type="password" formControlName="password" />
+      </p>
+      <button id="login" class="usa-button" type="submit">Login</button>
+    </form>
+  </div>
+</section>
