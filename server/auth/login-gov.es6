@@ -87,6 +87,10 @@ router.get(
 
 router.get(
   '/auth/login-gov/openid/callback',
+  (req, res, next) => {
+    console.log('----- openiid callback body :', req.body);
+    next();
+  },
   passport.authenticate('oidc', {
     successRedirect: '/successRedirect',
     failureRedirect: '/failureRedirect'
