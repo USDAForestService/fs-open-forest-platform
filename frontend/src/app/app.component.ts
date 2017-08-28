@@ -19,11 +19,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  gotoHashtag(fragment: string) {
+  gotoHashtag(fragment: string, event) {
+    event.preventDefault();
     const element = document.querySelector('#' + fragment);
     if (element) {
       element.scrollIntoView();
-      document.getElementById('fragment').focus();
+      document.getElementById(fragment).focus();
     }
   }
 
