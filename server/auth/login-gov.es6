@@ -18,7 +18,7 @@ let basicAuthOptions = {
   }
 };
 
-loginGov.setup = (cb) => {
+loginGov.setup = cb => {
   console.log(
     '------------ in loginGov.setup ',
     vcapServices.loginGovIdpUsername,
@@ -49,7 +49,7 @@ loginGov.setup = (cb) => {
             nonce: '1234567890123456789012345678901234567890',
             prompt: 'select_account',
             redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
-            response_type: 'code',
+            response_type: 'form_post',
             scope: 'openid email',
             state: 'abcdefghijklmnopabcdefghijklmnopDEBUG'
           };
@@ -81,17 +81,12 @@ loginGov.setup = (cb) => {
 
 loginGov.router = router;
 
-router.get(
-  '/auth/login-gov/openid/login',
-  passport.authenticate('oidc', {
-    failureRedirect: '/failureRedirect'
-  })
-);
+router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
 router.get(
   '/auth/login-gov/openid/callback',
   (req, res, next) => {
-    console.log('----- openiid callback body :', req.body);
+    console.log('----- openid callback body :', req.body);
     next();
   },
   passport.authenticate('oidc', {
@@ -105,7 +100,6 @@ router.get(
 );
 
 router.get('/failureRedirect', (req, res) => {
-  // console.log('/failureRedirect', req);
   res.send(':-(');
 });
 
