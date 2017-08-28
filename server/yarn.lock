@@ -220,8 +220,8 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
 aws-sdk@^2.62.0:
-  version "2.103.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.103.0.tgz#809b731beb6583f3a6c0b65878c32ca3a6a5a111"
+  version "2.104.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.104.0.tgz#335e0553380c0ae8dd43d11b76d73dfb926f6333"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -2072,8 +2072,8 @@ ignore-by-default@^1.0.0:
   resolved "https://registry.yarnpkg.com/ignore-by-default/-/ignore-by-default-1.0.1.tgz#48ca6d72f6c6a3af00a9ad4ae6876be3889e2b09"
 
 ignore@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.3.tgz#432352e57accd87ab3110e82d3fea0e47812156d"
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.4.tgz#85ab6d0a9ca8b27b31604c09efe1c14dc21ab872"
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -2408,8 +2408,8 @@ istanbul-lib-source-maps@^1.2.1:
     source-map "^0.5.3"
 
 istanbul-reports@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-1.1.1.tgz#042be5c89e175bc3f86523caab29c014e77fee4e"
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/istanbul-reports/-/istanbul-reports-1.1.2.tgz#0fb2e3f6aa9922bd3ce45d05d8ab4d5e8e07bd4f"
   dependencies:
     handlebars "^4.0.3"
 
@@ -2942,8 +2942,8 @@ mime@1.3.4:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
 mime@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.6.tgz#591d84d3653a6b0b4a3b9df8de5aa8108e72e5e0"
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.0.tgz#69e9e0db51d44f2a3b56e48b7817d7d137f1a343"
 
 mimic-fn@^1.0.0:
   version "1.1.0"
@@ -3355,9 +3355,9 @@ open@^0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
-openid-client@^1.13.0:
+openid-client@piascikj/node-openid-client:
   version "1.13.0"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.13.0.tgz#430b55ddffa2d4eb218cf0a225040693f511fcf3"
+  resolved "https://codeload.github.com/piascikj/node-openid-client/tar.gz/762be31e98c5f3f842787f9f3dc4b4e1ec31de5a"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"

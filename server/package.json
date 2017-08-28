@@ -18,7 +18,7 @@
     "multer": "^1.3.0",
     "multer-s3": "^2.7.0",
     "node-jose": "^0.9.5",
-    "openid-client": "^1.13.0",
+    "openid-client": "piascikj/node-openid-client",
     "passport": "^0.3.2",
     "pg": "^6.2.2",
     "request": "^2.81.0",
