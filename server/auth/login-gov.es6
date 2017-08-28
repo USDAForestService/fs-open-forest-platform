@@ -49,7 +49,8 @@ loginGov.setup = cb => {
             nonce: '1234567890123456789012345678901234567890',
             prompt: 'select_account',
             redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
-            response_type: 'form_post',
+            response_type: 'code',
+            response_mode: 'form_post',
             scope: 'openid email',
             state: 'abcdefghijklmnopabcdefghijklmnopDEBUG'
           };
