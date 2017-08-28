@@ -50,7 +50,6 @@ loginGov.setup = cb => {
             prompt: 'select_account',
             redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
             response_type: 'code',
-            response_mode: 'form_post',
             scope: 'openid email',
             state: 'abcdefghijklmnopabcdefghijklmnopDEBUG'
           };
@@ -87,13 +86,16 @@ router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 router.get(
   '/auth/login-gov/openid/callback',
   (req, res, next) => {
-    console.log('----- openid callback body :', req.body);
+    console.log('----- openid callback body :', req.body, req.query);
     next();
   },
-  passport.authenticate('oidc', {
-    successRedirect: '/successRedirect',
-    failureRedirect: '/failureRedirect'
-  }),
+  passport.authenticate(
+    'oidc'
+    // {
+    //   successRedirect: '/successRedirect',
+    //   failureRedirect: '/failureRedirect'
+    // }
+  ),
   (req, res) => {
     console.log('in the POST callback response handler', req.body);
     res.redirect('/test');
@@ -105,6 +107,10 @@ router.get('/failureRedirect', (req, res) => {
 });
 
 router.get('/successRedirect', (req, res) => {
+  res.send(':-)');
+});
+
+router.get('/test', (req, res) => {
   res.send(':-)');
 });
 
