@@ -3357,7 +3357,7 @@ open@^0.0.5:
 
 openid-client@piascikj/node-openid-client:
   version "1.13.0"
-  resolved "https://codeload.github.com/piascikj/node-openid-client/tar.gz/762be31e98c5f3f842787f9f3dc4b4e1ec31de5a"
+  resolved "https://codeload.github.com/piascikj/node-openid-client/tar.gz/ee8ff70df43bb971da3e9a849b5cbd001260cebe"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
