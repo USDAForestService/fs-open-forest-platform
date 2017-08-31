@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,4 +7,10 @@ import { FormGroup } from '@angular/forms';
 })
 export class WebsiteComponent {
   @Input() applicantInfo: FormGroup;
+  @Output() blurWebsite: EventEmitter <any> = new EventEmitter();
+
+  blurHandler (): void {
+    // function to make blur event bubble up
+    this.blurWebsite.emit();
+  }
 }
