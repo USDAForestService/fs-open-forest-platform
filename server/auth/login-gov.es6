@@ -69,7 +69,7 @@ router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 router.get(
   '/auth/login-gov/openid/callback',
   passport.authenticate('oidc', {
-    successRedirect: 'https://fs-intake-login-test.app.cloud.gov/'
+    successRedirect: vcapServices.intakeClientBaseUrl
   })
 );
 

@@ -45,11 +45,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 loginGov.setup();
 
-let accessControl = function(req, res, next) {
-  if (process.env.PLATFORM == 'CircleCI') {
+let accessControl = (req, res, next) => {
+  if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
     res.set('Access-Control-Allow-Credentials', true);
-  } else if (process.env.PLATFORM == 'local') {
+  } else if (process.env.PLATFORM === 'local') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
@@ -59,7 +59,7 @@ let accessControl = function(req, res, next) {
   next();
 };
 
-app.options('*', accessControl, function(req, res) {
+app.options('*', accessControl, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
@@ -93,7 +93,7 @@ app.post(
 app.get('/permits/applications', accessControl, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
-app.get('/uptime', function(req, res) {
+app.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
