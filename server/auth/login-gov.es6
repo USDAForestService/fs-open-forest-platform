@@ -17,6 +17,17 @@ let basicAuthOptions = {
   }
 };
 
+const params = {
+  acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
+  nonce: `${Math.random()}-${Math.random()}`,
+  prompt: 'select_account',
+  // TODO: replace with VCAP_SERVICES
+  redirect_uri: 'https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/callback',
+  response_type: 'code',
+  scope: 'openid email',
+  state: `${Math.random()}-${Math.random()}`
+};
+
 passport.serializeUser((user, done) => {
   done(null, user.email);
 });
@@ -40,18 +51,6 @@ loginGov.setup = () => {
         },
         joseKeystore
       );
-
-      let params = {
-        acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-        nonce: `${Math.random()}-${Math.random()}`,
-        prompt: 'select_account',
-        // TODO: replace with VCAP_SERVICES
-        redirect_uri: 'https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/callback',
-        response_type: 'code',
-        scope: 'openid email',
-        state: `${Math.random()}-${Math.random()}`
-      };
-
       passport.use(
         'oidc',
         new Strategy({ client, params }, (tokenset, done) => {
@@ -60,14 +59,18 @@ loginGov.setup = () => {
       );
     });
   });
+  return passport;
 };
 
 loginGov.router = router;
 
 router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
-router.get('/auth/login-gov/openid/callback', passport.authenticate('oidc'), (req, res) => {
-  res.send('Success!');
-});
+router.get(
+  '/auth/login-gov/openid/callback',
+  passport.authenticate('oidc', {
+    successRedirect: 'https://fs-intake-login-test.app.cloud.gov/'
+  })
+);
 
 module.exports = loginGov;
