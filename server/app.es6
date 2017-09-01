@@ -47,6 +47,9 @@ loginGov.setup();
 
 let accessControl = function(req, res, next) {
   if (process.env.PLATFORM == 'CircleCI') {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
+    res.set('Access-Control-Allow-Credentials', true);
+  } else if (process.env.PLATFORM == 'local') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
