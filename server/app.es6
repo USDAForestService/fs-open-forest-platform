@@ -46,7 +46,10 @@ app.use(passport.session());
 loginGov.setup();
 
 let accessControl = function(req, res, next) {
-  if (process.env.PLATFORM !== 'CircleCI') {
+  if (process.env.PLATFORM == 'CircleCI') {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.set('Access-Control-Allow-Credentials', true);
+  } else {
     res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
     res.set('Access-Control-Allow-Credentials', true);
   }
