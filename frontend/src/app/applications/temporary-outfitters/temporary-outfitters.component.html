@@ -30,7 +30,7 @@
           <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
           <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
           <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-          <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
+          <app-website [applicantInfo]="applicationForm.controls.applicantInfo" (blurWebsite)="matchUrls()"></app-website>
 
           <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
 
