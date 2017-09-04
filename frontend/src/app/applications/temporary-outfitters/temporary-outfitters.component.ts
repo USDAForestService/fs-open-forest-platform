@@ -117,9 +117,9 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   matchUrls(): void {
-    let value = this.applicationForm.get('applicantInfo.website').value;
-    let url = this.applicationForm.get('tempOutfitterFields.advertisingURL').value;
-    if(value.trim().length > 0 && url.trim().length === 0) {
+    const value = this.applicationForm.get('applicantInfo.website').value;
+    const url = this.applicationForm.get('tempOutfitterFields.advertisingURL').value;
+    if (value.trim().length > 0 && url.trim().length === 0) {
       // Reproduce the url typed into the website input into the advertising url input
       // if the advertising url is empty
       this.applicationForm.get('tempOutfitterFields.advertisingURL').setValue(value);
