@@ -12,7 +12,7 @@ import { PermitApplicationListComponent } from './admin/permit-application-list/
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
-
+import { TemporaryOutfittersFaqComponent } from './applications/temporary-outfitters/temporary-outfitters-faq.component';
 const appRoutes: Routes = [
   {
     path: 'admin/applications',
@@ -41,6 +41,11 @@ const appRoutes: Routes = [
     component: TemporaryOutfittersComponent,
     canActivate: [AuthGuard],
     data: { title: 'Apply for a temporary outfitters permit' }
+  },
+  {
+    path: 'applications/temp-outfitters/faq',
+    component: TemporaryOutfittersFaqComponent,
+    data: { title: 'Temporary outfitters permit FAQs' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'login/:type', component: LoginFormComponent, data: { title: 'Login' } },
