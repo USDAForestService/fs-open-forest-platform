@@ -255,20 +255,32 @@ let translateFromIntakeToMiddleLayer = application => {
 
 let getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
-    s3.getObject({ Bucket: vcapServices.bucket, Key: key }, (error, data) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({ fileBuffer: data.Body, documentType: documentType, key: key });
+    s3.getObject(
+      {
+        Bucket: vcapServices.bucket,
+        Key: key
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({
+            fileBuffer: data.Body,
+            documentType: documentType,
+            key: key
+          });
+        }
       }
-    });
+    );
   });
 };
 
 let getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
-      where: { applicationId: applicationId }
+      where: {
+        applicationId: applicationId
+      }
     })
       .then(results => {
         let filePromises = [];
@@ -278,7 +290,10 @@ let getAllFiles = applicationId => {
         Promise.all(filePromises).then(results => {
           let files = {};
           for (let item of results) {
-            files[item.documentType] = { buffer: item.fileBuffer, filename: item.key };
+            files[item.documentType] = {
+              buffer: item.fileBuffer,
+              filename: item.key
+            };
           }
           resolve(files);
         });
@@ -413,7 +428,11 @@ tempOutfitter.create = (req, res) => {
 };
 
 tempOutfitter.getOne = (req, res) => {
-  TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } })
+  TempOutfitterApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (app) {
         res.status(200).json(translateFromDatabaseToClient(app));
@@ -426,8 +445,27 @@ tempOutfitter.getOne = (req, res) => {
     });
 };
 
+tempOutfitter.getApplicationFiles = (req, res) => {
+  getAllFiles(req.params.id)
+    .then(app => {
+      app.bucket = vcapServices.bucket;
+      if (app) {
+        res.status(200).json(app);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error.message);
+    });
+};
+
 tempOutfitter.update = (req, res) => {
-  TempOutfitterApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+  TempOutfitterApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  }).then(app => {
     if (app) {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
