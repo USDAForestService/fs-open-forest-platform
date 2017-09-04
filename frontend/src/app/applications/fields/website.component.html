@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
   <label class="usa-input" for="website">Website (optional)</label>
-  <input id="website" name="website" type="url"  formControlName="website" pattern="https?://.+" />
+  <input id="website" name="website" type="url"  formControlName="website" pattern="https?://.+" (blur)="blurHandler()"/>
   <app-error-message id="website-error" name="Website" [control]="applicantInfo.controls.website"></app-error-message>
 </ng-container>
