@@ -49,11 +49,9 @@
         <span *ngIf="!application.tempOutfitterFields.individualIsCitizen">false</span>
       </span>
       <h2 class="app-item-label padding-right-1">File uploads</h2>
-        <a class="display-block" href="https://s3.amazonaws.com/{{files.bucket}}/{{files['good-standing-evidence'].filename}}" target="_blank" *ngIf="files && files['good-standing-evidence']">Good standing evidence</a>
-        <a class="display-block" href="https://s3.amazonaws.com/{{files.bucket}}/{{files['guide-document'].filename}}" target="_blank" *ngIf="files && files['guide-document']">Guide Document</a>
-        <a class="display-block" href="https://s3.amazonaws.com/{{files.bucket}}/{{files['operating-plan'].filename}}" target="_blank" *ngIf="files && files['operating-plan']">Operating plan</a>
-        <a class="display-block" href="https://s3.amazonaws.com/{{files.bucket}}/{{files['insurance-certificate'].filename}}" target="_blank" *ngIf="files && files['insurance-certificate']">Certificate of insurance</a>
-        <a class="display-block" href="https://s3.amazonaws.com/{{files.bucket}}/{{files['acknowledgement-of-risk-form'].filename}}" target="_blank" *ngIf="files && files['acknowledgement-of-risk-form']">Acknowledgement of risk form</a>
+      <ul *ngFor="let file of files">
+        <li><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
+      </ul>
 
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
       <div *ngIf="application.tempOutfitterFields.advertisingURL">

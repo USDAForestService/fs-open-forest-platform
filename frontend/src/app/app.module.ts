@@ -13,6 +13,7 @@ import { ApplicationSubmittedComponent } from './applications/application-submit
 import { AuthenticatedComponent } from './login/authenticated.component';
 import { AuthGuard } from './_services/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
+import { Base64 } from './_pipes/base64.pipe';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
@@ -33,6 +34,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
   declarations: [
     AppComponent,
     AuthenticatedComponent,
+    Base64,
     DaysToOrDate,
     HelpMePickComponent,
     HomeComponent,

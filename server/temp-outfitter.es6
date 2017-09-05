@@ -304,6 +304,25 @@ let getAllFiles = applicationId => {
   });
 };
 
+let streamFile = (fileName, res) => {
+  res.set('Content-Type', util.getContentType(fileName));
+  s3
+    .getObject({
+      Bucket: vcapServices.bucket,
+      Key: fileName
+    })
+    .createReadStream()
+    .pipe(res);
+};
+
+let getAllFileNames = applicationId => {
+  return ApplicationFile.findAll({
+    where: {
+      applicationId: applicationId
+    }
+  });
+};
+
 tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId).then(files => {
@@ -445,10 +464,9 @@ tempOutfitter.getOne = (req, res) => {
     });
 };
 
-tempOutfitter.getApplicationFiles = (req, res) => {
-  getAllFiles(req.params.id)
+tempOutfitter.getApplicationFileNames = (req, res) => {
+  getAllFileNames(req.params.id)
     .then(app => {
-      app.bucket = vcapServices.bucket;
       if (app) {
         res.status(200).json(app);
       } else {
@@ -458,6 +476,10 @@ tempOutfitter.getApplicationFiles = (req, res) => {
     .catch(error => {
       res.status(500).json(error.message);
     });
+};
+
+tempOutfitter.streamFile = (req, res) => {
+  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 tempOutfitter.update = (req, res) => {
