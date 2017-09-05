@@ -26,11 +26,13 @@
     "snyk": "^1.36.2"
   },
   "devDependencies": {
+    "blob": "^0.0.4",
     "chai": "^4.0.2",
     "codecov": "^2.2.0",
     "eslint": "^4.0.0",
     "eslint-config-google": "^0.9.1",
     "mocha": "^3.2.0",
+    "mock-aws": "^1.2.3",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.1",
@@ -40,7 +42,7 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --extension .es6 mocha",
+    "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha",
     "dev": "yarn; ./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
     "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
