@@ -85,3 +85,10 @@
   margin-bottom: -2px;
   width: 100px;
 }
+
+.usa-button-border {
+  border: solid 1px $dark-grey;
+  &:hover {
+    border-bottom: solid 1px $dark-grey;
+  }
+}
