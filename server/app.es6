@@ -5,43 +5,61 @@ let express = require('express');
 let helmet = require('helmet');
 let loginGov = require('./auth/login-gov.es6');
 let noncommercial = require('./noncommercial.es6');
+let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
-var morgan = require('morgan');
-var session = require('express-session');
+var session = require('cookie-session');
 
 let app = express();
 
 /* Use helmet for increased security. */
 app.use(helmet());
 
-/* Use morgan for increased logging. */
-app.use(morgan('combined'));
-
-/* Parse request bodies as JSON. */
-app.use(bodyParser.json());
+/* Body parsers */
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
+app.use(bodyParser.json());
 
+/* Session handler */
+var expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 app.use(
   session({
-    secret: 'secret',
-    name: 'sessionId'
+    name: 'session',
+    keys: ['key1', 'key2'],
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      domain: 'example.com',
+      path: 'foo/bar',
+      expires: expiryDate
+    }
   })
 );
 
-let accessControl = function(req, res, next) {
-  res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
-  res.set('Access-Control-Allow-Credentials', true);
+/* Setup passport */
+app.use(passport.initialize());
+app.use(passport.session());
+loginGov.setup();
+
+let accessControl = (req, res, next) => {
+  if (process.env.PLATFORM === 'CI') {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
+    res.set('Access-Control-Allow-Credentials', true);
+  } else if (process.env.PLATFORM === 'local') {
+    res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.set('Access-Control-Allow-Credentials', true);
+  } else {
+    res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
+    res.set('Access-Control-Allow-Credentials', true);
+  }
   next();
-  return;
 };
 
-app.options('*', accessControl, function(req, res) {
+app.options('*', accessControl, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
@@ -83,7 +101,7 @@ app.post(
 app.get('/permits/applications', accessControl, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
-app.get('/uptime', function(req, res) {
+app.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
