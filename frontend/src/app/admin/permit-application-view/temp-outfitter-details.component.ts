@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApplicationService } from '../../_services/application.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   providers: [],
@@ -9,8 +10,11 @@ import { ApplicationService } from '../../_services/application.service';
 export class TempOutfitterDetailsComponent implements OnInit {
   @Input() application: any;
   files: any;
+  url: string;
 
-  constructor(private applicationService: ApplicationService) {}
+  constructor(private applicationService: ApplicationService) {
+    this.url = environment.apiUrl;
+  }
 
   getFiles() {
     this.applicationService

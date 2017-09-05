@@ -61,12 +61,14 @@ let createRoutes = function() {
 
   /** Get a temp outfitter permit application. */
   app.get('/permits/applications/special-uses/temp-outfitter/:id', accessControl, tempOutfitter.getOne);
-  /** Get a temp outfitter files. */
+  /** Get temp outfitter files by application id. */
   app.get(
     '/permits/applications/special-uses/temp-outfitter/:id/files',
     accessControl,
-    tempOutfitter.getApplicationFiles
+    tempOutfitter.getApplicationFileNames
   );
+  /** Get a temp outfitter file. */
+  app.get('/permits/applications/special-uses/temp-outfitter/:id/files/:file', accessControl, tempOutfitter.streamFile);
   /** Create a new temp outfitter permit application. */
   app.post('/permits/applications/special-uses/temp-outfitter', accessControl, tempOutfitter.create);
   /** Update a temp outfitter permit application. */
