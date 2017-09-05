@@ -1,8 +1,8 @@
-let passport = require('passport');
-let vcapServices = require('../vcap-services.es6');
 let Issuer = require('openid-client').Issuer;
-let Strategy = require('openid-client').Strategy;
 let jose = require('node-jose');
+let passport = require('passport');
+let Strategy = require('openid-client').Strategy;
+let vcapServices = require('../vcap-services.es6');
 
 let router = require('express').Router();
 
