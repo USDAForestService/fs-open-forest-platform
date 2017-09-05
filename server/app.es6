@@ -59,6 +59,14 @@ app.put('/permits/applications/special-uses/noncommercial/:id', accessControl, n
 
 /** Get a temp outfitter permit application. */
 app.get('/permits/applications/special-uses/temp-outfitter/:id', accessControl, tempOutfitter.getOne);
+/** Get temp outfitter files by application id. */
+app.get(
+  '/permits/applications/special-uses/temp-outfitter/:id/files',
+  accessControl,
+  tempOutfitter.getApplicationFileNames
+);
+/** Get a temp outfitter file. */
+app.get('/permits/applications/special-uses/temp-outfitter/:id/files/:file', accessControl, tempOutfitter.streamFile);
 /** Create a new temp outfitter permit application. */
 app.post('/permits/applications/special-uses/temp-outfitter', accessControl, tempOutfitter.create);
 /** Update a temp outfitter permit application. */
