@@ -51,5 +51,8 @@ section#home {
     @media(min-width: 1100px) {
       min-height: 250px;
     }
+    a {
+      color: $white;
+    }
   }
 }
