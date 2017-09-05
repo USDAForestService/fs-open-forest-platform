@@ -5,7 +5,6 @@ let express = require('express');
 let helmet = require('helmet');
 let loginGov = require('./auth/login-gov.es6');
 let noncommercial = require('./noncommercial.es6');
-let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
