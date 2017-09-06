@@ -10,7 +10,8 @@
       </div>
     </div>
     <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
-      <app-permit-application-view-details [application]="application"></app-permit-application-view-details>
+      <app-noncommercial-details *ngIf="application.type === 'noncommercial'" [application]="application"></app-noncommercial-details>
+      <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application"></app-temp-outfitter-details>
     </div>
   </div>
 

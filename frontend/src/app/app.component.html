@@ -1,5 +1,5 @@
 <ng-container appPageTitle></ng-container>
-<a [routerLink]="currentRoute" fragment="main-content" class="usa-skipnav" (click)="gotoHashtag('main-content')">Skip to main content</a>
+<a tabindex="0" class="usa-skipnav" href="#" (click)="gotoHashtag('main-content', $event)">Skip to main content</a>
 <header role="banner" class="usa-header usa-header-extended">
   <app-usa-banner></app-usa-banner>
   <div class="usa-navbar">
@@ -18,7 +18,7 @@
     <app-authenticated></app-authenticated>
   </div>
 </header>
-<main id="main-content">
+<main id="main-content" tabindex="0">
   <router-outlet></router-outlet>
 </main>
 <footer id="footer" role="contentinfo" class="usa-footer usa-footer-slim">
