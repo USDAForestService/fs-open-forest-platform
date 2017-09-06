@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -25,7 +26,7 @@ export class AuthGuard implements CanActivate {
       if (isLoggedInToFrontend) {
         return true;
       }
-      this.router.navigate(['https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/login']);
+      window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
       return false;
     }
   }
