@@ -29,18 +29,4 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   }
-
-  isLoggedIn() {
-    if (localStorage.getItem('currentUser')) {
-      return true;
-    }
-    return false;
-  }
-
-  isAdmin() {
-    if (localStorage.getItem('adminUser')) {
-      return true;
-    }
-    return false;
-  }
 }

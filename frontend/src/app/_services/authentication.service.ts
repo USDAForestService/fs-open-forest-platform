@@ -42,9 +42,13 @@ export class AuthenticationService {
     }
   }
 
-  logout(): void {
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('adminUser');
+  logout() {
+    return this.http
+      .get(this.endpoint + 'auth/login-gov/openid/logout', { withCredentials: true })
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch(this.handleError);
   }
 
   private handleError(error: Response | any) {
