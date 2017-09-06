@@ -11,15 +11,26 @@ export class AuthenticationService {
 
   constructor(private http: Http) {}
 
-  isAuthenticated() {
-    const authenticated = this.getAuthentication();
-    console.log(authenticated);
+  getAuthenticatedUser() {
+    let authenticated = this.isAuthenticated().subscribe(
+      (user: any) => {
+        if (user) {
+          this.email = user.email;
+        }
+      },
+      (e: any) => {
+        console.error(e);
+      }
+    );
+    return this.email;
   }
 
-  getAuthentication() {
+  isAuthenticated() {
     return this.http
-      .get(this.endpoint + '/auth/login-gov/openid/user', { withCredentials: true })
-      .map((res: Response) => res.json())
+      .get(this.endpoint + 'auth/login-gov/openid/user', { withCredentials: true })
+      .map((res: Response) => {
+        res.json();
+      })
       .catch(this.handleError);
   }
 
@@ -39,12 +50,12 @@ export class AuthenticationService {
   private handleError(error: Response | any) {
     let errors: any;
     if (error instanceof Response) {
-      const body = error.json() || '';
-      errors = body.errors;
-    } else {
-      errors = ['Server error'];
+      if (error.status !== 401) {
+        const body = error.json() || '';
+        errors = body.errors;
+        return Observable.throw(errors);
+      }
     }
-    console.error(errors);
-    return Observable.throw(errors);
+    return Observable;
   }
 }
