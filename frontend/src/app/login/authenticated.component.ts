@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-authenticated',
@@ -15,14 +16,16 @@ export class AuthenticatedComponent {
   constructor(
     private authenticationService: AuthenticationService,
     private authGuard: AuthGuard,
-    private router: Router
+    private router: Router,
+    private http: Http
   ) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
   }
 
-  logout() {
+  logout(e: Event) {
+    e.preventDefault();
     this.authenticationService.logout();
     this.router.navigate(['']);
   }
