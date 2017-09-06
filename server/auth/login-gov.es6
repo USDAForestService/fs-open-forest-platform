@@ -1,7 +1,8 @@
-let passport = require('passport');
-let vcapServices = require('../vcap-services.es6');
 let Issuer = require('openid-client').Issuer;
+let jose = require('node-jose');
+let passport = require('passport');
 let Strategy = require('openid-client').Strategy;
+let vcapServices = require('../vcap-services.es6');
 
 let router = require('express').Router();
 
@@ -16,73 +17,60 @@ let basicAuthOptions = {
   }
 };
 
+const params = {
+  acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
+  nonce: `${Math.random()}-${Math.random()}`,
+  prompt: 'select_account',
+  // TODO: replace with VCAP_SERVICES
+  redirect_uri: 'https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/callback',
+  response_type: 'code',
+  scope: 'openid email',
+  state: `${Math.random()}-${Math.random()}`
+};
+
+passport.serializeUser((user, done) => {
+  done(null, user.email);
+});
+
+passport.deserializeUser((email, done) => {
+  done(null, { email: email });
+});
+
 loginGov.setup = () => {
-  console.log('------------ in loginGov.setup ', vcapServices.loginGovIdpUsername, vcapServices.loginGovIdpPassword);
   Issuer.defaultHttpOptions = basicAuthOptions;
-  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration')
-    .then(loginGovIssuer => {
-      console.log('----- loginGovIssuer: ', loginGovIssuer);
-
-      let client = new loginGovIssuer.Client({
-        client_id: vcapServices.loginGovIssuer,
-        client_secret: 'thisisaveryspecialsecret'
-      });
-
-      let params = {
-        redirect_uri: 'https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/callback',
-        acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-        response_type: 'code',
-        scope: 'openid email',
-        prompt: 'select_account',
-        nonce: '12345678901234567890123456789012'
-      };
-
+  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
+    // don't use the userinfo_endpoint, as the userinfo payload is returned with the token_id
+    delete loginGovIssuer.userinfo_endpoint;
+    let keys = { keys: [vcapServices.loginGovJwk] };
+    jose.JWK.asKeyStore(keys).then(joseKeystore => {
+      let client = new loginGovIssuer.Client(
+        {
+          client_id: vcapServices.loginGovIssuer,
+          token_endpoint_auth_method: 'private_key_jwt',
+          id_token_signed_response_alg: 'RS256'
+        },
+        joseKeystore
+      );
       passport.use(
         'oidc',
-        new Strategy({ client, params }, (tokenset, userinfo, done) => {
-          console.log('----- tokenset: ', tokenset);
-          console.log('----- access_token: ', tokenset.access_token);
-          console.log('----- id_token', tokenset.id_token);
-          console.log('----- claims', tokenset.claims);
-          console.log('----- userinfo: ', userinfo);
-          console.log('----- done: ', done);
-          return done(null, false);
+        new Strategy({ client, params }, (tokenset, done) => {
+          return done(null, { email: tokenset.claims.email });
         })
       );
-    })
-    .catch(error => {
-      console.log('----- loginGovIssuer error: ', error);
     });
+  });
+  return passport;
 };
 
 loginGov.router = router;
 
-router.get(
-  '/auth/login-gov/openid/login',
-  passport.authenticate('oidc', {
-    failureRedirect: '/failureRedirect'
-  })
-);
+router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
 router.get(
   '/auth/login-gov/openid/callback',
   passport.authenticate('oidc', {
-    successRedirect: '/successRedirect',
-    failureRedirect: '/failureRedirect'
-  }),
-  (req, res) => {
-    console.log('in the POST callback response handler', req.body);
-    res.redirect('/test');
-  }
+    successRedirect: vcapServices.intakeClientBaseUrl
+  })
 );
-
-router.get('/failureRedirect', (req, res) => {
-  // console.log('/failureRedirect', req);
-  res.send(':-(');
-});
-
-router.get('/successRedirect', (req, res) => {
-  res.send(':-)');
-});
 
 module.exports = loginGov;

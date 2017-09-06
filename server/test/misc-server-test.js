@@ -1,7 +1,7 @@
 'use strict';
 
 var request = require('supertest');
-var server = require('../app.es6');
+var server = require('./mock-aws-app');
 var testGetURL = '/permits/applications';
 
 describe('misc server tests', () => {
