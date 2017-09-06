@@ -20,6 +20,7 @@ export class AuthenticatedComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthenticated = this.authGuard.isLoggedIn();
+    // console.log(this.userEmail);
   }
 
   logout() {
