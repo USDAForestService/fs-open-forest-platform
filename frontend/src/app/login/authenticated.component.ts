@@ -1,6 +1,6 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { AuthGuard } from '../_services/auth.guard';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthenticatedComponent implements OnInit {
   isAuthenticated: boolean;
+  @Input() userEmail: string;
 
   constructor(
     private authenticationService: AuthenticationService,

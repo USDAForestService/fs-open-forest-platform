@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
   apiurl = environment.apiUrl;
+  userEmail: string;
 
   constructor(private router: Router, private authentication: AuthenticationService) {
     router.events.subscribe(scroll => {
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   isAuthenticated() {
-    this.authentication.isAuthenticated();
+    this.userEmail = this.authentication.getAuthenticatedUser();
   }
 
   ngOnInit() {
