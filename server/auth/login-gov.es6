@@ -81,7 +81,7 @@ router.get('/auth/login-gov/openid/logout', (req, res) => {
 loginGov.getUser = (req, res) => {
   console.log(req.user);
   if (!req.user) {
-    res.send(401, { error: 'Unauthorized' });
+    res.send(401, { errors: ['Unauthorized'] });
   }
   res.send(req.user);
 };
