@@ -46,7 +46,7 @@ deployment:
       - cd frontend; yarn dist;
       - ./cg-deploy/deploy.sh public-production
   staging:
-    branch: sprint-11-development
+    branch: sprint-12-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;
