@@ -73,4 +73,17 @@ router.get(
   })
 );
 
+router.get('/auth/login-gov/openid/user', (req, res) => {
+  console.log(req.user);
+  if (!req.user) {
+    res.send(401, 'Unauthorized');
+  }
+  res.send(req.user);
+});
+
+router.get('/auth/login-gov/openid/logout', (req, res) => {
+  req.logout();
+  res.redirect(vcapServices.intakeClientBaseUrl);
+});
+
 module.exports = loginGov;
