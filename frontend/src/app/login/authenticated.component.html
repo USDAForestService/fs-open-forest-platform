@@ -6,6 +6,6 @@
   </ng-container>
 
   <ng-container *ngIf="userEmail">
-    Welcome {{ userEmail }} | <a class="cursor-pointer" href="javascript:void(0)" (click)="logout()">Logout</a>
+    Welcome {{ userEmail }} | <a class="cursor-pointer" href="#" (click)="logout($event)">Logout</a>
   </ng-container>
 </div>
