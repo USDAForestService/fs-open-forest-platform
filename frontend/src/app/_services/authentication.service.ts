@@ -29,7 +29,7 @@ export class AuthenticationService {
     return this.http
       .get(this.endpoint + 'auth/login-gov/openid/user', { withCredentials: true })
       .map((res: Response) => {
-        res.json();
+        return res.json();
       })
       .catch(this.handleError);
   }
