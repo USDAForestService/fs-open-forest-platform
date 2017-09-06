@@ -1,6 +1,6 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { AuthGuard } from '../_services/auth.guard';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-authenticated',
   templateUrl: './authenticated.component.html'
 })
-export class AuthenticatedComponent implements OnInit {
-  isAuthenticated: boolean;
+export class AuthenticatedComponent {
   @Input() userEmail: string;
 
   constructor(
@@ -18,14 +17,8 @@ export class AuthenticatedComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
-    this.isAuthenticated = this.authGuard.isLoggedIn();
-    // console.log(this.userEmail);
-  }
-
   logout() {
     this.authenticationService.logout();
-    this.isAuthenticated = this.authGuard.isLoggedIn();
     this.router.navigate(['']);
   }
 }
