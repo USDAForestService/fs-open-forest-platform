@@ -1,7 +1,8 @@
 <div class="authentication">
   <ng-container *ngIf="!isAuthenticated">
-    <a href="https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/login">Log in</a>
-    or <a href="https://fs-intake-api-staging.app.cloud.gov/auth/login-gov/openid/login">create an account</a>
+    <a href="https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/login">Log in</a>
+    or 
+    <a href="https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/login">create an account</a>
   </ng-container>
   <a class="cursor-pointer" *ngIf="isAuthenticated" (click)="logout()">Logout</a>
 </div>

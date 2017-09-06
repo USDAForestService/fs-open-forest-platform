@@ -68,6 +68,8 @@ app.options('*', accessControl, (req, res) => {
 /* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
 
+app.get('/auth/login-gov/openid/user', accessControl, loginGov.getUser);
+
 /** Get a single noncommercial permit application. */
 app.get('/permits/applications/special-uses/noncommercial/:id', accessControl, noncommercial.getOne);
 /** Create a new noncommercial permit application. */
