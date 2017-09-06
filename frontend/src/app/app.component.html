@@ -19,7 +19,7 @@
   </div>
 </header>
 <main id="main-content" tabindex="0">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="isAuthenticated()"></router-outlet>
 </main>
 <footer id="footer" role="contentinfo" class="usa-footer usa-footer-slim">
   <div class="usa-footer-primary-section">
