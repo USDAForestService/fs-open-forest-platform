@@ -12,17 +12,17 @@ export class AuthenticationService {
   constructor(private http: Http) {}
 
   getAuthenticatedUser() {
-    let authenticated = this.isAuthenticated().subscribe(
+    return this.isAuthenticated().map(
       (user: any) => {
         if (user) {
           this.email = user.email;
+          return this.email;
         }
       },
       (e: any) => {
         console.error(e);
       }
     );
-    return this.email;
   }
 
   isAuthenticated() {
