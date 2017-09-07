@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
 
   updateStatus(status: any) {
     this.status = status;
-    console.log('status', this.status);
   }
 
   ngOnInit() {
