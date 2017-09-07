@@ -3,8 +3,17 @@
     <h1>Apply for a noncommercial group use permit.</h1>
     <h2>{{forest}}</h2>
     <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit(applicationForm)" novalidate>
-
       <p class="form-directions">All form fields are required unless otherwise noted.</p>
+      <legend>Application process</legend>
+      <div>
+        <ol>
+          <li>Fill out and submit the application.</li>
+          <li>Your application will be reviewed by our staff within 48 hours.</li>
+          <li>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</li>
+          <li>After the application has been reviewed, you will be notified of the application status. If accepted, it will then move on to a special use administrator for approval.</li>
+          <li>If your application is approved, you will receive your permit via U.S. mail within 2 weeks of approval.</li>
+        </ol>
+      </div>
 
       <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
