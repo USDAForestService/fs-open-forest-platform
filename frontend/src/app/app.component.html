@@ -15,10 +15,11 @@
         </a>
       </div>
     </div>
-    <app-authenticated [userEmail]="userEmail"></app-authenticated>
+    <app-authenticated [userEmail]="userEmail" (status)="updateStatus($event)"></app-authenticated>
   </div>
 </header>
 <main id="main-content" tabindex="0">
+  <app-status [message]="status.message" [heading]="status.heading"></app-status>
   <router-outlet (activate)="isAuthenticated()"></router-outlet>
 </main>
 <footer id="footer" role="contentinfo" class="usa-footer usa-footer-slim">

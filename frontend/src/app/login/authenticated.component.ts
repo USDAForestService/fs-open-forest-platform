@@ -1,6 +1,6 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { AuthGuard } from '../_services/auth.guard';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -12,6 +12,7 @@ import { Http } from '@angular/http';
 })
 export class AuthenticatedComponent {
   @Input() userEmail: string;
+  @Output() status: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -26,7 +27,10 @@ export class AuthenticatedComponent {
 
   logout(e: Event) {
     e.preventDefault();
-    this.authenticationService.logout();
-    this.router.navigate(['']);
+    this.authenticationService.logout().subscribe(() => {
+      this.status.emit({ message: 'You have successfully logged out of Forest Service permits.', header: '' });
+      this.userEmail = '';
+      this.router.navigate(['']);
+    });
   }
 }
