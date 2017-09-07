@@ -43,12 +43,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    return this.http
-      .get(this.endpoint + 'auth/login-gov/openid/logout', { withCredentials: true })
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch(this.handleError);
+    this.http.get(this.endpoint + 'auth/login-gov/openid/logout').subscribe();
   }
 
   private handleError(error: Response | any) {

@@ -33,7 +33,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((email, done) => {
-  done(null, { email: email });
+  done(null, {
+    email: email
+  });
 });
 
 loginGov.setup = () => {
@@ -41,7 +43,9 @@ loginGov.setup = () => {
   Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
     // don't use the userinfo_endpoint, as the userinfo payload is returned with the token_id
     delete loginGovIssuer.userinfo_endpoint;
-    let keys = { keys: [vcapServices.loginGovJwk] };
+    let keys = {
+      keys: [vcapServices.loginGovJwk]
+    };
     jose.JWK.asKeyStore(keys).then(joseKeystore => {
       let client = new loginGovIssuer.Client(
         {
@@ -53,9 +57,17 @@ loginGov.setup = () => {
       );
       passport.use(
         'oidc',
-        new Strategy({ client, params }, (tokenset, done) => {
-          return done(null, { email: tokenset.claims.email });
-        })
+        new Strategy(
+          {
+            client,
+            params
+          },
+          (tokenset, done) => {
+            return done(null, {
+              email: tokenset.claims.email
+            });
+          }
+        )
       );
     });
   });
@@ -73,13 +85,13 @@ router.get(
   })
 );
 
-router.get('/auth/login-gov/openid/logout', (req, res) => {
-  req.logout();
-  res.redirect(vcapServices.intakeClientBaseUrl);
-});
-
 loginGov.getUser = (req, res) => {
   res.send(req.user);
+};
+
+loginGov.logout = (req, res) => {
+  req.logout();
+  res.send();
 };
 
 module.exports = loginGov;
