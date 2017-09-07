@@ -8,12 +8,6 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router, private authentication: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
-    let isLoggedInToFrontend = false;
-    this.authentication.getAuthenticatedUser().subscribe((email: any) => {
-      if (email) {
-        isLoggedInToFrontend = true;
-      }
-    });
     const requestingUrl = route['_routeConfig'].path;
     localStorage.setItem('requestingUrl', requestingUrl);
     if (requestingUrl.split('/')[0] === 'admin') {
@@ -23,11 +17,15 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login', 'admin']);
       return false;
     } else {
-      if (isLoggedInToFrontend) {
-        return true;
-      }
-      window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
-      return false;
+      let IsAuthenticated = this.authentication.getAuthenticatedUser().subscribe((email: any) => {
+        if (email) {
+          return true;
+        } else {
+          window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+          return false;
+        }
+      });
+      return IsAuthenticated ? true : false;
     }
   }
 }
