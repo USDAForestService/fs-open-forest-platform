@@ -1,6 +1,7 @@
 'use strict';
 
 let bodyParser = require('body-parser');
+let eAuth = require('./auth/usda-eauth.es6');
 let express = require('express');
 let helmet = require('helmet');
 let loginGov = require('./auth/login-gov.es6');
@@ -113,6 +114,7 @@ app.get('/uptime', (req, res) => {
 });
 
 app.use(loginGov.router);
+app.use(eAuth.router);
 
 /* Start the server. */
 app.listen(8080);
