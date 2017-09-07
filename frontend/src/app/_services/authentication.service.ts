@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthenticationService {
   private endpoint = environment.apiUrl;
-  private email = '';
+  private user: any;
 
   constructor(private http: Http) {}
 
@@ -15,8 +15,8 @@ export class AuthenticationService {
     return this.isAuthenticated().map(
       (user: any) => {
         if (user) {
-          this.email = user.email;
-          return this.email;
+          this.user = user;
+          return this.user;
         }
       },
       (e: any) => {
@@ -25,9 +25,13 @@ export class AuthenticationService {
     );
   }
 
+  isAdmin() {
+    return this.user.role === 'admin';
+  }
+
   isAuthenticated() {
     return this.http
-      .get(this.endpoint + 'auth/login-gov/openid/user', { withCredentials: true })
+      .get(this.endpoint + 'auth/user', { withCredentials: true })
       .map((res: Response) => {
         return res.json();
       })
@@ -43,7 +47,7 @@ export class AuthenticationService {
   }
 
   logout() {
-    return this.http.get(this.endpoint + 'auth/login-gov/openid/logout', { withCredentials: true });
+    return this.http.get(this.endpoint + 'auth/logout', { withCredentials: true });
   }
 
   private handleError(error: Response | any) {
