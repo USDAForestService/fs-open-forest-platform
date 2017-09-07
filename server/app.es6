@@ -56,7 +56,11 @@ let accessControl = (req, res, next) => {
     res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
     res.set('Access-Control-Allow-Credentials', true);
   }
-  next();
+  if (!req.user) {
+    res.status(401).send({ errors: ['Unauthorized'] });
+  } else {
+    next();
+  }
 };
 
 app.options('*', accessControl, (req, res) => {
