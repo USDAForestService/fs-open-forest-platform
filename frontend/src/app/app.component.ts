@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { AuthenticationService } from './_services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,13 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
   apiurl = environment.apiUrl;
+  userEmail: any;
+  status = {
+    heading: '',
+    message: ''
+  };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authentication: AuthenticationService) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
@@ -26,6 +32,16 @@ export class AppComponent implements OnInit {
       element.scrollIntoView();
       document.getElementById(fragment).focus();
     }
+  }
+
+  isAuthenticated() {
+    this.authentication.getAuthenticatedUser().subscribe((email: any) => {
+      this.userEmail = email;
+    });
+  }
+
+  updateStatus(status: any) {
+    this.status = status;
   }
 
   ngOnInit() {
