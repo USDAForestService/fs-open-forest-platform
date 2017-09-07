@@ -73,8 +73,16 @@ app.options('*', accessControl, (req, res) => {
 /* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
 
-app.get('/auth/login-gov/openid/user', accessControl, loginGov.getUser);
-app.get('/auth/login-gov/openid/logout', accessControl, loginGov.logout);
+/* Universal passport user */
+app.get('/auth/user', accessControl, (req, res) => {
+  res.send(req.user);
+});
+
+/* Universal passport logout */
+app.get('/auth/logout', accessControl, (req, res) => {
+  req.logout();
+  res.send();
+});
 
 /** Get a single noncommercial permit application. */
 app.get('/permits/applications/special-uses/noncommercial/:id', accessControl, noncommercial.getOne);
