@@ -1,10 +1,9 @@
+let express = require('express');
 let Issuer = require('openid-client').Issuer;
 let jose = require('node-jose');
 let passport = require('passport');
-let Strategy = require('openid-client').Strategy;
+let OpenIDConnectStrategy = require('openid-client').Strategy;
 let vcapServices = require('../vcap-services.es6');
-
-let router = require('express').Router();
 
 let loginGov = {};
 
@@ -57,7 +56,7 @@ loginGov.setup = () => {
       );
       passport.use(
         'oidc',
-        new Strategy(
+        new OpenIDConnectStrategy(
           {
             client,
             params
@@ -74,11 +73,11 @@ loginGov.setup = () => {
   return passport;
 };
 
-loginGov.router = router;
+loginGov.router = express.Router();
 
-router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
+loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
-router.get(
+loginGov.router.get(
   '/auth/login-gov/openid/callback',
   passport.authenticate('oidc', {
     successRedirect: vcapServices.intakeClientBaseUrl
