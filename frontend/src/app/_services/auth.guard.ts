@@ -13,23 +13,23 @@ export class AuthGuard implements CanActivate {
 
     let isAdminRoute = requestingUrl.split('/')[0] === 'admin';
 
-    let isAuthenticated = this.authentication.getAuthenticatedUser().subscribe((user: any) => {
+    let authorized = false;
+
+    return this.authentication.getAuthenticatedUser().map((user: any) => {
       if (user) {
+        authorized = true;
         if (isAdminRoute && user.role === 'admin') {
-          return true;
+          authorized = true;
         } else if (isAdminRoute && user.role !== 'admin') {
-          return false;
+          authorized = false;
         }
-        return true;
       } else if (isAdminRoute) {
         //admin login
         window.location.href = environment.apiUrl + 'auth/eauth/login';
       } else {
         window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
       }
-      return false;
+      return authorized;
     });
-    console.log(isAuthenticated);
-    return isAuthenticated ? true : false;
   }
 }
