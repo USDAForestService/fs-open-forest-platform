@@ -24,7 +24,7 @@ vcapConstants.middleLayerPassword = middlelayerService.credentials.MIDDLELAYER_P
 let intakeService = VCAPServices['user-provided'].find(element => {
   return element.name === 'intake-client-service';
 });
-vcapConstants.intakeClientBaseUrl = intakeService.credentials.INTAKE_CLIENT_BASE_URL;
+vcapConstants.intakeClientBaseUrl = 'https://fs-intake-login-test.app.cloud.gov'; // intakeService.credentials.INTAKE_CLIENT_BASE_URL;
 vcapConstants.intakeUsername = intakeService.credentials.INTAKE_USERNAME;
 vcapConstants.intakePassword = intakeService.credentials.INTAKE_PASSWORD;
 
@@ -37,5 +37,14 @@ vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
 vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
 vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
 vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
+
+// USDA eAuth
+let eAuthService = VCAPServices['user-provided'].find(element => {
+  return element.name === 'eauth-service-provider';
+});
+vcapConstants.eAuthIssuer = eAuthService.credentials.issuer;
+vcapConstants.eAuthEntryPoint = eAuthService.credentials.entrypoint;
+vcapConstants.eAuthCert = eAuthService.credentials.cert;
+vcapConstants.eAuthPrivateKey = eAuthService.credentials.privatekey;
 
 module.exports = vcapConstants;

@@ -1,3 +1,5 @@
+'use strict';
+
 let express = require('express');
 let Issuer = require('openid-client').Issuer;
 let jose = require('node-jose');
