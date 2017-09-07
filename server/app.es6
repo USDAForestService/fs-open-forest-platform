@@ -56,7 +56,11 @@ let accessControl = (req, res, next) => {
     res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
     res.set('Access-Control-Allow-Credentials', true);
   }
-  next();
+  if (!req.user) {
+    res.status(401).send({ errors: ['Unauthorized'] });
+  } else {
+    next();
+  }
 };
 
 app.options('*', accessControl, (req, res) => {
@@ -67,6 +71,9 @@ app.options('*', accessControl, (req, res) => {
 
 /* Serve static documentation pages. */
 app.use('/docs/api', express.static('docs/api'));
+
+app.get('/auth/login-gov/openid/user', accessControl, loginGov.getUser);
+app.get('/auth/login-gov/openid/logout', accessControl, loginGov.logout);
 
 /** Get a single noncommercial permit application. */
 app.get('/permits/applications/special-uses/noncommercial/:id', accessControl, noncommercial.getOne);

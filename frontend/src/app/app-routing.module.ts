@@ -13,6 +13,7 @@ import { PermitApplicationViewComponent } from './admin/permit-application-view/
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersFaqComponent } from './applications/temporary-outfitters/temporary-outfitters-faq.component';
+
 const appRoutes: Routes = [
   {
     path: 'admin/applications',
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false })],
   exports: [RouterModule]

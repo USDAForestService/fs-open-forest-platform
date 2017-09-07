@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthenticationService } from './authentication.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authentication: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
     const requestingUrl = route['_routeConfig'].path;
@@ -15,25 +17,15 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login', 'admin']);
       return false;
     } else {
-      if (localStorage.getItem('currentUser')) {
-        return true;
-      }
-      this.router.navigate(['/login', 'user']);
-      return false;
+      let IsAuthenticated = this.authentication.getAuthenticatedUser().subscribe((email: any) => {
+        if (email) {
+          return true;
+        } else {
+          window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+          return false;
+        }
+      });
+      return IsAuthenticated ? true : false;
     }
-  }
-
-  isLoggedIn() {
-    if (localStorage.getItem('currentUser')) {
-      return true;
-    }
-    return false;
-  }
-
-  isAdmin() {
-    if (localStorage.getItem('adminUser')) {
-      return true;
-    }
-    return false;
   }
 }

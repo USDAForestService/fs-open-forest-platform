@@ -25,6 +25,7 @@ import { PermitApplicationViewComponent } from './admin/permit-application-view/
 import { SharedModule } from './_shared/shared.module';
 import { SortArray } from './_pipes/sort-array.pipe';
 import { SpacesToDashesPipe } from './_pipes/spaces-to-dashes.pipe';
+import { StatusComponent } from './status/status.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './admin/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
@@ -45,6 +46,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     PermitApplicationViewComponent,
     SortArray,
     SpacesToDashesPipe,
+    StatusComponent,
     StyleGuideComponent,
     TempOutfitterDetailsComponent,
     TitleDirective,
