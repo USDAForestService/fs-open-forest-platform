@@ -13,6 +13,10 @@ export class AppComponent implements OnInit {
   currentRoute: string;
   apiurl = environment.apiUrl;
   userEmail: any;
+  status = {
+    heading: '',
+    message: ''
+  };
 
   constructor(private router: Router, private authentication: AuthenticationService) {
     router.events.subscribe(scroll => {
@@ -34,6 +38,11 @@ export class AppComponent implements OnInit {
     this.authentication.getAuthenticatedUser().subscribe((email: any) => {
       this.userEmail = email;
     });
+  }
+
+  updateStatus(status: any) {
+    this.status = status;
+    console.log('status', this.status);
   }
 
   ngOnInit() {
