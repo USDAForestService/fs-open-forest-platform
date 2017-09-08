@@ -35,8 +35,10 @@ export class AppComponent implements OnInit {
   }
 
   isAuthenticated() {
-    this.authentication.getAuthenticatedUser().subscribe((email: any) => {
-      this.userEmail = email;
+    this.authentication.getAuthenticatedUser().subscribe((user: any) => {
+      if (user) {
+        this.userEmail = user.email;
+      }
     });
   }
 
