@@ -10,22 +10,26 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot) {
     const requestingUrl = route['_routeConfig'].path;
     localStorage.setItem('requestingUrl', requestingUrl);
-    if (requestingUrl.split('/')[0] === 'admin') {
-      if (localStorage.getItem('adminUser')) {
-        return true;
-      }
-      this.router.navigate(['/login', 'admin']);
-      return false;
-    } else {
-      let IsAuthenticated = this.authentication.getAuthenticatedUser().subscribe((email: any) => {
-        if (email) {
-          return true;
-        } else {
-          window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
-          return false;
+
+    let isAdminRoute = requestingUrl.split('/')[0] === 'admin';
+
+    let authorized = false;
+
+    return this.authentication.getAuthenticatedUser().map((user: any) => {
+      if (user) {
+        authorized = true;
+        if (isAdminRoute && user.role === 'admin') {
+          authorized = true;
+        } else if (isAdminRoute && user.role !== 'admin') {
+          authorized = false;
         }
-      });
-      return IsAuthenticated ? true : false;
-    }
+      } else if (isAdminRoute) {
+        //admin login
+        window.location.href = environment.apiUrl + 'auth/eauth/login';
+      } else {
+        window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+      }
+      return authorized;
+    });
   }
 }
