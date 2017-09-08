@@ -9,13 +9,12 @@ let eAuth = {};
 
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
-eAuth.baseUrl = 'https://fs-intake-api-login-test.app.cloud.gov';
 
 passport.use(
   new SamlStrategy(
     {
-      path: eAuth.baseUrl + eAuth.callbackPath,
-      entryPoint: vcapServices.eAuthEntryPoint,
+      path: vcapServices.baseUrl + eAuth.callbackPath,
+      entryPoint: `${vcapServices.eAuthEntryPoint}?SPID=${vcapServices.eAuthIssuer}`,
       issuer: vcapServices.eAuthIssuer,
       privateCert: vcapServices.eAuthPrivateKey,
       cert: vcapServices.eAuthCert
