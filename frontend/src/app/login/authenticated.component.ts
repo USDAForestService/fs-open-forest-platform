@@ -1,5 +1,4 @@
 import { AuthenticationService } from '../_services/authentication.service';
-import { AuthGuard } from '../_services/auth.guard';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,12 +13,7 @@ export class AuthenticatedComponent {
   @Input() userEmail: string;
   @Output() status: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private authenticationService: AuthenticationService,
-    private authGuard: AuthGuard,
-    private router: Router,
-    private http: Http
-  ) {}
+  constructor(private authenticationService: AuthenticationService, private router: Router, private http: Http) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';

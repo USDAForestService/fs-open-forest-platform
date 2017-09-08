@@ -11,7 +11,7 @@ import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './applications/applications.module';
 import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
 import { AuthenticatedComponent } from './login/authenticated.component';
-import { AuthGuard } from './_services/auth.guard';
+import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
@@ -53,7 +53,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     UsaBannerComponent
   ],
   imports: [AppRoutingModule, ApplicationsModule, BrowserModule, HttpModule, SharedModule],
-  providers: [AlertService, ApplicationService, AuthGuard, AuthenticationService],
+  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
