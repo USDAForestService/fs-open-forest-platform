@@ -3,6 +3,8 @@
 const vcapConstants = {};
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
 
+vcapConstants.baseUrl = 'https://' + JSON.parse(process.env.VCAP_APPLICATION).uris[0];
+
 // Intake S3
 let intakeS3 = VCAPServices['s3'].find(element => {
   return element.name === 'intake-s3';

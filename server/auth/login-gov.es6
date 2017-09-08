@@ -22,8 +22,7 @@ const params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
   nonce: `${Math.random()}-${Math.random()}`,
   prompt: 'select_account',
-  // TODO: replace with VCAP_SERVICES
-  redirect_uri: 'https://fs-intake-api-login-test.app.cloud.gov/auth/login-gov/openid/callback',
+  redirect_uri: vcapServices.baseURL + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
   state: `${Math.random()}-${Math.random()}`
@@ -43,7 +42,7 @@ loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
     // don't use the userinfo_endpoint, as the userinfo payload is returned with the token_id
-    delete loginGovIssuer.userinfo_endpoint;
+    loginGovIssuer.userinfo_endpoint = false;
     let keys = {
       keys: [vcapServices.loginGovJwk]
     };
