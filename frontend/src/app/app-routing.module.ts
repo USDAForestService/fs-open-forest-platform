@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
-import { AuthGuard } from './_services/auth.guard';
+import { AuthGuardService } from './_services/auth-guard.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login/login-form.component';
@@ -18,7 +18,7 @@ const appRoutes: Routes = [
   {
     path: 'admin/applications',
     component: PermitApplicationListComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardService],
     data: { title: 'Application administration listing' }
   },
   {
@@ -29,7 +29,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardService],
     data: { title: 'Apply for a noncommercial group use permit' }
   },
   {
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuardService],
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   {
