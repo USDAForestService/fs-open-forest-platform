@@ -10,7 +10,6 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class HelpMePickComponent implements OnInit {
   id: number;
   title: string;
-  user: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,10 +23,8 @@ export class HelpMePickComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authentication.getUser();
     this.route.params.subscribe(params => {
       this.id = params['id'];
-
       switch ('' + this.id + '') {
         case '1':
           this.title = 'Are you charging a participation fee for your activity?';
