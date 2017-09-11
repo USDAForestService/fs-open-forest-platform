@@ -17,7 +17,6 @@ import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
 import { HomeComponent } from './home/home.component';
-import { LoginFormComponent } from './login/login-form.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialDetailsComponent } from './admin/permit-application-view/noncommercial-details.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
@@ -40,7 +39,6 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     HelpMePickComponent,
     HomeComponent,
     HoursFromOrDate,
-    LoginFormComponent,
     LoggedInComponent,
     NoncommercialDetailsComponent,
     PermitApplicationListComponent,
