@@ -1,8 +1,8 @@
 'use strict';
 
 let express = require('express');
-let SamlStrategy = require('passport-saml').Strategy;
 let passport = require('passport');
+let SamlStrategy = require('passport-saml').Strategy;
 let vcapServices = require('../vcap-services.es6');
 
 let eAuth = {};
@@ -19,23 +19,20 @@ passport.use(
       privateCert: vcapServices.eAuthPrivateKey,
       cert: vcapServices.eAuthCert
     },
-    function(profile, done) {
-      console.log('----------', profile);
-      console.log('----------', done);
-      return done(null, 'user');
+    (profile, done) => {
+      console.log('---------- profile:', profile);
+      return done(null, { email: profile.nameID, role: 'admin' });
     }
   )
 );
 
 eAuth.router = express.Router();
 
-eAuth.router.get(eAuth.loginPath, passport.authenticate('saml'), (req, res) => {
-  res.redirect('/');
-});
+eAuth.router.get(eAuth.loginPath, passport.authenticate('saml'));
 
 eAuth.router.post(
   eAuth.callbackPath,
-  passport.authenticate('saml', { successRedirect: vcapServices.intakeClientBaseUrl })
+  passport.authenticate('saml', { successRedirect: vcapServices.intakeClientBaseUrl + '/admin/applications' })
 );
 
 module.exports = eAuth;

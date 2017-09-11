@@ -30,12 +30,12 @@ var expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 app.use(
   session({
     name: 'session',
+    // TODO: discuss key values
     keys: ['key1', 'key2'],
     cookie: {
       secure: true,
       httpOnly: true,
       domain: 'example.com',
-      path: 'foo/bar',
       expires: expiryDate
     }
   })
@@ -44,6 +44,12 @@ app.use(
 /* Setup passport */
 app.use(passport.initialize());
 app.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 loginGov.setup();
 
 let accessControl = (req, res, next) => {
