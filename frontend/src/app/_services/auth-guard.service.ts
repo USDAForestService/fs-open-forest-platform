@@ -26,7 +26,7 @@ export class AuthGuardService implements CanActivate {
         authorized = false;
       }
     } else if (isAdminRoute) {
-      this.redirect(environment.apiUrl + 'auth/eauth/login');
+      this.redirect(environment.apiUrl + 'auth/usda-eauth/saml/login');
     } else {
       this.redirect(environment.apiUrl + 'auth/login-gov/openid/login');
     }
