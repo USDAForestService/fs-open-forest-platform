@@ -43,6 +43,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.user = null;
     return this.http.get(this.endpoint + 'auth/logout', { withCredentials: true });
   }
 
