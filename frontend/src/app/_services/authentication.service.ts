@@ -38,12 +38,8 @@ export class AuthenticationService {
       .catch(this.handleError);
   }
 
-  login(username: string, password: string, type: string) {
-    if (type === 'user') {
-      localStorage.setItem('currentUser', JSON.stringify({ username: username }));
-    } else if (type === 'admin') {
-      localStorage.setItem('adminUser', JSON.stringify({ username: username }));
-    }
+  getUser() {
+    return this.user;
   }
 
   logout() {

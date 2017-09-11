@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-help-me-pick',
@@ -9,14 +10,21 @@ import { Title } from '@angular/platform-browser';
 export class HelpMePickComponent implements OnInit {
   id: number;
   title: string;
+  user: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private titleService: Title) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private titleService: Title,
+    private authentication: AuthenticationService
+  ) {}
 
   goToStep(id) {
     this.router.navigate(['/help-me-pick', id]);
   }
 
   ngOnInit() {
+    this.user = this.authentication.getUser();
     this.route.params.subscribe(params => {
       this.id = params['id'];
 

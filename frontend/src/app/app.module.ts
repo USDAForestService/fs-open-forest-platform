@@ -1,4 +1,3 @@
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -54,7 +53,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     TitleDirective,
     UsaBannerComponent
   ],
-  imports: [AppRoutingModule, ApplicationsModule, BrowserModule, HttpModule, SharedModule],
+  imports: [ApplicationsModule, BrowserModule, HttpModule, SharedModule],
   providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService],
   bootstrap: [AppComponent]
 })
