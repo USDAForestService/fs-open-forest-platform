@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent {
-  @Input() userEmail: string;
+  @Input() user: any;
   @Output() status: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private http: Http) {}
@@ -23,7 +23,7 @@ export class AuthenticatedComponent {
     e.preventDefault();
     this.authenticationService.logout().subscribe(() => {
       this.status.emit({ message: 'You have successfully logged out of Forest Service permits.', header: '' });
-      this.userEmail = '';
+      this.user = {};
       this.router.navigate(['']);
     });
   }
