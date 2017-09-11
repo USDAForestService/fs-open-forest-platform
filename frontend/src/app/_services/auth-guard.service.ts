@@ -14,8 +14,8 @@ export class AuthGuardService implements CanActivate {
   }
 
   validateUser(user, route) {
+    localStorage.removeItem('requestingUrl');
     const requestingUrl = route['_routeConfig'].path;
-    localStorage.setItem('requestingUrl', requestingUrl);
     const isAdminRoute = requestingUrl.split('/')[0] === 'admin';
     let authorized = false;
     if (user && user.email && user.role) {
@@ -28,6 +28,7 @@ export class AuthGuardService implements CanActivate {
     } else if (isAdminRoute) {
       this.redirect(environment.apiUrl + 'auth/usda-eauth/saml/login');
     } else {
+      localStorage.setItem('requestingUrl', requestingUrl);
       this.redirect(environment.apiUrl + 'auth/login-gov/openid/login');
     }
     return authorized;
