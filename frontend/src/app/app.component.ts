@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
   apiurl = environment.apiUrl;
-  userEmail: any;
+  user: any;
   status = {
     heading: '',
     message: ''
@@ -37,11 +37,12 @@ export class AppComponent implements OnInit {
   isAuthenticated() {
     let requestingUrl = localStorage.getItem('requestingUrl');
     if (requestingUrl) {
+      localStorage.removeItem('requestingUrl');
       this.router.navigate([requestingUrl]);
     }
     this.authentication.getAuthenticatedUser().subscribe((user: any) => {
       if (user) {
-        this.userEmail = user.email;
+        this.user = user;
       }
     });
   }
