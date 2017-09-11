@@ -23,21 +23,21 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
-      .post(this.endpoint + '' + type, body, options)
+      .post(this.endpoint + type, body, { headers: headers, withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   get(params = '') {
     return this.http
-      .get(this.endpoint + '' + params, { withCredentials: true })
+      .get(this.endpoint + params, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   getOne(id, params = '/special-uses/noncommercial/') {
     return this.http
-      .get(this.endpoint + '' + params + '' + id, { withCredentials: true })
+      .get(this.endpoint + params + id, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
