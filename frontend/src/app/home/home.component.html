@@ -22,14 +22,14 @@
         <h2>Non-commercial permit</h2>
         <p>For a non-commercial activity involving a group of 75 or more people, either as participants or spectators with no entry/participation fee. The primary purpose of the event isn’t selling goods or services. This type of permit is free.</p>
       </div>
-      <a id="noncommercial-permit" class="usa-button-inverse usa-button usa-button-big" routerLink="/applications/noncommercial-group-use/new">Noncommercial permit<span class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <a id="noncommercial-permit" class="usa-button-inverse usa-button usa-button-big" routerLink="/applications/noncommercial-group-use/new">Noncommercial permit<span *ngIf="!user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
     </div>
     <div class="usa-width-one-half wrapper" id="tempoutfitter-background">
       <div class="option-content option-content-one-half">
         <h2>Temporary outfitter’s permit</h2>
         <p>For outfitters &amp; guides, temporary use permits allow short-term, non-renewable outfitting and guiding in increments of 50 service days, up to a maximum of 200 service days in a 180-day period. To learn more about a temporary outfitter's permit <a routerLink="/applications/temp-outfitters/faq">click here</a>.</p>
       </div>
-      <a id="temp-outfitters-permit" class="usa-button-inverse usa-button usa-button-big" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <a id="temp-outfitters-permit" class="usa-button-inverse usa-button usa-button-big" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span *ngIf="!user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
     </div>
   </div>
   <div class="usa-grid">

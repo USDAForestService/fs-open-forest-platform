@@ -2,8 +2,6 @@
   <div class="usa-grid">
     <h1>Temporary outfitters permit information</h1>
 
-
-
     <p>Generally, if you charge a fee for someone to participate in a service that you are providing, or if you otherwise stand to gain from providing the service, you need a permit. The value of the public service provided, the amount charged, or the value of the experience had by the participants is not relevant.</p>
 
     <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777" target="_blank">See definitions</a> for “Commercial Use”, “Guiding”, “Outfitting”.</p>
@@ -112,7 +110,7 @@
 
     <div>
       <a routerLink="/" class="usa-button faq-button-middle">Back to permits</a>
-      <a id="temp-outfitters-permit" class="usa-button-inverse usa-button usa-button-big usa-button-border" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <a id="temp-outfitters-permit" class="usa-button-inverse usa-button usa-button-big usa-button-border" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span *ngIf="!user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
     </div>
   </div>
 </div>
