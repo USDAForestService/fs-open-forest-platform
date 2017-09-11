@@ -23,7 +23,7 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
-      .post(this.endpoint + type, body, { headers: headers, withCredentials: true })
+      .post(this.endpoint + type, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
