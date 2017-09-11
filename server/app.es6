@@ -51,7 +51,7 @@ passport.deserializeUser((user, done) => {
 });
 loginGov.setup();
 
-let accessControl = (req, res, next) => {
+let setCorsHeaders = (req, res, next) => {
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
     res.set('Access-Control-Allow-Credentials', true);
@@ -62,6 +62,10 @@ let accessControl = (req, res, next) => {
     res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
     res.set('Access-Control-Allow-Credentials', true);
   }
+  next();
+};
+
+let checkPermissions = (req, res, next) => {
   if (!req.user) {
     res.status(401).send({ errors: ['Unauthorized'] });
   } else {
@@ -69,7 +73,7 @@ let accessControl = (req, res, next) => {
   }
 };
 
-app.options('*', accessControl, (req, res) => {
+app.options('*', setCorsHeaders, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
@@ -79,47 +83,64 @@ app.options('*', accessControl, (req, res) => {
 app.use('/docs/api', express.static('docs/api'));
 
 /* Universal passport user */
-app.get('/auth/user', accessControl, (req, res) => {
+app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
   res.send(req.user);
 });
 
 /* Universal passport logout */
-app.get('/auth/logout', accessControl, (req, res) => {
+app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
   req.logout();
   res.send();
 });
 
 /** Get a single noncommercial permit application. */
-app.get('/permits/applications/special-uses/noncommercial/:id', accessControl, noncommercial.getOne);
+app.get('/permits/applications/special-uses/noncommercial/:id', setCorsHeaders, checkPermissions, noncommercial.getOne);
 /** Create a new noncommercial permit application. */
-app.post('/permits/applications/special-uses/noncommercial', accessControl, noncommercial.create);
+app.post('/permits/applications/special-uses/noncommercial', setCorsHeaders, checkPermissions, noncommercial.create);
 /** Update a noncommercial permit application. */
-app.put('/permits/applications/special-uses/noncommercial/:id', accessControl, noncommercial.update);
+app.put('/permits/applications/special-uses/noncommercial/:id', setCorsHeaders, checkPermissions, noncommercial.update);
 
 /** Get a temp outfitter permit application. */
-app.get('/permits/applications/special-uses/temp-outfitter/:id', accessControl, tempOutfitter.getOne);
+app.get(
+  '/permits/applications/special-uses/temp-outfitter/:id',
+  setCorsHeaders,
+  checkPermissions,
+  tempOutfitter.getOne
+);
 /** Get temp outfitter files by application id. */
 app.get(
   '/permits/applications/special-uses/temp-outfitter/:id/files',
-  accessControl,
+  setCorsHeaders,
+  checkPermissions,
   tempOutfitter.getApplicationFileNames
 );
 /** Get a temp outfitter file. */
-app.get('/permits/applications/special-uses/temp-outfitter/:id/files/:file', accessControl, tempOutfitter.streamFile);
+app.get(
+  '/permits/applications/special-uses/temp-outfitter/:id/files/:file',
+  setCorsHeaders,
+  checkPermissions,
+  tempOutfitter.streamFile
+);
 /** Create a new temp outfitter permit application. */
-app.post('/permits/applications/special-uses/temp-outfitter', accessControl, tempOutfitter.create);
+app.post('/permits/applications/special-uses/temp-outfitter', setCorsHeaders, checkPermissions, tempOutfitter.create);
 /** Update a temp outfitter permit application. */
-app.put('/permits/applications/special-uses/temp-outfitter/:id', accessControl, tempOutfitter.update);
+app.put(
+  '/permits/applications/special-uses/temp-outfitter/:id',
+  setCorsHeaders,
+  checkPermissions,
+  tempOutfitter.update
+);
 /** Handle temp outfitter file upload and invokes streamToS3 function. */
 app.post(
   '/permits/applications/special-uses/temp-outfitter/file',
-  accessControl,
+  setCorsHeaders,
+  checkPermissions,
   tempOutfitter.streamToS3.array('file', 1),
   tempOutfitter.attachFile
 );
 
 /** Get all applications with status on Received or Hold. */
-app.get('/permits/applications', accessControl, util.getAllOpenApplications);
+app.get('/permits/applications', setCorsHeaders, checkPermissions, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', (req, res) => {
