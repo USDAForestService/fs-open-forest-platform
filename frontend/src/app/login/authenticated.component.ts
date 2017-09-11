@@ -23,7 +23,8 @@ export class AuthenticatedComponent {
     e.preventDefault();
     this.authenticationService.logout().subscribe(() => {
       this.status.emit({ message: 'You have successfully logged out of Forest Service permits.', header: '' });
-      this.user = {};
+      this.user = null;
+      localStorage.removeItem('requestingUrl');
       this.router.navigate(['']);
     });
   }
