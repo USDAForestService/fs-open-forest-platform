@@ -20,29 +20,17 @@ let basicAuthOptions = {
 
 const params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-  nonce: `${Math.random()}-${Math.random()}`,
+  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
   prompt: 'select_account',
-  redirect_uri: vcapServices.baseURL + '/auth/login-gov/openid/callback',
+  redirect_uri: vcapServices.baseUrl + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
-  state: `${Math.random()}-${Math.random()}`
+  state: new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
 };
-
-passport.serializeUser((user, done) => {
-  done(null, user.email);
-});
-
-passport.deserializeUser((email, done) => {
-  done(null, {
-    email: email
-  });
-});
 
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
-    // don't use the userinfo_endpoint, as the userinfo payload is returned with the token_id
-    loginGovIssuer.userinfo_endpoint = false;
     let keys = {
       keys: [vcapServices.loginGovJwk]
     };
@@ -64,7 +52,8 @@ loginGov.setup = () => {
           },
           (tokenset, done) => {
             return done(null, {
-              email: tokenset.claims.email
+              email: tokenset.claims.email,
+              role: 'user'
             });
           }
         )
@@ -78,20 +67,8 @@ loginGov.router = express.Router();
 
 loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
-loginGov.router.get(
-  '/auth/login-gov/openid/callback',
-  passport.authenticate('oidc', {
-    successRedirect: vcapServices.intakeClientBaseUrl
-  })
-);
-
-loginGov.getUser = (req, res) => {
-  res.send(req.user);
-};
-
-loginGov.logout = (req, res) => {
-  req.logout();
-  res.send();
-};
+loginGov.router.get('/auth/login-gov/openid/callback', passport.authenticate('oidc'), (req, res) => {
+  res.redirect(vcapServices.intakeClientBaseUrl);
+});
 
 module.exports = loginGov;
