@@ -26,7 +26,6 @@ app.use(
 app.use(bodyParser.json());
 
 /* Session handler */
-var expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 app.use(
   session({
     name: 'session',
@@ -35,8 +34,8 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: 'example.com',
-      expires: expiryDate
+      domain: vcapServices.baseUrl,
+      expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
 );
