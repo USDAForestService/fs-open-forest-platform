@@ -17,9 +17,9 @@
 
   <div class="app-ctas" [class.fixed]="fixedCtas">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
-      <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept</button>
-      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold</button>
-      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject</button>
+      <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept<span class="sub-button">Enter into SUDDS</span></button>
+      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
+      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject<span class="sub-button">Cancel application</span></button>
     </div>
     <div id="reason-for-action" class="usa-grid" *ngIf="reasonOrCancel.open">
       <div class="usa-width-one-whole">
