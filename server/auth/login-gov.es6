@@ -68,7 +68,8 @@ loginGov.router = express.Router();
 loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
 loginGov.router.get('/auth/login-gov/openid/callback', passport.authenticate('oidc'), (req, res) => {
-  res.redirect(vcapServices.intakeClientBaseUrl);
+  // res.redirect doesn't pass the Blink's Content Security Policy directive
+  res.send(`<script>window.location = '${vcapServices.intakeClientBaseUrl}'</script>`);
 });
 
 module.exports = loginGov;
