@@ -8,6 +8,7 @@ import { AuthGuardService } from './_services/auth-guard.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoginFormComponent } from './login/login-form.component';
+import { LoggedInComponent } from './login/logged-in.component';
 import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'login/:type', component: LoginFormComponent, data: { title: 'Login' } },
+  { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }

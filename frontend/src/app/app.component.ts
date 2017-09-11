@@ -35,11 +35,6 @@ export class AppComponent implements OnInit {
   }
 
   isAuthenticated() {
-    let requestingUrl = localStorage.getItem('requestingUrl');
-    if (requestingUrl) {
-      localStorage.removeItem('requestingUrl');
-      this.router.navigate([requestingUrl]);
-    }
     this.authentication.getAuthenticatedUser().subscribe((user: any) => {
       if (user) {
         this.user = user;
