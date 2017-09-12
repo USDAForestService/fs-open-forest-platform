@@ -18,7 +18,7 @@ let basicAuthOptions = {
   }
 };
 
-const params = {
+loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
   nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('base64'),
   prompt: 'select_account',
@@ -31,6 +31,7 @@ const params = {
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
+    loginGov.issuer = loginGovIssuer;
     let keys = {
       keys: [vcapServices.loginGovJwk]
     };
@@ -47,13 +48,14 @@ loginGov.setup = () => {
         'oidc',
         new OpenIDConnectStrategy(
           {
-            client,
-            params
+            client: client,
+            params: loginGov.params
           },
           (tokenset, done) => {
             return done(null, {
               email: tokenset.claims.email,
-              role: 'user'
+              role: 'user',
+              token: tokenset.id_token
             });
           }
         )

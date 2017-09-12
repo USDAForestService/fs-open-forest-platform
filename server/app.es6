@@ -6,7 +6,7 @@ let express = require('express');
 let helmet = require('helmet');
 let loginGov = require('./auth/login-gov.es6');
 let noncommercial = require('./noncommercial.es6');
-let passport = require('passport');
+// let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
@@ -29,8 +29,10 @@ app.use(bodyParser.json());
 app.use(
   session({
     name: 'session',
-    // TODO: discuss key values
-    keys: ['key1', 'key2'],
+    keys: [
+      new Buffer(`${Math.random()}${Math.random()}`).toString('base64'),
+      new Buffer(`${Math.random()}${Math.random()}`).toString('base64')
+    ],
     cookie: {
       secure: true,
       httpOnly: true,
@@ -39,17 +41,6 @@ app.use(
     }
   })
 );
-
-/* Setup passport */
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
-loginGov.setup();
 
 let setCorsHeaders = (req, res, next) => {
   if (process.env.PLATFORM === 'CI') {
@@ -73,10 +64,11 @@ let checkPermissions = (req, res, next) => {
   }
 };
 
+const adminWhitelist = ['esorenson1@flexion.us', 'salt@flexion.us'];
+
 let checkAdminPermissions = (req, res, next) => {
-  // TODO: add whitelist after discussions with Colin and Laura (`TYPEofEmployee`_`subagency`:`Employee_status`)
-  if (!req.user || req.user.role != 'admin') {
-    res.status(401).send({ errors: ['Unauthorized'] });
+  if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
+    res.status(403).send({ errors: ['Forbidden'] });
   } else {
     next();
   }
@@ -88,8 +80,16 @@ app.options('*', setCorsHeaders, (req, res) => {
   res.send();
 });
 
-/* Serve static documentation pages. */
-app.use('/docs/api', express.static('docs/api'));
+/* Setup passport */
+let passport = loginGov.setup();
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
 /* Universal passport user */
 app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
@@ -98,8 +98,18 @@ app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
 
 /* Universal passport logout */
 app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
-  req.logout();
-  res.send();
+  if (req.user.role === 'user') {
+    let token = req.user.token;
+    req.logout();
+    res.redirect(
+      `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
+        vcapServices.intakeClientBaseUrl
+      )}&state=${loginGov.params.state}&id_token_hint=${token}`
+    );
+  } else {
+    req.logout();
+    res.redirect(vcapServices.intakeClientBaseUrl);
+  }
 });
 
 /** Get a single noncommercial permit application. */
@@ -149,12 +159,15 @@ app.post(
 );
 
 /** Get all applications with status on Received or Hold. */
-app.get('/permits/applications', setCorsHeaders, checkAdminPermissions, util.getAllOpenApplications);
+app.get('/permits/applications', setCorsHeaders, checkPermissions, checkAdminPermissions, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
+
+/* Serve static documentation pages. */
+app.use('/docs/api', express.static('docs/api'));
 
 app.use(loginGov.router);
 app.use(eAuth.router);
