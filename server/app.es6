@@ -42,6 +42,25 @@ app.use(
   })
 );
 
+/* Setup passport */
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+loginGov.setup();
+
+let isLocalOrCI = () => {
+  const environments = ['CI', 'local'];
+  if (environments.indexOf(process.env.PLATFORM) !== -1) {
+    return true;
+  }
+  return false;
+};
+
 let setCorsHeaders = (req, res, next) => {
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
@@ -57,20 +76,51 @@ let setCorsHeaders = (req, res, next) => {
 };
 
 let checkPermissions = (req, res, next) => {
-  if (!req.user) {
-    res.status(401).send({ errors: ['Unauthorized'] });
-  } else {
+  if (isLocalOrCI()) {
     next();
+  } else {
+    if (!req.user) {
+      res.status(401).send({
+        errors: ['Unauthorized']
+      });
+    } else {
+      next();
+    }
   }
 };
 
 const adminWhitelist = ['esorenson1@flexion.us', 'salt@flexion.us'];
 
+// let checkAdminPermissions = (req, res, next) => {
+// <<<<<<< HEAD
+//   if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
+//     res.status(403).send({ errors: ['Forbidden'] });
+//   } else {
+// =======
+//   // TODO: add whitelist after discussions with Colin and Laura (`TYPEofEmployee`_`subagency`:`Employee_status`)
+//   if (isLocalOrCI()) {
+// >>>>>>> 3bcdf6a4d7fffa961927b2a9afdb41a2ef4105a3
+//     next();
+//   } else {
+//     if (!req.user || req.user.role != 'admin') {
+//       res.status(401).send({
+//         errors: ['Unauthorized']
+//       });
+//     } else {
+//       next();
+//     }
+//   }
+// };
+
 let checkAdminPermissions = (req, res, next) => {
-  if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
-    res.status(403).send({ errors: ['Forbidden'] });
-  } else {
+  if (isLocalOrCI()) {
     next();
+  } else {
+    if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
+      res.status(403).send({ errors: ['Forbidden'] });
+    } else {
+      next();
+    }
   }
 };
 
@@ -93,6 +143,12 @@ passport.deserializeUser((user, done) => {
 
 /* Universal passport user */
 app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
+  if (isLocalOrCI()) {
+    res.send({
+      email: 'local@test.com',
+      role: 'admin'
+    });
+  }
   res.send(req.user);
 });
 
