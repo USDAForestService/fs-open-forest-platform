@@ -54,18 +54,25 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
+  handleStatusCode(status) {
+    if (status === 403) {
+      this.router.navigate(['access-denied']);
+    }
+    return;
+  }
+
   private handleError(error: Response | any) {
     let errors: any;
     if (error instanceof Response) {
-      if (error.status === 403) {
-        this.router.navigate(['access-denied']);
+      if (error.status) {
+        errors = [error.status];
+      } else {
+        const body = error.json() || '';
+        errors = body.errors;
       }
-      const body = error.json() || '';
-      errors = body.errors;
     } else {
       errors = ['Server error'];
     }
-    console.error(errors);
     return Observable.throw(errors);
   }
 }
