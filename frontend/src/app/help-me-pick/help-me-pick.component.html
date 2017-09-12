@@ -35,12 +35,12 @@
 
     <div *ngIf="id == 7">
       <p class="message">You can apply online.</p>
-      <a class="usa-button-inverse usa-button usa-button-border" routerLink="/applications/noncommercial-group-use/new">Noncommercial permit<span *ngIf="!authentication.user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <app-button link="/applications/noncommercial-group-use/new" buttonText="Noncommercial permit"></app-button>
     </div>
 
     <div *ngIf="id == 8">
       <p class="message">You can apply online.</p>
-      <a class="usa-button-inverse usa-button usa-button-border" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span *ngIf="!authentication.user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <app-button link="/applications/temp-outfitters/new" buttonText="Temp outfitter's permit"></app-button>
     </div>
 
   </div>
