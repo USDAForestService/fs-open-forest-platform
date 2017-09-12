@@ -40,14 +40,8 @@ describe('Apply for a noncommercial group use permit', () => {
     page = new NoncommercialGroupForm();
   });
 
-  it('should not display the form if you are not authenticated', () => {
-    page.navigateTo();
-    expect<any>(browser.getCurrentUrl()).not.toEqual(browser.baseUrl + '/applications/noncommercial-group-use/new');
-  });
-
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    element(by.id('login')).click();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
   });
 
