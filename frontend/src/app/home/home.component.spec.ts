@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { HttpModule } from '@angular/http';
 import { AuthenticationService } from '../_services/authentication.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -10,7 +11,7 @@ describe('HomeComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [HttpModule],
+        imports: [HttpModule, RouterTestingModule],
         declarations: [HomeComponent],
         providers: [AuthenticationService]
       }).compileComponents();
