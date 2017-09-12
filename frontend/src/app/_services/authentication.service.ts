@@ -3,13 +3,14 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
   private endpoint = environment.apiUrl;
   user: any;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   getAuthenticatedUser() {
     return this.isAuthenticated().map(
@@ -44,7 +45,7 @@ export class AuthenticationService {
 
   logout() {
     this.user = null;
-    return this.http.get(this.endpoint + 'auth/logout', { withCredentials: true });
+    this.router.navigate([this.endpoint + 'auth/logout']);
   }
 
   private handleError(error: Response | any) {
