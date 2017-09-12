@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AccessDeniedComponent } from './login/access-denied.component';
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
+  { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
 ];
