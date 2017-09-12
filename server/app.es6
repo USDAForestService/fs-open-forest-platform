@@ -6,7 +6,6 @@ let express = require('express');
 let helmet = require('helmet');
 let loginGov = require('./auth/login-gov.es6');
 let noncommercial = require('./noncommercial.es6');
-// let passport = require('passport');
 let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
@@ -41,17 +40,6 @@ app.use(
     }
   })
 );
-
-/* Setup passport */
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
-loginGov.setup();
 
 let isLocalOrCI = () => {
   const environments = ['CI', 'local'];
@@ -90,27 +78,6 @@ let checkPermissions = (req, res, next) => {
 };
 
 const adminWhitelist = ['esorenson1@flexion.us', 'salt@flexion.us'];
-
-// let checkAdminPermissions = (req, res, next) => {
-// <<<<<<< HEAD
-//   if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
-//     res.status(403).send({ errors: ['Forbidden'] });
-//   } else {
-// =======
-//   // TODO: add whitelist after discussions with Colin and Laura (`TYPEofEmployee`_`subagency`:`Employee_status`)
-//   if (isLocalOrCI()) {
-// >>>>>>> 3bcdf6a4d7fffa961927b2a9afdb41a2ef4105a3
-//     next();
-//   } else {
-//     if (!req.user || req.user.role != 'admin') {
-//       res.status(401).send({
-//         errors: ['Unauthorized']
-//       });
-//     } else {
-//       next();
-//     }
-//   }
-// };
 
 let checkAdminPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
