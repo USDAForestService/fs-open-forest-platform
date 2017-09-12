@@ -51,6 +51,14 @@ passport.deserializeUser((user, done) => {
 });
 loginGov.setup();
 
+let isLocalOrCI = () => {
+  const environments = ['CI', 'local'];
+  if (environments.indexOf(process.env.PLATFORM) !== -1) {
+    return true;
+  }
+  return false;
+};
+
 let setCorsHeaders = (req, res, next) => {
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
@@ -66,19 +74,31 @@ let setCorsHeaders = (req, res, next) => {
 };
 
 let checkPermissions = (req, res, next) => {
-  if (!req.user) {
-    res.status(401).send({ errors: ['Unauthorized'] });
-  } else {
+  if (isLocalOrCI()) {
     next();
+  } else {
+    if (!req.user) {
+      res.status(401).send({
+        errors: ['Unauthorized']
+      });
+    } else {
+      next();
+    }
   }
 };
 
 let checkAdminPermissions = (req, res, next) => {
   // TODO: add whitelist after discussions with Colin and Laura (`TYPEofEmployee`_`subagency`:`Employee_status`)
-  if (!req.user || req.user.role != 'admin') {
-    res.status(401).send({ errors: ['Unauthorized'] });
-  } else {
+  if (isLocalOrCI()) {
     next();
+  } else {
+    if (!req.user || req.user.role != 'admin') {
+      res.status(401).send({
+        errors: ['Unauthorized']
+      });
+    } else {
+      next();
+    }
   }
 };
 
@@ -93,6 +113,12 @@ app.use('/docs/api', express.static('docs/api'));
 
 /* Universal passport user */
 app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
+  if (isLocalOrCI()) {
+    res.send({
+      email: 'local@test.com',
+      role: 'admin'
+    });
+  }
   res.send(req.user);
 });
 
