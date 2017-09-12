@@ -10,10 +10,7 @@ import { Http } from '@angular/http';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent {
-  @Input() user: any;
-  @Output() status: EventEmitter<any> = new EventEmitter<any>();
-
-  constructor(private authenticationService: AuthenticationService, private router: Router, private http: Http) {}
+  constructor(private authentication: AuthenticationService, private router: Router, private http: Http) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
@@ -21,10 +18,10 @@ export class AuthenticatedComponent {
 
   logout(e: Event) {
     e.preventDefault();
-    this.status.emit({ message: 'You have successfully logged out of Forest Service permits.', header: '' });
-    this.user = null;
+    const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
+    localStorage.setItem('status', JSON.stringify(status));
     localStorage.removeItem('requestingUrl');
-    this.authenticationService.logout();
-    //  this.router.navigate(['']);
+    this.authentication.removeUser();
+    window.location.href = environment.apiUrl + 'auth/logout';
   }
 }
