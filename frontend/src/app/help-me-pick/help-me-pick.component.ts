@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-help-me-pick',
@@ -14,8 +13,7 @@ export class HelpMePickComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private titleService: Title,
-    private authentication: AuthenticationService
+    private titleService: Title
   ) {}
 
   goToStep(id) {
