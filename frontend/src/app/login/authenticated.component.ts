@@ -21,10 +21,10 @@ export class AuthenticatedComponent {
 
   logout(e: Event) {
     e.preventDefault();
-    this.authenticationService.logout();
     this.status.emit({ message: 'You have successfully logged out of Forest Service permits.', header: '' });
     this.user = null;
     localStorage.removeItem('requestingUrl');
-    this.router.navigate(['']);
+    this.authenticationService.logout();
+    //  this.router.navigate(['']);
   }
 }
