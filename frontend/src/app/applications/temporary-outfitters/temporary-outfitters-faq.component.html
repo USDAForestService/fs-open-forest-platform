@@ -110,7 +110,7 @@
 
     <div>
       <a routerLink="/" class="usa-button faq-button-middle">Back to permits</a>
-      <a id="temp-outfitters-permit" class="usa-button-inverse usa-button usa-button-big usa-button-border" routerLink="/applications/temp-outfitters/new">Temp outfitter's permit<span *ngIf="!authentication.user" class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span></a>
+      <app-button link="/applications/temp-outfitters/new" buttonText="Temp outfitter's permit"></app-button>
     </div>
   </div>
 </div>
