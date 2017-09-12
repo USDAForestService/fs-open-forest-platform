@@ -43,9 +43,8 @@ export class AuthenticationService {
     return this.user;
   }
 
-  logout() {
+  removeUser() {
     this.user = null;
-    window.location.href = this.endpoint + 'auth/logout';
   }
 
   private handleError(error: Response | any) {
