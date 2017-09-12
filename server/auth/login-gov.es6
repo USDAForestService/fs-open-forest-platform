@@ -20,12 +20,12 @@ let basicAuthOptions = {
 
 const params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
+  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('base64'),
   prompt: 'select_account',
   redirect_uri: vcapServices.baseUrl + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
-  state: new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
+  state: new Buffer(`${Math.random()}${Math.random()}`).toString('base64')
 };
 
 loginGov.setup = () => {
@@ -67,9 +67,13 @@ loginGov.router = express.Router();
 
 loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
-loginGov.router.get('/auth/login-gov/openid/callback', passport.authenticate('oidc'), (req, res) => {
-  // res.redirect doesn't pass the Blink's Content Security Policy directive
-  res.send(`<script>window.location = '${vcapServices.intakeClientBaseUrl}'</script>`);
-});
+loginGov.router.get(
+  '/auth/login-gov/openid/callback',
+  passport.authenticate('oidc', { failureRedirect: vcapServices.intakeClientBaseUrl }),
+  (req, res) => {
+    // res.redirect doesn't pass the Blink's Content Security Policy directive
+    res.send(`<script>window.location = '${vcapServices.intakeClientBaseUrl}/logged-in'</script>`);
+  }
+);
 
 module.exports = loginGov;
