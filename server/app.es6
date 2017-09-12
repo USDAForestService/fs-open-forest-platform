@@ -73,6 +73,15 @@ let checkPermissions = (req, res, next) => {
   }
 };
 
+let checkAdminPermissions = (req, res, next) => {
+  // TODO: add whitelist after discussions with Colin and Laura (`TYPEofEmployee`_`subagency`:`Employee_status`)
+  if (!req.user || req.user.role != 'admin') {
+    res.status(401).send({ errors: ['Unauthorized'] });
+  } else {
+    next();
+  }
+};
+
 app.options('*', setCorsHeaders, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
@@ -140,7 +149,7 @@ app.post(
 );
 
 /** Get all applications with status on Received or Hold. */
-app.get('/permits/applications', setCorsHeaders, checkPermissions, util.getAllOpenApplications);
+app.get('/permits/applications', setCorsHeaders, checkAdminPermissions, util.getAllOpenApplications);
 
 /** Get the number of seconds that this instance has been running. */
 app.get('/uptime', (req, res) => {
