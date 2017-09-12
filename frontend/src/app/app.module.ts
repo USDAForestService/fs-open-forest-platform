@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AccessDeniedComponent } from './login/access-denied.component';
 import { AlertService } from './_services/alert.service';
 import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
@@ -32,6 +33,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 
 @NgModule({
   declarations: [
+    AccessDeniedComponent,
     AppComponent,
     AuthenticatedComponent,
     Base64,

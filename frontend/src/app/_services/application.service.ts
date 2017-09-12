@@ -6,6 +6,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 import { SpecialUseApplication } from '../_models/special-use-application';
 
@@ -13,7 +14,7 @@ import { SpecialUseApplication } from '../_models/special-use-application';
 export class ApplicationService {
   private endpoint = environment.apiUrl + 'permits/applications';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   create(body, type, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -56,6 +57,9 @@ export class ApplicationService {
   private handleError(error: Response | any) {
     let errors: any;
     if (error instanceof Response) {
+      if (error.status === 403) {
+        this.router.navigate(['access-denied']);
+      }
       const body = error.json() || '';
       errors = body.errors;
     } else {

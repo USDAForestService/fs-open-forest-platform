@@ -10,6 +10,7 @@ import { SpacesToDashesPipe } from './../../_pipes/spaces-to-dashes.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertService } from '../../_services/alert.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import * as moment from 'moment/moment';
 
 describe('PermitApplicationListComponent', () => {
@@ -22,7 +23,7 @@ describe('PermitApplicationListComponent', () => {
         declarations: [PermitApplicationListComponent, SortArray, HoursFromOrDate, DaysToOrDate, SpacesToDashesPipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [ApplicationService, AlertService],
-        imports: [HttpModule]
+        imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
   );
