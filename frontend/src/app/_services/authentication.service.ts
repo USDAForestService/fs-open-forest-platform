@@ -45,7 +45,7 @@ export class AuthenticationService {
 
   logout() {
     this.user = null;
-    this.router.navigate([this.endpoint + 'auth/logout']);
+    window.location.href = this.endpoint + 'auth/logout';
   }
 
   private handleError(error: Response | any) {
