@@ -2,21 +2,15 @@ import { AdminApplicationList } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-describe('Apply for a temp outfitters permit', () => {
+describe('Apply for a ', () => {
   let list: AdminApplicationList;
 
   beforeEach(() => {
     list = new AdminApplicationList();
   });
 
-  it('should not display the admin list page if you are not authenticated', () => {
-    list.navigateTo();
-    expect<any>(browser.getCurrentUrl()).not.toEqual(browser.baseUrl + '/admin/applications');
-  });
-
   it('should display forest name', () => {
     list.navigateTo();
-    element(by.id('login')).click();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });
 
