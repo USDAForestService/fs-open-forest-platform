@@ -86,7 +86,7 @@ let checkAdminPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
     next();
   } else {
-    if (req.user.role !== 'admin' || !vcapServices.includes(req.user.email)) {
+    if (req.user.role !== 'admin' || !vcapServices.eAuthUserWhiteList.includes(req.user.email)) {
       res.status(403).send({ errors: ['Forbidden'] });
     } else {
       next();
