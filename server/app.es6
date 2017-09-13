@@ -13,10 +13,10 @@ var session = require('cookie-session');
 
 let app = express();
 
-/* Use helmet for increased security. */
+/* use helmet for increased security */
 app.use(helmet());
 
-/* Body parsers */
+/* body parsers, necessary for restful JSON and passport */
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -24,7 +24,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-/* Session handler */
+/* session handler */
 app.use(
   session({
     name: 'session',
@@ -41,6 +41,7 @@ app.use(
   })
 );
 
+// used to bypass authentication when doing development
 let isLocalOrCI = () => {
   const environments = ['CI', 'local'];
   if (environments.indexOf(process.env.PLATFORM) !== -1) {
@@ -50,6 +51,7 @@ let isLocalOrCI = () => {
 };
 
 let setCorsHeaders = (req, res, next) => {
+  // don't cache the API calls
   res.set('Cache-Control', 'no-cache');
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
@@ -64,6 +66,7 @@ let setCorsHeaders = (req, res, next) => {
   next();
 };
 
+// middleware for checking a valid user
 let checkPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
     next();
@@ -78,6 +81,7 @@ let checkPermissions = (req, res, next) => {
   }
 };
 
+// middleware for checking a valid admin user
 let checkAdminPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
     next();
@@ -90,13 +94,14 @@ let checkAdminPermissions = (req, res, next) => {
   }
 };
 
+// allow anyone to check the preflights
 app.options('*', setCorsHeaders, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
-/* Setup passport */
+/* setup passport */
 let passport = loginGov.setup();
 app.use(passport.initialize());
 app.use(passport.session());
@@ -107,7 +112,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-/* Universal passport user */
+/* return universal passport user */
 app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
   if (isLocalOrCI()) {
     res.send({
@@ -118,8 +123,9 @@ app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
   res.send(req.user);
 });
 
-/* Universal passport logout */
+/* universal passport logout */
 app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
+  // login.gov requires the user to visit the idp to logout
   if (req.user.role === 'user') {
     res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
@@ -132,44 +138,44 @@ app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
   }
 });
 
-/** Get a single noncommercial permit application. */
+/** get a single noncommercial permit application */
 app.get('/permits/applications/special-uses/noncommercial/:id', setCorsHeaders, checkPermissions, noncommercial.getOne);
-/** Create a new noncommercial permit application. */
+/** create a new noncommercial permit application */
 app.post('/permits/applications/special-uses/noncommercial', setCorsHeaders, checkPermissions, noncommercial.create);
-/** Update a noncommercial permit application. */
+/** update a noncommercial permit application */
 app.put('/permits/applications/special-uses/noncommercial/:id', setCorsHeaders, checkPermissions, noncommercial.update);
 
-/** Get a temp outfitter permit application. */
+/** get a temp outfitter permit application */
 app.get(
   '/permits/applications/special-uses/temp-outfitter/:id',
   setCorsHeaders,
   checkPermissions,
   tempOutfitter.getOne
 );
-/** Get temp outfitter files by application id. */
+/** get temp outfitter files by application id */
 app.get(
   '/permits/applications/special-uses/temp-outfitter/:id/files',
   setCorsHeaders,
   checkPermissions,
   tempOutfitter.getApplicationFileNames
 );
-/** Get a temp outfitter file. */
+/** get a temp outfitter file */
 app.get(
   '/permits/applications/special-uses/temp-outfitter/:id/files/:file',
   setCorsHeaders,
   checkPermissions,
   tempOutfitter.streamFile
 );
-/** Create a new temp outfitter permit application. */
+/** create a new temp outfitter permit application */
 app.post('/permits/applications/special-uses/temp-outfitter', setCorsHeaders, checkPermissions, tempOutfitter.create);
-/** Update a temp outfitter permit application. */
+/** update a temp outfitter permit application */
 app.put(
   '/permits/applications/special-uses/temp-outfitter/:id',
   setCorsHeaders,
   checkPermissions,
   tempOutfitter.update
 );
-/** Handle temp outfitter file upload and invokes streamToS3 function. */
+/** handle temp outfitter file upload and invokes streamToS3 function */
 app.post(
   '/permits/applications/special-uses/temp-outfitter/file',
   setCorsHeaders,
@@ -178,22 +184,22 @@ app.post(
   tempOutfitter.attachFile
 );
 
-/** Get all applications with status on Received or Hold. */
+/** get all applications with status on Received or Hold */
 app.get('/permits/applications', setCorsHeaders, checkPermissions, checkAdminPermissions, util.getAllOpenApplications);
 
-/** Get the number of seconds that this instance has been running. */
+/** get the number of seconds that this instance has been running */
 app.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-/* Serve static documentation pages. */
+/* serve static documentation pages */
 app.use('/docs/api', express.static('docs/api'));
 
 app.use(loginGov.router);
 app.use(eAuth.router);
 
-/* Start the server. */
+/* start the server */
 app.listen(8080);
 
-/* Export needed for testing. */
+/* export needed for testing */
 module.exports = app;
