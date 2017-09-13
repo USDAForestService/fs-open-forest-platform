@@ -24,7 +24,7 @@
     "request": "^2.81.0",
     "sequelize": "^4.2.0",
     "sequelize-cli": "^3.0.0-2",
-    "snyk": "^1.36.2"
+    "snyk": "^1.40.2"
   },
   "devDependencies": {
     "blob": "^0.0.4",
@@ -53,7 +53,8 @@
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
     "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
-    "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo"
+    "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": "^6.10.3"

@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent {
-  constructor(private authentication: AuthenticationService, private router: Router, private http: Http) {}
+  constructor(public authentication: AuthenticationService, private router: Router, private http: Http) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
