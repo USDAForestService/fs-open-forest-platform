@@ -18,12 +18,13 @@
     "multer-s3": "^2.7.0",
     "node-jose": "^0.9.5",
     "openid-client": "^1.13.0",
-    "passport": "^0.3.2",
-    "pg": "^6.2.2",
+    "passport": "^0.4.0",
+    "passport-saml": "^0.15.0",
+    "pg": "^6.0.0",
     "request": "^2.81.0",
     "sequelize": "^4.2.0",
-    "sequelize-cli": "^2.7.0",
-    "snyk": "^1.36.2"
+    "sequelize-cli": "^3.0.0-2",
+    "snyk": "^1.40.2"
   },
   "devDependencies": {
     "blob": "^0.0.4",
@@ -45,14 +46,15 @@
     "coverage": "./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha",
     "dev": "yarn; ./node_modules/.bin/nodemon --harmony_default_parameters app.es6",
     "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
-    "migrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate",
+    "migrate": "./node_modules/.bin/sequelize db:migrate",
     "report-coverage": "CODECOV_TOKEN='e61f7ed1-686a-4f48-95b3-02fa7085995e' ./node_modules/nyc/bin/nyc.js report --reporter=lcov > coverage.lcov && codecov",
-    "seed": "./node_modules/sequelize-cli/bin/sequelize db:seed:all",
+    "seed": "./node_modules/.bin/sequelize db:seed:all",
     "snyk-protect": "snyk protect",
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
-    "undoAllMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo:all",
-    "undoLastMigrate": "./node_modules/sequelize-cli/bin/sequelize db:migrate:undo"
+    "undoAllMigrate": "./node_modules/.bin/sequelize db:migrate:undo:all",
+    "undoLastMigrate": "./node_modules/.bin/sequelize db:migrate:undo",
+    "prepublish": "npm run snyk-protect"
   },
   "engines": {
     "node": "^6.10.3"

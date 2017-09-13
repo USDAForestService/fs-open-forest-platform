@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { PermitApplicationListComponent } from './permit-application-list.component';
 import { ApplicationService } from './../../_services/application.service';
@@ -10,6 +11,7 @@ import { SpacesToDashesPipe } from './../../_pipes/spaces-to-dashes.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertService } from '../../_services/alert.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import * as moment from 'moment/moment';
 
 describe('PermitApplicationListComponent', () => {
@@ -21,8 +23,8 @@ describe('PermitApplicationListComponent', () => {
       TestBed.configureTestingModule({
         declarations: [PermitApplicationListComponent, SortArray, HoursFromOrDate, DaysToOrDate, SpacesToDashesPipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        providers: [ApplicationService, AlertService],
-        imports: [HttpModule]
+        providers: [{ provide: ApplicationService, useClass: MockApplicationService }, AlertService],
+        imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
   );
@@ -31,10 +33,6 @@ describe('PermitApplicationListComponent', () => {
     fixture = TestBed.createComponent(PermitApplicationListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('should return true if we are past deadline', () => {
@@ -107,3 +105,9 @@ describe('PermitApplicationListComponent', () => {
     expect(component.isWeekAwayOrPast(date)).toBeFalsy();
   });
 });
+
+class MockApplicationService {
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+}

@@ -66,6 +66,7 @@ export class PermitApplicationListComponent implements OnInit {
         this.applications = applications;
       },
       (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
         this.apiErrors = e;
         window.scroll(0, 0);
       }
