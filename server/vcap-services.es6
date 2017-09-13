@@ -53,3 +53,13 @@ vcapConstants.eAuthCert = eAuthService.credentials.cert;
 vcapConstants.eAuthPrivateKey = eAuthService.credentials.privatekey;
 
 module.exports = vcapConstants;
+
+// SMTP
+let smtp = VCAPServices['user-provided'].find(element => {
+  return element.name === 'smtp-service';
+});
+vcapConstants.smtpHost = smtp.credentials.smtpserver;
+vcapConstants.smtpUsername = smtp.credentials.username;
+if (smtp.credentials.password) {
+  vcapConstants.smtpPassword = smtp.credentials.password;
+}
