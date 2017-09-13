@@ -436,6 +436,7 @@ tempOutfitter.create = (req, res) => {
   } else {
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
+        email.tempOutfitterApplicationSubmittedConfirmation(noncommApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
         res.status(201).json(req.body);

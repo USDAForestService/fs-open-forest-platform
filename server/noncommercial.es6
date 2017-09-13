@@ -5,6 +5,7 @@ let request = require('request');
 let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
+let email = require('./email-util.es6');
 
 let noncommercial = {};
 
@@ -248,7 +249,11 @@ noncommercial.acceptApplication = application => {
 };
 
 noncommercial.getOne = (req, res) => {
-  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
+  NoncommercialApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (app) {
         res.status(200).json(translateFromDatabaseToClient(app));
@@ -274,6 +279,7 @@ noncommercial.create = (req, res) => {
     // create the noncommercial app object and persist
     NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
+        email.noncommercialApplicationSubmittedConfirmation(noncommApp);
         req.body['applicationId'] = noncommApp.applicationId;
         req.body['appControlNumber'] = noncommApp.appControlNumber;
         res.status(201).json(req.body);
@@ -285,7 +291,11 @@ noncommercial.create = (req, res) => {
 };
 
 noncommercial.update = (req, res) => {
-  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+  NoncommercialApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  }).then(app => {
     if (app) {
       app.status = req.body.status;
       if (app.status === 'Accepted') {
