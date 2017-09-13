@@ -7,8 +7,6 @@ let vcapServices = require('../vcap-services.es6');
 
 let eAuth = {};
 
-eAuth.idpLoginAddress =
-  'https://www.cert.eauth.usda.gov/affwebservices/public/saml2sso?SPID=fs-intake-api-staging.app.cloud.gov';
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
@@ -22,7 +20,6 @@ passport.use(
       cert: vcapServices.eAuthCert
     },
     (profile, done) => {
-      console.log('---------- profile:', profile);
       return done(null, { email: profile.usdaemail, role: 'admin' });
     }
   )
@@ -31,7 +28,7 @@ passport.use(
 eAuth.router = express.Router();
 
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  res.redirect(eAuth.idpLoginAddress);
+  res.redirect(`${vcapServices.eAuthEntryPoint}?SPID=${vcapServices.eAuthIssuer}`);
 });
 
 eAuth.router.post(
