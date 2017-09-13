@@ -50,6 +50,7 @@ let isLocalOrCI = () => {
 };
 
 let setCorsHeaders = (req, res, next) => {
+  res.set('Cache-Control', 'no-cache');
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
     res.set('Access-Control-Allow-Credentials', true);
