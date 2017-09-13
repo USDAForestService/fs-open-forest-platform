@@ -40,7 +40,7 @@ vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
 vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
 vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
 vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
-vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
+vcapConstants.loginGovDiscoveryUrl = loginGovService.credentials.discoveryurl;
 
 // USDA eAuth
 let eAuthService = VCAPServices['user-provided'].find(element => {

@@ -30,7 +30,7 @@ loginGov.params = {
 
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
-  Issuer.discover('https://idp.int.login.gov/.well-known/openid-configuration').then(loginGovIssuer => {
+  Issuer.discover(vcapServices.loginGovDiscoveryUrl).then(loginGovIssuer => {
     loginGov.issuer = loginGovIssuer;
     let keys = {
       keys: [vcapServices.loginGovJwk]
