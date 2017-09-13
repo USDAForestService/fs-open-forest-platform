@@ -63,7 +63,7 @@ The following environment variables are required:
       "credentials": {
         "cert": "40a4ce56c7494ed37649/test.pdf",
         "entrypoint": "https://idp.int.login.gov/api/saml/auth",
-        "issuer": "<ENTER ISSUER HERE>,
+        "issuer": "<ENTER ISSUER HERE>",
         "privatekey": "<ENTER SAML KEY HERE>"
       },
       "label": "user-provided",
@@ -96,9 +96,9 @@ The following environment variables are required:
 }```
 
 - `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is: ```{
-  "uris": {
+  "uris": [
     "http://localhost:8080/"
-  }
+  ]
 }```
 
 ## Available commands
