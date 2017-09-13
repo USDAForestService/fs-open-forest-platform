@@ -22,7 +22,6 @@ export class AuthenticatedComponent {
     localStorage.setItem('status', JSON.stringify(status));
     localStorage.removeItem('requestingUrl');
     this.authentication.removeUser();
-    this.router.navigate(['']);
-    //    window.location.href = environment.apiUrl + 'auth/logout';
+    window.location.href = environment.apiUrl + 'auth/logout';
   }
 }
