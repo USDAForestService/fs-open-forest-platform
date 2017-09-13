@@ -37,8 +37,8 @@ The following environment variables are required:
     {
       "credentials": {
         "INTAKE_CLIENT_BASE_URL": "http://localhost:4200",
-        "INTAKE_PASSWORD": "password",
-        "INTAKE_USERNAME": "username"
+        "INTAKE_PASSWORD": "<PASSWORD>",
+        "INTAKE_USERNAME": "<USERNAME>"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -48,10 +48,24 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "cert": "40a4ce56c7494ed37649/test.pdf",
-        "entrypoint": "https://idp.int.login.gov/api/saml/auth",
-        "issuer": "urn:gov:gsa:SAML:2.0.profiles:sp:sso:usda-forestservice:epermit-dev",
-        "privatekey": "<ENTER SAML KEY HERE>"
+        "entrypoint": "<ENTRYPOINT>",
+        "issuer": "<ISSUER>",
+        "privatekey": "<KEY>",
+        "discoveryurl": "<URL>",
+        "IDP_USERNAME": "<USERNAME>",
+        "IDP_PASSWORD": "<PASSWORD>",
+        "jwk": {
+          "d": "<D>",
+          "dp": "<DP>",
+          "dq": "<DQ>",
+          "e": "<E>",
+          "kty": "RSA",
+          "kid": "<KID>",
+          "n": "<N>",
+          "p": "<P>",
+          "q": "<Q>",
+          "qi": "<QI>"
+        }
       },
       "label": "user-provided",
       "name": "login-service-provider",
@@ -61,10 +75,11 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "cert": "40a4ce56c7494ed37649/test.pdf",
-        "entrypoint": "https://idp.int.login.gov/api/saml/auth",
-        "issuer": "<ENTER ISSUER HERE>",
-        "privatekey": "<ENTER SAML KEY HERE>"
+        "whitelist": ["test@test.us"],
+        "issuer": "<ISSUER>",
+        "entrypoint": "<ENTRYPOINT>",
+        "cert": "<CERT>",
+        "privatekey": "<KEY>"
       },
       "label": "user-provided",
       "name": "eauth-service-provider",
@@ -77,16 +92,7 @@ The following environment variables are required:
     {
       "name": "intake-s3",
       "credentials": {
-        "bucket": "flexion-test",
-        "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
-        "region": "us-east-1",
-        "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
-      }
-    },
-    {
-      "name": "certs",
-      "credentials": {
-        "bucket": "flexion-test",
+        "bucket": "<BUCKET>",
         "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
         "region": "us-east-1",
         "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
