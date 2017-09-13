@@ -20,12 +20,12 @@ let basicAuthOptions = {
 
 loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('base64'),
+  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
   prompt: 'select_account',
   redirect_uri: vcapServices.baseUrl + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
-  state: new Buffer(`${Math.random()}${Math.random()}`).toString('base64')
+  state: new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
 };
 
 loginGov.setup = () => {
@@ -68,6 +68,11 @@ loginGov.setup = () => {
 loginGov.router = express.Router();
 
 loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
+
+loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
+  req.logout();
+  res.send(`<script>window.location = '${vcapServices.intakeClientBaseUrl}'</script>`);
+});
 
 loginGov.router.get(
   '/auth/login-gov/openid/callback',
