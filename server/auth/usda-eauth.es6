@@ -25,6 +25,7 @@ passport.use(
   )
 );
 
+// router for eAuth specific endpoints
 eAuth.router = express.Router();
 
 eAuth.router.get(eAuth.loginPath, (req, res) => {

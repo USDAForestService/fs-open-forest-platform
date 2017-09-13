@@ -9,6 +9,7 @@ let vcapServices = require('../vcap-services.es6');
 
 let loginGov = {};
 
+// basic auth is needed for the int version of login.gov
 let basicAuthOptions = {
   headers: {
     Host: 'idp.int.login.gov',
@@ -35,6 +36,7 @@ loginGov.setup = () => {
     let keys = {
       keys: [vcapServices.loginGovJwk]
     };
+    // a joseKeystore is required by openid-client
     jose.JWK.asKeyStore(keys).then(joseKeystore => {
       let client = new loginGovIssuer.Client(
         {
@@ -55,6 +57,7 @@ loginGov.setup = () => {
             return done(null, {
               email: tokenset.claims.email,
               role: 'user',
+              // the token is required to logout of login.gov
               token: tokenset.id_token
             });
           }
@@ -65,17 +68,21 @@ loginGov.setup = () => {
   return passport;
 };
 
+// router for login.gov specific endpoints
 loginGov.router = express.Router();
 
 loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
 
 loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
+  // destroy the session
   req.logout();
+  // res.redirect doesn't pass the Blink's Content Security Policy directive
   res.send(`<script>window.location = '${vcapServices.intakeClientBaseUrl}'</script>`);
 });
 
 loginGov.router.get(
   '/auth/login-gov/openid/callback',
+  // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
   passport.authenticate('oidc', { failureRedirect: vcapServices.intakeClientBaseUrl }),
   (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
