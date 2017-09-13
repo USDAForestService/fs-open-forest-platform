@@ -1,11 +1,11 @@
 <div class="authentication">
-  <ng-container *ngIf="!userEmail">
+  <ng-container *ngIf="!authentication.user">
     <a href="javascript:void(0)" (click)="login()">Log in</a>
     or
     <a href="javascript:void(0)" (click)="login()">create an account</a>
   </ng-container>
 
-  <ng-container *ngIf="userEmail">
-    Welcome {{ userEmail }} | <a class="cursor-pointer" href="#" (click)="logout($event)">Logout</a>
+  <ng-container *ngIf="authentication.user">
+    Welcome<span *ngIf="authentication.user.role === 'admin'"> admin</span> {{ authentication.user.email }} | <a class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
   </ng-container>
 </div>

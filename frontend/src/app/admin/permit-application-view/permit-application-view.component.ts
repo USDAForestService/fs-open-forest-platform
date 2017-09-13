@@ -35,6 +35,7 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
         this.errorMessage = 'The application could not be found.';
         window.scrollTo(0, 200);
       }
@@ -46,17 +47,24 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.update(application, this.type).subscribe(
       (data: any) => {
         if (status === 'Accepted') {
-          this.alertService.addSuccessMessage('Permit application successfully sent to SUDS.');
+          this.alertService.addSuccessMessage(
+            'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant.'
+          );
         }
         if (status === 'Hold') {
-          this.alertService.addSuccessMessage('Permit application successfully put on hold.');
+          this.alertService.addSuccessMessage(
+            'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
+          );
         }
         if (status === 'Returned') {
-          this.alertService.addSuccessMessage('Permit application successfully rejected.');
+          this.alertService.addSuccessMessage(
+            'Permit application successfully rejected and an email with your message has been sent to the applicant.'
+          );
         }
         this.router.navigate(['admin/applications']);
       },
-      (error: any) => {
+      (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
         this.errorMessage = 'There was an error updating this application.';
         window.scrollTo(0, 200);
       }
