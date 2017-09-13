@@ -3,6 +3,10 @@
 const vcapConstants = {};
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
 
+// Base URL of this instance
+// vcapConstants.baseUrl = 'https://' + JSON.parse(process.env.VCAP_APPLICATION).uris[0];
+vcapConstants.baseUrl = 'https://fs-intake-staging-api.app.cloud.gov';
+
 // Intake S3
 let intakeS3 = VCAPServices['s3'].find(element => {
   return element.name === 'intake-s3';
@@ -36,6 +40,16 @@ vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
 vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
 vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
 vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
-vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
+vcapConstants.loginGovDiscoveryUrl = loginGovService.credentials.discoveryurl;
+
+// USDA eAuth
+let eAuthService = VCAPServices['user-provided'].find(element => {
+  return element.name === 'eauth-service-provider';
+});
+vcapConstants.eAuthUserWhiteList = eAuthService.credentials.whitelist;
+vcapConstants.eAuthIssuer = eAuthService.credentials.issuer;
+vcapConstants.eAuthEntryPoint = eAuthService.credentials.entrypoint;
+vcapConstants.eAuthCert = eAuthService.credentials.cert;
+vcapConstants.eAuthPrivateKey = eAuthService.credentials.privatekey;
 
 module.exports = vcapConstants;

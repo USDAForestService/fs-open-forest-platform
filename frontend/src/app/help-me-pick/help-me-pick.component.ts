@@ -10,7 +10,11 @@ export class HelpMePickComponent implements OnInit {
   id: number;
   title: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private titleService: Title) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private titleService: Title
+  ) {}
 
   goToStep(id) {
     this.router.navigate(['/help-me-pick', id]);
@@ -19,7 +23,6 @@ export class HelpMePickComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-
       switch ('' + this.id + '') {
         case '1':
           this.title = 'Are you charging a participation fee for your activity?';

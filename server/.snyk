@@ -12,3 +12,11 @@ patch:
         patched: '2017-07-21T16:17:20.834Z'
     - sequelize-cli > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2017-07-21T16:17:20.834Z'
+    - sequelize-cli > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2017-09-13T16:53:20.246Z'
+    - sequelize-cli > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2017-09-13T16:53:20.246Z'
+    - sequelize-cli > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2017-09-13T16:53:20.246Z'
+    - sequelize-cli > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2017-09-13T16:53:20.246Z'

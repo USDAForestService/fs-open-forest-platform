@@ -1,0 +1,10 @@
+<section class="usa-section" *ngIf="heading || message">
+  <div class="usa-grid">
+    <div class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <h3 *ngIf="heading" class="usa-alert-heading">{{ heading }}</h3>
+        <p class="usa-alert-text">{{ message }}</p>
+      </div>
+    </div>
+  </div>
+</section>
