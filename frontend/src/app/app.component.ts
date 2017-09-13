@@ -40,6 +40,15 @@ export class AppComponent implements OnInit {
         this.user = user;
       }
     });
+    if (localStorage.getItem('status')) {
+      this.status = JSON.parse(localStorage.getItem('status'));
+      localStorage.removeItem('status');
+    } else {
+      this.status = {
+        heading: '',
+        message: ''
+      };
+    }
   }
 
   updateStatus(status: any) {
@@ -48,9 +57,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    if (localStorage.getItem('status')) {
-      this.status = JSON.parse(localStorage.getItem('status'));
-      localStorage.removeItem('status');
-    }
   }
 }
