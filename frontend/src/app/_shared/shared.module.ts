@@ -6,7 +6,7 @@ import { AppButtonComponent } from '../home/app-button.component';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 
 @NgModule({
-  imports: [CommonModule,AppRoutingModule],
+  imports: [CommonModule, AppRoutingModule],
   declarations: [TrackScrollDirective, AppButtonComponent],
   exports: [AppRoutingModule, TrackScrollDirective, CommonModule, ReactiveFormsModule, FormsModule, AppButtonComponent]
 })
