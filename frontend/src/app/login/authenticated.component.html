@@ -6,6 +6,6 @@
   </ng-container>
 
   <ng-container *ngIf="authentication.user">
-    Welcome<span *ngIf="authentication.user.role === 'admin'"> admin</span> {{ authentication.user.email }} | <a class="cursor-pointer" href="#" (click)="logout($event)">Logout</a>
+    Welcome<span *ngIf="authentication.user.role === 'admin'"> admin</span> {{ authentication.user.email }} | <a class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
   </ng-container>
 </div>

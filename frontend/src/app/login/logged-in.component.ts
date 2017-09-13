@@ -10,7 +10,7 @@ export class LoggedInComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    let requestingUrl = localStorage.getItem('requestingUrl');
+    const requestingUrl = localStorage.getItem('requestingUrl');
     if (requestingUrl) {
       localStorage.removeItem('requestingUrl');
       this.router.navigate([requestingUrl]);
