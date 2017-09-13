@@ -29,8 +29,8 @@ app.use(
   session({
     name: 'session',
     keys: [
-      new Buffer(`${Math.random()}${Math.random()}`).toString('base64'),
-      new Buffer(`${Math.random()}${Math.random()}`).toString('base64')
+      new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
+      new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
     ],
     cookie: {
       secure: true,
@@ -77,13 +77,11 @@ let checkPermissions = (req, res, next) => {
   }
 };
 
-const adminWhitelist = ['esorenson1@flexion.us', 'salt@flexion.us'];
-
 let checkAdminPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
     next();
   } else {
-    if (req.user.role !== 'admin' || !adminWhitelist.includes(req.user.email)) {
+    if (req.user.role !== 'admin' || !vcapServices.includes(req.user.email)) {
       res.status(403).send({ errors: ['Forbidden'] });
     } else {
       next();
@@ -122,12 +120,10 @@ app.get('/auth/user', setCorsHeaders, checkPermissions, (req, res) => {
 /* Universal passport logout */
 app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
   if (req.user.role === 'user') {
-    let token = req.user.token;
-    req.logout();
     res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        vcapServices.intakeClientBaseUrl
-      )}&state=${loginGov.params.state}&id_token_hint=${token}`
+        vcapServices.baseUrl + '/auth/login-gov/openid/logout'
+      )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
     req.logout();
