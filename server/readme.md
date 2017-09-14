@@ -87,7 +87,17 @@ The following environment variables are required:
       "syslog_drain_url": "",
       "tags": [],
       "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "smtpserver": "<ENTER SMTP SERVER>",
+        "username": "<ENTER SMTP USER NAME>",
+        "password": "<ENTER SMTP PASSWORD>"
+      },
+      "label": "user-provided",
+      "name": "smtp-service"
     }
+
   ],
   "s3": [
     {
