@@ -2,23 +2,13 @@
 
 let nodemailer = require('nodemailer');
 let vcapServices = require('./vcap-services.es6');
+let emailTemplates = require('./email-templates/email-templates.es6');
 
 let emailUtil = {};
 
-emailUtil.noncommercialApplicationSubmittedConfirmation = application => {
-  const to = application.applicantInfoEmailAddress;
-  const subject = 'New non commercial application';
-  const body = `Dear ${to}, thank you for your application.`;
-
-  emailUtil.send(to, subject, body);
-};
-
-emailUtil.tempOutfitterApplicationSubmittedConfirmation = application => {
-  const to = application.applicantInfoEmailAddress;
-  const subject = 'New non commercial application';
-  const body = `Dear ${to}, thank you for your application.`;
-
-  emailUtil.send(to, subject, body);
+emailUtil.sendEmail = (templateName, data) => {
+  let template = emailTemplates[templateName](data);
+  emailUtil.send(template.to, template.subject, template.body);
 };
 
 emailUtil.send = (to, subject, body) => {
@@ -47,7 +37,7 @@ emailUtil.send = (to, subject, body) => {
 
   let trans = transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return console.log(error);
+      return console.log('error message', error);
     }
     console.log('message info', info);
   });
