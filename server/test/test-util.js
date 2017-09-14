@@ -17,16 +17,16 @@ describe('util tests', () => {
         docx: 'application/msword',
         xls: 'application/vnd.ms-excel',
         xlsx: 'application/vnd.ms-excel'
-      }
+      };
       for (let ext in types) {
         expect(util.getContentType(ext)).to.equal(types[ext]);
       }
-    })
+    });
   });
 
   describe('prepareCerts', () => {
     after(() => {
-      AWS.mock('S3', 'getObject', function (params, cb) {
+      AWS.mock('S3', 'getObject', function(params, cb) {
         cb(null, tempOutfitterTestData.mockS3Get);
       });
     });
@@ -39,16 +39,19 @@ describe('util tests', () => {
     });
 
     it('should get rejected if s3 errors', done => {
-      let s3err = new Error("kaboom!");
-      AWS.mock('S3', 'getObject', function (params, cb) {
+      let s3err = new Error('kaboom!');
+      AWS.mock('S3', 'getObject', function(params, cb) {
         cb(s3err);
       });
-      util.prepareCerts().then(certs => {
-        done("should not reach this");
-      }).catch(err => {
-        expect(err).to.equal(s3err);
-        done();
-      });
+      util
+        .prepareCerts()
+        .then(() => {
+          done('should not reach this');
+        })
+        .catch(err => {
+          expect(err).to.equal(s3err);
+          done();
+        });
     });
   });
 
@@ -58,40 +61,40 @@ describe('util tests', () => {
     after(() => postStub.restore());
     it('should successfully post an auth the middle layer', done => {
       let token = 'token';
-      postStub.callsFake((opts, cb) => cb(null, {statusCode: 200}, {token}));
+      postStub.callsFake((opts, cb) => cb(null, { statusCode: 200 }, { token }));
       util.middleLayerAuth().then(_token => {
-        expect(_token).to.equal(token)
-        done()
+        expect(_token).to.equal(token);
+        done();
       });
     });
     it('should post an auth the middle layer and fail gracefully on error', done => {
       let err = 'kaboom';
       postStub.callsFake((opts, cb) => cb(err));
       util.middleLayerAuth().catch(_err => {
-        expect(_err).to.equal(err)
-        done()
+        expect(_err).to.equal(err);
+        done();
       });
     });
     it('should post an auth the middle layer and fail gracefully if statusCode is not 200', done => {
-      let res = {statusCode: 400};
+      let res = { statusCode: 400 };
       postStub.callsFake((opts, cb) => cb(null, res));
       util.middleLayerAuth().catch(_res => {
-        expect(_res).to.equal(res)
-        done()
+        expect(_res).to.equal(res);
+        done();
       });
     });
   });
 
   describe('getAllOpenApplications', () => {
     it('should get all open applications', done => {
-      let json = function (json) {
+      let json = function() {
         done();
       };
-      let status = function (status) {
+      let status = function(status) {
         expect(status).to.equal(200);
-        return {json};
+        return { json };
       };
-      util.getAllOpenApplications(null, {status});
+      util.getAllOpenApplications(null, { status });
     });
   });
 
