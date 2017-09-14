@@ -10,6 +10,7 @@ let tempOutfitter = require('./temp-outfitter.es6');
 let util = require('./util.es6');
 let vcapServices = require('./vcap-services.es6');
 var session = require('cookie-session');
+let email = require('./email-util.es6');
 
 let app = express();
 

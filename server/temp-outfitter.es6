@@ -10,6 +10,7 @@ let TempOutfitterApplication = require('./models/tempoutfitter-application.es6')
 let util = require('./util.es6');
 let validator = require('./validation.es6');
 let vcapServices = require('./vcap-services.es6');
+let email = require('./email-util.es6');
 
 let tempOutfitter = {};
 
@@ -436,7 +437,7 @@ tempOutfitter.create = (req, res) => {
   } else {
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
-        email.tempOutfitterApplicationSubmittedConfirmation(noncommApp);
+        email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
         res.status(201).json(req.body);
