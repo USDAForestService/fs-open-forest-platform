@@ -38,8 +38,8 @@ emailUtil.send = (to, subject, body) => {
   let trans = transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return console.log('error message', error);
+      //TODO: Handle error
     }
-    console.log('message info', info);
   });
 };
 
