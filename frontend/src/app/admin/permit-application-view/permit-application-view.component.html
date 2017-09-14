@@ -25,7 +25,7 @@
       <div class="usa-width-one-whole">
         <div class="close-reason-for-action" aria-label="Close" (click)="reasonOrCancel.open = false;">Close</div>
         <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
-        <textarea id="reason-for-return"></textarea>
+        <textarea id="reason-for-return" [(ngModel)]="reasonOrCancel.message"></textarea>
         <div class="reason-for-action-buttons">
           <button class="usa-button-outline" (click)="reasonOrCancel.open = false;">Cancel</button>
           <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>

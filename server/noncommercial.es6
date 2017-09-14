@@ -299,6 +299,7 @@ noncommercial.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
+      app.reasonForReturn = req.body.reasonForReturn;
       if (app.status === 'Accepted') {
         noncommercial
           .acceptApplication(app)
@@ -320,6 +321,10 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
+            if (app.status === 'Returned') {
+              //TODO: remove conditional if we want to send emails to applications with Hold status
+              email.sendEmail(`application${app.status}`, app);
+            }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
