@@ -147,4 +147,26 @@ Thank you for your interest in our National Forests.
   };
 };
 
+email.applicationReturned = application => {
+  return {
+    to: application.applicantInfoEmailAddress,
+    subject: 'Your noncommercial permit application has been submitted for review!',
+    body: `
+Your application has been returned because\r\n\r\n
+${application.reasonForReturn}
+`
+  };
+};
+
+email.applicationHold = application => {
+  return {
+    to: application.applicantInfoEmailAddress,
+    subject: 'Your noncommercial permit application has been submitted for review!',
+    body: `
+Your application has been set to hold because\r\n\r\n
+${application.reasonForReturn}
+`
+  };
+};
+
 module.exports = email;
