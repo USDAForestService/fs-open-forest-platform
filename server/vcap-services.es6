@@ -4,8 +4,7 @@ const vcapConstants = {};
 const VCAPServices = JSON.parse(process.env.VCAP_SERVICES);
 
 // Base URL of this instance
-// vcapConstants.baseUrl = 'https://' + JSON.parse(process.env.VCAP_APPLICATION).uris[0];
-vcapConstants.baseUrl = 'https://fs-intake-staging-api.app.cloud.gov';
+vcapConstants.baseUrl = 'https://' + JSON.parse(process.env.VCAP_APPLICATION).uris[0];
 
 // Intake S3
 let intakeS3 = VCAPServices['s3'].find(element => {
