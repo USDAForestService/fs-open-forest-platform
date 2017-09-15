@@ -6,9 +6,9 @@ const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
 const server = require('./mock-aws-app');
 const sinon = require('sinon');
 const util = require('../util.es6');
-var request = require('supertest');
-var tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
-var url = '/permits/applications/special-uses/temp-outfitter';
+const request = require('supertest');
+const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const url = '/permits/applications/special-uses/temp-outfitter';
 
 describe('temp outfitter server tests', () => {
   let testApp;
