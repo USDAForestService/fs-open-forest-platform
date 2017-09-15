@@ -1,10 +1,11 @@
 'use strict';
 
+let email = require('./email-util.es6');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
 let util = require('./util.es6');
 let validator = require('./validation.es6');
-let email = require('./email-util.es6');
+let vcapConstants = require('./vcap-constants.es6');
 
 let noncommercial = {};
 
@@ -223,7 +224,7 @@ let translateFromIntakeToMiddleLayer = input => {
 
 noncommercial.acceptApplication = application => {
   let requestOptions = {
-    url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+    url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
     body: translateFromIntakeToMiddleLayer(application)

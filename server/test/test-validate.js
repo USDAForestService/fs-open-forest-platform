@@ -1,8 +1,8 @@
 'use strict';
 
 var expect = require('chai').expect;
-var validation = require('../validation.es6');
 var noncommercialTestData = require('./data/noncommercialTestData.es6');
+var validation = require('../validation.es6');
 
 describe('validation tests', () => {
   describe('validate noncommercial apps', () => {

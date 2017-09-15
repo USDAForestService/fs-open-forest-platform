@@ -1,14 +1,14 @@
 'use strict';
 
+const _ = require('lodash');
+const expect = require('chai').expect;
+const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
+const server = require('./mock-aws-app');
+const sinon = require('sinon');
+const util = require('../util.es6');
 var request = require('supertest');
 var tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
-const util = require('../util.es6');
 var url = '/permits/applications/special-uses/temp-outfitter';
-const _ = require('lodash');
-const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
-const sinon = require('sinon');
-const expect = require('chai').expect;
-const server = require('./mock-aws-app');
 
 describe('temp outfitter server tests', () => {
   let testApp;
@@ -92,7 +92,7 @@ describe('temp outfitter server tests', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
-        .expect(201, (err) => {
+        .expect(201, err => {
           expect(err).to.be.null;
           done(err);
         });
@@ -107,7 +107,7 @@ describe('temp outfitter server tests', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
-        .expect(201, (err) => {
+        .expect(201, err => {
           expect(err).to.be.null;
           done(err);
         });
@@ -122,7 +122,7 @@ describe('temp outfitter server tests', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
-        .expect(201, (err) => {
+        .expect(201, err => {
           expect(err).to.be.null;
           done(err);
         });
@@ -137,7 +137,7 @@ describe('temp outfitter server tests', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
-        .expect(201, (err) => {
+        .expect(201, err => {
           expect(err).to.be.null;
           done(err);
         });
@@ -152,7 +152,7 @@ describe('temp outfitter server tests', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
-        .expect(201, (err) => {
+        .expect(201, err => {
           expect(err).to.be.null;
           done(err);
         });
@@ -176,18 +176,14 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon
-        .stub(util, 'middleLayerAuth')
-        .callsFake(function() {
-          return new Promise((resolve) => {
-            resolve('atoken');
-          });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
+        return new Promise(resolve => {
+          resolve('atoken');
         });
-      const req = sinon
-        .stub(require('request'), 'post')
-        .callsFake(function(opts, cb) {
-          cb(null, { statusCode: 200 }, { name: 'body' });
-        });
+      });
+      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
+        cb(null, { statusCode: 200 }, { name: 'body' });
+      });
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
@@ -205,13 +201,11 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon
-        .stub(util, 'middleLayerAuth')
-        .callsFake(function() {
-          return new Promise((resolve, reject) => {
-            reject(new Error('Not gonna happen'));
-          });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
+        return new Promise((resolve, reject) => {
+          reject(new Error('Not gonna happen'));
         });
+      });
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
@@ -227,18 +221,14 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon
-        .stub(util, 'middleLayerAuth')
-        .callsFake(function() {
-          return new Promise((resolve) => {
-            resolve('A token');
-          });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
+        return new Promise(resolve => {
+          resolve('A token');
         });
-      const req = sinon
-        .stub(require('request'), 'post')
-        .callsFake(function(opts, cb) {
-          cb(null, { statusCode: 400 }, { name: 'body' });
-        });
+      });
+      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
+        cb(null, { statusCode: 400 }, { name: 'body' });
+      });
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')

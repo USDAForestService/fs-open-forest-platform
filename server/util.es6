@@ -5,6 +5,7 @@ let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+let vcapConstants = require('./vcap-constants.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
@@ -113,11 +114,11 @@ util.getAllOpenApplications = (req, res) => {
 
 util.middleLayerAuth = () => {
   let requestOptions = {
-    url: vcapServices.middleLayerBaseUrl + 'auth',
+    url: vcapConstants.middleLayerBaseUrl + 'auth',
     json: true,
     body: {
-      username: vcapServices.middleLayerUsername,
-      password: vcapServices.middleLayerPassword
+      username: vcapConstants.middleLayerUsername,
+      password: vcapConstants.middleLayerPassword
     }
   };
   return new Promise((resolve, reject) => {
@@ -133,16 +134,16 @@ util.middleLayerAuth = () => {
 
 util.prepareCerts = () => {
   let s3 = new AWS.S3({
-    accessKeyId: vcapServices.certsAccessKeyId,
-    secretAccessKey: vcapServices.certsSecretAccessKey,
-    region: vcapServices.certsRegion
+    accessKeyId: vcapConstants.certsAccessKeyId,
+    secretAccessKey: vcapConstants.certsSecretAccessKey,
+    region: vcapConstants.certsRegion
   });
 
   let loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapServices.certsBucket,
-        Key: vcapServices.loginGovPrivateKey
+        Bucket: vcapConstants.certsBucket,
+        Key: vcapConstants.loginGovPrivateKey
       },
       (error, data) => {
         if (error) {
@@ -156,8 +157,8 @@ util.prepareCerts = () => {
   let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapServices.certsBucket,
-        Key: vcapServices.loginGovDecryptionCert
+        Bucket: vcapConstants.certsBucket,
+        Key: vcapConstants.loginGovDecryptionCert
       },
       (error, data) => {
         if (error) {
