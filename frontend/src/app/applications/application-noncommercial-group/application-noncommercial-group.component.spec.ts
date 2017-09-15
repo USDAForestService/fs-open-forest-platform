@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
-'./temporary-outfitters.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Observable } from 'rxjs/Observable';
@@ -37,7 +36,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
   });
 
   it('should call orgTypeChange if org type is changed', () => {
-    let spy = sinon.spy(component, 'orgTypeChange');
+    const spy = sinon.spy(component, 'orgTypeChange');
     component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
     expect(spy.calledOnce).toBeTruthy();
   });
@@ -67,16 +66,16 @@ describe('ApplicationNoncommercialGroupComponent', () => {
 
 class MockApplicationService {
   spy = sinon.spy();
-
+  removeAddress = this.spy;
   get(): Observable<{}> {
     return Observable.of();
   }
 
-  creat(): Observable<{}> {
+  create(): Observable<{}> {
     return Observable.of();
   }
 
-  touchAllFields = () => {};
-  scrollToFirstError = () => {};
-  removeAddress = this.spy;
+  touchAllFields() {}
+  scrollToFirstError() {}
+
 }
