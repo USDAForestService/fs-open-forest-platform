@@ -5,7 +5,6 @@ let moment = require('moment');
 let NoncommercialApplication = require('./models/noncommercial-application.es6');
 let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let vcapConstants = require('./vcap-constants.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
