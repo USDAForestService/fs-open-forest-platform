@@ -438,6 +438,7 @@ tempOutfitter.create = (req, res) => {
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
         email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
         res.status(201).json(req.body);
