@@ -1,7 +1,7 @@
 'use strict';
 
 let nodemailer = require('nodemailer');
-let vcapServices = require('./vcap-services.es6');
+let vcapConstants = require('./vcap-constants.es6');
 let emailTemplates = require('./email-templates/email-templates.es6');
 
 let emailUtil = {};
@@ -13,23 +13,23 @@ emailUtil.sendEmail = (templateName, data) => {
 
 emailUtil.send = (to, subject, body) => {
   let smtpConfig = {
-    host: vcapServices.smtpHost,
+    host: vcapConstants.smtpHost,
     port: 587,
     secure: false,
     requireTLS: true,
     auth: {
-      user: vcapServices.smtpUsername
+      user: vcapConstants.smtpUsername
     }
   };
 
-  if (vcapServices.smtpPassword) {
-    smtpConfig.auth.pass = vcapServices.smtpPassword;
+  if (vcapConstants.smtpPassword) {
+    smtpConfig.auth.pass = vcapConstants.smtpPassword;
   }
 
   let transporter = nodemailer.createTransport(smtpConfig);
 
   let mailOptions = {
-    from: vcapServices.smtpUsername,
+    from: vcapConstants.smtpUsername,
     to: to,
     subject: subject,
     text: body // plain text

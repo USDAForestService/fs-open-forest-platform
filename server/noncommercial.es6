@@ -4,7 +4,6 @@ let NoncommercialApplication = require('./models/noncommercial-application.es6')
 let request = require('request');
 let util = require('./util.es6');
 let validator = require('./validation.es6');
-let vcapServices = require('./vcap-services.es6');
 let email = require('./email-util.es6');
 
 let noncommercial = {};

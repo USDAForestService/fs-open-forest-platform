@@ -9,15 +9,15 @@ let request = require('request');
 let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
 let util = require('./util.es6');
 let validator = require('./validation.es6');
-let vcapServices = require('./vcap-services.es6');
+let vcapConstants = require('./vcap-constants.es6');
 let email = require('./email-util.es6');
 
 let tempOutfitter = {};
 
 let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
+  accessKeyId: vcapConstants.accessKeyId,
+  secretAccessKey: vcapConstants.secretAccessKey,
+  region: vcapConstants.region
 });
 
 let translateFromClientToDatabase = input => {
@@ -258,7 +258,7 @@ let getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapServices.bucket,
+        Bucket: vcapConstants.bucket,
         Key: key
       },
       (error, data) => {
@@ -309,7 +309,7 @@ let streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
     .getObject({
-      Bucket: vcapServices.bucket,
+      Bucket: vcapConstants.bucket,
       Key: fileName
     })
     .createReadStream()
@@ -328,7 +328,7 @@ tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId).then(files => {
       let requestOptions = {
-        url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+        url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
         headers: {},
         formData: {
           body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
@@ -401,7 +401,7 @@ tempOutfitter.acceptApplication = application => {
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: vcapServices.bucket,
+    bucket: vcapConstants.bucket,
     metadata: function(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },
