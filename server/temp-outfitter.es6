@@ -1,23 +1,23 @@
 'use strict';
 
-let ApplicationFile = require('./models/application-files.es6');
-let AWS = require('aws-sdk');
-let cryptoRandomString = require('crypto-random-string');
-let multer = require('multer');
-let multerS3 = require('multer-s3');
-let request = require('request');
-let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let util = require('./util.es6');
-let validator = require('./validation.es6');
-let vcapServices = require('./vcap-services.es6');
-let email = require('./email-util.es6');
+const ApplicationFile = require('./models/application-files.es6');
+const AWS = require('aws-sdk');
+const cryptoRandomString = require('crypto-random-string');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const request = require('request');
+const TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+const util = require('./util.es6');
+const validator = require('./validation.es6');
+const vcapConstants = require('./vcap-constants.es6');
+const email = require('./email-util.es6');
 
-let tempOutfitter = {};
+const tempOutfitter = {};
 
-let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
+const s3 = new AWS.S3({
+  accessKeyId: vcapConstants.accessKeyId,
+  secretAccessKey: vcapConstants.secretAccessKey,
+  region: vcapConstants.region
 });
 
 let translateFromClientToDatabase = input => {
@@ -258,7 +258,7 @@ let getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapServices.bucket,
+        Bucket: vcapConstants.bucket,
         Key: key
       },
       (error, data) => {
@@ -309,7 +309,7 @@ let streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
     .getObject({
-      Bucket: vcapServices.bucket,
+      Bucket: vcapConstants.bucket,
       Key: fileName
     })
     .createReadStream()
@@ -328,7 +328,7 @@ tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId).then(files => {
       let requestOptions = {
-        url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+        url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
         headers: {},
         formData: {
           body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
@@ -401,7 +401,7 @@ tempOutfitter.acceptApplication = application => {
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: vcapServices.bucket,
+    bucket: vcapConstants.bucket,
     metadata: function(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },

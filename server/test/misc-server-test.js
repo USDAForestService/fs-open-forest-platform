@@ -1,8 +1,8 @@
 'use strict';
 
-var request = require('supertest');
-var server = require('./mock-aws-app');
-var testGetURL = '/permits/applications';
+const request = require('supertest');
+const server = require('./mock-aws-app');
+const testGetURL = '/permits/applications';
 
 describe('misc server tests', () => {
   it('should successfully send an OPTIONS request', done => {

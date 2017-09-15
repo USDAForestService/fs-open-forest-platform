@@ -1,9 +1,9 @@
 'use strict';
 
-let util = require('../util.es6');
-let moment = require('moment');
-let vcapServices = require('../vcap-services.es6');
-let email = {};
+const moment = require('moment');
+const vcapConstants = require('../vcap-constants.es6');
+
+const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
   return {
@@ -74,10 +74,10 @@ Thank you for your interest in our National Forests.
 };
 
 email.noncommercialApplicationSubmittedAdminConfirmation = application => {
-  const applicationUrl = `${vcapServices.intakeClientBaseUrl}/admin/applications/noncommercial/${application.appControlNumber}`;
+  const applicationUrl = `${vcapConstants.intakeClientBaseUrl}/admin/applications/noncommercial/${application.appControlNumber}`;
 
   return {
-    to: vcapServices.specialUseAdminEmailAddresses,
+    to: vcapConstants.specialUseAdminEmailAddresses,
     subject: 'A new noncommercial permit application has been submitted for review!',
     body: `
 Submitted for review! \r\n
@@ -110,10 +110,10 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
-  const applicationUrl = `${vcapServices.intakeClientBaseUrl}/admin/applications/temp-outfitter/${application.appControlNumber}`;
+  const applicationUrl = `${vcapConstants.intakeClientBaseUrl}/admin/applications/temp-outfitter/${application.appControlNumber}`;
 
   return {
-    to: vcapServices.specialUseAdminEmailAddresses,
+    to: vcapConstants.specialUseAdminEmailAddresses,
     subject: 'A new temporary outfitter permit application has been submitted for review.',
     body: `
 Submitted for review! \r\n

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   id: '/tempOutfitterFields',
   type: 'object',
