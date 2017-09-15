@@ -1,20 +1,20 @@
 'use strict';
 
-let ApplicationFile = require('./models/application-files.es6');
-let AWS = require('aws-sdk');
-let cryptoRandomString = require('crypto-random-string');
-let multer = require('multer');
-let multerS3 = require('multer-s3');
-let request = require('request');
-let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let util = require('./util.es6');
-let validator = require('./validation.es6');
-let vcapConstants = require('./vcap-constants.es6');
-let email = require('./email-util.es6');
+const ApplicationFile = require('./models/application-files.es6');
+const AWS = require('aws-sdk');
+const cryptoRandomString = require('crypto-random-string');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const request = require('request');
+const TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+const util = require('./util.es6');
+const validator = require('./validation.es6');
+const vcapConstants = require('./vcap-constants.es6');
+const email = require('./email-util.es6');
 
-let tempOutfitter = {};
+const tempOutfitter = {};
 
-let s3 = new AWS.S3({
+const s3 = new AWS.S3({
   accessKeyId: vcapConstants.accessKeyId,
   secretAccessKey: vcapConstants.secretAccessKey,
   region: vcapConstants.region

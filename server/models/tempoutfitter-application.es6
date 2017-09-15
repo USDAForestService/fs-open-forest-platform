@@ -1,7 +1,7 @@
 'use strict';
 
-let Sequelize = require('sequelize');
-let url = require('url');
+const Sequelize = require('sequelize');
+const url = require('url');
 
 const sequelizeOptions = {
   dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
@@ -16,7 +16,7 @@ if (
   };
 }
 
-let sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 module.exports = sequelize.define(
   'tempOutfitterApplications',

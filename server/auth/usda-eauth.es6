@@ -1,11 +1,11 @@
 'use strict';
 
-let express = require('express');
-let passport = require('passport');
-let SamlStrategy = require('passport-saml').Strategy;
-let vcapConstants = require('../vcap-constants.es6');
+const express = require('express');
+const passport = require('passport');
+const SamlStrategy = require('passport-saml').Strategy;
+const vcapConstants = require('../vcap-constants.es6');
 
-let eAuth = {};
+const eAuth = {};
 
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';

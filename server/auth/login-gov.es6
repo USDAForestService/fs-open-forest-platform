@@ -1,16 +1,16 @@
 'use strict';
 
-let express = require('express');
-let Issuer = require('openid-client').Issuer;
-let jose = require('node-jose');
-let passport = require('passport');
-let OpenIDConnectStrategy = require('openid-client').Strategy;
-let vcapConstants = require('../vcap-constants.es6');
+const express = require('express');
+const Issuer = require('openid-client').Issuer;
+const jose = require('node-jose');
+const passport = require('passport');
+const OpenIDConnectStrategy = require('openid-client').Strategy;
+const vcapConstants = require('../vcap-constants.es6');
 
-let loginGov = {};
+const loginGov = {};
 
 // basic auth is needed for the int version of login.gov
-let basicAuthOptions = {
+const basicAuthOptions = {
   headers: {
     Host: 'idp.int.login.gov',
     Authorization:

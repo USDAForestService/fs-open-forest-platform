@@ -1,9 +1,9 @@
 'use strict';
 
-let moment = require('moment');
-let vcapConstants = require('../vcap-constants.es6');
+const moment = require('moment');
+const vcapConstants = require('../vcap-constants.es6');
 
-let email = {};
+const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
   return {
