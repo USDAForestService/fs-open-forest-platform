@@ -21,7 +21,7 @@ module.exports = {
       default: '',
       type: 'string'
     },
-    reasonForReturn: {
+    applicantMessage: {
       default: '',
       type: 'string'
     }

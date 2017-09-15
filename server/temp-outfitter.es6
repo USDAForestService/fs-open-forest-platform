@@ -53,7 +53,7 @@ let translateFromClientToDatabase = input => {
     authorizingOfficerTitle: input.authorizingOfficerTitle,
     district: input.district,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     tempOutfitterFieldsActDescFieldsAudienceDesc:
@@ -103,7 +103,7 @@ let translateFromDatabaseToClient = input => {
     createdAt: input.createdAt,
     district: input.district,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn || undefined,
+    applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
     status: input.status,
@@ -493,7 +493,7 @@ tempOutfitter.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
-      app.reasonForReturn = req.body.reasonForReturn;
+      app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         tempOutfitter
           .acceptApplication(app)
