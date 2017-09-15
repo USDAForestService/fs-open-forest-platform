@@ -65,7 +65,6 @@ loginGov.setup = () => {
       );
     });
   });
-  return passport;
 };
 
 // router for login.gov specific endpoints
