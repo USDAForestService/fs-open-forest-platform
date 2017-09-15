@@ -8,9 +8,10 @@ applications:
   memory: 128M
   instances: 1
   services:
-    - intake-s3
-    - intake-db
-    - intake-client-service
-    - middlelayer-service
-    - login-service-provider
     - eauth-service-provider
+    - intake-client-service
+    - intake-db
+    - intake-s3
+    - login-service-provider
+    - middlelayer-service
+    - smtp-service
