@@ -74,46 +74,50 @@ export class TemporaryOutfittersComponent implements DoCheck {
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
-      this.pointOfView = 'We';
-      switch (type) {
-        case 'Person':
-          this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
-          this.pointOfView = 'I';
-          this.orgTypeFileUpload = false;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
-          break;
-        case 'Corporation':
-          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
-          this.orgTypeFileUpload = true;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
-          break;
-        case 'Limited Liability Company (LLC)':
-          this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
-          this.orgTypeFileUpload = true;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
-          break;
-        case 'Limited Liability Partnership (LLP)':
-          this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
-          this.orgTypeFileUpload = true;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
-          break;
-        case 'State Government':
-          this.goodStandingEvidenceMessage = '';
-          this.orgTypeFileUpload = false;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
-          break;
-        case 'Local Govt':
-          this.goodStandingEvidenceMessage = '';
-          this.orgTypeFileUpload = false;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
-          break;
-        case 'Nonprofit':
-          this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
-          this.orgTypeFileUpload = true;
-          this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
-          break;
-      }
+      this.orgTypeChange(type);
     });
+  }
+
+  orgTypeChange(type): void {
+    this.pointOfView = 'We';
+    switch (type) {
+      case 'Person':
+        this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+        this.pointOfView = 'I';
+        this.orgTypeFileUpload = false;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        break;
+      case 'Corporation':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+        this.orgTypeFileUpload = true;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        break;
+      case 'Limited Liability Company (LLC)':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+        this.orgTypeFileUpload = true;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        break;
+      case 'Limited Liability Partnership (LLP)':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
+        this.orgTypeFileUpload = true;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        break;
+      case 'State Government':
+        this.goodStandingEvidenceMessage = '';
+        this.orgTypeFileUpload = false;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        break;
+      case 'Local Govt':
+        this.goodStandingEvidenceMessage = '';
+        this.orgTypeFileUpload = false;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        break;
+      case 'Nonprofit':
+        this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
+        this.orgTypeFileUpload = true;
+        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        break;
+    }
   }
 
   matchUrls(): void {
