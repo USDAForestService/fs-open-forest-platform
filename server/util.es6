@@ -197,4 +197,13 @@ util.getContentType = filename => {
   }
 };
 
+// used to bypass authentication when doing development
+util.isLocalOrCI = () => {
+  const environments = ['CI', 'local'];
+  if (environments.indexOf(process.env.PLATFORM) !== -1) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = util;
