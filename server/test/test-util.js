@@ -1,11 +1,11 @@
 'use strict';
 
-const expect = require('chai').expect;
-const util = require('../util.es6');
-const tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
 const AWS = require('mock-aws');
-const sinon = require('sinon');
+const expect = require('chai').expect;
 const request = require('request');
+const sinon = require('sinon');
+const tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
+const util = require('../util.es6');
 
 describe('util tests', () => {
   describe('getContentType', () => {

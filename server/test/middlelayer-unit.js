@@ -4,11 +4,11 @@ var expect = require('chai').expect;
 var noncommercial = require('../noncommercial.es6');
 var nock = require('nock');
 var noncommercialModelData = require('./data/noncommercial-model-test-data.es6');
-var vcap = require('../vcap-services.es6');
+var vcapConstants = require('../vcap-constants.es6');
 
 describe('middle layer unit tests', () => {
   it('should fail middle layer auth', done => {
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(500, { status: 'authfail' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(500, { status: 'authfail' });
 
     var success = () => {
       done();
@@ -29,9 +29,9 @@ describe('middle layer unit tests', () => {
   });
 
   it('should pass middle layer auth, but fail mock middle layer send', done => {
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl)
+    nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, { status: 'fail-suds' });
 
@@ -54,9 +54,9 @@ describe('middle layer unit tests', () => {
   });
 
   it('should pass middle layer auth, and pass middle layer send', done => {
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl)
+    nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, { status: 'success' });
 
