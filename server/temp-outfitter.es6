@@ -438,6 +438,7 @@ tempOutfitter.create = (req, res) => {
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
         email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
         res.status(201).json(req.body);
@@ -492,6 +493,7 @@ tempOutfitter.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
+      app.reasonForReturn = req.body.reasonForReturn;
       if (app.status === 'Accepted') {
         tempOutfitter
           .acceptApplication(app)
@@ -513,6 +515,10 @@ tempOutfitter.update = (req, res) => {
         app
           .save()
           .then(() => {
+            if (app.status === 'Returned') {
+              //TODO: remove conditional if we want to send emails to applications with Hold status
+              email.sendEmail(`application${app.status}`, app);
+            }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {

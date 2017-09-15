@@ -60,3 +60,4 @@ let smtp = VCAPServices['user-provided'].find(element => {
 vcapConstants.smtpHost = smtp.credentials.smtpserver;
 vcapConstants.smtpUsername = smtp.credentials.username;
 vcapConstants.smtpPassword = smtp.credentials.password;
+vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
