@@ -1,6 +1,6 @@
 'use strict';
 
-var tempOutfitterTestData = require('./data/tempOutfitterTestData.es6');
+const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
 const AWS = require('mock-aws');
 
 AWS.mock('S3', 'putObject', function(params, cb) {

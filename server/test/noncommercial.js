@@ -1,13 +1,13 @@
 'use strict';
 
-var noncommercialTestData = require('./data/noncommercialTestData.es6');
-var request = require('supertest');
-var nock = require('nock');
-var server = require('./mock-aws-app');
-var testURL = '/permits/applications/special-uses/noncommercial';
-var vcapConstants = require('../vcap-constants.es6');
+const noncommercialTestData = require('./data/noncommercial-test-data.es6');
+const request = require('supertest');
+const nock = require('nock');
+const server = require('./mock-aws-app');
+const testURL = '/permits/applications/special-uses/noncommercial';
+const vcapConstants = require('../vcap-constants.es6');
 
-var auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
+const auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
 
 describe('noncommercial tests', () => {
   describe('POST tests', () => {
