@@ -20,7 +20,10 @@ passport.use(
       cert: vcapServices.eAuthCert
     },
     (profile, done) => {
-      return done(null, { email: profile.usdaemail, role: 'admin' });
+      return done(null, {
+        email: profile.usdaemail,
+        role: 'admin'
+      });
     }
   )
 );
@@ -34,7 +37,9 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
 
 eAuth.router.post(
   eAuth.callbackPath,
-  passport.authenticate('saml', { successRedirect: vcapServices.intakeClientBaseUrl + '/admin/applications' })
+  passport.authenticate('saml', {
+    successRedirect: vcapServices.intakeClientBaseUrl + '/logged-in'
+  })
 );
 
 module.exports = eAuth;
