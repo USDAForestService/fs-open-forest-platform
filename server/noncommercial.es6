@@ -1,13 +1,13 @@
 'use strict';
 
-let email = require('./email-util.es6');
-let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let request = require('request');
-let util = require('./util.es6');
-let validator = require('./validation.es6');
-let vcapConstants = require('./vcap-constants.es6');
+const email = require('./email-util.es6');
+const NoncommercialApplication = require('./models/noncommercial-application.es6');
+const request = require('request');
+const util = require('./util.es6');
+const validator = require('./validation.es6');
+const vcapConstants = require('./vcap-constants.es6');
 
-let noncommercial = {};
+const noncommercial = {};
 
 let translateFromClientToDatabase = input => {
   return {

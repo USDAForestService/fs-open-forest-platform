@@ -1,11 +1,11 @@
 'use strict';
 
-let AWS = require('aws-sdk');
-let moment = require('moment');
-let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let request = require('request');
-let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let vcapConstants = require('./vcap-constants.es6');
+const AWS = require('aws-sdk');
+const moment = require('moment');
+const NoncommercialApplication = require('./models/noncommercial-application.es6');
+const request = require('request');
+const TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+const vcapConstants = require('./vcap-constants.es6');
 
 let extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {

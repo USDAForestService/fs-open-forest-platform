@@ -1,10 +1,10 @@
 'use strict';
 
-let nodemailer = require('nodemailer');
-let vcapConstants = require('./vcap-constants.es6');
-let emailTemplates = require('./email-templates/email-templates.es6');
+const nodemailer = require('nodemailer');
+const vcapConstants = require('./vcap-constants.es6');
+const emailTemplates = require('./email-templates/email-templates.es6');
 
-let emailUtil = {};
+const emailUtil = {};
 
 emailUtil.sendEmail = (templateName, data) => {
   let template = emailTemplates[templateName](data);

@@ -1,17 +1,17 @@
 'use strict';
 
-let bodyParser = require('body-parser');
-let eAuth = require('./auth/usda-eauth.es6');
-let express = require('express');
-let helmet = require('helmet');
-let loginGov = require('./auth/login-gov.es6');
-let noncommercial = require('./noncommercial.es6');
-let tempOutfitter = require('./temp-outfitter.es6');
-let util = require('./util.es6');
-let vcapConstants = require('./vcap-constants.es6');
-var session = require('cookie-session');
+const bodyParser = require('body-parser');
+const eAuth = require('./auth/usda-eauth.es6');
+const express = require('express');
+const helmet = require('helmet');
+const loginGov = require('./auth/login-gov.es6');
+const noncommercial = require('./noncommercial.es6');
+const tempOutfitter = require('./temp-outfitter.es6');
+const util = require('./util.es6');
+const vcapConstants = require('./vcap-constants.es6');
+const session = require('cookie-session');
 
-let app = express();
+const app = express();
 
 /* use helmet for increased security */
 app.use(helmet());
