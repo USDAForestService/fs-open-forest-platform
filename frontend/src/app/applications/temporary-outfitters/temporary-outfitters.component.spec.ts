@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import * as sinon  from 'sinon';
+import * as sinon from 'sinon';
 import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -36,7 +36,7 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('Should switch on org type', () => {
-    let orgTypes = {
+    const orgTypes = {
       'Person': {
         pointOfView: 'I',
         orgTypeFileUpload: false,
@@ -73,10 +73,10 @@ describe('TemporaryOutfittersComponent', () => {
         goodStandingEvidence: [Validators.required]
       }
     };
-    for(let type of Object.keys(orgTypes) ) {
-      let orgFields = orgTypes[type];
+    for ( const type of Object.keys(orgTypes) ) {
+      const orgFields = orgTypes[type];
 
-      let get = sinon.stub(component.applicationForm, 'get').returns(
+      const get = sinon.stub(component.applicationForm, 'get').returns(
         {
         setValidators: required => { expect(required).toEqual(orgFields.goodStandingEvidence) }
         }
@@ -89,8 +89,8 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('matchUrls should not copy url on empty value', () => {
-    let get = sinon.stub(component.applicationForm, 'get');
-    let spy = sinon.spy();
+    const get = sinon.stub(component.applicationForm, 'get');
+    const spy = sinon.spy();
     get.withArgs('applicantInfo.website').returns({value: ''});
     get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
     component.matchUrls();
@@ -99,8 +99,8 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('matchUrls should copy url on url value', () => {
-    let get = sinon.stub(component.applicationForm, 'get');
-    let spy = sinon.spy();
+    const get = sinon.stub(component.applicationForm, 'get');
+    const spy = sinon.spy();
     get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
     get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
     component.matchUrls();
@@ -109,8 +109,8 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('matchUrls should not copy url on url value when ad url has value', () => {
-    let get = sinon.stub(component.applicationForm, 'get');
-    let spy = sinon.spy();
+    const get = sinon.stub(component.applicationForm, 'get');
+    const spy = sinon.spy();
     get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
     get.withArgs('tempOutfitterFields.advertisingURL').returns({value: 'www.google.com', setValue: spy});
     component.matchUrls();
