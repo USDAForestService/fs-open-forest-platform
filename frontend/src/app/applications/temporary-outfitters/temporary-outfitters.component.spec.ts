@@ -73,7 +73,7 @@ describe('TemporaryOutfittersComponent', () => {
         goodStandingEvidence: [Validators.required]
       }
     };
-    for(let type in orgTypes ) {
+    for(let type of Object.keys(orgTypes) ) {
       let orgFields = orgTypes[type];
 
       let get = sinon.stub(component.applicationForm, 'get').returns(
@@ -86,6 +86,36 @@ describe('TemporaryOutfittersComponent', () => {
       expect(component.orgTypeFileUpload).toEqual(orgFields.orgTypeFileUpload);
       get.restore();
     }
+  });
+
+  it('matchUrls should not copy url on empty value', () => {
+    let get = sinon.stub(component.applicationForm, 'get');
+    let spy = sinon.spy();
+    get.withArgs('applicantInfo.website').returns({value: ''});
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
+    component.matchUrls();
+    expect(spy.notCalled).toBeTruthy();
+    get.restore();
+  });
+
+  it('matchUrls should copy url on url value', () => {
+    let get = sinon.stub(component.applicationForm, 'get');
+    let spy = sinon.spy();
+    get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
+    component.matchUrls();
+    expect(spy.called).toBeTruthy();
+    get.restore();
+  });
+
+  it('matchUrls should not copy url on url value when ad url has value', () => {
+    let get = sinon.stub(component.applicationForm, 'get');
+    let spy = sinon.spy();
+    get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: 'www.google.com', setValue: spy});
+    component.matchUrls();
+    expect(spy.called).toBeFalsy();
+    get.restore();
   });
 });
 
