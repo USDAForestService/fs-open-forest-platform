@@ -279,6 +279,7 @@ noncommercial.create = (req, res) => {
     // create the noncommercial app object and persist
     NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
+        email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
         email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
         req.body['applicationId'] = noncommApp.applicationId;
         req.body['appControlNumber'] = noncommApp.appControlNumber;
