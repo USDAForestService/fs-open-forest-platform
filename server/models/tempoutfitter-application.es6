@@ -203,9 +203,9 @@ module.exports = sequelize.define(
       field: 'signature',
       allowNull: false
     },
-    reasonForReturn: {
+    applicantMessage: {
       type: Sequelize.STRING,
-      field: 'reason_for_return'
+      field: 'applicant_message'
     },
     applicantInfoFaxAreaCode: {
       type: Sequelize.STRING(3),

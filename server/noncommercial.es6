@@ -87,7 +87,7 @@ let translateFromClientToDatabase = input => {
     noncommercialFieldsNumberParticipants: input.noncommercialFields.numberParticipants,
     noncommercialFieldsSpectatorCount: input.noncommercialFields.spectators,
     noncommercialFieldsStartDateTime: input.dateTimeRange.startDateTime,
-    reasonForReturn: input.reasonForReturn,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     type: input.type
@@ -156,7 +156,7 @@ let translateFromDatabaseToClient = input => {
     district: input.district,
     eventName: input.eventName,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn || undefined,
+    applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
     status: input.status,
@@ -299,7 +299,7 @@ noncommercial.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
-      app.reasonForReturn = req.body.reasonForReturn;
+      app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         noncommercial
           .acceptApplication(app)
