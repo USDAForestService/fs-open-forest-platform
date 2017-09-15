@@ -1,17 +1,17 @@
 'use strict';
 
-let bodyParser = require('body-parser');
-let eAuth = require('./auth/usda-eauth.es6');
-let express = require('express');
-let helmet = require('helmet');
-let loginGov = require('./auth/login-gov.es6');
-let noncommercial = require('./noncommercial.es6');
-let tempOutfitter = require('./temp-outfitter.es6');
-let util = require('./util.es6');
-let vcapServices = require('./vcap-services.es6');
-var session = require('cookie-session');
+const bodyParser = require('body-parser');
+const eAuth = require('./auth/usda-eauth.es6');
+const express = require('express');
+const helmet = require('helmet');
+const loginGov = require('./auth/login-gov.es6');
+const noncommercial = require('./noncommercial.es6');
+const tempOutfitter = require('./temp-outfitter.es6');
+const util = require('./util.es6');
+const vcapConstants = require('./vcap-constants.es6');
+const session = require('cookie-session');
 
-let app = express();
+const app = express();
 
 /* use helmet for increased security */
 app.use(helmet());
@@ -35,7 +35,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: vcapServices.baseUrl,
+      domain: vcapConstants.baseUrl,
       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
@@ -60,7 +60,7 @@ let setCorsHeaders = (req, res, next) => {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
-    res.set('Access-Control-Allow-Origin', vcapServices.intakeClientBaseUrl);
+    res.set('Access-Control-Allow-Origin', vcapConstants.intakeClientBaseUrl);
     res.set('Access-Control-Allow-Credentials', true);
   }
   next();
@@ -86,7 +86,7 @@ let checkAdminPermissions = (req, res, next) => {
   if (isLocalOrCI()) {
     next();
   } else {
-    if (req.user.role !== 'admin' || !vcapServices.eAuthUserWhiteList.includes(req.user.email)) {
+    if (req.user.role !== 'admin' || !vcapConstants.eAuthUserWhiteList.includes(req.user.email)) {
       res.status(403).send({
         errors: ['Forbidden']
       });
@@ -131,12 +131,12 @@ app.get('/auth/logout', setCorsHeaders, checkPermissions, (req, res) => {
   if (req.user.role === 'user') {
     res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        vcapServices.baseUrl + '/auth/login-gov/openid/logout'
+        vcapConstants.baseUrl + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
     req.logout();
-    res.redirect(vcapServices.intakeClientBaseUrl);
+    res.redirect(vcapConstants.intakeClientBaseUrl);
   }
 });
 

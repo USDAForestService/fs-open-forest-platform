@@ -1,11 +1,11 @@
 'use strict';
 
-let express = require('express');
-let passport = require('passport');
-let SamlStrategy = require('passport-saml').Strategy;
-let vcapServices = require('../vcap-services.es6');
+const express = require('express');
+const passport = require('passport');
+const SamlStrategy = require('passport-saml').Strategy;
+const vcapConstants = require('../vcap-constants.es6');
 
-let eAuth = {};
+const eAuth = {};
 
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
@@ -13,11 +13,11 @@ eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 passport.use(
   new SamlStrategy(
     {
-      path: vcapServices.baseUrl + eAuth.callbackPath,
-      entryPoint: `${vcapServices.eAuthEntryPoint}?SPID=${vcapServices.eAuthIssuer}`,
-      issuer: vcapServices.eAuthIssuer,
-      privateCert: vcapServices.eAuthPrivateKey,
-      cert: vcapServices.eAuthCert
+      path: vcapConstants.baseUrl + eAuth.callbackPath,
+      entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
+      issuer: vcapConstants.eAuthIssuer,
+      privateCert: vcapConstants.eAuthPrivateKey,
+      cert: vcapConstants.eAuthCert
     },
     (profile, done) => {
       return done(null, {
@@ -32,13 +32,13 @@ passport.use(
 eAuth.router = express.Router();
 
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  res.redirect(`${vcapServices.eAuthEntryPoint}?SPID=${vcapServices.eAuthIssuer}`);
+  res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
 });
 
 eAuth.router.post(
   eAuth.callbackPath,
   passport.authenticate('saml', {
-    successRedirect: vcapServices.intakeClientBaseUrl + '/logged-in'
+    successRedirect: vcapConstants.intakeClientBaseUrl + '/logged-in'
   })
 );
 
