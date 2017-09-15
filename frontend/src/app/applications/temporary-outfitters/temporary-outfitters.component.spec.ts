@@ -73,7 +73,7 @@ describe('TemporaryOutfittersComponent', () => {
         goodStandingEvidence: [Validators.required]
       }
     };
-    for(let type in orgTypes ) {
+    for(let type of Object.keys(orgTypes) ) {
       let orgFields = orgTypes[type];
 
       let get = sinon.stub(component.applicationForm, 'get').returns(
