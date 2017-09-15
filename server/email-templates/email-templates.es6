@@ -18,8 +18,8 @@ Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTH
       'MM/DD/YYYY hh:mm a'
     )}\r\n
 End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}\r\n
-Participants: ${application.noncommercialFieldsNumberParticipants}\r\n
-Spectators: ${application.noncommercialFieldsSpectatorCount}\r\n
+Number of participants: ${application.noncommercialFieldsNumberParticipants}\r\n
+Number of spectators: ${application.noncommercialFieldsSpectatorCount}\r\n
 Location: ${application.noncommercialFieldsLocationDescription}\r\n\r\n
 What happens next?\r\n\r\n
 1. Your application will be reviewed by our staff within 48 hours.\r\n
@@ -153,7 +153,7 @@ email.applicationReturned = application => {
     subject: 'Your noncommercial permit application has been submitted for review!',
     body: `
 Your application has been returned because\r\n\r\n
-${application.reasonForReturn}
+${application.applicantMessage}
 `
   };
 };
@@ -164,7 +164,7 @@ email.applicationHold = application => {
     subject: 'Your noncommercial permit application has been submitted for review!',
     body: `
 Your application has been set to hold because\r\n\r\n
-${application.reasonForReturn}
+${application.applicantMessage}
 `
   };
 };
