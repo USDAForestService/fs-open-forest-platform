@@ -3,6 +3,7 @@
 const nodemailer = require('nodemailer');
 const vcapConstants = require('./vcap-constants.es6');
 const emailTemplates = require('./email-templates/email-templates.es6');
+const util = require('./util.es6');
 
 const emailUtil = {};
 
@@ -19,8 +20,11 @@ emailUtil.send = (to, subject, body) => {
     requireTLS: true
   };
 
-  if (vcapConstants.smtpPassword) {
-    smtpConfig.auth.pass = vcapConstants.smtpPassword;
+  if (util.isLocalOrCI()) {
+    smtpConfig.auth = {
+      user: vcapConstants.smtpUsername,
+      pass: vcapConstants.smtpPassword
+    };
   }
 
   const transporter = nodemailer.createTransport(smtpConfig);
