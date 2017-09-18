@@ -37,11 +37,7 @@ emailUtil.send = (to, subject, body) => {
     text: body // plain text
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      // TODO: Handle error
-    }
-  });
+  transporter.sendMail(mailOptions);
 };
 
 module.exports = emailUtil;
