@@ -154,8 +154,14 @@ Go to ${applicationUrl} to login and view the application.
 email.noncommercialApplicationReturned = application => {
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'Unfortunately the following permit application has not been accepted.',
+    subject: 'An update on your recent permit application to the Forest Service.',
     body: `
+Permit application status update
+
+----------------------------------------------------------
+
+Unfortunately the following permit application has not been accepted.
+
 ${application.applicantMessage}
 
 Application details
@@ -192,6 +198,10 @@ email.tempOutfitterApplicationReturned = application => {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
     body: `
+Permit application status update
+
+----------------------------------------------------------
+
 Unfortunately the following permit application has not been accepted.
 
 ${application.applicantMessage}
