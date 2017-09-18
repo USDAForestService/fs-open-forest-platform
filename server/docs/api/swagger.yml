@@ -221,7 +221,7 @@ definitions:
       signature:
         type: "string"
         maxLength: 3
-      reasonForReturn:
+      applicantMessage:
         type: "string"
   address:
     type: "object"

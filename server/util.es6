@@ -2,12 +2,11 @@
 
 const AWS = require('aws-sdk');
 const moment = require('moment');
-const NoncommercialApplication = require('./models/noncommercial-application.es6');
 const request = require('request');
-const TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
+
 const vcapConstants = require('./vcap-constants.es6');
 
-let extractField = (errorObj, withArg) => {
+const extractField = (errorObj, withArg) => {
   if (withArg && errorObj.property === 'instance') {
     return errorObj.argument;
   } else if (withArg) {
@@ -39,81 +38,8 @@ util.validateDateTime = input => {
   );
 };
 
-util.getAllOpenApplications = (req, res) => {
-  let noncommercialApplicationsPromise = NoncommercialApplication.findAll({
-    attributes: [
-      'appControlNumber',
-      'applicantInfoPrimaryFirstName',
-      'applicantInfoPrimaryLastName',
-      'applicationId',
-      'createdAt',
-      'eventName',
-      'noncommercialFieldsEndDateTime',
-      'noncommercialFieldsLocationDescription',
-      'noncommercialFieldsStartDateTime',
-      'status'
-    ],
-    where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
-      noncommercialFieldsEndDateTime: {
-        $gt: new Date()
-      }
-    },
-
-    order: [['createdAt', 'DESC']]
-  });
-  let tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
-    attributes: [
-      'appControlNumber',
-      'applicantInfoOrganizationName',
-      'applicantInfoPrimaryFirstName',
-      'applicantInfoPrimaryLastName',
-      'applicationId',
-      'createdAt',
-      'status',
-      'tempOutfitterFieldsActDescFieldsEndDateTime',
-      'tempOutfitterFieldsActDescFieldsLocationDesc',
-      'tempOutfitterFieldsActDescFieldsStartDateTime'
-    ],
-    where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
-      tempOutfitterFieldsActDescFieldsEndDateTime: {
-        $gt: new Date()
-      }
-    },
-    order: [['createdAt', 'DESC']]
-  });
-  Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
-    .then(results => {
-      for (let item of results[0]) {
-        item.type = 'Noncommercial';
-      }
-      for (let item of results[1]) {
-        item.type = 'Temp outfitter';
-      }
-      res.status(200).json(results[0].concat(results[1]));
-    })
-    .catch(errors => {
-      res.status(500).json(errors);
-    });
-};
-
 util.middleLayerAuth = () => {
-  let requestOptions = {
+  const requestOptions = {
     url: vcapConstants.middleLayerBaseUrl + 'auth',
     json: true,
     body: {
@@ -133,13 +59,13 @@ util.middleLayerAuth = () => {
 };
 
 util.prepareCerts = () => {
-  let s3 = new AWS.S3({
+  const s3 = new AWS.S3({
     accessKeyId: vcapConstants.certsAccessKeyId,
     secretAccessKey: vcapConstants.certsSecretAccessKey,
     region: vcapConstants.certsRegion
   });
 
-  let loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
+  const loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
     s3.getObject(
       {
         Bucket: vcapConstants.certsBucket,
@@ -154,7 +80,7 @@ util.prepareCerts = () => {
     );
   });
 
-  let loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
+  const loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
     s3.getObject(
       {
         Bucket: vcapConstants.certsBucket,
@@ -172,7 +98,7 @@ util.prepareCerts = () => {
   return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise]);
 };
 
-let getExtension = filename => {
+const getExtension = filename => {
   return filename.split('.').reverse()[0];
 };
 
