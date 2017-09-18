@@ -85,19 +85,6 @@ describe('util tests', () => {
     });
   });
 
-  // describe('getAllOpenApplications', () => {
-  //   it('should get all open applications', done => {
-  //     let json = function() {
-  //       done();
-  //     };
-  //     let status = function(status) {
-  //       expect(status).to.equal(200);
-  //       return { json };
-  //     };
-  //     util.getAllOpenApplications(null, { status });
-  //   });
-  // });
-
   describe('collate errors tests', () => {
     it('should push an error string with a prefix onto the error array for enum error', () => {
       let result = {
