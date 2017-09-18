@@ -517,7 +517,7 @@ tempOutfitter.update = (req, res) => {
           .then(() => {
             if (app.status === 'Returned') {
               //TODO: remove conditional if we want to send emails to applications with Hold status
-              email.sendEmail(`application${app.status}`, app);
+              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
