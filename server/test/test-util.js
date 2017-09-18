@@ -4,6 +4,7 @@ const AWS = require('mock-aws');
 const expect = require('chai').expect;
 const request = require('request');
 const sinon = require('sinon');
+
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
 const util = require('../util.es6');
 
@@ -82,19 +83,6 @@ describe('util tests', () => {
         expect(_res).to.equal(res);
         done();
       });
-    });
-  });
-
-  describe('getAllOpenApplications', () => {
-    it('should get all open applications', done => {
-      let json = function() {
-        done();
-      };
-      let status = function(status) {
-        expect(status).to.equal(200);
-        return { json };
-      };
-      util.getAllOpenApplications(null, { status });
     });
   });
 
