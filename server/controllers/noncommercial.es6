@@ -1,15 +1,16 @@
 'use strict';
 
-const email = require('./email-util.es6');
-const NoncommercialApplication = require('./models/noncommercial-application.es6');
 const request = require('request');
-const util = require('./util.es6');
-const validator = require('./validation.es6');
-const vcapConstants = require('./vcap-constants.es6');
+
+const email = require('../email-util.es6');
+const NoncommercialApplication = require('../models/noncommercial-application.es6');
+const util = require('../util.es6');
+const validator = require('../validation.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};
 
-let translateFromClientToDatabase = input => {
+const translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
     applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
@@ -94,7 +95,7 @@ let translateFromClientToDatabase = input => {
   };
 };
 
-let translateFromDatabaseToClient = input => {
+const translateFromDatabaseToClient = input => {
   return {
     applicantInfo: {
       dayPhone: {
@@ -164,7 +165,7 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateFromIntakeToMiddleLayer = input => {
+const translateFromIntakeToMiddleLayer = input => {
   let result = {
     region: input.region,
     forest: input.forest,
@@ -223,7 +224,7 @@ let translateFromIntakeToMiddleLayer = input => {
 };
 
 noncommercial.acceptApplication = application => {
-  let requestOptions = {
+  const requestOptions = {
     url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
@@ -322,7 +323,7 @@ noncommercial.update = (req, res) => {
           .save()
           .then(() => {
             if (app.status === 'Returned') {
-              //TODO: remove conditional if we want to send emails to applications with Hold status
+              // TODO: remove conditional if we want to send emails to applications with Hold status
               email.sendEmail(`noncommercialApplication${app.status}`, app);
             }
             res.status(200).json(translateFromDatabaseToClient(app));
