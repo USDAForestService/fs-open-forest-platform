@@ -2,12 +2,15 @@
 
 const _ = require('lodash');
 const expect = require('chai').expect;
-const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
-const server = require('./mock-aws-app');
-const sinon = require('sinon');
-const util = require('../util.es6');
 const request = require('supertest');
+const sinon = require('sinon');
+
+const ApplicationFile = require('../models/application-files.es6');
+const server = require('./mock-aws-app');
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const util = require('../util.es6');
+
+const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
 const url = '/permits/applications/special-uses/temp-outfitter';
 
 describe('temp outfitter server tests', () => {
@@ -83,7 +86,7 @@ describe('temp outfitter server tests', () => {
 
   describe('getApplicationFileNames', () => {
     let appId = 'appId';
-    let app = {appId};
+    let app = { appId };
     let findAll;
     beforeEach(() => {
       findAll = sinon.stub(ApplicationFile, 'findAll').resolves(app);
@@ -97,17 +100,17 @@ describe('temp outfitter server tests', () => {
         .expect(200, (err, res) => {
           expect(res.body.appId).to.equal(app.appId);
           done();
-        })
+        });
     });
     it('GET /:appId/files should return a 404 not found if the application can not be found', done => {
-      findAll.restore()
+      findAll.restore();
       findAll = sinon.stub(ApplicationFile, 'findAll').resolves();
       request(server)
         .get(`${url}/${appId}/files`)
-        .expect(404, done)
+        .expect(404, done);
     });
     it('GET /:appId/files should return a 500 if an error occurs', done => {
-      let error = "No way, no how";
+      let error = 'No way, no how';
       findAll.restore();
       findAll = sinon.stub(ApplicationFile, 'findAll').rejects(new Error(error));
       request(server)
@@ -196,8 +199,8 @@ describe('temp outfitter server tests', () => {
         });
     });
     it('should return a 500 error and an error message if an error occurs', done => {
-      let error = 'nope'
-      let stub = sinon.stub(ApplicationFile, 'create').rejects(new Error(error));
+      let error = 'nope';
+      sinon.stub(ApplicationFile, 'create').rejects(new Error(error));
       request(server)
         .post(postFileURL)
         .type('multipart/form-data')
@@ -206,7 +209,7 @@ describe('temp outfitter server tests', () => {
         .set('Accept', 'text/html')
         .attach('file', './test/data/test.docx')
         .expect(500, done);
-      });
+    });
   });
 
   describe(`PUT ${url}/:uuid updates an application`, () => {
