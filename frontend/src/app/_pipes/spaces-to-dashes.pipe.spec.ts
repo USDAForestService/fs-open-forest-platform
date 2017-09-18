@@ -8,7 +8,7 @@ describe('SpacesToDashesPipe', () => {
   });
 
   it('transforms spaces to dashes', () => {
-    let value: any = 'test value';
+    const value: any = 'test value';
     expect(pipe.transform(value)).toEqual('test-value');
   });
 });
