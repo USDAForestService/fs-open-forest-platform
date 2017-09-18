@@ -424,7 +424,7 @@ tempOutfitter.attachFile = (req, res) => {
       req.body['fileId'] = appfile.fileId;
       res.status(201).json(req.body);
     })
-    .error(err => {
+    .catch(err => {
       res.status(500).json(err);
     });
 };
