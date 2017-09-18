@@ -8,17 +8,30 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot) {
     const requestingUrl = route['_routeConfig'].path;
     localStorage.setItem('requestingUrl', requestingUrl);
-
-    if (localStorage.getItem('currentUser')) {
-      return true;
+    if (requestingUrl.split('/')[0] === 'admin') {
+      if (localStorage.getItem('adminUser')) {
+        return true;
+      }
+      this.router.navigate(['/login', 'admin']);
+      return false;
+    } else {
+      if (localStorage.getItem('currentUser')) {
+        return true;
+      }
+      this.router.navigate(['/login', 'user']);
+      return false;
     }
-
-    this.router.navigate(['/login']);
-    return false;
   }
 
   isLoggedIn() {
     if (localStorage.getItem('currentUser')) {
+      return true;
+    }
+    return false;
+  }
+
+  isAdmin() {
+    if (localStorage.getItem('adminUser')) {
       return true;
     }
     return false;
