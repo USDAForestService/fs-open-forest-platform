@@ -116,7 +116,7 @@ The linting results will be put into `server/lint-results.html`.
 
 To run all of the tests locally, be sure your Postgresql server is running and then run:
 ```bash
-export PLATFORM='CircleCI'
+export PLATFORM='local'
 yarn test
 ```
 

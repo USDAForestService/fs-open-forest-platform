@@ -12,15 +12,6 @@ vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
 vcapConstants.region = intakeS3.credentials.region;
 vcapConstants.bucket = intakeS3.credentials.bucket;
 
-// Certs S3
-let certsS3 = VCAPServices['s3'].find(element => {
-  return element.name === 'certs';
-});
-vcapConstants.certsAccessKeyId = certsS3.credentials.access_key_id;
-vcapConstants.certsSecretAccessKey = certsS3.credentials.secret_access_key;
-vcapConstants.certsRegion = certsS3.credentials.region;
-vcapConstants.certsBucket = certsS3.credentials.bucket;
-
 // Middle layer
 let middlelayerService = VCAPServices['user-provided'].find(element => {
   return element.name === 'middlelayer-service';
@@ -42,8 +33,9 @@ let loginGovService = VCAPServices['user-provided'].find(element => {
   return element.name === 'login-service-provider';
 });
 vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
+vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
 vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
 vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
-// vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
+vcapConstants.loginGovRedirectURI = loginGovService.credentials.redirecturi;
 
 module.exports = vcapConstants;

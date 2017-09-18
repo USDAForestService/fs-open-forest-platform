@@ -3,7 +3,8 @@
 var noncommercialTestData = require('./data/noncommercialTestData.es6');
 var request = require('supertest');
 var nock = require('nock');
-var server = require('../app.es6');
+// var server = require('../app.es6');
+var server = require('./mock-aws-app');
 var testURL = '/permits/applications/special-uses/noncommercial';
 var vcap = require('../vcap-services.es6');
 

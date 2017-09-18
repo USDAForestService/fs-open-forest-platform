@@ -12,11 +12,12 @@ import { PermitApplicationListComponent } from './admin/permit-application-list/
 import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
-
+import { TemporaryOutfittersFaqComponent } from './applications/temporary-outfitters/temporary-outfitters-faq.component';
 const appRoutes: Routes = [
   {
     path: 'admin/applications',
     component: PermitApplicationListComponent,
+    canActivate: [AuthGuard],
     data: { title: 'Application administration listing' }
   },
   {
@@ -41,8 +42,13 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     data: { title: 'Apply for a temporary outfitters permit' }
   },
+  {
+    path: 'applications/temp-outfitters/faq',
+    component: TemporaryOutfittersFaqComponent,
+    data: { title: 'Temporary outfitters permit FAQs' }
+  },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
-  { path: 'login', component: LoginFormComponent, data: { title: 'Login' } },
+  { path: 'login/:type', component: LoginFormComponent, data: { title: 'Login' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
