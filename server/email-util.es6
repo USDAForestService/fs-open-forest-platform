@@ -1,6 +1,7 @@
 'use strict';
 
 const nodemailer = require('nodemailer');
+
 const vcapConstants = require('./vcap-constants.es6');
 const emailTemplates = require('./email-templates/email-templates.es6');
 const util = require('./util.es6');
@@ -37,9 +38,7 @@ emailUtil.send = (to, subject, body) => {
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
-    console.log('------------ email info', info);
     if (error) {
-      return console.log('error message', error);
       // TODO: Handle error
     }
   });
