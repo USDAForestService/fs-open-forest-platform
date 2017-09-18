@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 const vcapConstants = require('../vcap-constants.es6');
-
+const util = require('../util.es6');
 const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
@@ -109,12 +109,12 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type: ${application.type}
+Permit type:  ${util.capitalize(application.type)}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
-Participants: ${application.noncommercialFieldsNumberParticipants}
-Spectators: ${application.noncommercialFieldsSpectatorCount}
+Number of participants: ${application.noncommercialFieldsNumberParticipants}
+Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 
 Go to ${applicationUrl} to login and view the application.
@@ -136,7 +136,7 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type: ${application.type}
+Permit type: ${util.capitalize(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY'
