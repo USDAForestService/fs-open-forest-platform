@@ -45,7 +45,7 @@ export class PermitApplicationViewComponent implements OnInit {
 
   updateApplicationStatus(application, status) {
     application.status = status;
-    application.reasonForReturn = this.reasonOrCancel.message;
+    application.applicantMessage = this.reasonOrCancel.message;
     this.applicationService.update(application, this.type).subscribe(
       (data: any) => {
         if (status === 'Accepted') {

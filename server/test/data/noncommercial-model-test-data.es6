@@ -54,7 +54,7 @@ module.exports = {
     updatedAt: undefined,
     status: 'Received',
     signature: 'AAA',
-    reasonForReturn: undefined,
+    applicantMessage: undefined,
     noncommercialFieldsSpectatorCount: 25
   }),
   noncommercialModelOrg: factory.factory({
@@ -108,7 +108,7 @@ module.exports = {
     updatedAt: undefined,
     status: 'Received',
     signature: 'AAA',
-    reasonForReturn: undefined,
+    applicantMessage: undefined,
     noncommercialFieldsSpectatorCount: 25
   })
 };

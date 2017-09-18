@@ -34,7 +34,7 @@ validator.addSchema(tempOutfitterSchema);
 validator.addSchema(activityDescriptionFieldsSchema);
 validator.addSchema(experienceFieldsSchema);
 
-let validateSchema = input => {
+const validateSchema = input => {
   let result;
 
   if (input.inputObj && Object.keys(input.inputObj).length > 0) {

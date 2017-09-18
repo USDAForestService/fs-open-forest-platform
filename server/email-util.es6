@@ -1,44 +1,45 @@
 'use strict';
 
 const nodemailer = require('nodemailer');
+
 const vcapConstants = require('./vcap-constants.es6');
 const emailTemplates = require('./email-templates/email-templates.es6');
+const util = require('./util.es6');
 
 const emailUtil = {};
 
 emailUtil.sendEmail = (templateName, data) => {
-  let template = emailTemplates[templateName](data);
+  const template = emailTemplates[templateName](data);
   emailUtil.send(template.to, template.subject, template.body);
 };
 
 emailUtil.send = (to, subject, body) => {
-  let smtpConfig = {
+  const smtpConfig = {
     host: vcapConstants.smtpHost,
     port: 587,
     secure: false,
-    requireTLS: true,
-    auth: {
-      user: vcapConstants.smtpUsername
-    }
+    requireTLS: true
   };
 
-  if (vcapConstants.smtpPassword) {
-    smtpConfig.auth.pass = vcapConstants.smtpPassword;
+  if (util.isLocalOrCI()) {
+    smtpConfig.auth = {
+      user: vcapConstants.smtpUsername,
+      pass: vcapConstants.smtpPassword
+    };
   }
 
-  let transporter = nodemailer.createTransport(smtpConfig);
+  const transporter = nodemailer.createTransport(smtpConfig);
 
-  let mailOptions = {
+  const mailOptions = {
     from: vcapConstants.smtpUsername,
     to: to,
     subject: subject,
     text: body // plain text
   };
 
-  let trans = transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return console.log('error message', error);
-      //TODO: Handle error
+      // TODO: Handle error
     }
   });
 };

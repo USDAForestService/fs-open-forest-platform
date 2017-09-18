@@ -6,7 +6,7 @@ const util = require('./util.es6');
 const middleware = {};
 
 middleware.setCorsHeaders = (req, res, next) => {
-  // don't cache the API calls
+  /* don't cache the API calls */
   res.set('Cache-Control', 'no-cache');
   if (process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
@@ -21,7 +21,7 @@ middleware.setCorsHeaders = (req, res, next) => {
   next();
 };
 
-// middleware for checking a valid user
+/* middleware for checking a valid user */
 middleware.checkPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
     next();
@@ -36,7 +36,7 @@ middleware.checkPermissions = (req, res, next) => {
   }
 };
 
-// middleware for checking a valid admin user
+/* middleware for checking a valid admin user */
 middleware.checkAdminPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
     next();
