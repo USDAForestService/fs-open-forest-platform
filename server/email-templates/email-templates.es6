@@ -109,7 +109,7 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type:  ${util.capitalize(application.type)}
+Permit type:  ${util.camelCaseToRegularForm(application.type)}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
@@ -136,7 +136,7 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type: ${util.capitalize(application.type)}
+Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY'
