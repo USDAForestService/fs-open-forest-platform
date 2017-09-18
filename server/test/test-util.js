@@ -4,6 +4,7 @@ const AWS = require('mock-aws');
 const expect = require('chai').expect;
 const request = require('request');
 const sinon = require('sinon');
+
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
 const util = require('../util.es6');
 
