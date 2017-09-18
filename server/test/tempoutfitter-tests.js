@@ -81,6 +81,44 @@ describe('temp outfitter server tests', () => {
       .expect(500, done);
   });
 
+  describe('getApplicationFileNames', () => {
+    let appId = 'appId';
+    let app = {appId};
+    let findAll;
+    beforeEach(() => {
+      findAll = sinon.stub(ApplicationFile, 'findAll').resolves(app);
+    });
+    afterEach(() => {
+      findAll.restore();
+    });
+    it('GET /:appId/files should return all application file names', done => {
+      request(server)
+        .get(`${url}/${appId}/files`)
+        .expect(200, (err, res) => {
+          expect(res.body.appId).to.equal(app.appId);
+          done();
+        })
+    });
+    it('GET /:appId/files should return a 404 not found if the application can not be found', done => {
+      findAll.restore()
+      findAll = sinon.stub(ApplicationFile, 'findAll').resolves();
+      request(server)
+        .get(`${url}/${appId}/files`)
+        .expect(404, done)
+    });
+    it('GET /:appId/files should return a 500 if an error occurs', done => {
+      let error = "No way, no how";
+      findAll.restore();
+      findAll = sinon.stub(ApplicationFile, 'findAll').rejects(new Error(error));
+      request(server)
+        .get(`${url}/${appId}/files`)
+        .expect(500, (err, res) => {
+          expect(res.body).to.equal(error);
+          done();
+        });
+    });
+  });
+
   describe(`POST ${postFileURL} accepts a file`, () => {
     it('should accept a guide-document file and return 201 created', done => {
       request(server)
@@ -157,6 +195,18 @@ describe('temp outfitter server tests', () => {
           done(err);
         });
     });
+    it('should return a 500 error and an error message if an error occurs', done => {
+      let error = 'nope'
+      let stub = sinon.stub(ApplicationFile, 'create').rejects(new Error(error));
+      request(server)
+        .post(postFileURL)
+        .type('multipart/form-data')
+        .field('applicationId', testApp.applicationId)
+        .field('documentType', 'guide-document')
+        .set('Accept', 'text/html')
+        .attach('file', './test/data/test.docx')
+        .expect(500, done);
+      });
   });
 
   describe(`PUT ${url}/:uuid updates an application`, () => {
