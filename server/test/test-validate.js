@@ -1,6 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
+
 const noncommercialTestData = require('./data/noncommercial-test-data.es6');
 const validation = require('../validation.es6');
 
