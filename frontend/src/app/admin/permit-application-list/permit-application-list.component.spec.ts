@@ -1,7 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import { MockBackend } from '@angular/http/testing';
 import { PermitApplicationListComponent } from './permit-application-list.component';
 import { ApplicationService } from './../../_services/application.service';
 import { SortArray } from './../../_pipes/sort-array.pipe';
@@ -9,21 +10,29 @@ import { HoursFromOrDate } from './../../_pipes/hours-from-or-date.pipe';
 import { DaysToOrDate } from './../../_pipes/days-to-or-date.pipe';
 import { SpacesToDashesPipe } from './../../_pipes/spaces-to-dashes.pipe';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { AlertService } from '../../_services/alert.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 import * as moment from 'moment/moment';
 
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
   let fixture: ComponentFixture<PermitApplicationListComponent>;
+  let router = {
+    navigate: jasmine.createSpy('navigate')
+  };
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [PermitApplicationListComponent, SortArray, HoursFromOrDate, DaysToOrDate, SpacesToDashesPipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        providers: [{ provide: ApplicationService, useClass: MockApplicationService }, AlertService],
+        providers: [
+          { provide: ApplicationService, useClass: ApplicationService },
+          AlertService,
+          { provide: XHRBackend, useClass: MockBackend },
+          { provide: Router, useValue: router }
+        ],
         imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
@@ -87,6 +96,11 @@ describe('PermitApplicationListComponent', () => {
     expect(component.showAttentionAlert()).toBeFalsy();
   });
 
+  it('should show attention alert if there are no applications over 2 days old', () => {
+    component.applications = [{ createdAt: '2017-08-14 11:52:52-05' }, { createdAt: '2017-08-14 11:52:52-05' }];
+    expect(component.showAttentionAlert()).toBeTruthy();
+  });
+
   it('should return true if start date is less than one week away', () => {
     const now = moment();
     const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(6, 'days');
@@ -104,10 +118,12 @@ describe('PermitApplicationListComponent', () => {
     const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(2, 'weeks');
     expect(component.isWeekAwayOrPast(date)).toBeFalsy();
   });
-});
 
-class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-}
+  it(
+    'should handle status code',
+    inject([ApplicationService], service => {
+      service.handleStatusCode(403);
+      expect(router.navigate).toHaveBeenCalledWith(['access-denied']);
+    })
+  );
+});
