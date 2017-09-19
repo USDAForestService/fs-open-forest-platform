@@ -18,7 +18,7 @@ import * as moment from 'moment/moment';
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
   let fixture: ComponentFixture<PermitApplicationListComponent>;
-  let router = {
+  const router = {
     navigate: jasmine.createSpy('navigate')
   };
 
