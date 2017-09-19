@@ -21,7 +21,11 @@ emailUtil.send = (to, subject, body) => {
     requireTLS: true
   };
 
-  if (util.isLocalOrCI()) {
+  /*
+   * If smtp username and password are set in VCAP_SERVICES,
+   * we assume that smtp host is configured to authenticate with username and password.
+   */
+  if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
     smtpConfig.auth = {
       user: vcapConstants.smtpUsername,
       pass: vcapConstants.smtpPassword
