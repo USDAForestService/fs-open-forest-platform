@@ -10,13 +10,10 @@ import { MockBackend } from '@angular/http/testing';
 describe('AuthGuardService', () => {
   let service: AuthenticationService;
   let http: Http;
-  let router: Router;
-  let user: any;
 
   beforeEach(() => {
-    service = new AuthenticationService(http, router);
+    service = new AuthenticationService(http, null);
     http = new Http(null, null);
-    user = { email: 'test@test.com', role: 'admin' };
 
     TestBed.configureTestingModule({
       providers: [
