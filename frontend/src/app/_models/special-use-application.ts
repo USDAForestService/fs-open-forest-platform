@@ -12,7 +12,7 @@ export class SpecialUseApplication {
   noncommercialFields: NoncommercialFields;
   tempOutfitterFields: TempOutfitterFields;
   tempOutfitterFiles: TempOutfitterFiles;
-  reasonForReturn: string;
+  applicantMessage: string;
   region: string;
   signature: string;
   status: string;

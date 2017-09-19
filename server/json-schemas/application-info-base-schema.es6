@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   id: '/applicantInfoBase',
   type: 'object',
