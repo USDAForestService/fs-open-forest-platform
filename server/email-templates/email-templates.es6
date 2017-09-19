@@ -117,7 +117,7 @@ Number of participants: ${application.noncommercialFieldsNumberParticipants}
 Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 
-Go to ${applicationUrl} to login and view the application.
+Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
@@ -146,7 +146,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-Go to ${applicationUrl} to login and view the application.
+Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
