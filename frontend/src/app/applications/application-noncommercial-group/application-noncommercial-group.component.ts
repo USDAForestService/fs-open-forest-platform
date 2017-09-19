@@ -63,15 +63,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
-      if (type === 'Person') {
-        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
-        this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
-      } else if (type === 'Corporation') {
-        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
-        this.applicationForm
-          .get('applicantInfo.organizationName')
-          .setValidators([Validators.required, alphanumericValidator()]);
-      }
+      this.orgTypeChange(type);
     });
 
     this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').valueChanges.subscribe(value => {
@@ -103,6 +95,18 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
       }
     });
+  }
+
+  orgTypeChange(type): void {
+    if (type === 'Person') {
+      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
+      this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
+    } else if (type === 'Corporation') {
+      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+      this.applicationForm
+        .get('applicantInfo.organizationName')
+        .setValidators([Validators.required, alphanumericValidator()]);
+    }
   }
 
   updateDateStatus(dateStatus: any): void {
