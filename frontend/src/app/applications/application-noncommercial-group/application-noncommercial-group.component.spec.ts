@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
@@ -8,7 +8,8 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -20,9 +21,10 @@ describe('ApplicationNoncommercialGroupComponent', () => {
         declarations: [ApplicationNoncommercialGroupComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
-          { provide: ApplicationService, useClass: MockApplicationService },
-          { provide: ApplicationFieldsService, useClass: MockApplicationService },
-          { provide: FormBuilder, useClass: FormBuilder }
+          { provide: ApplicationService, useClass: ApplicationService },
+          { provide: ApplicationFieldsService, useClass: MockApplicationFieldsService },
+          { provide: FormBuilder, useClass: FormBuilder },
+          { provide: XHRBackend, useClass: MockBackend }
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
@@ -37,8 +39,9 @@ describe('ApplicationNoncommercialGroupComponent', () => {
 
   it('should call orgTypeChange if org type is changed', () => {
     const spy = sinon.spy(component, 'orgTypeChange');
+    component.applicationForm.get('applicantInfo.orgType').setValue('Person');
     component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
-    expect(spy.calledOnce).toBeTruthy();
+    expect(spy.calledTwice).toBeTruthy();
   });
 
   it('should update date status', () => {
@@ -62,20 +65,42 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     component.onSubmit(component.applicationForm);
     expect(component.submitted).toBeTruthy();
   });
+
+  it(
+    'should create a new application',
+    inject([ApplicationService, XHRBackend], (service, mockBackend) => {
+      const mockResponse = { eventName: 'test', id: '123' };
+      mockBackend.connections.subscribe(connection => {
+        connection.mockRespond(
+          new Response(
+            new ResponseOptions({
+              body: JSON.stringify(mockResponse)
+            })
+          )
+        );
+      });
+
+      service.create().subscribe(data => {
+        expect(data.eventName).toBe('test');
+      });
+    })
+  );
 });
 
-class MockApplicationService {
-  spy = sinon.spy();
-  removeAddress = this.spy;
+class MockApplicationFieldsService {
   get(): Observable<{}> {
     return Observable.of();
+  }
+
+  scrollToFirstError() {
+    return false;
+  }
+
+  touchAllFields() {
+    return false;
   }
 
   create(): Observable<{}> {
     return Observable.of();
   }
-
-  touchAllFields() {}
-  scrollToFirstError() {}
-
 }
