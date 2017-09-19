@@ -2,7 +2,7 @@
 
 const moment = require('moment');
 const vcapConstants = require('../vcap-constants.es6');
-
+const util = require('../util.es6');
 const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
@@ -30,7 +30,7 @@ What happens next?
 1. Your application will be reviewed by our staff within 48 hours.
 2. If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.
 3. Once your application has been reviewed by our staff, you will be notified of the application status.
-4. If your application is approved, you will receive your permit via U.S. mail within 2 weeks of approval.
+4. If your application is approved, you will receive your permit within 2 weeks of approval.
 
 Contact us
 
@@ -109,15 +109,15 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type: ${application.type}
+Permit type:  ${util.camelCaseToRegularForm(application.type)}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
-Participants: ${application.noncommercialFieldsNumberParticipants}
-Spectators: ${application.noncommercialFieldsSpectatorCount}
+Number of participants: ${application.noncommercialFieldsNumberParticipants}
+Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 
-Go to ${applicationUrl} to login and view the application.
+Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
@@ -136,7 +136,7 @@ Application details
 
 ----------------------------------------------------------
 
-Permit type: ${application.type}
+Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY'
@@ -146,7 +146,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-Go to ${applicationUrl} to login and view the application.
+Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
@@ -154,8 +154,14 @@ Go to ${applicationUrl} to login and view the application.
 email.noncommercialApplicationReturned = application => {
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'Unfortunately the following permit application has not been accepted.',
+    subject: 'An update on your recent permit application to the Forest Service.',
     body: `
+Permit application status update
+
+----------------------------------------------------------
+
+Unfortunately the following permit application has not been accepted.
+
 ${application.applicantMessage}
 
 Application details
@@ -192,6 +198,10 @@ email.tempOutfitterApplicationReturned = application => {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
     body: `
+Permit application status update
+
+----------------------------------------------------------
+
 Unfortunately the following permit application has not been accepted.
 
 ${application.applicantMessage}

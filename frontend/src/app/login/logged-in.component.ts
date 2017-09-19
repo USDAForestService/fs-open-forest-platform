@@ -11,16 +11,16 @@ export class LoggedInComponent implements OnInit {
   constructor(private router: Router, private authentication: AuthenticationService) {}
 
   ngOnInit() {
-    const requestingUrl = localStorage.getItem('requestingUrl');
-    const user = this.authentication.getUser();
-
-    if (requestingUrl) {
-      localStorage.removeItem('requestingUrl');
-      this.router.navigate([requestingUrl]);
-    } else if (user.role === 'admin') {
-      this.router.navigate(['/admin/applications']);
-    } else {
-      this.router.navigate(['/']);
-    }
+    this.authentication.getAuthenticatedUser().subscribe((user: any) => {
+      const requestingUrl = localStorage.getItem('requestingUrl');
+      if (requestingUrl) {
+        localStorage.removeItem('requestingUrl');
+        return this.router.navigate([requestingUrl]);
+      } else if (user.role === 'admin') {
+        this.router.navigate(['/admin/applications']);
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

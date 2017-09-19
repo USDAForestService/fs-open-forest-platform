@@ -38,11 +38,11 @@ export class TemporaryOutfittersComponent implements DoCheck {
 
   constructor(
     private element: ElementRef,
-    private applicationService: ApplicationService,
-    private applicationFieldsService: ApplicationFieldsService,
+    public applicationService: ApplicationService,
+    public applicationFieldsService: ApplicationFieldsService,
     private router: Router,
-    private formBuilder: FormBuilder,
-    private renderer: Renderer2
+    public formBuilder: FormBuilder,
+    public renderer: Renderer2
   ) {
     this.applicationForm = this.formBuilder.group({
       district: ['11', [Validators.required]],
@@ -144,7 +144,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
     }
   }
 
-  onSubmit(form) {
+  onSubmit() {
     this.submitted = true;
     this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
