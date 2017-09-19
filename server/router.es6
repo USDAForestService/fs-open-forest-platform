@@ -52,7 +52,7 @@ router.get(
   '/permits/applications/special-uses/temp-outfitter/:id',
   middleware.setCorsHeaders,
   middleware.checkPermissions,
-  noncommercialController.getOne
+  tempOutfitterController.getOne
 );
 
 /* get temp outfitter files by application id */
