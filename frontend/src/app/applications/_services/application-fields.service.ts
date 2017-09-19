@@ -67,9 +67,7 @@ export class ApplicationFieldsService {
 
   doesControlHaveErrors(formGroup: FormGroup) {
     let errors = false;
-    if (!formGroup) {
-      return errors;
-    }
+
     errors = (<any>Object).keys(formGroup.controls).some(control => {
       return (
         this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]) ||

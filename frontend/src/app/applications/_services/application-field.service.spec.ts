@@ -32,6 +32,8 @@ describe('ApplicationFieldsService', () => {
 
     dataField.setValue('test');
 
+    service.updateValidators(dataField, false);
+
     expect(dataField.valid).toBeTruthy();
   });
 
@@ -83,9 +85,14 @@ describe('ApplicationFieldsService', () => {
     const form = formBuilder.group({
       name: [''],
       child: formBuilder.group({
-        childName: ['', [Validators.required, Validators.email, alphanumericValidator()]]
+        childName: ['', [Validators.required, Validators.email, alphanumericValidator()]],
+        secondChild: formBuilder.group({
+          childName: ['', [Validators.required, Validators.email, alphanumericValidator()]]
+        })
       })
     });
+
+    expect(service.doesControlHaveErrors(form)).toBeFalsy();
 
     service.touchAllFields(form);
 
