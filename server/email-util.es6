@@ -35,7 +35,7 @@ emailUtil.send = (to, subject, body) => {
   const transporter = nodemailer.createTransport(smtpConfig);
 
   const mailOptions = {
-    from: vcapConstants.smtpUsername,
+    from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
     to: to,
     subject: subject,
     text: body // plain text

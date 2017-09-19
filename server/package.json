@@ -54,8 +54,7 @@
     "start": "node --harmony_default_parameters app.es6",
     "test": "mocha",
     "undoAllMigrate": "./node_modules/.bin/sequelize db:migrate:undo:all",
-    "undoLastMigrate": "./node_modules/.bin/sequelize db:migrate:undo",
-    "prepublish": "npm run snyk-protect"
+    "undoLastMigrate": "./node_modules/.bin/sequelize db:migrate:undo"
   },
   "engines": {
     "node": "^6.10.3"
