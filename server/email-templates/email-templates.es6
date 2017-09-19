@@ -11,13 +11,13 @@ email.noncommercialApplicationSubmittedConfirmation = application => {
     subject: 'Your noncommercial permit application has been submitted for review!',
     body: `
 Submitted for review!
-**************************
+**************************************
 
 Your permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
 
 
 Application details
-**************************
+**************************************
 
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
@@ -28,7 +28,7 @@ Location: ${application.noncommercialFieldsLocationDescription}
 
 
 What happens next?
-**************************
+**************************************
 
 1. Your application will be reviewed by our staff within 48 hours.
 2. If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.
@@ -37,7 +37,7 @@ What happens next?
 
 
 Contact us
-**************************
+**************************************
 
 If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
@@ -58,13 +58,13 @@ email.tempOutfitterApplicationSubmittedConfirmation = application => {
     subject: 'Your temporary outfitter permit application has been submitted for review.',
     body: `
 Submitted for review!
-**************************
+**************************************
 
 Your permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
 
 
 Application details
-**************************
+**************************************
 
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
@@ -79,7 +79,7 @@ Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
 
 What happens next?
-**************************
+**************************************
 
 1. Your application will be reviewed by our staff.
 2. If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.
@@ -88,7 +88,7 @@ What happens next?
 
 
 Contact us
-**************************
+**************************************
 
 If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
@@ -114,7 +114,7 @@ email.noncommercialApplicationSubmittedAdminConfirmation = application => {
     ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
     body: `
 Application details
-**************************
+**************************************
 
 Permit type:  ${util.camelCaseToRegularForm(application.type)}
 Event name: ${application.eventName}
@@ -140,7 +140,7 @@ email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
     ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
     body: `
 Application details
-**************************
+**************************************
 
 Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
@@ -163,7 +163,7 @@ email.noncommercialApplicationReturned = application => {
     subject: 'An update on your recent permit application to the Forest Service.',
     body: `
 Permit application status update
-**************************
+**************************************
 
 Unfortunately the following permit application has not been accepted.
 
@@ -171,7 +171,7 @@ ${application.applicantMessage}
 
 
 Application details
-**************************
+**************************************
 
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
@@ -184,7 +184,7 @@ If you would like to submit another permit application visit ${vcapConstants.int
 
 
 Contact us
-**************************
+**************************************
 
 If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
@@ -205,7 +205,7 @@ email.tempOutfitterApplicationReturned = application => {
     subject: 'An update on your recent permit application to the Forest Service.',
     body: `
 Permit application status update
-**************************
+**************************************
 
 Unfortunately the following permit application has not been accepted.
 
@@ -213,7 +213,7 @@ Unfortunately the following permit application has not been accepted.
 ${application.applicantMessage}
 
 Application details
-**************************
+**************************************
 
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
@@ -230,7 +230,7 @@ If you would like to submit another permit application visit ${vcapConstants.int
 
 
 Contact us
-**************************
+**************************************
 
 If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
