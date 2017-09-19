@@ -8,10 +8,7 @@ const middleware = {};
 middleware.setCorsHeaders = (req, res, next) => {
   /* don't cache the API calls */
   res.set('Cache-Control', 'no-cache');
-  if (process.env.PLATFORM === 'CI') {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:49152');
-    res.set('Access-Control-Allow-Credentials', true);
-  } else if (process.env.PLATFORM === 'local') {
+  if (process.env.PLATFORM === 'local' || process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
