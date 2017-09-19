@@ -26,10 +26,10 @@ export class PermitApplicationViewComponent implements OnInit {
   };
 
   constructor(
-    private alertService: AlertService,
-    private applicationService: ApplicationService,
+    public alertService: AlertService,
+    public applicationService: ApplicationService,
     private route: ActivatedRoute,
-    private router: Router
+    public router: Router
   ) {}
 
   getApplication(type, id) {
@@ -52,13 +52,11 @@ export class PermitApplicationViewComponent implements OnInit {
           this.alertService.addSuccessMessage(
             'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant.'
           );
-        }
-        if (status === 'Hold') {
+        } else if (status === 'Hold') {
           this.alertService.addSuccessMessage(
             'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
           );
-        }
-        if (status === 'Returned') {
+        } else if (status === 'Returned') {
           this.alertService.addSuccessMessage(
             'Permit application successfully rejected and an email with your message has been sent to the applicant.'
           );

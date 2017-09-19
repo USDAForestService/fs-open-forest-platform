@@ -132,4 +132,10 @@ util.isLocalOrCI = () => {
   return false;
 };
 
+util.camelCaseToRegularForm = string => {
+  const spaced = string.replace(/([A-Z])/g, ' $1');
+  const lowerCase = spaced.toLowerCase();
+  return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
+};
+
 module.exports = util;

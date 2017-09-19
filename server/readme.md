@@ -21,7 +21,9 @@ The following environment variables are required:
 
 - `PLATFORM` should be set to "local" for local testing.
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: ```{
+- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: 
+```javascript 
+{
   "user-provided": [
     {
       "credentials": {
@@ -110,13 +112,17 @@ The following environment variables are required:
       }
     }
   ]
-}```
+}
+```
 
-- `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is: ```{
+- `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is: 
+```javascript
+{
   "uris": [
     "http://localhost:8080/"
   ]
-}```
+}
+```
 
 ## Available commands
 

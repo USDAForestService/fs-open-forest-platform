@@ -20,7 +20,7 @@ describe('TemporaryOutfittersComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
-          { provide: ApplicationFieldsService },
+          { provide: ApplicationFieldsService, useClass: MockApplicationService },
           { provide: FormBuilder, useClass: FormBuilder}
         ],
         imports: [RouterTestingModule]
@@ -117,10 +117,118 @@ describe('TemporaryOutfittersComponent', () => {
     expect(spy.called).toBeFalsy();
     get.restore();
   });
+
+  it('should not submit if form not valid', () => {
+    component.checkFileUploadValidity = () => {};
+    component.applicationForm = component.formBuilder.group({
+      liabilityInsurance: ['', [Validators.required]]
+    });
+
+    component.dateStatus.hasErrors = false;
+    component.invalidFileUpload = false;
+    const spy = sinon.spy(component.applicationFieldsService, 'scrollToFirstError');
+    const spyPass = sinon.spy(component.applicationService, 'create');
+
+    component.onSubmit();
+    expect(spy.called).toBeTruthy();
+    expect(spyPass.called).toBeFalsy();
+  });
+
+  it('should not submit if date has errors', () => {
+    component.checkFileUploadValidity = () => {};
+    component.applicationForm = component.formBuilder.group({
+      liabilityInsurance: ['', [Validators.required]]
+    });
+    component.applicationForm.controls['liabilityInsurance'].setValue('meow mix');
+    component.dateStatus.hasErrors = true;
+    component.invalidFileUpload = false;
+    const spyFail = sinon.spy(component.applicationFieldsService, 'scrollToFirstError');
+    const spyPass = sinon.spy(component.applicationService, 'create');
+
+    component.onSubmit();
+    expect(spyFail.called).toBeTruthy();
+    expect(spyPass.called).toBeFalsy();
+  });
+
+  it('should not submit if file is invalid', () => {
+    component.checkFileUploadValidity = () => {};
+    component.applicationForm = component.formBuilder.group({
+      liabilityInsurance: ['', [Validators.required]]
+    });
+    component.applicationForm.controls['liabilityInsurance'].setValue('meow mix');
+    component.dateStatus.hasErrors = false;
+    component.invalidFileUpload = true;
+    const spyFail = sinon.spy(component.applicationFieldsService, 'scrollToFirstError');
+    const spyPass = sinon.spy(component.applicationService, 'create');
+
+    component.onSubmit();
+    expect(spyFail.called).toBeTruthy();
+    expect(spyPass.called).toBeFalsy();
+  });
+
+  it('should submit if no errors', () => {
+    component.checkFileUploadValidity = () => {};
+    component.applicationForm = component.formBuilder.group({
+      liabilityInsurance: ['', [Validators.required]]
+    });
+    component.applicationForm.controls['liabilityInsurance'].setValue('meow mix');
+    component.dateStatus.hasErrors = false;
+    component.invalidFileUpload = false;
+    const spyFail = sinon.spy(component.applicationFieldsService, 'scrollToFirstError');
+    const spyPass = sinon.spy(component.applicationService, 'create');
+
+    component.onSubmit();
+    expect(spyFail.called).toBeFalsy();
+    expect(spyPass.called).toBeTruthy();
+  });
+
+  it('should make fileupload invalid if no files', () => {
+    const queryStub = sinon.stub(window.document, 'querySelectorAll').returns([]);
+    component.checkFileUploadValidity();
+    expect(component.invalidFileUpload).toBeFalsy();
+    queryStub.restore();
+  });
+
+  it('should make fileupload valid if files', () => {
+    const queryStub = sinon.stub(window.document, 'querySelectorAll').returns(['meowMix']);
+    component.checkFileUploadValidity();
+    expect(component.invalidFileUpload).toBeTruthy();
+    queryStub.restore();
+  });
+
+  it('should add class if in view', () => {
+    const target = document.body;
+    const addClassSpy = sinon.spy(component.renderer, 'addClass');
+    const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
+    component.elementInView({value: 'meowmix', target: target});
+    expect(addClassSpy.called).toBeTruthy();
+    expect(removeClassSpy.called).toBeFalsy();
+  });
+
+  it('should remove class if in view', () => {
+    const target = document.body;
+    const addClassSpy = sinon.spy(component.renderer, 'addClass');
+    const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
+    component.elementInView({target: target});
+    expect(addClassSpy.called).toBeFalsy();
+    expect(removeClassSpy.called).toBeTruthy();
+  });
 });
 
 class MockApplicationService {
   get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  scrollToFirstError() {
+    return false;
+  }
+
+  touchAllFields() {
+    return false;
+  }
+
+  create(): Observable<{}> {
     return Observable.of();
   }
 }

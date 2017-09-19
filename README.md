@@ -79,6 +79,14 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
 
+
+### SMTP relay configuration for sending emails
+The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
+
+Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
+
+The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
+
 ### Docker Environment
 
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
