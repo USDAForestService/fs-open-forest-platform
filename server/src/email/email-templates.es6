@@ -269,4 +269,26 @@ ${application.applicantMessage}
   };
 };
 
+email.noncommercialApplicationAccepted = application => {
+  return {
+    to: application.applicantInfoEmailAddress,
+    subject: 'Your noncommercial permit application has been submitted for review!',
+    body: `
+Your application has been set to hold because
+${application.applicantMessage}
+`
+  };
+};
+
+email.tempOutfitterApplicationAccepted = application => {
+  return {
+    to: application.applicantInfoEmailAddress,
+    subject: 'Your noncommercial permit application has been submitted for review!',
+    body: `
+Your application has been set to hold because
+${application.applicantMessage}
+`
+  };
+};
+
 module.exports = email;
