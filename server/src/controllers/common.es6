@@ -8,7 +8,7 @@ const commonControllers = {};
 commonControllers.getAllOpenApplications = (req, res) => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
-  switch (req.params.statusGroup) {
+  switch (statusGroup) {
     case 'pending':
       orCondition = [
         {
@@ -47,6 +47,8 @@ commonControllers.getAllOpenApplications = (req, res) => {
         }
       ];
       break;
+    default:
+      res.status(404).send();
   }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
