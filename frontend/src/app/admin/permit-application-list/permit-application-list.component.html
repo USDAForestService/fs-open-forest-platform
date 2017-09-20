@@ -29,6 +29,14 @@
       </div>
     </div>
     <div class="application-list">
+
+      <select class="usa-input-inline" id="application-status-toggle" [value]="jsonString" (change)="applicationStatusChange($event)">
+        <option value="openHold" selected>open/hold</option>
+        <option value="closedAcceptedExpired" selected>closed/accepted/expired</option>
+        <option value="cancelled" selected>cancelled</option>
+        <option value="all" selected>all</option>
+      </select>
+
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
         <div>Type</div>
