@@ -113,6 +113,9 @@ email.noncommercialApplicationSubmittedAdminConfirmation = application => {
       'YYYY-MM-DDTHH:mm:ss'
     ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
     body: `
+Go to ${applicationUrl} to log in and view the application.
+**************************************
+
 Application details
 **************************************
 
@@ -123,8 +126,6 @@ End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm
 Number of participants: ${application.noncommercialFieldsNumberParticipants}
 Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
-
-Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
@@ -139,6 +140,9 @@ email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
       'YYYY-MM-DDTHH:mm:ss'
     ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
     body: `
+Go to ${applicationUrl} to log in and view the application.
+**************************************
+
 Application details
 **************************************
 
@@ -151,8 +155,6 @@ End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, 'YYY
 Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
-
-Go to ${applicationUrl} to log in and view the application.
 `
   };
 };
