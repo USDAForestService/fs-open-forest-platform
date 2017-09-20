@@ -15,9 +15,15 @@ export class PermitApplicationListComponent implements OnInit {
   applications: any;
   errorMessage: string;
   successMessage: string;
+  applicationStatus = 'pending';
 
   constructor(private applicationService: ApplicationService, private alertService: AlertService) {
     this.applications = [];
+  }
+
+  applicationStatusChange(event) {
+    this.applicationStatus = event.target.value;
+    this.getApplications(this.applicationStatus);
   }
 
   isApproachingBeginDateTime(startDateTime) {
@@ -60,8 +66,8 @@ export class PermitApplicationListComponent implements OnInit {
     return result;
   }
 
-  getApplications() {
-    this.applicationService.get().subscribe(
+  getApplications(type) {
+    this.applicationService.get(`/${type}`).subscribe(
       (applications: any) => {
         this.applications = applications;
       },
@@ -74,7 +80,7 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getApplications();
+    this.getApplications(this.applicationStatus);
     this.successMessage = this.alertService.getSuccessMessage();
     this.alertService.clear();
   }
