@@ -66,8 +66,8 @@ export class PermitApplicationListComponent implements OnInit {
     return result;
   }
 
-  getApplications(type = null) {
-    this.applicationService.get().subscribe(
+  getApplications(type) {
+    this.applicationService.get(`/${type}`).subscribe(
       (applications: any) => {
         this.applications = applications;
       },
@@ -80,7 +80,7 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getApplications();
+    this.getApplications('open-hold');
     this.successMessage = this.alertService.getSuccessMessage();
     this.alertService.clear();
   }
