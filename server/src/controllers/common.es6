@@ -6,6 +6,50 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const commonControllers = {};
 
 commonControllers.getAllOpenApplications = (req, res) => {
+  const statusGroup = req.params.statusGroup;
+  let orCondition = [];
+  switch (statusGroup) {
+    case 'pending':
+      orCondition = [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ];
+      break;
+    case 'accepted':
+      orCondition = [
+        {
+          status: 'Accepted'
+        }
+      ];
+      break;
+    case 'rejected':
+      orCondition = [
+        {
+          status: 'Returned'
+        }
+      ];
+      break;
+    case 'cancelled':
+      orCondition = [
+        {
+          status: 'Cancelled'
+        }
+      ];
+      break;
+    case 'expired':
+      orCondition = [
+        {
+          status: 'Expired'
+        }
+      ];
+      break;
+    default:
+      res.status(404).send();
+  }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
       'appControlNumber',
@@ -20,14 +64,7 @@ commonControllers.getAllOpenApplications = (req, res) => {
       'status'
     ],
     where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
+      $or: orCondition,
       noncommercialFieldsEndDateTime: {
         $gt: new Date()
       }
@@ -49,14 +86,7 @@ commonControllers.getAllOpenApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
     where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
+      $or: orCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
         $gt: new Date()
       }
