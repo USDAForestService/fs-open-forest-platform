@@ -1,14 +1,16 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Mount Baker-Snoqualmie National Forest</h1>
-    <label for="applicatin-status-toggle">Filter by</label>
-    <select class="usa-input-inline" id="application-status-toggle" [value]="jsonString" (change)="applicationStatusChange($event)">
-      <option value="pending" selected="selected">Pending</option>
-      <option value="accepted">Accepted</option>
-      <option value="rejected">Rejected</option>
-      <option value="cancelled">Cancelled</option>
-      <option value="expired">Expired</option>
-    </select>
+    <div class="application-status-toggle-wrapper">
+      <label for="applicatin-status-toggle">Filter by</label>
+      <select class="usa-input-inline" id="application-status-toggle" (change)="applicationStatusChange($event)">
+        <option value="pending" selected>Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="expired">Expired</option>
+      </select>
+    </div>
     <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications</h2>
     <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
       <div class="usa-alert-body">
