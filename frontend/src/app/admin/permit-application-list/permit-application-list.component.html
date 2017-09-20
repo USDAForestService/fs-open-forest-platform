@@ -31,10 +31,10 @@
     <div class="application-list">
 
       <select class="usa-input-inline" id="application-status-toggle" [value]="jsonString" (change)="applicationStatusChange($event)">
-        <option value="openHold" selected>open/hold</option>
-        <option value="closedAcceptedExpired" selected>closed/accepted/expired</option>
-        <option value="cancelled" selected>cancelled</option>
-        <option value="all" selected>all</option>
+        <option value="open-hold" selected="selected">open/hold</option>
+        <option value="closed-accepted-expired">closed/accepted/expired</option>
+        <option value="returned">returned</option>
+        <option value="all">all</option>
       </select>
 
       <div class="application-field-list-labels">
@@ -48,16 +48,15 @@
         <div>&nbsp;</div>
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
-        [hidden]="application.status !== 'Received' && application.status !== 'Hold'"
         class="application-field-list-values">
-        <div *ngIf="application.status === 'Hold'"><span class="usa-label warning">Hold</span></div>
-        <div *ngIf="application.status === 'Received'">
-        </div>
+        <div><span *ngIf="application.status === 'Hold'" class="usa-label warning">Hold</span></div>
         <label>Type</label>
         <div>{{ application.type }}</div>
         <label>Event name</label>
-        <div *ngIf="application.type === 'Noncommercial'"><strong>{{ application.eventName }}</strong></div>
-        <div *ngIf="application.type === 'Temp outfitter'"><strong>{{ application.applicantInfoOrganizationName }}</strong></div>
+        <div>
+          <strong *ngIf="application.type === 'Noncommercial'">{{ application.eventName }}</strong>
+          <strong *ngIf="application.type === 'Temp outfitter'">{{ application.applicantInfoOrganizationName }}</strong>
+        </div>
         <label>Submitted</label>
         <div [ngClass]="{'deadline-warning': isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>

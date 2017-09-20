@@ -6,6 +6,62 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const commonControllers = {};
 
 commonControllers.getAllOpenApplications = (req, res) => {
+  const statusGroup = req.params.statusGroup;
+  let orCondition = [];
+  switch (req.params.statusGroup) {
+    case 'open-hold':
+      orCondition = [
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        }
+      ];
+      break;
+    case 'closed-accepted-expired':
+      orCondition = [
+        {
+          status: 'Closed'
+        },
+        {
+          status: 'Accepted'
+        },
+        {
+          status: 'Expired'
+        }
+      ];
+      break;
+    case 'returned':
+      orCondition = [
+        {
+          status: 'Returned'
+        }
+      ];
+      break;
+    case 'all':
+      orCondition = [
+        {
+          status: 'Returned'
+        },
+        {
+          status: 'Received'
+        },
+        {
+          status: 'Hold'
+        },
+        {
+          status: 'Closed'
+        },
+        {
+          status: 'Accepted'
+        },
+        {
+          status: 'Expired'
+        }
+      ];
+      break;
+  }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
       'appControlNumber',
@@ -20,14 +76,7 @@ commonControllers.getAllOpenApplications = (req, res) => {
       'status'
     ],
     where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
+      $or: orCondition,
       noncommercialFieldsEndDateTime: {
         $gt: new Date()
       }
@@ -49,14 +98,7 @@ commonControllers.getAllOpenApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
     where: {
-      $or: [
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        }
-      ],
+      $or: orCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
         $gt: new Date()
       }
