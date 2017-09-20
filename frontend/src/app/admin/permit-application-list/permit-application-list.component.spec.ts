@@ -129,7 +129,7 @@ describe('PermitApplicationListComponent', () => {
   );
 
   it('should trigger function when status changes', () => {
-    let event = { target: { value: 'returned' } };
+    const event = { target: { value: 'returned' } };
     component.applicationStatusChange(event);
     expect(component.applicationStatus).toEqual('returned');
   });
