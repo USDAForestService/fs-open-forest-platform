@@ -11,7 +11,6 @@ export class ActivityDescriptionComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() name: string;
   @Input() pointOfView: string;
-  activityDescriptionFields = 'activityDescriptionFields';
 
   dateStatus = {
     startDateTimeValid: true,
