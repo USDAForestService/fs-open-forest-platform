@@ -15,4 +15,4 @@ after(function() {
   AWS.restore();
 });
 
-module.exports = require('../app.es6');
+module.exports = require('../src/app.es6');
