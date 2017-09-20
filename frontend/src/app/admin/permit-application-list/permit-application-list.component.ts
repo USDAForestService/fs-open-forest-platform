@@ -15,9 +15,15 @@ export class PermitApplicationListComponent implements OnInit {
   applications: any;
   errorMessage: string;
   successMessage: string;
+  applicationStatus: string;
 
   constructor(private applicationService: ApplicationService, private alertService: AlertService) {
     this.applications = [];
+  }
+
+  applicationStatusChange(event) {
+    this.applicationStatus = event.target.value;
+    this.getApplications(this.applicationStatus);
   }
 
   isApproachingBeginDateTime(startDateTime) {
@@ -60,7 +66,7 @@ export class PermitApplicationListComponent implements OnInit {
     return result;
   }
 
-  getApplications() {
+  getApplications(type = null) {
     this.applicationService.get().subscribe(
       (applications: any) => {
         this.applications = applications;
