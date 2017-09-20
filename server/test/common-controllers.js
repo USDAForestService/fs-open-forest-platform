@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 
-const commonControllers = require('../controllers/common.es6');
+const commonControllers = require('../src/controllers/common.es6');
 
 describe('common controller tests', () => {
   describe('getAllOpenApplications', () => {

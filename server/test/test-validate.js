@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 
 const noncommercialTestData = require('./data/noncommercial-test-data.es6');
-const validation = require('../validation.es6');
+const validation = require('../src/validation.es6');
 
 describe('validation tests', () => {
   describe('validate noncommercial apps', () => {
