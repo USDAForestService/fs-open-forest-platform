@@ -14,6 +14,7 @@ import { AlertService } from '../../_services/alert.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import * as moment from 'moment/moment';
+import * as sinon from 'sinon';
 
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
@@ -126,4 +127,10 @@ describe('PermitApplicationListComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith(['access-denied']);
     })
   );
+
+  it('should trigger function when status changes', () => {
+    const event = { target: { value: 'returned' } };
+    component.applicationStatusChange(event);
+    expect(component.applicationStatus).toEqual('returned');
+  });
 });
