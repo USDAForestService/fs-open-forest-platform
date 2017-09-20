@@ -1,7 +1,15 @@
 <section class="usa-section">
   <div class="usa-grid">
     <h1>Mount Baker-Snoqualmie National Forest</h1>
-    <h2>Permit applications</h2>
+    <label for="applicatin-status-toggle">Filter by</label>
+    <select class="usa-input-inline" id="application-status-toggle" [value]="jsonString" (change)="applicationStatusChange($event)">
+      <option value="pending" selected="selected">Pending</option>
+      <option value="accepted">Accepted</option>
+      <option value="rejected">Rejected</option>
+      <option value="cancelled">Cancelled</option>
+      <option value="expired">Expired</option>
+    </select>
+    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications</h2>
     <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">There are errors preventing your data from loading.</h3>
@@ -29,13 +37,6 @@
       </div>
     </div>
     <div class="application-list">
-
-      <select class="usa-input-inline" id="application-status-toggle" [value]="jsonString" (change)="applicationStatusChange($event)">
-        <option value="open-hold" selected="selected">open/hold</option>
-        <option value="closed-accepted-expired">closed/accepted/expired</option>
-        <option value="returned">returned</option>
-        <option value="all">all</option>
-      </select>
 
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
