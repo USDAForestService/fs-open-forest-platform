@@ -10,7 +10,6 @@ import * as sinon from 'sinon';
 describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
-  let alertService: AlertService;
 
   beforeEach(
     async(() => {
