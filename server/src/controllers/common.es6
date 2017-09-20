@@ -9,7 +9,7 @@ commonControllers.getAllOpenApplications = (req, res) => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
   switch (req.params.statusGroup) {
-    case 'open-hold':
+    case 'pending':
       orCondition = [
         {
           status: 'Received'
@@ -19,43 +19,29 @@ commonControllers.getAllOpenApplications = (req, res) => {
         }
       ];
       break;
-    case 'closed-accepted-expired':
+    case 'accepted':
       orCondition = [
         {
-          status: 'Closed'
-        },
-        {
           status: 'Accepted'
-        },
-        {
-          status: 'Expired'
         }
       ];
       break;
-    case 'returned':
+    case 'rejected':
       orCondition = [
         {
           status: 'Returned'
         }
       ];
       break;
-    case 'all':
+    case 'cancelled':
       orCondition = [
         {
-          status: 'Returned'
-        },
-        {
-          status: 'Received'
-        },
-        {
-          status: 'Hold'
-        },
-        {
-          status: 'Closed'
-        },
-        {
-          status: 'Accepted'
-        },
+          status: 'Cancelled'
+        }
+      ];
+      break;
+    case 'expired':
+      orCondition = [
         {
           status: 'Expired'
         }

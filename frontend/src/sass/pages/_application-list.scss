@@ -81,3 +81,7 @@ app-permit-application-list .usa-alert {
   text-align: left;
   border: 1px solid $black;
 }
+
+.permit-application-type {
+  text-transform: capitalize;
+}

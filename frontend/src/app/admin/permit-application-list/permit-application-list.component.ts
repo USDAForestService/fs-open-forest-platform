@@ -15,7 +15,7 @@ export class PermitApplicationListComponent implements OnInit {
   applications: any;
   errorMessage: string;
   successMessage: string;
-  applicationStatus: string;
+  applicationStatus = 'pending';
 
   constructor(private applicationService: ApplicationService, private alertService: AlertService) {
     this.applications = [];
@@ -80,7 +80,7 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getApplications('open-hold');
+    this.getApplications(this.applicationStatus);
     this.successMessage = this.alertService.getSuccessMessage();
     this.alertService.clear();
   }
