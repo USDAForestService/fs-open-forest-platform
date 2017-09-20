@@ -10,6 +10,7 @@ import * as sinon from 'sinon';
 describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
+  let alertService: AlertService;
 
   beforeEach(
     async(() => {
@@ -18,7 +19,7 @@ describe('PermitApplicationViewComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
-          { provide: AlertService, useClass: MockApplicationService  }
+          { provide: AlertService, useClass: MockApplicationService }
         ],
         imports: [RouterTestingModule]
       }).compileComponents();
@@ -33,14 +34,14 @@ describe('PermitApplicationViewComponent', () => {
 
   it('Should get one application', () => {
     const spy = sinon.spy(component.applicationService, 'getOne');
-    component.getApplication('type', {fail: false});
+    component.getApplication('type', { fail: false });
     expect(spy.called).toBeTruthy();
   });
 
   it('Should handle error condition on application get', () => {
     const getSpy = sinon.spy(component.applicationService, 'getOne');
     const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
-    component.getApplication('type', {fail: true});
+    component.getApplication('type', { fail: true });
     expect(getSpy.called).toBeTruthy();
     expect(component.errorMessage).toEqual('The application could not be found.');
     expect(errorSpy.called).toBeTruthy();
@@ -50,7 +51,7 @@ describe('PermitApplicationViewComponent', () => {
     const updateSpy = sinon.spy(component.applicationService, 'update');
     const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
     const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
-    component.updateApplicationStatus({fail: false}, 'Accepted');
+    component.updateApplicationStatus({ fail: false }, 'Accepted');
     expect(updateSpy.called).toBeTruthy();
     expect(alertSpy.called).toBeTruthy();
     expect(errorSpy.called).toBeFalsy();
@@ -60,7 +61,7 @@ describe('PermitApplicationViewComponent', () => {
     const updateSpy = sinon.spy(component.applicationService, 'update');
     const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
     const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
-    component.updateApplicationStatus({fail: true}, 'Accepted');
+    component.updateApplicationStatus({ fail: true }, 'Accepted');
     expect(updateSpy.called).toBeTruthy();
     expect(alertSpy.called).toBeFalsy();
     expect(errorSpy.called).toBeTruthy();
@@ -81,6 +82,23 @@ describe('PermitApplicationViewComponent', () => {
     expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-secondary');
   });
 
+  it('should set fixedCtas to false on enter', () => {
+    component.enter();
+    expect(component.fixedCtas).toBeFalsy();
+  });
+
+  it('should set fixedCtas to true on leave', () => {
+    component.leave();
+    expect(component.fixedCtas).toBeTruthy();
+  });
+
+  it('should add messages when status changes', () => {
+    const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
+    component.handleUpdateResponse('Accepted');
+    component.handleUpdateResponse('Hold');
+    component.handleUpdateResponse('Returned');
+    expect(alertSpy.calledThrice).toBeTruthy();
+  });
 });
 
 class MockApplicationService {
@@ -92,7 +110,7 @@ class MockApplicationService {
     if (err && err.fail) {
       return Observable.throw('error');
     } else {
-      return Observable.of({test: 'meow'});
+      return Observable.of({ test: 'meow' });
     }
   }
 
@@ -100,15 +118,15 @@ class MockApplicationService {
     if (obj.fail) {
       return Observable.throw('error');
     } else {
-      return Observable.of({test: 'meow'});
+      return Observable.of({ test: 'meow' });
     }
   }
 
-  handleStatusCode () {
+  handleStatusCode() {
     return true;
   }
 
-  addSuccessMessage () {
+  addSuccessMessage() {
     return true;
   }
 }
