@@ -83,19 +83,20 @@ app-permit-application-list .usa-alert {
 }
 
 .application-status-toggle-wrapper {
-  max-width: 400px;
+  max-width: 300px;
   margin: 1em auto;
   width: 100%;
   label {
     display: inline-block;
     margin-top: 1.5rem;
+    margin-right: 1%;
     width: 20%;
     font-weight: 300;
   }
   select {
     background-color: transparent;
     display: inline-block;
-    width: 78%;
+    width: 77%;
   }
 }
 
