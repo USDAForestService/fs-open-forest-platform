@@ -82,6 +82,23 @@ app-permit-application-list .usa-alert {
   border: 1px solid $black;
 }
 
+.application-status-toggle-wrapper {
+  max-width: 400px;
+  margin: 1em auto;
+  width: 100%;
+  label {
+    display: inline-block;
+    margin-top: 1.5rem;
+    width: 20%;
+    font-weight: 300;
+  }
+  select {
+    background-color: transparent;
+    display: inline-block;
+    width: 78%;
+  }
+}
+
 .permit-application-type {
   text-transform: capitalize;
 }
