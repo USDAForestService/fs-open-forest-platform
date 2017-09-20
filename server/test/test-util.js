@@ -6,7 +6,7 @@ const request = require('request');
 const sinon = require('sinon');
 
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
-const util = require('../util.es6');
+const util = require('../src/util.es6');
 
 describe('util tests', () => {
   describe('getContentType', () => {
