@@ -44,6 +44,22 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(spy.calledTwice).toBeTruthy();
   });
 
+  it('should call addRemoveAddress if primary is same as secondary checkbox is checked', () => {
+    const spy = sinon.spy(component, 'addRemoveAddress');
+    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(false);
+    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
+    component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(false);
+    component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(true);
+    expect(spy.callCount).toEqual(4);
+  });
+
+  it('should call addSecondaryPermitHolder if addSecondaryPermitHolder field is changed', () => {
+    const spy = sinon.spy(component, 'addSecondaryPermitHolder');
+    component.applicationForm.get('applicantInfo.addSecondaryPermitHolder').setValue(true);
+    component.applicationForm.get('applicantInfo.addSecondaryPermitHolder').setValue(false);
+    expect(spy.calledTwice).toBeTruthy();
+  });
+
   it('should update date status', () => {
     component.updateDateStatus({
       startDateTimeValid: false,
@@ -52,13 +68,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
       startAfterToday: false,
       hasErrors: false
     });
-    component.dateStatus = {
-      startDateTimeValid: false,
-      endDateTimeValid: false,
-      startBeforeEnd: false,
-      startAfterToday: false,
-      hasErrors: false
-    };
+    expect(component.dateStatus.startDateTimeValid).toBeFalsy();
   });
 
   it('should submit the application', () => {
