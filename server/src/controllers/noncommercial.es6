@@ -309,6 +309,7 @@ noncommercial.update = (req, res) => {
             app
               .save()
               .then(() => {
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
                 res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
