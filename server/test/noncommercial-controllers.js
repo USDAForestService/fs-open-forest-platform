@@ -5,7 +5,7 @@ const request = require('supertest');
 
 const noncommercialTestData = require('./data/noncommercial-test-data.es6');
 const server = require('./mock-aws-app');
-const vcapConstants = require('../vcap-constants.es6');
+const vcapConstants = require('../src/vcap-constants.es6');
 
 const testURL = '/permits/applications/special-uses/noncommercial';
 const auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
