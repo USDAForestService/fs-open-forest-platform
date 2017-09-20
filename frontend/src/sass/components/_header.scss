@@ -71,17 +71,19 @@
     }
   }
   .usa-navbar {
-    @media (max-width: $nav-width) {
+    @media (max-width: $nav-width - 1) {
       height: 100px;
     }
     .authentication {
-      float: left;
-      clear: both;
+      float: right;
       margin-left: 18px;
-      margin-top: 5px;
-      @media (min-width: $nav-width) {
+      margin-top: -10px;
+      .user-link {
+        text-align: right;
+      }
+      @media (min-width: $nav-width + 1) {
         float: right;
-        margin-top: 32px;
+        margin-top: 27px;
         clear: none;
       }
       a {
