@@ -7,7 +7,7 @@ const multerS3 = require('multer-s3');
 const request = require('request');
 
 const ApplicationFile = require('../models/application-files.es6');
-const email = require('../email-util.es6');
+const email = require('../email/email-util.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');

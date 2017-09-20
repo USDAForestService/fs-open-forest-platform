@@ -2,9 +2,8 @@
 
 const nodemailer = require('nodemailer');
 
-const vcapConstants = require('./vcap-constants.es6');
-const emailTemplates = require('./email-templates/email-templates.es6');
-const util = require('./util.es6');
+const vcapConstants = require('../vcap-constants.es6');
+const emailTemplates = require('./email-templates.es6');
 
 const emailUtil = {};
 
