@@ -50,7 +50,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
     component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(false);
     component.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').setValue(true);
-    expect(spy.called(4).times).toBeTruthy();
+    expect(spy.callCount).toEqual(4);
   });
 
   it('should call addSecondaryPermitHolder if addSecondaryPermitHolder field is changed', () => {
