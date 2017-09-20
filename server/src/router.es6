@@ -98,7 +98,7 @@ router.post(
 
 /* get all applications with status on Received or Hold */
 router.get(
-  '/permits/applications',
+  '/permits/applications/:statusGroup',
   middleware.setCorsHeaders,
   middleware.checkPermissions,
   middleware.checkAdminPermissions,

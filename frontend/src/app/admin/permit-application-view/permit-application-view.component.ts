@@ -48,20 +48,7 @@ export class PermitApplicationViewComponent implements OnInit {
     application.applicantMessage = this.reasonOrCancel.message;
     this.applicationService.update(application, this.type).subscribe(
       (data: any) => {
-        if (status === 'Accepted') {
-          this.alertService.addSuccessMessage(
-            'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant.'
-          );
-        } else if (status === 'Hold') {
-          this.alertService.addSuccessMessage(
-            'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
-          );
-        } else if (status === 'Returned') {
-          this.alertService.addSuccessMessage(
-            'Permit application successfully rejected and an email with your message has been sent to the applicant.'
-          );
-        }
-        this.router.navigate(['admin/applications']);
+        this.handleUpdateResponse(status);
       },
       (e: any) => {
         this.applicationService.handleStatusCode(e[0]);
@@ -69,6 +56,23 @@ export class PermitApplicationViewComponent implements OnInit {
         window.scrollTo(0, 200);
       }
     );
+  }
+
+  handleUpdateResponse(status) {
+    if (status === 'Accepted') {
+      this.alertService.addSuccessMessage(
+        'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant.'
+      );
+    } else if (status === 'Hold') {
+      this.alertService.addSuccessMessage(
+        'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
+      );
+    } else if (status === 'Returned') {
+      this.alertService.addSuccessMessage(
+        'Permit application successfully rejected and an email with your message has been sent to the applicant.'
+      );
+    }
+    this.router.navigate(['admin/applications']);
   }
 
   provideReasonOrCancel(status) {
