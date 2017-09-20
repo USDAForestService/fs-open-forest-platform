@@ -7,32 +7,27 @@ const emailTemplates = require('./email-templates.es6');
 
 const emailUtil = {};
 
-emailUtil.sendEmail = (templateName, data) => {
-  const template = emailTemplates[templateName](data);
-  emailUtil.send(template.to, template.subject, template.body);
+const smtpConfig = {
+  host: vcapConstants.smtpHost,
+  port: 587,
+  secure: false,
+  requireTLS: true
 };
 
-emailUtil.send = (to, subject, body) => {
-  const smtpConfig = {
-    host: vcapConstants.smtpHost,
-    port: 587,
-    secure: false,
-    requireTLS: true
+/*
+ * If smtp username and password are set in VCAP_SERVICES,
+ * we assume that smtp host is configured to authenticate with username and password.
+ */
+if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
+  smtpConfig.auth = {
+    user: vcapConstants.smtpUsername,
+    pass: vcapConstants.smtpPassword
   };
+}
 
-  /*
-   * If smtp username and password are set in VCAP_SERVICES,
-   * we assume that smtp host is configured to authenticate with username and password.
-   */
-  if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
-    smtpConfig.auth = {
-      user: vcapConstants.smtpUsername,
-      pass: vcapConstants.smtpPassword
-    };
-  }
+const transporter = nodemailer.createTransport(smtpConfig);
 
-  const transporter = nodemailer.createTransport(smtpConfig);
-
+emailUtil.send = (to, subject, body) => {
   const mailOptions = {
     from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
     to: to,
@@ -41,6 +36,11 @@ emailUtil.send = (to, subject, body) => {
   };
 
   transporter.sendMail(mailOptions);
+};
+
+emailUtil.sendEmail = (templateName, data) => {
+  const template = emailTemplates[templateName](data);
+  emailUtil.send(template.to, template.subject, template.body);
 };
 
 module.exports = emailUtil;
