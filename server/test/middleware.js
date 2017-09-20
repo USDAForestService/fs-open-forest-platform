@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 
-const middleware = require('../middleware.es6');
+const middleware = require('../src/middleware.es6');
 
 describe('middleware tests', () => {
   it('should have CORS headers', () => {
