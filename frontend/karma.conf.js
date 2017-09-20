@@ -31,7 +31,8 @@ module.exports = function(config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true,
       thresholds: {
-        lines: 90
+        lines: 90,
+        statements: 90
       }
     },
     angularCli: {

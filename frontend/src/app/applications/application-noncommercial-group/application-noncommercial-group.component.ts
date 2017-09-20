@@ -67,33 +67,15 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     });
 
     this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').valueChanges.subscribe(value => {
-      if (value) {
-        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
-      } else {
-        this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
-      }
+      this.addRemoveAddress('primaryAddress', value);
     });
 
     this.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').valueChanges.subscribe(value => {
-      if (value) {
-        this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
-      } else {
-        this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
-      }
+      this.addRemoveAddress('secondaryAddress', value);
     });
 
     this.applicationForm.get('applicantInfo.addSecondaryPermitHolder').valueChanges.subscribe(value => {
-      if (value) {
-        this.applicationForm
-          .get('applicantInfo.secondaryFirstName')
-          .setValidators([Validators.required, alphanumericValidator()]);
-        this.applicationForm
-          .get('applicantInfo.secondaryLastName')
-          .setValidators([Validators.required, alphanumericValidator()]);
-      } else {
-        this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
-        this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
-      }
+      this.addSecondaryPermitHolder(value);
     });
   }
 
@@ -106,6 +88,28 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationForm
         .get('applicantInfo.organizationName')
         .setValidators([Validators.required, alphanumericValidator()]);
+    }
+  }
+
+  addRemoveAddress(type, value) {
+    if (value) {
+      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), type);
+    } else {
+      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), type);
+    }
+  }
+
+  addSecondaryPermitHolder(value) {
+    if (value) {
+      this.applicationForm
+        .get('applicantInfo.secondaryFirstName')
+        .setValidators([Validators.required, alphanumericValidator()]);
+      this.applicationForm
+        .get('applicantInfo.secondaryLastName')
+        .setValidators([Validators.required, alphanumericValidator()]);
+    } else {
+      this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
+      this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
     }
   }
 
