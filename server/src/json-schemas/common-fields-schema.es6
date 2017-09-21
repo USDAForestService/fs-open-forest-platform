@@ -26,11 +26,7 @@ module.exports = {
     applicantMessage: {
       default: '',
       type: 'string'
-    },
-    authEmail: {
-      default: '',
-      type: 'string'
     }
   },
-  required: ['region', 'forest', 'district', 'signature', 'authEmail']
+  required: ['region', 'forest', 'district', 'signature']
 };
