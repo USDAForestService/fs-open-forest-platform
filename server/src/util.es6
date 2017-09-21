@@ -137,6 +137,14 @@ util.setAuthEmail = req => {
   }
 };
 
+util.getUser = req => {
+  if (util.isLocalOrCI()) {
+    return { email: 'test@test.com', role: 'user' };
+  } else {
+    return req.user;
+  }
+};
+
 util.camelCaseToRegularForm = string => {
   const spaced = string.replace(/([A-Z])/g, ' $1');
   const lowerCase = spaced.toLowerCase();

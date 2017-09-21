@@ -96,21 +96,12 @@ router.post(
   tempOutfitterController.attachFile
 );
 
-/* get all applications with status on Received or Hold */
+/* get all applications with specified status */
 router.get(
   '/permits/applications/:statusGroup',
   middleware.setCorsHeaders,
   middleware.checkPermissions,
-  middleware.checkAdminPermissions,
-  commonController.getAllOpenApplications
-);
-
-/* get all applications for the user */
-router.get(
-  '/user/applications/:statusGroup',
-  middleware.setCorsHeaders,
-  middleware.checkPermissions,
-  commonController.getAllOpenApplications
+  commonController.getPermitApplications
 );
 
 /* get the number of seconds that this instance has been running */
