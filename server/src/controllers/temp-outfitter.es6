@@ -105,7 +105,7 @@ const translateFromDatabaseToClient = input => {
     createdAt: input.createdAt,
     district: input.district,
     forest: input.forest,
-    applicantMessage: input.applicantMessage || undefined,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     status: input.status,
