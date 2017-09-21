@@ -25,7 +25,7 @@ passportConfig.setup = app => {
 
 passportConfig.getPassportUser = (req, res) => {
   if (util.isLocalOrCI()) {
-    res.send({
+    return res.send({
       email: 'usersomuchs@tonight.com',
       role: 'user'
     });
