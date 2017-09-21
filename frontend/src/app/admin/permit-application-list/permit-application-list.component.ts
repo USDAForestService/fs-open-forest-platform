@@ -19,6 +19,7 @@ export class PermitApplicationListComponent implements OnInit {
   applicationStatus = 'pending';
   isAdmin: boolean;
   userType: string;
+  holdText: string;
 
   constructor(private applicationService: ApplicationService, private alertService: AlertService, private authenticationService: AuthenticationService) {
     this.applications = [];
@@ -26,7 +27,9 @@ export class PermitApplicationListComponent implements OnInit {
     this.userType = this.isAdmin ? 'admin' : 'user';
     if(this.isAdmin) {
       this.warningMessage = 'You have one or more applications in the system that require immediate attention.';
+      this.holdText = 'Hold';
     } else {
+      this.holdText = 'On Hold';
       this.warningMessage = 'Applications with an ON HOLD status require additional information';
     }
   }
@@ -70,6 +73,9 @@ export class PermitApplicationListComponent implements OnInit {
     let result = false;
     this.applications.forEach(application => {
       if (this.isOverTwoDaysOld(application.createdAt)) {
+        result = true;
+      }
+      if(!this.isAdmin && application.status === 'Hold'){
         result = true;
       }
     });
