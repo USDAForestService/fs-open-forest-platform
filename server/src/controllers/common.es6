@@ -54,11 +54,12 @@ const findOrCondition = req => {
 
 commonControllers.getPermitApplications = (req, res) => {
   const orCondition = findOrCondition(req);
+  const andCondition = [];
   // when the status group isn't handled, return a 404
   if (orCondition.length === 0) res.status(404).send();
   // when the authenticated user isn't an admin, only let them see their own applications
   if (util.getUser(req).role === 'user') {
-    orCondition.push({ authEmail: util.getUser(req).email });
+    andCondition.push({ authEmail: util.getUser(req).email });
   }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
@@ -75,11 +76,11 @@ commonControllers.getPermitApplications = (req, res) => {
     ],
     where: {
       $or: orCondition,
+      $and: andCondition,
       noncommercialFieldsEndDateTime: {
         $gt: new Date()
       }
     },
-
     order: [['createdAt', 'DESC']]
   });
   const tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
