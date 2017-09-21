@@ -158,7 +158,7 @@ const translateFromDatabaseToClient = input => {
     district: input.district,
     eventName: input.eventName,
     forest: input.forest,
-    applicantMessage: input.applicantMessage || undefined,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     status: input.status,
