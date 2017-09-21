@@ -24,7 +24,7 @@ export class AuthGuardService implements CanActivate {
         authorized = true;
       } else if (isAdminRoute && user.role !== 'admin') {
         authorized = false;
-        this.router.navigate(["/access-denied"]);
+        this.navigate(['/access-denied']);
       }
     } else if (isAdminRoute) {
       localStorage.setItem('requestingUrl', requestingUrl);
@@ -34,6 +34,10 @@ export class AuthGuardService implements CanActivate {
       this.redirect(environment.apiUrl + 'auth/login-gov/openid/login');
     }
     return authorized;
+  }
+
+  navigate(route) {
+    this.router.navigate(route);
   }
 
   redirect(url) {
