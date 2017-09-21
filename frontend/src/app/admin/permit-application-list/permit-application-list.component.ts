@@ -25,7 +25,7 @@ export class PermitApplicationListComponent implements OnInit {
     this.applications = [];
     this.isAdmin = this.authenticationService.isAdmin();
     this.userType = this.isAdmin ? 'admin' : 'user';
-    if(this.isAdmin) {
+    if (this.isAdmin) {
       this.warningMessage = 'You have one or more applications in the system that require immediate attention.';
       this.holdText = 'Hold';
     } else {
@@ -75,7 +75,7 @@ export class PermitApplicationListComponent implements OnInit {
       if (this.isOverTwoDaysOld(application.createdAt)) {
         result = true;
       }
-      if(!this.isAdmin && application.status === 'Hold'){
+      if (!this.isAdmin && application.status === 'Hold') {
         result = true;
       }
     });
