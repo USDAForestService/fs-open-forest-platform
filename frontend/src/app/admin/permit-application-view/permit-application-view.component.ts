@@ -1,6 +1,7 @@
 import { SpecialUseApplication } from '../../_models/special-use-application';
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -13,7 +14,8 @@ export class PermitApplicationViewComponent implements OnInit {
   errorMessage: string;
   id: string;
   type: string;
-
+  isAdmin: boolean;
+  userType: string;
   application = new SpecialUseApplication();
   fixedCtas = false;
   reasonOrCancel = {
@@ -29,8 +31,12 @@ export class PermitApplicationViewComponent implements OnInit {
     public alertService: AlertService,
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
+    private authenticationService: AuthenticationService,
     public router: Router
-  ) {}
+  ) {
+    this.isAdmin = this.authenticationService.isAdmin();
+    this.userType = this.isAdmin ? 'admin' : 'user';
+  }
 
   getApplication(type, id) {
     this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
