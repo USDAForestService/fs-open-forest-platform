@@ -48,7 +48,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
-      type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
+      type: ['temp-outfitter', [Validators.required, alphanumericValidator()]],
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
