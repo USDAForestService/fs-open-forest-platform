@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
 import { PermitApplicationListComponent } from './permit-application-list.component';
 import { ApplicationService } from './../../_services/application.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { SortArray } from './../../_pipes/sort-array.pipe';
 import { HoursFromOrDate } from './../../_pipes/hours-from-or-date.pipe';
 import { DaysToOrDate } from './../../_pipes/days-to-or-date.pipe';
@@ -32,9 +33,10 @@ describe('PermitApplicationListComponent', () => {
           { provide: ApplicationService, useClass: ApplicationService },
           AlertService,
           { provide: XHRBackend, useClass: MockBackend },
-          { provide: Router, useValue: router }
+          { provide: Router, useValue: router },
+          { provide: AuthenticationService, useClass: MockService }
         ],
-        imports: [HttpModule, RouterTestingModule]
+        imports: [HttpModule, RouterTestingModule.withRoutes([{path: 'admin/applications'}])]
       }).compileComponents();
     })
   );
@@ -134,3 +136,8 @@ describe('PermitApplicationListComponent', () => {
     expect(component.applicationStatus).toEqual('returned');
   });
 });
+class MockService {
+  isAdmin() {
+    return true;
+  }
+}

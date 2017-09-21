@@ -29,22 +29,16 @@
     <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Warning</h3>
-        <p class="usa-alert-text">You have one or more applications in the system that require immediate attention.</p>
-      </div>
-    </div>
-    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
-      <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">Error</h3>
-        <p class="usa-alert-text">{{ errorMessage }}</p>
+        <p class="usa-alert-text">{{warningMessage}}</p>
       </div>
     </div>
     <div class="application-list">
 
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
-        <div>Type</div>
+        <div *ngIf='isAdmin'>Type</div>
         <div>Name</div>
-        <div>Submitted</div>
+        <div *ngIf='isAdmin'>Submitted</div>
         <div>Start date</div>
         <div>End date</div>
         <div>Permit holder</div>
@@ -52,16 +46,16 @@
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
         class="application-field-list-values">
-        <div><span *ngIf="application.status === 'Hold'" class="usa-label warning">Hold</span></div>
-        <label>Type</label>
-        <div>{{ application.type }}</div>
+        <div><span *ngIf="application.status === 'Hold'" class="usa-label warning">On Hold</span></div>
+        <label *ngIf="isAdmin">Type</label>
+        <div *ngIf="isAdmin">{{ application.type }}</div>
         <label>Event name</label>
         <div>
           <strong *ngIf="application.type === 'Noncommercial'">{{ application.eventName }}</strong>
           <strong *ngIf="application.type === 'Temp outfitter'">{{ application.applicantInfoOrganizationName }}</strong>
         </div>
-        <label>Submitted</label>
-        <div [ngClass]="{'deadline-warning': isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
+        <label *ngIf="isAdmin">Submitted</label>
+        <div *ngIf="isAdmin" [ngClass]="{'deadline-warning': isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
         <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.noncommercialFieldsStartDateTime)}">
           {{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
@@ -74,7 +68,12 @@
         <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
         <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
-        <div><a class="usa-button usa-button-outline" routerLink="/admin/applications/{{application.type | SpacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
+        <div><a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{application.type | SpacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
+      </div>
+    </div>
+    <div *ngIf="!isAdmin"class="usa-width-one-whole">
+      <div class="float-right">
+        <button class="usa-button" routerLink="/">Apply for another permit</button>
       </div>
     </div>
   </div>
