@@ -402,7 +402,7 @@ tempOutfitter.acceptApplication = application => {
         .catch(error => {
           reject(error);
         });
-    });
+    }).catch(reject);
   });
 };
 
@@ -538,6 +538,8 @@ tempOutfitter.update = (req, res) => {
     } else {
       res.status(404).send();
     }
+  }).catch(error => {
+    res.status(500).json(error);
   });
 };
 
