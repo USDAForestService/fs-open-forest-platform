@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const email = require('../email-util.es6');
+const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -309,6 +309,7 @@ noncommercial.update = (req, res) => {
             app
               .save()
               .then(() => {
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
                 res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
