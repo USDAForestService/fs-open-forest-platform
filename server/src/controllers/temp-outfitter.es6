@@ -328,81 +328,83 @@ const getAllFileNames = applicationId => {
 
 tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
-    getAllFiles(application.applicationId).then(files => {
-      const requestOptions = {
-        url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
-        headers: {},
-        formData: {
-          body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
-        }
-      };
-
-      if (files['insurance-certificate']) {
-        requestOptions.formData.insuranceCertificate = {
-          value: files['insurance-certificatet'].buffer,
-          options: {
-            filename: files['insurance-certificate'].filename,
-            contentType: util.getContentType(files['insurance-certificate'].filename)
+    getAllFiles(application.applicationId)
+      .then(files => {
+        const requestOptions = {
+          url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+          headers: {},
+          formData: {
+            body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
           }
         };
-      }
 
-      if (files['operating-plan']) {
-        requestOptions.formData.operatingPlan = {
-          value: files['operating-plan'].buffer,
-          options: {
-            filename: files['operating-plan'].filename,
-            contentType: util.getContentType(files['operating-plan'].filename)
-          }
-        };
-      }
-
-      if (files['guide-document']) {
-        requestOptions.formData.guideDocumentation = {
-          value: files['guide-document'].buffer,
-          options: {
-            filename: files['guide-document'].filename,
-            contentType: util.getContentType(files['guide-document'].filename)
-          }
-        };
-      }
-
-      if (files['good-standing-evidence']) {
-        requestOptions.formData.goodStandingEvidence = {
-          value: files['good-standing-evidence'].buffer,
-          options: {
-            filename: files['good-standing-evidence'].filename,
-            contentType: util.getContentType(files['good-standing-evidence'].filename)
-          }
-        };
-      }
-
-      if (files['acknowledgement-of-risk-form']) {
-        requestOptions.formData.acknowledgementOfRiskForm = {
-          value: files['acknowledgement-of-risk-form'].buffer,
-          options: {
-            filename: files['acknowledgement-of-risk-form'].filename,
-            contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
-          }
-        };
-      }
-
-      util
-        .middleLayerAuth()
-        .then(token => {
-          requestOptions.headers['x-access-token'] = token;
-          request.post(requestOptions, (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-              reject(error || response);
-            } else {
-              resolve(body);
+        if (files['insurance-certificate']) {
+          requestOptions.formData.insuranceCertificate = {
+            value: files['insurance-certificatet'].buffer,
+            options: {
+              filename: files['insurance-certificate'].filename,
+              contentType: util.getContentType(files['insurance-certificate'].filename)
             }
+          };
+        }
+
+        if (files['operating-plan']) {
+          requestOptions.formData.operatingPlan = {
+            value: files['operating-plan'].buffer,
+            options: {
+              filename: files['operating-plan'].filename,
+              contentType: util.getContentType(files['operating-plan'].filename)
+            }
+          };
+        }
+
+        if (files['guide-document']) {
+          requestOptions.formData.guideDocumentation = {
+            value: files['guide-document'].buffer,
+            options: {
+              filename: files['guide-document'].filename,
+              contentType: util.getContentType(files['guide-document'].filename)
+            }
+          };
+        }
+
+        if (files['good-standing-evidence']) {
+          requestOptions.formData.goodStandingEvidence = {
+            value: files['good-standing-evidence'].buffer,
+            options: {
+              filename: files['good-standing-evidence'].filename,
+              contentType: util.getContentType(files['good-standing-evidence'].filename)
+            }
+          };
+        }
+
+        if (files['acknowledgement-of-risk-form']) {
+          requestOptions.formData.acknowledgementOfRiskForm = {
+            value: files['acknowledgement-of-risk-form'].buffer,
+            options: {
+              filename: files['acknowledgement-of-risk-form'].filename,
+              contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
+            }
+          };
+        }
+
+        util
+          .middleLayerAuth()
+          .then(token => {
+            requestOptions.headers['x-access-token'] = token;
+            request.post(requestOptions, (error, response, body) => {
+              if (error || response.statusCode !== 200) {
+                reject(error || response);
+              } else {
+                resolve(body);
+              }
+            });
+          })
+          .catch(error => {
+            reject(error);
           });
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+      })
+      .catch(reject);
   });
 };
 
@@ -499,46 +501,50 @@ tempOutfitter.update = (req, res) => {
     where: {
       app_control_number: req.params.id
     }
-  }).then(app => {
-    if (app) {
-      app.status = req.body.status;
-      app.applicantMessage = req.body.applicantMessage;
-      if (app.status === 'Accepted') {
-        tempOutfitter
-          .acceptApplication(app)
-          .then(response => {
-            app.controlNumber = response.controlNumber;
-            app
-              .save()
-              .then(() => {
+  })
+    .then(app => {
+      if (app) {
+        app.status = req.body.status;
+        app.applicantMessage = req.body.applicantMessage;
+        if (app.status === 'Accepted') {
+          tempOutfitter
+            .acceptApplication(app)
+            .then(response => {
+              app.controlNumber = response.controlNumber;
+              app
+                .save()
+                .then(() => {
+                  email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+                  res.status(200).json(translateFromDatabaseToClient(app));
+                })
+                .catch(error => {
+                  res.status(500).json(error);
+                });
+            })
+            .catch(error => {
+              res.status(500).json(error);
+            });
+        } else {
+          app
+            .save()
+            .then(() => {
+              if (app.status === 'Returned') {
+                // remove conditional if we want to send emails to applications with Hold status
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-                res.status(200).json(translateFromDatabaseToClient(app));
-              })
-              .catch(error => {
-                res.status(500).json(error);
-              });
-          })
-          .catch(error => {
-            res.status(500).json(error);
-          });
+              }
+              res.status(200).json(translateFromDatabaseToClient(app));
+            })
+            .catch(error => {
+              res.status(500).json(error);
+            });
+        }
       } else {
-        app
-          .save()
-          .then(() => {
-            if (app.status === 'Returned') {
-              // remove conditional if we want to send emails to applications with Hold status
-              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-            }
-            res.status(200).json(translateFromDatabaseToClient(app));
-          })
-          .catch(error => {
-            res.status(500).json(error);
-          });
+        res.status(404).send();
       }
-    } else {
-      res.status(404).send();
-    }
-  });
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
 };
 
 module.exports = tempOutfitter;
