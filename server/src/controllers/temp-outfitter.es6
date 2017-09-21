@@ -333,23 +333,29 @@ tempOutfitter.acceptApplication = application => {
         url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
         headers: {},
         formData: {
-          body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
-          insuranceCertificate: {
-            value: files['insurance-certificate'].buffer,
-            options: {
-              filename: files['insurance-certificate'].filename,
-              contentType: util.getContentType(files['insurance-certificate'].filename)
-            }
-          },
-          operatingPlan: {
-            value: files['operating-plan'].buffer,
-            options: {
-              filename: files['operating-plan'].filename,
-              contentType: util.getContentType(files['operating-plan'].filename)
-            }
-          }
+          body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
         }
       };
+
+      if (files['insurance-certificate']) {
+        requestOptions.formData.insuranceCertificate = {
+          value: files['insurance-certificatet'].buffer,
+          options: {
+            filename: files['insurance-certificate'].filename,
+            contentType: util.getContentType(files['insurance-certificate'].filename)
+          }
+        };
+      }
+
+      if (files['operating-plan']) {
+        requestOptions.formData.operatingPlan = {
+          value: files['operating-plan'].buffer,
+          options: {
+            filename: files['operating-plan'].filename,
+            contentType: util.getContentType(files['operating-plan'].filename)
+          }
+        };
+      }
 
       if (files['guide-document']) {
         requestOptions.formData.guideDocumentation = {

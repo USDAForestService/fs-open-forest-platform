@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { PermitApplicationViewComponent } from './permit-application-view.component';
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +19,8 @@ describe('PermitApplicationViewComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
-          { provide: AlertService, useClass: MockApplicationService }
+          { provide: AlertService, useClass: MockApplicationService },
+          { provide: AuthenticationService, useClass: MockApplicationService }
         ],
         imports: [RouterTestingModule]
       }).compileComponents();
@@ -128,4 +130,8 @@ class MockApplicationService {
   addSuccessMessage() {
     return true;
   }
+  isAdmin() {
+    return true;
+  }
+
 }

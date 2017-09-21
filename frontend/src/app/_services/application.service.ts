@@ -36,7 +36,7 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
-  getOne(id, params = '/special-uses/noncommercial/') {
+  getOne(id, params = '') {
     return this.http
       .get(this.endpoint + params + id, { withCredentials: true })
       .map((res: Response) => res.json())
