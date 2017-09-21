@@ -9,7 +9,7 @@
         <p class="usa-alert-text">{{ errorMessage }}</p>
       </div>
     </div>
-    <div *ngIf="application.status === 'Hold'" class="usa-alert usa-alert-warning application-deadline-warning">
+    <div *ngIf="application.status === 'Hold'" class="usa-alert usa-alert-warning application-deadline-warning permit-alert-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">On hold</h3>
         <p class="usa-alert-text">{{application.applicantMessage}}</p>
