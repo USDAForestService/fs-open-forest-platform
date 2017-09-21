@@ -4,7 +4,9 @@ module.exports = {
   id: '/noncommercialPermit',
   type: 'object',
   allOf: [
-    { $ref: '/commonFields' },
+    {
+      $ref: '/commonFields'
+    },
     {
       properties: {
         applicantInfo: {
@@ -19,7 +21,7 @@ module.exports = {
         },
         type: {
           default: 'noncommercial',
-          enum: ['noncommercial', 'tempOutfitters'],
+          enum: ['noncommercial', 'temp-outfitter'],
           type: 'string'
         },
         noncommercialFields: {

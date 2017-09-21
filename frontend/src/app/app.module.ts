@@ -14,6 +14,7 @@ import { AuthenticatedComponent } from './login/authenticated.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
+import { CancelApplicationComponent } from './admin/cancel-application.component';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
@@ -37,6 +38,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     AppComponent,
     AuthenticatedComponent,
     Base64,
+    CancelApplicationComponent,
     DaysToOrDate,
     HelpMePickComponent,
     HomeComponent,

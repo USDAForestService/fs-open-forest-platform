@@ -4,7 +4,9 @@ module.exports = {
   id: '/tempOutfitterPermit',
   type: 'object',
   allOf: [
-    { $ref: '/commonFields' },
+    {
+      $ref: '/commonFields'
+    },
     {
       properties: {
         applicantInfo: {
@@ -12,7 +14,7 @@ module.exports = {
         },
         type: {
           default: 'tempOutfitters',
-          enum: ['noncommercial', 'tempOutfitters'],
+          enum: ['noncommercial', 'temp-outfitter'],
           type: 'string'
         },
         tempOutfitterFields: {
