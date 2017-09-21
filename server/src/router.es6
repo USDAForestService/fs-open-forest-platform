@@ -105,6 +105,14 @@ router.get(
   commonController.getAllOpenApplications
 );
 
+/* get all applications for the user */
+router.get(
+  '/user/applications/:statusGroup',
+  middleware.setCorsHeaders,
+  middleware.checkPermissions,
+  commonController.getAllOpenApplications
+);
+
 /* get the number of seconds that this instance has been running */
 router.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
