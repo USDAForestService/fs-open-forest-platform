@@ -57,6 +57,7 @@ const translateFromClientToDatabase = input => {
     applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
+    authEmail: input.authEmail,
     tempOutfitterFieldsActDescFieldsAudienceDesc:
       input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
@@ -436,6 +437,7 @@ tempOutfitter.create = (req, res) => {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
   } else {
+    util.setAuthEmail(req);
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
         email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);

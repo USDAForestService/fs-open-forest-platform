@@ -126,10 +126,15 @@ util.getContentType = filename => {
 // used to bypass authentication when doing development
 util.isLocalOrCI = () => {
   const environments = ['CI', 'local'];
-  if (environments.indexOf(process.env.PLATFORM) !== -1) {
-    return true;
+  return environments.indexOf(process.env.PLATFORM) !== -1;
+};
+
+util.setAuthEmail = req => {
+  if (util.isLocalOrCI()) {
+    req.body.authEmail = 'test@test.com';
+  } else {
+    req.body.authEmail = req.user.email;
   }
-  return false;
 };
 
 util.camelCaseToRegularForm = string => {
