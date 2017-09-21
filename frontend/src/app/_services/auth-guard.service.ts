@@ -24,6 +24,7 @@ export class AuthGuardService implements CanActivate {
         authorized = true;
       } else if (isAdminRoute && user.role !== 'admin') {
         authorized = false;
+        this.router.navigate(["/access-denied"]);
       }
     } else if (isAdminRoute) {
       localStorage.setItem('requestingUrl', requestingUrl);
