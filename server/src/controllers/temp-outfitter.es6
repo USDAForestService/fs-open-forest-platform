@@ -7,7 +7,7 @@ const multerS3 = require('multer-s3');
 const request = require('request');
 
 const ApplicationFile = require('../models/application-files.es6');
-const email = require('../email-util.es6');
+const email = require('../email/email-util.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -503,6 +503,7 @@ tempOutfitter.update = (req, res) => {
             app
               .save()
               .then(() => {
+                email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
@@ -517,7 +518,7 @@ tempOutfitter.update = (req, res) => {
           .save()
           .then(() => {
             if (app.status === 'Returned') {
-              //TODO: remove conditional if we want to send emails to applications with Hold status
+              // remove conditional if we want to send emails to applications with Hold status
               email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }
             res.status(200).json(translateFromDatabaseToClient(app));
