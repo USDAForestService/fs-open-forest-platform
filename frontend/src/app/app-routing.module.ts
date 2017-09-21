@@ -25,7 +25,20 @@ const appRoutes: Routes = [
   {
     path: 'admin/applications/:type/:id',
     component: PermitApplicationViewComponent,
+    canActivate: [AuthGuardService],
     data: { title: 'View application' }
+  },
+  {
+    path: 'user/applications',
+    component: PermitApplicationListComponent,
+    canActivate: [AuthGuardService],
+    data: { title: 'Submitted applications' }
+  },
+  {
+    path: 'user/applications/:type/:id',
+    component: PermitApplicationViewComponent,
+    canActivate: [AuthGuardService],
+    data: { title: ' View Submitted Application' }
   },
   {
     path: 'applications/noncommercial-group-use/new',
