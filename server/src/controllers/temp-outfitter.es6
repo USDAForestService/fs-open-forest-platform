@@ -340,7 +340,7 @@ tempOutfitter.acceptApplication = application => {
 
         if (files['insurance-certificate']) {
           requestOptions.formData.insuranceCertificate = {
-            value: files['insurance-certificatet'].buffer,
+            value: files['insurance-certificate'].buffer,
             options: {
               filename: files['insurance-certificate'].filename,
               contentType: util.getContentType(files['insurance-certificate'].filename)
