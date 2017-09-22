@@ -1,5 +1,6 @@
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
@@ -13,12 +14,24 @@ import * as moment from 'moment/moment';
 export class PermitApplicationListComponent implements OnInit {
   apiErrors: any;
   applications: any;
-  errorMessage: string;
+  warningMessage: string;
   successMessage: string;
   applicationStatus = 'pending';
+  isAdmin: boolean;
+  userType: string;
+  holdText: string;
 
-  constructor(private applicationService: ApplicationService, private alertService: AlertService) {
+  constructor(private applicationService: ApplicationService, private alertService: AlertService, private authenticationService: AuthenticationService) {
     this.applications = [];
+    this.isAdmin = this.authenticationService.isAdmin();
+    this.userType = this.isAdmin ? 'admin' : 'user';
+    if (this.isAdmin) {
+      this.warningMessage = 'You have one or more applications in the system that require immediate attention.';
+      this.holdText = 'Hold';
+    } else {
+      this.holdText = 'On Hold';
+      this.warningMessage = 'Applications with an ON HOLD status require additional information';
+    }
   }
 
   applicationStatusChange(event) {
@@ -60,6 +73,9 @@ export class PermitApplicationListComponent implements OnInit {
     let result = false;
     this.applications.forEach(application => {
       if (this.isOverTwoDaysOld(application.createdAt)) {
+        result = true;
+      }
+      if (!this.isAdmin && application.status === 'Hold') {
         result = true;
       }
     });
