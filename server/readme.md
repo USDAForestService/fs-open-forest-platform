@@ -21,15 +21,15 @@ The following environment variables are required:
 
 - `PLATFORM` should be set to "local" for local testing.
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: 
-```javascript 
+- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is:
+```javascript
 {
   "user-provided": [
     {
       "credentials": {
-        "MIDDLELAYER_BASE_URL": "https://fs-middlelayer-api-staging.app.cloud.gov/",
-        "MIDDLELAYER_PASSWORD": "<ENTER PASSWORD HERE>",
-        "MIDDLELAYER_USERNAME": "<ENTER USERNAME HERE>"
+        "middlelayer_base_url": "",
+        "middlelayer_password": "",
+        "middlelayer_username": ""
       },
       "label": "user-provided",
       "name": "middlelayer-service",
@@ -39,9 +39,9 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "INTAKE_CLIENT_BASE_URL": "http://localhost:4200",
-        "INTAKE_PASSWORD": "<PASSWORD>",
-        "INTAKE_USERNAME": "<USERNAME>"
+        "intake_client_base_url": "",
+        "intake_password": "",
+        "intake_username": ""
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -51,23 +51,23 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "entrypoint": "<ENTRYPOINT>",
-        "issuer": "<ISSUER>",
-        "privatekey": "<KEY>",
-        "discoveryurl": "<URL>",
-        "IDP_USERNAME": "<USERNAME>",
-        "IDP_PASSWORD": "<PASSWORD>",
+        "entrypoint": "",
+        "issuer": "",
+        "private+key": "",
+        "discoveryurl": "",
+        "idp_username": "",
+        "idp_password": "",
         "jwk": {
-          "d": "<D>",
-          "dp": "<DP>",
-          "dq": "<DQ>",
-          "e": "<E>",
+          "d": "",
+          "dp": "",
+          "dq": "",
+          "e": "",
           "kty": "RSA",
-          "kid": "<KID>",
-          "n": "<N>",
-          "p": "<P>",
-          "q": "<Q>",
-          "qi": "<QI>"
+          "kid": "",
+          "n": "",
+          "p": "",
+          "q": "",
+          "qi": ""
         }
       },
       "label": "user-provided",
@@ -78,11 +78,11 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "whitelist": ["test@test.us"],
-        "issuer": "<ISSUER>",
-        "entrypoint": "<ENTRYPOINT>",
-        "cert": "<CERT>",
-        "privatekey": "<KEY>"
+        "whitelist": ["example@test.us"],
+        "issuer": "",
+        "entrypoint": "",
+        "cert": "",
+        "private_key": ""
       },
       "label": "user-provided",
       "name": "eauth-service-provider",
@@ -92,9 +92,9 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "smtpserver": "<ENTER SMTP SERVER>",
-        "username": "<ENTER SMTP USER NAME>",
-        "password": "<ENTER SMTP PASSWORD>"
+        "smtp_server": "",
+        "username": "",
+        "password": ""
       },
       "label": "user-provided",
       "name": "smtp-service"
@@ -105,17 +105,17 @@ The following environment variables are required:
     {
       "name": "intake-s3",
       "credentials": {
-        "bucket": "<BUCKET>",
-        "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
+        "bucket": "",
+        "access_key_id": "",
         "region": "us-east-1",
-        "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
+        "secret_access_key": ""
       }
     }
   ]
 }
 ```
 
-- `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is: 
+- `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is:
 ```javascript
 {
   "uris": [
