@@ -1,6 +1,10 @@
 #application-view {
   padding-bottom: 0 !important;
 
+  .permit-alert-warning {
+    margin-bottom: 2px;
+  }
+
   .edit-application {
     @media(min-width: $large-screen){
       float: right;
