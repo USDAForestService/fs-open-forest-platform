@@ -54,7 +54,7 @@ The following environment variables are required:
         "entrypoint": "",
         "issuer": "",
         "private+key": "",
-        "discoveryurl": "",
+        "discovery_url": "",
         "idp_username": "",
         "idp_password": "",
         "jwk": {
