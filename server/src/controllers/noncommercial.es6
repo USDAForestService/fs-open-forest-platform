@@ -91,6 +91,7 @@ const translateFromClientToDatabase = input => {
     applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
+    authEmail: input.authEmail,
     type: input.type
   };
 };
@@ -278,6 +279,7 @@ noncommercial.create = (req, res) => {
     res.status(400).json(errorRet);
   } else {
     // create the noncommercial app object and persist
+    util.setAuthEmail(req);
     NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
         email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
