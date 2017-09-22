@@ -4,7 +4,7 @@ import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-cancel-application',
-  template: '<button (click)="cancelApplication()">Cancel</button>'
+  template: '<button class="usa-button" (click)="cancelApplication()">Cancel</button>'
 })
 export class CancelApplicationComponent {
   @Input() application: any;
