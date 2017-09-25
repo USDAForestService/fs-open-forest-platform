@@ -21,7 +21,11 @@ export class PermitApplicationListComponent implements OnInit {
   userType: string;
   holdText: string;
 
-  constructor(private applicationService: ApplicationService, private alertService: AlertService, private authenticationService: AuthenticationService) {
+  constructor(
+    private applicationService: ApplicationService,
+    private alertService: AlertService,
+    private authenticationService: AuthenticationService
+  ) {
     this.applications = [];
     this.isAdmin = this.authenticationService.isAdmin();
     this.userType = this.isAdmin ? 'admin' : 'user';
@@ -93,6 +97,12 @@ export class PermitApplicationListComponent implements OnInit {
         window.scroll(0, 0);
       }
     );
+  }
+
+  applicationCancelled(application: any): void {
+    this.getApplications(this.applicationStatus);
+    this.successMessage = this.alertService.getSuccessMessage();
+    this.alertService.clear();
   }
 
   ngOnInit() {
