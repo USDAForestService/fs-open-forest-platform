@@ -21,7 +21,7 @@ module.exports = {
     district: '11',
     region: '06',
     forest: '05',
-    type: 'temp-outfitter',
+    type: 'tempOutfitters',
     signature: 'TT',
     applicantInfo: {
       emailAddress: 'theodore@twombly.com',
