@@ -5,10 +5,15 @@ import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-cancel-application',
-  template: `<button *ngIf="application.status !== 'Accepted' && authentication.user.role === 'user'" class="usa-button" (click)="cancelApplication()">Cancel</button>`
+  template: `<button *ngIf="
+      application.status !== 'Accepted'
+      && application.status !== 'Cancelled'
+      && authentication.user.role === 'user'"
+      class="usa-button cancel-button" (click)="cancelApplication()">{{ text }}</button>`
 })
 export class CancelApplicationComponent {
   @Input() application: any;
+  @Input() text: string;
   @Output() applicationCancelled: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
@@ -18,7 +23,7 @@ export class CancelApplicationComponent {
   ) {}
 
   cancelApplication() {
-    const confirm = window.confirm('Are you sure you want to cancel?');
+    const confirm = window.confirm('Are you sure you want to cancel this application?');
     if (confirm) {
       this.updateApplication();
     }
