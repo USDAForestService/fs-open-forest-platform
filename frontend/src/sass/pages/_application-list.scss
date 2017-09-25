@@ -7,6 +7,7 @@ app-permit-application-list {
     border-collapse: collapse;
     display: table;
     max-width: 980px;
+    width: 100%;
   }
   .usa-button {
     margin: 0;
@@ -42,6 +43,14 @@ app-permit-application-list {
       display: table-cell;
       padding: 10px;
       vertical-align: middle;
+      &.application-status {
+        span {
+          white-space: nowrap;
+        }
+      }
+      &.permit-holder-name {
+        max-width: 250px;
+      }
     }
   }
   @media (max-width: 1000px) {

@@ -4,7 +4,9 @@ module.exports = {
   id: '/noncommercialPermit',
   type: 'object',
   allOf: [
-    { $ref: '/commonFields' },
+    {
+      $ref: '/commonFields'
+    },
     {
       properties: {
         applicantInfo: {
