@@ -2,14 +2,16 @@
 ---
 applications:
 - name: fs-intake-api-staging
+  host: fs-intake-staging-api
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 128M
   instances: 1
   services:
-    - intake-s3
-    - certs
-    - intake-db
+    - eauth-service-provider
     - intake-client-service
-    - middlelayer-service
+    - intake-db
+    - intake-s3
     - login-service-provider
+    - middlelayer-service
+    - smtp-service

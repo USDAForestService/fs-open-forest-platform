@@ -3,7 +3,7 @@
     <header class="usa-banner-header">
       <div class="usa-grid usa-banner-inner"><img src="/assets/img/favicon-57.png" alt="U.S. flag" class="fs-flag-icon">
         <p>An official website of the United States government</p>
-        <button [attr.aria-expanded]="open ? 'true' : 'false'" aria-controls="gov-banner" class="usa-accordion-button usa-banner-button" (click)="toggleBanner()"><span class="usa-banner-button-text">Here&apos;s how you know</span></button>
+        <button [attr.aria-expanded]="open ? 'true' : 'false'" aria-controls="gov-banner" class="usa-accordion-button usa-banner-button" (click)="open = !open"><span class="usa-banner-button-text">Here&apos;s how you know</span></button>
       </div>
     </header>
     <div id="gov-banner" class="usa-banner-content usa-grid usa-accordion-content" [attr.aria-hidden]="open ? 'false' : 'true'">

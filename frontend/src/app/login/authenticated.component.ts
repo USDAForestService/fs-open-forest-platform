@@ -1,29 +1,27 @@
 import { AuthenticationService } from '../_services/authentication.service';
-import { AuthGuard } from '../_services/auth.guard';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-authenticated',
   templateUrl: './authenticated.component.html'
 })
-export class AuthenticatedComponent implements OnInit {
-  isAuthenticated: boolean;
+export class AuthenticatedComponent {
+  constructor(public authentication: AuthenticationService, private router: Router, private http: Http) {}
 
-  constructor(
-    private authenticationService: AuthenticationService,
-    private authGuard: AuthGuard,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.isAuthenticated = this.authGuard.isLoggedIn();
+  login() {
+    window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
   }
 
-  logout() {
-    this.authenticationService.logout();
-    this.isAuthenticated = this.authGuard.isLoggedIn();
-    this.router.navigate(['']);
+  logout(e: Event) {
+    e.preventDefault();
+    const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
+    localStorage.setItem('status', JSON.stringify(status));
+    localStorage.removeItem('requestingUrl');
+    this.authentication.removeUser();
+    window.location.href = environment.apiUrl + 'auth/logout';
   }
 }

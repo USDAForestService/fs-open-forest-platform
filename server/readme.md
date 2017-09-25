@@ -19,8 +19,11 @@ and on the command line as part of a command:
 
 The following environment variables are required:
 
+- `PLATFORM` should be set to "local" for local testing.
 - `DATABASE_URL` in the format of `postgres://<user>:<pass>@localhost:<port>/<dbname>`
-- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: ```{
+- `VCAP_SERVICES` is a JSON object that contains details for accessing the middle layer api and Amazon S3 services. For running tests locally the values can be set to anything. One caveat is that the MIDDLE_LAYER_BASE_URL needs to end with a slash (`/`). A sample value for `VCAP_SERVICES` is: 
+```javascript 
+{
   "user-provided": [
     {
       "credentials": {
@@ -37,8 +40,8 @@ The following environment variables are required:
     {
       "credentials": {
         "INTAKE_CLIENT_BASE_URL": "http://localhost:4200",
-        "INTAKE_PASSWORD": "password",
-        "INTAKE_USERNAME": "username"
+        "INTAKE_PASSWORD": "<PASSWORD>",
+        "INTAKE_USERNAME": "<USERNAME>"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -48,39 +51,78 @@ The following environment variables are required:
     },
     {
       "credentials": {
-        "cert": "40a4ce56c7494ed37649/test.pdf",
-        "entrypoint": "https://idp.int.login.gov/api/saml/auth",
-        "issuer": "urn:gov:gsa:SAML:2.0.profiles:sp:sso:usda-forestservice:epermit-dev",
-        "privatekey": "<ENTER SAML KEY HERE>"
+        "entrypoint": "<ENTRYPOINT>",
+        "issuer": "<ISSUER>",
+        "privatekey": "<KEY>",
+        "discoveryurl": "<URL>",
+        "IDP_USERNAME": "<USERNAME>",
+        "IDP_PASSWORD": "<PASSWORD>",
+        "jwk": {
+          "d": "<D>",
+          "dp": "<DP>",
+          "dq": "<DQ>",
+          "e": "<E>",
+          "kty": "RSA",
+          "kid": "<KID>",
+          "n": "<N>",
+          "p": "<P>",
+          "q": "<Q>",
+          "qi": "<QI>"
+        }
       },
       "label": "user-provided",
       "name": "login-service-provider",
       "syslog_drain_url": "",
       "tags": [],
       "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "whitelist": ["test@test.us"],
+        "issuer": "<ISSUER>",
+        "entrypoint": "<ENTRYPOINT>",
+        "cert": "<CERT>",
+        "privatekey": "<KEY>"
+      },
+      "label": "user-provided",
+      "name": "eauth-service-provider",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "smtpserver": "<ENTER SMTP SERVER>",
+        "username": "<ENTER SMTP USER NAME>",
+        "password": "<ENTER SMTP PASSWORD>"
+      },
+      "label": "user-provided",
+      "name": "smtp-service"
     }
+
   ],
   "s3": [
     {
       "name": "intake-s3",
       "credentials": {
-        "bucket": "flexion-test",
-        "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
-        "region": "us-east-1",
-        "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
-      }
-    },
-    {
-      "name": "certs",
-      "credentials": {
-        "bucket": "flexion-test",
+        "bucket": "<BUCKET>",
         "access_key_id": "<ENTER S3 ACCESS_KEY_ID HERE>",
         "region": "us-east-1",
         "secret_access_key": "<ENTER S3 SECRET_ACCESS_KEY HERE>"
       }
     }
   ]
-}```
+}
+```
+
+- `VCAP_APPLICATION` is a JSON object that contains an array of base urls for the intake server. A sample value for `VCAP_APPLICATION` is: 
+```javascript
+{
+  "uris": [
+    "http://localhost:8080/"
+  ]
+}
+```
 
 ## Available commands
 
@@ -129,3 +171,11 @@ The coverage results can be found in `server/coverage/index.html`
 ## Server API Documentation
 
 With your local Node server running, browse to http://localhost:8080/docs/api in order to view the interactive Swagger API documentation.  This documentation will allow interactive access to the API endpoints.
+
+## Authentication
+
+Public users must authenticate with login.gov, and Forest Service admins must authenticate with USDA eAuth. Both of these authentication techniques are handled by the Passport library for Node.js.
+
+Login.gov uses the openid-client passport plugin for the OpenID Connect protocol, and USDA eAuth uses the passport-saml plugin for the SAML protocol.
+
+Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.

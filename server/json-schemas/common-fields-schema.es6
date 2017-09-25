@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   id: '/commonFields',
   type: 'object',
@@ -21,7 +23,7 @@ module.exports = {
       default: '',
       type: 'string'
     },
-    reasonForReturn: {
+    applicantMessage: {
       default: '',
       type: 'string'
     }

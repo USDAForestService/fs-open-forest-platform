@@ -1,24 +1,24 @@
 'use strict';
 
-let jsonschema = require('jsonschema');
-let util = require('./util.es6');
+const jsonschema = require('jsonschema');
+const util = require('./util.es6');
 
-let validator = new jsonschema.Validator();
-let validatorOptions = { nestedErrors: true };
+const validator = new jsonschema.Validator();
+const validatorOptions = { nestedErrors: true };
 
-let activityDescriptionFieldsSchema = require('./json-schemas/activityDescription-fields-schema.es6');
-let addressSchema = require('./json-schemas/address-schema.es6');
-let applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
-let commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
-let dateTimeRangeSchema = require('./json-schemas/date-time-range-schema.es6');
-let noncommercialApplicantInfoSchema = require('./json-schemas/noncommercial-application-info-schema.es6');
-let noncommercialFieldsSchema = require('./json-schemas/noncommercial-fields-schema.es6');
-let noncommercialSchema = require('./json-schemas/noncommercial-schema.es6');
-let phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
-let tempOutfitterAppInfoSchema = require('./json-schemas/tempOutfitter-application-info-schema.es6');
-let tempOutfitterFieldsSchema = require('./json-schemas/tempOutfitter-fields-schema.es6');
-let tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
-let experienceFieldsSchema = require('./json-schemas/experience-fields-schema.es6');
+const activityDescriptionFieldsSchema = require('./json-schemas/activityDescription-fields-schema.es6');
+const addressSchema = require('./json-schemas/address-schema.es6');
+const applicantInfoBaseSchema = require('./json-schemas/application-info-base-schema.es6');
+const commonFieldsSchema = require('./json-schemas/common-fields-schema.es6');
+const dateTimeRangeSchema = require('./json-schemas/date-time-range-schema.es6');
+const noncommercialApplicantInfoSchema = require('./json-schemas/noncommercial-application-info-schema.es6');
+const noncommercialFieldsSchema = require('./json-schemas/noncommercial-fields-schema.es6');
+const noncommercialSchema = require('./json-schemas/noncommercial-schema.es6');
+const phoneNumberSchema = require('./json-schemas/phone-number-schema.es6');
+const tempOutfitterAppInfoSchema = require('./json-schemas/tempOutfitter-application-info-schema.es6');
+const tempOutfitterFieldsSchema = require('./json-schemas/tempOutfitter-fields-schema.es6');
+const tempOutfitterSchema = require('./json-schemas/tempOutfitter-schema.es6');
+const experienceFieldsSchema = require('./json-schemas/experience-fields-schema.es6');
 
 validator.addSchema(addressSchema);
 validator.addSchema(applicantInfoBaseSchema);
@@ -34,7 +34,7 @@ validator.addSchema(tempOutfitterSchema);
 validator.addSchema(activityDescriptionFieldsSchema);
 validator.addSchema(experienceFieldsSchema);
 
-let validateSchema = input => {
+const validateSchema = input => {
   let result;
 
   if (input.inputObj && Object.keys(input.inputObj).length > 0) {
