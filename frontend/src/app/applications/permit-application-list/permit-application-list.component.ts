@@ -40,6 +40,8 @@ export class PermitApplicationListComponent implements OnInit {
 
   applicationStatusChange(event) {
     this.applicationStatus = event.target.value;
+    this.alertService.clear();
+    this.successMessage = null;
     this.getApplications(this.applicationStatus);
   }
 

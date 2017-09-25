@@ -15,13 +15,13 @@
         <p class="usa-alert-text">{{application.applicantMessage}}</p>
       </div>
     </div>
-    <div class="usa-grid thin-grey-shadow padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
+    <div class="usa-grid thin-grey-border padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
       <app-noncommercial-details *ngIf="application.type === 'noncommercial'" [application]="application"></app-noncommercial-details>
       <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application"></app-temp-outfitter-details>
     </div>
   </div>
-  <div *ngIf="!isAdmin" class="usa-grid cancel-application-wrapper">
-    <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application"></app-cancel-application>
+  <div class="usa-grid cancel-application-wrapper">
+    <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application."></app-cancel-application>
   </div>
   <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || application.status === 'Received')">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">

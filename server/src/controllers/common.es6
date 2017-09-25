@@ -59,7 +59,9 @@ commonControllers.getPermitApplications = (req, res) => {
   if (orCondition.length === 0) res.status(404).send();
   // when the authenticated user isn't an admin, only let them see their own applications
   if (util.getUser(req).role === 'user') {
-    andCondition.push({ authEmail: util.getUser(req).email });
+    andCondition.push({
+      authEmail: util.getUser(req).email
+    });
   }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
@@ -98,6 +100,7 @@ commonControllers.getPermitApplications = (req, res) => {
     ],
     where: {
       $or: orCondition,
+      $and: andCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
         $gt: new Date()
       }
