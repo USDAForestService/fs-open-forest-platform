@@ -23,13 +23,17 @@ export class ApplicationFieldsService {
 
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
-      if (value) {
-        dataField.setValidators([Validators.required, alphanumericValidator()]);
-      } else {
-        dataField.setValidators(null);
-        dataField.updateValueAndValidity();
-      }
+      this.updateValidators(dataField, value);
     });
+  }
+
+  updateValidators(dataField, value) {
+    if (value) {
+      dataField.setValidators([Validators.required, alphanumericValidator()]);
+    } else {
+      dataField.setValidators(null);
+      dataField.updateValueAndValidity();
+    }
   }
 
   scrollToFirstError() {
@@ -66,6 +70,7 @@ export class ApplicationFieldsService {
     if (!formGroup) {
       return errors;
     }
+
     errors = (<any>Object).keys(formGroup.controls).some(control => {
       return (
         this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]) ||

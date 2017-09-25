@@ -1,6 +1,6 @@
 'use strict';
 
-var factory = require('unionized');
+const factory = require('unionized');
 
 module.exports = {
   singlePermitHolder: factory.factory({
