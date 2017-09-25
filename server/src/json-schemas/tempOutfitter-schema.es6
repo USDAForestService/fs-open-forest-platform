@@ -14,7 +14,7 @@ module.exports = {
         },
         type: {
           default: 'tempOutfitters',
-          enum: ['noncommercial', 'temp-outfitter'],
+          enum: ['noncommercial', 'tempOutfitters'],
           type: 'string'
         },
         tempOutfitterFields: {

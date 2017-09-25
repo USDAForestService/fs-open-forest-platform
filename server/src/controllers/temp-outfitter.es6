@@ -230,7 +230,7 @@ const translateFromIntakeToMiddleLayer = application => {
       website: application.applicantInfoWebsite,
       orgType: application.applicantInfoOrgType
     },
-    type: 'temp-outfitter',
+    type: 'tempOutfitters',
     tempOutfitterFields: {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
