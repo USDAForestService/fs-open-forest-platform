@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const email = require('../email-util.es6');
+const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -91,6 +91,7 @@ const translateFromClientToDatabase = input => {
     applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
+    authEmail: input.authEmail,
     type: input.type
   };
 };
@@ -278,6 +279,7 @@ noncommercial.create = (req, res) => {
     res.status(400).json(errorRet);
   } else {
     // create the noncommercial app object and persist
+    util.setAuthEmail(req);
     NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
         email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
@@ -309,6 +311,7 @@ noncommercial.update = (req, res) => {
             app
               .save()
               .then(() => {
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
                 res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
