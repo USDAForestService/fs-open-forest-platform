@@ -46,7 +46,7 @@
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
         class="application-field-list-values">
-        <div><span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span></div>
+        <div class="application-status"><span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span></div>
         <label *ngIf="isAdmin">Type</label>
         <div *ngIf="isAdmin">{{ application.type }}</div>
         <label>Event name</label>
@@ -67,8 +67,13 @@
         <div *ngIf="application.type === 'Noncommercial' && isAdmin">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <div *ngIf="application.type === 'Temp outfitter' && isAdmin">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
-        <div>{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
-        <div><a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{application.type | SpacesToDashes | lowercase }}/{{application.appControlNumber}}">Details</a></div>
+        <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
+        <div>
+          <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
+        </div>
+        <div>
+          <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
+        </div>
       </div>
     </div>
     <div *ngIf="!isAdmin"class="usa-width-one-whole">

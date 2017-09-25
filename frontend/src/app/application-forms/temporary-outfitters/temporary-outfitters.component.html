@@ -25,7 +25,7 @@
           <legend>Applicant information</legend>
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
             type="primary" name="Applicant"></app-permit-holder-name>
-          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
+          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name (optional)"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
           <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
           <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
