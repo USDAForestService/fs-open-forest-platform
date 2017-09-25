@@ -1,3 +1,5 @@
+'use strict';
+
 const url = require('url');
 
 const dbParams = url.parse(process.env.DATABASE_URL, true);
@@ -13,8 +15,7 @@ const dbConfig = {
   logging: console.log
 };
 
-if (dbParams.hostname !== 'localhost' &&
-    dbParams.hostname !== 'fs-intake-postgres') {
+if (dbParams.hostname !== 'localhost' && dbParams.hostname !== 'fs-intake-postgres') {
   dbConfig.ssl = true;
   dbConfig.dialectOptions = {
     ssl: {

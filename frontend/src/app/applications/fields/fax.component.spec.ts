@@ -38,6 +38,8 @@ describe('fax', () => {
   it('should be invalid if extension is more than 6 chars', () => {
     component.fax.controls['extension'].setValue('3334444');
     expect(component.fax.invalid).toBeTruthy();
+    component.fax.controls['extension'].setValue('');
+    expect(component.fax.valid).toBeTruthy();
   });
 });
 

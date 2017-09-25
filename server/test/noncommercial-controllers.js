@@ -1,13 +1,14 @@
 'use strict';
 
-var noncommercialTestData = require('./data/noncommercialTestData.es6');
-var request = require('supertest');
-var nock = require('nock');
-var server = require('../app.es6');
-var testURL = '/permits/applications/special-uses/noncommercial';
-var vcap = require('../vcap-services.es6');
+const nock = require('nock');
+const request = require('supertest');
 
-var auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
+const noncommercialTestData = require('./data/noncommercial-test-data.es6');
+const server = require('./mock-aws-app');
+const vcapConstants = require('../vcap-constants.es6');
+
+const testURL = '/permits/applications/special-uses/noncommercial';
+const auth = 'Basic ' + new Buffer('username' + ':' + 'password').toString('base64');
 
 describe('noncommercial tests', () => {
   describe('POST tests', () => {
@@ -26,7 +27,7 @@ describe('noncommercial tests', () => {
   describe('POST date validation tests', () => {
     it('should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
       let data = noncommercialTestData.singlePermitHolder.create();
-      data.applicantInfo.primaryFirstName = 'Robert\'); DROP TABLE noncommercialApplications; --';
+      data.applicantInfo.primaryFirstName = 'Robert"); DROP TABLE noncommercialApplications; --';
       request(server)
         .post(testURL)
         .set('Accept', 'application/json')
@@ -300,15 +301,24 @@ describe('noncommercial tests', () => {
 
 describe('GET tests', () => {
   it('should return a 400 error when requesting a with a malformed uuid', done => {
-    request(server).get(testURL + '/malformed-uuid').set('Authorization', auth).expect(400, done);
+    request(server)
+      .get(testURL + '/malformed-uuid')
+      .set('Authorization', auth)
+      .expect(400, done);
   });
 
   it('should return a 404 error when requesting a nonexistant application', done => {
-    request(server).get(testURL + '/4dc61d60-a318-462f-8753-a57605303faa').set('Authorization', auth).expect(404, done);
+    request(server)
+      .get(testURL + '/4dc61d60-a318-462f-8753-a57605303faa')
+      .set('Authorization', auth)
+      .expect(404, done);
   });
 
   it('should return a 404 error when requesting a nonexistant resource', done => {
-    request(server).get('/nonexistant-resource').set('Authorization', auth).expect(404, done);
+    request(server)
+      .get('/nonexistant-resource')
+      .set('Authorization', auth)
+      .expect(404, done);
   });
 });
 
@@ -522,9 +532,11 @@ describe('Branch tests', () => {
   });
 
   it('updates a noncommercial app successfully with other than accept status', done => {
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl)
+    nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, { controlNumber: 'success' });
 
@@ -541,7 +553,9 @@ describe('Branch tests', () => {
   it('app not found on update', done => {
     nock.cleanAll();
 
-    nock('http://localhost:8080').post('/auth').reply(200, { token: 'auth-token' });
+    nock('http://localhost:8080')
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
 
     nock('http://localhost:8080')
       .post('/permits/applications/special-uses/noncommercial/')
@@ -558,9 +572,11 @@ describe('Branch tests', () => {
   it('updates a noncommercial app with accept status but fails middle layer', done => {
     nock.cleanAll();
 
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(201, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(201, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl)
+    nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, { status: 'fail' });
 
@@ -575,9 +591,11 @@ describe('Branch tests', () => {
   it('updates a noncommercial app successfully with accept status', done => {
     nock.cleanAll();
 
-    nock(vcap.middleLayerBaseUrl).post('/auth').reply(200, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(200, { token: 'auth-token' });
 
-    nock(vcap.middleLayerBaseUrl)
+    nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, { controlNumber: 'success' });
 

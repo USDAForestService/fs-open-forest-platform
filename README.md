@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
 [![Dependency Status](https://www.versioneye.com/user/projects/59721f9e368b08004cede291/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59721f9e368b08004cede291)
 [![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
-[![codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/sprint-8-development/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
+[![codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/master/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
@@ -26,7 +26,7 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
 #### Install angular cli
-Run `yarn install -g @angular/cli`
+Run `yarn add global @angular/cli`
 
 #### Navigate to frontend directory
 
@@ -79,6 +79,14 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
 
+
+### SMTP relay configuration for sending emails
+The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
+
+Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
+
+The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
+
 ### Docker Environment
 
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
@@ -89,25 +97,25 @@ As an alternative to installing all the development tools necessary to run the e
 
 1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
 
-    ```	
+    ```
     $ cd fs-intake-module
     $ cd docker
-    ```	
+    ```
 
 4. Now use Docker Compose to build and start the containers.
 
     ```
     $ docker-compose up --build --force-recreate
-    ```	
+    ```
 
 5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
 
-    ```	
+    ```
     fs-intake-frontend_1  | webpack: Compiled successfully.
-    ```	
+    ```
 
 6. The containers and servers are now running. There are four containers:
-  
+
     - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
 
     - fs-intake-server - This container runs the server side Node application.  It can be accessed in the browser at http://localhost:8080.
@@ -121,7 +129,7 @@ As an alternative to installing all the development tools necessary to run the e
         - Username: postgres
         - Password: postgres
         - Database: postgres
-      
+
 7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
