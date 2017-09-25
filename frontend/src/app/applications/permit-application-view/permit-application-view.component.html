@@ -20,6 +20,9 @@
       <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application"></app-temp-outfitter-details>
     </div>
   </div>
+  <div *ngIf="!isAdmin" class="usa-grid cancel-application-wrapper">
+    <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application"></app-cancel-application>
+  </div>
   <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || application.status === 'Received')">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
       <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept<span class="sub-button">Enter into SUDS</span></button>
