@@ -7,7 +7,7 @@
     <ng-container *ngIf="parentForm.get('experienceFields.haveNationalForestPermits').value">
       <label class="usa-input" for="list-all-national-forest-permits">List all permits for outfitting and guiding on National Forest System lands that you have held in the past 3 years.</label>
       <textarea id="list-all-national-forest-permits" formControlName="listAllNationalForestPermits" aria-required="true"></textarea>
-      <app-error-message id="list-all-national-forest-permits-error" name="A list of your US Forest Service permits" [control]="parentForm.get('experienceFields.listAllNationalForestPermits')"></app-error-message>
+      <app-error-message fieldId="list-all-national-forest-permits-error" name="A list of your US Forest Service permits" [control]="parentForm.get('experienceFields.listAllNationalForestPermits')"></app-error-message>
     </ng-container>
 
     <input id="have-other-permits" type="checkbox" formControlName="haveOtherPermits" />
@@ -15,7 +15,7 @@
     <ng-container *ngIf="parentForm.get('experienceFields.haveOtherPermits').value">
       <label class="usa-input" for="list-all-other-permits">List all permits that you have held with other federal or state agencies in the past 3 years.</label>
       <textarea id="list-all-other-permits" formControlName="listAllOtherPermits" aria-required="true"></textarea>
-      <app-error-message id="list-all-other-permits-error" name="A list of your other permits" [control]="parentForm.get('experienceFields.listAllOtherPermits')"></app-error-message>
+      <app-error-message fieldId="list-all-other-permits-error" name="A list of your other permits" [control]="parentForm.get('experienceFields.listAllOtherPermits')"></app-error-message>
     </ng-container>
 
     <input id="have-citations" type="checkbox" formControlName="haveCitations" />
@@ -23,7 +23,7 @@
     <ng-container *ngIf="parentForm.get('experienceFields.haveCitations').value">
       <label class="usa-input" for="list-all-other-permits">List all citations or violations received in association with outfitting and guiding activities.</label>
       <textarea id="list-all-citations" formControlName="listAllCitations" aria-required="true"></textarea>
-      <app-error-message id="list-all-citations-error" name="A list of your citations or violations" [control]="parentForm.get('experienceFields.listAllCitations')"></app-error-message>
+      <app-error-message fieldId="list-all-citations-error" name="A list of your citations or violations" [control]="parentForm.get('experienceFields.listAllCitations')"></app-error-message>
     </ng-container>
 
   </fieldset>
