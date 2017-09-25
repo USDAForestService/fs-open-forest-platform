@@ -38,7 +38,7 @@
             [formGroup]="applicationForm.controls.tempOutfitterFields">
             <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
             <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-            <app-error-message id="individual-citizen-error" name="Citizen"
+            <app-error-message fieldId="individual-citizen-error" name="Citizen"
               [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
           </div>
 
@@ -167,7 +167,7 @@
           <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
 
           <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-          <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
+          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
         </fieldset>
 
         <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
