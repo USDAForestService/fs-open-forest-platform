@@ -55,17 +55,17 @@
           <strong *ngIf="application.type === 'Temp outfitter'">{{ application.applicantInfoOrganizationName }}</strong>
         </div>
         <label>Submitted</label>
-        <div [ngClass]="{'deadline-warning': isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
+        <div [ngClass]="{'deadline-warning': isAdmin && isOverTwoDaysOld(application.createdAt) && application.status === 'Received'}">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
-        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.noncommercialFieldsStartDateTime)}">
+        <div *ngIf="application.type === 'Noncommercial'"[ngClass]="{'deadline-warning': isAdmin && isWeekAwayOrPast(application.noncommercialFieldsStartDateTime)}">
           {{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
-        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
+        <div *ngIf="application.type === 'Temp outfitter'"[ngClass]="{'deadline-warning': isAdmin && isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime)}">
           {{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label *ngIf='isAdmin'>End date</label>
-        <div *ngIf="application.type === 'Noncommercial' && isAdmin">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
-        <div *ngIf="application.type === 'Temp outfitter' && isAdmin">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div *ngIf="application.type === 'Noncommercial'">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div *ngIf="application.type === 'Temp outfitter'">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div>
@@ -78,7 +78,7 @@
     </div>
     <div *ngIf="!isAdmin"class="usa-width-one-whole">
       <div class="float-right">
-        <button class="usa-button" routerLink="/">Apply for another permit</button>
+        <button class="usa-button margin-right-0" routerLink="/">Apply for another permit.</button>
       </div>
     </div>
   </div>
