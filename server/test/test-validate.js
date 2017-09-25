@@ -1,20 +1,19 @@
 'use strict';
 
-var expect = require('chai').expect;
-var validation = require('../validation.es6');
-var noncommercialTestData = require('./data/noncommercialTestData.es6');
+const expect = require('chai').expect;
+
+const noncommercialTestData = require('./data/noncommercial-test-data.es6');
+const validation = require('../validation.es6');
 
 describe('validation tests', () => {
   describe('validate noncommercial apps', () => {
     it('should call validate with a valid single permit holder and return no errors', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolder.create());
-
       expect(errors).to.have.lengthOf(0);
     });
 
     it('should call validate with a missing primary first name and return an error', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolderMissingFirstName.create());
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryFirstName');
     });
@@ -23,7 +22,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderEveningPhoneMissingAreaCode.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.eveningPhone.areaCode');
     });
@@ -32,7 +30,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderMissingPrimaryAddress.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress');
     });
@@ -41,7 +38,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderMissingPrimaryAddressState.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress.mailingState');
     });
@@ -50,7 +46,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderOrganizationMissingOrgAddress.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.organizationAddress');
     });
@@ -59,7 +54,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderOrganizationMissingOrgAddressState.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.organizationAddress.mailingState');
     });
@@ -68,7 +62,6 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderOrganizationWithPrimaryAddressMissingState.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.primaryAddress.mailingState');
     });
@@ -77,21 +70,18 @@ describe('validation tests', () => {
       let errors = validation.validateNoncommercial(
         noncommercialTestData.singlePermitHolderWithSecondaryAddressMissingState.create()
       );
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-applicantInfo.secondaryAddress.mailingState');
     });
 
     it('should call validate with an invalid startDateTime and return an error', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolderBadStartDateTime.create());
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('pattern-dateTimeRange.startDateTime');
     });
 
     it('should call validate with an invalid endDateTime and return an error', () => {
       let errors = validation.validateNoncommercial(noncommercialTestData.singlePermitHolderBadEndDateTime.create());
-
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('pattern-dateTimeRange.endDateTime');
     });

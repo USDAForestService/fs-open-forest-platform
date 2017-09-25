@@ -1,25 +1,27 @@
 'use strict';
 
-let ApplicationFile = require('./models/application-files.es6');
-let AWS = require('aws-sdk');
-let cryptoRandomString = require('crypto-random-string');
-let multer = require('multer');
-let multerS3 = require('multer-s3');
-let request = require('request');
-let TempOutfitterApplication = require('./models/tempoutfitter-application.es6');
-let util = require('./util.es6');
-let validator = require('./validation.es6');
-let vcapServices = require('./vcap-services.es6');
+const AWS = require('aws-sdk');
+const cryptoRandomString = require('crypto-random-string');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const request = require('request');
 
-let tempOutfitter = {};
+const ApplicationFile = require('../models/application-files.es6');
+const email = require('../email-util.es6');
+const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
+const util = require('../util.es6');
+const validator = require('../validation.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
-let s3 = new AWS.S3({
-  accessKeyId: vcapServices.accessKeyId,
-  secretAccessKey: vcapServices.secretAccessKey,
-  region: vcapServices.region
+const tempOutfitter = {};
+
+const s3 = new AWS.S3({
+  accessKeyId: vcapConstants.accessKeyId,
+  secretAccessKey: vcapConstants.secretAccessKey,
+  region: vcapConstants.region
 });
 
-let translateFromClientToDatabase = input => {
+const translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
     applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
@@ -52,7 +54,7 @@ let translateFromClientToDatabase = input => {
     authorizingOfficerTitle: input.authorizingOfficerTitle,
     district: input.district,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     tempOutfitterFieldsActDescFieldsAudienceDesc:
@@ -93,7 +95,7 @@ let translateFromClientToDatabase = input => {
   };
 };
 
-let translateFromDatabaseToClient = input => {
+const translateFromDatabaseToClient = input => {
   return {
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
@@ -102,7 +104,7 @@ let translateFromDatabaseToClient = input => {
     createdAt: input.createdAt,
     district: input.district,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn || undefined,
+    applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
     status: input.status,
@@ -192,8 +194,8 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateFromIntakeToMiddleLayer = application => {
-  let result = {
+const translateFromIntakeToMiddleLayer = application => {
+  const result = {
     region: application.region,
     forest: application.forest,
     district: application.district,
@@ -253,11 +255,11 @@ let translateFromIntakeToMiddleLayer = application => {
   return result;
 };
 
-let getFile = (key, documentType) => {
+const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapServices.bucket,
+        Bucket: vcapConstants.bucket,
         Key: key
       },
       (error, data) => {
@@ -275,7 +277,7 @@ let getFile = (key, documentType) => {
   });
 };
 
-let getAllFiles = applicationId => {
+const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
       where: {
@@ -304,18 +306,18 @@ let getAllFiles = applicationId => {
   });
 };
 
-let streamFile = (fileName, res) => {
+const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
     .getObject({
-      Bucket: vcapServices.bucket,
+      Bucket: vcapConstants.bucket,
       Key: fileName
     })
     .createReadStream()
     .pipe(res);
 };
 
-let getAllFileNames = applicationId => {
+const getAllFileNames = applicationId => {
   return ApplicationFile.findAll({
     where: {
       applicationId: applicationId
@@ -326,8 +328,8 @@ let getAllFileNames = applicationId => {
 tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId).then(files => {
-      let requestOptions = {
-        url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+      const requestOptions = {
+        url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
         headers: {},
         formData: {
           body: JSON.stringify(translateFromIntakeToMiddleLayer(application)),
@@ -400,7 +402,7 @@ tempOutfitter.acceptApplication = application => {
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: vcapServices.bucket,
+    bucket: vcapConstants.bucket,
     metadata: function(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },
@@ -422,7 +424,7 @@ tempOutfitter.attachFile = (req, res) => {
       req.body['fileId'] = appfile.fileId;
       res.status(201).json(req.body);
     })
-    .error(err => {
+    .catch(err => {
       res.status(500).json(err);
     });
 };
@@ -436,6 +438,8 @@ tempOutfitter.create = (req, res) => {
   } else {
     TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
       .then(tempOutfitterApp => {
+        email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
         res.status(201).json(req.body);
@@ -490,6 +494,7 @@ tempOutfitter.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
+      app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         tempOutfitter
           .acceptApplication(app)
@@ -511,6 +516,10 @@ tempOutfitter.update = (req, res) => {
         app
           .save()
           .then(() => {
+            if (app.status === 'Returned') {
+              //TODO: remove conditional if we want to send emails to applications with Hold status
+              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+            }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {

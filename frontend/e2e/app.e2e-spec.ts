@@ -16,9 +16,9 @@ describe('frontend App', () => {
   });
 
   it('should have ctas to apply for different permits', () => {
-    expect<any>(element(by.id('noncommercial-permit')).isDisplayed()).toBeTruthy();
-    expect<any>(element(by.id('temp-outfitters-permit')).isDisplayed()).toBeTruthy();
-    expect<any>(element(by.id('help-find-permit')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
   });
 
   it('should go to help me pick wizard if help me find permit button is clicked', () => {

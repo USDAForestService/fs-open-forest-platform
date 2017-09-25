@@ -1,14 +1,16 @@
 'use strict';
 
-let NoncommercialApplication = require('./models/noncommercial-application.es6');
-let request = require('request');
-let util = require('./util.es6');
-let validator = require('./validation.es6');
-let vcapServices = require('./vcap-services.es6');
+const request = require('request');
 
-let noncommercial = {};
+const email = require('../email-util.es6');
+const NoncommercialApplication = require('../models/noncommercial-application.es6');
+const util = require('../util.es6');
+const validator = require('../validation.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
-let translateFromClientToDatabase = input => {
+const noncommercial = {};
+
+const translateFromClientToDatabase = input => {
   return {
     applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
     applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
@@ -86,14 +88,14 @@ let translateFromClientToDatabase = input => {
     noncommercialFieldsNumberParticipants: input.noncommercialFields.numberParticipants,
     noncommercialFieldsSpectatorCount: input.noncommercialFields.spectators,
     noncommercialFieldsStartDateTime: input.dateTimeRange.startDateTime,
-    reasonForReturn: input.reasonForReturn,
+    applicantMessage: input.applicantMessage,
     region: input.region,
     signature: input.signature,
     type: input.type
   };
 };
 
-let translateFromDatabaseToClient = input => {
+const translateFromDatabaseToClient = input => {
   return {
     applicantInfo: {
       dayPhone: {
@@ -155,7 +157,7 @@ let translateFromDatabaseToClient = input => {
     district: input.district,
     eventName: input.eventName,
     forest: input.forest,
-    reasonForReturn: input.reasonForReturn || undefined,
+    applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
     status: input.status,
@@ -163,7 +165,7 @@ let translateFromDatabaseToClient = input => {
   };
 };
 
-let translateFromIntakeToMiddleLayer = input => {
+const translateFromIntakeToMiddleLayer = input => {
   let result = {
     region: input.region,
     forest: input.forest,
@@ -222,8 +224,8 @@ let translateFromIntakeToMiddleLayer = input => {
 };
 
 noncommercial.acceptApplication = application => {
-  let requestOptions = {
-    url: vcapServices.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+  const requestOptions = {
+    url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
     body: translateFromIntakeToMiddleLayer(application)
@@ -248,7 +250,11 @@ noncommercial.acceptApplication = application => {
 };
 
 noncommercial.getOne = (req, res) => {
-  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } })
+  NoncommercialApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (app) {
         res.status(200).json(translateFromDatabaseToClient(app));
@@ -274,6 +280,8 @@ noncommercial.create = (req, res) => {
     // create the noncommercial app object and persist
     NoncommercialApplication.create(translateFromClientToDatabase(req.body))
       .then(noncommApp => {
+        email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
+        email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
         req.body['applicationId'] = noncommApp.applicationId;
         req.body['appControlNumber'] = noncommApp.appControlNumber;
         res.status(201).json(req.body);
@@ -285,9 +293,14 @@ noncommercial.create = (req, res) => {
 };
 
 noncommercial.update = (req, res) => {
-  NoncommercialApplication.findOne({ where: { app_control_number: req.params.id } }).then(app => {
+  NoncommercialApplication.findOne({
+    where: {
+      app_control_number: req.params.id
+    }
+  }).then(app => {
     if (app) {
       app.status = req.body.status;
+      app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         noncommercial
           .acceptApplication(app)
@@ -309,6 +322,10 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
+            if (app.status === 'Returned') {
+              // remove conditional if we want to send emails to applications with Hold status
+              email.sendEmail(`noncommercialApplication${app.status}`, app);
+            }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
