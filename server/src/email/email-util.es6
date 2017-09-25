@@ -39,8 +39,10 @@ emailUtil.send = (to, subject, body) => {
 };
 
 emailUtil.sendEmail = (templateName, data) => {
-  const template = emailTemplates[templateName](data);
-  emailUtil.send(template.to, template.subject, template.body);
+  if (emailTemplates[templateName]) {
+    const template = emailTemplates[templateName](data);
+    emailUtil.send(template.to, template.subject, template.body);
+  }
 };
 
 module.exports = emailUtil;
