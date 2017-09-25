@@ -4,7 +4,9 @@ module.exports = {
   id: '/tempOutfitterPermit',
   type: 'object',
   allOf: [
-    { $ref: '/commonFields' },
+    {
+      $ref: '/commonFields'
+    },
     {
       properties: {
         applicantInfo: {
