@@ -105,6 +105,10 @@ export class PermitApplicationViewComponent implements OnInit {
     window.scrollTo(0, 200);
   }
 
+  applicationCancelled(application: any): void {
+    this.router.navigate(['user/applications']);
+  }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.type = params['type'];
