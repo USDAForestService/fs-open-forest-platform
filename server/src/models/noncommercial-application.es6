@@ -254,6 +254,11 @@ module.exports = sequelize.define(
       field: 'signature',
       allowNull: false
     },
+    authEmail: {
+      type: Sequelize.STRING,
+      field: 'auth_email',
+      allowNull: false
+    },
     applicantMessage: {
       type: Sequelize.STRING,
       field: 'applicant_message'

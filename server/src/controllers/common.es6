@@ -2,10 +2,11 @@
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
+const util = require('../util.es6');
 
 const commonControllers = {};
 
-commonControllers.getAllOpenApplications = (req, res) => {
+const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
   switch (statusGroup) {
@@ -47,8 +48,18 @@ commonControllers.getAllOpenApplications = (req, res) => {
         }
       ];
       break;
-    default:
-      res.status(404).send();
+  }
+  return orCondition;
+};
+
+commonControllers.getPermitApplications = (req, res) => {
+  const orCondition = findOrCondition(req);
+  const andCondition = [];
+  // when the status group isn't handled, return a 404
+  if (orCondition.length === 0) res.status(404).send();
+  // when the authenticated user isn't an admin, only let them see their own applications
+  if (util.getUser(req).role === 'user') {
+    andCondition.push({ authEmail: util.getUser(req).email });
   }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
@@ -65,11 +76,11 @@ commonControllers.getAllOpenApplications = (req, res) => {
     ],
     where: {
       $or: orCondition,
+      $and: andCondition,
       noncommercialFieldsEndDateTime: {
         $gt: new Date()
       }
     },
-
     order: [['createdAt', 'DESC']]
   });
   const tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({

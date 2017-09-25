@@ -1,18 +1,25 @@
 #application-view {
   padding-bottom: 0 !important;
 
+  .permit-alert-warning {
+    margin-bottom: 2px;
+  }
+
   .edit-application {
-    @media(min-width: $large-screen){
+    @media (min-width: $large-screen) {
       float: right;
     }
   }
 
-  // .application-details {
-  //   @media(max-width: 1060px) {
-  //     margin-left: 1em;
-  //     margin-right: 1em;
-  //   }
-  // }
+  .cancel-application-wrapper {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+    .cancel-button {
+      float: right;
+      margin-right: 0;
+    }
+  }
 
   .app-ctas {
     background: white;
@@ -22,7 +29,7 @@
     text-align: center;
     width: 100%;
     z-index: 1000;
-    @media(max-width: $medium-screen) {
+    @media (max-width: $medium-screen) {
       padding-left: 1em;
       padding-right: 1em;
     }
@@ -51,7 +58,7 @@
       label {
         text-align: left;
         padding-top: 3em;
-        @media(min-width: $medium-screen) {
+        @media (min-width: $medium-screen) {
           padding-top: 2em;
         }
       }
