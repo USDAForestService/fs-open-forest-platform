@@ -22,17 +22,15 @@ vcapConstants.bucket = intakeS3.credentials.bucket;
 const middlelayerService = vcapServices['user-provided'].find(element => {
   return element.name === 'middlelayer-service';
 });
-vcapConstants.middleLayerBaseUrl = middlelayerService.credentials.MIDDLELAYER_BASE_URL;
-vcapConstants.middleLayerUsername = middlelayerService.credentials.MIDDLELAYER_USERNAME;
-vcapConstants.middleLayerPassword = middlelayerService.credentials.MIDDLELAYER_PASSWORD;
+vcapConstants.middleLayerBaseUrl = middlelayerService.credentials.middlelayer_base_url;
+vcapConstants.middleLayerUsername = middlelayerService.credentials.middlelayer_username;
+vcapConstants.middleLayerPassword = middlelayerService.credentials.middlelayer_password;
 
 // Intake
 const intakeService = vcapServices['user-provided'].find(element => {
   return element.name === 'intake-client-service';
 });
-vcapConstants.intakeClientBaseUrl = intakeService.credentials.INTAKE_CLIENT_BASE_URL;
-vcapConstants.intakeUsername = intakeService.credentials.INTAKE_USERNAME;
-vcapConstants.intakePassword = intakeService.credentials.INTAKE_PASSWORD;
+vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
 
 // Login.gov
 const loginGovService = vcapServices['user-provided'].find(element => {
@@ -40,9 +38,9 @@ const loginGovService = vcapServices['user-provided'].find(element => {
 });
 vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
 vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
-vcapConstants.loginGovIdpUsername = loginGovService.credentials.IDP_USERNAME;
-vcapConstants.loginGovIdpPassword = loginGovService.credentials.IDP_PASSWORD;
-vcapConstants.loginGovDiscoveryUrl = loginGovService.credentials.discoveryurl;
+vcapConstants.loginGovIdpUsername = loginGovService.credentials.idp_username;
+vcapConstants.loginGovIdpPassword = loginGovService.credentials.idp_password;
+vcapConstants.loginGovDiscoveryUrl = loginGovService.credentials.discovery_url;
 
 // USDA eAuth
 const eAuthService = vcapServices['user-provided'].find(element => {
@@ -52,13 +50,13 @@ vcapConstants.eAuthUserWhiteList = eAuthService.credentials.whitelist;
 vcapConstants.eAuthIssuer = eAuthService.credentials.issuer;
 vcapConstants.eAuthEntryPoint = eAuthService.credentials.entrypoint;
 vcapConstants.eAuthCert = eAuthService.credentials.cert;
-vcapConstants.eAuthPrivateKey = eAuthService.credentials.privatekey;
+vcapConstants.eAuthPrivateKey = eAuthService.credentials.private_key;
 
 // SMTP
 const smtp = vcapServices['user-provided'].find(element => {
   return element.name === 'smtp-service';
 });
-vcapConstants.smtpHost = smtp.credentials.smtpserver;
+vcapConstants.smtpHost = smtp.credentials.smtp_server;
 vcapConstants.smtpUsername = smtp.credentials.username;
 vcapConstants.smtpPassword = smtp.credentials.password;
 vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
