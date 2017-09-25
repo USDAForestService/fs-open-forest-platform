@@ -3,17 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AccessDeniedComponent } from './login/access-denied.component';
 import { AppComponent } from './app.component';
-import { ApplicationNoncommercialGroupComponent } from './applications/application-noncommercial-group/application-noncommercial-group.component';
-import { ApplicationSubmittedComponent } from './applications/application-submitted/application-submitted.component';
+import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
+import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
-import { PermitApplicationListComponent } from './admin/permit-application-list/permit-application-list.component';
-import { PermitApplicationViewComponent } from './admin/permit-application-view/permit-application-view.component';
+import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
+import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
-import { TemporaryOutfittersComponent } from './applications/temporary-outfitters/temporary-outfitters.component';
-import { TemporaryOutfittersFaqComponent } from './applications/temporary-outfitters/temporary-outfitters-faq.component';
+import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
+import { TemporaryOutfittersFaqComponent } from './application-forms/temporary-outfitters/temporary-outfitters-faq.component';
 
 const appRoutes: Routes = [
   {

@@ -1,7 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
-import { ApplicationService } from '../_services/application.service';
-import { AlertService } from '../_services/alert.service';
+import { ApplicationService } from '../../_services/application.service';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { AlertService } from '../../_services/alert.service';
 import { CancelApplicationComponent } from './cancel-application.component';
 import { Observable } from 'rxjs/Observable';
 
@@ -13,7 +14,11 @@ describe('Cancel application', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [CancelApplicationComponent, TestComponentWrapperComponent],
-        providers: [{ provide: ApplicationService, useClass: MockApplicationService }, AlertService],
+        providers: [
+          { provide: ApplicationService, useClass: MockApplicationService },
+          { provide: AuthenticationService, useClass: MockApplicationService },
+          AlertService
+        ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
@@ -41,6 +46,7 @@ class TestComponentWrapperComponent {
 }
 
 class MockApplicationService {
+  public user = { email: 'test@test.com', role: 'user' };
   update(value1, value2) {
     return Observable.of({ type: 'noncommercial', status: 'Cancelled' });
   }
