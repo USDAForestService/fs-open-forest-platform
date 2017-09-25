@@ -7,7 +7,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class ErrorMessageComponent {
   @Input() control: FormControl;
-  @Input() id: string;
+  @Input() fieldId: string;
   @Input() name: string;
 
   parseErrors(errors) {
