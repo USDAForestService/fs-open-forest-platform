@@ -92,7 +92,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     if (element) {
       element.scrollIntoView();
       this.currentSection = fragment;
-      const closestFocusableElement = element.closest('input, select, textarea');
       document.getElementById(fragment).focus();
     }
   }
