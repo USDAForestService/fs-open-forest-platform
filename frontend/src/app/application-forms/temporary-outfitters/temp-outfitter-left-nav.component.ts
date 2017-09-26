@@ -86,11 +86,13 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     }
   }
 
-  gotoHashtag(fragment: string) {
+  gotoHashtag(fragment: string, event) {
+    event.preventDefault();
     const element = document.querySelector('#' + fragment);
     if (element) {
       element.scrollIntoView();
       this.currentSection = fragment;
+      document.getElementById(fragment).focus();
     }
   }
 

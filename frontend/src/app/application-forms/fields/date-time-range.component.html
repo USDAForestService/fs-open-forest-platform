@@ -15,7 +15,7 @@
         <input class="usa-input-inline" id="start-year" type="text" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" aria-required="true" />
       </div>
     </fieldset>
-    <span id="end-date-error" class="usa-input-error-message" role="alert"
+    <span id="start-date-error" class="usa-input-error-message" role="alert"
        aria-live="assertive" aria-hidden="false" *ngIf="
         (dateTimeRange.controls.startMonth.touched && dateTimeRange.controls.startDay.touched && dateTimeRange.controls.startYear.touched) &&
         (dateTimeRange.controls.startMonth.invalid || dateTimeRange.controls.startDay.invalid || dateTimeRange.controls.startYear.invalid)
