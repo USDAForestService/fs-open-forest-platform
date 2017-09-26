@@ -20,3 +20,25 @@ patch:
         patched: '2017-09-13T16:53:20.246Z'
     - sequelize-cli > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2017-09-13T16:53:20.246Z'
+  'npm:debug:20170905':
+    - istanbul-lib-source-maps > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - istanbul-lib-instrument > babel-traverse > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - istanbul-lib-instrument > babel-template > babel-traverse > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - node-pre-gyp > tar-pack > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - babel-template > babel-traverse > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - retry-as-promised > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - sequelize > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - helmet > connect > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+    - helmet > connect > finalhandler > debug:
+        patched: '2017-09-26T15:20:38.808Z'
+  'npm:tough-cookie:20170905':
+    - node-pre-gyp > request > tough-cookie:
+        patched: '2017-09-26T15:20:38.808Z'
