@@ -151,4 +151,8 @@ util.camelCaseToRegularForm = string => {
   return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
 };
 
+util.getRandomHexString = () => {
+  return new Buffer(`${Math.random()}${Math.random()}`).toString('hex');
+};
+
 module.exports = util;
