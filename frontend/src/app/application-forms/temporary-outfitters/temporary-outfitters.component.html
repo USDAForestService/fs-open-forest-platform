@@ -18,7 +18,7 @@
           </div>
         </div>
 
-        <fieldset id="section-applicant-info"
+        <fieldset id="section-applicant-info" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
@@ -56,7 +56,7 @@
 
         </fieldset>
 
-        <app-activity-description id="section-activity-description"
+        <app-activity-description id="section-activity-description" tabindex="0"
           [parentForm]="applicationForm.get('tempOutfitterFields')"
           [pointOfView]="pointOfView"
           (updateRootDateStatus)="updateDateStatus($event)"
@@ -64,19 +64,19 @@
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">></app-activity-description>
 
-        <app-advertising id="section-advertising"
+        <app-advertising id="section-advertising" tabindex="0"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-advertising>
 
-        <app-client-charges id="section-client-charges"
+        <app-client-charges id="section-client-charges" tabindex="0"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-client-charges>
 
-        <fieldset id="section-guide-identification"
+        <fieldset id="section-guide-identification" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
@@ -103,7 +103,7 @@
 
         </fieldset>
 
-        <fieldset id="section-operating-plan"
+        <fieldset id="section-operating-plan" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
@@ -120,7 +120,7 @@
             [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
         </fieldset>
 
-        <fieldset id="section-liability-insurance"
+        <fieldset id="section-liability-insurance" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
@@ -136,13 +136,13 @@
             [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
         </fieldset>
 
-        <fieldset id="section-acknowledgement-of-risk"
+        <fieldset id="section-acknowledgement-of-risk" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
           <legend>Client's acknowledgement of risk form (optional)</legend>
 
-          <p>If your clients are required to sign an acknowledgment of risk form, you will need to provide a copy before your application can be approved.</p>
+          <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
           <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
             [uploadFiles]="uploadFiles"
@@ -151,14 +151,14 @@
             [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
         </fieldset>
 
-        <app-experience id="section-experience"
+        <app-experience id="section-experience" tabindex="0"
           [parentForm]="applicationForm.get('tempOutfitterFields')"
           [pointOfView]="pointOfView"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)"></app-experience>
 
-        <fieldset id="section-signature"
+        <fieldset id="section-signature" tabindex="0"
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
