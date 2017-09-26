@@ -2,52 +2,150 @@
   <ul id="temp-outfitter-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
       <a id="nav-applicant-info" href="#" (click)="gotoHashtag('section-applicant-info', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}">
-        STEP 1: Applicant information <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-applicant-info' ? 'step' : null"
+        >
+        STEP 1: Applicant information
+        <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Section applicant info is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Section applicant info is invalid" />
+        </span>
+      </a>
     </li>
-    <li [ngClass]="getGroupStatus(applicationForm .controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors)">
+    <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors)">
       <a id="nav-activity-description" href="#" (click)="gotoHashtag('section-activity-description', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-activity-description'}">
-        STEP 2: Description of proposed activity <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-activity-description'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-activity-description' ? 'step' : null"
+        >
+        STEP 2: Description of proposed activity
+        <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Section description of proposed activity is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Section description of proposed activity is invalid" />
+        </span>
+      </a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL)">
       <a id="nav-advertising" href="#" (click)="gotoHashtag('section-advertising', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-advertising'}">
-        STEP 3: Advertising <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-advertising'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-advertising' ? 'step' : null"
+        >
+        STEP 3: Advertising
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Section advertising is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Section advertising is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges)">
       <a id="nav-client-charges" href="#" (click)="gotoHashtag('section-client-charges', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-client-charges'}">
-        STEP 4: Client charges <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-client-charges'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-client-charges' ? 'step' : null"
+        >
+        STEP 4: Client charges
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Client charges is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Client charges is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.guideIdentification)">
       <a id="nav-guide-identification" href="#" (click)="gotoHashtag('section-guide-identification', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-guide-identification'}">
-        STEP 5: Guide identification <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-guide-identification'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-guide-identification' ? 'step' : null"
+        >
+        STEP 5: Guide identification
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.guideIdentification) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Guide identification is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.guideIdentification) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Guide identification is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.operatingPlan)">
       <a id="nav-operating-plan" href="#" (click)="gotoHashtag('section-operating-plan', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-operating-plan'}">
-        STEP 6: Operating plan <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-operating-plan'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-operating-plan' ? 'step' : null"
+        >
+        STEP 6: Operating plan
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.operatingPlan) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Operating plan is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.operatingPlan) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Operating plan is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.liabilityInsurance)">
       <a id="nav-liability-insurance" href="#" (click)="gotoHashtag('section-liability-insurance', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-liability-insurance'}">
-        STEP 7: Liability insurance <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-liability-insurance'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-liability-insurance' ? 'step' : null"
+        >
+        STEP 7: Liability insurance
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.liabilityInsurance) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Liability insurance is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.liabilityInsurance) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Liability insurance  is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.acknowledgementOfRisk)">
       <a id="nav-acknowledgement-of-risk" href="#" (click)="gotoHashtag('section-acknowledgement-of-risk', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-acknowledgement-of-risk'}">
-        STEP 8: Acknowledgement of risk form <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-acknowledgement-of-risk'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-acknowledgement-of-risk' ? 'step' : null"
+        >
+        STEP 8: Acknowledgement of risk form
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.acknowledgementOfRisk) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Acknowledgement of risk form is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.acknowledgementOfRisk) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Acknowledgement of risk form is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors)">
       <a id="nav-experience" href="#" (click)="gotoHashtag('section-experience', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-experience'}">
-        STEP 9: Experience <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-experience'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-experience' ? 'step' : null"
+        >
+        STEP 9: Experience
+        <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Section experience is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Section experience is invalid" />
+        </span>
+      </a>
+
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
       <a id="nav-signature" href="#" (click)="gotoHashtag('section-signature', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}">
-        STEP 10: Signature <span class="status-icon"></span></a>
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-signature' ? 'step' : null"
+        >
+        STEP 10: Signature
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-valid'">
+          <img src="/assets/img/checkmark.svg" alt="Signature is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-invalid'">
+          <img src="/assets/img/error-icon.svg" alt="Signature is invalid" />
+        </span>
+      </a>
+
     </li>
   </ul>
