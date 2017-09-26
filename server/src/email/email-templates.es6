@@ -61,7 +61,7 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationSubmittedConfirmation = application => {
-  const businessName = businessNameElsePersonalName(application);
+  const businessName = email.businessNameElsePersonalName(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -143,7 +143,7 @@ Location: ${application.noncommercialFieldsLocationDescription}
 email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
   const applicationUrl = `${vcapConstants.intakeClientBaseUrl}/admin/applications/temp-outfitter/${application.appControlNumber}`;
 
-  const businessName = businessNameElsePersonalName(application);
+  const businessName = email.businessNameElsePersonalName(application);
 
   return {
     to: vcapConstants.specialUseAdminEmailAddresses,
@@ -214,7 +214,7 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationReturned = application => {
-  const businessName = businessNameElsePersonalName(application);
+  const businessName = email.businessNameElsePersonalName(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -307,7 +307,7 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationAccepted = application => {
-  const businessName = businessNameElsePersonalName(application);
+  const businessName = email.businessNameElsePersonalName(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -378,7 +378,7 @@ Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
 };
 
 email.tempOutfitterApplicationCancelled = application => {
-  const businessName = businessNameElsePersonalName(application);
+  const businessName = email.businessNameElsePersonalName(application);
 
   return {
     to: vcapConstants.specialUseAdminEmailAddresses,
