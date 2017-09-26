@@ -52,7 +52,7 @@ describe('middleware tests', () => {
   });
   it('should pass user auth when env.PLATFORM is not LOCAL or CI', () => {
     const PLATFORM = process.env.PLATFORM
-    process.env.PLATFORM = "not-ci ro local"
+    process.env.PLATFORM = "not-ci or local"
     const req = {user: 'someone'};
     const res = {};
     const next = () => {
@@ -63,7 +63,7 @@ describe('middleware tests', () => {
   });
   it('should fail user auth when env.PLATFORM is not LOCAL or CI and no user is present', () => {
     const PLATFORM = process.env.PLATFORM
-    process.env.PLATFORM = "not-ci ro local"
+    process.env.PLATFORM = "not-ci or local"
     const req = {};
     let send = sinon.stub()
     const res = {
