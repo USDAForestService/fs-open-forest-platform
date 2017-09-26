@@ -5,6 +5,7 @@ const Issuer = require('openid-client').Issuer;
 const jose = require('node-jose');
 const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
+const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const loginGov = {};
@@ -21,12 +22,12 @@ const basicAuthOptions = {
 
 loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-  nonce: new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
+  nonce: util.getRandomHexString(),
   prompt: 'select_account',
   redirect_uri: vcapConstants.baseUrl + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
-  state: new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
+  state: util.getRandomHexString()
 };
 
 loginGov.setup = () => {
