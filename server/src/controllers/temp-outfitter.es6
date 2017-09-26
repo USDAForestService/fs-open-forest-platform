@@ -422,6 +422,7 @@ tempOutfitter.streamToS3 = multer({
 });
 
 tempOutfitter.attachFile = (req, res) => {
+  debugger
   ApplicationFile.create({
     applicationId: req.body.applicationId,
     applicationType: 'tempoutfitters',
