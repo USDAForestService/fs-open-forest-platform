@@ -84,7 +84,7 @@ describe('middleware tests', () => {
   });
   it('should not pass admin auth', () => {
     const PLATFORM = process.env.PLATFORM
-    process.env.PLATFORM = "not-ci ro local"
+    process.env.PLATFORM = "not-ci or local"
     const req = {user:{role:'shmuck',email:'123'}};
     let send = sinon.stub()
     const res = {
