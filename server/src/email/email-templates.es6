@@ -5,6 +5,14 @@ const vcapConstants = require('../vcap-constants.es6');
 const util = require('../util.es6');
 const email = {};
 
+email.businessNameElsePersonalName = application => {
+  let businessName = application.applicantInfoOrganizationName;
+  if (!businessName) {
+    businessName = `${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}`;
+  }
+  return businessName;
+};
+
 email.noncommercialApplicationSubmittedConfirmation = application => {
   return {
     to: application.applicantInfoEmailAddress,
@@ -53,6 +61,8 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationSubmittedConfirmation = application => {
+  const businessName = email.businessNameElsePersonalName(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'Your temporary outfitter permit application has been submitted for review.',
@@ -66,7 +76,7 @@ Your permit application has been submitted for review, but is NOT APPROVED until
 Application details
 **************************************
 
-Business name: ${application.applicantInfoOrganizationName}
+Business name: ${businessName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY hh:mm a'
     )}
@@ -133,6 +143,8 @@ Location: ${application.noncommercialFieldsLocationDescription}
 email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
   const applicationUrl = `${vcapConstants.intakeClientBaseUrl}/admin/applications/temp-outfitter/${application.appControlNumber}`;
 
+  const businessName = email.businessNameElsePersonalName(application);
+
   return {
     to: vcapConstants.specialUseAdminEmailAddresses,
     subject: `A new permit application with a start date of ${moment(
@@ -147,7 +159,7 @@ Application details
 **************************************
 
 Permit type: ${util.camelCaseToRegularForm(application.type)}
-Business name: ${application.applicantInfoOrganizationName}
+Business name: ${businessName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY'
     )}
@@ -202,6 +214,8 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationReturned = application => {
+  const businessName = email.businessNameElsePersonalName(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -217,7 +231,7 @@ ${application.applicantMessage}
 Application details
 **************************************
 
-Business name: ${application.applicantInfoOrganizationName}
+Business name: ${businessName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY hh:mm a'
     )}
@@ -293,6 +307,8 @@ Thank you for your interest in our National Forests.
 };
 
 email.tempOutfitterApplicationAccepted = application => {
+  const businessName = email.businessNameElsePersonalName(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -310,7 +326,7 @@ ${application.applicantMessage}
 Application details
 *********************************
 
-Business name: ${application.applicantInfoOrganizationName}
+Business name: ${businessName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY hh:mm a'
     )}
@@ -362,6 +378,8 @@ Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
 };
 
 email.tempOutfitterApplicationCancelled = application => {
+  const businessName = email.businessNameElsePersonalName(application);
+
   return {
     to: vcapConstants.specialUseAdminEmailAddresses,
     subject: `The following permit application from ${application.applicantInfoOrganizationName} to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
@@ -369,7 +387,7 @@ email.tempOutfitterApplicationCancelled = application => {
 Application details
 *********************************
 
-Business name: ${application.applicantInfoOrganizationName}
+Business name: ${businessName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY hh:mm a'
     )}
