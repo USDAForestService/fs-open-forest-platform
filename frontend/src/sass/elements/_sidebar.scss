@@ -37,19 +37,4 @@
       top: 22%;
     }
   }
-  &.ng-valid {
-    a {
-      .status-icon {
-        background-image: url(/assets/img/checkmark.svg);
-      }
-    }
-  }
-  &.ng-invalid {
-    a {
-      color: $fs-red;
-      .status-icon {
-        background-image: url(/assets/img/error-icon.svg);
-      }
-    }
-  }
 }
