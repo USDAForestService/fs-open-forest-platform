@@ -25,7 +25,7 @@ describe('middleware tests', () => {
   });
   it('should have CORS headers when env.PLATFORM is not LOCAL or CI', () => {
     const PLATFORM = process.env.PLATFORM
-    process.env.PLATFORM = "not-ci ro local"
+    process.env.PLATFORM = "not-ci or local"
     const req = {};
     const res = {
       headers: {}
