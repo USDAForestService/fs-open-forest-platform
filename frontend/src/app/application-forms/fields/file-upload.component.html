@@ -1,5 +1,5 @@
 <div class="usa-file-input" [ngClass]="{'file-selected ng-valid': uploader.queue[0], 'ng-untouched': !uploader.queue[0], 'ng-invalid': errorMessage, 'required': required}">
-  <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" aria-required="true" />
+  <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" />
   <label class="usa-button" [ngClass]="{'usa-button-outline': uploader.queue[0]}" for="{{type}}" aria-live="polite">
     <span *ngIf="!uploader.queue[0]">Choose file</span>
     <span *ngIf="uploader.queue[0]">Replace</span>

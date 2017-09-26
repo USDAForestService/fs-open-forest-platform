@@ -1,5 +1,6 @@
 <ng-container [formGroup]="applicantInfo">
   <label class="usa-input" for="organization-name">{{ name }}</label>
-  <input id="organization-name" type="text" formControlName="organizationName" aria-required="true" />
+  <h1>{{ applicantInfo.controls.organizationName.errors.required}}</h1>
+  <input id="organization-name" type="text" formControlName="organizationName" [attr.aria-required]="required ? 'true' : null" />
   <app-error-message fieldId="organization-name-error" name="Organization name" [control]="applicantInfo.controls.organizationName"></app-error-message>
 </ng-container>
