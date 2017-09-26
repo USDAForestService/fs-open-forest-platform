@@ -514,6 +514,7 @@ tempOutfitter.update = (req, res) => {
               app
                 .save()
                 .then(() => {
+                  console.log(app.status);
                   email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                   res.status(200).json(translateFromDatabaseToClient(app));
                 })
@@ -528,10 +529,7 @@ tempOutfitter.update = (req, res) => {
           app
             .save()
             .then(() => {
-              if (app.status === 'Returned') {
-                // remove conditional if we want to send emails to applications with Hold status
-                email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-              }
+              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
               res.status(200).json(translateFromDatabaseToClient(app));
             })
             .catch(error => {
