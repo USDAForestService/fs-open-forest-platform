@@ -45,7 +45,7 @@
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
             <h3>{{ goodStandingEvidenceMessage }}</h3>
             <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
-            <app-file-upload-field name="File" type="good-standing-evidence" [uploadFiles]="uploadFiles"
+            <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
               [applicationId]="applicationId"
               [checkFileUploadHasError]="submitted"
               [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
