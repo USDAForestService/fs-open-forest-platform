@@ -27,7 +27,6 @@ test:
     - cd server; yarn run lint
     - cd server; yarn migrate
     - cd server; yarn seed
-    - cd server; yarn test
     - cd server; yarn coverage
     - cd server; yarn report-coverage
     - cd frontend; yarn run lint

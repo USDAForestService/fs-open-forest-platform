@@ -31,10 +31,12 @@
     "blob": "^0.0.4",
     "chai": "^4.0.2",
     "codecov": "^2.2.0",
+    "dev-null": "^0.1.1",
     "eslint": "^4.0.0",
     "eslint-config-google": "^0.9.1",
     "mocha": "^3.2.0",
     "mock-aws": "^1.2.3",
+    "mock-require": "^2.0.2",
     "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "nyc": "^11.0.1",
@@ -51,8 +53,7 @@
     "lint":
       "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "./node_modules/.bin/sequelize db:migrate",
-    "report-coverage":
-      "CODECOV_TOKEN='e61f7ed1-686a-4f48-95b3-02fa7085995e' ./node_modules/nyc/bin/nyc.js report --reporter=lcov > coverage.lcov && codecov",
+    "report-coverage": "CODECOV_TOKEN='e61f7ed1-686a-4f48-95b3-02fa7085995e' ./node_modules/nyc/bin/nyc.js report --reporter=lcov > coverage.lcov && codecov",
     "seed": "./node_modules/.bin/sequelize db:seed:all",
     "snyk-protect": "snyk protect",
     "start": "node --harmony_default_parameters ./src/app.es6",
