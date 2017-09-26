@@ -29,9 +29,14 @@ export class CancelApplicationComponent {
     }
   }
 
+  convertCamelToHyphenCase(type: string) {
+    // convert camel case to hyphen case and convert spaces to hyphen and lowercase, remove trailing 's'
+    return type.replace(/\s+/g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').replace(/s+$/, '').toLowerCase();
+  }
+
   updateApplication() {
     this.application.status = 'Cancelled';
-    const type = this.application.type.replace(/\s+/g, '-').toLowerCase();
+    const type = this.convertCamelToHyphenCase(this.application.type);
     this.applicationService.update(this.application, type).subscribe(
       (data: any) => {
         this.alertService.addSuccessMessage('Permit application was successfully cancelled.');
