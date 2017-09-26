@@ -171,8 +171,8 @@ const translateFromIntakeToMiddleLayer = input => {
     region: input.region,
     forest: input.forest,
     district: input.district,
-    authorizingOfficerName: 'Placeholder', // TODO: Add value when user has authenticated
-    authorizingOfficerTitle: 'Placeholder', // TODO: Add value when user has authenticated
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
     applicantInfo: {
       firstName: input.applicantInfoPrimaryFirstName,
       lastName: input.applicantInfoPrimaryLastName,
