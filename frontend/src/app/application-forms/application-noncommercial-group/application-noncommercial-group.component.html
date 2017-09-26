@@ -33,7 +33,7 @@
         </div>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
-          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Organization name"></app-organization-name>
+          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
