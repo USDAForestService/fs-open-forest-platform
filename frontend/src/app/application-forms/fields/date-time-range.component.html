@@ -2,7 +2,7 @@
   <ng-container formGroupName="{{formName}}">
     <fieldset>
       <legend class="fs-datetime-legend">Start date</legend>
-      <p class="help-text usa-form-hint">Use 2 digits for Month and Day. Use 4 digits for Year.</p>
+      <p class="help-text usa-form-hint" tabindex="0">Use 2 digits for Month and Day. Use 4 digits for Year.</p>
       <div class="usa-form-group usa-form-group-month">
         <label for="start-month">Month</label>
         <input class="usa-input-inline" id="start-month" type="text" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" aria-required="true" />
@@ -58,7 +58,7 @@
 
     <fieldset>
       <legend class="fs-datetime-legend">End date</legend>
-      <p class="help-text usa-form-hint">Use 2 digits for Month and Day. Use 4 digits for Year.</p>
+      <p class="help-text usa-form-hint" tabindex="0">Use 2 digits for Month and Day. Use 4 digits for Year.</p>
 
       <div class="usa-form-group usa-form-group-month">
         <label for="end-month">Month</label>
