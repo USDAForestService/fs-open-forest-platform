@@ -31,6 +31,13 @@ describe('Cancel application', () => {
     component.updateApplication();
     expect(component.application.status).toEqual('Cancelled');
   });
+
+  it('should convert camel case to hyphen case', () => {
+    expect(component.convertCamelToHyphenCase('testString')).toEqual('test-string');
+    expect(component.convertCamelToHyphenCase('testStrings')).toEqual('test-string');
+    expect(component.convertCamelToHyphenCase('stestStrings')).toEqual('stest-string');
+    expect(component.convertCamelToHyphenCase('test String')).toEqual('test-string');
+  });
 });
 
 @Component({
