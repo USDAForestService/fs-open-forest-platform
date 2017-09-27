@@ -49,40 +49,25 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     const nav = document.getElementById('temp-outfitter-nav');
+    const container = document.getElementById('application');
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (nav.getBoundingClientRect().top < 20) {
+      if (container.getBoundingClientRect().top < 20) {
         this.top = '40px';
         this.bottom = 'auto';
         this.position = 'fixed';
+      } else {
+        this.top = '250px';
+        this.position = 'absolute';
       }
 
-      if (footer.getBoundingClientRect().top < 700) {
+      if (window.innerHeight < 720 && container.getBoundingClientRect().height < window.scrollY + 800) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = 'auto';
+        this.top = '-250px';
         this.bottom = bottom.toString() + 'px';
         this.position = 'fixed';
       }
-    }
-
-    let scrollPosition = window.scrollY;
-
-    if (scrollPosition < 200) {
-      this.top = '250px';
-      this.position = 'absolute';
-    }
-
-    if (scrollPosition > 400 && scrollPosition < 7100) {
-      scrollPosition = scrollPosition - 100;
-    }
-
-    if (window.innerWidth > 1199 && scrollPosition > 7100) {
-      scrollPosition = 7100;
-    }
-
-    if (window.innerWidth < 1200 && scrollPosition > 7500) {
-      scrollPosition = 7500;
     }
   }
 
