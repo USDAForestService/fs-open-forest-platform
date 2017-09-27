@@ -145,7 +145,7 @@ const translateFromDatabaseToClient = input => {
       activityDescription: input.noncommercialFieldsActivityDescription,
       locationDescription: input.noncommercialFieldsLocationDescription,
       numberParticipants: input.noncommercialFieldsNumberParticipants,
-      spectators: input.noncommercialFieldsSpectatorCount
+      numberSpectators: input.noncommercialFieldsSpectatorCount
     },
     dateTimeRange: {
       startDateTime: input.noncommercialFieldsStartDateTime,
