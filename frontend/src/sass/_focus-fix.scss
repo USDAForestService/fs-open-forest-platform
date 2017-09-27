@@ -1,5 +1,13 @@
 *:focus, .usa-focus, .focus, .usa-file-input input[type='file']:focus + label, a:focus,[type=checkbox]:focus + label::before,[ type=radio]:focus + label::before {
-   outline:  2px dotted $color-gray-light !important;
+   outline:  2px dotted #656565 !important;
    outline-offset: 3px !important;
    box-shadow: none !important;
+}
+
+#home {
+  *:focus {
+    outline:  2px dotted #eeece5 !important;
+    outline-offset: 3px !important;
+    box-shadow: none !important;
+  }
 }
