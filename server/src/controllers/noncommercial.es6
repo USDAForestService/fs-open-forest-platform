@@ -86,7 +86,7 @@ const translateFromClientToDatabase = input => {
     noncommercialFieldsEndDateTime: input.dateTimeRange.endDateTime,
     noncommercialFieldsLocationDescription: input.noncommercialFields.locationDescription,
     noncommercialFieldsNumberParticipants: input.noncommercialFields.numberParticipants,
-    noncommercialFieldsSpectatorCount: input.noncommercialFields.spectators,
+    noncommercialFieldsSpectatorCount: input.noncommercialFields.numberSpectators,
     noncommercialFieldsStartDateTime: input.dateTimeRange.startDateTime,
     applicantMessage: input.applicantMessage,
     region: input.region,
