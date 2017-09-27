@@ -62,10 +62,9 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
         this.position = 'absolute';
       }
 
-      if (window.innerHeight < 720 && container.getBoundingClientRect().height < window.scrollY + 800) {
+      if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
         this.top = '-250px';
-        this.bottom = bottom.toString() + 'px';
         this.position = 'fixed';
       }
     }
