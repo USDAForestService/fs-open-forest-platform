@@ -11,14 +11,15 @@ const vcapConstants = require('../vcap-constants.es6');
 const loginGov = {};
 
 // basic auth is needed for the int version of login.gov
-const basicAuthOptions = {
-  headers: {
+const basicAuthOptions = {};
+if (vcapConstants.loginGovIdpUsername && vcapConstants.loginGovIdpPassword) {
+  basicAuthOptions.headers = {
     Host: 'idp.int.login.gov',
     Authorization:
       'Basic ' +
       new Buffer(vcapConstants.loginGovIdpUsername + ':' + vcapConstants.loginGovIdpPassword).toString('base64')
-  }
-};
+  };
+}
 
 loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
