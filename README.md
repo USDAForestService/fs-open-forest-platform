@@ -133,3 +133,97 @@ As an alternative to installing all the development tools necessary to run the e
 7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
+
+
+### CircleCI Environment Variables
+
+PLATFORM
+
+    CI
+
+VCAP_APPLICATION
+
+    {"uris":["http://localhost:8080"]}
+    
+VCAP_SERVICES
+
+```javascript
+{
+  "user-provided": [
+    {
+      "credentials": {
+        "middlelayer_base_url": "https://fs-middlelayer-api-staging.app.cloud.gov/",
+        "middlelayer_password": "",
+        "middlelayer_username": ""
+      },
+      "label": "user-provided",
+      "name": "middlelayer-service",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "intake_client_base_url": "http://localhost:4200",
+        "intake_password": "",
+        "intake_username": ""
+      },
+      "label": "user-provided",
+      "name": "intake-client-service",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": {
+        "entrypoint": "",
+        "issuer": "",
+        "private_key": "",
+        "discovery_url": "https://secure.login.gov/.well-known/openid-configuration",
+        "idp_username": "",
+        "idp_password": "",
+        "jwk": {
+          "d": "1234",
+          "dp": "1234",
+          "dq": "1234",
+          "e": "1234",
+          "kty": "RSA",
+          "kid": "1234",
+          "n": "1234",
+          "p": "1234",
+          "q": "1234",
+          "qi": "1234"
+        }
+      },
+      "label": "user-provided",
+      "name": "login-service-provider",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": { "whitelist": [], "issuer": "", "entrypoint": "", "cert": "", "private_key": "" },
+      "label": "user-provided",
+      "name": "eauth-service-provider",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    },
+    {
+      "credentials": { "smtp_server": "", "username": "" },
+      "label": "user-provided",
+      "name": "smtp-service",
+      "syslog_drain_url": "",
+      "tags": [],
+      "volume_mounts": []
+    }
+  ],
+  "s3": [
+    {
+      "name": "intake-s3",
+      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" }
+    }
+  ]
+}
+
+```
