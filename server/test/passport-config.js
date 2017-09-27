@@ -49,7 +49,7 @@ describe('getPassportUser', () => {
 });
 
 describe('logout', () => {
-  it("should call req.logout and redirect to home for users who don't have the user role", () => {
+  it('should call req.logout and redirect to home for users who dont have the user role', () => {
     const redirect = sinon.spy();
     const logout = sinon.spy();
     const user = {
