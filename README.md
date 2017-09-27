@@ -148,7 +148,7 @@ PLATFORM
 VCAP_APPLICATION
 
     {"uris":["http://localhost:8080"]}
-    
+
 VCAP_SERVICES
 
 ```javascript
@@ -231,3 +231,6 @@ VCAP_SERVICES
 }
 
 ```
+
+### Known technical Debt
+The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
