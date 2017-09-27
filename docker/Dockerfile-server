@@ -1,6 +1,9 @@
 # Use node 6.11 as the base image
 FROM node:6.11.1
 
+# Set the environment switch for scripts
+ENV FS_DOCKER=true
+
 # create a top level node directory and copy the server package.json
 # into it
 # set the work dir to /node
