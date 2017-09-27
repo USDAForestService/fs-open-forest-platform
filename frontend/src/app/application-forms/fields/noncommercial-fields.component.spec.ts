@@ -33,7 +33,7 @@ describe('noncommercial fields', () => {
 
   it('should be invalid if paticipants is 0 and spectators is greater than 0', () => {
     component.noncommercialFields.controls['numberParticipants'].setValue(0);
-    component.noncommercialFields.controls['spectators'].setValue(1);
+    component.noncommercialFields.controls['numberSpectators'].setValue(1);
     component.noncommercialFields.controls['activityDescription'].setValue('test');
     component.noncommercialFields.controls['locationDescription'].setValue('test');
     expect(component.noncommercialFields.valid).toBeFalsy();
@@ -41,7 +41,7 @@ describe('noncommercial fields', () => {
 
   it('should be valid if paticipants is greater than 0 and spectators is greater than 0', () => {
     component.noncommercialFields.controls['numberParticipants'].setValue(1);
-    component.noncommercialFields.controls['spectators'].setValue(1);
+    component.noncommercialFields.controls['numberSpectators'].setValue(1);
     component.noncommercialFields.controls['activityDescription'].setValue('test');
     component.noncommercialFields.controls['locationDescription'].setValue('test');
     expect(component.noncommercialFields.valid).toBeTruthy();

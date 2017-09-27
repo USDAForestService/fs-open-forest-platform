@@ -12,8 +12,8 @@
 
     <label class="usa-input" for="spectators">Estimated number of spectators</label>
     <span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators.</span>
-    <input id="spectators" type="number" formControlName="spectators" aria-required="true" />
-    <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.spectators"></app-error-message>
+    <input id="spectators" type="number" formControlName="numberSpectators" aria-required="true" />
+    <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
 
     <label class="usa-input" for="activity-description">Description of proposed activity</label>
     <textarea id="activity-description" formControlName="activityDescription" aria-required="true"></textarea>
