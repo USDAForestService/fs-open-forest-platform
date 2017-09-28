@@ -4,7 +4,7 @@
     <legend>Advertising</legend>
 
     <label class="usa-input" for="advertising-url">Promotional website (optional)</label>
-    <input id="advertising-url" type="url" formControlName="advertisingURL" pattern="https?://.+" />
+    <input id="advertising-url" type="url" formControlName="advertisingURL" pattern="https?://.+" tabindex="0" />
     <app-error-message fieldId="advertising-url-error" name="Advertising url" [control]="tempOutfitterFields.controls.advertisingURL"></app-error-message>
 
     <label class="usa-input" for="advertising-description">Advertising description (optional)</label>
