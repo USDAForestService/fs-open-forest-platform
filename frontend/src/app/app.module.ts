@@ -31,6 +31,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
+import { UtilService } from './_services/util.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
     UsaBannerComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpModule, SharedModule],
-  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService],
+  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
