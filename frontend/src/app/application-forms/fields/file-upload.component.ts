@@ -82,6 +82,11 @@ export class FileUploadComponent implements OnChanges, OnInit {
     }
   }
 
+  clickInput(event) {
+    event.preventDefault();
+    document.getElementById(`${this.type}`).click();
+  }
+
   ngOnChanges() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
