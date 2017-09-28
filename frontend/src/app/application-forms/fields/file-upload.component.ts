@@ -84,7 +84,6 @@ export class FileUploadComponent implements OnChanges, OnInit {
 
   clickInput(event) {
     event.preventDefault();
-    console.log('bl');
     document.getElementById(`${this.type}`).click();
   }
 
