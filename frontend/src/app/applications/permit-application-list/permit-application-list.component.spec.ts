@@ -36,7 +36,7 @@ describe('PermitApplicationListComponent', () => {
           { provide: Router, useValue: router },
           { provide: AuthenticationService, useClass: MockService }
         ],
-        imports: [HttpModule, RouterTestingModule.withRoutes([{ path: 'admin/applications' }])]
+        imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
   );

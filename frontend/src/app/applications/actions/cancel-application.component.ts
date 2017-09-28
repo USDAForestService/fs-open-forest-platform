@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
+import { UtilService } from '../../_services/util.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class CancelApplicationComponent {
   constructor(
     private applicationService: ApplicationService,
     private alertService: AlertService,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    public util: UtilService
   ) {}
 
   cancelApplication() {
@@ -29,14 +31,9 @@ export class CancelApplicationComponent {
     }
   }
 
-  convertCamelToHyphenCase(type: string) {
-    // convert camel case to hyphen case and convert spaces to hyphen and lowercase, remove trailing 's'
-    return type.replace(/\s+/g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').replace(/s+$/, '').toLowerCase();
-  }
-
   updateApplication() {
     this.application.status = 'Cancelled';
-    const type = this.convertCamelToHyphenCase(this.application.type);
+    const type = this.util.convertCamelToHyphenCase(this.application.type);
     this.applicationService.update(this.application, type).subscribe(
       (data: any) => {
         this.alertService.addSuccessMessage('Permit application was successfully cancelled.');
