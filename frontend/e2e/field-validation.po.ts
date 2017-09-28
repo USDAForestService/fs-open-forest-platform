@@ -75,7 +75,6 @@ export class FieldValidation {
     if (type === 'xls') {
       testSuccessFile = path.resolve(__dirname, 'test-files/test.xlsx');
     }
-    const chooseFile = element(by.css('#' + id + ' label'));
     const input = element(by.css('#' + id + ' input[type="file"]'));
 
     it('should have an input field', () => {
@@ -87,7 +86,7 @@ export class FieldValidation {
     });
 
     it('should not show replace buttons by default', () => {
-      expect<any>(element(by.css('#' + id + ' label span')).getText()).toEqual('Choose file');
+      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Choose file');
     });
 
     it('should display an error message if the file is not a valid type', () => {
@@ -101,7 +100,7 @@ export class FieldValidation {
     });
 
     it('should show replace buttons if file is valid', () => {
-      expect<any>(element(by.css('#' + id + ' label span')).getText()).toEqual('Replace');
+      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Replace');
     });
 
     it('should display the file name if file is valid', () => {
