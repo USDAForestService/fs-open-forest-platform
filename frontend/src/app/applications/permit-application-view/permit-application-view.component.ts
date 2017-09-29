@@ -67,7 +67,8 @@ export class PermitApplicationViewComponent implements OnInit {
   handleUpdateResponse(status) {
     if (status === 'Accepted') {
       this.alertService.addSuccessMessage(
-        'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant. <div><a class="usa-button" href="https://iweb.fs.usda.gov/login/common.jsp?option=7">Log in to SUDS.</a></div>'
+        'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant. ' +
+          '<div><a class="usa-button" href="https://iweb.fs.usda.gov/login/common.jsp?option=7">Log in to SUDS.</a></div>'
       );
     } else if (status === 'Hold') {
       this.alertService.addSuccessMessage(
