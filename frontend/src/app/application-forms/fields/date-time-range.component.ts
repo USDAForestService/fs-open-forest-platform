@@ -162,7 +162,6 @@ export class DateTimeRangeComponent implements OnInit {
         this.dateTimeRange.controls.startDateTime.setErrors({
           dateErrors: { dateErrors: 'date form has errors' }
         });
-        console.log(this.parentForm);
       }
       this.updateDateStatus.emit(this.dateStatus);
     }
