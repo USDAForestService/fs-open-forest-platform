@@ -60,7 +60,7 @@
     "test": "mocha",
     "undoAllMigrate": "./node_modules/.bin/sequelize db:migrate:undo:all",
     "undoLastMigrate": "./node_modules/.bin/sequelize db:migrate:undo",
-    "prepublish": "yarn run snyk-protect"
+    "prepublish": "printenv FS_DOCKER || yarn run snyk-protect"
   },
   "engines": {
     "node": "^6.10.3"
