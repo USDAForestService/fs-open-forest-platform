@@ -62,7 +62,17 @@ describe('util tests', () => {
     after(() => postStub.restore());
     it('should successfully post an auth the middle layer', done => {
       let token = 'token';
-      postStub.callsFake((opts, cb) => cb(null, { statusCode: 200 }, { token }));
+      postStub.callsFake((opts, cb) =>
+        cb(
+          null,
+          {
+            statusCode: 200
+          },
+          {
+            token
+          }
+        )
+      );
       util.middleLayerAuth().then(_token => {
         expect(_token).to.equal(token);
         done();
@@ -77,7 +87,9 @@ describe('util tests', () => {
       });
     });
     it('should post an auth the middle layer and fail gracefully if statusCode is not 200', done => {
-      let res = { statusCode: 400 };
+      let res = {
+        statusCode: 400
+      };
       postStub.callsFake((opts, cb) => cb(null, res));
       util.middleLayerAuth().catch(_res => {
         expect(_res).to.equal(res);
@@ -179,5 +191,16 @@ describe('util tests', () => {
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-prefixtest.testField');
     });
+  });
+
+  it('should return business name or person name', done => {
+    const application = {
+      applicantInfoOrganizationName: '',
+      applicantInfoPrimaryFirstName: 'first',
+      applicantInfoPrimaryLastName: 'last'
+    };
+
+    expect(util.businessNameElsePersonalName(application)).equal('first last');
+    done();
   });
 });
