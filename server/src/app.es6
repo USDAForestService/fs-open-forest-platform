@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const session = require('cookie-session');
 
 const passportConfig = require('./auth/passport-config.es6');
-const router = require('./router.es6');
+const router = require('./routers/router.es6');
 const vcapConstants = require('./vcap-constants.es6');
 const util = require('./util.es6');
 
