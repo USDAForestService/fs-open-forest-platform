@@ -22,6 +22,12 @@ module.exports = factory.factory({
       number: '6789',
       extension: '3344'
     },
+    faxNumber: {
+      areaCode: '234',
+      prefix: '567',
+      number: '8901',
+      extension: '2345'
+    },
     organizationAddress: {
       mailingAddress: '876 Central St',
       mailingAddress2: '#2188',

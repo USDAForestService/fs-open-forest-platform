@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-factory.es6');
+const tempOutfitterPermitApplicationFactory = require('./data/temp-outfitter-test-data.es6').tempOutfitterFactory;
 const validation = require('../src/validation.es6');
 
 describe('validation tests', () => {
@@ -221,6 +222,44 @@ describe('validation tests', () => {
     it('should pass when evening phone extension is missing', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.applicantInfo.eveningPhone.extension = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('should pass when fax number is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.faxNumber = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(0);
+    });
+
+    it('should fail when fax number area code is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.faxNumber.areaCode = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-applicantInfo.faxNumber.areaCode');
+    });
+
+    it('should fail when fax number prefix is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.faxNumber.prefix = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-applicantInfo.faxNumber.prefix');
+    });
+
+    it('should fail when fax number number is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.faxNumber.number = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-applicantInfo.faxNumber.number');
+    });
+
+    it('should pass when fax number extension is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.faxNumber.extension = undefined;
       const errors = validation.validateNoncommercial(data);
       expect(errors).to.have.lengthOf(0);
     });
@@ -483,6 +522,13 @@ describe('validation tests', () => {
       const errors = validation.validateNoncommercial(data);
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('pattern-dateTimeRange.endDateTime');
+    });
+  });
+
+  describe('temp outfitter permit application validator', () => {
+    it('should pass with a valid application', () => {
+      let errors = validation.validateTempOutfitter(tempOutfitterPermitApplicationFactory.create());
+      expect(errors).to.have.lengthOf(0);
     });
   });
 });

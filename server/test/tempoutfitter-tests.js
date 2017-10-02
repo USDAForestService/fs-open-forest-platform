@@ -7,7 +7,7 @@ const sinon = require('sinon');
 
 const ApplicationFile = require('../src/models/application-files.es6');
 const server = require('./mock-aws-app');
-const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const tempOutfitterPermitApplicationFactory = require('./data/temp-outfitter-test-data.es6').tempOutfitterFactory;
 const util = require('../src/util.es6');
 
 const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
@@ -20,7 +20,7 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create())
+      .send(tempOutfitterPermitApplicationFactory.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, (err, res) => {
@@ -35,53 +35,13 @@ describe('temp outfitter server tests', () => {
       .post(url)
       .set('Accept', 'application/json')
       .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
+        tempOutfitterPermitApplicationFactory.create({
           'applicantInfo.primaryFirstName': undefined
         })
       )
       .expect('Content-Type', /json/)
       .expect(/"required-applicantInfo.primaryFirstName"/)
       .expect(400, done);
-  });
-
-  it('creates a temp outfitter app with undef evening phone', done => {
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
-          'applicantInfo.eveningPhone': undefined
-        })
-      )
-      .expect('Content-Type', /json/)
-      .expect(/"applicationId":[\d]+/)
-      .expect(201, done);
-  });
-
-  it('creates a temp outfitter app with undef fax number', done => {
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
-          'applicantInfo.faxNumber': undefined
-        })
-      )
-      .expect('Content-Type', /json/)
-      .expect(/"applicationId":[\d]+/)
-      .expect(201, done);
-  });
-
-  it('creates a temp outfitter app with too long website, 500 error', done => {
-    let testData = tempOutfitterTestData.basicTempOutfitter.create();
-    testData.applicantInfo.website =
-      'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(testData)
-      .expect('Content-Type', /json/)
-      .expect(500, done);
   });
 
   describe('getApplicationFileNames', () => {
