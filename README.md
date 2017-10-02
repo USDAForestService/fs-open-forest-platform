@@ -197,11 +197,7 @@ To run eslint for linting:
 
 The linting results will be put into `server/lint-results.html`.
 
-To run all of the tests locally, be sure your Postgresql server is running and then run:
-```bash
-export PLATFORM='local'
-yarn test
-```
+To run all of the tests locally, be sure your Postgresql server is running and then run: `yarn test`
 
 To run code coverage locally, be sure your Postgresql server is running then run:
 
