@@ -55,6 +55,8 @@ and on the command line as part of a command:
 
 ##### The following environment variables are required to run the application locally or with CircleCI:
 
+In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the VCAP_SERVICES variable.
+
 DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
