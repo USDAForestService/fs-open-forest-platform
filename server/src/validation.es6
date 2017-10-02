@@ -52,93 +52,84 @@ const validateSchema = input => {
 let validate = {};
 
 validate.validateNoncommercial = obj => {
-  let errorArr = [];
+  let errors = [];
 
   // overall validation
-  let validationObj = {
+  errors = validateSchema({
     inputObj: obj,
     schema: noncommercialSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: undefined,
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
-
-  validationObj = {
-    inputObj: obj.applicantInfo.eveningPhone,
-    schema: phoneNumberSchema,
-    errors: errorArr,
-    prefix: 'applicantInfo.eveningPhone.',
-    required: false,
-    requiredKey: undefined
-  };
+  });
 
   // if there is an evening phone, validate it
-
-  errorArr = validateSchema(validationObj);
+  if (obj.applicantInfo && obj.applicantInfo.eveningPhone) {
+    errors = validateSchema({
+      inputObj: obj.applicantInfo.eveningPhone,
+      schema: phoneNumberSchema,
+      errors: errors,
+      prefix: 'applicantInfo.eveningPhone.',
+      required: false,
+      requiredKey: undefined
+    });
+  }
 
   // if the orgType is Individual, then primaryAddress is required
-  if (obj.applicantInfo.orgType === 'Person') {
-    validationObj = {
+  if (obj.applicantInfo && obj.applicantInfo.orgType === 'Person') {
+    errors = validateSchema({
       inputObj: obj.applicantInfo.primaryAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
       required: true,
       requiredKey: 'required-applicantInfo.primaryAddress'
-    };
-
-    errorArr = validateSchema(validationObj);
+    });
   }
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  if (obj.applicantInfo.orgType === 'Corporation') {
-    validationObj = {
+  if (obj.applicantInfo && obj.applicantInfo.orgType === 'Corporation') {
+    errors = validateSchema({
       inputObj: obj.applicantInfo.organizationAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.organizationAddress.',
       required: true,
       requiredKey: 'required-applicantInfo.organizationAddress'
-    };
+    });
 
-    errorArr = validateSchema(validationObj);
-
-    validationObj = {
+    errors = validateSchema({
       inputObj: obj.applicantInfo.primaryAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
       required: false,
       requiredKey: undefined
-    };
-
-    errorArr = validateSchema(validationObj);
+    });
   }
 
   // if secondaryAddress exists, then validate it
-  validationObj = {
-    inputObj: obj.applicantInfo.secondaryAddress,
-    schema: addressSchema,
-    errors: errorArr,
-    prefix: 'applicantInfo.secondaryAddress.',
-    required: false,
-    requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  if (obj.applicantInfo && obj.applicantInfo.secondaryAddress) {
+    errors = validateSchema({
+      inputObj: obj.applicantInfo.secondaryAddress,
+      schema: addressSchema,
+      errors: errors,
+      prefix: 'applicantInfo.secondaryAddress.',
+      required: false,
+      requiredKey: undefined
+    });
+  }
 
   if (obj.dateTimeRange && obj.dateTimeRange.startDateTime && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
-    errorArr.push('pattern-dateTimeRange.startDateTime');
+    errors.push('pattern-dateTimeRange.startDateTime');
   }
 
   if (obj.dateTimeRange && obj.dateTimeRange.endDateTime && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
-    errorArr.push('pattern-dateTimeRange.endDateTime');
+    errors.push('pattern-dateTimeRange.endDateTime');
   }
 
-  return errorArr;
+  return errors;
 };
 
 validate.validateTempOutfitter = obj => {
@@ -181,7 +172,6 @@ validate.validateTempOutfitter = obj => {
   errorArr = validateSchema(validationObj);
 
   // primaryAddress is always required
-
   validationObj = {
     inputObj: obj.applicantInfo.primaryAddress,
     schema: addressSchema,

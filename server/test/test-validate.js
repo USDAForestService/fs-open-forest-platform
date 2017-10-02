@@ -91,6 +91,14 @@ describe('validation tests', () => {
       expect(errors[0]).to.equal('required-signature');
     });
 
+    it('should fail when applicant info is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-applicantInfo');
+    });
+
     it('should fail when primary first name is missing', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.applicantInfo.primaryFirstName = undefined;
