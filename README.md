@@ -171,6 +171,10 @@ To run any of the server commands, either the environment variables above must b
 
 To setup the database run `yarn migrate`
 
+##### Seed the database with test data
+
+Run `yarn seed`
+
 ##### Start the server
 
 Run `yarn dev` to start the server, and visit http://localhost:8080.
@@ -184,10 +188,6 @@ To revert the last database migration run
 To revert all of the database migrations and start with a blank database run
 
 `yarn undoAllMigrate`
-
-If you would like to seed the database with some test data, run:
-
-`yarn seed`
 
 To remove that data from the database run:
 
