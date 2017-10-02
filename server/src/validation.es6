@@ -76,6 +76,18 @@ validate.validateNoncommercial = obj => {
     });
   }
 
+  // if there is an fax number, validate it
+  if (obj.applicantInfo && obj.applicantInfo.faxNumber) {
+    errors = validateSchema({
+      inputObj: obj.applicantInfo.faxNumber,
+      schema: phoneNumberSchema,
+      errors: errors,
+      prefix: 'applicantInfo.faxNumber.',
+      required: false,
+      requiredKey: undefined
+    });
+  }
+
   // if the orgType is Individual, then primaryAddress is required
   if (obj.applicantInfo && obj.applicantInfo.orgType === 'Person') {
     errors = validateSchema({
@@ -133,57 +145,49 @@ validate.validateNoncommercial = obj => {
 };
 
 validate.validateTempOutfitter = obj => {
-  let errorArr = [];
+  let errors = [];
 
   // overall validation
-  let validationObj = {
+  errors = validateSchema({
     inputObj: obj,
     schema: tempOutfitterSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: undefined,
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // if there is an evening phone, validate it
-  validationObj = {
+  errors = validateSchema({
     inputObj: obj.applicantInfo.eveningPhone,
     schema: phoneNumberSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.eveningPhone.',
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // if there is a fax number, validate it
-  validationObj = {
+  errors = validateSchema({
     inputObj: obj.applicantInfo.faxNumber,
     schema: phoneNumberSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.faxNumber.',
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // primaryAddress is always required
-  validationObj = {
+  errors = validateSchema({
     inputObj: obj.applicantInfo.primaryAddress,
     schema: addressSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.primaryAddress.',
     required: true,
     requiredKey: 'required-applicantInfo.primaryAddress'
-  };
+  });
 
-  errorArr = validateSchema(validationObj);
-
-  return errorArr;
+  return errors;
 };
 
 module.exports = validate;
