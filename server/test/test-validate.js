@@ -35,22 +35,6 @@ describe('validation tests', () => {
       expect(errors).to.have.lengthOf(0);
     });
 
-    it('should fail when org type is missing', () => {
-      const data = noncommercialPermitApplicationFactory.create();
-      data.orgType = undefined;
-      const errors = validation.validateNoncommercial(data);
-      expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('required-orgType');
-    });
-
-    it('should fail when org type is invalid', () => {
-      const data = noncommercialPermitApplicationFactory.create();
-      data.orgType = 'invalid';
-      const errors = validation.validateNoncommercial(data);
-      expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('enum-orgType');
-    });
-
     it('should fail when district is missing', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.district = undefined;
@@ -99,6 +83,22 @@ describe('validation tests', () => {
       expect(errors[0]).to.equal('required-applicantInfo');
     });
 
+    it('should fail when org type is missing', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.orgType = undefined;
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-applicantInfo.orgType');
+    });
+
+    it('should fail when org type is invalid', () => {
+      const data = noncommercialPermitApplicationFactory.create();
+      data.applicantInfo.orgType = 'invalid';
+      const errors = validation.validateNoncommercial(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('enum-applicantInfo.orgType');
+    });
+
     it('should fail when primary first name is missing', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.applicantInfo.primaryFirstName = undefined;
@@ -120,7 +120,7 @@ describe('validation tests', () => {
       data.applicantInfo.primaryFirstName = 'X';
       const errors = validation.validateNoncommercial(data);
       expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('required-applicantInfo.primaryFirstName');
+      expect(errors[0]).to.equal('minLength-applicantInfo.primaryFirstName');
     });
 
     it('should fail validation when primary first name is too long', () => {
@@ -129,7 +129,7 @@ describe('validation tests', () => {
         'There is a bias toward networking-related formats in the JSON Schema specification, most likely due to its heritage in web technologies. There is a bias toward networking-related formats in the JSON Schema specification, most likely due to its heritage in web technologies. There is a bias toward networking-related formats in the JSON Schema specification, most likely due to its heritage in web technologies. There is a bias toward networking-related formats in the JSON Schema specification, most likely due to its heritage in web technologies. ';
       const errors = validation.validateNoncommercial(data);
       expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('required-applicantInfo.primaryFirstName');
+      expect(errors[0]).to.equal('maxLength-applicantInfo.primaryFirstName');
     });
 
     it('should fail when primary last name is missing', () => {
