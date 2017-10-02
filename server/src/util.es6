@@ -23,7 +23,13 @@ util.collateErrors = (result, errorArr, prefix) => {
   for (var error of result.errors) {
     if (error.name === 'required') {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type') {
+    } else if (
+      error.name === 'enum' ||
+      error.name === 'pattern' ||
+      error.name === 'type' ||
+      error.name === 'minLength' ||
+      error.name === 'maxLength'
+    ) {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
     }
   }
