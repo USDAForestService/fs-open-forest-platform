@@ -69,13 +69,18 @@ describe('noncommercial controller', () => {
       .expect(200, done);
   });
 
-  it('should return a 401 response when the control number is invalid', done => {
+  it('should return a 404 response when the control number is invalid', done => {
+    request(server)
+      .get(noncommercialUrl + '/' + 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10')
+      .set('Accept', 'application/json')
+      .expect(404, done);
+  });
+
+  it('should return a 400 response when the control number is invalid', done => {
     request(server)
       .get(noncommercialUrl + '/' + 'invalidControlNumber')
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(/"applicationId":[\d]+/)
-      .expect(200, done);
+      .expect(400, done);
   });
 
   it('updates a noncommercial app successfully with other than accept status', done => {
