@@ -140,22 +140,6 @@ describe('validation tests', () => {
       expect(errors).to.have.lengthOf(0);
     });
 
-    it('should fail when secondary first name is missing', () => {
-      const data = noncommercialPermitApplicationFactory.create();
-      data.applicantInfo.secondaryFirstName = undefined;
-      const errors = validation.validateNoncommercial(data);
-      expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('required-applicantInfo.secondaryFirstName');
-    });
-
-    it('should fail when secondary last name is missing', () => {
-      const data = noncommercialPermitApplicationFactory.create();
-      data.applicantInfo.secondaryLastName = undefined;
-      const errors = validation.validateNoncommercial(data);
-      expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('required-applicantInfo.secondaryLastName');
-    });
-
     it('should fail when day phone is missing', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.applicantInfo.dayPhone = undefined;
