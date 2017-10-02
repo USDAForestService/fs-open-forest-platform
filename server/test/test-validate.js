@@ -530,5 +530,53 @@ describe('validation tests', () => {
       let errors = validation.validateTempOutfitter(tempOutfitterPermitApplicationFactory.create());
       expect(errors).to.have.lengthOf(0);
     });
+
+    it('should fail when type is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.type = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-type');
+    });
+
+    it('should fail when type is invalid', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.type = 'invalid';
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('enum-type');
+    });
+
+    it('should fail when district is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.district = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-district');
+    });
+
+    it('should fail when region is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.region = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-region');
+    });
+
+    it('should fail when forest is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.forest = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-forest');
+    });
+
+    it('should fail when signature is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.signature = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-signature');
+    });
   });
 });
