@@ -6,21 +6,25 @@ module.exports = {
   properties: {
     primaryFirstName: {
       default: '',
+      minLength: 2,
       maxLength: 255,
       type: 'string'
     },
     primaryLastName: {
       default: '',
+      minLength: 2,
       maxLength: 255,
       type: 'string'
     },
     secondaryFirstName: {
       default: '',
+      minLength: 2,
       maxLength: 255,
       type: 'string'
     },
     secondaryLastName: {
       default: '',
+      minLength: 2,
       maxLength: 255,
       type: 'string'
     },
