@@ -5,6 +5,14 @@ const vcapConstants = require('../vcap-constants.es6');
 const util = require('../util.es6');
 const email = {};
 
+email.businessNameElsePersonalName = application => {
+  let businessName = application.applicantInfoOrganizationName;
+  if (!businessName) {
+    businessName = `${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}`;
+  }
+  return businessName;
+};
+
 email.noncommercialApplicationSubmittedConfirmation = application => {
   return {
     to: application.applicantInfoEmailAddress,
@@ -247,32 +255,10 @@ Thank you for your interest in our National Forests.
   };
 };
 
-email.noncommercialApplicationHold = application => {
-  return {
-    to: application.applicantInfoEmailAddress,
-    subject: 'Your noncommercial permit application has been submitted for review!',
-    body: `
-Your application has been set to hold because
-${application.applicantMessage}
-`
-  };
-};
-
-email.tempOutfitterApplicationHold = application => {
-  return {
-    to: application.applicantInfoEmailAddress,
-    subject: 'Your noncommercial permit application has been submitted for review!',
-    body: `
-Your application has been set to hold because
-${application.applicantMessage}
-`
-  };
-};
-
 email.noncommercialApplicationAccepted = application => {
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'Your noncommercial permit application has been submitted for review!',
+    subject: 'An update on your recent permit application to the Forest Service.',
     body: `
 Permit application status update
 *********************************
@@ -317,7 +303,7 @@ Thank you for your interest in our National Forests.
 email.tempOutfitterApplicationAccepted = application => {
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'Your noncommercial permit application has been submitted for review!',
+    subject: 'An update on your recent permit application to the Forest Service.',
     body: `
 Permit application status update
 *********************************
@@ -359,6 +345,54 @@ Email: sshermanbiery@fs.fed.us
 If you would like to submit another permit application visit ${vcapConstants.intakeClientBaseUrl}.
 
 Thank you for your interest in our National Forests.
+`
+  };
+};
+
+email.noncommercialApplicationCancelled = application => {
+  return {
+    to: vcapConstants.specialUseAdminEmailAddresses,
+    subject: `The ${application.eventName} permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    body: `
+Application details
+*********************************
+
+Permit type: ${util.camelCaseToRegularForm(application.type)}
+Event name: ${application.eventName}
+Start date: ${moment(application.noncommercialFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
+End date: ${moment(application.noncommercialFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')}
+Number of participants: ${application.noncommercialFieldsNumberParticipants}
+Number of spectators: ${application.noncommercialFieldsSpectatorCount}
+Location: ${application.noncommercialFieldsLocationDescription}
+
+Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
+`
+  };
+};
+
+email.tempOutfitterApplicationCancelled = application => {
+  const businessName = email.businessNameElsePersonalName(application);
+
+  return {
+    to: vcapConstants.specialUseAdminEmailAddresses,
+    subject: `The following permit application from ${businessName} to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    body: `
+Application details
+*********************************
+
+Permit type: ${util.camelCaseToRegularForm(application.type)}
+Business name: ${application.applicantInfoOrganizationName}
+Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+      'MM/DD/YYYY hh:mm a'
+    )}
+End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+      'MM/DD/YYYY hh:mm a'
+    )}
+Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
+Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
+Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
+
+Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
 `
   };
 };

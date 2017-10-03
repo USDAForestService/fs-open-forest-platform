@@ -20,10 +20,10 @@ module.exports = {
       default: 'FS-2700-3b',
       type: 'string'
     },
-    spectators: {
+    numberSpectators: {
       default: '0',
       type: 'integer'
     }
   },
-  required: ['activityDescription', 'locationDescription', 'numberParticipants', 'spectators']
+  required: ['activityDescription', 'locationDescription', 'numberParticipants', 'numberSpectators']
 };

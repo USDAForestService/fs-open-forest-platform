@@ -2,20 +2,20 @@
 <div [formGroup]="applicantInfo" *ngIf="type === 'primary'">
     <label class="usa-input" for="primary-permit-holder-first-name">{{ name }} first name</label>
     <input id="primary-permit-holder-first-name" type="text" formControlName="primaryFirstName" aria-required="true" aria-controls="primary-permit-holder-first-name" />
-    <app-error-message id="primary-permit-holder-first-name-error" name="Primary permit holder first name" [control]="applicantInfo.controls.primaryFirstName"></app-error-message>
+    <app-error-message fieldId="primary-permit-holder-first-name-error" name="Primary permit holder first name" [control]="applicantInfo.controls.primaryFirstName"></app-error-message>
 
 
     <label class="usa-input" for="primary-permit-holder-last-name">{{ name }} last name</label>
     <input id="primary-permit-holder-last-name" type="text" formControlName="primaryLastName" aria-required="true" aria-controls="primary-permit-holder-last-name" />
-    <app-error-message id="primary-permit-holder-last-name-error" name="Primary permit holder last name" [control]="applicantInfo.controls.primaryLastName"></app-error-message>
+    <app-error-message fieldId="primary-permit-holder-last-name-error" name="Primary permit holder last name" [control]="applicantInfo.controls.primaryLastName"></app-error-message>
 </div>
 
 <div [formGroup]="applicantInfo" *ngIf="type === 'secondary'">
     <label class="usa-input" for="secondary-permit-holder-first-name">{{ name }} first name</label>
     <input id="secondary-permit-holder-first-name" type="text" formControlName="secondaryFirstName" aria-required="true" />
-    <app-error-message id="secondary-permit-holder-first-name-error" name="Secondary permit holder first name" [control]="applicantInfo.controls.secondaryFirstName"></app-error-message>
+    <app-error-message fieldId="secondary-permit-holder-first-name-error" name="Secondary permit holder first name" [control]="applicantInfo.controls.secondaryFirstName"></app-error-message>
 
     <label class="usa-input" for="secondary-permit-holder-last-name">{{ name }} last name</label>
     <input id="secondary-permit-holder-last-name" type="text" formControlName="secondaryLastName" aria-required="true" />
-    <app-error-message id="secondary-permit-holder-last-name-error" name="Secondary permit holder last name" [control]="applicantInfo.controls.secondaryLastName"></app-error-message>
+    <app-error-message fieldId="secondary-permit-holder-last-name-error" name="Secondary permit holder last name" [control]="applicantInfo.controls.secondaryLastName"></app-error-message>
 </div>

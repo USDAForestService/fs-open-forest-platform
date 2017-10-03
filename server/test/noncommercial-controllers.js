@@ -235,14 +235,14 @@ describe('noncommercial tests', () => {
 
   it('should return a required error for spectator count', done => {
     let data = noncommercialTestData.singlePermitHolder.create();
-    data.noncommercialFields.spectators = undefined;
+    data.noncommercialFields.numberSpectators = undefined;
     request(server)
       .post(testURL)
       .set('Accept', 'application/json')
       .set('Authorization', auth)
       .send(data)
       .expect('Content-Type', /json/)
-      .expect(/"required-noncommercialFields.spectators"/)
+      .expect(/"required-noncommercialFields.numberSpectators"/)
       .expect(400, done);
   });
 

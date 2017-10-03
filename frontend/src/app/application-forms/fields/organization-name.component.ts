@@ -8,4 +8,5 @@ import { FormGroup } from '@angular/forms';
 export class OrganizationNameComponent {
   @Input() applicantInfo: FormGroup;
   @Input() name: string;
+  @Input() required: boolean;
 }

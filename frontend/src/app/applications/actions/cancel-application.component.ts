@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
+import { UtilService } from '../../_services/util.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class CancelApplicationComponent {
   constructor(
     private applicationService: ApplicationService,
     private alertService: AlertService,
-    public authentication: AuthenticationService
+    public authentication: AuthenticationService,
+    public util: UtilService
   ) {}
 
   cancelApplication() {
@@ -31,7 +33,7 @@ export class CancelApplicationComponent {
 
   updateApplication() {
     this.application.status = 'Cancelled';
-    const type = this.application.type.replace(/\s+/g, '-').toLowerCase();
+    const type = this.util.convertCamelToHyphenCase(this.application.type);
     this.applicationService.update(this.application, type).subscribe(
       (data: any) => {
         this.alertService.addSuccessMessage('Permit application was successfully cancelled.');

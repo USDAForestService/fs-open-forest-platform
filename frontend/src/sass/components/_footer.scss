@@ -83,21 +83,23 @@
 .usa-footer-contact-links {
   position: relative;
   top: 7px;
+  a {
+    img {
+      width: 30px;
+    }
+  }
 }
 
 .usa-link-twitter {
-  background-image: url(/assets/img/social-icon-twitter.svg);
-  left: 0;
+  background-image: none;
 }
 
 .usa-link-facebook {
-  background-image: url(/assets/img/social-icon-facebook.svg);
-  left: 0;
+  background-image: none;
 }
 
 .usa-link-youtube {
-  background-image: url(/assets/img/social-icon-youtube.svg);
-  left: 0;
+  background-image: none;
 }
 
 .build-version {
