@@ -157,6 +157,12 @@ export class DateTimeRangeComponent implements OnInit {
         !this.dateStatus.endDateTimeValid ||
         !this.dateStatus.startBeforeEnd ||
         !this.dateStatus.startAfterToday;
+      if (this.dateStatus.hasErrors) {
+        this.dateTimeRange.controls.startDateTime.markAsTouched();
+        this.dateTimeRange.controls.startDateTime.setErrors({
+          dateErrors: { dateErrors: 'date form has errors' }
+        });
+      }
       this.updateDateStatus.emit(this.dateStatus);
     }
   }

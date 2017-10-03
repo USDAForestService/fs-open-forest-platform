@@ -8,6 +8,7 @@ const session = require('cookie-session');
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./router.es6');
 const vcapConstants = require('./vcap-constants.es6');
+const util = require('./util.es6');
 
 const app = express();
 
@@ -26,10 +27,7 @@ app.use(bodyParser.json());
 app.use(
   session({
     name: 'session',
-    keys: [
-      new Buffer(`${Math.random()}${Math.random()}`).toString('hex'),
-      new Buffer(`${Math.random()}${Math.random()}`).toString('hex')
-    ],
+    keys: [util.getRandomHexString(), util.getRandomHexString()],
     cookie: {
       secure: true,
       httpOnly: true,

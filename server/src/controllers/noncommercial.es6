@@ -86,7 +86,7 @@ const translateFromClientToDatabase = input => {
     noncommercialFieldsEndDateTime: input.dateTimeRange.endDateTime,
     noncommercialFieldsLocationDescription: input.noncommercialFields.locationDescription,
     noncommercialFieldsNumberParticipants: input.noncommercialFields.numberParticipants,
-    noncommercialFieldsSpectatorCount: input.noncommercialFields.spectators,
+    noncommercialFieldsSpectatorCount: input.noncommercialFields.numberSpectators,
     noncommercialFieldsStartDateTime: input.dateTimeRange.startDateTime,
     applicantMessage: input.applicantMessage,
     region: input.region,
@@ -145,7 +145,7 @@ const translateFromDatabaseToClient = input => {
       activityDescription: input.noncommercialFieldsActivityDescription,
       locationDescription: input.noncommercialFieldsLocationDescription,
       numberParticipants: input.noncommercialFieldsNumberParticipants,
-      spectators: input.noncommercialFieldsSpectatorCount
+      numberSpectators: input.noncommercialFieldsSpectatorCount
     },
     dateTimeRange: {
       startDateTime: input.noncommercialFieldsStartDateTime,
@@ -171,8 +171,8 @@ const translateFromIntakeToMiddleLayer = input => {
     region: input.region,
     forest: input.forest,
     district: input.district,
-    authorizingOfficerName: 'Placeholder', // TODO: Add value when user has authenticated
-    authorizingOfficerTitle: 'Placeholder', // TODO: Add value when user has authenticated
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
     applicantInfo: {
       firstName: input.applicantInfoPrimaryFirstName,
       lastName: input.applicantInfoPrimaryLastName,
@@ -325,10 +325,7 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
-            if (app.status === 'Returned') {
-              // remove conditional if we want to send emails to applications with Hold status
-              email.sendEmail(`noncommercialApplication${app.status}`, app);
-            }
+            email.sendEmail(`noncommercialApplication${app.status}`, app);
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {

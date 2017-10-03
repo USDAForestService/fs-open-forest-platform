@@ -11,7 +11,7 @@
           <li>Your application will be reviewed by our staff within 48 hours.</li>
           <li>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</li>
           <li>After the application has been reviewed, you will be notified of the application status. If accepted, it will then move on to a special use administrator for approval.</li>
-          <li>If your application is approved, you will receive your permit via U.S. mail within 2 weeks of approval.</li>
+          <li>If your application is approved, you will receive your permit within 2 weeks of approval.</li>
         </ol>
       </div>
 
@@ -33,7 +33,7 @@
         </div>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
-          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Organization name"></app-organization-name>
+          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
@@ -90,7 +90,7 @@
 
         <label class="usa-input" for="name">Event Name</label>
         <input id="name" formControlName="eventName" type="text" aria-required="true" />
-        <app-error-message id="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
+        <app-error-message fieldId="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
 
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
         <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
@@ -100,7 +100,7 @@
         <legend>Signature</legend>
         <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
         <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
-        <app-error-message id="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
+        <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>

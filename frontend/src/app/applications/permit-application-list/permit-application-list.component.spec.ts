@@ -36,7 +36,7 @@ describe('PermitApplicationListComponent', () => {
           { provide: Router, useValue: router },
           { provide: AuthenticationService, useClass: MockService }
         ],
-        imports: [HttpModule, RouterTestingModule.withRoutes([{path: 'admin/applications'}])]
+        imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
   );
@@ -133,6 +133,7 @@ describe('PermitApplicationListComponent', () => {
   it('should trigger function when status changes', () => {
     const event = { target: { value: 'returned' } };
     component.applicationStatusChange(event);
+    expect(component.successMessage).toEqual(null);
     expect(component.applicationStatus).toEqual('returned');
   });
 });

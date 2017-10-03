@@ -3,6 +3,7 @@ import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from 
 import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
+import { UtilService } from '../../_services/util.service';
 import { CancelApplicationComponent } from './cancel-application.component';
 import { Observable } from 'rxjs/Observable';
 
@@ -17,7 +18,8 @@ describe('Cancel application', () => {
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: AuthenticationService, useClass: MockApplicationService },
-          AlertService
+          AlertService,
+          UtilService
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();

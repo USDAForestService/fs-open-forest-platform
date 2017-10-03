@@ -49,48 +49,34 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     const nav = document.getElementById('temp-outfitter-nav');
+    const container = document.getElementById('application');
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (nav.getBoundingClientRect().top < 20) {
+      if (container.getBoundingClientRect().top < 20) {
         this.top = '40px';
         this.bottom = 'auto';
         this.position = 'fixed';
+      } else {
+        this.top = '250px';
+        this.position = 'absolute';
       }
 
-      if (footer.getBoundingClientRect().top < 700) {
+      if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = 'auto';
-        this.bottom = bottom.toString() + 'px';
+        this.top = '-250px';
         this.position = 'fixed';
       }
     }
-
-    let scrollPosition = window.scrollY;
-
-    if (scrollPosition < 200) {
-      this.top = '250px';
-      this.position = 'absolute';
-    }
-
-    if (scrollPosition > 400 && scrollPosition < 7100) {
-      scrollPosition = scrollPosition - 100;
-    }
-
-    if (window.innerWidth > 1199 && scrollPosition > 7100) {
-      scrollPosition = 7100;
-    }
-
-    if (window.innerWidth < 1200 && scrollPosition > 7500) {
-      scrollPosition = 7500;
-    }
   }
 
-  gotoHashtag(fragment: string) {
+  gotoHashtag(fragment: string, event) {
+    event.preventDefault();
     const element = document.querySelector('#' + fragment);
     if (element) {
       element.scrollIntoView();
       this.currentSection = fragment;
+      document.getElementById(fragment).focus();
     }
   }
 
