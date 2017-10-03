@@ -187,6 +187,26 @@ validate.validateTempOutfitter = obj => {
     requiredKey: 'required-applicantInfo.primaryAddress'
   });
 
+  if (
+    obj.tempOutfitterFields &&
+    obj.tempOutfitterFields.activityDescriptionFields &&
+    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime &&
+    !util.validateDateTime(obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime)
+  ) {
+    errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
+  }
+
+  if (
+    obj.tempOutfitterFields &&
+    obj.tempOutfitterFields.activityDescriptionFields &&
+    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime &&
+    !util.validateDateTime(obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime)
+  ) {
+    errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
+  }
+
   return errors;
 };
 
