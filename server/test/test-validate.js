@@ -570,5 +570,77 @@ describe('validation tests', () => {
       expect(errors).to.have.lengthOf(1);
       expect(errors[0]).to.equal('required-signature');
     });
+
+    it('should fail when temp outfitter fields object is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-tempOutfitterFields');
+    });
+
+    it('should fail when activity description fields object is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-tempOutfitterFields.activityDescriptionFields');
+    });
+
+    it('should fail when date time range is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-tempOutfitterFields.activityDescriptionFields.dateTimeRange');
+    });
+
+    it('should fail when start date time is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
+    });
+
+    it('should fail when start date time is not in the correct format', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime = 'invalid';
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
+    });
+
+    it('should fail when start date time is not a valid date', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime = '2018-02-31T13:00:00Z';
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
+    });
+
+    it('should fail when end date time is missing', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime = undefined;
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('required-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
+    });
+
+    it('should fail when end date time is not in the correct format', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime = 'invalid';
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
+    });
+
+    it('should fail when end date time is not a valid date', () => {
+      const data = tempOutfitterPermitApplicationFactory.create();
+      data.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime = '2018-02-31T13:00:00Z';
+      const errors = validation.validateTempOutfitter(data);
+      expect(errors).to.have.lengthOf(1);
+      expect(errors[0]).to.equal('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
+    });
   });
 });
