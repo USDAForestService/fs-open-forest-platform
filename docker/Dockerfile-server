@@ -1,6 +1,9 @@
 # Use node 6.11 as the base image
 FROM node:6.11.1
 
+# Set the environment switch for scripts
+ENV FS_DOCKER=true
+
 # create a top level node directory and copy the server package.json
 # into it
 # set the work dir to /node
@@ -27,7 +30,7 @@ WORKDIR /app
 EXPOSE 8080
 
 # env vars for VCAP_SERVICES and DATABASE_URL
-ENV VCAP_SERVICES='{"user-provided":[{"credentials":{"MIDDLELAYER_BASE_URL":"http://localhost:8080/","MIDDLELAYER_PASSWORD":"pass","MIDDLELAYER_USERNAME":"user"},"label":"user-provided","name":"middlelayer-service","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"INTAKE_CLIENT_BASE_URL":"http://localhost:4200","INTAKE_PASSWORD":"password","INTAKE_USERNAME":"username"},"label":"user-provided","name":"intake-client-service","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"cert":"","entrypoint":"","issuer":"","privatekey":"","discoveryurl":"https://idp.int.login.gov/.well-known/openid-configuration"},"label":"user-provided","name":"login-service-provider","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"cert":"40a4ce56c7494ed37649/test.pdf","entrypoint":"https://idp.int.login.gov/api/saml/auth","issuer":"<ENTER ISSUER HERE>","privatekey":"<ENTER SAML KEY HERE>"},"label":"user-provided","name":"eauth-service-provider","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"name":"smtp-service","credentials":{"smtpserver":"smtp.gmail.com","username":"cool","password":"dude","admins":["someone@somewhere.com"]}}],"s3":[{"name":"intake-s3","credentials":{"bucket":"bucket_name","access_key_id":"","region":"us-east-1","secret_access_key":""}},{"name":"certs","credentials":{"bucket":"bucket_name","access_key_id":"","region":"us-east-1","secret_access_key":""}}]}'
+ENV VCAP_SERVICES='{"user-provided":[{"credentials":{"middlelayer_base_url":"https://fs-middlelayer-api-staging.app.cloud.gov/","middlelayer_password":"","middlelayer_username":"admin"},"label":"user-provided","name":"middlelayer-service","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"intake_client_base_url":"http://localhost:4200","intake_password":"password","intake_username":"username"},"label":"user-provided","name":"intake-client-service","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"entrypoint":"https://idp.int.login.gov/api/saml/auth","issuer":"urn:gov:gsa:SAML:2.0.profiles:sp:sso:usda-forestservice:epermit-dev","private_key":"saml.key.enc.usdaforestserviceepermitdevlogin","discovery_url":"https://idp.int.login.gov/.well-known/openid-configuration","idp_username":"18f","idp_password":"","jwk":{"d":"1234","dp":"1234","dq":"1234","e":"1234","kty":"RSA","kid":"1234","n":"1234","p":"1234","q":"1234","qi":"1234"}},"label":"user-provided","name":"login-service-provider","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"whitelist":["esorenson@flexion.us"],"issuer":"fs-intake-api-staging.app.cloud.gov","entrypoint":"https://www.cert.eauth.usda.gov/affwebservices/public/saml2sso","cert":"1234","private_key":"1234"},"label":"user-provided","name":"eauth-service-provider","syslog_drain_url":"","tags":[],"volume_mounts":[]},{"credentials":{"smtp_server":"server","username":"username"},"label":"user-provided","name":"smtp-service","syslog_drain_url":"","tags":[],"volume_mounts":[]}],"s3":[{"name":"intake-s3","credentials":{"bucket":"flexion-test","access_key_id":"","region":"us-east-1","secret_access_key":""}}]}'
 ENV VCAP_APPLICATION='{"uris":["http://localhost:8080/"]}'
 ENV DATABASE_URL=postgresql://postgres:postgres@fs-intake-postgres:5432/postgres
 ENV PLATFORM=local

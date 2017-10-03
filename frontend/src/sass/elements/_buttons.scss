@@ -20,6 +20,7 @@
   .usa-button-inverse {
     background-color: $fs-tan;
     color: $black;
+    border: solid 1px $black;
     &:hover,
     &:hover:visited {
       background-color: $fs-tan-dark;

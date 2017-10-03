@@ -1,9 +1,11 @@
 // Core -------------- //
+@import 'focus-fix';
 @import 'core/variables';
 @import 'core/layout';
 @import 'core/mixins';
 // Elements -------------- //
 // Styles basic HTML elements
+@import 'elements/alerts';
 @import 'elements/backgrounds';
 @import 'elements/borders';
 @import 'elements/breaks';
