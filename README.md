@@ -21,10 +21,19 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 
 ## U.S. Forest Service intake module development
 
-### Package manager:
+### Requirements:
+
+#### Package Manager
 
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
+#### Node
+
+Install [Node ^6.10.3](https://nodejs.org/en/)
+
+#### Git
+
+Install [Git](https://git-scm.com/)
 
 ### Clone the repository
 
