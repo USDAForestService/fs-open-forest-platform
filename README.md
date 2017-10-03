@@ -19,130 +19,67 @@ This project is in the worldwide [public domain](LICENSE.md). As stated in [CONT
 >
 > All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
 
-## U.S. Forest Service Intake Module Templates
+## U.S. Forest Service intake module development
 
-### For development:
+### Requirements:
+
+#### Package Manager
 
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
-#### Install angular cli
-Run `yarn add global @angular/cli`
+#### Node
 
-#### Navigate to frontend directory
+Install [Node ^6.10.3](https://nodejs.org/en/)
 
-`cd frontend`
+#### Git
 
-#### Install dependencies
-Run `yarn`
+Install [Git](https://git-scm.com/)
 
-#### Development server
+### Clone the repository
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`git clone [repository url] fs-intake-module`
 
-#### Code scaffolding
+Navigate to cloned repo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+`cd fs-intake-module`
 
-#### Build
+### Server development
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+#### Database
 
-#### Running unit tests
+A running Postgresql database is required in order to run the server locally.  Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Environment Variables 
 
-#### Running end-to-end tests
+There are environment variables that are required to be set in order to run tests
+and to run the server in general.  Please set up these environment variables either in your shell or on the command line.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+In general setting an environment variable in your shell is similar to:
 
+`export ENV_VAR=something`
 
-### typedoc
+and on the command line as part of a command:
 
-#### Build typedoc
+`ENV_VAR=something ANOTHER_ENV_VAR=somethingelse <rest of command>`
 
-Install typedoc globally: `yarn global add typedoc`
+##### The following environment variables are required to run the application locally or with CircleCI:
 
-`cd frontend`
-
-build typedoc `yarn run docs`
-
-typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
-
-
-Navigate to `/assets/typedoc/index.html`
-
-### Enable html5 pushstate on cloud.gov
-In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
-
-This allows you to use urls like `/some/path` instead of `/#/some/path`
-
-[Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
-
-
-### SMTP relay configuration for sending emails
-The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
-
-Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
-
-The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
-
-### Docker Environment
-
-As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
-
-1. Install Docker for your platform at https://www.docker.com/.  Make sure that the Docker service is started.
-
-1. Clone this repository.
-
-1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
-
-    ```
-    $ cd fs-intake-module
-    $ cd docker
-    ```
-
-4. Now use Docker Compose to build and start the containers.
-
-    ```
-    $ docker-compose up --build --force-recreate
-    ```
-
-5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
-
-    ```
-    fs-intake-frontend_1  | webpack: Compiled successfully.
-    ```
-
-6. The containers and servers are now running. There are four containers:
-
-    - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
-
-    - fs-intake-server - This container runs the server side Node application.  It can be accessed in the browser at http://localhost:8080.
-
-    - fs-intake-postgres - This container runs the PostgreSQL database server.
-
-    - adminer - This container runs a PHP based database administration application.  It can be accessed at http://localhost:8081.  The front page for Adminer is a database login page.  The values to use are:
-
-        - System: PostgreSQL
-        - Server: fs-intake-postgres:5432
-        - Username: postgres
-        - Password: postgres
-        - Database: postgres
-
-7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
-
-8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
-
-
-### CircleCI Environment Variables
+In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the VCAP_SERVICES variable.
 
 DATABASE_URL
 
+    postgres://<user>:<pass>@localhost:<port>/<dbname>
+    
+    or for CircleCI
+    
     postgres://ubuntu:@127.0.0.1:5432/circle_test
 
 PLATFORM
 
+    local
+    
+    or for CircleCI
+    
     CI
 
 VCAP_APPLICATION
@@ -231,6 +168,177 @@ VCAP_SERVICES
 }
 
 ```
+#### Install dependencies
+
+run `cd server` then run `yarn` to install dependencies.
+
+#### Available commands
+
+To run any of the server commands, either the environment variables above must be available in your shell or on the command line, and you must be in the server directory.
+
+##### Setup database
+
+To setup the database run `yarn migrate`
+
+##### Seed the database with test data
+
+Run `yarn seed`
+
+##### Start the server
+
+Run `yarn dev` to start the server, and visit http://localhost:8080.
+
+##### Other commands
+
+To revert the last database migration run
+
+`yarn undoLastMigrate`
+
+To revert all of the database migrations and start with a blank database run
+
+`yarn undoAllMigrate`
+
+To remove that data from the database run:
+
+`./node_modules/sequelize-cli/bin/sequelize db:seed:undo:all`
+
+To run eslint for linting:
+
+`yarn lint`
+
+The linting results will be put into `server/lint-results.html`.
+
+To run all of the tests locally, be sure your Postgresql server is running and then run: `yarn test`
+
+To run code coverage locally, be sure your Postgresql server is running then run:
+
+`yarn coverage`
+
+The coverage results can be found in `server/coverage/index.html`
+
+
+#### Server API Documentation
+
+With your local Node server running, browse to http://localhost:8080/docs/api in order to view the interactive Swagger API documentation.  This documentation will allow interactive access to the API endpoints.
+
+#### Authentication
+
+Public users must authenticate with login.gov, and Forest Service admins must authenticate with USDA eAuth. Both of these authentication techniques are handled by the Passport library for Node.js.
+
+Login.gov uses the openid-client passport plugin for the OpenID Connect protocol, and USDA eAuth uses the passport-saml plugin for the SAML protocol.
+
+Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
+
+
+### Frontend Development
+
+#### Install angular cli
+
+Run `yarn global add @angular/cli`
+
+#### Navigate to frontend directory
+
+`cd frontend`
+
+#### Install dependencies
+
+Run `yarn`
+
+#### Development server
+
+Run `ng serve` for a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+#### Build
+
+Run `ng build --prod --env=prod --aot=false` to build the static files for the single paged app. The build artifacts that can be deployed will be stored in the `dist/` directory.
+
+#### Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+Add `--code-coverage` flag to print out code coverage statistics.
+
+#### Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+### Typedoc
+
+#### Build typedoc
+
+Install typedoc globally: `yarn global add typedoc`
+
+`cd frontend`
+
+build typedoc `yarn run docs`
+
+typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
+
+
+Navigate to `/assets/typedoc/index.html`
+
+### Enable html5 pushstate on cloud.gov
+In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
+
+This allows you to use urls like `/some/path` instead of `/#/some/path`
+
+[Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
+
+
+### SMTP relay configuration for sending emails
+The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
+
+Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
+
+The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
+
+### Docker Environment
+
+As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
+
+1. Install Docker for your platform at https://www.docker.com/.  Make sure that the Docker service is started.
+
+1. Clone this repository.
+
+1. In a console terminal navigate to the directory the repository was cloned to.  Now `cd` to the `docker` directory.
+
+    ```
+    $ cd fs-intake-module
+    $ cd docker
+    ```
+
+4. Now use Docker Compose to build and start the containers.
+
+    ```
+    $ docker-compose up --build --force-recreate
+    ```
+
+5. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
+
+    ```
+    fs-intake-frontend_1  | webpack: Compiled successfully.
+    ```
+
+6. The containers and servers are now running. There are four containers:
+
+    - fs-intake-frontend - This container runs the Angular application.  It can be accessed in the browser at http://localhost:4200.
+
+    - fs-intake-server - This container runs the server side Node application.  It can be accessed in the browser at http://localhost:8080.
+
+    - fs-intake-postgres - This container runs the PostgreSQL database server.
+
+    - adminer - This container runs a PHP based database administration application.  It can be accessed at http://localhost:8081.  The front page for Adminer is a database login page.  The values to use are:
+
+        - System: PostgreSQL
+        - Server: fs-intake-postgres:5432
+        - Username: postgres
+        - Password: postgres
+        - Database: postgres
+
+7. Changes made to any of the JavaScript code will be automatically picked up and the appropriate server will auto-reload so that your changes can be seen immediately.
+
+8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
+
 
 ### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.

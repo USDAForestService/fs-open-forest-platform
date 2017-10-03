@@ -23,7 +23,7 @@
     <div *ngIf="successMessage" class="usa-alert usa-alert-success application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Success</h3>
-        <p class="usa-alert-text">{{ successMessage }}</p>
+        <p class="usa-alert-text" [innerHTML]="successMessage"></p>
       </div>
     </div>
     <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
