@@ -4,7 +4,7 @@ const nock = require('nock');
 const request = require('supertest');
 
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-factory.es6');
-const server = require('./mock-aws-app');
+const server = require('./mock-aws-app.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 const noncommercialUrl = '/permits/applications/special-uses/noncommercial';

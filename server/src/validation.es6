@@ -51,12 +51,12 @@ const validateSchema = input => {
 
 let validate = {};
 
-validate.validateNoncommercial = obj => {
+validate.validateNoncommercial = input => {
   let errors = [];
 
   // overall validation
   errors = validateSchema({
-    inputObj: obj,
+    inputObj: input,
     schema: noncommercialSchema,
     errors: errors,
     prefix: undefined,
@@ -65,9 +65,9 @@ validate.validateNoncommercial = obj => {
   });
 
   // if there is an evening phone, validate it
-  if (obj.applicantInfo && obj.applicantInfo.eveningPhone) {
+  if (input.applicantInfo && input.applicantInfo.eveningPhone) {
     errors = validateSchema({
-      inputObj: obj.applicantInfo.eveningPhone,
+      inputObj: input.applicantInfo.eveningPhone,
       schema: phoneNumberSchema,
       errors: errors,
       prefix: 'applicantInfo.eveningPhone.',
@@ -77,9 +77,9 @@ validate.validateNoncommercial = obj => {
   }
 
   // if there is an fax number, validate it
-  if (obj.applicantInfo && obj.applicantInfo.faxNumber) {
+  if (input.applicantInfo && input.applicantInfo.faxNumber) {
     errors = validateSchema({
-      inputObj: obj.applicantInfo.faxNumber,
+      inputObj: input.applicantInfo.faxNumber,
       schema: phoneNumberSchema,
       errors: errors,
       prefix: 'applicantInfo.faxNumber.',
@@ -89,9 +89,9 @@ validate.validateNoncommercial = obj => {
   }
 
   // if the orgType is Individual, then primaryAddress is required
-  if (obj.applicantInfo && obj.applicantInfo.orgType === 'Person') {
+  if (input.applicantInfo && input.applicantInfo.orgType === 'Person') {
     errors = validateSchema({
-      inputObj: obj.applicantInfo.primaryAddress,
+      inputObj: input.applicantInfo.primaryAddress,
       schema: addressSchema,
       errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
@@ -101,9 +101,9 @@ validate.validateNoncommercial = obj => {
   }
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  if (obj.applicantInfo && obj.applicantInfo.orgType === 'Corporation') {
+  if (input.applicantInfo && input.applicantInfo.orgType === 'Corporation') {
     errors = validateSchema({
-      inputObj: obj.applicantInfo.organizationAddress,
+      inputObj: input.applicantInfo.organizationAddress,
       schema: addressSchema,
       errors: errors,
       prefix: 'applicantInfo.organizationAddress.',
@@ -112,7 +112,7 @@ validate.validateNoncommercial = obj => {
     });
 
     errors = validateSchema({
-      inputObj: obj.applicantInfo.primaryAddress,
+      inputObj: input.applicantInfo.primaryAddress,
       schema: addressSchema,
       errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
@@ -122,9 +122,9 @@ validate.validateNoncommercial = obj => {
   }
 
   // if secondaryAddress exists, then validate it
-  if (obj.applicantInfo && obj.applicantInfo.secondaryAddress) {
+  if (input.applicantInfo && input.applicantInfo.secondaryAddress) {
     errors = validateSchema({
-      inputObj: obj.applicantInfo.secondaryAddress,
+      inputObj: input.applicantInfo.secondaryAddress,
       schema: addressSchema,
       errors: errors,
       prefix: 'applicantInfo.secondaryAddress.',
@@ -133,23 +133,31 @@ validate.validateNoncommercial = obj => {
     });
   }
 
-  if (obj.dateTimeRange && obj.dateTimeRange.startDateTime && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
+  if (
+    input.dateTimeRange &&
+    input.dateTimeRange.startDateTime &&
+    !util.validateDateTime(input.dateTimeRange.startDateTime)
+  ) {
     errors.push('pattern-dateTimeRange.startDateTime');
   }
 
-  if (obj.dateTimeRange && obj.dateTimeRange.endDateTime && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
+  if (
+    input.dateTimeRange &&
+    input.dateTimeRange.endDateTime &&
+    !util.validateDateTime(input.dateTimeRange.endDateTime)
+  ) {
     errors.push('pattern-dateTimeRange.endDateTime');
   }
 
   return errors;
 };
 
-validate.validateTempOutfitter = obj => {
+validate.validateTempOutfitter = input => {
   let errors = [];
 
   // overall validation
   errors = validateSchema({
-    inputObj: obj,
+    inputObj: input,
     schema: tempOutfitterSchema,
     errors: errors,
     prefix: undefined,
@@ -159,7 +167,7 @@ validate.validateTempOutfitter = obj => {
 
   // if there is an evening phone, validate it
   errors = validateSchema({
-    inputObj: obj.applicantInfo.eveningPhone,
+    inputObj: input.applicantInfo.eveningPhone,
     schema: phoneNumberSchema,
     errors: errors,
     prefix: 'applicantInfo.eveningPhone.',
@@ -169,7 +177,7 @@ validate.validateTempOutfitter = obj => {
 
   // if there is a fax number, validate it
   errors = validateSchema({
-    inputObj: obj.applicantInfo.faxNumber,
+    inputObj: input.applicantInfo.faxNumber,
     schema: phoneNumberSchema,
     errors: errors,
     prefix: 'applicantInfo.faxNumber.',
@@ -179,7 +187,7 @@ validate.validateTempOutfitter = obj => {
 
   // primaryAddress is always required
   errors = validateSchema({
-    inputObj: obj.applicantInfo.primaryAddress,
+    inputObj: input.applicantInfo.primaryAddress,
     schema: addressSchema,
     errors: errors,
     prefix: 'applicantInfo.primaryAddress.',
@@ -188,21 +196,21 @@ validate.validateTempOutfitter = obj => {
   });
 
   if (
-    obj.tempOutfitterFields &&
-    obj.tempOutfitterFields.activityDescriptionFields &&
-    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
-    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime &&
-    !util.validateDateTime(obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime)
+    input.tempOutfitterFields &&
+    input.tempOutfitterFields.activityDescriptionFields &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime &&
+    !util.validateDateTime(input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime)
   ) {
     errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
   }
 
   if (
-    obj.tempOutfitterFields &&
-    obj.tempOutfitterFields.activityDescriptionFields &&
-    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
-    obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime &&
-    !util.validateDateTime(obj.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime)
+    input.tempOutfitterFields &&
+    input.tempOutfitterFields.activityDescriptionFields &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime &&
+    !util.validateDateTime(input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime)
   ) {
     errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
   }

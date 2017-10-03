@@ -6,7 +6,7 @@ const request = require('supertest');
 const sinon = require('sinon');
 
 const ApplicationFile = require('../src/models/application-files.es6');
-const server = require('./mock-aws-app');
+const server = require('./mock-aws-app.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/temp-outfitter-test-data.es6').tempOutfitterFactory;
 const util = require('../src/util.es6');
 
