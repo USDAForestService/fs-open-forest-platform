@@ -86,7 +86,7 @@ export class PermitApplicationViewComponent implements OnInit {
     switch (status) {
       case 'Accepted':
         this.reasonOrCancel.buttonClass = 'usa-button-primary-alt';
-        this.reasonOrCancel.confirmButtonText = 'Approve and notify applicant';
+        this.reasonOrCancel.confirmButtonText = 'Accept and notify applicant';
         this.reasonOrCancel.label = 'Additional message for the permit holder.';
         break;
       case 'Hold':
