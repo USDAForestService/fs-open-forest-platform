@@ -1,9 +1,11 @@
 'use strict';
-const passportConfig = require('../src/auth/passport-config.es6');
-const vcapConstants = require('../src/vcap-constants.es6');
-const util = require('../src/util.es6');
-const sinon = require('sinon');
+
 const expect = require('chai').expect;
+const sinon = require('sinon');
+
+const passportConfig = require('../src/auth/passport-config.es6');
+const util = require('../src/util.es6');
+const vcapConstants = require('../src/vcap-constants.es6');
 
 describe('getPassportUser', () => {
   it('should send a test user if running local or in CI', () => {
