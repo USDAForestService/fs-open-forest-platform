@@ -116,14 +116,6 @@ describe('validation tests', () => {
       expect(errors[0]).to.equal('required-applicantInfo.primaryLastName');
     });
 
-    it('should fail validation when primary first name is too short', () => {
-      const data = noncommercialPermitApplicationFactory.create();
-      data.applicantInfo.primaryFirstName = 'X';
-      const errors = validation.validateNoncommercial(data);
-      expect(errors).to.have.lengthOf(1);
-      expect(errors[0]).to.equal('minLength-applicantInfo.primaryFirstName');
-    });
-
     it('should fail validation when primary first name is too long', () => {
       const data = noncommercialPermitApplicationFactory.create();
       data.applicantInfo.primaryFirstName =
