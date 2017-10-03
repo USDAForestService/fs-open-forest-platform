@@ -1,0 +1,34 @@
+<ng-container [formGroup]="parentForm">
+  <ng-container formGroupName="{{ formName }}">
+    <label class="usa-input" for="{{type}}-address">Street address 1</label>
+    <input id="{{type}}-address" type="text" formControlName="mailingAddress" aria-required="true" />
+    <app-error-message fieldId="{{type}}-address-error" name="Street address 1" [control]="parentForm.get(formName + '.mailingAddress')"></app-error-message>
+
+    <label class="usa-input" for="{{type}}-address-line-2">Street address 2 (optional)</label>
+    <input id="{{type}}-address-line-2" formControlName="mailingAddress2" />
+    <app-error-message fieldId="{{type}}-address-line-2-error" name="Street address line 2" [control]="parentForm.get(formName + '.mailingAddress2')"></app-error-message>
+
+    <div class="fs-input-grid-wrapper">
+      <div class="usa-input-grid usa-input-grid-medium">
+        <label class="usa-input" for="{{type}}-city">City</label>
+        <input id="{{type}}-city" type="text" formControlName="mailingCity" aria-required="true" />
+        <app-error-message fieldId="{{type}}-city-error" name="City" [control]="parentForm.get(formName + '.mailingCity')"></app-error-message>
+      </div>
+      <div class="usa-input-grid usa-input-grid-small">
+        <label class="usa-input" for="{{type}}-state">State</label>
+        <select id="{{type}}-state" formControlName="mailingState" aria-required="true">
+          <option value="" selected="selected"></option>
+          <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
+        </select>
+        <app-error-message fieldId="{{type}}-state-error" name="State" [control]="parentForm.get(formName + '.mailingState')"></app-error-message>
+      </div>
+    </div>
+    <div class="fs-input-grid-wrapper">
+      <div class="usa-input-grid usa-input-grid-medium">
+        <label class="usa-input" for="{{type}}-zip">ZIP</label>
+        <input class="usa-input-medium" id="{{type}}-zip" formControlName="mailingZIP" minlength="5" maxlength="5" pattern="(^\d{5}$)" aria-required="true" />
+        <app-error-message fieldId="{{type}}-zip-error" name="ZIP code" [control]="parentForm.get(formName + '.mailingZIP')"></app-error-message>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

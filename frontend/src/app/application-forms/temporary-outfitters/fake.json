@@ -1,0 +1,73 @@
+{
+  "district": "11",
+  "region": "06",
+  "forest": "05",
+  "type": "temp-outfitter",
+  "signature": "",
+  "applicantInfo": {
+    "emailAddress": "",
+    "organizationName": "",
+    "primaryFirstName": "",
+    "primaryLastName": "",
+    "orgType": "",
+    "website": "",
+    "primaryAddress": {
+      "mailingAddress": "",
+      "mailingAddress2": "",
+      "mailingCity": "",
+      "mailingState": "",
+      "mailingZIP": ""
+    },
+    "dayPhone": {
+      "areaCode": null,
+      "extension": null,
+      "number": null,
+      "phoneType": "dayPhone",
+      "prefix": null,
+      "tenDigit": ""
+    },
+    "fax": {
+      "areaCode": null,
+      "extension": null,
+      "number": null,
+      "phoneType": "fax",
+      "prefix": null,
+      "tenDigit": ""
+    }
+  },
+  "tempOutfittersFields": {
+    "individualIsCitizen": "",
+    "smallBusiness": "",
+    "advertisingDescription": "",
+    "advertisingURL": "",
+    "clientCharges": "",
+    "experienceList": "",
+    "activityDescription": {
+      "numberServiceDaysRequested": "",
+      "numberOfTrips": "",
+      "partySize": "",
+      "locationDescription": "",
+      "servicesProvided": "",
+      "audienceDescription": "",
+      "needGovernmentFacilities": false,
+      "listOfGovernmentFacilities": "",
+      "needTemporaryImprovements": false,
+      "listOfTemporaryImprovements": "",
+      "haveMotorizedEquipment": false,
+      "statementOfMotorizedEquipment": "",
+      "haveLivestock": false,
+      "statementOfTransportationOfLivestock": "",
+      "needAssignedSite": false,
+      "statementOfAssignedSite": "",
+      "descriptionOfCleanupAndRestoration": ""
+    },
+    "experienceFields": {
+      "haveNationalForestPermits": false,
+      "listAllNationalForestPermits": "",
+      "haveOtherPermits": false,
+      "listAllOtherPermits": "",
+      "haveCitations": false,
+      "listAllCitations": ""
+    }
+  }
+}

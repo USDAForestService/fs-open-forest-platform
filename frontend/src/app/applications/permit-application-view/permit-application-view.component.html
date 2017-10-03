@@ -1,0 +1,50 @@
+<section id="application-view" class="usa-section">
+  <div class="usa-grid">
+    <div class="breadcrumbs">
+      <a routerLink="/{{userType}}/applications">Permit applications</a> > <span>{{ application.eventName }}</span>
+    </div>
+    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">{{ errorMessage }}</p>
+      </div>
+    </div>
+    <div *ngIf="application.status === 'Hold'" class="usa-alert usa-alert-warning application-deadline-warning permit-alert-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">On hold</h3>
+        <p class="usa-alert-text">{{application.applicantMessage}}</p>
+        <ng-container *ngIf="!isAdmin">
+        <h4>To update your application contact the special use administrator listed below.</h4>
+        <p><strong>Name:</strong> Sue Sherman-Biery<br />
+        <strong>Phone:</strong> 360-854-2660<br />
+        <strong>Email:</strong> <a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
+        </ng-container>
+      </div>
+    </div>
+    <div class="usa-grid thin-grey-border padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
+      <app-noncommercial-details *ngIf="application.type === 'noncommercial'" [application]="application"></app-noncommercial-details>
+      <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application"></app-temp-outfitter-details>
+    </div>
+  </div>
+  <div class="usa-grid cancel-application-wrapper">
+    <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application."></app-cancel-application>
+  </div>
+  <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || application.status === 'Received')">
+    <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
+      <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept<span class="sub-button">Send to SUDS</span></button>
+      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
+      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject<span class="sub-button">Cancel application</span></button>
+    </div>
+    <div id="reason-for-action" class="usa-grid" *ngIf="reasonOrCancel.open">
+      <div class="usa-width-one-whole">
+        <div class="close-reason-for-action" aria-label="Close" (click)="reasonOrCancel.open = false;">Close</div>
+        <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
+        <textarea id="reason-for-return" [(ngModel)]="reasonOrCancel.message"></textarea>
+        <div class="reason-for-action-buttons">
+          <button class="usa-button-outline" (click)="reasonOrCancel.open = false;">Cancel</button>
+          <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
