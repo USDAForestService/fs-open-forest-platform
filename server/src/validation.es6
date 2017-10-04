@@ -51,149 +51,171 @@ const validateSchema = input => {
 
 let validate = {};
 
-validate.validateNoncommercial = obj => {
-  let errorArr = [];
+validate.validateNoncommercial = input => {
+  let errors = [];
 
   // overall validation
-  let validationObj = {
-    inputObj: obj,
+  errors = validateSchema({
+    inputObj: input,
     schema: noncommercialSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: undefined,
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
-
-  validationObj = {
-    inputObj: obj.applicantInfo.eveningPhone,
-    schema: phoneNumberSchema,
-    errors: errorArr,
-    prefix: 'applicantInfo.eveningPhone.',
-    required: false,
-    requiredKey: undefined
-  };
+  });
 
   // if there is an evening phone, validate it
+  if (input.applicantInfo && input.applicantInfo.eveningPhone) {
+    errors = validateSchema({
+      inputObj: input.applicantInfo.eveningPhone,
+      schema: phoneNumberSchema,
+      errors: errors,
+      prefix: 'applicantInfo.eveningPhone.',
+      required: false,
+      requiredKey: undefined
+    });
+  }
 
-  errorArr = validateSchema(validationObj);
+  // if there is an fax number, validate it
+  if (input.applicantInfo && input.applicantInfo.faxNumber) {
+    errors = validateSchema({
+      inputObj: input.applicantInfo.faxNumber,
+      schema: phoneNumberSchema,
+      errors: errors,
+      prefix: 'applicantInfo.faxNumber.',
+      required: false,
+      requiredKey: undefined
+    });
+  }
 
   // if the orgType is Individual, then primaryAddress is required
-  if (obj.applicantInfo.orgType === 'Person') {
-    validationObj = {
-      inputObj: obj.applicantInfo.primaryAddress,
+  if (input.applicantInfo && input.applicantInfo.orgType === 'Person') {
+    errors = validateSchema({
+      inputObj: input.applicantInfo.primaryAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
       required: true,
       requiredKey: 'required-applicantInfo.primaryAddress'
-    };
-
-    errorArr = validateSchema(validationObj);
+    });
   }
 
   // if the orgType is Corporation, then organizationAddress is required and might have a primary address
-  if (obj.applicantInfo.orgType === 'Corporation') {
-    validationObj = {
-      inputObj: obj.applicantInfo.organizationAddress,
+  if (input.applicantInfo && input.applicantInfo.orgType === 'Corporation') {
+    errors = validateSchema({
+      inputObj: input.applicantInfo.organizationAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.organizationAddress.',
       required: true,
       requiredKey: 'required-applicantInfo.organizationAddress'
-    };
+    });
 
-    errorArr = validateSchema(validationObj);
-
-    validationObj = {
-      inputObj: obj.applicantInfo.primaryAddress,
+    errors = validateSchema({
+      inputObj: input.applicantInfo.primaryAddress,
       schema: addressSchema,
-      errors: errorArr,
+      errors: errors,
       prefix: 'applicantInfo.primaryAddress.',
       required: false,
       requiredKey: undefined
-    };
-
-    errorArr = validateSchema(validationObj);
+    });
   }
 
   // if secondaryAddress exists, then validate it
-  validationObj = {
-    inputObj: obj.applicantInfo.secondaryAddress,
-    schema: addressSchema,
-    errors: errorArr,
-    prefix: 'applicantInfo.secondaryAddress.',
-    required: false,
-    requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
-
-  if (obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.startDateTime)) {
-    errorArr.push('pattern-dateTimeRange.startDateTime');
+  if (input.applicantInfo && input.applicantInfo.secondaryAddress) {
+    errors = validateSchema({
+      inputObj: input.applicantInfo.secondaryAddress,
+      schema: addressSchema,
+      errors: errors,
+      prefix: 'applicantInfo.secondaryAddress.',
+      required: false,
+      requiredKey: undefined
+    });
   }
 
-  if (obj.dateTimeRange && !util.validateDateTime(obj.dateTimeRange.endDateTime)) {
-    errorArr.push('pattern-dateTimeRange.endDateTime');
+  if (
+    input.dateTimeRange &&
+    input.dateTimeRange.startDateTime &&
+    !util.validateDateTime(input.dateTimeRange.startDateTime)
+  ) {
+    errors.push('pattern-dateTimeRange.startDateTime');
   }
 
-  return errorArr;
+  if (
+    input.dateTimeRange &&
+    input.dateTimeRange.endDateTime &&
+    !util.validateDateTime(input.dateTimeRange.endDateTime)
+  ) {
+    errors.push('pattern-dateTimeRange.endDateTime');
+  }
+
+  return errors;
 };
 
-validate.validateTempOutfitter = obj => {
-  let errorArr = [];
+validate.validateTempOutfitter = input => {
+  let errors = [];
 
   // overall validation
-  let validationObj = {
-    inputObj: obj,
+  errors = validateSchema({
+    inputObj: input,
     schema: tempOutfitterSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: undefined,
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // if there is an evening phone, validate it
-  validationObj = {
-    inputObj: obj.applicantInfo.eveningPhone,
+  errors = validateSchema({
+    inputObj: input.applicantInfo.eveningPhone,
     schema: phoneNumberSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.eveningPhone.',
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // if there is a fax number, validate it
-  validationObj = {
-    inputObj: obj.applicantInfo.faxNumber,
+  errors = validateSchema({
+    inputObj: input.applicantInfo.faxNumber,
     schema: phoneNumberSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.faxNumber.',
     required: false,
     requiredKey: undefined
-  };
-
-  errorArr = validateSchema(validationObj);
+  });
 
   // primaryAddress is always required
-
-  validationObj = {
-    inputObj: obj.applicantInfo.primaryAddress,
+  errors = validateSchema({
+    inputObj: input.applicantInfo.primaryAddress,
     schema: addressSchema,
-    errors: errorArr,
+    errors: errors,
     prefix: 'applicantInfo.primaryAddress.',
     required: true,
     requiredKey: 'required-applicantInfo.primaryAddress'
-  };
+  });
 
-  errorArr = validateSchema(validationObj);
+  if (
+    input.tempOutfitterFields &&
+    input.tempOutfitterFields.activityDescriptionFields &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime &&
+    !util.validateDateTime(input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime)
+  ) {
+    errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime');
+  }
 
-  return errorArr;
+  if (
+    input.tempOutfitterFields &&
+    input.tempOutfitterFields.activityDescriptionFields &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange &&
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime &&
+    !util.validateDateTime(input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime)
+  ) {
+    errors.push('pattern-tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime');
+  }
+
+  return errors;
 };
 
 module.exports = validate;

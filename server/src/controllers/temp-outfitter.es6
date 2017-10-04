@@ -514,7 +514,6 @@ tempOutfitter.update = (req, res) => {
               app
                 .save()
                 .then(() => {
-                  console.log(app.status);
                   email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                   res.status(200).json(translateFromDatabaseToClient(app));
                 })

@@ -23,7 +23,13 @@ util.collateErrors = (result, errorArr, prefix) => {
   for (var error of result.errors) {
     if (error.name === 'required') {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (error.name === 'enum' || error.name === 'pattern' || error.name === 'type') {
+    } else if (
+      error.name === 'enum' ||
+      error.name === 'pattern' ||
+      error.name === 'type' ||
+      error.name === 'minLength' ||
+      error.name === 'maxLength'
+    ) {
       errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
     }
   }
@@ -139,7 +145,10 @@ util.setAuthEmail = req => {
 
 util.getUser = req => {
   if (util.isLocalOrCI()) {
-    return { email: 'test@test.com', role: 'user' };
+    return {
+      email: 'test@test.com',
+      role: 'user'
+    };
   } else {
     return req.user;
   }
@@ -149,6 +158,14 @@ util.camelCaseToRegularForm = string => {
   const spaced = string.replace(/([A-Z])/g, ' $1');
   const lowerCase = spaced.toLowerCase();
   return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
+};
+
+util.businessNameElsePersonalName = application => {
+  let businessName = application.applicantInfoOrganizationName;
+  if (!businessName) {
+    businessName = `${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}`;
+  }
+  return businessName;
 };
 
 util.getRandomHexString = () => {
