@@ -1,7 +1,5 @@
 'use strict';
 
-const request = require('request');
-
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const util = require('../util.es6');
@@ -226,9 +224,11 @@ const translateFromIntakeToMiddleLayer = input => {
 
 noncommercial.acceptApplication = application => {
   const requestOptions = {
+    method: 'POST',
     url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
+    simple: true,
     body: translateFromIntakeToMiddleLayer(application)
   };
   return new Promise((resolve, reject) => {
@@ -236,13 +236,9 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        request.post(requestOptions, (error, response, body) => {
-          if (error || response.statusCode !== 200) {
-            reject(error || response);
-          } else {
-            resolve(body);
-          }
-        });
+        util.request(requestOptions)
+          .then(resolve)
+          .catch(reject)
       })
       .catch(error => {
         reject(error);
