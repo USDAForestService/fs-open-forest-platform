@@ -4,6 +4,9 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Injectable()
 export class ApplicationFieldsService {
+  uploadingFiles: any = [];
+  hasFilesToUpload: boolean = false;
+
   constructor(private formBuilder: FormBuilder) {}
 
   addAddress(parentForm, formName) {
@@ -93,5 +96,35 @@ export class ApplicationFieldsService {
       return errors;
     }
     return;
+  }
+
+  setHasFilesToUpload(value) {
+    this.hasFilesToUpload = value;
+  }
+
+  getHasFilesToUpload() {
+    return this.hasFilesToUpload;
+  }
+
+  addUploadingFile(file) {
+    this.uploadingFiles.push(file);
+  }
+
+  removeUploadingFile(file) {
+    this.uploadingFiles.splice(file, 1);
+  }
+
+  areFilesUploaded() {
+    if (!this.uploadingFiles.length) {
+      return true;
+    }
+  }
+
+  getFileUploadProgress(numFiles) {
+    if (this.uploadingFiles.length) {
+      return 100 / numFiles * (numFiles - this.uploadingFiles.length);
+    } else {
+      return 100;
+    }
   }
 }
