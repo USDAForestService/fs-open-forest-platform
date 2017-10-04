@@ -158,6 +158,8 @@ export class TemporaryOutfittersComponent implements DoCheck {
           persistedApplication => {
             this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
+            //TODO: tally number of files
+            //    this.applicationFieldsService.setNumberOfFiles(num;
             this.uploadFiles = true;
             this.applicationFieldsService.setHasFilesToUpload(true);
           },
