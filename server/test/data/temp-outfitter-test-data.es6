@@ -15,7 +15,7 @@ module.exports = {
       data: [37, 80, 68, 70, 45, 49, 46, 51, 13, 37, 226, 227, 207]
     }
   },
-  basicTempOutfitter: factory.factory({
+  tempOutfitterFactory: factory.factory({
     authorizingOfficerName: 'Test Officer',
     authorizingOfficerTitle: 'Test Title',
     district: '11',
