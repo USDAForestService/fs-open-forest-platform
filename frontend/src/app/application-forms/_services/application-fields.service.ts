@@ -4,7 +4,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Injectable()
 export class ApplicationFieldsService {
-  numberOfFiles: number = 0;
+  numberOfFiles: number = -1;
   hasFilesToUpload: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {}
@@ -106,10 +106,6 @@ export class ApplicationFieldsService {
     return this.hasFilesToUpload;
   }
 
-  addUploadingFile() {
-    this.numberOfFiles++;
-  }
-
   setNumberOfFiles(num) {
     this.numberOfFiles = num;
   }
@@ -119,7 +115,7 @@ export class ApplicationFieldsService {
   }
 
   areFilesUploaded() {
-    if (!this.numberOfFiles) {
+    if (this.numberOfFiles === 0) {
       return true;
     }
   }
