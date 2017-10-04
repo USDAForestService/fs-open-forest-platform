@@ -1,0 +1,15 @@
+.progress-wrapper {
+  background: rgba($fs-tan, 0.9);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  position: fixed;
+  z-index: 1000;
+  .progress-inner {
+    margin: 0 auto;
+    max-width: 300px;
+    position: relative;
+    top: 40%;
+    width: 100%;
+  }
+}

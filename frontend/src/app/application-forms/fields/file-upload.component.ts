@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-file-upload-field',
@@ -27,7 +28,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
-  constructor() {
+  constructor(private fieldsService: ApplicationFieldsService) {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
@@ -37,6 +38,17 @@ export class FileUploadComponent implements OnChanges, OnInit {
     this.uploader.onWhenAddingFileFailed = (item, filter, options) =>
       this.onWhenAddingFileFailed(item, filter, options);
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) =>
+      this.onCompleteItem(item, response, status, headers);
+    this.uploader.onProgressItem = (item: any, progress: any) => this.onProgressItem(item, progress);
+  }
+
+  onProgressItem(item, progress) {
+    this.fieldsService.addUploadingFile(`${this.type}-${item.file.name}`);
+  }
+
+  onCompleteItem(item, response, status, headers) {
+    this.fieldsService.removeUploadingFile(`${this.type}-${item.file.name}`);
   }
 
   onAfterAddingFile(uploader) {
@@ -91,6 +103,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
       this.uploader.uploadAll();
+      this.fieldsService.setHasFilesToUpload(true);
     }
     if (this.checkFileUploadHasError) {
       if (this.required && !this.uploader.queue[0]) {
