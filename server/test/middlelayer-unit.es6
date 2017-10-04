@@ -17,11 +17,10 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    const failure = error => {
-      expect(error).to.not.be.null;
-      expect(error.body, 'error.body should exist').to.not.be.undefined;
-      expect(error.body.status, 'error.body.status should exist').to.not.be.undefined;
-      expect(error.body.status).to.equal('authfail');
+    const failure = response => {
+      expect(response.error).to.not.be.null;
+      expect(response.error.status, 'response.error.status should exist').to.not.be.undefined;
+      expect(response.error.status).to.equal('authfail');
       done();
     };
 
@@ -44,11 +43,11 @@ describe('middle layer unit tests', () => {
       done();
     };
 
-    const failure = error => {
-      expect(error).to.not.be.null;
-      expect(error.body, 'error.body should exist').to.not.be.undefined;
-      expect(error.body.status, 'error.body.status should exist').to.not.be.undefined;
-      expect(error.body.status).to.equal('fail-suds');
+    const failure = response => {
+      expect(response).to.not.be.null;
+      expect(response.error, 'response.error should exist').to.not.be.undefined;
+      expect(response.error.status, 'response.error.status should exist').to.not.be.undefined;
+      expect(response.error.status).to.equal('fail-suds');
       done();
     };
 

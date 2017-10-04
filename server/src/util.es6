@@ -2,7 +2,7 @@
 
 const AWS = require('aws-sdk');
 const moment = require('moment');
-const request = require('request');
+const request = require('request-promise');
 
 const vcapConstants = require('./vcap-constants.es6');
 
@@ -46,22 +46,17 @@ util.validateDateTime = input => {
 
 util.middleLayerAuth = () => {
   const requestOptions = {
+    method: 'POST',
     url: vcapConstants.middleLayerBaseUrl + 'auth',
     json: true,
+    simple: true,
     body: {
       username: vcapConstants.middleLayerUsername,
       password: vcapConstants.middleLayerPassword
-    }
+    },
+    transform: body => body.token
   };
-  return new Promise((resolve, reject) => {
-    request.post(requestOptions, (error, response, body) => {
-      if (error || response.statusCode !== 200) {
-        reject(error || response);
-      } else {
-        resolve(body.token);
-      }
-    });
-  });
+  return util.request(requestOptions);
 };
 
 util.prepareCerts = () => {
@@ -171,5 +166,7 @@ util.businessNameElsePersonalName = application => {
 util.getRandomHexString = () => {
   return new Buffer(`${Math.random()}${Math.random()}`).toString('hex');
 };
+
+util.request = request
 
 module.exports = util;
