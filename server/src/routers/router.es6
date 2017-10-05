@@ -2,6 +2,7 @@
 
 const express = require('express');
 const middleware = require('../middleware.es6');
+const jwts = require('../auth/jwts.es6');
 const authRouter = require('./auth.es6');
 const applicationsRouter = require('./applications.es6');
 
@@ -14,8 +15,8 @@ router.options('*', middleware.setCorsHeaders, (req, res) => {
   res.send();
 });
 
-router.use('/auth', middleware.setCorsHeaders, middleware.checkPermissions, authRouter);
-router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, applicationsRouter);
+router.use('/auth', middleware.setCorsHeaders, jwts.validateTokenMiddleware, middleware.checkPermissions, authRouter);
+router.use('/permits/applications', middleware.setCorsHeaders, jwts.validateTokenMiddleware, middleware.checkPermissions, applicationsRouter);
 
 /* get the number of seconds that this instance has been running */
 router.get('/uptime', (req, res) => {

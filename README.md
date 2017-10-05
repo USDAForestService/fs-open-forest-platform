@@ -49,7 +49,7 @@ Navigate to cloned repo
 
 A running Postgresql database is required in order to run the server locally.  Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
-#### Environment Variables 
+#### Environment Variables
 
 There are environment variables that are required to be set in order to run tests
 and to run the server in general.  Please set up these environment variables either in your shell or on the command line.
@@ -69,17 +69,17 @@ In order to pass end to end tests locally or on CircleCI, you must include valid
 DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
-    
+
     or for CircleCI
-    
+
     postgres://ubuntu:@127.0.0.1:5432/circle_test
 
 PLATFORM
 
     local
-    
+
     or for CircleCI
-    
+
     CI
 
 VCAP_APPLICATION
@@ -157,6 +157,10 @@ VCAP_SERVICES
       "syslog_drain_url": "",
       "tags": [],
       "volume_mounts": []
+    },
+    {
+      "name": "auth-service",
+      "credentials": { "jwt_secret_key": "shhhhhhhh!" }
     }
   ],
   "s3": [
