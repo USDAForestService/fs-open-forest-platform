@@ -17,10 +17,8 @@ export class ApplicationService {
   constructor(private http: Http, private router: Router) {}
 
   create(body, type, multipart = false) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    if (multipart) {
-      headers = new Headers({ 'Content-Type': 'application/json', enctype: 'multipart/form-data' });
-    }
+    const headers = this.getDefaultHeaders();
+    headers.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
@@ -31,27 +29,36 @@ export class ApplicationService {
 
   get(params = '') {
     return this.http
-      .get(this.endpoint + params, { withCredentials: true })
+      .get(this.endpoint + params, { headers: this.getDefaultHeaders(), withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   getOne(id, params = '') {
     return this.http
-      .get(this.endpoint + params + id, { withCredentials: true })
+      .get(this.endpoint + params + id, { headers: this.getDefaultHeaders(), withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
 
   update(body: SpecialUseApplication, type): Observable<SpecialUseApplication[]> {
     const bodyString = JSON.stringify(body);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = this.getDefaultHeaders();
+    headers.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
       .put(this.endpoint + '/special-uses/' + type + '/' + body.appControlNumber, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
+  }
+
+  getDefaultHeaders() {
+    const headers = new Headers();
+    if (localStorage.getItem('token')) {
+      headers.append('x-access-token', localStorage.getItem('token'));
+    }
+    return headers;
   }
 
   handleStatusCode(status) {
