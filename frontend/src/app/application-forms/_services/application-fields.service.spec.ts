@@ -98,4 +98,26 @@ describe('ApplicationFieldsService', () => {
 
     expect(service.doesControlHaveErrors(form)).toBeTruthy();
   });
+
+  it('should parse form to determine how many files to upload and get and remove numbers of files', () => {
+    const form = formBuilder.group({
+      file1: [''],
+      file2: ['test'],
+      file3: ['test'],
+      file4: ['']
+    });
+    expect(
+      service.parseNumberOfFilesToUpload([
+        form.controls.file1,
+        form.controls.file2,
+        form.controls.file3,
+        form.controls.file4
+      ])
+    ).toEqual(2);
+    expect(service.getNumberOfFiles()).toEqual(2);
+    service.setNumberOfFiles(4);
+    service.removeOneFile();
+    expect(service.getNumberOfFiles()).toEqual(3);
+    expect(service.getFileUploadProgress(5)).toEqual(3);
+  });
 });

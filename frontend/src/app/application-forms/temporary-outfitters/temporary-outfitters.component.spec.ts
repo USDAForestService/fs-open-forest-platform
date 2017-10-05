@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
-
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
   let fixture: ComponentFixture<TemporaryOutfittersComponent>;
@@ -20,8 +19,8 @@ describe('TemporaryOutfittersComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
-          { provide: ApplicationFieldsService, useClass: MockApplicationService },
-          { provide: FormBuilder, useClass: FormBuilder}
+          { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
+          { provide: FormBuilder, useClass: FormBuilder }
         ],
         imports: [RouterTestingModule]
       }).compileComponents();
@@ -32,17 +31,16 @@ describe('TemporaryOutfittersComponent', () => {
     fixture = TestBed.createComponent(TemporaryOutfittersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
   });
 
   it('Should switch on org type', () => {
     const orgTypes = {
-      'Person': {
+      Person: {
         pointOfView: 'I',
         orgTypeFileUpload: false,
         goodStandingEvidence: null
       },
-      'Corporation': {
+      Corporation: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
         goodStandingEvidence: [Validators.required]
@@ -67,20 +65,20 @@ describe('TemporaryOutfittersComponent', () => {
         orgTypeFileUpload: false,
         goodStandingEvidence: null
       },
-      'Nonprofit': {
+      Nonprofit: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
         goodStandingEvidence: [Validators.required]
       }
     };
-    for ( const type of Object.keys(orgTypes) ) {
+    for (const type of Object.keys(orgTypes)) {
       const orgFields = orgTypes[type];
 
-      const get = sinon.stub(component.applicationForm, 'get').returns(
-        {
-        setValidators: required => { expect(required).toEqual(orgFields.goodStandingEvidence) }
+      const get = sinon.stub(component.applicationForm, 'get').returns({
+        setValidators: required => {
+          expect(required).toEqual(orgFields.goodStandingEvidence);
         }
-      );
+      });
       component.orgTypeChange(type);
       expect(component.pointOfView).toEqual(orgFields.pointOfView);
       expect(component.orgTypeFileUpload).toEqual(orgFields.orgTypeFileUpload);
@@ -91,8 +89,8 @@ describe('TemporaryOutfittersComponent', () => {
   it('matchUrls should not copy url on empty value', () => {
     const get = sinon.stub(component.applicationForm, 'get');
     const spy = sinon.spy();
-    get.withArgs('applicantInfo.website').returns({value: ''});
-    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
+    get.withArgs('applicantInfo.website').returns({ value: '' });
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({ value: '', setValue: spy });
     component.matchUrls();
     expect(spy.notCalled).toBeTruthy();
     get.restore();
@@ -101,8 +99,8 @@ describe('TemporaryOutfittersComponent', () => {
   it('matchUrls should copy url on url value', () => {
     const get = sinon.stub(component.applicationForm, 'get');
     const spy = sinon.spy();
-    get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
-    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: '', setValue: spy});
+    get.withArgs('applicantInfo.website').returns({ value: 'http://www.google.com' });
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({ value: '', setValue: spy });
     component.matchUrls();
     expect(spy.called).toBeTruthy();
     get.restore();
@@ -111,8 +109,8 @@ describe('TemporaryOutfittersComponent', () => {
   it('matchUrls should not copy url on url value when ad url has value', () => {
     const get = sinon.stub(component.applicationForm, 'get');
     const spy = sinon.spy();
-    get.withArgs('applicantInfo.website').returns({value: 'http://www.google.com'});
-    get.withArgs('tempOutfitterFields.advertisingURL').returns({value: 'www.google.com', setValue: spy});
+    get.withArgs('applicantInfo.website').returns({ value: 'http://www.google.com' });
+    get.withArgs('tempOutfitterFields.advertisingURL').returns({ value: 'www.google.com', setValue: spy });
     component.matchUrls();
     expect(spy.called).toBeFalsy();
     get.restore();
@@ -200,7 +198,7 @@ describe('TemporaryOutfittersComponent', () => {
     const target = document.body;
     const addClassSpy = sinon.spy(component.renderer, 'addClass');
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
-    component.elementInView({value: 'meowmix', target: target});
+    component.elementInView({ value: 'meowmix', target: target });
     expect(addClassSpy.called).toBeTruthy();
     expect(removeClassSpy.called).toBeFalsy();
   });
@@ -209,7 +207,7 @@ describe('TemporaryOutfittersComponent', () => {
     const target = document.body;
     const addClassSpy = sinon.spy(component.renderer, 'addClass');
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
-    component.elementInView({target: target});
+    component.elementInView({ target: target });
     expect(addClassSpy.called).toBeFalsy();
     expect(removeClassSpy.called).toBeTruthy();
   });
@@ -218,14 +216,6 @@ describe('TemporaryOutfittersComponent', () => {
 class MockApplicationService {
   get(): Observable<{}> {
     return Observable.of();
-  }
-
-  scrollToFirstError() {
-    return false;
-  }
-
-  touchAllFields() {
-    return false;
   }
 
   create(): Observable<{}> {
