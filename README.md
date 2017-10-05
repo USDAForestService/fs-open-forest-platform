@@ -107,7 +107,8 @@ VCAP_SERVICES
       "credentials": {
         "intake_client_base_url": "http://localhost:4200",
         "intake_password": "",
-        "intake_username": ""
+        "intake_username": "",
+        "jwt_secret": "shhhhhhhh!" 
       },
       "label": "user-provided",
       "name": "intake-client-service",
