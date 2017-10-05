@@ -35,6 +35,7 @@ const intakeService = getUserProvided('intake-client-service');
 vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
 vcapConstants.intakeUsername = intakeService.credentials.intake_username;
 vcapConstants.intakePassword = intakeService.credentials.intake_password;
+vcapConstants.jwtSecret = intakeService.credentials.jwt_secret;
 
 // Login.gov
 const loginGovService = getUserProvided('login-service-provider');
@@ -58,9 +59,5 @@ vcapConstants.smtpHost = smtp.credentials.smtp_server;
 vcapConstants.smtpUsername = smtp.credentials.username;
 vcapConstants.smtpPassword = smtp.credentials.password;
 vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
-
-// JWT
-const authService = getUserProvided('auth-service');
-vcapConstants.jwtSecretKey = authService.credentials.jwt_secret_key;
 
 module.exports = vcapConstants;
