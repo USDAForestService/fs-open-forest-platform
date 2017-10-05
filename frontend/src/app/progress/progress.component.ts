@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './progress.component.html'
 })
 export class ProgressComponent {
-  @Input() heading: string;
-  @Input() progress: string;
+  @Input() numberOfFiles: number;
+  @Input() fileUploadProgress: number;
 }

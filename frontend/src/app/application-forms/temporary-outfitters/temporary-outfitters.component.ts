@@ -26,6 +26,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
   applicationForm: FormGroup;
   pointOfView = 'We';
   fileUploadProgress: number;
+  numberOfFiles: number;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -147,6 +148,14 @@ export class TemporaryOutfittersComponent implements DoCheck {
 
   onSubmit() {
     this.submitted = true;
+    this.numberOfFiles = this.applicationFieldsService.parseNumberOfFilesToUpload([
+      this.applicationForm.get('applicantInfo.goodStandingEvidence'),
+      this.applicationForm.controls.guideIdentification,
+      this.applicationForm.controls.operatingPlan,
+      this.applicationForm.controls.liabilityInsurance,
+      this.applicationForm.controls.acknowledgementOfRisk
+    ]);
+
     this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
@@ -158,10 +167,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
           persistedApplication => {
             this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
-            //TODO: tally number of files
-            //    this.applicationFieldsService.setNumberOfFiles(num;
             this.uploadFiles = true;
-            this.applicationFieldsService.setHasFilesToUpload(true);
           },
           (e: any) => {
             this.apiErrors = e;
@@ -185,11 +191,10 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    if (this.applicationFieldsService.getHasFilesToUpload()) {
-      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(5);
-      if (this.applicationFieldsService.getFileUploadProgress(5) === 100) {
+    if (this.uploadFiles) {
+      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles);
+      if (this.applicationFieldsService.getNumberOfFiles() === 0) {
         this.uploadFiles = false;
-        this.applicationFieldsService.setHasFilesToUpload(false);
         this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
       }
     }
