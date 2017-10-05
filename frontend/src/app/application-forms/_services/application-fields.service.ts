@@ -121,10 +121,7 @@ export class ApplicationFieldsService {
   }
 
   getFileUploadProgress(startingNumberOfFiles) {
-    const filesRemaining = this.numberOfFiles;
-    if (startingNumberOfFiles === filesRemaining) {
-      return 1;
-    }
+    const filesRemaining = this.numberOfFiles - 1;
     return startingNumberOfFiles - filesRemaining;
   }
 }
