@@ -189,14 +189,8 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
-        return new Promise(resolve => {
-          resolve('atoken');
-        });
-      });
-      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
-        cb(null, { statusCode: 200 }, { name: 'body' });
-      });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
+      const req = sinon.stub(util, 'request').resolves({name: 'body'});
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
@@ -234,14 +228,8 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
-        return new Promise(resolve => {
-          resolve('A token');
-        });
-      });
-      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
-        cb(null, { statusCode: 400 }, { name: 'body' });
-      });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
+      const req = sinon.stub(util, 'request').rejects({statusCode: 500});
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
