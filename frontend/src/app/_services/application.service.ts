@@ -17,7 +17,7 @@ export class ApplicationService {
   constructor(private http: Http, private router: Router) {}
 
   create(body, type, multipart = false) {
-    let headers = this.getDefaultHeaders();
+    const headers = this.getDefaultHeaders();
     headers.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
@@ -43,7 +43,7 @@ export class ApplicationService {
 
   update(body: SpecialUseApplication, type): Observable<SpecialUseApplication[]> {
     const bodyString = JSON.stringify(body);
-    let headers = this.getDefaultHeaders();
+    const headers = this.getDefaultHeaders();
     headers.append('Content-Type', 'application/json');
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
@@ -54,7 +54,7 @@ export class ApplicationService {
   }
 
   getDefaultHeaders() {
-    let headers = new Headers();
+    const headers = new Headers();
     if (localStorage.getItem('token')) {
       headers.append('x-access-token', localStorage.getItem('token'));
     }
