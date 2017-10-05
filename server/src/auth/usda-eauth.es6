@@ -36,13 +36,8 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
   res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
 });
 
-eAuth.router.post(
-  eAuth.callbackPath,
-  passport.authenticate('saml'),
-  jwts.generateTokenMiddleware,
-  function (req, res) {
-    res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}`)
-  }
-);
+eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), jwts.generateTokenMiddleware, (req, res) => {
+  res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}`);
+});
 
 module.exports = eAuth;
