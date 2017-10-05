@@ -15,13 +15,13 @@ const generateToken = function(user, jwtSecretKey) {
     jwtid: uuidV4(),
     issuer,
     subject,
-    audience,
+    audience
   };
 
   return jwt.sign(user, jwtSecretKey, claims);
 };
 
-const validateToken = function (token, jwtSecretKey) {
+const validateToken = function(token, jwtSecretKey) {
   const claims = {
     issuer,
     subject,
@@ -42,8 +42,8 @@ const validateToken = function (token, jwtSecretKey) {
  * @param  {Function} next - What to call after creating JWT
  */
 const generateTokenMiddleware = function(req, res, next) {
-  req.token = getToken(req.user, vcapConstants.jwtSecretKey)
-	next();
+  req.token = getToken(req.user, vcapConstants.jwtSecretKey);
+  next();
 };
 
 /**
@@ -52,24 +52,24 @@ const generateTokenMiddleware = function(req, res, next) {
  * @param  {Object}   res - Response object
  * @param  {Function} next - What to call after verifying token
  */
-const validateTokenMiddleware = function (req, res, next) {
+const validateTokenMiddleware = function(req, res, next) {
   if (util.isLocalOrCI()) {
     util.getUser(req);
-    return next()
+    return next();
   }
 
-	const token = req.headers['x-access-token'];
+  const token = req.headers['x-access-token'];
 
-  if (!token) return error.sendError(req, res, 403, 'No token provided.');
+  if (!token) return res.sendError(req, res, 403, 'No token provided.');
 
   verifyToken(token, vcapConstants.jwtSecretKey)
     .then(decoded => {
       req.user = decoded;
       return next();
     })
-    .catch(err => {
+    .catch(error => {
       error.sendError(req, res, 401, 'Failed to authenticate token.');
     });
 };
 
-module.exports = { generateTokenMiddleware, generateToken, validateTokenMiddleware, validateToken }
+module.exports = { generateTokenMiddleware, generateToken, validateTokenMiddleware, validateToken };
