@@ -23,6 +23,7 @@
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
           <legend>Applicant information</legend>
+
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
             type="primary" name="Applicant"></app-permit-holder-name>
           <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name (optional)"></app-organization-name>
@@ -176,3 +177,4 @@
     </div>
   </div>
 </section>
+<app-progress *ngIf="uploadFiles" [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress"></app-progress>

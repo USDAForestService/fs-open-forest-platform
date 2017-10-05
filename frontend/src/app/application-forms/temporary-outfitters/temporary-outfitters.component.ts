@@ -25,6 +25,8 @@ export class TemporaryOutfittersComponent implements DoCheck {
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
   pointOfView = 'We';
+  fileUploadProgress: number;
+  numberOfFiles: number;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -146,6 +148,14 @@ export class TemporaryOutfittersComponent implements DoCheck {
 
   onSubmit() {
     this.submitted = true;
+    this.numberOfFiles = this.applicationFieldsService.parseNumberOfFilesToUpload([
+      this.applicationForm.get('applicantInfo.goodStandingEvidence'),
+      this.applicationForm.controls.guideIdentification,
+      this.applicationForm.controls.operatingPlan,
+      this.applicationForm.controls.liabilityInsurance,
+      this.applicationForm.controls.acknowledgementOfRisk
+    ]);
+
     this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
@@ -158,7 +168,6 @@ export class TemporaryOutfittersComponent implements DoCheck {
             this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
-            this.filesUploaded = true;
           },
           (e: any) => {
             this.apiErrors = e;
@@ -182,8 +191,12 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    if (this.filesUploaded) {
-      this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+    if (this.uploadFiles) {
+      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles);
+      if (this.applicationFieldsService.getNumberOfFiles() === 0) {
+        this.uploadFiles = false;
+        this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+      }
     }
   }
 }
