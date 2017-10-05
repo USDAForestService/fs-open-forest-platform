@@ -40,15 +40,10 @@ export class FileUploadComponent implements OnChanges, OnInit {
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) =>
       this.onCompleteItem(item, response, status, headers);
-    this.uploader.onProgressItem = (item: any, progress: any) => this.onProgressItem(item, progress);
-  }
-
-  onProgressItem(item, progress) {
-    console.log('in progress?', item);
   }
 
   onCompleteItem(item, response, status, headers) {
-    this.fieldsService.removeUploadingFile();
+    this.fieldsService.removeOneFile();
   }
 
   onAfterAddingFile(uploader) {
@@ -102,9 +97,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
   ngOnChanges() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
-      console.log('upload files?');
       this.uploader.uploadAll();
-      this.fieldsService.setHasFilesToUpload(true);
     }
     if (this.checkFileUploadHasError) {
       if (this.required && !this.uploader.queue[0]) {

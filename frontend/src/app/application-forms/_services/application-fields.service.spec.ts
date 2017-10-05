@@ -99,28 +99,25 @@ describe('ApplicationFieldsService', () => {
     expect(service.doesControlHaveErrors(form)).toBeTruthy();
   });
 
-  it('should set and get hasFilesToUpload', () => {
-    service.setHasFilesToUpload(true);
-    expect(service.hasFilesToUpload).toBeTruthy();
-    expect(service.getHasFilesToUpload()).toBeTruthy();
-  });
-
-  it('should add and remove files to uploading files', () => {
-    expect(service.areFilesUploaded()).toBeTruthy();
-    service.addUploadingFile('file');
-    service.addUploadingFile('file2');
-    service.addUploadingFile('file3');
-    service.addUploadingFile('file4');
-    expect(service.areFilesUploaded()).toBeFalsy();
-    expect(service.getFileUploadProgress(4)).toEqual(0);
-    service.removeUploadingFile('file4');
-    expect(service.getFileUploadProgress(4)).toEqual(25);
-    service.removeUploadingFile('file3');
-    expect(service.getFileUploadProgress(4)).toEqual(50);
-    service.removeUploadingFile('file2');
-    expect(service.getFileUploadProgress(4)).toEqual(75);
-    service.removeUploadingFile('file');
-    expect(service.getFileUploadProgress(4)).toEqual(100);
-    expect(service.areFilesUploaded()).toBeTruthy();
+  it('should parse form to determine how many files to upload and get and remove numbers of files', () => {
+    const form = formBuilder.group({
+      file1: [''],
+      file2: ['test'],
+      file3: ['test'],
+      file4: ['']
+    });
+    expect(
+      service.parseNumberOfFilesToUpload([
+        form.controls.file1,
+        form.controls.file2,
+        form.controls.file3,
+        form.controls.file4
+      ])
+    ).toEqual(2);
+    expect(service.getNumberOfFiles()).toEqual(2);
+    service.setNumberOfFiles(4);
+    service.removeOneFile();
+    expect(service.getNumberOfFiles()).toEqual(3);
+    expect(service.getFileUploadProgress(5)).toEqual(2);
   });
 });

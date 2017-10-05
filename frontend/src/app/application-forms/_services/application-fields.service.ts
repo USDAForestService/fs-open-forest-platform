@@ -4,8 +4,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 
 @Injectable()
 export class ApplicationFieldsService {
-  numberOfFiles: number = -1;
-  hasFilesToUpload: boolean = false;
+  numberOfFiles: any = 0;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -98,33 +97,34 @@ export class ApplicationFieldsService {
     return;
   }
 
-  setHasFilesToUpload(value) {
-    this.hasFilesToUpload = value;
+  parseNumberOfFilesToUpload(FormControls) {
+    let numberOfFiles = 0;
+    FormControls.forEach(function(control) {
+      if (control && control.value) {
+        numberOfFiles++;
+      }
+    });
+    this.setNumberOfFiles(numberOfFiles);
+    return this.numberOfFiles;
   }
 
-  getHasFilesToUpload() {
-    return this.hasFilesToUpload;
+  getNumberOfFiles() {
+    return this.numberOfFiles;
   }
 
   setNumberOfFiles(num) {
     this.numberOfFiles = num;
   }
 
-  removeUploadingFile() {
+  removeOneFile() {
     this.numberOfFiles--;
   }
 
-  areFilesUploaded() {
-    if (this.numberOfFiles === 0) {
-      return true;
+  getFileUploadProgress(startingNumberOfFiles) {
+    const filesRemaining = this.numberOfFiles;
+    if (startingNumberOfFiles === filesRemaining) {
+      return 1;
     }
-  }
-
-  getFileUploadProgress(numFiles) {
-    if (this.numberOfFiles) {
-      return 100 / numFiles * (numFiles - this.numberOfFiles);
-    } else {
-      return 100;
-    }
+    return startingNumberOfFiles - filesRemaining;
   }
 }
