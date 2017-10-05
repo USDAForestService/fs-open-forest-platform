@@ -2,8 +2,10 @@
 
 const jwt = require('jsonwebtoken');
 const uuidV4 = require('uuid/v4');
+
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../util.es6');
+
 const issuer = 'fs-intake-module';
 const subject = 'permit applications';
 const audience = 'fs-intake-module-users';
@@ -42,7 +44,7 @@ const validateToken = function(token, jwtSecretKey) {
  * @param  {Function} next - What to call after creating JWT
  */
 const generateTokenMiddleware = function(req, res, next) {
-  req.token = getToken(req.user, vcapConstants.jwtSecretKey);
+  req.token = generateToken(req.user, vcapConstants.jwtSecretKey);
   next();
 };
 
@@ -62,7 +64,7 @@ const validateTokenMiddleware = function(req, res, next) {
 
   if (!token) return res.sendError(req, res, 403, 'No token provided.');
 
-  verifyToken(token, vcapConstants.jwtSecretKey)
+  validateToken(token, vcapConstants.jwtSecretKey)
     .then(decoded => {
       req.user = decoded;
       return next();
