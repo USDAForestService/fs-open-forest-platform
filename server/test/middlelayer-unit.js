@@ -3,9 +3,9 @@
 const expect = require('chai').expect;
 const nock = require('nock');
 
-const noncommercial = require('../controllers/noncommercial.es6');
+const noncommercial = require('../src/controllers/noncommercial.es6');
 const noncommercialModelData = require('./data/noncommercial-model-test-data.es6');
-const vcapConstants = require('../vcap-constants.es6');
+const vcapConstants = require('../src/vcap-constants.es6');
 
 describe('middle layer unit tests', () => {
   it('should fail middle layer auth', done => {

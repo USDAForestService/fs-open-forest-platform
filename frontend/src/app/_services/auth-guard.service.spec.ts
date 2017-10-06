@@ -12,6 +12,7 @@ describe('AuthGuardService', () => {
     service.redirect = () => {
       return false;
     };
+    service.navigate = () => { return true; }
     TestBed.configureTestingModule({
       providers: [AuthGuardService],
       imports: [RouterTestingModule]

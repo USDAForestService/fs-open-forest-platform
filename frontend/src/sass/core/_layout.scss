@@ -20,7 +20,7 @@
   float: right;
 }
 
-@for $i from 1 through 6 {
+@for $i from 0 through 6 {
   .margin-bottom-#{$i} {
     margin-bottom: #{$i}em !important;
   }
@@ -60,4 +60,12 @@
   .negative-margin-top-#{$i} {
     margin-top: -#{$i}em !important;
   }
+}
+
+.hidden-text {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  top: -10px;
 }
