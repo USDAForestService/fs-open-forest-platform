@@ -15,6 +15,9 @@ const tempOutfitterApplicationCancelled = require('./templates/temp-outfitter/ap
 const noncommercialApplicationReturned = require('./templates/noncommercial/application-returned.es6');
 const tempOutfitterApplicationReturned = require('./templates/temp-outfitter/application-returned.es6');
 
+const noncommercialApplicationReview = require('./templates/noncommercial/application-review.es6');
+const tempOutfitterApplicationReview = require('./templates/temp-outfitter/application-review.es6');
+
 const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {

@@ -46,7 +46,7 @@
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
         class="application-field-list-values">
-        <div class="application-status"><span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span></div>
+        <div class="application-status"><span *ngIf="['Hold', 'Review'].includes(application.status)" class="usa-label" [ngClass]="{'warning': application.status === 'Hold'}">{{holdText}}</span></div>
         <label *ngIf="isAdmin">Type</label>
         <div *ngIf="isAdmin">{{ application.type }}</div>
         <label>Event name</label>
