@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build",
     "dist": "ng build --prod --env=prod --aot=false",
-    "docs": "yarn run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "docs": "yarn run typedoc -- --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
     "e2e:ci": "ng e2e --port=4200 --watch=false --progress=false",
     "e2e": "ng e2e --port=4200",
     "lint": "ng lint",
@@ -36,7 +36,7 @@
     "ng2-file-upload": "^1.2.1",
     "replace-in-file": "^2.5.2",
     "rxjs": "^5.4.1",
-    "typedoc": "^0.7.1",
+    "typedoc": "^0.9.0",
     "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.12"
   },
