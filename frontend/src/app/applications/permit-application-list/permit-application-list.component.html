@@ -1,0 +1,99 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1>Mount Baker-Snoqualmie National Forest</h1>
+    <div class="application-status-toggle-wrapper">
+      <label for="application-status-toggle">Filter by</label>
+      <select class="usa-input-inline" id="application-status-toggle" (change)="applicationStatusChange($event)">
+        <option value="pending" selected>Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="expired">Expired</option>
+      </select>
+    </div>
+    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications</h2>
+    <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">There are errors preventing your data from loading.</h3>
+        <ul class="usa-alert-text">
+          <li *ngFor="let error of apiErrors">{{error}}</li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="successMessage" class="usa-alert usa-alert-success application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Success</h3>
+        <p class="usa-alert-text" [innerHTML]="successMessage"></p>
+      </div>
+    </div>
+    <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Warning</h3>
+        <p class="usa-alert-text">{{warningMessage}}</p>
+      </div>
+    </div>
+    <div class="application-list">
+
+      <div class="application-field-list-labels">
+        <div>&nbsp;</div>
+        <div *ngIf='isAdmin'>Type</div>
+        <div>Name</div>
+        <div>Submitted</div>
+        <div>Start date</div>
+        <div *ngIf='isAdmin'>End date</div>
+        <div>Permit holder</div>
+        <div>&nbsp;</div>
+      </div>
+      <div *ngFor="let application of applications | SortArray: 'createdAt'"
+        class="application-field-list-values">
+        <div class="application-status"><span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span></div>
+        <label *ngIf="isAdmin">Type</label>
+        <div *ngIf="isAdmin">{{ application.type }}</div>
+        <label>Event name</label>
+        <div>
+          <strong *ngIf="application.type === 'Noncommercial'">{{ application.eventName }}</strong>
+          <strong *ngIf="application.type === 'Temp outfitter'">{{ application.applicantInfoOrganizationName }}</strong>
+        </div>
+        <label>Submitted</label>
+        <div [ngClass]="
+          {'deadline-warning':
+            isAdmin &&
+            isOverTwoDaysOld(application.createdAt) &&
+            application.type === 'Noncommercial' &&
+            application.status === 'Received'
+          }">{{ application.createdAt | HoursFromOrDate:48 }}</div>
+        <label>Start date</label>
+        <div *ngIf="application.type === 'Noncommercial'" [ngClass]="
+          {'deadline-warning':
+            isAdmin &&
+            isWeekAwayOrPast(application.noncommercialFieldsStartDateTime) &&
+            ['Received', 'Hold'].indexOf(application.status) !== -1
+          }">{{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
+        </div>
+        <div *ngIf="application.type === 'Temp outfitter'" [ngClass]="
+          {'deadline-warning':
+            isAdmin &&
+            isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime) &&
+            ['Received', 'Hold'].indexOf(application.status) !== -1
+          }">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
+        </div>
+        <label *ngIf='isAdmin'>End date</label>
+        <div *ngIf="application.type === 'Noncommercial' && isAdmin">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div *ngIf="application.type === 'Temp outfitter' && isAdmin">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <label>Permit holder</label>
+        <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
+        <div>
+          <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
+        </div>
+        <div>
+          <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isAdmin"class="usa-width-one-whole">
+      <div class="float-right">
+        <button class="usa-button margin-right-0" routerLink="/">Apply for another permit.</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -14,11 +14,6 @@ describe('Apply for a ', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });
 
-  it('should display applications sub-header', () => {
-    list.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Permit applications');
-  });
-
   it('should show table headings', () => {
     expect<any>(element(by.css('.application-list')).isPresent).toBeTruthy();
   });
