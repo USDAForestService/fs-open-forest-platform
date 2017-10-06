@@ -17,7 +17,7 @@ dependencies:
     - ~/.cache/yarn
 compile:
   override:
-    - cd frontend; yarn run docs;
+    # - cd frontend; yarn run docs;
     - cd frontend; yarn dist;
 test:
   pre:
