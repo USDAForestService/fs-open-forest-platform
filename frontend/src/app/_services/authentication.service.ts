@@ -31,12 +31,8 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    const headers = new Headers();
-    if (localStorage.getItem('token')) {
-      headers.append('x-access-token', localStorage.getItem('token'));
-    }
     return this.http
-      .get(this.endpoint + 'auth/user', { headers, withCredentials: true })
+      .get(this.endpoint + 'auth/user', { withCredentials: true })
       .map((res: Response) => {
         return res.json();
       })
