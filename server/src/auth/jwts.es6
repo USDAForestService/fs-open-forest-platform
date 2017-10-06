@@ -44,7 +44,7 @@ const validateToken = function(token, jwtSecretKey) {
  * @param  {Function} next - What to call after creating JWT
  */
 const generateTokenMiddleware = function(req, res, next) {
-  req.token = generateToken(req.user, vcapConstants.jwtSecretKey);
+  req.token = generateToken(req.user, vcapConstants.jwtSecret);
   next();
 };
 
@@ -64,7 +64,7 @@ const validateTokenMiddleware = function(req, res, next) {
 
   if (!token) return res.sendError(req, res, 403, 'No token provided.');
 
-  validateToken(token, vcapConstants.jwtSecretKey)
+  validateToken(token, vcapConstants.jwtSecret)
     .then(decoded => {
       req.user = decoded;
       return next();
