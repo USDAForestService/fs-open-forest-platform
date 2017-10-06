@@ -1,6 +1,5 @@
 'use strict';
 
-const session = require('cookie-session');
 const passport = require('passport');
 
 const eAuth = require('./usda-eauth.es6');
@@ -16,18 +15,6 @@ passportConfig.setup = app => {
   app.use(passport.session());
   app.use(loginGov.router);
   app.use(eAuth.router);
-  app.use(
-    session({
-      name: 'session',
-      keys: [util.getRandomHexString(), util.getRandomHexString()],
-      cookie: {
-        secure: true,
-        httpOnly: true,
-        domain: vcapConstants.baseUrl,
-        expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-      }
-    })
-  );
   passport.serializeUser((user, done) => {
     done(null, user);
   });
