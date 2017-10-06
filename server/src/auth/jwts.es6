@@ -63,7 +63,7 @@ const validateTokenMiddleware = function(req, res, next) {
   const token = req.headers['x-access-token'];
 
   if (!token) {
-    return res.res.status(403).send({ errors: ['No token provided.'] });
+    return res.status(403).send({ errors: ['No token provided.'] });
   }
 
   validateToken(token, vcapConstants.jwtSecret)
@@ -72,7 +72,7 @@ const validateTokenMiddleware = function(req, res, next) {
       return next();
     })
     .catch(() => {
-      res.res.status(401).send({ errors: ['Failed to authenticate token.'] });
+      res.status(401).send({ errors: ['Failed to authenticate token.'] });
     });
 };
 
