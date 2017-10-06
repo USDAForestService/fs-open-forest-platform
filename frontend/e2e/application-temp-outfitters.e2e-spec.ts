@@ -82,6 +82,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('client-charges')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
+    browser.sleep(5000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 
@@ -150,6 +151,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('list-all-citations')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
+    browser.sleep(5000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 });
