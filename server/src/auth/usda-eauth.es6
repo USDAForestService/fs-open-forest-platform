@@ -36,7 +36,7 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
 });
 
 eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}`);
+  res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
 });
 
 module.exports = eAuth;
