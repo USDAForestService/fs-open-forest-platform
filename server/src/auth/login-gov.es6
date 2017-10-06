@@ -87,7 +87,7 @@ loginGov.router.get(
   passport.authenticate('oidc', { failureRedirect: vcapConstants.intakeClientBaseUrl }),
   (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
-    res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}'</script>`);
+    res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in'</script>`);
   }
 );
 
