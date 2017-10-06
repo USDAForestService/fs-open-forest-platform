@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    let headers = new Headers();
+    const headers = new Headers();
     if (localStorage.getItem('token')) {
       headers.append('x-access-token', localStorage.getItem('token'));
     }
