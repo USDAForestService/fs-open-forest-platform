@@ -3,9 +3,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
+const session = require('cookie-session');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
+const util = require('./util.es6');
+const vcapConstants = require('./vcap-constants.es6');
 
 const app = express();
 
@@ -19,6 +22,19 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+app.use(
+  session({
+    name: 'session',
+    keys: [util.getRandomHexString(), util.getRandomHexString()],
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      domain: vcapConstants.baseUrl,
+      expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+    }
+  })
+);
 
 /* setup passport */
 passportConfig.setup(app);
