@@ -3,7 +3,6 @@
 const express = require('express');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
-const jwts = require('./jwts.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const eAuth = {};
@@ -36,7 +35,7 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
   res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
 });
 
-eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), jwts.generateTokenMiddleware, (req, res) => {
+eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
   res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}`);
 });
 
