@@ -1,10 +1,10 @@
 <div class="usa-grid event-name no-padding padding-top-1">
   <div class="usa-width-three-fourths">
     <h1>{{ application.applicantInfo.organizationName }}
-      <span *ngIf="!['Received'].includes(application.status)" class="usa-label" [ngClass]="{
+      <span *ngIf="!['Submitted'].includes(application.status)" class="usa-label" [ngClass]="{
         'success': application.status === 'Accepted',
         'warning': application.status === 'Hold',
-        'danger': application.status === 'Returned'
+        'danger': application.status === 'Rejected'
       }">{{ application.status }}</span>
     </h1>
   </div>
@@ -78,7 +78,7 @@
         <span>{{ application.tempOutfitterFields.experienceFields.listAllCitations }}</span>
       </div>
     </div>
-    <app-revision-history id="desktop-revision-history" [revisions]="application.revisions" *ngIf="application.revsions"></app-revision-history>
+    <app-revision-history id="desktop-revision-history" [application]="application" *ngIf="application.revisions"></app-revision-history>
   </div>
 
 
@@ -146,4 +146,4 @@
 
   </div>
 </div>
-<app-revision-history id="mobile-revision-history" [revisions]="application.revisions" *ngIf="application.revsions"></app-revision-history>
+<app-revision-history id="mobile-revision-history" [application]="application" *ngIf="application.revisions"></app-revision-history>
