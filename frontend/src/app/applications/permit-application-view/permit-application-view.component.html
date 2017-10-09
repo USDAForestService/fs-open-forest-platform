@@ -29,11 +29,12 @@
   <div class="usa-grid cancel-application-wrapper">
     <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application."></app-cancel-application>
   </div>
-  <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || application.status === 'Received')">
+  <div class="app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || ['Received', 'Review'].includes(application.status))">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
       <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept<span class="sub-button">Send to SUDS</span></button>
-      <button id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
-      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject<span class="sub-button">Cancel application</span></button>
+      <button *ngIf="application.status !== 'Hold'" id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
+      <button *ngIf="application.status === 'Hold'" id="hold-application-btn" class="usa-button-grey app-cta" name="Hold" (click)="provideReasonOrCancel('Review')">Remove hold<span class="sub-button">Received clarification</span></button>
+      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Returned')">Reject<span class="sub-button">Notify applicant</span></button>
     </div>
     <div id="reason-for-action" class="usa-grid" *ngIf="reasonOrCancel.open">
       <div class="usa-width-one-whole">
