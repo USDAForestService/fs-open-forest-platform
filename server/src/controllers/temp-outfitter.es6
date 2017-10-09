@@ -7,6 +7,7 @@ const multerS3 = require('multer-s3');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
+const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -393,7 +394,10 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
@@ -501,6 +505,11 @@ tempOutfitter.update = (req, res) => {
       if (app) {
         app.status = req.body.status;
         app.applicantMessage = req.body.applicantMessage;
+        Revision.create({
+          applicationId: app.applicationId,
+          applicationType: app.applicationType,
+          email: req.user.email
+        });
         if (app.status === 'Accepted') {
           tempOutfitter
             .acceptApplication(app)
