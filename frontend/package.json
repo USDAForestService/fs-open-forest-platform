@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build",
     "dist": "ng build --prod --env=prod --aot=false",
-    "docs": "yarn run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "docs": "yarn run typedoc -- --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
     "e2e:ci": "ng e2e --port=4200 --watch=false --progress=false",
     "e2e": "ng e2e --port=4200",
     "lint": "ng lint",
@@ -27,6 +27,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "@cmsgov/design-system-core": "^1.2.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "intersection-observer": "^0.4.0",

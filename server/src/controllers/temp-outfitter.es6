@@ -4,7 +4,6 @@ const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const request = require('request');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
@@ -331,8 +330,10 @@ tempOutfitter.acceptApplication = application => {
     getAllFiles(application.applicationId)
       .then(files => {
         const requestOptions = {
+          method: 'POST',
           url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
+          simple: true,
           formData: {
             body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
           }
@@ -392,17 +393,11 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            request.post(requestOptions, (error, response, body) => {
-              if (error || response.statusCode !== 200) {
-                reject(error || response);
-              } else {
-                resolve(body);
-              }
-            });
+            util.request(requestOptions)
+              .then(resolve)
+              .catch(reject)
           })
-          .catch(error => {
-            reject(error);
-          });
+          .catch(reject);
       })
       .catch(reject);
   });
@@ -514,7 +509,6 @@ tempOutfitter.update = (req, res) => {
               app
                 .save()
                 .then(() => {
-                  console.log(app.status);
                   email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                   res.status(200).json(translateFromDatabaseToClient(app));
                 })

@@ -2,7 +2,6 @@
 
 const AWS = require('mock-aws');
 const expect = require('chai').expect;
-const request = require('request');
 const sinon = require('sinon');
 
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
@@ -58,27 +57,29 @@ describe('util tests', () => {
 
   describe('middleLayerAuth', () => {
     let postStub;
-    before(() => (postStub = sinon.stub(request, 'post')));
+    before(() => (postStub = sinon.stub(util, 'request')));
     after(() => postStub.restore());
     it('should successfully post an auth the middle layer', done => {
       let token = 'token';
-      postStub.callsFake((opts, cb) => cb(null, { statusCode: 200 }, { token }));
+      postStub.resolves(token);
       util.middleLayerAuth().then(_token => {
         expect(_token).to.equal(token);
         done();
       });
     });
     it('should post an auth the middle layer and fail gracefully on error', done => {
-      let err = 'kaboom';
-      postStub.callsFake((opts, cb) => cb(err));
+      let err = new Error('kaboom');
+      postStub.rejects(err);
       util.middleLayerAuth().catch(_err => {
         expect(_err).to.equal(err);
         done();
       });
     });
     it('should post an auth the middle layer and fail gracefully if statusCode is not 200', done => {
-      let res = { statusCode: 400 };
-      postStub.callsFake((opts, cb) => cb(null, res));
+      let res = {
+        statusCode: 400
+      };
+      postStub.rejects(res)
       util.middleLayerAuth().catch(_res => {
         expect(_res).to.equal(res);
         done();
@@ -179,5 +180,16 @@ describe('util tests', () => {
       expect(errorArr).to.have.lengthOf(1);
       expect(errorArr[0]).to.equal('required-prefixtest.testField');
     });
+  });
+
+  it('should return business name or person name', done => {
+    const application = {
+      applicantInfoOrganizationName: '',
+      applicantInfoPrimaryFirstName: 'first',
+      applicantInfoPrimaryLastName: 'last'
+    };
+
+    expect(util.businessNameElsePersonalName(application)).equal('first last');
+    done();
   });
 });
