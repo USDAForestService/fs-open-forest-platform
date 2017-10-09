@@ -2,6 +2,9 @@
   @media (max-width: $nav-width - 1) {
     width: 100%;
   }
+  fieldset {
+    margin: 20px 0 20px;
+  }
 }
 
 #section-applicant-info {
