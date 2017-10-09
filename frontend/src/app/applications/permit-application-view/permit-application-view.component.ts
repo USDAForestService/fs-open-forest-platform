@@ -74,7 +74,7 @@ export class PermitApplicationViewComponent implements OnInit {
       this.alertService.addSuccessMessage(
         'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
       );
-    } else if (status === 'Returned') {
+    } else if (status === 'Rejected') {
       this.alertService.addSuccessMessage(
         'Permit application successfully rejected and an email with your message has been sent to the applicant.'
       );
@@ -94,7 +94,7 @@ export class PermitApplicationViewComponent implements OnInit {
         this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';
         this.reasonOrCancel.label = 'Why is this application on hold?';
         break;
-      case 'Returned':
+      case 'Rejected':
         this.reasonOrCancel.buttonClass = 'usa-button-secondary';
         this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
         this.reasonOrCancel.label = 'Why is this application being rejected?';

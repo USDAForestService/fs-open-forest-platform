@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './revision-history.component.html'
 })
 export class RevisionHistoryComponent {
-  @Input() revisions: any;
+  @Input() application: any;
 }
