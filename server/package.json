@@ -35,8 +35,8 @@
     "chai": "^4.0.2",
     "codecov": "^2.2.0",
     "dev-null": "^0.1.1",
-    "eslint": "^4.0.0",
     "eslint-config-google": "^0.9.1",
+    "eslint": "^4.0.0",
     "mocha": "^3.5.3",
     "mock-aws": "^1.2.3",
     "mock-require": "^2.0.2",
@@ -45,6 +45,7 @@
     "nyc": "^11.2.1",
     "path": "^0.12.7",
     "sinon": "^3.2.1",
+    "snyk": "1.42.4",
     "supertest": "^3.0.0",
     "unionized": "^4.12.0"
   },
