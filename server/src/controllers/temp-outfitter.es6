@@ -508,7 +508,6 @@ tempOutfitter.streamFile = (req, res) => {
 
 tempOutfitter.update = (req, res) => {
   const role = util.isLocalOrCI() ? 'admin' : req.user.role;
-
   TempOutfitterApplication.findOne({
     where: {
       app_control_number: req.params.id
