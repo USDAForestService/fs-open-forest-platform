@@ -259,7 +259,7 @@ noncommercial.getOne = (req, res) => {
         Revision.findAll({
           where: {
             applicationId: app.applicationId,
-            applicationType: app.applicationType
+            applicationType: app.type
           }
         })
           .then(revisions => {
@@ -316,8 +316,9 @@ noncommercial.update = (req, res) => {
       app.status = req.body.status;
       Revision.create({
         applicationId: app.applicationId,
-        applicationType: app.applicationType,
-        email: req.user.email
+        applicationType: app.type,
+        status: app.status,
+        email: util.getUser(req).email
       });
       app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
