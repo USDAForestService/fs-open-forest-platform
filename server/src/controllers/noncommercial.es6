@@ -282,9 +282,7 @@ noncommercial.getOne = (req, res) => {
 // populates an applicationId on the object before return
 noncommercial.create = (req, res) => {
   let errorRet = {};
-
   let errorArr = validator.validateNoncommercial(req.body);
-
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
