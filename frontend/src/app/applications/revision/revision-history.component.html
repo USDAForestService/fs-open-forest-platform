@@ -1,0 +1,24 @@
+<h2 class="app-item-label">Revision History</h2>
+<table class="revision-history usa-table fs-table">
+  <thead>
+    <tr>
+      <th scope="col">STATUS</th>
+      <th scope="col">DATE AND TIME</th>
+      <th scope="col">ACTOR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let revision of revisions | SortArray: 'createdAt'">
+      <th>
+        <span *ngIf="!['Received'].includes(revision.status)" class="usa-label" [ngClass]="{
+          'success': revision.status === 'Accepted',
+          'warning': ['Hold', 'Cancelled'].includes(revision.status),
+          'danger': revision.status === 'Returned'
+        }">{{ revision.status }}
+        </span>
+      </th>
+      <td>{{ revision.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
+      <td><span class="revision-actor">{{revision.actor}}</span></td>
+    </tr>
+  </tbody>
+</table>
