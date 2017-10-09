@@ -9,4 +9,8 @@
   &.danger {
     background-color: $fs-red;
   }
+  &.tan {
+    background-color: $fs-tan-darker;
+    color: $black;
+  }
 }
