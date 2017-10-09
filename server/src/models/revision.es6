@@ -19,6 +19,7 @@ module.exports = sequelize.define('revisions', {
   },
   applicationId: { type: Sequelize.INTEGER, field: 'application_id', allowNull: false },
   applicationType: { type: Sequelize.STRING, field: 'application_type', allowNull: false },
+  status: { type: Sequelize.STRING, field: 'status', allowNull: false },
   email: { type: Sequelize.STRING, field: 'email', allowNull: false },
   createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
   updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
