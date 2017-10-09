@@ -256,7 +256,20 @@ noncommercial.getOne = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToClient(app));
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.applicationType
+          }
+        })
+          .then(revisions => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            res.status(200).json(formattedApp);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
       } else {
         res.status(404).send();
       }
