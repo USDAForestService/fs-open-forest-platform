@@ -18,6 +18,17 @@
     }
   }
 
+  .usa-button-grey {
+    background-color: $dark-grey;
+    color: $white;
+    &:hover {
+      background-color: $black;
+    }
+    &:active {
+      background-color: $black;
+    }
+  }
+
   .usa-button-inverse {
     background-color: $fs-tan;
     color: $black;

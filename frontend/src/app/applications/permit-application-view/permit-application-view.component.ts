@@ -99,6 +99,11 @@ export class PermitApplicationViewComponent implements OnInit {
         this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
         this.reasonOrCancel.label = 'Why is this application being rejected?';
         break;
+      case 'Review':
+        this.reasonOrCancel.buttonClass = 'usa-button-grey';
+        this.reasonOrCancel.confirmButtonText = 'Remove hold and notify applicant';
+        this.reasonOrCancel.label = 'Why should hold status be removed from this application?';
+        break;
     }
 
     this.reasonOrCancel.status = status;
