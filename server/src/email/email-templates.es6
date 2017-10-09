@@ -61,6 +61,14 @@ email.tempOutfitterApplicationUserCancelled = application => {
   return tempOutfitterApplicationUserCancelled(application);
 };
 
+email.noncommercialApplicationReview = application => {
+  return noncommercialApplicationReview(application);
+};
+
+email.tempOutfitterApplicationReview = application => {
+  return tempOutfitterApplicationReview(application);
+};
+
 email.noncommercialApplicationReturned = application => {
   return noncommercialApplicationReturned(application);
 };
