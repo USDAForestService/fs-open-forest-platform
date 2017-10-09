@@ -3,10 +3,9 @@ machine:
     version: 6
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/frontend/node_modules/.bin" # yarn
+    YARN_VERSION: 1.1.0
 dependencies:
   pre:
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    - sudo apt-get update && sudo apt-get install yarn
     - yarn global add typedoc
     # chrome
     - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
