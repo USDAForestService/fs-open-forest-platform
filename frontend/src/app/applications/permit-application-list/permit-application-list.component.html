@@ -86,7 +86,7 @@
           <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>
-          <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
+          <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
         </div>
       </div>
     </div>
