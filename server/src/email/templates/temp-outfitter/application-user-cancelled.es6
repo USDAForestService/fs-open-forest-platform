@@ -6,12 +6,13 @@ module.exports = application => {
   const businessName = util.businessNameElsePersonalName(application);
 
   return {
-    to: application.applicantInfoEmailAddress,
-    subject: `Your following permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    to: vcapConstants.specialUseAdminEmailAddresses,
+    subject: `The following permit application from ${businessName} to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
     body: `
 Application details
 *********************************
 
+Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
       'MM/DD/YYYY hh:mm a'
@@ -23,19 +24,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-
-Contact us
-**************************************
-
-If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
-
-Temp outfitter contact
-Name: Sue Sherman-Biery
-Title: Special use administrator
-Phone: 360-854-2660
-Email: sshermanbiery@fs.fed.us
-
-Thank you for your interest in our National Forests.
+Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
 `
   };
 };

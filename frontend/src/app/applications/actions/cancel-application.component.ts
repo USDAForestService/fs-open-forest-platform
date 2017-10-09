@@ -8,9 +8,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
   selector: 'app-cancel-application',
   template: `<button *ngIf="
       application.status !== 'Accepted'
-      && application.status !== 'Cancelled'
-      && authentication.user.role === 'user'"
-      class="usa-button cancel-button" (click)="cancelApplication()">{{ text }}</button>`
+      && application.status !== 'Cancelled'"
+      class="usa-button cancel-button-{{authentication.user.role}}" (click)="cancelApplication()">{{ text }}</button>`
 })
 export class CancelApplicationComponent {
   @Input() application: any;

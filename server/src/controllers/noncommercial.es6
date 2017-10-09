@@ -236,9 +236,7 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util.request(requestOptions)
-          .then(resolve)
-          .catch(reject)
+        util.request(requestOptions).then(resolve).catch(reject);
       })
       .catch(error => {
         reject(error);
@@ -291,6 +289,8 @@ noncommercial.create = (req, res) => {
 };
 
 noncommercial.update = (req, res) => {
+  const role = util.isLocalOrCI() ? 'admin' : req.user.role;
+
   NoncommercialApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -321,7 +321,11 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
-            email.sendEmail(`noncommercialApplication${app.status}`, app);
+            if (app.status === 'Cancelled' && role === 'user') {
+              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
+            } else {
+              email.sendEmail(`noncommercialApplication${app.status}`, app);
+            }
             res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
