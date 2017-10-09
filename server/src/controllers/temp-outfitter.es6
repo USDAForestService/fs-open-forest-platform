@@ -465,13 +465,26 @@ tempOutfitter.getOne = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToClient(app));
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.type
+          }
+        })
+          .then(revisions => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            res.status(200).json(formattedApp);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
-      res.status(500).json(error.message);
+      res.status(400).json(error);
     });
 };
 
@@ -507,8 +520,9 @@ tempOutfitter.update = (req, res) => {
         app.applicantMessage = req.body.applicantMessage;
         Revision.create({
           applicationId: app.applicationId,
-          applicationType: app.applicationType,
-          email: req.user.email
+          applicationType: app.type,
+          status: app.status,
+          email: util.getUser(req).email
         });
         if (app.status === 'Accepted') {
           tempOutfitter
