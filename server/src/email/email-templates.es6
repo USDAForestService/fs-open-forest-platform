@@ -15,8 +15,8 @@ const tempOutfitterApplicationCancelled = require('./templates/temp-outfitter/ap
 const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');
 const tempOutfitterApplicationUserCancelled = require('./templates/temp-outfitter/application-user-cancelled.es6');
 
-const noncommercialApplicationReturned = require('./templates/noncommercial/application-returned.es6');
-const tempOutfitterApplicationReturned = require('./templates/temp-outfitter/application-returned.es6');
+const noncommercialApplicationRejected = require('./templates/noncommercial/application-rejected.es6');
+const tempOutfitterApplicationRejected = require('./templates/temp-outfitter/application-rejected.es6');
 
 const noncommercialApplicationReview = require('./templates/noncommercial/application-review.es6');
 const tempOutfitterApplicationReview = require('./templates/temp-outfitter/application-review.es6');
@@ -69,12 +69,12 @@ email.tempOutfitterApplicationReview = application => {
   return tempOutfitterApplicationReview(application);
 };
 
-email.noncommercialApplicationReturned = application => {
-  return noncommercialApplicationReturned(application);
+email.noncommercialApplicationRejected = application => {
+  return noncommercialApplicationRejected(application);
 };
 
-email.tempOutfitterApplicationReturned = application => {
-  return tempOutfitterApplicationReturned(application);
+email.tempOutfitterApplicationRejected = application => {
+  return tempOutfitterApplicationRejected(application);
 };
 
 module.exports = email;
