@@ -17,6 +17,9 @@ const findOrCondition = req => {
         },
         {
           status: 'Hold'
+        },
+        {
+          status: 'Review'
         }
       ];
       break;
