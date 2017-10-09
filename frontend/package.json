@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build",
     "dist": "ng build --prod --env=prod --aot=false",
-    "docs": "yarn run typedoc -- --options typedoc.json --exclude '**/*.spec.ts' ./src/",
+    "docs": "yarn run typedoc -- --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
     "e2e:ci": "ng e2e --port=4200 --watch=false --progress=false",
     "e2e": "ng e2e --port=4200",
     "lint": "ng lint",

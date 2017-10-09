@@ -6,7 +6,6 @@ const jose = require('node-jose');
 const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../util.es6');
-const jwts = require('./jwts.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const loginGov = {};
@@ -86,10 +85,9 @@ loginGov.router.get(
   '/auth/login-gov/openid/callback',
   // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
   passport.authenticate('oidc', { failureRedirect: vcapConstants.intakeClientBaseUrl }),
-  jwts.generateTokenMiddleware,
   (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
-    res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in?token=${req.token}'</script>`);
+    res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in'</script>`);
   }
 );
 
