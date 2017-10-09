@@ -1,0 +1,16 @@
+.usa-table.fs-table {
+  th,
+  td {
+    border: none;
+    border-bottom: solid 1px $dark-grey;
+    text-align: center;
+  }
+  thead {
+    th {
+      background: transparent;
+    }
+  }
+  tbody {
+    border: solid 1px $dark-grey;
+  }
+}
