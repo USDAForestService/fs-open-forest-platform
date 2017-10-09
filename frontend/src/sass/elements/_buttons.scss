@@ -9,6 +9,7 @@
   .usa-button {
     background-color: $fs-brown;
     color: $white;
+    box-shadow: none;
     &:hover {
       background-color: $fs-brown-dark;
     }
@@ -46,6 +47,7 @@
   .usa-button-primary-alt {
     background-color: $fs-green;
     color: $white;
+    box-shadow: none;
     &:hover {
       background-color: $fs-green-dark;
     }
@@ -57,11 +59,16 @@
   .usa-button-secondary {
     background-color: $fs-red;
     color: $white;
+    box-shadow: none;
     &:hover {
       background-color: $fs-red-dark;
+      color: $white;
+      box-shadow: none;
     }
     &:active {
       background-color: $fs-red-darker;
+      color: $white;
+      box-shadow: none;
     }
   }
 
