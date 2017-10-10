@@ -13,4 +13,8 @@
     background-color: $fs-tan-darker;
     color: $black;
   }
+  &.black {
+    background-color: $black;
+    color: $white;
+  }
 }
