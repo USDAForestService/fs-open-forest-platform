@@ -78,7 +78,7 @@ PLATFORM
     or for CircleCI
 
     CI
-    
+
 SNYK_TOKEN
 
     (from https://snyk.io/account)
@@ -109,7 +109,7 @@ VCAP_SERVICES
         "intake_client_base_url": "http://localhost:4200",
         "intake_password": "",
         "intake_username": "",
-        "jwt_secret": "shhhhhhhh!" 
+        "jwt_secret": "shhhhhhhh!"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -345,6 +345,8 @@ As an alternative to installing all the development tools necessary to run the e
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
 
+#### Docker Troubleshooting
+- [No such file or directory for /var/lib/docker/overlay2 · Issue #1396 · docker/for-mac](https://github.com/docker/for-mac/issues/1396#issuecomment-313457823)
 
 ### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
