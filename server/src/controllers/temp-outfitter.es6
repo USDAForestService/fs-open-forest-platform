@@ -7,6 +7,7 @@ const multerS3 = require('multer-s3');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
+const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -393,7 +394,10 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
@@ -461,13 +465,26 @@ tempOutfitter.getOne = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToClient(app));
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.type
+          }
+        })
+          .then(revisions => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            res.status(200).json(formattedApp);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
-      res.status(500).json(error.message);
+      res.status(400).json(error);
     });
 };
 
@@ -491,7 +508,6 @@ tempOutfitter.streamFile = (req, res) => {
 
 tempOutfitter.update = (req, res) => {
   const role = util.isLocalOrCI() ? 'admin' : req.user.role;
-
   TempOutfitterApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -501,6 +517,12 @@ tempOutfitter.update = (req, res) => {
       if (app) {
         app.status = req.body.status;
         app.applicantMessage = req.body.applicantMessage;
+        Revision.create({
+          applicationId: app.applicationId,
+          applicationType: app.type,
+          status: app.status,
+          email: util.getUser(req).email
+        });
         if (app.status === 'Accepted') {
           tempOutfitter
             .acceptApplication(app)

@@ -79,6 +79,26 @@
       }
     }
   }
+  .revision-history {
+    tbody {
+      td {
+        max-width: 200px;
+        overflow: auto;
+      }
+    }
+  }
+  #desktop-revision-history {
+    display: none;
+    @media (min-width: $large-screen) {
+      display: block;
+    }
+  }
+  #mobile-revision-history {
+    display: block;
+    @media (min-width: $large-screen) {
+      display: none;
+    }
+  }
 }
 
 .electronic-signature-success {
