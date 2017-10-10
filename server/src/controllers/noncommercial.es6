@@ -2,6 +2,7 @@
 
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
+const Revision = require('../models/revision.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
@@ -236,7 +237,10 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util.request(requestOptions).then(resolve).catch(reject);
+        util
+          .request(requestOptions)
+          .then(resolve)
+          .catch(reject);
       })
       .catch(error => {
         reject(error);
@@ -252,7 +256,20 @@ noncommercial.getOne = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToClient(app));
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.type
+          }
+        })
+          .then(revisions => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            res.status(200).json(formattedApp);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
       } else {
         res.status(404).send();
       }
@@ -265,9 +282,7 @@ noncommercial.getOne = (req, res) => {
 // populates an applicationId on the object before return
 noncommercial.create = (req, res) => {
   let errorRet = {};
-
   let errorArr = validator.validateNoncommercial(req.body);
-
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
@@ -290,7 +305,6 @@ noncommercial.create = (req, res) => {
 
 noncommercial.update = (req, res) => {
   const role = util.isLocalOrCI() ? 'admin' : req.user.role;
-
   NoncommercialApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -298,6 +312,12 @@ noncommercial.update = (req, res) => {
   }).then(app => {
     if (app) {
       app.status = req.body.status;
+      Revision.create({
+        applicationId: app.applicationId,
+        applicationType: app.type,
+        status: app.status,
+        email: util.getUser(req).email
+      });
       app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         noncommercial
