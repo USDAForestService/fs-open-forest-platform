@@ -27,7 +27,6 @@ test:
     - cd server; yarn run lint
     - cd server; yarn migrate
     - cd server; yarn seed
-    - cd server; yarn test
     - cd server; yarn coverage
     - cd server; yarn report-coverage
     - cd frontend; yarn run lint
@@ -46,7 +45,7 @@ deployment:
       - cd frontend; yarn dist;
       - ./cg-deploy/deploy.sh public-production
   staging:
-    branch: sprint-12-development
+    branch: sprint-13-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;

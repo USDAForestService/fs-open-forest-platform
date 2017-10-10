@@ -1,0 +1,91 @@
+<div class="usa-grid event-name no-padding padding-top-1">
+  <div class="usa-width-three-fourths">
+    <h1>{{ application.eventName}}
+      <span *ngIf="application.status !== 'Received'" class="usa-label" [ngClass]="{
+        'success': application.status === 'Accepted',
+        'warning': application.status === 'Hold',
+        'danger': application.status === 'Returned'
+      }">{{ application.status }}</span>
+    </h1>
+  </div>  
+</div>
+<div class="usa-grid margin-top-1 no-padding">
+  <div class="usa-width-one-half">
+    <h2 class="app-item-label padding-right-1">Primary permit holder</h2>
+    <div *ngIf="application.applicantInfo.orgType === 'Corporation'" class="margin-bottom-1">
+      <span class="display-block">{{ application.applicantInfo.organizationName }}</span>
+      <span class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress }}</span>
+      <span *ngIf="application.applicantInfo.organizationAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.organizationAddress.mailingAddress2 }}</span>
+      <span class="display-block">
+        {{ application.applicantInfo.organizationAddress.mailingCity }}, {{ application.applicantInfo.organizationAddress.mailingState }} {{ application.applicantInfo.organizationAddress.mailingZIP }}
+      </span>
+    </div>
+    <div class="margin-bottom-1">
+      <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
+      <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
+      <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">
+        {{ application.applicantInfo.primaryAddress.mailingAddress2 }}
+      </span>
+      <span *ngIf="application.applicantInfo.primaryAddress.mailingCity && application.applicantInfo.primaryAddress.mailingState && application.applicantInfo.primaryAddress.mailingZIP"
+        class="display-block">
+        {{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}
+      </span>
+    </div>
+    <div class="margin-bottom-1">
+      <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
+      <span class="display-block">
+        {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
+        <span *ngIf="application.applicantInfo.dayPhone.extension"> ext. {{ application.applicantInfo.dayPhone.extension }}</span>
+      </span>
+      <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">
+        {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
+        <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
+      </span>
+    </div>
+
+    <div *ngIf="application.applicantInfo.secondaryFirstName">
+      <h2>Secondary Permit Holder</h2>
+      <div>
+        <span class="display-block">{{ application.applicantInfo.secondaryFirstName }} {{ application.applicantInfo.secondaryLastName }}</span>
+        <span class="display-block">{{ application.applicantInfo.secondaryAddress.mailingAddress }}</span>
+        <span *ngIf="application.applicantInfo.secondaryAddress.mailingAddress2" class="display-block">
+          {{ application.applicantInfo.secondaryAddress.mailingAddress2 }}
+        </span>
+        <span *ngIf="application.applicantInfo.secondaryAddress.mailingCity && application.applicantInfo.secondaryAddress.mailingState && application.applicantInfo.secondaryAddress.mailingZIP"
+          class="display-block">
+          {{ application.applicantInfo.secondaryAddress.mailingCity }}, {{ application.applicantInfo.secondaryAddress.mailingState }} {{ application.applicantInfo.secondaryAddress.mailingZIP }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="usa-width-one-half">
+    <h2>Event details</h2>
+
+    <h3>Start date:</h3>
+    <span>{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</span>
+
+    <h3>End date:</h3>
+    <span>
+      {{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
+    </span>
+
+    <h3>Location:</h3>
+    <span>{{ application.noncommercialFields.locationDescription }}</span>
+
+    <h3>Description</h3>
+    <span>{{ application.noncommercialFields.activityDescription }}</span>
+
+    <h3>Number attending</h3>
+    <span>{{ application.noncommercialFields.numberParticipants }}</span>
+
+    <h3>Number spectators</h3>
+    <span>{{ application.noncommercialFields.spectators }}</span>
+
+    <h3>
+      <span *ngIf="application.signature" class="electronic-signature-success"></span>
+      Electronic signature
+    </h3>
+
+  </div>
+</div>

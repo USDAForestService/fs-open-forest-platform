@@ -15,7 +15,12 @@ module.exports = function(config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    files: [{ pattern: './src/test.ts', watched: false }],
+    files: [
+      {
+        pattern: './src/test.ts',
+        watched: false
+      }
+    ],
     preprocessors: {
       './src/test.ts': ['@angular/cli']
     },
@@ -23,13 +28,18 @@ module.exports = function(config) {
       'text/x-typescript': ['ts', 'tsx']
     },
     coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly'],
-      fixWebpackSourcePaths: true
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true,
+      thresholds: {
+        lines: 90,
+        statements: 90
+      }
     },
     angularCli: {
       environment: 'dev'
     },
-    reporters: config.angularCli && config.angularCli.codeCoverage ? ['progress', 'coverage-istanbul'] : ['progress', 'kjhtml'],
+    reporters:
+      config.angularCli && config.angularCli.codeCoverage ? ['progress', 'coverage-istanbul'] : ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
