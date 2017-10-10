@@ -78,7 +78,7 @@
         <span>{{ application.tempOutfitterFields.experienceFields.listAllCitations }}</span>
       </div>
     </div>
-    <app-revision-history id="desktop-revision-history" [application]="application" *ngIf="application.revisions"></app-revision-history>
+    <app-revision-history id="desktop-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>
   </div>
 
 
@@ -146,4 +146,4 @@
 
   </div>
 </div>
-<app-revision-history id="mobile-revision-history" [application]="application" *ngIf="application.revisions"></app-revision-history>
+<app-revision-history id="mobile-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>
