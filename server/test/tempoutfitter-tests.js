@@ -5,10 +5,10 @@ const expect = require('chai').expect;
 const request = require('supertest');
 const sinon = require('sinon');
 
-const ApplicationFile = require('../models/application-files.es6');
+const ApplicationFile = require('../src/models/application-files.es6');
 const server = require('./mock-aws-app');
 const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
-const util = require('../util.es6');
+const util = require('../src/util.es6');
 
 const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
 const url = '/permits/applications/special-uses/temp-outfitter';

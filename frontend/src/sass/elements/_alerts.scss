@@ -1,0 +1,14 @@
+.usa-alert {
+  border: solid 1px $dark-grey;
+  a {
+    color: $fs-green;
+  }
+}
+
+.usa-alert a.usa-button:focus {
+  color: white;
+}
+
+.usa-alert a.usa-button:hover {
+  color: white;
+}
