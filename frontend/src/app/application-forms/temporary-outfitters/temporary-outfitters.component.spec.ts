@@ -33,6 +33,16 @@ describe('TemporaryOutfittersComponent', () => {
     fixture.detectChanges();
   });
 
+  function createFakeEvent(type: string) {
+    const event = document.createEvent('Event');
+    event.initEvent(type, true, true);
+    return event;
+  }
+
+  function dispatchFakeEvent(type: string) {
+    window.dispatchEvent(createFakeEvent(type));
+  }
+
   it('Should switch on org type', () => {
     const orgTypes = {
       Person: {
@@ -96,16 +106,6 @@ describe('TemporaryOutfittersComponent', () => {
     get.restore();
   });
 
-  it('matchUrls should copy url on url value', () => {
-    const get = sinon.stub(component.applicationForm, 'get');
-    const spy = sinon.spy();
-    get.withArgs('applicantInfo.website').returns({ value: 'http://www.google.com' });
-    get.withArgs('tempOutfitterFields.advertisingURL').returns({ value: '', setValue: spy });
-    component.matchUrls();
-    expect(spy.called).toBeTruthy();
-    get.restore();
-  });
-
   it('matchUrls should not copy url on url value when ad url has value', () => {
     const get = sinon.stub(component.applicationForm, 'get');
     const spy = sinon.spy();
@@ -114,6 +114,18 @@ describe('TemporaryOutfittersComponent', () => {
     component.matchUrls();
     expect(spy.called).toBeFalsy();
     get.restore();
+  });
+
+  it('should not copy url if url is not valid, and copy url if url is valid', () => {
+    component.applicationForm.get('applicantInfo.website').setValue('test');
+    component.matchUrls();
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').value).toBe('');
+    component.applicationForm.get('applicantInfo.website').setValue('http://www.test.com');
+    component.matchUrls();
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').value).toBe('http://www.test.com');
+    component.applicationForm.get('applicantInfo.website').setValue('test');
+    component.matchUrls();
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').value).toBe('http://www.test.com');
   });
 
   it('should not submit if form not valid', () => {
