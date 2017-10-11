@@ -3,17 +3,26 @@
 
     <legend>Advertising</legend>
 
-    <label class="usa-input" for="advertising-url">Promotional website</label>
-    <input id="advertising-url" type="url" formControlName="advertisingURL" pattern="https?://.+" tabindex="0" />
+    <label class="usa-input" for="advertising-url">
+      Promotional website
+      <span *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">(optional)</span>
+    </label>
+    <input id="advertising-url"
+      type="url"
+      formControlName="advertisingURL"
+      pattern="https?://.+"
+      tabindex="0"
+      [attr.aria-required]="tempOutfitterFields.controls.noPromotionalWebsite.value ? 'null' : true"
+    />
     <app-error-message fieldId="advertising-url-error" name="Advertising url" [control]="tempOutfitterFields.controls.advertisingURL"></app-error-message>
 
     <input id="no-promotional-website" type="checkbox" formControlName="noPromotionalWebsite" />
-    <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I don't have a promotional website.</label>
+    <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I don't have a promotional website or I would like to provide more advertising information.</label>
 
     <ng-container *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">
       <label class="usa-input" for="advertising-description">Advertising description</label>
       <p class="help-text usa-form-hint">Enter a description of your marketing plan or a reason why there isn't one.</p>
-      <textarea id="advertising-description" type="text" formControlName="advertisingDescription"></textarea>
+      <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"></textarea>
       <app-error-message fieldId="advertising-description-error" name="Advertising description" [control]="tempOutfitterFields.controls.advertisingDescription"></app-error-message>
     </ng-container>
 
