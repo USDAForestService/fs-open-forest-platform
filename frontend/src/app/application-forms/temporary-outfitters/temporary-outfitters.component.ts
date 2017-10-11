@@ -70,10 +70,17 @@ export class TemporaryOutfittersComponent implements DoCheck {
         smallBusiness: [false],
         advertisingDescription: ['', [alphanumericValidator()]],
         advertisingURL: ['', [Validators.pattern('https?://.+')]],
+        noPromotionalWebsite: [''],
         clientCharges: ['', [Validators.required, alphanumericValidator()]],
         experienceList: ['', [alphanumericValidator()]]
       })
     });
+
+    this.applicationFieldsService.toggleSwitchRequire(
+      this.applicationForm.get('tempOutfitterFields.noPromotionalWebsite'),
+      this.applicationForm.get('tempOutfitterFields.advertisingURL'),
+      this.applicationForm.get('tempOutfitterFields.advertisingDescription')
+    );
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.orgTypeChange(type);
