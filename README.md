@@ -78,7 +78,7 @@ PLATFORM
     or for CircleCI
 
     CI
-    
+
 SNYK_TOKEN
 
     (from https://snyk.io/account)
@@ -109,7 +109,7 @@ VCAP_SERVICES
         "intake_client_base_url": "http://localhost:4200",
         "intake_password": "",
         "intake_username": "",
-        "jwt_secret": "shhhhhhhh!" 
+        "jwt_secret": "shhhhhhhh!"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -266,7 +266,7 @@ Add `--code-coverage` flag to print out code coverage statistics.
 
 #### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ### Typedoc
 
