@@ -29,6 +29,13 @@ export class ApplicationFieldsService {
     });
   }
 
+  toggleSwitchRequire(toggleField, dataFieldOne, dataFieldTwo) {
+    toggleField.valueChanges.subscribe(value => {
+      this.updateValidators(dataFieldOne, !value);
+      this.updateValidators(dataFieldTwo, value);
+    });
+  }
+
   updateValidators(dataField, value) {
     if (value) {
       dataField.setValidators([Validators.required, alphanumericValidator()]);
