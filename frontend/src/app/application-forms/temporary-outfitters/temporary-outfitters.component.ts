@@ -69,22 +69,38 @@ export class TemporaryOutfittersComponent implements DoCheck {
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [alphanumericValidator()]],
-        advertisingURL: ['', [Validators.pattern('https?://.+')]],
+        advertisingURL: ['', [Validators.required, Validators.pattern('https?://.+')]],
         noPromotionalWebsite: [''],
         clientCharges: ['', [Validators.required, alphanumericValidator()]],
         experienceList: ['', [alphanumericValidator()]]
       })
     });
 
-    this.applicationFieldsService.toggleSwitchRequire(
-      this.applicationForm.get('tempOutfitterFields.noPromotionalWebsite'),
-      this.applicationForm.get('tempOutfitterFields.advertisingURL'),
-      this.applicationForm.get('tempOutfitterFields.advertisingDescription')
-    );
+    this.applicationForm.get('tempOutfitterFields.noPromotionalWebsite').valueChanges.subscribe(value => {
+      this.advertisingRequirementToggle(
+        value,
+        this.applicationForm.get('tempOutfitterFields.advertisingURL'),
+        this.applicationForm.get('tempOutfitterFields.advertisingDescription')
+      );
+    });
 
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.orgTypeChange(type);
     });
+  }
+
+  advertisingRequirementToggle(value, advertisingUrl, advertisingDescription) {
+    if (value) {
+      advertisingDescription.setValidators([Validators.required, alphanumericValidator()]);
+      advertisingDescription.updateValueAndValidity();
+      advertisingUrl.setValidators([alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.updateValueAndValidity();
+    } else {
+      advertisingUrl.setValidators([Validators.required, alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.updateValueAndValidity();
+      advertisingDescription.setValidators(null);
+      advertisingDescription.updateValueAndValidity();
+    }
   }
 
   orgTypeChange(type): void {
