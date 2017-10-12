@@ -6,8 +6,8 @@ const request = require('supertest');
 const sinon = require('sinon');
 
 const ApplicationFile = require('../src/models/application-files.es6');
-const server = require('./mock-aws-app');
-const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const server = require('./mock-aws-app.es6');
+const tempOutfitterPermitApplicationFactory = require('./data/temp-outfitter-test-data.es6').tempOutfitterFactory;
 const util = require('../src/util.es6');
 
 const postFileURL = '/permits/applications/special-uses/temp-outfitter/file';
@@ -20,7 +20,7 @@ describe('temp outfitter server tests', () => {
     request(server)
       .post(url)
       .set('Accept', 'application/json')
-      .send(tempOutfitterTestData.basicTempOutfitter.create())
+      .send(tempOutfitterPermitApplicationFactory.create())
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(201, (err, res) => {
@@ -35,53 +35,13 @@ describe('temp outfitter server tests', () => {
       .post(url)
       .set('Accept', 'application/json')
       .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
+        tempOutfitterPermitApplicationFactory.create({
           'applicantInfo.primaryFirstName': undefined
         })
       )
       .expect('Content-Type', /json/)
       .expect(/"required-applicantInfo.primaryFirstName"/)
       .expect(400, done);
-  });
-
-  it('creates a temp outfitter app with undef evening phone', done => {
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
-          'applicantInfo.eveningPhone': undefined
-        })
-      )
-      .expect('Content-Type', /json/)
-      .expect(/"applicationId":[\d]+/)
-      .expect(201, done);
-  });
-
-  it('creates a temp outfitter app with undef fax number', done => {
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(
-        tempOutfitterTestData.basicTempOutfitter.create({
-          'applicantInfo.faxNumber': undefined
-        })
-      )
-      .expect('Content-Type', /json/)
-      .expect(/"applicationId":[\d]+/)
-      .expect(201, done);
-  });
-
-  it('creates a temp outfitter app with too long website, 500 error', done => {
-    let testData = tempOutfitterTestData.basicTempOutfitter.create();
-    testData.applicantInfo.website =
-      'http:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelengthhttp:thisisasuperduperlongurlthatissolongitwillbreakthingsandthrowanerrorhopefullyreallythisneedstobeatleast256charactersinlengthsoletsjustcopypasteanddoublethelength';
-    request(server)
-      .post(url)
-      .set('Accept', 'application/json')
-      .send(testData)
-      .expect('Content-Type', /json/)
-      .expect(500, done);
   });
 
   describe('getApplicationFileNames', () => {
@@ -229,14 +189,8 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
-        return new Promise(resolve => {
-          resolve('atoken');
-        });
-      });
-      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
-        cb(null, { statusCode: 200 }, { name: 'body' });
-      });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
+      const req = sinon.stub(util, 'request').resolves({name: 'body'});
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
@@ -274,14 +228,8 @@ describe('temp outfitter server tests', () => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
-      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').callsFake(function() {
-        return new Promise(resolve => {
-          resolve('A token');
-        });
-      });
-      const req = sinon.stub(require('request'), 'post').callsFake(function(opts, cb) {
-        cb(null, { statusCode: 400 }, { name: 'body' });
-      });
+      const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
+      const req = sinon.stub(util, 'request').rejects({statusCode: 500});
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')

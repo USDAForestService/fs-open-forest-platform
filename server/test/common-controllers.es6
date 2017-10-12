@@ -2,7 +2,7 @@
 
 const request = require('supertest');
 
-const server = require('./mock-aws-app');
+const server = require('./mock-aws-app.es6');
 
 describe('common controller tests', () => {
   describe('get pending', () => {
