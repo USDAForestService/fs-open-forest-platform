@@ -96,6 +96,28 @@ describe('TemporaryOutfittersComponent', () => {
     }
   });
 
+  it('should toggle advertising description', () => {
+    component.applicationForm.get('tempOutfitterFields.advertisingURL').setValue('http://www.test.com');
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').valid).toBeTruthy();
+    component.applicationForm.get('tempOutfitterFields.advertisingURL').setValue('');
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').valid).toBeFalsy();
+    component.advertisingRequirementToggle(
+      true,
+      component.applicationForm.get('tempOutfitterFields.advertisingURL'),
+      component.applicationForm.get('tempOutfitterFields.advertisingDescription')
+    );
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').valid).toBeTruthy();
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingDescription').valid).toBeFalsy();
+    component.applicationForm.get('tempOutfitterFields.advertisingDescription').setValue('test');
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingDescription').valid).toBeTruthy();
+    component.advertisingRequirementToggle(
+      false,
+      component.applicationForm.get('tempOutfitterFields.advertisingURL'),
+      component.applicationForm.get('tempOutfitterFields.advertisingDescription')
+    );
+    expect(component.applicationForm.get('tempOutfitterFields.advertisingURL').valid).toBeFalsy();
+  });
+
   it('matchUrls should not copy url on empty value', () => {
     const get = sinon.stub(component.applicationForm, 'get');
     const spy = sinon.spy();
