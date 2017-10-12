@@ -18,9 +18,7 @@ module.exports = {
           type: 'string'
         }
       },
-      dependencies: {
-        organizationName: ['orgType']
-      }
+      required: ['orgType']
     }
   ]
 };
