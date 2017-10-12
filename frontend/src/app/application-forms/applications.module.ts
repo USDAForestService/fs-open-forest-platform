@@ -16,6 +16,7 @@ import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
+import { NoncommercialFaqComponent } from './application-noncommercial-group/noncommercial-faq.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
@@ -43,6 +44,7 @@ import 'intersection-observer';
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
+    NoncommercialFaqComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
@@ -67,6 +69,7 @@ import 'intersection-observer';
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
+    NoncommercialFaqComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
