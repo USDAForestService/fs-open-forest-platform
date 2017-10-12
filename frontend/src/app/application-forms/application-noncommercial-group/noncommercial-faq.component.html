@@ -1,20 +1,8 @@
-<section id="noncommercial-faq" class="usa-section margin-bottom-1">
+<section id="noncommercial-faq" class="usa-section usa-content usa-layout-docs">
   <div class="usa-grid">
-    <div class="usa-width-one-third">
-      &nbsp;
-      <ul id="temp-outfitter-nav" class="usa-sidenav-list">
-        <li>
-          <a class="usa-current">
-            STEP 1: Applicant information
-          </a>
-        </li>
-        <li>
-          <a class="usa-current">
-            STEP 1: Applicant information
-          </a>
-        </li>
-      </ul>
-    </div>
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      <app-sidebar [items]="[{'sectionName': 'test', 'sectionId': 'testId'},{'sectionName': 'test2', 'sectionId': 'testId2'}]"></app-sidebar>
+    </aside>
     <div class="usa-width-two-thirds ">
       <h1>Temporary outfitters permit information</h1>
 
@@ -40,7 +28,7 @@
         <li>Not appealable</li>
       </ul>
 
-      <h2>Applicants</h2>
+      <h2 id="testId">Applicants</h2>
       <ul>
         <li>Applicants must be qualified to provide the proposed service, possessing required state licenses and adequate liability insurance.</li>
         <li>Final determination of qualifications is made on the Mt. Baker-Snoqualmie National Forest.</li>
@@ -82,7 +70,7 @@
 
       <p>A flat fee is charged for a fixed amount of use. However, there may be additional costs based on your activity.</p>
 
-      <table class="faq-table">
+      <table class="faq-table" id="testId2">
         <tr>
           <th>Number of service days</th>
           <th>Flat fee</th>

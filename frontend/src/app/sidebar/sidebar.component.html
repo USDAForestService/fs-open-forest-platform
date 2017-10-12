@@ -1,0 +1,7 @@
+&nbsp;
+<ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+  <li class="usa-current" *ngFor="let item of items">
+    <a [ngClass]="{'usa-current': currentSection && currentSection === item.sectionId}"
+      href="#" (click)="gotoHashtag(item.sectionId, $event)">{{item.sectionName}}</a>
+  </li>
+</ul>
