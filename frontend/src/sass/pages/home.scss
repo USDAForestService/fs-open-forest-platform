@@ -3,6 +3,10 @@
 section#home {
   text-align: center;
 
+  ul {
+    text-align: left;
+  }
+
   .wrapper {
     background-position: top;
     color: white;
@@ -43,13 +47,13 @@ section#home {
       min-height: 450px;
     }
     @media (min-width: 650px) {
-      min-height: 400px;
+      min-height: 425px;
     }
     @media (min-width: 760px) {
       min-height: 300px;
     }
     @media (min-width: 1100px) {
-      min-height: 250px;
+      min-height: 270px;
     }
     a {
       color: $white;
