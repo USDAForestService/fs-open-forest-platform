@@ -8,7 +8,7 @@ import { UtilService } from '../../_services/util.service';
 })
 export class NoncommercialLearnMoreComponent {
   items: any;
-  constructor(private util: UtilService) {
+  constructor(public util: UtilService) {
     this.items = [
       {
         sectionName: 'Who  has to get a permit under the regulation?',
@@ -34,12 +34,18 @@ export class NoncommercialLearnMoreComponent {
       {
         sectionName: 'Evaluation process',
         sectionCopy: `
-        <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity and will be evaluated by the Forest Service within 48 hours of receipt. Otherwise, they are deemed granted. All permit applications will be evaluated using the same criteria, regardless of the content of the event or gathering.</p>
+        <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity
+        and will be evaluated by the Forest Service within 48 hours of receipt. Otherwise,
+        they are deemed granted. All permit applications will be evaluated using the same criteria,
+        regardless of the content of the event or gathering.</p>
 
-<p>A permit can be denied only if it does not meet the evaluation criteria, primarily if it violates public safety or public health laws or regulations. If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
+        <p>A permit can be denied only if it does not meet the evaluation criteria,
+        primarily if it violates public safety or public health laws or regulations.
+        If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
 
-<p>For more information about non-commercial group use and regulations, visit our FAQ page: <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml" target="_blank">https://www.fs.fed.us/specialuses/special_non_com_uses.shtml</a>
-</p>`
+        <p>For more information about non-commercial group use and regulations, visit our FAQ page:
+        <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml" target="_blank">https://www.fs.fed.us/specialuses/special_non_com_uses.shtml</a>
+        </p>`
       }
     ];
   }

@@ -12,7 +12,7 @@ export class SidebarComponent implements OnInit {
   top: string;
   position: string;
 
-  constructor(private util: UtilService) {}
+  constructor(public util: UtilService) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
