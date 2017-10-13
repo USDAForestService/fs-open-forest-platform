@@ -1,0 +1,18 @@
+.progress-wrapper {
+  background: rgba($fs-tan, 0.9);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  .progress-inner {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    top: 40%;
+    width: 80%;
+  }
+}

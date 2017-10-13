@@ -25,6 +25,8 @@ export class TemporaryOutfittersComponent implements DoCheck {
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
   pointOfView = 'We';
+  fileUploadProgress: number;
+  numberOfFiles: number;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -67,15 +69,38 @@ export class TemporaryOutfittersComponent implements DoCheck {
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [alphanumericValidator()]],
-        advertisingURL: ['', [Validators.pattern('https?://.+')]],
+        advertisingURL: ['', [Validators.required, Validators.pattern('https?://.+')]],
+        noPromotionalWebsite: [''],
         clientCharges: ['', [Validators.required, alphanumericValidator()]],
         experienceList: ['', [alphanumericValidator()]]
       })
     });
 
+    this.applicationForm.get('tempOutfitterFields.noPromotionalWebsite').valueChanges.subscribe(value => {
+      this.advertisingRequirementToggle(
+        value,
+        this.applicationForm.get('tempOutfitterFields.advertisingURL'),
+        this.applicationForm.get('tempOutfitterFields.advertisingDescription')
+      );
+    });
+
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.orgTypeChange(type);
     });
+  }
+
+  advertisingRequirementToggle(value, advertisingUrl, advertisingDescription) {
+    if (value) {
+      advertisingDescription.setValidators([Validators.required, alphanumericValidator()]);
+      advertisingDescription.updateValueAndValidity();
+      advertisingUrl.setValidators([alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.updateValueAndValidity();
+    } else {
+      advertisingUrl.setValidators([Validators.required, alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.updateValueAndValidity();
+      advertisingDescription.setValidators(null);
+      advertisingDescription.updateValueAndValidity();
+    }
   }
 
   orgTypeChange(type): void {
@@ -121,9 +146,10 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   matchUrls(): void {
-    const value = this.applicationForm.get('applicantInfo.website').value;
+    const website = this.applicationForm.get('applicantInfo.website');
+    const value = website.value;
     const url = this.applicationForm.get('tempOutfitterFields.advertisingURL').value;
-    if (value.trim().length > 0 && url.trim().length === 0) {
+    if (value.trim().length > 0 && url.trim().length === 0 && website.valid) {
       // Reproduce the url typed into the website input into the advertising url input
       // if the advertising url is empty
       this.applicationForm.get('tempOutfitterFields.advertisingURL').setValue(value);
@@ -146,6 +172,14 @@ export class TemporaryOutfittersComponent implements DoCheck {
 
   onSubmit() {
     this.submitted = true;
+    this.numberOfFiles = this.applicationFieldsService.parseNumberOfFilesToUpload([
+      this.applicationForm.get('applicantInfo.goodStandingEvidence'),
+      this.applicationForm.controls.guideIdentification,
+      this.applicationForm.controls.operatingPlan,
+      this.applicationForm.controls.liabilityInsurance,
+      this.applicationForm.controls.acknowledgementOfRisk
+    ]);
+
     this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
@@ -158,7 +192,6 @@ export class TemporaryOutfittersComponent implements DoCheck {
             this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
             this.uploadFiles = true;
-            this.filesUploaded = true;
           },
           (e: any) => {
             this.apiErrors = e;
@@ -182,8 +215,12 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    if (this.filesUploaded) {
-      this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+    if (this.uploadFiles) {
+      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles);
+      if (this.applicationFieldsService.getNumberOfFiles() === 0) {
+        this.uploadFiles = false;
+        this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+      }
     }
   }
 }

@@ -83,9 +83,6 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   ngOnChanges() {
     let field = null;
     switch (this.currentSection) {
-      case 'section-advertising':
-        field = this.applicationForm.controls.tempOutfitterFields.controls.advertisingURL;
-        break;
       case 'section-guide-identification':
         field = this.applicationForm.controls.guideIdentification;
         break;

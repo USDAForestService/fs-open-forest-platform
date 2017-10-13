@@ -34,10 +34,16 @@
         [attr.aria-current]="currentSection && currentSection === 'section-advertising' ? 'step' : null"
         >
         STEP 3: Advertising
-        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid'">
+        <span class="status-icon valid" *ngIf="
+          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid' &&
+          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingDescription) === 'ng-valid'
+        ">
           <img src="/assets/img/checkmark.svg" alt="Section advertising is valid" />
         </span>
-        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-invalid'">
+        <span class="status-icon invalid" *ngIf="
+          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-invalid' || 
+          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingDescription) === 'ng-invalid'
+        ">
           <img src="/assets/img/error-icon.svg" alt="Section advertising is invalid" />
         </span>
       </a>
