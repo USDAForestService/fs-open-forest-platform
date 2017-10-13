@@ -77,11 +77,11 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
     element(by.id('description-of-cleanup-and-restoration')).sendKeys('test');
-    element(by.id('advertising-description')).sendKeys('test');
     element(by.id('advertising-url')).sendKeys('http://test.com');
     element(by.id('client-charges')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
+    browser.sleep(5000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 
@@ -139,8 +139,8 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('need-assigned-site-label')).click();
     element(by.id('statement-of-assigned-site')).sendKeys('test');
     element(by.id('description-of-cleanup-and-restoration')).sendKeys('test');
+    element(by.id('no-promotional-website-label')).click();
     element(by.id('advertising-description')).sendKeys('test');
-    element(by.id('advertising-url')).sendKeys('http://test.com');
     element(by.id('client-charges')).sendKeys('test');
     element(by.id('have-national-forest-permits-label')).click();
     element(by.id('list-all-national-forest-permits')).sendKeys('test');
@@ -150,6 +150,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('list-all-citations')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
+    browser.sleep(5000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 });
