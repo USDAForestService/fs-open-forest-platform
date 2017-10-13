@@ -8,7 +8,7 @@ import { UtilService } from '../../_services/util.service';
 })
 export class TemporaryOutfittersLearnMoreComponent {
   items: any;
-  constructor(private util: UtilService) {
+  constructor(public util: UtilService) {
     this.items = [
       {
         sectionName: 'A temporary use permit is',
