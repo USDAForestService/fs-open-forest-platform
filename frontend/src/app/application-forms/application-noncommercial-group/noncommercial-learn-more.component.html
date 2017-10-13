@@ -1,0 +1,19 @@
+<section id="sidebar-page" class="usa-section usa-content">
+  <div class="usa-grid">
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      <app-sidebar [items]="items"></app-sidebar>
+    </aside>
+    <div class="usa-width-two-thirds sidebar-page-main-content">
+      <h1>Noncommercial group use information</h1>
+      <p>A non-commercial permit is needed for any activity involving a group of 75 or
+more people on National Forest Service land where there is no participant fee
+charged, and where there is no sale of goods or services. Examples include:
+weddings, religious gatherings, races, regattas, camping trips, hikes, music
+festivals, rallies and graduations.</p>
+      <ng-container *ngFor="let item of items">
+        <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
+        <div [innerHtml]="item.sectionCopy"></div>
+      </ng-container>
+    </div>
+  </div>
+</section>

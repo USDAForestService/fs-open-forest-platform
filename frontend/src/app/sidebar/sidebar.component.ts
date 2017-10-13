@@ -39,8 +39,10 @@ export class SidebarComponent implements OnInit {
   }
 
   gotoHashtag(fragment: string, event) {
-    this.util.gotoHashtag(fragment, event, this.currentSection);
+    this.util.gotoHashtag(fragment, event);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.util.setCurrentSection('');
+  }
 }

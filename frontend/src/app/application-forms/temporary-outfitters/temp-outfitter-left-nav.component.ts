@@ -72,7 +72,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   }
 
   gotoHashtag(fragment: string, event) {
-    this.util.gotoHashtag(fragment, event, this.currentSection);
+    this.currentSection = this.util.gotoHashtag(fragment, event);
   }
 
   ngOnChanges() {

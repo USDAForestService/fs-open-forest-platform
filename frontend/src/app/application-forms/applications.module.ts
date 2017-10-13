@@ -16,7 +16,7 @@ import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
-import { NoncommercialFaqComponent } from './application-noncommercial-group/noncommercial-faq.component';
+import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
@@ -25,9 +25,8 @@ import { SmallBusinessComponent } from './fields/small-business.component';
 import { SharedModule } from './../_shared/shared.module';
 import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-outfitters.component';
 import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
-import { TemporaryOutfittersFaqComponent } from './temporary-outfitters/temporary-outfitters-faq.component';
+import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/temporary-outfitters-learn-more.component';
 import { WebsiteComponent } from './fields/website.component';
-import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
 
 @NgModule({
@@ -44,7 +43,7 @@ import 'intersection-observer';
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
-    NoncommercialFaqComponent,
+    NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
@@ -53,7 +52,7 @@ import 'intersection-observer';
     SmallBusinessComponent,
     TemporaryOutfittersComponent,
     TempOutfitterLeftNavComponent,
-    TemporaryOutfittersFaqComponent,
+    TemporaryOutfittersLearnMoreComponent,
     WebsiteComponent
   ],
   exports: [
@@ -69,7 +68,7 @@ import 'intersection-observer';
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
-    NoncommercialFaqComponent,
+    NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
@@ -78,10 +77,10 @@ import 'intersection-observer';
     SmallBusinessComponent,
     TemporaryOutfittersComponent,
     TempOutfitterLeftNavComponent,
-    TemporaryOutfittersFaqComponent,
+    TemporaryOutfittersLearnMoreComponent,
     WebsiteComponent
   ],
-  imports: [FileUploadModule, SharedModule, InViewportModule.forRoot()],
+  imports: [FileUploadModule, SharedModule],
   providers: [ApplicationFieldsService]
 })
 export class ApplicationsModule {}
