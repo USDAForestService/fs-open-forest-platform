@@ -89,7 +89,7 @@ locations at its discretion.</p>
       {
         sectionName: 'Costs',
         sectionCopy: `
-        <p>Cost chart</p>
+        <h3>Cost chart</h3>
         <table class="faq-table">
           <tr>
             <th>Number of service days</th>
@@ -133,7 +133,7 @@ dates are months ahead of the permit period to allow applicants plenty of lead
 time to advertise and prepare for the trips. In the event there are unallocated
 days left over after the lottery, additional permits may be issued on a first-come,
 first-served basis.</p>
-        <p>For more information on Forest service outfitter and guide policies and
+        <p>For more information on Forest Service outfitter and guide policies and
 regulations, visit the national website.</p>
         `
       }
