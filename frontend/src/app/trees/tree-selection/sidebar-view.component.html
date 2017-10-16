@@ -1,0 +1,31 @@
+<section id="sidebar-page" class="usa-section usa-content">
+  <div class="usa-grid">
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      &nbsp;
+      <ul id="sidebar-nav" class="usa-sidenav-list">
+        <li *ngFor="let item of treeInfo">
+          <a href="#">{{ item.title }}</a>
+          <ul *ngIf="item.subsections" class="usa-sidenav-sub_list">
+            <li *ngFor="let subsection of item.subsections">
+              <a href="#">{{ subsection.title }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <div class="usa-width-two-thirds sidebar-page-main-content">
+      <h1>2017 Christmas tree permit requirements</h1>
+
+      <ng-container *ngFor="let item of treeInfo">
+        <h2>{{ item.title}}</h2>
+        <div [innerHtml]="item.content"></div>
+        <ng-container *ngIf="item.subsections">
+          <ng-container *ngFor="let subsection of item.subsections">
+            <h3>{{ subsection.title}}</h3>
+            <div [innerHtml]="subsection.content"></div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</section>

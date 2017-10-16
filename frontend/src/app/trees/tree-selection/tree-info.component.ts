@@ -8,17 +8,25 @@ import { TreesService } from '../_services/trees.service';
 })
 export class TreeInfoComponent implements OnInit {
   template: string;
+  forest: any;
+  treeInfo: any;
+
   id: any;
+  district: number;
+  region: number;
+  forestName: string;
   treeHeight: number; //feet
   stumpHeight: number; //inches
   stumpDiameter: number; //inches
+  startDate: any;
+  endDate: any;
+
   species: any; // array of species with identifier, description, status
-  tree: any;
 
   constructor(private route: ActivatedRoute, private service: TreesService) {}
 
   getTree(id) {
-    this.tree = this.service.getOne(id).then(tree => (this.tree = tree));
+    this.forest = this.service.getOne(id).then(forest => (this.forest = forest));
   }
 
   ngOnInit() {
@@ -28,5 +36,6 @@ export class TreeInfoComponent implements OnInit {
     });
 
     this.getTree(this.id);
+    this.treeInfo = this.service.getTreeInfo();
   }
 }
