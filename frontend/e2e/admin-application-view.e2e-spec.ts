@@ -2,7 +2,7 @@ import { AdminApplicationView } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-describe('Apply for a temp outfitters permit', () => {
+describe('Admin applications page', () => {
   let page: AdminApplicationView;
 
   beforeEach(() => {

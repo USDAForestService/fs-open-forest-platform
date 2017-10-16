@@ -43,7 +43,7 @@ class TestComponentWrapperComponent {
   application: any;
 
   constructor() {
-    this.application = { type: 'noncommercial', status: 'Received' };
+    this.application = { type: 'noncommercial', status: 'Submitted' };
   }
 }
 

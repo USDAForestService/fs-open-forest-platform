@@ -78,8 +78,8 @@ describe('PermitApplicationViewComponent', () => {
     expect(component.reasonOrCancel.buttonClass).toEqual('usa-button');
   });
 
-  it('provideReasonOrCancel should set button text on Returned', () => {
-    component.provideReasonOrCancel('Returned');
+  it('provideReasonOrCancel should set button text on Rejected', () => {
+    component.provideReasonOrCancel('Rejected');
     expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-secondary');
   });
 
@@ -97,7 +97,7 @@ describe('PermitApplicationViewComponent', () => {
     const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
     component.handleUpdateResponse('Accepted');
     component.handleUpdateResponse('Hold');
-    component.handleUpdateResponse('Returned');
+    component.handleUpdateResponse('Rejected');
     expect(alertSpy.calledThrice).toBeTruthy();
   });
 });
@@ -133,5 +133,4 @@ class MockApplicationService {
   isAdmin() {
     return true;
   }
-
 }

@@ -25,13 +25,6 @@ module.exports = {
       type: 'string'
     },
     dayPhone: { $ref: '/phoneNumber' },
-    anyOf: [
-      { eveningPhone: { $ref: '/phoneNumber' } },
-      { secondaryAddress: { $ref: '/address' } },
-      { organizationAddress: { $ref: '/address' } },
-      { primaryAddress: { $ref: '/address' } },
-      { faxNumber: { $ref: '/phoneNumber' } }
-    ],
     emailAddress: {
       default: '',
       pattern:

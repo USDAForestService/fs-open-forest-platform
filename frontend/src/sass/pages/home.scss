@@ -3,6 +3,10 @@
 section#home {
   text-align: center;
 
+  ul {
+    text-align: left;
+  }
+
   .wrapper {
     background-position: top;
     color: white;
@@ -39,20 +43,24 @@ section#home {
 
   .option-content-one-half {
     height: auto;
-    @media(min-width: 600px) {
+    @media (min-width: 600px) {
       min-height: 450px;
     }
-    @media(min-width: 650px) {
-      min-height: 400px;
+    @media (min-width: 650px) {
+      min-height: 425px;
     }
-    @media(min-width: 760px) {
+    @media (min-width: 760px) {
       min-height: 300px;
     }
-    @media(min-width: 1100px) {
-      min-height: 250px;
+    @media (min-width: 1100px) {
+      min-height: 270px;
     }
     a {
       color: $white;
     }
+  }
+
+  .learn-more-link {
+    color: $white;
   }
 }
