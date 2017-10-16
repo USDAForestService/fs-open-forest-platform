@@ -1,0 +1,23 @@
+<section id="sidebar-page" class="usa-section usa-content" *ngIf="template === 'sidebar'">
+  <div class="usa-grid">
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      &nbsp;
+      <ul id="sidebar-nav" class="usa-sidenav-list">
+        <li><a href="#">Item</a></li>
+      </ul>
+    </aside>
+    <div class="usa-width-two-thirds sidebar-page-main-content">
+      <h1>HI {{tree.id }}</h1>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="usa-section" *ngIf="template === 'wizard'">
+  <div class="usa-grid">
+    <div class="usa-width-one-whole description">
+      <h1>HI {{tree.id }}</h1>
+    </div>
+  </div>
+</section>
