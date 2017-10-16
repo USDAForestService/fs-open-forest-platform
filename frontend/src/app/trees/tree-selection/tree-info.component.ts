@@ -15,9 +15,9 @@ export class TreeInfoComponent implements OnInit {
   district: number;
   region: number;
   forestName: string;
-  treeHeight: number; //feet
-  stumpHeight: number; //inches
-  stumpDiameter: number; //inches
+  treeHeight: number; // feet
+  stumpHeight: number; // inches
+  stumpDiameter: number; // inches
   startDate: any;
   endDate: any;
 
