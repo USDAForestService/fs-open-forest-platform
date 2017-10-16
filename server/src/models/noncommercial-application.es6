@@ -246,7 +246,7 @@ module.exports = sequelize.define(
     },
     status: {
       type: Sequelize.STRING,
-      defaultValue: 'Received',
+      defaultValue: 'Submitted',
       field: 'status'
     },
     signature: {

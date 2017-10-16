@@ -20,6 +20,7 @@ export class PermitApplicationListComponent implements OnInit {
   isAdmin: boolean;
   userType: string;
   holdText: string;
+  reviewText: string;
 
   constructor(
     private applicationService: ApplicationService,
@@ -32,8 +33,10 @@ export class PermitApplicationListComponent implements OnInit {
     if (this.isAdmin) {
       this.warningMessage = 'You have one or more applications in the system that require immediate attention.';
       this.holdText = 'Hold';
+      this.reviewText = 'Review';
     } else {
-      this.holdText = 'On Hold';
+      this.holdText = 'On hold';
+      this.reviewText = 'In review';
       this.warningMessage = 'Applications with an ON HOLD status require additional information';
     }
   }
