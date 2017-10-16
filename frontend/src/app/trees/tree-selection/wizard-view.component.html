@@ -1,0 +1,37 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <div class="usa-width-one-whole description">
+      <h1>2017 Christmas tree permit requirements</h1>
+      <div *ngFor="let item of treeInfo">
+        <ng-container *ngIf="currentStep === item.step">
+          <div class="wizard-step-header grid">
+            <div class="usa-width-one-third">
+              <h2>{{ item.title }}</h2>
+            </div>
+            <div class="usa-width-two-thirds">
+              <div class="step" *ngFor="let item of treeInfo">
+                <span [ngClass]="{'current': item.step === currentStep}">
+                  {{ item.step }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="wizard-step-content grid">
+            <div class="usa-width-one-whole">
+              <div [innerHtml]="item.content"></div>
+              <ng-container *ngFor="let subsection of item.subsections">
+                <h3>{{ subsection.title}}</h3>
+                <div [innerHtml]="subsection.content"></div>
+              </ng-container>
+
+              <div class="prev-next-buttons">
+                <button (click)="previousStep()" *ngIf="currentStep !== 1">Previous</button>
+                <button (click)="nextStep()" *ngIf="currentStep !== numberOfSteps">Next</button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
