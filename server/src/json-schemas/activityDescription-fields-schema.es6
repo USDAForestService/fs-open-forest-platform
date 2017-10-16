@@ -55,5 +55,6 @@ module.exports = {
       default: '0',
       type: 'string'
     }
-  }
+  },
+  required: ['dateTimeRange']
 };

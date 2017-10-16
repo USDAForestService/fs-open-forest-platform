@@ -23,6 +23,7 @@ import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialDetailsComponent } from './applications/permit-application-view/noncommercial-details.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
+import { RevisionHistoryComponent } from './applications/revision/revision-history.component';
 import { SharedModule } from './_shared/shared.module';
 import { SortArray } from './_pipes/sort-array.pipe';
 import { SpacesToDashesPipe } from './_pipes/spaces-to-dashes.pipe';
@@ -48,6 +49,7 @@ import { UtilService } from './_services/util.service';
     NoncommercialDetailsComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
+    RevisionHistoryComponent,
     SortArray,
     SpacesToDashesPipe,
     StatusComponent,

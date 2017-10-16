@@ -26,7 +26,6 @@ import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-o
 import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
 import { TemporaryOutfittersFaqComponent } from './temporary-outfitters/temporary-outfitters-faq.component';
 import { WebsiteComponent } from './fields/website.component';
-
 import { InViewportModule } from 'ng-in-viewport';
 import 'intersection-observer';
 
