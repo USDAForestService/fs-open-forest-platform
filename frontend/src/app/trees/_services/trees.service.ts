@@ -21,13 +21,20 @@ export class TreesService {
         treeHeight: 12,
         stumpHeight: 6,
         stumpDiameter: 6,
-        notes: 'There must be another tree of similar size free to grow within 8 feet of the one you cut. Cutting the top of a standing tree is prohibited.',
+        notes:
+          'There must be another tree of similar size free to grow within 8 feet of the one you cut. Cutting the top of a standing tree is prohibited.',
         startDate: '2017-11-01T00:00:00.000Z',
         endDate: '2017-12-24T00:00:00.000Z',
         species: [
           { id: '1', name: 'Noble Fir', description: 'short thick needles', photos: 'url', status: 'Recommended' },
           { id: '2', name: 'Pacific Yew', description: 'short flat needles', photos: 'url', status: 'Prohibited' },
-          { id: '3', name: 'Hemlock', description: 'Browns quickly and loses needles even if put in water quickly.', photos: 'url', status: 'Not Recommended' }
+          {
+            id: '3',
+            name: 'Hemlock',
+            description: 'Browns quickly and loses needles even if put in water quickly.',
+            photos: 'url',
+            status: 'Not Recommended'
+          }
         ] // Status is in join table
       });
     });
@@ -50,30 +57,29 @@ export class TreesService {
 
   getSectionInfo() {
     return [
-      { step: 1, title: 'General Guidelines', content: `<p>General Guidelines</p>` },
+      { step: 0, title: 'General Guidelines', content: `<p>General Guidelines</p>` },
       {
-        step: 2,
+        step: 1,
         title: 'Tree selection',
         content: `There are several steps to finding and harvesting your tree.`,
         subsections: [
-          { step: 1, title: 'Types of trees', componentName: 'tree-selection', content: '<p>Content goes here</p>' },
-          { step: 2, title: 'Finding your tree', content: '<p>Content goes here</p>' }
+          { step: 0, title: 'Choosing your tree', content: '<p>Content goes here</p>' },
+          { step: 1, title: 'Types of trees', componentName: 'tree-selection', content: '<p>Content goes here</p>' }
         ]
       },
       {
-        step: 3,
+        step: 2,
         title: 'Cutting instructions',
         content: `Content goes here`,
         subsections: [
-          { step: 1, title: 'Cutting/cleanup', content: '<p>Content goes here</p>' },
-          { step: 2, title: 'Tools', content: '<p>Content goes here</p>' },
-          { step: 3, title: 'Measurements', content: '<p>Content goes here</p>' },
-          { step: 4, title: 'Cutting/cleanup', content: '<p>Content goes here</p>' }
+          { step: 0, title: 'Cutting and cleanup', content: '<p>Content goes here</p>' },
+          { step: 1, title: 'Tools', content: '<p>Content goes here</p>' },
+          { step: 2, title: 'Measurements', content: '<p>Content goes here</p>' }
         ]
       },
-      { step: 4, title: 'Trip planning', content: `<p>Content goes here</p>` },
-      { step: 5, title: 'Safety first', content: `<p>Content goes here</p>` },
-      { step: 6, title: 'Contact information', content: `<p>Content goes here</p>` }
+      { step: 3, title: 'Trip planning', content: `<p>Content goes here</p>` },
+      { step: 4, title: 'Safety first', content: `<p>Content goes here</p>` },
+      { step: 5, title: 'Contact information', content: `<p>Content goes here</p>` }
     ];
   }
 }

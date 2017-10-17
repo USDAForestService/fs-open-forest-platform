@@ -3,30 +3,57 @@
     <div class="usa-width-one-whole description">
       <h1>2017 Christmas tree permit requirements</h1>
       <div *ngFor="let item of sectionInfo">
-        <ng-container *ngIf="currentStep === item.step">
+        <ng-container *ngIf="currentStep.step === item.step">
           <div class="wizard-step-header grid">
             <div class="usa-width-one-third">
               <h2>{{ item.title }}</h2>
             </div>
-            <div class="usa-width-two-thirds">
-              <div class="step" *ngFor="let item of sectionInfo">
-                <span [ngClass]="{'current': item.step === currentStep}">
-                  {{ item.step }}
+            <div class="usa-width-two-thirds align-right">
+              <span class="step" *ngFor="let item of sectionInfo">
+                <span class="usa-button" (click)="jumpToStep(item)" [ngClass]="{'usa-button-inverse': item.step === currentStep.step}">
+                  {{ item.step + 1 }}
                 </span>
-              </div>
+              </span>
             </div>
           </div>
           <div class="wizard-step-content grid">
             <div class="usa-width-one-whole">
-              <div [innerHtml]="item.content"></div>
-              <ng-container *ngFor="let subsection of item.subsections">
-                <h3>{{ subsection.title}}</h3>
-                <div [innerHtml]="subsection.content"></div>
-              </ng-container>
-
-              <div class="prev-next-buttons">
-                <button (click)="previousStep()" *ngIf="currentStep !== 1">Previous</button>
-                <button (click)="nextStep()" *ngIf="currentStep !== numberOfSteps">Next</button>
+              <div *ngIf="currentStep.step === 0">
+                General information
+              </div>
+              <div *ngIf="currentStep.step === 1">
+                Tree selection info
+                <div *ngIf="currentSubsection.step === 0">
+                  <app-tree-selection [forest]="forest"></app-tree-selection>
+                </div>
+                <div *ngIf="currentSubsection.step === 1">
+                  Types of trees
+                </div>
+              </div>
+              <div *ngIf="currentStep.step === 2">
+                <app-tree-cutting [forest]="forest"></app-tree-cutting>
+                <div *ngIf="currentSubsection.step === 0">
+                  <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
+                </div>
+                <div *ngIf="currentSubsection.step === 1">
+                  tools
+                </div>
+                <div *ngIf="currentSubsection.step === 2">
+                 Measurements
+                </div>
+              </div>
+              <div *ngIf="currentStep.step === 3">
+                Trip planning
+              </div>
+              <div *ngIf="currentStep.step === 4">
+                Safety first
+              </div>
+              <div *ngIf="currentStep.step === 5">
+                contact info
+              </div>
+              <div class="prev-next-buttons align-right">
+                <button class="usa-button" (click)="previousStep()" [disabled]="currentStep.step === 0">Previous</button>
+                <button class="usa-button" (click)="nextStep()" [disabled]="currentStep.step === numberOfSteps - 1">Next</button>
               </div>
             </div>
           </div>
