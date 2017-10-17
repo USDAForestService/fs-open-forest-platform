@@ -50,6 +50,7 @@
               [applicationId]="applicationId"
               [checkFileUploadHasError]="submitted"
               [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
+              (uploadFailed)="uploadFailed($event)"
               required="true"></app-file-upload-field>
           </div>
 
@@ -99,6 +100,7 @@
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.guideIdentification"
+            (uploadFailed)="uploadFailed($event)"
             allowXls="true"
             ></app-file-upload-field>
 
@@ -118,6 +120,7 @@
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
+            (uploadFailed)="uploadFailed($event)"
             [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
         </fieldset>
 
@@ -134,6 +137,7 @@
             [applicationId]="applicationId"
             required="true"
             [checkFileUploadHasError]="submitted"
+            (uploadFailed)="uploadFailed($event)"
             [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
         </fieldset>
 
@@ -149,6 +153,7 @@
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
+            (uploadFailed)="uploadFailed($event)"
             [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
         </fieldset>
 
@@ -177,4 +182,4 @@
     </div>
   </div>
 </section>
-<app-progress *ngIf="uploadFiles" [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress"></app-progress>
+<app-progress *ngIf="showFileUploadProgress" [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>

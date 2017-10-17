@@ -18,6 +18,8 @@ export class FileUploadComponent implements OnChanges, OnInit {
   @Input() field: FormControl;
   @Input() allowXls: boolean;
 
+  @Output() uploadFailed: EventEmitter<any> = new EventEmitter<any>();
+
   allowedMimeType = [
     'application/msword',
     'application/pdf',
@@ -40,6 +42,12 @@ export class FileUploadComponent implements OnChanges, OnInit {
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) =>
       this.onCompleteItem(item, response, status, headers);
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) =>
+      this.onErrorItem(item, response, status, headers);
+  }
+
+  onErrorItem(item, response, status, headers) {
+    this.fieldsService.setFileUploadError(true);
   }
 
   onCompleteItem(item, response, status, headers) {
@@ -97,6 +105,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
   ngOnChanges() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
+      console.log('files uploading');
       this.uploader.uploadAll();
     }
     if (this.checkFileUploadHasError) {

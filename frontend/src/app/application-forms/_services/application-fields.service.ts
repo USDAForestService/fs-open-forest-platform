@@ -5,6 +5,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 @Injectable()
 export class ApplicationFieldsService {
   numberOfFiles: any = 0;
+  fileUploadError: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -130,5 +131,9 @@ export class ApplicationFieldsService {
   getFileUploadProgress(startingNumberOfFiles) {
     const filesRemaining = this.numberOfFiles - 1;
     return startingNumberOfFiles - filesRemaining;
+  }
+
+  setFileUploadError(value: boolean) {
+    this.fileUploadError = value;
   }
 }
