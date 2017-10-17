@@ -6,5 +6,4 @@ import { Component, Input } from '@angular/core';
 })
 export class SidebarViewComponent {
   @Input() forest: any;
-  @Input() treeInfo: any;
 }
