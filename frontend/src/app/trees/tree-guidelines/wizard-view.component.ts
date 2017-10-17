@@ -22,7 +22,7 @@ export class WizardViewComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('wizard-step')) {
-      this.currentStep = parseInt(localStorage.getItem('wizard-step'));
+      this.currentStep = parseInt(localStorage.getItem('wizard-step'), 10);
     } else {
       this.currentStep = 1;
     }
