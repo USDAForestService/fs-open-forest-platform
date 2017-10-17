@@ -19,14 +19,13 @@ if (
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 const forests = require('../models/forests.es6');
-const species = require('../models/tree-species.es6');
+const tree_species = require('../models/tree-species.es6');
 const forests_species = require('../models/forest-species.es6');
 
-forests.hasMany(forests_species);
-forests_species.belongsTo(forests);
+forests.hasMany(forests_species, {foreignKey: 'forestId', sourceKey: 'id'});
+forests_species.belongsTo(forests, {foreignKey: 'forestId', targetKey: 'id'});
 
-species.belongsTo(forests_species);
-forests_species.belongsTo(species);
-
+tree_species.belongsTo(forests_species, {foreignKey: 'id', targetKey: 'speciesId'});
+forests_species.belongsTo(tree_species, {foreignKey: 'speciesId', targetKey: 'id'});
 
 module.exports = forests;
