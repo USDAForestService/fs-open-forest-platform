@@ -45,6 +45,6 @@ module.exports = sequelize.define(
     }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
