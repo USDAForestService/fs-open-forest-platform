@@ -14,6 +14,10 @@ festivals, rallies and graduations.</p>
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>
       </ng-container>
+      <div>
+        <a routerLink="/" class="usa-button">Back to permits</a>
+        <a routerLink="/applications/noncommercial-group-use/new" class="usa-button-inverse usa-button">Noncommercial permit</a>
+      </div>
     </div>
   </div>
 </section>
