@@ -77,7 +77,9 @@ same time.</li>
         <ul>
           <li>Land-based outfitting and guide permits are available throughout the forest, at
 the discretion of District Rangers.</li>
-          <li>River-based guiding permits are currently only available for <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496" target="_blank" aria-label="River-based guiding permit information">select locations</a>.</li>
+          <li>River-based guiding permits are currently only available for
+          <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496" target="_blank"
+          aria-label="River-based guiding permit information">select locations</a>.</li>
           <li>Permit inquiries for other forests should be directed to those forests.</li>
         </ul>
         <p>Information for National Forests within the United States can be
@@ -124,7 +126,10 @@ locations at its discretion.</p>
         sectionName: 'Application due dates',
         sectionCopy: `
         <p>Administration of the temporary permits varies by pool and is specified in the
-lands or river pool permit documents found <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496" target="_blank" aria-label="Click here to view the temporary use permit page on the Forest Service website for Mt. Baker-Snoqualmie that contains information related to lands or river pools">here</a>.</p>
+lands or river pool permit documents found
+<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496"
+target="_blank"
+aria-label="Click here to view the temporary use permit page on the Forest Service website for Mt. Baker-Snoqualmie that contains information related to lands or river pools">here</a>.</p>
         <p>Ideally, there would be plenty of days available to allow all temporary use permits
 to be issued on a first-come, first-served basis. However, some permit pools are
 limited and with high demand, there are simply not enough days to go around. In
@@ -134,7 +139,7 @@ time to advertise and prepare for the trips. In the event there are unallocated
 days left over after the lottery, additional permits may be issued on a first-come,
 first-served basis.</p>
         <p>For more information on Forest Service outfitter and guide policies and
-regulations, visit the <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml" target="_blank" aria-label="Special uses–outfitting and guide links">national website.</p>
+regulations, visit the <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml" target="_blank" aria-label="Special uses–outfitting and guide links">national website.</a></p>
         `
       }
     ];
