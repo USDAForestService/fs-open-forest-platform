@@ -13,7 +13,8 @@ import { SpecialUseApplication } from '../../_models/special-use-application';
 })
 export class TemporaryOutfittersComponent implements DoCheck {
   apiErrors: any;
-  application = new SpecialUseApplication();
+  // application = new SpecialUseApplication();
+  application: any;
   applicationId: number;
   currentSection: any;
   forest = 'Mt. Baker-Snoqualmie National Forest';
@@ -25,7 +26,9 @@ export class TemporaryOutfittersComponent implements DoCheck {
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
   pointOfView = 'We';
+  showFileUploadProgress: boolean = false;
   fileUploadProgress: number;
+  fileUploadError: boolean = false;
   numberOfFiles: number;
 
   dateStatus = {
@@ -43,10 +46,18 @@ export class TemporaryOutfittersComponent implements DoCheck {
     public applicationService: ApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private router: Router,
+    private route: ActivatedRoute,
     public formBuilder: FormBuilder,
     public renderer: Renderer2
   ) {
     this.applicationForm = this.formBuilder.group({
+      appControlNumber: [''],
+      applicationId: [''],
+      authorizingOfficerName: [''],
+      authorizingOfficerTitle: [''],
+      createdAt: [''],
+      authEmail: [''],
+      status: [''],
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
@@ -191,6 +202,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
           persistedApplication => {
             this.application = persistedApplication;
             this.applicationId = persistedApplication.applicationId;
+            this.showFileUploadProgress = true;
             this.uploadFiles = true;
           },
           (e: any) => {
@@ -199,6 +211,11 @@ export class TemporaryOutfittersComponent implements DoCheck {
           }
         );
     }
+  }
+
+  retryFileUpload(event) {
+    console.log('retry executed');
+    this.uploadFiles = true;
   }
 
   elementInView(event) {
@@ -215,10 +232,17 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   ngDoCheck() {
+    //console.log('file upload error status', this.applicationFieldsService.fileUploadError);
+    if (this.applicationFieldsService.fileUploadError) {
+      this.fileUploadError = true;
+      this.uploadFiles = false;
+    }
     if (this.uploadFiles) {
       this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles);
       if (this.applicationFieldsService.getNumberOfFiles() === 0) {
         this.uploadFiles = false;
+        this.showFileUploadProgress = false;
+        this.fileUploadError = false;
         this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
       }
     }
