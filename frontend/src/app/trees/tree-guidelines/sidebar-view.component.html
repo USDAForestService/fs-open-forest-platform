@@ -10,9 +10,6 @@
           <a href="#">Tree selection</a>
           <ul class="usa-sidenav-sub_list">
             <li>
-              <a href="#">Choosing your tree</a>
-            </li>
-            <li>
               <a href="#">Tree species</a>
             </li>
           </ul>
@@ -25,9 +22,6 @@
             </li>
             <li>
               <a href="#">Tools</a>
-            </li>
-            <li>
-              <a href="#">Measurements</a>
             </li>
           </ul>
         </li>
@@ -46,31 +40,17 @@
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>2017 Christmas tree permit requirements</h1>
       <h2>General Guidelines</h2>
-      <div>
-        Res ipsum locquitor... blah blah
-      </div>
+      <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2>Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
-      <h3>Choosing your tree</h3>
-      <div>
-        blah blah
-      </div>
       <h3>Types of trees</h3>
-      <div>
-        blah
-      </div>
+      <app-tree-species [forest]="forest"></app-tree-species>
       <h2>Cutting instructions</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
+      <h3>Tools</h3>
+      <app-tree-tools [forest]="forest"></app-tree-tools>
       <h3>Cutting and clean up</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
-      <h3>Tools</h3>
-      <div>
-        blah
-      </div>
-      <h3>Measurement</h3>
-      <div>
-        blah
-      </div>
       <h2>Trip planning</h2>
       <div>
         Res ipsum locquitor... blah blah
@@ -80,9 +60,7 @@
         Res ipsum locquitor... blah blah
       </div>
       <h2>Contact information</h2>
-      <div>
-        Res ipsum locquitor... blah blah
-      </div>
+      <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
 
 
     </div>
