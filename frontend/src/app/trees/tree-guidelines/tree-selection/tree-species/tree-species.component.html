@@ -1,0 +1,14 @@
+<h4>Prohibited Trees</h4>
+<ng-container *ngFor="let tree of forest.species | status:'prohibited'">
+  {{tree.name}} - {{tree.description}}
+</ng-container>
+<h4>Recommended Trees</h4>
+<ng-container *ngFor="let tree of forest.species | status:'recommended'">
+  {{tree.name}} - {{tree.description}}
+</ng-container>
+<h4>Not Recommended Trees</h4>
+<ng-container *ngFor="let tree of forest.species | status:'not recommended'">
+  {{tree.name}} - {{tree.description}}
+</ng-container>
+
+

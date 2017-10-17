@@ -26,14 +26,14 @@ export class TreesService {
         startDate: '2017-11-01T00:00:00.000Z',
         endDate: '2017-12-24T00:00:00.000Z',
         species: [
-          { id: '1', name: 'Noble Fir', description: 'short thick needles', photos: 'url', status: 'Recommended' },
-          { id: '2', name: 'Pacific Yew', description: 'short flat needles', photos: 'url', status: 'Prohibited' },
+          { id: '1', name: 'Noble Fir', description: 'short thick needles', photos: 'url', status: 'recommended' },
+          { id: '2', name: 'Pacific Yew', description: 'short flat needles', photos: 'url', status: 'prohibited' },
           {
             id: '3',
             name: 'Hemlock',
             description: 'Browns quickly and loses needles even if put in water quickly.',
             photos: 'url',
-            status: 'Not Recommended'
+            status: 'not recommended'
           }
         ] // Status is in join table
       });
@@ -61,15 +61,14 @@ export class TreesService {
       {
         step: 1,
         title: 'Tree selection',
-        subsections: [{ step: 0, title: 'Choosing your tree' }, { step: 1, title: 'Types of trees' }]
+        subsections: [{ step: 0, title: 'Types of trees' }]
       },
       {
         step: 2,
         title: 'Cutting instructions',
         subsections: [
-          { step: 0, title: 'Cutting and cleanup' },
-          { step: 1, title: 'Tools' },
-          { step: 2, title: 'Measurements' }
+          { step: 0, title: 'Tools' },
+          { step: 1, title: 'Cutting and cleanup' }
         ]
       },
       { step: 3, title: 'Trip planning' },
