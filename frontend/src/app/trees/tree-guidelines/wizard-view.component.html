@@ -18,9 +18,11 @@
           </div>
           <div class="wizard-step-content grid">
             <div class="usa-width-one-whole">
+
               <div *ngIf="currentStep.step === 0">
                 General information
               </div>
+
               <div *ngIf="currentStep.step === 1">
                 Tree selection info
                 <div *ngIf="currentSubsection.step === 0">
@@ -29,7 +31,9 @@
                 <div *ngIf="currentSubsection.step === 1">
                   Types of trees
                 </div>
+                Substep {{ currentSubsection.step + 1 }} of {{ currentStep.subsections.length }}
               </div>
+
               <div *ngIf="currentStep.step === 2">
                 <app-tree-cutting [forest]="forest"></app-tree-cutting>
                 <div *ngIf="currentSubsection.step === 0">
@@ -41,16 +45,21 @@
                 <div *ngIf="currentSubsection.step === 2">
                  Measurements
                 </div>
+                Substep {{ currentSubsection.step + 1 }} of {{ currentStep.subsections.length }}
               </div>
+              
               <div *ngIf="currentStep.step === 3">
                 Trip planning
               </div>
+
               <div *ngIf="currentStep.step === 4">
                 Safety first
               </div>
+
               <div *ngIf="currentStep.step === 5">
                 contact info
               </div>
+
               <div class="prev-next-buttons align-right">
                 <button class="usa-button" (click)="previousStep()" [disabled]="currentStep.step === 0">Previous</button>
                 <button class="usa-button" (click)="nextStep()" [disabled]="currentStep.step === numberOfSteps - 1">Next</button>

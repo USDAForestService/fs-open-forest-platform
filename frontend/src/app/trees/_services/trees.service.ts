@@ -57,29 +57,24 @@ export class TreesService {
 
   getSectionInfo() {
     return [
-      { step: 0, title: 'General Guidelines', content: `<p>General Guidelines</p>` },
+      { step: 0, title: 'General Guidelines' },
       {
         step: 1,
         title: 'Tree selection',
-        content: `There are several steps to finding and harvesting your tree.`,
-        subsections: [
-          { step: 0, title: 'Choosing your tree', content: '<p>Content goes here</p>' },
-          { step: 1, title: 'Types of trees', componentName: 'tree-selection', content: '<p>Content goes here</p>' }
-        ]
+        subsections: [{ step: 0, title: 'Choosing your tree' }, { step: 1, title: 'Types of trees' }]
       },
       {
         step: 2,
         title: 'Cutting instructions',
-        content: `Content goes here`,
         subsections: [
-          { step: 0, title: 'Cutting and cleanup', content: '<p>Content goes here</p>' },
-          { step: 1, title: 'Tools', content: '<p>Content goes here</p>' },
-          { step: 2, title: 'Measurements', content: '<p>Content goes here</p>' }
+          { step: 0, title: 'Cutting and cleanup' },
+          { step: 1, title: 'Tools' },
+          { step: 2, title: 'Measurements' }
         ]
       },
-      { step: 3, title: 'Trip planning', content: `<p>Content goes here</p>` },
-      { step: 4, title: 'Safety first', content: `<p>Content goes here</p>` },
-      { step: 5, title: 'Contact information', content: `<p>Content goes here</p>` }
+      { step: 3, title: 'Trip planning' },
+      { step: 4, title: 'Safety first' },
+      { step: 5, title: 'Contact information' }
     ];
   }
 }
