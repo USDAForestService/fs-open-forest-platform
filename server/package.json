@@ -15,17 +15,17 @@
     "jsonwebtoken": "^8.0.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "multer-s3": "^2.7.0",
     "multer": "^1.3.0",
+    "multer-s3": "^2.7.0",
     "node-jose": "^0.9.5",
     "nodemailer": "^4.1.0",
     "openid-client": "^1.13.0",
-    "passport-saml": "^0.15.0",
     "passport": "^0.4.0",
+    "passport-saml": "^0.15.0",
     "pg": "^6.0.0",
     "request-promise": "^4.2.2",
-    "sequelize-cli": "^3.0.0",
     "sequelize": "^4.13.6",
+    "sequelize-cli": "^3.0.0",
     "uuid": "^3.1.0"
   },
   "resolutions": {
@@ -38,8 +38,8 @@
     "chai": "^4.0.2",
     "codecov": "^2.2.0",
     "dev-null": "^0.1.1",
-    "eslint-config-google": "^0.9.1",
     "eslint": "^4.0.0",
+    "eslint-config-google": "^0.9.1",
     "mocha": "^3.5.3",
     "mock-aws": "^1.2.3",
     "mock-require": "^2.0.2",
@@ -53,14 +53,11 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage":
-      "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
+    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
     "dev": "yarn; sequelize db:migrate; nodemon --harmony_default_parameters ./src/app.es6",
-    "lint":
-      "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
+    "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./validation.es6 ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "sequelize db:migrate",
-    "report-coverage":
-      "CODECOV_TOKEN='e61f7ed1-686a-4f48-95b3-02fa7085995e' ./node_modules/nyc/bin/nyc.js report --reporter=lcov > coverage.lcov && codecov",
+    "report-coverage": "CODECOV_TOKEN='e61f7ed1-686a-4f48-95b3-02fa7085995e' ./node_modules/nyc/bin/nyc.js report --reporter=lcov > coverage.lcov && codecov",
     "seed": "sequelize db:seed:all",
     "snyk-test": "snyk test",
     "start": "node --harmony_default_parameters ./src/app.es6",
@@ -72,6 +69,8 @@
     "node": "^6.10.3"
   },
   "nyc": {
-    "extension": [".es6"]
+    "extension": [
+      ".es6"
+    ]
   }
 }
