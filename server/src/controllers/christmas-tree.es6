@@ -9,18 +9,6 @@ const forestSpecies = require('../models/forest-species.es6');
 
 const christmasTree = {};
 
-const translateRegulationsFromClientToDatabase = input => {
-  return {
-    id: input.id,
-    forestName: input.forestName,
-    forestUrl: input.forestUrl,
-    treeHeight: input.treeHeight,
-    stumpHeight: input.stumpHeight,
-    stumpDiamerter: input.stumpDiamerter,
-    notes: input.notes
-  };
-};
-
 const translateRegulationsFromDatabaseToClient = input => {
   return {
     forest: {
@@ -30,7 +18,16 @@ const translateRegulationsFromDatabaseToClient = input => {
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiamerter: input.stumpDiamerter,
-      notes: input.notes
+      notes: input.notes,
+      species: input.forestSpecies.map((species)=>{
+        return {
+          id: species.treeSpecy.id,
+          name: species.treeSpecy.name,
+          description: species.treeSpecy.description,
+          photos: species.treeSpecy.photos,
+          status: species.status,
+        };
+      })
     }
   }; 
 };
@@ -61,7 +58,6 @@ christmasTree.getOneRegulations = (req, res) => {
       }
     })
     .catch(error => {
-      console.log(error)
       res.status(400).json(error);
     });
 };
