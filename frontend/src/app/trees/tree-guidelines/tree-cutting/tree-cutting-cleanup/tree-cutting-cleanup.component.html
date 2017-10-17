@@ -1,0 +1,16 @@
+<div>
+   <ul>
+    <li>
+      Height: {{ forest.treeHeight }}
+    </li>
+    <li>
+      Stump Height: {{ forest.stumpHeight }}
+    </li>
+    <li>
+      <div *ngIf="forest.stumpDiameter">
+        Stump Diameter: {{ forest.stumpDiameter }}
+      </div>
+    </li>
+
+  </ul>
+</div>

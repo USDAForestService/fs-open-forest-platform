@@ -14,7 +14,7 @@ import { PermitApplicationViewComponent } from './applications/permit-applicatio
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersFaqComponent } from './application-forms/temporary-outfitters/temporary-outfitters-faq.component';
-import { TreeInfoComponent } from './trees/tree-selection/tree-info.component';
+import { TreeGuidelinesComponent } from './trees/tree-guidelines/tree-guidelines.component';
 
 const appRoutes: Routes = [
   {
@@ -64,8 +64,8 @@ const appRoutes: Routes = [
     data: { title: 'Temporary outfitters permit FAQs' }
   },
   {
-    path: 'xmas-trees/forests/:id/tree-info/:template',
-    component: TreeInfoComponent,
+    path: 'xmas-trees/forests/:id/tree-guidelines/:template',
+    component: TreeGuidelinesComponent,
     data: { title: 'Christmas tree info' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
