@@ -17,17 +17,20 @@ export class WizardViewComponent implements OnInit {
   previousStep() {
     if (this.currentStep.subsections) {
       if (!this.currentSubsection) {
-        this.currentSubsection = this.findSubsectionStep(this.currentStep, 0);
+        this.currentSubsection = this.findSubsectionStep(this.currentStep, this.currentStep.subsections.length - 1);
       } else {
         this.currentSubsection = this.findSubsectionStep(this.currentStep, this.currentSubsection.step - 1);
         if (!this.currentSubsection) {
           this.currentStep = this.findSectionByStepNumber(this.currentStep.step - 1);
+          if (this.currentStep.subsections) {
+            this.currentSubsection = this.findSubsectionStep(this.currentStep, this.currentStep.subsections.length - 1);
+          }
         }
       }
     } else {
       this.currentStep = this.findSectionByStepNumber(this.currentStep.step - 1);
       if (this.currentStep.subsections) {
-        this.currentSubsection = this.findSubsectionStep(this.currentStep, 0);
+        this.currentSubsection = this.findSubsectionStep(this.currentStep, this.currentStep.subsections.length - 1);
       } else {
         this.currentSubsection = null;
       }
@@ -43,6 +46,9 @@ export class WizardViewComponent implements OnInit {
         this.currentSubsection = this.findSubsectionStep(this.currentStep, this.currentSubsection.step + 1);
         if (!this.currentSubsection) {
           this.currentStep = this.findSectionByStepNumber(this.currentStep.step + 1);
+          if (this.currentStep.subsections) {
+            this.currentSubsection = this.findSubsectionStep(this.currentStep, 0);
+          }
         }
       }
     } else {
