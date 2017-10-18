@@ -1,7 +1,16 @@
 <div class="progress-wrapper" role="alert" aria-live="assertive">
   <div class="progress-inner">
-    <p>Submitting your application.</p>
-    <span class="ds-c-spinner ds-u-fill--background-inverse ds-u-color--base-inverse ds-c-spinner--filled ds-u-valign--middle" aria-valuetext="Loading" role="progressbar"></span>
-    <p>Uploading file {{ fileUploadProgress }} of {{ numberOfFiles }}.</p>
+    <div *ngIf="!fileUploadError">
+      <p>Submitting your application.</p>
+      <span class="ds-c-spinner ds-u-fill--background-inverse ds-u-color--base-inverse ds-c-spinner--filled ds-u-valign--middle" aria-valuetext="Loading" role="progressbar"></span>
+      <p>Uploading file {{ fileUploadProgress }} of {{ numberOfFiles }}.</p>
+    </div>
+    <div *ngIf="fileUploadError"
+      class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Errors occured while uploading files.</h3>
+        <button class="usa-button float-left" (click)="retry()">Retry uploading files.</button>
+      </div>
+    </div>
   </div>
 </div>
