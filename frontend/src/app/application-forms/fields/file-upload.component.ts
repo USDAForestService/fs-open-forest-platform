@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, DoCheck, OnInit, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
@@ -8,7 +8,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
   selector: 'app-file-upload-field',
   templateUrl: './file-upload.component.html'
 })
-export class FileUploadComponent implements OnChanges, OnInit {
+export class FileUploadComponent implements DoCheck, OnInit {
   @Input() applicationId: number;
   @Input() name: string;
   @Input() type: string;
@@ -17,8 +17,6 @@ export class FileUploadComponent implements OnChanges, OnInit {
   @Input() checkFileUploadHasError: boolean;
   @Input() field: FormControl;
   @Input() allowXls: boolean;
-
-  @Output() uploadFailed: EventEmitter<any> = new EventEmitter<any>();
 
   allowedMimeType = [
     'application/msword',
@@ -48,6 +46,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
 
   onErrorItem(item, response, status, headers) {
     this.fieldsService.setFileUploadError(true);
+    item._onBeforeUpload();
   }
 
   onCompleteItem(item, response, status, headers) {
@@ -102,11 +101,12 @@ export class FileUploadComponent implements OnChanges, OnInit {
     document.getElementById(`${this.type}`).click();
   }
 
-  ngOnChanges() {
+  ngDoCheck() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
-      console.log('files uploading');
-      this.uploader.uploadAll();
+      for (const item of this.uploader.queue) {
+        item.upload();
+      }
     }
     if (this.checkFileUploadHasError) {
       if (this.required && !this.uploader.queue[0]) {

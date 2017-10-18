@@ -5,7 +5,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 @Injectable()
 export class ApplicationFieldsService {
   numberOfFiles: any = 0;
-  fileUploadError: boolean = false;
+  fileUploadError = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
