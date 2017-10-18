@@ -26,9 +26,9 @@ export class TemporaryOutfittersComponent implements DoCheck {
   orgTypeFileUpload: boolean;
   applicationForm: FormGroup;
   pointOfView = 'We';
-  showFileUploadProgress: boolean = false;
+  showFileUploadProgress = false;
   fileUploadProgress: number;
-  fileUploadError: boolean = false;
+  fileUploadError = false;
   numberOfFiles: number;
 
   dateStatus = {
@@ -181,8 +181,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
     }
   }
 
-  onSubmit() {
-    this.submitted = true;
+  numberOfFilesToUpload() {
     this.numberOfFiles = this.applicationFieldsService.parseNumberOfFilesToUpload([
       this.applicationForm.get('applicantInfo.goodStandingEvidence'),
       this.applicationForm.controls.guideIdentification,
@@ -190,7 +189,11 @@ export class TemporaryOutfittersComponent implements DoCheck {
       this.applicationForm.controls.liabilityInsurance,
       this.applicationForm.controls.acknowledgementOfRisk
     ]);
+  }
 
+  onSubmit() {
+    this.submitted = true;
+    this.numberOfFilesToUpload();
     this.checkFileUploadValidity();
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
@@ -214,7 +217,9 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   retryFileUpload(event) {
-    console.log('retry executed');
+    this.applicationFieldsService.setFileUploadError(false);
+    this.fileUploadError = false;
+    this.numberOfFilesToUpload();
     this.uploadFiles = true;
   }
 
@@ -232,7 +237,6 @@ export class TemporaryOutfittersComponent implements DoCheck {
   }
 
   ngDoCheck() {
-    //console.log('file upload error status', this.applicationFieldsService.fileUploadError);
     if (this.applicationFieldsService.fileUploadError) {
       this.fileUploadError = true;
       this.uploadFiles = false;
@@ -243,7 +247,17 @@ export class TemporaryOutfittersComponent implements DoCheck {
         this.uploadFiles = false;
         this.showFileUploadProgress = false;
         this.fileUploadError = false;
-        this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+
+        this.application.status = 'Submitted';
+        this.applicationService.update(this.application, 'temp-outfitter').subscribe(
+          (data: any) => {
+            this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scrollTo(0, 200);
+          }
+        );
       }
     }
   }
