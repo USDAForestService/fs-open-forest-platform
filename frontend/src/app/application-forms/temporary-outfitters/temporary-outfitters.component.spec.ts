@@ -245,6 +245,24 @@ describe('TemporaryOutfittersComponent', () => {
     expect(addClassSpy.called).toBeFalsy();
     expect(removeClassSpy.called).toBeTruthy();
   });
+
+  it('should reset file error status on retryFileUpload', () => {
+    component.fileUploadError = true;
+    component.uploadFiles = false;
+    component.applicationFieldsService.setFileUploadError(true);
+    component.retryFileUpload(new Event('click'));
+    expect(component.fileUploadError).toBeFalsy();
+    expect(component.uploadFiles).toBeTruthy();
+    expect(component.applicationFieldsService.fileUploadError).toBeFalsy();
+  });
+
+  it('should trigger doCheck function', () => {
+    component.applicationFieldsService.setFileUploadError(true);
+    component.uploadFiles = true;
+    component.ngDoCheck();
+    expect(component.uploadFiles).toBeFalsy();
+    expect(component.fileUploadError).toBeTruthy();
+  });
 });
 
 class MockApplicationService {
