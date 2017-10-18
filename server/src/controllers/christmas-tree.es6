@@ -4,7 +4,7 @@ const request = require('request');
 
 const vcapConstants = require('../vcap-constants.es6');
 const christmasTreeRegulations = require('../models/forest-regulations.es6');
-const species = require('../models/tree-species.es6');
+const species = require('../models/species.es6');
 const forestSpecies = require('../models/forest-species.es6');
 
 const christmasTree = {};
@@ -14,19 +14,18 @@ const translateRegulationsFromDatabaseToClient = input => {
     forest: {
       id: input.id,
       forestName: input.forestName,
+      description: input.description,
       forestUrl: input.forestUrl,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiameter: input.stumpDiameter,
-      notes: input.notes,
       startDate: input.startDate,
       endDate: input.endDate,
       species: input.forestSpecies.map((species)=>{
         return {
           id: species.treeSpecy.id,
           name: species.treeSpecy.name,
-          description: species.treeSpecy.description,
-          photos: species.treeSpecy.photos,
+          webUrl: species.treeSpecy.webUrl,
           status: species.status,
         };
       })

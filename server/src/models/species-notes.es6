@@ -19,7 +19,7 @@ if (
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 module.exports = sequelize.define(
-  'treeSpecies',
+  'speciesNotes',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -28,33 +28,17 @@ module.exports = sequelize.define(
       field: 'id',
       allowNull: false
     },
-    name: {
-      type: Sequelize.STRING(50),
-      field: 'name',
+    speciesId: {
+      type: Sequelize.INTEGER,
+      field: 'species_id',
       allowNull: false
     },
-    description: {
-      type: Sequelize.STRING(255),
-      field: 'description',
-      allowNull: false
-    },
-    photos: {
-      type: Sequelize.STRING(255),
-      field: 'photos',
-      allowNull: false
-    },
-    createdAt: {
-      type: Sequelize.DATE,
-      field: 'created',
-      allowNull: false
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
-      field: 'updated',
-      allowNull: false
+    note: {
+      type: Sequelize.STRING,
+      field: 'note'
     }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
