@@ -20,7 +20,7 @@
             <div class="usa-width-one-whole">
 
               <div *ngIf="currentStep.step === 0">
-                General information
+                <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
               </div>
 
               <div *ngIf="currentStep.step === 1">
@@ -47,7 +47,7 @@
                 </div>
                 Substep {{ currentSubsection.step + 1 }} of {{ currentStep.subsections.length }}
               </div>
-              
+
               <div *ngIf="currentStep.step === 3">
                 Trip planning
               </div>

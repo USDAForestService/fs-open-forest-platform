@@ -8,25 +8,22 @@ import { TreesService } from '../_services/trees.service';
 })
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
-  forest: any;
-  // sectionInfo: any;
-  //
+  forest = [];
+  errorMessage: string;
   id: any;
-  // district: number;
-  // region: number;
-  // forestName: string;
-  // treeHeight: number; //feet
-  // stumpHeight: number; //inches
-  // stumpDiameter: number; //inches
-  // startDate: any;
-  // endDate: any;
-
-  // species: any; // array of species with identifier, description, status
 
   constructor(private route: ActivatedRoute, private service: TreesService) {}
 
   getForest(id) {
-    this.forest = this.service.getOne(id).then(forest => (this.forest = forest));
+    this.service.getOne(id).subscribe(
+      forest => {
+        this.forest = forest.forest;
+      },
+      (e: any) => {
+        this.errorMessage = 'The application could not be found.';
+        window.scrollTo(0, 200);
+      }
+    );
   }
 
   ngOnInit() {
@@ -36,6 +33,5 @@ export class TreeGuidelinesComponent implements OnInit {
     });
 
     this.getForest(this.id);
-    // this.sectionInfo = this.service.getSectionInfo();
   }
 }
