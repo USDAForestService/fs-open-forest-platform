@@ -18,7 +18,7 @@ module.exports = {
       species_id: {
         allowNull: false,
         references: {
-            model: 'treeSpecies',
+            model: 'species',
             key: 'id',
             as: 'species_id'
         },
@@ -26,7 +26,7 @@ module.exports = {
         onUpdate: 'cascade',
         type: Sequelize.INTEGER
       },
-      status: { type: Sequelize.STRING, allowNull: false, field: 'status' }
+      status: { type: Sequelize.STRING, field: 'status' }
     });
   },
   down: function(queryInterface, Sequelize) {
