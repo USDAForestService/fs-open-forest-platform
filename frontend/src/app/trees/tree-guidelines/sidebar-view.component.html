@@ -2,60 +2,60 @@
   <div class="usa-grid">
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       &nbsp;
-      <ul id="sidebar-nav" class="usa-sidenav-list">
+      <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#">General guidelines</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">General guidelines</a>
         </li>
         <li>
-          <a href="#">Tree selection</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
           <ul class="usa-sidenav-sub_list">
             <li>
-              <a href="#">Tree species</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'types-of-trees'}" (click)="gotoHashtag('types-of-trees', $event)">Tree species</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#">Cutting instructions</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions'}" (click)="gotoHashtag('cutting-instructions', $event)">Cutting instructions</a>
           <ul class="usa-sidenav-sub_list">
             <li>
-              <a href="#">Cutting and clean up</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tools'}" (click)="gotoHashtag('tools', $event)">Tools</a>
             </li>
             <li>
-              <a href="#">Tools</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-and-cleanup'}" (click)="gotoHashtag('cutting-and-cleanup', $event)">Cutting and clean up</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#">Trip planning</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'trip-planning'}" (click)="gotoHashtag('trip-planning', $event)">Trip planning</a>
         </li>
         <li>
-          <a href="#">Safety first</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'safety-first'}" (click)="gotoHashtag('safety-first', $event)">Safety first</a>
         </li>
         <li>
-          <a href="#">Contact information</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact information</a>
         </li>
 
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>2017 Christmas tree permit requirements</h1>
-      <h2>General Guidelines</h2>
+      <h2 id="general-guidlines">General Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
-      <h2>Tree Selection</h2>
+      <h2 id="tree-selection">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
-      <h3>Types of trees</h3>
+      <h3 id="types-of-trees">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
-      <h2>Cutting instructions</h2>
+      <h2 id="cutting-instructions">Cutting instructions</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
-      <h3>Tools</h3>
+      <h3 id="tools">Tools</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
-      <h3>Cutting and clean up</h3>
+      <h3 id="cutting-and-cleanup">Cutting and clean up</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
-      <h2>Trip planning</h2>
+      <h2 id="trip-planning">Trip planning</h2>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
-      <h2>Safety first</h2>
+      <h2 id="safety-first">Safety first</h2>
       <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
-      <h2>Contact information</h2>
+      <h2 id="contact-information">Contact information</h2>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
 
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-view',
@@ -6,4 +6,47 @@ import { Component, Input } from '@angular/core';
 })
 export class SidebarViewComponent {
   @Input() forest: any;
+
+  currentSection: any;
+  bottom: string;
+  top: string;
+  position: string;
+
+  @HostListener('document:scroll', ['$event'])
+  public track(event: Event) {
+    const nav = document.getElementById('sidebar-nav');
+    const container = document.getElementById('sidebar-page');
+    const footer = document.getElementById('footer');
+
+    if (nav) {
+      if (container.getBoundingClientRect().top < 20) {
+        this.top = '40px';
+        this.bottom = 'auto';
+        this.position = 'fixed';
+      } else {
+        this.top = '250px';
+        this.position = 'absolute';
+      }
+
+      if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
+        const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
+        this.top = '-250px';
+        this.position = 'fixed';
+      }
+    }
+  }
+
+  gotoHashtag(fragment: string, event) {
+    event.preventDefault();
+    const element = document.querySelector('#' + fragment);
+    if (element) {
+      element.scrollIntoView();
+      document.getElementById(fragment).focus();
+      this.currentSection = fragment;
+    }
+  }
+
+  ngOnInit() {
+    this.currentSection = '';
+  }
 }
