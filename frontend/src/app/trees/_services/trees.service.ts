@@ -42,7 +42,7 @@ export class TreesService {
       {
         step: 1,
         title: 'Tree selection',
-        subsections: [{ step: 0, title: 'Types of trees' }]
+        subsections: [{ step: 0, title: 'Tree selection' }, { step: 1, title: 'Types of trees' }]
       },
       {
         step: 2,

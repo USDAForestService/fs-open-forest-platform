@@ -1,14 +1,19 @@
-<h4>Prohibited Trees</h4>
-<ng-container *ngFor="let tree of forest.species | status:'prohibited'">
-  {{tree.name}} - {{tree.description}}
-</ng-container>
-<h4>Recommended Trees</h4>
-<ng-container *ngFor="let tree of forest.species | status:'recommended'">
-  {{tree.name}} - {{tree.description}}
-</ng-container>
-<h4>Not Recommended Trees</h4>
-<ng-container *ngFor="let tree of forest.species | status:'not recommended'">
-  {{tree.name}} - {{tree.description}}
-</ng-container>
+<p>For many homes, the holiday season would not be complete without a fresh scented Christmas tree. Although a
+Christmas tree permit allows you to cut anywhere on the National Forest, it can sometimes be difficult to pick the right
+one. Among the more popular trees are true Firs (Noble and Grand), Pine and Douglas-firs. These trees have a more
+“natural” look with than the intensively cultured trees that may come from a tree farm.</p>
 
-
+<p>Let’s take a look at how to identify the recommended and prohibited tree species.</p>
+<div class="tree-speci margin-bottom-4 usa-width-one-whole" *ngFor="let tree of forest.species">
+  <hr>
+  <span class="tree-name"><strong>{{ tree.name }}</strong></span> <span class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
+  <div class="tree-description">
+    <div class="usa-width-two-thirds" [innerHtml]="tree.description">
+    </div>
+    <div class="usa-width-one-third">
+      <img *ngIf="tree.name === 'Noble Fir'" src="/assets/img/noble_fir.jpg" alt="{{ tree.name }}" />
+      <img *ngIf="tree.name === 'Yew'" src="/assets/img/pacific_yew.jpg" alt="{{ tree.name }}" />
+      <img *ngIf="tree.name === 'Spruce'" src="/assets/img/fraser_fir.jpg" alt="{{ tree.name }}" />
+    </div>
+  </div>
+</div>

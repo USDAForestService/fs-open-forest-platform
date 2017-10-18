@@ -16,8 +16,11 @@ export class TreeGuidelinesComponent implements OnInit {
 
   getForest(id) {
     this.service.getOne(id).subscribe(
-      forest => {
-        this.forest = forest.forest;
+      result => {
+        result.forest.species.sort((a, b) => {
+          a.status > b.status;
+        });
+        this.forest = result.forest;
       },
       (e: any) => {
         this.errorMessage = 'The application could not be found.';
