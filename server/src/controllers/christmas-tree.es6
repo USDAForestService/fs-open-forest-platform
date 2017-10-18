@@ -17,7 +17,7 @@ const translateRegulationsFromDatabaseToClient = input => {
       forestUrl: input.forestUrl,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
-      stumpDiamerter: input.stumpDiamerter,
+      stumpDiameter: input.stumpDiameter,
       notes: input.notes,
       startDate: input.startDate,
       endDate: input.endDate,
