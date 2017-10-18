@@ -39,9 +39,8 @@ module.exports = sequelize.define(
       allowNull: false
     },
     status: {
-      type: Sequelize.STRING(255),
-      field: 'status',
-      allowNull: false
+      type: Sequelize.STRING,
+      field: 'status'
     }
   },
   {

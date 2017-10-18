@@ -6,7 +6,7 @@ module.exports = {
       id: { type: Sequelize.INTEGER, primaryKey: true, field: 'id' },
       forestName: { type: Sequelize.STRING(50), field: 'forest_name' },
       description: { type: Sequelize.STRING(1000), field: 'description' },
-      forestUrl: { type: Sequelize.STRING(50), field: 'forest_url' },
+      forestUrl: { type: Sequelize.STRING, field: 'forest_url' },
       treeHeight: { type: Sequelize.INTEGER, field: 'tree_height' },
       stumpHeight: { type: Sequelize.INTEGER, field: 'stump_height' },
       stumpDiameter: { type: Sequelize.INTEGER, field: 'stump_diameter' },
