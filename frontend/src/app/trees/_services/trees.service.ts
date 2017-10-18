@@ -10,34 +10,15 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class TreesService {
+  private endpoint = environment.apiUrl + 'forests/';
+
   constructor(private http: Http, private router: Router) {}
 
   getOne(id) {
-    return new Promise((resolve, reject) => {
-      resolve({
-        id: id,
-        forestName: 'Mount Hood National Forest',
-        forestUrl: 'https://www.fs.usda.gov/mthood',
-        treeHeight: 12,
-        stumpHeight: 6,
-        stumpDiameter: 6,
-        notes:
-          'There must be another tree of similar size free to grow within 8 feet of the one you cut. Cutting the top of a standing tree is prohibited.',
-        startDate: '2017-11-01T00:00:00.000Z',
-        endDate: '2017-12-24T00:00:00.000Z',
-        species: [
-          { id: '1', name: 'Noble Fir', description: 'short thick needles', photos: 'url', status: 'recommended' },
-          { id: '2', name: 'Pacific Yew', description: 'short flat needles', photos: 'url', status: 'prohibited' },
-          {
-            id: '3',
-            name: 'Hemlock',
-            description: 'Browns quickly and loses needles even if put in water quickly.',
-            photos: 'url',
-            status: 'not recommended'
-          }
-        ] // Status is in join table
-      });
-    });
+    return this.http
+      .get(this.endpoint + id + '/regulations', { withCredentials: true })
+      .map((res: Response) => res.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: Response | any) {
@@ -66,10 +47,7 @@ export class TreesService {
       {
         step: 2,
         title: 'Cutting instructions',
-        subsections: [
-          { step: 0, title: 'Tools' },
-          { step: 1, title: 'Cutting and cleanup' }
-        ]
+        subsections: [{ step: 0, title: 'Tools' }, { step: 1, title: 'Cutting and cleanup' }]
       },
       { step: 3, title: 'Trip planning' },
       { step: 4, title: 'Safety first' },
