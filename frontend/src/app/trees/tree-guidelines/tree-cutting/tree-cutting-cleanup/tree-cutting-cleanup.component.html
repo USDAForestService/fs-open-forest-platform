@@ -1,17 +1,27 @@
-<div>
-   <ul>
-    <li>
-      Height: {{ forest.treeHeight }}
-    </li>
-    <li>
-      Stump Height: {{ forest.stumpHeight }}
-    </li>
-    <li *ngIf="forest.stumpDiameter">
-      Stump Diameter: {{ forest.stumpDiameter }}
-    </li>
+<div class="tree-speci margin-bottom-4 usa-width-one-whole">
+  <hr>
+  <span class="tree-name"><strong>When You Cut</strong></span>
+  <div class="tree-description">
+    <div class="usa-width-two-thirds">
+      <ul>
+        <li>Use an axe or handsaw to cut your tree.
+          Motorized saws and chainsaws are prohibited.</li>
+        <li>The stump must be {{ forest.stumpHeight}} inches high or less.</li>
+        <li>The harvested tree must be {{ forest.treeHeight }} feet or less.</li>
+        <li>Be sure to remove snow from around the
+          stump so as to accurately measure the stump
+          and tree height.</li>
+        <li>Take the whole tree. Cutting the top off a tree
+          is prohibited.</li>
+        <li>Have a tarp and rope ready to transport your tree once it’s cut.</li>
+        <li>Clean up any debris after you’re finished cutting down your tree.</li>
+      </ul>
+      <p>Remember: Safety is your responsibility</p>
+    </div>
+    <div class="usa-width-one-third tree-image-container">
+      <img src="/assets/img/pacific_yew.jpg" alt="cutting instructions" />
+      <figcaption class="caption">Prohibited: Pacific Yew</figcaption>
+    </div>
 
-  </ul>
-  <div>
-    Remove boughs from stump and scatter any trimmings evenly around the area.
   </div>
-</div>
+

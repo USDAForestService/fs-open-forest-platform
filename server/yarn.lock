@@ -3984,9 +3984,9 @@ sequelize-cli@^3.0.0:
     umzug "^2.0.1"
     yargs "^8.0.1"
 
-sequelize@^4.13.6:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.14.0.tgz#774f7dfcb8c6dea148976425ec762c596a7c383f"
+sequelize@^4.15.0:
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.15.0.tgz#110e79f67c3a44098517fcbcf030c5ce6f89cf14"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"
