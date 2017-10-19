@@ -6,6 +6,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 export class ApplicationFieldsService {
   numberOfFiles: any = 0;
   fileUploadError = false;
+  editApplication = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -135,5 +136,9 @@ export class ApplicationFieldsService {
 
   setFileUploadError(value: boolean) {
     this.fileUploadError = value;
+  }
+
+  setEditApplication(value: boolean) {
+    this.editApplication = value;
   }
 }
