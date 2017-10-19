@@ -1,10 +1,10 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar-view',
   templateUrl: './sidebar-view.component.html'
 })
-export class SidebarViewComponent {
+export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
   currentSection: any;
@@ -47,6 +47,6 @@ export class SidebarViewComponent {
   }
 
   ngOnInit() {
-    this.currentSection = '';
+    this.currentSection = 'general-guidlines';
   }
 }
