@@ -89,11 +89,6 @@ export class WizardViewComponent implements OnInit {
   ngOnInit() {
     this.sectionInfo = this.service.getSectionInfo();
     this.currentStep = this.findSectionByStepNumber(0);
-    // if (localStorage.getItem('wizard-step')) {
-    //   this.currentStep = parseInt(localStorage.getItem('wizard-step'), 10);
-    // } else {
-    //   this.currentStep = 1;
-    // }
     this.numberOfSteps = this.sectionInfo.length;
   }
 }
