@@ -23,6 +23,7 @@
     "passport": "^0.4.0",
     "passport-saml": "^0.15.0",
     "pg": "^6.0.0",
+    "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "sequelize": "^4.13.6",
     "sequelize-cli": "^3.0.0",
