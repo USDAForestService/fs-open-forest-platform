@@ -4,7 +4,7 @@
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">General guidelines</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
         </li>
         <li>
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
@@ -39,7 +39,7 @@
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>2017 Christmas tree permit requirements</h1>
-      <h2 id="general-guidlines">General Guidelines</h2>
+      <h2 id="general-guidlines">Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-selection">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>

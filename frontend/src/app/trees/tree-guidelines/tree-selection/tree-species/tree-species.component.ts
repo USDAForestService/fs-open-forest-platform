@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-tree-species',
@@ -6,6 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class TreeSpeciesComponent {
   @Input() forest: any;
+
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   statusClass(status) {
     let css_class = '';

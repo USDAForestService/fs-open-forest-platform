@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         id: 2,
-        name: 'Douglas-Fir',
+        name: 'Douglas Fir',
         web_url: 'https://plants.usda.gov/plantguide/pdf/cs_psme.pdf',
         created: 'now()',
         updated: 'now()'

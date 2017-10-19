@@ -18,9 +18,9 @@
       </ul>
       <p>Remember: Safety is your responsibility</p>
     </div>
-    <div class="usa-width-one-third tree-image-container">
-      <img src="/assets/img/pacific_yew.jpg" alt="cutting instructions" />
-      <figcaption class="caption">Prohibited: Pacific Yew</figcaption>
+    <div *ngIf='prohibitedTree' class="usa-width-one-third tree-image-container">
+      <img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+prohibitedTree.photos)" alt="{{ prohibitedTree.name }}" />
+      <span class="caption">Prohibited: Pacific Yew</span>
     </div>
 
   </div>
