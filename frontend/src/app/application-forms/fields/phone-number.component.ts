@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-phone-number',
@@ -12,7 +13,7 @@ export class PhoneNumberComponent implements OnInit {
   eveningPhone = 'eveningPhone';
   additionalPhone = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private service: ApplicationFieldsService) {}
 
   ngOnInit() {
     const dayPhone = this.formBuilder.group({

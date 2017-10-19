@@ -37,10 +37,20 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   constructor(
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
+    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
     this.applicationForm = this.formBuilder.group({
+      /*** these should probably be taken out **/
+      appControlNumber: [''],
+      applicationId: [''],
+      createdAt: [''],
+      applicantMessage: [''],
+      status: [''],
+      authEmail: [''],
+      revisions: [''],
+      /*** take out above here **/
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
@@ -117,6 +127,48 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.dateStatus = dateStatus;
   }
 
+  getApplication(id) {
+    this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
+      application => {
+        this.application = application;
+        this.application.applicantInfo['addSecondaryPermitHolder'] = false;
+        this.application.applicantInfo['primaryAddressSameAsOrganization'] = false;
+        this.application.applicantInfo['secondaryAddressSameAsPrimary'] = false;
+        this.application.applicantInfo['organizationName'] = '';
+        this.application.applicantInfo['secondaryFirstName'] = '';
+        this.application.applicantInfo['secondaryLastName'] = '';
+        this.application.applicantInfo['website'] = '';
+        this.application.applicantInfo.dayPhone['extension'] = '';
+        this.application.applicantInfo.dayPhone['phoneType'] = 'day phone';
+        this.application.applicantInfo.dayPhone['tenDigit'] = '';
+        this.application.applicantInfo.primaryAddress['mailingAddress2'] = '';
+        delete this.application.applicantInfo.eveningPhone;
+        delete this.application.applicantInfo.organizationAddress;
+        delete this.application.applicantInfo.secondaryAddress;
+
+        this.application.dateTimeRange['endDay'] = '';
+        this.application.dateTimeRange['endMonth'] = '';
+        this.application.dateTimeRange['endYear'] = '';
+        this.application.dateTimeRange['endHour'] = '';
+        this.application.dateTimeRange['endMinutes'] = '';
+        this.application.dateTimeRange['endPeriod'] = '';
+        this.application.dateTimeRange['startDay'] = '';
+        this.application.dateTimeRange['startMonth'] = '';
+        this.application.dateTimeRange['startYear'] = '';
+        this.application.dateTimeRange['startHour'] = '';
+        this.application.dateTimeRange['startMinutes'] = '';
+        this.application.dateTimeRange['startPeriod'] = '';
+
+        this.applicationForm.setValue(application);
+      },
+      (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
+        this.apiErrors = 'The application could not be found.';
+        window.scrollTo(0, 200);
+      }
+    );
+  }
+
   onSubmit(form) {
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
@@ -137,5 +189,14 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.getApplication(params['id']);
+        this.applicationFieldsService.setEditApplication(true);
+      } else {
+        this.applicationFieldsService.setEditApplication(false);
+      }
+    });
+  }
 }
