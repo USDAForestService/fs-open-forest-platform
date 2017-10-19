@@ -9,8 +9,7 @@ export class TreeCuttingCleanupComponent implements OnInit {
   @Input() forest: any;
   prohibitedTree = null;
 
-  constructor(private sanitizer: DomSanitizer) {
-  }
+  constructor(public sanitizer: DomSanitizer) {}
   findTreeByName(name) {
     for (const species of this.forest.species) {
       if (species.name === name) {
@@ -19,6 +18,6 @@ export class TreeCuttingCleanupComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.prohibitedTree = this.findTreeByName('Pacific Yew')
+    this.prohibitedTree = this.findTreeByName('Pacific Yew');
   }
 }
