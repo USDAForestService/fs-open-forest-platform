@@ -17,9 +17,6 @@ export class TreeGuidelinesComponent implements OnInit {
   getForest(id) {
     this.service.getOne(id).subscribe(
       result => {
-        result.forest.species.sort((a, b) => {
-          a.status > b.status;
-        });
         this.forest = result.forest;
       },
       (e: any) => {

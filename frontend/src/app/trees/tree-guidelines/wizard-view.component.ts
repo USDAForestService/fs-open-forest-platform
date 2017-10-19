@@ -70,7 +70,7 @@ export class WizardViewComponent implements OnInit {
   }
 
   findSectionByStepNumber(step) {
-    for (let section of this.sectionInfo) {
+    for (const section of this.sectionInfo) {
       if (section.step === step) {
         return section;
       }
@@ -78,7 +78,7 @@ export class WizardViewComponent implements OnInit {
   }
 
   findSubsectionStep(currentStep, subsectionStep) {
-    for (let section of currentStep.subsections) {
+    for (const section of currentStep.subsections) {
       if (section.step === subsectionStep) {
         return section;
       }
