@@ -6,6 +6,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const christmasTreeRegulations = require('../models/forest-regulations.es6');
 const species = require('../models/species.es6');
 const forestSpecies = require('../models/forest-species.es6');
+const speciesNotes = require('../models/species-notes.es6');
 
 const christmasTree = {};
 
@@ -23,10 +24,13 @@ const translateRegulationsFromDatabaseToClient = input => {
       endDate: input.endDate,
       species: input.forestSpecies.map((species)=>{
         return {
-          id: species.treeSpecy.id,
-          name: species.treeSpecy.name,
-          webUrl: species.treeSpecy.webUrl,
+          id: species.species.id,
+          name: species.species.name,
+          webUrl: species.species.webUrl,
           status: species.status,
+          notes: species.species.speciesNotes.map((notes)=>{
+            return notes.note;
+          })
         };
       })
     }
@@ -45,13 +49,19 @@ christmasTree.getOneRegulations = (req, res) => {
         model: forestSpecies,
         include: [
           {
-            model: species
+            model: species,
+            include: [
+              {
+                model: speciesNotes
+              }
+            ]
           }
         ]
       }
     ]
   })
     .then(app => {
+      console.log(JSON.stringify(app.dataValues, null, 4))
       if (app) {
         res.status(200).json(translateRegulationsFromDatabaseToClient(app));
       } else {
