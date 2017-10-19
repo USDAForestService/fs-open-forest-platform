@@ -38,7 +38,7 @@ export class TreesService {
 
   getSectionInfo() {
     return [
-      { step: 0, title: 'General Guidelines' },
+      { step: 0, title: 'Guidelines' },
       {
         step: 1,
         title: 'Tree selection',
