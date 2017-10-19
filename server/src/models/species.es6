@@ -19,7 +19,7 @@ if (
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
 module.exports = sequelize.define(
-  'forests',
+  'species',
   {
     id: {
       type: Sequelize.INTEGER,
@@ -28,40 +28,18 @@ module.exports = sequelize.define(
       field: 'id',
       allowNull: false
     },
-    forestName: {
-      type: Sequelize.STRING(50),
-      field: 'forest_name',
-      allowNull: false
-    },
-    description: {
-      type: Sequelize.STRING(1000),
-      field: 'description'
-    },
-    forestUrl: {
+    name: {
       type: Sequelize.STRING,
-      field: 'forest_url'
-    },
-    treeHeight: {
-      type: Sequelize.INTEGER,
-      field: 'tree_height'
-    },
-    stumpHeight: {
-      type: Sequelize.INTEGER,
-      field: 'stump_height'
-    },
-    stumpDiameter: {
-      type: Sequelize.INTEGER,
-      field: 'stump_diameter'
-    },
-    startDate: {
-      type: Sequelize.DATE,
-      field: 'start_date',
+      field: 'name',
       allowNull: false
     },
-    endDate: {
-      type: Sequelize.DATE,
-      field: 'end_date',
-      allowNull: false
+    webUrl: {
+      type: Sequelize.STRING,
+      field: 'web_url'
+    },
+    photos: {
+      type: Sequelize.BLOB,
+      field: 'photos'
     },
     createdAt: {
       type: Sequelize.DATE,
