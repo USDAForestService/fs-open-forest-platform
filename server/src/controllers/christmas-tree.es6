@@ -7,6 +7,7 @@ const christmasTreeRegulations = require('../models/forest-regulations.es6');
 const species = require('../models/species.es6');
 const forestSpecies = require('../models/forest-species.es6');
 const speciesNotes = require('../models/species-notes.es6');
+const forestLocations = require('../models/forest-locations.es6');
 
 const christmasTree = {};
 
@@ -33,6 +34,15 @@ const translateRegulationsFromDatabaseToClient = input => {
             return notes.note;
           })
         };
+      }),
+      locations: input.forestLocations.map((location)=>{
+        return {
+          id: location.id,
+          district: location.district,
+          allowed: location.allowed,
+          type: location.type,
+          description: location.description
+        };
       })
     }
   }; 
@@ -58,6 +68,9 @@ christmasTree.getOneRegulations = (req, res) => {
             ]
           }
         ]
+      },
+      {
+        model: forestLocations
       }
     ]
   })
