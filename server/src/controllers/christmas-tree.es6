@@ -61,7 +61,6 @@ christmasTree.getOneRegulations = (req, res) => {
     ]
   })
     .then(app => {
-      console.log(JSON.stringify(app.dataValues, null, 4))
       if (app) {
         res.status(200).json(translateRegulationsFromDatabaseToClient(app));
       } else {
