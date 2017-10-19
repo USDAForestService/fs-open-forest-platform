@@ -46,8 +46,8 @@ export class TreesService {
       },
       {
         step: 2,
-        title: 'Cutting instructions',
-        subsections: [{ step: 0, title: 'Tools' }, { step: 1, title: 'Cutting and cleanup' }]
+        title: 'Tree Cutting',
+        subsections: [{ step: 0, title: 'Before you cut' }, { step: 1, title: 'When you cut' }]
       },
       { step: 3, title: 'Trip planning' },
       { step: 4, title: 'Safety first' },

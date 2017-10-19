@@ -15,13 +15,13 @@
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions'}" (click)="gotoHashtag('cutting-instructions', $event)">Cutting instructions</a>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions'}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
           <ul class="usa-sidenav-sub_list">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tools'}" (click)="gotoHashtag('tools', $event)">Tools</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'before-you-cut'}" (click)="gotoHashtag('before-you-cut', $event)">Before you cut</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-and-cleanup'}" (click)="gotoHashtag('cutting-and-cleanup', $event)">Cutting and clean up</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'when-you-cut'}" (click)="gotoHashtag('when-you-cut', $event)">When you cut</a>
             </li>
           </ul>
         </li>
@@ -45,11 +45,11 @@
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <h3 id="types-of-trees">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
-      <h2 id="cutting-instructions">Cutting instructions</h2>
+      <h2 id="cutting-instructions">Tree Cutting</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
-      <h3 id="tools">Tools</h3>
+      <h3 id="before-you-cut">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
-      <h3 id="cutting-and-cleanup">Cutting and clean up</h3>
+      <h3 id="when-you-cut">When you cut</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
       <h2 id="trip-planning">Trip planning</h2>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
