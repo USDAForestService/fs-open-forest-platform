@@ -1,0 +1,64 @@
+<section id="sidebar-page" class="usa-section usa-content">
+  <div class="usa-grid">
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      &nbsp;
+      <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
+        </li>
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
+          <ul class="usa-sidenav-sub_list">
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'types-of-trees'}" (click)="gotoHashtag('types-of-trees', $event)">Tree species</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions'}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
+          <ul class="usa-sidenav-sub_list">
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'before-you-cut'}" (click)="gotoHashtag('before-you-cut', $event)">Before you cut</a>
+            </li>
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'when-you-cut'}" (click)="gotoHashtag('when-you-cut', $event)">When you cut</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'trip-planning'}" (click)="gotoHashtag('trip-planning', $event)">Trip planning</a>
+        </li>
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'safety-first'}" (click)="gotoHashtag('safety-first', $event)">Safety first</a>
+        </li>
+        <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact information</a>
+        </li>
+
+      </ul>
+    </aside>
+    <div class="usa-width-two-thirds sidebar-page-main-content">
+      <h1>2017 Christmas tree permit requirements</h1>
+      <h2 id="general-guidlines">Guidelines</h2>
+      <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
+      <h2 id="tree-selection">Tree Selection</h2>
+      <app-tree-selection [forest]="forest"></app-tree-selection>
+      <h3 id="types-of-trees">Types of trees</h3>
+      <app-tree-species [forest]="forest"></app-tree-species>
+      <h2 id="cutting-instructions">Tree Cutting</h2>
+      <app-tree-cutting [forest]="forest"></app-tree-cutting>
+      <h3 id="before-you-cut">Before you cut</h3>
+      <app-tree-tools [forest]="forest"></app-tree-tools>
+      <h3 id="when-you-cut">When you cut</h3>
+      <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
+      <h2 id="trip-planning">Trip planning</h2>
+      <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
+      <h2 id="safety-first">Safety first</h2>
+      <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
+      <h2 id="contact-information">Contact information</h2>
+      <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
+
+
+    </div>
+  </div>
+</section>

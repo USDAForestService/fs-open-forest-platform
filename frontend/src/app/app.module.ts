@@ -31,6 +31,7 @@ import { StatusComponent } from './status/status.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
+import { TreesModule } from './trees/trees.module';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
 
@@ -58,7 +59,7 @@ import { UtilService } from './_services/util.service';
     TitleDirective,
     UsaBannerComponent
   ],
-  imports: [ApplicationsModule, BrowserModule, HttpModule, SharedModule],
+  imports: [ApplicationsModule, BrowserModule, HttpModule, SharedModule, TreesModule],
   providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService, UtilService],
   bootstrap: [AppComponent]
 })
