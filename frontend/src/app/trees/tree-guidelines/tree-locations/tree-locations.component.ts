@@ -29,7 +29,6 @@ export class TreeLocationsComponent implements OnChanges {
 
     this.allowedDistricts = districts;
     this.arrayOfDistrictKeys = Object.keys(this.allowedDistricts);
-    console.log(this.arrayOfDistrictKeys);
   }
 
   ngOnChanges() {
