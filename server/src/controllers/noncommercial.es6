@@ -214,10 +214,10 @@ const translateFromDatabaseToClient = input => {
   }
 
   if (!result.applicantInfo.eveningPhone.tenDigit) {
-    result.applicantInfo.additionalPhone = false;
+    result.applicantInfo.addAdditionalPhone = false;
     delete result.applicantInfo.eveningPhone;
   } else {
-    result.applicantInfo.additionalPhone = true;
+    result.applicantInfo.addAdditionalPhone = true;
   }
 
   return result;
