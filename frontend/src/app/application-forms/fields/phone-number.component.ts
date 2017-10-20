@@ -27,6 +27,7 @@ export class PhoneNumberComponent implements OnInit {
 
     if (this.parentForm.controls.addAdditionalPhone.value) {
       this.addAdditionalPhone();
+      this.additionalPhone = true;
     }
 
     this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
