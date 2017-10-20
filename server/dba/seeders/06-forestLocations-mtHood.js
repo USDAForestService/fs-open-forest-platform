@@ -28,7 +28,9 @@ module.exports = {
       { id: 23, forest_id: 3, district: 'Clackamas', allowed: true, type: 'road', description: '58, 5810, 5820, 5830' },
       { id: 24, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '18, 1828, 1828118' },
       { id: 25, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '2656 and spurs' },
-      { id: 26, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '58, 5850, 5855, 5860, 5870, 5880' }
+      { id: 26, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '58, 5850, 5855, 5860, 5870, 5880' },
+      { id: 27, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Clackamas' },
+      { id: 28, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Zigzag' }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
   },
