@@ -182,7 +182,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
-      if (this.applicationFieldsService.editApplication) {
+      if (this.applicationFieldsService.getEditApplication()) {
         this.updateApplication();
       } else {
         this.createApplication();
