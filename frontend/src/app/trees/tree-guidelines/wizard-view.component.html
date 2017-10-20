@@ -24,6 +24,10 @@
               </div>
 
               <div *ngIf="currentStep.step === 1">
+                <app-tree-locations [forest]="forest"></app-tree-locations>
+              </div>
+
+              <div *ngIf="currentStep.step === 2">
                 <div *ngIf="currentSubsection.step === 0">
                   <app-tree-selection [forest]="forest"></app-tree-selection>
                 </div>
@@ -32,7 +36,7 @@
                 </div>
               </div>
 
-              <div *ngIf="currentStep.step === 2">
+              <div *ngIf="currentStep.step === 3">
                 <app-tree-cutting [forest]="forest"></app-tree-cutting>
                 <div *ngIf="currentSubsection.step === 0">
                   <app-tree-tools [forest]="forest"></app-tree-tools>
@@ -42,15 +46,15 @@
                 </div>
               </div>
 
-              <div *ngIf="currentStep.step === 3">
+              <div *ngIf="currentStep.step === 4">
                 <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
               </div>
 
-              <div *ngIf="currentStep.step === 4">
+              <div *ngIf="currentStep.step === 5">
                 <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
               </div>
 
-              <div *ngIf="currentStep.step === 5">
+              <div *ngIf="currentStep.step === 6">
                 <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
               </div>
             </div>

@@ -39,19 +39,20 @@ export class TreesService {
   getSectionInfo() {
     return [
       { step: 0, title: 'Guidelines' },
+      { step: 1, title: 'Where to Find Your Tree'},
       {
-        step: 1,
+        step: 2,
         title: 'Tree selection',
         subsections: [{ step: 0, title: 'Tree selection' }, { step: 1, title: 'Types of trees' }]
       },
       {
-        step: 2,
+        step: 3,
         title: 'Tree Cutting',
         subsections: [{ step: 0, title: 'Before you cut' }, { step: 1, title: 'When you cut' }]
       },
-      { step: 3, title: 'Trip planning' },
-      { step: 4, title: 'Safety first' },
-      { step: 5, title: 'Contact information' }
+      { step: 4, title: 'Trip planning' },
+      { step: 5, title: 'Safety first' },
+      { step: 6, title: 'Contact information' }
     ];
   }
 }

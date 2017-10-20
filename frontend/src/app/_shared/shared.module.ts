@@ -5,10 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from '../home/app-button.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
+import { SpacesToDashesPipe } from '../_pipes/spaces-to-dashes.pipe';
+
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule],
-  declarations: [TrackScrollDirective, AppButtonComponent, ProgressComponent],
+  declarations: [ SpacesToDashesPipe, TrackScrollDirective, AppButtonComponent, ProgressComponent],
   exports: [
     AppRoutingModule,
     TrackScrollDirective,
@@ -16,7 +18,8 @@ import { TrackScrollDirective } from './../_directives/scroll.directive';
     ReactiveFormsModule,
     FormsModule,
     AppButtonComponent,
-    ProgressComponent
+    ProgressComponent,
+    SpacesToDashesPipe
   ]
 })
 export class SharedModule {}

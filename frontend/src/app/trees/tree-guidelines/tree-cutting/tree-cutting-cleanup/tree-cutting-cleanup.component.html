@@ -1,7 +1,6 @@
 <div class="tree-speci margin-bottom-4 usa-width-one-whole">
   <hr>
-  <span class="tree-name"><strong>When You Cut</strong></span>
-  <div class="tree-description">
+  <div class="tree-cutting-container usa-grid">
     <div class="usa-width-two-thirds">
       <ul>
         <li>Use an axe or handsaw to cut your tree.
@@ -11,17 +10,23 @@
         <li>Be sure to remove snow from around the
           stump so as to accurately measure the stump
           and tree height.</li>
+      </ul>
+    </div>
+    <div class="usa-width-one-third">
+      <img src="/assets/img/tree-height-sm.jpg" alt="height is measured from ground not snow cover" />
+    </div>
+  </div>
+  <div class="usa-grid">
+    <div class="usa-width-one-whole">
+      <ul>
+
         <li>Take the whole tree. Cutting the top off a tree
-          is prohibited.</li>
+          is prohibited.
+        </li>
         <li>Have a tarp and rope ready to transport your tree once it’s cut.</li>
         <li>Clean up any debris after you’re finished cutting down your tree.</li>
       </ul>
       <p>Remember: Safety is your responsibility</p>
     </div>
-    <div *ngIf='prohibitedTree' class="usa-width-one-third tree-image-container">
-      <img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+prohibitedTree.photos)" alt="{{ prohibitedTree.name }}" />
-      <span class="caption">Prohibited: Pacific Yew</span>
-    </div>
-
   </div>
-
+</div>

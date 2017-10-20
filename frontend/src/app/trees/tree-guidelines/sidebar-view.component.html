@@ -7,6 +7,9 @@
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
         </li>
         <li>
+          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations'}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
+        </li>
+        <li>
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
           <ul class="usa-sidenav-sub_list">
             <li>
@@ -38,9 +41,12 @@
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h1>2017 Christmas tree permit requirements</h1>
+      <h1>{{forest.forestName}} National Forest Christmas tree permit</h1>
+      <h1>{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
       <h2 id="general-guidlines">Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
+      <h2 id="tree-locations">Where to find your tree</h2>
+      <app-tree-locations [forest]="forest"></app-tree-locations>
       <h2 id="tree-selection">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <h3 id="types-of-trees">Types of trees</h3>
