@@ -62,6 +62,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       eventName: ['', [Validators.required, alphanumericValidator()]],
       signature: ['', [Validators.required, alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
+        addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
         emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
         organizationName: ['', [alphanumericValidator()]],
