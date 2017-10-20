@@ -1,16 +1,32 @@
-<p>No cutting or removing trees within:</p>
-<div>
+<p>Your Christmas Tree Permit allows you to cut a Christmas tree almost anywhere on the {{ forest.forestName }} National Forest. You may cut within all forest districts, noting
+the restrictions below.</p>
+
+<h3>Forest districts:</h3>
+<ul>
+  <li *ngFor="let location of forest.locations | filter: 'type': 'district'">
+    {{ location.description }}
+  </li>
+</ul>
+
+<h3>No cutting or removing trees within:</h3>
+<ul>
+  <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'area'">
+    {{ location.description }}
+  </li>
+</ul>
+
+<h3>No cutting along the following roads:</h3>
+<ul>
+  <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'road'">
+    {{ location.description }}
+  </li>
+</ul>
+
+<ng-container *ngFor="let key of arrayOfDistrictKeys">
+  <h3>Roads to try on the {{ key }} district:</h3>
   <ul>
-    <li>Wilderness</li>
-    <li>Research Natural Areas</li>
-    <li>100 feet of a trail</li>
-    <li>Campgrounds or Administrative sites</li>
-    <li>300 feet of streams or lakes</li>
-    <li>Areas posted "No Christmas Tree Cutting”</li>
-    <li>East of Little Crater Lake Campground on Road 58, because of Warms Springs Indian
-      Reservation</li>
-    <li>Do not remove Pacific Yew trees</li>
-    <li>Campgrounds, Administrative sites, or Summer
-      Home/Rec. Residence Areas</li>
+    <li *ngFor="let road of allowedDistricts[key].childNodes">
+      {{ road.description }}
+    </li>
   </ul>
-</div>
+</ng-container>
