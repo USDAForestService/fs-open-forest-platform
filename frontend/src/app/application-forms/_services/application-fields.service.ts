@@ -141,4 +141,8 @@ export class ApplicationFieldsService {
   setEditApplication(value: boolean) {
     this.editApplication = value;
   }
+
+  getEditApplication() {
+    return this.editApplication;
+  }
 }
