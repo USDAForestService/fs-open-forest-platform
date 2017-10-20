@@ -13,8 +13,8 @@ one. Among the more popular trees are true Firs (Noble and Grand), Pine and Doug
         <li>{{note}}</li>
       </ul>
     </div>
-    <div *ngIf='tree.photos' class="usa-width-one-third">
-      <img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+tree.photos)" alt="{{ tree.name }}" />
+    <div class="usa-width-one-third">
+      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}" />
     </div>
   </div>
 </div>
@@ -27,8 +27,8 @@ one. Among the more popular trees are true Firs (Noble and Grand), Pine and Doug
         <li>{{note}}</li>
       </ul>
     </div>
-    <div *ngIf='tree.photos' class="usa-width-one-third">
-      <img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+tree.photos)" alt="{{ tree.name }}" />
+    <div class="usa-width-one-third">
+      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}" />
     </div>
   </div>
 </div>
@@ -41,8 +41,8 @@ one. Among the more popular trees are true Firs (Noble and Grand), Pine and Doug
         <li>{{note}}</li>
       </ul>
     </div>
-    <div *ngIf='tree.photos' class="usa-width-one-third">
-      <img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpg;base64,'+tree.photos)" alt="{{ tree.name }}" />
+    <div class="usa-width-one-third">
+      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}" />
     </div>
   </div>
 </div>

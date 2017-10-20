@@ -66,6 +66,8 @@ export class WizardViewComponent implements OnInit {
     this.currentStep = this.findSectionByStepNumber(item.step);
     if (item.subsections) {
       this.currentSubsection = this.findSubsectionStep(item, 0);
+    } else {
+      this.currentSubsection = null;
     }
   }
 

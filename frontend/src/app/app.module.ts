@@ -26,7 +26,6 @@ import { PermitApplicationViewComponent } from './applications/permit-applicatio
 import { RevisionHistoryComponent } from './applications/revision/revision-history.component';
 import { SharedModule } from './_shared/shared.module';
 import { SortArray } from './_pipes/sort-array.pipe';
-import { SpacesToDashesPipe } from './_pipes/spaces-to-dashes.pipe';
 import { StatusComponent } from './status/status.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
@@ -52,7 +51,6 @@ import { UtilService } from './_services/util.service';
     PermitApplicationViewComponent,
     RevisionHistoryComponent,
     SortArray,
-    SpacesToDashesPipe,
     StatusComponent,
     StyleGuideComponent,
     TempOutfitterDetailsComponent,

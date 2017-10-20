@@ -1,7 +1,6 @@
 <div class="tree-speci margin-bottom-4 usa-width-one-whole">
    <hr>
-   <span class="tree-name"><strong>Before You Cut</strong></span>
-   <div class="tree-description">
+   <div class="tree-cutting-container">
       <div class="usa-width-two-thirds">
          <ul>
             <li>An abundance of tree types are available for harvesting; be sure
@@ -16,6 +15,10 @@
             <li>Make sure you are on National Forest land before cutting your tree.</li>
             <li>Tools you will need include: a hacksaw, gloves, a tarp and rope or straps to secure your tree.</li>
          </ul>
+      </div>
+      <div *ngIf='prohibitedTree' class="usa-width-one-third tree-image-container">
+        <img src="/assets/img/{{ prohibitedTree.name | SpacesToDashes }}.jpg" alt="{{ prohibitedTree.name }}" />
+        <span class="caption">Prohibited: Pacific Yew</span>
       </div>
    </div>
 </div>
