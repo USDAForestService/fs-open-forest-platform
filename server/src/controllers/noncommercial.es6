@@ -98,7 +98,7 @@ const translateFromClientToDatabase = input => {
 };
 
 const translateFromDatabaseToClient = input => {
-  return {
+  const result = {
     applicantInfo: {
       dayPhone: {
         areaCode: input.applicantInfoDayPhoneAreaCode,
@@ -109,10 +109,14 @@ const translateFromDatabaseToClient = input => {
           input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode,
-        prefix: input.applicantInfoEveningPhonePrefix,
-        number: input.applicantInfoEveningPhoneNumber,
-        extension: input.applicantInfoEveningPhoneExtension || ''
+        areaCode: input.applicantInfoEveningPhoneAreaCode || '',
+        prefix: input.applicantInfoEveningPhonePrefix || '',
+        number: input.applicantInfoEveningPhoneNumber || '',
+        extension: input.applicantInfoEveningPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoEveningPhoneAreaCode +
+          input.applicantInfoEveningPhonePrefix +
+          input.applicantInfoEveningPhoneNumber
       },
       primaryAddress: {
         mailingAddress: input.applicantInfoPrimaryMailingAddress || '',
@@ -138,7 +142,7 @@ const translateFromDatabaseToClient = input => {
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: input.applicantInfoSecondaryFirstName || '',
+      secondaryFirstName: 'no', // input.applicantInfoSecondaryFirstName || '',
       secondaryLastName: input.applicantInfoSecondaryLastName || '',
       emailAddress: input.applicantInfoEmailAddress,
       organizationName: input.applicantInfoOrganizationName || '',
@@ -150,7 +154,6 @@ const translateFromDatabaseToClient = input => {
       numberParticipants: input.noncommercialFieldsNumberParticipants,
       numberSpectators: input.noncommercialFieldsSpectatorCount
     },
-
     dateTimeRange: {
       startDateTime: input.noncommercialFieldsStartDateTime,
       startMonth: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('M'),
@@ -180,6 +183,24 @@ const translateFromDatabaseToClient = input => {
     authEmail: input.authEmail,
     type: input.type
   };
+
+  result.applicantInfo.addSecondaryPermitHolder =
+    !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
+
+  if (
+    !result.applicantInfo.secondaryAddress.mailingAddress &&
+    !result.applicantInfo.secondaryAddress.mailingAddress2 &&
+    !result.applicantInfo.secondaryAddress.mailingCity &&
+    !result.applicantInfo.secondaryAddress.mailingState &&
+    !result.applicantInfo.secondaryAddress.mailingZIP
+  ) {
+    result.applicantInfo.secondaryAddressSameAsPrimary = true;
+    delete result.applicantInfo.secondaryAddress;
+  } else {
+    result.applicantInfo.secondaryAddressSameAsPrimary = false;
+  }
+
+  return result;
 };
 
 const translateFromIntakeToMiddleLayer = input => {

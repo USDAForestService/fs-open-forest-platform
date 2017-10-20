@@ -135,12 +135,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
-        this.application.applicantInfo['addSecondaryPermitHolder'] = false;
         this.application.applicantInfo['primaryAddressSameAsOrganization'] = false;
-        this.application.applicantInfo['secondaryAddressSameAsPrimary'] = false;
         delete this.application.applicantInfo.eveningPhone;
         delete this.application.applicantInfo.organizationAddress;
-        delete this.application.applicantInfo.secondaryAddress;
 
         this.applicationForm.setValue(application);
       },
