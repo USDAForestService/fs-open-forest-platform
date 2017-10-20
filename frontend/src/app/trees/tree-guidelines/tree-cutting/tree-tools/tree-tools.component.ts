@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tree-tools',
   templateUrl: './tree-tools.component.html'
 })
-export class TreeToolsComponent implements OnInit {
+export class TreeToolsComponent implements OnChanges {
   @Input() forest: any;
   prohibitedTree = {};
 
@@ -20,7 +20,7 @@ export class TreeToolsComponent implements OnInit {
       }
     }
   }
-  ngOnInit() {
+  ngOnChanges() {
     this.prohibitedTree = this.findTreeByName('Pacific Yew');
   }
 }
