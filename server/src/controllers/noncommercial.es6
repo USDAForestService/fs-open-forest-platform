@@ -1,5 +1,7 @@
 'use strict';
 
+const moment = require('moment');
+
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const Revision = require('../models/revision.es6');
@@ -96,49 +98,55 @@ const translateFromClientToDatabase = input => {
 };
 
 const translateFromDatabaseToClient = input => {
-  return {
+  const result = {
     applicantInfo: {
       dayPhone: {
         areaCode: input.applicantInfoDayPhoneAreaCode,
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoDayPhoneExtension || null
+        extension: input.applicantInfoDayPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || null,
-        prefix: input.applicantInfoEveningPhonePrefix || null,
-        number: input.applicantInfoEveningPhoneNumber || null,
-        extension: input.applicantInfoEveningPhoneExtension || null
+        areaCode: input.applicantInfoEveningPhoneAreaCode || '',
+        prefix: input.applicantInfoEveningPhonePrefix || '',
+        number: input.applicantInfoEveningPhoneNumber || '',
+        extension: input.applicantInfoEveningPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoEveningPhoneAreaCode +
+          input.applicantInfoEveningPhonePrefix +
+          input.applicantInfoEveningPhoneNumber
       },
       primaryAddress: {
-        mailingAddress: input.applicantInfoPrimaryMailingAddress || null,
-        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || null,
-        mailingCity: input.applicantInfoPrimaryMailingCity || null,
-        mailingState: input.applicantInfoPrimaryMailingState || null,
-        mailingZIP: input.applicantInfoPrimaryMailingZIP || null
+        mailingAddress: input.applicantInfoPrimaryMailingAddress || '',
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || '',
+        mailingCity: input.applicantInfoPrimaryMailingCity || '',
+        mailingState: input.applicantInfoPrimaryMailingState || '',
+        mailingZIP: input.applicantInfoPrimaryMailingZIP || ''
       },
       organizationAddress: {
-        mailingAddress: input.applicantInfoOrgMailingAddress || null,
-        mailingAddress2: input.applicantInfoOrgMailingAddress2 || null,
-        mailingCity: input.applicantInfoOrgMailingCity || null,
-        mailingState: input.applicantInfoOrgMailingState || null,
-        mailingZIP: input.applicantInfoOrgMailingZIP || null
+        mailingAddress: input.applicantInfoOrgMailingAddress,
+        mailingAddress2: input.applicantInfoOrgMailingAddress2 || '',
+        mailingCity: input.applicantInfoOrgMailingCity,
+        mailingState: input.applicantInfoOrgMailingState,
+        mailingZIP: input.applicantInfoOrgMailingZIP
       },
       secondaryAddress: {
-        mailingAddress: input.applicantInfoSecondaryMailingAddress || null,
-        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || null,
-        mailingCity: input.applicantInfoSecondaryMailingCity || null,
-        mailingState: input.applicantInfoSecondaryMailingState || null,
-        mailingZIP: input.applicantInfoSecondaryMailingZIP || null
+        mailingAddress: input.applicantInfoSecondaryMailingAddress,
+        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || '',
+        mailingCity: input.applicantInfoSecondaryMailingCity,
+        mailingState: input.applicantInfoSecondaryMailingState,
+        mailingZIP: input.applicantInfoSecondaryMailingZIP
       },
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: input.applicantInfoSecondaryFirstName || null,
-      secondaryLastName: input.applicantInfoSecondaryLastName || null,
+      secondaryFirstName: input.applicantInfoSecondaryFirstName || '',
+      secondaryLastName: input.applicantInfoSecondaryLastName || '',
       emailAddress: input.applicantInfoEmailAddress,
-      organizationName: input.applicantInfoOrganizationName || null,
-      website: input.applicantInfoWebsite || null
+      organizationName: input.applicantInfoOrganizationName || '',
+      website: input.applicantInfoWebsite || ''
     },
     noncommercialFields: {
       activityDescription: input.noncommercialFieldsActivityDescription,
@@ -146,11 +154,21 @@ const translateFromDatabaseToClient = input => {
       numberParticipants: input.noncommercialFieldsNumberParticipants,
       numberSpectators: input.noncommercialFieldsSpectatorCount
     },
-
     dateTimeRange: {
-      startMonth: '12',
       startDateTime: input.noncommercialFieldsStartDateTime,
-      endDateTime: input.noncommercialFieldsEndDateTime
+      startMonth: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('M'),
+      startDay: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('D'),
+      startYear: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
+      startHour: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('hh'),
+      startMinutes: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('mm'),
+      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('A'),
+      endDateTime: input.noncommercialFieldsEndDateTime,
+      endMonth: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('M'),
+      endDay: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('D'),
+      endYear: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('YYYY'),
+      endHour: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('hh'),
+      endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
+      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
     },
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
@@ -165,6 +183,37 @@ const translateFromDatabaseToClient = input => {
     authEmail: input.authEmail,
     type: input.type
   };
+
+  result.applicantInfo.addSecondaryPermitHolder =
+    !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
+
+  if (
+    !result.applicantInfo.secondaryAddress.mailingAddress &&
+    !result.applicantInfo.secondaryAddress.mailingAddress2 &&
+    !result.applicantInfo.secondaryAddress.mailingCity &&
+    !result.applicantInfo.secondaryAddress.mailingState &&
+    !result.applicantInfo.secondaryAddress.mailingZIP
+  ) {
+    result.applicantInfo.secondaryAddressSameAsPrimary = true;
+    delete result.applicantInfo.secondaryAddress;
+  } else {
+    result.applicantInfo.secondaryAddressSameAsPrimary = false;
+  }
+
+  if (
+    !result.applicantInfo.organizationAddress.mailingAddress &&
+    !result.applicantInfo.organizationAddress.mailingAddress2 &&
+    !result.applicantInfo.organizationAddress.mailingCity &&
+    !result.applicantInfo.organizationAddress.mailingState &&
+    !result.applicantInfo.organizationAddress.mailingZIP
+  ) {
+    result.applicantInfo.primaryAddressSameAsOrganization = true;
+    delete result.applicantInfo.organizationAddress;
+  } else {
+    result.applicantInfo.primaryAddressSameAsOrganization = false;
+  }
+
+  return result;
 };
 
 const translateFromIntakeToMiddleLayer = input => {
