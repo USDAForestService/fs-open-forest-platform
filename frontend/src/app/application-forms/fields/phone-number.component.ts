@@ -25,6 +25,10 @@ export class PhoneNumberComponent implements OnInit {
     });
     this.parentForm.addControl('dayPhone', dayPhone);
 
+    if (this.parentForm.controls.addAdditionalPhone.value) {
+      this.addAdditionalPhone();
+    }
+
     this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
       this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
       this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
