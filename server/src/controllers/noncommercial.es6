@@ -142,7 +142,7 @@ const translateFromDatabaseToClient = input => {
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: 'no', // input.applicantInfoSecondaryFirstName || '',
+      secondaryFirstName: input.applicantInfoSecondaryFirstName || '',
       secondaryLastName: input.applicantInfoSecondaryLastName || '',
       emailAddress: input.applicantInfoEmailAddress,
       organizationName: input.applicantInfoOrganizationName || '',
@@ -198,6 +198,19 @@ const translateFromDatabaseToClient = input => {
     delete result.applicantInfo.secondaryAddress;
   } else {
     result.applicantInfo.secondaryAddressSameAsPrimary = false;
+  }
+
+  if (
+    !result.applicantInfo.organizationAddress.mailingAddress &&
+    !result.applicantInfo.organizationAddress.mailingAddress2 &&
+    !result.applicantInfo.organizationAddress.mailingCity &&
+    !result.applicantInfo.organizationAddress.mailingState &&
+    !result.applicantInfo.organizationAddress.mailingZIP
+  ) {
+    result.applicantInfo.primaryAddressSameAsOrganization = true;
+    delete result.applicantInfo.organizationAddress;
+  } else {
+    result.applicantInfo.primaryAddressSameAsOrganization = false;
   }
 
   return result;
