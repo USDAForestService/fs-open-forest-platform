@@ -8,8 +8,6 @@ import { TreeSelectionComponent } from './tree-guidelines/tree-selection/tree-se
 import { TreeSpeciesComponent } from './tree-guidelines/tree-selection/tree-species/tree-species.component';
 import { TreeSafetyComponent } from './tree-guidelines/safety/safety.component';
 
-import { StatusPipe } from './tree-guidelines/tree-selection/tree-species/status.pipe';
-
 import { TreeCuttingComponent } from './tree-guidelines/tree-cutting/tree-cutting.component';
 import { TreeCuttingCleanupComponent } from './tree-guidelines/tree-cutting/tree-cutting-cleanup/tree-cutting-cleanup.component';
 import { TreeToolsComponent } from './tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
@@ -33,7 +31,6 @@ import { WizardViewComponent } from './tree-guidelines/wizard-view.component';
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
-    StatusPipe,
     TreeToolsComponent,
     SidebarViewComponent,
     WizardViewComponent
@@ -49,7 +46,6 @@ import { WizardViewComponent } from './tree-guidelines/wizard-view.component';
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
-    StatusPipe,
     TreeToolsComponent,
     SidebarViewComponent,
     WizardViewComponent
