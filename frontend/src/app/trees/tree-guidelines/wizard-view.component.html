@@ -25,6 +25,15 @@
 
               <div *ngIf="currentStep.step === 1">
                 <app-tree-locations [forest]="forest"></app-tree-locations>
+                <div *ngIf="currentSubsection.step === 0">
+                  <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
+                </div>
+                <div *ngIf="currentSubsection.step === 1">
+                  <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+                </div>
+                <div *ngIf="currentSubsection.step === 2">
+                  <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
+                </div>
               </div>
 
               <div *ngIf="currentStep.step === 2">
@@ -42,6 +51,9 @@
                   <app-tree-tools [forest]="forest"></app-tree-tools>
                 </div>
                 <div *ngIf="currentSubsection.step === 1">
+                  <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
+                </div>
+                <div *ngIf="currentSubsection.step === 2">
                   <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
                 </div>
               </div>

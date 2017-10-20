@@ -18,15 +18,23 @@ import { TripPlanningComponent } from './tree-guidelines/trip-planning/trip-plan
 import { TreesService } from './_services/trees.service';
 import { SidebarViewComponent } from './tree-guidelines/sidebar-view.component';
 import { WizardViewComponent } from './tree-guidelines/wizard-view.component';
+import {TreeCuttingRulesComponent} from './tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
+import {TreeLocationsProhibitedComponent} from './tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
+import {TreeLocationsAllowedComponent} from './tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
+import {TreeLocationsMapsComponent} from './tree-guidelines/tree-locations/tree-locations-maps/tree-locations-maps.component';
 
 @NgModule({
   declarations: [
     ContactInfoComponent,
     TreeCuttingComponent,
     TreeCuttingCleanupComponent,
+    TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeGuidelinesTextComponent,
     TreeLocationsComponent,
+    TreeLocationsMapsComponent,
+    TreeLocationsProhibitedComponent,
+    TreeLocationsAllowedComponent,
     TreeSafetyComponent,
     TreeSelectionComponent,
     TreeSpeciesComponent,
@@ -39,6 +47,7 @@ import { WizardViewComponent } from './tree-guidelines/wizard-view.component';
     ContactInfoComponent,
     TreeCuttingComponent,
     TreeCuttingCleanupComponent,
+    TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeGuidelinesTextComponent,
     TreeLocationsComponent,

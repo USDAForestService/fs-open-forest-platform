@@ -16,9 +16,13 @@
             <li>Tools you will need include: a hacksaw, gloves, a tarp and rope or straps to secure your tree.</li>
          </ul>
       </div>
-      <div *ngIf='prohibitedTree' class="usa-width-one-third tree-image-container">
-        <img src="/assets/img/{{ prohibitedTree.name | SpacesToDashes }}.jpg" alt="{{ prohibitedTree.name }}" />
-        <span class="caption">Prohibited: Pacific Yew</span>
+      <div class="usa-width-one-third tree-image-container">
+        <span *ngIf="prohibitedTree">
+          <img src="/assets/img/{{ prohibitedTree.name | SpacesToDashes }}.jpg" alt="{{ prohibitedTree.name }}" />
+          <span class="caption">Prohibited: Pacific Yew</span>
+        </span>
+        <img src="/assets/img/cutting-tools.gif" alt="hacksaw, rope, tarp, gloves" />
+        <span class="caption">Tools you will need</span>
       </div>
    </div>
 </div>

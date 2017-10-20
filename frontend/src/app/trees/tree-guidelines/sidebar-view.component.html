@@ -8,6 +8,17 @@
         </li>
         <li>
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations'}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
+          <ul class="usa-sidenav-sub_list">
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-maps'}" (click)="gotoHashtag('tree-locations-maps', $event)">Districts and maps</a>
+            </li>
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas</a>
+            </li>
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
+            </li>
+          </ul>
         </li>
         <li>
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
@@ -25,6 +36,9 @@
             </li>
             <li>
               <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'when-you-cut'}" (click)="gotoHashtag('when-you-cut', $event)">When you cut</a>
+            </li>
+            <li>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'after-you-cut'}" (click)="gotoHashtag('after-you-cut', $event)">After you cut</a>
             </li>
           </ul>
         </li>
@@ -47,6 +61,14 @@
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
+      <h2 id="tree-locations-maps">Districts and maps</h2>
+      <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
+      <h2 id="tree-locations-prohibited">Prohibited areas</h2>
+      <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+      <h2 id="tree-locations-allowed">Places to try</h2>
+      <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
+
+
       <h2 id="tree-selection">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <h3 id="types-of-trees">Types of trees</h3>
@@ -56,6 +78,8 @@
       <h3 id="before-you-cut">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
       <h3 id="when-you-cut">When you cut</h3>
+      <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
+      <h3 id="after-you-cut">After you cut</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
       <h2 id="trip-planning">Trip planning</h2>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
