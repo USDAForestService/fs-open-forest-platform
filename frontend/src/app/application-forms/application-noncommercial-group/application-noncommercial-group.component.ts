@@ -146,19 +146,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         delete this.application.applicantInfo.organizationAddress;
         delete this.application.applicantInfo.secondaryAddress;
 
-        this.application.dateTimeRange['endDay'] = '';
-        this.application.dateTimeRange['endMonth'] = '';
-        this.application.dateTimeRange['endYear'] = '';
-        this.application.dateTimeRange['endHour'] = '';
-        this.application.dateTimeRange['endMinutes'] = '';
-        this.application.dateTimeRange['endPeriod'] = '';
-        this.application.dateTimeRange['startDay'] = '';
-        this.application.dateTimeRange['startMonth'] = '';
-        this.application.dateTimeRange['startYear'] = '';
-        this.application.dateTimeRange['startHour'] = '';
-        this.application.dateTimeRange['startMinutes'] = '';
-        this.application.dateTimeRange['startPeriod'] = '';
-
         this.applicationForm.setValue(application);
       },
       (e: any) => {

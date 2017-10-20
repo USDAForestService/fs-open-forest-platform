@@ -19,6 +19,8 @@ const extractField = (errorObj, withArg) => {
 
 let util = {};
 
+util.datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZ';
+
 util.collateErrors = (result, errorArr, prefix) => {
   for (var error of result.errors) {
     if (error.name === 'required') {
@@ -40,7 +42,7 @@ util.collateErrors = (result, errorArr, prefix) => {
 util.validateDateTime = input => {
   return (
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
-    moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid()
+    moment(input, util.datetimeFormat).isValid()
   );
 };
 
@@ -167,6 +169,6 @@ util.getRandomHexString = () => {
   return new Buffer(`${Math.random()}${Math.random()}`).toString('hex');
 };
 
-util.request = request
+util.request = request;
 
 module.exports = util;

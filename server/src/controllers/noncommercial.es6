@@ -1,5 +1,7 @@
 'use strict';
 
+const moment = require('moment');
+
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const Revision = require('../models/revision.es6');
@@ -148,9 +150,20 @@ const translateFromDatabaseToClient = input => {
     },
 
     dateTimeRange: {
-      startMonth: '12',
       startDateTime: input.noncommercialFieldsStartDateTime,
-      endDateTime: input.noncommercialFieldsEndDateTime
+      startMonth: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('M'),
+      startDay: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('D'),
+      startYear: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
+      startHour: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('hh'),
+      startMinutes: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('mm'),
+      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('A'),
+      endDateTime: input.noncommercialFieldsEndDateTime,
+      endMonth: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('M'),
+      endDay: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('D'),
+      endYear: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('YYYY'),
+      endHour: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('hh'),
+      endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
+      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
     },
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
