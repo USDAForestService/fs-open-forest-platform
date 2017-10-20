@@ -213,6 +213,13 @@ const translateFromDatabaseToClient = input => {
     result.applicantInfo.primaryAddressSameAsOrganization = false;
   }
 
+  if (!result.applicantInfo.eveningPhone.tenDigit) {
+    result.applicantInfo.additionalPhone = false;
+    delete result.applicantInfo.eveningPhone;
+  } else {
+    result.applicantInfo.additionalPhone = true;
+  }
+
   return result;
 };
 
