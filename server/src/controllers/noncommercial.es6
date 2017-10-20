@@ -104,43 +104,45 @@ const translateFromDatabaseToClient = input => {
         areaCode: input.applicantInfoDayPhoneAreaCode,
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoDayPhoneExtension || null
+        extension: input.applicantInfoDayPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || null,
-        prefix: input.applicantInfoEveningPhonePrefix || null,
-        number: input.applicantInfoEveningPhoneNumber || null,
-        extension: input.applicantInfoEveningPhoneExtension || null
+        areaCode: input.applicantInfoEveningPhoneAreaCode,
+        prefix: input.applicantInfoEveningPhonePrefix,
+        number: input.applicantInfoEveningPhoneNumber,
+        extension: input.applicantInfoEveningPhoneExtension || ''
       },
       primaryAddress: {
-        mailingAddress: input.applicantInfoPrimaryMailingAddress || null,
-        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || null,
-        mailingCity: input.applicantInfoPrimaryMailingCity || null,
-        mailingState: input.applicantInfoPrimaryMailingState || null,
-        mailingZIP: input.applicantInfoPrimaryMailingZIP || null
+        mailingAddress: input.applicantInfoPrimaryMailingAddress || '',
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || '',
+        mailingCity: input.applicantInfoPrimaryMailingCity || '',
+        mailingState: input.applicantInfoPrimaryMailingState || '',
+        mailingZIP: input.applicantInfoPrimaryMailingZIP || ''
       },
       organizationAddress: {
-        mailingAddress: input.applicantInfoOrgMailingAddress || null,
-        mailingAddress2: input.applicantInfoOrgMailingAddress2 || null,
-        mailingCity: input.applicantInfoOrgMailingCity || null,
-        mailingState: input.applicantInfoOrgMailingState || null,
-        mailingZIP: input.applicantInfoOrgMailingZIP || null
+        mailingAddress: input.applicantInfoOrgMailingAddress,
+        mailingAddress2: input.applicantInfoOrgMailingAddress2 || '',
+        mailingCity: input.applicantInfoOrgMailingCity,
+        mailingState: input.applicantInfoOrgMailingState,
+        mailingZIP: input.applicantInfoOrgMailingZIP
       },
       secondaryAddress: {
-        mailingAddress: input.applicantInfoSecondaryMailingAddress || null,
-        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || null,
-        mailingCity: input.applicantInfoSecondaryMailingCity || null,
-        mailingState: input.applicantInfoSecondaryMailingState || null,
-        mailingZIP: input.applicantInfoSecondaryMailingZIP || null
+        mailingAddress: input.applicantInfoSecondaryMailingAddress,
+        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || '',
+        mailingCity: input.applicantInfoSecondaryMailingCity,
+        mailingState: input.applicantInfoSecondaryMailingState,
+        mailingZIP: input.applicantInfoSecondaryMailingZIP
       },
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: input.applicantInfoSecondaryFirstName || null,
-      secondaryLastName: input.applicantInfoSecondaryLastName || null,
+      secondaryFirstName: input.applicantInfoSecondaryFirstName || '',
+      secondaryLastName: input.applicantInfoSecondaryLastName || '',
       emailAddress: input.applicantInfoEmailAddress,
-      organizationName: input.applicantInfoOrganizationName || null,
-      website: input.applicantInfoWebsite || null
+      organizationName: input.applicantInfoOrganizationName || '',
+      website: input.applicantInfoWebsite || ''
     },
     noncommercialFields: {
       activityDescription: input.noncommercialFieldsActivityDescription,
