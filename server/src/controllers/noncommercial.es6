@@ -102,43 +102,43 @@ const translateFromDatabaseToClient = input => {
         areaCode: input.applicantInfoDayPhoneAreaCode,
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
-        extension: input.applicantInfoDayPhoneExtension || undefined
+        extension: input.applicantInfoDayPhoneExtension || null
       },
       eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
-        prefix: input.applicantInfoEveningPhonePrefix || undefined,
-        number: input.applicantInfoEveningPhoneNumber || undefined,
-        extension: input.applicantInfoEveningPhoneExtension || undefined
+        areaCode: input.applicantInfoEveningPhoneAreaCode || null,
+        prefix: input.applicantInfoEveningPhonePrefix || null,
+        number: input.applicantInfoEveningPhoneNumber || null,
+        extension: input.applicantInfoEveningPhoneExtension || null
       },
       primaryAddress: {
-        mailingAddress: input.applicantInfoPrimaryMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoPrimaryMailingCity || undefined,
-        mailingState: input.applicantInfoPrimaryMailingState || undefined,
-        mailingZIP: input.applicantInfoPrimaryMailingZIP || undefined
+        mailingAddress: input.applicantInfoPrimaryMailingAddress || null,
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || null,
+        mailingCity: input.applicantInfoPrimaryMailingCity || null,
+        mailingState: input.applicantInfoPrimaryMailingState || null,
+        mailingZIP: input.applicantInfoPrimaryMailingZIP || null
       },
       organizationAddress: {
-        mailingAddress: input.applicantInfoOrgMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoOrgMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoOrgMailingCity || undefined,
-        mailingState: input.applicantInfoOrgMailingState || undefined,
-        mailingZIP: input.applicantInfoOrgMailingZIP || undefined
+        mailingAddress: input.applicantInfoOrgMailingAddress || null,
+        mailingAddress2: input.applicantInfoOrgMailingAddress2 || null,
+        mailingCity: input.applicantInfoOrgMailingCity || null,
+        mailingState: input.applicantInfoOrgMailingState || null,
+        mailingZIP: input.applicantInfoOrgMailingZIP || null
       },
       secondaryAddress: {
-        mailingAddress: input.applicantInfoSecondaryMailingAddress || undefined,
-        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || undefined,
-        mailingCity: input.applicantInfoSecondaryMailingCity || undefined,
-        mailingState: input.applicantInfoSecondaryMailingState || undefined,
-        mailingZIP: input.applicantInfoSecondaryMailingZIP || undefined
+        mailingAddress: input.applicantInfoSecondaryMailingAddress || null,
+        mailingAddress2: input.applicantInfoSecondaryMailingAddress2 || null,
+        mailingCity: input.applicantInfoSecondaryMailingCity || null,
+        mailingState: input.applicantInfoSecondaryMailingState || null,
+        mailingZIP: input.applicantInfoSecondaryMailingZIP || null
       },
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      secondaryFirstName: input.applicantInfoSecondaryFirstName || undefined,
-      secondaryLastName: input.applicantInfoSecondaryLastName || undefined,
+      secondaryFirstName: input.applicantInfoSecondaryFirstName || null,
+      secondaryLastName: input.applicantInfoSecondaryLastName || null,
       emailAddress: input.applicantInfoEmailAddress,
-      organizationName: input.applicantInfoOrganizationName || undefined,
-      website: input.applicantInfoWebsite || undefined
+      organizationName: input.applicantInfoOrganizationName || null,
+      website: input.applicantInfoWebsite || null
     },
     noncommercialFields: {
       activityDescription: input.noncommercialFieldsActivityDescription,
@@ -146,18 +146,19 @@ const translateFromDatabaseToClient = input => {
       numberParticipants: input.noncommercialFieldsNumberParticipants,
       numberSpectators: input.noncommercialFieldsSpectatorCount
     },
+
     dateTimeRange: {
+      startMonth: '12',
       startDateTime: input.noncommercialFieldsStartDateTime,
       endDateTime: input.noncommercialFieldsEndDateTime
     },
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
-    controlNumber: input.controlNumber || undefined,
     createdAt: input.createdAt,
     district: input.district,
     eventName: input.eventName,
     forest: input.forest,
-    applicantMessage: input.applicantMessage || undefined,
+    applicantMessage: input.applicantMessage || null,
     region: input.region,
     signature: input.signature,
     status: input.status,
