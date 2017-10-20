@@ -6,6 +6,8 @@ import { DateTimeRangeComponent } from '../fields/date-time-range.component';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SpecialUseApplication } from '../../_models/special-use-application';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -35,8 +37,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   public applicationForm: FormGroup;
 
   constructor(
+    private alertService: AlertService,
     private applicationService: ApplicationService,
     private applicationFieldsService: ApplicationFieldsService,
+    private authentication: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder
@@ -139,7 +143,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.application.applicantInfo['secondaryLastName'] = '';
         this.application.applicantInfo['website'] = '';
         this.application.applicantInfo.dayPhone['extension'] = '';
-        this.application.applicantInfo.dayPhone['phoneType'] = 'day phone';
         this.application.applicantInfo.dayPhone['tenDigit'] = '';
         this.application.applicantInfo.primaryAddress['mailingAddress2'] = '';
         delete this.application.applicantInfo.eveningPhone;
@@ -156,23 +159,47 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     );
   }
 
+  createApplication() {
+    this.applicationService
+      .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
+      .subscribe(
+        persistedApplication => {
+          this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
+  }
+
+  updateApplication() {
+    this.applicationService.update(this.application, 'noncommercial').subscribe(
+      (data: any) => {
+        this.alertService.addSuccessMessage('Permit application was successfully updated.');
+        if (this.authentication.isAdmin()) {
+          this.router.navigate([`admin/applications/noncommercial/${data.appControlNumber}`]);
+        } else {
+          this.router.navigate([`user/applications/noncommercial/${data.appControlNumber}`]);
+        }
+      },
+      (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
+      }
+    );
+  }
+
   onSubmit(form) {
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
-      this.applicationService
-        .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
-        .subscribe(
-          persistedApplication => {
-            this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
-          },
-          (e: any) => {
-            this.apiErrors = e;
-            window.scroll(0, 0);
-          }
-        );
+      if (this.applicationFieldsService.editApplication) {
+        this.updateApplication();
+      } else {
+        this.createApplication();
+      }
     }
   }
 

@@ -20,7 +20,6 @@ export class PhoneNumberComponent implements OnInit {
       areaCode: [],
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
       number: [],
-      phoneType: ['dayPhone'],
       prefix: [],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
@@ -46,7 +45,6 @@ export class PhoneNumberComponent implements OnInit {
       areaCode: [],
       extension: [],
       number: [],
-      phoneType: ['eveningPhone'],
       prefix: [],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
