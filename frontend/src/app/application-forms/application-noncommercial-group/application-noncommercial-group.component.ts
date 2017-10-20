@@ -138,13 +138,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.application.applicantInfo['addSecondaryPermitHolder'] = false;
         this.application.applicantInfo['primaryAddressSameAsOrganization'] = false;
         this.application.applicantInfo['secondaryAddressSameAsPrimary'] = false;
-        this.application.applicantInfo['organizationName'] = '';
-        this.application.applicantInfo['secondaryFirstName'] = '';
-        this.application.applicantInfo['secondaryLastName'] = '';
-        this.application.applicantInfo['website'] = '';
-        this.application.applicantInfo.dayPhone['extension'] = '';
-        this.application.applicantInfo.dayPhone['tenDigit'] = '';
-        this.application.applicantInfo.primaryAddress['mailingAddress2'] = '';
         delete this.application.applicantInfo.eveningPhone;
         delete this.application.applicantInfo.organizationAddress;
         delete this.application.applicantInfo.secondaryAddress;
