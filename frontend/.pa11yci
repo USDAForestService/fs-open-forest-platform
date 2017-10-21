@@ -13,6 +13,8 @@
     "http://localhost:4200/applications/noncommercial-group-use/new",
     "http://localhost:4200/applications/temp-outfitters/new'",
     "http://localhost:4200/applications/submitted",
+    "http://localhost:4200/applications/noncommercial-group-use/learn-more",
+    "http://localhost:4200/applications/temp-outfitters/learn-more",
     "http://localhost:4200/login",
     "http://localhost:4200/admin/applications",
     "http://localhost:4200/help-me-pick/1",
