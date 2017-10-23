@@ -11,90 +11,92 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};
 
-const translateFromClientToDatabase = input => {
-  return {
-    applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
-    applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
-    applicantInfoDayPhoneNumber: input.applicantInfo.dayPhone.number,
-    applicantInfoDayPhonePrefix: input.applicantInfo.dayPhone.prefix,
-    applicantInfoEmailAddress: input.applicantInfo.emailAddress,
-    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone
-      ? input.applicantInfo.eveningPhone.areaCode
-      : null,
-    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone
-      ? input.applicantInfo.eveningPhone.extension
-      : null,
-    applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
-    applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
-    applicantInfoOrganizationName: input.applicantInfo.organizationName,
-    applicantInfoOrgMailingAddress: input.applicantInfo.organizationAddress
-      ? input.applicantInfo.organizationAddress.mailingAddress
-      : null,
-    applicantInfoOrgMailingAddress2: input.applicantInfo.organizationAddress
-      ? input.applicantInfo.organizationAddress.mailingAddress2
-      : null,
-    applicantInfoOrgMailingCity: input.applicantInfo.organizationAddress
-      ? input.applicantInfo.organizationAddress.mailingCity
-      : null,
-    applicantInfoOrgMailingState: input.applicantInfo.organizationAddress
-      ? input.applicantInfo.organizationAddress.mailingState
-      : null,
-    applicantInfoOrgMailingZIP: input.applicantInfo.organizationAddress
-      ? input.applicantInfo.organizationAddress.mailingZIP
-      : null,
-    applicantInfoOrgType: input.applicantInfo.orgType,
-    applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
-    applicantInfoPrimaryLastName: input.applicantInfo.primaryLastName,
-    applicantInfoPrimaryMailingAddress: input.applicantInfo.primaryAddress
-      ? input.applicantInfo.primaryAddress.mailingAddress
-      : null,
-    applicantInfoPrimaryMailingAddress2: input.applicantInfo.primaryAddress
-      ? input.applicantInfo.primaryAddress.mailingAddress2
-      : null,
-    applicantInfoPrimaryMailingCity: input.applicantInfo.primaryAddress
-      ? input.applicantInfo.primaryAddress.mailingCity
-      : null,
-    applicantInfoPrimaryMailingState: input.applicantInfo.primaryAddress
-      ? input.applicantInfo.primaryAddress.mailingState
-      : null,
-    applicantInfoPrimaryMailingZIP: input.applicantInfo.primaryAddress
-      ? input.applicantInfo.primaryAddress.mailingZIP
-      : null,
-    applicantInfoSecondaryFirstName: input.applicantInfo.secondaryFirstName,
-    applicantInfoSecondaryLastName: input.applicantInfo.secondaryLastName,
-    applicantInfoSecondaryMailingAddress: input.applicantInfo.secondaryAddress
-      ? input.applicantInfo.secondaryAddress.mailingAddress
-      : null,
-    applicantInfoSecondaryMailingAddress2: input.applicantInfo.secondaryAddress
-      ? input.applicantInfo.secondaryAddress.mailingAddress2
-      : null,
-    applicantInfoSecondaryMailingCity: input.applicantInfo.secondaryAddress
-      ? input.applicantInfo.secondaryAddress.mailingCity
-      : null,
-    applicantInfoSecondaryMailingState: input.applicantInfo.secondaryAddress
-      ? input.applicantInfo.secondaryAddress.mailingState
-      : null,
-    applicantInfoSecondaryMailingZIP: input.applicantInfo.secondaryAddress
-      ? input.applicantInfo.secondaryAddress.mailingZIP
-      : null,
-    applicantInfoWebsite: input.applicantInfo.website,
-    authorizingOfficerName: input.authorizingOfficerName,
-    authorizingOfficerTitle: input.authorizingOfficerTitle,
-    district: input.district,
-    eventName: input.eventName,
-    forest: input.forest,
-    noncommercialFieldsActivityDescription: input.noncommercialFields.activityDescription,
-    noncommercialFieldsEndDateTime: input.dateTimeRange.endDateTime,
-    noncommercialFieldsLocationDescription: input.noncommercialFields.locationDescription,
-    noncommercialFieldsNumberParticipants: input.noncommercialFields.numberParticipants,
-    noncommercialFieldsSpectatorCount: input.noncommercialFields.numberSpectators,
-    noncommercialFieldsStartDateTime: input.dateTimeRange.startDateTime,
-    applicantMessage: input.applicantMessage,
-    region: input.region,
-    signature: input.signature,
-    authEmail: input.authEmail,
-    type: input.type
-  };
+const translateFromClientToDatabase = (input, output) => {
+  output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
+  output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
+  output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
+  output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
+  output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.areaCode
+    : null;
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.extension
+    : null;
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.number
+    : null;
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.prefix
+    : null;
+  output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
+  output.applicantInfoOrgMailingAddress = input.applicantInfo.organizationAddress
+    ? input.applicantInfo.organizationAddress.mailingAddress
+    : null;
+  output.applicantInfoOrgMailingAddress2 = input.applicantInfo.organizationAddress
+    ? input.applicantInfo.organizationAddress.mailingAddress2
+    : null;
+  output.applicantInfoOrgMailingCity = input.applicantInfo.organizationAddress
+    ? input.applicantInfo.organizationAddress.mailingCity
+    : null;
+  output.applicantInfoOrgMailingState = input.applicantInfo.organizationAddress
+    ? input.applicantInfo.organizationAddress.mailingState
+    : null;
+  output.applicantInfoOrgMailingZIP = input.applicantInfo.organizationAddress
+    ? input.applicantInfo.organizationAddress.mailingZIP
+    : null;
+  output.applicantInfoOrgType = input.applicantInfo.orgType;
+  output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
+  output.applicantInfoPrimaryLastName = input.applicantInfo.primaryLastName;
+  output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress
+    ? input.applicantInfo.primaryAddress.mailingAddress
+    : null;
+  output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress
+    ? input.applicantInfo.primaryAddress.mailingAddress2
+    : null;
+  output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress
+    ? input.applicantInfo.primaryAddress.mailingCity
+    : null;
+  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress
+    ? input.applicantInfo.primaryAddress.mailingState
+    : null;
+  output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress
+    ? input.applicantInfo.primaryAddress.mailingZIP
+    : null;
+  output.applicantInfoSecondaryFirstName = input.applicantInfo.secondaryFirstName;
+  output.applicantInfoSecondaryLastName = input.applicantInfo.secondaryLastName;
+  output.applicantInfoSecondaryMailingAddress = input.applicantInfo.secondaryAddress
+    ? input.applicantInfo.secondaryAddress.mailingAddress
+    : null;
+  output.applicantInfoSecondaryMailingAddress2 = input.applicantInfo.secondaryAddress
+    ? input.applicantInfo.secondaryAddress.mailingAddress2
+    : null;
+  output.applicantInfoSecondaryMailingCity = input.applicantInfo.secondaryAddress
+    ? input.applicantInfo.secondaryAddress.mailingCity
+    : null;
+  output.applicantInfoSecondaryMailingState = input.applicantInfo.secondaryAddress
+    ? input.applicantInfo.secondaryAddress.mailingState
+    : null;
+  output.applicantInfoSecondaryMailingZIP = input.applicantInfo.secondaryAddress
+    ? input.applicantInfo.secondaryAddress.mailingZIP
+    : null;
+  output.applicantInfoWebsite = input.applicantInfo.website;
+  output.authorizingOfficerName = input.authorizingOfficerName;
+  output.authorizingOfficerTitle = input.authorizingOfficerTitle;
+  output.district = input.district;
+  output.eventName = input.eventName;
+  output.forest = input.forest;
+  output.noncommercialFieldsActivityDescription = input.noncommercialFields.activityDescription;
+  output.noncommercialFieldsEndDateTime = input.dateTimeRange.endDateTime;
+  output.noncommercialFieldsLocationDescription = input.noncommercialFields.locationDescription;
+  output.noncommercialFieldsNumberParticipants = input.noncommercialFields.numberParticipants;
+  output.noncommercialFieldsSpectatorCount = input.noncommercialFields.numberSpectators;
+  output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
+  output.applicantMessage = input.applicantMessage;
+  output.region = input.region;
+  output.signature = input.signature;
+  output.authEmail = input.authEmail;
+  output.type = input.type;
 };
 
 const translateFromDatabaseToClient = input => {
@@ -281,13 +283,14 @@ const translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
-noncommercial.updateApplication = (orginal, updated, user) => {
+noncommercial.updateApplication = (model, submitted, user) => {
   if (user.role === 'admin') {
-    orginal.status = updated.status;
-    orginal.applicantMessage = updated.body.applicantMessage;
+    model.status = submitted.status;
+    model.applicantMessage = submitted.applicantMessage;
+  } else {
+    model.status = 'Submitted';
   }
-  orginal.applicantInfoPrimaryFirstName = updated.applicantInfo.primaryFirstName;
-  orginal.applicantInfoPrimaryLastName = updated.applicantInfo.primaryLastName;
+  translateFromClientToDatabase(submitted, model);
 };
 
 noncommercial.acceptApplication = application => {
@@ -356,7 +359,9 @@ noncommercial.create = (req, res) => {
   } else {
     // create the noncommercial app object and persist
     util.setAuthEmail(req);
-    NoncommercialApplication.create(translateFromClientToDatabase(req.body))
+    let model = {};
+    translateFromClientToDatabase(req.body, model);
+    NoncommercialApplication.create(model)
       .then(noncommApp => {
         email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
         email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
