@@ -17,7 +17,8 @@ import * as moment from 'moment/moment';
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
-  application = new SpecialUseApplication();
+  // application = new SpecialUseApplication();
+  application: any = {};
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
   primaryPermitHolderSameAddress = true;
@@ -132,10 +133,26 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.dateStatus = dateStatus;
   }
 
+  applicationCorrections() {
+    if (this.application.applicantInfo.addAdditionalPhone) {
+      this.applicationFieldsService.addAdditionalPhone(this.applicationForm.get('applicantInfo'));
+    }
+    if (this.application.applicantInfo.primaryAddress) {
+      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+    }
+    if (this.application.applicantInfo.organizationAddress) {
+      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
+    }
+    if (this.application.applicantInfo.secondaryAddress) {
+      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
+    }
+  }
+
   getApplication(id) {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
+        this.applicationCorrections();
         this.applicationForm.setValue(application);
       },
       (e: any) => {

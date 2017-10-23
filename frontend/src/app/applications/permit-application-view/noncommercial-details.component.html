@@ -39,7 +39,7 @@
         {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
         <span *ngIf="application.applicantInfo.dayPhone.extension"> ext. {{ application.applicantInfo.dayPhone.extension }}</span>
       </span>
-      <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">
+      <span *ngIf="application.applicantInfo.eveningPhone && application.applicantInfo.eveningPhone.number" class="display-block">
         {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
         <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
       </span>
