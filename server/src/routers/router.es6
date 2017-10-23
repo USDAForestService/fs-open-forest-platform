@@ -17,7 +17,7 @@ router.options('*', middleware.setCorsHeaders, (req, res) => {
 
 router.use('/auth', middleware.setCorsHeaders, middleware.checkPermissions, authRouter);
 router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, applicationsRouter);
-router.use('/forests', middleware.setCorsHeaders, middleware.checkPermissions, christmasTreeRouter);
+router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
 
 /* get the number of seconds that this instance has been running */
 router.get('/uptime', (req, res) => {
