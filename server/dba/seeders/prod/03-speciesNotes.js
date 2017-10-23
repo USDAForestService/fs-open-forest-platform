@@ -45,6 +45,7 @@ module.exports = {
     return queryInterface.bulkInsert('speciesNotes', speciesNotes);
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('speciesNotes', [{ species_id: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16] }]);
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete('speciesNotes', { species_id: { [Op.in]: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16] } });
   }
 };
