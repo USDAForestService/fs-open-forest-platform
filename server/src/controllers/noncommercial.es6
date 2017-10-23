@@ -92,10 +92,8 @@ const translateFromClientToDatabase = (input, output) => {
   output.noncommercialFieldsNumberParticipants = input.noncommercialFields.numberParticipants;
   output.noncommercialFieldsSpectatorCount = input.noncommercialFields.numberSpectators;
   output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
-  output.applicantMessage = input.applicantMessage;
   output.region = input.region;
   output.signature = input.signature;
-  output.authEmail = input.authEmail;
   output.type = input.type;
 };
 
@@ -359,8 +357,11 @@ noncommercial.create = (req, res) => {
   } else {
     // create the noncommercial app object and persist
     util.setAuthEmail(req);
-    let model = {};
+    let model = {
+      authEmail: req.body.authEmail
+    };
     translateFromClientToDatabase(req.body, model);
+    // console.log('---------------------------------------------------------', model);
     NoncommercialApplication.create(model)
       .then(noncommApp => {
         email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
