@@ -14,10 +14,10 @@
     </div>
   </ng-container>
 
-  <input id="add-additional-phone" name="add-additional-phone" type="checkbox" (change)="addOrRemoveAdditionalPhone()" />
+  <input id="add-additional-phone" name="add-additional-phone" type="checkbox" formControlName="addAdditionalPhone"  />
   <label class="usa-input" id="add-additional-phone-label" for="add-additional-phone">Add additional phone.</label>
 
-  <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
+  <div class="fs-input-grid-wrapper" *ngIf="parentForm.get('addAdditionalPhone').value">
     <ng-container formGroupName="{{ eveningPhone }}">
       <div class="usa-input-grid usa-input-grid-medium">
         <label class="usa-input" for="evening-phone">{{ name }} (10 digits)</label>

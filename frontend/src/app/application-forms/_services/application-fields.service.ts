@@ -25,6 +25,27 @@ export class ApplicationFieldsService {
     parentForm.removeControl(formName);
   }
 
+  addAdditionalPhone(parentForm) {
+    const eveningPhone = this.formBuilder.group({
+      areaCode: [],
+      extension: [],
+      number: [],
+      prefix: [],
+      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+    });
+    parentForm.addControl('eveningPhone', eveningPhone);
+
+    parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
+      parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
+      parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
+      parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+    });
+  }
+
+  removeAdditionalPhone(parentForm) {
+    parentForm.removeControl('eveningPhone');
+  }
+
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
       this.updateValidators(dataField, value);
