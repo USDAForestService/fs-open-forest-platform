@@ -30,6 +30,7 @@ test:
     - cd server; yarn run lint
     - cd server; yarn run snyk-test
     - cd server; yarn migrate
+    - cd server; yarn seed-ci
     - cd server; yarn seed
     - cd server; yarn coverage
     - cd server; yarn report-coverage
