@@ -50,8 +50,6 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
 
-
-
     it('should return a 404 response when providing forest ID that does not exist.', done => {
       request(server)
         .get('/forests/-1205/regulations')
