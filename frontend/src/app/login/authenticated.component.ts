@@ -21,6 +21,7 @@ export class AuthenticatedComponent {
     const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
     localStorage.setItem('status', JSON.stringify(status));
     localStorage.removeItem('requestingUrl');
+    localStorage.removeItem('token');
     this.authentication.removeUser();
     window.location.href = environment.apiUrl + 'auth/logout';
   }

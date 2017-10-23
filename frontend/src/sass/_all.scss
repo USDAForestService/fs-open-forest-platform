@@ -14,12 +14,15 @@
 @import 'elements/labels';
 @import 'elements/search';
 @import 'elements/sidebar';
+@import 'elements/spinner';
+@import 'elements/tables';
 @import 'elements/typography';
 // Components -------------- //
 @import 'components/breadcrumbs';
 @import 'components/footer';
 @import 'components/header';
 @import 'components/primary-nav';
+@import 'components/progress';
 @import 'components/usa-grid';
 // Pages -------------------- //
 @import 'pages/application';
@@ -28,5 +31,6 @@
 @import 'pages/application-list';
 @import 'pages/faq';
 @import 'pages/home';
+@import 'pages/sidebar-page';
 @import 'pages/style-guide';
 @import 'pages/temp-outfitter';

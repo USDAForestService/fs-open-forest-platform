@@ -195,7 +195,7 @@ module.exports = sequelize.define(
     },
     status: {
       type: Sequelize.STRING,
-      defaultValue: 'Received',
+      defaultValue: 'Incomplete',
       field: 'status'
     },
     signature: {

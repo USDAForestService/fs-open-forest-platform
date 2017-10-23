@@ -27,8 +27,14 @@ describe('Cancel application', () => {
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;
       fixture.detectChanges();
+      spyOn(window, 'confirm').and.returnValue(true);
+      component.cancelApplication();
     })
   );
+  it('should cancel an application', () => {
+    expect(component.application.status).toEqual('Cancelled');
+  });
+
   it('should update application status', () => {
     component.updateApplication();
     expect(component.application.status).toEqual('Cancelled');
@@ -43,7 +49,7 @@ class TestComponentWrapperComponent {
   application: any;
 
   constructor() {
-    this.application = { type: 'noncommercial', status: 'Received' };
+    this.application = { type: 'noncommercial', status: 'Submitted' };
   }
 }
 
