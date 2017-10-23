@@ -10,11 +10,19 @@
               <h2>{{ item.title }}</h2>
             </div>
             <div class="usa-width-seven-twelfths align-right">
-              <span class="step" *ngFor="let item of sectionInfo">
-                <span class="usa-button" (click)="jumpToStep(item)" [ngClass]="{'usa-button-inverse': item.step === currentStep.step}">
-                  {{ item.step + 1 }}
+              <div>
+                <span class="step" *ngFor="let item of sectionInfo">
+                  <span class="usa-button" (click)="jumpToStep(item)" [ngClass]="{'usa-button-inverse': item.step === currentStep.step}">
+                    {{ item.step + 1 }}
+                  </span>
                 </span>
-              </span>
+              </div>
+              <div *ngIf="currentSubsection" class="header-subsection-steps float-right">
+                Page <span class="usa-label">{{ currentSubsection.step + 1 }}</span> of {{ currentStep.subsections.length }}
+              </div>
+              <div *ngIf="!currentSubsection" class="header-subsection-steps float-right">
+                Page <span class="usa-label">1</span> of 1
+              </div>
             </div>
           </div>
           <div class="wizard-step-content usa-grid">
@@ -76,6 +84,9 @@
             <div class="usa-width-one-whole">
               <div *ngIf="currentSubsection" class="subsection-steps float-left">
                 Page <span class="usa-label">{{ currentSubsection.step + 1 }}</span> of {{ currentStep.subsections.length }}
+              </div>
+              <div *ngIf="!currentSubsection" class="subsection-steps float-left">
+                Page <span class="usa-label">1</span> of 1
               </div>
               <div class="prev-next-buttons align-right">
                 <button class="usa-button" (click)="previousStep()" [disabled]="currentStep.step === 0">Previous</button>

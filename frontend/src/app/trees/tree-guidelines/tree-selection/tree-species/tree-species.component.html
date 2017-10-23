@@ -20,7 +20,7 @@ one. Among the more popular trees are true Firs (Noble and Grand), Pine and Doug
 </div>
 <div class="tree-speci margin-bottom-4 usa-width-one-whole" *ngFor="let tree of forest.species | filter: 'status':'recommended'">
   <hr>
-  <span class="tree-name"><strong>{{ tree.name }}</strong></span> <span class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
+  <span class="tree-name"><strong>{{ tree.name }}</strong></span>
   <div class="tree-description">
     <div class="usa-width-two-thirds">
       <ul *ngFor="let note of tree.notes">
@@ -34,7 +34,7 @@ one. Among the more popular trees are true Firs (Noble and Grand), Pine and Doug
 </div>
 <div class="tree-speci margin-bottom-4 usa-width-one-whole" *ngFor="let tree of forest.species | filter: 'status':'not recommended'">
   <hr>
-  <span class="tree-name"><strong>{{ tree.name }}</strong></span> <span class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
+  <span class="tree-name"><strong>{{ tree.name }}</strong></span>
   <div class="tree-description">
     <div class="usa-width-two-thirds">
       <ul *ngFor="let note of tree.notes">
