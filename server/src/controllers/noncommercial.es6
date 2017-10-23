@@ -281,6 +281,15 @@ const translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
+noncommercial.updateApplication = (orginal, updated, user) => {
+  if (user.role === 'admin') {
+    orginal.status = updated.status;
+    orginal.applicantMessage = updated.body.applicantMessage;
+  }
+  orginal.applicantInfoPrimaryFirstName = updated.applicantInfo.primaryFirstName;
+  orginal.applicantInfoPrimaryLastName = updated.applicantInfo.primaryLastName;
+};
+
 noncommercial.acceptApplication = application => {
   const requestOptions = {
     method: 'POST',
@@ -369,14 +378,13 @@ noncommercial.update = (req, res) => {
     }
   }).then(app => {
     if (app) {
-      app.status = req.body.status;
+      noncommercial.updateApplication(app, req.body, util.getUser(req));
       Revision.create({
         applicationId: app.applicationId,
         applicationType: app.type,
         status: app.status,
         email: util.getUser(req).email
       });
-      app.applicantMessage = req.body.applicantMessage;
       if (app.status === 'Accepted') {
         noncommercial
           .acceptApplication(app)
