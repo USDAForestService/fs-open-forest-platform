@@ -178,7 +178,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   }
 
   updateApplication() {
-    this.applicationService.update(this.application, 'noncommercial').subscribe(
+    this.applicationService.update(JSON.stringify(this.applicationForm.value), 'noncommercial').subscribe(
       (data: any) => {
         this.alertService.addSuccessMessage('Permit application was successfully updated.');
         if (this.authentication.isAdmin()) {
