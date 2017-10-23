@@ -1,0 +1,13 @@
+<h3>Forest districts:</h3>
+<ng-container *ngFor="let location of forest.locations | filter: 'type': 'district'">
+  <div class="tree-location-container usa-grid">
+    <div class="usa-width-one-third tree-location-description">
+      {{ location.description }}
+    </div>
+    <div class="usa-width-two-thirds">
+      <img src="/assets/img/{{ location.description | SpacesToDashes }}-map-thumb.png" alt="" />
+      <figcaption>Map of {{location.description}} district</figcaption>
+      <a href="/assets/img/{{ location.description | SpacesToDashes }}-map.pdf">PDF</a>
+    </div>
+  </div>
+</ng-container>

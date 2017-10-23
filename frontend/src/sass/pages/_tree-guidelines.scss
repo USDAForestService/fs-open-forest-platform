@@ -1,6 +1,8 @@
 .wizard-step-header {
   background: $light-grey;
   h2 {
+    margin-bottom: 0;
+    margin-top: 0;
     padding-top: 0.3em;
   }
 }
@@ -19,8 +21,23 @@
   }
 }
 
+.header-subsection-steps {
+  padding-bottom: 4px;
+}
+
+.tree-location-description {
+  font-size: 2rem
+}
+
 .tree-speci {
   .tree-description {
     padding-top: 2em;
+  }
+
+  .tree-cutting-container {
+    padding-top: 0;
+    img {
+      padding: .3em;
+    }
   }
 }

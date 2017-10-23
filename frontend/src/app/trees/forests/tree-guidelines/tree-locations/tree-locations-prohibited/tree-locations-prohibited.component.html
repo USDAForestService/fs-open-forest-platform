@@ -1,0 +1,13 @@
+<h3>No cutting or removing trees within:</h3>
+<ul>
+  <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'area'">
+    {{ location.description }}
+  </li>
+</ul>
+
+<h3>No cutting along the following roads:</h3>
+<ul>
+  <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'road'">
+    {{ location.description }}
+  </li>
+</ul>
