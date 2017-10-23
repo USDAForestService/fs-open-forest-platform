@@ -9,11 +9,12 @@ import { AuthGuardService } from './_services/auth-guard.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
+import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
-import { TemporaryOutfittersFaqComponent } from './application-forms/temporary-outfitters/temporary-outfitters-faq.component';
+import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 
 const appRoutes: Routes = [
   {
@@ -47,6 +48,11 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a noncommercial group use permit' }
   },
   {
+    path: 'applications/noncommercial-group-use/learn-more',
+    component: NoncommercialLearnMoreComponent,
+    data: { title: 'Noncommercial permit FAQs' }
+  },
+  {
     path: 'applications/:type/submitted/:id',
     component: ApplicationSubmittedComponent,
     data: { title: 'Application submitted for review' }
@@ -58,8 +64,8 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   {
-    path: 'applications/temp-outfitters/faq',
-    component: TemporaryOutfittersFaqComponent,
+    path: 'applications/temp-outfitters/learn-more',
+    component: TemporaryOutfittersLearnMoreComponent,
     data: { title: 'Temporary outfitters permit FAQs' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },

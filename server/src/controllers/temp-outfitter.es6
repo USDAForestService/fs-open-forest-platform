@@ -4,10 +4,10 @@ const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const request = require('request');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
+const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 const validator = require('../validation.es6');
@@ -108,6 +108,7 @@ const translateFromDatabaseToClient = input => {
     applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
+    authEmail: input.authEmail,
     status: input.status,
     type: input.type,
     applicantInfo: {
@@ -331,8 +332,10 @@ tempOutfitter.acceptApplication = application => {
     getAllFiles(application.applicationId)
       .then(files => {
         const requestOptions = {
+          method: 'POST',
           url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
+          simple: true,
           formData: {
             body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
           }
@@ -392,17 +395,12 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            request.post(requestOptions, (error, response, body) => {
-              if (error || response.statusCode !== 200) {
-                reject(error || response);
-              } else {
-                resolve(body);
-              }
-            });
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
-          .catch(error => {
-            reject(error);
-          });
+          .catch(reject);
       })
       .catch(reject);
   });
@@ -468,13 +466,26 @@ tempOutfitter.getOne = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateFromDatabaseToClient(app));
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.type
+          }
+        })
+          .then(revisions => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            res.status(200).json(formattedApp);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
-      res.status(500).json(error.message);
+      res.status(400).json(error);
     });
 };
 
@@ -497,6 +508,7 @@ tempOutfitter.streamFile = (req, res) => {
 };
 
 tempOutfitter.update = (req, res) => {
+  const role = util.isLocalOrCI() ? 'admin' : req.user.role;
   TempOutfitterApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -506,6 +518,12 @@ tempOutfitter.update = (req, res) => {
       if (app) {
         app.status = req.body.status;
         app.applicantMessage = req.body.applicantMessage;
+        Revision.create({
+          applicationId: app.applicationId,
+          applicationType: app.type,
+          status: app.status,
+          email: util.getUser(req).email
+        });
         if (app.status === 'Accepted') {
           tempOutfitter
             .acceptApplication(app)
@@ -514,7 +532,6 @@ tempOutfitter.update = (req, res) => {
               app
                 .save()
                 .then(() => {
-                  console.log(app.status);
                   email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                   res.status(200).json(translateFromDatabaseToClient(app));
                 })
@@ -529,7 +546,11 @@ tempOutfitter.update = (req, res) => {
           app
             .save()
             .then(() => {
-              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+              if (app.status === 'Cancelled' && role === 'user') {
+                email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
+              } else {
+                email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+              }
               res.status(200).json(translateFromDatabaseToClient(app));
             })
             .catch(error => {
