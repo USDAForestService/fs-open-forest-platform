@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TreesService } from '../_services/trees.service';
+import { TreesService } from '../../_services/trees.service';
 import * as moment from 'moment/moment';
 import * as sinon from 'sinon';
 

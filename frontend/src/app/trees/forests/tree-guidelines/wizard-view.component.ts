@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TreesService } from '../_services/trees.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { TreesService } from '../../_services/trees.service';
 
 @Component({
   selector: 'app-wizard-view',
@@ -12,7 +13,7 @@ export class WizardViewComponent implements OnInit {
   currentSubsection: any;
   numberOfSteps: number;
 
-  constructor(private service: TreesService) {}
+  constructor(private service: TreesService, private route: ActivatedRoute) {}
 
   previousStep() {
     if (this.currentStep.subsections) {
@@ -35,7 +36,7 @@ export class WizardViewComponent implements OnInit {
         this.currentSubsection = null;
       }
     }
-    localStorage.setItem('wizard-step', `${this.currentStep}`);
+    localStorage.setItem('wizard-step', `${this.currentStep.step}`);
   }
 
   nextStep() {
@@ -59,7 +60,7 @@ export class WizardViewComponent implements OnInit {
         this.currentSubsection = null;
       }
     }
-    localStorage.setItem('wizard-step', `${this.currentStep}`);
+    localStorage.setItem('wizard-step', `${this.currentStep.step}`);
   }
 
   jumpToStep(item) {
@@ -69,6 +70,7 @@ export class WizardViewComponent implements OnInit {
     } else {
       this.currentSubsection = null;
     }
+    localStorage.setItem('wizard-step', `${this.currentStep.step}`);
   }
 
   findSectionByStepNumber(step) {
@@ -89,6 +91,13 @@ export class WizardViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe((params: Params) => {
+      console.log(params);
+      if (params['step']) {
+        const section = this.findSectionByStepNumber(params['step']);
+        this.jumpToStep(section);
+      }
+    });
     this.sectionInfo = this.service.getSectionInfo();
     this.currentStep = this.findSectionByStepNumber(0);
     this.numberOfSteps = this.sectionInfo.length;

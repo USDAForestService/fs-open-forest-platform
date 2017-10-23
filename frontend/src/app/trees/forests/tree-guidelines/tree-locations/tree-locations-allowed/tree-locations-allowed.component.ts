@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, Input, OnChanges } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tree-locations-allowed',
@@ -30,7 +30,6 @@ export class TreeLocationsAllowedComponent implements OnChanges {
 
     this.allowedDistricts = districts;
     this.arrayOfDistrictKeys = Object.keys(this.allowedDistricts);
-
   }
 
   ngOnChanges() {

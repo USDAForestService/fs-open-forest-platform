@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TreesService } from '../_services/trees.service';
+import { TreesService } from '../../_services/trees.service';
 
 @Component({
   selector: 'app-tree-info',
@@ -32,6 +32,10 @@ export class TreeGuidelinesComponent implements OnInit {
       this.template = params['template'];
     });
 
-    this.getForest(this.id);
+    // this.getForest(this.id);
+
+    this.route.data.subscribe(data => {
+      this.forest = data.forest;
+    });
   }
 }

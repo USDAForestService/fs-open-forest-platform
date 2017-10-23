@@ -7,8 +7,8 @@
           <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations'}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
-          <ul class="usa-sidenav-sub_list">
+          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
+          <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-locations')">
             <li>
               <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-maps'}" (click)="gotoHashtag('tree-locations-maps', $event)">Districts and maps</a>
             </li>
@@ -21,24 +21,24 @@
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection'}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
-          <ul class="usa-sidenav-sub_list">
+          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
+          <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-selection')">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'types-of-trees'}" (click)="gotoHashtag('types-of-trees', $event)">Tree species</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection-types-of-trees'}" (click)="gotoHashtag('tree-selection-types-of-trees', $event)">Tree species</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions'}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
-          <ul class="usa-sidenav-sub_list">
+          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
+          <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('cutting-instructions')">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'before-you-cut'}" (click)="gotoHashtag('before-you-cut', $event)">Before you cut</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'when-you-cut'}" (click)="gotoHashtag('when-you-cut', $event)">When you cut</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-when-you-cut'}" (click)="gotoHashtag('cutting-instructions-when-you-cut', $event)">When you cut</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'after-you-cut'}" (click)="gotoHashtag('after-you-cut', $event)">After you cut</a>
+              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-after-you-cut'}" (click)="gotoHashtag('cutting-instructions-after-you-cut', $event)">After you cut</a>
             </li>
           </ul>
         </li>
@@ -71,15 +71,15 @@
 
       <h2 id="tree-selection">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
-      <h3 id="types-of-trees">Types of trees</h3>
+      <h3 id="tree-selection-types-of-trees">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
       <h2 id="cutting-instructions">Tree Cutting</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
-      <h3 id="before-you-cut">Before you cut</h3>
+      <h3 id="cutting-instructions-before-you-cut">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
-      <h3 id="when-you-cut">When you cut</h3>
+      <h3 id="cutting-instructions-when-you-cut">When you cut</h3>
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
-      <h3 id="after-you-cut">After you cut</h3>
+      <h3 id="cutting-instructions-after-you-cut">After you cut</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
       <h2 id="trip-planning">Trip planning</h2>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
