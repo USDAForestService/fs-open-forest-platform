@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthGuardService } from './_services/auth-guard.service';
+import { ForestResolver } from './trees/forests/forest-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
@@ -14,7 +15,7 @@ import { PermitApplicationViewComponent } from './applications/permit-applicatio
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersFaqComponent } from './application-forms/temporary-outfitters/temporary-outfitters-faq.component';
-import { TreeGuidelinesComponent } from './trees/tree-guidelines/tree-guidelines.component';
+import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
 
 const appRoutes: Routes = [
   {
@@ -66,6 +67,9 @@ const appRoutes: Routes = [
   {
     path: 'xmas-trees/forests/:id/tree-guidelines/:template',
     component: TreeGuidelinesComponent,
+    resolve: {
+      forest: ForestResolver
+    },
     data: { title: 'Christmas tree info' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
@@ -78,6 +82,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [ForestResolver]
 })
 export class AppRoutingModule {}
