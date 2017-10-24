@@ -108,6 +108,7 @@ const translateFromDatabaseToClient = input => {
     applicantMessage: input.applicantMessage || undefined,
     region: input.region,
     signature: input.signature,
+    authEmail: input.authEmail,
     status: input.status,
     type: input.type,
     applicantInfo: {

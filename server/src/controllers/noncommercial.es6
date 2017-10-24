@@ -161,6 +161,7 @@ const translateFromDatabaseToClient = input => {
     region: input.region,
     signature: input.signature,
     status: input.status,
+    authEmail: input.authEmail,
     type: input.type
   };
 };
