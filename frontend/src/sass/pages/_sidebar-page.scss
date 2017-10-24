@@ -1,0 +1,5 @@
+.sidebar-page-main-content {
+  @media (max-width: $nav-width - 1) {
+    width: 100%;
+  }
+}
