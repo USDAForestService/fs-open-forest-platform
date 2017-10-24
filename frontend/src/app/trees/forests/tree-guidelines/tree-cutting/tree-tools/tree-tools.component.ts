@@ -1,5 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-tree-tools',
@@ -8,8 +7,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class TreeToolsComponent implements OnChanges {
   @Input() forest: any;
   prohibitedTree = {};
-
-  constructor(public sanitizer: DomSanitizer) {}
 
   findTreeByName(name) {
     if (this.forest.species != null && this.forest.species.length) {
