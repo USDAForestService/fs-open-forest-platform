@@ -4,88 +4,87 @@
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidlines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
+          <a href="#" id="general-guidelines-link" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidelines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
+          <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-locations')">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-maps'}" (click)="gotoHashtag('tree-locations-maps', $event)">Districts and maps</a>
+              <a href="#" id="tree-locations-maps-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-maps'}" (click)="gotoHashtag('tree-locations-maps', $event)">Districts and maps</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas</a>
+              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
+              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
+          <a href="#" id="tree-selection-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">Tree selection</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-selection')">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection-types-of-trees'}" (click)="gotoHashtag('tree-selection-types-of-trees', $event)">Tree species</a>
+              <a href="#" id="tree-selection-types-of-trees-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection-types-of-trees'}" (click)="gotoHashtag('tree-selection-types-of-trees', $event)">Tree species</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
+          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('cutting-instructions')">
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
+              <a href="#" id="cutting-instructions-before-you-cut-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-when-you-cut'}" (click)="gotoHashtag('cutting-instructions-when-you-cut', $event)">When you cut</a>
+              <a href="#" id="cutting-instructions-when-you-cut-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-when-you-cut'}" (click)="gotoHashtag('cutting-instructions-when-you-cut', $event)">When you cut</a>
             </li>
             <li>
-              <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-after-you-cut'}" (click)="gotoHashtag('cutting-instructions-after-you-cut', $event)">After you cut</a>
+              <a href="#" id="cutting-instructions-after-you-cut-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-after-you-cut'}" (click)="gotoHashtag('cutting-instructions-after-you-cut', $event)">After you cut</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'trip-planning'}" (click)="gotoHashtag('trip-planning', $event)">Trip planning</a>
+          <a href="#" id="trip-planning-link" [ngClass]="{'usa-current': currentSection && currentSection === 'trip-planning'}" (click)="gotoHashtag('trip-planning', $event)">Trip planning</a>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'safety-first'}" (click)="gotoHashtag('safety-first', $event)">Safety first</a>
+          <a href="#" id="safety-first-link" [ngClass]="{'usa-current': currentSection && currentSection === 'safety-first'}" (click)="gotoHashtag('safety-first', $event)">Safety first</a>
         </li>
         <li>
-          <a href="#" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact information</a>
+          <a href="#" id="contact-information-link" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact information</a>
         </li>
 
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h1>{{forest.forestName}} National Forest Christmas tree permit</h1>
-      <h1>{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
-      <h2 id="general-guidlines">Guidelines</h2>
+      <h1>{{forest.forestName}} National Forest Christmas tree permit<br />{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
+      <h2 id="general-guidelines" tabindex="-1">Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
-      <h2 id="tree-locations">Where to find your tree</h2>
+      <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
-      <h2 id="tree-locations-maps">Districts and maps</h2>
+      <h2 id="tree-locations-maps" tabindex="-1">Districts and maps</h2>
       <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
-      <h2 id="tree-locations-prohibited">Prohibited areas</h2>
+      <h2 id="tree-locations-prohibited" tabindex="-1">Prohibited areas</h2>
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
-      <h2 id="tree-locations-allowed">Places to try</h2>
+      <h2 id="tree-locations-allowed" tabindex="-1">Places to try</h2>
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
 
 
-      <h2 id="tree-selection">Tree Selection</h2>
+      <h2 id="tree-selection" tabindex="-1">Tree Selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
-      <h3 id="tree-selection-types-of-trees">Types of trees</h3>
+      <h3 id="tree-selection-types-of-trees" tabindex="-1">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
-      <h2 id="cutting-instructions">Tree Cutting</h2>
+      <h2 id="cutting-instructions" tabindex="-1">Tree Cutting</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
-      <h3 id="cutting-instructions-before-you-cut">Before you cut</h3>
+      <h3 id="cutting-instructions-before-you-cut" tabindex="-1">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
-      <h3 id="cutting-instructions-when-you-cut">When you cut</h3>
+      <h3 id="cutting-instructions-when-you-cut" tabindex="-1">When you cut</h3>
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
-      <h3 id="cutting-instructions-after-you-cut">After you cut</h3>
+      <h3 id="cutting-instructions-after-you-cut" tabindex="-1">After you cut</h3>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
-      <h2 id="trip-planning">Trip planning</h2>
+      <h2 id="trip-planning" tabindex="-1">Trip planning</h2>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
-      <h2 id="safety-first">Safety first</h2>
+      <h2 id="safety-first" tabindex="-1">Safety first</h2>
       <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
-      <h2 id="contact-information">Contact information</h2>
+      <h2 id="contact-information" tabindex="-1">Contact information</h2>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
 
 
