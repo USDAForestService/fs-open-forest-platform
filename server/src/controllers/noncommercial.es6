@@ -305,10 +305,7 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util
-          .request(requestOptions)
-          .then(resolve)
-          .catch(reject);
+        util.request(requestOptions).then(resolve).catch(reject);
       })
       .catch(error => {
         reject(error);
