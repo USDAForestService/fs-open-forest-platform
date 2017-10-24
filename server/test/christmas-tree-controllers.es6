@@ -28,6 +28,17 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
 
+    it('should contain data in the species field', done => {
+      request(server)
+        .get('/forests/1/regulations')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res){
+          expect(res.body.forest.species.locations).to.not.equal(0);
+        })
+        .expect(200, done);
+    });
+
     it('should include a field for notes about the species', done => {
       request(server)
         .get('/forests/1/regulations')
@@ -39,13 +50,35 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
 
-    it('should include a field for locations', done => {
+    it('should contain data in the field for notes about the species', done => {
       request(server)
         .get('/forests/1/regulations')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res){
+          expect(res.body.forest.species[0].notes.length).to.not.equal(0);
+        })
+        .expect(200, done);
+    });
+
+    it('should include a field for locations', done => {
+      request(server)
+        .get('/forests/3/regulations')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res){
           expect(typeof res.body.forest.locations).to.not.equal('undefined');
+        })
+        .expect(200, done);
+    });
+
+    it('should contain data in the field for locations', done => {
+      request(server)
+        .get('/forests/3/regulations')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res){
+          expect(res.body.forest.locations.length).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -56,5 +89,13 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect(404, done);
     });
+
+    it('should return a 400 response when providing an invalid forest ID.', done => {
+      request(server)
+        .get('/forests/2a05/regulations')
+        .set('Accept', 'application/json')
+        .expect(400, done);
+    });
+
   });
 });
