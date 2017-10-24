@@ -1,8 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
     <div class="usa-width-one-whole description">
-      <h1>{{ forest.forestName }} National Forest Christmas tree permit</h1>
-      <h1>{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
+      <h1>{{ forest.forestName }} National Forest Christmas tree permit<br />{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
       <div *ngFor="let item of sectionInfo">
         <ng-container *ngIf="currentStep.step === item.step">
           <div class="wizard-step-header usa-grid">
@@ -89,8 +88,8 @@
                 Page <span class="usa-label">1</span> of 1
               </div>
               <div class="prev-next-buttons align-right">
-                <button class="usa-button" (click)="previousStep()" [disabled]="currentStep.step === 0">Previous</button>
-                <button class="usa-button" (click)="nextStep()" [disabled]="currentStep.step === numberOfSteps - 1">Next</button>
+                <button id="previous" class="usa-button" (click)="previousStep()" [disabled]="currentStep.step === 0">Previous</button>
+                <button id="next" class="usa-button" (click)="nextStep()" [disabled]="currentStep.step === numberOfSteps - 1">Next</button>
               </div>
             </div>
           </div>
