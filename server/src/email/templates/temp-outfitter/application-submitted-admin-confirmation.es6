@@ -9,7 +9,7 @@ module.exports = application => {
     to: vcapConstants.specialUseAdminEmailAddresses,
     subject: `A new permit application with a start date of ${moment(
       application.tempOutfitterFieldsActDescFieldsStartDateTime,
-      'YYYY-MM-DDTHH:mm:ss'
+      util.datetimeFormat
     ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
     body: `
 Go to ${applicationUrl} to log in and view the application.
@@ -20,10 +20,10 @@ Application details
 
 Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
-Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY'
     )}
-End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY')}
+End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
 Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}

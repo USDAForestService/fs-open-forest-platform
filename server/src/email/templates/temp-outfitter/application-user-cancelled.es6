@@ -14,10 +14,10 @@ Application details
 
 Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
-Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
     )}
-End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
     )}
 Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}

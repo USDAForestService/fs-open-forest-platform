@@ -16,7 +16,7 @@ export class PermitApplicationViewComponent implements OnInit {
   type: string;
   isAdmin: boolean;
   userType: string;
-  application = new SpecialUseApplication();
+  application: any = {};
   fixedCtas = false;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',

@@ -1,5 +1,6 @@
 const moment = require('moment');
-const vcapConstants = require('../../../vcap-constants.es6');
+
+const util = require('../../../util.es6');
 
 module.exports = application => {
   return {
@@ -16,10 +17,10 @@ Application details
 **************************************
 
 Business name: ${application.applicantInfoOrganizationName}
-Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
     )}
-End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, 'YYYY-MM-DDTHH:mm:ss').format(
+End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
     )}
 Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
