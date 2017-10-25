@@ -195,7 +195,7 @@ const translateFromDatabaseToClient = input => {
     !result.applicantInfo.secondaryAddress.mailingZIP
   ) {
     result.applicantInfo.secondaryAddressSameAsPrimary = true;
-    //  delete result.applicantInfo.secondaryAddress;
+    delete result.applicantInfo.secondaryAddress;
   } else {
     result.applicantInfo.secondaryAddressSameAsPrimary = false;
   }
@@ -208,14 +208,14 @@ const translateFromDatabaseToClient = input => {
     !result.applicantInfo.organizationAddress.mailingZIP
   ) {
     result.applicantInfo.primaryAddressSameAsOrganization = true;
-    //  delete result.applicantInfo.organizationAddress;
+    delete result.applicantInfo.organizationAddress;
   } else {
     result.applicantInfo.primaryAddressSameAsOrganization = false;
   }
 
   if (!result.applicantInfo.eveningPhone.tenDigit) {
     result.applicantInfo.addAdditionalPhone = false;
-    // delete result.applicantInfo.eveningPhone;
+    delete result.applicantInfo.eveningPhone;
   } else {
     result.applicantInfo.addAdditionalPhone = true;
   }
@@ -286,7 +286,7 @@ noncommercial.updateApplication = (model, submitted, user) => {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
   } else {
-    model.status = 'Submitted';
+    model.status = 'Review';
   }
   translateFromClientToDatabase(submitted, model);
 };
@@ -376,7 +376,6 @@ noncommercial.create = (req, res) => {
 };
 
 noncommercial.update = (req, res) => {
-  const role = util.isLocalOrCI() ? 'admin' : req.user.role;
   NoncommercialApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -412,7 +411,7 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
-            if (app.status === 'Cancelled' && role === 'user') {
+            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
             } else {
               email.sendEmail(`noncommercialApplication${app.status}`, app);
