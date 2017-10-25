@@ -1,4 +1,4 @@
-'use strict';
+'use strict9fb9f3e9-bb69-443d-b2aa-6e2b64d51a09';
 
 const moment = require('moment');
 
@@ -195,7 +195,7 @@ const translateFromDatabaseToClient = input => {
     !result.applicantInfo.secondaryAddress.mailingZIP
   ) {
     result.applicantInfo.secondaryAddressSameAsPrimary = true;
-    delete result.applicantInfo.secondaryAddress;
+    //  delete result.applicantInfo.secondaryAddress;
   } else {
     result.applicantInfo.secondaryAddressSameAsPrimary = false;
   }
@@ -208,14 +208,14 @@ const translateFromDatabaseToClient = input => {
     !result.applicantInfo.organizationAddress.mailingZIP
   ) {
     result.applicantInfo.primaryAddressSameAsOrganization = true;
-    delete result.applicantInfo.organizationAddress;
+    //  delete result.applicantInfo.organizationAddress;
   } else {
     result.applicantInfo.primaryAddressSameAsOrganization = false;
   }
 
   if (!result.applicantInfo.eveningPhone.tenDigit) {
     result.applicantInfo.addAdditionalPhone = false;
-    delete result.applicantInfo.eveningPhone;
+    // delete result.applicantInfo.eveningPhone;
   } else {
     result.applicantInfo.addAdditionalPhone = true;
   }
