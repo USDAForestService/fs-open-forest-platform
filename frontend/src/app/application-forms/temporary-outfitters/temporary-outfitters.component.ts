@@ -64,6 +64,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
       type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
+        addAdditionalPhone: [false],
         emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
         organizationName: ['', alphanumericValidator()],
         primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
@@ -191,6 +192,16 @@ export class TemporaryOutfittersComponent implements DoCheck {
     ]);
   }
 
+  removeUnusedData() {
+    const form = this.applicationForm;
+    const service = this.applicationFieldsService;
+    if (form.get('applicantInfo')) {
+      if (!form.get('applicantInfo.addAdditionalPhone').value) {
+        service.removeAdditionalPhone(form.get('applicantInfo'));
+      }
+    }
+  }
+
   onSubmit() {
     this.submitted = true;
     this.numberOfFilesToUpload();
@@ -199,6 +210,7 @@ export class TemporaryOutfittersComponent implements DoCheck {
     if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
+      this.removeUnusedData();
       this.applicationService
         .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
         .subscribe(

@@ -2,7 +2,7 @@ import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-describe('Apply for a temp outfitters permit', () => {
+fdescribe('Apply for a temp outfitters permit', () => {
   let page: TempOutfittersForm;
   let fieldValidation: FieldValidation;
   fieldValidation = new FieldValidation();
@@ -31,14 +31,14 @@ describe('Apply for a temp outfitters permit', () => {
   fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
 
   it('should not submit application if not all required fields are entered', () => {
-    element(by.id('primary-permit-holder-first-name')).sendKeys('test');
-    element(by.id('primary-permit-holder-last-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-last-name')).sendKeys('test');
     element(by.id('organization-name')).sendKeys('test');
-    element(by.id('primary-permit-holder-address')).sendKeys('test');
-    element(by.id('primary-permit-holder-address-line-2')).sendKeys('test');
-    element(by.id('primary-permit-holder-city')).sendKeys('test');
-    element(by.id('primary-permit-holder-state')).sendKeys('AK');
-    element(by.id('primary-permit-holder-zip')).sendKeys('55555');
+    element(by.css('.primary-permit-holder-address')).sendKeys('test');
+    element(by.css('.primary-permit-holder-address-line-2')).sendKeys('test');
+    element(by.css('.primary-permit-holder-city')).sendKeys('test');
+    element(by.css('.primary-permit-holder-state')).sendKeys('AK');
+    element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('day-ext')).sendKeys('2222');
     element(by.id('submit-application')).click();
@@ -63,7 +63,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('client-charges')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
-    browser.sleep(5000);
+    browser.sleep(3000);
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
 
@@ -78,14 +78,14 @@ describe('Apply for a temp outfitters permit', () => {
   fieldValidation.validateFileUploadField('section-operating-plan');
 
   it('should submit an application', () => {
-    element(by.id('primary-permit-holder-first-name')).sendKeys('test');
-    element(by.id('primary-permit-holder-last-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-last-name')).sendKeys('test');
     element(by.id('organization-name')).sendKeys('test');
-    element(by.id('primary-permit-holder-address')).sendKeys('test');
-    element(by.id('primary-permit-holder-address-line-2')).sendKeys('test');
-    element(by.id('primary-permit-holder-city')).sendKeys('test');
-    element(by.id('primary-permit-holder-state')).sendKeys('AK');
-    element(by.id('primary-permit-holder-zip')).sendKeys('55555');
+    element(by.css('.primary-permit-holder-address')).sendKeys('test');
+    element(by.css('.primary-permit-holder-address-line-2')).sendKeys('test');
+    element(by.css('.primary-permit-holder-city')).sendKeys('test');
+    element(by.css('.primary-permit-holder-state')).sendKeys('AK');
+    element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('day-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();

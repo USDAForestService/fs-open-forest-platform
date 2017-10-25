@@ -91,7 +91,6 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(component.applicationForm.get('applicantInfo.primaryAddress')).toBeFalsy();
     component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
     expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
-    component.applicationForm.get('applicantInfo.addAdditionalPhone').setValue(true);
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
   });
 
