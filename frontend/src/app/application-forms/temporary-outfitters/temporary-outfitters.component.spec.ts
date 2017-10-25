@@ -263,6 +263,11 @@ describe('TemporaryOutfittersComponent', () => {
     expect(component.uploadFiles).toBeFalsy();
     expect(component.fileUploadError).toBeTruthy();
   });
+
+  it('should remove unused data', () => {
+    component.removeUnusedData();
+    expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
+  });
 });
 
 class MockApplicationService {
