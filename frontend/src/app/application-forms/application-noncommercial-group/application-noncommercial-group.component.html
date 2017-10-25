@@ -26,13 +26,12 @@
         <legend>Applicant information</legend>
 
         <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
-
-        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'">
+        <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Person'">
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
 
-        <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+        <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Corporation'">
           <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
@@ -45,7 +44,7 @@
         </div>
       </fieldset>
 
-      <fieldset *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
+      <fieldset [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Corporation'">
         <legend>Primary permit holder</legend>
         <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
 
@@ -54,7 +53,7 @@
           <label id="primary-permit-holder-same-address-label" class="usa-input" for="primary-permit-holder-same-address">Permit holder address is same as organization address.</label>
         </ng-container>
 
-        <div *ngIf="!applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
+        <div [hidden]="applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
       </fieldset>
@@ -65,7 +64,7 @@
         <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </ng-container>
 
-      <ng-container *ngIf="applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
+      <div [hidden]="!applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="secondary" name="Secondary permit holder"></app-permit-holder-name>
 
           <ng-container formGroupName="applicantInfo">
@@ -75,13 +74,13 @@
           </ng-container>
 
           <app-address
-            *ngIf="!applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').value"
+            [hidden]="applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').value"
             [parentForm]="applicationForm.get('applicantInfo')"
             formName="secondaryAddress"
             type="secondary-permit-holder">
           </app-address>
 
-      </ng-container>
+      </div>
 
       <hr />
 
