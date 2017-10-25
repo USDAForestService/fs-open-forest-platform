@@ -27,10 +27,10 @@ export class PhoneNumberComponent implements OnInit {
 
     const eveningPhone = this.formBuilder.group({
       areaCode: [],
-      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
+      extension: [],
       number: [],
       prefix: [],
-      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+      tenDigit: ['']
     });
     this.parentForm.addControl('eveningPhone', eveningPhone);
 
