@@ -30,12 +30,24 @@ module.exports = {
       { id: 25, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '2656 and spurs' },
       { id: 26, forest_id: 3, district: 'Zigzag', allowed: true, type: 'road', description: '58, 5850, 5855, 5860, 5870, 5880' },
       { id: 27, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Clackamas' },
-      { id: 28, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Zigzag' }
+      { id: 28, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Zigzag' },
+      { id: 29, forest_id: 1, district: null, allowed: true, type: 'district', description: 'Canyon Lake' },
+      { id: 30, forest_id: 1, district: null, allowed: true, type: 'district', description: 'Sulphur' },
+      { id: 31, forest_id: 1, district: null, allowed: true, type: 'district', description: 'Boulder' },
+      { id: 32, forest_id: 1, district: null, allowed: true, type: 'district', description: 'Clear Creek' },
+      { id: 33, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'area', description: 'Dalles Watershed' },
+      { id: 34, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'road', description: 'Highway 216' },
+      { id: 35, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'area', description: 'Camp Baldwin' },
+      { id: 36, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'area', description: 'Warm Springs Reservation' },
+      { id: 37, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'road', description: 'Highway 26' },
+      { id: 38, forest_id: 3, district: 'Barlow and Hood', allowed: false, type: 'road', description: 'Highway 35' },
+      { id: 39, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Barlow' },
+      { id: 40, forest_id: 3, district: null, allowed: true, type: 'district', description: 'Hood' }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('forestLocations', { forest_id: { [Op.in]: [3] } });
+    return queryInterface.bulkDelete('forestLocations', { forest_id: { [Op.in]: [1,3] } });
   }
 };
