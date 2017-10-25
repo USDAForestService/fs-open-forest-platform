@@ -47,7 +47,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.applicationForm = this.formBuilder.group({
-      /*** these should probably be taken out **/
       appControlNumber: [''],
       applicationId: [''],
       createdAt: [''],
@@ -55,7 +54,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       status: [''],
       authEmail: [''],
       revisions: [''],
-      /*** take out above here **/
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
@@ -77,7 +75,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         website: ['', [alphanumericValidator()]]
       })
     });
+  }
 
+  addressChangeListeners() {
     this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
       this.orgTypeChange(type);
     });
@@ -97,10 +97,16 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   orgTypeChange(type): void {
     if (type === 'Person') {
-      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
+      this.applicationFieldsService.removeAddressValidation(
+        this.applicationForm.get('applicantInfo'),
+        'organizationAddress'
+      );
       this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
-    } else if (type === 'Corporation') {
-      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
+    } else if (type === 'Corporation' && !this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
+      this.applicationFieldsService.removeAddressValidation(
+        this.applicationForm.get('applicantInfo'),
+        'primaryAddress'
+      );
       this.applicationForm
         .get('applicantInfo.organizationName')
         .setValidators([Validators.required, alphanumericValidator()]);
@@ -109,9 +115,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   addRemoveAddress(type, value) {
     if (value) {
-      this.applicationFieldsService.removeAddress(this.applicationForm.get('applicantInfo'), type);
+      this.applicationFieldsService.removeAddressValidation(this.applicationForm.get('applicantInfo'), type);
     } else {
-      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), type);
+      this.applicationFieldsService.addAddressValidation(this.applicationForm.get('applicantInfo'), type);
     }
   }
 
@@ -193,12 +199,34 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     );
   }
 
+  removeUnusedData() {
+    const form = this.applicationForm;
+    const service = this.applicationFieldsService;
+    if (form.get('applicantInfo.orgType').value === 'Person') {
+      form.get('applicantInfo.organizationName').setValue(null);
+      form.get('applicantInfo.website').setValue(null);
+      service.removeAddress(form.get('applicantInfo'), 'organizationAddress');
+    }
+    if (form.get('applicantInfo.orgType').value === 'Corporation') {
+      if (form.get('applicantInfo.primaryAddressSameAsOrganization').value) {
+        service.removeAddress(form.get('applicantInfo'), 'primaryAddress');
+      }
+    }
+    if (form.get('applicantInfo.secondaryAddressSameAsPrimary').value) {
+      service.removeAddress(form.get('applicantInfo'), 'secondaryAddress');
+    }
+    if (!form.get('applicantInfo.addAdditionalPhone').value) {
+      service.removeAdditionalPhone(form.get('applicantInfo'));
+    }
+  }
+
   onSubmit(form) {
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
     } else {
+      this.removeUnusedData();
       if (this.applicationFieldsService.getEditApplication()) {
         this.updateApplication();
       } else {
@@ -216,5 +244,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationFieldsService.setEditApplication(false);
       }
     });
+    this.addressChangeListeners();
   }
 }

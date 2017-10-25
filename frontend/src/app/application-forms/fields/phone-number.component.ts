@@ -25,52 +25,49 @@ export class PhoneNumberComponent implements OnInit {
     });
     this.parentForm.addControl('dayPhone', dayPhone);
 
-    this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
-      this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
-      this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
-      this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
+    const eveningPhone = this.formBuilder.group({
+      areaCode: [],
+      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
+      number: [],
+      prefix: [],
+      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
+    this.parentForm.addControl('eveningPhone', eveningPhone);
 
-    this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
-      if (value) {
-        this.service.addAdditionalPhone(this.parentForm);
-      } else {
-        this.service.removeAdditionalPhone(this.parentForm);
-      }
-    });
+    this.setValueChangeSubscriptions();
   }
 
-  addOrRemoveAdditionalPhone() {
-    if (!this.additionalPhone) {
-      this.service.addAdditionalPhone(this.parentForm);
-      this.additionalPhone = true;
+  addRemoveValidators(value) {
+    if (value) {
+      this.parentForm.get('eveningPhone.extension').setValidators([Validators.minLength(1), Validators.maxLength(6)]);
+      this.parentForm
+        .get('eveningPhone.tenDigit')
+        .setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
     } else {
-      this.service.removeAdditionalPhone(this.parentForm);
-      this.additionalPhone = false;
+      this.parentForm.get('eveningPhone.extension').setValidators(null);
+      this.parentForm.get('eveningPhone.tenDigit').setValidators(null);
     }
   }
 
-  // addAdditionalPhone() {
-  //   const eveningPhone = this.formBuilder.group({
-  //     areaCode: [],
-  //     extension: [],
-  //     number: [],
-  //     prefix: [],
-  //     tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
-  //   });
-  //   this.parentForm.addControl('eveningPhone', eveningPhone);
-  //
-  //   this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-  //     this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-  //     this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-  //     this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
-  //   });
-  //
-  //   this.additionalPhone = true;
-  // }
-  //
-  // removeAdditionalPhone() {
-  //   this.parentForm.removeControl('eveningPhone');
-  //   this.additionalPhone = false;
-  // }
+  setValueChangeSubscriptions() {
+    this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
+      if (value) {
+        this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
+        this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
+        this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
+      }
+    });
+
+    this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
+      if (value) {
+        this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
+        this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
+        this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+      }
+    });
+
+    this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
+      this.addRemoveValidators(value);
+    });
+  }
 }

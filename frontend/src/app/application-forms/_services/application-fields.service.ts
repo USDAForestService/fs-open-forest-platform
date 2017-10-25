@@ -25,6 +25,22 @@ export class ApplicationFieldsService {
     parentForm.removeControl(formName);
   }
 
+  addAddressValidation(parentForm, formName) {
+    parentForm.get(`${formName}.mailingAddress`).setValidators([Validators.required, alphanumericValidator()]);
+    parentForm.get(`${formName}.mailingCity`).setValidators([Validators.required, alphanumericValidator()]);
+    parentForm.get(`${formName}.mailingState`).setValidators([Validators.required, alphanumericValidator()]);
+    parentForm
+      .get(`${formName}.mailingZIP`)
+      .setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(5), alphanumericValidator()]);
+  }
+
+  removeAddressValidation(parentForm, formName) {
+    parentForm.get(`${formName}.mailingAddress`).setValidators(null);
+    parentForm.get(`${formName}.mailingCity`).setValidators(null);
+    parentForm.get(`${formName}.mailingState`).setValidators(null);
+    parentForm.get(`${formName}.mailingZIP`).setValidators(null);
+  }
+
   addAdditionalPhone(parentForm) {
     const eveningPhone = this.formBuilder.group({
       areaCode: [],
@@ -44,6 +60,10 @@ export class ApplicationFieldsService {
 
   removeAdditionalPhone(parentForm) {
     parentForm.removeControl('eveningPhone');
+  }
+
+  removeControl(parentForm, control) {
+    parentForm.removeControl(control);
   }
 
   simpleRequireToggle(toggleField, dataField) {
