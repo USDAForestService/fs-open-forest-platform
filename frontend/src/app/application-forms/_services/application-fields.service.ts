@@ -71,10 +71,6 @@ export class ApplicationFieldsService {
     parentForm.removeControl('eveningPhone');
   }
 
-  removeControl(parentForm, control) {
-    parentForm.removeControl(control);
-  }
-
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
       this.updateValidators(dataField, value);

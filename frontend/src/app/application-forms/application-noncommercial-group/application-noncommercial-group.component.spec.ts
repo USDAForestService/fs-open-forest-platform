@@ -80,6 +80,21 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(component.submitted).toBeTruthy();
   });
 
+  it('should remove unused data', () => {
+    component.removeUnusedData();
+    component.applicationForm.get('applicantInfo.orgType').setValue('Person');
+    expect(component.applicationForm.get('applicantInfo.organizationAddress')).toBeFalsy();
+    expect(component.applicationForm.get('applicantInfo.organizationName').value).toEqual('');
+    expect(component.applicationForm.get('applicantInfo.website').value).toEqual('');
+    component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
+    component.removeUnusedData();
+    expect(component.applicationForm.get('applicantInfo.primaryAddress')).toBeFalsy();
+    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
+    expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
+    component.applicationForm.get('applicantInfo.addAdditionalPhone').setValue(true);
+    expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
+  });
+
   it(
     'should create a new application',
     inject([ApplicationService, XHRBackend], (service, mockBackend) => {
