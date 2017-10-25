@@ -144,7 +144,7 @@ util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
       email: 'test@test.com',
-      role: 'user'
+      role: 'admin'
     };
   } else {
     return req.user;
