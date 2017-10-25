@@ -1,6 +1,7 @@
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, Input, OnInit, OnChanges, HostListener } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { UtilService } from '../../_services/util.service';
 
 @Component({
   selector: 'app-temp-outfitter-left-nav',
@@ -17,7 +18,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   top: string;
   position: string;
 
-  constructor(private applicationFieldsService: ApplicationFieldsService) {}
+  constructor(private applicationFieldsService: ApplicationFieldsService, private util: UtilService) {}
 
   getControlStatus(control: FormControl) {
     if (control.valid && control.touched) {
@@ -48,7 +49,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    const nav = document.getElementById('temp-outfitter-nav');
+    const nav = document.getElementById('sidebar-nav');
     const container = document.getElementById('application');
     const footer = document.getElementById('footer');
 
@@ -71,13 +72,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   }
 
   gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      this.currentSection = fragment;
-      document.getElementById(fragment).focus();
-    }
+    this.currentSection = this.util.gotoHashtag(fragment, event);
   }
 
   ngOnChanges() {
