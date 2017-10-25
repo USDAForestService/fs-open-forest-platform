@@ -1,4 +1,5 @@
 <div class="usa-grid event-name no-padding padding-top-1">
+  <button *ngIf="application.status === 'Hold'" class="usa-button-outline float-right" routerLink="/applications/noncommercial-group-use/{{application.appControlNumber}}/edit">Edit application</button>
   <div class="usa-width-three-fourths">
     <h1>{{ application.eventName}}
       <span *ngIf="!['Submitted'].includes(application.status)" class="usa-label" [ngClass]="{
@@ -38,7 +39,7 @@
         {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
         <span *ngIf="application.applicantInfo.dayPhone.extension"> ext. {{ application.applicantInfo.dayPhone.extension }}</span>
       </span>
-      <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">
+      <span *ngIf="application.applicantInfo.eveningPhone && application.applicantInfo.eveningPhone.number" class="display-block">
         {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
         <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
       </span>

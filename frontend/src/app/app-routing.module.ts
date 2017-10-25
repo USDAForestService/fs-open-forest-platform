@@ -48,6 +48,12 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a noncommercial group use permit' }
   },
   {
+    path: 'applications/noncommercial-group-use/:id/edit',
+    component: ApplicationNoncommercialGroupComponent,
+    canActivate: [AuthGuardService],
+    data: { title: 'Edit your noncommercial group use permit' }
+  },
+  {
     path: 'applications/noncommercial-group-use/learn-more',
     component: NoncommercialLearnMoreComponent,
     data: { title: 'Noncommercial permit FAQs' }

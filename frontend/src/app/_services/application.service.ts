@@ -43,7 +43,7 @@ export class ApplicationService {
       .catch(this.handleError);
   }
 
-  update(body: SpecialUseApplication, type): Observable<SpecialUseApplication[]> {
+  update(body, type) {
     const bodyString = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions({ headers: headers, withCredentials: true });
