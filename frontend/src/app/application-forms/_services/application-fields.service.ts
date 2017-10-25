@@ -12,11 +12,11 @@ export class ApplicationFieldsService {
 
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
-      mailingAddress: ['', [Validators.required, alphanumericValidator()]],
+      mailingAddress: [''],
       mailingAddress2: [''],
-      mailingCity: ['', [Validators.required, alphanumericValidator()]],
-      mailingState: ['', [Validators.required, alphanumericValidator()]],
-      mailingZIP: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), alphanumericValidator()]]
+      mailingCity: [''],
+      mailingState: [''],
+      mailingZIP: ['']
     });
     parentForm.addControl(formName, this[formName]);
   }

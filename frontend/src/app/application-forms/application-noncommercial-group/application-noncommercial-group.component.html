@@ -27,13 +27,13 @@
 
         <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
         <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Person'">
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
+          <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
+          <app-address id="person-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
 
         <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Corporation'">
           <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
+          <app-address id="organization-address" [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
         <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
@@ -44,9 +44,9 @@
         </div>
       </fieldset>
 
-      <fieldset [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Corporation'">
+      <fieldset *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
         <legend>Primary permit holder</legend>
-        <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
+        <app-permit-holder-name id="organization-primary-name" [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
 
         <ng-container formGroupName="applicantInfo">
           <input id="primary-permit-holder-same-address" formControlName="primaryAddressSameAsOrganization" type="checkbox" />
@@ -54,7 +54,7 @@
         </ng-container>
 
         <div [hidden]="applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
+          <app-address id="organization-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
       </fieldset>
 
@@ -77,6 +77,7 @@
             [hidden]="applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').value"
             [parentForm]="applicationForm.get('applicantInfo')"
             formName="secondaryAddress"
+            id="secondary-address"
             type="secondary-permit-holder">
           </app-address>
 

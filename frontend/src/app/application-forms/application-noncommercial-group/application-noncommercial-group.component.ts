@@ -203,8 +203,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     const form = this.applicationForm;
     const service = this.applicationFieldsService;
     if (form.get('applicantInfo.orgType').value === 'Person') {
-      form.get('applicantInfo.organizationName').setValue(null);
-      form.get('applicantInfo.website').setValue(null);
+      form.get('applicantInfo.organizationName').setValue('');
+      form.get('applicantInfo.website').setValue('');
       service.removeAddress(form.get('applicantInfo'), 'organizationAddress');
     }
     if (form.get('applicantInfo.orgType').value === 'Corporation') {
