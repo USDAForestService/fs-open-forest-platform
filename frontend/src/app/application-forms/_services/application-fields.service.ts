@@ -26,19 +26,28 @@ export class ApplicationFieldsService {
   }
 
   addAddressValidation(parentForm, formName) {
-    parentForm.get(`${formName}.mailingAddress`).setValidators([Validators.required, alphanumericValidator()]);
-    parentForm.get(`${formName}.mailingCity`).setValidators([Validators.required, alphanumericValidator()]);
-    parentForm.get(`${formName}.mailingState`).setValidators([Validators.required, alphanumericValidator()]);
-    parentForm
-      .get(`${formName}.mailingZIP`)
-      .setValidators([Validators.required, Validators.minLength(5), Validators.maxLength(5), alphanumericValidator()]);
+    if (parentForm.get(`${formName}`)) {
+      parentForm.get(`${formName}.mailingAddress`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm.get(`${formName}.mailingCity`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm.get(`${formName}.mailingState`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm
+        .get(`${formName}.mailingZIP`)
+        .setValidators([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(5),
+          alphanumericValidator()
+        ]);
+    }
   }
 
   removeAddressValidation(parentForm, formName) {
-    parentForm.get(`${formName}.mailingAddress`).setValidators(null);
-    parentForm.get(`${formName}.mailingCity`).setValidators(null);
-    parentForm.get(`${formName}.mailingState`).setValidators(null);
-    parentForm.get(`${formName}.mailingZIP`).setValidators(null);
+    if (parentForm.get(`${formName}`)) {
+      parentForm.get(`${formName}.mailingAddress`).setValidators(null);
+      parentForm.get(`${formName}.mailingCity`).setValidators(null);
+      parentForm.get(`${formName}.mailingState`).setValidators(null);
+      parentForm.get(`${formName}.mailingZIP`).setValidators(null);
+    }
   }
 
   addAdditionalPhone(parentForm) {

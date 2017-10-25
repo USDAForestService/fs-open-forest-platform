@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -24,7 +26,9 @@ describe('ApplicationNoncommercialGroupComponent', () => {
           { provide: ApplicationService, useClass: ApplicationService },
           { provide: ApplicationFieldsService, useClass: MockApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
-          { provide: XHRBackend, useClass: MockBackend }
+          { provide: XHRBackend, useClass: MockBackend },
+          AlertService,
+          AuthenticationService
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
