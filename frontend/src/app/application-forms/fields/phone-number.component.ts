@@ -50,24 +50,30 @@ export class PhoneNumberComponent implements OnInit {
   }
 
   setValueChangeSubscriptions() {
-    this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
-      if (value) {
-        this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
-        this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
-        this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
-      }
-    });
+    if (this.parentForm.get('dayPhone.tenDigit')) {
+      this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
+        if (value) {
+          this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
+          this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
+          this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
+        }
+      });
+    }
 
-    this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-      if (value) {
-        this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-        this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-        this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
-      }
-    });
+    if (this.parentForm.get('dayPhone.tenDigit')) {
+      this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
+        if (value) {
+          this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
+          this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
+          this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+        }
+      });
+    }
 
-    this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
-      this.addRemoveValidators(value);
-    });
+    if (this.parentForm.get('addAdditionalPhone')) {
+      this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
+        this.addRemoveValidators(value);
+      });
+    }
   }
 }

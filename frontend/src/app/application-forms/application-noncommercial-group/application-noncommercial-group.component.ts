@@ -139,26 +139,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.dateStatus = dateStatus;
   }
 
-  applicationCorrections() {
-    if (this.application.applicantInfo.addAdditionalPhone) {
-      this.applicationFieldsService.addAdditionalPhone(this.applicationForm.get('applicantInfo'));
-    }
-    if (this.application.applicantInfo.primaryAddress) {
-      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'primaryAddress');
-    }
-    if (this.application.applicantInfo.organizationAddress) {
-      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'organizationAddress');
-    }
-    if (this.application.applicantInfo.secondaryAddress) {
-      this.applicationFieldsService.addAddress(this.applicationForm.get('applicantInfo'), 'secondaryAddress');
-    }
-  }
-
   getApplication(id) {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
-        this.applicationCorrections();
         this.applicationForm.setValue(application);
       },
       (e: any) => {
