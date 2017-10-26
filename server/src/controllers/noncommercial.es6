@@ -176,7 +176,7 @@ const translateFromDatabaseToClient = input => {
     district: input.district,
     eventName: input.eventName,
     forest: input.forest,
-    applicantMessage: input.applicantMessage || null,
+    applicantMessage: input.applicantMessage || '',
     region: input.region,
     signature: input.signature,
     status: input.status,
@@ -187,38 +187,21 @@ const translateFromDatabaseToClient = input => {
   result.applicantInfo.addSecondaryPermitHolder =
     !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
 
-  if (
+  result.applicantInfo.secondaryAddressSameAsPrimary =
     !result.applicantInfo.secondaryAddress.mailingAddress &&
     !result.applicantInfo.secondaryAddress.mailingAddress2 &&
     !result.applicantInfo.secondaryAddress.mailingCity &&
     !result.applicantInfo.secondaryAddress.mailingState &&
-    !result.applicantInfo.secondaryAddress.mailingZIP
-  ) {
-    result.applicantInfo.secondaryAddressSameAsPrimary = true;
-    //  delete result.applicantInfo.secondaryAddress;
-  } else {
-    result.applicantInfo.secondaryAddressSameAsPrimary = false;
-  }
+    !result.applicantInfo.secondaryAddress.mailingZIP;
 
-  if (
+  result.applicantInfo.primaryAddressSameAsOrganization =
     !result.applicantInfo.organizationAddress.mailingAddress &&
     !result.applicantInfo.organizationAddress.mailingAddress2 &&
     !result.applicantInfo.organizationAddress.mailingCity &&
     !result.applicantInfo.organizationAddress.mailingState &&
-    !result.applicantInfo.organizationAddress.mailingZIP
-  ) {
-    result.applicantInfo.primaryAddressSameAsOrganization = true;
-    //  delete result.applicantInfo.organizationAddress;
-  } else {
-    result.applicantInfo.primaryAddressSameAsOrganization = false;
-  }
+    !result.applicantInfo.organizationAddress.mailingZIP;
 
-  if (!result.applicantInfo.eveningPhone.tenDigit) {
-    result.applicantInfo.addAdditionalPhone = false;
-    // delete result.applicantInfo.eveningPhone;
-  } else {
-    result.applicantInfo.addAdditionalPhone = true;
-  }
+  result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
   return result;
 };
@@ -286,7 +269,7 @@ noncommercial.updateApplication = (model, submitted, user) => {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
   } else {
-    model.status = 'Submitted';
+    model.status = 'Review';
   }
   translateFromClientToDatabase(submitted, model);
 };
@@ -376,7 +359,6 @@ noncommercial.create = (req, res) => {
 };
 
 noncommercial.update = (req, res) => {
-  const role = util.isLocalOrCI() ? 'admin' : req.user.role;
   NoncommercialApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -412,7 +394,7 @@ noncommercial.update = (req, res) => {
         app
           .save()
           .then(() => {
-            if (app.status === 'Cancelled' && role === 'user') {
+            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
             } else {
               email.sendEmail(`noncommercialApplication${app.status}`, app);
