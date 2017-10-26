@@ -11,3 +11,12 @@
     {{ location.description }}
   </li>
 </ul>
+
+<ng-container *ngFor="let district of prohibitedDistricts">
+  <h3>Roads where harvesting is not allowed on the {{ district.district }} district{{ district.district.indexOf('and') > 0 ? 's' : ''}}:</h3>
+  <ul>
+    <li *ngFor="let road of district.childNodes">
+      {{ road.description }}
+    </li>
+  </ul>
+</ng-container>
