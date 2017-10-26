@@ -121,6 +121,10 @@ export const forest = {
     { id: 25, district: 'Zigzag', allowed: true, type: 'road', description: '2656 and spurs' },
     { id: 26, district: 'Zigzag', allowed: true, type: 'road', description: '58, 5850, 5855, 5860, 5870, 5880' },
     { id: 27, district: null, allowed: true, type: 'district', description: 'Clackamas' },
-    { id: 28, district: null, allowed: true, type: 'district', description: 'Zigzag' }
+    { id: 28, district: null, allowed: true, type: 'district', description: 'Zigzag' },
+    { id: 29, district: null, allowed: true, type: 'district', description: 'Hood' },
+    { id: 30, district: null, allowed: true, type: 'district', description: 'Barlow' },
+    { id: 31, district: 'Barlow and Hood', allowed: false, type: 'road', description: 'Highway to hell' },
+    { id: 32, district: 'Barlow and Hood', allowed: false, type: 'road', description: '1' }
   ]
 };

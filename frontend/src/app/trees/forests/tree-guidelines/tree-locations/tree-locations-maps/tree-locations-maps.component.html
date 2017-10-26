@@ -5,9 +5,9 @@
       {{ location.description }}
     </div>
     <div class="usa-width-two-thirds">
-      <img src="/assets/img/{{ location.description | SpacesToDashes }}-map-thumb.png" alt="" />
+      <img src="/assets/img/{{ location.description | SpacesToDashes }}-map-thumb.png" onError="src='assets/img/hood-map-thumb.png'" alt="" />
       <figcaption>Map of {{location.description}} district</figcaption>
-      <a href="/assets/img/{{ location.description | SpacesToDashes }}-map.pdf">PDF</a>
+      <a href="/assets/img/{{ location.description | SpacesToDashes }}-map.pdf" onError="src='assets/img/hood-map.pdf'">PDF</a>
     </div>
   </div>
 </ng-container>
