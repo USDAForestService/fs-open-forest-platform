@@ -100,6 +100,7 @@ export class FieldValidation {
     });
 
     it('should show replace buttons if file is valid', () => {
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Replace');
     });
 

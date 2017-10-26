@@ -27,15 +27,13 @@ describe('TreeLocationsAllowedComponent', () => {
 
   it('should get allowed districts', () => {
     component.forest = forest;
-    component.getAllowedDistricts();
-    expect(component.arrayOfDistrictKeys[0]).toEqual('Clackamas');
-    expect(component.allowedDistricts['Clackamas'].childNodes[0].id).toEqual(17);
+    component.populateDistricts();
+    expect(component.allowedDistricts[0].childNodes[0].id).toEqual(17);
   });
 
   it('should get run allowed districts on changes', () => {
     component.forest = forest;
     component.ngOnChanges();
-    expect(component.arrayOfDistrictKeys[0]).toEqual('Clackamas');
-    expect(component.allowedDistricts['Clackamas'].childNodes[0].id).toEqual(17);
+    expect(component.allowedDistricts[0].childNodes[0].id).toEqual(17);
   });
 });
