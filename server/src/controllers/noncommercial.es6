@@ -201,7 +201,7 @@ const translateFromDatabaseToClient = input => {
     !result.applicantInfo.organizationAddress.mailingState &&
     !result.applicantInfo.organizationAddress.mailingZIP;
 
-  result.applicantInfo.addAdditionalPhone = result.applicantInfo.eveningPhone.tenDigit;
+  result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
   return result;
 };
