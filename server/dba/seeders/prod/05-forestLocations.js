@@ -48,6 +48,6 @@ module.exports = {
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('forestLocations', { forest_id: { [Op.in]: [1,3] } });
+    return queryInterface.bulkDelete('forestLocations', { forest_id: { [Op.in]: [1,2,3,4] } });
   }
 };
