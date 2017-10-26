@@ -92,7 +92,6 @@ export class WizardViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      console.log(params);
       if (params['step']) {
         const section = this.findSectionByStepNumber(params['step']);
         this.jumpToStep(section);
