@@ -14,25 +14,11 @@ export class TreeGuidelinesComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private service: TreesService) {}
 
-  getForest(id) {
-    this.service.getOne(id).subscribe(
-      result => {
-        this.forest = result.forest;
-      },
-      (e: any) => {
-        this.errorMessage = 'The application could not be found.';
-        window.scrollTo(0, 200);
-      }
-    );
-  }
-
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.template = params['template'];
     });
-
-    // this.getForest(this.id);
 
     this.route.data.subscribe(data => {
       this.forest = data.forest;
