@@ -36,6 +36,10 @@ module.exports = sequelize.define(
     note: {
       type: Sequelize.STRING,
       field: 'note'
+    },
+    displayOrder: {
+      type: Sequelize.INTEGER,
+      field: 'display_order'
     }
   },
   {
