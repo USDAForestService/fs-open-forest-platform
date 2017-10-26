@@ -12,6 +12,7 @@ import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angula
 import { MockBackend } from '@angular/http/testing';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { noncommercialMock } from './noncommercial-mock';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -24,7 +25,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: ApplicationService },
-          { provide: ApplicationFieldsService, useClass: MockApplicationFieldsService },
+          { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
           { provide: XHRBackend, useClass: MockBackend },
           AlertService,
@@ -114,21 +115,3 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     })
   );
 });
-
-class MockApplicationFieldsService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  scrollToFirstError() {
-    return false;
-  }
-
-  touchAllFields() {
-    return false;
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-}

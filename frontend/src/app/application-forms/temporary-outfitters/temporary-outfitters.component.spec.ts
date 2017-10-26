@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
@@ -7,6 +9,8 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { tempOutfitterMock } from './temp-outfitter-mock';
 
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
@@ -20,9 +24,11 @@ describe('TemporaryOutfittersComponent', () => {
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
-          { provide: FormBuilder, useClass: FormBuilder }
+          { provide: FormBuilder, useClass: FormBuilder },
+          AlertService,
+          AuthenticationService
         ],
-        imports: [RouterTestingModule]
+        imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
     })
   );
@@ -268,14 +274,37 @@ describe('TemporaryOutfittersComponent', () => {
     component.removeUnusedData();
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
   });
+
+  it('should return application', () => {
+    component.getApplication(111);
+    expect(component.apiErrors).toEqual('The application could not be found.');
+    component.getApplication('111');
+    expect(component.applicationForm.get('appControlNumber').value).toEqual('222');
+  });
 });
 
 class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
+  }
+
+  handleStatusCode(e) {
+    return e;
+  }
+
   get(): Observable<{}> {
     return Observable.of();
   }
 
   create(): Observable<{}> {
+    return Observable.of();
+  }
+
+  update(): Observable<{}> {
     return Observable.of();
   }
 }

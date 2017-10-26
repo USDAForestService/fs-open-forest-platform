@@ -11,7 +11,6 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [ApplicationService, ApplicationFieldsService, DateTimeRangeComponent],
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html'
 })
