@@ -4,6 +4,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 const testSidebarLink = function(section) {
   const ec = protractor.ExpectedConditions;
   browser.wait(ec.presenceOf(element(by.id(`${section}-link`))));
+  browser.wait(ec.presenceOf(element(by.id(`${section}`))));
   element(by.id(`${section}-link`)).click();
   expect(element(by.id(`${section}`)).getAttribute('innerHTML')).toEqual(
     browser.driver.switchTo().activeElement().getAttribute('innerHTML')
