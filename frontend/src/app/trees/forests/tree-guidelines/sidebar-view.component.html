@@ -55,7 +55,9 @@
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h1>{{forest.forestName}} National Forest Christmas tree permit<br />{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
+      <p>{{forest.forestName | uppercase }} NATIONAL FOREST</p>
+      <h1>Christmas tree permit</h1>
+      <div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>
       <h2 id="general-guidelines" tabindex="-1">Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
