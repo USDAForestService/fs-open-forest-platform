@@ -1,16 +1,16 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {TreeLocationsComponent} from '../tree-locations.component';
 
 @Component({
   selector: 'app-tree-locations-allowed',
   templateUrl: './tree-locations-allowed.component.html'
 })
+
 export class TreeLocationsAllowedComponent implements OnChanges {
   @Input() forest: any;
-  allowedDistricts: any;
-  arrayOfDistrictKeys: any;
+  allowedDistricts: any = [];
 
-  getAllowedDistricts() {
+  populateDistricts() {
     const locations = this.forest.locations;
     const districts = Object.create(null);
 
@@ -28,13 +28,18 @@ export class TreeLocationsAllowedComponent implements OnChanges {
       }
     });
 
-    this.allowedDistricts = districts;
-    this.arrayOfDistrictKeys = Object.keys(this.allowedDistricts);
+    for (const key of Object.keys(districts)) {
+      const district = districts[key];
+      if (district.childNodes.length && district.allowed) {
+        this.allowedDistricts.push(district);
+      }
+    }
+
   }
 
   ngOnChanges() {
     if (this.forest && this.forest.locations) {
-      this.getAllowedDistricts();
+      this.populateDistricts();
     }
   }
 }

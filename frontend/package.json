@@ -15,7 +15,7 @@
     "snyk-test": "snyk test",
     "start": "ng serve",
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
-    "test": "ng test",
+    "test": "ng test -sm=false",
     "typedoc": "typedoc",
     "update-version": "npm version patch && node ./replace.build.js"
   },
