@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 import { TreeLocationsProhibitedComponent } from './tree-locations-prohibited.component';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
@@ -34,7 +34,7 @@ describe('TreeLocationsProhibitedComponent', () => {
   });
 });
 
-@Pipe({name: 'filter'})
+@Pipe({ name: 'filter' })
 class MockPipe implements PipeTransform {
   transform(value: number): number {
     return value;
