@@ -21,79 +21,85 @@ const s3 = new AWS.S3({
   region: vcapConstants.region
 });
 
-const translateFromClientToDatabase = input => {
-  return {
-    applicantInfoDayPhoneAreaCode: input.applicantInfo.dayPhone.areaCode,
-    applicantInfoDayPhoneExtension: input.applicantInfo.dayPhone.extension,
-    applicantInfoDayPhoneNumber: input.applicantInfo.dayPhone.number,
-    applicantInfoDayPhonePrefix: input.applicantInfo.dayPhone.prefix,
-    applicantInfoEmailAddress: input.applicantInfo.emailAddress,
-    applicantInfoEveningPhoneAreaCode: input.applicantInfo.eveningPhone
-      ? input.applicantInfo.eveningPhone.areaCode
-      : null,
-    applicantInfoEveningPhoneExtension: input.applicantInfo.eveningPhone
-      ? input.applicantInfo.eveningPhone.extension
-      : null,
-    applicantInfoEveningPhoneNumber: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.number : null,
-    applicantInfoEveningPhonePrefix: input.applicantInfo.eveningPhone ? input.applicantInfo.eveningPhone.prefix : null,
-    applicantInfoFaxAreaCode: input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null,
-    applicantInfoFaxExtension: input.applicantInfo.fax ? input.applicantInfo.fax.extension : null,
-    applicantInfoFaxNumber: input.applicantInfo.fax ? input.applicantInfo.fax.number : null,
-    applicantInfoFaxPrefix: input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null,
-    applicantInfoOrganizationName: input.applicantInfo.organizationName,
-    applicantInfoOrgType: input.applicantInfo.orgType,
-    applicantInfoPrimaryFirstName: input.applicantInfo.primaryFirstName,
-    applicantInfoPrimaryLastName: input.applicantInfo.primaryLastName,
-    applicantInfoPrimaryMailingAddress: input.applicantInfo.primaryAddress.mailingAddress,
-    applicantInfoPrimaryMailingAddress2: input.applicantInfo.primaryAddress.mailingAddress2,
-    applicantInfoPrimaryMailingCity: input.applicantInfo.primaryAddress.mailingCity,
-    applicantInfoPrimaryMailingState: input.applicantInfo.primaryAddress.mailingState,
-    applicantInfoPrimaryMailingZIP: input.applicantInfo.primaryAddress.mailingZIP,
-    applicantInfoWebsite: input.applicantInfo.website,
-    authorizingOfficerName: input.authorizingOfficerName,
-    authorizingOfficerTitle: input.authorizingOfficerTitle,
-    district: input.district,
-    forest: input.forest,
-    applicantMessage: input.applicantMessage,
-    region: input.region,
-    signature: input.signature,
-    authEmail: input.authEmail,
-    tempOutfitterFieldsActDescFieldsAudienceDesc:
-      input.tempOutfitterFields.activityDescriptionFields.audienceDescription,
-    tempOutfitterFieldsActDescFieldsDescCleanupRestoration:
-      input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration,
-    tempOutfitterFieldsActDescFieldsEndDateTime:
-      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime,
-    tempOutfitterFieldsActDescFieldsListGovFacilities:
-      input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities,
-    tempOutfitterFieldsActDescFieldsListTempImprovements:
-      input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements,
-    tempOutfitterFieldsActDescFieldsLocationDesc:
-      input.tempOutfitterFields.activityDescriptionFields.locationDescription,
-    tempOutfitterFieldsActDescFieldsNumServiceDaysReq:
-      input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested,
-    tempOutfitterFieldsActDescFieldsNumTrips: input.tempOutfitterFields.activityDescriptionFields.numberOfTrips,
-    tempOutfitterFieldsActDescFieldsServProvided: input.tempOutfitterFields.activityDescriptionFields.servicesProvided,
-    tempOutfitterFieldsActDescFieldsStartDateTime:
-      input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime,
-    tempOutfitterFieldsActDescFieldsStmtAssignedSite:
-      input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite,
-    tempOutfitterFieldsActDescFieldsStmtMotorizedEquip:
-      input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment,
-    tempOutfitterFieldsActDescFieldsStmtTransportLivestock:
-      input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock,
-    tempOutfitterFieldsAdvertisingDescription: input.tempOutfitterFields.advertisingDescription,
-    tempOutfitterFieldsAdvertisingUrl: input.tempOutfitterFields.advertisingURL,
-    tempOutfitterFieldsClientCharges: input.tempOutfitterFields.clientCharges,
-    tempOutfitterFieldsExperienceList: input.tempOutfitterFields.experienceList,
-    tempOutfitterFieldsIndividualCitizen: input.tempOutfitterFields.individualIsCitizen,
-    tempOutfitterFieldsSmallBusiness: input.tempOutfitterFields.smallBusiness,
-    type: input.type,
-    tempOutfitterFieldsActDescFieldsPartySize: input.tempOutfitterFields.activityDescriptionFields.partySize,
-    tempOutfitterFieldsExpAllCitations: input.tempOutfitterFields.experienceFields.listAllCitations,
-    tempOutfitterFieldsExpNatForestPermits: input.tempOutfitterFields.experienceFields.listAllNationalForestPermits,
-    tempOutfitterFieldsExpOtherPermits: input.tempOutfitterFields.experienceFields.listAllOtherPermits
-  };
+const translateFromClientToDatabase = (input, output) => {
+  output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
+  output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
+  output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
+  output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
+  output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.areaCode
+    : '';
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.extension
+    : '';
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.number
+    : '';
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
+    ? input.applicantInfo.eveningPhone.prefix
+    : '';
+  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : '';
+  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : '';
+  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : '';
+  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : '';
+  output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
+  output.applicantInfoOrgType = input.applicantInfo.orgType;
+  output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
+  output.applicantInfoPrimaryLastName = input.applicantInfo.primaryLastName;
+  output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
+  output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
+  output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
+  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState;
+  output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
+  output.applicantInfoWebsite = input.applicantInfo.website;
+  output.authorizingOfficerName = input.authorizingOfficerName;
+  output.authorizingOfficerTitle = input.authorizingOfficerTitle;
+  output.district = input.district;
+  output.forest = input.forest;
+  output.applicantMessage = input.applicantMessage;
+  output.region = input.region;
+  output.signature = input.signature;
+  output.authEmail = input.authEmail;
+  output.tempOutfitterFieldsActDescFieldsAudienceDesc =
+    input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
+  output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration =
+    input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
+  output.tempOutfitterFieldsActDescFieldsEndDateTime =
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
+  output.tempOutfitterFieldsActDescFieldsListGovFacilities =
+    input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
+  output.tempOutfitterFieldsActDescFieldsListTempImprovements =
+    input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements;
+  output.tempOutfitterFieldsActDescFieldsLocationDesc =
+    input.tempOutfitterFields.activityDescriptionFields.locationDescription;
+  output.tempOutfitterFieldsActDescFieldsNumServiceDaysReq =
+    input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested;
+  output.tempOutfitterFieldsActDescFieldsNumTrips = input.tempOutfitterFields.activityDescriptionFields.numberOfTrips;
+  output.tempOutfitterFieldsActDescFieldsServProvided =
+    input.tempOutfitterFields.activityDescriptionFields.servicesProvided;
+  output.tempOutfitterFieldsActDescFieldsStartDateTime =
+    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
+  output.tempOutfitterFieldsActDescFieldsStmtAssignedSite =
+    input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
+  output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip =
+    input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
+  output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock =
+    input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
+  output.tempOutfitterFieldsAdvertisingDescription = input.tempOutfitterFields.advertisingDescription;
+  output.tempOutfitterFieldsAdvertisingUrl = input.tempOutfitterFields.advertisingURL;
+  output.tempOutfitterFieldsClientCharges = input.tempOutfitterFields.clientCharges;
+  output.tempOutfitterFieldsExperienceList = input.tempOutfitterFields.experienceList;
+  output.tempOutfitterFieldsIndividualCitizen = input.tempOutfitterFields.individualIsCitizen;
+  output.tempOutfitterFieldsSmallBusiness = input.tempOutfitterFields.smallBusiness;
+  output.type = input.type;
+  output.tempOutfitterFieldsActDescFieldsPartySize = input.tempOutfitterFields.activityDescriptionFields.partySize;
+  output.tempOutfitterFieldsExpAllCitations = input.tempOutfitterFields.experienceFields.listAllCitations;
+  output.tempOutfitterFieldsExpNatForestPermits =
+    input.tempOutfitterFields.experienceFields.listAllNationalForestPermits;
+  output.tempOutfitterFieldsExpOtherPermits = input.tempOutfitterFields.experienceFields.listAllOtherPermits;
+
+  return output;
 };
 
 const translateFromDatabaseToClient = input => {
@@ -327,6 +333,16 @@ const getAllFileNames = applicationId => {
   });
 };
 
+tempOutfitter.updateApplication = (model, submitted, user) => {
+  if (user.role === 'admin') {
+    model.status = submitted.status;
+    model.applicantMessage = submitted.applicantMessage;
+  } else {
+    model.status = 'Review';
+  }
+  translateFromClientToDatabase(submitted, model);
+};
+
 tempOutfitter.acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId)
@@ -444,7 +460,11 @@ tempOutfitter.create = (req, res) => {
     res.status(400).json(errorRet);
   } else {
     util.setAuthEmail(req);
-    TempOutfitterApplication.create(translateFromClientToDatabase(req.body))
+    let model = {
+      authEmail: req.body.authEmail
+    };
+    translateFromClientToDatabase(req.body, model);
+    TempOutfitterApplication.create(model)
       .then(tempOutfitterApp => {
         email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
         email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
@@ -508,7 +528,6 @@ tempOutfitter.streamFile = (req, res) => {
 };
 
 tempOutfitter.update = (req, res) => {
-  const role = util.isLocalOrCI() ? 'admin' : req.user.role;
   TempOutfitterApplication.findOne({
     where: {
       app_control_number: req.params.id
@@ -516,8 +535,7 @@ tempOutfitter.update = (req, res) => {
   })
     .then(app => {
       if (app) {
-        app.status = req.body.status;
-        app.applicantMessage = req.body.applicantMessage;
+        tempOutfitter.updateApplication(app, req.body, util.getUser(req));
         Revision.create({
           applicationId: app.applicationId,
           applicationType: app.type,
@@ -546,7 +564,7 @@ tempOutfitter.update = (req, res) => {
           app
             .save()
             .then(() => {
-              if (app.status === 'Cancelled' && role === 'user') {
+              if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
                 email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
               } else {
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
