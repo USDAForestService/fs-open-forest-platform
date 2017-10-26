@@ -1,7 +1,9 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, DoCheck, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, DoCheck, ElementRef, HostListener, Renderer2, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +13,7 @@ import { SpecialUseApplication } from '../../_models/special-use-application';
   selector: 'app-temporary-outfitters',
   templateUrl: './temporary-outfitters.component.html'
 })
-export class TemporaryOutfittersComponent implements DoCheck {
+export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   apiErrors: any;
   // application = new SpecialUseApplication();
   application: any;
@@ -42,6 +44,8 @@ export class TemporaryOutfittersComponent implements DoCheck {
   invalidFileUpload: boolean;
 
   constructor(
+    private alertService: AlertService,
+    private authentication: AuthenticationService,
     private element: ElementRef,
     public applicationService: ApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
@@ -53,11 +57,11 @@ export class TemporaryOutfittersComponent implements DoCheck {
     this.applicationForm = this.formBuilder.group({
       appControlNumber: [''],
       applicationId: [''],
-      authorizingOfficerName: [''],
-      authorizingOfficerTitle: [''],
       createdAt: [''],
-      authEmail: [''],
+      applicantMessage: [''],
       status: [''],
+      authEmail: [''],
+      revisions: [''],
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
@@ -202,6 +206,53 @@ export class TemporaryOutfittersComponent implements DoCheck {
     }
   }
 
+  getApplication(id) {
+    this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
+      application => {
+        this.application = application;
+        this.applicationForm.setValue(application);
+      },
+      (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
+        this.apiErrors = 'The application could not be found.';
+        window.scrollTo(0, 200);
+      }
+    );
+  }
+
+  createApplication() {
+    this.applicationService
+      .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
+      .subscribe(
+        persistedApplication => {
+          this.application = persistedApplication;
+          this.applicationId = persistedApplication.applicationId;
+          this.showFileUploadProgress = true;
+          this.uploadFiles = true;
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
+  }
+
+  updateApplication() {
+    this.applicationService.update(this.applicationForm.value, 'temp-outfitter').subscribe(
+      (data: any) => {
+        this.alertService.addSuccessMessage('Permit application was successfully updated.');
+        if (this.authentication.isAdmin()) {
+          this.router.navigate([`admin/applications/temp-outfitter/${data.appControlNumber}`]);
+        } else {
+          this.router.navigate([`user/applications/temp-outfitter/${data.appControlNumber}`]);
+        }
+      },
+      (e: any) => {
+        this.applicationService.handleStatusCode(e[0]);
+      }
+    );
+  }
+
   onSubmit() {
     this.submitted = true;
     this.numberOfFilesToUpload();
@@ -211,20 +262,11 @@ export class TemporaryOutfittersComponent implements DoCheck {
       this.applicationFieldsService.scrollToFirstError();
     } else {
       this.removeUnusedData();
-      this.applicationService
-        .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
-        .subscribe(
-          persistedApplication => {
-            this.application = persistedApplication;
-            this.applicationId = persistedApplication.applicationId;
-            this.showFileUploadProgress = true;
-            this.uploadFiles = true;
-          },
-          (e: any) => {
-            this.apiErrors = e;
-            window.scroll(0, 0);
-          }
-        );
+      if (this.applicationFieldsService.getEditApplication()) {
+        this.updateApplication();
+      } else {
+        this.createApplication();
+      }
     }
   }
 
@@ -272,5 +314,16 @@ export class TemporaryOutfittersComponent implements DoCheck {
         );
       }
     }
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.getApplication(params['id']);
+        this.applicationFieldsService.setEditApplication(true);
+      } else {
+        this.applicationFieldsService.setEditApplication(false);
+      }
+    });
   }
 }
