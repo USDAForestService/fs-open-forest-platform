@@ -72,6 +72,9 @@ christmasTree.getOneRegulations = (req, res) => {
       {
         model: forestLocations
       }
+    ],
+    order: [
+      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ]
     ]
   })
     .then(app => {
