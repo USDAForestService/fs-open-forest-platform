@@ -1,7 +1,7 @@
-<ng-container *ngFor="let key of arrayOfDistrictKeys">
-  <h3>Roads to try on the {{ key }} district:</h3>
+<ng-container *ngFor="let district of allowedDistricts">
+  <h3>Roads to try on the {{ district.district }} district:</h3>
   <ul>
-    <li *ngFor="let road of allowedDistricts[key].childNodes">
+    <li *ngFor="let road of district.childNodes">
       {{ road.description }}
     </li>
   </ul>

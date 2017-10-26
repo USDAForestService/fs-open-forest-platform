@@ -64,6 +64,7 @@
     "snyk-test": "snyk test",
     "start": "node --harmony_default_parameters ./src/app.es6",
     "test": "mocha ./test/**/*.es6 ./test/*.es6",
+    "undoAllSeed": "sequelize db:seed:undo:all --seeders-path dba/seeders/prod/",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
     "undoLastMigrate": "sequelize db:migrate:undo"
   },
