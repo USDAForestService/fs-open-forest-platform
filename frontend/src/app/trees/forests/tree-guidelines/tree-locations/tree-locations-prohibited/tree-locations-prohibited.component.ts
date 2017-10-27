@@ -1,4 +1,5 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 
 @Component({
   selector: 'app-tree-locations-prohibited',
@@ -7,6 +8,8 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 export class TreeLocationsProhibitedComponent implements OnChanges {
   @Input() forest: any;
   prohibitedDistricts: any = [];
+
+  constructor(private filter: FilterPipe) {}
 
   populateDistricts() {
     const locations = this.forest.locations;
@@ -32,7 +35,6 @@ export class TreeLocationsProhibitedComponent implements OnChanges {
         this.prohibitedDistricts.push(district);
       }
     }
-
   }
 
   ngOnChanges() {
