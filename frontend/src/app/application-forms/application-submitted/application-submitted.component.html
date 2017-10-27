@@ -11,7 +11,7 @@
       <p class="review-summary">
         Your permit application<span *ngIf="type !== 'temp-outfitter'"> for <strong>{{application.eventName}}</strong></span> has been submitted for review, but is <strong>NOT APPROVED</strong> until you hear from a special use administrator.
         Submitting an application does not guarantee your permit will be approved.
-        <strong>A confirmation email was sent to {{application.applicantInfo.emailAddress}}.</strong>
+        <strong>The identification number associated with this permit application is {{application.applicationId}} and a confirmation email was sent to {{application.applicantInfo.emailAddress}}.</strong>
       </p>
       <h2>What happens next?</h2>
       <div class="usa-grid-full">
