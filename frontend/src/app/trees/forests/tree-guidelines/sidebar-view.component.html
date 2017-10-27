@@ -1,10 +1,18 @@
+<div class="trees-header">
+  <div class="usa-grid">
+    <div>{{forest.forestName | uppercase }} NATIONAL FOREST</div>
+    <div class="trees-header-title">Christmas tree permit</div>
+    <div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>
+  </div>
+</div>
 <section id="sidebar-page" class="usa-section usa-content">
+
   <div class="usa-grid">
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" id="general-guidelines-link" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidelines'}" (click)="gotoHashtag('general-guidlines', $event)">Guidelines</a>
+          <a href="#" id="general-guidelines-link" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidelines'}" (click)="gotoHashtag('general-guidelines', $event)">Christmas Tree Permit Guidelines</a>
         </li>
         <li>
           <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
@@ -29,7 +37,7 @@
           </ul>
         </li>
         <li>
-          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
+          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree cutting</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('cutting-instructions')">
             <li>
               <a href="#" id="cutting-instructions-before-you-cut-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
@@ -55,8 +63,10 @@
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h1>{{forest.forestName}} National Forest Christmas tree permit<br />{{ forest.startDate | date }} - {{ forest.endDate | date }}</h1>
-      <h2 id="general-guidelines" tabindex="-1">Guidelines</h2>
+      <!--<p>{{forest.forestName | uppercase }} NATIONAL FOREST</p>-->
+      <!--<h1>Christmas tree permit</h1>-->
+      <!--<div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>-->
+      <h2 id="general-guidelines" tabindex="-1">Christmas Tree Permit Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
@@ -68,11 +78,11 @@
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
 
 
-      <h2 id="tree-selection" tabindex="-1">Tree Selection</h2>
+      <h2 id="tree-selection" tabindex="-1">Tree selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <h3 id="tree-selection-types-of-trees" tabindex="-1">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
-      <h2 id="cutting-instructions" tabindex="-1">Tree Cutting</h2>
+      <h2 id="cutting-instructions" tabindex="-1">Tree cutting</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
       <h3 id="cutting-instructions-before-you-cut" tabindex="-1">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
