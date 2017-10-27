@@ -11,6 +11,7 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a title', () => {
+    browser.sleep(500);
     expect<any>(element(by.css('.trees-header-title')).getText()).toEqual(
       'Christmas tree permit'
     );
