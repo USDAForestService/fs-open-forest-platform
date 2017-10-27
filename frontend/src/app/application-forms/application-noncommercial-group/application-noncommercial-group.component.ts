@@ -11,7 +11,6 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [ApplicationService, ApplicationFieldsService, DateTimeRangeComponent],
   selector: 'app-application-noncommercial-group',
   templateUrl: './application-noncommercial-group.component.html'
 })
@@ -53,6 +52,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantMessage: [''],
       status: [''],
       authEmail: [''],
+      authorizingOfficerName: [''],
+      authorizingOfficerTitle: [''],
       revisions: [''],
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
@@ -195,6 +196,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       if (form.get('applicantInfo.primaryAddressSameAsOrganization').value) {
         service.removeAddress(form.get('applicantInfo'), 'primaryAddress');
       }
+    }
+    if (form.get('applicantInfo.addSecondaryPermitHolder')) {
+      form.get('applicantInfo.secondaryFirstName').setValue('');
+      form.get('applicantInfo.secondaryLastName').setValue('');
     }
     if (form.get('applicantInfo.secondaryAddressSameAsPrimary').value) {
       service.removeAddress(form.get('applicantInfo'), 'secondaryAddress');

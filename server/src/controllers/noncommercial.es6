@@ -264,14 +264,15 @@ const translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
-noncommercial.updateApplication = (model, submitted, user) => {
+noncommercial.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
-  } else {
+    translateFromClientToDatabase(submitted, model);
+  } else if (user.role === 'user' && user.email === model.authEmail) {
     model.status = 'Review';
+    translateFromClientToDatabase(submitted, model);
   }
-  translateFromClientToDatabase(submitted, model);
 };
 
 noncommercial.acceptApplication = application => {
@@ -306,27 +307,29 @@ noncommercial.getOne = (req, res) => {
     }
   })
     .then(app => {
-      if (app) {
-        Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
-          .then(revisions => {
-            const formattedApp = translateFromDatabaseToClient(app);
-            formattedApp.revisions = revisions;
-            res.status(200).json(formattedApp);
-          })
-          .catch(error => {
-            res.status(400).json(error);
-          });
-      } else {
-        res.status(404).send();
+      if (!app) {
+        return res.status(404).send();
       }
+      if (!util.hasPermissions(util.getUser(req), app)) {
+        return res.status(403).send();
+      }
+      Revision.findAll({
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
+        .then(revisions => {
+          const formattedApp = translateFromDatabaseToClient(app);
+          formattedApp.revisions = revisions;
+          return res.status(200).json(formattedApp);
+        })
+        .catch(error => {
+          return res.status(400).json(error);
+        });
     })
     .catch(error => {
-      res.status(400).json(error);
+      return res.status(400).json(error);
     });
 };
 
@@ -350,10 +353,10 @@ noncommercial.create = (req, res) => {
         email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
         req.body['applicationId'] = noncommApp.applicationId;
         req.body['appControlNumber'] = noncommApp.appControlNumber;
-        res.status(201).json(req.body);
+        return res.status(201).json(req.body);
       })
       .catch(error => {
-        res.status(500).json(error);
+        return res.status(500).json(error);
       });
   }
 };
@@ -364,49 +367,47 @@ noncommercial.update = (req, res) => {
       app_control_number: req.params.id
     }
   }).then(app => {
-    if (app) {
-      noncommercial.updateApplication(app, req.body, util.getUser(req));
-      Revision.create({
-        applicationId: app.applicationId,
-        applicationType: app.type,
-        status: app.status,
-        email: util.getUser(req).email
-      });
-      if (app.status === 'Accepted') {
-        noncommercial
-          .acceptApplication(app)
-          .then(response => {
-            app.controlNumber = response.controlNumber;
-            app
-              .save()
-              .then(() => {
-                email.sendEmail(`noncommercialApplication${app.status}`, app);
-                res.status(200).json(translateFromDatabaseToClient(app));
-              })
-              .catch(error => {
-                res.status(500).json(error);
-              });
-          })
-          .catch(error => {
-            res.status(500).json(error);
-          });
-      } else {
-        app
-          .save()
-          .then(() => {
-            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
-            } else {
+    if (!app) {
+      return res.status(404).send();
+    }
+    if (!util.hasPermissions(util.getUser(req), app)) {
+      return res.status(403).send();
+    }
+    noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
+    if (app.status === 'Accepted') {
+      noncommercial
+        .acceptApplication(app)
+        .then(response => {
+          app.controlNumber = response.controlNumber;
+          app
+            .save()
+            .then(() => {
+              util.createRevision(util.getUser(req), app);
               email.sendEmail(`noncommercialApplication${app.status}`, app);
-            }
-            res.status(200).json(translateFromDatabaseToClient(app));
-          })
-          .catch(error => {
-            res.status(500).json(error);
-          });
-      }
+              return res.status(200).json(translateFromDatabaseToClient(app));
+            })
+            .catch(error => {
+              return res.status(500).json(error);
+            });
+        })
+        .catch(error => {
+          return res.status(500).json(error);
+        });
     } else {
-      res.status(404).send();
+      app
+        .save()
+        .then(() => {
+          util.createRevision(util.getUser(req), app);
+          if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+            email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
+          } else {
+            email.sendEmail(`noncommercialApplication${app.status}`, app);
+          }
+          return res.status(200).json(translateFromDatabaseToClient(app));
+        })
+        .catch(error => {
+          return res.status(500).json(error);
+        });
     }
   });
 };

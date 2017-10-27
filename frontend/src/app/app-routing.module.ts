@@ -70,6 +70,12 @@ const appRoutes: Routes = [
     data: { title: 'Apply for a temporary outfitters permit' }
   },
   {
+    path: 'applications/temp-outfitters/:id/edit',
+    component: TemporaryOutfittersComponent,
+    canActivate: [AuthGuardService],
+    data: { title: 'Edit your temporary outfitters permit' }
+  },
+  {
     path: 'applications/temp-outfitters/learn-more',
     component: TemporaryOutfittersLearnMoreComponent,
     data: { title: 'Temporary outfitters permit FAQs' }

@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
@@ -7,6 +9,8 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { tempOutfitterMock } from './temp-outfitter-mock';
 
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
@@ -20,9 +24,11 @@ describe('TemporaryOutfittersComponent', () => {
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
-          { provide: FormBuilder, useClass: FormBuilder }
+          { provide: FormBuilder, useClass: FormBuilder },
+          AlertService,
+          AuthenticationService
         ],
-        imports: [RouterTestingModule]
+        imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
     })
   );
@@ -268,14 +274,72 @@ describe('TemporaryOutfittersComponent', () => {
     component.removeUnusedData();
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
   });
+
+  it('should return application', () => {
+    component.getApplication(111);
+    expect(component.apiErrors).toEqual('The application could not be found.');
+    component.getApplication('111');
+    expect(component.applicationForm.get('appControlNumber').value).toEqual('222');
+  });
+
+  it('should create application', () => {
+    component.createApplication();
+    expect(component.application.appControlNumber).toEqual('222');
+    expect(component.showFileUploadProgress).toBeTruthy();
+    expect(component.uploadFiles).toBeTruthy();
+  });
+
+  it('should update application', () => {
+    component.updateApplication();
+    expect(component.apiErrors).toEqual('There were errors when attempting to update your application.');
+  });
+
+  it('should set the correct file names from the server', () => {
+    component.getFiles(1);
+    expect(component.applicationForm.get('acknowledgementOfRisk').value).toEqual('test1');
+  });
+
+  it('should upload files on when uploadFiles is true', () => {
+    component.uploadFiles = true;
+    component.application = { status: '' };
+    component.ngDoCheck();
+    expect(component.uploadFiles).toBeFalsy();
+  });
 });
 
 class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
+  }
+
+  update(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
   }
 
   create(): Observable<{}> {
-    return Observable.of();
+    return Observable.of(tempOutfitterMock);
+  }
+
+  handleStatusCode(e) {
+    return e;
+  }
+
+  get(): Observable<{}> {
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
   }
 }
