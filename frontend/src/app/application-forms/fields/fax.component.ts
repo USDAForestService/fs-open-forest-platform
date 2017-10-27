@@ -19,7 +19,6 @@ export class FaxComponent implements OnInit {
       areaCode: [],
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
       number: [],
-      phoneType: ['fax'],
       prefix: [],
       tenDigit: ['', [Validators.minLength(10), Validators.maxLength(10)]]
     });
@@ -28,7 +27,9 @@ export class FaxComponent implements OnInit {
 
     this.parentForm.get('fax.extension').valueChanges.subscribe(value => {
       if (value) {
-        this.parentForm.get('fax.tenDigit').setValidators([Validators.minLength(10), Validators.maxLength(10), Validators.required]);
+        this.parentForm
+          .get('fax.tenDigit')
+          .setValidators([Validators.minLength(10), Validators.maxLength(10), Validators.required]);
         this.parentForm.get('fax.tenDigit').updateValueAndValidity();
       } else {
         this.parentForm.get('fax.tenDigit').setValidators([Validators.minLength(10), Validators.maxLength(10)]);

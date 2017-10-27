@@ -2,6 +2,7 @@
 
 const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
+const moment = require('moment');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 
@@ -103,7 +104,48 @@ const translateFromClientToDatabase = (input, output) => {
 };
 
 const translateFromDatabaseToClient = input => {
-  return {
+  const result = {
+    applicantInfo: {
+      dayPhone: {
+        areaCode: input.applicantInfoDayPhoneAreaCode,
+        prefix: input.applicantInfoDayPhonePrefix,
+        number: input.applicantInfoDayPhoneNumber,
+        extension: input.applicantInfoDayPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
+      },
+      eveningPhone: {
+        areaCode: input.applicantInfoEveningPhoneAreaCode || '',
+        prefix: input.applicantInfoEveningPhonePrefix || '',
+        number: input.applicantInfoEveningPhoneNumber || '',
+        extension: input.applicantInfoEveningPhoneExtension || '',
+        tenDigit:
+          input.applicantInfoEveningPhoneAreaCode +
+          input.applicantInfoEveningPhonePrefix +
+          input.applicantInfoEveningPhoneNumber
+      },
+      fax: {
+        areaCode: input.applicantInfoFaxAreaCode || '',
+        prefix: input.applicantInfoFaxPrefix || '',
+        number: input.applicantInfoFaxNumber || '',
+        extension: input.applicantInfoFaxExtension || '',
+        tenDigit: input.applicantInfoFaxAreaCode + input.applicantInfoFaxPrefix + input.applicantInfoFaxNumber
+      },
+      primaryAddress: {
+        mailingAddress: input.applicantInfoPrimaryMailingAddress || '',
+        mailingAddress2: input.applicantInfoPrimaryMailingAddress2 || '',
+        mailingCity: input.applicantInfoPrimaryMailingCity || '',
+        mailingState: input.applicantInfoPrimaryMailingState || '',
+        mailingZIP: input.applicantInfoPrimaryMailingZIP || ''
+      },
+      emailAddress: input.applicantInfoEmailAddress,
+      orgType: input.applicantInfoOrgType,
+      primaryFirstName: input.applicantInfoPrimaryFirstName,
+      primaryLastName: input.applicantInfoPrimaryLastName,
+      emailAddress: input.applicantInfoEmailAddress,
+      organizationName: input.applicantInfoOrganizationName || '',
+      website: input.applicantInfoWebsite || ''
+    },
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
     authorizingOfficerName: input.authorizingOfficerName,
@@ -117,39 +159,6 @@ const translateFromDatabaseToClient = input => {
     authEmail: input.authEmail,
     status: input.status,
     type: input.type,
-    applicantInfo: {
-      emailAddress: input.applicantInfoEmailAddress,
-      primaryFirstName: input.applicantInfoPrimaryFirstName,
-      primaryLastName: input.applicantInfoPrimaryLastName,
-      primaryAddress: {
-        mailingAddress: input.applicantInfoPrimaryMailingAddress,
-        mailingAddress2: input.applicantInfoPrimaryMailingAddress2,
-        mailingCity: input.applicantInfoPrimaryMailingCity,
-        mailingState: input.applicantInfoPrimaryMailingState,
-        mailingZIP: input.applicantInfoPrimaryMailingZIP
-      },
-      website: input.applicantInfoWebsite,
-      organizationName: input.applicantInfoOrganizationName,
-      orgType: input.applicantInfoOrgType,
-      dayPhone: {
-        areaCode: input.applicantInfoDayPhoneAreaCode,
-        extension: input.applicantInfoDayPhoneExtension || undefined,
-        number: input.applicantInfoDayPhoneNumber,
-        prefix: input.applicantInfoDayPhonePrefix
-      },
-      eveningPhone: {
-        areaCode: input.applicantInfoEveningPhoneAreaCode || undefined,
-        extension: input.applicantInfoEveningPhoneExtension || undefined,
-        number: input.applicantInfoEveningPhoneNumber || undefined,
-        prefix: input.applicantInfoEveningPhonePrefix || undefined
-      },
-      fax: {
-        areaCode: input.applicantInfoFaxAreaCode || undefined,
-        extension: input.applicantInfoFaxExtension || undefined,
-        number: input.applicantInfoFaxNumber || undefined,
-        prefix: input.applicantInfoFaxPrefix || undefined
-      }
-    },
     tempOutfitterFields: {
       advertisingDescription: input.tempOutfitterFieldsAdvertisingDescription,
       advertisingURL: input.tempOutfitterFieldsAdvertisingUrl,
@@ -176,8 +185,20 @@ const translateFromDatabaseToClient = input => {
         statementOfMotorizedEquipment: input.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip,
         statementOfTransportationOfLivestock: input.tempOutfitterFieldsActDescFieldsStmtTransportLivestock,
         dateTimeRange: {
+          startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime,
+          startMonth: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('M'),
+          startDay: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('D'),
+          startYear: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
+          startHour: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('hh'),
+          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('mm'),
+          startPeriod: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('A'),
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
-          startDateTime: input.tempOutfitterFieldsActDescFieldsStartDateTime
+          endMonth: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('M'),
+          endDay: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('D'),
+          endYear: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('YYYY'),
+          endHour: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('hh'),
+          endMinutes: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('mm'),
+          endPeriod: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('A')
         }
       },
       experienceFields: {
@@ -200,6 +221,18 @@ const translateFromDatabaseToClient = input => {
       }
     }
   };
+
+  result.tempOutfitterFields.noPromotionalWebsite = !!result.tempOutfitterFields.tempOutfitterFieldsAdvertisingUrl;
+  result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
+
+  //below need to be replaced with file values
+  result.guideIdentification = '';
+  result.operatingPlan = '';
+  result.liabilityInsurance = '';
+  result.acknowledgementOfRisk = '';
+  result.applicantInfo.goodStandingEvidence = '';
+
+  return result;
 };
 
 const translateFromIntakeToMiddleLayer = application => {
@@ -411,10 +444,7 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util
-              .request(requestOptions)
-              .then(resolve)
-              .catch(reject);
+            util.request(requestOptions).then(resolve).catch(reject);
           })
           .catch(reject);
       })

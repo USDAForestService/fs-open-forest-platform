@@ -1,11 +1,11 @@
 <div class="usa-file-input" [ngClass]="{'file-selected ng-valid': uploader.queue[0], 'ng-untouched': !uploader.queue[0], 'ng-invalid': errorMessage, 'required': required}">
   <button (click)="clickInput($event)" class="usa-button upload-file-btn" [ngClass]="{'usa-button-outline': uploader.queue[0]}" aria-live="polite" [attr.aria-required]="required ? 'true' : null">
-    <span *ngIf="!uploader.queue[0]">Choose file</span>
-    <span *ngIf="uploader.queue[0]">Replace<span class="hidden-text"> file </span></span>
+    <span *ngIf="!uploader.queue[0] && !field.value">Choose file</span>
+    <span *ngIf="uploader.queue[0] || field.value">Replace<span class="hidden-text"> file </span></span>
     <span class="hidden-text">to upload for {{name}}</span>
   </button>
   <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000" />
-  <div *ngIf="!uploader.queue[0]">No file selected.</div>
-  <div class="file-name" *ngIf="uploader.queue[0]">{{ uploader.queue[0].file.name}}</div>
+  <div *ngIf="!uploader.queue[0] && !field.value">No file selected.</div>
+  <div class="file-name" *ngIf="uploader.queue[0] || field.value">{{field.value}}</div>
   <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
 </div>

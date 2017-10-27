@@ -62,6 +62,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       status: [''],
       authEmail: [''],
       revisions: [''],
+      authorizingOfficerName: [''],
+      authorizingOfficerTitle: [''],
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],
       forest: ['05', [Validators.required]],
@@ -210,7 +212,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
       application => {
         this.application = application;
-        this.applicationForm.setValue(application);
+        this.applicationForm.setValue(this.application);
+        this.getFiles(this.application.applicationId);
       },
       (e: any) => {
         this.applicationService.handleStatusCode(e[0]);
@@ -218,6 +221,40 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         window.scrollTo(0, 200);
       }
     );
+  }
+
+  getFiles(id) {
+    this.applicationService.get(`/special-uses/temp-outfitter/${id}/files`).subscribe(files => {
+      for (const file of files) {
+        let type = '';
+        switch (file.documentType) {
+          case 'acknowledgement-of-risk-form':
+            type = 'acknowledgementOfRisk';
+            break;
+          case 'good-standing-evidence':
+            type = 'applicantInfo.goodStandingEvidence';
+            break;
+          case 'insurance-certificate':
+            type = 'liabilityInsurance';
+            break;
+          case 'guide-document':
+            type = 'guideIdentification';
+            break;
+          case 'operating-plan':
+            type = 'operatingPlan';
+            break;
+        }
+        this.applicationForm.get(type).setValue(file.originalFileName);
+      }
+    });
+  }
+
+  camelize(string) {
+    return string.toLowerCase().replace(/(_|-)([a-z])/g, this.toUpperCase);
+  }
+
+  toUpperCase(string) {
+    return string[1].toUpperCase();
   }
 
   createApplication() {
