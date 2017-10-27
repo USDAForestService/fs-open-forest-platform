@@ -142,7 +142,6 @@ const translateFromDatabaseToClient = input => {
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
-      emailAddress: input.applicantInfoEmailAddress,
       organizationName: input.applicantInfoOrganizationName || '',
       website: input.applicantInfoWebsite || ''
     },
@@ -444,7 +443,10 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
