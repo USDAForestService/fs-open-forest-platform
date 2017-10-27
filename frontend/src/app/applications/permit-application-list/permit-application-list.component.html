@@ -63,21 +63,21 @@
             isAdmin &&
             isOverTwoDaysOld(application.createdAt) &&
             application.type === 'Noncommercial' &&
-            ['Review', 'Submitted'].includes(application.status)
+            ['Review', 'Submitted'].indexOf(application.status) !== -1
           }">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
         <div *ngIf="application.type === 'Noncommercial'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.noncommercialFieldsStartDateTime) &&
-            ['Submitted', 'Hold', 'Review'].includes(application.status)
+            ['Submitted', 'Hold', 'Review'].indexOf(application.status) !== -1
           }">{{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <div *ngIf="application.type === 'Temp outfitter'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime) &&
-            ['Submitted', 'Hold', 'Review'].includes(application.status)
+            ['Submitted', 'Hold', 'Review'].indexOf(application.status) !== -1
           }">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label *ngIf='isAdmin'>End date</label>
