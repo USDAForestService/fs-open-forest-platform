@@ -17,7 +17,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Research Natural Areas'
+        description: 'Research natural areas'
       },
       {
         id: 3,
@@ -33,7 +33,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds or Administrative sites'
+        description: 'Campgrounds or administrative sites'
       },
       {
         id: 5,
@@ -73,7 +73,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds, Administrative sites, or Summer Home/Rec. Residence Areas'
+        description: 'Campgrounds, administrative sites, or summer home/rec. residence areas'
       },
       {
         id: 10,
@@ -362,6 +362,38 @@ module.exports = {
         allowed: true,
         type: 'district',
         description: 'Tally Lake'
+      },
+      {
+        id: 46,
+        forest_id: 2,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'Plantations'
+      },
+      {
+        id: 47,
+        forest_id: 2,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'Previously thinned stands of trees'
+      },
+      {
+        id: 48,
+        forest_id: 2,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'Campgrounds'
+      },
+      {
+        id: 49,
+        forest_id: 2,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'Areas posted as closed to Christmas tree cutting'
       }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
