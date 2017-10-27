@@ -101,7 +101,20 @@ export class ApplicationFieldsService {
       return;
     }
     invalidElements[0].scrollIntoView();
-    document.getElementById(invalidElements[0].getAttribute('id')).focus();
+    let invalid = document.getElementById(invalidElements[0].getAttribute('id'));
+    if (!invalid) {
+      let invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
+      if (invalidClass) {
+        invalidClass[0].setAttribute('id', 'temporaryId');
+        invalid = document.getElementById('temporaryId');
+      }
+    }
+    if (invalid) {
+      invalid.focus();
+      if (invalid.getAttribute('id') === 'temporaryId') {
+        invalid.setAttribute('id', null);
+      }
+    }
   }
 
   touchField(control: FormControl) {

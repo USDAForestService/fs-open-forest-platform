@@ -50,7 +50,7 @@
               [applicationId]="applicationId"
               [checkFileUploadHasError]="submitted"
               [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
-              required="true"></app-file-upload-field>
+              [required]="!applicationForm.controls.applicantInfo.controls.goodStandingEvidence.value"></app-file-upload-field>
           </div>
 
           <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
@@ -132,7 +132,7 @@
           <app-file-upload-field name="Liability insurance" type="insurance-certificate"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
-            required="true"
+            [required]="!applicationForm.controls.liabilityInsurance.value"
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
         </fieldset>
