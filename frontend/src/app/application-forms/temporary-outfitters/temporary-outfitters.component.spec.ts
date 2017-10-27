@@ -281,6 +281,30 @@ describe('TemporaryOutfittersComponent', () => {
     component.getApplication('111');
     expect(component.applicationForm.get('appControlNumber').value).toEqual('222');
   });
+
+  it('should create application', () => {
+    component.createApplication();
+    expect(component.application.appControlNumber).toEqual('222');
+    expect(component.showFileUploadProgress).toBeTruthy();
+    expect(component.uploadFiles).toBeTruthy();
+  });
+
+  it('should update application', () => {
+    component.updateApplication();
+    expect(component.apiErrors).toEqual('There were errors when attempting to update your application.');
+  });
+
+  it('should set the correct file names from the server', () => {
+    component.getFiles(1);
+    expect(component.applicationForm.get('acknowledgementOfRisk').value).toEqual('test1');
+  });
+
+  it('should upload files on when uploadFiles is true', () => {
+    component.uploadFiles = true;
+    component.application = { status: '' };
+    component.ngDoCheck();
+    expect(component.uploadFiles).toBeFalsy();
+  });
 });
 
 class MockApplicationService {
@@ -292,19 +316,30 @@ class MockApplicationService {
     }
   }
 
+  update(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
+  }
+
+  create(): Observable<{}> {
+    return Observable.of(tempOutfitterMock);
+  }
+
   handleStatusCode(e) {
     return e;
   }
 
   get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-
-  update(): Observable<{}> {
-    return Observable.of();
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
   }
 }
