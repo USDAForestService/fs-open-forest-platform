@@ -34,15 +34,9 @@ export class AdminApplicationView {
   }
 }
 
-export class TreesWizardPage {
-  navigateTo() {
-    return browser.get('/xmas-trees/forests/3/tree-guidelines/wizard');
-  }
-}
-
 export class TreesSidebarPage {
   navigateTo() {
-    return browser.get('/xmas-trees/forests/3/tree-guidelines/sidebar');
+    return browser.get('/xmas-trees/forests/3/tree-guidelines');
   }
 }
 
