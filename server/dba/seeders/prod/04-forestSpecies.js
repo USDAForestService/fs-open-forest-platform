@@ -88,12 +88,6 @@ module.exports = {
         status: 'not recommended'
       },
       {
-        id: 15,
-        forest_id: 3,
-        species_id: 6,
-        status: 'recommended'
-      },
-      {
         id: 16,
         forest_id: 3,
         species_id: 9,
