@@ -12,7 +12,8 @@ describe('TreeLocationsProhibitedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe]
+        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe],
+        providers: [FilterPipe]
       }).compileComponents();
     })
   );

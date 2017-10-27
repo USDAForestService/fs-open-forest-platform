@@ -26,9 +26,17 @@
 }
 
 .tree-location-description {
-  font-size: 2rem
+  font-size: 2rem;
 }
 
+.tree-image-container {
+  img {
+    max-width: 110px;
+  }
+  figcaption {
+    max-width: 100%;
+  }
+}
 .tree-speci {
   .tree-description {
     padding-top: 2em;
