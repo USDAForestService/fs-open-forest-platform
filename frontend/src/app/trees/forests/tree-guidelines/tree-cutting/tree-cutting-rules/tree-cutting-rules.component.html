@@ -5,7 +5,8 @@
       <ul>
 
         <li>The stump must be {{ forest.stumpHeight}} inches high or less.</li>
-        <li>The harvested tree must be {{ forest.treeHeight }} feet or less.</li>
+        <li *ngIf="forest.treeHeight > 0">The harvested tree must be {{ forest.treeHeight }} feet or less.</li>
+        <li *ngIf="forest.stumpDiameter > 0">The stump must be {{forest.stumpDiameter}} inches or less in diameter.</li>
         <li>Be sure to remove snow from around the
           stump so as to accurately measure the stump
           and tree height.</li>
