@@ -93,7 +93,7 @@ export class FieldValidation {
 
     it('should display an error message if the file is not a valid type', () => {
       input.sendKeys(testErrorFile);
-      browser.wait(this.ec.presenceOf(element(by.css('#' + id + ' .usa-input-error-message'))));
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
     });
 
@@ -109,7 +109,7 @@ export class FieldValidation {
     });
 
     it('should display the file name if file is valid', () => {
-      browser.wait(this.ec.presenceOf(element(by.css('#' + id + ' .file-name'))));
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
     });
   }
