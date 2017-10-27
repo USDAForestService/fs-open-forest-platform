@@ -7,5 +7,5 @@
   <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000" />
   <div *ngIf="!uploader.queue[0] && !field.value">No file selected.</div>
   <div class="file-name" *ngIf="uploader.queue[0] || field.value">{{field.value}}</div>
-  <span *ngIf="errorMessage" id="guide-documentation-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
+  <span *ngIf="errorMessage" id="{{type}}-error" class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false">{{errorMessage}}</span>
 </div>

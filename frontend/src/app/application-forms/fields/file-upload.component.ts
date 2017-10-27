@@ -109,7 +109,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
       }
     }
     if (this.checkFileUploadHasError) {
-      if (this.required && !this.uploader.queue[0]) {
+      if (this.required && !this.uploader.queue[0] && !this.field.value) {
         this.errorMessage = `${this.name} is required.`;
       }
     }
