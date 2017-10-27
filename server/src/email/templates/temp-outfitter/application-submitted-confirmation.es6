@@ -16,6 +16,7 @@ Your permit application has been submitted for review, but is NOT APPROVED until
 Application details
 **************************************
 
+Application identification number: ${application.applicationId}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'

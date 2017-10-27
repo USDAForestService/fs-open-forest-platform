@@ -13,6 +13,11 @@
 </div>
 <div class="usa-grid margin-top-1 no-padding">
   <div class="usa-width-one-half">
+    <h2>Application identification</h2>
+    <h3>Identification number:</h3>
+    <span>{{ application.applicationId }}</span>
+    <h3>Permit application type:</h3>
+    <span>{{ application.type }}</span>
     <h2 class="app-item-label padding-right-1">Applicant information</h2>
     <div class="margin-bottom-1">
       <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
