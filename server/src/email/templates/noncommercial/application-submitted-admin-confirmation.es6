@@ -19,6 +19,7 @@ Go to ${applicationUrl} to log in and view the application.
 Application details
 **************************************
 
+Application identification number: ${application.applicationId}
 Permit type:  ${util.camelCaseToRegularForm(application.type)}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
