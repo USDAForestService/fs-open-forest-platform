@@ -52,6 +52,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantMessage: [''],
       status: [''],
       authEmail: [''],
+      authorizingOfficerName: [''],
+      authorizingOfficerTitle: [''],
       revisions: [''],
       district: ['11', [Validators.required]],
       region: ['06', [Validators.required]],

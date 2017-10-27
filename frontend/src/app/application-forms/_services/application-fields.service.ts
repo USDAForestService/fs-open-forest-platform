@@ -103,7 +103,7 @@ export class ApplicationFieldsService {
     invalidElements[0].scrollIntoView();
     let invalid = document.getElementById(invalidElements[0].getAttribute('id'));
     if (!invalid) {
-      let invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
+      const invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
       if (invalidClass) {
         invalidClass[0].setAttribute('id', 'temporaryId');
         invalid = document.getElementById('temporaryId');
