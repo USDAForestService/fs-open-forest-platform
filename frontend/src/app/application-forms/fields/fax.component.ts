@@ -38,9 +38,11 @@ export class FaxComponent implements OnInit {
     });
 
     this.parentForm.get('fax.tenDigit').valueChanges.subscribe(value => {
-      this.parentForm.patchValue({ fax: { areaCode: value.substring(0, 3) } });
-      this.parentForm.patchValue({ fax: { prefix: value.substring(3, 6) } });
-      this.parentForm.patchValue({ fax: { number: value.substring(6, 10) } });
+      if (value) {
+        this.parentForm.patchValue({ fax: { areaCode: value.substring(0, 3) } });
+        this.parentForm.patchValue({ fax: { prefix: value.substring(3, 6) } });
+        this.parentForm.patchValue({ fax: { number: value.substring(6, 10) } });
+      }
     });
   }
 }
