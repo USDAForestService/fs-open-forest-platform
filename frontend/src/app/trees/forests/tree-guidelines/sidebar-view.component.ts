@@ -47,6 +47,6 @@ export class SidebarViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentSection = 'general-guidlines';
+    this.currentSection = 'general-guidelines';
   }
 }
