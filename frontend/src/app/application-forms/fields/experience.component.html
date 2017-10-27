@@ -2,6 +2,8 @@
   <fieldset formGroupName="{{ experienceFields }}">
     <legend>Experience</legend>
 
+    <p>Answers to the following questions are used to assess whether you have “the financial or technical capability to undertake the use and to fully comply with the terms and conditions of the authorization.”"</p>
+
     <input id="have-national-forest-permits" type="checkbox" formControlName="haveNationalForestPermits" />
     <label id="have-national-forest-permits-label" class="usa-input" for="have-national-forest-permits">{{ pointOfView }} have held permits for outfitting and guiding on National Forest System lands in the past 3 years.</label>
     <ng-container *ngIf="parentForm.get('experienceFields.haveNationalForestPermits').value">
@@ -20,7 +22,6 @@
 
     <input id="have-citations" type="checkbox" formControlName="haveCitations" />
     <label id="have-citations-label" class="usa-input" for="have-citations">{{ pointOfView }} have been issued citations or violations in association with outfitting and guiding activities.</label>
-    <p class="help-text usa-form-hint">Answers to this and other questions are used to assess whether you have "the financial or technical capability to undertake the use and to fully comply with the terms and conditions of the authorization."</p>
     <ng-container *ngIf="parentForm.get('experienceFields.haveCitations').value">
       <label class="usa-input" for="list-all-other-permits">List all citations or violations received in association with outfitting and guiding activities.</label>
       <textarea id="list-all-citations" formControlName="listAllCitations" aria-required="true"></textarea>
