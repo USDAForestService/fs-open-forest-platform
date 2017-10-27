@@ -20,17 +20,17 @@ export class SidebarViewComponent implements OnInit {
 
     if (nav) {
       if (container.getBoundingClientRect().top < 20) {
-        this.top = '40px';
+        this.top = '80px';
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
-        this.top = '250px';
+        this.top = '330px';
         this.position = 'absolute';
       }
 
       if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = '-250px';
+        this.top = '-150px';
         this.position = 'fixed';
       }
     }
