@@ -3,7 +3,8 @@ import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 
 @Component({
   selector: 'app-tree-locations-prohibited',
-  templateUrl: './tree-locations-prohibited.component.html'
+  templateUrl: './tree-locations-prohibited.component.html',
+  providers: [FilterPipe]
 })
 export class TreeLocationsProhibitedComponent implements OnChanges {
   @Input() forest: any;
