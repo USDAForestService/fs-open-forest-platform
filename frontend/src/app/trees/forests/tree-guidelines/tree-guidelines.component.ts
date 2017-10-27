@@ -15,9 +15,9 @@ export class TreeGuidelinesComponent implements OnInit {
   constructor(private route: ActivatedRoute, private service: TreesService) {}
 
   ngOnInit() {
+    this.template = 'sidebar';
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.template = params['template'];
+       this.id = params['id'];
     });
 
     this.route.data.subscribe(data => {
