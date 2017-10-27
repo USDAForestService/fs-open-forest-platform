@@ -11,7 +11,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_loc_desc',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -20,7 +20,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_serv_prv',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -29,7 +29,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_aud_desc',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -38,7 +38,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_lst_fac',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -47,7 +47,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_lst_imp',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -56,7 +56,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_mtr_eqp',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -65,7 +65,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_trn_liv',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -74,7 +74,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_agn_site',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -83,7 +83,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_cln_rest',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
@@ -92,7 +92,7 @@ module.exports = {
         operation: 'change',
         field: 'temp_out_act_desc_serv_pty_size',
         options: {
-          type: Sequelize.Integer(512),
+          type: Sequelize.STRING(512),
           allowNull: false
         },
         migrationDefaultValue: '0'
