@@ -1,10 +1,11 @@
-<p>Our National Forests have an abundance of tree species for you to choose from when you’re ready harvest your
-  Christmas tree. As you search the forest for your tree, you’ll see well-known Firs, less-popular Hemlocks – and even
-  varieties that are protected from cutting. The trees will have a natural appearance, as they have not been
-  professionally pruned. Learning about the available trees before you leave on your trip can assist your search for the
-  perfect tree.</p>
+<p>Our National Forests have an abundance of tree species for you to choose
+  from when you’re ready harvest your Christmas tree. As you search the forest,
+  you’ll see trees that are not professional groomed but instead are in their natural state.
+  Learning about the available trees before you leave on your trip can assist your search for
+  the perfect tree.</p>
 
-<p>Let’s take a look at how to identify the trees in the {{ forest.forestName }} National Forest.</p>
+<p>Let’s take a look at how to identify the trees:</p>
+
 <div class="tree-speci margin-bottom-4 usa-width-one-whole"
      *ngFor="let tree of forest.species | filter: 'status':'recommended'">
   <hr>
