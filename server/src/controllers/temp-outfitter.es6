@@ -365,14 +365,15 @@ const getAllFileNames = applicationId => {
   });
 };
 
-tempOutfitter.updateApplication = (model, submitted, user) => {
+tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
-  } else {
+    translateFromClientToDatabase(submitted, model);
+  } else if (user.role === 'user' && user.email === model.authEmail) {
     model.status = 'Review';
+    translateFromClientToDatabase(submitted, model);
   }
-  translateFromClientToDatabase(submitted, model);
 };
 
 tempOutfitter.acceptApplication = application => {
@@ -477,10 +478,10 @@ tempOutfitter.attachFile = (req, res) => {
   })
     .then(appfile => {
       req.body['fileId'] = appfile.fileId;
-      res.status(201).json(req.body);
+      return res.status(201).json(req.body);
     })
     .catch(err => {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     });
 };
 
@@ -489,7 +490,7 @@ tempOutfitter.create = (req, res) => {
   let errorArr = validator.validateTempOutfitter(req.body);
   if (errorArr.length > 0) {
     errorRet['errors'] = errorArr;
-    res.status(400).json(errorRet);
+    return res.status(400).json(errorRet);
   } else {
     util.setAuthEmail(req);
     let model = {
@@ -502,10 +503,10 @@ tempOutfitter.create = (req, res) => {
         email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
         req.body['applicationId'] = tempOutfitterApp.applicationId;
         req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
-        res.status(201).json(req.body);
+        return res.status(201).json(req.body);
       })
       .catch(err => {
-        res.status(500).json(err);
+        return res.status(500).json(err);
       });
   }
 };
@@ -517,27 +518,29 @@ tempOutfitter.getOne = (req, res) => {
     }
   })
     .then(app => {
-      if (app) {
-        Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
-          .then(revisions => {
-            const formattedApp = translateFromDatabaseToClient(app);
-            formattedApp.revisions = revisions;
-            res.status(200).json(formattedApp);
-          })
-          .catch(error => {
-            res.status(400).json(error);
-          });
-      } else {
-        res.status(404).send();
+      if (!app) {
+        return res.status(404).send();
       }
+      if (!util.hasPermissions(util.getUser(req), app)) {
+        return res.status(403).send();
+      }
+      Revision.findAll({
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
+        .then(revisions => {
+          const formattedApp = translateFromDatabaseToClient(app);
+          formattedApp.revisions = revisions;
+          return res.status(200).json(formattedApp);
+        })
+        .catch(error => {
+          return res.status(400).json(error);
+        });
     })
     .catch(error => {
-      res.status(400).json(error);
+      return res.status(400).json(error);
     });
 };
 
@@ -545,13 +548,13 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
     .then(app => {
       if (app) {
-        res.status(200).json(app);
+        return res.status(200).json(app);
       } else {
-        res.status(404).send();
+        return res.status(404).send();
       }
     })
     .catch(error => {
-      res.status(500).json(error.message);
+      return res.status(500).json(error.message);
     });
 };
 
@@ -566,53 +569,51 @@ tempOutfitter.update = (req, res) => {
     }
   })
     .then(app => {
-      if (app) {
-        tempOutfitter.updateApplication(app, req.body, util.getUser(req));
-        Revision.create({
-          applicationId: app.applicationId,
-          applicationType: app.type,
-          status: app.status,
-          email: util.getUser(req).email
-        });
-        if (app.status === 'Accepted') {
-          tempOutfitter
-            .acceptApplication(app)
-            .then(response => {
-              app.controlNumber = response.controlNumber;
-              app
-                .save()
-                .then(() => {
-                  email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-                  res.status(200).json(translateFromDatabaseToClient(app));
-                })
-                .catch(error => {
-                  res.status(500).json(error);
-                });
-            })
-            .catch(error => {
-              res.status(500).json(error);
-            });
-        } else {
-          app
-            .save()
-            .then(() => {
-              if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-                email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
-              } else {
+      if (!app) {
+        return res.status(404).send();
+      }
+      if (!util.hasPermissions(util.getUser(req), app)) {
+        return res.status(403).send();
+      }
+      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
+      if (app.status === 'Accepted') {
+        tempOutfitter
+          .acceptApplication(app)
+          .then(response => {
+            app.controlNumber = response.controlNumber;
+            app
+              .save()
+              .then(() => {
+                util.createRevision(util.getUser(req), app);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-              }
-              res.status(200).json(translateFromDatabaseToClient(app));
-            })
-            .catch(error => {
-              res.status(500).json(error);
-            });
-        }
+                return res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch(error => {
+                return res.status(500).json(error);
+              });
+          })
+          .catch(error => {
+            return res.status(500).json(error);
+          });
       } else {
-        res.status(404).send();
+        app
+          .save()
+          .then(() => {
+            util.createRevision(util.getUser(req), app);
+            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+              email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
+            } else {
+              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+            }
+            return res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch(error => {
+            return res.status(500).json(error);
+          });
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      return res.status(500).json(error);
     });
 };
 
