@@ -48,5 +48,6 @@ export class SidebarViewComponent implements OnInit {
 
   ngOnInit() {
     this.currentSection = 'general-guidelines';
+    this.top = '330px';
   }
 }

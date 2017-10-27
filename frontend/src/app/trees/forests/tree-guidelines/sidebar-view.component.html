@@ -37,7 +37,7 @@
           </ul>
         </li>
         <li>
-          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree Cutting</a>
+          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">Tree cutting</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('cutting-instructions')">
             <li>
               <a href="#" id="cutting-instructions-before-you-cut-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
@@ -78,11 +78,11 @@
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
 
 
-      <h2 id="tree-selection" tabindex="-1">Tree Selection</h2>
+      <h2 id="tree-selection" tabindex="-1">Tree selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <h3 id="tree-selection-types-of-trees" tabindex="-1">Types of trees</h3>
       <app-tree-species [forest]="forest"></app-tree-species>
-      <h2 id="cutting-instructions" tabindex="-1">Tree Cutting</h2>
+      <h2 id="cutting-instructions" tabindex="-1">Tree cutting</h2>
       <app-tree-cutting [forest]="forest"></app-tree-cutting>
       <h3 id="cutting-instructions-before-you-cut" tabindex="-1">Before you cut</h3>
       <app-tree-tools [forest]="forest"></app-tree-tools>
