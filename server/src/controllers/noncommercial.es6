@@ -341,7 +341,6 @@ noncommercial.create = (req, res) => {
     errorRet['errors'] = errorArr;
     res.status(400).json(errorRet);
   } else {
-    // create the noncommercial app object and persist
     util.setAuthEmail(req);
     let model = {
       authEmail: req.body.authEmail
