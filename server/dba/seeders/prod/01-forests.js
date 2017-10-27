@@ -19,7 +19,7 @@ module.exports = {
         id: 2,
         forest_name: 'Flathead',
         forest_url: 'https://www.fs.usda.gov/flathead',
-        tree_height: 12,
+        tree_height: 0,
         stump_height: 8,
         stump_diameter: 4,
         start_date: '2017-11-21T12:00:00Z',
