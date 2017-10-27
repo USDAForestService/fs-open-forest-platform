@@ -81,7 +81,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       }),
       guideIdentification: [''],
       operatingPlan: [''],
-      liabilityInsurance: ['', [Validators.required]],
+      liabilityInsurance: [''],
+      // liabilityInsurance: ['', [Validators.required]],
       acknowledgementOfRisk: [''],
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],

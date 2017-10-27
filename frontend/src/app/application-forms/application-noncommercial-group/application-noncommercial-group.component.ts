@@ -195,6 +195,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         service.removeAddress(form.get('applicantInfo'), 'primaryAddress');
       }
     }
+    if (form.get('applicantInfo.addSecondaryPermitHolder')) {
+      form.get('applicantInfo.secondaryFirstName').setValue('');
+      form.get('applicantInfo.secondaryLastName').setValue('');
+    }
     if (form.get('applicantInfo.secondaryAddressSameAsPrimary').value) {
       service.removeAddress(form.get('applicantInfo'), 'secondaryAddress');
     }
