@@ -9,6 +9,7 @@ module.exports = application => {
 Application details
 *********************************
 
+Application identification number: ${application.applicationId}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}

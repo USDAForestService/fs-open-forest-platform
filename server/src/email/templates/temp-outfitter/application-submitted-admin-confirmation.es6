@@ -18,6 +18,7 @@ Go to ${applicationUrl} to log in and view the application.
 Application details
 **************************************
 
+Application identification number: ${application.applicationId}
 Permit type: ${util.camelCaseToRegularForm(application.type)}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
