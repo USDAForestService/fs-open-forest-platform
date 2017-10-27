@@ -5,6 +5,8 @@ export const noncommercialMock = {
   applicantMessage: 'holding',
   status: 'Hold',
   authEmail: 'test@test.com',
+  authorizingOfficerName: '',
+  authorizingOfficerTitle: '',
   revisions: [
     {
       revisionId: 11,

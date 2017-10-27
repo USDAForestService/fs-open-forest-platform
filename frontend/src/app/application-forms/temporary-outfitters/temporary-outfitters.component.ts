@@ -250,14 +250,6 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     });
   }
 
-  camelize(string) {
-    return string.toLowerCase().replace(/(_|-)([a-z])/g, this.toUpperCase);
-  }
-
-  toUpperCase(string) {
-    return string[1].toUpperCase();
-  }
-
   createApplication() {
     this.applicationService
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
@@ -287,6 +279,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       },
       (e: any) => {
         this.applicationService.handleStatusCode(e[0]);
+        this.apiErrors = 'There were errors when attempting to update your application.';
+        window.scrollTo(0, 200);
       }
     );
   }
