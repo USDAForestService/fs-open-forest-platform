@@ -21,7 +21,7 @@ dependencies:
 compile:
   override:
     - cd frontend; yarn run docs;
-    - cd frontend; yarn dist;
+    - cd frontend; yarn dist-staging;
 test:
   pre:
     - cd frontend; npm install -g protractor
@@ -47,12 +47,12 @@ deployment:
     owner: 18F
     commands:
       - cd frontend; yarn run update-version;
-      - cd frontend; yarn dist;
+      - cd frontend; yarn dist-prod;
       - ./cg-deploy/deploy.sh public-production
   staging:
     branch: sprint-15-development
     owner: flexion
     commands:
       - cd frontend; yarn run update-version;
-      - cd frontend; yarn dist;
+      - cd frontend; yarn dist-staging;
       - ./cg-deploy/deploy.sh public-staging
