@@ -11,6 +11,8 @@ export const tempOutfitterMock = {
   forest: '05',
   type: 'temp-outfitter',
   signature: '',
+  authorizingOfficerName: '',
+  authorizingOfficerTitle: '',
   applicantInfo: {
     addAdditionalPhone: '',
     emailAddress: '',

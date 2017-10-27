@@ -8,6 +8,13 @@
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="application.type === 'noncommercial'">
+      <td>
+        <span class="usa-label tan">Submitted</span>
+      </td>
+      <td>{{application.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
+      <td>{{application.authEmail}}</td>
+    </tr>
     <tr *ngFor="let revision of application.revisions | SortArray: 'createdAt'">
       <td>
         <span class="usa-label" [ngClass]="{

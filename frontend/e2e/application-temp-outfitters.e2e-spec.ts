@@ -2,7 +2,7 @@ import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('Apply for a temp outfitters permit', () => {
+describe('Apply for a temp outfitters permit', () => {
   let page: TempOutfittersForm;
   let fieldValidation: FieldValidation;
   fieldValidation = new FieldValidation();
