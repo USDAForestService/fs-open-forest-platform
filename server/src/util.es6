@@ -4,6 +4,7 @@ const AWS = require('aws-sdk');
 const moment = require('moment');
 const request = require('request-promise');
 
+const Revision = require('./models/revision.es6');
 const vcapConstants = require('./vcap-constants.es6');
 
 const extractField = (errorObj, withArg) => {
@@ -149,6 +150,19 @@ util.getUser = req => {
   } else {
     return req.user;
   }
+};
+
+util.hasPermissions = (user, applicationModel) => {
+  return user.role === 'admin' || user.email === applicationModel.authEmail;
+};
+
+util.createRevision = (user, applicationModel) => {
+  Revision.create({
+    applicationId: applicationModel.applicationId,
+    applicationType: applicationModel.type,
+    status: applicationModel.status,
+    email: user.email
+  });
 };
 
 util.camelCaseToRegularForm = string => {
