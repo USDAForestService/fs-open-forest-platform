@@ -2,7 +2,7 @@
   <button *ngIf="application.status === 'Hold'" class="usa-button-outline float-right" routerLink="/applications/temp-outfitters/{{application.appControlNumber}}/edit">Edit application</button>
   <div class="usa-width-three-fourths">
     <h1>{{ application.applicantInfo.organizationName }}
-      <span *ngIf="!['Submitted'].includes(application.status)" class="usa-label" [ngClass]="{
+      <span *ngIf="['Submitted'].indexOf(application.status) === -1" class="usa-label" [ngClass]="{
         'success': application.status === 'Accepted',
         'warning': application.status === 'Hold',
         'danger': application.status === 'Rejected',

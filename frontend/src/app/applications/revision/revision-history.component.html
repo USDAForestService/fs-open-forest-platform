@@ -19,7 +19,7 @@
       <td>
         <span class="usa-label" [ngClass]="{
           'success': revision.status === 'Accepted',
-          'warning': ['Hold', 'Cancelled'].includes(revision.status),
+          'warning': ['Hold', 'Cancelled'].indexOf(revision.status) !== -1,
           'danger': revision.status === 'Rejected'
         }">{{ revision.status }}
         </span>
