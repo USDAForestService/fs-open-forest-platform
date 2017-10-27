@@ -93,19 +93,13 @@ export class FieldValidation {
 
     it('should display an error message if the file is not a valid type', () => {
       input.sendKeys(testErrorFile);
-<<<<<<< HEAD
-=======
       browser.sleep(500);
->>>>>>> remotes/origin/sprint-1-development
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
     });
 
     it('should hide the error message if the file is a valid type', () => {
       input.sendKeys(testSuccessFile);
-<<<<<<< HEAD
-=======
       browser.sleep(500);
->>>>>>> remotes/origin/sprint-1-development
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
@@ -115,10 +109,7 @@ export class FieldValidation {
     });
 
     it('should display the file name if file is valid', () => {
-<<<<<<< HEAD
-=======
       browser.sleep(500);
->>>>>>> remotes/origin/sprint-1-development
       expect<any>(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
     });
   }
