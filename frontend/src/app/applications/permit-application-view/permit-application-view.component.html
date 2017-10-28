@@ -22,8 +22,8 @@
       </div>
     </div>
     <div class="usa-grid thin-grey-border padding-bottom-2 application-details" appTrackScroll (trackScrollEnter)="enter()" (trackScrollLeave)="leave()">
-      <app-noncommercial-details *ngIf="application.type === 'noncommercial'" [application]="application"></app-noncommercial-details>
-      <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application"></app-temp-outfitter-details>
+      <app-noncommercial-details *ngIf="application.type === 'noncommercial'" [application]="application" [isAdmin]="isAdmin"></app-noncommercial-details>
+      <app-temp-outfitter-details *ngIf="application.type === 'tempOutfitters'" [application]="application" [isAdmin]="isAdmin"></app-temp-outfitter-details>
     </div>
   </div>
   <div class="usa-grid cancel-application-wrapper">
