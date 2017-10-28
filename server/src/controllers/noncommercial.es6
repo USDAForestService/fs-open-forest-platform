@@ -170,6 +170,8 @@ const translateFromDatabaseToClient = input => {
       endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
       endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
     },
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
     createdAt: input.createdAt,
@@ -289,10 +291,7 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util
-          .request(requestOptions)
-          .then(resolve)
-          .catch(reject);
+        util.request(requestOptions).then(resolve).catch(reject);
       })
       .catch(error => {
         reject(error);

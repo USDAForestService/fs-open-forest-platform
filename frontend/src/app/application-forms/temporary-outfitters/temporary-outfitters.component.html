@@ -171,7 +171,10 @@
           <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
         </fieldset>
 
-        <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
+        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
+        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
+        <button *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</button>
+
       </form>
 
     </div>
