@@ -8,7 +8,6 @@ import { UtilService } from '../../_services/util.service';
 describe('NoncommercialLearnMoreComponent', () => {
   let component: NoncommercialLearnMoreComponent;
   let fixture: ComponentFixture<NoncommercialLearnMoreComponent>;
-  let formBuilder: FormBuilder;
 
   beforeEach(
     async(() => {
