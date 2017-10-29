@@ -39,7 +39,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   constructor(
     private alertService: AlertService,
     private applicationService: ApplicationService,
-    private applicationFieldsService: ApplicationFieldsService,
+    public applicationFieldsService: ApplicationFieldsService,
     private authentication: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
