@@ -210,6 +210,7 @@ const translateFromDatabaseToClient = input => {
 
 const translateFromIntakeToMiddleLayer = input => {
   let result = {
+    intakeId: input.applicationId,
     region: input.region,
     forest: input.forest,
     district: input.district,
@@ -291,7 +292,10 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util.request(requestOptions).then(resolve).catch(reject);
+        util
+          .request(requestOptions)
+          .then(resolve)
+          .catch(reject);
       })
       .catch(error => {
         reject(error);
