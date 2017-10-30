@@ -61,7 +61,6 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantMessage = input.applicantMessage;
   output.region = input.region;
   output.signature = input.signature;
-  output.authEmail = input.authEmail;
   output.tempOutfitterFieldsActDescFieldsAudienceDesc =
     input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
   output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration =
@@ -371,6 +370,11 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.applicantMessage = submitted.applicantMessage;
     translateFromClientToDatabase(submitted, model);
   } else if (user.role === 'user' && user.email === model.authEmail) {
+    if (submitted.status === 'Submitted') {
+      model.status = 'Submitted';
+    } else {
+      model.status = 'Review';
+    }
     model.status = 'Review';
     translateFromClientToDatabase(submitted, model);
   }
@@ -494,7 +498,8 @@ tempOutfitter.create = (req, res) => {
   } else {
     util.setAuthEmail(req);
     let model = {
-      authEmail: req.body.authEmail
+      authEmail: req.body.authEmail,
+      status: 'Incomplete' // will be updated to Submitted when attachments are ready
     };
     translateFromClientToDatabase(req.body, model);
     TempOutfitterApplication.create(model)
