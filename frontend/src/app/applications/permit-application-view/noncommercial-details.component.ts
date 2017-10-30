@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class NoncommercialDetailsComponent {
   @Input() application: any;
+  @Input() isAdmin: boolean;
 }
