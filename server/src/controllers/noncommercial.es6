@@ -170,6 +170,8 @@ const translateFromDatabaseToClient = input => {
       endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
       endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
     },
+    authorizingOfficerName: input.authorizingOfficerName,
+    authorizingOfficerTitle: input.authorizingOfficerTitle,
     appControlNumber: input.appControlNumber,
     applicationId: input.applicationId,
     createdAt: input.createdAt,
@@ -208,6 +210,7 @@ const translateFromDatabaseToClient = input => {
 
 const translateFromIntakeToMiddleLayer = input => {
   let result = {
+    intakeId: input.applicationId,
     region: input.region,
     forest: input.forest,
     district: input.district,
