@@ -394,6 +394,14 @@ module.exports = {
         allowed: false,
         type: 'area',
         description: 'Areas posted as closed to Christmas tree cutting'
+      },
+      {
+        id: 50,
+        forest_id: 4,
+        district: null,
+        allowed: true,
+        type: 'district',
+        description: 'Washakie'
       }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
