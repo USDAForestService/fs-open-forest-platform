@@ -169,16 +169,16 @@ module.exports = sequelize.define(
       field: 'temp_outfitter_advertising_url'
     },
     tempOutfitterFieldsAdvertisingDescription: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_advertising_desc'
     },
     tempOutfitterFieldsClientCharges: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_client_charges',
       allowNull: false
     },
     tempOutfitterFieldsExperienceList: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_list'
     },
     createdAt: {
@@ -209,7 +209,7 @@ module.exports = sequelize.define(
       allowNull: false
     },
     applicantMessage: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'applicant_message'
     },
     applicantInfoFaxAreaCode: {
@@ -286,15 +286,15 @@ module.exports = sequelize.define(
       allowNull: false
     },
     tempOutfitterFieldsExpAllCitations: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_all_citation'
     },
     tempOutfitterFieldsExpNatForestPermits: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_nat_fst_pmts'
     },
     tempOutfitterFieldsExpOtherPermits: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_oth_pmts'
     }
   },
