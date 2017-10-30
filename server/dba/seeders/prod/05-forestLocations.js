@@ -308,62 +308,6 @@ module.exports = {
         description: 'Highway 35'
       },
       {
-        id: 39,
-        forest_id: 3,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Barlow'
-      },
-      {
-        id: 40,
-        forest_id: 3,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Hood'
-      },
-      {
-        id: 41,
-        forest_id: 2,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Glacier View'
-      },
-      {
-        id: 42,
-        forest_id: 2,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Hungry Horse'
-      },
-      {
-        id: 43,
-        forest_id: 2,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Spotted Bear'
-      },
-      {
-        id: 44,
-        forest_id: 2,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Swan Lake'
-      },
-      {
-        id: 45,
-        forest_id: 2,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Tally Lake'
-      },
-      {
         id: 46,
         forest_id: 2,
         district: null,
