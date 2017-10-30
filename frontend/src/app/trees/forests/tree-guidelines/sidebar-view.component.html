@@ -18,9 +18,6 @@
           <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-locations')">
             <li>
-              <a href="#" id="tree-locations-maps-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-maps'}" (click)="gotoHashtag('tree-locations-maps', $event)">Districts and maps</a>
-            </li>
-            <li>
               <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas</a>
             </li>
             <li>
@@ -70,13 +67,10 @@
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
-      <h2 id="tree-locations-maps" tabindex="-1">Districts and maps</h2>
-      <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
       <h2 id="tree-locations-prohibited" tabindex="-1">Prohibited areas</h2>
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
       <h2 id="tree-locations-allowed" tabindex="-1">Places to try</h2>
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
-
 
       <h2 id="tree-selection" tabindex="-1">Tree selection</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
@@ -94,9 +88,7 @@
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
       <h2 id="safety-first" tabindex="-1">Safety first</h2>
       <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
-      <h2 id="contact-information" tabindex="-1">Contact information</h2>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
-
 
     </div>
   </div>
