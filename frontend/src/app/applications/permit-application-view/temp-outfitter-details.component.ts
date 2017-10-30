@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 })
 export class TempOutfitterDetailsComponent implements OnInit {
   @Input() application: any;
+  @Input() isAdmin: boolean;
   files: any;
   url: string;
 
