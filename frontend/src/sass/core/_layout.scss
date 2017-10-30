@@ -20,6 +20,14 @@
   float: right;
 }
 
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
 @for $i from 0 through 6 {
   .margin-bottom-#{$i} {
     margin-bottom: #{$i}em !important;

@@ -30,6 +30,7 @@ test:
     - cd server; yarn run lint
     - cd server; yarn run snyk-test
     - cd server; yarn migrate
+    - cd server; yarn seed-ci
     - cd server; yarn seed
     - cd server; yarn coverage
     - cd server; yarn report-coverage
@@ -57,9 +58,10 @@ deployment:
       - cd frontend; yarn dist-staging;
       - ./cg-deploy/deploy.sh public-staging
   trees:
-    branch: sprint-0-development
-    owner: nci
+    branch: sprint-1-development
+    owner: nciinc
     commands:
       - cd frontend; yarn run update-version;
-      - cd frontend; yarn dist-staging;
-      - ./cg-deploy/deploy.sh public-trees
+      - cd frontend; yarn dist-trees;
+      - ./cg-deploy/deploy.sh public-trees-staging
+      
