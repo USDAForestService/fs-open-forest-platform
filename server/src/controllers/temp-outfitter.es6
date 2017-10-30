@@ -489,6 +489,20 @@ tempOutfitter.attachFile = (req, res) => {
     });
 };
 
+tempOutfitter.deleteFile = (req, res) => {
+  ApplicationFile.destroy({
+    where: {
+      fileId: req.params.id
+    }
+  })
+    .then(() => {
+      return res.status(204);
+    })
+    .catch(err => {
+      return res.status(500).json(err);
+    });
+};
+
 tempOutfitter.create = (req, res) => {
   let errorRet = {};
   let errorArr = validator.validateTempOutfitter(req.body);
