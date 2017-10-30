@@ -21,6 +21,9 @@ const tempOutfitterApplicationRejected = require('./templates/temp-outfitter/app
 const noncommercialApplicationReview = require('./templates/noncommercial/application-review.es6');
 const tempOutfitterApplicationReview = require('./templates/temp-outfitter/application-review.es6');
 
+const noncommercialApplicationHold = require('./templates/noncommercial/application-hold.es6');
+const tempOutfitterApplicationHold = require('./templates/temp-outfitter/application-hold.es6');
+
 const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
@@ -61,6 +64,14 @@ email.tempOutfitterApplicationUserCancelled = application => {
   return tempOutfitterApplicationUserCancelled(application);
 };
 
+email.noncommercialApplicationRejected = application => {
+  return noncommercialApplicationRejected(application);
+};
+
+email.tempOutfitterApplicationRejected = application => {
+  return tempOutfitterApplicationRejected(application);
+};
+
 email.noncommercialApplicationReview = application => {
   return noncommercialApplicationReview(application);
 };
@@ -69,12 +80,12 @@ email.tempOutfitterApplicationReview = application => {
   return tempOutfitterApplicationReview(application);
 };
 
-email.noncommercialApplicationRejected = application => {
-  return noncommercialApplicationRejected(application);
+email.noncommercialApplicationHold = application => {
+  return noncommercialApplicationHold(application);
 };
 
-email.tempOutfitterApplicationRejected = application => {
-  return tempOutfitterApplicationRejected(application);
+email.tempOutfitterApplicationHold = application => {
+  return tempOutfitterApplicationHold(application);
 };
 
 module.exports = email;
