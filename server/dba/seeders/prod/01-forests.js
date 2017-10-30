@@ -19,9 +19,9 @@ module.exports = {
         id: 2,
         forest_name: 'Flathead',
         forest_url: 'https://www.fs.usda.gov/flathead',
-        tree_height: 12,
-        stump_height: 6,
-        stump_diameter: 6,
+        tree_height: 0,
+        stump_height: 8,
+        stump_diameter: 4,
         start_date: '2017-11-21T12:00:00Z',
         end_date: '2017-12-10T12:00:00Z',
         created: 'now()',
@@ -56,6 +56,6 @@ module.exports = {
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('forests', { id: { [Op.in]: [1,2,3,4] } });
+    return queryInterface.bulkDelete('forests', { id: { [Op.in]: [1, 2, 3, 4] } });
   }
 };

@@ -1,6 +1,8 @@
-import { browser, element, by, Key } from 'protractor';
+import { browser, element, by, Key, protractor } from 'protractor';
 
 export class FieldValidation {
+  ec = protractor.ExpectedConditions;
+
   validateSimpleTextField(id, errorId, error, group = false) {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {
@@ -91,11 +93,13 @@ export class FieldValidation {
 
     it('should display an error message if the file is not a valid type', () => {
       input.sendKeys(testErrorFile);
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
     });
 
     it('should hide the error message if the file is a valid type', () => {
       input.sendKeys(testSuccessFile);
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
     });
 
@@ -105,6 +109,7 @@ export class FieldValidation {
     });
 
     it('should display the file name if file is valid', () => {
+      browser.sleep(500);
       expect<any>(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
     });
   }
