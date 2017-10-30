@@ -235,6 +235,7 @@ const translateFromDatabaseToClient = input => {
 
 const translateFromIntakeToMiddleLayer = application => {
   const result = {
+    intakeId: application.applicationId,
     region: application.region,
     forest: application.forest,
     district: application.district,
