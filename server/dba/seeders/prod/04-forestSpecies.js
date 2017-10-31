@@ -149,18 +149,6 @@ module.exports = {
         forest_id: 4,
         species_id: 17,
         status: 'recommended'
-      },
-      {
-        id: 29,
-        forest_id: 4,
-        species_id: 1,
-        status: 'recommended'
-      },
-      {
-        id: 30,
-        forest_id: 4,
-        species_id: 2,
-        status: 'recommended'
       }
     ];
     return queryInterface.bulkInsert('forestSpecies', forestSpecies);
@@ -169,7 +157,7 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete('forestSpecies', {
       forest_id: {
-        [Op.in]: [1, 2, 3, 4]
+        [Op.in]: [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34]
       }
     });
   }
