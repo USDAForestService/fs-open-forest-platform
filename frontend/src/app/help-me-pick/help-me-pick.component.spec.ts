@@ -3,22 +3,12 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { HelpMePickComponent } from './help-me-pick.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
-// import { Router, ActivatedRoute,ActivatedRouteSnapshot } from '@angular/router';
 import { MockRouter, MockActivatedRoute } from '../_mocks/routes.mock';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import {
-  ActivatedRoute,
-  Route,
-  ActivatedRouteSnapshot,
-  UrlSegment,
-  Params,
-  ParamMap,
-  Data,
-  Router
-} from '@angular/router';
 import { Type } from '@angular/core';
 
 describe('HelpMePickComponent', () => {
