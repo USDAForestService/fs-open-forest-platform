@@ -26,26 +26,30 @@
 }
 
 .trees-header {
-  background-color: $fs-green;
-  color: $white;
-  font-size: 1.5rem;
-  line-height: 3.5rem;
   border-bottom: none;
-  //position: fixed;
-  //top: 140px;
-  .trees-header-title {
-    font-size: 2.5em;
-    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
-    margin: 0;
-    color: $white;
-    font-weight: bold;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  .trees-header-forest {
+    background-color: $fs-standard-green-light;
+    color: #000000;
+    font-size: 1.0em;
   }
-  .trees-title-subhead {
-    font-size: 1.5em;
-    color: $white;
+  .trees-header-dates {
+    background-color: $fs-green-dark;
     font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
-    font-weight: bold;
-    margin: 0;
+    padding-bottom: 5px;
+    .trees-header-title {
+      color: $fs-standard-green-light;
+      font-size: 2.5em;
+      margin: 0;
+      padding-top: 2px;
+    }
+    .trees-title-subhead {
+      color: $fs-yellow;
+      font-size: 1.5em;
+      margin: 0;
+    }
   }
 }
 
