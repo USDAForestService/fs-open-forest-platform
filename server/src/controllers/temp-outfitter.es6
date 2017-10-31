@@ -371,7 +371,11 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.applicantMessage = submitted.applicantMessage;
     translateFromClientToDatabase(submitted, model);
   } else if (user.role === 'user' && user.email === model.authEmail) {
-    model.status = submitted.status;
+    if (submitted.status === 'Hold') {
+      model.status = 'Review';
+    } else if (submitted.status !== 'Accepted') {
+      model.status = submitted.status;
+    }
     translateFromClientToDatabase(submitted, model);
   }
 };
@@ -604,12 +608,10 @@ tempOutfitter.update = (req, res) => {
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
-                console.log('---------', error);
                 return res.status(500).json(error);
               });
           })
           .catch(error => {
-            console.log('=========', error);
             return res.status(500).json(error);
           });
       } else {
