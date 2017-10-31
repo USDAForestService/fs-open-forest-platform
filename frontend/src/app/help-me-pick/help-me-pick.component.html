@@ -35,13 +35,13 @@
 
     <div *ngIf="id == 7">
       <p class="message">You can apply online.</p>
-      <app-button link="/applications/noncommercial-group-use/new" buttonText="Noncommercial permit"></app-button>
+      <a routerLink="/applications/noncommercial-group-use/new" class="usa-button-inverse usa-button">Noncommercial permit</a>
       <p><a class="learn-more-link" routerLink="/applications/noncommercial-group-use/learn-more" aria-label="Click here to learn more about the noncommercial permit.">Click here to learn more about this permit.</a></p>
     </div>
 
     <div *ngIf="id == 8">
       <p class="message">You can apply online.</p>
-      <app-button link="/applications/temp-outfitters/new" buttonText="Temp outfitter's permit"></app-button>
+      <a routerLink="/applications/temp-outfitters/new" class="usa-button-inverse usa-button">Temp outfitter's permit</a>
       <p><a class="learn-more-link" routerLink="/applications/temp-outfitters/learn-more" aria-label="Click here to learn more about the temporary outfitter's permit.">Click here to learn more about this permit.</a></p>
     </div>
 
