@@ -376,7 +376,6 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     } else {
       model.status = 'Review';
     }
-    model.status = 'Review';
     translateFromClientToDatabase(submitted, model);
   }
 };
