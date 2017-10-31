@@ -61,7 +61,6 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantMessage = input.applicantMessage;
   output.region = input.region;
   output.signature = input.signature;
-  output.authEmail = input.authEmail;
   output.tempOutfitterFieldsActDescFieldsAudienceDesc =
     input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
   output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration =
@@ -236,6 +235,7 @@ const translateFromDatabaseToClient = input => {
 
 const translateFromIntakeToMiddleLayer = application => {
   const result = {
+    intakeId: application.applicationId,
     region: application.region,
     forest: application.forest,
     district: application.district,
@@ -371,6 +371,11 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.applicantMessage = submitted.applicantMessage;
     translateFromClientToDatabase(submitted, model);
   } else if (user.role === 'user' && user.email === model.authEmail) {
+    if (submitted.status === 'Submitted') {
+      model.status = 'Submitted';
+    } else {
+      model.status = 'Review';
+    }
     model.status = 'Review';
     translateFromClientToDatabase(submitted, model);
   }
@@ -485,6 +490,20 @@ tempOutfitter.attachFile = (req, res) => {
     });
 };
 
+tempOutfitter.deleteFile = (req, res) => {
+  ApplicationFile.destroy({
+    where: {
+      fileId: req.params.id
+    }
+  })
+    .then(() => {
+      return res.status(204);
+    })
+    .catch(err => {
+      return res.status(500).json(err);
+    });
+};
+
 tempOutfitter.create = (req, res) => {
   let errorRet = {};
   let errorArr = validator.validateTempOutfitter(req.body);
@@ -494,7 +513,8 @@ tempOutfitter.create = (req, res) => {
   } else {
     util.setAuthEmail(req);
     let model = {
-      authEmail: req.body.authEmail
+      authEmail: req.body.authEmail,
+      status: 'Incomplete' // will be updated to Submitted when attachments are ready
     };
     translateFromClientToDatabase(req.body, model);
     TempOutfitterApplication.create(model)
