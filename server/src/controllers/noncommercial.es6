@@ -273,7 +273,7 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
     model.applicantMessage = submitted.applicantMessage;
     translateFromClientToDatabase(submitted, model);
   } else if (user.role === 'user' && user.email === model.authEmail) {
-    model.status = 'Review';
+    model.status = submitted.status;
     translateFromClientToDatabase(submitted, model);
   }
 };
