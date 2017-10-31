@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Pipe, PipeTransform } from '@angular/core';
 import { Component } from '@angular/core';
 import { TreeLocationsMapsComponent } from './tree-locations-maps.component';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
@@ -8,19 +9,20 @@ import { forest } from '../../../../_mocks/forest';
 
 describe('TreeLocationsMapsComponent', () => {
   let component: TreeLocationsMapsComponent;
-  let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let fixture: ComponentFixture<TreeLocationsMapsComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsMapsComponent, TestComponentWrapperComponent, FilterPipe, SpacesToDashesPipe]
+        declarations: [TreeLocationsMapsComponent, FilterPipe, SpacesToDashesPipe]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponentWrapperComponent);
+    fixture = TestBed.createComponent(TreeLocationsMapsComponent);
     component = fixture.componentInstance;
+    component.forest = forest;
     fixture.detectChanges();
   });
 
@@ -29,14 +31,9 @@ describe('TreeLocationsMapsComponent', () => {
   });
 });
 
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>'
-})
-class TestComponentWrapperComponent {
-  forest: any;
-
-  constructor() {
-    this.forest = forest;
+@Pipe({ name: 'filter' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
   }
 }
