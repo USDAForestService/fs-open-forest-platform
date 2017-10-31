@@ -1,0 +1,22 @@
+<section id="sidebar-page" class="usa-section usa-content">
+  <div class="usa-grid">
+    <aside class="usa-width-one-third usa-layout-docs-sidenav">
+      <app-sidebar [items]="items"></app-sidebar>
+    </aside>
+    <div class="usa-width-two-thirds sidebar-page-main-content">
+      <h1>Temporary outfitters permit information</h1>
+      <p>Generally, if you charge a fee for someone to participate in a service that you are
+  providing on national Forest Service land, you will need a permit. This includes
+  non-profit organizations.</p>
+      <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777" target="_blank">See definitions</a> for “Commercial Use”, “Guiding”, “Outfitting”.</p>
+      <ng-container *ngFor="let item of items">
+        <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
+        <div [innerHtml]="item.sectionCopy"></div>
+      </ng-container>
+      <div>
+        <a routerLink="/" class="usa-button">Back to permits</a>
+        <a routerLink="/applications/temp-outfitters/new" class="usa-button-inverse usa-button">Temp outfitter's permit</a>
+      </div>
+    </div>
+  </div>
+</section>

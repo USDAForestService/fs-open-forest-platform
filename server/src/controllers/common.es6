@@ -13,10 +13,13 @@ const findOrCondition = req => {
     case 'pending':
       orCondition = [
         {
-          status: 'Received'
+          status: 'Submitted'
         },
         {
           status: 'Hold'
+        },
+        {
+          status: 'Review'
         }
       ];
       break;
@@ -30,7 +33,7 @@ const findOrCondition = req => {
     case 'rejected':
       orCondition = [
         {
-          status: 'Returned'
+          status: 'Rejected'
         }
       ];
       break;

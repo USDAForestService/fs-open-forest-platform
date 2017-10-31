@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, DoCheck, OnInit, Output } from '@angular/core';
 import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-file-upload-field',
   templateUrl: './file-upload.component.html'
 })
-export class FileUploadComponent implements OnChanges, OnInit {
+export class FileUploadComponent implements DoCheck, OnInit {
   @Input() applicationId: number;
   @Input() name: string;
   @Input() type: string;
@@ -27,7 +28,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
-  constructor() {
+  constructor(private fieldsService: ApplicationFieldsService) {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
@@ -37,6 +38,19 @@ export class FileUploadComponent implements OnChanges, OnInit {
     this.uploader.onWhenAddingFileFailed = (item, filter, options) =>
       this.onWhenAddingFileFailed(item, filter, options);
     this.uploader.onAfterAddingFile = fileItem => this.onAfterAddingFile(this.uploader);
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) =>
+      this.onCompleteItem(item, response, status, headers);
+    this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) =>
+      this.onErrorItem(item, response, status, headers);
+  }
+
+  onErrorItem(item, response, status, headers) {
+    this.fieldsService.setFileUploadError(true);
+    item._onBeforeUpload();
+  }
+
+  onCompleteItem(item, response, status, headers) {
+    this.fieldsService.removeOneFile();
   }
 
   onAfterAddingFile(uploader) {
@@ -87,10 +101,12 @@ export class FileUploadComponent implements OnChanges, OnInit {
     document.getElementById(`${this.type}`).click();
   }
 
-  ngOnChanges() {
+  ngDoCheck() {
     this.uploader.options.additionalParameter = { applicationId: this.applicationId, documentType: this.type };
     if (this.uploadFiles) {
-      this.uploader.uploadAll();
+      for (const item of this.uploader.queue) {
+        item.upload();
+      }
     }
     if (this.checkFileUploadHasError) {
       if (this.required && !this.uploader.queue[0]) {

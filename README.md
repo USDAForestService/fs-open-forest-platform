@@ -1,8 +1,5 @@
 [![FS ePermit API](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
-[![Dependency Status](https://www.versioneye.com/user/projects/59721f9e368b08004cede291/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59721f9e368b08004cede291)
-[![Code Climate](https://codeclimate.com/github/flexion/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/flexion/fs-intake-module)
-[![codecov](https://codecov.io/gh/flexion/fs-intake-module/branch/master/graph/badge.svg)](https://codecov.io/gh/flexion/fs-intake-module)
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
@@ -49,7 +46,7 @@ Navigate to cloned repo
 
 A running Postgresql database is required in order to run the server locally.  Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
-#### Environment Variables 
+#### Environment Variables
 
 There are environment variables that are required to be set in order to run tests
 and to run the server in general.  Please set up these environment variables either in your shell or on the command line.
@@ -69,18 +66,22 @@ In order to pass end to end tests locally or on CircleCI, you must include valid
 DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
-    
+
     or for CircleCI
-    
+
     postgres://ubuntu:@127.0.0.1:5432/circle_test
 
 PLATFORM
 
     local
-    
+
     or for CircleCI
-    
+
     CI
+
+SNYK_TOKEN
+
+    (from https://snyk.io/account)
 
 VCAP_APPLICATION
 
@@ -107,7 +108,8 @@ VCAP_SERVICES
       "credentials": {
         "intake_client_base_url": "http://localhost:4200",
         "intake_password": "",
-        "intake_username": ""
+        "intake_username": "",
+        "jwt_secret": "shhhhhhhh!"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -157,6 +159,10 @@ VCAP_SERVICES
       "syslog_drain_url": "",
       "tags": [],
       "volume_mounts": []
+    },
+    {
+      "name": "auth-service",
+      "credentials": { "jwt_secret_key": "shhhhhhhh!" }
     }
   ],
   "s3": [
@@ -260,7 +266,7 @@ Add `--code-coverage` flag to print out code coverage statistics.
 
 #### Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ### Typedoc
 
@@ -339,6 +345,8 @@ As an alternative to installing all the development tools necessary to run the e
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
 
+#### Docker Troubleshooting
+- [No such file or directory for /var/lib/docker/overlay2 · Issue #1396 · docker/for-mac](https://github.com/docker/for-mac/issues/1396#issuecomment-313457823)
 
 ### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
