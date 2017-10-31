@@ -470,16 +470,28 @@ tempOutfitter.streamToS3 = multer({
 });
 
 tempOutfitter.attachFile = (req, res) => {
-  ApplicationFile.create({
-    applicationId: req.body.applicationId,
-    applicationType: 'tempoutfitters',
-    documentType: req.body.documentType,
-    s3FileName: req.files[0].key,
-    originalFileName: req.files[0].key
+  ApplicationFile.destroy({
+    where: {
+      applicationId: req.body.applicationId,
+      applicationType: 'tempoutfitters',
+      documentType: req.body.documentType
+    }
   })
-    .then(appfile => {
-      req.body['fileId'] = appfile.fileId;
-      return res.status(201).json(req.body);
+    .then(() => {
+      ApplicationFile.create({
+        applicationId: req.body.applicationId,
+        applicationType: 'tempoutfitters',
+        documentType: req.body.documentType,
+        s3FileName: req.files[0].key,
+        originalFileName: req.files[0].key
+      })
+        .then(appfile => {
+          req.body['fileId'] = appfile.fileId;
+          return res.status(201).json(req.body);
+        })
+        .catch(err => {
+          return res.status(500).json(err);
+        });
     })
     .catch(err => {
       return res.status(500).json(err);

@@ -185,12 +185,36 @@ describe('temp outfitter server tests', () => {
         .expect(200, done);
     });
 
+    it('should return 200 and the updated cancelled application', done => {
+      let testData = _.clone(testApp);
+      testData.status = 'Cancelled';
+      request(server)
+        .put(`${url}/${testApp.appControlNumber}`)
+        .set('Accept', 'application/json')
+        .send(testData)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(200, done);
+    });
+
+    it('should return 200 and the updated on hold application', done => {
+      let testData = _.clone(testApp);
+      testData.status = 'Hold';
+      request(server)
+        .put(`${url}/${testApp.appControlNumber}`)
+        .set('Accept', 'application/json')
+        .send(testData)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(200, done);
+    });
+
     it('should accept an application return 200 and the updated application', done => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
       const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
-      const req = sinon.stub(util, 'request').resolves({name: 'body'});
+      const req = sinon.stub(util, 'request').resolves({ name: 'body' });
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
@@ -229,7 +253,7 @@ describe('temp outfitter server tests', () => {
       testData.applicantInfo.website = 'http://super.site';
       testData.status = 'Accepted';
       const middleLayerAuth = sinon.stub(util, 'middleLayerAuth').resolves('atoken');
-      const req = sinon.stub(util, 'request').rejects({statusCode: 500});
+      const req = sinon.stub(util, 'request').rejects({ statusCode: 500 });
       request(server)
         .put(`${url}/${testApp.appControlNumber}`)
         .set('Accept', 'application/json')
