@@ -189,13 +189,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   numberOfFilesToUpload() {
-    this.numberOfFiles = this.applicationFieldsService.parseNumberOfFilesToUpload([
-      this.applicationForm.get('applicantInfo.goodStandingEvidence'),
-      this.applicationForm.controls.guideIdentification,
-      this.applicationForm.controls.operatingPlan,
-      this.applicationForm.controls.liabilityInsurance,
-      this.applicationForm.controls.acknowledgementOfRisk
-    ]);
+    this.numberOfFiles = this.applicationFieldsService.getNumberOfFiles();
   }
 
   removeUnusedData() {
@@ -212,6 +206,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
       application => {
         this.application = application;
+        this.applicationId = application.applicationId;
         this.applicationForm.setValue(this.application);
         this.getFiles(this.application.applicationId);
       },
@@ -269,12 +264,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   updateApplication() {
     this.applicationService.update(this.applicationForm.value, 'temp-outfitter').subscribe(
       (data: any) => {
-        this.alertService.addSuccessMessage('Permit application was successfully updated.');
-        if (this.authentication.isAdmin()) {
-          this.router.navigate([`admin/applications/temp-outfitter/${data.appControlNumber}`]);
-        } else {
-          this.router.navigate([`user/applications/temp-outfitter/${data.appControlNumber}`]);
-        }
+        this.showFileUploadProgress = true;
+        this.uploadFiles = true;
       },
       (e: any) => {
         this.applicationService.handleStatusCode(e[0]);
@@ -327,22 +318,31 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       this.uploadFiles = false;
     }
     if (this.uploadFiles) {
-      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles);
-      if (this.applicationFieldsService.getNumberOfFiles() === 0) {
+      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles + 1);
+      if (this.applicationFieldsService.getNumberOfFiles() < 1) {
         this.uploadFiles = false;
         this.showFileUploadProgress = false;
         this.fileUploadError = false;
 
-        this.application.status = 'Submitted';
-        this.applicationService.update(this.application, 'temp-outfitter').subscribe(
-          (data: any) => {
-            this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
-          },
-          (e: any) => {
-            this.apiErrors = e;
-            window.scrollTo(0, 200);
+        if (this.applicationFieldsService.getEditApplication()) {
+          this.alertService.addSuccessMessage('Permit application was successfully updated.');
+          if (this.authentication.isAdmin()) {
+            this.router.navigate([`admin/applications/temp-outfitter/${this.application.appControlNumber}`]);
+          } else {
+            this.router.navigate([`user/applications/temp-outfitter/${this.application.appControlNumber}`]);
           }
-        );
+        } else {
+          this.application.status = 'Submitted';
+          this.applicationService.update(this.application, 'temp-outfitter').subscribe(
+            (data: any) => {
+              this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+            },
+            (e: any) => {
+              this.apiErrors = e;
+              window.scrollTo(0, 200);
+            }
+          );
+        }
       }
     }
   }
