@@ -26,14 +26,6 @@ describe('AuthenticatedComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it(
-    'should logout',
-    inject([AuthenticationService], service => {
-      component.logout(new Event('click'));
-      expect(service.user).toEqual(null);
-    })
-  );
 });
 
 class MockAuthenticationService {
