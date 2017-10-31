@@ -1,0 +1,67 @@
+.wizard-step-header {
+  background: $light-grey;
+  h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0.3em;
+  }
+}
+
+.wizard-step-content {
+  background: $white;
+  min-height: 400px;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.wizard-step-footer {
+  background: $light-grey;
+  .subsection-steps {
+    line-height: 54px;
+  }
+}
+
+.header-subsection-steps {
+  padding-bottom: 4px;
+}
+
+.trees-header {
+  background-color: $fs-green;
+  color: $white;
+  font-size: 1.5rem;
+  line-height: 3.5rem;
+  border-bottom: none;
+  //position: fixed;
+  //top: 140px;
+  .trees-header-title {
+    font-size: 2.5em;
+    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
+    margin: 0;
+    color: $white;
+    font-weight: bold;
+  }
+  .trees-title-subhead {
+    font-size: 1.5em;
+    color: $white;
+    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.tree-location-description {
+  font-size: 2rem;
+}
+
+.tree-speci {
+  .tree-description {
+    padding-top: 2em;
+  }
+
+  .tree-cutting-container {
+    padding-top: 0;
+    img {
+      padding: .3em;
+    }
+  }
+}

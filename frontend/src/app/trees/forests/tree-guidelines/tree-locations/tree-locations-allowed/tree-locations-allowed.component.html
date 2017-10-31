@@ -1,0 +1,8 @@
+<ng-container *ngFor="let district of allowedDistricts">
+  <h3>Roads to try on the {{ district.district }} district:</h3>
+  <ul>
+    <li *ngFor="let road of district.childNodes">
+      {{ road.description }}
+    </li>
+  </ul>
+</ng-container>
