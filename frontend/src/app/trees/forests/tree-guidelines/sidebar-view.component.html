@@ -1,9 +1,15 @@
 <div class="trees-header">
-  <div class="usa-grid">
-    <div>{{forest.forestName | uppercase }} NATIONAL FOREST</div>
-    <div class="trees-header-title">Christmas tree permit</div>
-    <div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>
-  </div>
+    <div class="trees-header-forest">
+      <div class="usa-grid">
+        <div>{{forest.forestName | uppercase }} NATIONAL FOREST</div>
+      </div>
+    </div>
+    <div class="trees-header-dates">
+      <div class="usa-grid">
+        <div class="trees-header-title">Christmas tree permit</div>
+        <div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>
+      </div>
+    </div>
 </div>
 <section id="sidebar-page" class="usa-section usa-content">
 

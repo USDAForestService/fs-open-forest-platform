@@ -20,7 +20,7 @@ export class SidebarViewComponent implements OnInit {
 
     if (nav) {
       if (container.getBoundingClientRect().top < 20) {
-        this.top = '80px';
+        this.top = '160px';
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
