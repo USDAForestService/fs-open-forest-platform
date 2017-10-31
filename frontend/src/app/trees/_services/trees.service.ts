@@ -39,9 +39,10 @@ export class TreesService {
   getSectionInfo() {
     return [
       { step: 0, title: 'Guidelines' },
-      { step: 1,
+      {
+        step: 1,
         title: 'Where to Find Your Tree',
-        subsections: [{ step: 0, title: 'Districts and maps' }, { step: 1, title: 'Prohibited areas' }, { step: 2, title: 'Places to try' }]
+        subsections: [{ step: 0, title: 'Prohibited areas' }, { step: 1, title: 'Places to try' }]
       },
       {
         step: 2,
@@ -51,7 +52,11 @@ export class TreesService {
       {
         step: 3,
         title: 'Tree Cutting',
-        subsections: [{ step: 0, title: 'Before you cut' }, { step: 1, title: 'When you cut' }, { step: 2, title: 'After you cut' }]
+        subsections: [
+          { step: 0, title: 'Before you cut' },
+          { step: 1, title: 'When you cut' },
+          { step: 2, title: 'After you cut' }
+        ]
       },
       { step: 4, title: 'Trip planning' },
       { step: 5, title: 'Safety first' },

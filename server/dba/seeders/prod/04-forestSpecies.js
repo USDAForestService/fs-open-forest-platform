@@ -149,6 +149,18 @@ module.exports = {
         forest_id: 4,
         species_id: 17,
         status: 'recommended'
+      },
+      {
+        id: 29,
+        forest_id: 4,
+        species_id: 1,
+        status: 'recommended'
+      },
+      {
+        id: 30,
+        forest_id: 4,
+        species_id: 2,
+        status: 'recommended'
       }
     ];
     return queryInterface.bulkInsert('forestSpecies', forestSpecies);
