@@ -346,6 +346,22 @@ module.exports = {
         allowed: true,
         type: 'district',
         description: 'Washakie'
+      },
+      {
+        id: 51,
+        forest_id: 4,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'Popo Agie Wilderness Area'
+      },
+      {
+        id: 52,
+        forest_id: 4,
+        district: null,
+        allowed: false,
+        type: 'area',
+        description: 'North of the Wind River Reservation'
       }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
