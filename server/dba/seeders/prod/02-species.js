@@ -114,6 +114,48 @@ module.exports = {
         web_url: null,
         created: 'now()',
         updated: 'now()'
+      },
+      {
+        id: 17,
+        name: 'Blue Spruce',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 18,
+        name: 'Mountain Hemlock',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 19,
+        name: 'Western Hemlock',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 20,
+        name: 'Western Larch',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 21,
+        name: 'Western Red Cedar',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 22,
+        name: 'Western White Pine',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
       }
     ];
     return queryInterface.bulkInsert('species', species);
