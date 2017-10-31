@@ -36,16 +36,17 @@
     font-size: 1.0em;
   }
   .trees-header-dates {
-    background-color: $fs-standard-green-dark;
+    background-color: $fs-green-dark;
     font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
     padding-bottom: 5px;
     .trees-header-title {
       color: $fs-standard-green-light;
       font-size: 2.5em;
       margin: 0;
+      padding-top: 2px;
     }
     .trees-title-subhead {
-      color: $fs-standard-orange-light;
+      color: $fs-yellow;
       font-size: 1.5em;
       margin: 0;
     }
