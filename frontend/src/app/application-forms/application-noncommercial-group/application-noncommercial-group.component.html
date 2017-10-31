@@ -105,7 +105,7 @@
 
       <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
       <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
-      <button id="submit-application" class="usa-button usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</button>
+      <button class="usa-button usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</button>
 
     </form>
 
