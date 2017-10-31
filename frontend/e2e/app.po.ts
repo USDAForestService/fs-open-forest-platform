@@ -34,6 +34,12 @@ export class AdminApplicationView {
   }
 }
 
+export class TreesSidebarPage {
+  navigateTo() {
+    return browser.get('/xmas-trees/forests/3/tree-guidelines');
+  }
+}
+
 export class HelpMePick {
   questionStep(cta, question) {
     it('should have a question', () => {
