@@ -19,7 +19,7 @@ export class SidebarViewComponent implements OnInit {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
+      if (container.getBoundingClientRect().top < 60) {
         this.top = '160px';
         this.bottom = 'auto';
         this.position = 'fixed';
