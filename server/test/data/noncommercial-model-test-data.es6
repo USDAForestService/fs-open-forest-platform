@@ -52,7 +52,7 @@ module.exports = {
     noncommercialFieldsNumberParticipants: 25,
     createdAt: undefined,
     updatedAt: undefined,
-    status: 'Received',
+    status: 'Submitted',
     signature: 'AAA',
     applicantMessage: undefined,
     noncommercialFieldsSpectatorCount: 25
@@ -106,7 +106,7 @@ module.exports = {
     noncommercialFieldsNumberParticipants: 25,
     createdAt: undefined,
     updatedAt: undefined,
-    status: 'Received',
+    status: 'Submitted',
     signature: 'AAA',
     applicantMessage: undefined,
     noncommercialFieldsSpectatorCount: 25

@@ -46,7 +46,10 @@
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
         class="application-field-list-values">
-        <div class="application-status"><span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span></div>
+        <div class="application-status">
+          <span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span>
+          <span *ngIf="application.status === 'Review'" class="usa-label">{{reviewText}}</span>
+        </div>
         <label *ngIf="isAdmin">Type</label>
         <div *ngIf="isAdmin">{{ application.type }}</div>
         <label>Event name</label>
@@ -60,21 +63,21 @@
             isAdmin &&
             isOverTwoDaysOld(application.createdAt) &&
             application.type === 'Noncommercial' &&
-            application.status === 'Received'
+            ['Review', 'Submitted'].indexOf(application.status) !== -1
           }">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
         <div *ngIf="application.type === 'Noncommercial'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.noncommercialFieldsStartDateTime) &&
-            ['Received', 'Hold'].indexOf(application.status) !== -1
+            ['Submitted', 'Hold', 'Review'].indexOf(application.status) !== -1
           }">{{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <div *ngIf="application.type === 'Temp outfitter'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime) &&
-            ['Received', 'Hold'].indexOf(application.status) !== -1
+            ['Submitted', 'Hold', 'Review'].indexOf(application.status) !== -1
           }">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label *ngIf='isAdmin'>End date</label>
@@ -86,7 +89,7 @@
           <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>
-          <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
+          <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
         </div>
       </div>
     </div>
