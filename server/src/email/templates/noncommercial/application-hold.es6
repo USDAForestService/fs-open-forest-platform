@@ -1,5 +1,6 @@
 const moment = require('moment');
 const util = require('../../../util.es6');
+const vcapConstants = require('../../../vcap-constants.es6');
 
 module.exports = application => {
   return {
