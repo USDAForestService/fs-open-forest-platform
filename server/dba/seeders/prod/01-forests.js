@@ -13,7 +13,8 @@ module.exports = {
         start_date: '2017-12-02T12:00:00Z',
         end_date: '2017-12-10T12:00:00Z',
         created: 'now()',
-        updated: 'now()'
+        updated: 'now()',
+        org_structure_code: '11-02-10'
       },
       {
         id: 2,
@@ -25,7 +26,8 @@ module.exports = {
         start_date: '2017-11-21T12:00:00Z',
         end_date: '2017-12-10T12:00:00Z',
         created: 'now()',
-        updated: 'now()'
+        updated: 'now()',
+        org_structure_code: '11-01-10'
       },
       {
         id: 3,
@@ -37,7 +39,8 @@ module.exports = {
         start_date: '2017-11-01T12:00:00Z',
         end_date: '2017-12-24T12:00:00Z',
         created: 'now()',
-        updated: 'now()'
+        updated: 'now()',
+        org_structure_code: '11-06-06'
       },
       {
         id: 4,
@@ -49,7 +52,8 @@ module.exports = {
         start_date: '2017-11-01T12:00:00Z',
         end_date: '2017-12-24T12:00:00Z',
         created: 'now()',
-        updated: 'now()'
+        updated: 'now()',
+        org_structure_code: '11-02-14'
       }
     ];
     return queryInterface.bulkInsert('forests', forests);
