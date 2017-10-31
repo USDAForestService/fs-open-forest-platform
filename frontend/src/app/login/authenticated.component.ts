@@ -3,14 +3,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-authenticated',
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent {
-  constructor(public authentication: AuthenticationService, private router: Router, private http: Http) {}
+  constructor(public authentication: AuthenticationService) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
