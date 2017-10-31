@@ -361,7 +361,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'North of the Wind River Reservation'
+        description: 'North of and on the Wind River reservation'
       }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);
