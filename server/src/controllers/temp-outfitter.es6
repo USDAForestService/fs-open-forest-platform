@@ -371,10 +371,10 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.applicantMessage = submitted.applicantMessage;
     translateFromClientToDatabase(submitted, model);
   } else if (user.role === 'user' && user.email === model.authEmail) {
-    if (submitted.status === 'Submitted') {
-      model.status = 'Submitted';
-    } else {
+    if (submitted.status === 'Hold') {
       model.status = 'Review';
+    } else if (submitted.status !== 'Accepted') {
+      model.status = submitted.status;
     }
     translateFromClientToDatabase(submitted, model);
   }
