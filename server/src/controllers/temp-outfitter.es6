@@ -220,7 +220,7 @@ const translateFromDatabaseToClient = input => {
     }
   };
 
-  result.tempOutfitterFields.noPromotionalWebsite = !!result.tempOutfitterFields.tempOutfitterFieldsAdvertisingUrl;
+  result.tempOutfitterFields.noPromotionalWebsite = !result.tempOutfitterFields.advertisingURL;
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
   //below need to be replaced with file values
@@ -448,10 +448,7 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util
-              .request(requestOptions)
-              .then(resolve)
-              .catch(reject);
+            util.request(requestOptions).then(resolve).catch(reject);
           })
           .catch(reject);
       })
