@@ -35,10 +35,11 @@ export class AdminApplicationView {
 }
 
 export class TreesSidebarPage {
-  navigateTo() {
-    return browser.get('/xmas-trees/forests/3/tree-guidelines');
+  navigateTo(forestId) {
+    return browser.get('/xmas-trees/forests/' + forestId + '/tree-guidelines');
   }
 }
+
 
 export class HelpMePick {
   questionStep(cta, question) {

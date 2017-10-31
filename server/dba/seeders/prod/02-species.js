@@ -114,12 +114,54 @@ module.exports = {
         web_url: null,
         created: 'now()',
         updated: 'now()'
+      },
+      {
+        id: 17,
+        name: 'Blue Spruce',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 18,
+        name: 'Mountain Hemlock',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 19,
+        name: 'Western Hemlock',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 20,
+        name: 'Western Larch',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 21,
+        name: 'Western Red Cedar',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
+      },
+      {
+        id: 22,
+        name: 'Western White Pine',
+        web_url: null,
+        created: 'now()',
+        updated: 'now()'
       }
     ];
     return queryInterface.bulkInsert('species', species);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('species', { id: { [Op.in]:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16] } });
+    return queryInterface.bulkDelete('species', { id: { [Op.in]:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] } });
   }
 };
