@@ -7,7 +7,7 @@ describe('Xmas sidebar page', () => {
   beforeEach(() => {
     page = new TreesSidebarPage();
     browser.driver.manage().window().setSize(1400, 900);
-    page.navigateTo();
+    page.navigateTo(3); // 3 is mt hood, 4 is shoshone etc.
   });
 
   it('should have a title', () => {
