@@ -54,8 +54,11 @@
         <span *ngIf="!application.tempOutfitterFields.individualIsCitizen">false</span>
       </span>
       <h2 class="app-item-label padding-right-1">File uploads</h2>
+
       <ul *ngFor="let file of files">
-        <li><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
+        <li *ngIf="file.documentType !== 'good-standing-evidence' ||
+        ['Person', 'State Government', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
+        ><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
       </ul>
 
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>

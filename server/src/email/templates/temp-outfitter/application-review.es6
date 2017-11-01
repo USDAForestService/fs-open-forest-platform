@@ -12,6 +12,7 @@ Permit application status update
 
 We are reviewing the additional information you provided.
 
+
 Application details
 *********************************
 
