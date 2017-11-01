@@ -200,6 +200,34 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         service.removeAdditionalPhone(form.get('applicantInfo'));
       }
     }
+    if (form.get('tempOutfitterFields.activityDescriptionFields')) {
+      if (!form.get('tempOutfitterFields.activityDescriptionFields.needGovernmentFacilities').value) {
+        form.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.activityDescriptionFields.needTemporaryImprovements').value) {
+        form.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.activityDescriptionFields.haveMotorizedEquipment').value) {
+        form.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.activityDescriptionFields.haveLivestock').value) {
+        form.get('tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.activityDescriptionFields.needAssignedSite').value) {
+        form.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').setValue('');
+      }
+    }
+    if (form.get('tempOutfitterFields.experienceFields')) {
+      if (!form.get('tempOutfitterFields.experienceFields.haveNationalForestPermits').value) {
+        form.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.experienceFields.haveOtherPermits').value) {
+        form.get('tempOutfitterFields.experienceFields.listAllOtherPermits').setValue('');
+      }
+      if (!form.get('tempOutfitterFields.experienceFields.haveCitations').value) {
+        form.get('tempOutfitterFields.experienceFields.listAllCitations').setValue('');
+      }
+    }
   }
 
   getApplication(id) {

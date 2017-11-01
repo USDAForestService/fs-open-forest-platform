@@ -18,6 +18,7 @@
     <tr *ngFor="let revision of application.revisions | SortArray: 'createdAt'">
       <td>
         <span class="usa-label" [ngClass]="{
+          'tan': revision.status === 'Submitted',
           'success': revision.status === 'Accepted',
           'warning': ['Hold', 'Cancelled'].indexOf(revision.status) !== -1,
           'danger': revision.status === 'Rejected'

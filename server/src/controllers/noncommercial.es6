@@ -296,10 +296,7 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util
-          .request(requestOptions)
-          .then(resolve)
-          .catch(reject);
+        util.request(requestOptions).then(resolve).catch(reject);
       })
       .catch(error => {
         reject(error);
@@ -406,6 +403,8 @@ noncommercial.update = (req, res) => {
           util.createRevision(util.getUser(req), app);
           if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
             email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
+          } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+            email.sendEmail(`noncommercialApplicationRemoveHold`, app);
           } else {
             email.sendEmail(`noncommercialApplication${app.status}`, app);
           }
