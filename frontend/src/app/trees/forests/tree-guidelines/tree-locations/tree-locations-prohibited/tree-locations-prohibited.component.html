@@ -7,6 +7,15 @@
   </ul>
 </ng-container>
 
+<ng-container *ngIf="(forest.locations | filter: 'type': 'info').length">
+  <h3>Please remember:</h3>
+  <ul>
+    <li *ngFor="let location of forest.locations | filter: 'type': 'info'">
+      {{ location.description }}
+    </li>
+  </ul>
+</ng-container>
+
 <ng-container *ngIf="(forest.locations | filter: 'allowed' : false | filter: 'type': 'road').length">
   <h3>No cutting along the following roads:</h3>
   <ul>
