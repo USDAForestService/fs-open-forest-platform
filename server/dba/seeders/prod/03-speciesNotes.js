@@ -182,6 +182,22 @@ module.exports = {
         species_id: 10, 
         display_order: 3, 
         note: 'Tree bark is scaly' },
+      {
+        id: 51,
+        species_id: 11,
+        display_order: 1,
+        note: 'Has needles that are ½” long' },
+      {
+        id: 52,
+        species_id: 11,
+        display_order: 2,
+        note: 'Needles are soft, light green and arranged in clusters of 14-30' },
+      {
+        id: 53,
+        species_id: 11,
+        display_order: 3,
+        note: 'Tree bark is reddish-brown with flat plates on mature trees' },
+
 
       {
         id: 55, 
