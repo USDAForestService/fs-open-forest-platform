@@ -12,9 +12,6 @@ Permit application status update
 
 We are reviewing the additional information you provided.
 
-${application.applicantMessage}
-
-
 Application details
 *********************************
 
