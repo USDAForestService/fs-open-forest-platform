@@ -118,7 +118,6 @@ describe('ApplicationFieldsService', () => {
     service.setNumberOfFiles(4);
     service.removeOneFile();
     expect(service.getNumberOfFiles()).toEqual(3);
-    expect(service.getFileUploadProgress(5)).toEqual(3);
   });
 
   it('should set file upload error', () => {
