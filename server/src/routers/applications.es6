@@ -32,10 +32,14 @@ router.post('/special-uses/temp-outfitter', tempOutfitterController.create);
 router.put('/special-uses/temp-outfitter/:id', tempOutfitterController.update);
 
 /* handle temp outfitter file upload and invokes streamToS3 function */
-router.post('/special-uses/temp-outfitter/file',
+router.post(
+  '/special-uses/temp-outfitter/file',
   tempOutfitterController.streamToS3.array('file', 1),
   tempOutfitterController.attachFile
 );
+
+/* handle temp outfitter file delete */
+router.post('/special-uses/temp-outfitter/file/:id', tempOutfitterController.deleteFile);
 
 /* get all applications with specified status */
 router.get('/:statusGroup', commonController.getPermitApplications);

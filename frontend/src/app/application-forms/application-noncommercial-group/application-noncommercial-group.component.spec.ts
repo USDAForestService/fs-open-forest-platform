@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { noncommercialMock } from './noncommercial-mock';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -22,9 +25,11 @@ describe('ApplicationNoncommercialGroupComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: ApplicationService },
-          { provide: ApplicationFieldsService, useClass: MockApplicationFieldsService },
+          { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
-          { provide: XHRBackend, useClass: MockBackend }
+          { provide: XHRBackend, useClass: MockBackend },
+          AlertService,
+          AuthenticationService
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
@@ -76,6 +81,20 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(component.submitted).toBeTruthy();
   });
 
+  it('should remove unused data', () => {
+    component.removeUnusedData();
+    component.applicationForm.get('applicantInfo.orgType').setValue('Person');
+    expect(component.applicationForm.get('applicantInfo.organizationAddress')).toBeFalsy();
+    expect(component.applicationForm.get('applicantInfo.organizationName').value).toEqual('');
+    expect(component.applicationForm.get('applicantInfo.website').value).toEqual('');
+    component.applicationForm.get('applicantInfo.orgType').setValue('Corporation');
+    component.removeUnusedData();
+    expect(component.applicationForm.get('applicantInfo.primaryAddress')).toBeFalsy();
+    component.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').setValue(true);
+    expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
+    expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
+  });
+
   it(
     'should create a new application',
     inject([ApplicationService, XHRBackend], (service, mockBackend) => {
@@ -96,21 +115,3 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     })
   );
 });
-
-class MockApplicationFieldsService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  scrollToFirstError() {
-    return false;
-  }
-
-  touchAllFields() {
-    return false;
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-}
