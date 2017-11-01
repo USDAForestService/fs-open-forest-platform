@@ -56,3 +56,10 @@ deployment:
       - cd frontend; yarn run update-version;
       - cd frontend; yarn dist-staging;
       - ./cg-deploy/deploy.sh public-staging
+  trees:
+    branch: sprint-0-development
+    owner: nci
+    commands:
+      - cd frontend; yarn run update-version;
+      - cd frontend; yarn dist-staging;
+      - ./cg-deploy/deploy.sh public-trees

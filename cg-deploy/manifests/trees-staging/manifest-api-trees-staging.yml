@@ -1,0 +1,16 @@
+---
+applications:
+- name: fs-intake-api-trees-staging
+  host: fs-intake-api-trees
+  path: ../../../server
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  memory: 128M
+  instances: 1
+  services:
+    - eauth-service-provider
+    - intake-client-service
+    - intake-db
+    - intake-s3
+    - login-service-provider
+    - middlelayer-service
+    - smtp-service
