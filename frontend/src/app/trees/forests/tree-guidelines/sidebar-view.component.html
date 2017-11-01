@@ -24,7 +24,7 @@
           <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
           <ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-locations')">
             <li>
-              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas</a>
+              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
             </li>
             <li>
               <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
@@ -73,7 +73,7 @@
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
-      <h2 id="tree-locations-prohibited" tabindex="-1">Prohibited areas</h2>
+      <h2 id="tree-locations-prohibited" tabindex="-1">Prohibited areas and restrictions</h2>
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
       <h2 id="tree-locations-allowed" tabindex="-1">Places to try</h2>
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>

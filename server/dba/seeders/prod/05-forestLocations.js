@@ -217,7 +217,8 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Clackamas'
+        description: 'Clackamas',
+        image_filename: 'clackamas'
       },
       {
         id: 28,
@@ -225,39 +226,101 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Zigzag'
+        description: 'Zigzag',
+        image_filename: 'zigzag'
       },
       {
         id: 29,
         forest_id: 1,
         district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Canyon Lake'
+        allowed: false,
+        type: 'info',
+        description: 'People may enter the cutting area on foot near the cutting area exit.  Parking is available along County Road 69 near the exit.'
       },
       {
         id: 30,
         forest_id: 1,
         district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Sulphur'
+        allowed: false,
+        type: 'info',
+        description: '4WD or appropriate traction devices (chains or similar, not “tire socks”) are required on all vehicles in the cutting area.'
       },
       {
         id: 31,
         forest_id: 1,
         district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Boulder'
+        allowed: false,
+        type: 'info',
+        description: 'Be aware of what your vehicle allows related to traction devices. Not all vehicles are capable of handling the winter conditions in the cutting area. 4WD with bald tires isn’t worth much.'
       },
       {
         id: 32,
         forest_id: 1,
         district: null,
+        allowed: false,
+        type: 'info',
+        description: 'People who do not have 4WD or proper traction devices will not be allowed into the cutting area –improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone, not just the individuals involved.'
+      },
+      {
+        id: 53,
+        forest_id: 1,
+        district: null,
+        allowed: false,
+        type: 'info',
+        description: 'You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.'
+      },
+      {
+        id: 54,
+        forest_id: 1,
+        district: null,
+        allowed: false,
+        type: 'info',
+        description: 'Drive time from Fort Collins VIS office is approximately one hour 15 minutes or more depending on the weather.'
+      },
+      {
+        id: 55,
+        forest_id: 1,
+        district: null,
+        allowed: false,
+        type: 'info',
+        description: 'If you arrive at the CLRD office after 1:00 you will not have enough time to get to the entrance before it closes for the day.'
+      },
+      {
+        id: 56,
+        forest_id: 1,
+        district: null,
+        allowed: true,
+        type: 'road',
+        description: 'From Fort Collins take Highway 287 21 miles north to Livermore, ' +
+        'at Livermore, turn left onto County Road 74E (Red Feather Lakes Road), ' +
+        'follow 74E 16 miles and then turn left onto County Road 68C (Boy Scout Road)'
+      },
+      {
+        id: 57,
+        forest_id: 1,
+        district: null,
+        allowed: true,
+        type: 'road',
+        description: ' - LOOK FOR THE BIG SMOKEY BEAR SIGN - ' +
+        'follow 68C for 7 miles and signs or Forest Service personnel will direct you into the area.'
+      },
+      {
+        id: 58,
+        forest_id: 1,
+        district: null,
         allowed: true,
         type: 'district',
-        description: 'Clear Creek'
+        description: 'Elk Creek Cutting Area - Sulphur Ranger District',
+        image_filename: 'elk-creek'
+      },
+      {
+        id: 59,
+        forest_id: 1,
+        district: null,
+        allowed: true,
+        type: 'district',
+        description: 'Sulphur Ranger District'
+        image_filename: 'sulphur'
       },
       {
         id: 33,
@@ -345,7 +408,8 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Washakie'
+        description: 'Washakie',
+        image_filename: 'washakie'
       },
       {
         id: 51,

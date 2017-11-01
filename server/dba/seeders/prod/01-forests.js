@@ -6,8 +6,8 @@ module.exports = {
       {
         id: 1,
         forest_name: 'Arapaho Roosevelt',
-        forest_url: 'https://www.fs.usda.gov/arp',
-        tree_height: 12,
+        forest_url: 'https://www.fs.usda.gov/main/arp',
+        tree_height: 0,
         stump_height: 6,
         stump_diameter: 6,
         start_date: '2017-12-02T12:00:00Z',
