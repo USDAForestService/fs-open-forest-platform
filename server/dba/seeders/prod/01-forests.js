@@ -5,7 +5,7 @@ module.exports = {
     let forests = [
       {
         id: 1,
-        forest_name: 'Arapaho Roosevelt',
+        forest_name: 'Arapaho and Roosevelt',
         forest_url: 'https://www.fs.usda.gov/main/arp',
         tree_height: 0,
         stump_height: 6,

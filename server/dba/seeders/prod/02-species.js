@@ -89,7 +89,7 @@ module.exports = {
       },
       {
         id: 13,
-        name: 'Caanan Fir',
+        name: 'Canaan Fir',
         web_url: null,
         created: 'now()',
         updated: 'now()'
