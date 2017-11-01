@@ -1,6 +1,9 @@
+cd server;
+yarn start &
+serverid=$!
+sleep 1
 cd frontend;
 ng serve &
-serverid=$!
 sleep 30
 pa11y-ci
 pa11yreturncode=$?
