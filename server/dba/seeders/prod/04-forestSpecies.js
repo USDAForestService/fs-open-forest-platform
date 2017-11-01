@@ -6,19 +6,19 @@ module.exports = {
       {
         id: 1,
         forest_id: 1,
-        species_id: 2,
+        species_id: 1,
         status: 'recommended'
       },
       {
         id: 2,
         forest_id: 1,
-        species_id: 5,
+        species_id: 2,
         status: 'recommended'
       },
       {
         id: 3,
         forest_id: 1,
-        species_id: 1,
+        species_id: 5,
         status: 'recommended'
       },
       {

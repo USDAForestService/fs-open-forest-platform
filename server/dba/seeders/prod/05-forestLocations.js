@@ -262,7 +262,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'People may enter the cutting area on foot near the cutting area exit.  Parking is available along County Road 69 near the exit.',
+        description: 'Vehicles with proper traction devices capable of handling the winter conditions in the cutting area are required. Improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone',
         image_filename: null
       },
       {
@@ -271,29 +271,11 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: '4WD or appropriate traction devices (chains or similar, not “tire socks”) are required on all vehicles in the cutting area.',
+        description: 'Four-wheel drive (not all-wheel drive) or appropriate traction devices (chains or similar, not tire socks) are required on all vehicles in the cutting area.',
         image_filename: null
       },
       {
-        id: 31,
-        forest_id: 1,
-        district: null,
-        allowed: false,
-        type: 'info',
-        description: 'Be aware of what your vehicle allows related to traction devices. Not all vehicles are capable of handling the winter conditions in the cutting area. 4WD with bald tires isn’t worth much.',
-        image_filename: null
-      },
-      {
-        id: 32,
-        forest_id: 1,
-        district: null,
-        allowed: false,
-        type: 'info',
-        description: 'People who do not have 4WD or proper traction devices will not be allowed into the cutting area –improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone, not just the individuals involved.',
-        image_filename: null
-      },
-      {
-        id: 53,
+        id: 33,
         forest_id: 1,
         district: null,
         allowed: false,
@@ -302,46 +284,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 54,
-        forest_id: 1,
-        district: null,
-        allowed: false,
-        type: 'info',
-        description: 'Drive time from Fort Collins VIS office is approximately one hour 15 minutes or more depending on the weather.',
-        image_filename: null
-      },
-      {
-        id: 55,
-        forest_id: 1,
-        district: null,
-        allowed: false,
-        type: 'info',
-        description: 'If you arrive at the CLRD office after 1:00 you will not have enough time to get to the entrance before it closes for the day.',
-        image_filename: null
-      },
-      {
-        id: 56,
-        forest_id: 1,
-        district: null,
-        allowed: true,
-        type: 'road',
-        description: 'From Fort Collins take Highway 287 21 miles north to Livermore, ' +
-        'at Livermore, turn left onto County Road 74E (Red Feather Lakes Road), ' +
-        'follow 74E 16 miles and then turn left onto County Road 68C (Boy Scout Road)',
-        image_filename: null
-      },
-      {
-        id: 57,
-        forest_id: 1,
-        district: null,
-        allowed: true,
-        type: 'road',
-        description: ' - LOOK FOR THE BIG SMOKEY BEAR SIGN - ' +
-        'follow 68C for 7 miles and signs or Forest Service personnel will direct you into the area.',
-        image_filename: null
-      },
-      {
-        id: 58,
+        id: 38,
         forest_id: 1,
         district: null,
         allowed: true,
@@ -350,7 +293,7 @@ module.exports = {
         image_filename: 'elk-creek'
       },
       {
-        id: 59,
+        id: 39,
         forest_id: 1,
         district: null,
         allowed: true,
@@ -359,7 +302,7 @@ module.exports = {
         image_filename: 'sulphur'
       },
       {
-        id: 60,
+        id: 40,
         forest_id: 1,
         district: null,
         allowed: true,
@@ -368,7 +311,7 @@ module.exports = {
         image_filename: 'red-feather'
       },
       {
-        id: 33,
+        id: 41,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -377,7 +320,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 34,
+        id: 42,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -386,7 +329,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 35,
+        id: 43,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -395,7 +338,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 36,
+        id: 44,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -404,7 +347,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 37,
+        id: 45,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -413,7 +356,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 38,
+        id: 46,
         forest_id: 3,
         district: 'Barlow and Hood',
         allowed: false,
@@ -422,7 +365,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 46,
+        id: 47,
         forest_id: 2,
         district: null,
         allowed: false,
@@ -431,7 +374,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 47,
+        id: 48,
         forest_id: 2,
         district: null,
         allowed: false,
@@ -440,7 +383,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 48,
+        id: 49,
         forest_id: 2,
         district: null,
         allowed: false,
@@ -449,7 +392,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 49,
+        id: 50,
         forest_id: 2,
         district: null,
         allowed: false,
@@ -458,7 +401,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 50,
+        id: 51,
         forest_id: 4,
         district: null,
         allowed: true,
@@ -467,7 +410,7 @@ module.exports = {
         image_filename: 'washakie'
       },
       {
-        id: 51,
+        id: 52,
         forest_id: 4,
         district: null,
         allowed: false,
@@ -476,7 +419,7 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 52,
+        id: 53,
         forest_id: 4,
         district: null,
         allowed: false,
