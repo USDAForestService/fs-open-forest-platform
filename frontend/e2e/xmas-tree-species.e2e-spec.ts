@@ -14,13 +14,7 @@ describe('Xmas tree species page', () => {
 
   it('should have a species section link', () => {
     expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-      'Tree selection'
-    );
-  });
-
-  it('should have a tree selection header', () => {
-    expect<any>(element(by.id('tree-selection-types-of-trees')).getText()).toEqual(
-      'Types of trees'
+      'How to choose your tree'
     );
   });
 
