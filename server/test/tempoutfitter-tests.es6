@@ -209,6 +209,18 @@ describe('temp outfitter server tests', () => {
         .expect(200, done);
     });
 
+    it('should return 200 and the updated on review application', done => {
+      let testData = _.clone(testApp);
+      testData.status = 'Review';
+      request(server)
+        .put(`${url}/${testApp.appControlNumber}`)
+        .set('Accept', 'application/json')
+        .send(testData)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(200, done);
+    });
+
     it('should accept an application return 200 and the updated application', done => {
       let testData = _.clone(testApp);
       testData.applicantInfo.website = 'http://super.site';
