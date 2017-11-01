@@ -6,8 +6,8 @@
 
   <div class="usa-grid" *ngFor="let location of forest.locations | filter: 'type': 'district'">
       <div class="usa-width-one-whole">
-        <figcaption><a href="/assets/img/{{ location.description | SpacesToDashes }}-map.png" onError="src='assets/img/hood-map.png'">Christmas tree map of {{location.description}} district. (Click to view larger map)</a></figcaption>
-        <a href="/assets/img/{{ location.description | SpacesToDashes }}-map.png" onError="src='assets/img/hood-map.png'"><img src="/assets/img/{{ location.description | SpacesToDashes }}-map-thumb.png" onError="src='assets/img/hood-map-thumb.png'" alt="Christmas tree map of {{location.description}} district" aria-hidden="true" /></a>
+        <figcaption><a href="/assets/img/{{ location.imageFilename }}-map.png" onError="src='assets/img/hood-map.png'">Christmas tree map of {{location.description}} district. (Click to view larger map)</a></figcaption>
+        <a href="/assets/img/{{ location.imageFilename }}-map.png" onError="src='assets/img/hood-map.png'"><img src="/assets/img/{{ location.imageFilename }}-map-thumb.png" onError="src='assets/img/hood-map-thumb.png'" alt="Christmas tree map of {{location.description}} district" aria-hidden="true" /></a>
       </div>
   </div>
 </div>
