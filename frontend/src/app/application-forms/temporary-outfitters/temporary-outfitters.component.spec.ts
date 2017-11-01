@@ -271,8 +271,112 @@ describe('TemporaryOutfittersComponent', () => {
   });
 
   it('should remove unused data', () => {
+    const formBuilder = new FormBuilder();
+    const experienceFields = formBuilder.group({
+      haveNationalForestPermits: [false],
+      listAllNationalForestPermits: ['test'],
+      haveOtherPermits: [false],
+      listAllOtherPermits: ['test'],
+      haveCitations: [false],
+      listAllCitations: ['test']
+    });
+    const activityDescription = formBuilder.group({
+      needGovernmentFacilities: [false],
+      listOfGovernmentFacilities: ['test'],
+      needTemporaryImprovements: [false],
+      listOfTemporaryImprovements: ['test'],
+      haveMotorizedEquipment: [false],
+      statementOfMotorizedEquipment: ['test'],
+      haveLivestock: [false],
+      statementOfTransportationOfLivestock: ['test'],
+      needAssignedSite: [false],
+      statementOfAssignedSite: ['test']
+    });
+    const tempOutfitterFields = component.applicationForm.get('tempOutfitterFields') as FormGroup;
+
+    tempOutfitterFields.addControl('experienceFields', experienceFields);
+    tempOutfitterFields.addControl('activityDescriptionFields', activityDescription);
+
     component.removeUnusedData();
+
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').value
+    ).toBeFalsy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllOtherPermits').value).toBeFalsy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllCitations').value).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get(
+        'tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock'
+      ).value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').value
+    ).toBeFalsy();
+  });
+
+  it('should not remove used data', () => {
+    const formBuilder = new FormBuilder();
+    const experienceFields = formBuilder.group({
+      haveNationalForestPermits: [true],
+      listAllNationalForestPermits: ['test'],
+      haveOtherPermits: [true],
+      listAllOtherPermits: ['test'],
+      haveCitations: [true],
+      listAllCitations: ['test']
+    });
+    const activityDescription = formBuilder.group({
+      needGovernmentFacilities: [true],
+      listOfGovernmentFacilities: ['test'],
+      needTemporaryImprovements: [true],
+      listOfTemporaryImprovements: ['test'],
+      haveMotorizedEquipment: [true],
+      statementOfMotorizedEquipment: ['test'],
+      haveLivestock: [true],
+      statementOfTransportationOfLivestock: ['test'],
+      needAssignedSite: [true],
+      statementOfAssignedSite: ['test']
+    });
+    const tempOutfitterFields = component.applicationForm.get('tempOutfitterFields') as FormGroup;
+
+    tempOutfitterFields.addControl('experienceFields', experienceFields);
+    tempOutfitterFields.addControl('activityDescriptionFields', activityDescription);
+
+    component.removeUnusedData();
+
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllOtherPermits').value
+    ).toBeTruthy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllCitations').value).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get(
+        'tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock'
+      ).value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').value
+    ).toBeTruthy();
   });
 
   it('should return application', () => {
