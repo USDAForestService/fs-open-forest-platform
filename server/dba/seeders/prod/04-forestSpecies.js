@@ -18,7 +18,7 @@ module.exports = {
       {
         id: 3,
         forest_id: 1,
-        species_id: 7,
+        species_id: 1,
         status: 'recommended'
       },
       {
@@ -30,16 +30,9 @@ module.exports = {
       {
         id: 5,
         forest_id: 1,
-        species_id: 13,
+        species_id: 15,
         status: 'recommended'
       },
-      {
-        id: 6,
-        forest_id: 1,
-        species_id: 14,
-        status: 'recommended'
-      },
-
       {
         id: 10,
         forest_id: 2,
