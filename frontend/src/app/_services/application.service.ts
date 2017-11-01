@@ -49,7 +49,7 @@ export class ApplicationService {
     const options = new RequestOptions({ headers: headers, withCredentials: true });
 
     return this.http
-      .put(this.endpoint + '/special-uses/' + type + '/' + body.appControlNumber, body, options)
+      .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options)
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
