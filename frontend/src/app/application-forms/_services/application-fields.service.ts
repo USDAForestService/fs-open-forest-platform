@@ -188,8 +188,12 @@ export class ApplicationFieldsService {
     this.numberOfFiles--;
   }
 
+  addOneFile() {
+    this.numberOfFiles++;
+  }
+
   getFileUploadProgress(startingNumberOfFiles) {
-    const filesRemaining = this.numberOfFiles - 1;
+    const filesRemaining = this.numberOfFiles;
     return startingNumberOfFiles - filesRemaining;
   }
 
