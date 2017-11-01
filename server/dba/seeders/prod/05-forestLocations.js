@@ -9,15 +9,18 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Wilderness'
-      },
+        description: 'Wilderness',
+        image_filename: null
+      }
+      ,
       {
         id: 2,
         forest_id: 3,
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Research natural areas'
+        description: 'Research natural areas',
+        image_filename: null
       },
       {
         id: 3,
@@ -25,7 +28,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: '100 feet of a trail'
+        description: '100 feet of a trail',
+        image_filename: null
       },
       {
         id: 4,
@@ -33,7 +37,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds or administrative sites'
+        description: 'Campgrounds or administrative sites',
+        image_filename: null
       },
       {
         id: 5,
@@ -41,7 +46,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: '300 feet of streams or lakes'
+        description: '300 feet of streams or lakes',
+        image_filename: null
       },
       {
         id: 6,
@@ -49,7 +55,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Areas posted "No Christmas Tree Cutting”'
+        description: 'Areas posted "No Christmas Tree Cutting”',
+        image_filename: null
       },
       {
         id: 7,
@@ -57,7 +64,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'East of Little Crater Lake Campground on Road 58, because of Warms Springs Indian Reservation'
+        description: 'East of Little Crater Lake Campground on Road 58, because of Warms Springs Indian Reservation',
+        image_filename: null
       },
       {
         id: 8,
@@ -65,7 +73,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Do not remove Pacific Yew trees'
+        description: 'Do not remove Pacific Yew trees',
+        image_filename: null
       },
       {
         id: 9,
@@ -73,7 +82,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds, administrative sites, or summer home/rec. residence areas'
+        description: 'Campgrounds, administrative sites, or summer home/rec. residence areas',
+        image_filename: null
       },
       {
         id: 10,
@@ -81,7 +91,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Highway 26'
+        description: 'Highway 26',
+        image_filename: null
       },
       {
         id: 11,
@@ -89,7 +100,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Highway 224'
+        description: 'Highway 224',
+        image_filename: null
       },
       {
         id: 12,
@@ -97,7 +109,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Road 42 (Timothy Lake Road)'
+        description: 'Road 42 (Timothy Lake Road)',
+        image_filename: null
       },
       {
         id: 13,
@@ -105,7 +118,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Road 50 (Timberline Road)'
+        description: 'Road 50 (Timberline Road)',
+        image_filename: null
       },
       {
         id: 14,
@@ -113,7 +127,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Road 2645 (Westleg Road)'
+        description: 'Road 2645 (Westleg Road)',
+        image_filename: null
       },
       {
         id: 15,
@@ -121,7 +136,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Road 2618 (Salmon River Road)'
+        description: 'Road 2618 (Salmon River Road)',
+        image_filename: null
       },
       {
         id: 16,
@@ -129,7 +145,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'road',
-        description: 'Road 2627, 2627-207'
+        description: 'Road 2627, 2627-207',
+        image_filename: null
       },
       {
         id: 17,
@@ -137,7 +154,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '4210'
+        description: '4210',
+        image_filename: null
       },
       {
         id: 18,
@@ -145,7 +163,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '45, 4540, 4545'
+        description: '45, 4540, 4545',
+        image_filename: null
       },
       {
         id: 19,
@@ -153,7 +172,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '4660, 4661, 4670, 4671'
+        description: '4660, 4661, 4670, 4671',
+        image_filename: null
       },
       {
         id: 20,
@@ -161,7 +181,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '5730, 5731'
+        description: '5730, 5731',
+        image_filename: null
       },
       {
         id: 21,
@@ -169,7 +190,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '6340, 6341, 6350, 6355, 6370'
+        description: '6340, 6341, 6350, 6355, 6370',
+        image_filename: null
       },
       {
         id: 22,
@@ -177,7 +199,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '5410, 5411'
+        description: '5410, 5411',
+        image_filename: null
       },
       {
         id: 23,
@@ -185,7 +208,8 @@ module.exports = {
         district: 'Clackamas',
         allowed: true,
         type: 'road',
-        description: '58, 5810, 5820, 5830'
+        description: '58, 5810, 5820, 5830',
+        image_filename: null
       },
       {
         id: 24,
@@ -193,7 +217,8 @@ module.exports = {
         district: 'Zigzag',
         allowed: true,
         type: 'road',
-        description: '18, 1828, 1828118'
+        description: '18, 1828, 1828118',
+        image_filename: null
       },
       {
         id: 25,
@@ -201,7 +226,8 @@ module.exports = {
         district: 'Zigzag',
         allowed: true,
         type: 'road',
-        description: '2656 and spurs'
+        description: '2656 and spurs',
+        image_filename: null
       },
       {
         id: 26,
@@ -209,7 +235,8 @@ module.exports = {
         district: 'Zigzag',
         allowed: true,
         type: 'road',
-        description: '58, 5850, 5855, 5860, 5870, 5880'
+        description: '58, 5850, 5855, 5860, 5870, 5880',
+        image_filename: null
       },
       {
         id: 27,
@@ -235,7 +262,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'People may enter the cutting area on foot near the cutting area exit.  Parking is available along County Road 69 near the exit.'
+        description: 'People may enter the cutting area on foot near the cutting area exit.  Parking is available along County Road 69 near the exit.',
+        image_filename: null
       },
       {
         id: 30,
@@ -243,7 +271,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: '4WD or appropriate traction devices (chains or similar, not “tire socks”) are required on all vehicles in the cutting area.'
+        description: '4WD or appropriate traction devices (chains or similar, not “tire socks”) are required on all vehicles in the cutting area.',
+        image_filename: null
       },
       {
         id: 31,
@@ -251,7 +280,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'Be aware of what your vehicle allows related to traction devices. Not all vehicles are capable of handling the winter conditions in the cutting area. 4WD with bald tires isn’t worth much.'
+        description: 'Be aware of what your vehicle allows related to traction devices. Not all vehicles are capable of handling the winter conditions in the cutting area. 4WD with bald tires isn’t worth much.',
+        image_filename: null
       },
       {
         id: 32,
@@ -259,7 +289,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'People who do not have 4WD or proper traction devices will not be allowed into the cutting area –improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone, not just the individuals involved.'
+        description: 'People who do not have 4WD or proper traction devices will not be allowed into the cutting area –improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone, not just the individuals involved.',
+        image_filename: null
       },
       {
         id: 53,
@@ -267,7 +298,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.'
+        description: 'You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.',
+        image_filename: null
       },
       {
         id: 54,
@@ -275,7 +307,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'Drive time from Fort Collins VIS office is approximately one hour 15 minutes or more depending on the weather.'
+        description: 'Drive time from Fort Collins VIS office is approximately one hour 15 minutes or more depending on the weather.',
+        image_filename: null
       },
       {
         id: 55,
@@ -283,7 +316,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'If you arrive at the CLRD office after 1:00 you will not have enough time to get to the entrance before it closes for the day.'
+        description: 'If you arrive at the CLRD office after 1:00 you will not have enough time to get to the entrance before it closes for the day.',
+        image_filename: null
       },
       {
         id: 56,
@@ -293,7 +327,8 @@ module.exports = {
         type: 'road',
         description: 'From Fort Collins take Highway 287 21 miles north to Livermore, ' +
         'at Livermore, turn left onto County Road 74E (Red Feather Lakes Road), ' +
-        'follow 74E 16 miles and then turn left onto County Road 68C (Boy Scout Road)'
+        'follow 74E 16 miles and then turn left onto County Road 68C (Boy Scout Road)',
+        image_filename: null
       },
       {
         id: 57,
@@ -302,7 +337,8 @@ module.exports = {
         allowed: true,
         type: 'road',
         description: ' - LOOK FOR THE BIG SMOKEY BEAR SIGN - ' +
-        'follow 68C for 7 miles and signs or Forest Service personnel will direct you into the area.'
+        'follow 68C for 7 miles and signs or Forest Service personnel will direct you into the area.',
+        image_filename: null
       },
       {
         id: 58,
@@ -310,7 +346,7 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Elk Creek Cutting Area - Sulphur Ranger District',
+        description: 'Sulphur Ranger District - Elk Creek Cutting Area',
         image_filename: 'elk-creek'
       },
       {
@@ -319,8 +355,17 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Sulphur Ranger District'
+        description: 'Sulphur Ranger District Cutting Areas',
         image_filename: 'sulphur'
+      },
+      {
+        id: 60,
+        forest_id: 1,
+        district: null,
+        allowed: true,
+        type: 'district',
+        description: 'Canyon Lakes Ranger District - Red Feather Cutting Area',
+        image_filename: 'red-feather'
       },
       {
         id: 33,
@@ -328,7 +373,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'area',
-        description: 'Dalles Watershed'
+        description: 'Dalles Watershed',
+        image_filename: null
       },
       {
         id: 34,
@@ -336,7 +382,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'road',
-        description: 'Highway 216'
+        description: 'Highway 216',
+        image_filename: null
       },
       {
         id: 35,
@@ -344,7 +391,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'area',
-        description: 'Camp Baldwin'
+        description: 'Camp Baldwin',
+        image_filename: null
       },
       {
         id: 36,
@@ -352,7 +400,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'area',
-        description: 'Warm Springs Reservation'
+        description: 'Warm Springs Reservation',
+        image_filename: null
       },
       {
         id: 37,
@@ -360,7 +409,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'road',
-        description: 'Highway 26'
+        description: 'Highway 26',
+        image_filename: null
       },
       {
         id: 38,
@@ -368,7 +418,8 @@ module.exports = {
         district: 'Barlow and Hood',
         allowed: false,
         type: 'road',
-        description: 'Highway 35'
+        description: 'Highway 35',
+        image_filename: null
       },
       {
         id: 46,
@@ -376,7 +427,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Plantations'
+        description: 'Plantations',
+        image_filename: null
       },
       {
         id: 47,
@@ -384,7 +436,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Previously thinned stands of trees'
+        description: 'Previously thinned stands of trees',
+        image_filename: null
       },
       {
         id: 48,
@@ -392,7 +445,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds'
+        description: 'Campgrounds',
+        image_filename: null
       },
       {
         id: 49,
@@ -400,7 +454,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Areas posted as closed to Christmas tree cutting'
+        description: 'Areas posted as closed to Christmas tree cutting',
+        image_filename: null
       },
       {
         id: 50,
@@ -417,7 +472,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Popo Agie Wilderness Area'
+        description: 'Popo Agie Wilderness Area',
+        image_filename: null
       },
       {
         id: 52,
@@ -425,7 +481,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'North of and on the Wind River reservation'
+        description: 'North of and on the Wind River reservation',
+        image_filename: null
       }
     ];
     return queryInterface.bulkInsert('forestLocations', forestLocations);

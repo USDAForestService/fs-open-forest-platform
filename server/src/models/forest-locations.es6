@@ -48,6 +48,10 @@ module.exports = sequelize.define(
     description: {
       type: Sequelize.STRING,
       field: 'description'
+    },
+    imageFilename: {
+      type: Sequelize.STRING,
+      field: 'image_filename'
     }
   },
   {

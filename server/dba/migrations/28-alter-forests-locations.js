@@ -2,13 +2,12 @@
 
 module.exports = {
 	up: function (queryInterface, Sequelize) {
-		return queryInterface.addColumn('forestsLocations', 'imageFilename', {
-        	type: Sequelize.STRING(100),
-					field: 'image_filename'
+		return queryInterface.addColumn('forestLocations', 'image_filename', {
+			type: Sequelize.STRING(100)
 		});
 	},
 
 	down: function (queryInterface, Sequelize) {
-		return queryInterface.removeColumn('forestsLocations', 'imageFilename');
+		return queryInterface.removeColumn('forestLocations', 'image_filename');
 	}
 };
