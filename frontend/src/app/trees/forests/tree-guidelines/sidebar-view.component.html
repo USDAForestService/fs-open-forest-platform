@@ -1,7 +1,7 @@
 <div class="trees-header">
     <div class="trees-header-forest">
       <div class="usa-grid">
-        <div>{{forest.forestName | uppercase }} NATIONAL FOREST</div>
+        <div>{{forest.forestName | uppercase }} NATIONAL FOREST{{ forest.forestName.indexOf('and') > 0 ? 'S' : ''}}</div>
       </div>
     </div>
     <div class="trees-header-dates">
