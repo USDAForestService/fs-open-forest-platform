@@ -3,7 +3,7 @@
     <div class="breadcrumbs">
       <a routerLink="/">Apply for a permit</a> > <span>Help me find a permit</span>
     </div>
-    <h1>{{ title }}</h1>
+    <h1 id="skip-nav-target" tabindex="-1">{{ title }}</h1>
     <div *ngIf="id == 1">
       <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
       <a class="usa-button no" type="button" routerLink="/help-me-pick/2">No</a>
