@@ -1,7 +1,11 @@
 'use strict';
 
-Promise.each = async function(arr, fn) {
-  for (const item of arr) await fn(item);
+Promise.each = function(arr, fn) {
+  if (!Array.isArray(arr)) return Promise.reject(new Error('Non array passed to each'));
+  if (arr.length === 0) return Promise.resolve();
+  return arr.reduce(function(prev, cur) {
+    return prev.then(() => fn(cur));
+  }, Promise.resolve());
 };
 
 let doTransaction = (tableName, queryInterface, operations) => {
