@@ -1,6 +1,8 @@
 'use strict';
 
-let Promise = require('bluebird');
+Promise.each = async function(arr, fn) {
+  for (const item of arr) await fn(item);
+};
 
 let doTransaction = (tableName, queryInterface, operations) => {
   return queryInterface.sequelize.transaction(trx => {
@@ -22,7 +24,10 @@ let doTransaction = (tableName, queryInterface, operations) => {
           return queryInterface.changeColumn(tableName, operation.field, operation.options, { transaction: trx });
         }
         case 'raw': {
-          return queryInterface.sequelize.query(operation.query, { type: queryInterface.sequelize.QueryTypes.RAW, transaction: trx });
+          return queryInterface.sequelize.query(operation.query, {
+            type: queryInterface.sequelize.QueryTypes.RAW,
+            transaction: trx
+          });
         }
         default: {
           return 'ERROR: missing operation type eg: add, change, rename, ...';
@@ -54,7 +59,11 @@ let addPreparations = (tableName, operations) => {
             }
           }
           // binary undefined I presume for now means string value rather than number
-          if (operation.options.type.options && operation.options.type.options.length && operation.options.type.options.binary === undefined) {
+          if (
+            operation.options.type.options &&
+            operation.options.type.options.length &&
+            operation.options.type.options.binary === undefined
+          ) {
             let newOperation = changeStringLength(tableName, operation);
             if (newOperation) {
               moreOperations.push(newOperation);
@@ -127,7 +136,12 @@ let changeNotNull = (table, operation) => {
   let options = { transaction: operation.transaction };
 
   if (value === undefined) {
-    console.log('WARNING: operation.migrationDefaultValue is recommended when setting allowNull to false for pre-migrations to remove nulls on ' + table + '.' + field);
+    console.log(
+      'WARNING: operation.migrationDefaultValue is recommended when setting allowNull to false for pre-migrations to remove nulls on ' +
+        table +
+        '.' +
+        field
+    );
     return undefined;
   }
 
@@ -145,7 +159,21 @@ let changeStringLength = (table, operation) => {
 
   return {
     operation: 'raw',
-    query: ' update "' + table + '" ' + ' set "' + field + '" = substring("' + field + '" from 1 for ' + length + ') ' + ' where length("' + field + '") <' + length,
+    query:
+      ' update "' +
+      table +
+      '" ' +
+      ' set "' +
+      field +
+      '" = substring("' +
+      field +
+      '" from 1 for ' +
+      length +
+      ') ' +
+      ' where length("' +
+      field +
+      '") <' +
+      length,
     options
   };
 };
