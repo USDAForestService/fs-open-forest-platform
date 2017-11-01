@@ -630,6 +630,8 @@ tempOutfitter.update = (req, res) => {
             util.createRevision(util.getUser(req), app);
             if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
+            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+              email.sendEmail(`tempOutfitterApplicationRemoveHold`, app);
             } else {
               email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }

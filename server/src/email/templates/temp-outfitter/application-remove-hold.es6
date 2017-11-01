@@ -1,4 +1,5 @@
 const moment = require('moment');
+
 const util = require('../../../util.es6');
 
 module.exports = application => {
@@ -11,17 +12,23 @@ Permit application status update
 
 We are reviewing the additional information you provided.
 
+${application.applicantMessage}
+
 
 Application details
 *********************************
 
 Application identification number: ${application.applicationId}
-Event name: ${application.eventName}
-Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-Number of participants: ${application.noncommercialFieldsNumberParticipants}
-Number of spectators: ${application.noncommercialFieldsSpectatorCount}
-Location: ${application.noncommercialFieldsLocationDescription}
+Business name: ${application.applicantInfoOrganizationName}
+Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
+      'MM/DD/YYYY hh:mm a'
+    )}
+End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format(
+      'MM/DD/YYYY hh:mm a'
+    )}
+Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
+Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
+Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
 
 What happens next?
@@ -38,7 +45,7 @@ Contact us
 
 If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
-Noncommercial contact
+Temp outfitter contact
 Name: Sue Sherman-Biery
 Title: Special use administrator
 Phone: 360-854-2660

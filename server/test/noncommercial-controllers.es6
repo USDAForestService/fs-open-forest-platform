@@ -100,12 +100,16 @@ describe('noncommercial controller', () => {
   });
 
   it('updates a noncommercial app successfully with Cancelled status', done => {
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { controlNumber: 'success' });
+    request(server)
+      .put(noncommercialUrl + '/806d3550-309d-46ea-b12a-f021f7b3d447')
+      .set('Accept', 'application/json')
+      .send(noncommercialPermitApplicationFactory.create({ status: 'Cancelled' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('updates a noncommercial app successfully with Hold status', done => {
     request(server)
       .put(noncommercialUrl + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
@@ -115,17 +119,11 @@ describe('noncommercial controller', () => {
       .expect(200, done);
   });
 
-  it('updates a noncommercial app successfully with Hold status', done => {
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { controlNumber: 'success' });
+  it('updates a noncommercial app successfully with Review status', done => {
     request(server)
       .put(noncommercialUrl + '/806d3550-309d-46ea-b12a-f021f7b3d447')
       .set('Accept', 'application/json')
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Hold' }))
+      .send(noncommercialPermitApplicationFactory.create({ status: 'Review' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
