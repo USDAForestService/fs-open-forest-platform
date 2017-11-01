@@ -41,7 +41,8 @@ const translateRegulationsFromDatabaseToClient = input => {
           district: location.district,
           allowed: location.allowed,
           type: location.type,
-          description: location.description
+          description: location.description,
+          imageFilename: location.imageFilename
         };
       })
     }
