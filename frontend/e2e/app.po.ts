@@ -38,6 +38,10 @@ export class TreesSidebarPage {
   navigateTo(forestId) {
     return browser.get('/xmas-trees/forests/' + forestId + '/tree-guidelines');
   }
+
+  getTreeSelectionLink() {
+    return element(by.id('tree-selection-link'));
+  }
 }
 
 

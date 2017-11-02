@@ -1,13 +1,5 @@
-<p>Our National Forests have an abundance of tree species for you to choose
-  from when you’re ready harvest your Christmas tree. As you search the forest,
-  you’ll see trees that are not professional groomed but instead are in their natural state.
-  Learning about the available trees before you leave on your trip can assist your search for
-  the perfect tree.</p>
-
-<p>Let’s take a look at how to identify the trees:</p>
-
-<div id='tree-recommended-species' class="tree-speci margin-bottom-4 usa-width-one-whole"
-     *ngFor="let tree of forest.species | filter: 'status':'recommended'">
+<div [attr.id]="'tree-recommended-species-'+ i" class="tree-speci margin-bottom-4 usa-width-one-whole"
+     *ngFor="let tree of forest.species | filter: 'status':'recommended'; let i=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span>
   <div class="tree-description">

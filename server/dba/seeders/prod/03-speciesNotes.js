@@ -213,7 +213,7 @@ module.exports = {
         id: 57, 
         species_id: 12, 
         display_order: 3, 
-        note: 'Turns brown and looses needles faster than other tree even if put immediately into water after harvesting' },
+        note: 'Turns brown and loses needles faster than other tree even if put immediately into water after harvesting' },
 
       {
         id: 61, 

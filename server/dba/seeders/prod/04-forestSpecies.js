@@ -6,19 +6,19 @@ module.exports = {
       {
         id: 1,
         forest_id: 1,
-        species_id: 2,
+        species_id: 1,
         status: 'recommended'
       },
       {
         id: 2,
         forest_id: 1,
-        species_id: 5,
+        species_id: 2,
         status: 'recommended'
       },
       {
         id: 3,
         forest_id: 1,
-        species_id: 1,
+        species_id: 5,
         status: 'recommended'
       },
       {
@@ -81,27 +81,32 @@ module.exports = {
         species_id: 15,
         status: 'recommended'
       },
-
       {
         id: 20,
+        forest_id: 3,
+        species_id: 6,
+        status: 'recommended'
+      },
+      {
+        id: 21,
         forest_id: 3,
         species_id: 2,
         status: 'not recommended'
       },
       {
-        id: 21,
+        id: 22,
         forest_id: 3,
         species_id: 9,
         status: 'recommended'
       },
       {
-        id: 22,
+        id: 23,
         forest_id: 3,
         species_id: 12,
         status: 'not recommended'
       },
       {
-        id: 23,
+        id: 24,
         forest_id: 3,
         species_id: 16,
         status: 'prohibited'

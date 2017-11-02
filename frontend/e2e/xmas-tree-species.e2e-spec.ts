@@ -9,28 +9,19 @@ describe('Xmas tree species page', () => {
     browser.driver.manage().window().setSize(1400, 900);
     page.navigateTo(3);
     browser.sleep(400);
-
+    page.getTreeSelectionLink().click();
   });
 
   it('should have a species section link', () => {
     expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-      'Tree selection'
-    );
-  });
-
-  it('should have a tree selection header', () => {
-    expect<any>(element(by.id('tree-selection-types-of-trees')).getText()).toEqual(
-      'Types of trees'
+      'How to choose your tree'
     );
   });
 
   describe('recommended species', () => {
-    let treeOne;
-    beforeEach(() => {
-      treeOne = element.all(by.repeater('tree of forest.species')).get(1);
-    });
-    it('should display Pacific Silver fir', () => {
-      expect<any>(element(by.id('tree-recommended-species')).isDisplayed()).toBeTruthy();
+    it('should display a tree', () => {
+      expect<any>(element(by.id('tree-recommended-species-0')).isDisplayed()).toBeTruthy();
+      expect<any>(element(by.id('tree-recommended-species-0')).element(by.css('.tree-name')).getText()).not.toBeNull();
     });
   })
 

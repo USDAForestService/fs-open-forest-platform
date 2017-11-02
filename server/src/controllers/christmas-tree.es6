@@ -41,7 +41,8 @@ const translateRegulationsFromDatabaseToClient = input => {
           district: location.district,
           allowed: location.allowed,
           type: location.type,
-          description: location.description
+          description: location.description,
+          imageFilename: location.imageFilename
         };
       })
     }
@@ -74,7 +75,8 @@ christmasTree.getOneRegulations = (req, res) => {
       }
     ],
     order: [
-      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ]
+      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ],
+      [ forestLocations, 'id', 'ASC']
     ]
   })
     .then(app => {
