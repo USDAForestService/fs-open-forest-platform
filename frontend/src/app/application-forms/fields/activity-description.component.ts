@@ -27,23 +27,26 @@ export class ActivityDescriptionComponent implements OnInit {
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator()]],
-      numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
-      partySize: ['', [Validators.required, alphanumericValidator()]],
-      locationDescription: ['', [Validators.required, alphanumericValidator()]],
-      servicesProvided: ['', [Validators.required, alphanumericValidator()]],
-      audienceDescription: ['', [Validators.required, alphanumericValidator()]],
+      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator(), Validators.maxLength(255)]],
+      numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+      servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+      audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
       needGovernmentFacilities: [false],
-      listOfGovernmentFacilities: [''],
+      listOfGovernmentFacilities: ['', Validators.maxLength(512)],
       needTemporaryImprovements: [false],
-      listOfTemporaryImprovements: [''],
+      listOfTemporaryImprovements: ['', Validators.maxLength(512)],
       haveMotorizedEquipment: [false],
-      statementOfMotorizedEquipment: [''],
+      statementOfMotorizedEquipment: ['', Validators.maxLength(512)],
       haveLivestock: [false],
-      statementOfTransportationOfLivestock: [''],
+      statementOfTransportationOfLivestock: ['', Validators.maxLength(512)],
       needAssignedSite: [false],
-      statementOfAssignedSite: [''],
-      descriptionOfCleanupAndRestoration: ['', [Validators.required, alphanumericValidator()]]
+      statementOfAssignedSite: ['', Validators.maxLength(512)],
+      descriptionOfCleanupAndRestoration: [
+        '',
+        [Validators.required, alphanumericValidator(), Validators.maxLength(512)]
+      ]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 

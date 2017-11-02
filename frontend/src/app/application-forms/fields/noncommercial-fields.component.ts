@@ -18,10 +18,13 @@ export class NoncommercialFieldsComponent implements OnInit {
   ngOnInit() {
     this.formName = 'noncommercialFields';
     this[this.formName] = this.formBuilder.group({
-      activityDescription: ['', [Validators.required, alphanumericValidator()]],
-      locationDescription: ['', [Validators.required, alphanumericValidator()]],
-      numberParticipants: ['', [Validators.required, Validators.minLength(1), alphanumericValidator()]],
-      numberSpectators: ['', [Validators.required, alphanumericValidator()]]
+      activityDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      numberParticipants: [
+        '',
+        [Validators.required, alphanumericValidator(), Validators.minLength(1), Validators.maxLength(255)]
+      ],
+      numberSpectators: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
   }

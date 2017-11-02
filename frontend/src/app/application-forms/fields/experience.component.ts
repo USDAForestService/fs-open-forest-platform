@@ -16,11 +16,11 @@ export class ExperienceComponent implements OnInit {
   ngOnInit() {
     const experienceFields = this.formBuilder.group({
       haveNationalForestPermits: [false],
-      listAllNationalForestPermits: [''],
+      listAllNationalForestPermits: ['', Validators.maxLength(512)],
       haveOtherPermits: [false],
-      listAllOtherPermits: [''],
+      listAllOtherPermits: ['', Validators.maxLength(512)],
       haveCitations: [false],
-      listAllCitations: ['']
+      listAllCitations: ['', Validators.maxLength(512)]
     });
     this.parentForm.addControl('experienceFields', experienceFields);
 
