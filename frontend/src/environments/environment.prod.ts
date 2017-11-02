@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   apiUrl: 'https://fs-intake-api.app.cloud.gov/',
-  buildDate: 'Mon Jun 12 2017 22:17:33 GMT-0500 (CDT)',
+  buildDate: new Date(),
   version: '0.0.0'
 };

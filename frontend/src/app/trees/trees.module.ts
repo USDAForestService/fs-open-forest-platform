@@ -17,7 +17,6 @@ import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/t
 
 import { TreesService } from './_services/trees.service';
 import { SidebarViewComponent } from './forests/tree-guidelines/sidebar-view.component';
-import { WizardViewComponent } from './forests/tree-guidelines/wizard-view.component';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
@@ -40,8 +39,7 @@ import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locat
     TreeSpeciesComponent,
     TripPlanningComponent,
     TreeToolsComponent,
-    SidebarViewComponent,
-    WizardViewComponent
+    SidebarViewComponent
   ],
   exports: [
     ContactInfoComponent,
@@ -56,8 +54,7 @@ import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locat
     TreeSpeciesComponent,
     TripPlanningComponent,
     TreeToolsComponent,
-    SidebarViewComponent,
-    WizardViewComponent
+    SidebarViewComponent
   ],
   imports: [SharedModule],
   providers: [TreesService]
