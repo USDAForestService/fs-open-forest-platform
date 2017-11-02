@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     resolve: {
       forest: ForestResolver
     },
-    data: { title: 'Christmas tree info' }
+    data: { title: 'Christmas Tree Permit Guidelines' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
