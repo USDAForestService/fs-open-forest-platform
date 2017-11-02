@@ -19,12 +19,9 @@ describe('Xmas tree species page', () => {
   });
 
   describe('recommended species', () => {
-    let treeOne;
-    beforeEach(() => {
-      treeOne = element.all(by.repeater('tree of forest.species')).get(1);
-    });
-    it('should display Pacific Silver fir', () => {
-      expect<any>(element(by.id('tree-recommended-species')).isDisplayed()).toBeTruthy();
+    it('should display Noble fir', () => {
+      expect<any>(element(by.id('tree-recommended-species-0')).isDisplayed()).toBeTruthy();
+      expect<any>(element(by.id('tree-recommended-species-0')).element(by.css('.tree-name')).getText()).toEqual('Noble Fir');
     });
   })
 

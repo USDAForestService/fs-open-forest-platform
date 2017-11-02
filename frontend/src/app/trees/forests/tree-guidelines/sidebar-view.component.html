@@ -33,11 +33,6 @@
         </li>
         <li>
           <a href="#" id="tree-selection-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">How to choose your tree</a>
-          <!--<ul class="usa-sidenav-sub_list" [hidden]="!currentSection.startsWith('tree-selection')">-->
-            <!--<li>-->
-              <!--<a href="#" id="tree-selection-types-of-trees-link" [ngClass]="{'usa-current': currentSection && currentSection === 'tree-selection-types-of-trees'}" (click)="gotoHashtag('tree-selection-types-of-trees', $event)">Tree species</a>-->
-            <!--</li>-->
-          <!--</ul>-->
         </li>
         <li>
           <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">How to harvest your tree</a>
@@ -66,9 +61,6 @@
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <!--<p>{{forest.forestName | uppercase }} NATIONAL FOREST</p>-->
-      <!--<h1>Christmas tree permit</h1>-->
-      <!--<div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>-->
       <h2 id="general-guidelines" tabindex="-1">Christmas Tree Permit Guidelines</h2>
       <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
@@ -77,7 +69,6 @@
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
       <h2 id="tree-locations-prohibited" tabindex="-1">Prohibited areas and restrictions</h2>
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
-
       <h2 id="tree-selection" tabindex="-1">How to choose your tree</h2>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <app-tree-species [forest]="forest"></app-tree-species>
@@ -94,7 +85,6 @@
       <h2 id="safety-first" tabindex="-1">Safety first</h2>
       <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
-
     </div>
   </div>
 </section>
