@@ -4,6 +4,7 @@ const request = require('request');
 
 const vcapConstants = require('../vcap-constants.es6');
 const christmasTreeRegulations = require('../models/forest-regulations.es6');
+const forests = require('../models/forests.es6');
 const species = require('../models/species.es6');
 const forestSpecies = require('../models/forest-species.es6');
 const speciesNotes = require('../models/species-notes.es6');
@@ -47,6 +48,26 @@ const translateRegulationsFromDatabaseToClient = input => {
       })
     }
   }; 
+};
+
+christmasTree.getForests = (req, res) => {
+  
+  forests.findAll({
+    attributes: [
+      'id',
+      'forestName',
+      'forestUrl',
+    ]
+  }).then(results => {
+    if (results) {
+      res.status(200).json(results);
+    } else {
+      res.status(404).send();
+    }
+  })
+  .catch(error => {
+    res.status(400).json(error);
+  });
 };
 
 
