@@ -27,9 +27,15 @@ export class ApplicationFieldsService {
 
   addAddressValidation(parentForm, formName) {
     if (parentForm.get(`${formName}`)) {
-      parentForm.get(`${formName}.mailingAddress`).setValidators([Validators.required, alphanumericValidator()]);
-      parentForm.get(`${formName}.mailingCity`).setValidators([Validators.required, alphanumericValidator()]);
-      parentForm.get(`${formName}.mailingState`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm
+        .get(`${formName}.mailingAddress`)
+        .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(255)]);
+      parentForm
+        .get(`${formName}.mailingCity`)
+        .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(255)]);
+      parentForm
+        .get(`${formName}.mailingState`)
+        .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(255)]);
       parentForm
         .get(`${formName}.mailingZIP`)
         .setValidators([
@@ -52,10 +58,10 @@ export class ApplicationFieldsService {
 
   addAdditionalPhone(parentForm) {
     const eveningPhone = this.formBuilder.group({
-      areaCode: [],
-      extension: [],
-      number: [],
-      prefix: [],
+      areaCode: [null, [Validators.maxLength(3)]],
+      extension: [null, [Validators.maxLength(6)]],
+      number: [null, [Validators.maxLength(4)]],
+      prefix: [null, [Validators.maxLength(3)]],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
     parentForm.addControl('eveningPhone', eveningPhone);
@@ -73,20 +79,21 @@ export class ApplicationFieldsService {
 
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
-      this.updateValidators(dataField, value);
+      this.updateValidators(dataField, value, 512);
     });
   }
 
   toggleSwitchRequire(toggleField, dataFieldOne, dataFieldTwo) {
     toggleField.valueChanges.subscribe(value => {
-      this.updateValidators(dataFieldOne, !value);
-      this.updateValidators(dataFieldTwo, value);
+      this.updateValidators(dataFieldOne, !value, 255);
+      this.updateValidators(dataFieldTwo, value, 255);
     });
   }
 
-  updateValidators(dataField, value) {
-    if (value) {
-      dataField.setValidators([Validators.required, alphanumericValidator()]);
+  updateValidators(dataField, validate, length = null) {
+    if (dataField && validate && length) {
+      dataField.setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(length)]);
+      dataField.updateValueAndValidity();
     } else {
       dataField.setValidators(null);
       dataField.updateValueAndValidity();

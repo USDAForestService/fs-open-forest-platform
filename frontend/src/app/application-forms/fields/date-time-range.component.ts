@@ -42,20 +42,20 @@ export class DateTimeRangeComponent implements OnInit {
     }
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group({
-      endDateTime: ['', [Validators.required]],
+      endDateTime: ['', [Validators.required, Validators.maxLength(255)]],
       endDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
       endMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
       endYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      endHour: [this.defaultEndHour, [Validators.required]],
-      endMinutes: ['00', [Validators.required]],
-      endPeriod: [this.defaultPeriod, [Validators.required]],
-      startDateTime: ['', [Validators.required]],
+      endHour: [this.defaultEndHour, [Validators.required, Validators.maxLength(2)]],
+      endMinutes: ['00', [Validators.required, Validators.maxLength(2)]],
+      endPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]],
+      startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
       startDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
       startMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
       startYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      startHour: [this.defaultStartHour, [Validators.required]],
-      startMinutes: ['00', [Validators.required]],
-      startPeriod: [this.defaultPeriod, [Validators.required]]
+      startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2)]],
+      startMinutes: ['00', [Validators.required, Validators.maxLength(2)]],
+      startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');

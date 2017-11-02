@@ -46,34 +46,34 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.applicationForm = this.formBuilder.group({
-      appControlNumber: [''],
-      applicationId: [''],
-      createdAt: [''],
-      applicantMessage: [''],
-      status: [''],
-      authEmail: [''],
-      authorizingOfficerName: [''],
-      authorizingOfficerTitle: [''],
+      appControlNumber: ['', [Validators.maxLength(255)]],
+      applicationId: ['', [Validators.maxLength(255)]],
+      createdAt: ['', [Validators.maxLength(255)]],
+      applicantMessage: ['', [Validators.maxLength(255)]],
+      status: ['', [Validators.maxLength(255)]],
+      authEmail: ['', [Validators.maxLength(255)]],
+      authorizingOfficerName: ['', [Validators.maxLength(255)]],
+      authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
       revisions: [''],
-      district: ['11', [Validators.required]],
-      region: ['06', [Validators.required]],
-      forest: ['05', [Validators.required]],
-      type: ['noncommercial', [Validators.required]],
-      eventName: ['', [Validators.required, alphanumericValidator()]],
-      signature: ['', [Validators.required, alphanumericValidator()]],
+      district: ['11', [Validators.required, Validators.maxLength(3)]],
+      region: ['06', [Validators.required, Validators.maxLength(3)]],
+      forest: ['05', [Validators.required, Validators.maxLength(3)]],
+      type: ['noncommercial', [Validators.required, Validators.maxLength(255)]],
+      eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
-        organizationName: ['', [alphanumericValidator()]],
-        orgType: ['Person', Validators.required],
+        emailAddress: ['', [Validators.required, Validators.email, Validators.maxLength(255), alphanumericValidator()]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
+        primaryFirstName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
         secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: ['', [alphanumericValidator()]],
-        secondaryLastName: ['', [alphanumericValidator()]],
-        website: ['', [alphanumericValidator()]]
+        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        website: ['', [alphanumericValidator(), Validators.maxLength(255)]]
       })
     });
   }
@@ -102,15 +102,17 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo'),
         'organizationAddress'
       );
-      this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
+      this.applicationFieldsService.updateValidators(this.applicationForm.get('applicantInfo.organizationName'), false);
     } else if (type === 'Corporation' && !this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
       this.applicationFieldsService.removeAddressValidation(
         this.applicationForm.get('applicantInfo'),
         'primaryAddress'
       );
-      this.applicationForm
-        .get('applicantInfo.organizationName')
-        .setValidators([Validators.required, alphanumericValidator()]);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.organizationName'),
+        true,
+        255
+      );
     }
   }
 
@@ -124,15 +126,25 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   addSecondaryPermitHolder(value) {
     if (value) {
-      this.applicationForm
-        .get('applicantInfo.secondaryFirstName')
-        .setValidators([Validators.required, alphanumericValidator()]);
-      this.applicationForm
-        .get('applicantInfo.secondaryLastName')
-        .setValidators([Validators.required, alphanumericValidator()]);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryFirstName'),
+        true,
+        255
+      );
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryLastName'),
+        true,
+        255
+      );
     } else {
-      this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
-      this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryFirstName'),
+        false
+      );
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryLastName'),
+        false
+      );
     }
   }
 

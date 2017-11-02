@@ -24,16 +24,22 @@ describe('ApplicationFieldsService', () => {
   it('change validation when toggle field is checked', () => {
     const dataField = new FormControl('');
 
-    service.updateValidators(dataField, true);
+    service.updateValidators(dataField, true, 255);
 
     dataField.updateValueAndValidity();
 
     expect(dataField.valid).toBeFalsy();
 
-    dataField.setValue('test');
+    dataField.setValue(
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum neque arcu, sed pellentesque ante vestibulum non. In posuere ante ligula, eget faucibus odio cursus nec. Vestibulum quis sagittis magna, at interdum arcu. Quisque elit purus nullam.'
+    );
 
-    service.updateValidators(dataField, false);
+    service.updateValidators(dataField, false, 255);
 
+    expect(dataField.valid).toBeFalsy();
+    dataField.setValue(
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum neque arcu, sed pellentesque ante vestibulum non. In posuere ante ligula, eget faucibus odio cursus nec. Vestibulum quis sagittis magna, at interdum arcu. Quisque elit purus nulla'
+    );
     expect(dataField.valid).toBeTruthy();
   });
 
