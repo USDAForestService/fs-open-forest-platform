@@ -22,6 +22,7 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
         "trees": "environments/environment.trees.ts"
+        "staging": "environments/environment.staging.ts"
       }
     }
   ],
