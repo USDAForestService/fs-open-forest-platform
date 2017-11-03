@@ -2,6 +2,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Hours, Minutes } from '../../_models/constants';
+import { numberValidator } from '../validators/number-validation';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -43,18 +44,18 @@ export class DateTimeRangeComponent implements OnInit {
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group({
       endDateTime: ['', [Validators.required, Validators.maxLength(255)]],
-      endDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-      endMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-      endYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      endHour: [this.defaultEndHour, [Validators.required, Validators.maxLength(2)]],
-      endMinutes: ['00', [Validators.required, Validators.maxLength(2)]],
+      endDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), numberValidator()]],
+      endMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), numberValidator()]],
+      endYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4), numberValidator()]],
+      endHour: [this.defaultEndHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
+      endMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       endPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]],
       startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
-      startDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-      startMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-      startYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
-      startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2)]],
-      startMinutes: ['00', [Validators.required, Validators.maxLength(2)]],
+      startDay: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), numberValidator()]],
+      startMonth: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(2), numberValidator()]],
+      startYear: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4), numberValidator()]],
+      startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
+      startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);

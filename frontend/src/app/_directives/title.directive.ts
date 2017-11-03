@@ -18,6 +18,7 @@ export class TitleDirective implements OnInit {
       .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
       .map(route => {
+        console.log(route);
         while (route.firstChild) {
           route = route.firstChild;
           return route;
@@ -26,6 +27,8 @@ export class TitleDirective implements OnInit {
       .filter(route => route.outlet === 'primary')
       .filter(route => route['data']['value']['title'] !== '')
       .mergeMap(route => route.data)
-      .subscribe(event => this.titleService.setTitle(event['title']));
+      .subscribe(event => {
+        this.titleService.setTitle(event['title']);
+      });
   }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { numberValidator } from '../validators/number-validation';
+import { stateValidator } from '../validators/state-validation';
 
 @Injectable()
 export class ApplicationFieldsService {
@@ -12,11 +14,11 @@ export class ApplicationFieldsService {
 
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
-      mailingAddress: [''],
-      mailingAddress2: [''],
-      mailingCity: [''],
-      mailingState: [''],
-      mailingZIP: ['']
+      mailingAddress: ['', [Validators.maxLength(255)]],
+      mailingAddress2: ['', [Validators.maxLength(255)]],
+      mailingCity: ['', [Validators.maxLength(255)]],
+      mailingState: ['', [Validators.maxLength(2), stateValidator()]],
+      mailingZIP: ['', [Validators.minLength(5), Validators.maxLength(5), numberValidator()]]
     });
     parentForm.addControl(formName, this[formName]);
   }
@@ -35,13 +37,14 @@ export class ApplicationFieldsService {
         .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(255)]);
       parentForm
         .get(`${formName}.mailingState`)
-        .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(255)]);
+        .setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(2), stateValidator()]);
       parentForm
         .get(`${formName}.mailingZIP`)
         .setValidators([
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(5),
+          numberValidator(),
           alphanumericValidator()
         ]);
     }
