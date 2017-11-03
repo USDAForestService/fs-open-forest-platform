@@ -16,7 +16,7 @@ export class TreesService {
 
   getOne(id) {
     return this.http
-      .get(this.endpoint + id + '/regulations', { withCredentials: true })
+      .get(this.endpoint + id, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.handleError);
   }
