@@ -29,7 +29,6 @@ const translateGuidelinesFromDatabaseToClient = input => {
           id: species.species.id,
           name: species.species.name,
           webUrl: species.species.webUrl,
-          photos: species.species.photos ? species.species.photos.toString('base64') : species.species.photos,
           status: species.status,
           notes: species.species.speciesNotes.map((notes)=>{
             return notes.note;

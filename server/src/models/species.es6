@@ -37,10 +37,6 @@ module.exports = sequelize.define(
       type: Sequelize.STRING,
       field: 'web_url'
     },
-    photos: {
-      type: Sequelize.BLOB,
-      field: 'photos'
-    },
     createdAt: {
       type: Sequelize.DATE,
       field: 'created',
