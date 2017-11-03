@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
@@ -22,9 +23,18 @@ export class NoncommercialFieldsComponent implements OnInit {
       locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       numberParticipants: [
         '',
-        [Validators.required, alphanumericValidator(), Validators.minLength(1), Validators.maxLength(255)]
+        [
+          Validators.required,
+          alphanumericValidator(),
+          Validators.minLength(1),
+          Validators.maxLength(255),
+          numberValidator()
+        ]
       ],
-      numberSpectators: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]]
+      numberSpectators: [
+        '',
+        [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator()]
+      ]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
   }

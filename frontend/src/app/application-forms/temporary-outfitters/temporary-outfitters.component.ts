@@ -1,4 +1,5 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { applicationTypeValidator } from '../validators/application-type-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -64,10 +65,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       authorizingOfficerName: ['', [Validators.maxLength(255)]],
       authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
       revisions: [''],
-      district: ['11', [Validators.required, Validators.maxLength(3)]],
-      region: ['06', [Validators.required, Validators.maxLength(3)]],
-      forest: ['05', [Validators.required, Validators.maxLength(3)]],
-      type: ['tempOutfitters', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      district: ['11', [Validators.required, Validators.maxLength(2)]],
+      region: ['06', [Validators.required, Validators.maxLength(2)]],
+      forest: ['05', [Validators.required, Validators.maxLength(2)]],
+      type: [
+        'tempOutfitters',
+        [Validators.required, alphanumericValidator(), applicationTypeValidator(), Validators.maxLength(255)]
+      ],
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],

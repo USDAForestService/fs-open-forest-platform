@@ -1,4 +1,6 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { applicationTypeValidator } from '../validators/application-type-validation';
+import { numberValidator } from '../validators/number-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
@@ -55,10 +57,10 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       authorizingOfficerName: ['', [Validators.maxLength(255)]],
       authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
       revisions: [''],
-      district: ['11', [Validators.required, Validators.maxLength(3)]],
-      region: ['06', [Validators.required, Validators.maxLength(3)]],
-      forest: ['05', [Validators.required, Validators.maxLength(3)]],
-      type: ['noncommercial', [Validators.required, Validators.maxLength(255)]],
+      district: ['11', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      region: ['06', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      forest: ['05', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      type: ['noncommercial', [Validators.required, applicationTypeValidator(), Validators.maxLength(255)]],
       eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
