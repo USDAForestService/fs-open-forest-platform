@@ -9,8 +9,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(3);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeSelectionLink().click();
+      browser.sleep(800);
     });
 
     it('should have a species section link', () => {
@@ -64,8 +65,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(1);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeSelectionLink().click();
+      browser.sleep(800);
     });
 
     it('should have a species section link', () => {
@@ -108,8 +110,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(4);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeSelectionLink().click();
+      browser.sleep(800);
     });
 
     it('should have a species section link', () => {
@@ -165,8 +168,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(2);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeSelectionLink().click();
+      browser.sleep(800);
     });
 
     it('should have a species section link', () => {
