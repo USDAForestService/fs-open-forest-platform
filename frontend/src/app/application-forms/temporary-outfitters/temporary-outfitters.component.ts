@@ -1,4 +1,5 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { urlValidator } from '../validators/url-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -80,7 +81,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-        website: ['', [Validators.pattern('https?://.+'), Validators.maxLength(255)]],
+        website: ['', [urlValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
       }),
       guideIdentification: ['', [Validators.maxLength(255)]],
@@ -91,7 +92,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         individualIsCitizen: [false],
         smallBusiness: [false],
         advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(512)]],
-        advertisingURL: ['', [Validators.required, Validators.pattern('https?://.+'), Validators.maxLength(255)]],
+        advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
         clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
         experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
@@ -115,17 +116,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     if (value) {
       advertisingDescription.setValidators([Validators.required, alphanumericValidator()]);
       advertisingDescription.updateValueAndValidity();
-      advertisingUrl.setValidators([
-        alphanumericValidator(),
-        Validators.pattern('https?://.+'),
-        Validators.maxLength(255)
-      ]);
+      advertisingUrl.setValidators([alphanumericValidator(), urlValidator(), Validators.maxLength(255)]);
       advertisingUrl.updateValueAndValidity();
     } else {
       advertisingUrl.setValidators([
         Validators.required,
         alphanumericValidator(),
-        Validators.pattern('https?://.+'),
+        urlValidator(),
         Validators.maxLength(255)
       ]);
       advertisingUrl.updateValueAndValidity();

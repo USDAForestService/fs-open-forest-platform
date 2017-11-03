@@ -8,6 +8,7 @@ import { NoncommercialDetailsComponent } from './noncommercial-details.component
 import { Observable } from 'rxjs/Observable';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Base64 } from '../../_pipes/base64.pipe';
+import { UrlPipe } from '../../_pipes/url.pipe';
 import { environment } from '../../../environments/environment';
 import { noncommercialMock } from '../../application-forms/application-noncommercial-group/noncommercial-mock';
 
@@ -18,7 +19,7 @@ describe('TempOutfitterDetailsComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [NoncommercialDetailsComponent, MockPipe, Base64],
+        declarations: [NoncommercialDetailsComponent, MockPipe, Base64, UrlPipe],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 

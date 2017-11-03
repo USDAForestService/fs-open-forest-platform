@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
+import { urlValidator } from '../validators/url-validation';
 import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
 import { ApplicationService } from '../../_services/application.service';
@@ -48,7 +49,8 @@ describe('ErrorMessageComponent', () => {
       website: ['', [Validators.pattern('https?://.+')]],
       type: ['', [applicationTypeValidator()]],
       number: ['', [numberValidator()]],
-      state: ['', [stateValidator()]]
+      state: ['', [stateValidator()]],
+      url: ['', [urlValidator()]]
     });
     form.get('emailAddress').setValue('test');
     expect(component.parseErrors(form.get('emailAddress').errors)).toEqual('Test requires a valid email address. ');
@@ -100,6 +102,30 @@ describe('ErrorMessageComponent', () => {
 
     form.get('state').setValue('DC');
     expect(component.parseErrors(form.get('state').errors)).toBeFalsy();
+
+    form.get('url').setValue('test');
+    expect(component.parseErrors(form.get('url').errors)).toEqual('Test requires a valid URL. ');
+
+    form.get('url').setValue('test test.com');
+    expect(component.parseErrors(form.get('url').errors)).toEqual('Test requires a valid URL. ');
+
+    form.get('url').setValue('...');
+    expect(component.parseErrors(form.get('url').errors)).toEqual('Test requires a valid URL. ');
+
+    form.get('url').setValue('www.test.com');
+    expect(component.parseErrors(form.get('url').errors)).toBeFalsy();
+
+    form.get('url').setValue('test.com');
+    expect(component.parseErrors(form.get('url').errors)).toBeFalsy();
+
+    form.get('url').setValue('te.st.com');
+    expect(component.parseErrors(form.get('url').errors)).toBeFalsy();
+
+    form.get('url').setValue('http://te.st.com');
+    expect(component.parseErrors(form.get('url').errors)).toBeFalsy();
+
+    form.get('url').setValue('http://www.te.st.com');
+    expect(component.parseErrors(form.get('url').errors)).toBeFalsy();
 
     form.get('type').setValue('hi');
     expect(component.parseErrors(form.get('type').errors)).toEqual('Test has an incorrect application type. ');
