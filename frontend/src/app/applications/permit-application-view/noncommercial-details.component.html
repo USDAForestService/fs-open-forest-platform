@@ -52,6 +52,9 @@
         {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
         <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
       </span>
+      <span *ngIf="application.applicantInfo.website">
+        <a href="{{ application.applicantInfo.website | UrlPipe }}" target="_blank">{{ application.applicantInfo.website }} (Opens in a new window)</a>
+      </span>
     </div>
 
     <div *ngIf="application.applicantInfo.secondaryFirstName">

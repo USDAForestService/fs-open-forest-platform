@@ -36,6 +36,9 @@ export class ErrorMessageComponent {
     if (errors && errors.stateRequirement) {
       message += `${this.name} requires a valid capitalized state abbreviation. `;
     }
+    if (errors && errors.urlRequirement) {
+      message += `${this.name} requires a valid URL. `;
+    }
     if (errors && errors.pattern && errors.pattern.requiredPattern === '^https?://.+$') {
       message += `${this.name} requires a valid URL and must include http://.`;
     }

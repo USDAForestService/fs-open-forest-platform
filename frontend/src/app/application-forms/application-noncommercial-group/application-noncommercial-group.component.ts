@@ -1,6 +1,7 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
 import { numberValidator } from '../validators/number-validation';
+import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
@@ -75,7 +76,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         secondaryAddressSameAsPrimary: [true],
         secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
-        website: ['', [Validators.pattern('https?://.+'), Validators.maxLength(255)]]
+        website: ['', [urlValidator(), Validators.maxLength(255)]]
       })
     });
   }

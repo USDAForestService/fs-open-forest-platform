@@ -44,7 +44,7 @@
         <span *ngIf="application.applicantInfo.fax.extension"> ext. {{ application.applicantInfo.fax.extension }}</span>
       </span>
       <span class="display: block" *ngIf="application.applicantInfo.website">
-        Website: <a href="{{application.applicantInfo.website}}" target="_blank">{{application.applicantInfo.website}}</a>
+        Website: <a href="{{application.applicantInfo.website | UrlPipe }}" target="_blank">{{application.applicantInfo.website}}</a>
       </span>
     </div>
 
@@ -66,7 +66,7 @@
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
       <div *ngIf="application.tempOutfitterFields.advertisingURL">
         <h3>Promotional website:</h3>
-        <a href="{{ application.tempOutfitterFields.advertisingURL }}">{{ application.tempOutfitterFields.advertisingURL }}</a>
+        <a href="{{ application.tempOutfitterFields.advertisingURL | UrlPipe }}">{{ application.tempOutfitterFields.advertisingURL }}</a>
       </div>
       <div *ngIf="application.tempOutfitterFields.advertisingDescription">
         <h3>Advertising description:</h3>

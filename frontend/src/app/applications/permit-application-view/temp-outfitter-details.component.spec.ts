@@ -8,6 +8,7 @@ import { TempOutfitterDetailsComponent } from './temp-outfitter-details.componen
 import { Observable } from 'rxjs/Observable';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Base64 } from '../../_pipes/base64.pipe';
+import { UrlPipe } from '../../_pipes/url.pipe';
 import { environment } from '../../../environments/environment';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter-mock';
 
@@ -18,7 +19,7 @@ describe('TempOutfitterDetailsComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TempOutfitterDetailsComponent, MockPipe, Base64],
+        declarations: [TempOutfitterDetailsComponent, MockPipe, Base64, UrlPipe],
         providers: [{ provide: ApplicationService, useClass: MockApplicationService }],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
