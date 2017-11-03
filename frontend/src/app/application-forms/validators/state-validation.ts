@@ -6,7 +6,7 @@ export function stateValidator(): ValidatorFn {
     const val = control.value;
     if (val && val.length) {
       const states = States;
-      for (let state of states) {
+      for (const state of states) {
         if (state.short === val) {
           return null;
         }

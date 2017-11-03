@@ -4,6 +4,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-permit-application-view',
@@ -31,6 +32,7 @@ export class PermitApplicationViewComponent implements OnInit {
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
+    private titleService: Title,
     public router: Router
   ) {
     this.isAdmin = this.authenticationService.isAdmin();
@@ -119,6 +121,7 @@ export class PermitApplicationViewComponent implements OnInit {
       this.type = params['type'];
       this.id = params['id'];
       this.getApplication(this.type, this.id);
+      this.titleService.setTitle(`View ${this.type} application ${this.id}`);
     });
   }
 
