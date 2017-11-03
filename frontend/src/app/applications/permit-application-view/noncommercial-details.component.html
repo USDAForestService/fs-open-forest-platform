@@ -1,7 +1,7 @@
 <div class="usa-grid event-name no-padding padding-top-1">
   <button *ngIf="application.status === 'Hold' && !isAdmin" class="usa-button-outline float-right" routerLink="/applications/noncommercial-group-use/{{application.appControlNumber}}/edit">Edit application</button>
   <div class="usa-width-three-fourths">
-    <h1>{{ application.eventName }}
+    <h1 id="skip-nav-target" tabindex="-1">{{ application.eventName }}
       <span *ngIf="['Submitted'].indexOf(application.status) === -1" class="usa-label" [ngClass]="{
         'success': application.status === 'Accepted',
         'warning': application.status === 'Hold',
