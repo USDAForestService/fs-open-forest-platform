@@ -10,6 +10,6 @@ const router = express.Router();
 router.get('/', christmasTreeController.getForests);
 
 /* get regualtions for a single forest */
-router.get('/:id/regulations', christmasTreeController.getOneRegulations);
+router.get('/:id', christmasTreeController.getOneGuidelines);
 
 module.exports = router;

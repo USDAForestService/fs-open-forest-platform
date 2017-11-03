@@ -3,7 +3,7 @@
 const request = require('request');
 
 const vcapConstants = require('../vcap-constants.es6');
-const christmasTreeRegulations = require('../models/forest-regulations.es6');
+const christmasTreeGuidelines = require('../models/forest-guidelines.es6');
 const forests = require('../models/forests.es6');
 const species = require('../models/species.es6');
 const forestSpecies = require('../models/forest-species.es6');
@@ -12,7 +12,7 @@ const forestLocations = require('../models/forest-locations.es6');
 
 const christmasTree = {};
 
-const translateRegulationsFromDatabaseToClient = input => {
+const translateGuidelinesFromDatabaseToClient = input => {
   return {
     forest: {
       id: input.id,
@@ -71,9 +71,9 @@ christmasTree.getForests = (req, res) => {
 };
 
 
-christmasTree.getOneRegulations = (req, res) => {
+christmasTree.getOneGuidelines = (req, res) => {
 
-  christmasTreeRegulations.findOne({
+  christmasTreeGuidelines.findOne({
     where: {
       id: req.params.id
     },
@@ -102,7 +102,7 @@ christmasTree.getOneRegulations = (req, res) => {
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateRegulationsFromDatabaseToClient(app));
+        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
