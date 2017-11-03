@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  providers: [],
   selector: 'app-permit-application-view',
   templateUrl: './permit-application-view.component.html'
 })

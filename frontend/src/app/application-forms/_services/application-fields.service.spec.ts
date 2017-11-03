@@ -30,16 +30,22 @@ describe('ApplicationFieldsService', () => {
 
     expect(dataField.valid).toBeFalsy();
 
-    dataField.setValue(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum neque arcu, sed pellentesque ante vestibulum non. In posuere ante ligula, eget faucibus odio cursus nec. Vestibulum quis sagittis magna, at interdum arcu. Quisque elit purus nullam.'
-    );
+    dataField.setValue(`
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum neque arcu,
+      sed pellentesque ante vestibulum non. In posuere ante ligula, eget faucibus odio cursus
+      nec. Vestibulum quis sagittis magna, at interdum arcu. Quisque elit purus nullam.
+      ;laksdjf alksdfj ;alskdjf ;alsdkfj a;lsdkfjads;lfkj as;dlfkja sdf`);
 
-    service.updateValidators(dataField, false, 255);
+    service.updateValidators(dataField, true, 255);
 
     expect(dataField.valid).toBeFalsy();
-    dataField.setValue(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent interdum neque arcu, sed pellentesque ante vestibulum non. In posuere ante ligula, eget faucibus odio cursus nec. Vestibulum quis sagittis magna, at interdum arcu. Quisque elit purus nulla'
-    );
+
+    dataField.setValue(`
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+      interdum neque arcu, sed pellentesque ante vestibulum non.
+      In posuere ante ligula, eget faucibus odio cursus nec. Vestibulum
+      quis sagittis magna,`);
+
     expect(dataField.valid).toBeTruthy();
   });
 

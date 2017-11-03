@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
+import * as sinon from 'sinon';
 
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
