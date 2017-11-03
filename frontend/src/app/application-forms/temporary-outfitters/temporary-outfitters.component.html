@@ -3,7 +3,7 @@
     <app-temp-outfitter-left-nav class="usa-width-one-third"
       [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h1>Apply for a temporary outfitters permit.</h1>
+      <h1 id="skip-nav-target" tabindex="-1">Apply for a temporary outfitters permit.</h1>
       <h2>{{forest}}</h2>
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
 
