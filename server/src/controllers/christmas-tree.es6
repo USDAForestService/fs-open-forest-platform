@@ -76,7 +76,8 @@ christmasTree.getOneRegulations = (req, res) => {
     ],
     order: [
       [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ],
-      [ forestLocations, 'id', 'ASC']
+      [ forestLocations, 'id', 'ASC'],
+      [ forestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {
