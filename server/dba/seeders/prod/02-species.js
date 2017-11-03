@@ -103,7 +103,7 @@ module.exports = {
       },
       {
         id: 15,
-        name: 'Subalpine fir',
+        name: 'Subalpine Fir',
         web_url: null,
         created: 'now()',
         updated: 'now()'
