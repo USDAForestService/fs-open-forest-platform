@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [],
   selector: 'app-permit-application-list',
   templateUrl: './permit-application-list.component.html'
 })

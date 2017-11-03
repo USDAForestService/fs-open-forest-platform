@@ -1,5 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { UtilService } from '../_services/util.service';
+import * as sinon from 'sinon';
 
 describe('UtilService', () => {
   let service: UtilService;
@@ -27,5 +28,12 @@ describe('UtilService', () => {
   it('should format string to ID', () => {
     const value: any = 'Test value';
     expect(service.createId(value)).toEqual('test-value');
+  });
+
+  it('should call go to hashtag', () => {
+    const spy = sinon.spy(service, 'gotoHashtag');
+    service.gotoHashtag('main', new Event('click'));
+    service.gotoHashtag(null, new Event('click'));
+    expect(spy.calledTwice).toBeTruthy();
   });
 });
