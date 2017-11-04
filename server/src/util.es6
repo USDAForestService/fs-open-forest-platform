@@ -20,25 +20,64 @@ const extractField = (errorObj, withArg) => {
 
 let util = {};
 
+util.noncommercialOrgTypes = ['Person', 'Corporation'];
+
 util.datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
-util.collateErrors = (result, errorArr, prefix) => {
-  for (var error of result.errors) {
-    if (error.name === 'required') {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (
-      error.name === 'enum' ||
-      error.name === 'pattern' ||
-      error.name === 'type' ||
-      error.name === 'minLength' ||
-      error.name === 'maxLength'
-    ) {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
-    }
-  }
+util.stateCodes = [
+  'AK',
+  'AL',
+  'AR',
+  'AZ',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'FL',
+  'GA',
+  'HI',
+  'IA',
+  'ID',
+  'IL',
+  'IN',
+  'KS',
+  'KY',
+  'LA',
+  'MA',
+  'MD',
+  'ME',
+  'MI',
+  'MN',
+  'MO',
+  'MS',
+  'MT',
+  'NC',
+  'ND',
+  'NE',
+  'NH',
+  'NJ',
+  'NM',
+  'NV',
+  'NY',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VA',
+  'VT',
+  'WA',
+  'WI',
+  'WV',
+  'WY'
+];
 
-  return errorArr;
-};
+util.statusOptions = ['Submitted', 'Incomplete', 'Hold', 'Review', 'Cancelled', 'Accepted', 'Rejected', 'Expired'];
 
 util.validateDateTime = input => {
   return (
