@@ -3,109 +3,111 @@
 const factory = require('unionized');
 
 module.exports = factory.factory({
-  // required string
+  // required string(255)
   authorizingOfficerName: 'Test Officer',
-  // required string
+  // required string(255)
   authorizingOfficerTitle: 'Test Title',
-  // required, 2 digit string
+  // required, string(2)
   district: '11',
-  // required, 2 digits string
+  // required, string(2)
   region: '06',
-  // required, 2 digits string
+  // required, string(2)
   forest: '05',
-  // required string 'noncommercial'
+  // required string ['noncommercial', 'tempoutfitter'] string(255)
   type: 'noncommercial',
-  // required string
+  // required string(255)
   eventName: 'Fun Party',
-  // required string 2 or 3 characters
+  // required string(3)
   signature: 'ABC',
+  // required string(255)
+  status: 'Submitted',
   // required
   applicantInfo: {
     // required
     dayPhone: {
-      // required 3 digit string
+      // required string(3)
       areaCode: '123',
-      // required 3 digit string
+      // required string(3)
       prefix: '456',
-      // required 4 digit string
+      // required string(4)
       number: '7890',
-      // optional 4 digit string
-      extension: '1122'
+      // optional string(6)
+      extension: '112233'
     },
     // optional
     eveningPhone: {
-      // required 3 digit string
+      // required string(3)
       areaCode: '012',
-      // required 3 digit string
+      // required string(3)
       prefix: '345',
-      // required 4 digit string
+      // required string(4)
       number: '6789',
-      // optional 4 digit string
-      extension: '3344'
+      // optional string(6)
+      extension: '334455'
     },
     // optional
     faxNumber: {
-      // required if parent is defined, 3 digit string
+      // required string(3)
       areaCode: '234',
-      // required 3 digit string
+      // required string(3)
       prefix: '567',
-      // required 4 digit string
+      // required string(4)
       number: '8901',
-      // optional 4 digit string
-      extension: '2345'
+      // optional string(6)
+      extension: '445566'
     },
     // required if orgType is 'Corporation'
     organizationAddress: {
-      // required string
+      // required string(255)
       mailingAddress: '876 Central St',
-      // optional string
+      // optional string(255)
       mailingAddress2: '#2188',
-      // required string
+      // required string(255)
       mailingCity: 'Chicago',
-      // required string 2 character state
+      // required string(2) state enum
       mailingState: 'IL',
-      // required string 5 digits
+      // required string(5) digits only
       mailingZIP: '60299'
     },
     // required
     primaryAddress: {
-      // required string
+      // required string(255)
       mailingAddress: '123 Easy St',
-      // optional string
+      // optional string(255)
       mailingAddress2: '#56',
-      // required string
+      // required string(255)
       mailingCity: 'Evanston',
-      // required string 2 character state
+      // required string(2) state enum
       mailingState: 'IL',
-      // required string 5 digits
+      // required string(5) digits only
       mailingZIP: '60201'
     },
     // optional
     secondaryAddress: {
-      // required string
+      // required string(255)
       mailingAddress: '456 Main St',
-      // optional string
+      // optional string(255)
       mailingAddress2: '#23',
-      // required string
+      // required string(255)
       mailingCity: 'Madison',
-      // required string 2 character state
+      // required string(2) state enum
       mailingState: 'WI',
-      // required string 5 digits
+      // required string(5) digits only
       mailingZIP: '53703'
     },
-    // required string 'Person' or 'Corporation'
+    // required string(255) enum 'Person' or 'Corporation'
     orgType: 'Person',
-    // required string
+    // required string(255)
     primaryFirstName: 'Luke',
-    // required string
+    // required string(255)
     primaryLastName: 'Skywalker',
-    // optional string
+    // optional string(255)
     secondaryFirstName: 'Han',
-    // optional string
+    // optional string(255)
     secondaryLastName: 'Solo',
-    // required string if orgType is 'Corporation'
+    // required string(255) if orgType is 'Corporation'
     organizationName: 'Initech',
-    // required string email address
+    // required string(255) email address
     emailAddress: 'luke@skywalker.com',
     // optional string(255) URL
     website: 'http://skywalker.com'
