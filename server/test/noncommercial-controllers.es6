@@ -20,7 +20,6 @@ describe('noncommercial controller', () => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -35,7 +34,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryFirstName = 'Robert"); DROP TABLE noncommercialApplications; --';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(201, done);
@@ -46,7 +44,6 @@ describe('noncommercial controller', () => {
     permitApplication.region = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -61,7 +58,6 @@ describe('noncommercial controller', () => {
     permitApplication.region = '123';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -76,7 +72,6 @@ describe('noncommercial controller', () => {
     permitApplication.region = '1';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -91,7 +86,6 @@ describe('noncommercial controller', () => {
     permitApplication.forest = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -106,7 +100,6 @@ describe('noncommercial controller', () => {
     permitApplication.forest = '123';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -121,7 +114,6 @@ describe('noncommercial controller', () => {
     permitApplication.forest = '1';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -136,7 +128,6 @@ describe('noncommercial controller', () => {
     permitApplication.district = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -151,7 +142,6 @@ describe('noncommercial controller', () => {
     permitApplication.district = '123';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -166,7 +156,6 @@ describe('noncommercial controller', () => {
     permitApplication.district = '1';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -181,7 +170,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryFirstName = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -199,7 +187,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryFirstName = twoHundredSixtyCharacterString;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -214,7 +201,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryLastName = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -232,7 +218,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryLastName = twoHundredSixtyCharacterString;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -247,7 +232,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.dayPhone.areaCode = undefined;
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -265,7 +249,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.dayPhone.areaCode = '1234';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -280,7 +263,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryAddress.mailingZIP = '123456';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -290,14 +272,11 @@ describe('noncommercial controller', () => {
       .expect(400, done);
   });
 
-  // -----------------------------
-
   it('POST should return a 400 status code and an error when the startDateTime is invalid', done => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     permitApplication.dateTimeRange.startDateTime = '2020-02-31T13:00:00Z';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -312,7 +291,6 @@ describe('noncommercial controller', () => {
     permitApplication.dateTimeRange.startDateTime = '2020-02-21T13:00';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -327,7 +305,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.primaryAddress.mailingState = 'BS';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -342,7 +319,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.emailAddress = 'apples';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -357,7 +333,6 @@ describe('noncommercial controller', () => {
     permitApplication.applicantInfo.orgType = 'chocolate';
     request(server)
       .post(noncommercialUrl)
-      .set('Accept', 'application/json')
       .send(permitApplication)
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -367,12 +342,9 @@ describe('noncommercial controller', () => {
       .expect(400, done);
   });
 
-  // -----------------------------
-
   it('GET should return a 200 status code with a valid intakeControlNumber', done => {
     request(server)
       .get(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -381,21 +353,18 @@ describe('noncommercial controller', () => {
   it('GET should return a 404 status code when the intakeControlNumber is not found', done => {
     request(server)
       .get(`${noncommercialUrl}/${invalidIntakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect(404, done);
   });
 
   it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
     request(server)
       .get(noncommercialUrl + '/' + 'imalformedControlNumber')
-      .set('Accept', 'application/json')
       .expect(500, done);
   });
 
   it('PUT should return a 200 status code when the status is Submitted', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Submitted' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -405,7 +374,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 200 status code when the status is Cancelled', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Cancelled' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -415,7 +383,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 200 status code when the status is Hold', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Hold', applicantMessage: 'Hold it, buddy.' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -425,7 +392,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 200 status code when the status is Review', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Review' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
@@ -435,7 +401,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 400 status code when the status is missing', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: undefined }))
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -448,7 +413,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 400 status code when the status is Bananas', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Bananas' }))
       .expect('Content-Type', /json/)
       .expect(res => {
@@ -461,7 +425,6 @@ describe('noncommercial controller', () => {
   it('PUT should return a 404 status code when the intakeControlNumber is not found', done => {
     request(server)
       .put(`${noncommercialUrl}/${invalidIntakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create())
       .expect(404, done);
   });
@@ -476,7 +439,6 @@ describe('noncommercial controller', () => {
       .reply(200, { status: 'success' });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
       .expect(500, done);
   });
@@ -484,7 +446,6 @@ describe('noncommercial controller', () => {
   it('GET should return a 200 status code, a status of Review and no middle layer control number', done => {
     request(server)
       .get(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.equal(res.body.controlNumber, undefined);
@@ -504,7 +465,6 @@ describe('noncommercial controller', () => {
       .reply(500, { status: 'fail' });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
       .expect(500, done);
   });
@@ -512,7 +472,6 @@ describe('noncommercial controller', () => {
   it('GET should return a 200 status code, a status of Review and no middle layer control number', done => {
     request(server)
       .get(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.equal(res.body.controlNumber, undefined);
@@ -531,21 +490,25 @@ describe('noncommercial controller', () => {
       .reply(200, { controlNumber: '1999' });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
   });
 
-  it('GET should return a 200 status code, a status of Accepted and a middle layer control number', done => {
+  it('GET should return a 200 status code, a status of Accepted, a middle layer control number, and a revision history', done => {
     request(server)
       .get(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.equal(res.body.controlNumber, '1999');
         assert.equal(res.body.status, 'Accepted');
+        assert.equal(res.body.revisions.length, 5);
+        assert.equal(res.body.revisions[0].status, 'Submitted');
+        assert.equal(res.body.revisions[1].status, 'Cancelled');
+        assert.equal(res.body.revisions[2].status, 'Hold');
+        assert.equal(res.body.revisions[3].status, 'Review');
+        assert.equal(res.body.revisions[4].status, 'Accepted');
       })
       .expect(200, done);
   });
@@ -553,7 +516,6 @@ describe('noncommercial controller', () => {
   it('DELETE should return a 404 status code', done => {
     request(server)
       .delete(`${noncommercialUrl}/${intakeControlNumber}`)
-      .set('Accept', 'application/json')
       .expect(404, done);
   });
 });
