@@ -1,23 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ForestService } from '../../_services/forest.service';
+import { RemovePuncPipe } from './remove-punc.pipe';
 
 @Component({
   selector: 'app-forest-finder',
   templateUrl: './forest-finder.component.html',
-  styleUrls: ['./forest-finder.component.scss']
+  providers: [ RemovePuncPipe ]
 })
 export class ForestFinderComponent implements OnInit {
 
   forests = [];
 
-  constructor(private route: ActivatedRoute, private service: ForestService) {}
+  constructor(private route: ActivatedRoute, private service: ForestService, private router: Router) {}
 
   ngOnInit() {
 
     this.route.data.subscribe(data => {
       this.forests = data.forests;
     });
+  }
+
+  dropDownClick(forestID: number): void{
+    const navTo = '/xmas-trees/forests/' + forestID + '/tree-guidelines';
+    this.router.navigate([navTo]);
   }
 
 }

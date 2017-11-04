@@ -1,0 +1,10 @@
+<div>
+  <div *ngFor="let forest of forests">
+    <div class="usa-width-one-half">
+      <p>{{forest.forestName}} National Forest</p>
+      <a href="xmas-trees/forests/{{forest.id}}/tree-guidelines">
+        <img src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt="{{forest.forestName}} Map">
+      </a>
+    </div>
+  </div>
+</div>

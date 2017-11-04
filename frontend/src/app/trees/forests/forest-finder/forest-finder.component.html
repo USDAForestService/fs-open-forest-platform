@@ -1,7 +1,13 @@
-<section class="usa-section usa-content">
-  <div class="usa-grid">
-    <p *ngFor="let forest of forests">
-      <a href="xmas-trees/forests/{{forest.id}}/tree-guidelines">{{forest.forestName}}</a>
-    </p>
+<div class="usa-grid ">
+  <div>
+    <form class="usa-forms" (submit)="dropDownClick(forestPicker.value)">
+      <label>Select a forest:</label>
+      <select #forestPicker>
+        <option *ngFor="let forest of forests" value="{{forest.id}}">{{forest.forestName}}</option>
+      </select>
+      <input class="usa-button" type="submit" value="Go to selected forest" />
+    </form>
+    <hr>
+    <app-map-view [forests]="forests"></app-map-view> 
   </div>
-</section>
+</div>
