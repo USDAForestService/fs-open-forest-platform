@@ -6,7 +6,6 @@ const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const Revision = require('../models/revision.es6');
 const util = require('../util.es6');
-const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};
@@ -94,7 +93,7 @@ const translateFromClientToDatabase = (input, output) => {
   output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
   output.region = input.region;
   output.signature = input.signature;
-  output.type = input.type;
+  output.type = 'noncommercial';
 };
 
 const translateFromDatabaseToClient = input => {
@@ -173,6 +172,7 @@ const translateFromDatabaseToClient = input => {
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
     appControlNumber: input.appControlNumber,
+    controlNumber: input.controlNumber,
     applicationId: input.applicationId,
     createdAt: input.createdAt,
     district: input.district,
@@ -296,7 +296,10 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util.request(requestOptions).then(resolve).catch(reject);
+        util
+          .request(requestOptions)
+          .then(resolve)
+          .catch(reject);
       })
       .catch(error => {
         reject(error);
@@ -332,36 +335,33 @@ noncommercial.getOne = (req, res) => {
           return res.status(400).json(error);
         });
     })
-    .catch(error => {
-      return res.status(400).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
 // populates an applicationId on the object before return
 noncommercial.create = (req, res) => {
-  let errorRet = {};
-  let errorArr = validator.validateNoncommercial(req.body);
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    res.status(400).json(errorRet);
-  } else {
-    util.setAuthEmail(req);
-    let model = {
-      authEmail: req.body.authEmail
-    };
-    translateFromClientToDatabase(req.body, model);
-    NoncommercialApplication.create(model)
-      .then(noncommApp => {
-        email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
-        email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
-        req.body['applicationId'] = noncommApp.applicationId;
-        req.body['appControlNumber'] = noncommApp.appControlNumber;
-        return res.status(201).json(req.body);
-      })
-      .catch(error => {
-        return res.status(500).json(error);
-      });
-  }
+  util.setAuthEmail(req);
+  let model = {
+    authEmail: req.body.authEmail
+  };
+  translateFromClientToDatabase(req.body, model);
+  NoncommercialApplication.create(model)
+    .then(noncommApp => {
+      email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
+      email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
+      req.body['applicationId'] = noncommApp.applicationId;
+      req.body['appControlNumber'] = noncommApp.appControlNumber;
+      return res.status(201).json(req.body);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
 };
 
 noncommercial.update = (req, res) => {
@@ -389,12 +389,12 @@ noncommercial.update = (req, res) => {
               email.sendEmail(`noncommercialApplication${app.status}`, app);
               return res.status(200).json(translateFromDatabaseToClient(app));
             })
-            .catch(error => {
-              return res.status(500).json(error);
+            .catch(() => {
+              return res.status(500).send();
             });
         })
-        .catch(error => {
-          return res.status(500).json(error);
+        .catch(() => {
+          return res.status(500).send();
         });
     } else {
       app
@@ -404,14 +404,18 @@ noncommercial.update = (req, res) => {
           if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
             email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
           } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-            email.sendEmail(`noncommercialApplicationRemoveHold`, app);
+            email.sendEmail('noncommercialApplicationRemoveHold', app);
           } else {
             email.sendEmail(`noncommercialApplication${app.status}`, app);
           }
           return res.status(200).json(translateFromDatabaseToClient(app));
         })
         .catch(error => {
-          return res.status(500).json(error);
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({ errors: error.errors });
+          } else {
+            return res.status(500).send();
+          }
         });
     }
   });
