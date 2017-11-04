@@ -34,7 +34,6 @@ emailUtil.send = (to, subject, body) => {
     subject: subject,
     text: body // plain text
   };
-
   if (vcapConstants.smtpHost) {
     transporter.sendMail(mailOptions);
   }

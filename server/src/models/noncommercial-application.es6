@@ -3,6 +3,8 @@
 const Sequelize = require('sequelize');
 const url = require('url');
 
+const util = require('../util.es6');
+
 const sequelizeOptions = {
   dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
   logging: false
@@ -38,195 +40,434 @@ module.exports = sequelize.define(
     },
     controlNumber: {
       type: Sequelize.STRING(50),
-      field: 'control_number'
+      field: 'control_number',
+      validate: {
+        len: {
+          args: [1, 50],
+          msg: 'region must be between 1 and 50 characters in length'
+        }
+      }
     },
     region: {
       type: Sequelize.STRING(2),
       field: 'region',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'region must be 2 characters in length'
+        }
+      }
     },
     forest: {
       type: Sequelize.STRING(2),
       field: 'forest',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'forest must be 2 characters in length'
+        }
+      }
     },
     district: {
       type: Sequelize.STRING(2),
       field: 'district',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'district must be 2 characters in length'
+        }
+      }
     },
     authorizingOfficerName: {
-      type: Sequelize.STRING,
-      field: 'authorizing_officer_name'
+      type: Sequelize.STRING(255),
+      field: 'authorizing_officer_name',
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'authorizingOfficerName must be less than 255 characters in length'
+        }
+      }
     },
     authorizingOfficerTitle: {
-      type: Sequelize.STRING,
-      field: 'authorizing_officer_title'
+      type: Sequelize.STRING(255),
+      field: 'authorizing_officer_title',
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'authorizingOfficerTitle must be less than 255 characters in length'
+        }
+      }
     },
     eventName: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'event_name',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'eventName must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoPrimaryFirstName: {
       type: Sequelize.STRING,
       field: 'applicant_info_primary_first_nm',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'primaryFirstName must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoPrimaryLastName: {
       type: Sequelize.STRING,
       field: 'applicant_info_primary_last_nm',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'primaryLastName must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoDayPhoneAreaCode: {
       type: Sequelize.STRING(3),
       field: 'applicant_info_day_phone_areacd',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [3, 3],
+          msg: 'applicantInfoDayPhoneAreaCode must be 3 characters in length'
+        }
+      }
     },
     applicantInfoDayPhonePrefix: {
       type: Sequelize.STRING(3),
       field: 'applicant_info_day_phone_prefix',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [3, 3],
+          msg: 'applicantInfoDayPhonePrefix must be 3 characters in length'
+        }
+      }
     },
     applicantInfoDayPhoneNumber: {
       type: Sequelize.STRING(4),
       field: 'applicant_info_day_phone_number',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [4, 4],
+          msg: 'applicantInfoDayPhoneNumber must be 3 characters in length'
+        }
+      }
     },
     applicantInfoDayPhoneExtension: {
       type: Sequelize.STRING(10),
-      field: 'applicant_info_day_phone_ext'
+      field: 'applicant_info_day_phone_ext',
+      validate: {
+        len: {
+          args: [1, 10],
+          msg: 'applicantInfoDayPhoneExtension must be less than 10 characters in length'
+        }
+      }
     },
     applicantInfoEveningPhoneAreaCode: {
       type: Sequelize.STRING(3),
-      field: 'applicant_info_eve_phone_areacd'
+      field: 'applicant_info_eve_phone_areacd',
+      validate: {
+        len: {
+          args: [3, 3],
+          msg: 'applicantInfoEveningPhoneAreaCode must be 3 characters in length'
+        }
+      }
     },
     applicantInfoEveningPhonePrefix: {
       type: Sequelize.STRING(3),
-      field: 'applicant_info_eve_phone_prefix'
+      field: 'applicant_info_eve_phone_prefix',
+      validate: {
+        len: {
+          args: [3, 3],
+          msg: 'applicantInfoEveningPhonePrefix must be 3 characters in length'
+        }
+      }
     },
     applicantInfoEveningPhoneNumber: {
       type: Sequelize.STRING(4),
-      field: 'applicant_info_eve_phone_number'
+      field: 'applicant_info_eve_phone_number',
+      validate: {
+        len: {
+          args: [4, 4],
+          msg: 'applicantInfoEveningPhoneNumber must be 4 characters in length'
+        }
+      }
     },
     applicantInfoEveningPhoneExtension: {
       type: Sequelize.STRING(10),
-      field: 'applicant_info_eve_phone_ext'
+      field: 'applicant_info_eve_phone_ext',
+      validate: {
+        len: {
+          args: [1, 10],
+          msg: 'applicantInfoEveningPhoneExtension must be less than 10 characters in length'
+        }
+      }
     },
     applicantInfoEmailAddress: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_email_address',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoEmailAddress must be less than 255 characters in length'
+        },
+        isEmail: true
+      }
     },
     applicantInfoOrgMailingAddress: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_org_mail_address'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_org_mail_address',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoOrgMailingAddress must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoOrgMailingAddress2: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_org_mail_addr2'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_org_mail_addr2',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoOrgMailingAddress2 must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoOrgMailingCity: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_org_mailing_city'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_org_mailing_city',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoOrgMailingCity must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoOrgMailingState: {
       type: Sequelize.STRING(2),
-      field: 'applicant_info_org_mail_state'
+      field: 'applicant_info_org_mail_state',
+      validate: { isIn: { args: [util.stateCodes], msg: 'state code is invalid' } }
     },
     applicantInfoOrgMailingZIP: {
       type: Sequelize.STRING(5),
-      field: 'applicant_info_org_mailing_zip'
+      field: 'applicant_info_org_mailing_zip',
+      validate: {
+        is: /[0-9]{5}/
+      }
     },
     applicantInfoPrimaryMailingAddress: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_address',
-      allowNull: true
+      allowNull: true,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoPrimaryMailingAddress must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoPrimaryMailingAddress2: {
-      type: Sequelize.STRING,
-      field: 'appl_info_pri_mailing_address2'
+      type: Sequelize.STRING(255),
+      field: 'appl_info_pri_mailing_address2',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoPrimaryMailingAddress2 must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoPrimaryMailingCity: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_city',
-      allowNull: true
+      allowNull: true,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoPrimaryMailingCity must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoPrimaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_pri_mailing_state',
-      allowNull: true
+      allowNull: true,
+      validate: { isIn: { args: [util.stateCodes], msg: 'state code is invalid' } }
     },
     applicantInfoPrimaryMailingZIP: {
       type: Sequelize.STRING(5),
       field: 'appl_info_pri_mailing_zip',
-      allowNull: true
+      allowNull: true,
+      validate: {
+        is: /^[0-9]{5}$/i
+      }
     },
     applicantInfoSecondaryMailingAddress: {
-      type: Sequelize.STRING,
-      field: 'appl_info_sec_mailing_address'
+      type: Sequelize.STRING(255),
+      field: 'appl_info_sec_mailing_address',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoSecondaryMailingAddress must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoSecondaryMailingAddress2: {
-      type: Sequelize.STRING,
-      field: 'appl_info_sec_mailing_address2'
+      type: Sequelize.STRING(255),
+      field: 'appl_info_sec_mailing_address2',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoSecondaryMailingAddress2 must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoSecondaryMailingCity: {
-      type: Sequelize.STRING,
-      field: 'appl_info_sec_mailing_city'
+      type: Sequelize.STRING(255),
+      field: 'appl_info_sec_mailing_city',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoSecondaryMailingCity must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoSecondaryMailingState: {
       type: Sequelize.STRING(2),
-      field: 'appl_info_sec_mailing_state'
+      field: 'appl_info_sec_mailing_state',
+      validate: { isIn: { args: [util.stateCodes], msg: 'state code is invalid' } }
     },
     applicantInfoSecondaryMailingZIP: {
       type: Sequelize.STRING(5),
       field: 'appl_info_sec_mailing_zip'
     },
     applicantInfoOrganizationName: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_org_name'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_org_name',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoOrganizationName must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoWebsite: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_website'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_website',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoWebsite must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoOrgType: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_org_type',
-      allowNull: false
+      allowNull: false,
+      validate: { isIn: { args: [util.noncommercialOrgTypes], msg: 'orgType is invalid' } }
     },
     applicantInfoSecondaryFirstName: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_sec_first_name'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_sec_first_name',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoSecondaryFirstName must be less than 255 characters in length'
+        }
+      }
     },
     applicantInfoSecondaryLastName: {
-      type: Sequelize.STRING,
-      field: 'applicant_info_sec_last_name'
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_sec_last_name',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantInfoSecondaryLastName must be less than 255 characters in length'
+        }
+      }
     },
     type: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'type',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'type must be less than 255 characters in length'
+        }
+      }
     },
     noncommercialFieldsActivityDescription: {
       type: Sequelize.STRING(512),
       field: 'noncomm_fields_activity_descr',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 512],
+          msg: 'noncommercialFieldsActivityDescription must be less than 512 characters in length'
+        }
+      }
     },
     noncommercialFieldsLocationDescription: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'noncomm_fields_location_descr',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'noncommercialFieldsLocationDescription must be less than 255 characters in length'
+        }
+      }
     },
     noncommercialFieldsStartDateTime: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'noncomm_fields_start_date_time',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'noncommercialFieldsStartDateTime must be less than 255 characters in length'
+        },
+        isValidDateTime(value) {
+          if (!util.validateDateTime(value)) {
+            throw new Error('startDateTime must be a valid UTC string');
+          }
+        }
+      }
     },
     noncommercialFieldsEndDateTime: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'noncomm_fields_end_date_time',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: ' must be less than 255 characters in length'
+        },
+        isValidDateTime(value) {
+          if (!util.validateDateTime(value)) {
+            throw new Error('endDateTime must be a valid UTC string');
+          }
+        }
+      }
     },
     noncommercialFieldsNumberParticipants: {
       type: Sequelize.INTEGER,
@@ -246,9 +487,11 @@ module.exports = sequelize.define(
       field: 'updated'
     },
     status: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       defaultValue: 'Submitted',
-      field: 'status'
+      field: 'status',
+      allowNull: false,
+      validate: { isIn: { args: [util.statusOptions], msg: 'status is invalid' } }
     },
     signature: {
       type: Sequelize.STRING(3),
@@ -256,13 +499,26 @@ module.exports = sequelize.define(
       allowNull: false
     },
     authEmail: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'auth_email',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'authEmail must be less than 255 characters in length'
+        },
+        isEmail: true
+      }
     },
     applicantMessage: {
-      type: Sequelize.STRING,
-      field: 'applicant_message'
+      type: Sequelize.STRING(255),
+      field: 'applicant_message',
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'applicantMessage must be less than 255 characters in length'
+        }
+      }
     },
     noncommercialFieldsSpectatorCount: {
       type: Sequelize.INTEGER,
