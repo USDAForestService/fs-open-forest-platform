@@ -7,17 +7,6 @@ const request = require('request-promise');
 const Revision = require('./models/revision.es6');
 const vcapConstants = require('./vcap-constants.es6');
 
-const extractField = (errorObj, withArg) => {
-  if (withArg && errorObj.property === 'instance') {
-    return errorObj.argument;
-  } else if (withArg) {
-    // assumption is that the string otherwise is 'instance.<field>'
-    return errorObj.property.substring(9) + '.' + errorObj.argument;
-  } else {
-    return errorObj.property.substring(9);
-  }
-};
-
 let util = {};
 
 util.noncommercialOrgTypes = ['Person', 'Corporation'];
