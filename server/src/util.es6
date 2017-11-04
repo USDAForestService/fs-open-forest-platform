@@ -3,6 +3,8 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const request = require('request-promise');
+const Sequelize = require('sequelize');
+const url = require('url');
 
 const Revision = require('./models/revision.es6');
 const vcapConstants = require('./vcap-constants.es6');
@@ -73,6 +75,24 @@ util.validateDateTime = input => {
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
     moment(input, util.datetimeFormat).isValid()
   );
+};
+
+util.getSequelizeConnection = () => {
+  const sequelizeOptions = {
+    dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
+    logging: false
+  };
+
+  if (
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
+  ) {
+    sequelizeOptions.dialectOptions = {
+      ssl: true
+    };
+  }
+
+  return new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 };
 
 util.middleLayerAuth = () => {
