@@ -40,11 +40,11 @@ passport.use(
 eAuth.router = express.Router();
 
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
+  return res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
 });
 
 eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
+  return res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
 });
 
 module.exports = eAuth;
