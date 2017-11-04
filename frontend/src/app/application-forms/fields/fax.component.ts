@@ -16,10 +16,10 @@ export class FaxComponent implements OnInit {
   ngOnInit() {
     this.formName = 'fax';
     this[this.formName] = this.formBuilder.group({
-      areaCode: [],
-      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
-      number: [],
-      prefix: [],
+      areaCode: [null, Validators.maxLength(3)],
+      extension: [null, [Validators.minLength(1), Validators.maxLength(6)]],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
       tenDigit: ['', [Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);

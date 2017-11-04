@@ -7,6 +7,7 @@ import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
+import { UrlPipe } from './../_pipes/url.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 
@@ -18,7 +19,8 @@ import { InViewportModule } from 'ng-in-viewport';
     ProgressComponent,
     SectionHeadingComponent,
     SpacesToDashesPipe,
-    SidebarComponent
+    SidebarComponent,
+    UrlPipe
   ],
   exports: [
     AppRoutingModule,
@@ -31,7 +33,8 @@ import { InViewportModule } from 'ng-in-viewport';
     SectionHeadingComponent,
     SpacesToDashesPipe,
     SidebarComponent,
-    ProgressComponent
+    ProgressComponent,
+    UrlPipe
   ]
 })
 export class SharedModule {}
