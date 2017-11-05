@@ -365,7 +365,7 @@ const getAllFileNames = applicationId => {
   });
 };
 
-tempOutfitter.updateApplicationModel = (model, submitted, user) => {
+const updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
@@ -380,7 +380,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   }
 };
 
-tempOutfitter.acceptApplication = application => {
+const acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId)
       .then(files => {
@@ -457,6 +457,24 @@ tempOutfitter.acceptApplication = application => {
       })
       .catch(reject);
   });
+};
+
+tempOutfitter.getApplicationFileNames = (req, res) => {
+  getAllFileNames(req.params.id)
+    .then(app => {
+      if (app) {
+        return res.status(200).json(app);
+      } else {
+        return res.status(404).send();
+      }
+    })
+    .catch(() => {
+      return res.status(500).send();
+    });
+};
+
+tempOutfitter.streamFile = (req, res) => {
+  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 tempOutfitter.streamToS3 = multer({
@@ -572,24 +590,6 @@ tempOutfitter.getOne = (req, res) => {
     });
 };
 
-tempOutfitter.getApplicationFileNames = (req, res) => {
-  getAllFileNames(req.params.id)
-    .then(app => {
-      if (app) {
-        return res.status(200).json(app);
-      } else {
-        return res.status(404).send();
-      }
-    })
-    .catch(() => {
-      return res.status(500).send();
-    });
-};
-
-tempOutfitter.streamFile = (req, res) => {
-  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
-};
-
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
     where: {
@@ -603,10 +603,9 @@ tempOutfitter.update = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
+      updateApplicationModel(app, req.body, util.getUser(req));
       if (app.status === 'Accepted') {
-        tempOutfitter
-          .acceptApplication(app)
+        acceptApplication(app)
           .then(response => {
             app.controlNumber = JSON.parse(response).controlNumber;
             app

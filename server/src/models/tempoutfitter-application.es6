@@ -458,6 +458,11 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [1, 255],
           msg: 'tempOutfitterFieldsActDescFieldsEndDateTime must be less than 255 characters in length'
+        },
+        isValidDateTime(value) {
+          if (!util.validateDateTime(value)) {
+            throw new Error('tempOutfitterFieldsActDescFieldsEndDateTime must be a valid UTC string');
+          }
         }
       }
     },
@@ -468,6 +473,11 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [1, 255],
           msg: 'tempOutfitterFieldsActDescFieldsStartDateTime must be less than 255 characters in length'
+        },
+        isValidDateTime(value) {
+          if (!util.validateDateTime(value)) {
+            throw new Error('tempOutfitterFieldsActDescFieldsStartDateTime must be a valid UTC string');
+          }
         }
       }
     },
