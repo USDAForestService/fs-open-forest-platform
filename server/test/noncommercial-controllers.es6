@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 const nock = require('nock');
 const request = require('supertest');
 
-const noncommercialPermitApplicationFactory = require('./data/noncommercial-factory.es6');
+const noncommercialPermitApplicationFactory = require('./data/noncommercial-permit-application-factory.es6');
 const server = require('./mock-aws-app.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
@@ -15,7 +15,7 @@ const invalidIntakeControlNumber = 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10';
 const twoHundredSixtyCharacterString =
   '123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 ';
 
-describe('noncommercial controller', () => {
+describe('noncommercial controllers', () => {
   it('POST should return a 201 status code and an intakeControlNumber', done => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     request(server)
