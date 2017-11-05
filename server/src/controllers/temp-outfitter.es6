@@ -563,12 +563,12 @@ tempOutfitter.getOne = (req, res) => {
           formattedApp.revisions = revisions;
           return res.status(200).json(formattedApp);
         })
-        .catch(error => {
-          return res.status(400).json(error);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(error => {
-      return res.status(400).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 

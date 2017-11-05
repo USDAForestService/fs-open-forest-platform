@@ -244,7 +244,8 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_pri_mailing_state',
-      allowNull: false
+      allowNull: false,
+      validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoPrimaryMailingState is invalid' } }
     },
     applicantInfoPrimaryMailingZIP: {
       type: Sequelize.STRING(5),
