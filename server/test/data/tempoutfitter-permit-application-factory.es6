@@ -85,7 +85,7 @@ module.exports = factory.factory({
     // optional string
     advertisingDescription: 'Advertising',
     // optional string URL
-    advertisingURL: '',
+    advertisingURL: 'http://advertising.url',
     // required string
     clientCharges: '$3.50',
     // required
@@ -101,25 +101,25 @@ module.exports = factory.factory({
       // required string
       audienceDescription: 'Description',
       // required boolean
-      needGovernmentFacilities: false,
+      needGovernmentFacilities: true,
       // optional string
-      listOfGovernmentFacilities: '',
+      listOfGovernmentFacilities: 'so many government facilities',
       // required boolean
-      needTemporaryImprovements: false,
+      needTemporaryImprovements: true,
       // optional string
-      listOfTemporaryImprovements: '',
+      listOfTemporaryImprovements: 'all the great improvements',
       // required boolean
-      haveMotorizedEquipment: false,
+      haveMotorizedEquipment: true,
       // optional string
-      statementOfMotorizedEquipment: '',
+      statementOfMotorizedEquipment: 'all the great motorized equipment',
       // required boolean
-      haveLivestock: false,
+      haveLivestock: true,
       // optional string
-      statementOfTransportationOfLivestock: '',
+      statementOfTransportationOfLivestock: 'all the great livestock',
       // required boolean
-      needAssignedSite: false,
+      needAssignedSite: true,
       // optional string
-      statementOfAssignedSite: '',
+      statementOfAssignedSite: 'all the great sites',
       // required string
       descriptionOfCleanupAndRestoration: 'Cleanup',
       // required
@@ -133,17 +133,17 @@ module.exports = factory.factory({
     // required
     experienceFields: {
       // required boolean
-      haveNationalForestPermits: false,
+      haveNationalForestPermits: true,
       // optional string
-      listAllNationalForestPermits: '',
+      listAllNationalForestPermits: 'all the great forests',
       // required boolean
-      haveOtherPermits: false,
+      haveOtherPermits: true,
       // optional string
-      listAllOtherPermits: '',
+      listAllOtherPermits: 'all the great permits',
       // required boolean
-      haveCitations: false,
+      haveCitations: true,
       // optional string
-      listAllCitations: ''
+      listAllCitations: 'its a long story'
     }
   }
 });

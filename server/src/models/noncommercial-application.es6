@@ -127,7 +127,8 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [3, 3],
           msg: 'applicantInfoDayPhoneAreaCode must be 3 characters in length'
-        }
+        },
+        is: /[0-9]{3}/
       }
     },
     applicantInfoDayPhonePrefix: {
@@ -138,7 +139,8 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [3, 3],
           msg: 'applicantInfoDayPhonePrefix must be 3 characters in length'
-        }
+        },
+        is: /[0-9]{3}/
       }
     },
     applicantInfoDayPhoneNumber: {
@@ -148,8 +150,9 @@ module.exports = util.getSequelizeConnection().define(
       validate: {
         len: {
           args: [4, 4],
-          msg: 'applicantInfoDayPhoneNumber must be 3 characters in length'
-        }
+          msg: 'applicantInfoDayPhoneNumber must be 4 characters in length'
+        },
+        is: /[0-9]{4}/
       }
     },
     applicantInfoDayPhoneExtension: {
@@ -169,7 +172,8 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [3, 3],
           msg: 'applicantInfoEveningPhoneAreaCode must be 3 characters in length'
-        }
+        },
+        is: /[0-9]{3}/
       }
     },
     applicantInfoEveningPhonePrefix: {
@@ -179,7 +183,8 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [3, 3],
           msg: 'applicantInfoEveningPhonePrefix must be 3 characters in length'
-        }
+        },
+        is: /[0-9]{3}/
       }
     },
     applicantInfoEveningPhoneNumber: {
@@ -189,7 +194,8 @@ module.exports = util.getSequelizeConnection().define(
         len: {
           args: [4, 4],
           msg: 'applicantInfoEveningPhoneNumber must be 4 characters in length'
-        }
+        },
+        is: /[0-9]{4}/
       }
     },
     applicantInfoEveningPhoneExtension: {
@@ -339,7 +345,10 @@ module.exports = util.getSequelizeConnection().define(
     },
     applicantInfoSecondaryMailingZIP: {
       type: Sequelize.STRING(5),
-      field: 'appl_info_sec_mailing_zip'
+      field: 'appl_info_sec_mailing_zip',
+      validate: {
+        is: /[0-9]{5}/
+      }
     },
     applicantInfoOrganizationName: {
       type: Sequelize.STRING(255),
@@ -443,7 +452,7 @@ module.exports = util.getSequelizeConnection().define(
       validate: {
         len: {
           args: [1, 255],
-          msg: ' must be less than 255 characters in length'
+          msg: 'noncommercialFieldsEndDateTime must be less than 255 characters in length'
         },
         isValidDateTime(value) {
           if (!util.validateDateTime(value)) {
@@ -479,7 +488,13 @@ module.exports = util.getSequelizeConnection().define(
     signature: {
       type: Sequelize.STRING(3),
       field: 'signature',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 3],
+          msg: 'signature must be 2 or 3 characters in length'
+        }
+      }
     },
     authEmail: {
       type: Sequelize.STRING(255),
