@@ -4,7 +4,7 @@ const AWS = require('mock-aws');
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const mockS3 = require('./data/mock-s3.es6');
 const util = require('../src/util.es6');
 
 describe('util tests', () => {
@@ -27,7 +27,7 @@ describe('util tests', () => {
   describe('prepareCerts', () => {
     after(() => {
       AWS.mock('S3', 'getObject', function(params, cb) {
-        cb(null, tempOutfitterTestData.mockS3Get);
+        cb(null, mockS3);
       });
     });
 

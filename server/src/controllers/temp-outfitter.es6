@@ -11,7 +11,6 @@ const email = require('../email/email-util.es6');
 const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
-const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
@@ -145,6 +144,7 @@ const translateFromDatabaseToClient = input => {
       website: input.applicantInfoWebsite || ''
     },
     appControlNumber: input.appControlNumber,
+    controlNumber: input.controlNumber,
     applicationId: input.applicationId,
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -223,7 +223,7 @@ const translateFromDatabaseToClient = input => {
   result.tempOutfitterFields.noPromotionalWebsite = !result.tempOutfitterFields.advertisingURL;
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
-  //below need to be replaced with file values
+  // below need to be replaced with file values
   result.guideIdentification = '';
   result.operatingPlan = '';
   result.liabilityInsurance = '';
@@ -448,7 +448,10 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
@@ -513,30 +516,23 @@ tempOutfitter.deleteFile = (req, res) => {
 };
 
 tempOutfitter.create = (req, res) => {
-  let errorRet = {};
-  let errorArr = validator.validateTempOutfitter(req.body);
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    return res.status(400).json(errorRet);
-  } else {
-    util.setAuthEmail(req);
-    let model = {
-      authEmail: req.body.authEmail,
-      status: 'Incomplete' // will be updated to Submitted when attachments are ready
-    };
-    translateFromClientToDatabase(req.body, model);
-    TempOutfitterApplication.create(model)
-      .then(tempOutfitterApp => {
-        email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
-        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
-        req.body['applicationId'] = tempOutfitterApp.applicationId;
-        req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
-        return res.status(201).json(req.body);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  }
+  util.setAuthEmail(req);
+  let model = {
+    authEmail: req.body.authEmail,
+    status: 'Incomplete' // will be updated to Submitted when attachments are ready
+  };
+  translateFromClientToDatabase(req.body, model);
+  TempOutfitterApplication.create(model)
+    .then(tempOutfitterApp => {
+      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
+      req.body['applicationId'] = tempOutfitterApp.applicationId;
+      req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
+      return res.status(201).json(req.body);
+    })
+    .catch(err => {
+      return res.status(500).json(err);
+    });
 };
 
 tempOutfitter.getOne = (req, res) => {
@@ -608,7 +604,7 @@ tempOutfitter.update = (req, res) => {
         tempOutfitter
           .acceptApplication(app)
           .then(response => {
-            app.controlNumber = response.controlNumber;
+            app.controlNumber = JSON.parse(response).controlNumber;
             app
               .save()
               .then(() => {
@@ -631,7 +627,7 @@ tempOutfitter.update = (req, res) => {
             if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
             } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail(`tempOutfitterApplicationRemoveHold`, app);
+              email.sendEmail('tempOutfitterApplicationRemoveHold', app);
             } else {
               email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }

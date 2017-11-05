@@ -13,8 +13,6 @@ module.exports = factory.factory({
   region: '06',
   // required, string(2)
   forest: '05',
-  // required string ['noncommercial', 'tempoutfitter'] string(255)
-  type: 'noncommercial',
   // required string(255)
   eventName: 'Fun Party',
   // required string(3)

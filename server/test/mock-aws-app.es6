@@ -4,7 +4,7 @@ const AWS = require('mock-aws');
 const mock = require('mock-require');
 const devnull = require('dev-null');
 
-const tempOutfitterTestData = require('./data/temp-outfitter-test-data.es6');
+const mockS3 = require('./data/mock-s3.es6');
 
 function MockMulter() {}
 
@@ -22,7 +22,7 @@ mock('multer-s3', function(opts) {
 });
 
 AWS.mock('S3', 'getObject', function(params, callback) {
-  callback(null, tempOutfitterTestData.mockS3Get);
+  callback(null, mockS3);
 });
 
 after(function() {
