@@ -29,20 +29,20 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.areaCode
-    : '';
+    : null;
   output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.extension
-    : '';
+    : null;
   output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.number
-    : '';
+    : null;
   output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.prefix
-    : '';
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : '';
-  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : '';
-  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : '';
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : '';
+    : null;
+  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -530,8 +530,12 @@ tempOutfitter.create = (req, res) => {
       req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
       return res.status(201).json(req.body);
     })
-    .catch(() => {
-      return res.status(500).send();
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
     });
 };
 
