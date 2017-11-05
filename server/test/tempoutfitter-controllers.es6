@@ -89,17 +89,17 @@ describe('tempoutfitter controllers', () => {
       .expect(200, done);
   });
 
-  // it('PUT should return a 400 status code when the status is Bananas', done => {
-  //   request(server)
-  //     .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-  //     .send(tempOutfitterPermitApplicationFactory.create({ status: 'Bananas' }))
-  //     .expect('Content-Type', /json/)
-  //     .expect(res => {
-  //       assert.lengthOf(res.body.errors, 1);
-  //       assert.equal(res.body.errors[0].message, 'status is invalid');
-  //     })
-  //     .expect(400, done);
-  // });
+  it('PUT should return a 400 status code when the status is Bananas', done => {
+    request(server)
+      .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Bananas' }))
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        assert.lengthOf(res.body.errors, 1);
+        assert.equal(res.body.errors[0].message, 'status is invalid');
+      })
+      .expect(400, done);
+  });
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();

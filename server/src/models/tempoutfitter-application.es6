@@ -23,38 +23,70 @@ module.exports = util.getSequelizeConnection().define(
     },
     controlNumber: {
       type: Sequelize.STRING(50),
-      field: 'control_number'
+      field: 'control_number',
+      validate: {
+        len: {
+          args: [1, 50],
+          msg: 'controlNumber must be between 1 and 50 characters in length'
+        }
+      }
     },
     region: {
       type: Sequelize.STRING(2),
       field: 'region',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'region must be 2 characters in length'
+        }
+      }
     },
     forest: {
       type: Sequelize.STRING(2),
       field: 'forest',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'forest must be 2 characters in length'
+        }
+      }
     },
     district: {
       type: Sequelize.STRING(2),
       field: 'district',
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [2, 2],
+          msg: 'district must be 2 characters in length'
+        }
+      }
     },
     authorizingOfficerName: {
-      type: Sequelize.STRING,
-      field: 'authorizing_officer_name'
+      type: Sequelize.STRING(255),
+      field: 'authorizing_officer_name',
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'authorizingOfficerName must be less than 255 characters in length'
+        }
+      }
     },
     authorizingOfficerTitle: {
-      type: Sequelize.STRING,
-      field: 'authorizing_officer_title'
+      type: Sequelize.STRING(255),
+      field: 'authorizing_officer_title',
+      allowNull: false
     },
     applicantInfoPrimaryFirstName: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_primary_first_nm',
       allowNull: false
     },
     applicantInfoPrimaryLastName: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_primary_last_nm',
       allowNull: false
     },
@@ -94,21 +126,21 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_ext'
     },
     applicantInfoEmailAddress: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_email_address',
       allowNull: false
     },
     applicantInfoPrimaryMailingAddress: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_address',
       allowNull: false
     },
     applicantInfoPrimaryMailingAddress2: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_address2'
     },
     applicantInfoPrimaryMailingCity: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_city',
       allowNull: false
     },
@@ -123,20 +155,20 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     applicantInfoOrganizationName: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_org_name'
     },
     applicantInfoWebsite: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_website'
     },
     applicantInfoOrgType: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_info_org_type',
       allowNull: false
     },
     type: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'type',
       allowNull: false
     },
@@ -151,20 +183,20 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     tempOutfitterFieldsAdvertisingUrl: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_advertising_url'
     },
     tempOutfitterFieldsAdvertisingDescription: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_advertising_desc'
     },
     tempOutfitterFieldsClientCharges: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_client_charges',
       allowNull: false
     },
     tempOutfitterFieldsExperienceList: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_exp_list'
     },
     createdAt: {
@@ -180,9 +212,11 @@ module.exports = util.getSequelizeConnection().define(
       field: 'updated'
     },
     status: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       defaultValue: 'Incomplete',
-      field: 'status'
+      field: 'status',
+      allowNull: false,
+      validate: { isIn: { args: [util.statusOptions], msg: 'status is invalid' } }
     },
     signature: {
       type: Sequelize.STRING(3),
@@ -190,12 +224,12 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false
     },
     authEmail: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'auth_email',
       allowNull: false
     },
     applicantMessage: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'applicant_message'
     },
     applicantInfoFaxAreaCode: {
@@ -223,64 +257,64 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_num_trip'
     },
     tempOutfitterFieldsActDescFieldsEndDateTime: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_end_dt'
     },
     tempOutfitterFieldsActDescFieldsStartDateTime: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_strt_dt'
     },
     tempOutfitterFieldsActDescFieldsLocationDesc: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_loc_desc'
     },
     tempOutfitterFieldsActDescFieldsServProvided: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_serv_prv'
     },
     tempOutfitterFieldsActDescFieldsAudienceDesc: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_aud_desc'
     },
     tempOutfitterFieldsActDescFieldsListGovFacilities: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_lst_fac'
     },
     tempOutfitterFieldsActDescFieldsListTempImprovements: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_lst_imp'
     },
     tempOutfitterFieldsActDescFieldsStmtMotorizedEquip: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_mtr_eqp'
     },
     tempOutfitterFieldsActDescFieldsStmtTransportLivestock: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_trn_liv'
     },
     tempOutfitterFieldsActDescFieldsStmtAssignedSite: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_agn_site'
     },
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_cln_rest'
     },
     tempOutfitterFieldsActDescFieldsPartySize: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_out_act_desc_serv_pty_size',
       allowNull: false
     },
     tempOutfitterFieldsExpAllCitations: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_exp_all_citation'
     },
     tempOutfitterFieldsExpNatForestPermits: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_exp_nat_fst_pmts'
     },
     tempOutfitterFieldsExpOtherPermits: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(255),
       field: 'temp_outfitter_exp_oth_pmts'
     }
   },

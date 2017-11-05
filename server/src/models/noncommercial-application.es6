@@ -27,7 +27,7 @@ module.exports = util.getSequelizeConnection().define(
       validate: {
         len: {
           args: [1, 50],
-          msg: 'region must be between 1 and 50 characters in length'
+          msg: 'controlNumber must be between 1 and 50 characters in length'
         }
       }
     },
