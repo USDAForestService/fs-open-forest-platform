@@ -16,6 +16,7 @@ const vcapConstants = require('../src/vcap-constants.es6');
 const fileUploadUrl = '/permits/applications/special-uses/temp-outfitter/file';
 const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
 
+const invalidIntakeControlNumber = 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10';
 let intakeControlNumber;
 
 describe('tempoutfitter controllers', () => {
@@ -31,6 +32,74 @@ describe('tempoutfitter controllers', () => {
       })
       .expect(201, done);
   });
+
+  it('GET should return a 200 status code with a valid intakeControlNumber', done => {
+    request(server)
+      .get(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('GET should return a 404 status code when the intakeControlNumber is not found', done => {
+    request(server)
+      .get(`${tempoutfitterUrl}/${invalidIntakeControlNumber}`)
+      .expect(404, done);
+  });
+
+  // it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
+  //   request(server)
+  //     .get(tempoutfitterUrl + '/' + 'imalformedControlNumber')
+  //     .expect(500, done);
+  // });
+
+  it('PUT should return a 200 status code when the status is Submitted', done => {
+    request(server)
+      .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Submitted' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('PUT should return a 200 status code when the status is Cancelled', done => {
+    request(server)
+      .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Cancelled' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('PUT should return a 200 status code when the status is Hold', done => {
+    request(server)
+      .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Hold', applicantMessage: 'Hold it, buddy.' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('PUT should return a 200 status code when the status is Review', done => {
+    request(server)
+      .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Review' }))
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  // it('PUT should return a 400 status code when the status is Bananas', done => {
+  //   request(server)
+  //     .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
+  //     .send(tempOutfitterPermitApplicationFactory.create({ status: 'Bananas' }))
+  //     .expect('Content-Type', /json/)
+  //     .expect(res => {
+  //       assert.lengthOf(res.body.errors, 1);
+  //       assert.equal(res.body.errors[0].message, 'status is invalid');
+  //     })
+  //     .expect(400, done);
+  // });
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
@@ -55,12 +124,12 @@ describe('tempoutfitter controllers', () => {
       .expect(res => {
         assert.equal(res.body.controlNumber, '1999');
         assert.equal(res.body.status, 'Accepted');
-        // assert.equal(res.body.revisions.length, 5);
-        // assert.equal(res.body.revisions[0].status, 'Submitted');
-        // assert.equal(res.body.revisions[1].status, 'Cancelled');
-        // assert.equal(res.body.revisions[2].status, 'Hold');
-        // assert.equal(res.body.revisions[3].status, 'Review');
-        // assert.equal(res.body.revisions[4].status, 'Accepted');
+        assert.equal(res.body.revisions.length, 5);
+        assert.equal(res.body.revisions[0].status, 'Submitted');
+        assert.equal(res.body.revisions[1].status, 'Cancelled');
+        assert.equal(res.body.revisions[2].status, 'Hold');
+        assert.equal(res.body.revisions[3].status, 'Review');
+        assert.equal(res.body.revisions[4].status, 'Accepted');
       })
       .expect(200, done);
   });
