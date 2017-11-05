@@ -309,7 +309,7 @@ describe('noncommercial controllers', () => {
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
-        assert.equal(res.body.errors[0].message, 'state code is invalid');
+        assert.equal(res.body.errors[0].message, 'applicantInfoPrimaryMailingState is invalid');
       })
       .expect(400, done);
   });

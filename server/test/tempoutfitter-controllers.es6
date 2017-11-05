@@ -47,11 +47,11 @@ describe('tempoutfitter controllers', () => {
       .expect(404, done);
   });
 
-  // it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
-  //   request(server)
-  //     .get(tempoutfitterUrl + '/' + 'imalformedControlNumber')
-  //     .expect(500, done);
-  // });
+  it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
+    request(server)
+      .get(tempoutfitterUrl + '/' + 'imalformedControlNumber')
+      .expect(500, done);
+  });
 
   it('PUT should return a 200 status code when the status is Submitted', done => {
     request(server)
