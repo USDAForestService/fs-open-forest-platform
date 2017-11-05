@@ -492,12 +492,12 @@ tempOutfitter.attachFile = (req, res) => {
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(err => {
-          return res.status(500).json(err);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
@@ -510,8 +510,8 @@ tempOutfitter.deleteFile = (req, res) => {
     .then(() => {
       return res.status(204);
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
@@ -530,8 +530,8 @@ tempOutfitter.create = (req, res) => {
       req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
       return res.status(201).json(req.body);
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
@@ -577,8 +577,8 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
         return res.status(404).send();
       }
     })
-    .catch(error => {
-      return res.status(500).json(error.message);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
@@ -612,12 +612,12 @@ tempOutfitter.update = (req, res) => {
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(error => {
-                return res.status(500).json(error);
+              .catch(() => {
+                return res.status(500).send();
               });
           })
-          .catch(error => {
-            return res.status(500).json(error);
+          .catch(() => {
+            return res.status(500).send();
           });
       } else {
         app
@@ -634,12 +634,16 @@ tempOutfitter.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            return res.status(500).json(error);
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({ errors: error.errors });
+            } else {
+              return res.status(500).send();
+            }
           });
       }
     })
-    .catch(error => {
-      return res.status(500).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 

@@ -369,56 +369,60 @@ noncommercial.update = (req, res) => {
     where: {
       app_control_number: req.params.id
     }
-  }).then(app => {
-    if (!app) {
-      return res.status(404).send();
-    }
-    if (!util.hasPermissions(util.getUser(req), app)) {
-      return res.status(403).send();
-    }
-    noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
-    if (app.status === 'Accepted') {
-      noncommercial
-        .acceptApplication(app)
-        .then(response => {
-          app.controlNumber = response.controlNumber;
-          app
-            .save()
-            .then(() => {
-              util.createRevision(util.getUser(req), app);
-              email.sendEmail(`noncommercialApplication${app.status}`, app);
-              return res.status(200).json(translateFromDatabaseToClient(app));
-            })
-            .catch(() => {
-              return res.status(500).send();
-            });
-        })
-        .catch(() => {
-          return res.status(500).send();
-        });
-    } else {
-      app
-        .save()
-        .then(() => {
-          util.createRevision(util.getUser(req), app);
-          if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-            email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
-          } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-            email.sendEmail('noncommercialApplicationRemoveHold', app);
-          } else {
-            email.sendEmail(`noncommercialApplication${app.status}`, app);
-          }
-          return res.status(200).json(translateFromDatabaseToClient(app));
-        })
-        .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({ errors: error.errors });
-          } else {
+  })
+    .then(app => {
+      if (!app) {
+        return res.status(404).send();
+      }
+      if (!util.hasPermissions(util.getUser(req), app)) {
+        return res.status(403).send();
+      }
+      noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
+      if (app.status === 'Accepted') {
+        noncommercial
+          .acceptApplication(app)
+          .then(response => {
+            app.controlNumber = response.controlNumber;
+            app
+              .save()
+              .then(() => {
+                util.createRevision(util.getUser(req), app);
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
+                return res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch(() => {
+                return res.status(500).send();
+              });
+          })
+          .catch(() => {
             return res.status(500).send();
-          }
-        });
-    }
-  });
+          });
+      } else {
+        app
+          .save()
+          .then(() => {
+            util.createRevision(util.getUser(req), app);
+            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
+            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+              email.sendEmail('noncommercialApplicationRemoveHold', app);
+            } else {
+              email.sendEmail(`noncommercialApplication${app.status}`, app);
+            }
+            return res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch(error => {
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({ errors: error.errors });
+            } else {
+              return res.status(500).send();
+            }
+          });
+      }
+    })
+    .catch(() => {
+      return res.status(500).send();
+    });
 };
 
 module.exports = noncommercial;
