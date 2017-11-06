@@ -10,13 +10,6 @@ describe('Xmas sidebar page', () => {
     page.navigateTo(3); // 3 is mt hood, 4 is shoshone etc.
   });
 
-  it('should have a title', () => {
-    browser.sleep(500);
-    expect<any>(element(by.css('.trees-header-title')).getText()).toEqual(
-      'Christmas tree permit'
-    );
-  });
-
   it('should have a sidebar', () => {
     expect<any>(element(by.css('.usa-sidenav-list')).isDisplayed()).toBeTruthy();
   });
@@ -36,6 +29,13 @@ describe('Xmas sidebar page', () => {
   it('should have a species section link', () => {
     expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
       'How to choose your tree'
+    );
+  });
+
+  it('should have a breadcrumb', () => {
+    browser.sleep(500);
+    expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
+      'Christmas tree permits > Find a forest > Mt. Hood National Forest'
     );
   });
 

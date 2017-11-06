@@ -1,36 +1,4 @@
 
-.header-subsection-steps {
-  padding-bottom: 4px;
-}
-
-.trees-header {
-  border-bottom: none;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  .trees-header-forest {
-    background-color: $fs-standard-green-light;
-    color: #000000;
-    font-size: 1.0em;
-  }
-  .trees-header-dates {
-    background-color: $fs-green-dark;
-    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
-    padding-bottom: 5px;
-    .trees-header-title {
-      color: $fs-standard-green-light;
-      font-size: 2.5em;
-      margin: 0;
-      padding-top: 2px;
-    }
-    .trees-title-subhead {
-      color: $fs-yellow;
-      font-size: 1.5em;
-      margin: 0;
-    }
-  }
-}
-
 .tree-location-description {
   font-size: 2rem;
 }
