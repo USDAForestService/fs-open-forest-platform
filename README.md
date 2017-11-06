@@ -3,9 +3,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
-Module for intake of special use applications for Forest Service Application Permits.
-
-### A collection of documents and links related to the Flexion and 18F/TTS Forest Service Permits project
+### Module for intake of special use applications for Forest Service Application Permits.
 
 ## Welcome
 The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify their permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
@@ -365,12 +363,12 @@ The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstrea
 ## Usability testing
 While developing we spent time usability testing features with the correct users and applied majority feedback. 
 
-This repository includes usability testing conducted by Flexion
-	• Usability testing session 1 summary
-	• Usability testing session 2 summary
-	• Usability testing session 3 summary
-	• Usability testing session 4 summary
-	• Usability testing session 5 summary
-	• Usability testing session 6 summary
-	• Usability testing session 7 summary
-	• Usability testing session 8 summary
+[This repository](https://github.com/flexion/fs-intake-module/tree/sprint-16-development/wiki) includes usability testing conducted by Flexion
+	• [Usability testing session 1 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-1-summary---May-12%2C-2017.md)
+	• [Usability testing session 2 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-2-summary-May-23%2C-2017.md)
+	• [Usability testing session 3 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-3-summary-(wizard-and-file-upload)--June-23%2C-2017.md)
+	• [Usability testing session 4 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-4-summary-July-19%2C-2017.md)
+	• [Usability testing session 5 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-5-summary-August-17%2C-2017.md)
+	• [Usability testing session 6 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-6-summary-August-24%2C-25-and-September-1%2C-2017.md)
+	• [Usability testing session 7 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-7-summary-September-12%2C-13%2C-%26-14%2C-2017.md)
+	• [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
