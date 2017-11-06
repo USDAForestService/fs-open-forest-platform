@@ -32,11 +32,7 @@ describe('noncommercial controllers', () => {
   it('POST should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     permitApplication.applicantInfo.primaryFirstName = 'Robert"); DROP TABLE noncommercialApplications; --';
-    request(server)
-      .post(noncommercialUrl)
-      .send(permitApplication)
-      .expect('Content-Type', /json/)
-      .expect(201, done);
+    request(server).post(noncommercialUrl).send(permitApplication).expect('Content-Type', /json/).expect(201, done);
   });
 
   it('POST should return a 400 status code and an error when the region is missing', done => {
@@ -351,21 +347,21 @@ describe('noncommercial controllers', () => {
   });
 
   it('GET should return a 404 status code when the intakeControlNumber is not found', done => {
-    request(server)
-      .get(`${noncommercialUrl}/${invalidIntakeControlNumber}`)
-      .expect(404, done);
+    request(server).get(`${noncommercialUrl}/${invalidIntakeControlNumber}`).expect(404, done);
   });
 
   it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
-    request(server)
-      .get(noncommercialUrl + '/' + 'imalformedControlNumber')
-      .expect(500, done);
+    request(server).get(noncommercialUrl + '/' + 'imalformedControlNumber').expect(500, done);
   });
 
   it('PUT should return a 200 status code when the status is Submitted', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Submitted' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Submitted'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -374,7 +370,25 @@ describe('noncommercial controllers', () => {
   it('PUT should return a 200 status code when the status is Cancelled', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Cancelled' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Cancelled'
+        })
+      )
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":[\d]+/)
+      .expect(200, done);
+  });
+
+  it('PUT should return a 200 status code when the status is Rejected', done => {
+    request(server)
+      .put(`${noncommercialUrl}/${intakeControlNumber}`)
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Rejected',
+          applicantMessage: 'Rejected, buddy.'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -383,7 +397,12 @@ describe('noncommercial controllers', () => {
   it('PUT should return a 200 status code when the status is Hold', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Hold', applicantMessage: 'Hold it, buddy.' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Hold',
+          applicantMessage: 'Hold it, buddy.'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -392,7 +411,11 @@ describe('noncommercial controllers', () => {
   it('PUT should return a 200 status code when the status is Review', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Review' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Review'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -401,7 +424,11 @@ describe('noncommercial controllers', () => {
   it('PUT should return a 400 status code when the status is missing', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: undefined }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: undefined
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
@@ -413,7 +440,11 @@ describe('noncommercial controllers', () => {
   it('PUT should return a 400 status code when the status is Bananas', done => {
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Bananas' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Bananas'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
@@ -431,15 +462,19 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and middlelayer authentication fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(401, { token: 'auth-token' });
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { status: 'success' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(401, {
+      token: 'auth-token'
+    });
+    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, {
+      status: 'success'
+    });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Accepted'
+        })
+      )
       .expect(500, done);
   });
 
@@ -457,15 +492,19 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and the middlelayer POST fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(201, { token: 'auth-token' });
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(500, { status: 'fail' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(201, {
+      token: 'auth-token'
+    });
+    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(500, {
+      status: 'fail'
+    });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Accepted'
+        })
+      )
       .expect(500, done);
   });
 
@@ -482,15 +521,19 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/permits/applications/special-uses/noncommercial/')
-      .reply(200, { controlNumber: '1999' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(200, {
+      token: 'auth-token'
+    });
+    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, {
+      controlNumber: '1999'
+    });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
-      .send(noncommercialPermitApplicationFactory.create({ status: 'Accepted' }))
+      .send(
+        noncommercialPermitApplicationFactory.create({
+          status: 'Accepted'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
@@ -503,19 +546,18 @@ describe('noncommercial controllers', () => {
       .expect(res => {
         assert.equal(res.body.controlNumber, '1999');
         assert.equal(res.body.status, 'Accepted');
-        assert.equal(res.body.revisions.length, 5);
+        assert.equal(res.body.revisions.length, 6);
         assert.equal(res.body.revisions[0].status, 'Submitted');
         assert.equal(res.body.revisions[1].status, 'Cancelled');
-        assert.equal(res.body.revisions[2].status, 'Hold');
-        assert.equal(res.body.revisions[3].status, 'Review');
-        assert.equal(res.body.revisions[4].status, 'Accepted');
+        assert.equal(res.body.revisions[2].status, 'Rejected');
+        assert.equal(res.body.revisions[3].status, 'Hold');
+        assert.equal(res.body.revisions[4].status, 'Review');
+        assert.equal(res.body.revisions[5].status, 'Accepted');
       })
       .expect(200, done);
   });
 
   it('DELETE should return a 404 status code', done => {
-    request(server)
-      .delete(`${noncommercialUrl}/${intakeControlNumber}`)
-      .expect(404, done);
+    request(server).delete(`${noncommercialUrl}/${intakeControlNumber}`).expect(404, done);
   });
 });
