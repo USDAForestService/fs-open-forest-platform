@@ -116,7 +116,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(2);
-      browser.sleep(400);
+      browser.sleep(900);
       page.getTreeLocationLink().click();
     });
 
