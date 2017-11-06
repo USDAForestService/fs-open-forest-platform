@@ -1,18 +1,7 @@
-<div class="trees-header">
-    <div class="trees-header-forest">
-      <div class="usa-grid">
-        <div>{{forest.forestName | uppercase }} NATIONAL FOREST{{ forest.forestName.indexOf('and') > 0 ? 'S' : ''}}</div>
-      </div>
-    </div>
-    <div class="trees-header-dates">
-      <div class="usa-grid">
-        <div class="trees-header-title">Christmas tree permit</div>
-        <div class="trees-title-subhead">{{ forest.startDate | date }} - {{ forest.endDate | date }}</div>
-      </div>
-    </div>
-</div>
 <section id="sidebar-page" class="usa-section usa-content">
-
+  <div class="usa-grid breadcrumbs">
+    <a routerLink="/xmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/xmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}}</span>
+  </div>
   <div class="usa-grid">
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       &nbsp;

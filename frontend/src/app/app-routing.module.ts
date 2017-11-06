@@ -86,7 +86,7 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas tree info' }
+    data: { title: 'Christmas tree permit information' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
