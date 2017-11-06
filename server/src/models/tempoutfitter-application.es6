@@ -67,10 +67,9 @@ module.exports = util.getSequelizeConnection().define(
     authorizingOfficerName: {
       type: Sequelize.STRING(255),
       field: 'authorizing_officer_name',
-      allowNull: false,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'authorizingOfficerName must be less than 255 characters in length'
         }
       }
@@ -78,10 +77,9 @@ module.exports = util.getSequelizeConnection().define(
     authorizingOfficerTitle: {
       type: Sequelize.STRING(255),
       field: 'authorizing_officer_title',
-      allowNull: false,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'authorizingOfficerTitle must be less than 255 characters in length'
         }
       }
