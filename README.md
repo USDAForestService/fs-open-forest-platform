@@ -372,3 +372,4 @@ While developing we spent time usability testing features with the correct users
 	• [Usability testing session 6 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-6-summary-August-24%2C-25-and-September-1%2C-2017.md)
 	• [Usability testing session 7 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-7-summary-September-12%2C-13%2C-%26-14%2C-2017.md)
 	• [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
+	• [Usability testing session 9 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usertesting.com-session-2-summary-October-27%2C-2017.md)
