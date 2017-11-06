@@ -63,7 +63,7 @@ When referencing the new permit type all users knew to to return to the landing 
 * Most users took a little more time to find this answer. There was a bit more searching. This may be due to it not fitting into as clear of a category as “requirements” etc.
 * One user had a bit more trouble finding this info. Found it on the landing page but didn’t understand if the wording, “The primary purpose of the event isn’t selling goods and service.” meant it was not allowed, for some reason. 
 
-**Suggestion:**
+**Recommendations:**
 Possibly change wording to more clearly state that selling goods and services is not allowed. The current wording is a little confusing.
 
 **A Noncommercial Permit is required for groups of what size?**
