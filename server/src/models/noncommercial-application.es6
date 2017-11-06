@@ -225,7 +225,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_org_mail_address',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoOrgMailingAddress must be less than 255 characters in length'
         }
       }
@@ -235,7 +235,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_org_mail_addr2',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoOrgMailingAddress2 must be less than 255 characters in length'
         }
       }
@@ -245,7 +245,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_org_mailing_city',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoOrgMailingCity must be less than 255 characters in length'
         }
       }
@@ -265,10 +265,9 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingAddress: {
       type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_address',
-      allowNull: true,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoPrimaryMailingAddress must be less than 255 characters in length'
         }
       }
@@ -278,7 +277,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_pri_mailing_address2',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoPrimaryMailingAddress2 must be less than 255 characters in length'
         }
       }
@@ -289,7 +288,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: true,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoPrimaryMailingCity must be less than 255 characters in length'
         }
       }
@@ -313,7 +312,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_sec_mailing_address',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoSecondaryMailingAddress must be less than 255 characters in length'
         }
       }
@@ -323,7 +322,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_sec_mailing_address2',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoSecondaryMailingAddress2 must be less than 255 characters in length'
         }
       }
@@ -333,7 +332,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_sec_mailing_city',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoSecondaryMailingCity must be less than 255 characters in length'
         }
       }
@@ -355,7 +354,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_org_name',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoOrganizationName must be less than 255 characters in length'
         }
       }
@@ -365,7 +364,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_website',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoWebsite must be less than 255 characters in length'
         }
       }
@@ -381,7 +380,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_sec_first_name',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoSecondaryFirstName must be less than 255 characters in length'
         }
       }
@@ -391,7 +390,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_sec_last_name',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoSecondaryLastName must be less than 255 characters in length'
         }
       }
@@ -513,7 +512,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_message',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantMessage must be less than 255 characters in length'
         }
       }
