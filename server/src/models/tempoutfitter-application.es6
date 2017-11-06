@@ -26,7 +26,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'control_number',
       validate: {
         len: {
-          args: [1, 50],
+          args: [0, 50],
           msg: 'controlNumber must be between 1 and 50 characters in length'
         }
       }
@@ -149,7 +149,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_day_phone_ext',
       validate: {
         len: {
-          args: [1, 10],
+          args: [0, 10],
           msg: 'applicantInfoDayPhoneExtension must be less than 10 characters in length'
         }
       }
@@ -192,7 +192,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_ext',
       validate: {
         len: {
-          args: [1, 10],
+          args: [0, 10],
           msg: 'applicantInfoEveningPhoneExtension must be less than 10 characters in length'
         }
       }
@@ -225,7 +225,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_pri_mailing_address2',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoPrimaryMailingAddress2 must be less than 255 characters in length'
         }
       }
@@ -260,7 +260,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_org_name',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoOrganizationName must be less than 255 characters in length'
         }
       }
@@ -270,7 +270,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_website',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantInfoWebsite must be less than 255 characters in length'
         }
       }
@@ -312,7 +312,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_advertising_url',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsAdvertisingUrl must be less than 255 characters in length'
         }
       }
@@ -322,7 +322,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_advertising_desc',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsAdvertisingDescription must be less than 255 characters in length'
         }
       }
@@ -333,7 +333,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsClientCharges must be less than 255 characters in length'
         }
       }
@@ -343,7 +343,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_exp_list',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsExperienceList must be less than 255 characters in length'
         }
       }
@@ -395,7 +395,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_message',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'applicantMessage must be less than 255 characters in length'
         }
       }
@@ -438,7 +438,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_fax_ext',
       validate: {
         len: {
-          args: [1, 10],
+          args: [0, 10],
           msg: 'applicantInfoFaxExtension must be less than 10 characters in length'
         }
       }
@@ -456,7 +456,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_end_dt',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsEndDateTime must be less than 255 characters in length'
         },
         isValidDateTime(value) {
@@ -471,7 +471,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_strt_dt',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsStartDateTime must be less than 255 characters in length'
         },
         isValidDateTime(value) {
@@ -486,7 +486,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_loc_desc',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsLocationDesc must be less than 255 characters in length'
         }
       }
@@ -496,7 +496,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_serv_prv',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsServProvided must be less than 255 characters in length'
         }
       }
@@ -506,7 +506,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_aud_desc',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsAudienceDesc must be less than 255 characters in length'
         }
       }
@@ -516,7 +516,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_lst_fac',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsListGovFacilities must be less than 255 characters in length'
         }
       }
@@ -526,7 +526,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_lst_imp',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsListTempImprovements must be less than 255 characters in length'
         }
       }
@@ -536,7 +536,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_mtr_eqp',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsStmtMotorizedEquip must be less than 255 characters in length'
         }
       }
@@ -546,7 +546,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_trn_liv',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsStmtTransportLivestock must be less than 255 characters in length'
         }
       }
@@ -556,7 +556,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_agn_site',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsStmtAssignedSite must be less than 255 characters in length'
         }
       }
@@ -566,7 +566,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_out_act_desc_serv_cln_rest',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsDescCleanupRestoration must be less than 255 characters in length'
         }
       }
@@ -577,7 +577,7 @@ module.exports = util.getSequelizeConnection().define(
       allowNull: false,
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsActDescFieldsPartySize must be less than 255 characters in length'
         }
       }
@@ -587,7 +587,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_exp_all_citation',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsExpAllCitations must be less than 255 characters in length'
         }
       }
@@ -597,7 +597,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_exp_nat_fst_pmts',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsExpNatForestPermits must be less than 255 characters in length'
         }
       }
@@ -607,7 +607,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'temp_outfitter_exp_oth_pmts',
       validate: {
         len: {
-          args: [1, 255],
+          args: [0, 255],
           msg: 'tempOutfitterFieldsExpOtherPermits must be less than 255 characters in length'
         }
       }
