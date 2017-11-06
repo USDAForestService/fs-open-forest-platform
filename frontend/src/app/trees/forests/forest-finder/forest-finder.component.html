@@ -6,6 +6,7 @@
     <form class="usa-forms" (submit)="dropDownClick(forestPicker.value)">
       <label>Select a forest:</label>
       <select #forestPicker>
+        <option selected disabled>Select a forest</option>
         <option *ngFor="let forest of forests" value="{{forest.id}}">{{forest.forestName}}</option>
       </select>
       <input class="usa-button" type="submit" value="Go to selected forest" />
