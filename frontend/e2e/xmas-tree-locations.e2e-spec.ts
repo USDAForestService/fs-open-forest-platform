@@ -54,7 +54,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(4);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeLocationLink().click();
     });
 
@@ -92,7 +92,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo(1);
-      browser.sleep(400);
+      browser.sleep(800);
       page.getTreeLocationLink().click();
     });
 
