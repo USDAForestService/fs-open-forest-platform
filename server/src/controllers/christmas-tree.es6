@@ -3,12 +3,7 @@
 const request = require('request');
 
 const vcapConstants = require('../vcap-constants.es6');
-const christmasTreeGuidelines = require('../models/forest-guidelines.es6');
-const forests = require('../models/forests.es6');
-const species = require('../models/species.es6');
-const forestSpecies = require('../models/forest-species.es6');
-const speciesNotes = require('../models/species-notes.es6');
-const forestLocations = require('../models/forest-locations.es6');
+const treesDb = require('../models/trees-db.es6');
 
 const christmasTree = {};
 
@@ -51,7 +46,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
 
 christmasTree.getForests = (req, res) => {
   
-  forests.findAll({
+  treesDb.forests.findAll({
     attributes: [
       'id',
       'forestName',
@@ -72,31 +67,31 @@ christmasTree.getForests = (req, res) => {
 
 christmasTree.getOneGuidelines = (req, res) => {
 
-  christmasTreeGuidelines.findOne({
+  treesDb.forests.findOne({
     where: {
       id: req.params.id
     },
     include: [
       {
-        model: forestSpecies,
+        model: treesDb.forestSpecies,
         include: [
           {
-            model: species,
+            model: treesDb.species,
             include: [
               {
-                model: speciesNotes
+                model: treesDb.speciesNotes
               }
             ]
           }
         ]
       },
       {
-        model: forestLocations
+        model: treesDb.forestLocations
       }
     ],
     order: [
-      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ],
-      [ forestLocations, 'id', 'ASC']
+      [ treesDb.forestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.forestLocations, 'id', 'ASC']
     ]
   })
     .then(app => {
