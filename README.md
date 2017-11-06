@@ -364,12 +364,12 @@ The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstrea
 While developing we spent time usability testing features with the correct users and applied majority feedback. 
 
 [This repository](https://github.com/flexion/fs-intake-module/tree/sprint-16-development/wiki) includes usability testing conducted by Flexion
-	• [Usability testing session 1 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-1-summary---May-12%2C-2017.md)
-	• [Usability testing session 2 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-2-summary-May-23%2C-2017.md)
-	• [Usability testing session 3 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-3-summary-(wizard-and-file-upload)--June-23%2C-2017.md)
-	• [Usability testing session 4 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-4-summary-July-19%2C-2017.md)
-	• [Usability testing session 5 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-5-summary-August-17%2C-2017.md)
-	• [Usability testing session 6 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-6-summary-August-24%2C-25-and-September-1%2C-2017.md)
-	• [Usability testing session 7 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-7-summary-September-12%2C-13%2C-%26-14%2C-2017.md)
-	• [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
-	• [Usability testing session 9 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usertesting.com-session-2-summary-October-27%2C-2017.md)
+* [Usability testing session 1 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-1-summary---May-12%2C-2017.md)
+* [Usability testing session 2 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-2-summary-May-23%2C-2017.md)
+* [Usability testing session 3 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-3-summary-(wizard-and-file-upload)--June-23%2C-2017.md)
+* [Usability testing session 4 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-4-summary-July-19%2C-2017.md)
+* [Usability testing session 5 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-5-summary-August-17%2C-2017.md)
+* [Usability testing session 6 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-6-summary-August-24%2C-25-and-September-1%2C-2017.md)
+* [Usability testing session 7 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-7-summary-September-12%2C-13%2C-%26-14%2C-2017.md)
+* [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
+* [Usability testing session 9 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usertesting.com-session-2-summary-October-27%2C-2017.md)
