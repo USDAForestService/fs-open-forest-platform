@@ -1,5 +1,5 @@
-<div class="usa-grid ">
-  <div>
+<section class="usa-section">
+  <div class="usa-grid">
     <form class="usa-forms" (submit)="dropDownClick(forestPicker.value)">
       <label>Select a forest:</label>
       <select #forestPicker>
@@ -10,4 +10,4 @@
     <hr>
     <app-map-view [forests]="forests"></app-map-view> 
   </div>
-</div>
+</section>
