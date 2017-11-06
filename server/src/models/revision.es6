@@ -4,7 +4,8 @@ const Sequelize = require('sequelize');
 const url = require('url');
 
 const sequelizeOptions = {
-  dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
+  dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
+  logging: false
 };
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);

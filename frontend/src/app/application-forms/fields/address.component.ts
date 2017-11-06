@@ -20,5 +20,8 @@ export class AddressComponent implements OnInit {
 
   ngOnInit() {
     this.applicationFieldsService.addAddress(this.parentForm, this.formName);
+    if (this.formName === 'primaryAddress') {
+      this.applicationFieldsService.addAddressValidation(this.parentForm, this.formName);
+    }
   }
 }

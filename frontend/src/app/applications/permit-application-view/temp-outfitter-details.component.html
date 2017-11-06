@@ -1,4 +1,5 @@
 <div class="usa-grid event-name no-padding padding-top-1">
+  <button *ngIf="application.status === 'Hold' && !isAdmin" class="usa-button-outline float-right" routerLink="/applications/temp-outfitters/{{application.appControlNumber}}/edit">Edit application</button>
   <div class="usa-width-three-fourths">
     <h1>{{ application.applicantInfo.organizationName }}
       <span *ngIf="['Submitted'].indexOf(application.status) === -1" class="usa-label" [ngClass]="{
@@ -12,8 +13,14 @@
 </div>
 <div class="usa-grid margin-top-1 no-padding">
   <div class="usa-width-one-half">
+    <h2>Application identification</h2>
+    <h3>Identification number:</h3>
+    <span>{{ application.applicationId }}</span>
+    <h3>Permit application type:</h3>
+    <span>Temp outfitter</span>
     <h2 class="app-item-label padding-right-1">Applicant information</h2>
     <div class="margin-bottom-1">
+      <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
       <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
       <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress2 }}</span>
       <span class="display-block">
@@ -47,8 +54,11 @@
         <span *ngIf="!application.tempOutfitterFields.individualIsCitizen">false</span>
       </span>
       <h2 class="app-item-label padding-right-1">File uploads</h2>
+
       <ul *ngFor="let file of files">
-        <li><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
+        <li *ngIf="file.documentType !== 'good-standing-evidence' ||
+        ['Person', 'State Government', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
+        ><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
       </ul>
 
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
