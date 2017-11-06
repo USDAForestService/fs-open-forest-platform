@@ -39,10 +39,10 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Douglas-fir');
       });
-      it('should display Hemlock', () => {
+      it('should display Mountain Hemlock', () => {
         const treeOne = page.getTreeSpecies('not-recommended', 1);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Hemlock');
+        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Mountain Hemlock');
       });
     });
 
@@ -87,20 +87,20 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Douglas-fir');
       });
-      it('should display Ponderosa pine third', () => {
+      it('should display Subalpine Fir third', () => {
         const treeOne = page.getTreeSpecies('recommended', 2);
+        expect<any>(treeOne.isDisplayed()).toBeTruthy();
+        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
+      });
+      it('should display Ponderosa pine fourth', () => {
+        const treeOne = page.getTreeSpecies('not-recommended', 0);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Ponderosa Pine');
       });
-      it('should display Lodgepole pine fourth', () => {
-        const treeOne = page.getTreeSpecies('recommended', 3);
+      it('should display Lodgepole Pine fifth', () => {
+        const treeOne = page.getTreeSpecies('not-recommended', 1);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Lodgepole Pine');
-      });
-      it('should display Subalpline Fir fifth', () => {
-        const treeOne = page.getTreeSpecies('recommended', 4);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
       });
     });
   });
@@ -195,25 +195,25 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Grand Fir');
       });
-      it('should display Ponderosa pine fourth', () => {
+      it('should display Lodgepole pine fourth', () => {
         const treeOne = page.getTreeSpecies('recommended', 3);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Ponderosa Pine');
-      });
-      it('should display Lodgepole pine fifth', () => {
-        const treeOne = page.getTreeSpecies('recommended', 4);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Lodgepole Pine');
       });
-      it('should display Larch sixth', () => {
+      it('should display Western Red Cedar pine fifth', () => {
+        const treeOne = page.getTreeSpecies('recommended', 4);
+        expect<any>(treeOne.isDisplayed()).toBeTruthy();
+        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western Red Cedar');
+      });
+      it('should display Subalpine Fir sixth', () => {
         const treeOne = page.getTreeSpecies('recommended', 5);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Larch');
+        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
       });
-      it('should display Subalpline Fir seventh', () => {
+      it('should display Western White Pine seventh', () => {
         const treeOne = page.getTreeSpecies('recommended', 6);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
+        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western White Pine');
       });
     });
     describe('prohibited species', () => {
