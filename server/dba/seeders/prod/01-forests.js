@@ -19,7 +19,7 @@ module.exports = {
       {
         id: 2,
         forest_name: 'Flathead',
-        forest_url: 'https://www.fs.usda.gov/flathead',
+        forest_url: 'https://www.fs.usda.gov/main/flathead',
         tree_height: 0,
         stump_height: 8,
         stump_diameter: 4,
@@ -32,7 +32,7 @@ module.exports = {
       {
         id: 3,
         forest_name: 'Mt. Hood',
-        forest_url: 'https://www.fs.usda.gov/mthood',
+        forest_url: 'https://www.fs.usda.gov/main/mthood',
         tree_height: 12,
         stump_height: 6,
         stump_diameter: 6,
@@ -45,7 +45,7 @@ module.exports = {
       {
         id: 4,
         forest_name: 'Shoshone',
-        forest_url: 'https://www.fs.usda.gov/shoshone',
+        forest_url: 'https://www.fs.usda.gov/main/shoshone',
         tree_height: 20,
         stump_height: 4,
         stump_diameter: 0,

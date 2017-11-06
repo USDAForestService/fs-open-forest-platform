@@ -45,7 +45,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
 };
 
 christmasTree.getForests = (req, res) => {
-  
+
   treesDb.forests.findAll({
     attributes: [
       'id',
@@ -90,7 +90,8 @@ christmasTree.getOneGuidelines = (req, res) => {
     ],
     order: [
       [ treesDb.forestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
-      [ treesDb.forestLocations, 'id', 'ASC']
+      [ treesDb.forestLocations, 'id', 'ASC'],
+      [ treesDb.forestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {

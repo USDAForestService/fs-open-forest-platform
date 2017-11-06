@@ -19,13 +19,13 @@ module.exports = {
         id: 3,
         forest_id: 1,
         species_id: 5,
-        status: 'recommended'
+        status: 'not recommended'
       },
       {
         id: 4,
         forest_id: 1,
         species_id: 10,
-        status: 'recommended'
+        status: 'not recommended'
       },
       {
         id: 5,
@@ -61,7 +61,7 @@ module.exports = {
         id: 14,
         forest_id: 2,
         species_id: 5,
-        status: 'recommended'
+        status: 'not recommended'
       },
       {
         id: 15,
@@ -72,7 +72,7 @@ module.exports = {
       {
         id: 16,
         forest_id: 2,
-        species_id: 11,
+        species_id: 21,
         status: 'recommended'
       },
       {
@@ -102,7 +102,7 @@ module.exports = {
       {
         id: 23,
         forest_id: 3,
-        species_id: 12,
+        species_id: 18,
         status: 'not recommended'
       },
       {
@@ -111,7 +111,12 @@ module.exports = {
         species_id: 16,
         status: 'prohibited'
       },
-
+      {
+        id: 25,
+        forest_id: 3,
+        species_id: 19,
+        status: 'not recommended'
+      },
       {
         id: 29,
         forest_id: 4,
@@ -147,7 +152,13 @@ module.exports = {
         forest_id: 4,
         species_id: 17,
         status: 'recommended'
-      }
+      },
+      {
+        id: 35,
+        forest_id: 2,
+        species_id: 22,
+        status: 'recommended'
+      },
     ];
     return queryInterface.bulkInsert('forestSpecies', forestSpecies);
   },

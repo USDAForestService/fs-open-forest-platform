@@ -4,7 +4,7 @@
     Other areas of the forest are also available for tree cutting and more information can be found on the forest’s <a href="{{forest.forestUrl}}" target="_blank" attr.aria-label="Link to {{forest.forestName}} National Forest website. Opens in a new window.">website</a> or at ranger district offices.</p>
 
 
-  <div class="trees-map-container" *ngFor="let location of forest.locations | filter: 'type': 'district'">
+  <div [attr.id]="'tree-locations-maps-'+ i" class="trees-map-container" *ngFor="let location of forest.locations | filter: 'type': 'district'; let i=index">
       <div>
         <figcaption><a href="/assets/img/{{ location.imageFilename }}-map.png" onError="src='assets/img/hood-map.png'">Christmas tree map of {{location.description}}. (Click to view larger map)</a></figcaption>
         <a href="/assets/img/{{ location.imageFilename }}-map.png" onError="src='assets/img/hood-map.png'"><img src="/assets/img/{{ location.imageFilename }}-map-thumb.png" onError="src='assets/img/hood-map-thumb.png'" alt="Christmas tree map of {{location.description}}" aria-hidden="true" /></a>
