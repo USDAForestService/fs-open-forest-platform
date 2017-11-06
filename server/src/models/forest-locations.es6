@@ -1,60 +1,43 @@
 'use strict';
 
-const Sequelize = require('sequelize');
-const url = require('url');
-
-const sequelizeOptions = {
-  dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0]
+module.exports = function(sequelize, DataTypes) {
+const forestLocations = sequelize.define('forestLocations',
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        field: 'id',
+        allowNull: false
+      },
+      forestId: {
+        type: DataTypes.INTEGER,
+        field: 'forest_id',
+        allowNull: false
+      },
+      district: {
+        type: DataTypes.STRING,
+        field: 'district'
+      },
+      allowed: {
+        type: DataTypes.BOOLEAN,
+        field: 'allowed'
+      },
+      type: {
+        type: DataTypes.STRING,
+        field: 'type'
+      },
+      description: {
+        type: DataTypes.STRING,
+        field: 'description'
+      },
+      imageFilename: {
+        type: DataTypes.STRING,
+        field: 'image_filename'
+      }
+    },
+    {
+      timestamps: false
+    });
+  return forestLocations;
 };
-
-if (
-  url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
-  url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
-) {
-  sequelizeOptions.dialectOptions = {
-    ssl: true
-  };
-}
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
-
-module.exports = sequelize.define(
-  'forestLocations',
-  {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      field: 'id',
-      allowNull: false
-    },
-    forestId: {
-      type: Sequelize.INTEGER,
-      field: 'forest_id',
-      allowNull: false
-    },
-    district: {
-      type: Sequelize.STRING,
-      field: 'district'
-    },
-    allowed: {
-      type: Sequelize.BOOLEAN,
-      field: 'allowed'
-    },
-    type: {
-      type: Sequelize.STRING,
-      field: 'type'
-    },
-    description: {
-      type: Sequelize.STRING,
-      field: 'description'
-    },
-    imageFilename: {
-      type: Sequelize.STRING,
-      field: 'image_filename'
-    }
-  },
-  {
-    timestamps: false
-  }
-);
