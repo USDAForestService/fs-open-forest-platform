@@ -91,11 +91,11 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
-        advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(512)]],
+        advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
         noPromotionalWebsite: ['', Validators.maxLength(10)],
-        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
-        experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        experienceList: ['', [alphanumericValidator(), Validators.maxLength(255)]]
       })
     });
 
