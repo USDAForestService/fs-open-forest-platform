@@ -3,15 +3,11 @@
 const request = require('request');
 
 const vcapConstants = require('../vcap-constants.es6');
-const christmasTreeRegulations = require('../models/forest-regulations.es6');
-const species = require('../models/species.es6');
-const forestSpecies = require('../models/forest-species.es6');
-const speciesNotes = require('../models/species-notes.es6');
-const forestLocations = require('../models/forest-locations.es6');
+const treesDb = require('../models/trees-db.es6');
 
 const christmasTree = {};
 
-const translateRegulationsFromDatabaseToClient = input => {
+const translateGuidelinesFromDatabaseToClient = input => {
   return {
     forest: {
       id: input.id,
@@ -28,7 +24,6 @@ const translateRegulationsFromDatabaseToClient = input => {
           id: species.species.id,
           name: species.species.name,
           webUrl: species.species.webUrl,
-          photos: species.species.photos ? species.species.photos.toString('base64') : species.species.photos,
           status: species.status,
           notes: species.species.speciesNotes.map((notes)=>{
             return notes.note;
@@ -49,40 +44,60 @@ const translateRegulationsFromDatabaseToClient = input => {
   }; 
 };
 
+christmasTree.getForests = (req, res) => {
 
-christmasTree.getOneRegulations = (req, res) => {
+  treesDb.forests.findAll({
+    attributes: [
+      'id',
+      'forestName',
+      'description'
+    ]
+  }).then(results => {
+    if (results) {
+      res.status(200).json(results);
+    } else {
+      res.status(404).send();
+    }
+  })
+  .catch(error => {
+    res.status(400).json(error);
+  });
+};
 
-  christmasTreeRegulations.findOne({
+
+christmasTree.getOneGuidelines = (req, res) => {
+
+  treesDb.forests.findOne({
     where: {
       id: req.params.id
     },
     include: [
       {
-        model: forestSpecies,
+        model: treesDb.forestSpecies,
         include: [
           {
-            model: species,
+            model: treesDb.species,
             include: [
               {
-                model: speciesNotes
+                model: treesDb.speciesNotes
               }
             ]
           }
         ]
       },
       {
-        model: forestLocations
+        model: treesDb.forestLocations
       }
     ],
     order: [
-      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ],
-      [ forestLocations, 'id', 'ASC'],
-      [ forestSpecies, 'id', 'ASC']
+      [ treesDb.forestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.forestLocations, 'id', 'ASC'],
+      [ treesDb.forestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateRegulationsFromDatabaseToClient(app));
+        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
