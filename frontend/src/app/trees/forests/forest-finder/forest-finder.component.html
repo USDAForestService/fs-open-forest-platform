@@ -3,12 +3,17 @@
     <div class="breadcrumbs">
       <a routerLink="/xmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
     </div>
-    <form class="usa-forms" (submit)="dropDownClick(forestPicker.value)">
-      <label>Select a forest:</label>
-      <select #forestPicker>
-        <option selected disabled>Select a forest</option>
-        <option *ngFor="let forest of forests" value="{{forest.id}}">{{forest.forestName}}</option>
-      </select>
+    <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.id)">
+      <label>Find a Forest:</label>
+      <input name="selectForest"
+             auto-complete
+             placeholder="Type a forest name, city, or state..."
+             [(ngModel)]="selectedForest"
+             [source]="forestSearchResults.bind(this)"
+             [list-formatter]="forestListFormatter"
+             value-property-name="id"
+             display-property-name="description"
+      />
       <input class="usa-button" type="submit" value="Go to selected forest" />
     </form>
     <hr>

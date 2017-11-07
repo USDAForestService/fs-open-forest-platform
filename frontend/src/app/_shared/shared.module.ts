@@ -10,9 +10,10 @@ import { SectionHeadingComponent } from './../sidebar/section-heading.component'
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 @NgModule({
-  imports: [CommonModule, AppRoutingModule, InViewportModule.forRoot()],
+  imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
   declarations: [
     TrackScrollDirective,
     AppButtonComponent,
@@ -30,6 +31,7 @@ import { InViewportModule } from 'ng-in-viewport';
     InViewportModule,
     ReactiveFormsModule,
     FormsModule,
+    Ng2AutoCompleteModule,
     AppButtonComponent,
     SectionHeadingComponent,
     SpacesToDashesPipe,
