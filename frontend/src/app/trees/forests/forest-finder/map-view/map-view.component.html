@@ -1,7 +1,8 @@
-<div>
-  <div *ngFor="let forest of forests">
+<div *ngFor="let i of rows" class="usa-grid">
+  <div *ngFor="let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow">
     <div class="usa-width-one-half">
-      <p>{{forest.forestName}} National Forest</p>
+      <h5>{{forest.forestName}} National Forest</h5>
+      <p>{{forest.description}}</p>
       <a href="xmas-trees/forests/{{forest.id}}/tree-guidelines">
         <img src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt="{{forest.forestName}} Map">
       </a>
