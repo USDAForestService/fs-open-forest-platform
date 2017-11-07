@@ -24,20 +24,20 @@ passportConfig.setup = app => {
 };
 
 passportConfig.getPassportUser = (req, res) => {
-  res.send(util.getUser(req));
+  return res.send(util.getUser(req));
 };
 
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
   if (req.user.role === 'user') {
-    res.redirect(
+    return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
         vcapConstants.baseUrl + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
     req.logout();
-    res.redirect(vcapConstants.intakeClientBaseUrl);
+    return res.redirect(vcapConstants.intakeClientBaseUrl);
   }
 };
 

@@ -78,7 +78,7 @@ loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
   // destroy the session
   req.logout();
   // res.redirect doesn't pass the Blink's Content Security Policy directive
-  res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}'</script>`);
+  return res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}'</script>`);
 });
 
 loginGov.router.get(
@@ -87,7 +87,7 @@ loginGov.router.get(
   passport.authenticate('oidc', { failureRedirect: vcapConstants.intakeClientBaseUrl }),
   (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
-    res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in'</script>`);
+    return res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in'</script>`);
   }
 );
 

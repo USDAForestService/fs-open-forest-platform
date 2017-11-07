@@ -9,6 +9,7 @@ import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
+import * as sinon from 'sinon';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -42,15 +43,11 @@ describe('AppComponent', () => {
     })
   );
 
-  it('should go to hashtag', () => {
-    component.gotoHashtag('main-content', new MouseEvent('click'));
-    const compiled = fixture.debugElement.nativeElement;
-    const main = compiled.querySelector('#main-content');
-    main.dispatchEvent(new Event('focus'));
-    fixture.detectChanges();
-    const focus = compiled.querySelector(':focus');
-
-    expect(focus).toBe(main);
+  it('should call go to hashtag', () => {
+    const spy = sinon.spy(component, 'gotoHashtag');
+    component.gotoHashtag('main', new Event('click'));
+    component.gotoHashtag(null, new Event('click'));
+    expect(spy.calledTwice).toBeTruthy();
   });
 
   it(
