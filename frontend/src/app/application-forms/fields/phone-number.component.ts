@@ -17,20 +17,20 @@ export class PhoneNumberComponent implements OnInit {
 
   ngOnInit() {
     const dayPhone = this.formBuilder.group({
-      areaCode: [],
+      areaCode: [null, Validators.maxLength(3)],
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
-      number: [],
-      prefix: [],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl('dayPhone', dayPhone);
 
     const eveningPhone = this.formBuilder.group({
-      areaCode: [],
-      extension: [],
-      number: [],
-      prefix: [],
-      tenDigit: ['']
+      areaCode: [null, Validators.maxLength(3)],
+      extension: [null, Validators.maxLength(6)],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
+      tenDigit: ['', Validators.maxLength(10)]
     });
     this.parentForm.addControl('eveningPhone', eveningPhone);
 

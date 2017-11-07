@@ -3,48 +3,96 @@
 const AWS = require('aws-sdk');
 const moment = require('moment');
 const request = require('request-promise');
+const Sequelize = require('sequelize');
+const url = require('url');
 
 const Revision = require('./models/revision.es6');
 const vcapConstants = require('./vcap-constants.es6');
 
-const extractField = (errorObj, withArg) => {
-  if (withArg && errorObj.property === 'instance') {
-    return errorObj.argument;
-  } else if (withArg) {
-    // assumption is that the string otherwise is 'instance.<field>'
-    return errorObj.property.substring(9) + '.' + errorObj.argument;
-  } else {
-    return errorObj.property.substring(9);
-  }
-};
-
 let util = {};
+
+util.noncommercialOrgTypes = ['Person', 'Corporation'];
 
 util.datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
-util.collateErrors = (result, errorArr, prefix) => {
-  for (var error of result.errors) {
-    if (error.name === 'required') {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (
-      error.name === 'enum' ||
-      error.name === 'pattern' ||
-      error.name === 'type' ||
-      error.name === 'minLength' ||
-      error.name === 'maxLength'
-    ) {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
-    }
-  }
+util.stateCodes = [
+  'AK',
+  'AL',
+  'AR',
+  'AZ',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'FL',
+  'GA',
+  'HI',
+  'IA',
+  'ID',
+  'IL',
+  'IN',
+  'KS',
+  'KY',
+  'LA',
+  'MA',
+  'MD',
+  'ME',
+  'MI',
+  'MN',
+  'MO',
+  'MS',
+  'MT',
+  'NC',
+  'ND',
+  'NE',
+  'NH',
+  'NJ',
+  'NM',
+  'NV',
+  'NY',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VA',
+  'VT',
+  'WA',
+  'WI',
+  'WV',
+  'WY'
+];
 
-  return errorArr;
-};
+util.statusOptions = ['Submitted', 'Incomplete', 'Hold', 'Review', 'Cancelled', 'Accepted', 'Rejected', 'Expired'];
 
 util.validateDateTime = input => {
   return (
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
     moment(input, util.datetimeFormat).isValid()
   );
+};
+
+util.getSequelizeConnection = () => {
+  const sequelizeOptions = {
+    dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
+    logging: false
+  };
+
+  if (
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
+  ) {
+    sequelizeOptions.dialectOptions = {
+      ssl: true
+    };
+  }
+
+  return new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 };
 
 util.middleLayerAuth = () => {

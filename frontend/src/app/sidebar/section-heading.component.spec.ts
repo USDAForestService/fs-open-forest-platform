@@ -3,6 +3,7 @@ import { Component, Renderer2, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '
 import { SectionHeadingComponent } from './section-heading.component';
 import { UtilService } from '../_services/util.service';
 import { environment } from '../../environments/environment';
+import * as sinon from 'sinon';
 
 describe('SectionHeadingComponent', () => {
   let component: SectionHeadingComponent;
@@ -31,16 +32,6 @@ describe('SectionHeadingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  // it(
-  //   'should set current section',
-  //   inject([UtilService], util => {
-  //     component.elementInView({ value: 'test', target: '.target' });
-  //     expect(util.inView).toEqual(true);
-  //     component.elementInView({ value: false, target: '.target' });
-  //     expect(util.inView).toEqual(false);
-  //   })
-  // );
 });
 
 class MockUtilService {
