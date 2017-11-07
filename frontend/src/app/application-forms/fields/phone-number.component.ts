@@ -13,7 +13,7 @@ export class PhoneNumberComponent implements OnInit {
   eveningPhone = 'eveningPhone';
   additionalPhone = false;
 
-  constructor(private formBuilder: FormBuilder, private service: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, private afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     const dayPhone = this.formBuilder.group({
