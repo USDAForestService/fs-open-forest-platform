@@ -233,8 +233,8 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
 aws-sdk@^2.62.0:
-  version "2.141.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.141.0.tgz#3d96a5970fd9f540ceabcc1d4baeb33b71583aa7"
+  version "2.146.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.146.0.tgz#e2d75585a030dae116ae32cbf42c496688d04efb"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -3046,8 +3046,8 @@ nocache@2.0.0:
   resolved "https://registry.yarnpkg.com/nocache/-/nocache-2.0.0.tgz#202b48021a0c4cbde2df80de15a17443c8b43980"
 
 nock@^9.0.13:
-  version "9.0.27"
-  resolved "https://registry.yarnpkg.com/nock/-/nock-9.0.27.tgz#3d6f979fb3bcbd45610778662bae09bfcf282a51"
+  version "9.0.28"
+  resolved "https://registry.yarnpkg.com/nock/-/nock-9.0.28.tgz#99b879ce0e4827f421e42e47356287d6b4c2b58c"
   dependencies:
     chai ">=1.9.2 <4.0.0"
     debug "^2.2.0"
@@ -3285,8 +3285,8 @@ open@^0.0.5:
   resolved "https://registry.yarnpkg.com/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
 openid-client@^1.13.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.16.0.tgz#2ae9c55d6f5646aa469e146e63bcd5351f31fc2a"
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-1.17.0.tgz#75b54cb2c36efe36bf6506523b72c68cf08c002c"
   dependencies:
     base64url "^2.0.0"
     create-error-class "^3.0.2"
@@ -4093,8 +4093,8 @@ sequelize-cli@^3.0.0:
     yargs "^8.0.1"
 
 sequelize@^4.13.6:
-  version "4.20.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.20.1.tgz#97a51ff46c17070dd7fa6fcdcf54cee918d77a77"
+  version "4.22.5"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.22.5.tgz#5771f8dc2173c61366d77b9fb89aeb34b0522435"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"
