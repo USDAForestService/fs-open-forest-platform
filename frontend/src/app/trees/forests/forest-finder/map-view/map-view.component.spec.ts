@@ -6,7 +6,7 @@ import { forest } from '../../../_mocks/forest';
 
 import { MapViewComponent } from './map-view.component';
 
-fdescribe('MapViewComponent', () => {
+describe('MapViewComponent', () => {
   let component: MapViewComponent;
   let fixture: ComponentFixture<MapViewComponent>;
 

@@ -9,7 +9,7 @@ import {HttpModule, XHRBackend, ResponseOptions, Response} from '@angular/http';
 import {MockBackend} from '@angular/http/testing';
 import {ScalarObservable} from 'rxjs/observable/ScalarObservable';
 
-fdescribe('ForestFinderComponent', () => {
+describe('ForestFinderComponent', () => {
   let component: ForestFinderComponent;
   let fixture: ComponentFixture<ForestFinderComponent>;
 
