@@ -12,6 +12,7 @@ const dbConfig = {
   host: dbParams.hostname,
   port: dbParams.port,
   dialect: dbParams.protocol.split(':')[0],
+  seederStorage: 'sequelize',
   logging: console.log
 };
 
