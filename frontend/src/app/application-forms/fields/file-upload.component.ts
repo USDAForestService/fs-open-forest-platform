@@ -56,9 +56,11 @@ export class FileUploadComponent implements DoCheck, OnInit {
   onAfterAddingFile(uploader) {
     if (uploader.queue.length > 0) {
       this.errorMessage = '';
+      this.fieldsService.addOneFile();
     }
     if (uploader.queue.length > 1) {
       uploader.removeFromQueue(uploader.queue[0]);
+      this.fieldsService.removeOneFile();
     }
     this.field.patchValue(uploader.queue[0].file.name);
     this.field.markAsTouched();
@@ -109,7 +111,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
       }
     }
     if (this.checkFileUploadHasError) {
-      if (this.required && !this.uploader.queue[0]) {
+      if (this.required && !this.uploader.queue[0] && !this.field.value) {
         this.errorMessage = `${this.name} is required.`;
       }
     }
