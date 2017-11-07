@@ -172,6 +172,28 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "Application not found"
+  /forests/{id}/regulations:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve existing christmas tree regulations"
+      description: "Retrieve existing christmas tree regulations using the forest id number"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "Forest ID number"
+        required: true
+        type: "uuid"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Application not found"
   /uptime:
     get:
       tags:
