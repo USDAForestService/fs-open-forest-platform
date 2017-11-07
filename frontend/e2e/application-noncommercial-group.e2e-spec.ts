@@ -87,7 +87,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.organization-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
-    element(by.id('day-ext')).sendKeys('2222');
+    element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();
     element(by.id('evening-phone')).sendKeys('1111111111');
     element(by.id('evening-ext')).sendKeys('1111');
