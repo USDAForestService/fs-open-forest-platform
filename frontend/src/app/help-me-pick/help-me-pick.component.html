@@ -5,8 +5,8 @@
     </div>
     <h1 id="skip-nav-target" tabindex="-1">{{ title }}</h1>
     <div *ngIf="id == 1">
-      <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
-      <a class="usa-button no" type="button" routerLink="/help-me-pick/2">No</a>
+      <a class="usa-button yes" attr.aria-label="Yes, the purpose of your activity is selling goods or services" type="button" routerLink="/help-me-pick/5">Yes</a>
+      <a class="usa-button no" attr.aria-label="No, the purpose of your activity is not selling goods or services" type="button" routerLink="/help-me-pick/2">No</a>
     </div>
 
     <div *ngIf="id == 2">

@@ -10,9 +10,9 @@
     <input id="participants" type="number" formControlName="numberParticipants" aria-required="true" min="1" />
     <app-error-message fieldId="participants-error" name="Participants" [control]="noncommercialFields.controls.numberParticipants"></app-error-message>
 
-    <label class="usa-input" for="spectators">Estimated number of spectators</label>
-    <span class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators.</span>
-    <input id="spectators" type="number" formControlName="numberSpectators" aria-required="true" />
+    <label id="spectators-label" class="usa-input">Estimated number of spectators</label>
+    <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as at a sporting event), please note how many additional people will be spectators.</span>
+    <input id="spectators" type="number" formControlName="numberSpectators" aria-labelledby="spectators-label spectators-hint-text" aria-required="true" />
     <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
 
     <label class="usa-input" for="activity-description">Description of proposed activity</label>

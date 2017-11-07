@@ -23,7 +23,7 @@
     <input id="have-citations" type="checkbox" formControlName="haveCitations" />
     <label id="have-citations-label" class="usa-input" for="have-citations">{{ pointOfView }} have been issued citations or violations in association with outfitting and guiding activities.</label>
     <ng-container *ngIf="parentForm.get('experienceFields.haveCitations').value">
-      <label class="usa-input" for="list-all-other-permits">List all citations or violations received in association with outfitting and guiding activities.</label>
+      <label class="usa-input" for="list-all-citations">List all citations or violations received in association with outfitting and guiding activities.</label>
       <textarea id="list-all-citations" formControlName="listAllCitations" aria-required="true"></textarea>
       <app-error-message fieldId="list-all-citations-error" name="A list of your citations or violations" [control]="parentForm.get('experienceFields.listAllCitations')"></app-error-message>
     </ng-container>
