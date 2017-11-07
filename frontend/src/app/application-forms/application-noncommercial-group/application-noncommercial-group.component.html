@@ -61,7 +61,7 @@
       <ng-container formGroupName="applicantInfo">
         <input id="add-secondary-permit-holder" type="checkbox" formControlName="addSecondaryPermitHolder" />
         <label id="add-secondary-permit-holder-label" class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
-        <p class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
+        <p id="add-secondary-permit-holder-hint-text" class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
       </ng-container>
 
       <div [hidden]="!applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
@@ -88,8 +88,11 @@
       <fieldset>
         <legend>Event details</legend>
 
-        <label class="usa-input" for="name">Event Name</label>
-        <input id="name" formControlName="eventName" type="text" aria-required="true" />
+        <label id="name-label" class="usa-input">Event Name</label>
+        <input id="name" formControlName="eventName" type="text" aria-required="true"
+          [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.eventName, 'name-label', 'name-error')"
+          [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.eventName)"
+        />
         <app-error-message fieldId="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
 
         <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
@@ -98,8 +101,11 @@
 
       <fieldset>
         <legend>Signature</legend>
-        <label class="usa-input" for="signature">Type your initials here as a signature on your application.</label>
-        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true" />
+        <label id="signature-label" class="usa-input">Type your initials here as a signature on your application.</label>
+        <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
+          [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
+          [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
+        />
         <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
       </fieldset>
 
