@@ -4186,6 +4186,10 @@ ng-in-viewport@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ng-in-viewport/-/ng-in-viewport-1.2.0.tgz#ec6f37f9b43f94f718be6d4a1f25f7ad85a33de3"
 
+ng2-auto-complete@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/ng2-auto-complete/-/ng2-auto-complete-0.12.0.tgz#9a78c39c5012404e7bc8365c03815ab7f68cea3d"
+
 ng2-file-upload@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.2.1.tgz#5563c5dfd6f43fbfbe815c206e343464a0a6a197"
