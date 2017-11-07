@@ -123,7 +123,9 @@ locations at its discretion.</p>
       {
         sectionName: 'Application due dates',
         sectionCopy: `
-        <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">Administration of the temporary permits varies by pool and is specified in the lands or river pool permit documents found here</a>.</p>
+        <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">
+        Administration of the temporary permits varies by pool and is specified in the lands or river pool
+        permit documents found here</a>.</p>
         <p>Ideally, there would be plenty of days available to allow all temporary use permits
 to be issued on a first-come, first-served basis. However, some permit pools are
 limited and with high demand, there are simply not enough days to go around. In
