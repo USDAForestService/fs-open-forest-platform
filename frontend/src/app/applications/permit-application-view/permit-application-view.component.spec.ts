@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
@@ -6,23 +6,30 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { PermitApplicationViewComponent } from './permit-application-view.component';
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import * as sinon from 'sinon';
 
 describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
+  let mockActivatedRoute: MockActivatedRoute;
+  let mockRouter: MockRouter;
 
   beforeEach(
     async(() => {
+      mockActivatedRoute = new MockActivatedRoute({ id: '1', type: 'noncommercial' });
+      mockRouter = new MockRouter();
       TestBed.configureTestingModule({
         declarations: [PermitApplicationViewComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: AlertService, useClass: MockApplicationService },
-          { provide: AuthenticationService, useClass: MockApplicationService }
-        ],
-        imports: [RouterTestingModule]
+          { provide: AuthenticationService, useClass: MockApplicationService },
+          { provide: Router, useValue: mockRouter },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute }
+        ]
       }).compileComponents();
     })
   );
@@ -83,6 +90,11 @@ describe('PermitApplicationViewComponent', () => {
     expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-secondary');
   });
 
+  it('provideReasonOrCancel should set button text on Review', () => {
+    component.provideReasonOrCancel('Review');
+    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-grey');
+  });
+
   it('should set fixedCtas to false on enter', () => {
     component.enter();
     expect(component.fixedCtas).toBeFalsy();
@@ -93,12 +105,22 @@ describe('PermitApplicationViewComponent', () => {
     expect(component.fixedCtas).toBeTruthy();
   });
 
-  it('should add messages when status changes', () => {
-    const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
-    component.handleUpdateResponse('Accepted');
-    component.handleUpdateResponse('Hold');
-    component.handleUpdateResponse('Rejected');
-    expect(alertSpy.calledThrice).toBeTruthy();
+  it(
+    'should add messages when status changes',
+    inject([AlertService], alert => {
+      const alertSpy = sinon.spy(alert, 'addSuccessMessage');
+      component.handleUpdateResponse('Accepted');
+      component.handleUpdateResponse('Hold');
+      component.handleUpdateResponse('Rejected');
+      expect(alertSpy.calledThrice).toBeTruthy();
+      component.handleUpdateResponse('Cancelled');
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['admin/applications']);
+    })
+  );
+
+  it('should redirect on application cancel', () => {
+    component.applicationCancelled(component.application);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['user/applications']);
   });
 });
 

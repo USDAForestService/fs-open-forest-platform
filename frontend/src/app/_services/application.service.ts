@@ -14,7 +14,7 @@ import { SpecialUseApplication } from '../_models/special-use-application';
 export class ApplicationService {
   private endpoint = environment.apiUrl + 'permits/applications';
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, public router: Router) {}
 
   create(body, type, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
