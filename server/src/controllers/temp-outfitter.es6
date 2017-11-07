@@ -273,13 +273,42 @@ const translateFromIntakeToMiddleLayer = application => {
     tempOutfitterFields: {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
+      // Start date
       activityDescription:
-        ' Location Description: ' +
+        application.tempOutfitterFieldsActDescFieldsStartDateTime +
+        '\n' +
+        // End date
+        application.tempOutfitterFieldsActDescFieldsEndDateTime +
+        '\n' +
+        // Anticipated number of trips
+        application.tempOutfitterFieldsActDescFieldsNumTrips +
+        '\n' +
+        // Anticipated party size
+        application.tempOutfitterFieldsActDescFieldsPartySize +
+        '\n' +
+        // Location Description
         application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        ' Services Provided: ' +
+        '\n' +
+        // Services Provided
         application.tempOutfitterFieldsActDescFieldsServProvided +
-        ' Audience Description: ' +
-        application.tempOutfitterFieldsActDescFieldsAudienceDesc,
+        '\n' +
+        // Audience Description
+        application.tempOutfitterFieldsActDescFieldsAudienceDesc +
+        '\n' +
+        // List facilities needed
+        application.tempOutfitterFieldsActDescFieldsListGovFacilities +
+        '\n' +
+        // List of temporary improvements or signs that you propose to use
+        application.tempOutfitterFieldsActDescFieldsListTempImprovements +
+        '\n' +
+        // Description of the proposed operations involving motorized equipment
+        application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
+        '\n' +
+        // Description of the proposed operations involving the transportation of livestock, and whether grazing is requested
+        application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
+        '\n' +
+        // Description of cleanup and restoration during and after the proposed operations
+        application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
       clientCharges: application.tempOutfitterFieldsClientCharges,
