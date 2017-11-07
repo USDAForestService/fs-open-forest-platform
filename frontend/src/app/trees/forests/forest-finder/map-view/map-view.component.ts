@@ -6,8 +6,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MapViewComponent implements OnInit {
   @Input() forests: any;
+  itemsPerRow: number;
+  rows: any;
 
   ngOnInit() {
+    this.itemsPerRow = 2
+    this.rows = Array.from(Array(Math.ceil(this.forests.length / this.itemsPerRow)).keys())
   }
 
 }
