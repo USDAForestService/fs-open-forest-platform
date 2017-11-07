@@ -1,6 +1,10 @@
+cd server;
+yarn start &
+serverid=$!
+sleep 1
 cd frontend;
 ng serve &
-serverid=$!
+clientserverid=$!
 sleep 30
 pa11y-ci
 pa11yreturncode=$?
@@ -12,4 +16,5 @@ else
 fi
 
 kill -int $serverid
+kill -int $clientserverid
 exit $pa11yreturncode

@@ -3,36 +3,45 @@
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 
 # U.S. Forest Service Intake Module
-Module for intake of special use applications for Forest Service Application Permits.
+### Module for intake of special use applications for Forest Service Application Permits.
 
-## Contributing
+## Welcome
+The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify their permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
+
+## Opportunity Statement
+The opportunity statement = the problem we are trying to solve with the ePermitting project
+
+We had the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
+
+## Development
+### Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md) for additional information.
 
-## Public domain
+### Public domain
 This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
 
 > This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 >
 > All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
 
-## U.S. Forest Service intake module development
+### U.S. Forest Service intake module development
 
-### Requirements:
+#### Requirements:
 
-#### Package Manager
+##### Package Manager
 
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
-#### Node
+##### Node
 
 Install [Node ^6.10.3](https://nodejs.org/en/)
 
-#### Git
+##### Git
 
 Install [Git](https://git-scm.com/)
 
-### Clone the repository
+#### Clone the repository
 
 `git clone [repository url] fs-intake-module`
 
@@ -40,13 +49,13 @@ Navigate to cloned repo
 
 `cd fs-intake-module`
 
-### Server development
+#### Server development
 
-#### Database
+##### Database
 
 A running Postgresql database is required in order to run the server locally.  Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
-#### Environment Variables
+##### Environment Variables
 
 There are environment variables that are required to be set in order to run tests
 and to run the server in general.  Please set up these environment variables either in your shell or on the command line.
@@ -59,7 +68,7 @@ and on the command line as part of a command:
 
 `ENV_VAR=something ANOTHER_ENV_VAR=somethingelse <rest of command>`
 
-##### The following environment variables are required to run the application locally or with CircleCI:
+###### The following environment variables are required to run the application locally or with CircleCI:
 
 In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the VCAP_SERVICES variable.
 
@@ -174,27 +183,27 @@ VCAP_SERVICES
 }
 
 ```
-#### Install dependencies
+##### Install dependencies
 
 run `cd server` then run `yarn` to install dependencies.
 
-#### Available commands
+##### Available commands
 
 To run any of the server commands, either the environment variables above must be available in your shell or on the command line, and you must be in the server directory.
 
-##### Setup database
+###### Setup database
 
 To setup the database run `yarn migrate`
 
-##### Seed the database with test data
+###### Seed the database with test data
 
 Run `yarn seed`
 
-##### Start the server
+###### Start the server
 
 Run `yarn dev` to start the server, and visit http://localhost:8080.
 
-##### Other commands
+###### Other commands
 
 To revert the last database migration run
 
@@ -223,11 +232,11 @@ To run code coverage locally, be sure your Postgresql server is running then run
 The coverage results can be found in `server/coverage/index.html`
 
 
-#### Server API Documentation
+##### Server API Documentation
 
 With your local Node server running, browse to http://localhost:8080/docs/api in order to view the interactive Swagger API documentation.  This documentation will allow interactive access to the API endpoints.
 
-#### Authentication
+##### Authentication
 
 Public users must authenticate with login.gov, and Forest Service admins must authenticate with USDA eAuth. Both of these authentication techniques are handled by the Passport library for Node.js.
 
@@ -236,41 +245,41 @@ Login.gov uses the openid-client passport plugin for the OpenID Connect protocol
 Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
 
 
-### Frontend Development
+#### Frontend Development
 
-#### Install angular cli
+##### Install angular cli
 
 Run `yarn global add @angular/cli`
 
-#### Navigate to frontend directory
+##### Navigate to frontend directory
 
 `cd frontend`
 
-#### Install dependencies
+##### Install dependencies
 
 Run `yarn`
 
-#### Development server
+##### Development server
 
 Run `ng serve` for a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-#### Build
+##### Build
 
 Run `ng build --prod --env=prod --aot=false` to build the static files for the single paged app. The build artifacts that can be deployed will be stored in the `dist/` directory.
 
-#### Running unit tests
+##### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Add `--code-coverage` flag to print out code coverage statistics.
 
-#### Running end-to-end tests
+##### Running end-to-end tests
 
 Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-### Typedoc
+#### Typedoc
 
-#### Build typedoc
+##### Build typedoc
 
 Install typedoc globally: `yarn global add typedoc`
 
@@ -283,7 +292,7 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 Navigate to `/assets/typedoc/index.html`
 
-### Enable html5 pushstate on cloud.gov
+#### Enable html5 pushstate on cloud.gov
 In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
 
 This allows you to use urls like `/some/path` instead of `/#/some/path`
@@ -291,14 +300,14 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
 
 
-### SMTP relay configuration for sending emails
+#### SMTP relay configuration for sending emails
 The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
 
 Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
-### Docker Environment
+#### Docker Environment
 
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead.  These instructions will detail how to use Docker to setup a full environment to run the application.
 
@@ -345,8 +354,22 @@ As an alternative to installing all the development tools necessary to run the e
 
 8. If either of the `package.json` files are modified, at this time simply Ctrl+C in the terminal you ran `docker-compose` in to stop the running containers and then re-run the `docker-compose` command to rebuild the containers.
 
-#### Docker Troubleshooting
+##### Docker Troubleshooting
 - [No such file or directory for /var/lib/docker/overlay2 · Issue #1396 · docker/for-mac](https://github.com/docker/for-mac/issues/1396#issuecomment-313457823)
 
-### Known technical Debt
+#### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
+
+## Usability testing
+While developing we spent time usability testing features with the correct users and applied majority feedback. 
+
+[This repository](https://github.com/flexion/fs-intake-module/tree/sprint-16-development/wiki) includes usability testing conducted by Flexion
+* [Usability testing session 1 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-1-summary---May-12%2C-2017.md)
+* [Usability testing session 2 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-2-summary-May-23%2C-2017.md)
+* [Usability testing session 3 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-3-summary-(wizard-and-file-upload)--June-23%2C-2017.md)
+* [Usability testing session 4 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-4-summary-July-19%2C-2017.md)
+* [Usability testing session 5 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-5-summary-August-17%2C-2017.md)
+* [Usability testing session 6 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-6-summary-August-24%2C-25-and-September-1%2C-2017.md)
+* [Usability testing session 7 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-7-summary-September-12%2C-13%2C-%26-14%2C-2017.md)
+* [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
+* [Usability testing session 9 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usertesting.com-session-2-summary-October-27%2C-2017.md)
