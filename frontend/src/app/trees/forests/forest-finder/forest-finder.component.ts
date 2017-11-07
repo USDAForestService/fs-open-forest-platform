@@ -13,6 +13,7 @@ import 'rxjs/add/observable/of';
 export class ForestFinderComponent implements OnInit {
 
   forests = [];
+  selectedForest = null;
   results: any = [{id: 4, description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY'},
     {id: 3, description: 'Mt. Hood | Oregon | Portland, OR'}, {id: 2, description: 'Flathead | Montana | Kalispell, MT'},
     {id: 1, description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO'}];
