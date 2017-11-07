@@ -24,7 +24,6 @@ import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locat
 
 import { ForestService } from './_services/forest.service';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
-import { MapViewComponent } from './forests/forest-finder/map-view/map-view.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeToolsComponent,
     SidebarViewComponent,
     ForestFinderComponent,
-    MapViewComponent,
     RemovePuncPipe
   ],
   exports: [
