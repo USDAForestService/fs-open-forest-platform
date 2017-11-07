@@ -1,12 +1,15 @@
 
 <div [formGroup]="applicantInfo" *ngIf="type === 'primary'">
     <label class="usa-input" for="primary-permit-holder-first-name">{{ name }} first name</label>
-    <input class="primary-permit-holder-first-name" type="text" formControlName="primaryFirstName" aria-required="true" attr.aria-label="{{ name }} first name" aria-controls="primary-permit-holder-first-name" />
+    <input class="primary-permit-holder-first-name" type="text" formControlName="primaryFirstName"
+    [attr.aria-labelledby]="applicantInfo.controls.primaryFirstName && applicantInfo.controls.primaryFirstName.touched && applicantInfo.controls.primaryFirstName.errors ? 'error ID' : name + ' first name'"
+    [attr.aria-invalid]="applicantInfo.controls.primaryFirstName && applicantInfo.controls.primaryFirstName.touched && applicantInfo.controls.primaryFirstName.errors ? 'true' : 'false'"
+    aria-required="true" attr.aria-label="{{ name }} first name" aria-controls="primary-permit-holder-first-name" />
     <app-error-message fieldId="primary-permit-holder-first-name-error" name="Primary permit holder first name" [control]="applicantInfo.controls.primaryFirstName"></app-error-message>
 
 
     <label class="usa-input" for="primary-permit-holder-last-name">{{ name }} last name</label>
-    <input class="primary-permit-holder-last-name" type="text" formControlName="primaryLastName" aria-required="true" attr.aria-label="{{ name }} last name" aria-controls="primary-permit-holder-last-name" />
+    <input [appInputAria]='tets' class="primary-permit-holder-last-name" type="text" formControlName="primaryLastName" aria-required="true" attr.aria-label="{{ name }} last name" aria-controls="primary-permit-holder-last-name" />
     <app-error-message fieldId="primary-permit-holder-last-name-error" name="Primary permit holder last name" [control]="applicantInfo.controls.primaryLastName"></app-error-message>
 </div>
 

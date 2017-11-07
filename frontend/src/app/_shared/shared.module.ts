@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from '../home/app-button.component';
+import { InputAriaDirective } from '../_directives/input-aria.directive';
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
@@ -14,6 +15,7 @@ import { InViewportModule } from 'ng-in-viewport';
   imports: [CommonModule, AppRoutingModule, InViewportModule.forRoot()],
   declarations: [
     TrackScrollDirective,
+    InputAriaDirective,
     AppButtonComponent,
     ProgressComponent,
     SectionHeadingComponent,
@@ -22,6 +24,7 @@ import { InViewportModule } from 'ng-in-viewport';
   ],
   exports: [
     AppRoutingModule,
+    InputAriaDirective,
     TrackScrollDirective,
     CommonModule,
     InViewportModule,
