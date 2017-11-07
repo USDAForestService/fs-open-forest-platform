@@ -1,0 +1,38 @@
+
+.tree-location-description {
+  font-size: 2rem;
+}
+
+.tree-image-container {
+  img {
+    max-width: 110px;
+  }
+  figcaption {
+    max-width: 100%;
+  }
+}
+.tree-speci {
+  .tree-description {
+    padding-top: 2em;
+  }
+
+  .tree-cutting-container {
+    padding-top: 0;
+    img {
+      padding: .3em;
+    }
+  }
+}
+
+.trees-map-container {
+  padding-top: 2rem;
+  img {
+    padding-top: 1rem;
+  }
+}
+
+.forest-image-container {
+  h5 {
+    padding-top: 2rem;
+  }
+}

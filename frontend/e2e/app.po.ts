@@ -34,6 +34,25 @@ export class AdminApplicationView {
   }
 }
 
+export class TreesSidebarPage {
+  navigateTo(forestId) {
+    return browser.get('/xmas-trees/forests/' + forestId + '/tree-guidelines');
+  }
+
+  getTreeSelectionLink() {
+    return element(by.id('tree-selection-link'));
+  }
+
+  getTreeLocationLink() {
+    return element(by.id('tree-locations-link'));
+  }
+
+  getTreeSpecies(type, index) {
+    return element(by.id(`tree-${type}-species-${index}`))
+  }
+}
+
+
 export class HelpMePick {
   questionStep(cta, question) {
     it('should have a question', () => {

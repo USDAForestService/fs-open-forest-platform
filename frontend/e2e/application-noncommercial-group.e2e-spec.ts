@@ -1,6 +1,6 @@
 import { NoncommercialGroupForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key } from 'protractor';
+import { browser, element, by, Key, protractor } from 'protractor';
 
 const checkForPrimaryPermitHolderAddress = function(state) {
   expect<any>(element(by.id('primary-permit-holder-address')).isPresent()).toBe(state);
@@ -79,6 +79,8 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should submit an application as an organization with all fields populated', () => {
     page.navigateTo();
+    const ec = protractor.ExpectedConditions;
+    browser.wait(ec.presenceOf(element(by.id('organization-label'))));
     element(by.id('organization-label')).click();
     element(by.id('organization-name')).sendKeys('Test organization');
     element(by.id('organization-address')).sendKeys('933 Easy St');
