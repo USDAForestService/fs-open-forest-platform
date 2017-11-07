@@ -11,7 +11,6 @@ const email = require('../email/email-util.es6');
 const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
-const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
@@ -30,20 +29,20 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.areaCode
-    : '';
+    : null;
   output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.extension
-    : '';
+    : null;
   output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.number
-    : '';
+    : null;
   output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.prefix
-    : '';
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : '';
-  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : '';
-  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : '';
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : '';
+    : null;
+  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -145,6 +144,7 @@ const translateFromDatabaseToClient = input => {
       website: input.applicantInfoWebsite || ''
     },
     appControlNumber: input.appControlNumber,
+    controlNumber: input.controlNumber,
     applicationId: input.applicationId,
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -223,7 +223,7 @@ const translateFromDatabaseToClient = input => {
   result.tempOutfitterFields.noPromotionalWebsite = !result.tempOutfitterFields.advertisingURL;
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
-  //below need to be replaced with file values
+  // below need to be replaced with file values
   result.guideIdentification = '';
   result.operatingPlan = '';
   result.liabilityInsurance = '';
@@ -365,7 +365,7 @@ const getAllFileNames = applicationId => {
   });
 };
 
-tempOutfitter.updateApplicationModel = (model, submitted, user) => {
+const updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
@@ -380,7 +380,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   }
 };
 
-tempOutfitter.acceptApplication = application => {
+const acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId)
       .then(files => {
@@ -448,12 +448,33 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
       .catch(reject);
   });
+};
+
+tempOutfitter.getApplicationFileNames = (req, res) => {
+  getAllFileNames(req.params.id)
+    .then(app => {
+      if (app) {
+        return res.status(200).json(app);
+      } else {
+        return res.status(404).send();
+      }
+    })
+    .catch(() => {
+      return res.status(500).send();
+    });
+};
+
+tempOutfitter.streamFile = (req, res) => {
+  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 tempOutfitter.streamToS3 = multer({
@@ -489,12 +510,12 @@ tempOutfitter.attachFile = (req, res) => {
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(err => {
-          return res.status(500).json(err);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
@@ -507,36 +528,33 @@ tempOutfitter.deleteFile = (req, res) => {
     .then(() => {
       return res.status(204);
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
 tempOutfitter.create = (req, res) => {
-  let errorRet = {};
-  let errorArr = validator.validateTempOutfitter(req.body);
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    return res.status(400).json(errorRet);
-  } else {
-    util.setAuthEmail(req);
-    let model = {
-      authEmail: req.body.authEmail,
-      status: 'Incomplete' // will be updated to Submitted when attachments are ready
-    };
-    translateFromClientToDatabase(req.body, model);
-    TempOutfitterApplication.create(model)
-      .then(tempOutfitterApp => {
-        email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
-        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
-        req.body['applicationId'] = tempOutfitterApp.applicationId;
-        req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
-        return res.status(201).json(req.body);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  }
+  util.setAuthEmail(req);
+  let model = {
+    authEmail: req.body.authEmail,
+    status: 'Incomplete' // will be updated to Submitted when attachments are ready
+  };
+  translateFromClientToDatabase(req.body, model);
+  TempOutfitterApplication.create(model)
+    .then(tempOutfitterApp => {
+      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
+      req.body['applicationId'] = tempOutfitterApp.applicationId;
+      req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
+      return res.status(201).json(req.body);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
 };
 
 tempOutfitter.getOne = (req, res) => {
@@ -563,31 +581,13 @@ tempOutfitter.getOne = (req, res) => {
           formattedApp.revisions = revisions;
           return res.status(200).json(formattedApp);
         })
-        .catch(error => {
-          return res.status(400).json(error);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(error => {
-      return res.status(400).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
-};
-
-tempOutfitter.getApplicationFileNames = (req, res) => {
-  getAllFileNames(req.params.id)
-    .then(app => {
-      if (app) {
-        return res.status(200).json(app);
-      } else {
-        return res.status(404).send();
-      }
-    })
-    .catch(error => {
-      return res.status(500).json(error.message);
-    });
-};
-
-tempOutfitter.streamFile = (req, res) => {
-  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 tempOutfitter.update = (req, res) => {
@@ -603,12 +603,11 @@ tempOutfitter.update = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
+      updateApplicationModel(app, req.body, util.getUser(req));
       if (app.status === 'Accepted') {
-        tempOutfitter
-          .acceptApplication(app)
+        acceptApplication(app)
           .then(response => {
-            app.controlNumber = response.controlNumber;
+            app.controlNumber = JSON.parse(response).controlNumber;
             app
               .save()
               .then(() => {
@@ -616,12 +615,12 @@ tempOutfitter.update = (req, res) => {
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(error => {
-                return res.status(500).json(error);
+              .catch(() => {
+                return res.status(500).send();
               });
           })
-          .catch(error => {
-            return res.status(500).json(error);
+          .catch(() => {
+            return res.status(500).send();
           });
       } else {
         app
@@ -631,19 +630,23 @@ tempOutfitter.update = (req, res) => {
             if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
             } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail(`tempOutfitterApplicationRemoveHold`, app);
+              email.sendEmail('tempOutfitterApplicationRemoveHold', app);
             } else {
               email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            return res.status(500).json(error);
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({ errors: error.errors });
+            } else {
+              return res.status(500).send();
+            }
           });
       }
     })
-    .catch(error => {
-      return res.status(500).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 

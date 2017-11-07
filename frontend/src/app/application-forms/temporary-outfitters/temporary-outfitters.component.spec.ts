@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -49,56 +50,52 @@ describe('TemporaryOutfittersComponent', () => {
     window.dispatchEvent(createFakeEvent(type));
   }
 
-  it('Should switch on org type', () => {
+  it('should switch on org type', () => {
     const orgTypes = {
       Person: {
         pointOfView: 'I',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       Corporation: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'Limited Liability Company (LLC)': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'Limited Liability Partnership (LLP)': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'State Government': {
         pointOfView: 'We',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       'Local Govt': {
         pointOfView: 'We',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       Nonprofit: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       }
     };
     for (const type of Object.keys(orgTypes)) {
       const orgFields = orgTypes[type];
-
-      const get = sinon.stub(component.applicationForm, 'get').returns({
-        setValidators: required => {
-          expect(required).toEqual(orgFields.goodStandingEvidence);
-        }
-      });
       component.orgTypeChange(type);
+      expect(component.applicationForm.get('applicantInfo.goodStandingEvidence').valid).toEqual(
+        orgFields.goodStandingEvidence
+      );
       expect(component.pointOfView).toEqual(orgFields.pointOfView);
       expect(component.orgTypeFileUpload).toEqual(orgFields.orgTypeFileUpload);
-      get.restore();
     }
   });
 
