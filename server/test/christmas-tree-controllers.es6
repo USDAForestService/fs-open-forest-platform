@@ -32,7 +32,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res){
-          expect(res.body[0]).to.include.all.keys('id', 'forestName');
+          expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description');
         })
         .expect(200, done);
     });
