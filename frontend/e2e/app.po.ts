@@ -52,6 +52,24 @@ export class TreesSidebarPage {
   }
 }
 
+export class TreesForestFinderPage {
+  navigateTo() {
+    return browser.get('/xmas-trees/forests');
+  }
+  //
+  // getTreeSelectionLink() {
+  //   return element(by.id('tree-selection-link'));
+  // }
+  //
+  // getTreeLocationLink() {
+  //   return element(by.id('tree-locations-link'));
+  // }
+  //
+  // getTreeSpecies(type, index) {
+  //   return element(by.id(`tree-${type}-species-${index}`))
+  // }
+}
+
 
 export class HelpMePick {
   questionStep(cta, question) {
