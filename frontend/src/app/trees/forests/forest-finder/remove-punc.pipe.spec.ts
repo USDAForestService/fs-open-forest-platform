@@ -5,4 +5,9 @@ describe('RemovePuncPipe', () => {
     const pipe = new RemovePuncPipe();
     expect(pipe).toBeTruthy();
   });
+
+  it('remove the periods', () => {
+    const pipe = new RemovePuncPipe();
+    expect(pipe.transform('he.llo', ['.'])).toEqual('hello');
+  });
 });

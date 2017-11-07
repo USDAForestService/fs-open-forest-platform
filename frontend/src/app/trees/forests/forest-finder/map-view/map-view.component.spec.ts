@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { SpacesToDashesPipe } from '../../../../_pipes/spaces-to-dashes.pipe';
+import { RemovePuncPipe } from '../remove-punc.pipe';
 
 import { MapViewComponent } from './map-view.component';
 
@@ -8,7 +10,7 @@ describe('MapViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapViewComponent ]
+      declarations: [ MapViewComponent, SpacesToDashesPipe, RemovePuncPipe ]
     })
     .compileComponents();
   }));
