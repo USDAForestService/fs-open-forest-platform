@@ -10,7 +10,6 @@
     <input id="advertising-url"
       type="url"
       formControlName="advertisingURL"
-      pattern="https?://.+"
       tabindex="0"
       [attr.aria-required]="tempOutfitterFields.controls.noPromotionalWebsite.value ? 'null' : true"
       [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.advertisingURL, 'advertising-url-label', 'advertising-url-error')"
