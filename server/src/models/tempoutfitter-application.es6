@@ -326,23 +326,23 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     tempOutfitterFieldsClientCharges: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_client_charges',
       allowNull: false,
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsClientCharges must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsClientCharges must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExperienceList: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_list',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExperienceList must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExperienceList must be less than 512 characters in length'
         }
       }
     },
@@ -389,12 +389,12 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     applicantMessage: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'applicant_message',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'applicantMessage must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'applicantMessage must be less than 512 characters in length'
         }
       }
     },
@@ -581,32 +581,32 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     tempOutfitterFieldsExpAllCitations: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_all_citation',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpAllCitations must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpAllCitations must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExpNatForestPermits: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_nat_fst_pmts',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpNatForestPermits must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpNatForestPermits must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExpOtherPermits: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_oth_pmts',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpOtherPermits must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpOtherPermits must be less than 512 characters in length'
         }
       }
     }

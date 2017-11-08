@@ -23,12 +23,12 @@ if (vcapConstants.loginGovIdpUsername && vcapConstants.loginGovIdpPassword) {
 
 loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
-  nonce: util.getRandomHexString(),
+  nonce: util.getRandomString(32),
   prompt: 'select_account',
   redirect_uri: vcapConstants.baseUrl + '/auth/login-gov/openid/callback',
   response_type: 'code',
   scope: 'openid email',
-  state: util.getRandomHexString()
+  state: util.getRandomString(32)
 };
 
 loginGov.setup = () => {
