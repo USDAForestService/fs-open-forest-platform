@@ -41,13 +41,8 @@
 
           <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
             [formGroup]="applicationForm.controls.tempOutfitterFields">
-            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen"
-              [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen, 'individual-citizen-label', 'individual-citizen-error')"
-              [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen)"
-            />
-            <label id="individual-citizen-label" class="usa-input">Are you a citizen of the United States?</label>
-            <app-error-message fieldId="individual-citizen-error" name="Citizen"
-              [control]="applicationForm.controls.tempOutfitterFields.controls.individualIsCitizen"></app-error-message>
+            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
+            <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
           </div>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
