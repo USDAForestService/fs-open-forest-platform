@@ -5,25 +5,26 @@
     </div>
     <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.id)">
       <label>Find a Forest:</label>
-      <input id="forest-finder-input"
-             name="selectForest"
+      <input id='forest-finder-input'
+             name='selectForest'
              auto-complete
-             placeholder="Type a forest name, city, or state..."
-             [(ngModel)]="selectedForest"
-             [source]="forestSearchResults.bind(this)"
-             [list-formatter]="forestListFormatter"
-             value-property-name="id"
-             display-property-name="description"
+             placeholder='Type a forest name, city, or state...'
+             [(ngModel)]='selectedForest'
+             [source]='forestSearchResults.bind(this)'
+             [list-formatter]='forestListFormatter'
+             min-chars='4'
+             value-property-name='id'
+             display-property-name='description'
       />
-      <input id='forest-finder-submit' class="usa-button" type="submit" value="Go to selected forest" />
+      <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
     </form>
     <hr>
-    <div *ngFor="let i of rows" class="usa-grid">
-      <div *ngFor="let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow">
-        <div class="usa-width-one-half forest-image-container">
+    <div *ngFor='let i of rows' class='usa-grid'>
+      <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
+        <div class='usa-width-one-half forest-image-container'>
           <h5>{{forest.forestName}} National Forest</h5>
           <a [routerLink]="['/xmas-trees/forests/', forest.id,'tree-guidelines']">
-            <img src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt="{{forest.forestName}} Map">
+            <img src='/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png' alt='{{forest.forestName}} Map'>
           </a>
         </div>
       </div>

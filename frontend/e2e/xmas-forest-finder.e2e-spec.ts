@@ -16,9 +16,13 @@ fdescribe('Xmas tree  - Find a forest', () => {
       expect<any>(element(by.id('forest-finder-input')).isPresent()).toBeTruthy();
     });
 
-    it('should let the user enter a forest name', () => {
+    it('should let the user enter a forest name and navigate to that forest', () => {
       element(by.id('forest-finder-input')).sendKeys('shoshone');
       browser.sleep(560);
+      element(by.tagName('ng2-auto-complete')).click();
+      element(by.id('forest-finder-submit')).click();
+      browser.sleep(800);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/xmas-trees/forests/4/tree-guidelines');
     });
 
   });
