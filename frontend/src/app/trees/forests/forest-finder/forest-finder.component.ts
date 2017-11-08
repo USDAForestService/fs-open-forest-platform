@@ -14,7 +14,7 @@ export class ForestFinderComponent implements OnInit {
 
   forests = [];
   selectedForest = null;
-  itemsPerRow: 2;
+  itemsPerRow = 2;
   rows: any;
 
   constructor(private route: ActivatedRoute, private service: ForestService, private router: Router) {}
