@@ -10,6 +10,14 @@ const eAuth = {};
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
+const getRole = email => {
+  if (vcapConstants.eAuthUserWhiteList.includes(email)) {
+    return 'admin';
+  } else {
+    return 'user';
+  }
+};
+
 passport.use(
   new SamlStrategy(
     {
@@ -22,7 +30,7 @@ passport.use(
     (profile, done) => {
       return done(null, {
         email: profile.usdaemail,
-        role: 'admin'
+        role: getRole(profile.usdaemail)
       });
     }
   )
