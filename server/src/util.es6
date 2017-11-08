@@ -1,6 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk');
+const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise');
 const Sequelize = require('sequelize');
@@ -227,8 +228,8 @@ util.businessNameElsePersonalName = application => {
   return businessName;
 };
 
-util.getRandomHexString = () => {
-  return new Buffer(`${Math.random()}${Math.random()}`).toString('hex');
+util.getRandomString = length => {
+  return crypto.randomBytes(length).toString('hex');
 };
 
 util.request = request;
