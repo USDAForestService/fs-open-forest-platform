@@ -7,14 +7,7 @@ describe('Xmas sidebar page', () => {
   beforeEach(() => {
     page = new TreesSidebarPage();
     browser.driver.manage().window().setSize(1400, 900);
-    page.navigateTo();
-  });
-
-  it('should have a title', () => {
-    browser.sleep(500);
-    expect<any>(element(by.css('.trees-header-title')).getText()).toEqual(
-      'Christmas tree permit'
-    );
+    page.navigateTo(3); // 3 is mt hood, 4 is shoshone etc.
   });
 
   it('should have a sidebar', () => {
@@ -23,7 +16,7 @@ describe('Xmas sidebar page', () => {
 
   it('should have a cutting section link', () => {
     expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual(
-      'Tree cutting'
+      'How to harvest your tree'
     );
   });
 
@@ -35,7 +28,14 @@ describe('Xmas sidebar page', () => {
 
   it('should have a species section link', () => {
     expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-      'Tree selection'
+      'How to choose your tree'
+    );
+  });
+
+  it('should have a breadcrumb', () => {
+    browser.sleep(500);
+    expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
+      'Christmas tree permits > Find a forest > Mt. Hood National Forest'
     );
   });
 

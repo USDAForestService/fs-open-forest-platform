@@ -13,7 +13,6 @@ export const forest = {
       id: 2,
       name: 'Douglas Fir',
       webUrl: 'https://plants.usda.gov/plantguide/pdf/cs_psme.pdf',
-      photos: null,
       status: 'not recommended',
       notes: [
         'Has 1” to 1 ½” needles',
@@ -27,7 +26,6 @@ export const forest = {
       id: 6,
       name: 'Noble Fir',
       webUrl: 'https://plants.usda.gov/core/profile?symbol=ABPR',
-      photos: null,
       status: 'recommended',
       notes: [
         'Has one inch long, bluish green needles with a silvery appearance',
@@ -39,7 +37,6 @@ export const forest = {
       id: 9,
       name: 'Pacific Silver Fir',
       webUrl: 'https://plants.usda.gov/plantguide/pdf/pg_abam.pdf',
-      photos: null,
       status: 'recommended',
       notes: [
         'Flat ¾” to 1 ½” long needles similar to a Grand Fir',
@@ -53,7 +50,6 @@ export const forest = {
       id: 12,
       name: 'Hemlock',
       webUrl: null,
-      photos: null,
       status: 'not recommended',
       notes: [
         'Needles are a bluish green color with a silvery appearance.',
@@ -65,7 +61,6 @@ export const forest = {
       id: 16,
       name: 'Pacific Yew',
       webUrl: null,
-      photos: null,
       status: 'prohibited',
       notes: [
         'Evergreen trees with a thin scaly brown bark',
