@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('chai').assert;
+const crypto = require('crypto');
 const expect = require('chai').expect;
 const nock = require('nock');
 const request = require('supertest');
@@ -10,6 +11,7 @@ const ApplicationFile = require('../src/models/application-files.es6');
 const server = require('./mock-aws-app.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
+const util = require('../src/util.es6');
 
 const fileUploadUrl = '/permits/applications/special-uses/temp-outfitter/file';
 const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
@@ -17,6 +19,7 @@ const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
 const invalidIntakeControlNumber = 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10';
 let intakeControlNumber;
 let applicationId;
+let fileId;
 
 describe('tempoutfitter controllers', () => {
   it('POST should return a 201 status code and an intakeControlNumber', done => {
@@ -71,6 +74,36 @@ describe('tempoutfitter controllers', () => {
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
         assert.equal(res.body.errors[0].message, 'region must be 2 characters in length');
+      })
+      .expect(400, done);
+  });
+
+  it('POST should return a 400 status code and 9 errors when the activity description fields are all over 400 characters', done => {
+    const permitApplication = tempOutfitterPermitApplicationFactory.create();
+    permitApplication.tempOutfitterFields.activityDescriptionFields.audienceDescription = util.getRandomString(401);
+    permitApplication.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration = util.getRandomString(
+      401
+    );
+    permitApplication.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities = util.getRandomString(
+      401
+    );
+    permitApplication.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements = util.getRandomString(
+      401
+    );
+    permitApplication.tempOutfitterFields.activityDescriptionFields.locationDescription = util.getRandomString(401);
+    permitApplication.tempOutfitterFields.activityDescriptionFields.servicesProvided = util.getRandomString(401);
+    permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite = util.getRandomString(401);
+    permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment = util.getRandomString(
+      401
+    );
+    permitApplication.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock = util.getRandomString(
+      401
+    );
+    request(server)
+      .post(tempoutfitterUrl)
+      .send(tempOutfitterPermitApplicationFactory.create(permitApplication))
+      .expect(res => {
+        assert.lengthOf(res.body.errors, 9);
       })
       .expect(400, done);
   });
@@ -228,6 +261,9 @@ describe('tempoutfitter controllers', () => {
         .attach('file', './test/data/test.docx')
         .expect('Content-Type', /json/)
         .expect(/"applicationId":"[\d]+"/)
+        .expect(res => {
+          fileId = res.body.fileId;
+        })
         .expect(201, err => {
           expect(err).to.be.null;
           done(err);
@@ -309,6 +345,14 @@ describe('tempoutfitter controllers', () => {
         .set('Accept', 'text/html')
         .attach('file', './test/data/test.docx')
         .expect(500, done);
+    });
+  });
+
+  describe('file downloads', () => {
+    it('GET should return a 200 status code and an array', done => {
+      request(server)
+        .get(`/permits/applications/special-uses/temp-outfitter/${applicationId}/files`)
+        .expect(200, done);
     });
   });
 });
