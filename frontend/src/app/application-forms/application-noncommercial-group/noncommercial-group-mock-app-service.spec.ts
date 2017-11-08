@@ -52,12 +52,8 @@ export class MockApplicationService {
     if (id === '111') {
       return Observable.of(noncommercialMock);
     } else {
-      return Observable.throw(['Server Error']);
+      return Observable.throw('The application could not be found.');
     }
-  }
-
-  handleStatusCode(e) {
-    return e;
   }
 
   get(): Observable<{}> {
