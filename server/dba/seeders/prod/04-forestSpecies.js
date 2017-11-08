@@ -159,6 +159,18 @@ module.exports = {
         species_id: 22,
         status: 'recommended'
       },
+      {
+        id: 36,
+        forest_id: 2,
+        species_id: 18,
+        status: 'not recommended'
+      },
+      {
+        id: 37,
+        forest_id: 2,
+        species_id: 19,
+        status: 'not recommended'
+      },
     ];
     return queryInterface.bulkInsert('forestSpecies', forestSpecies);
   },
