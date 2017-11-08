@@ -10,10 +10,12 @@ import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { UrlPipe } from './../_pipes/url.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
+import { ApiErrorComponent } from '../api-error/api-error.component';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, InViewportModule.forRoot()],
   declarations: [
+    ApiErrorComponent,
     TrackScrollDirective,
     AppButtonComponent,
     ProgressComponent,
@@ -23,6 +25,7 @@ import { InViewportModule } from 'ng-in-viewport';
     UrlPipe
   ],
   exports: [
+    ApiErrorComponent,
     AppRoutingModule,
     TrackScrollDirective,
     CommonModule,
