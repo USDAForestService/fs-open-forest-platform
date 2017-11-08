@@ -40,7 +40,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.css('.primary-permit-holder-state')).sendKeys('AK');
     element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('day-phone')).sendKeys('2222222222');
-    element(by.id('day-ext')).sendKeys('2222');
+    element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('submit-application')).click();
     expect<any>(element(by.id('form-errors')).isPresent()).toBeTruthy();
   });
@@ -87,10 +87,10 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.css('.primary-permit-holder-state')).sendKeys('AK');
     element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('day-phone')).sendKeys('2222222222');
-    element(by.id('day-ext')).sendKeys('2222');
+    element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();
     element(by.id('evening-phone')).sendKeys('1111111111');
-    element(by.id('evening-ext')).sendKeys('1111');
+    element(by.id('evening-phone-ext')).sendKeys('1111');
     element(by.id('fax')).sendKeys('3333333333');
     element(by.id('fax-extension')).sendKeys('');
     element(by.id('email')).sendKeys('test@test.com');

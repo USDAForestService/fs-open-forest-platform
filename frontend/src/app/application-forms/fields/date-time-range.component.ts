@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Hours, Minutes } from '../../_models/constants';
 import { numberValidator } from '../validators/number-validation';
 import * as moment from 'moment/moment';
