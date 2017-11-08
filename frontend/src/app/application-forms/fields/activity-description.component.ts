@@ -23,7 +23,7 @@ export class ActivityDescriptionComponent implements OnInit {
 
   @Output() updateRootDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
@@ -50,27 +50,27 @@ export class ActivityDescriptionComponent implements OnInit {
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needGovernmentFacilities'),
       this.parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needTemporaryImprovements'),
       this.parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.haveMotorizedEquipment'),
       this.parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.haveLivestock'),
       this.parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needAssignedSite'),
       this.parentForm.get('activityDescriptionFields.statementOfAssignedSite')
     );

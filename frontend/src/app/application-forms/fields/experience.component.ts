@@ -11,7 +11,7 @@ export class ExperienceComponent implements OnInit {
   @Input() pointOfView: string;
   experienceFields = 'experienceFields';
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     const experienceFields = this.formBuilder.group({
@@ -24,17 +24,17 @@ export class ExperienceComponent implements OnInit {
     });
     this.parentForm.addControl('experienceFields', experienceFields);
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('experienceFields.haveNationalForestPermits'),
       this.parentForm.get('experienceFields.listAllNationalForestPermits')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('experienceFields.haveOtherPermits'),
       this.parentForm.get('experienceFields.listAllOtherPermits')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('experienceFields.haveCitations'),
       this.parentForm.get('experienceFields.listAllCitations')
     );
