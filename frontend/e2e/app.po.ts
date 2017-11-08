@@ -52,6 +52,12 @@ export class TreesSidebarPage {
   }
 }
 
+export class TreesForestFinderPage {
+  navigateTo() {
+    return browser.get('/xmas-trees/forests');
+  }
+}
+
 
 export class HelpMePick {
   questionStep(cta, question) {

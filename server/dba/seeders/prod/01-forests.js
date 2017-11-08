@@ -14,7 +14,8 @@ module.exports = {
         end_date: '2017-12-10T12:00:00Z',
         created: 'now()',
         updated: 'now()',
-        org_structure_code: '11-02-10'
+        org_structure_code: '11-02-10',
+        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO'
       },
       {
         id: 2,
@@ -27,7 +28,8 @@ module.exports = {
         end_date: '2017-12-10T12:00:00Z',
         created: 'now()',
         updated: 'now()',
-        org_structure_code: '11-01-10'
+        org_structure_code: '11-01-10',
+        description: 'Flathead | Montana | Kalispell, MT'
       },
       {
         id: 3,
@@ -40,7 +42,8 @@ module.exports = {
         end_date: '2017-12-24T12:00:00Z',
         created: 'now()',
         updated: 'now()',
-        org_structure_code: '11-06-06'
+        org_structure_code: '11-06-06',
+        description: 'Mt. Hood | Oregon | Portland, OR'
       },
       {
         id: 4,
@@ -53,7 +56,8 @@ module.exports = {
         end_date: '2017-12-24T12:00:00Z',
         created: 'now()',
         updated: 'now()',
-        org_structure_code: '11-02-14'
+        org_structure_code: '11-02-14',
+        description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY'
       }
     ];
     return queryInterface.bulkInsert('forests', forests);
