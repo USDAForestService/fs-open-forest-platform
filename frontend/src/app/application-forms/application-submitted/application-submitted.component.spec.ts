@@ -7,6 +7,16 @@ import { Observable } from 'rxjs/Observable';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial-mock';
 import { ApplicationService } from '../../_services/application.service';
 
+export class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(noncommercialMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
+  }
+}
+
 describe('ApplicationSubmittedComponent', () => {
   let component: ApplicationSubmittedComponent;
   let fixture: ComponentFixture<ApplicationSubmittedComponent>;
@@ -39,13 +49,3 @@ describe('ApplicationSubmittedComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-export class MockApplicationService {
-  getOne(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(noncommercialMock);
-    } else {
-      return Observable.throw(['Server Error']);
-    }
-  }
-}

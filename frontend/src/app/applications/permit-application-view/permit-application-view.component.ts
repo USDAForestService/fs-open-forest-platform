@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {
-  errorMessage: string;
+  apiErrors: any;
   id: string;
   type: string;
   isAdmin: boolean;
@@ -43,8 +43,7 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.errorMessage = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -58,8 +57,7 @@ export class PermitApplicationViewComponent implements OnInit {
         this.handleUpdateResponse(status);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.errorMessage = 'There was an error updating this application.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );

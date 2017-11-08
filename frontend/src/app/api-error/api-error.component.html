@@ -1,0 +1,12 @@
+<div id="api-error" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+  <div class="usa-alert-body">
+    <h3 class="usa-alert-heading" *ngIf="errors && errors.length === 1">{{ errors[0].message }}</h3>
+    <h3 class="usa-alert-heading" *ngIf="errors && errors.length < 1">Something went wrong on our end.</h3>
+    <h3 class="usa-alert-heading" *ngIf="errors && errors.length > 1">The application received the following errors.</h3>
+    <ul *ngIf="errors && errors.length > 1">
+      <li *ngFor="let error of errors">{{error.message}}</li>
+    </ul>
+    <p class="usa-alert-text">Sorry for the inconvenience but please try again later.</p>
+    <p class="usa-alert-text">If you continue to get this error contact <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a>.</p>
+  </div>
+</div>

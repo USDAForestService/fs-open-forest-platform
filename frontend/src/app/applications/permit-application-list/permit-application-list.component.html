@@ -12,14 +12,9 @@
       </select>
     </div>
     <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications</h2>
-    <div *ngIf="apiErrors" class="usa-alert usa-alert-error" role="alert">
-      <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">There are errors preventing your data from loading.</h3>
-        <ul class="usa-alert-text">
-          <li *ngFor="let error of apiErrors">{{error}}</li>
-        </ul>
-      </div>
-    </div>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
     <div *ngIf="successMessage" class="usa-alert usa-alert-success application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Success</h3>

@@ -162,8 +162,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.setValue(application);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -194,7 +193,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         }
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
+        this.apiErrors = e;
+        window.scroll(0, 0);
       }
     );
   }
