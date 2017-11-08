@@ -28,7 +28,7 @@ export class ForestFinderComponent implements OnInit {
     });
   }
 
-  goToForest(forestId: number): void{
+  goToForest(forestId: number): void {
     const navTo = '/xmas-trees/forests/' + forestId + '/tree-guidelines';
     this.router.navigate([navTo]);
   }
