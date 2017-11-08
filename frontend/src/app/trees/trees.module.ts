@@ -22,6 +22,10 @@ import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
 import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locations/tree-locations-maps/tree-locations-maps.component';
 
+import { ForestService } from './_services/forest.service';
+import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
+import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
+
 @NgModule({
   declarations: [
     ContactInfoComponent,
@@ -39,7 +43,9 @@ import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locat
     TreeSpeciesComponent,
     TripPlanningComponent,
     TreeToolsComponent,
-    SidebarViewComponent
+    SidebarViewComponent,
+    ForestFinderComponent,
+    RemovePuncPipe
   ],
   exports: [
     ContactInfoComponent,
@@ -57,6 +63,9 @@ import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locat
     SidebarViewComponent
   ],
   imports: [SharedModule],
-  providers: [TreesService]
+  providers: [
+    TreesService,
+    ForestService
+  ]
 })
 export class TreesModule {}

@@ -33,13 +33,13 @@ test:
     - cd server; yarn seed-ci
     - cd server; yarn seed
     - cd server; yarn coverage
-    - cd server; yarn report-coverage
-    - cd frontend; yarn run lint
+  #- cd frontend; yarn run lint
     - cd frontend; yarn run snyk-test
     - cd frontend; yarn run test:ci
     - ./run-e2e.sh;
   post:
     - cp -r frontend/coverage $CIRCLE_ARTIFACTS/
+    - cp -r frontend/e2e-test-results $CIRCLE_ARTIFACTS/
     - mkdir $CIRCLE_ARTIFACTS/server-coverage
     - cp -r server/coverage $CIRCLE_ARTIFACTS/server-coverage/
 deployment:
@@ -58,7 +58,7 @@ deployment:
       - cd frontend; yarn dist-staging;
       - ./cg-deploy/deploy.sh public-staging
   trees:
-    branch: sprint-1-development
+    branch: sprint-2-development
     owner: nciinc
     commands:
       - cd frontend; yarn run update-version;

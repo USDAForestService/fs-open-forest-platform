@@ -6,6 +6,34 @@ import { forest } from '../../../../_mocks/forest';
 
 import { TreeSpeciesComponent } from './tree-species.component';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-tree-species [forest]="forest"></app-tree-species>'
+})
+class TestComponentWrapperComponent {
+  forest: any;
+
+  constructor() {
+    this.forest = forest;
+  }
+
+  statusClass(status) {
+    let css_class = '';
+    switch (status) {
+      case 'prohibited':
+        css_class = 'danger';
+        break;
+      case 'recommended':
+        css_class = 'success';
+        break;
+      case 'not recommended':
+        css_class = 'tan';
+        break;
+    }
+    return css_class;
+  }
+}
+
 describe('TreeSpeciesComponent', () => {
   let component: TreeSpeciesComponent;
   let fixture: ComponentFixture<TreeSpeciesComponent>;
@@ -38,30 +66,3 @@ describe('TreeSpeciesComponent', () => {
   });
 });
 
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-tree-species [forest]="forest"></app-tree-species>'
-})
-class TestComponentWrapperComponent {
-  forest: any;
-
-  constructor() {
-    this.forest = forest;
-  }
-
-  statusClass(status) {
-    let css_class = '';
-    switch (status) {
-      case 'prohibited':
-        css_class = 'danger';
-        break;
-      case 'recommended':
-        css_class = 'success';
-        break;
-      case 'not recommended':
-        css_class = 'tan';
-        break;
-    }
-    return css_class;
-  }
-}

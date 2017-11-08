@@ -7,6 +7,7 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { ForestResolver } from './trees/forests/forest-resolver.service';
+import { ForestFinderResolver } from './trees/forests/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
@@ -17,6 +18,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
+import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 
 const appRoutes: Routes = [
   {
@@ -90,6 +92,14 @@ const appRoutes: Routes = [
     },
     data: { title: 'Christmas Tree Permit Guidelines' }
   },
+  {
+    path: 'xmas-trees/forests',
+    component: ForestFinderComponent,
+    resolve: {
+      forests: ForestFinderResolver
+    },
+    data: { title: 'Christmas tree permit information' }
+  },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
@@ -101,6 +111,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false })],
   exports: [RouterModule],
-  providers: [ForestResolver]
+  providers: [ForestResolver, ForestFinderResolver]
 })
 export class AppRoutingModule {}
