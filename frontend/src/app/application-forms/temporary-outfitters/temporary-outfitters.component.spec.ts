@@ -413,7 +413,7 @@ class MockApplicationService {
     if (id === '111') {
       return Observable.of(tempOutfitterMock);
     } else {
-      return Observable.throw(['Server Error']);
+      return Observable.throw('The application could not be found.');
     }
   }
 
@@ -421,7 +421,7 @@ class MockApplicationService {
     if (id === '111') {
       return Observable.of(tempOutfitterMock);
     } else {
-      return Observable.throw(['Server Error']);
+      return Observable.throw('There were errors when attempting to update your application.');
     }
   }
 

@@ -14,7 +14,7 @@ export class NoncommercialFieldsComponent implements OnInit {
 
   noncommercialFields: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     this.formName = 'noncommercialFields';
