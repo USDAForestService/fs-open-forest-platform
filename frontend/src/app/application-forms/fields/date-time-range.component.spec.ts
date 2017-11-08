@@ -3,6 +3,18 @@ import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-date-time-range [parentForm]="applicationForm"></app-date-time-range>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
+
 describe('DateTimeRange', () => {
   let component: DateTimeRangeComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -72,15 +84,3 @@ describe('DateTimeRange', () => {
     expect(component.defaultPeriod).toBe('AM');
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-date-time-range [parentForm]="applicationForm"></app-date-time-range>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

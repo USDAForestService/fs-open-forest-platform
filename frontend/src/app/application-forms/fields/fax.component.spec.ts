@@ -4,6 +4,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FaxComponent } from './fax.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-fax [parentForm]="applicationForm"></app-fax>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
+
 describe('fax', () => {
   let component: FaxComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -43,15 +55,3 @@ describe('fax', () => {
     expect(component.fax.valid).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-fax [parentForm]="applicationForm"></app-fax>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

@@ -10,6 +10,35 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import * as sinon from 'sinon';
 
+class MockApplicationService {
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  getOne(err, obj): Observable<{}> {
+    if (err && err.fail) {
+      return Observable.throw('error');
+    } else {
+      return Observable.of({ test: 'meow' });
+    }
+  }
+
+  update(obj): Observable<{}> {
+    if (obj.fail) {
+      return Observable.throw('error');
+    } else {
+      return Observable.of({ test: 'meow' });
+    }
+  }
+
+  addSuccessMessage() {
+    return true;
+  }
+  isAdmin() {
+    return true;
+  }
+}
+
 describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
@@ -117,32 +146,3 @@ describe('PermitApplicationViewComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['user/applications']);
   });
 });
-
-class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  getOne(err, obj): Observable<{}> {
-    if (err && err.fail) {
-      return Observable.throw('error');
-    } else {
-      return Observable.of({ test: 'meow' });
-    }
-  }
-
-  update(obj): Observable<{}> {
-    if (obj.fail) {
-      return Observable.throw('error');
-    } else {
-      return Observable.of({ test: 'meow' });
-    }
-  }
-
-  addSuccessMessage() {
-    return true;
-  }
-  isAdmin() {
-    return true;
-  }
-}
