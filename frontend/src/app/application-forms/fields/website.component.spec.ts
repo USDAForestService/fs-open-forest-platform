@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebsiteComponent } from './website.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('WebsiteComponent', () => {
   let component: WebsiteComponent;
@@ -13,7 +14,7 @@ describe('WebsiteComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [WebsiteComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

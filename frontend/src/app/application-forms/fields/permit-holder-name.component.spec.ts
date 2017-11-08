@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermitHolderNameComponent } from './permit-holder-name.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('PermitHolderNameComponent', () => {
   let component: PermitHolderNameComponent;
@@ -13,7 +14,7 @@ describe('PermitHolderNameComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [PermitHolderNameComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
