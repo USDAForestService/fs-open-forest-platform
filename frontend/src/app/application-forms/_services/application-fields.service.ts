@@ -12,6 +12,22 @@ export class ApplicationFieldsService {
 
   constructor(private formBuilder: FormBuilder) {}
 
+  hasError(control: FormControl) {
+    if (control && control.touched && control.errors) {
+      return 'true';
+    } else {
+      return 'false';
+    }
+  }
+
+  labelledBy(control: FormControl, labelId, errorId) {
+    if (control && control.touched && control.errors) {
+      return errorId;
+    } else {
+      return labelId;
+    }
+  }
+
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
       mailingAddress: ['', [Validators.maxLength(255)]],

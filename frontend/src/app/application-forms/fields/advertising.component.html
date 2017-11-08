@@ -3,7 +3,7 @@
 
     <legend>Advertising</legend>
 
-    <label class="usa-input" for="advertising-url">
+    <label id="advertising-url-label" class="usa-input">
       Promotional website
       <span *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">(optional)</span>
     </label>
@@ -13,6 +13,8 @@
       pattern="https?://.+"
       tabindex="0"
       [attr.aria-required]="tempOutfitterFields.controls.noPromotionalWebsite.value ? 'null' : true"
+      [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.advertisingURL, 'advertising-url-label', 'advertising-url-error')"
+      [attr.aria-invalid]="afs.hasError(tempOutfitterFields.controls.advertisingURL)"
     />
     <app-error-message fieldId="advertising-url-error" name="Advertising url" [control]="tempOutfitterFields.controls.advertisingURL"></app-error-message>
 
@@ -20,9 +22,11 @@
     <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I don't have a promotional website or I would like to provide more advertising information.</label>
 
     <ng-container *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">
-      <label class="usa-input" for="advertising-description">Advertising description</label>
-      <p class="help-text usa-form-hint">Enter a description of your marketing plan or a reason why there isn't one.</p>
-      <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"></textarea>
+      <label id="advertising-description-label" class="usa-input" >Advertising description</label>
+      <p id="advertising-description-hint-text" class="help-text usa-form-hint">Enter a description of your marketing plan or a reason why there isn't one.</p>
+      <textarea id="advertising-description" type="text" formControlName="advertisingDescription" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.advertisingDescription, 'advertising-description-label advertising-description-hint-text', 'advertising-description-error')"
+      [attr.aria-invalid]="afs.hasError(tempOutfitterFields.controls.advertisingDescription)"></textarea>
       <app-error-message fieldId="advertising-description-error" name="Advertising description" [control]="tempOutfitterFields.controls.advertisingDescription"></app-error-message>
     </ng-container>
 
