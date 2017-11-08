@@ -250,8 +250,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.getFiles(this.application.applicationId);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -307,8 +306,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.uploadFiles = true;
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'There were errors when attempting to update your application.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );

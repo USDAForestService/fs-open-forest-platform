@@ -3,12 +3,9 @@
     <div class="breadcrumbs">
       <a routerLink="/{{userType}}/applications">Permit applications</a> > <span>{{ application.eventName }}</span>
     </div>
-    <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
-      <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">Error</h3>
-        <p class="usa-alert-text">{{ errorMessage }}</p>
-      </div>
-    </div>
+    
+    <app-api-error [errors]=""></app-api-error>
+
     <div *ngIf="application.status === 'Hold'" class="usa-alert usa-alert-warning application-deadline-warning permit-alert-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">On hold</h3>

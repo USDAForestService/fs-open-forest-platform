@@ -10,6 +10,35 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import * as sinon from 'sinon';
 
+class MockApplicationService {
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  getOne(err, obj): Observable<{}> {
+    if (err && err.fail) {
+      return Observable.throw('error');
+    } else {
+      return Observable.of({ test: 'meow' });
+    }
+  }
+
+  update(obj): Observable<{}> {
+    if (obj.fail) {
+      return Observable.throw('error');
+    } else {
+      return Observable.of({ test: 'meow' });
+    }
+  }
+
+  addSuccessMessage() {
+    return true;
+  }
+  isAdmin() {
+    return true;
+  }
+}
+
 describe('PermitApplicationViewComponent', () => {
   let component: PermitApplicationViewComponent;
   let fixture: ComponentFixture<PermitApplicationViewComponent>;
@@ -48,31 +77,25 @@ describe('PermitApplicationViewComponent', () => {
 
   it('Should handle error condition on application get', () => {
     const getSpy = sinon.spy(component.applicationService, 'getOne');
-    const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
     component.getApplication('type', { fail: true });
     expect(getSpy.called).toBeTruthy();
-    expect(component.errorMessage).toEqual('The application could not be found.');
-    expect(errorSpy.called).toBeTruthy();
+    expect(component.apiErrors).toBeTruthy();
   });
 
   it('Should update application status', () => {
     const updateSpy = sinon.spy(component.applicationService, 'update');
     const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
-    const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
     component.updateApplicationStatus({ fail: false }, 'Accepted');
     expect(updateSpy.called).toBeTruthy();
     expect(alertSpy.called).toBeTruthy();
-    expect(errorSpy.called).toBeFalsy();
   });
 
   it('on error should call error condition', () => {
     const updateSpy = sinon.spy(component.applicationService, 'update');
-    const errorSpy = sinon.spy(component.applicationService, 'handleStatusCode');
     const alertSpy = sinon.spy(component.alertService, 'addSuccessMessage');
     component.updateApplicationStatus({ fail: true }, 'Accepted');
     expect(updateSpy.called).toBeTruthy();
     expect(alertSpy.called).toBeFalsy();
-    expect(errorSpy.called).toBeTruthy();
   });
 
   it('provideReasonOrCancel should set button text on accepted', () => {
@@ -123,36 +146,3 @@ describe('PermitApplicationViewComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['user/applications']);
   });
 });
-
-class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  getOne(err, obj): Observable<{}> {
-    if (err && err.fail) {
-      return Observable.throw('error');
-    } else {
-      return Observable.of({ test: 'meow' });
-    }
-  }
-
-  update(obj): Observable<{}> {
-    if (obj.fail) {
-      return Observable.throw('error');
-    } else {
-      return Observable.of({ test: 'meow' });
-    }
-  }
-
-  handleStatusCode() {
-    return true;
-  }
-
-  addSuccessMessage() {
-    return true;
-  }
-  isAdmin() {
-    return true;
-  }
-}

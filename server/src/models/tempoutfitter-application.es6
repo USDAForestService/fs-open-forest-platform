@@ -326,23 +326,23 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     tempOutfitterFieldsClientCharges: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_client_charges',
       allowNull: false,
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsClientCharges must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsClientCharges must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExperienceList: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_list',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExperienceList must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExperienceList must be less than 512 characters in length'
         }
       }
     },
@@ -389,12 +389,12 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     applicantMessage: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'applicant_message',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'applicantMessage must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'applicantMessage must be less than 512 characters in length'
         }
       }
     },
@@ -480,92 +480,92 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     tempOutfitterFieldsActDescFieldsLocationDesc: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_loc_desc',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsLocationDesc must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsLocationDesc must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsServProvided: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_serv_prv',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsServProvided must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsServProvided must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsAudienceDesc: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_aud_desc',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsAudienceDesc must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsAudienceDesc must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsListGovFacilities: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_lst_fac',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsListGovFacilities must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsListGovFacilities must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsListTempImprovements: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_lst_imp',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsListTempImprovements must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsListTempImprovements must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsStmtMotorizedEquip: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_mtr_eqp',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsStmtMotorizedEquip must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsStmtMotorizedEquip must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsStmtTransportLivestock: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_trn_liv',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsStmtTransportLivestock must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsStmtTransportLivestock must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsStmtAssignedSite: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_agn_site',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsStmtAssignedSite must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsStmtAssignedSite must be less than 400 characters in length'
         }
       }
     },
     tempOutfitterFieldsActDescFieldsDescCleanupRestoration: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(400),
       field: 'temp_out_act_desc_serv_cln_rest',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsActDescFieldsDescCleanupRestoration must be less than 255 characters in length'
+          args: [0, 400],
+          msg: 'tempOutfitterFieldsActDescFieldsDescCleanupRestoration must be less than 400 characters in length'
         }
       }
     },
@@ -581,32 +581,32 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     tempOutfitterFieldsExpAllCitations: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_all_citation',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpAllCitations must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpAllCitations must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExpNatForestPermits: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_nat_fst_pmts',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpNatForestPermits must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpNatForestPermits must be less than 512 characters in length'
         }
       }
     },
     tempOutfitterFieldsExpOtherPermits: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(512),
       field: 'temp_outfitter_exp_oth_pmts',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'tempOutfitterFieldsExpOtherPermits must be less than 255 characters in length'
+          args: [0, 512],
+          msg: 'tempOutfitterFieldsExpOtherPermits must be less than 512 characters in length'
         }
       }
     }

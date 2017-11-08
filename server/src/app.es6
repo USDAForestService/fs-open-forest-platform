@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use(
   session({
     name: 'session',
-    keys: [util.getRandomHexString(), util.getRandomHexString()],
+    keys: [util.getRandomString(32), util.getRandomString(32)],
     cookie: {
       secure: true,
       httpOnly: true,
