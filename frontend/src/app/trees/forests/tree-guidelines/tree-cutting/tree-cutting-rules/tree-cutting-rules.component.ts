@@ -5,5 +5,5 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './tree-cutting-rules.component.html'
 })
 export class TreeCuttingRulesComponent {
-  @Input() forest: any
+  @Input() forest: any;
 }
