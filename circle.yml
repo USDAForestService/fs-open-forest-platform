@@ -29,7 +29,6 @@ test:
     - cd server; yarn run lint
     - cd server; yarn run snyk-test
     - cd server; yarn migrate
-    - cd server; yarn seed
     - ./run-e2e.sh;
     - ./pa11y.sh
     - cd server; yarn coverage
