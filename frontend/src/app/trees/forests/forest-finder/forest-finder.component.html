@@ -24,7 +24,7 @@
         <div class='usa-width-one-half forest-image-container'>
           <h5>{{forest.forestName}} National Forest</h5>
           <a [routerLink]="['/xmas-trees/forests/', forest.id,'tree-guidelines']">
-            <img src='/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png' alt='{{forest.forestName}} Map'>
+            <img src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
           </a>
         </div>
       </div>
