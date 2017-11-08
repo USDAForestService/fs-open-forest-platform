@@ -21,19 +21,19 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   constructor(private applicationFieldsService: ApplicationFieldsService, private util: UtilService) {}
 
   getControlStatus(control: FormControl) {
-    if (control.valid && control.touched) {
+    if (control && control.valid && control.touched) {
       return 'ng-valid';
     }
-    if (control.untouched) {
+    if (control && control.untouched) {
       return 'ng-untouched';
     }
-    if (control.invalid && control.touched) {
+    if (control && control.invalid && control.touched) {
       return 'ng-invalid';
     }
   }
 
   getGroupStatus(group: FormGroup, errors) {
-    if (group.valid) {
+    if (group && group.valid) {
       if (group.untouched) {
         return 'ng-untouched';
       }
@@ -42,7 +42,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     if (errors) {
       return 'ng-invalid';
     }
-    if (group.invalid && !errors) {
+    if (group && group.invalid && !errors) {
       return 'ng-untouched';
     }
   }

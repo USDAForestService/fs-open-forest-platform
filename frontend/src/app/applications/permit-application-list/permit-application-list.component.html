@@ -37,7 +37,7 @@
       <div class="application-field-list-labels">
         <div>&nbsp;</div>
         <div *ngIf='isAdmin'>Type</div>
-        <div>Name</div>
+        <div>Identification Number</div>
         <div>Submitted</div>
         <div>Start date</div>
         <div *ngIf='isAdmin'>End date</div>
@@ -52,11 +52,8 @@
         </div>
         <label *ngIf="isAdmin">Type</label>
         <div *ngIf="isAdmin">{{ application.type }}</div>
-        <label>Event name</label>
-        <div>
-          <strong *ngIf="application.type === 'Noncommercial'">{{ application.eventName }}</strong>
-          <strong *ngIf="application.type === 'Temp outfitter'">{{ application.applicantInfoOrganizationName }}</strong>
-        </div>
+        <label>Identification Number</label>
+        <div>{{ application.applicationId }}</div>
         <label>Submitted</label>
         <div [ngClass]="
           {'deadline-warning':

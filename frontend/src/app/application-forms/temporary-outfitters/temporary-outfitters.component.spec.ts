@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import * as sinon from 'sinon';
 import { TemporaryOutfittersComponent } from './temporary-outfitters.component';
@@ -7,6 +9,8 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { tempOutfitterMock } from './temp-outfitter-mock';
 
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
@@ -20,9 +24,11 @@ describe('TemporaryOutfittersComponent', () => {
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
-          { provide: FormBuilder, useClass: FormBuilder }
+          { provide: FormBuilder, useClass: FormBuilder },
+          AlertService,
+          AuthenticationService
         ],
-        imports: [RouterTestingModule]
+        imports: [RouterTestingModule, HttpModule]
       }).compileComponents();
     })
   );
@@ -263,14 +269,181 @@ describe('TemporaryOutfittersComponent', () => {
     expect(component.uploadFiles).toBeFalsy();
     expect(component.fileUploadError).toBeTruthy();
   });
+
+  it('should remove unused data', () => {
+    const formBuilder = new FormBuilder();
+    const experienceFields = formBuilder.group({
+      haveNationalForestPermits: [false],
+      listAllNationalForestPermits: ['test'],
+      haveOtherPermits: [false],
+      listAllOtherPermits: ['test'],
+      haveCitations: [false],
+      listAllCitations: ['test']
+    });
+    const activityDescription = formBuilder.group({
+      needGovernmentFacilities: [false],
+      listOfGovernmentFacilities: ['test'],
+      needTemporaryImprovements: [false],
+      listOfTemporaryImprovements: ['test'],
+      haveMotorizedEquipment: [false],
+      statementOfMotorizedEquipment: ['test'],
+      haveLivestock: [false],
+      statementOfTransportationOfLivestock: ['test'],
+      needAssignedSite: [false],
+      statementOfAssignedSite: ['test']
+    });
+    const tempOutfitterFields = component.applicationForm.get('tempOutfitterFields') as FormGroup;
+
+    tempOutfitterFields.addControl('experienceFields', experienceFields);
+    tempOutfitterFields.addControl('activityDescriptionFields', activityDescription);
+
+    component.removeUnusedData();
+
+    expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').value
+    ).toBeFalsy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllOtherPermits').value).toBeFalsy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllCitations').value).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get(
+        'tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock'
+      ).value
+    ).toBeFalsy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').value
+    ).toBeFalsy();
+  });
+
+  it('should not remove used data', () => {
+    const formBuilder = new FormBuilder();
+    const experienceFields = formBuilder.group({
+      haveNationalForestPermits: [true],
+      listAllNationalForestPermits: ['test'],
+      haveOtherPermits: [true],
+      listAllOtherPermits: ['test'],
+      haveCitations: [true],
+      listAllCitations: ['test']
+    });
+    const activityDescription = formBuilder.group({
+      needGovernmentFacilities: [true],
+      listOfGovernmentFacilities: ['test'],
+      needTemporaryImprovements: [true],
+      listOfTemporaryImprovements: ['test'],
+      haveMotorizedEquipment: [true],
+      statementOfMotorizedEquipment: ['test'],
+      haveLivestock: [true],
+      statementOfTransportationOfLivestock: ['test'],
+      needAssignedSite: [true],
+      statementOfAssignedSite: ['test']
+    });
+    const tempOutfitterFields = component.applicationForm.get('tempOutfitterFields') as FormGroup;
+
+    tempOutfitterFields.addControl('experienceFields', experienceFields);
+    tempOutfitterFields.addControl('activityDescriptionFields', activityDescription);
+
+    component.removeUnusedData();
+
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.experienceFields.listAllOtherPermits').value
+    ).toBeTruthy();
+    expect(component.applicationForm.get('tempOutfitterFields.experienceFields.listAllCitations').value).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get(
+        'tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock'
+      ).value
+    ).toBeTruthy();
+    expect(
+      component.applicationForm.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').value
+    ).toBeTruthy();
+  });
+
+  it('should return application', () => {
+    component.getApplication(111);
+    expect(component.apiErrors).toEqual('The application could not be found.');
+    component.getApplication('111');
+    expect(component.applicationForm.get('appControlNumber').value).toEqual('222');
+  });
+
+  it('should create application', () => {
+    component.createApplication();
+    expect(component.application.appControlNumber).toEqual('222');
+    expect(component.showFileUploadProgress).toBeTruthy();
+    expect(component.uploadFiles).toBeTruthy();
+  });
+
+  it('should update application', () => {
+    component.updateApplication();
+    expect(component.apiErrors).toEqual('There were errors when attempting to update your application.');
+  });
+
+  it('should set the correct file names from the server', () => {
+    component.getFiles(1);
+    expect(component.applicationForm.get('acknowledgementOfRisk').value).toEqual('test1');
+  });
+
+  it('should upload files on when uploadFiles is true', () => {
+    component.uploadFiles = true;
+    component.application = { status: '' };
+    component.ngDoCheck();
+    expect(component.uploadFiles).toBeFalsy();
+  });
 });
 
 class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
+  }
+
+  update(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw(['Server Error']);
+    }
   }
 
   create(): Observable<{}> {
-    return Observable.of();
+    return Observable.of(tempOutfitterMock);
+  }
+
+  handleStatusCode(e) {
+    return e;
+  }
+
+  get(): Observable<{}> {
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
   }
 }
