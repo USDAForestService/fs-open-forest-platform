@@ -12,6 +12,28 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { noncommercialMock } from './noncommercial-mock';
 
+export class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(noncommercialMock);
+    } else {
+      return Observable.throw('The application could not be found.');
+    }
+  }
+
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  create(): Observable<{}> {
+    return Observable.of();
+  }
+
+  update(): Observable<{}> {
+    return Observable.of();
+  }
+}
+
 describe('Noncommercial with mock application service', () => {
   let component: ApplicationNoncommercialGroupComponent;
   let fixture: ComponentFixture<ApplicationNoncommercialGroupComponent>;
@@ -46,25 +68,3 @@ describe('Noncommercial with mock application service', () => {
     expect(component.applicationForm.get('appControlNumber').value).toEqual('a309fe16-47a4-4da7-a293-9697d438815f');
   });
 });
-
-export class MockApplicationService {
-  getOne(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(noncommercialMock);
-    } else {
-      return Observable.throw('The application could not be found.');
-    }
-  }
-
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-
-  update(): Observable<{}> {
-    return Observable.of();
-  }
-}

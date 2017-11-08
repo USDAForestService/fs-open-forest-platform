@@ -4,6 +4,18 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NoncommercialFieldsComponent } from './noncommercial-fields.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
+
 describe('noncommercial fields', () => {
   let component: NoncommercialFieldsComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -48,15 +60,3 @@ describe('noncommercial fields', () => {
     expect(component.noncommercialFields.valid).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

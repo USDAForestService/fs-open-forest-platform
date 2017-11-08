@@ -7,6 +7,25 @@ import { UtilService } from '../../_services/util.service';
 import { CancelApplicationComponent } from './cancel-application.component';
 import { Observable } from 'rxjs/Observable';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-cancel-application [application]="application"></app-cancel-application>'
+})
+class TestComponentWrapperComponent {
+  application: any;
+
+  constructor() {
+    this.application = { type: 'noncommercial', status: 'Submitted' };
+  }
+}
+
+class MockApplicationService {
+  public user = { email: 'test@test.com', role: 'user' };
+  update(value1, value2) {
+    return Observable.of({ type: 'noncommercial', status: 'Cancelled' });
+  }
+}
+
 describe('Cancel application', () => {
   let component: CancelApplicationComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -40,22 +59,3 @@ describe('Cancel application', () => {
     expect(component.application.status).toEqual('Cancelled');
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-cancel-application [application]="application"></app-cancel-application>'
-})
-class TestComponentWrapperComponent {
-  application: any;
-
-  constructor() {
-    this.application = { type: 'noncommercial', status: 'Submitted' };
-  }
-}
-
-class MockApplicationService {
-  public user = { email: 'test@test.com', role: 'user' };
-  update(value1, value2) {
-    return Observable.of({ type: 'noncommercial', status: 'Cancelled' });
-  }
-}

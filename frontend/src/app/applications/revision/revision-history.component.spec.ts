@@ -10,6 +10,13 @@ import { SortArray } from '../../_pipes/sort-array.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter-mock';
 
+@Pipe({ name: 'SortArray' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
+  }
+}
+
 describe('RevisionHistoryComponent', () => {
   let component: RevisionHistoryComponent;
   let fixture: ComponentFixture<RevisionHistoryComponent>;
@@ -31,10 +38,3 @@ describe('RevisionHistoryComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Pipe({ name: 'SortArray' })
-class MockPipe implements PipeTransform {
-  transform(value: number): number {
-    return value;
-  }
-}

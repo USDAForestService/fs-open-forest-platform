@@ -3,6 +3,30 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
 
+class MockUtilService {
+  currentSection: string;
+  inView = false;
+
+  gotoHashtag(string, event) {
+    this.currentSection = 'test-section';
+  }
+
+  setCurrentSection() {
+    this.currentSection = 'test-section';
+  }
+
+  getElementsByClassName(className) {
+    return ['test'];
+  }
+
+  addClass(string) {
+    this.inView = true;
+  }
+  removeClass(string) {
+    this.inView = false;
+  }
+}
+
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
@@ -70,27 +94,3 @@ describe('SidebarComponent', () => {
     })
   );
 });
-
-class MockUtilService {
-  currentSection: string;
-  inView = false;
-
-  gotoHashtag(string, event) {
-    this.currentSection = 'test-section';
-  }
-
-  setCurrentSection() {
-    this.currentSection = 'test-section';
-  }
-
-  getElementsByClassName(className) {
-    return ['test'];
-  }
-
-  addClass(string) {
-    this.inView = true;
-  }
-  removeClass(string) {
-    this.inView = false;
-  }
-}

@@ -12,6 +12,26 @@ import { UrlPipe } from '../../_pipes/url.pipe';
 import { environment } from '../../../environments/environment';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter-mock';
 
+@Pipe({ name: 'SortArray' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
+  }
+}
+
+class MockApplicationService {
+  get(): Observable<{}> {
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
+  }
+}
+
 describe('TempOutfitterDetailsComponent', () => {
   let component: TempOutfitterDetailsComponent;
   let fixture: ComponentFixture<TempOutfitterDetailsComponent>;
@@ -34,23 +54,3 @@ describe('TempOutfitterDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Pipe({ name: 'SortArray' })
-class MockPipe implements PipeTransform {
-  transform(value: number): number {
-    return value;
-  }
-}
-
-class MockApplicationService {
-  get(): Observable<{}> {
-    const array = [
-      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
-      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
-      { documentType: 'insurance-certificate', originalFileName: 'test3' },
-      { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' }
-    ];
-    return Observable.of(array);
-  }
-}
