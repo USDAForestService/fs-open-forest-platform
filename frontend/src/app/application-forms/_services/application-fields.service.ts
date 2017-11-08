@@ -6,22 +6,69 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 export class ApplicationFieldsService {
   numberOfFiles: any = 0;
   fileUploadError = false;
+  editApplication = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
-      mailingAddress: ['', [Validators.required, alphanumericValidator()]],
+      mailingAddress: [''],
       mailingAddress2: [''],
-      mailingCity: ['', [Validators.required, alphanumericValidator()]],
-      mailingState: ['', [Validators.required, alphanumericValidator()]],
-      mailingZIP: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5), alphanumericValidator()]]
+      mailingCity: [''],
+      mailingState: [''],
+      mailingZIP: ['']
     });
     parentForm.addControl(formName, this[formName]);
   }
 
   removeAddress(parentForm, formName) {
     parentForm.removeControl(formName);
+  }
+
+  addAddressValidation(parentForm, formName) {
+    if (parentForm.get(`${formName}`)) {
+      parentForm.get(`${formName}.mailingAddress`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm.get(`${formName}.mailingCity`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm.get(`${formName}.mailingState`).setValidators([Validators.required, alphanumericValidator()]);
+      parentForm
+        .get(`${formName}.mailingZIP`)
+        .setValidators([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(5),
+          alphanumericValidator()
+        ]);
+    }
+  }
+
+  removeAddressValidation(parentForm, formName) {
+    if (parentForm.get(`${formName}`)) {
+      parentForm.get(`${formName}.mailingAddress`).setValidators(null);
+      parentForm.get(`${formName}.mailingCity`).setValidators(null);
+      parentForm.get(`${formName}.mailingState`).setValidators(null);
+      parentForm.get(`${formName}.mailingZIP`).setValidators(null);
+    }
+  }
+
+  addAdditionalPhone(parentForm) {
+    const eveningPhone = this.formBuilder.group({
+      areaCode: [],
+      extension: [],
+      number: [],
+      prefix: [],
+      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+    });
+    parentForm.addControl('eveningPhone', eveningPhone);
+
+    parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
+      parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
+      parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
+      parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+    });
+  }
+
+  removeAdditionalPhone(parentForm) {
+    parentForm.removeControl('eveningPhone');
   }
 
   simpleRequireToggle(toggleField, dataField) {
@@ -54,7 +101,20 @@ export class ApplicationFieldsService {
       return;
     }
     invalidElements[0].scrollIntoView();
-    document.getElementById(invalidElements[0].getAttribute('id')).focus();
+    let invalid = document.getElementById(invalidElements[0].getAttribute('id'));
+    if (!invalid) {
+      const invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
+      if (invalidClass) {
+        invalidClass[0].setAttribute('id', 'temporaryId');
+        invalid = document.getElementById('temporaryId');
+      }
+    }
+    if (invalid) {
+      invalid.focus();
+      if (invalid.getAttribute('id') === 'temporaryId') {
+        invalid.setAttribute('id', null);
+      }
+    }
   }
 
   touchField(control: FormControl) {
@@ -128,12 +188,24 @@ export class ApplicationFieldsService {
     this.numberOfFiles--;
   }
 
+  addOneFile() {
+    this.numberOfFiles++;
+  }
+
   getFileUploadProgress(startingNumberOfFiles) {
-    const filesRemaining = this.numberOfFiles - 1;
+    const filesRemaining = this.numberOfFiles;
     return startingNumberOfFiles - filesRemaining;
   }
 
   setFileUploadError(value: boolean) {
     this.fileUploadError = value;
+  }
+
+  setEditApplication(value: boolean) {
+    this.editApplication = value;
+  }
+
+  getEditApplication() {
+    return this.editApplication;
   }
 }
