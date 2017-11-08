@@ -163,13 +163,13 @@ module.exports = {
         id: 36,
         forest_id: 2,
         species_id: 18,
-        status: 'recommended'
+        status: 'not recommended'
       },
       {
         id: 37,
         forest_id: 2,
         species_id: 19,
-        status: 'recommended'
+        status: 'not recommended'
       },
     ];
     return queryInterface.bulkInsert('forestSpecies', forestSpecies);
