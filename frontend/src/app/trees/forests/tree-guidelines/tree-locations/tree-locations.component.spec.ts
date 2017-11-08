@@ -4,6 +4,18 @@ import { TreeLocationsComponent } from './tree-locations.component';
 import { forest } from '../../../_mocks/forest';
 import { Component } from '@angular/core';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-tree-locations [forest]="forest"></app-tree-locations>'
+})
+class TestComponentWrapperComponent {
+  forest: any;
+
+  constructor() {
+    this.forest = forest;
+  }
+}
+
 describe('TreeLocationsComponent', () => {
   let component: TreeLocationsComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -27,14 +39,3 @@ describe('TreeLocationsComponent', () => {
   });
 });
 
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-tree-locations [forest]="forest"></app-tree-locations>'
-})
-class TestComponentWrapperComponent {
-  forest: any;
-
-  constructor() {
-    this.forest = forest;
-  }
-}
