@@ -3,6 +3,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 [![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-intake-module.svg?style=shield)](https://circleci.com/gh/nciinc/fs-intake-module)
 [![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-intake-module.svg)](https://github.com/nciinc/fs-intake-module/issues)
+[![Code Climate](https://codeclimate.com/github/nciinc/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-intake-module)
 
 # U.S. Forest Service Intake Module
 Module for intake of special use applications for Forest Service Application Permits.

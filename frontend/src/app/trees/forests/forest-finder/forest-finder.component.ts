@@ -14,25 +14,27 @@ export class ForestFinderComponent implements OnInit {
 
   forests = [];
   selectedForest = null;
-  results: any = [{id: 4, description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY'},
-    {id: 3, description: 'Mt. Hood | Oregon | Portland, OR'}, {id: 2, description: 'Flathead | Montana | Kalispell, MT'},
-    {id: 1, description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO'}];
+  itemsPerRow: 2;
+  rows: any;
 
   constructor(private route: ActivatedRoute, private service: ForestService, private router: Router) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+      if (data.forests) {
+        this.rows = Array.from(Array(Math.ceil(data.forests.length / this.itemsPerRow)).keys());
+      }
     });
   }
 
-  goToForest(forestId: number): void{
+  goToForest(forestId: number): void {
     const navTo = '/xmas-trees/forests/' + forestId + '/tree-guidelines';
     this.router.navigate([navTo]);
   }
 
   forestSearchResults(keyword: any) {
-    const filteredResults = this.results.filter(el => el.description.toUpperCase().indexOf(keyword.toUpperCase()) !== -1);
+    const filteredResults = this.forests.filter(el => el.description.toUpperCase().indexOf(keyword.toUpperCase()) !== -1);
     return Observable.of(filteredResults);
   }
 
