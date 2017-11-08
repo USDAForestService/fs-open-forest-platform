@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FaxComponent } from './fax.component';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('fax', () => {
   let component: FaxComponent;
@@ -11,7 +12,7 @@ describe('fax', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [FaxComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
       }).compileComponents();
 
