@@ -5,6 +5,30 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { UtilService } from '../../_services/util.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+class MockUtilService {
+  currentSection: string;
+  inView = false;
+
+  gotoHashtag(string, event) {
+    this.currentSection = 'test-section';
+  }
+
+  setCurrentSection() {
+    this.currentSection = 'test-section';
+  }
+
+  getElementsByClassName(className) {
+    return ['test'];
+  }
+
+  addClass(string) {
+    this.inView = true;
+  }
+  removeClass(string) {
+    this.inView = false;
+  }
+}
+
 describe('TempOutfitterLeftNavComponent', () => {
   let component: TempOutfitterLeftNavComponent;
   let fixture: ComponentFixture<TempOutfitterLeftNavComponent>;
@@ -144,27 +168,3 @@ describe('TempOutfitterLeftNavComponent', () => {
     expect(component.getGroupStatus(group2, true)).toBe('ng-invalid');
   });
 });
-
-class MockUtilService {
-  currentSection: string;
-  inView = false;
-
-  gotoHashtag(string, event) {
-    this.currentSection = 'test-section';
-  }
-
-  setCurrentSection() {
-    this.currentSection = 'test-section';
-  }
-
-  getElementsByClassName(className) {
-    return ['test'];
-  }
-
-  addClass(string) {
-    this.inView = true;
-  }
-  removeClass(string) {
-    this.inView = false;
-  }
-}
