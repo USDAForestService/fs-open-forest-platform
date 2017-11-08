@@ -5,6 +5,22 @@ import { AdvertisingComponent } from './advertising.component';
 import { tempOutfitterMock } from '../temporary-outfitters/temp-outfitter-mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-advertising [tempOutfitterFields]="applicationForm"></app-advertising>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({
+      advertisingDescription: [''],
+      advertisingURL: [''],
+      noPromotionalWebsite: ['']
+    });
+  }
+}
+
 describe('Advertising Component', () => {
   let component: AdvertisingComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
@@ -29,19 +45,3 @@ describe('Advertising Component', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-advertising [tempOutfitterFields]="applicationForm"></app-advertising>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({
-      advertisingDescription: [''],
-      advertisingURL: [''],
-      noPromotionalWebsite: ['']
-    });
-  }
-}

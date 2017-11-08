@@ -12,6 +12,13 @@ import { UrlPipe } from '../../_pipes/url.pipe';
 import { environment } from '../../../environments/environment';
 import { noncommercialMock } from '../../application-forms/application-noncommercial-group/noncommercial-mock';
 
+@Pipe({ name: 'SortArray' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
+  }
+}
+
 describe('TempOutfitterDetailsComponent', () => {
   let component: NoncommercialDetailsComponent;
   let fixture: ComponentFixture<NoncommercialDetailsComponent>;
@@ -33,10 +40,3 @@ describe('TempOutfitterDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-@Pipe({ name: 'SortArray' })
-class MockPipe implements PipeTransform {
-  transform(value: number): number {
-    return value;
-  }
-}

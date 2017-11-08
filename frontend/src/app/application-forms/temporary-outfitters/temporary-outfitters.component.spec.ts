@@ -13,6 +13,43 @@ import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@ang
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { tempOutfitterMock } from './temp-outfitter-mock';
 
+class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw('The application could not be found.');
+    }
+  }
+
+  update(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw('There were errors when attempting to update your application.');
+    }
+  }
+
+  create(): Observable<{}> {
+    return Observable.of(tempOutfitterMock);
+  }
+
+  handleStatusCode(e) {
+    return e;
+  }
+
+  get(): Observable<{}> {
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
+  }
+}
+
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
   let fixture: ComponentFixture<TemporaryOutfittersComponent>;
@@ -407,40 +444,3 @@ describe('TemporaryOutfittersComponent', () => {
     expect(component.uploadFiles).toBeFalsy();
   });
 });
-
-class MockApplicationService {
-  getOne(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(tempOutfitterMock);
-    } else {
-      return Observable.throw('The application could not be found.');
-    }
-  }
-
-  update(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(tempOutfitterMock);
-    } else {
-      return Observable.throw('There were errors when attempting to update your application.');
-    }
-  }
-
-  create(): Observable<{}> {
-    return Observable.of(tempOutfitterMock);
-  }
-
-  handleStatusCode(e) {
-    return e;
-  }
-
-  get(): Observable<{}> {
-    const array = [
-      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
-      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
-      { documentType: 'insurance-certificate', originalFileName: 'test3' },
-      { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' }
-    ];
-    return Observable.of(array);
-  }
-}

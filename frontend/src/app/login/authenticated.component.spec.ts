@@ -5,6 +5,14 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
 import * as sinon from 'sinon';
 
+class MockAuthenticationService {
+  user = true;
+
+  removeUser() {
+    this.user = null;
+  }
+}
+
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
   let fixture: ComponentFixture<AuthenticatedComponent>;
@@ -28,11 +36,3 @@ describe('AuthenticatedComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class MockAuthenticationService {
-  user = true;
-
-  removeUser() {
-    this.user = null;
-  }
-}

@@ -18,6 +18,20 @@ import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/
 import * as moment from 'moment/moment';
 import * as sinon from 'sinon';
 
+class MockService {
+  isAdmin() {
+    return false;
+  }
+
+  get(): Observable<{}> {
+    return Observable.throw(['Server Error']);
+  }
+
+  handleStatusCode() {
+    return true;
+  }
+}
+
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
   let fixture: ComponentFixture<PermitApplicationListComponent>;
@@ -63,16 +77,3 @@ describe('PermitApplicationListComponent', () => {
     expect(component.showAttentionAlert()).toBeFalsy();
   });
 });
-class MockService {
-  isAdmin() {
-    return false;
-  }
-
-  get(): Observable<{}> {
-    return Observable.throw(['Server Error']);
-  }
-
-  handleStatusCode() {
-    return true;
-  }
-}
