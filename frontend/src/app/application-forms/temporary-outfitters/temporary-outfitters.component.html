@@ -6,21 +6,21 @@
 
       <h1 id="skip-nav-target" tabindex="-1">Apply for a temporary outfitters permit.</h1>
       <h2>{{forest}}</h2>
+
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
 
         <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
         <div id="form-errors"
-          *ngIf="(submitted && !applicationForm.valid) || apiErrors || dateStatus.hasErrors || invalidFileUpload"
+          *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
           class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
           <div class="usa-alert-body">
             <h3 class="usa-alert-heading">There are errors in your application.</h3>
             <p class="usa-alert-text">Please correct the errors before submitting.</p>
           </div>
         </div>
-
-
-
 
         <fieldset id="section-applicant-info" tabindex="-1"
           in-viewport
