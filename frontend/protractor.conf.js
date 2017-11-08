@@ -3,13 +3,6 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
-const HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
-
-var screenshotReporter = new HtmlScreenshotReporter({
-  dest: 'e2e-test-results',
-  filename: 'index.html'
-});
-
 exports.config = {
   allScriptsTimeout: 11000,
   specs: ['./e2e/**/*.e2e-spec.ts'],
@@ -28,9 +21,6 @@ exports.config = {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
-    return new Promise(function(resolve){
-      screenshotReporter.beforeLaunch(resolve);
-    });
   },
   onPrepare() {
     jasmine.getEnv().addReporter(
@@ -40,11 +30,5 @@ exports.config = {
         }
       })
     );
-    jasmine.getEnv().addReporter(screenshotReporter);
-  },
-  afterLaunch: function(exitCode) {
-    return new Promise(function(resolve){
-      screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
-    });
   }
 };
