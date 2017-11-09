@@ -3,7 +3,6 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebsiteComponent } from './website.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
-import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
