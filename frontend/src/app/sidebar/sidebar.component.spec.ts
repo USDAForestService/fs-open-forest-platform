@@ -41,7 +41,7 @@ describe('SidebarComponent', () => {
       };
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('-250px');
+    expect(component.top).toEqual('40px');
     expect(component.position).toEqual('fixed');
   });
 
