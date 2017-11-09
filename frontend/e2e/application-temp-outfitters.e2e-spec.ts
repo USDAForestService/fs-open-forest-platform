@@ -21,7 +21,7 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeFalsy();
   });
 
-  fieldValidation.validateFileUploadField('insurance-certificate');
+  fieldValidation.validateFileUploadField('insurance-certificate', true);
 
   it('should display good standing evidence upload field if organization is clicked', () => {
     element(by.id('organization-label')).click();
