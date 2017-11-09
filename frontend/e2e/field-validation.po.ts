@@ -68,7 +68,7 @@ export class FieldValidation {
     });
   }
 
-  validateFileUploadField(id, type = 'pdf', fulltest = false) {
+  validateFileUploadField(id, type = 'pdf', fullTest = false) {
     const path = require('path');
     const testErrorFile = path.resolve(__dirname, 'test-files/error-file-type.md');
     let testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');

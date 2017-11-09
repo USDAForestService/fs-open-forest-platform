@@ -10,7 +10,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Base64 } from '../../_pipes/base64.pipe';
 import { UrlPipe } from '../../_pipes/url.pipe';
 import { environment } from '../../../environments/environment';
-import { noncommercialMock } from '../../application-forms/application-noncommercial-group/noncommercial-mock';
+import { noncommercialMock } from '../../application-forms/application-noncommercial-group/noncommercial.mock';
 
 @Pipe({ name: 'SortArray' })
 class MockPipe implements PipeTransform {
