@@ -85,7 +85,7 @@ const appRoutes: Routes = [
     data: { title: 'Temporary outfitters permit FAQs' }
   },
   {
-    path: 'xmas-trees/forests/:id/tree-guidelines',
+    path: 'christmas-trees/forests/:id/tree-guidelines',
     component: TreeGuidelinesComponent,
     resolve: {
       forest: ForestResolver
@@ -93,7 +93,7 @@ const appRoutes: Routes = [
     data: { title: 'Christmas Tree Permit Guidelines' }
   },
   {
-    path: 'xmas-trees/forests',
+    path: 'christmas-trees/forests',
     component: ForestFinderComponent,
     resolve: {
       forests: ForestFinderResolver

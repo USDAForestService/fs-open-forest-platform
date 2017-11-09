@@ -1,3 +1,9 @@
+/**
+ * When updating this file to accept new DB operations, a new case must be
+ * added to the switch statements in both doTransaction and a both in 
+ * addPreperations
+ */
+
 'use strict';
 
 let Promise = require('bluebird');
@@ -17,6 +23,9 @@ let doTransaction = (tableName, queryInterface, operations) => {
         }
         case 'rename': {
           return queryInterface.renameColumn(tableName, operation.field, operation.newField, { transaction: trx });
+        }
+        case 'renameTable': {
+          return queryInterface.renameTable(tableName, operation.newTableName, { transaction: trx });
         }
         case 'change': {
           return queryInterface.changeColumn(tableName, operation.field, operation.options, { transaction: trx });
@@ -43,6 +52,9 @@ let addPreparations = (tableName, operations) => {
         break;
       }
       case 'rename': {
+        break;
+      }
+      case 'renameTable': {
         break;
       }
       case 'change': {
@@ -105,6 +117,9 @@ let addPreparations = (tableName, operations) => {
         break;
       }
       case 'rename': {
+        break;
+      }
+      case 'renameTable': {
         break;
       }
       case 'change': {
