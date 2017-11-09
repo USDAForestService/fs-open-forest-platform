@@ -21,14 +21,14 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.id('form-errors')).isPresent()).toBeFalsy();
   });
 
-  fieldValidation.validateFileUploadField('section-liability-insurance');
+  fieldValidation.validateFileUploadField('insurance-certificate');
 
   it('should display good standing evidence upload field if organization is clicked', () => {
     element(by.id('organization-label')).click();
     expect<any>(element(by.id('good-standing-evidence-wrapper')).isPresent()).toBeTruthy();
   });
 
-  fieldValidation.validateFileUploadField('good-standing-evidence-wrapper');
+  fieldValidation.validateFileUploadField('good-standing-evidence');
 
   it('should not submit application if not all required fields are entered', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
@@ -52,9 +52,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
     element(by.id('start-year')).sendKeys('2020');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
@@ -72,10 +69,10 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
-  fieldValidation.validateFileUploadField('section-guide-identification', 'xls');
-  fieldValidation.validateFileUploadField('section-acknowledgement-of-risk');
-  fieldValidation.validateFileUploadField('section-liability-insurance');
-  fieldValidation.validateFileUploadField('section-operating-plan');
+  fieldValidation.validateFileUploadField('guide-document', 'xls');
+  fieldValidation.validateFileUploadField('acknowledgement-of-risk-form');
+  fieldValidation.validateFileUploadField('insurance-certificate');
+  fieldValidation.validateFileUploadField('operating-plan');
 
   it('should submit an application', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
@@ -104,9 +101,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
     element(by.id('start-year')).sendKeys('2020');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
