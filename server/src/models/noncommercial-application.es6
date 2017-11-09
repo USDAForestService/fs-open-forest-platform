@@ -1,9 +1,18 @@
 'use strict';
 
+/**
+ * Module for noncommercial permit application model
+ * @module models/noncommercial-application
+ */
+
 const Sequelize = require('sequelize');
 
 const util = require('../util.es6');
 
+/**
+ * Noncommercial permit application model
+ * @exports util
+ */
 module.exports = util.getSequelizeConnection().define(
   'noncommercialApplications',
   {
