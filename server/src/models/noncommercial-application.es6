@@ -35,8 +35,8 @@ module.exports = util.getSequelizeConnection().define(
       field: 'control_number',
       validate: {
         len: {
-          args: [1, 50],
-          msg: 'controlNumber must be between 1 and 50 characters in length'
+          args: [0, 50],
+          msg: 'controlNumber must be less than 50 characters in length'
         }
       }
     },
@@ -177,7 +177,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_areacd',
       validate: {
         len: {
-          args: [3, 3],
+          args: [0, 3],
           msg: 'applicantInfoEveningPhoneAreaCode must be 3 characters in length'
         },
         is: /[0-9]{3}/
@@ -188,7 +188,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_prefix',
       validate: {
         len: {
-          args: [3, 3],
+          args: [0, 3],
           msg: 'applicantInfoEveningPhonePrefix must be 3 characters in length'
         },
         is: /[0-9]{3}/
@@ -199,7 +199,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_number',
       validate: {
         len: {
-          args: [4, 4],
+          args: [0, 4],
           msg: 'applicantInfoEveningPhoneNumber must be 4 characters in length'
         },
         is: /[0-9]{4}/
@@ -210,7 +210,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_eve_phone_ext',
       validate: {
         len: {
-          args: [1, 10],
+          args: [0, 10],
           msg: 'applicantInfoEveningPhoneExtension must be less than 10 characters in length'
         }
       }
