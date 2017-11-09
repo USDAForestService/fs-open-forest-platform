@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for permit application revision history model
+ * @module models/revision
+ */
+
 const Sequelize = require('sequelize');
 const url = require('url');
 
@@ -10,6 +15,10 @@ const sequelizeOptions = {
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
+/**
+ * Permit application revision history model
+ * @exports util
+ */
 module.exports = sequelize.define('revisions', {
   revisionId: {
     type: Sequelize.INTEGER,

@@ -24,37 +24,6 @@ describe('util tests', () => {
     });
   });
 
-  describe('prepareCerts', () => {
-    after(() => {
-      AWS.mock('S3', 'getObject', function(params, cb) {
-        cb(null, mockS3);
-      });
-    });
-
-    it('should prepare the certificates', done => {
-      util.prepareCerts().then(certs => {
-        expect(certs).to.be.an('array');
-        done();
-      });
-    });
-
-    it('should get rejected if s3 errors', done => {
-      let s3err = new Error('kaboom!');
-      AWS.mock('S3', 'getObject', function(params, cb) {
-        cb(s3err);
-      });
-      util
-        .prepareCerts()
-        .then(() => {
-          done('should not reach this');
-        })
-        .catch(err => {
-          expect(err).to.equal(s3err);
-          done();
-        });
-    });
-  });
-
   describe('middleLayerAuth', () => {
     let postStub;
     before(() => (postStub = sinon.stub(util, 'request')));
