@@ -22,7 +22,7 @@ describe('Xmas tree  - Find a forest', () => {
       element(by.tagName('ng2-auto-complete')).click();
       element(by.id('forest-finder-submit')).click();
       browser.sleep(800);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/xmas-trees/forests/4/tree-guidelines');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/4/tree-guidelines');
     });
 
   });
