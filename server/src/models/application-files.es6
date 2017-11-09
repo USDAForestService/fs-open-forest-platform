@@ -1,9 +1,18 @@
 'use strict';
 
+/**
+ * Module for application file model
+ * @module models/application-files
+ */
+
 const Sequelize = require('sequelize');
 
 const util = require('../util.es6');
 
+/**
+ * Application file model
+ * @exports util
+ */
 module.exports = util.getSequelizeConnection().define(
   'applicationFiles',
   {

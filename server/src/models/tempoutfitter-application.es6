@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for temp outfitter permit application model
+ * @module models/tempoutfitter-application
+ */
+
 const Sequelize = require('sequelize');
 
 const util = require('../util.es6');

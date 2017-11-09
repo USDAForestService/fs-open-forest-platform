@@ -195,10 +195,6 @@ To run any of the server commands, either the environment variables above must b
 
 To setup the database run `yarn migrate`
 
-###### Seed the database with test data
-
-Run `yarn seed`
-
 ###### Start the server
 
 Run `yarn dev` to start the server, and visit http://localhost:8080.
@@ -212,10 +208,6 @@ To revert the last database migration run
 To revert all of the database migrations and start with a blank database run
 
 `yarn undoAllMigrate`
-
-To remove that data from the database run:
-
-`./node_modules/sequelize-cli/bin/sequelize db:seed:undo:all`
 
 To run eslint for linting:
 
@@ -361,7 +353,7 @@ As an alternative to installing all the development tools necessary to run the e
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
 
 ## Usability testing
-While developing we spent time usability testing features with the correct users and applied majority feedback. 
+While developing we spent time usability testing features with the correct users and applied majority feedback.
 
 [This repository](https://github.com/flexion/fs-intake-module/tree/sprint-16-development/wiki) includes usability testing conducted by Flexion
 * [Usability testing session 1 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-1-summary---May-12%2C-2017.md)
