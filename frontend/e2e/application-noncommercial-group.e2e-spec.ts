@@ -66,9 +66,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');
@@ -118,9 +115,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');
