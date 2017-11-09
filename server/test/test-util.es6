@@ -31,13 +31,6 @@ describe('util tests', () => {
       });
     });
 
-    it('should prepare the certificates', done => {
-      util.prepareCerts().then(certs => {
-        expect(certs).to.be.an('array');
-        done();
-      });
-    });
-
     it('should get rejected if s3 errors', done => {
       let s3err = new Error('kaboom!');
       AWS.mock('S3', 'getObject', function(params, cb) {
