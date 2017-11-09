@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { tempOutfitterMock } from './temp-outfitter-mock';
+import { tempOutfitterMock } from './temp-outfitter.mock';
 
 class MockApplicationService {
   getOne(id): Observable<{}> {
