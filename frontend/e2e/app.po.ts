@@ -36,7 +36,7 @@ export class AdminApplicationView {
 
 export class TreesSidebarPage {
   navigateTo(forestId) {
-    return browser.get('/xmas-trees/forests/' + forestId + '/tree-guidelines');
+    return browser.get('/christmas-trees/forests/' + forestId + '/tree-guidelines');
   }
 
   getTreeSelectionLink() {
@@ -54,7 +54,7 @@ export class TreesSidebarPage {
 
 export class TreesForestFinderPage {
   navigateTo() {
-    return browser.get('/xmas-trees/forests');
+    return browser.get('/christmas-trees/forests');
   }
 }
 
