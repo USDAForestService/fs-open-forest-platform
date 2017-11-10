@@ -292,7 +292,6 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingCity: {
       type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_city',
-      allowNull: true,
       validate: {
         len: {
           args: [0, 255],
@@ -303,14 +302,16 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_pri_mailing_state',
-      allowNull: true,
       validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoPrimaryMailingState is invalid' } }
     },
     applicantInfoPrimaryMailingZIP: {
       type: Sequelize.STRING(5),
       field: 'appl_info_pri_mailing_zip',
-      allowNull: true,
       validate: {
+        len: {
+          args: [0, 5],
+          msg: 'applicantInfoSecondaryMailingAddress must be 5 characters in length'
+        },
         is: /^$|[0-9]{5}/
       }
     },
