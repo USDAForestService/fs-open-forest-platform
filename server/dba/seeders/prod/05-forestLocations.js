@@ -426,7 +426,44 @@ module.exports = {
         type: 'area',
         description: 'North of and on the Wind River reservation',
         image_filename: null
+      },
+      {
+        id: 54,
+        forest_id: 1,
+        district: 'Elk Creek',
+        allowed: true,
+        type: 'cutting-area',
+        description: 'Dec. 2-9, 2017',
+        image_filename: null
+      },
+      {
+        id: 55,
+        forest_id: 1,
+        district: 'Red Feather Lakes',
+        allowed: true,
+        type: 'cutting-area',
+        description: 'Dec. 2-10, 2017',
+        image_filename: null
+      },
+      {
+        id: 56,
+        forest_id: 1,
+        district: 'Red Feather Lakes',
+        allowed: true,
+        type: 'cutting-area-hours',
+        description: '8:30 am - 2:30 pm. Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        image_filename: null
+      },
+      {
+        id: 57,
+        forest_id: 1,
+        district: 'Elk Creek',
+        allowed: true,
+        type: 'cutting-area-hours',
+        description: '8:30 am - 2:30 pm. Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        image_filename: null
       }
+
     ];
     return queryInterface.bulkInsert('christmas_trees_forest_locations', forestLocations);
   },
