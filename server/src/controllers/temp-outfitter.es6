@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for temp outfitter permit application controllers
+ * @module controllers/temp-outfitter
+ */
+
 const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
@@ -15,12 +20,16 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
 
+/** Initialize our S3 bucket connection for file attachments */
 const s3 = new AWS.S3({
   accessKeyId: vcapConstants.accessKeyId,
   secretAccessKey: vcapConstants.secretAccessKey,
   region: vcapConstants.region
 });
 
+/**
+ * Translate permit application object from client format to database format.
+ */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
@@ -101,6 +110,9 @@ const translateFromClientToDatabase = (input, output) => {
   return output;
 };
 
+/**
+ * Translate permit application object from database format to client format.
+ */
 const translateFromDatabaseToClient = input => {
   const result = {
     applicantInfo: {
@@ -219,20 +231,15 @@ const translateFromDatabaseToClient = input => {
       }
     }
   };
-
   result.tempOutfitterFields.noPromotionalWebsite = !result.tempOutfitterFields.advertisingURL;
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
-
-  // below need to be replaced with file values
-  result.guideIdentification = '';
-  result.operatingPlan = '';
-  result.liabilityInsurance = '';
-  result.acknowledgementOfRisk = '';
-  result.applicantInfo.goodStandingEvidence = '';
 
   return result;
 };
 
+/**
+ * Translate permit application object from database format to middle layer format.
+ */
 const translateFromIntakeToMiddleLayer = application => {
   const result = {
     intakeId: application.applicationId,
@@ -324,6 +331,9 @@ const translateFromIntakeToMiddleLayer = application => {
   return result;
 };
 
+/**
+ * Get a file from the S3 bucket.
+ */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
@@ -346,6 +356,9 @@ const getFile = (key, documentType) => {
   });
 };
 
+/**
+ * Get all file attachments for a permit application.
+ */
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
@@ -375,6 +388,9 @@ const getAllFiles = applicationId => {
   });
 };
 
+/**
+ * Stream a file from the S3 bucket.
+ */
 const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
@@ -386,6 +402,9 @@ const streamFile = (fileName, res) => {
     .pipe(res);
 };
 
+/**
+ * Get all file attachment names for a permit application,
+ */
 const getAllFileNames = applicationId => {
   return ApplicationFile.findAll({
     where: {
@@ -394,6 +413,9 @@ const getAllFileNames = applicationId => {
   });
 };
 
+/**
+ * Update the permit application model based on permissions.
+ */
 const updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
@@ -409,6 +431,9 @@ const updateApplicationModel = (model, submitted, user) => {
   }
 };
 
+/**
+ * Send an application to the middle layer.
+ */
 const acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId)
@@ -488,6 +513,9 @@ const acceptApplication = application => {
   });
 };
 
+/**
+ * Get file attachment names for a permit application.
+ */
 tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
     .then(app => {
@@ -502,10 +530,16 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
     });
 };
 
+/**
+ * Stream a file attachment from S3.
+ */
 tempOutfitter.streamFile = (req, res) => {
   streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
+/**
+ * Stream a file attachment to S3.
+ */
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
@@ -519,6 +553,9 @@ tempOutfitter.streamToS3 = multer({
   })
 });
 
+/**
+ * Add a file attachment to a permit application.
+ */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
     where: {
@@ -548,6 +585,9 @@ tempOutfitter.attachFile = (req, res) => {
     });
 };
 
+/**
+ * Delete a permit application attachment.
+ */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
     where: {
@@ -562,6 +602,9 @@ tempOutfitter.deleteFile = (req, res) => {
     });
 };
 
+/**
+ * Create a permit application.
+ */
 tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
   let model = {
@@ -586,6 +629,9 @@ tempOutfitter.create = (req, res) => {
     });
 };
 
+/**
+ * Get one permit application.
+ */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
     where: {
@@ -619,6 +665,9 @@ tempOutfitter.getOne = (req, res) => {
     });
 };
 
+/**
+ * Update a permit application.
+ */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
     where: {
@@ -679,4 +728,8 @@ tempOutfitter.update = (req, res) => {
     });
 };
 
+/**
+ * Temp outfitter permit application controllers
+ * @exports tempOutfitter
+ */
 module.exports = tempOutfitter;
