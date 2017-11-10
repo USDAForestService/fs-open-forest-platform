@@ -1,11 +1,19 @@
 'use strict';
 
+/**
+ * Module for common controllers
+ * @module controllers/common
+ */
+
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 
 const commonControllers = {};
 
+/**
+ * Generate a sequelize status condition based on the status group.
+ */
 const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
@@ -55,6 +63,9 @@ const findOrCondition = req => {
   return orCondition;
 };
 
+/**
+ * Get permit applications of every type.
+ */
 commonControllers.getPermitApplications = (req, res) => {
   const orCondition = findOrCondition(req);
   const andCondition = [];
@@ -125,4 +136,8 @@ commonControllers.getPermitApplications = (req, res) => {
     });
 };
 
+/**
+ * Misc controllers
+ * @exports commonControllers
+ */
 module.exports = commonControllers;

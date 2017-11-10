@@ -15,10 +15,6 @@ const sequelizeOptions = {
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
 
-/**
- * Permit application revision history model
- * @exports util
- */
 module.exports = sequelize.define('revisions', {
   revisionId: {
     type: Sequelize.INTEGER,
