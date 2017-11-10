@@ -8,7 +8,7 @@ import { RevisionHistoryComponent } from './revision-history.component';
 import { Observable } from 'rxjs/Observable';
 import { SortArray } from '../../_pipes/sort-array.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
-import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter-mock';
+import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';
 
 @Pipe({ name: 'SortArray' })
 class MockPipe implements PipeTransform {

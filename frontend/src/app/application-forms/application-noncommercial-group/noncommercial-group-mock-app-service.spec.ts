@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { noncommercialMock } from './noncommercial-mock';
+import { noncommercialMock } from './noncommercial.mock';
 
 export class MockApplicationService {
   getOne(id): Observable<{}> {

@@ -19,7 +19,6 @@ import * as moment from 'moment/moment';
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
-  // application = new SpecialUseApplication();
   application: any = {};
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
@@ -118,6 +117,12 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       );
     }
   }
+
+  /**
+  * @param type  Address type and name of address field group, e.g. primaryAddress
+  * @param Value  Boolean that determines if address fields should be required or not.
+  *  This function removes the address validation or adds the address validations if the fields are required.
+  */
 
   addRemoveAddress(type, value) {
     if (value) {

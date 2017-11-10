@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter-mock';
+import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';
 import * as moment from 'moment/moment';
 import * as sinon from 'sinon';
 
