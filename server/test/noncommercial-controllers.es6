@@ -32,7 +32,11 @@ describe('noncommercial controllers', () => {
   it('POST should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     permitApplication.applicantInfo.primaryFirstName = 'Robert"); DROP TABLE noncommercialApplications; --';
-    request(server).post(noncommercialUrl).send(permitApplication).expect('Content-Type', /json/).expect(201, done);
+    request(server)
+      .post(noncommercialUrl)
+      .send(permitApplication)
+      .expect('Content-Type', /json/)
+      .expect(201, done);
   });
 
   it('POST should return a 400 status code and an error when the region is missing', done => {
@@ -263,6 +267,34 @@ describe('noncommercial controllers', () => {
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
+        assert.equal(res.body.errors[0].message, 'applicantInfoSecondaryMailingAddress must be 5 characters in length');
+      })
+      .expect(400, done);
+  });
+
+  it('POST should return a 400 status code and an error when the primaryMailingZip is too short', done => {
+    const permitApplication = noncommercialPermitApplicationFactory.create();
+    permitApplication.applicantInfo.primaryAddress.mailingZIP = '1234';
+    request(server)
+      .post(noncommercialUrl)
+      .send(permitApplication)
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        assert.lengthOf(res.body.errors, 1);
+        assert.equal(res.body.errors[0].message, 'Validation is on applicantInfoPrimaryMailingZIP failed');
+      })
+      .expect(400, done);
+  });
+
+  it('POST should return a 400 status code and an error when the primaryMailingZip is not numeric', done => {
+    const permitApplication = noncommercialPermitApplicationFactory.create();
+    permitApplication.applicantInfo.primaryAddress.mailingZIP = 'ABCDE';
+    request(server)
+      .post(noncommercialUrl)
+      .send(permitApplication)
+      .expect('Content-Type', /json/)
+      .expect(res => {
+        assert.lengthOf(res.body.errors, 1);
         assert.equal(res.body.errors[0].message, 'Validation is on applicantInfoPrimaryMailingZIP failed');
       })
       .expect(400, done);
@@ -347,11 +379,15 @@ describe('noncommercial controllers', () => {
   });
 
   it('GET should return a 404 status code when the intakeControlNumber is not found', done => {
-    request(server).get(`${noncommercialUrl}/${invalidIntakeControlNumber}`).expect(404, done);
+    request(server)
+      .get(`${noncommercialUrl}/${invalidIntakeControlNumber}`)
+      .expect(404, done);
   });
 
   it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
-    request(server).get(noncommercialUrl + '/' + 'imalformedControlNumber').expect(500, done);
+    request(server)
+      .get(noncommercialUrl + '/' + 'imalformedControlNumber')
+      .expect(500, done);
   });
 
   it('PUT should return a 200 status code when the status is Submitted', done => {
@@ -462,12 +498,16 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and middlelayer authentication fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(401, {
-      token: 'auth-token'
-    });
-    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, {
-      status: 'success'
-    });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(401, {
+        token: 'auth-token'
+      });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, {
+        status: 'success'
+      });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
       .send(
@@ -492,12 +532,16 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and the middlelayer POST fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(201, {
-      token: 'auth-token'
-    });
-    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(500, {
-      status: 'fail'
-    });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(201, {
+        token: 'auth-token'
+      });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(500, {
+        status: 'fail'
+      });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
       .send(
@@ -521,12 +565,16 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(200, {
-      token: 'auth-token'
-    });
-    nock(vcapConstants.middleLayerBaseUrl).post('/permits/applications/special-uses/noncommercial/').reply(200, {
-      controlNumber: '1999'
-    });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/auth')
+      .reply(200, {
+        token: 'auth-token'
+      });
+    nock(vcapConstants.middleLayerBaseUrl)
+      .post('/permits/applications/special-uses/noncommercial/')
+      .reply(200, {
+        controlNumber: '1999'
+      });
     request(server)
       .put(`${noncommercialUrl}/${intakeControlNumber}`)
       .send(
@@ -558,6 +606,8 @@ describe('noncommercial controllers', () => {
   });
 
   it('DELETE should return a 404 status code', done => {
-    request(server).delete(`${noncommercialUrl}/${intakeControlNumber}`).expect(404, done);
+    request(server)
+      .delete(`${noncommercialUrl}/${intakeControlNumber}`)
+      .expect(404, done);
   });
 });
