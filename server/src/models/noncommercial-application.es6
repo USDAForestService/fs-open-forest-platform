@@ -135,7 +135,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoDayPhoneAreaCode must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoDayPhonePrefix: {
@@ -147,7 +147,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoDayPhonePrefix must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoDayPhoneNumber: {
@@ -159,7 +159,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [4, 4],
           msg: 'applicantInfoDayPhoneNumber must be 4 characters in length'
         },
-        is: /[0-9]{4}/
+        is: /^$|[0-9]{4}/
       }
     },
     applicantInfoDayPhoneExtension: {
@@ -167,7 +167,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'applicant_info_day_phone_ext',
       validate: {
         len: {
-          args: [1, 10],
+          args: [0, 10],
           msg: 'applicantInfoDayPhoneExtension must be less than 10 characters in length'
         }
       }
@@ -180,7 +180,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [0, 3],
           msg: 'applicantInfoEveningPhoneAreaCode must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoEveningPhonePrefix: {
@@ -191,7 +191,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [0, 3],
           msg: 'applicantInfoEveningPhonePrefix must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoEveningPhoneNumber: {
@@ -202,7 +202,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [0, 4],
           msg: 'applicantInfoEveningPhoneNumber must be 4 characters in length'
         },
-        is: /[0-9]{4}/
+        is: /^$|[0-9]{4}/
       }
     },
     applicantInfoEveningPhoneExtension: {
@@ -266,7 +266,7 @@ module.exports = util.getSequelizeConnection().define(
       type: Sequelize.STRING(5),
       field: 'applicant_info_org_mailing_zip',
       validate: {
-        is: /[0-9]{5}/
+        is: /^$|[0-9]{5}/
       }
     },
     applicantInfoPrimaryMailingAddress: {
@@ -292,7 +292,6 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingCity: {
       type: Sequelize.STRING(255),
       field: 'appl_info_pri_mailing_city',
-      allowNull: true,
       validate: {
         len: {
           args: [0, 255],
@@ -303,15 +302,17 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_pri_mailing_state',
-      allowNull: true,
       validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoPrimaryMailingState is invalid' } }
     },
     applicantInfoPrimaryMailingZIP: {
       type: Sequelize.STRING(5),
       field: 'appl_info_pri_mailing_zip',
-      allowNull: true,
       validate: {
-        is: /^[0-9]{5}$/i
+        len: {
+          args: [0, 5],
+          msg: 'applicantInfoSecondaryMailingAddress must be 5 characters in length'
+        },
+        is: /^$|[0-9]{5}/
       }
     },
     applicantInfoSecondaryMailingAddress: {
@@ -353,7 +354,7 @@ module.exports = util.getSequelizeConnection().define(
       type: Sequelize.STRING(5),
       field: 'appl_info_sec_mailing_zip',
       validate: {
-        is: /[0-9]{5}/
+        is: /^$|[0-9]{5}/
       }
     },
     applicantInfoOrganizationName: {
