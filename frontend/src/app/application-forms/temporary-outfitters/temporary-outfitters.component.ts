@@ -202,7 +202,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.numberOfFiles = this.applicationFieldsService.getNumberOfFiles();
   }
 
-  /*
+  /**
   * Remove data that has not been used and should not be sent to the api.
   * There are fields that are conditionally added or removed from the form.
   */
