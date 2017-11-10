@@ -65,6 +65,9 @@ export class DateTimeRangeComponent implements OnInit {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
         const values = this.parentForm.get('dateTimeRange').value;
         values[field] = value;
+        // console.log('field', field);
+        // console.log('value', value);
+        // console.log('values', values);
         this.startDateChangeHandler(values);
       });
     }
@@ -96,14 +99,19 @@ export class DateTimeRangeComponent implements OnInit {
     if (
       values.startMonth &&
       values.startDay &&
-      values.startYear.length === 4 &&
+      values.startYear.toString().length === 4 &&
       !values.endMonth &&
       !values.endDay &&
       !values.endYear
     ) {
-      this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth } });
-      this.parentForm.patchValue({ dateTimeRange: { endDay: values.startDay } });
-      this.parentForm.patchValue({ dateTimeRange: { endYear: values.startYear } });
+      const today = moment();
+      const startDateTime = this.parseDateTime(values.startYear, values.startMonth, values.startDay, 0, 0, 'AM');
+      this.dateStatus.startAfterToday = today.isBefore(startDateTime);
+      if (this.dateStatus.startAfterToday) {
+        this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth } });
+        this.parentForm.patchValue({ dateTimeRange: { endDay: values.startDay } });
+        this.parentForm.patchValue({ dateTimeRange: { endYear: values.startYear } });
+      }
     }
   }
 
