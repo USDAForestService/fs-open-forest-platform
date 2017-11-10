@@ -120,7 +120,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoDayPhoneAreaCode must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoDayPhonePrefix: {
@@ -132,7 +132,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoDayPhonePrefix must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoDayPhoneNumber: {
@@ -144,7 +144,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [4, 4],
           msg: 'applicantInfoDayPhoneNumber must be 4 characters in length'
         },
-        is: /[0-9]{4}/
+        is: /^$|[0-9]{4}/
       }
     },
     applicantInfoDayPhoneExtension: {
@@ -165,7 +165,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoEveningPhoneAreaCode must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoEveningPhonePrefix: {
@@ -176,7 +176,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoEveningPhonePrefix must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoEveningPhoneNumber: {
@@ -187,7 +187,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [4, 4],
           msg: 'applicantInfoEveningPhoneNumber must be 4 characters in length'
         },
-        is: /[0-9]{4}/
+        is: /^$|[0-9]{4}/
       }
     },
     applicantInfoEveningPhoneExtension: {
@@ -255,7 +255,7 @@ module.exports = util.getSequelizeConnection().define(
       field: 'appl_info_pri_mailing_zip',
       allowNull: false,
       validate: {
-        is: /[0-9]{5}/
+        is: /^$|[0-9]{5}/
       }
     },
     applicantInfoOrganizationName: {
@@ -411,7 +411,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoFaxAreaCode must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoFaxPrefix: {
@@ -422,7 +422,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [3, 3],
           msg: 'applicantInfoFaxPrefix must be 3 characters in length'
         },
-        is: /[0-9]{3}/
+        is: /^$|[0-9]{3}/
       }
     },
     applicantInfoFaxNumber: {
@@ -433,7 +433,7 @@ module.exports = util.getSequelizeConnection().define(
           args: [4, 4],
           msg: 'applicantInfoFaxNumber must be 4 characters in length'
         },
-        is: /[0-9]{4}/
+        is: /^$|[0-9]{4}/
       }
     },
     applicantInfoFaxExtension: {
