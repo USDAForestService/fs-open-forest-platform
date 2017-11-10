@@ -17,7 +17,6 @@ import { SpecialUseApplication } from '../../_models/special-use-application';
 })
 export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   apiErrors: any;
-  // application = new SpecialUseApplication();
   application: any;
   applicationId: number;
   currentSection: any;
@@ -202,6 +201,11 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   numberOfFilesToUpload() {
     this.numberOfFiles = this.applicationFieldsService.getNumberOfFiles();
   }
+
+  /**
+  * Remove data that has not been used and should not be sent to the api.
+  * There are fields that are conditionally added or removed from the form.
+  */
 
   removeUnusedData() {
     const form = this.applicationForm;
