@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebsiteComponent } from './website.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { urlValidator } from '../validators/url-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('WebsiteComponent', () => {
@@ -25,7 +26,7 @@ describe('WebsiteComponent', () => {
     fixture = TestBed.createComponent(WebsiteComponent);
     component = fixture.debugElement.componentInstance;
     component.applicantInfo = formBuilder.group({
-      website: ['', [Validators.pattern('https?://.+')]]
+      website: ['', [urlValidator()]]
     });
     fixture.detectChanges();
   });
