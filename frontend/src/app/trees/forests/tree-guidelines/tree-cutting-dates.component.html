@@ -1,0 +1,35 @@
+<h3 id="cutting-season-dates-heading">
+  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+    <use xlink:href="/assets/img/sprites.svg#fa-calendar" fill="black" />
+  </svg>
+  Season dates
+</h3>
+<p id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. dd' }} - {{forest.endDate | date: 'MMM. dd'}}, {{forest.endDate | date: 'yyyy' }}</p>
+<div  *ngIf="(forest.locations | filter: 'type': 'cutting-area').length">
+  <div [attr.id]="'tree-cutting-areas-dates-'+ i" *ngFor="let cuttingArea of forest.locations | filter: 'type': 'cutting-area'; let i=index">
+    <h4>
+      {{cuttingArea.district}} cutting area
+    </h4>
+    <div>
+      {{cuttingArea.description}}
+    </div>
+  </div>
+</div>
+
+<h3 id="cutting-season-daily-hours-heading">
+  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+    <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
+  </svg>
+  Cutting hours
+</h3>
+<div id="cutting-season-daily-hours-default">Daylight hours only</div>
+<div  *ngIf="(forest.locations | filter: 'type': 'cutting-area-hours').length">
+  <div [attr.id]="'tree-cutting-areas-hours-'+ i" *ngFor="let cuttingArea of forest.locations | filter: 'type': 'cutting-area-hours'; let i=index">
+    <h4>
+      {{cuttingArea.district}} cutting area
+    </h4>
+    <div>
+      {{cuttingArea.description}}
+    </div>
+  </div>
+</div>

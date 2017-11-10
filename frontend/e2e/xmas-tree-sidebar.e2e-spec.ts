@@ -35,7 +35,7 @@ describe('Xmas sidebar page', () => {
   it('should have a breadcrumb', () => {
     browser.sleep(500);
     expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
-      'Christmas tree permits > Find a forest > Mt. Hood National Forest'
+      'Christmas tree permits > Find a forest > Mt. Hood National Forest Christmas tree permit guidelines'
     );
   });
 

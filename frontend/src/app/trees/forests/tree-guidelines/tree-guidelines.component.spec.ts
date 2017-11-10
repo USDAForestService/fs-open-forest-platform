@@ -1,13 +1,10 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
-import * as moment from 'moment/moment';
-import * as sinon from 'sinon';
 
 describe('PermitApplicationListComponent', () => {
   let component: TreeGuidelinesComponent;

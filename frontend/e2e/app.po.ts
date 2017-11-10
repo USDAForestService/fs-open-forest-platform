@@ -50,6 +50,22 @@ export class TreesSidebarPage {
   getTreeSpecies(type, index) {
     return element(by.id(`tree-${type}-species-${index}`))
   }
+
+  cuttingDatesSectionLink() {
+    return element(by.id('cutting-dates-link'));
+  }
+
+  cuttingDatesSection() {
+    return element(by.id('cutting-dates'));
+  }
+
+  cuttingDatesSeasonStartAndEnd() {
+    return element(by.id('cutting-season-start-end-date'));
+  }
+
+  cuttingDatesHoursDefault() {
+    return element(by.id('cutting-season-daily-hours-default'));
+  }
 }
 
 export class TreesForestFinderPage {

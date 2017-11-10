@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ContactInfoComponent } from './forests/tree-guidelines/contact-info/contact-info.component';
 import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
-import { TreeGuidelinesTextComponent } from './forests/tree-guidelines/tree-guidelines-text.component';
+import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates.component';
 import { TreeSelectionComponent } from './forests/tree-guidelines/tree-selection/tree-selection.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/tree-species/tree-species.component';
 import { TreeSafetyComponent } from './forests/tree-guidelines/safety/safety.component';
@@ -33,7 +33,7 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeCuttingCleanupComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
-    TreeGuidelinesTextComponent,
+    TreeCuttingDatesComponent,
     TreeLocationsComponent,
     TreeLocationsMapsComponent,
     TreeLocationsProhibitedComponent,
@@ -53,7 +53,7 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeCuttingCleanupComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
-    TreeGuidelinesTextComponent,
+    TreeCuttingDatesComponent,
     TreeLocationsComponent,
     TreeSafetyComponent,
     TreeSelectionComponent,
