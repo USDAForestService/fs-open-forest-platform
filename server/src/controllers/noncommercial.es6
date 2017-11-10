@@ -1,4 +1,9 @@
-'use strict9fb9f3e9-bb69-443d-b2aa-6e2b64d51a09';
+'use strict;';
+
+/**
+ * Module for noncommercial permit application controllers
+ * @module controllers/noncommercial
+ */
 
 const moment = require('moment');
 
@@ -10,6 +15,9 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};
 
+/**
+ * Translate permit application object from client format to database format.
+ */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
@@ -96,6 +104,9 @@ const translateFromClientToDatabase = (input, output) => {
   output.type = 'noncommercial';
 };
 
+/**
+ * Translate permit application object from database format to client format.
+ */
 const translateFromDatabaseToClient = input => {
   const result = {
     applicantInfo: {
@@ -185,29 +196,28 @@ const translateFromDatabaseToClient = input => {
     authEmail: input.authEmail,
     type: input.type
   };
-
   result.applicantInfo.addSecondaryPermitHolder =
     !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
-
   result.applicantInfo.secondaryAddressSameAsPrimary =
     !result.applicantInfo.secondaryAddress.mailingAddress &&
     !result.applicantInfo.secondaryAddress.mailingAddress2 &&
     !result.applicantInfo.secondaryAddress.mailingCity &&
     !result.applicantInfo.secondaryAddress.mailingState &&
     !result.applicantInfo.secondaryAddress.mailingZIP;
-
   result.applicantInfo.primaryAddressSameAsOrganization =
     !result.applicantInfo.organizationAddress.mailingAddress &&
     !result.applicantInfo.organizationAddress.mailingAddress2 &&
     !result.applicantInfo.organizationAddress.mailingCity &&
     !result.applicantInfo.organizationAddress.mailingState &&
     !result.applicantInfo.organizationAddress.mailingZIP;
-
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
   return result;
 };
 
+/**
+ * Translate permit application object from database format to middle layer format.
+ */
 const translateFromIntakeToMiddleLayer = input => {
   let result = {
     intakeId: input.applicationId,
@@ -267,6 +277,9 @@ const translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
+/**
+ * Update the permit application model values based on permissions.
+ */
 noncommercial.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
@@ -282,6 +295,9 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
   }
 };
 
+/**
+ * Send the permit application to the middle layer.
+ */
 noncommercial.acceptApplication = application => {
   const requestOptions = {
     method: 'POST',
@@ -307,6 +323,9 @@ noncommercial.acceptApplication = application => {
   });
 };
 
+/**
+ * Get one permit application.
+ */
 noncommercial.getOne = (req, res) => {
   NoncommercialApplication.findOne({
     where: {
@@ -340,7 +359,9 @@ noncommercial.getOne = (req, res) => {
     });
 };
 
-// populates an applicationId on the object before return
+/**
+ * Create a new permit application.
+ */
 noncommercial.create = (req, res) => {
   util.setAuthEmail(req);
   let model = {
@@ -364,6 +385,9 @@ noncommercial.create = (req, res) => {
     });
 };
 
+/**
+ * Update a permit application.
+ */
 noncommercial.update = (req, res) => {
   NoncommercialApplication.findOne({
     where: {
@@ -425,4 +449,8 @@ noncommercial.update = (req, res) => {
     });
 };
 
+/**
+ * Noncommercial permit application controllers
+ * @exports noncommercial
+ */
 module.exports = noncommercial;

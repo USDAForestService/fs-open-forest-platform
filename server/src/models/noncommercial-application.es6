@@ -9,10 +9,6 @@ const Sequelize = require('sequelize');
 
 const util = require('../util.es6');
 
-/**
- * Noncommercial permit application model
- * @exports util
- */
 module.exports = util.getSequelizeConnection().define(
   'noncommercialApplications',
   {

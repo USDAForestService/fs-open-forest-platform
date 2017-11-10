@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for passport configuration
+ * @module auth/passport-config
+ */
+
 const passport = require('passport');
 
 const eAuth = require('./usda-eauth.es6');
@@ -9,6 +14,9 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const passportConfig = {};
 
+/**
+ * Setup passport to integrate with login.gov and eAuth/
+ */
 passportConfig.setup = app => {
   loginGov.setup();
   app.use(passport.initialize());
@@ -23,12 +31,18 @@ passportConfig.setup = app => {
   });
 };
 
+/**
+ * Get the authetication user.
+ */
 passportConfig.getPassportUser = (req, res) => {
   return res.send(util.getUser(req));
 };
 
+/**
+ * Log out of eAuth or login.gov.
+ */
 passportConfig.logout = (req, res) => {
-  // login.gov requires the user to visit the idp to logout
+  /** login.gov requires the user to visit the idp to logout */
   if (req.user.role === 'user') {
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
@@ -41,4 +55,8 @@ passportConfig.logout = (req, res) => {
   }
 };
 
+/**
+ * Passport configuration
+ * @exports auth/passportConfig
+ */
 module.exports = passportConfig;
