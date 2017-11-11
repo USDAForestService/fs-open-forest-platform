@@ -3,20 +3,20 @@
     <div class="breadcrumbs">
       <a routerLink="/">Apply for a permit</a> > <span>Help me find a permit</span>
     </div>
-    <h1>{{ title }}</h1>
+    <h1 id="skip-nav-target" tabindex="-1">{{ title }}</h1>
     <div *ngIf="id == 1">
-      <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
-      <a class="usa-button no" type="button" routerLink="/help-me-pick/2">No</a>
+      <a class="usa-button yes" attr.aria-label="Yes, the purpose of your activity is selling goods or services" type="button" routerLink="/help-me-pick/5">Yes</a>
+      <a class="usa-button no" attr.aria-label="No, the purpose of your activity is not selling goods or services" type="button" routerLink="/help-me-pick/2">No</a>
     </div>
 
     <div *ngIf="id == 2">
-      <a class="usa-button yes" type="button" routerLink="/help-me-pick/5">Yes</a>
-      <a class="usa-button no" type="button" routerLink="/help-me-pick/3">No</a>
+      <a class="usa-button yes" attr.aria-label="Yes, the purpose of my activity is selling goods or services." type="button" routerLink="/help-me-pick/5">Yes</a>
+      <a class="usa-button no" attr.aria-label="No, the purpose of my activity is not selling goods or services." type="button" routerLink="/help-me-pick/3">No</a>
     </div>
 
     <div *ngIf="id == 3">
-      <a class="usa-button yes" type="button" routerLink="/help-me-pick/7">Yes</a>
-      <a class="usa-button no" type="button" routerLink="/help-me-pick/4">No</a>
+      <a class="usa-button yes" attr.aria-label="Yes, my activity involve more than 75 people (spectators and participants)." type="button" routerLink="/help-me-pick/7">Yes</a>
+      <a class="usa-button no" attr.aria-label="No, my activity does not involve more than 75 people (spectators and participants)." type="button" routerLink="/help-me-pick/4">No</a>
     </div>
 
     <div *ngIf="id == 4">
@@ -24,8 +24,8 @@
     </div>
 
     <div *ngIf="id == 5">
-      <a class="usa-button yes" type="button" routerLink="/help-me-pick/8">Yes</a>
-      <a class="usa-button no" type="button" routerLink="/help-me-pick/6">No</a>
+      <a class="usa-button yes" attr.aria-label="Yes, my activity involves guiding or outfitting." type="button" routerLink="/help-me-pick/8">Yes</a>
+      <a class="usa-button no" attr.aria-label="No, my activity does not involve guiding or outfitting." type="button" routerLink="/help-me-pick/6">No</a>
     </div>
 
     <div *ngIf="id == 6">

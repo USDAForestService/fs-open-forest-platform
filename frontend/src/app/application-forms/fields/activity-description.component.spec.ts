@@ -7,18 +7,20 @@ import { ActivityDescriptionComponent } from './activity-description.component';
 
 describe('activity description', () => {
   let component: ActivityDescriptionComponent;
-  let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let fixture: ComponentFixture<ActivityDescriptionComponent>;
+  let formBuilder: FormBuilder;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [ActivityDescriptionComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder, { provide: ApplicationFieldsService, useClass: MockApplicationFieldsService }],
+        declarations: [ActivityDescriptionComponent],
+        providers: [FormBuilder, { provide: ApplicationFieldsService, useClass: ApplicationFieldsService }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
       }).compileComponents();
-
-      fixture = TestBed.createComponent(TestComponentWrapperComponent);
-      component = fixture.debugElement.children[0].componentInstance;
+      formBuilder = new FormBuilder();
+      fixture = TestBed.createComponent(ActivityDescriptionComponent);
+      component = fixture.debugElement.componentInstance;
+      component.parentForm = formBuilder.group({});
       fixture.detectChanges();
     })
   );
@@ -47,21 +49,3 @@ describe('activity description', () => {
     expect(component.dateStatus.startDateTimeValid).toBeFalsy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-activity-description [parentForm]="applicationForm"></app-activity-description>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}
-
-class MockApplicationFieldsService {
-  simpleRequireToggle(value1, value2) {
-    return true;
-  }
-}

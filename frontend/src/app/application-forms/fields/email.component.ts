@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-email',
@@ -7,4 +8,5 @@ import { FormGroup } from '@angular/forms';
 })
 export class EmailComponent {
   @Input() applicantInfo: FormGroup;
+  constructor(public afs: ApplicationFieldsService) {}
 }

@@ -1,4 +1,6 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { urlValidator } from '../validators/url-validation';
+import { applicationTypeValidator } from '../validators/application-type-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -15,7 +17,6 @@ import { SpecialUseApplication } from '../../_models/special-use-application';
 })
 export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   apiErrors: any;
-  // application = new SpecialUseApplication();
   application: any;
   applicationId: number;
   currentSection: any;
@@ -55,42 +56,45 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     public renderer: Renderer2
   ) {
     this.applicationForm = this.formBuilder.group({
-      appControlNumber: [''],
-      applicationId: [''],
-      createdAt: [''],
-      applicantMessage: [''],
-      status: [''],
-      authEmail: [''],
+      appControlNumber: ['', [Validators.maxLength(255)]],
+      applicationId: ['', [Validators.maxLength(255)]],
+      createdAt: ['', [Validators.maxLength(255)]],
+      applicantMessage: ['', [Validators.maxLength(255)]],
+      status: ['', [Validators.maxLength(255)]],
+      authEmail: ['', [Validators.maxLength(255)]],
+      authorizingOfficerName: ['', [Validators.maxLength(255)]],
+      authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
       revisions: [''],
-      authorizingOfficerName: [''],
-      authorizingOfficerTitle: [''],
-      district: ['11', [Validators.required]],
-      region: ['06', [Validators.required]],
-      forest: ['05', [Validators.required]],
-      type: ['tempOutfitters', [Validators.required, alphanumericValidator()]],
+      district: ['11', [Validators.required, Validators.maxLength(2)]],
+      region: ['06', [Validators.required, Validators.maxLength(2)]],
+      forest: ['05', [Validators.required, Validators.maxLength(2)]],
+      type: [
+        'tempOutfitters',
+        [Validators.required, alphanumericValidator(), applicationTypeValidator(), Validators.maxLength(255)]
+      ],
       signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
-        organizationName: ['', alphanumericValidator()],
-        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
-        orgType: ['', [Validators.required, alphanumericValidator()]],
-        website: ['', [Validators.pattern('https?://.+')]],
-        goodStandingEvidence: ['']
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        website: ['', [urlValidator(), Validators.maxLength(255)]],
+        goodStandingEvidence: ['', [Validators.maxLength(255)]]
       }),
-      guideIdentification: [''],
-      operatingPlan: [''],
-      liabilityInsurance: [''],
-      acknowledgementOfRisk: [''],
+      guideIdentification: ['', [Validators.maxLength(255)]],
+      operatingPlan: ['', [Validators.maxLength(255)]],
+      liabilityInsurance: ['', [Validators.maxLength(255)]],
+      acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
-        advertisingDescription: ['', [alphanumericValidator()]],
-        advertisingURL: ['', [Validators.required, Validators.pattern('https?://.+')]],
-        noPromotionalWebsite: [''],
-        clientCharges: ['', [Validators.required, alphanumericValidator()]],
-        experienceList: ['', [alphanumericValidator()]]
+        advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
+        noPromotionalWebsite: ['', Validators.maxLength(10)],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
       })
     });
 
@@ -111,10 +115,15 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     if (value) {
       advertisingDescription.setValidators([Validators.required, alphanumericValidator()]);
       advertisingDescription.updateValueAndValidity();
-      advertisingUrl.setValidators([alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.setValidators([alphanumericValidator(), urlValidator(), Validators.maxLength(255)]);
       advertisingUrl.updateValueAndValidity();
     } else {
-      advertisingUrl.setValidators([Validators.required, alphanumericValidator(), Validators.pattern('https?://.+')]);
+      advertisingUrl.setValidators([
+        Validators.required,
+        alphanumericValidator(),
+        urlValidator(),
+        Validators.maxLength(255)
+      ]);
       advertisingUrl.updateValueAndValidity();
       advertisingDescription.setValidators(null);
       advertisingDescription.updateValueAndValidity();
@@ -123,42 +132,43 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
   orgTypeChange(type): void {
     this.pointOfView = 'We';
+    const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.orgTypeFileUpload = false;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        this.applicationFieldsService.updateValidators(gse, false);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         this.orgTypeFileUpload = true;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'Limited Liability Company (LLC)':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         this.orgTypeFileUpload = true;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'Limited Liability Partnership (LLP)':
         this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
         this.orgTypeFileUpload = true;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'State Government':
         this.goodStandingEvidenceMessage = '';
         this.orgTypeFileUpload = false;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        this.applicationFieldsService.updateValidators(gse, false);
         break;
       case 'Local Govt':
         this.goodStandingEvidenceMessage = '';
         this.orgTypeFileUpload = false;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators(null);
+        this.applicationFieldsService.updateValidators(gse, false);
         break;
       case 'Nonprofit':
         this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
         this.orgTypeFileUpload = true;
-        this.applicationForm.get('applicantInfo.goodStandingEvidence').setValidators([Validators.required]);
+        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
     }
   }
@@ -191,6 +201,11 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   numberOfFilesToUpload() {
     this.numberOfFiles = this.applicationFieldsService.getNumberOfFiles();
   }
+
+  /**
+  * Remove data that has not been used and should not be sent to the api.
+  * There are fields that are conditionally added or removed from the form.
+  */
 
   removeUnusedData() {
     const form = this.applicationForm;
@@ -239,8 +254,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.getFiles(this.application.applicationId);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -296,8 +310,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.uploadFiles = true;
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'There were errors when attempting to update your application.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );

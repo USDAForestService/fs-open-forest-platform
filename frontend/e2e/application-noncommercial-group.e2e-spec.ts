@@ -28,7 +28,7 @@ const checkForOrganizationAddress = function(state) {
 
 const checkForAdditionalPhone = function(state) {
   expect<any>(element(by.id('evening-phone')).isPresent()).toBe(state);
-  expect<any>(element(by.id('evening-ext')).isPresent()).toBe(state);
+  expect<any>(element(by.id('evening-phone-ext')).isPresent()).toBe(state);
 };
 
 describe('Apply for a noncommercial group use permit', () => {
@@ -66,9 +66,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');
@@ -87,10 +84,10 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.organization-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
-    element(by.id('day-ext')).sendKeys('2222');
+    element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();
     element(by.id('evening-phone')).sendKeys('1111111111');
-    element(by.id('evening-ext')).sendKeys('1111');
+    element(by.id('evening-phone-ext')).sendKeys('1111');
     element(by.id('website')).sendKeys('http://test.com');
     element(by.css('#organization-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.css('#organization-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
@@ -118,9 +115,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');
