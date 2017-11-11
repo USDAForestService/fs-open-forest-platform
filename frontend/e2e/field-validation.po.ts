@@ -1,6 +1,8 @@
-import { browser, element, by, Key } from 'protractor';
+import { browser, element, by, Key, protractor } from 'protractor';
 
 export class FieldValidation {
+  ec = protractor.ExpectedConditions;
+
   validateSimpleTextField(id, errorId, error, group = false) {
     const queryInput = element(by.id(id));
     it('should require ' + id + ' field to have text', () => {

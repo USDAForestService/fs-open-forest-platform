@@ -1,6 +1,7 @@
 import { AppRoutingModule } from '../app-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FilterPipe } from '../_pipes/filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from '../home/app-button.component';
 import { ProgressComponent } from '../progress/progress.component';
@@ -18,6 +19,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     ApiErrorComponent,
     TrackScrollDirective,
     AppButtonComponent,
+    FilterPipe,
     ProgressComponent,
     SectionHeadingComponent,
     SpacesToDashesPipe,
@@ -26,6 +28,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
   ],
   exports: [
     ApiErrorComponent,
+    FilterPipe,
     AppRoutingModule,
     TrackScrollDirective,
     CommonModule,
