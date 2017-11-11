@@ -29,6 +29,13 @@ elif [ $SPACE = 'public-staging' ]; then
   API_MANIFEST="./cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
+elif [ $SPACE = 'public-trees' ]; then
+  FRONTEND_NAME="forest-service-trees-staging"
+  FRONTEND_MANIFEST="./cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
+  API_NAME="fs-intake-api-trees-staging"
+  API_MANIFEST="./cg-deploy/manifests/staging/manifest-api-trees-staging.yml"
+  CF_USERNAME=$CF_USERNAME
+  CF_PASSWORD=$CF_PASSWORD
 else
 echo "Unknown space: $SPACE"
 exit
