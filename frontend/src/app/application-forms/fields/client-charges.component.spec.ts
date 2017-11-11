@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientChargesComponent } from './client-charges.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('Client Charges Component', () => {
   let component: ClientChargesComponent;
@@ -13,7 +14,7 @@ describe('Client Charges Component', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [ClientChargesComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

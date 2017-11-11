@@ -3,6 +3,15 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
+import * as sinon from 'sinon';
+
+class MockAuthenticationService {
+  user = true;
+
+  removeUser() {
+    this.user = null;
+  }
+}
 
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
@@ -27,11 +36,3 @@ describe('AuthenticatedComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class MockAuthenticationService {
-  user = true;
-
-  removeUser() {
-    this.user = null;
-  }
-}
