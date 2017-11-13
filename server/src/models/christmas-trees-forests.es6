@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const christmasTreesForests =  sequelize.define('christmas_trees_forests',
+  const christmasTreesForests = sequelize.define('christmasTreesForests',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -57,7 +57,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      timestamps: true
+      timestamps: true,
+      freezeTableName: true
     });
   return christmasTreesForests;
 };

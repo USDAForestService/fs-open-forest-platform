@@ -362,11 +362,11 @@ module.exports = {
         display_order: 3, 
         note: 'The bark has a dark gray/purplish hue with crosswise fissures.' }
     ];
-    return queryInterface.bulkInsert('speciesNotes', speciesNotes);
+    return queryInterface.bulkInsert('christmasTreesSpeciesNotes', speciesNotes);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('speciesNotes', {
+    return queryInterface.bulkDelete('christmasTreesSpeciesNotes', {
       species_id: {
         [Op.in]: [1,2,3,5,6,7,8,10,11,12,15,16,17,20,21,22,25,26,27,28,30,31,32,33,35,36,37,40,41,42,43,45,46,47,55,56,57,61,62,65,70,71,72,75,76,77,80,81,82,85,86,87,90,91,92,95,96,97,100,101,102,105,106,107]
       }

@@ -31,7 +31,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      timestamps: true
+      timestamps: true,
+      freezeTableName: true
     });
   return species;
 };
