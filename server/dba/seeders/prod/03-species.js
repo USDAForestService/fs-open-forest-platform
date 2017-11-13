@@ -158,10 +158,10 @@ module.exports = {
         updated: 'now()'
       }
     ];
-    return queryInterface.bulkInsert('christmasTreesSpecies', species);
+    return queryInterface.bulkInsert('species', species);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('christmasTreesSpecies', { id: { [Op.in]:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] } });
+    return queryInterface.bulkDelete('species', { id: { [Op.in]:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22] } });
   }
 };

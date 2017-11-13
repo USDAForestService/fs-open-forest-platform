@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
         field: 'type'
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         field: 'description'
       },
       imageFilename: {
