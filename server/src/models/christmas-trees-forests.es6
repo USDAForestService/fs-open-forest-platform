@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.TEXT,
         field: 'description'
       },
       forestUrl: {
@@ -44,6 +44,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         field: 'end_date',
         allowNull: false
+      },
+      forestAbbr: {
+        type: DataTypes.STRING,
+        field: 'forest_abbr'
       },
       createdAt: {
         type: DataTypes.DATE,

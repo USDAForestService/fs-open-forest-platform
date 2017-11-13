@@ -19,6 +19,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
+      forestAbbr: input.forestAbbr,
       species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
