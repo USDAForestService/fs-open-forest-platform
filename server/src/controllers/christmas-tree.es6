@@ -19,7 +19,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
-      species: input.forestSpecies.map((species)=>{
+      species: input.christmas_trees_forest_species.map((species)=>{
         return {
           id: species.species.id,
           name: species.species.name,
@@ -30,7 +30,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
           })
         };
       }),
-      locations: input.forestLocations.map((location)=>{
+      locations: input.christmas_trees_forest_locations.map((location)=>{
         return {
           id: location.id,
           district: location.district,
@@ -46,7 +46,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
 
 christmasTree.getForests = (req, res) => {
 
-  treesDb.forests.findAll({
+  treesDb.christmasTreesForests.findAll({
     attributes: [
       'id',
       'forestName',
@@ -67,13 +67,13 @@ christmasTree.getForests = (req, res) => {
 
 christmasTree.getOneGuidelines = (req, res) => {
 
-  treesDb.forests.findOne({
+  treesDb.christmasTreesForests.findOne({
     where: {
       id: req.params.id
     },
     include: [
       {
-        model: treesDb.forestSpecies,
+        model: treesDb.christmasTreesForestSpecies,
         include: [
           {
             model: treesDb.species,
@@ -86,13 +86,13 @@ christmasTree.getOneGuidelines = (req, res) => {
         ]
       },
       {
-        model: treesDb.forestLocations
+        model: treesDb.christmasTreesForestLocations
       }
     ],
     order: [
-      [ treesDb.forestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
-      [ treesDb.forestLocations, 'id', 'ASC'],
-      [ treesDb.forestSpecies, 'id', 'ASC']
+      [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.christmasTreesForestLocations, 'id', 'ASC'],
+      [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {
