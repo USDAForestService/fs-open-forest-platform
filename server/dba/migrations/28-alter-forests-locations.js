@@ -1,13 +1,28 @@
 'use strict';
 
+let doTransaction = require('./modules/transaction');
+
+const TABLE_NAME = 'forestLocations';
+
 module.exports = {
 	up: function (queryInterface, Sequelize) {
-		return queryInterface.addColumn('forestLocations', 'image_filename', {
-			type: Sequelize.STRING(100)
-		});
+		let operations = [
+			{
+			  operation: 'add',
+			  field: 'image_filename',
+			  type: Sequelize.STRING(100)
+			}
+		];
+		return doTransaction(TABLE_NAME, queryInterface, operations);
 	},
 
 	down: function (queryInterface, Sequelize) {
-		return queryInterface.removeColumn('forestLocations', 'image_filename');
+		let operations = [
+			{
+			  operation: 'remove',
+			  field: 'image_filename'
+			}
+		];
+		return doTransaction(TABLE_NAME, queryInterface, operations);
 	}
 };

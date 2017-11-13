@@ -9,7 +9,7 @@ module.exports = {
     let operations = [
       {
         operation: 'renameTable',
-        newTableName: 'christmas_trees_forests'
+        newTableName: 'christmasTreesForests'
       }
     ];
     return doTransaction(TABLE_NAME, queryInterface, operations);
@@ -21,6 +21,6 @@ module.exports = {
         newTableName: TABLE_NAME
       }
     ];
-    return doTransaction('christmas_trees_forests', queryInterface, operations);
+    return doTransaction('christmasTreesForests', queryInterface, operations);
   }
 };

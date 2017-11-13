@@ -60,10 +60,10 @@ module.exports = {
         description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY'
       }
     ];
-    return queryInterface.bulkInsert('christmas_trees_forests', forests);
+    return queryInterface.bulkInsert('christmasTreesForests', forests);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('christmas_trees_forests', { id: { [Op.in]: [1, 2, 3, 4] } });
+    return queryInterface.bulkDelete('christmasTreesForests', { id: { [Op.in]: [1, 2, 3, 4] } });
   }
 };

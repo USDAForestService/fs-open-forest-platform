@@ -23,9 +23,9 @@ treesDb.Sequelize = Sequelize;
 treesDb.sequelize = sequelize;
 
 treesDb.christmasTreesForests = require('../models/christmas-trees-forests.es6')(sequelize, Sequelize);
-treesDb.species = require('../models/species.es6')(sequelize, Sequelize);
+treesDb.species = require('../models/christmas-trees-species.es6')(sequelize, Sequelize);
 treesDb.christmasTreesForestSpecies = require('../models/christmas-trees-forest-species.es6')(sequelize, Sequelize);
-treesDb.speciesNotes = require('../models/species-notes.es6')(sequelize, Sequelize);
+treesDb.speciesNotes = require('../models/christmas-trees-species-notes.es6')(sequelize, Sequelize);
 treesDb.christmasTreesForestLocations = require('../models/christmas-trees-forest-locations.es6')(sequelize, Sequelize);
 
 treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestSpecies, {foreignKey: 'forestId', sourceKey: 'id'});
@@ -35,7 +35,7 @@ treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestLocations, {fo
 treesDb.christmasTreesForestLocations.belongsTo(treesDb.christmasTreesForests, {foreignKey: 'forestId', targetKey: 'id'});
 
 treesDb.species.belongsTo(treesDb.christmasTreesForestSpecies, {foreignKey: 'id', targetKey: 'speciesId'});
-treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
+treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {oreignKey: 'speciesId', targetKey: 'id'});
 
 treesDb.species.hasMany(treesDb.speciesNotes, {foreignKey: 'speciesId', sourceKey: 'id'});
 treesDb.speciesNotes.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});

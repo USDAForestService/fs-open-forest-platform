@@ -428,11 +428,11 @@ module.exports = {
         image_filename: null
       }
     ];
-    return queryInterface.bulkInsert('christmas_trees_forest_locations', forestLocations);
+    return queryInterface.bulkInsert('christmasTreesForestLocations', forestLocations);
   },
   down: function(queryInterface, Sequelize) {
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('christmas_trees_forest_locations', {
+    return queryInterface.bulkDelete('christmasTreesForestLocations', {
       forest_id: {
         [Op.in]: [1, 2, 3, 4]
       }

@@ -1,15 +1,30 @@
 'use strict';
 
+let doTransaction = require('./modules/transaction');
+
+const TABLE_NAME = 'speciesNotes';
+
 module.exports = {
 	up: function (queryInterface, Sequelize) {
-		return queryInterface.addColumn('speciesNotes', 'display_order', {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        defaultValue: 1
-		});
+		let operations = [
+			{
+			  operation: 'add',
+			  field: 'display_order',
+			  type: Sequelize.INTEGER,
+			  allowNull: false,
+			  migrationDefaultValue: '1'
+			}
+		];
+		return doTransaction(TABLE_NAME, queryInterface, operations);
 	},
 
 	down: function (queryInterface, Sequelize) {
-		return queryInterface.removeColumn('speciesNotes', 'display_order');
+		let operations = [
+			{
+			  operation: 'remove',
+			  field: 'display_order'
+			}
+		];
+		return doTransaction(TABLE_NAME, queryInterface, operations);
 	}
 };
