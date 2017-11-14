@@ -2,7 +2,7 @@ cd frontend;
 ng serve &
 serverid=$!
 sleep 30
-pa11y-ci
+yarn run pa11y
 pa11yreturncode=$?
 if [[ $pa11yreturncode = 0 ]]
 then
