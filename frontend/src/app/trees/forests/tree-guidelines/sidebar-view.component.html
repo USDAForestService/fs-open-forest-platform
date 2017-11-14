@@ -1,13 +1,13 @@
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid breadcrumbs">
-    <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}}</span>
+    <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit guidelines</span>
   </div>
   <div class="usa-grid">
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" id="general-guidelines-link" [ngClass]="{'usa-current': currentSection && currentSection === 'general-guidelines'}" (click)="gotoHashtag('general-guidelines', $event)">Christmas Tree Permit Guidelines</a>
+          <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': currentSection && currentSection === 'cutting-dates'}" (click)="gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
         </li>
         <li>
           <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
@@ -50,8 +50,9 @@
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h2 id="general-guidelines" tabindex="-1">Christmas Tree Permit Guidelines</h2>
-      <app-tree-guidelines-text [forest]="forest"></app-tree-guidelines-text>
+      <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Guidelines</h1>
+      <h2 id="cutting-dates" tabindex="-1">When to cut your tree</h2>
+      <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <h2 id="tree-locations" tabindex="-1">Where to find your tree</h2>
       <app-tree-locations [forest]="forest"></app-tree-locations>
       <h2 id="tree-locations-allowed" tabindex="-1">Places to try</h2>
