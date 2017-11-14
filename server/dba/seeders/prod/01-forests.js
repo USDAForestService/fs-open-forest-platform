@@ -52,7 +52,7 @@ module.exports = {
         tree_height: 20,
         stump_height: 4,
         stump_diameter: 0,
-        start_date: '2017-11-01T12:00:00Z',
+        start_date: '2017-11-21T12:00:00Z',
         end_date: '2017-12-24T12:00:00Z',
         created: 'now()',
         updated: 'now()',
