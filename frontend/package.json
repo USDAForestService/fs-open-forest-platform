@@ -13,7 +13,7 @@
     "e2e": "ng e2e -prod -e dev --port=4200",
     "lint": "ng lint",
     "ng": "ng",
-    "pa11y": "pa11y-ci",
+    "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
     "snyk-test": "snyk test",
     "start": "ng serve",
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
