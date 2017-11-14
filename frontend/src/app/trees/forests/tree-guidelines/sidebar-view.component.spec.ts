@@ -17,7 +17,7 @@ describe('SidebarViewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarViewComponent);
     component = fixture.debugElement.componentInstance;
-    component.forest = { forestName: 'Mt. Hood'};
+    component.forest = { forestName: 'Mt. Hood' };
     component.currentSection = 'test';
     component.bottom = '10px';
     component.top = '20px';
@@ -59,5 +59,4 @@ describe('SidebarViewComponent', () => {
     expect(component.top).toEqual('270px');
     expect(component.position).toEqual('absolute');
   });
-
 });

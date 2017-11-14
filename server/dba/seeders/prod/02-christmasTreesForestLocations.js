@@ -463,6 +463,7 @@ module.exports = {
         description: '8:30 am - 2:30 pm. Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
         image_filename: null
       }
+
     ];
     return queryInterface.bulkInsert('christmasTreesForestLocations', forestLocations);
   },
