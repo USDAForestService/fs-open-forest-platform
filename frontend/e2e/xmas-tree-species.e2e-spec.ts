@@ -8,7 +8,7 @@ describe('Xmas tree species page', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
-      page.navigateTo(3);
+      page.navigateTo('mthood');
       browser.sleep(800);
       page.getTreeSelectionLink().click();
       browser.sleep(800);
@@ -64,7 +64,7 @@ describe('Xmas tree species page', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
-      page.navigateTo(1);
+      page.navigateTo('arp');
       browser.sleep(800);
       page.getTreeSelectionLink().click();
       browser.sleep(800);
@@ -109,7 +109,7 @@ describe('Xmas tree species page', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
-      page.navigateTo(4);
+      page.navigateTo('shoshone');
       browser.sleep(800);
       page.getTreeSelectionLink().click();
       browser.sleep(800);
@@ -167,7 +167,7 @@ describe('Xmas tree species page', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
-      page.navigateTo(2);
+      page.navigateTo('flathead');
       browser.sleep(800);
       page.getTreeSelectionLink().click();
       browser.sleep(800);

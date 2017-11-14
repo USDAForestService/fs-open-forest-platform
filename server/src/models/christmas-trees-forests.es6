@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(1000),
         field: 'description'
       },
+      forestAbbr: {
+        type: DataTypes.STRING(255),
+        field: 'forest_abbr'
+      },
       forestUrl: {
         type: DataTypes.STRING,
         field: 'forest_url'

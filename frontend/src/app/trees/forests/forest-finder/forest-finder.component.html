@@ -3,7 +3,7 @@
     <div class="breadcrumbs">
       <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
     </div>
-    <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.id)" autocomplete="off">
+    <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
       <label>Find a Forest:</label>
       <input id='forest-finder-input'
              name='selectForest'
@@ -23,7 +23,7 @@
       <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
         <div class='usa-width-one-half forest-image-container'>
           <h5>{{forest.forestName}} National Forest</h5>
-          <a [routerLink]="['/christmas-trees/forests/', forest.id,'tree-guidelines']">
+          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']">
             <img src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
           </a>
         </div>
