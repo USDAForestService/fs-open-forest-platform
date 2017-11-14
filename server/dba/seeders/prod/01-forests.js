@@ -15,7 +15,8 @@ module.exports = {
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-02-10',
-        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO'
+        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+        forest_abbr: 'arp'
       },
       {
         id: 2,
@@ -29,7 +30,8 @@ module.exports = {
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-01-10',
-        description: 'Flathead | Montana | Kalispell, MT'
+        description: 'Flathead | Montana | Kalispell, MT',
+        forest_abbr: 'flathead'
       },
       {
         id: 3,
@@ -43,7 +45,8 @@ module.exports = {
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-06-06',
-        description: 'Mt. Hood | Oregon | Portland, OR'
+        description: 'Mt. Hood | Oregon | Portland, OR',
+        forest_abbr: 'mthood'
       },
       {
         id: 4,
@@ -57,7 +60,8 @@ module.exports = {
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-02-14',
-        description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY'
+        description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
+        forest_abbr: 'shoshone'
       }
     ];
     return queryInterface.bulkInsert('christmas_trees_forests', forests);

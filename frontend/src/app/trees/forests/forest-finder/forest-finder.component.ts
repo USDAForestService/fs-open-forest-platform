@@ -28,8 +28,8 @@ export class ForestFinderComponent implements OnInit {
     });
   }
 
-  goToForest(forestId: number): void {
-    const navTo = '/christmas-trees/forests/' + forestId + '/tree-guidelines';
+  goToForest(forestAbbr: string): void {
+    const navTo = '/christmas-trees/forests/' + forestAbbr + '/tree-guidelines';
     this.router.navigate([navTo]);
   }
 
