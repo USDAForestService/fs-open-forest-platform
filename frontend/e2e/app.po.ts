@@ -51,6 +51,22 @@ export class TreesSidebarPage {
     return element(by.id(`tree-${type}-species-${index}`))
   }
 
+  contactUsSectionLink() {
+    return element(by.id('contact-information-link'));
+  }
+
+  contactUsSection() {
+    return element(by.id('contact-information'));
+  }
+
+  contactUsHeadquarters() {
+    return element(by.id('tree-contact-headquarters-0'));
+  }
+
+  contactUsDistrict(id) {
+    return element(by.id(`tree-contact-district-${id}`));
+  }
+
   cuttingDatesSectionLink() {
     return element(by.id('cutting-dates-link'));
   }

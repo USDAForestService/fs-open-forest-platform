@@ -44,7 +44,7 @@
           <a href="#" id="safety-first-link" [ngClass]="{'usa-current': currentSection && currentSection === 'safety-first'}" (click)="gotoHashtag('safety-first', $event)">Your safety comes first</a>
         </li>
         <li>
-          <a href="#" id="contact-information-link" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact information</a>
+          <a href="#" id="contact-information-link" [ngClass]="{'usa-current': currentSection && currentSection === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact us</a>
         </li>
 
       </ul>
@@ -74,6 +74,7 @@
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
       <h2 id="safety-first" tabindex="-1">Safety first</h2>
       <app-tree-safety-info [forest]="forest"></app-tree-safety-info>
+      <h2 id="contact-information" tabindex="-1">Contact us</h2>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
     </div>
   </div>
