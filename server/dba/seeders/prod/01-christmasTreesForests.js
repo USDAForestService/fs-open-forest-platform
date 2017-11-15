@@ -31,7 +31,7 @@ module.exports = {
         updated: 'now()',
         org_structure_code: '11-01-10',
         description: 'Flathead | Montana | Kalispell, MT',
-        forest_abbr: 'flathead',
+        forest_abbr: 'flathead'
       },
       {
         id: 3,
@@ -46,7 +46,7 @@ module.exports = {
         updated: 'now()',
         org_structure_code: '11-06-06',
         description: 'Mt. Hood | Oregon | Portland, OR',
-        forest_abbr: 'mthood',
+        forest_abbr: 'mthood'
       },
       {
         id: 4,
@@ -61,7 +61,7 @@ module.exports = {
         updated: 'now()',
         org_structure_code: '11-02-14',
         description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
-        forest_abbr: 'shoshone',
+        forest_abbr: 'shoshone'
       }
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);
