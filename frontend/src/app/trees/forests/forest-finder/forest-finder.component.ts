@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ForestService } from '../../_services/forest.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-forest-finder',
   templateUrl: './forest-finder.component.html',
-  providers: [ RemovePuncPipe ]
+  providers: [RemovePuncPipe]
 })
 export class ForestFinderComponent implements OnInit {
-
   forests = [];
   selectedForest = null;
   itemsPerRow = 2;
@@ -34,12 +33,15 @@ export class ForestFinderComponent implements OnInit {
   }
 
   forestSearchResults(keyword: any) {
-    const filteredResults = this.forests.filter(el => el.description.toUpperCase().indexOf(keyword.toUpperCase()) !== -1);
-    return Observable.of(filteredResults);
+    if (this.forests) {
+      const filteredResults = this.forests.filter(
+        el => el.description.toUpperCase().indexOf(keyword.toUpperCase()) !== -1
+      );
+      return Observable.of(filteredResults);
+    }
   }
 
   forestListFormatter = (data: any) => {
     return `${data.description}`;
-  }
-
+  };
 }
