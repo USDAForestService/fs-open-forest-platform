@@ -35,7 +35,7 @@ treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestLocations, {fo
 treesDb.christmasTreesForestLocations.belongsTo(treesDb.christmasTreesForests, {foreignKey: 'forestId', targetKey: 'id'});
 
 treesDb.species.belongsTo(treesDb.christmasTreesForestSpecies, {foreignKey: 'id', targetKey: 'speciesId'});
-treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {oreignKey: 'speciesId', targetKey: 'id'});
+treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
 
 treesDb.species.hasMany(treesDb.speciesNotes, {foreignKey: 'speciesId', sourceKey: 'id'});
 treesDb.speciesNotes.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
