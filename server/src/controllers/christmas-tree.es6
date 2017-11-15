@@ -13,6 +13,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
       id: input.id,
       forestName: input.forestName,
       description: input.description,
+      forestAbbr: input.forestAbbr,
       forestUrl: input.forestUrl,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
@@ -51,7 +52,8 @@ christmasTree.getForests = (req, res) => {
     attributes: [
       'id',
       'forestName',
-      'description'
+      'description',
+      'forestAbbr'
     ]
   }).then(results => {
     if (results) {
@@ -70,7 +72,7 @@ christmasTree.getOneGuidelines = (req, res) => {
 
   treesDb.christmasTreesForests.findOne({
     where: {
-      id: req.params.id
+      forestAbbr: req.params.id
     },
     include: [
       {
