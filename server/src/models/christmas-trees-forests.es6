@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const christmasTreesForests =  sequelize.define('christmas_trees_forests',
+  const christmasTreesForests = sequelize.define('christmasTreesForests',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING(1000),
+        type: DataTypes.TEXT,
         field: 'description'
       },
       forestAbbr: {
@@ -49,6 +49,10 @@ module.exports = function(sequelize, DataTypes) {
         field: 'end_date',
         allowNull: false
       },
+      forestAbbr: {
+        type: DataTypes.STRING,
+        field: 'forest_abbr'
+      },
       createdAt: {
         type: DataTypes.DATE,
         field: 'created',
@@ -61,7 +65,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     {
-      timestamps: true
+      timestamps: true,
+      freezeTableName: true
     });
   return christmasTreesForests;
 };
