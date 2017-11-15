@@ -23,9 +23,9 @@ treesDb.Sequelize = Sequelize;
 treesDb.sequelize = sequelize;
 
 treesDb.christmasTreesForests = require('../models/christmas-trees-forests.es6')(sequelize, Sequelize);
-treesDb.species = require('../models/species.es6')(sequelize, Sequelize);
+treesDb.species = require('../models/christmas-trees-species.es6')(sequelize, Sequelize);
 treesDb.christmasTreesForestSpecies = require('../models/christmas-trees-forest-species.es6')(sequelize, Sequelize);
-treesDb.speciesNotes = require('../models/species-notes.es6')(sequelize, Sequelize);
+treesDb.speciesNotes = require('../models/christmas-trees-species-notes.es6')(sequelize, Sequelize);
 treesDb.christmasTreesForestLocations = require('../models/christmas-trees-forest-locations.es6')(sequelize, Sequelize);
 
 treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestSpecies, {foreignKey: 'forestId', sourceKey: 'id'});

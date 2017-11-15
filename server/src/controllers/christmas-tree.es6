@@ -20,7 +20,8 @@ const translateGuidelinesFromDatabaseToClient = input => {
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
-      species: input.christmas_trees_forest_species.map((species)=>{
+      forestAbbr: input.forestAbbr,
+      species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
           name: species.species.name,
@@ -31,7 +32,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
           })
         };
       }),
-      locations: input.christmas_trees_forest_locations.map((location)=>{
+      locations: input.christmasTreesForestLocations.map((location)=>{
         return {
           id: location.id,
           district: location.district,

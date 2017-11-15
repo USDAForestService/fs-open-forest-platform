@@ -4,7 +4,7 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('speciesNotes', {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'id' },
-      species_id: {
+      speciesId: {
         allowNull: false,
         references: {
             model: 'species',
@@ -13,9 +13,11 @@ module.exports = {
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'species_id'
       },
-      note: { type: Sequelize.STRING, allowNull: false, field: 'note' }
+      note: { type: Sequelize.STRING, allowNull: false, field: 'note' },
+      displayOrder: { type: Sequelize.INTEGER, allowNull: false, field: 'display_order', defaultValue: 1 }
     });
   },
   down: function(queryInterface, Sequelize) {
