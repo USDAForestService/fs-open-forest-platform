@@ -2,20 +2,21 @@
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('forestSpecies', {
+    return queryInterface.createTable('christmasTreesForestSpecies', {
       id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'id' },
-      forest_id: {
+      forestId: {
         allowNull: false,
         references: {
-            model: 'forests',
+            model: 'christmasTreesForests',
             key: 'id',
             as: 'forest_id'
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'forest_id'
       },
-      species_id: {
+      speciesId: {
         allowNull: false,
         references: {
             model: 'species',
@@ -24,12 +25,13 @@ module.exports = {
         },
         onDelete: 'cascade',
         onUpdate: 'cascade',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        field: 'species_id'
       },
       status: { type: Sequelize.STRING, field: 'status' }
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('forestSpecies');
+    return queryInterface.dropTable('christmasTreesForestSpecies');
   }
 };
