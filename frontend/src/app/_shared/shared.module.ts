@@ -11,32 +11,35 @@ import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import {LineBreakFormatterPipe} from '../_pipes/line-break-formatter.pipe';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
   declarations: [
-    TrackScrollDirective,
     AppButtonComponent,
     FilterPipe,
+    LineBreakFormatterPipe,
     ProgressComponent,
     SectionHeadingComponent,
+    SidebarComponent,
     SpacesToDashesPipe,
-    SidebarComponent
+    TrackScrollDirective
   ],
   exports: [
-    FilterPipe,
-    AppRoutingModule,
-    TrackScrollDirective,
-    CommonModule,
-    InViewportModule,
-    ReactiveFormsModule,
-    FormsModule,
-    Ng2AutoCompleteModule,
     AppButtonComponent,
+    AppRoutingModule,
+    CommonModule,
+    FilterPipe,
+    FormsModule,
+    InViewportModule,
+    LineBreakFormatterPipe,
+    Ng2AutoCompleteModule,
+    ProgressComponent,
+    ReactiveFormsModule,
     SectionHeadingComponent,
-    SpacesToDashesPipe,
     SidebarComponent,
-    ProgressComponent
+    SpacesToDashesPipe,
+    TrackScrollDirective
   ]
 })
 export class SharedModule {}
