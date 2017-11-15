@@ -10,7 +10,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(800);
-      page.getTreeLocationLink().click();
+      page.whenToCutDatesSectionLink().click();
       browser.sleep(800);
     });
 
@@ -47,7 +47,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('shoshone');
       browser.sleep(800);
-      page.getTreeLocationLink().click();
+      page.whenToCutDatesSectionLink().click();
       browser.sleep(800);
     });
 
@@ -84,7 +84,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('flathead');
       browser.sleep(800);
-      page.getTreeLocationLink().click();
+      page.whenToCutDatesSectionLink().click();
       browser.sleep(800);
     });
 
@@ -121,7 +121,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('arp');
       browser.sleep(800);
-      page.getTreeLocationLink().click();
+      page.whenToCutDatesSectionLink().click();
       browser.sleep(800);
     });
 
@@ -152,16 +152,12 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     });
 
     it('should display cutting area dates', () => {
-      expect<any>(element(by.id('tree-cutting-areas-dates-0')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('tree-cutting-areas-dates-1')).isPresent()).toBeTruthy();
+      expect<any>(page.cuttingAreaDates(0).isDisplayed()).toBeTruthy();
     });
 
     it('should display cutting area hours', () => {
-      expect<any>(element(by.id('tree-cutting-areas-hours-0')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('tree-cutting-areas-hours-1')).isPresent()).toBeTruthy();
+      expect<any>(page.cuttingAreaHours(0).isPresent()).toBeTruthy();
     });
-
-
   });
 
 
