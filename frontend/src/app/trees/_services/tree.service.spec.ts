@@ -37,5 +37,7 @@ describe('TreesService', () => {
 
     expect(stub.called).toBeTruthy();
     expect(elementByIdStub.called).toBeTruthy();
+    stub.restore();
+    elementByIdStub.restore();
   });
 });
