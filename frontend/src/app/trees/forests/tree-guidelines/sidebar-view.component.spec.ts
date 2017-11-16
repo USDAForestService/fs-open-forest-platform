@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SidebarViewComponent } from './sidebar-view.component';
+import { UtilService } from '../../../_services/util.service';
 
 describe('SidebarViewComponent', () => {
   let component: SidebarViewComponent;
@@ -9,6 +10,7 @@ describe('SidebarViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [SidebarViewComponent],
+        providers: [UtilService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
