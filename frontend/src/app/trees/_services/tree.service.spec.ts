@@ -4,7 +4,7 @@ import { Http, HttpModule } from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as sinon from 'sinon';
 
-fdescribe('TreesService', () => {
+describe('TreesService', () => {
   let service: TreesService;
 
   beforeEach(() => {

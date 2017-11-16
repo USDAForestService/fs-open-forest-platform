@@ -39,7 +39,6 @@ export class TreesService {
   public gotoHashtag(fragment: string, event) {
     event.preventDefault();
     const element = document.querySelector('#' + fragment);
-    console.log(element);
     if (element) {
       element.scrollIntoView();
       document.getElementById(fragment).focus();
