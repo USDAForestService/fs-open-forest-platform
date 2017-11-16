@@ -90,7 +90,7 @@ const appRoutes: Routes = [
     resolve: {
       forest: ForestResolver
     },
-    data: { title: 'Christmas Tree Permit Guidelines' }
+    data: { title: 'Christmas Tree Permit Information' }
   },
   {
     path: 'christmas-trees/forests',
