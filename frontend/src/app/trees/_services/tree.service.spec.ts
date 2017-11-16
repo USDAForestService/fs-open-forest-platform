@@ -6,7 +6,6 @@ import * as sinon from 'sinon';
 
 fdescribe('TreesService', () => {
   let service: TreesService;
-  let http: Http;
 
   beforeEach(() => {
     service = new TreesService(null, null);
@@ -16,7 +15,7 @@ fdescribe('TreesService', () => {
     });
   });
   it('should go to hashtag', () => {
-    let dummyElement = {
+    const dummyElement = {
       id: 'fragment',
       scrollIntoView: sinon.stub(),
       focus: sinon.stub()
