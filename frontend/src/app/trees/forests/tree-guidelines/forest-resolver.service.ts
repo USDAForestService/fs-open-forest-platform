@@ -4,18 +4,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ForestService } from '../_services/forest.service';
+import { TreesService } from '../../_services/trees.service';
 
 @Injectable()
-export class ForestFinderResolver implements Resolve<any> {
-  constructor(private service: ForestService, private router: Router) {}
+export class ForestResolver implements Resolve<any> {
+  constructor(private service: TreesService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    const id = route.paramMap.get('id');
 
-    return this.service.getAll().map(data => {
+    return this.service.getOne(id).take(1).map(data => {
       if (data) {
-        return data;
+        return data.forest;
       } else {
+        // This should go to forests selector
+        this.router.navigate(['/']);
         return null;
       }
     });
