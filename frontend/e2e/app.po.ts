@@ -51,6 +51,14 @@ export class TreesSidebarPage {
     return element(by.id(`tree-${type}-species-${index}`))
   }
 
+  cuttingAreaDates(index) {
+    return element(by.id(`tree-cutting-areas-dates-${index}`));
+  }
+
+  cuttingAreaHours(index) {
+    return element(by.id(`tree-cutting-areas-hours-${index}`));
+  }
+
   contactUsSectionLink() {
     return element(by.id('contact-information-link'));
   }
@@ -81,6 +89,14 @@ export class TreesSidebarPage {
 
   cuttingDatesHoursDefault() {
     return element(by.id('cutting-season-daily-hours-default'));
+  }
+
+  whenToCutDatesSection() {
+    return element(by.id('cutting-dates'));
+  }
+
+  whenToCutDatesSectionLink() {
+    return element(by.id('cutting-dates-link'));
   }
 }
 

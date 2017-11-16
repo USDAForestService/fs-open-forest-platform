@@ -672,7 +672,7 @@ module.exports = {
         district: 'Elk Creek',
         allowed: true,
         type: 'cutting-area',
-        description: 'Dec. 2-9, 2017',
+        description: 'Dec. 2 - 9, 2017',
         image_filename: null
       },
       {
@@ -681,7 +681,7 @@ module.exports = {
         district: 'Red Feather Lakes',
         allowed: true,
         type: 'cutting-area',
-        description: 'Dec. 2-10, 2017',
+        description: 'Dec. 2 - 10, 2017',
         image_filename: null
       },
       {
@@ -690,7 +690,7 @@ module.exports = {
         district: 'Red Feather Lakes',
         allowed: true,
         type: 'cutting-area-hours',
-        description: '8:30 am - 2:30 pm. Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        description: '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
         image_filename: null
       },
       {
@@ -699,7 +699,26 @@ module.exports = {
         district: 'Elk Creek',
         allowed: true,
         type: 'cutting-area-hours',
-        description: '8:30 am - 2:30 pm. Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        description: '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        image_filename: null
+      },
+      {
+        id: 76,
+        forest_id: 1,
+        district: 'Sulphur Ranger District',
+        allowed: true,
+        type: 'district-permits',
+        description: 'Nov. 1 – Jan. 6, 2018\n' +
+        'Grand County Locations (Winter Park, Fraser, Granby, Grand Lake)',
+        image_filename: null
+      },
+      {
+        id: 77,
+        forest_id: 1,
+        district: 'Canyon Lakes Ranger District',
+        allowed: true,
+        type: 'district-permits',
+        description: 'Nov. 27 – Dec. 10, 2017',
         image_filename: null
       }
 

@@ -120,6 +120,9 @@ export const forest = {
     { id: 29, district: null, allowed: true, type: 'district', description: 'Hood' },
     { id: 30, district: null, allowed: true, type: 'district', description: 'Barlow' },
     { id: 31, district: 'Barlow and Hood', allowed: false, type: 'road', description: 'Highway' },
-    { id: 32, district: 'Barlow and Hood', allowed: false, type: 'road', description: '1' }
+    { id: 32, district: 'Barlow and Hood', allowed: false, type: 'road', description: '1' },
+    { id: 33, district: 'cutting area', allowed: false, type: 'cutting-area', description: 'dates' },
+    { id: 34, district: 'cutting area', allowed: false, type: 'cutting-area-hours', description: 'hours' },
+    { id: 35, district: 'district', allowed: false, type: 'district-permits', description: 'permit sales dates' }
   ]
 };
