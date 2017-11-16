@@ -6,7 +6,6 @@ import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelin
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates.component';
 import { TreeSelectionComponent } from './forests/tree-guidelines/tree-selection/tree-selection.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/tree-species/tree-species.component';
-import { TreeSafetyComponent } from './forests/tree-guidelines/safety/safety.component';
 
 import { TreeCuttingComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting.component';
 import { TreeCuttingCleanupComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-cleanup/tree-cutting-cleanup.component';
@@ -38,7 +37,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeLocationsMapsComponent,
     TreeLocationsProhibitedComponent,
     TreeLocationsAllowedComponent,
-    TreeSafetyComponent,
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
@@ -55,7 +53,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
     TreeLocationsComponent,
-    TreeSafetyComponent,
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
@@ -63,9 +60,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     SidebarViewComponent
   ],
   imports: [SharedModule],
-  providers: [
-    TreesService,
-    ForestService
-  ]
+  providers: [TreesService, ForestService]
 })
 export class TreesModule {}

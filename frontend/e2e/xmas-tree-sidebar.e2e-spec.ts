@@ -15,21 +15,24 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a cutting section link', () => {
-    expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual(
-      'How to harvest your tree'
-    );
+    expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual('How to harvest your tree');
   });
 
   it('should have a locations link', () => {
-    expect<any>(element(by.id('tree-locations-link')).getText()).toEqual(
-      'Where to find your tree'
-    );
+    expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
   });
 
   it('should have a species section link', () => {
-    expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-      'How to choose your tree'
-    );
+    expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
+  });
+
+  it('should have a plan your trip link', () => {
+    expect<any>(element(by.id('trip-planning-link')).getText()).toEqual('How to plan your trip');
+  });
+
+  it('should go to plan your trip section if link is clicked', () => {
+    element(by.id('trip-planning-link')).click();
+    expect<any>(browser.driver.switchTo().activeElement().getAttribute('id')).toEqual('trip-planning');
   });
 
   it('should have a breadcrumb', () => {
@@ -38,6 +41,4 @@ describe('Xmas sidebar page', () => {
       'Christmas tree permits > Find a forest > Mt. Hood National Forest Christmas tree permit guidelines'
     );
   });
-
-
 });
