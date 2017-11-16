@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TripPlanningComponent } from './trip-planning.component';
+import { TreesService } from '../../../_services/trees.service';
+import { MockBackend } from '@angular/http/testing';
+
+class MockTreeService {}
 
 describe('TripPlanningComponent', () => {
   let component: TripPlanningComponent;
@@ -9,7 +13,8 @@ describe('TripPlanningComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TripPlanningComponent]
+        declarations: [TripPlanningComponent],
+        providers: [{ provide: TreesService, use: MockBackend }]
       }).compileComponents();
     })
   );
