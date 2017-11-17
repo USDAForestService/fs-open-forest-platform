@@ -5,6 +5,12 @@ hr {
   margin: 30px 0;
 }
 
+hr.thick {
+  height: 5px;
+  margin: 50px 0;
+  background-color: $light-grey;
+}
+
 .clear {
   clear: both;
 }
