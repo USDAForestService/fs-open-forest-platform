@@ -5,6 +5,7 @@ import { MockBackend } from '@angular/http/testing';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
+import { UtilService } from '../../../_services/util.service';
 
 describe('PermitApplicationListComponent', () => {
   let component: TreeGuidelinesComponent;
@@ -18,7 +19,11 @@ describe('PermitApplicationListComponent', () => {
       TestBed.configureTestingModule({
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        providers: [{ provide: TreesService, useClass: TreesService }, { provide: XHRBackend, useClass: MockBackend }],
+        providers: [
+          UtilService,
+          { provide: TreesService, useClass: TreesService },
+          { provide: XHRBackend, useClass: MockBackend }
+        ],
         imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })

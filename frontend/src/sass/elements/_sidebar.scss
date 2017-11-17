@@ -1,3 +1,9 @@
+.tree-guidelines-menu-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .sidenav-mobile {
   @media (min-width: $nav-width) {
     display: none;
