@@ -81,13 +81,6 @@ module.exports = {
         updated: 'now()'
       },
       {
-        id: 12,
-        name: 'Hemlock',
-        web_url: null,
-        created: 'now()',
-        updated: 'now()'
-      },
-      {
         id: 13,
         name: 'Canaan Fir',
         web_url: null,
@@ -118,20 +111,6 @@ module.exports = {
       {
         id: 17,
         name: 'Blue Spruce',
-        web_url: null,
-        created: 'now()',
-        updated: 'now()'
-      },
-      {
-        id: 18,
-        name: 'Mountain Hemlock',
-        web_url: null,
-        created: 'now()',
-        updated: 'now()'
-      },
-      {
-        id: 19,
-        name: 'Western Hemlock',
         web_url: null,
         created: 'now()',
         updated: 'now()'

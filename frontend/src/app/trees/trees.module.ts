@@ -20,6 +20,8 @@ import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
 import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locations/tree-locations-maps/tree-locations-maps.component';
 
+import { TreeRulesComponent } from './forests/tree-guidelines/tree-rules.component';
+
 import { ForestService } from './_services/forest.service';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
@@ -38,6 +40,7 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
+    TreeRulesComponent,
     TreeToolsComponent,
     SidebarViewComponent,
     ForestFinderComponent,
@@ -53,6 +56,7 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
+    TreeRulesComponent,
     TreeToolsComponent,
     SidebarViewComponent
   ],

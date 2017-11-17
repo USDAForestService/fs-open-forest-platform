@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TreeLocationsAllowedComponent } from './tree-locations-allowed.component';
 import { forest } from '../../../../_mocks/forest';
 
-fdescribe('TreeLocationsAllowedComponent', () => {
+describe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
   let fixture: ComponentFixture<TreeLocationsAllowedComponent>;
 
