@@ -11,8 +11,13 @@ export class TreeGuidelinesComponent implements OnInit {
   forest = [];
   errorMessage: string;
   id: any;
+  showMobileNav = false;
 
   constructor(private route: ActivatedRoute, private service: TreesService) {}
+
+  toggleMobileNav() {
+    this.showMobileNav = !this.showMobileNav;
+  }
 
   ngOnInit() {
     this.template = 'sidebar';

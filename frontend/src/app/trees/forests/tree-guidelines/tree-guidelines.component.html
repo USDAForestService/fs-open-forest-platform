@@ -1,1 +1,55 @@
+<button class="usa-menu-btn" (click)='toggleMobileNav()'>Menu</button>
+<nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" class="usa-nav">
+  <button class="usa-nav-close">
+    <img src="/assets/img/close.svg" alt="close">
+  </button>
+  <ul class="usa-accordion">
+    <li>
+      <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="side-nav-1">
+        <span>Section title</span>
+      </button>
+      <ul id="side-nav-1" class="usa-nav-submenu" aria-hidden="true">
+        <li>
+          <a href="#">Page title</a>
+        </li>
+        <li>
+          <a href="#">Page title</a>
+        </li>
+        <li>
+          <a href="#">Page title</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <button class="usa-accordion-button usa-nav-link" aria-expanded="false" aria-controls="sidenav-2">
+        <span>Simple terms</span>
+      </button>
+      <ul id="sidenav-2" class="usa-nav-submenu" aria-hidden="true">
+        <li>
+          <a href="#">Page title</a>
+        </li>
+        <li>
+          <a href="#">Page title</a>
+        </li>
+        <li>
+          <a href="#">Page title</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a class="usa-nav-link" href="#">
+        <span>Distinct from each other</span>
+      </a>
+    </li>
+  </ul>
+  <!--<form class="usa-search usa-search-small">-->
+    <!--<div role="search">-->
+      <!--<label class="usa-sr-only" for="search-field-small">Search small</label>-->
+      <!--<input id="search-field-small" type="search" name="search">-->
+      <!--<button type="submit">-->
+        <!--<span class="usa-sr-only">Search</span>-->
+      <!--</button>-->
+    <!--</div>-->
+  <!--</form>-->
+</nav>
 <app-sidebar-view *ngIf="template === 'sidebar'" [forest]="forest"></app-sidebar-view>
