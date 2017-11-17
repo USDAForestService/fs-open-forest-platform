@@ -100,22 +100,10 @@ module.exports = {
         status: 'recommended'
       },
       {
-        id: 23,
-        forest_id: 3,
-        species_id: 18,
-        status: 'not recommended'
-      },
-      {
         id: 24,
         forest_id: 3,
         species_id: 16,
         status: 'prohibited'
-      },
-      {
-        id: 25,
-        forest_id: 3,
-        species_id: 19,
-        status: 'not recommended'
       },
       {
         id: 29,
@@ -158,19 +146,7 @@ module.exports = {
         forest_id: 2,
         species_id: 22,
         status: 'recommended'
-      },
-      {
-        id: 36,
-        forest_id: 2,
-        species_id: 18,
-        status: 'not recommended'
-      },
-      {
-        id: 37,
-        forest_id: 2,
-        species_id: 19,
-        status: 'not recommended'
-      },
+      }
     ];
     return queryInterface.bulkInsert('christmasTreesForestSpecies', forestSpecies);
   },

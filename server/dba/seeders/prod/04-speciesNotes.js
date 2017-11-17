@@ -198,26 +198,6 @@ module.exports = {
         display_order: 3,
         note: 'Tree bark is reddish-brown with flat plates on mature trees.' },
       {
-        id: 55, 
-        species_id: 12, 
-        display_order: 1, 
-        note: 'Has less than 1-inch needles.' },
-      {
-        id: 56, 
-        species_id: 12, 
-        display_order: 2, 
-        note: 'Western Hemlock needles are short and irregularly two-ranked.' },
-      {
-        id: 57,
-        species_id: 12,
-        display_order: 3,
-        note: 'Mountain Hemlock needles are rounded in cross section and stand out on all sides of the twig in small clusters as if in small starbursts.' },
-      {
-        id: 58,
-        species_id: 12, 
-        display_order: 4,
-        note: 'Needles turn brown and fall from the twig faster than other trees even if put immediately into water after harvesting.' },
-      {
         id: 61, 
         species_id: 13, 
         display_order: 1, 
@@ -281,38 +261,6 @@ module.exports = {
         species_id: 17, 
         display_order: 3, 
         note: 'Tree appears more wooly and dark in color than other varieties.' },
-      
-      {
-        id: 85, 
-        species_id: 18, 
-        display_order: 1, 
-        note: 'Has less than 1-inch needles.' },
-      {
-        id: 86, 
-        species_id: 18, 
-        display_order: 2, 
-        note: 'Needles are rounded in cross section and stand out on all sides of the twig in small clusters as if in small starbursts.' },
-      {
-        id: 87, 
-        species_id: 18, 
-        display_order: 3, 
-        note: 'Needles turn brown and fall from the twig faster than other trees even if put immediately into water after harvesting.' },
-      
-      {
-        id: 90, 
-        species_id: 19, 
-        display_order: 1, 
-        note: 'Has less than 1-inch needles.' },
-      {
-        id: 91, 
-        species_id: 19, 
-        display_order: 2, 
-        note: 'Needles are short and irregularly two-ranked.' },
-      {
-        id: 92, 
-        species_id: 19, 
-        display_order: 3, 
-        note: 'Needles turn brown and fall from the twig faster than other trees even if put immediately into water after harvesting.' },
       
       {
         id: 95, 
