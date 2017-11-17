@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TreesService } from '../../_services/trees.service';
+import { UtilService } from '../../../_services/util.service';
 
 @Component({
   selector: 'app-tree-info',
@@ -12,8 +13,9 @@ export class TreeGuidelinesComponent implements OnInit {
   errorMessage: string;
   id: any;
   showMobileNav = false;
+  position: string;
 
-  constructor(private route: ActivatedRoute, private service: TreesService) {}
+  constructor(private route: ActivatedRoute, private service: TreesService, public util: UtilService) {}
 
   toggleMobileNav() {
     this.showMobileNav = !this.showMobileNav;
@@ -21,9 +23,18 @@ export class TreeGuidelinesComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    console.log(event.target.innerWidth);
     if (event.target.innerWidth >= 951) {
       this.showMobileNav = false;
+    }
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  public scroll(event: Event) {
+    console.log(window.pageYOffset);
+    if (window.pageYOffset > 122) {
+      this.position = 'fixed';
+    } else {
+      this.position = 'absolute';
     }
   }
 
