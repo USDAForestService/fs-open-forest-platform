@@ -64,3 +64,4 @@ deployment:
       - cd frontend; yarn run update-version;
       - cd frontend; yarn dist-trees;
       - ./cg-deploy/deploy.sh public-trees-staging
+
