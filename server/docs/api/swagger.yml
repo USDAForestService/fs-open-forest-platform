@@ -176,7 +176,7 @@ paths:
     get:
       tags:
       - "christmas-tree"
-      summary: "Retrieveforests for christmas tree harvesting"
+      summary: "Retrieve forests for christmas tree harvesting"
       description: "Retrieve forests for christmas tree harvesting"
       operationId: ""
       produces:
