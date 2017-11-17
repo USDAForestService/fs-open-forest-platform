@@ -1,6 +1,11 @@
 <p>
   <b>Make sure you are on National Forest Land before cutting your tree.</b>
 </p>
+<p *ngIf="forest">
+  Additional information can be found on the forest’s <a class="usa-external_link" href="{{forest.forestUrl}}/maps-pubs" target="_blank" attr.aria-label="Link to {{forest.forestName}}
+  National Forest maps-pubs. Opens in a new window.">website</a> or at Ranger district offices.
+</p>
+
 <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
 
 <ng-container *ngFor="let district of allowedDistricts">

@@ -4,7 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TreeLocationsAllowedComponent } from './tree-locations-allowed.component';
 import { forest } from '../../../../_mocks/forest';
 
-describe('TreeLocationsAllowedComponent', () => {
+fdescribe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
   let fixture: ComponentFixture<TreeLocationsAllowedComponent>;
 
@@ -24,6 +24,7 @@ describe('TreeLocationsAllowedComponent', () => {
   });
 
   it('should create', () => {
+    component.forest = forest;
     expect(component).toBeTruthy();
   });
 

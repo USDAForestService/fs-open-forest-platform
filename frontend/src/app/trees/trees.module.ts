@@ -10,7 +10,6 @@ import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/t
 import { TreeCuttingComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting.component';
 import { TreeCuttingCleanupComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-cleanup/tree-cutting-cleanup.component';
 import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
-import { TreeLocationsComponent } from './forests/tree-guidelines/tree-locations/tree-locations.component';
 
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
 
@@ -33,7 +32,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
-    TreeLocationsComponent,
     TreeLocationsMapsComponent,
     TreeLocationsProhibitedComponent,
     TreeLocationsAllowedComponent,
@@ -52,7 +50,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
-    TreeLocationsComponent,
     TreeSelectionComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
