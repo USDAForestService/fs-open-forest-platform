@@ -105,7 +105,7 @@ export class FieldValidation {
 
     it('should show replace buttons if file is valid', () => {
       browser.sleep(500);
-      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Replace');
+      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Replace\nfile');
     });
 
     it('should display the file name if file is valid', () => {
