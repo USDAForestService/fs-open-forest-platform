@@ -16,11 +16,16 @@
   </ul>
 </ng-container>
 
+
 <ng-container *ngIf="(forest.locations | filter: 'allowed' : false | filter: 'type': 'road').length">
   <h4>No cutting along the following:</h4>
+  <div class="usa-grid">
   <ul>
-    <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'road'">
-      {{ location.description }}
-    </li>
+    <div class="usa-width-one-half" *ngFor="let row of forest.locations | filter: 'allowed' : false | filter: 'type': 'road' | ChunkArray: 12">
+      <li *ngFor="let location of row">
+        {{ location.description }}
+      </li>
+    </div>
   </ul>
+  </div>
 </ng-container>

@@ -15,7 +15,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('maps-link-3')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/mthood/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
     });
 
     it('should have a where to find a tree section link', () => {
@@ -59,7 +59,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('maps-link-4')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/shoshone/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
     });
 
 
@@ -97,7 +97,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('maps-link-1')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/arp/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
     });
 
 
@@ -123,7 +123,6 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     it('should have cutting area maps', () => {
       expect<any>(element(by.id('tree-locations-maps-0')).isPresent()).toBeTruthy();
       expect<any>(element(by.id('tree-locations-maps-1')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('tree-locations-maps-2')).isPresent()).toBeTruthy();
     });
   });
 
@@ -137,9 +136,8 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('maps-link-2')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
     });
-
 
     it('should have a where to find a tree section link', () => {
       element(by.id('tree-locations-link')).click();
