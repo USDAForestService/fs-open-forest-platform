@@ -15,7 +15,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/mthood/maps-pubs');
     });
 
     it('should have a where to find a tree section link', () => {
@@ -59,7 +59,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/shoshone/maps-pubs');
     });
 
 
@@ -97,7 +97,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/flathead/maps-pubs');
+      expect<any>(element(by.id('forest-maps-pubs-link')).getAttribute('href')).toEqual('https://www.fs.usda.gov/main/arp/maps-pubs');
     });
 
 
