@@ -94,7 +94,7 @@ christmasTree.getOneGuidelines = (req, res) => {
     ],
     order: [
       [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
-      [ treesDb.christmasTreesForestLocations, 'id', 'ASC'],
+      [ treesDb.christmasTreesForestLocations, 'description', 'ASC'],
       [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
     ]
   })

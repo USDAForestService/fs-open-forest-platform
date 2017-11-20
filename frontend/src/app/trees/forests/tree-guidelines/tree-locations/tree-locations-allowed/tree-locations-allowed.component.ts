@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {TreeLocationsComponent} from '../tree-locations.component';
 
 @Component({
   selector: 'app-tree-locations-allowed',

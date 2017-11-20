@@ -12,7 +12,7 @@ describe('TreeLocationsProhibitedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe],
+        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe, MockChunkyPipe],
         providers: [FilterPipe]
       }).compileComponents();
     })
@@ -39,5 +39,12 @@ describe('TreeLocationsProhibitedComponent', () => {
 class MockPipe implements PipeTransform {
   transform(value: number): number {
     return value;
+  }
+}
+
+@Pipe({ name: 'ChunkArray' })
+class MockChunkyPipe implements PipeTransform {
+  transform(value: any): any {
+    return [];
   }
 }

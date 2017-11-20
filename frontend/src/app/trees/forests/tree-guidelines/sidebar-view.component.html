@@ -1,24 +1,16 @@
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid breadcrumbs">
-    <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit guidelines</span>
+    <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit information</span>
   </div>
   <div class="usa-grid">
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-dates'}" (click)="gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
+          <a href="#" id="need-to-know-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('need-to-know')}" (click)="gotoHashtag('need-to-know', $event)">Which rules you need to know</a>
         </li>
         <li>
-          <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
-          <ul class="usa-sidenav-sub_list" [hidden]="util.currentSection && !util.currentSection.startsWith('tree-locations')">
-            <li>
-              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
-            </li>
-            <li>
-              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
-            </li>
-          </ul>
+          <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-dates'}" (click)="gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
         </li>
         <li>
           <a href="#" id="tree-selection-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">How to choose your tree</a>
@@ -41,40 +33,59 @@
           <a href="#" id="trip-planning-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'trip-planning'}" (click)="gotoHashtag('trip-planning', $event)">How to plan your trip</a>
         </li>
         <li>
+          <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-locations')}" (click)="gotoHashtag('tree-locations', $event)">Where to find your tree</a>
+          <ul class="usa-sidenav-sub_list" [hidden]="util.currentSection && !util.currentSection.startsWith('tree-locations')">
+            <li>
+              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
+            </li>
+            <li>
+              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
+            </li>
+          </ul>
+        </li>
+        <li>
           <a href="#" id="contact-information-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'contact-information'}" (click)="gotoHashtag('contact-information', $event)">Contact us</a>
         </li>
 
       </ul>
     </aside>
     <div class="usa-width-two-thirds sidebar-page-main-content">
-      <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Guidelines</h1>
+      <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Information</h1>
+      <br/>
+      <p>Christmas trees can be cut anywhere on the {{forest.forestName}} National Forest subject to the rules and regulations on your permit and as noted below.</p>
+
+      <app-section-heading heading="Which rules you need to know" elementId="need-to-know"></app-section-heading>
+      <app-tree-rules [forest]="forest"></app-tree-rules>
+      <hr class="thick">
+
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
-      <hr class="thick" />
-      <app-section-heading heading="Where to find your tree" elementId="tree-locations"></app-section-heading>
-      <app-tree-locations [forest]="forest"></app-tree-locations>
-      <hr class="thick" />
-      <app-section-heading heading="Places to try" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
-      <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
-      <hr class="thick" />
-      <app-section-heading heading="Prohibited areas and restrictions" elementId="tree-locations-prohibited" selector="h3"></app-section-heading>
-      <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
       <app-tree-selection [forest]="forest"></app-tree-selection>
       <app-tree-species [forest]="forest"></app-tree-species>
+
       <hr class="thick" />
       <app-section-heading heading="How to harvest your tree" elementId="cutting-instructions"></app-section-heading>
-      <app-tree-cutting [forest]="forest"></app-tree-cutting>
       <app-section-heading heading="Before you cut" elementId="cutting-instructions-before-you-cut" selector="h3"></app-section-heading>
       <app-tree-tools [forest]="forest"></app-tree-tools>
       <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
       <app-section-heading heading="After you cut" elementId="cutting-instructions-after-you-cut" selector="h3"></app-section-heading>
       <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
+
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" elementId="trip-planning"></app-section-heading>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
+
+      <hr class="thick" />
+      <app-section-heading heading="Where to find your tree" elementId="tree-locations"></app-section-heading>
+      <app-section-heading heading="Prohibited areas and restrictions" elementId="tree-locations-prohibited" selector="h3"></app-section-heading>
+      <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+      <app-section-heading heading="Places to try" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
+      <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
+
       <hr class="thick" />
       <app-section-heading heading="Contact us" elementId="contact-information"></app-section-heading>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>

@@ -24,6 +24,7 @@ describe('TreeLocationsAllowedComponent', () => {
   });
 
   it('should create', () => {
+    component.forest = forest;
     expect(component).toBeTruthy();
   });
 
