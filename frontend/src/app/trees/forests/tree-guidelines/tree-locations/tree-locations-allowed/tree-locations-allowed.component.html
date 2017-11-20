@@ -1,11 +1,11 @@
-<p>
-  <b>Make sure you are on National Forest Land before cutting your tree.</b>
-</p>
 <p *ngIf="forest">
   Additional information can be found on the forest’s
-  <a id='forest-maps-pubs-link' class="usa-external_link" href="{{forest.forestUrl}}/maps-pubs"
+  <a id='forest-maps-pubs-link' href="{{forest.forestUrl}}/maps-pubs"
      target="_blank" attr.aria-label="Link to {{forest.forestName}}
-  National Forest maps-pubs. Opens in a new window.">website</a> or at Ranger district offices.
+  National Forest maps-pubs. Opens in a new window.">website</a> or at <a href="#" (click)="service.gotoHashtag('contact-information', $event)">Ranger district offices</a>.
+</p>
+<p>
+  <b>Make sure you are on National Forest Land before cutting your tree.</b>
 </p>
 
 <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
