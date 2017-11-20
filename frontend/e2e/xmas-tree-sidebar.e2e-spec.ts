@@ -11,7 +11,7 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a sidebar', () => {
-    expect<any>(element(by.css('.usa-sidenav-list')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeTruthy();
   });
 
   it('should have a cutting section link', () => {
@@ -40,5 +40,22 @@ describe('Xmas sidebar page', () => {
     expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
       'Christmas tree permits > Find a forest > Mt. Hood National Forest Christmas tree permit information'
     );
+  });
+
+  it('should have a menu button and hide sidebar nav when resized to mobile', () => {
+    browser.driver.manage().window().setSize(800, 1280);
+    expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeFalsy();
+  });
+
+  it('should open menu if menu button is clicked', () => {
+    browser.driver.manage().window().setSize(800, 1280);
+    expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
+    element(by.id('mobile-menu-btn')).click();
+    browser.sleep(500);
+    expect<any>(element(by.id('sidenav-mobile')).isDisplayed()).toBeTruthy();
+    browser.sleep(500);
+    element(by.id('mobile-trip-planning-link')).click();
+    expect<any>(browser.driver.switchTo().activeElement().getAttribute('id')).toEqual('trip-planning');
   });
 });
