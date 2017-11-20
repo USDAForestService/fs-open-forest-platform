@@ -4,8 +4,6 @@ import { TripPlanningComponent } from './trip-planning.component';
 import { TreesService } from '../../../_services/trees.service';
 import { MockBackend } from '@angular/http/testing';
 
-class MockTreeService {}
-
 describe('TripPlanningComponent', () => {
   let component: TripPlanningComponent;
   let fixture: ComponentFixture<TripPlanningComponent>;

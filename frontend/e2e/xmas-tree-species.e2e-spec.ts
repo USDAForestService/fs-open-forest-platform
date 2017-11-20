@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Xmas tree species page', () => {
+fdescribe('Xmas tree species page', () => {
   let page: TreesSidebarPage;
 
   describe( 'Mt Hood', () => {
@@ -9,9 +9,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('mthood');
-      browser.sleep(800);
+      browser.sleep(500);
       page.getTreeSelectionLink().click();
-      browser.sleep(800);
+      browser.sleep(100);
     });
 
     it('should have a species section link', () => {
@@ -60,9 +60,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('arp');
-      browser.sleep(800);
+      browser.sleep(500);
       page.getTreeSelectionLink().click();
-      browser.sleep(800);
+      browser.sleep(100);
     });
 
     it('should have a species section link', () => {
@@ -87,16 +87,6 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
       });
-      it('should display Ponderosa pine fourth', () => {
-        const treeOne = page.getTreeSpecies('not-recommended', 0);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Ponderosa Pine');
-      });
-      it('should display Lodgepole Pine fifth', () => {
-        const treeOne = page.getTreeSpecies('not-recommended', 1);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Lodgepole Pine');
-      });
     });
   });
 
@@ -105,9 +95,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('shoshone');
-      browser.sleep(800);
+      browser.sleep(500);
       page.getTreeSelectionLink().click();
-      browser.sleep(800);
+      browser.sleep(100);
     });
 
     it('should have a species section link', () => {
@@ -163,9 +153,9 @@ describe('Xmas tree species page', () => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
       page.navigateTo('flathead');
-      browser.sleep(800);
+      browser.sleep(500);
       page.getTreeSelectionLink().click();
-      browser.sleep(800);
+      browser.sleep(100);
     });
 
     it('should have a species section link', () => {
@@ -195,20 +185,10 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Lodgepole Pine');
       });
-      it('should display Western Red Cedar pine fifth', () => {
+      it('should display Subalpine Fir fifth', () => {
         const treeOne = page.getTreeSpecies('recommended', 4);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western Red Cedar');
-      });
-      it('should display Subalpine Fir sixth', () => {
-        const treeOne = page.getTreeSpecies('recommended', 5);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
-      });
-      it('should display Western White Pine seventh', () => {
-        const treeOne = page.getTreeSpecies('recommended', 6);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western White Pine');
       });
     });
     describe('prohibited species', () => {
