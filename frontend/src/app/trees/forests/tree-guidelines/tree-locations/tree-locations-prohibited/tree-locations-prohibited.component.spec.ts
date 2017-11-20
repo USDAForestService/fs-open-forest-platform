@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { TreeLocationsProhibitedComponent } from './tree-locations-prohibited.component';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
 
 describe('TreeLocationsProhibitedComponent', () => {
   let component: TreeLocationsProhibitedComponent;
