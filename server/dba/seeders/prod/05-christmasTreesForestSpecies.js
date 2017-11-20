@@ -16,18 +16,6 @@ module.exports = {
         status: 'recommended'
       },
       {
-        id: 3,
-        forest_id: 1,
-        species_id: 5,
-        status: 'not recommended'
-      },
-      {
-        id: 4,
-        forest_id: 1,
-        species_id: 10,
-        status: 'not recommended'
-      },
-      {
         id: 5,
         forest_id: 1,
         species_id: 15,
@@ -56,23 +44,11 @@ module.exports = {
         forest_id: 2,
         species_id: 4,
         status: 'prohibited'
-      },
-      {
-        id: 14,
-        forest_id: 2,
-        species_id: 5,
-        status: 'not recommended'
-      },
+      }
       {
         id: 15,
         forest_id: 2,
         species_id: 10,
-        status: 'recommended'
-      },
-      {
-        id: 16,
-        forest_id: 2,
-        species_id: 21,
         status: 'recommended'
       },
       {
@@ -86,13 +62,7 @@ module.exports = {
         forest_id: 3,
         species_id: 6,
         status: 'recommended'
-      },
-      {
-        id: 21,
-        forest_id: 3,
-        species_id: 2,
-        status: 'not recommended'
-      },
+      }
       {
         id: 22,
         forest_id: 3,
@@ -139,12 +109,6 @@ module.exports = {
         id: 34,
         forest_id: 4,
         species_id: 17,
-        status: 'recommended'
-      },
-      {
-        id: 35,
-        forest_id: 2,
-        species_id: 22,
         status: 'recommended'
       }
     ];

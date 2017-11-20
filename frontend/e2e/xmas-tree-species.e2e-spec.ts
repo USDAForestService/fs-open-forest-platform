@@ -195,20 +195,10 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Lodgepole Pine');
       });
-      it('should display Western Red Cedar pine fifth', () => {
+      it('should display Subalpine Fir fifth', () => {
         const treeOne = page.getTreeSpecies('recommended', 4);
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western Red Cedar');
-      });
-      it('should display Subalpine Fir sixth', () => {
-        const treeOne = page.getTreeSpecies('recommended', 5);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Subalpine Fir');
-      });
-      it('should display Western White Pine seventh', () => {
-        const treeOne = page.getTreeSpecies('recommended', 6);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Western White Pine');
       });
     });
     describe('prohibited species', () => {
