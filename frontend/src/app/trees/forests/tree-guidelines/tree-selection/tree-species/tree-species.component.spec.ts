@@ -18,19 +18,19 @@ class TestComponentWrapperComponent {
   }
 
   statusClass(status) {
-    let css_class = '';
+    let cssClass = '';
     switch (status) {
       case 'prohibited':
-        css_class = 'danger';
+        cssClass = 'danger';
         break;
       case 'recommended':
-        css_class = 'success';
+        cssClass = 'success';
         break;
       case 'not recommended':
-        css_class = 'tan';
+        cssClass = 'tan';
         break;
     }
-    return css_class;
+    return cssClass;
   }
 }
 
