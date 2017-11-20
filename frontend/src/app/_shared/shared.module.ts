@@ -11,12 +11,14 @@ import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import {LineBreakFormatterPipe} from '../_pipes/line-break-formatter.pipe';
+import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
+import { ChunkArrayPipe } from '../_pipes/chunk-array.pipe';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
   declarations: [
     AppButtonComponent,
+    ChunkArrayPipe,
     FilterPipe,
     LineBreakFormatterPipe,
     ProgressComponent,
@@ -29,6 +31,7 @@ import {LineBreakFormatterPipe} from '../_pipes/line-break-formatter.pipe';
     AppButtonComponent,
     AppRoutingModule,
     CommonModule,
+    ChunkArrayPipe,
     FilterPipe,
     FormsModule,
     InViewportModule,
