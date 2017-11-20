@@ -74,12 +74,21 @@
     @media (max-width: $nav-width - 1) {
       height: 100px;
     }
+    @media (max-width: $medium-screen) {
+      height: 120px;
+    }
     .authentication {
-      float: right;
-      margin-left: 18px;
-      margin-top: -10px;
-      .user-link {
-        text-align: right;
+      float: left;
+      clear: both;
+      margin-left: 1em;
+      @media (min-width: $medium-screen) {
+        float: right;
+        margin-left: 18px;
+        margin-top: -10px;
+        clear: none;
+        .user-link {
+          text-align: right;
+        }
       }
       @media (min-width: $nav-width + 1) {
         float: right;

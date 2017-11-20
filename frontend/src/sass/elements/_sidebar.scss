@@ -1,10 +1,18 @@
 .tree-guidelines-menu-btn {
   position: absolute;
-  top: 0;
+  top: 162px;
   right: 0;
+  @media (min-width: $small-screen) {
+    top: 140px;
+  }
+  @media (min-width: $medium-screen) {
+    top: 120px;
+  }
 }
 
 .sidenav-mobile {
+  height: 100%;
+  overflow-y: auto;
   @media (min-width: $nav-width) {
     display: none;
   }

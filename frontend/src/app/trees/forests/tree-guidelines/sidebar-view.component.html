@@ -7,8 +7,9 @@
       &nbsp;
       <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
         <li>
-          <a href="#" id="need-to-know-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('need-to-know')}" (click)="gotoHashtag('need-to-know', $event)">Which rules you need to know</a>
+          <a href="#" id="need-to-know-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('need-to-know')}" (click)="util.gotoHashtag('need-to-know', $event)">Which rules you need to know</a>
         </li>
+        <li>
           <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-dates'}" (click)="util.gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
         </li>
         <li>
@@ -41,7 +42,7 @@
               <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="util.gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
             </li>
           </ul>
-        <li>
+        </li>
         <li>
           <a href="#" id="contact-information-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'contact-information'}" (click)="util.gotoHashtag('contact-information', $event)">Contact us</a>
         </li>

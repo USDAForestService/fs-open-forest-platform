@@ -14,6 +14,7 @@ export class TreeGuidelinesComponent implements OnInit {
   id: any;
   showMobileNav = false;
   position: string;
+  top: string;
 
   constructor(private route: ActivatedRoute, private service: TreesService, public util: UtilService) {}
 
@@ -33,8 +34,10 @@ export class TreeGuidelinesComponent implements OnInit {
     console.log(window.pageYOffset);
     if (window.pageYOffset > 122) {
       this.position = 'fixed';
+      this.top = '0px';
     } else {
       this.position = 'absolute';
+      this.top = 'inherit';
     }
   }
 
