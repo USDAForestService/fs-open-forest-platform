@@ -31,7 +31,6 @@ export class TreeGuidelinesComponent implements OnInit {
 
   @HostListener('document:scroll', ['$event'])
   public scroll(event: Event) {
-    console.log(window.pageYOffset);
     if (window.pageYOffset > 122) {
       this.position = 'fixed';
       this.top = '0px';
@@ -39,6 +38,7 @@ export class TreeGuidelinesComponent implements OnInit {
       this.position = 'absolute';
       this.top = 'inherit';
     }
+    // console.log('OFFSET', window.pageYOffset);
   }
 
   ngOnInit() {

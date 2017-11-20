@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TreeLocationsAllowedComponent } from './tree-locations-allowed.component';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
 
 describe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
