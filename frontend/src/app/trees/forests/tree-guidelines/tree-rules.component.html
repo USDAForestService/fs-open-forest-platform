@@ -1,5 +1,9 @@
 <div>
-  <h3>It is prohibited to gather a tree:</h3>
+  <h3>
+    <svg class="icon-sm icon-middle" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+      <use xlink:href="/assets/img/sprites.svg#fa-warning" fill="red" />
+    </svg>
+    It is prohibited to gather a tree:</h3>
   <div class="usa-grid">
     <ul>
       <li>from plantations and previously thinned stands of trees</li>
@@ -16,12 +20,19 @@
       *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let i=index">
         <span class="usa-width-one-half">{{ tree.name }}</span>
         <span class="usa-width-one-half">
+          <span aria-hidden='true' class='tree-status usa-label danger'>
+            Prohibited
+          </span>
           <img src="/assets/img/pacific-yew.jpg" alt="Yew image" />
         </span>
     </ul>
   </div>
       
-  <h3>Rules for cutting your tree</h3>
+  <h3>
+    <svg class="icon-sm icon-middle" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+      <use xlink:href="/assets/img/sprites.svg#fa-warning" fill="red" />
+    </svg>
+    Rules for cutting your tree</h3>
   <div class="usa-grid">
     <ul>
       <li>Another tree must be within 8 feet of the one you cut.</li>
