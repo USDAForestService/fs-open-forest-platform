@@ -58,11 +58,4 @@ describe('Xmas sidebar page', () => {
     element(by.id('mobile-trip-planning-link')).click();
     expect<any>(browser.driver.switchTo().activeElement().getAttribute('id')).toEqual('trip-planning');
   });
-
-  it('should have a breadcrumb', () => {
-    browser.sleep(500);
-    expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
-      'Christmas tree permits > Find a forest > Mt. Hood National Forest Christmas tree permit guidelines'
-    );
-  });
 });
