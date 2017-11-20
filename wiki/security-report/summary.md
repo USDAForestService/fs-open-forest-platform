@@ -8,7 +8,7 @@ the API and web client.
 Results: [ZAP Scanning Report](api.pdf)
 
 The 3 potential format string errors apper to be false positives, as we are able
-to visit the URLs and receive a 404 response, as expected.
+to visit the URLs and receive a 404 response, as expected. The CORS headers are being set for the API in the middleware: https://github.com/18F/fs-intake-module/blob/master/server/src/middleware.es6
 
 ![](screenshot-1.png)
 
