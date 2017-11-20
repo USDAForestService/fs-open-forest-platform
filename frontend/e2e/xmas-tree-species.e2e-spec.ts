@@ -39,11 +39,6 @@ describe('Xmas tree species page', () => {
         expect<any>(treeOne.isDisplayed()).toBeTruthy();
         expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Douglas-fir');
       });
-      it('should display Mountain Hemlock', () => {
-        const treeOne = page.getTreeSpecies('not-recommended', 1);
-        expect<any>(treeOne.isDisplayed()).toBeTruthy();
-        expect<any>(treeOne.element(by.css('.tree-name')).getText()).toEqual('Mountain Hemlock');
-      });
     });
 
     describe('prohibited species', () => {
