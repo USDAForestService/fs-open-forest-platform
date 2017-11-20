@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-fdescribe('Xmas tree species page', () => {
+describe('Xmas tree species page', () => {
   let page: TreesSidebarPage;
 
   describe( 'Mt Hood', () => {
