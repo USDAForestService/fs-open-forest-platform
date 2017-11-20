@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { SpacesToDashesPipe } from '../../../../../_pipes/spaces-to-dashes.pipe';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
 
 import { TreeSpeciesComponent } from './tree-species.component';
 
@@ -18,19 +18,19 @@ class TestComponentWrapperComponent {
   }
 
   statusClass(status) {
-    let css_class = '';
+    let cssClass = '';
     switch (status) {
       case 'prohibited':
-        css_class = 'danger';
+        cssClass = 'danger';
         break;
       case 'recommended':
-        css_class = 'success';
+        cssClass = 'success';
         break;
       case 'not recommended':
-        css_class = 'tan';
+        cssClass = 'tan';
         break;
     }
-    return css_class;
+    return cssClass;
   }
 }
 
