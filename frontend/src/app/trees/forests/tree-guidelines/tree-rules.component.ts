@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FilterPipe } from '../../../_pipes/filter.pipe';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 
@@ -34,12 +34,12 @@ export class TreeRulesComponent implements OnChanges {
 
     for (const key of Object.keys(districts)) {
       const district = districts[key];
-      const areaLocations = district.locations.filter( location => location.type.startsWith('cutting-area'));
+      const areaLocations = district.locations.filter(location => location.type.startsWith('cutting-area'));
       if (areaLocations.length) {
         district.locations = areaLocations;
         this.districtsWithHoursAndDates.push(district);
       }
-      const permitLocations = district.locations.filter( location => location.type === 'district-permits');
+      const permitLocations = district.locations.filter(location => location.type === 'district-permits');
       if (permitLocations.length) {
         district.locations = permitLocations;
         this.districtsWithPermits.push(district);

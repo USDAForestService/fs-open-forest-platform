@@ -39,15 +39,6 @@ export class SidebarViewComponent implements OnInit {
     }
   }
 
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-    }
-  }
-
   ngOnInit() {
     this.top = '270px';
   }

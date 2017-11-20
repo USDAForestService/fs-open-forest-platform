@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { TreeLocationsMapsComponent } from './tree-locations-maps.component';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { SpacesToDashesPipe } from '../../../../../_pipes/spaces-to-dashes.pipe';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
 
 describe('TreeLocationsMapsComponent', () => {
   let component: TreeLocationsMapsComponent;

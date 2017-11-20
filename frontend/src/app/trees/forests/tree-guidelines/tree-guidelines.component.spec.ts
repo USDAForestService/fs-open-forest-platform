@@ -5,6 +5,8 @@ import { MockBackend } from '@angular/http/testing';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
+import { UtilService } from '../../../_services/util.service';
+import * as sinon from 'sinon';
 
 describe('PermitApplicationListComponent', () => {
   let component: TreeGuidelinesComponent;
@@ -18,7 +20,11 @@ describe('PermitApplicationListComponent', () => {
       TestBed.configureTestingModule({
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-        providers: [{ provide: TreesService, useClass: TreesService }, { provide: XHRBackend, useClass: MockBackend }],
+        providers: [
+          UtilService,
+          { provide: TreesService, useClass: TreesService },
+          { provide: XHRBackend, useClass: MockBackend }
+        ],
         imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
     })
@@ -110,4 +116,24 @@ describe('PermitApplicationListComponent', () => {
       );
     })
   );
+
+  it('should toggle mobile nav', () => {
+    component.toggleMobileNav();
+    expect(component.showMobileNav).toBeTruthy();
+  });
+
+  it('should show mobile nav if screen width is greater than or equal to 951', () => {
+    component.showMobileNav = true;
+    component.onResize({ target: { innerWidth: 950 } });
+    expect(component.showMobileNav).toBeTruthy();
+
+    component.onResize({ target: { innerWidth: 951 } });
+    expect(component.showMobileNav).toBeFalsy();
+  });
+
+  it('should set top value and position value on no scroll', () => {
+    component.scroll(new Event('scroll'));
+    expect(component.position).toEqual('absolute');
+    expect(component.top).toEqual('inherit');
+  });
 });
