@@ -9,19 +9,19 @@ export class ChunkArrayPipe implements PipeTransform {
     return this.chunk(value, n);
   }
 
-  chunk(arr, n) {
-    const newArr = [];
-    let nestedArr = [];
-    for (let i = 1; i <= arr.length; i++) {
-      nestedArr.push(arr[i - 1]);
-      if (i % n === 0) {
-        newArr.push(nestedArr);
-        nestedArr = [];
+  chunk(arr, numCols) {
+    const result: any[][]=[];
+    let pos = 0;
+    const numPerArray = Math.ceil(arr.length / numCols);
+    for(var i = 0; i < arr.length; i++) {
+      if(i%numPerArray === 0){
+        result.push([arr[i]]);
+      }
+      else {
+        result[result.length-1].push(arr[i]);
       }
     }
-    if (nestedArr.length > 0) {
-      newArr.push(nestedArr);
-    }
-    return newArr;
+    
+    return result;
   }
 }
