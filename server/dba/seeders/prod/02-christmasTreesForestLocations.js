@@ -374,7 +374,7 @@ module.exports = {
         'Closed 11:30 a.m. - 12:30 p.m.\n' +
         '\n(503) 668-1700\n' +
         '\nHeadquarters\n16400 Champion Way\n' +
-        'Sandy, Oregon 97055\n',
+        'Sandy, OR 97055\n',
         image_filename: null
       },
       {
@@ -386,7 +386,7 @@ module.exports = {
         description: 'Dufur Ranger Station\nMonday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
         '\n(541) 467-2291\n' +
         '\n780 NE Court Street\n' +
-        'Dufur, Oregon 97021',
+        'Dufur, OR 97021',
         image_filename: null
       },
       {
@@ -413,7 +413,7 @@ module.exports = {
         'Monday - Saturday, 8 a.m. - 4:30 p.m.\n' +
         '\n(541) 352-6002\n' +
         '\n6780 Highway 35\n' +
-        'Parkdale, Oregon 97041',
+        'Parkdale, OR 97041',
         image_filename: null
       },
       {
@@ -428,7 +428,7 @@ module.exports = {
         '\n(503) 622-3191\n' +
         '\n' +
         '70220 E. Highway 26\n' +
-        'Zigzag, Oregon 97049\n\n',
+        'Zigzag, OR 97049\n\n',
         image_filename: null
       },
       {
@@ -439,7 +439,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
         '\n(406) 758-5208\n' +
-        '(406) 758-5379 (fax)\n' +
         '\nSupervisor\'s Office\n' +
         '650 Wolfpack Way\n' +
         'Kalispell, MT 59901\n',
@@ -452,7 +451,6 @@ module.exports = {
         allowed: false,
         type: 'address',
         description: '(406) 758-5204\n' +
-        '(406) 758-3537 (fax)\n' +
         '\n650 Wolfpack Way\n' +
         'Kalispell, MT 59901',
         image_filename: null
@@ -466,7 +464,6 @@ module.exports = {
         description: '' +
         '\nMonday - Friday, 8 a.m. - 4:30 p.m.\n' +
         '\n(406) 837-7500\n' +
-        '(406) 837-7503 (fax)\n' +
         '\n200 Ranger Station Road\n' +
         'Bigfork, MT 59911',
         image_filename: null
@@ -479,7 +476,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday 8 a.m. - 4:30 p.m.\n' +
         '\n(406) 387-3800\n' +
-        '(406) 387-3889 (fax)\n' +
         '\n10 Hungry Horse Drive\nHungry Horse, MT 59919\n' +
         '\nThe Spotted Bear Ranger District does not sell Christmas tree permits onsite.',
         image_filename: null
@@ -555,7 +551,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday, 8 a.m. to 4:30 p.m.' +
         '\n(307) 527-6241 (tty)\n' +
-        '(307) 578-5112 (fax)\n' +
         '\nSupervisor\'s Office\n' +
         '808 Meadowlane Ave.\n' +
         'Cody, WY 82414',
@@ -569,8 +564,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
         '\n(307) 527-6921\n' +
-        '(307) 578-5112 (fax)\n' +
-        '(307) 527-7158 (fax)\n' +
         '\n808 Meadowlane Ave.\n' +
         'Cody, WY 82414\n' +
         '\n203A Yellowstone Ave.\n' +
@@ -585,7 +578,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
         '\n(307) 332-5460\n' +
-        '(307) 332-0264 (fax)\n' +
         '\n333 Highway 789, South\n' +
         'Lander, WY 82520',
         image_filename: null
@@ -598,7 +590,6 @@ module.exports = {
         type: 'address',
         description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
         '\n(307) 455-2466\n' +
-        '(307) 455-3866 (fax)\n' +
         '\n1403 W Ramshorn\n' +
         'Dubois, WY 82513-0186',
         image_filename: null
