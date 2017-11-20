@@ -12,4 +12,4 @@ The 3 potential format string errors apper to be false positives, as we are able
 
 Results: [ZAP Scanning Report](frontend.pdf)
 
-X-Frame-Options and X-XSS-Protection headers will be set by the production web server.
+X-Frame-Options and X-XSS-Protection headers will be set by the production web server. The deliverables from the frontend section are static files without any specific web server configurations.
