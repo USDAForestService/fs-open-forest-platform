@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreeCuttingRulesComponent } from './tree-cutting-rules.component';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
 
 describe('TreeCuttingRulesComponent', () => {
   let component: TreeCuttingRulesComponent;
