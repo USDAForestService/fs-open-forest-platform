@@ -15,7 +15,7 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a cutting section link', () => {
-    expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual('How to harvest your tree');
+    expect<any>(element(by.id('cutting-instructions-link')).getText()).toEqual('How to cut your tree');
   });
 
   it('should have a locations link', () => {
