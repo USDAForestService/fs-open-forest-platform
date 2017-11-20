@@ -9,7 +9,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Wilderness',
+        description: 'Wilderness & research natural areas',
         image_filename: null
       }
       ,
@@ -19,7 +19,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Research natural areas',
+        description: '100 feet of a trail, campgrounds, administrative sites or summer home/rec. residence areas',
         image_filename: null
       },
       {
@@ -28,7 +28,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: '100 feet of a trail',
+        description: '300 feet of streams or lakes',
         image_filename: null
       },
       {
@@ -37,16 +37,7 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'area',
-        description: 'Campgrounds or administrative sites',
-        image_filename: null
-      },
-      {
-        id: 5,
-        forest_id: 3,
-        district: null,
-        allowed: false,
-        type: 'area',
-        description: '300 feet of streams or lakes',
+        description: 'Dalles Watershed, Camp Baldwin or Warm Springs Reservation',
         image_filename: null
       },
       {
@@ -65,24 +56,6 @@ module.exports = {
         allowed: false,
         type: 'area',
         description: 'East of Little Crater Lake Campground on Road 58, because of Warms Springs Indian Reservation',
-        image_filename: null
-      },
-      {
-        id: 8,
-        forest_id: 3,
-        district: null,
-        allowed: false,
-        type: 'area',
-        description: 'Do not remove Pacific Yew trees',
-        image_filename: null
-      },
-      {
-        id: 9,
-        forest_id: 3,
-        district: null,
-        allowed: false,
-        type: 'area',
-        description: 'Campgrounds, administrative sites, or summer home/rec. residence areas',
         image_filename: null
       },
       {
@@ -151,91 +124,91 @@ module.exports = {
       {
         id: 17,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '4210',
+        description: 'Road 4210',
         image_filename: null
       },
       {
         id: 18,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '45, 4540, 4545',
+        description: 'Road 45, 4540, 4545',
         image_filename: null
       },
       {
         id: 19,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '4660, 4661, 4670, 4671',
+        description: 'Road 4660, 4661, 4670, 4671',
         image_filename: null
       },
       {
         id: 20,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '5730, 5731',
+        description: 'Road 5730, 5731',
         image_filename: null
       },
       {
         id: 21,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '6340, 6341, 6350, 6355, 6370',
+        description: 'Road 6340, 6341, 6350, 6355, 6370',
         image_filename: null
       },
       {
         id: 22,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '5410, 5411',
+        description: 'Road 5410, 5411',
         image_filename: null
       },
       {
         id: 23,
         forest_id: 3,
-        district: 'Clackamas',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '58, 5810, 5820, 5830',
+        description: 'Road 5810, 5820, 5830',
         image_filename: null
       },
       {
         id: 24,
         forest_id: 3,
-        district: 'Zigzag',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '18, 1828, 1828118',
+        description: 'Road 18, 1828, 1828118',
         image_filename: null
       },
       {
         id: 25,
         forest_id: 3,
-        district: 'Zigzag',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '2656 and spurs',
+        description: 'Road 2656 and spurs',
         image_filename: null
       },
       {
         id: 26,
         forest_id: 3,
-        district: 'Zigzag',
-        allowed: true,
+        district: null,
+        allowed: false,
         type: 'road',
-        description: '58, 5850, 5855, 5860, 5870, 5880',
+        description: 'Road 58, 5850, 5855, 5860, 5870, 5880',
         image_filename: null
       },
       {
@@ -311,54 +284,18 @@ module.exports = {
         image_filename: 'red-feather'
       },
       {
-        id: 41,
-        forest_id: 3,
-        district: 'Barlow and Hood',
-        allowed: false,
-        type: 'area',
-        description: 'Dalles Watershed',
-        image_filename: null
-      },
-      {
         id: 42,
         forest_id: 3,
-        district: 'Barlow and Hood',
+        district: null,
         allowed: false,
         type: 'road',
         description: 'Highway 216',
         image_filename: null
       },
       {
-        id: 43,
-        forest_id: 3,
-        district: 'Barlow and Hood',
-        allowed: false,
-        type: 'area',
-        description: 'Camp Baldwin',
-        image_filename: null
-      },
-      {
-        id: 44,
-        forest_id: 3,
-        district: 'Barlow and Hood',
-        allowed: false,
-        type: 'area',
-        description: 'Warm Springs Reservation',
-        image_filename: null
-      },
-      {
-        id: 45,
-        forest_id: 3,
-        district: 'Barlow and Hood',
-        allowed: false,
-        type: 'road',
-        description: 'Highway 26',
-        image_filename: null
-      },
-      {
         id: 46,
         forest_id: 3,
-        district: 'Barlow and Hood',
+        district: null,
         allowed: false,
         type: 'road',
         description: 'Highway 35',
