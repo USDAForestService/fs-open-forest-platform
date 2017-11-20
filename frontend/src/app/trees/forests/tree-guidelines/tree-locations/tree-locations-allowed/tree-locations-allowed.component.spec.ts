@@ -3,6 +3,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TreeLocationsAllowedComponent } from './tree-locations-allowed.component';
 import { forest } from '../../../../_mocks/forest';
+import { TreesService } from '../../../../_services/trees.service';
+import { MockBackend } from '@angular/http/testing';
 
 describe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
@@ -12,7 +14,8 @@ describe('TreeLocationsAllowedComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeLocationsAllowedComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [{ provide: TreesService, use: MockBackend }]
       }).compileComponents();
     })
   );
@@ -27,6 +30,7 @@ describe('TreeLocationsAllowedComponent', () => {
     component.forest = forest;
     expect(component).toBeTruthy();
   });
+
 
   it('should get allowed districts', () => {
     component.forest = forest;

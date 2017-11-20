@@ -16,16 +16,13 @@
           <a href="#" id="tree-selection-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-selection')}" (click)="gotoHashtag('tree-selection', $event)">How to choose your tree</a>
         </li>
         <li>
-          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">How to harvest your tree</a>
+          <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('cutting-instructions')}" (click)="gotoHashtag('cutting-instructions', $event)">How to cut your tree</a>
           <ul class="usa-sidenav-sub_list" [hidden]="util.currentSection && !util.currentSection.startsWith('cutting-instructions')">
             <li>
               <a href="#" id="cutting-instructions-before-you-cut-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-instructions-before-you-cut'}" (click)="gotoHashtag('cutting-instructions-before-you-cut', $event)">Before you cut</a>
             </li>
             <li>
               <a href="#" id="cutting-instructions-when-you-cut-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-instructions-when-you-cut'}" (click)="gotoHashtag('cutting-instructions-when-you-cut', $event)">When you cut</a>
-            </li>
-            <li>
-              <a href="#" id="cutting-instructions-after-you-cut-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-instructions-after-you-cut'}" (click)="gotoHashtag('cutting-instructions-after-you-cut', $event)">After you cut</a>
             </li>
           </ul>
         </li>
@@ -63,17 +60,14 @@
 
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
-      <app-tree-selection [forest]="forest"></app-tree-selection>
       <app-tree-species [forest]="forest"></app-tree-species>
 
       <hr class="thick" />
-      <app-section-heading heading="How to harvest your tree" elementId="cutting-instructions"></app-section-heading>
+      <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
       <app-section-heading heading="Before you cut" elementId="cutting-instructions-before-you-cut" selector="h3"></app-section-heading>
       <app-tree-tools [forest]="forest"></app-tree-tools>
       <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
-      <app-section-heading heading="After you cut" elementId="cutting-instructions-after-you-cut" selector="h3"></app-section-heading>
-      <app-tree-cutting-cleanup [forest]="forest"></app-tree-cutting-cleanup>
 
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" elementId="trip-planning"></app-section-heading>
