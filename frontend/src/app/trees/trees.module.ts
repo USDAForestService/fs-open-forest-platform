@@ -7,7 +7,6 @@ import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cuttin
 import { TreeSelectionComponent } from './forests/tree-guidelines/tree-selection/tree-selection.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/tree-species/tree-species.component';
 
-import { TreeCuttingCleanupComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-cleanup/tree-cutting-cleanup.component';
 import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
 
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
@@ -28,7 +27,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 @NgModule({
   declarations: [
     ContactInfoComponent,
-    TreeCuttingCleanupComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -46,7 +44,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
   ],
   exports: [
     ContactInfoComponent,
-    TreeCuttingCleanupComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
