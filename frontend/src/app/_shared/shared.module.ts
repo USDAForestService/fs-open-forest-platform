@@ -32,11 +32,6 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     TrackScrollDirective
   ],
   exports: [
-    AppButtonComponent,
-    UrlPipe,
-    SidebarComponent
-  ],
-  exports: [
     ApiErrorComponent,
     FilterPipe,
     AppRoutingModule,
