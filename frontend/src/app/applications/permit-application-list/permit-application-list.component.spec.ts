@@ -14,8 +14,23 @@ import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';
 import * as moment from 'moment/moment';
 import * as sinon from 'sinon';
+
+class MockService {
+  isAdmin() {
+    return true;
+  }
+
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  handleStatusCode() {
+    return true;
+  }
+}
 
 describe('PermitApplicationListComponent', () => {
   let component: PermitApplicationListComponent;
@@ -30,8 +45,8 @@ describe('PermitApplicationListComponent', () => {
         declarations: [PermitApplicationListComponent, SortArray, HoursFromOrDate, DaysToOrDate, SpacesToDashesPipe],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          { provide: ApplicationService, useClass: ApplicationService },
-          AlertService,
+          { provide: ApplicationService, useClass: MockService },
+          { provide: AlertService, useClass: AlertService },
           { provide: XHRBackend, useClass: MockBackend },
           { provide: Router, useValue: router },
           { provide: AuthenticationService, useClass: MockService }
@@ -122,23 +137,19 @@ describe('PermitApplicationListComponent', () => {
     expect(component.isWeekAwayOrPast(date)).toBeFalsy();
   });
 
-  it(
-    'should handle status code',
-    inject([ApplicationService], service => {
-      service.handleStatusCode(403);
-      expect(router.navigate).toHaveBeenCalledWith(['access-denied']);
-    })
-  );
-
   it('should trigger function when status changes', () => {
     const event = { target: { value: 'returned' } };
     component.applicationStatusChange(event);
     expect(component.successMessage).toEqual(null);
     expect(component.applicationStatus).toEqual('returned');
   });
+
+  it(
+    'should cancel application',
+    inject([AlertService], alert => {
+      component.applicationStatus = 'Cancelled';
+      component.applicationCancelled({});
+      expect(alert.getSuccessMessage()).toBeFalsy();
+    })
+  );
 });
-class MockService {
-  isAdmin() {
-    return true;
-  }
-}

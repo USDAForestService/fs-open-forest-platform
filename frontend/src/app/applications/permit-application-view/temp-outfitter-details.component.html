@@ -1,7 +1,7 @@
 <div class="usa-grid event-name no-padding padding-top-1">
   <button *ngIf="application.status === 'Hold' && !isAdmin" class="usa-button-outline float-right" routerLink="/applications/temp-outfitters/{{application.appControlNumber}}/edit">Edit application</button>
   <div class="usa-width-three-fourths">
-    <h1>{{ application.applicantInfo.organizationName }}
+    <h1 id="skip-nav-target" tabindex="-1">{{ application.applicantInfo.organizationName }}
       <span *ngIf="['Submitted'].indexOf(application.status) === -1" class="usa-label" [ngClass]="{
         'success': application.status === 'Accepted',
         'warning': application.status === 'Hold',
@@ -21,28 +21,30 @@
     <h2 class="app-item-label padding-right-1">Applicant information</h2>
     <div class="margin-bottom-1">
       <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
-      <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
-      <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress2 }}</span>
-      <span class="display-block">
-        {{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}
-      </span>
+      <div *ngIf="application.applicantInfo.primaryAddress">
+        <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
+        <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress2 }}</span>
+        <span class="display-block">
+          {{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}
+        </span>
+      </div>
     </div>
     <div class="margin-bottom-1">
       <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
-      <span class="display-block">
+      <span class="display-block" *ngIf="application.applicantInfo.dayPhone">
         Phone: {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
         <span *ngIf="application.applicantInfo.dayPhone.extension"> ext. {{ application.applicantInfo.dayPhone.extension }}</span>
       </span>
-      <span *ngIf="application.applicantInfo.eveningPhone.number" class="display-block">
+      <span *ngIf="application.applicantInfo.eveningPhone && application.applicantInfo.eveningPhone.number" class="display-block">
         Phone2: {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
         <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
       </span>
-      <span *ngIf="application.applicantInfo.fax.number" class="display-block">
+      <span *ngIf="application.applicantInfo.fax && application.applicantInfo.fax.number" class="display-block">
         Fax: {{ application.applicantInfo.fax.areaCode }}-{{ application.applicantInfo.fax.prefix }}-{{ application.applicantInfo.fax.number }}
         <span *ngIf="application.applicantInfo.fax.extension"> ext. {{ application.applicantInfo.fax.extension }}</span>
       </span>
       <span class="display: block" *ngIf="application.applicantInfo.website">
-        Website: <a href="{{application.applicantInfo.website}}" target="_blank">{{application.applicantInfo.website}}</a>
+        Website: <a href="{{application.applicantInfo.website | UrlPipe }}" target="_blank">{{application.applicantInfo.website}}</a>
       </span>
     </div>
 
@@ -64,7 +66,7 @@
       <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
       <div *ngIf="application.tempOutfitterFields.advertisingURL">
         <h3>Promotional website:</h3>
-        <a href="{{ application.tempOutfitterFields.advertisingURL }}">{{ application.tempOutfitterFields.advertisingURL }}</a>
+        <a href="{{ application.tempOutfitterFields.advertisingURL | UrlPipe }}">{{ application.tempOutfitterFields.advertisingURL }}</a>
       </div>
       <div *ngIf="application.tempOutfitterFields.advertisingDescription">
         <h3>Advertising description:</h3>
@@ -76,85 +78,87 @@
       <span>{{ application.tempOutfitterFields.clientCharges }}</span>
 
       <h2 class="app-item-label padding-right-1">Experience</h2>
-      <div *ngIf="application.tempOutfitterFields.experienceFields.listAllNationalForestPermits">
-        <h3>Permits for outfitting and guiding on National Forest System lands in the past 3 years:</h3>
-        <span>{{ application.tempOutfitterFields.experienceFields.listAllNationalForestPermits }}</span>
-      </div>
-      <div *ngIf="application.tempOutfitterFields.experienceFields.listAllOtherPermits">
-        <h3>Permits with other federal or state agencies in the past 3 years:</h3>
-        <span>{{ application.tempOutfitterFields.experienceFields.listAllOtherPermits }}</span>
-      </div>
-      <div *ngIf="application.tempOutfitterFields.experienceFields.listAllCitations">
-        <h3>Citations or violations in association with outfitting and guiding activities:</h3>
-        <span>{{ application.tempOutfitterFields.experienceFields.listAllCitations }}</span>
-      </div>
+      <ng-container *ngIf="application.tempOutfitterFields.experienceFields">
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllNationalForestPermits">
+          <h3>Permits for outfitting and guiding on National Forest System lands in the past 3 years:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllNationalForestPermits }}</span>
+        </div>
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllOtherPermits">
+          <h3>Permits with other federal or state agencies in the past 3 years:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllOtherPermits }}</span>
+        </div>
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllCitations">
+          <h3>Citations or violations in association with outfitting and guiding activities:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllCitations }}</span>
+        </div>
+      </ng-container>
     </div>
     <app-revision-history id="desktop-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>
   </div>
 
 
   <div class="usa-width-one-half">
-    <h2>Description of proposed activity</h2>
-    <h3>Start date:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime | date: 'MM/dd/yyyy' }}</span>
+    <ng-container *ngIf="application.tempOutfitterFields && application.tempOutfitterFields.activityDescriptionFields">
+      <h2>Description of proposed activity</h2>
+      <h3>Start date:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime | date: 'MM/dd/yyyy' }}</span>
 
-    <h3>End date:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime | date: 'MM/dd/yyyy' }}</span>
+      <h3>End date:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime | date: 'MM/dd/yyyy' }}</span>
 
-    <h3>The anticipated number of trips:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.numberOfTrips }}</span>
+      <h3>The anticipated number of trips:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.numberOfTrips }}</span>
 
-    <h3>The anticipated party size:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.partySize }}</span>
+      <h3>The anticipated party size:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.partySize }}</span>
 
-    <h3>Location of routes and starting and ending points for the proposed operations:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.locationDescription }}</span>
+      <h3>Location of routes and starting and ending points for the proposed operations:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.locationDescription }}</span>
 
-    <h3>Services being offered:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.servicesProvided }}</span>
+      <h3>Services being offered:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.servicesProvided }}</span>
 
-    <h3>Description of your client base or audience:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.audienceDescription }}</span>
+      <h3>Description of your client base or audience:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.audienceDescription }}</span>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities">
-      <h3>List of government facilities requested:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities">
+        <h3>List of government facilities requested:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities }}</span>
+      </div>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
-      <h3>List of temporary improvements:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
+        <h3>List of temporary improvements:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
+      </div>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment">
-      <h3>Motorized equipment usage:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment">
+        <h3>Motorized equipment usage:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment }}</span>
+      </div>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock">
-      <h3>Transportation of livestock:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock">
+        <h3>Transportation of livestock:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock }}</span>
+      </div>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite">
-      <h3>Need assiged site:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite">
+        <h3>Need assiged site:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite }}</span>
+      </div>
 
-    <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
-      <h3>List of temporary improvements:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
-    </div>
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
+        <h3>List of temporary improvements:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
+      </div>
 
-    <h3>Description of cleanup and restoration during and after the proposed operations:</h3>
-    <span>{{ application.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration }}</span>
-
+      <h3>Description of cleanup and restoration during and after the proposed operations:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration }}</span>
+    </ng-container>
 
     <h3>
       <span *ngIf="application.signature" class="electronic-signature-success"></span>
       Electronic signature
     </h3>
-
   </div>
 </div>
 <app-revision-history id="mobile-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>

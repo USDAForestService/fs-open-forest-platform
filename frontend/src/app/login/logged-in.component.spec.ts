@@ -10,6 +10,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Type } from '@angular/core';
 
+class MockAuthenticationService {
+  getAuthenticatedUser(): Observable<{}> {
+    return Observable.of({ role: 'admin' });
+  }
+}
+
 describe('LoggedInComponent', () => {
   let component: LoggedInComponent;
   let fixture: ComponentFixture<LoggedInComponent>;
@@ -48,9 +54,3 @@ describe('LoggedInComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/test']);
   });
 });
-
-class MockAuthenticationService {
-  getAuthenticatedUser(): Observable<{}> {
-    return Observable.of({ role: 'admin' });
-  }
-}

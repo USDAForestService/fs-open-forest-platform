@@ -2,13 +2,17 @@
   <ng-container formGroupName="{{ formName }}">
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="fax">{{ name }} (10 digits, optional)</label>
-        <input id="fax" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" />
+        <label class="usa-input" id="fax-label">{{ name }} (10 digits, optional)</label>
+        <input id="fax" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('fax.tenDigit'), 'fax-label', 'fax-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('fax.tenDigit'))" />
         <app-error-message fieldId="fax-error" name="Fax number" [control]="parentForm.get('fax.tenDigit')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
-        <label class="usa-input" for="fax-extension">Ext (optional)</label>
-        <input class="usa-input" id="fax-extension" type="text" minLength="1" maxLength="6" formControlName="extension" />
+        <label class="usa-input" id="fax-extension-label">Ext (optional)</label>
+        <input class="usa-input" id="fax-extension" type="text" minLength="1" maxLength="6" formControlName="extension"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('fax.extension'), 'fax-extension-label', 'fax-extension-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('fax.extension'))" />
         <app-error-message fieldId="fax-extension-error" name="Fax extension" [control]="parentForm.get('fax.extension')"></app-error-message>
       </div>
     </div>

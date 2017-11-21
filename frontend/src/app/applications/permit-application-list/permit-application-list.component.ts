@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment/moment';
 
 @Component({
-  providers: [],
   selector: 'app-permit-application-list',
   templateUrl: './permit-application-list.component.html'
 })
@@ -97,7 +96,6 @@ export class PermitApplicationListComponent implements OnInit {
         this.applications = applications;
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
         this.apiErrors = e;
         window.scroll(0, 0);
       }
