@@ -10,7 +10,29 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { noncommercialMock } from './noncommercial-mock';
+import { noncommercialMock } from './noncommercial.mock';
+
+export class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(noncommercialMock);
+    } else {
+      return Observable.throw('The application could not be found.');
+    }
+  }
+
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  create(): Observable<{}> {
+    return Observable.of();
+  }
+
+  update(): Observable<{}> {
+    return Observable.of();
+  }
+}
 
 describe('Noncommercial with mock application service', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -46,29 +68,3 @@ describe('Noncommercial with mock application service', () => {
     expect(component.applicationForm.get('appControlNumber').value).toEqual('a309fe16-47a4-4da7-a293-9697d438815f');
   });
 });
-
-export class MockApplicationService {
-  getOne(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(noncommercialMock);
-    } else {
-      return Observable.throw(['Server Error']);
-    }
-  }
-
-  handleStatusCode(e) {
-    return e;
-  }
-
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-
-  update(): Observable<{}> {
-    return Observable.of();
-  }
-}

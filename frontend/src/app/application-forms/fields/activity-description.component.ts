@@ -23,51 +23,54 @@ export class ActivityDescriptionComponent implements OnInit {
 
   @Output() updateRootDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
-      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator()]],
-      numberOfTrips: ['', [Validators.required, alphanumericValidator()]],
-      partySize: ['', [Validators.required, alphanumericValidator()]],
-      locationDescription: ['', [Validators.required, alphanumericValidator()]],
-      servicesProvided: ['', [Validators.required, alphanumericValidator()]],
-      audienceDescription: ['', [Validators.required, alphanumericValidator()]],
+      numberServiceDaysRequested: [this.dateStatus.dateTimeSpan, [alphanumericValidator(), Validators.maxLength(255)]],
+      numberOfTrips: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      partySize: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
+      servicesProvided: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
+      audienceDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(400)]],
       needGovernmentFacilities: [false],
-      listOfGovernmentFacilities: [''],
+      listOfGovernmentFacilities: ['', Validators.maxLength(400)],
       needTemporaryImprovements: [false],
-      listOfTemporaryImprovements: [''],
+      listOfTemporaryImprovements: ['', Validators.maxLength(400)],
       haveMotorizedEquipment: [false],
-      statementOfMotorizedEquipment: [''],
+      statementOfMotorizedEquipment: ['', Validators.maxLength(400)],
       haveLivestock: [false],
-      statementOfTransportationOfLivestock: [''],
+      statementOfTransportationOfLivestock: ['', Validators.maxLength(400)],
       needAssignedSite: [false],
-      statementOfAssignedSite: [''],
-      descriptionOfCleanupAndRestoration: ['', [Validators.required, alphanumericValidator()]]
+      statementOfAssignedSite: ['', Validators.maxLength(400)],
+      descriptionOfCleanupAndRestoration: [
+        '',
+        [Validators.required, alphanumericValidator(), Validators.maxLength(400)]
+      ]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needGovernmentFacilities'),
       this.parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needTemporaryImprovements'),
       this.parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.haveMotorizedEquipment'),
       this.parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.haveLivestock'),
       this.parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')
     );
 
-    this.applicationFieldsService.simpleRequireToggle(
+    this.afs.simpleRequireToggle(
       this.parentForm.get('activityDescriptionFields.needAssignedSite'),
       this.parentForm.get('activityDescriptionFields.statementOfAssignedSite')
     );

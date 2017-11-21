@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for misc routes
+ * @module routers/router
+ */
+
 const express = require('express');
 const middleware = require('../middleware.es6');
 const authRouter = require('./auth.es6');
@@ -8,23 +13,28 @@ const christmasTreeRouter = require('./christmasTree.es6');
 
 const router = express.Router();
 
-/* allow any server to check the preflights */
+/** Allow any server to check the preflights. */
 router.options('*', middleware.setCorsHeaders, (req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
+/** Plug in subroutes. */
 router.use('/auth', middleware.setCorsHeaders, middleware.checkPermissions, authRouter);
 router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, applicationsRouter);
 router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
 
-/* get the number of seconds that this instance has been running */
+/** GET the number of seconds that this instance has been running. */
 router.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
-/* serve static documentation pages */
+/** Serve static documentation pages. */
 router.use('/docs/api', express.static('docs/api'));
 
+/**
+ * Misc routes
+ * @exports router
+ */
 module.exports = router;
