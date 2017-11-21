@@ -33,10 +33,10 @@
           <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-locations')}" (click)="util.gotoHashtag('tree-locations', $event)">Where to find your tree</a>
           <ul class="usa-sidenav-sub_list" [hidden]="util.currentSection && !util.currentSection.startsWith('tree-locations')">
             <li>
-              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="util.gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
+              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="util.gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
             </li>
             <li>
-              <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="util.gotoHashtag('tree-locations-prohibited', $event)">Prohibited areas and restrictions</a>
+              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="util.gotoHashtag('tree-locations-allowed', $event)">Places to try</a>
             </li>
           </ul>
         </li>
