@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for permit application revision history model
+ * @module models/revision
+ */
+
 const Sequelize = require('sequelize');
 const url = require('url');
 

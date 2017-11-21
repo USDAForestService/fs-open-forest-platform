@@ -14,7 +14,7 @@ import { SpecialUseApplication } from '../_models/special-use-application';
 export class ApplicationService {
   private endpoint = environment.apiUrl + 'permits/applications';
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, public router: Router) {}
 
   create(body, type, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -58,20 +58,34 @@ export class ApplicationService {
     if (status === 403) {
       this.router.navigate(['access-denied']);
     }
-    return;
   }
 
   private handleError(error: Response | any) {
     let errors: any;
     if (error instanceof Response) {
       if (error.status) {
-        errors = [error.status];
+        if (error.status === 400) {
+          const body = error.json() || '';
+          errors = body.errors;
+        }
+        if (error.status === 401) {
+          errors = [{ message: 'Please log in.' }];
+        }
+        if (error.status === 403) {
+          errors = [{ message: 'Access denied.' }];
+        }
+        if (error.status === 404) {
+          errors = [{ message: 'The requested application is not found.' }];
+        }
+        if (error.status === 500) {
+          errors = [];
+        }
       } else {
         const body = error.json() || '';
         errors = body.errors;
       }
     } else {
-      errors = ['Server error'];
+      errors = [];
     }
     return Observable.throw(errors);
   }

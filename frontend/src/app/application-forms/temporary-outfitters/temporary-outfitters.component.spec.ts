@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -10,7 +11,44 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { tempOutfitterMock } from './temp-outfitter-mock';
+import { tempOutfitterMock } from './temp-outfitter.mock';
+
+class MockApplicationService {
+  getOne(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw('The application could not be found.');
+    }
+  }
+
+  update(id): Observable<{}> {
+    if (id === '111') {
+      return Observable.of(tempOutfitterMock);
+    } else {
+      return Observable.throw('There were errors when attempting to update your application.');
+    }
+  }
+
+  create(): Observable<{}> {
+    return Observable.of(tempOutfitterMock);
+  }
+
+  handleStatusCode(e) {
+    return e;
+  }
+
+  get(): Observable<{}> {
+    const array = [
+      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
+      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
+      { documentType: 'insurance-certificate', originalFileName: 'test3' },
+      { documentType: 'guide-document', originalFileName: 'test4' },
+      { documentType: 'operating-plan', originalFileName: 'test5' }
+    ];
+    return Observable.of(array);
+  }
+}
 
 describe('TemporaryOutfittersComponent', () => {
   let component: TemporaryOutfittersComponent;
@@ -49,56 +87,52 @@ describe('TemporaryOutfittersComponent', () => {
     window.dispatchEvent(createFakeEvent(type));
   }
 
-  it('Should switch on org type', () => {
+  it('should switch on org type', () => {
     const orgTypes = {
       Person: {
         pointOfView: 'I',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       Corporation: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'Limited Liability Company (LLC)': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'Limited Liability Partnership (LLP)': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       },
       'State Government': {
         pointOfView: 'We',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       'Local Govt': {
         pointOfView: 'We',
         orgTypeFileUpload: false,
-        goodStandingEvidence: null
+        goodStandingEvidence: true
       },
       Nonprofit: {
         pointOfView: 'We',
         orgTypeFileUpload: true,
-        goodStandingEvidence: [Validators.required]
+        goodStandingEvidence: false
       }
     };
     for (const type of Object.keys(orgTypes)) {
       const orgFields = orgTypes[type];
-
-      const get = sinon.stub(component.applicationForm, 'get').returns({
-        setValidators: required => {
-          expect(required).toEqual(orgFields.goodStandingEvidence);
-        }
-      });
       component.orgTypeChange(type);
+      expect(component.applicationForm.get('applicantInfo.goodStandingEvidence').valid).toEqual(
+        orgFields.goodStandingEvidence
+      );
       expect(component.pointOfView).toEqual(orgFields.pointOfView);
       expect(component.orgTypeFileUpload).toEqual(orgFields.orgTypeFileUpload);
-      get.restore();
     }
   });
 
@@ -410,40 +444,3 @@ describe('TemporaryOutfittersComponent', () => {
     expect(component.uploadFiles).toBeFalsy();
   });
 });
-
-class MockApplicationService {
-  getOne(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(tempOutfitterMock);
-    } else {
-      return Observable.throw(['Server Error']);
-    }
-  }
-
-  update(id): Observable<{}> {
-    if (id === '111') {
-      return Observable.of(tempOutfitterMock);
-    } else {
-      return Observable.throw(['Server Error']);
-    }
-  }
-
-  create(): Observable<{}> {
-    return Observable.of(tempOutfitterMock);
-  }
-
-  handleStatusCode(e) {
-    return e;
-  }
-
-  get(): Observable<{}> {
-    const array = [
-      { documentType: 'acknowledgement-of-risk-form', originalFileName: 'test1' },
-      { documentType: 'good-standing-evidence', originalFileName: 'test2' },
-      { documentType: 'insurance-certificate', originalFileName: 'test3' },
-      { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' }
-    ];
-    return Observable.of(array);
-  }
-}

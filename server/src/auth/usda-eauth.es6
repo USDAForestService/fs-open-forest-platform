@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for USDA eAuth integration
+ * @module auth/usda-eauth
+ */
+
 const express = require('express');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
@@ -10,6 +15,9 @@ const eAuth = {};
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
+/**
+ * Check the whitelist for approved FS admin accounts.
+ */
 const getRole = email => {
   if (vcapConstants.eAuthUserWhiteList.includes(email)) {
     return 'admin';
@@ -18,6 +26,7 @@ const getRole = email => {
   }
 };
 
+/** Instantiate the passport SamlStrategy */
 passport.use(
   new SamlStrategy(
     {
@@ -36,15 +45,25 @@ passport.use(
   )
 );
 
-// router for eAuth specific endpoints
+/** router for eAuth specific endpoints */
 eAuth.router = express.Router();
 
+/**
+ * Initiate authentication via eAuth.
+ */
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
+  return res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
 });
 
+/**
+ * Callback from eAuth.
+ */
 eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
+  return res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
 });
 
+/**
+ * USDA eAuth integration
+ * @exports auth/eAuth
+ */
 module.exports = eAuth;

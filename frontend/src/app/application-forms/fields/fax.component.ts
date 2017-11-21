@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-fax',
@@ -11,15 +12,15 @@ export class FaxComponent implements OnInit {
   formName: string;
   fax: any;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     this.formName = 'fax';
     this[this.formName] = this.formBuilder.group({
-      areaCode: [],
-      extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
-      number: [],
-      prefix: [],
+      areaCode: [null, Validators.maxLength(3)],
+      extension: [null, [Validators.minLength(1), Validators.maxLength(6)]],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
       tenDigit: ['', [Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
