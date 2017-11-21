@@ -61,4 +61,9 @@ describe('SidebarViewComponent', () => {
     expect(component.top).toEqual('270px');
     expect(component.position).toEqual('absolute');
   });
+
+  it('should set currentSubSection', () => {
+    component.setCurrentSubSection('test');
+    expect(component.currentSubSection).toEqual('test');
+  });
 });
