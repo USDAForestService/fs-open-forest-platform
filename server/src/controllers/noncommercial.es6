@@ -1,4 +1,9 @@
-'use strict9fb9f3e9-bb69-443d-b2aa-6e2b64d51a09';
+'use strict;';
+
+/**
+ * Module for noncommercial permit application controllers
+ * @module controllers/noncommercial
+ */
 
 const moment = require('moment');
 
@@ -6,11 +11,13 @@ const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const Revision = require('../models/revision.es6');
 const util = require('../util.es6');
-const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};
 
+/**
+ * Translate permit application object from client format to database format.
+ */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
@@ -94,9 +101,12 @@ const translateFromClientToDatabase = (input, output) => {
   output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
   output.region = input.region;
   output.signature = input.signature;
-  output.type = input.type;
+  output.type = 'noncommercial';
 };
 
+/**
+ * Translate permit application object from database format to client format.
+ */
 const translateFromDatabaseToClient = input => {
   const result = {
     applicantInfo: {
@@ -173,6 +183,7 @@ const translateFromDatabaseToClient = input => {
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
     appControlNumber: input.appControlNumber,
+    controlNumber: input.controlNumber,
     applicationId: input.applicationId,
     createdAt: input.createdAt,
     district: input.district,
@@ -185,29 +196,28 @@ const translateFromDatabaseToClient = input => {
     authEmail: input.authEmail,
     type: input.type
   };
-
   result.applicantInfo.addSecondaryPermitHolder =
     !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
-
   result.applicantInfo.secondaryAddressSameAsPrimary =
     !result.applicantInfo.secondaryAddress.mailingAddress &&
     !result.applicantInfo.secondaryAddress.mailingAddress2 &&
     !result.applicantInfo.secondaryAddress.mailingCity &&
     !result.applicantInfo.secondaryAddress.mailingState &&
     !result.applicantInfo.secondaryAddress.mailingZIP;
-
   result.applicantInfo.primaryAddressSameAsOrganization =
     !result.applicantInfo.organizationAddress.mailingAddress &&
     !result.applicantInfo.organizationAddress.mailingAddress2 &&
     !result.applicantInfo.organizationAddress.mailingCity &&
     !result.applicantInfo.organizationAddress.mailingState &&
     !result.applicantInfo.organizationAddress.mailingZIP;
-
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
 
   return result;
 };
 
+/**
+ * Translate permit application object from database format to middle layer format.
+ */
 const translateFromIntakeToMiddleLayer = input => {
   let result = {
     intakeId: input.applicationId,
@@ -267,6 +277,9 @@ const translateFromIntakeToMiddleLayer = input => {
   return result;
 };
 
+/**
+ * Update the permit application model values based on permissions.
+ */
 noncommercial.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
@@ -282,6 +295,9 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
   }
 };
 
+/**
+ * Send the permit application to the middle layer.
+ */
 noncommercial.acceptApplication = application => {
   const requestOptions = {
     method: 'POST',
@@ -296,7 +312,10 @@ noncommercial.acceptApplication = application => {
       .middleLayerAuth()
       .then(token => {
         requestOptions.headers['x-access-token'] = token;
-        util.request(requestOptions).then(resolve).catch(reject);
+        util
+          .request(requestOptions)
+          .then(resolve)
+          .catch(reject);
       })
       .catch(error => {
         reject(error);
@@ -304,6 +323,9 @@ noncommercial.acceptApplication = application => {
   });
 };
 
+/**
+ * Get one permit application.
+ */
 noncommercial.getOne = (req, res) => {
   NoncommercialApplication.findOne({
     where: {
@@ -332,89 +354,103 @@ noncommercial.getOne = (req, res) => {
           return res.status(400).json(error);
         });
     })
-    .catch(error => {
-      return res.status(400).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
-// populates an applicationId on the object before return
+/**
+ * Create a new permit application.
+ */
 noncommercial.create = (req, res) => {
-  let errorRet = {};
-  let errorArr = validator.validateNoncommercial(req.body);
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    res.status(400).json(errorRet);
-  } else {
-    util.setAuthEmail(req);
-    let model = {
-      authEmail: req.body.authEmail
-    };
-    translateFromClientToDatabase(req.body, model);
-    NoncommercialApplication.create(model)
-      .then(noncommApp => {
-        email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
-        email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
-        req.body['applicationId'] = noncommApp.applicationId;
-        req.body['appControlNumber'] = noncommApp.appControlNumber;
-        return res.status(201).json(req.body);
-      })
-      .catch(error => {
-        return res.status(500).json(error);
-      });
-  }
+  util.setAuthEmail(req);
+  let model = {
+    authEmail: req.body.authEmail
+  };
+  translateFromClientToDatabase(req.body, model);
+  NoncommercialApplication.create(model)
+    .then(noncommApp => {
+      email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
+      email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
+      req.body['applicationId'] = noncommApp.applicationId;
+      req.body['appControlNumber'] = noncommApp.appControlNumber;
+      return res.status(201).json(req.body);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
 };
 
+/**
+ * Update a permit application.
+ */
 noncommercial.update = (req, res) => {
   NoncommercialApplication.findOne({
     where: {
       app_control_number: req.params.id
     }
-  }).then(app => {
-    if (!app) {
-      return res.status(404).send();
-    }
-    if (!util.hasPermissions(util.getUser(req), app)) {
-      return res.status(403).send();
-    }
-    noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
-    if (app.status === 'Accepted') {
-      noncommercial
-        .acceptApplication(app)
-        .then(response => {
-          app.controlNumber = response.controlNumber;
-          app
-            .save()
-            .then(() => {
-              util.createRevision(util.getUser(req), app);
+  })
+    .then(app => {
+      if (!app) {
+        return res.status(404).send();
+      }
+      if (!util.hasPermissions(util.getUser(req), app)) {
+        return res.status(403).send();
+      }
+      noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
+      if (app.status === 'Accepted') {
+        noncommercial
+          .acceptApplication(app)
+          .then(response => {
+            app.controlNumber = response.controlNumber;
+            app
+              .save()
+              .then(() => {
+                util.createRevision(util.getUser(req), app);
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
+                return res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch(() => {
+                return res.status(500).send();
+              });
+          })
+          .catch(() => {
+            return res.status(500).send();
+          });
+      } else {
+        app
+          .save()
+          .then(() => {
+            util.createRevision(util.getUser(req), app);
+            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
+            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+              email.sendEmail('noncommercialApplicationRemoveHold', app);
+            } else {
               email.sendEmail(`noncommercialApplication${app.status}`, app);
-              return res.status(200).json(translateFromDatabaseToClient(app));
-            })
-            .catch(error => {
-              return res.status(500).json(error);
-            });
-        })
-        .catch(error => {
-          return res.status(500).json(error);
-        });
-    } else {
-      app
-        .save()
-        .then(() => {
-          util.createRevision(util.getUser(req), app);
-          if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-            email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
-          } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-            email.sendEmail(`noncommercialApplicationRemoveHold`, app);
-          } else {
-            email.sendEmail(`noncommercialApplication${app.status}`, app);
-          }
-          return res.status(200).json(translateFromDatabaseToClient(app));
-        })
-        .catch(error => {
-          return res.status(500).json(error);
-        });
-    }
-  });
+            }
+            return res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch(error => {
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({ errors: error.errors });
+            } else {
+              return res.status(500).send();
+            }
+          });
+      }
+    })
+    .catch(() => {
+      return res.status(500).send();
+    });
 };
 
+/**
+ * Noncommercial permit application controllers
+ * @exports noncommercial
+ */
 module.exports = noncommercial;

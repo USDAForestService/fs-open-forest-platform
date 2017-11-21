@@ -2,6 +2,19 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FaxComponent } from './fax.component';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
+
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-fax [parentForm]="applicationForm"></app-fax>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
 
 describe('fax', () => {
   let component: FaxComponent;
@@ -11,7 +24,7 @@ describe('fax', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [FaxComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
       }).compileComponents();
 
@@ -42,15 +55,3 @@ describe('fax', () => {
     expect(component.fax.valid).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-fax [parentForm]="applicationForm"></app-fax>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

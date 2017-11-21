@@ -70,47 +70,50 @@ export class FieldValidation {
     });
   }
 
-  validateFileUploadField(id, type = 'pdf') {
+  validateFileUploadField(id, type = 'pdf', fullTest = false) {
     const path = require('path');
     const testErrorFile = path.resolve(__dirname, 'test-files/error-file-type.md');
     let testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
     if (type === 'xls') {
       testSuccessFile = path.resolve(__dirname, 'test-files/test.xlsx');
     }
-    const input = element(by.css('#' + id + ' input[type="file"]'));
+    const input = element(by.css('#' + id));
 
-    it('should have an input field', () => {
-      expect<any>(input.isPresent()).toBe(true);
-    });
+    if (fullTest) {
+      it('should have an input field', () => {
+        expect<any>(input.isPresent()).toBe(true);
+      });
 
-    it('should not show an error by default', () => {
-      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
-    });
+      it('should not show an error by default', () => {
+        expect<any>(element(by.css('#' + id + '-error')).isPresent()).toBe(false);
+      });
 
-    it('should not show replace buttons by default', () => {
-      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Choose file');
-    });
+      it('should not show replace buttons by default', () => {
+        expect<any>(element(by.css('#' + id + '-choose-file')).isPresent()).toBe(true);
+      });
 
-    it('should display an error message if the file is not a valid type', () => {
-      input.sendKeys(testErrorFile);
-      browser.sleep(500);
-      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(true);
-    });
+      it('should display an error message if the file is not a valid type', () => {
+        input.sendKeys(testErrorFile);
+        expect<any>(element(by.css('#' + id + '-error')).isPresent()).toBe(true);
+      });
 
-    it('should hide the error message if the file is a valid type', () => {
-      input.sendKeys(testSuccessFile);
-      browser.sleep(500);
-      expect<any>(element(by.css('#' + id + ' .usa-input-error-message')).isPresent()).toBe(false);
-    });
+      it('should hide the error message if the file is a valid type', () => {
+        input.sendKeys(testSuccessFile);
+        expect<any>(element(by.css('#' + id + '-error')).isPresent()).toBe(false);
+      });
 
-    it('should show replace buttons if file is valid', () => {
-      browser.sleep(500);
-      expect<any>(element(by.css('#' + id + ' .upload-file-btn span')).getText()).toEqual('Replace');
-    });
+      it('should show replace buttons if file is valid', () => {
+        expect<any>(element(by.css('#' + id + '-replace-file')).getText()).toEqual('Replace');
+      });
 
-    it('should display the file name if file is valid', () => {
-      browser.sleep(500);
-      expect<any>(element(by.css('#' + id + ' .file-name')).isPresent()).toBe(true);
-    });
+      it('should display the file name if file is valid', () => {
+        expect<any>(element(by.css('#' + id + '-file-name')).isPresent()).toBe(true);
+      });
+    } else {
+      it('should display the file name if file is valid', () => {
+        input.sendKeys(testSuccessFile);
+        expect<any>(element(by.css('#' + id + '-file-name')).isPresent()).toBe(true);
+      });
+    }
   }
 }

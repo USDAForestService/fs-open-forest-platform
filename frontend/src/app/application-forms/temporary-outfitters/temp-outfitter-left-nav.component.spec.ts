@@ -13,7 +13,7 @@ describe('TempOutfitterLeftNavComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TempOutfitterLeftNavComponent],
-        providers: [{ provide: UtilService, useClass: MockUtilService }, ApplicationFieldsService, FormBuilder],
+        providers: [{ provide: UtilService, useClass: UtilService }, ApplicationFieldsService, FormBuilder],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -98,14 +98,6 @@ describe('TempOutfitterLeftNavComponent', () => {
     expect(component.position).toEqual('absolute');
   });
 
-  it(
-    'should set current section',
-    inject([UtilService], util => {
-      component.gotoHashtag('test', new Event('click'));
-      expect(util.currentSection).toEqual('test-section');
-    })
-  );
-
   it('should update current section on changes', () => {
     component.currentSection = 'section-guide-identification';
     component.ngOnChanges();
@@ -144,27 +136,3 @@ describe('TempOutfitterLeftNavComponent', () => {
     expect(component.getGroupStatus(group2, true)).toBe('ng-invalid');
   });
 });
-
-class MockUtilService {
-  currentSection: string;
-  inView = false;
-
-  gotoHashtag(string, event) {
-    this.currentSection = 'test-section';
-  }
-
-  setCurrentSection() {
-    this.currentSection = 'test-section';
-  }
-
-  getElementsByClassName(className) {
-    return ['test'];
-  }
-
-  addClass(string) {
-    this.inView = true;
-  }
-  removeClass(string) {
-    this.inView = false;
-  }
-}
