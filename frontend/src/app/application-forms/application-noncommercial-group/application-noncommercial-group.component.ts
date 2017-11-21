@@ -1,4 +1,7 @@
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { applicationTypeValidator } from '../validators/application-type-validation';
+import { numberValidator } from '../validators/number-validation';
+import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +19,6 @@ import * as moment from 'moment/moment';
 })
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
-  // application = new SpecialUseApplication();
   application: any = {};
   forest = 'Mt. Baker-Snoqualmie National Forest';
   mode = 'Observable';
@@ -46,34 +48,34 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.applicationForm = this.formBuilder.group({
-      appControlNumber: [''],
-      applicationId: [''],
-      createdAt: [''],
-      applicantMessage: [''],
-      status: [''],
-      authEmail: [''],
-      authorizingOfficerName: [''],
-      authorizingOfficerTitle: [''],
+      appControlNumber: ['', [Validators.maxLength(255)]],
+      applicationId: ['', [Validators.maxLength(255)]],
+      createdAt: ['', [Validators.maxLength(255)]],
+      applicantMessage: ['', [Validators.maxLength(255)]],
+      status: ['', [Validators.maxLength(255)]],
+      authEmail: ['', [Validators.maxLength(255)]],
+      authorizingOfficerName: ['', [Validators.maxLength(255)]],
+      authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
       revisions: [''],
-      district: ['11', [Validators.required]],
-      region: ['06', [Validators.required]],
-      forest: ['05', [Validators.required]],
-      type: ['noncommercial', [Validators.required]],
-      eventName: ['', [Validators.required, alphanumericValidator()]],
-      signature: ['', [Validators.required, alphanumericValidator()]],
+      district: ['11', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      region: ['06', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      forest: ['05', [Validators.required, Validators.maxLength(2), numberValidator()]],
+      type: ['noncommercial', [Validators.required, applicationTypeValidator(), Validators.maxLength(255)]],
+      eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator()]],
-        organizationName: ['', [alphanumericValidator()]],
-        orgType: ['Person', Validators.required],
+        emailAddress: ['', [Validators.required, Validators.email, Validators.maxLength(255), alphanumericValidator()]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, alphanumericValidator()]],
+        primaryFirstName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
         secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: ['', [alphanumericValidator()]],
-        secondaryLastName: ['', [alphanumericValidator()]],
-        website: ['', [alphanumericValidator()]]
+        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        website: ['', [urlValidator(), Validators.maxLength(255)]]
       })
     });
   }
@@ -102,17 +104,25 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo'),
         'organizationAddress'
       );
-      this.applicationForm.get('applicantInfo.organizationName').setValidators(null);
+      this.applicationFieldsService.updateValidators(this.applicationForm.get('applicantInfo.organizationName'), false);
     } else if (type === 'Corporation' && !this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
       this.applicationFieldsService.removeAddressValidation(
         this.applicationForm.get('applicantInfo'),
         'primaryAddress'
       );
-      this.applicationForm
-        .get('applicantInfo.organizationName')
-        .setValidators([Validators.required, alphanumericValidator()]);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.organizationName'),
+        true,
+        255
+      );
     }
   }
+
+  /**
+  * @param type  Address type and name of address field group, e.g. primaryAddress
+  * @param Value  Boolean that determines if address fields should be required or not.
+  *  This function removes the address validation or adds the address validations if the fields are required.
+  */
 
   addRemoveAddress(type, value) {
     if (value) {
@@ -124,15 +134,25 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   addSecondaryPermitHolder(value) {
     if (value) {
-      this.applicationForm
-        .get('applicantInfo.secondaryFirstName')
-        .setValidators([Validators.required, alphanumericValidator()]);
-      this.applicationForm
-        .get('applicantInfo.secondaryLastName')
-        .setValidators([Validators.required, alphanumericValidator()]);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryFirstName'),
+        true,
+        255
+      );
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryLastName'),
+        true,
+        255
+      );
     } else {
-      this.applicationForm.get('applicantInfo.secondaryFirstName').setValidators(null);
-      this.applicationForm.get('applicantInfo.secondaryLastName').setValidators(null);
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryFirstName'),
+        false
+      );
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.secondaryLastName'),
+        false
+      );
     }
   }
 
@@ -147,8 +167,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.setValue(application);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.apiErrors = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -179,7 +198,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         }
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
+        this.apiErrors = e;
+        window.scroll(0, 0);
       }
     );
   }

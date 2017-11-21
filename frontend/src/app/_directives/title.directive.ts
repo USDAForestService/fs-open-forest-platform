@@ -10,10 +10,14 @@ import { Title } from '@angular/platform-browser';
   selector: '[appPageTitle]'
 })
 export class TitleDirective implements OnInit {
+  id: string;
+  type: string;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private titleService: Title) {}
   ngOnInit() {
     // Look at the current route to see if a title is set,
     // if so, set the page title via titleService
+
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
@@ -26,6 +30,8 @@ export class TitleDirective implements OnInit {
       .filter(route => route.outlet === 'primary')
       .filter(route => route['data']['value']['title'] !== '')
       .mergeMap(route => route.data)
-      .subscribe(event => this.titleService.setTitle(event['title']));
+      .subscribe(event => {
+        this.titleService.setTitle(`${event['title']}`);
+      });
   }
 }

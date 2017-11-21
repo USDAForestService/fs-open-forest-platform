@@ -3,6 +3,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmailComponent } from './email.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 describe('Email Component', () => {
   let component: EmailComponent;
@@ -13,7 +14,7 @@ describe('Email Component', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [EmailComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

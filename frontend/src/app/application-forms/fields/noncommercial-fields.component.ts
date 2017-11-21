@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
@@ -13,15 +14,27 @@ export class NoncommercialFieldsComponent implements OnInit {
 
   noncommercialFields: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     this.formName = 'noncommercialFields';
     this[this.formName] = this.formBuilder.group({
-      activityDescription: ['', [Validators.required, alphanumericValidator()]],
-      locationDescription: ['', [Validators.required, alphanumericValidator()]],
-      numberParticipants: ['', [Validators.required, Validators.minLength(1), alphanumericValidator()]],
-      numberSpectators: ['', [Validators.required, alphanumericValidator()]]
+      activityDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+      locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      numberParticipants: [
+        '',
+        [
+          Validators.required,
+          alphanumericValidator(),
+          Validators.minLength(1),
+          Validators.maxLength(255),
+          numberValidator()
+        ]
+      ],
+      numberSpectators: [
+        '',
+        [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator()]
+      ]
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
   }

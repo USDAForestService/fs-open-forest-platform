@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for FS Intake API Server
+ * @module app
+ */
+
 const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
@@ -10,12 +15,13 @@ const router = require('./routers/router.es6');
 const util = require('./util.es6');
 const vcapConstants = require('./vcap-constants.es6');
 
+/**  Create the express application. */
 const app = express();
 
-/* use helmet for increased security */
+/** Use helmet for increased security. */
 app.use(helmet());
 
-/* body parsers, necessary for restful JSON and passport */
+/** Body parsers are necessary for restful JSON and passport. */
 app.use(
   bodyParser.urlencoded({
     extended: false
@@ -23,10 +29,11 @@ app.use(
 );
 app.use(bodyParser.json());
 
+/**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
 app.use(
   session({
     name: 'session',
-    keys: [util.getRandomHexString(), util.getRandomHexString()],
+    keys: [util.getRandomString(32), util.getRandomString(32)],
     cookie: {
       secure: true,
       httpOnly: true,
@@ -36,14 +43,17 @@ app.use(
   })
 );
 
-/* setup passport */
+/** Configure passport for login.gov and eAuth. */
 passportConfig.setup(app);
 
-/* add routes */
+/** Add the routes. */
 app.use(router);
 
-/* start the server */
+/** Listen on port 8080. */
 app.listen(8080);
 
-/* export needed for testing */
+/**
+ * FS Intake API Server
+ * @exports app
+ */
 module.exports = app;

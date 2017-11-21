@@ -1,55 +1,3 @@
-export class SpecialUseApplication {
-  applicantInfo: ApplicantInfo;
-  applicationId: number;
-  appControlNumber: string;
-  authorizingOfficerName: string;
-  authorizingOfficerTitle: string;
-  controlNumber: string;
-  dateTimeRange: DateTimeRange;
-  district: string;
-  eventName: string;
-  forest: string;
-  noncommercialFields: NoncommercialFields;
-  tempOutfitterFields: TempOutfitterFields;
-  tempOutfitterFiles: TempOutfitterFiles;
-  applicantMessage: string;
-  region: string;
-  signature: string;
-  status: string;
-  type: string;
-  constructor() {
-    this.applicantInfo = new ApplicantInfo();
-    this.dateTimeRange = new DateTimeRange();
-    this.noncommercialFields = new NoncommercialFields();
-    this.tempOutfitterFiles = new TempOutfitterFiles();
-    this.tempOutfitterFields = new TempOutfitterFields();
-  }
-}
-
-export class ApplicantInfo {
-  dayPhone: Phone;
-  emailAddress: string;
-  eveningPhone: Phone;
-  faxNumber: Phone;
-  organizationAddress: Address;
-  organizationName: string;
-  orgType: string;
-  primaryAddress: Address;
-  primaryFirstName: string;
-  primaryLastName: string;
-  secondaryAddress: Address;
-  secondaryFirstName: string;
-  secondaryLastName: string;
-  website: string;
-  constructor() {
-    this.dayPhone = new Phone();
-    this.eveningPhone = new Phone();
-    this.organizationAddress = new Address();
-    this.primaryAddress = new Address();
-    this.secondaryAddress = new Address();
-  }
-}
-
 export class Phone {
   tenDigit: string;
   areaCode: string;
@@ -91,20 +39,6 @@ export class DateTimeRange {
   startPeriod: string;
 }
 
-export class TempOutfitterFields {
-  individualIsCitizen: boolean;
-  smallBusiness: boolean;
-  activityDescription: string;
-  activityDescriptionFields: ActivityDescriptionFields;
-  advertisingURL: string;
-  advertisingDescription: string;
-  clientCharges: string;
-  experienceList: string;
-  constructor() {
-    this.activityDescriptionFields = new ActivityDescriptionFields();
-  }
-}
-
 export class ActivityDescriptionFields {
   numberServiceDaysRequested: number;
   numberOfTrips: number;
@@ -125,4 +59,70 @@ export class TempOutfitterFiles {
   insuranceCertificate: string;
   goodStandingEvidence: string;
   operatingPlan: string;
+}
+
+export class TempOutfitterFields {
+  individualIsCitizen: boolean;
+  smallBusiness: boolean;
+  activityDescription: string;
+  activityDescriptionFields: ActivityDescriptionFields;
+  advertisingURL: string;
+  advertisingDescription: string;
+  clientCharges: string;
+  experienceList: string;
+  constructor() {
+    this.activityDescriptionFields = new ActivityDescriptionFields();
+  }
+}
+
+export class ApplicantInfo {
+  dayPhone: Phone;
+  emailAddress: string;
+  eveningPhone: Phone;
+  faxNumber: Phone;
+  organizationAddress: Address;
+  organizationName: string;
+  orgType: string;
+  primaryAddress: Address;
+  primaryFirstName: string;
+  primaryLastName: string;
+  secondaryAddress: Address;
+  secondaryFirstName: string;
+  secondaryLastName: string;
+  website: string;
+  constructor() {
+    this.dayPhone = new Phone();
+    this.eveningPhone = new Phone();
+    this.organizationAddress = new Address();
+    this.primaryAddress = new Address();
+    this.secondaryAddress = new Address();
+  }
+}
+
+export class SpecialUseApplication {
+  applicantInfo: ApplicantInfo;
+  applicationId: number;
+  appControlNumber: string;
+  authorizingOfficerName: string;
+  authorizingOfficerTitle: string;
+  controlNumber: string;
+  dateTimeRange: DateTimeRange;
+  district: string;
+  eventName: string;
+  forest: string;
+  noncommercialFields: NoncommercialFields;
+  tempOutfitterFields: TempOutfitterFields;
+  tempOutfitterFiles: TempOutfitterFiles;
+  applicantMessage: string;
+  region: string;
+  signature: string;
+  status: string;
+  type: string;
+  constructor() {
+    this.applicantInfo = new ApplicantInfo();
+    this.dateTimeRange = new DateTimeRange();
+    this.noncommercialFields = new NoncommercialFields();
+    this.tempOutfitterFiles = new TempOutfitterFiles();
+    this.tempOutfitterFields = new TempOutfitterFields();
+  }
 }

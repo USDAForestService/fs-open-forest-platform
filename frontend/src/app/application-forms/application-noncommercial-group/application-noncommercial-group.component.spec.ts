@@ -12,7 +12,7 @@ import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angula
 import { MockBackend } from '@angular/http/testing';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { noncommercialMock } from './noncommercial-mock';
+import { noncommercialMock } from './noncommercial.mock';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
