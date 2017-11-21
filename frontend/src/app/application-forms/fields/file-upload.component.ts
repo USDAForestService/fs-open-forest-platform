@@ -28,7 +28,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
-  constructor(private fieldsService: ApplicationFieldsService) {
+  constructor(public fieldsService: ApplicationFieldsService) {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
@@ -62,10 +62,12 @@ export class FileUploadComponent implements DoCheck, OnInit {
       uploader.removeFromQueue(uploader.queue[0]);
       this.fieldsService.removeOneFile();
     }
-    this.field.patchValue(uploader.queue[0].file.name);
-    this.field.markAsTouched();
-    this.field.updateValueAndValidity();
-    this.field.setErrors(null);
+    if (uploader.queue.length > 0) {
+      this.field.patchValue(uploader.queue[0].file.name);
+      this.field.markAsTouched();
+      this.field.updateValueAndValidity();
+      this.field.setErrors(null);
+    }
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {

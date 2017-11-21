@@ -1,14 +1,23 @@
 'use strict';
 
+/**
+ * Module for authentication routes
+ * @module routers/auth
+ */
+
 const express = require('express');
 const passportConfig = require('../auth/passport-config.es6');
 
 const router = express.Router();
 
-/* return universal passport user */
+/* GET the universal passport user. */
 router.get('/user', passportConfig.getPassportUser);
 
-/* universal passport logout */
+/* Universal passport logout. */
 router.get('/logout', passportConfig.logout);
 
+/**
+ * Authentication routes
+ * @exports router
+ */
 module.exports = router;

@@ -43,7 +43,7 @@ const appRoutes: Routes = [
     path: 'user/applications/:type/:id',
     component: PermitApplicationViewComponent,
     canActivate: [AuthGuardService],
-    data: { title: ' View Submitted Application' }
+    data: { title: 'View Submitted Application' }
   },
   {
     path: 'applications/noncommercial-group-use/new',

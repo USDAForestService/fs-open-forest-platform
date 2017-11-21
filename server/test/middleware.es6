@@ -6,7 +6,7 @@ const sinon = require('sinon');
 const middleware = require('../src/middleware.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
-describe('middleware tests', () => {
+describe('middleware', () => {
   it('should have CORS headers', () => {
     const req = {};
     const res = {
@@ -15,14 +15,13 @@ describe('middleware tests', () => {
     res.set = (key, value) => {
       res.headers[key] = value;
     };
-
     const next = () => {
       expect(res.headers['Cache-Control'], 'no-cache');
       expect(res.headers['Access-Control-Allow-Origin'], 'http://localhost:4200');
     };
-
     middleware.setCorsHeaders(req, res, next);
   });
+
   it('should have CORS headers when env.PLATFORM is not LOCAL or CI', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';
@@ -33,15 +32,14 @@ describe('middleware tests', () => {
     res.set = (key, value) => {
       res.headers[key] = value;
     };
-
     const next = () => {
       expect(res.headers['Cache-Control'], 'no-cache');
       expect(res.headers['Access-Control-Allow-Origin'], vcapConstants.intakeClientBaseUrl);
       process.env.PLATFORM = PLATFORM;
     };
-
     middleware.setCorsHeaders(req, res, next);
   });
+
   it('should pass user auth', () => {
     const req = {};
     const res = {};
@@ -50,6 +48,7 @@ describe('middleware tests', () => {
     };
     middleware.checkPermissions(req, res, next);
   });
+
   it('should pass user auth when env.PLATFORM is not LOCAL or CI', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';
@@ -61,6 +60,7 @@ describe('middleware tests', () => {
     };
     middleware.checkPermissions(req, res, next);
   });
+
   it('should fail user auth when env.PLATFORM is not LOCAL or CI and no user is present', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';
@@ -73,15 +73,16 @@ describe('middleware tests', () => {
     expect(res.status.called).to.be.true;
     process.env.PLATFORM = PLATFORM;
   });
+
   it('should pass admin auth', () => {
     const req = {};
     const res = {};
     const next = () => {
-      // TODO: test the failure when CI mode is off
       expect(true).to.be.true;
     };
     middleware.checkAdminPermissions(req, res, next);
   });
+
   it('should not pass admin auth', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';

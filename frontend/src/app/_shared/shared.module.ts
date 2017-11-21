@@ -7,16 +7,20 @@ import { AppButtonComponent } from '../home/app-button.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
+import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ChunkArrayPipe } from '../_pipes/chunk-array.pipe';
+import { ApiErrorComponent } from '../api-error/api-error.component';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
   declarations: [
+    ApiErrorComponent,
+    TrackScrollDirective,
     AppButtonComponent,
     ChunkArrayPipe,
     FilterPipe,
@@ -29,6 +33,12 @@ import { ChunkArrayPipe } from '../_pipes/chunk-array.pipe';
   ],
   exports: [
     AppButtonComponent,
+    UrlPipe,
+    SidebarComponent
+  ],
+  exports: [
+    ApiErrorComponent,
+    FilterPipe,
     AppRoutingModule,
     CommonModule,
     ChunkArrayPipe,
@@ -42,7 +52,9 @@ import { ChunkArrayPipe } from '../_pipes/chunk-array.pipe';
     SectionHeadingComponent,
     SidebarComponent,
     SpacesToDashesPipe,
-    TrackScrollDirective
+    TrackScrollDirective,
+    UrlPipe,
+    ProgressComponent
   ]
 })
 export class SharedModule {}

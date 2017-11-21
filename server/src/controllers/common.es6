@@ -1,11 +1,19 @@
 'use strict';
 
+/**
+ * Module for common controllers
+ * @module controllers/common
+ */
+
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
 
 const commonControllers = {};
 
+/**
+ * Generate a sequelize status condition based on the status group.
+ */
 const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
@@ -55,12 +63,15 @@ const findOrCondition = req => {
   return orCondition;
 };
 
+/**
+ * Get permit applications of every type.
+ */
 commonControllers.getPermitApplications = (req, res) => {
   const orCondition = findOrCondition(req);
   const andCondition = [];
-  // when the status group isn't handled, return a 404
-  if (orCondition.length === 0) res.status(404).send();
-  // when the authenticated user isn't an admin, only let them see their own applications
+  if (orCondition.length === 0) {
+    return res.status(404).send();
+  }
   if (util.getUser(req).role === 'user') {
     andCondition.push({
       authEmail: util.getUser(req).email
@@ -118,11 +129,15 @@ commonControllers.getPermitApplications = (req, res) => {
       for (let item of results[1]) {
         item.type = 'Temp outfitter';
       }
-      res.status(200).json(results[0].concat(results[1]));
+      return res.status(200).json(results[0].concat(results[1]));
     })
-    .catch(errors => {
-      res.status(500).json(errors);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
+/**
+ * Misc controllers
+ * @exports commonControllers
+ */
 module.exports = commonControllers;

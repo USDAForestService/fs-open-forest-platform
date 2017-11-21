@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for temp outfitter permit application controllers
+ * @module controllers/temp-outfitter
+ */
+
 const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
@@ -11,17 +16,20 @@ const email = require('../email/email-util.es6');
 const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../util.es6');
-const validator = require('../validation.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
 
+/** Initialize our S3 bucket connection for file attachments */
 const s3 = new AWS.S3({
   accessKeyId: vcapConstants.accessKeyId,
   secretAccessKey: vcapConstants.secretAccessKey,
   region: vcapConstants.region
 });
 
+/**
+ * Translate permit application object from client format to database format.
+ */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
@@ -30,20 +38,20 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.areaCode
-    : '';
+    : null;
   output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.extension
-    : '';
+    : null;
   output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.number
-    : '';
+    : null;
   output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
     ? input.applicantInfo.eveningPhone.prefix
-    : '';
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : '';
-  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : '';
-  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : '';
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : '';
+    : null;
+  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -102,6 +110,9 @@ const translateFromClientToDatabase = (input, output) => {
   return output;
 };
 
+/**
+ * Translate permit application object from database format to client format.
+ */
 const translateFromDatabaseToClient = input => {
   const result = {
     applicantInfo: {
@@ -145,6 +156,7 @@ const translateFromDatabaseToClient = input => {
       website: input.applicantInfoWebsite || ''
     },
     appControlNumber: input.appControlNumber,
+    controlNumber: input.controlNumber,
     applicationId: input.applicationId,
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -219,20 +231,15 @@ const translateFromDatabaseToClient = input => {
       }
     }
   };
-
   result.tempOutfitterFields.noPromotionalWebsite = !result.tempOutfitterFields.advertisingURL;
   result.applicantInfo.addAdditionalPhone = !!result.applicantInfo.eveningPhone.tenDigit;
-
-  //below need to be replaced with file values
-  result.guideIdentification = '';
-  result.operatingPlan = '';
-  result.liabilityInsurance = '';
-  result.acknowledgementOfRisk = '';
-  result.applicantInfo.goodStandingEvidence = '';
 
   return result;
 };
 
+/**
+ * Translate permit application object from database format to middle layer format.
+ */
 const translateFromIntakeToMiddleLayer = application => {
   const result = {
     intakeId: application.applicationId,
@@ -273,13 +280,42 @@ const translateFromIntakeToMiddleLayer = application => {
     tempOutfitterFields: {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
+      // Start date
       activityDescription:
-        ' Location Description: ' +
+        application.tempOutfitterFieldsActDescFieldsStartDateTime +
+        '\n' +
+        // End date
+        application.tempOutfitterFieldsActDescFieldsEndDateTime +
+        '\n' +
+        // Anticipated number of trips
+        application.tempOutfitterFieldsActDescFieldsNumTrips +
+        '\n' +
+        // Anticipated party size
+        application.tempOutfitterFieldsActDescFieldsPartySize +
+        '\n' +
+        // Location Description
         application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        ' Services Provided: ' +
+        '\n' +
+        // Services Provided
         application.tempOutfitterFieldsActDescFieldsServProvided +
-        ' Audience Description: ' +
-        application.tempOutfitterFieldsActDescFieldsAudienceDesc,
+        '\n' +
+        // Audience Description
+        application.tempOutfitterFieldsActDescFieldsAudienceDesc +
+        '\n' +
+        // List facilities needed
+        application.tempOutfitterFieldsActDescFieldsListGovFacilities +
+        '\n' +
+        // List of temporary improvements or signs that you propose to use
+        application.tempOutfitterFieldsActDescFieldsListTempImprovements +
+        '\n' +
+        // Description of the proposed operations involving motorized equipment
+        application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
+        '\n' +
+        // Description of the proposed operations involving the transportation of livestock, and whether grazing is requested
+        application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
+        '\n' +
+        // Description of cleanup and restoration during and after the proposed operations
+        application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
       clientCharges: application.tempOutfitterFieldsClientCharges,
@@ -295,6 +331,9 @@ const translateFromIntakeToMiddleLayer = application => {
   return result;
 };
 
+/**
+ * Get a file from the S3 bucket.
+ */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
@@ -317,6 +356,9 @@ const getFile = (key, documentType) => {
   });
 };
 
+/**
+ * Get all file attachments for a permit application.
+ */
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
@@ -346,6 +388,9 @@ const getAllFiles = applicationId => {
   });
 };
 
+/**
+ * Stream a file from the S3 bucket.
+ */
 const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
@@ -357,6 +402,9 @@ const streamFile = (fileName, res) => {
     .pipe(res);
 };
 
+/**
+ * Get all file attachment names for a permit application,
+ */
 const getAllFileNames = applicationId => {
   return ApplicationFile.findAll({
     where: {
@@ -365,7 +413,10 @@ const getAllFileNames = applicationId => {
   });
 };
 
-tempOutfitter.updateApplicationModel = (model, submitted, user) => {
+/**
+ * Update the permit application model based on permissions.
+ */
+const updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
@@ -380,7 +431,10 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   }
 };
 
-tempOutfitter.acceptApplication = application => {
+/**
+ * Send an application to the middle layer.
+ */
+const acceptApplication = application => {
   return new Promise((resolve, reject) => {
     getAllFiles(application.applicationId)
       .then(files => {
@@ -448,7 +502,10 @@ tempOutfitter.acceptApplication = application => {
           .middleLayerAuth()
           .then(token => {
             requestOptions.headers['x-access-token'] = token;
-            util.request(requestOptions).then(resolve).catch(reject);
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
           })
           .catch(reject);
       })
@@ -456,6 +513,33 @@ tempOutfitter.acceptApplication = application => {
   });
 };
 
+/**
+ * Get file attachment names for a permit application.
+ */
+tempOutfitter.getApplicationFileNames = (req, res) => {
+  getAllFileNames(req.params.id)
+    .then(app => {
+      if (app) {
+        return res.status(200).json(app);
+      } else {
+        return res.status(404).send();
+      }
+    })
+    .catch(() => {
+      return res.status(500).send();
+    });
+};
+
+/**
+ * Stream a file attachment from S3.
+ */
+tempOutfitter.streamFile = (req, res) => {
+  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
+};
+
+/**
+ * Stream a file attachment to S3.
+ */
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
@@ -469,6 +553,9 @@ tempOutfitter.streamToS3 = multer({
   })
 });
 
+/**
+ * Add a file attachment to a permit application.
+ */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
     where: {
@@ -489,15 +576,18 @@ tempOutfitter.attachFile = (req, res) => {
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(err => {
-          return res.status(500).json(err);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
+/**
+ * Delete a permit application attachment.
+ */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
     where: {
@@ -507,38 +597,41 @@ tempOutfitter.deleteFile = (req, res) => {
     .then(() => {
       return res.status(204);
     })
-    .catch(err => {
-      return res.status(500).json(err);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
+/**
+ * Create a permit application.
+ */
 tempOutfitter.create = (req, res) => {
-  let errorRet = {};
-  let errorArr = validator.validateTempOutfitter(req.body);
-  if (errorArr.length > 0) {
-    errorRet['errors'] = errorArr;
-    return res.status(400).json(errorRet);
-  } else {
-    util.setAuthEmail(req);
-    let model = {
-      authEmail: req.body.authEmail,
-      status: 'Incomplete' // will be updated to Submitted when attachments are ready
-    };
-    translateFromClientToDatabase(req.body, model);
-    TempOutfitterApplication.create(model)
-      .then(tempOutfitterApp => {
-        email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
-        email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
-        req.body['applicationId'] = tempOutfitterApp.applicationId;
-        req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
-        return res.status(201).json(req.body);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  }
+  util.setAuthEmail(req);
+  let model = {
+    authEmail: req.body.authEmail,
+    status: 'Incomplete' // will be updated to Submitted when attachments are ready
+  };
+  translateFromClientToDatabase(req.body, model);
+  TempOutfitterApplication.create(model)
+    .then(tempOutfitterApp => {
+      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
+      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
+      req.body['applicationId'] = tempOutfitterApp.applicationId;
+      req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
+      return res.status(201).json(req.body);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
 };
 
+/**
+ * Get one permit application.
+ */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
     where: {
@@ -563,33 +656,18 @@ tempOutfitter.getOne = (req, res) => {
           formattedApp.revisions = revisions;
           return res.status(200).json(formattedApp);
         })
-        .catch(error => {
-          return res.status(400).json(error);
+        .catch(() => {
+          return res.status(500).send();
         });
     })
-    .catch(error => {
-      return res.status(400).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
-tempOutfitter.getApplicationFileNames = (req, res) => {
-  getAllFileNames(req.params.id)
-    .then(app => {
-      if (app) {
-        return res.status(200).json(app);
-      } else {
-        return res.status(404).send();
-      }
-    })
-    .catch(error => {
-      return res.status(500).json(error.message);
-    });
-};
-
-tempOutfitter.streamFile = (req, res) => {
-  streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
-};
-
+/**
+ * Update a permit application.
+ */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
     where: {
@@ -603,12 +681,11 @@ tempOutfitter.update = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
+      updateApplicationModel(app, req.body, util.getUser(req));
       if (app.status === 'Accepted') {
-        tempOutfitter
-          .acceptApplication(app)
+        acceptApplication(app)
           .then(response => {
-            app.controlNumber = response.controlNumber;
+            app.controlNumber = JSON.parse(response).controlNumber;
             app
               .save()
               .then(() => {
@@ -616,12 +693,12 @@ tempOutfitter.update = (req, res) => {
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(error => {
-                return res.status(500).json(error);
+              .catch(() => {
+                return res.status(500).send();
               });
           })
-          .catch(error => {
-            return res.status(500).json(error);
+          .catch(() => {
+            return res.status(500).send();
           });
       } else {
         app
@@ -631,20 +708,28 @@ tempOutfitter.update = (req, res) => {
             if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
             } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail(`tempOutfitterApplicationRemoveHold`, app);
+              email.sendEmail('tempOutfitterApplicationRemoveHold', app);
             } else {
               email.sendEmail(`tempOutfitterApplication${app.status}`, app);
             }
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            return res.status(500).json(error);
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({ errors: error.errors });
+            } else {
+              return res.status(500).send();
+            }
           });
       }
     })
-    .catch(error => {
-      return res.status(500).json(error);
+    .catch(() => {
+      return res.status(500).send();
     });
 };
 
+/**
+ * Temp outfitter permit application controllers
+ * @exports tempOutfitter
+ */
 module.exports = tempOutfitter;
