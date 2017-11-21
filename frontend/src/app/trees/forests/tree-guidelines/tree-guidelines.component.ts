@@ -38,7 +38,6 @@ export class TreeGuidelinesComponent implements OnInit {
       this.position = 'absolute';
       this.top = 'inherit';
     }
-    // console.log('OFFSET', window.pageYOffset);
   }
 
   ngOnInit() {

@@ -6,7 +6,6 @@ import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
 import { UtilService } from '../../../_services/util.service';
-import * as sinon from 'sinon';
 
 describe('PermitApplicationListComponent', () => {
   let component: TreeGuidelinesComponent;

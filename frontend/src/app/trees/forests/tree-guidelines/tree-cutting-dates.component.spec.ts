@@ -4,6 +4,7 @@ import { forest } from '../../_mocks/forest.mock';
 import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
+import * as sinon from 'sinon';
 
 describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;
@@ -34,9 +35,16 @@ describe('TreeCuttingDatesComponent', () => {
   });
 
   it('should sort permit sales for districts', () => {
-    component.populateDistricts();
+    component.ngOnChanges();
     expect(component.districtsWithPermits[0].locations[0].district).toEqual('district');
     expect(component.districtsWithPermits[0].locations[0].description).toEqual('permit sales dates');
+  });
+
+  it('should not populateDistricts if forest is null', () => {
+    component.forest = {};
+    component.ngOnChanges();
+    const spy = sinon.spy(component, 'populateDistricts');
+    expect(spy.called).toBeFalsy();
   });
 });
 
