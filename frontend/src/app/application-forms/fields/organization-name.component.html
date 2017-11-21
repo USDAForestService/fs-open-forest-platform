@@ -1,5 +1,8 @@
 <ng-container [formGroup]="applicantInfo">
-  <label class="usa-input" for="organization-name">{{ name }}</label>
-  <input id="organization-name" type="text" formControlName="organizationName" [attr.aria-required]="required ? 'true' : null" />
+  <label id="organization-name-label" class="usa-input">{{ name }}</label>
+  <input id="organization-name" type="text" formControlName="organizationName" [attr.aria-required]="required ? 'true' : null"
+  [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.organizationName, 'organization-name-label', 'organization-name-error')"
+  [attr.aria-invalid]="afs.hasError(applicantInfo.controls.organizationName)"
+  />
   <app-error-message fieldId="organization-name-error" name="Organization name" [control]="applicantInfo.controls.organizationName"></app-error-message>
 </ng-container>

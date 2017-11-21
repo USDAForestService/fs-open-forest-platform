@@ -39,7 +39,7 @@ export class CancelApplicationComponent {
         this.applicationCancelled.emit(this.application);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
+        alert('There was an error cancelling your application. Please try again.');
       }
     );
   }

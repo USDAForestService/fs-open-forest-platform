@@ -2,6 +2,19 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NoncommercialFieldsComponent } from './noncommercial-fields.component';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
+
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
 
 describe('noncommercial fields', () => {
   let component: NoncommercialFieldsComponent;
@@ -11,7 +24,7 @@ describe('noncommercial fields', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [NoncommercialFieldsComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
       }).compileComponents();
 
@@ -47,15 +60,3 @@ describe('noncommercial fields', () => {
     expect(component.noncommercialFields.valid).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}
