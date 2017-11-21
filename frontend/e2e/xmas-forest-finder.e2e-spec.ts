@@ -27,4 +27,19 @@ describe('Xmas tree  - Find a forest', () => {
     });
 
   });
+
+  describe( 'forest map image link', () => {
+    beforeEach(() => {
+      page = new TreesForestFinderPage();
+      browser.driver.manage().window().setSize(1400, 900);
+      page.navigateTo();
+      browser.sleep(900);
+    });
+
+    it('should let the user click a forest map and navigate to that forest', () => {
+      element(by.id('arp-map-img')).click();
+      browser.sleep(900);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp/tree-guidelines');
+    });
+  });
 });

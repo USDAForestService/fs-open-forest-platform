@@ -15,6 +15,7 @@ ratings:
    - "frontend/**/*.ts"
 exclude_paths:
 - frontend/node_modules/
+- frontend/e2e/
 - server/node_modules/
 - server/test/
 - server/dba/
