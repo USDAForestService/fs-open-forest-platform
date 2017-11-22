@@ -217,7 +217,7 @@ module.exports = {
         district: null,
         allowed: true,
         type: 'district',
-        description: 'Clackamas',
+        description: 'Clackamas River',
         image_filename: 'clackamas'
       },
       {
@@ -392,7 +392,7 @@ module.exports = {
       {
         id: 56,
         forest_id: 3,
-        district: 'Clackamas',
+        district: 'Clackamas River',
         allowed: false,
         type: 'address',
         description: 'Estacada Ranger Station\n' +
@@ -406,7 +406,7 @@ module.exports = {
       {
         id: 57,
         forest_id: 3,
-        district: 'Hood',
+        district: 'Hood River',
         allowed: false,
         type: 'address',
         description: 'Hood River Ranger Station\n' +
