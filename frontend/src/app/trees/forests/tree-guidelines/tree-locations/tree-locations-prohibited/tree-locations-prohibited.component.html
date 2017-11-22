@@ -21,7 +21,7 @@
   <h4>No cutting along the following:</h4>
   <div class="usa-grid">
   <ul>
-    <div class="usa-width-one-half" *ngFor="let row of forest.locations | filter: 'allowed' : false | filter: 'type': 'road' | ChunkArray: 2">
+    <div class="usa-width-one-half" *ngFor="let row of forest.locations | filter: 'allowed' : false | filter: 'type': 'road' | ColumnizeArray: 2">
       <li *ngFor="let location of row">
         {{ location.description }}
       </li>
