@@ -145,11 +145,13 @@ workflows:
           requires:
             - build
           filters:
+            owner: nciinc
             branches:
-              only: sprint-3-development
+              only: sprint-4-development
       - prod-deploy:
           requires:
             - build
           filters:
+            owner: 18F
             branches:
               only: master
