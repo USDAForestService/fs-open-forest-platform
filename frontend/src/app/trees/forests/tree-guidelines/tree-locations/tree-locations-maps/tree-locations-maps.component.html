@@ -1,7 +1,4 @@
 <div  *ngIf="(forest.locations | filter: 'type': 'district').length">
-  <h3 id="tree-locations-maps" tabindex="-1">Cutting area maps</h3>
-
-
   <div [attr.id]="'tree-locations-maps-'+ i" class="trees-map-container" *ngFor="let location of forest.locations | filter: 'type': 'district'; let i=index">
       <div>
         <figure>

@@ -36,7 +36,7 @@
               <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="util.gotoHashtag('tree-locations-prohibited', $event); setCurrentSubSection('');">Prohibited areas and restrictions</a>
             </li>
             <li>
-              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="util.gotoHashtag('tree-locations-allowed', $event); setCurrentSubSection('');">Places to try</a>
+              <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="util.gotoHashtag('tree-locations-allowed', $event); setCurrentSubSection('');">Cutting area maps</a>
             </li>
           </ul>
         </li>
@@ -65,8 +65,10 @@
       <hr class="thick" />
       <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
       <app-section-heading heading="Before you cut" elementId="cutting-instructions-before-you-cut" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
       <app-tree-tools [forest]="forest"></app-tree-tools>
       <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
 
       <hr class="thick" />
@@ -76,8 +78,10 @@
       <hr class="thick" />
       <app-section-heading heading="Where to find your tree" elementId="tree-locations"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" elementId="tree-locations-prohibited" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
-      <app-section-heading heading="Places to try" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
+      <app-section-heading heading="Cutting area maps" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
 
       <hr class="thick" />
