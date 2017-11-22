@@ -20,7 +20,6 @@ describe('SidebarViewComponent', () => {
     fixture = TestBed.createComponent(SidebarViewComponent);
     component = fixture.debugElement.componentInstance;
     component.forest = { forestName: 'Mt. Hood' };
-    component.currentSection = 'test';
     component.bottom = '10px';
     component.top = '20px';
     component.position = 'absolute';

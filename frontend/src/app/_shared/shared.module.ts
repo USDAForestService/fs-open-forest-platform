@@ -29,6 +29,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     SectionHeadingComponent,
     SidebarComponent,
     SpacesToDashesPipe,
+    UrlPipe,
     TrackScrollDirective
   ],
   exports: [
@@ -42,6 +43,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     InViewportModule,
     LineBreakFormatterPipe,
     Ng2AutoCompleteModule,
+    AppButtonComponent,
     ProgressComponent,
     ReactiveFormsModule,
     SectionHeadingComponent,

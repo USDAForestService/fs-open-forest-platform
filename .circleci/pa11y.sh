@@ -2,7 +2,7 @@ cd server;
 yarn start &
 serverid=$!
 sleep 1
-cd frontend;
+cd ../frontend;
 ng serve &
 clientserverid=$!
 sleep 30

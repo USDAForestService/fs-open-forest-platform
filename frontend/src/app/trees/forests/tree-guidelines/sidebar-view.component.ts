@@ -8,7 +8,6 @@ import { UtilService } from '../../../_services/util.service';
 export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  currentSection: any;
   bottom: string;
   top: string;
   position: string;
