@@ -76,9 +76,6 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       );
     });
 
-    it('should have a cutting area map', () => {
-      expect<any>(element(by.id('tree-locations-maps-0')).isPresent()).toBeTruthy();
-    });
   });
 
   describe( 'Arapaho/Roosevelt', () => {
