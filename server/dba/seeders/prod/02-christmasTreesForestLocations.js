@@ -338,15 +338,6 @@ module.exports = {
         image_filename: null
       },
       {
-        id: 51,
-        forest_id: 4,
-        district: null,
-        allowed: true,
-        type: 'district',
-        description: 'Washakie',
-        image_filename: 'washakie'
-      },
-      {
         id: 52,
         forest_id: 4,
         district: null,

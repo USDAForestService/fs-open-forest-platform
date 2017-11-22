@@ -9,20 +9,25 @@
       <li>using a chainsaw or motorized saw</li> 
     </ul>
   </div>
-  <h3>It is prohibited to gather:</h3>
-  <div class="usa-grid">
-    <ul>
-      <li [attr.id]="'tree-rules-prohibited-species-'+ i" 
-      *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let i=index">
-        <span class="usa-width-one-half">{{ tree.name }}</span>
-        <span class="usa-width-one-half">
-          <span aria-hidden='true' class='tree-status usa-label danger'>
-            Prohibited
+  <ng-container *ngIf="(forest.species | filter: 'status':'prohibited').length">
+    <h3>It is prohibited to gather:</h3>
+    <div class="usa-grid">
+      <ul>
+        <li [attr.id]="'tree-rules-prohibited-species-'+ i"
+        *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let i=index">
+          <span class="usa-width-two-thirds">{{ tree.name }}</span>
+          <span class="usa-width-one-third">
+            <span aria-hidden='true' class='tree-status tree-status-prohibited usa-label danger'>
+              Prohibited
+            </span>
+            <figure>
+              <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+              <figcaption>{{tree.name}}</figcaption>
+            </figure>
           </span>
-          <img src="/assets/img/pacific-yew.jpg" alt="Yew image" />
-        </span>
-    </ul>
-  </div>
+      </ul>
+    </div>
+  </ng-container>
       
   <h3>Rules for cutting your tree</h3>
   <div class="usa-grid">

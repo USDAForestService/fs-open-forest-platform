@@ -6,6 +6,20 @@ import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
 import * as sinon from 'sinon';
 
+@Pipe({ name: 'filter' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
+  }
+}
+
+@Pipe({ name: 'ColumnizeArray' })
+class MockColumnizePipe implements PipeTransform {
+  transform(value: any): any {
+    return [];
+  }
+}
+
 describe('TreeLocationsProhibitedComponent', () => {
   let component: TreeLocationsProhibitedComponent;
   let fixture: ComponentFixture<TreeLocationsProhibitedComponent>;
@@ -13,7 +27,7 @@ describe('TreeLocationsProhibitedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe, MockChunkyPipe],
+        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe, MockColumnizePipe],
         providers: [FilterPipe]
       }).compileComponents();
     })
@@ -43,16 +57,3 @@ describe('TreeLocationsProhibitedComponent', () => {
   });
 });
 
-@Pipe({ name: 'filter' })
-class MockPipe implements PipeTransform {
-  transform(value: number): number {
-    return value;
-  }
-}
-
-@Pipe({ name: 'ChunkArray' })
-class MockChunkyPipe implements PipeTransform {
-  transform(value: any): any {
-    return [];
-  }
-}
