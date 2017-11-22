@@ -1,10 +1,10 @@
-import { ChunkArrayPipe } from './chunk-array.pipe';
+import { ColumnizeArrayPipe } from './columnize-array.pipe';
 
-describe('ChunkArrayPipe', () => {
-  let pipe: ChunkArrayPipe;
+describe('ColumnizeArrayPipe', () => {
+  let pipe: ColumnizeArrayPipe;
 
   beforeEach(() => {
-    pipe = new ChunkArrayPipe();
+    pipe = new ColumnizeArrayPipe();
   });
 
   it('should', () => {

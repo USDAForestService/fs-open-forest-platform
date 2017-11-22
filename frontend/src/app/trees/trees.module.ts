@@ -22,6 +22,8 @@ import { TreeRulesComponent } from './forests/tree-guidelines/tree-rules.compone
 import { ForestService } from './_services/forest.service';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
+import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
+import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TreeToolsComponent,
     SidebarViewComponent,
     ForestFinderComponent,
-    RemovePuncPipe
+    RemovePuncPipe,
+    LineBreakFormatterPipe,
+    ColumnizeArrayPipe
   ],
   exports: [
     ContactInfoComponent,
@@ -49,7 +53,9 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
     TripPlanningComponent,
     TreeRulesComponent,
     TreeToolsComponent,
-    SidebarViewComponent
+    SidebarViewComponent,
+    LineBreakFormatterPipe,
+    ColumnizeArrayPipe
   ],
   imports: [SharedModule],
   providers: [TreesService, ForestService]
