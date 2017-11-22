@@ -16,6 +16,18 @@ module.exports = {
         status: 'recommended'
       },
       {
+        id: 3,
+        forest_id: 1,
+        species_id: 5,
+        status: 'not recommended'
+      },
+      {
+        id: 4,
+        forest_id: 1,
+        species_id: 10,
+        status: 'not recommended'
+      },
+      {
         id: 5,
         forest_id: 1,
         species_id: 15,
@@ -44,6 +56,12 @@ module.exports = {
         forest_id: 2,
         species_id: 4,
         status: 'prohibited'
+      },
+      {
+        id: 14,
+        forest_id: 2,
+        species_id: 5,
+        status: 'not recommended'
       },
       {
         id: 15,
