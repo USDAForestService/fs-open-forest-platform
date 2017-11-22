@@ -1,0 +1,155 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.12.0-browsers
+      - image: postgres:9.6
+        environment:
+          POSTGRES_USER: "ubuntu"
+          POSTGRES_DB: "circle_test"
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      - run:
+          name: remove yarn dependencies
+          command: rm -rf ~/.yarn
+      - run:
+          name: instal yarn
+          command: sudo npm i -g yarn
+      - run:
+          name: Install angular cli
+          command: sudo yarn global add @angular/cli
+      - run:
+          name: Install typedoc
+          command: sudo yarn global add typedoc
+      - run:
+          name: Install sequelize
+          command: yarn global add sequelize-cli
+      - run:
+          name: install dependencies
+          command: .circleci/install-dependencies.sh
+      - save_cache:
+          key: dependency-cache-trees1123123
+          paths:
+            - frontend/node_modules
+            - server/node_modules
+            - cache/yarn
+      - run:
+          name: Migrate db
+          command: cd server; ./node_modules/sequelize-cli/lib/sequelize db:migrate
+      - run:
+          name: seed db with intake data
+          command: cd server; yarn seed-ci
+      - run:
+          name: seed db with trees data
+          command: cd server; yarn seed
+      - run:
+          name: run dist on frontend
+          command: cd frontend; yarn dist-staging
+
+## Run tests
+      - run:
+          name: install protractor
+          command: cd frontend; sudo npm install -g protractor
+      - run:
+          name: run e2e tests
+          command: .circleci/run-e2e.sh
+      - run:
+          name: pa11y test
+          command: .circleci/pa11y.sh
+      - run:
+          name: frontend unit tests
+          command: cd frontend; yarn run test:ci
+      - run:
+          name: frontend linting
+          command: cd frontend; yarn run lint
+      - run:
+          name: server unit tests
+          command: cd server; yarn coverage
+      - run:
+          name: server linting
+          command: cd server; yarn run lint
+      - run:
+          name: server snyk tests
+          command: cd server; yarn run snyk-test
+      - run:
+          name: frontend snyk tests
+          command: cd frontend; yarn run snyk-test
+      - run:
+          name: generate typedocs
+          command: cd frontend; yarn run docs
+      - store_artifacts:
+          path: frontend/coverage
+          prefix: frontend-coverage
+      - store_artifacts:
+          path: server/coverage
+          prefix: server-coverage
+      - store_artifacts:
+          path: frontend/e2e-test-results
+          prefix: e2e-results
+
+  staging-deploy:
+    docker:
+      - image: circleci/node:6.12.0
+    steps:
+      - checkout
+      - run:
+          name: remove yarn dependencies
+          command: rm -rf ~/.yarn
+      - run:
+          name: instal yarn
+          command: sudo npm i -g yarn
+      - run:
+          name: install dependencies
+          command: .circleci/install-dependencies.sh
+      - run:
+          name: Run update script
+          command: cd frontend; yarn run update-version;
+      - run:
+          name: Create dist
+          command: cd frontend; yarn dist-trees;
+      - run:
+          name: deploy
+          command: ./cg-deploy/deploy.sh public-trees-staging
+
+  prod-deploy:
+    docker:
+      - image: circleci/node:6.12.0
+    steps:
+      - checkout
+      - run:
+          name: remove yarn dependencies
+          command: rm -rf ~/.yarn
+      - run:
+          name: instal yarn
+          command: sudo npm i -g yarn
+      - run:
+          name: install dependencies
+          command: .circleci/install-dependencies.sh
+      - run:
+          name: Run update script
+          command: cd frontend; yarn run update-version;
+      - run:
+          name: Create dist
+          command: cd frontend; yarn dist-prod;
+      - run:
+          name: deploy
+          command: ./cg-deploy/deploy.sh public-production
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - staging-deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: sprint-3-development
+      - prod-deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

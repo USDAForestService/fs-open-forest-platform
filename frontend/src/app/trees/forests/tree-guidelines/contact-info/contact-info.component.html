@@ -1,0 +1,23 @@
+<div *ngIf="(forest.locations | filter: 'type': 'address' | filter: 'district': null ).length">
+  <div [attr.id]="'tree-contact-headquarters-'+ i" *ngFor="let location of forest.locations | filter: 'type': 'address' | filter: 'district': null; let i=index">
+    <h3>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}}</h3>
+    <p [outerHTML]="location.description | LineBreakFormatter"></p>
+  </div>
+</div>
+<p><a href="https://www.fs.usda.gov/contactus/{{forest.forestAbbr}}/about-forest/contactus/" target="_blank" attr.aria-label="Link to {{forest.forestName}} National Forest website Contact Us. Opens in a new window.">Contact us</a> feedback form</p>
+<p>Visit <a [attr.id]="'forest-link-'+ forest.id" href="{{forest.forestUrl}}" target="_blank" attr.aria-label="Link to {{forest.forestName}} National Forest website. Opens in a new window.">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}}</a> for more information.</p>
+<p class="usa-form-hint">All offices are closed on federal holidays.</p>
+<hr>
+<h3>Ranger Districts</h3>
+<div *ngIf="(forest.locations | filter: 'type': 'address').length">
+  <div [attr.id]="'tree-contact-district-'+ i" *ngFor="let location of forest.locations | filter: 'type': 'address'; let i=index">
+    <ng-container *ngIf="location.district != null">
+      <div class='trees-contact-district-container'>
+        <h4>{{location.district}}</h4>
+        <p [outerHTML]="location.description | LineBreakFormatter"></p>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+

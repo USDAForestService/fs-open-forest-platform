@@ -1,5 +1,5 @@
 <ng-container *ngIf="(forest.locations | filter: 'allowed' : false | filter: 'type': 'area').length">
-  <h3>No cutting or removing trees within:</h3>
+  <h4>No cutting or removing trees within:</h4>
   <ul>
     <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'area'">
       {{ location.description }}
@@ -8,7 +8,7 @@
 </ng-container>
 
 <ng-container *ngIf="(forest.locations | filter: 'type': 'info').length">
-  <h3>Please remember:</h3>
+  <h4>Please remember:</h4>
   <ul>
     <li *ngFor="let location of forest.locations | filter: 'type': 'info'">
       {{ location.description }}
@@ -16,20 +16,16 @@
   </ul>
 </ng-container>
 
-<ng-container *ngIf="(forest.locations | filter: 'allowed' : false | filter: 'type': 'road').length">
-  <h3>No cutting along the following roads:</h3>
-  <ul>
-    <li *ngFor="let location of forest.locations | filter: 'allowed' : false | filter: 'type': 'road'">
-      {{ location.description }}
-    </li>
-  </ul>
-</ng-container>
 
-  <ng-container *ngFor="let district of prohibitedDistricts">
-    <h3>Roads where harvesting is not allowed on the {{ district.district }} district{{ district.district.indexOf('and') > 0 ? 's' : ''}}:</h3>
-    <ul>
-      <li *ngFor="let road of district.childNodes">
-        {{ road.description }}
+<ng-container *ngIf="(forest.locations | filter: 'allowed' : false | filter: 'type': 'road').length">
+  <h4>No cutting along the following:</h4>
+  <div class="usa-grid">
+  <ul>
+    <div class="usa-width-one-half" *ngFor="let row of forest.locations | filter: 'allowed' : false | filter: 'type': 'road' | ChunkArray: 2">
+      <li *ngFor="let location of row">
+        {{ location.description }}
       </li>
-    </ul>
-  </ng-container>
+    </div>
+  </ul>
+  </div>
+</ng-container>

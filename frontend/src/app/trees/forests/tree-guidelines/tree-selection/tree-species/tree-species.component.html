@@ -1,4 +1,4 @@
-<div [attr.id]="'tree-recommended-species-'+ i" class="tree-speci margin-bottom-4 usa-width-one-whole"
+<div [attr.id]="'tree-recommended-species-'+ i" class="tree-speci margin-bottom-4 usa-grid"
      *ngFor="let tree of forest.species | filter: 'status':'recommended'; let i=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span>
@@ -16,7 +16,7 @@
     </div>
   </div>
 </div>
-<div [attr.id]="'tree-not-recommended-species-'+ j" class="tree-speci margin-bottom-4 usa-width-one-whole"
+<div [attr.id]="'tree-not-recommended-species-'+ j" class="tree-speci margin-bottom-4 usa-grid"
      *ngFor="let tree of forest.species | filter: 'status':'not recommended'; let j=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span>
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<div [attr.id]="'tree-prohibited-species-'+ k" class="tree-speci margin-bottom-4 usa-width-one-whole"
+<div [attr.id]="'tree-prohibited-species-'+ k" class="tree-speci margin-bottom-4 usa-grid"
      *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let k=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span> <span

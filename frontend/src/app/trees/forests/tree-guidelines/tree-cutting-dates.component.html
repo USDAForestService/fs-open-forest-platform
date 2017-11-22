@@ -1,0 +1,58 @@
+<h3 id="cutting-season-dates-heading">
+  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+    <use xlink:href="/assets/img/sprites.svg#fa-calendar" fill="black" />
+  </svg>
+  Season dates
+</h3>
+<p id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d' }} - {{forest.endDate | date: 'MMM. d'}}, {{forest.endDate | date: 'yyyy' }}</p>
+<h3 id="cutting-season-daily-hours-heading">
+  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+    <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
+  </svg>
+  Cutting hours
+</h3>
+<div id="cutting-season-daily-hours-default">Daylight hours only</div>
+
+<h3 *ngIf="districtsWithHoursAndDates.length">Special Christmas Tree Cutting Areas</h3>
+<div *ngFor="let district of districtsWithHoursAndDates">
+  <h4>
+    {{district.district}}
+  </h4>
+  <div [attr.id]="'tree-cutting-areas-dates-'+ i" *ngFor="let cuttingArea of district.locations | filter: 'type': 'cutting-area'; let i=index">
+    <h5>
+      <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+        <use xlink:href="/assets/img/sprites.svg#fa-calendar" fill="black" />
+      </svg>
+      Season dates
+    </h5>
+    <div>
+      {{cuttingArea.description}}
+    </div>
+  </div>
+  <div [attr.id]="'tree-cutting-areas-hours-'+ i" *ngFor="let cuttingArea of district.locations | filter: 'type': 'cutting-area-hours'; let i=index">
+    <h5>
+      <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+        <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
+      </svg>
+      Cutting hours
+    </h5>
+    <div [outerHTML]="cuttingArea.description | LineBreakFormatter">
+    </div>
+  </div>
+
+</div>
+<h3 *ngIf="districtsWithPermits.length">
+  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
+    <use xlink:href="/assets/img/sprites.svg#fa-money" fill="black" />
+  </svg>
+  Permit Sales
+</h3>
+<div *ngFor="let district of districtsWithPermits">
+  <h4>
+    {{district.district}}
+  </h4>
+  <div [attr.id]="'tree-permit-sales-'+ i" *ngFor="let location of district.locations; let i=index">
+    <div [outerHTML]="location.description | LineBreakFormatter">
+    </div>
+  </div>
+</div>

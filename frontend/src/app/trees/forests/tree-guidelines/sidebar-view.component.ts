@@ -1,4 +1,5 @@
 import { Component, Input, HostListener, OnInit } from '@angular/core';
+import { UtilService } from '../../../_services/util.service';
 
 @Component({
   selector: 'app-sidebar-view',
@@ -7,10 +8,11 @@ import { Component, Input, HostListener, OnInit } from '@angular/core';
 export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  currentSection: any;
   bottom: string;
   top: string;
   position: string;
+
+  constructor(public util: UtilService) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
@@ -36,18 +38,7 @@ export class SidebarViewComponent implements OnInit {
     }
   }
 
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-      this.currentSection = fragment;
-    }
-  }
-
   ngOnInit() {
-    this.currentSection = 'general-guidelines';
     this.top = '270px';
   }
 }
