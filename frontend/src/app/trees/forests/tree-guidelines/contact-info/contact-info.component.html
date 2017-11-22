@@ -12,18 +12,7 @@
 <div *ngIf="(forest.locations | filter: 'type': 'address').length">
   <div class='usa-grid' [attr.id]="'tree-contact-district-'+ i" *ngFor="let location of forest.locations | filter: 'type': 'address'; let i=index">
     <ng-container *ngIf="location.district != null">
-      <div class='usa-width-one-fourth trees-contact-district-container'>
-        <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-          <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
-        </svg>
-        <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-          <use xlink:href="/assets/img/sprites.svg#fa-phone" fill="black" />
-        </svg>
-        <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-          <use xlink:href="/assets/img/sprites.svg#fa-envelope" fill="black" />
-        </svg>
-      </div>
-      <div class='usa-width-three-fourths trees-contact-district-container'>
+      <div class='usa-width-one-whole trees-contact-district-container'>
         <h4>{{location.district}}</h4>
         <p [outerHTML]="location.description | LineBreakFormatter"></p>
       </div>

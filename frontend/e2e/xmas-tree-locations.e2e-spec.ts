@@ -24,21 +24,15 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       );
     });
 
-    it('should have a places to try sub-section link', () => {
+    it('should have a cutting areas sub-section link', () => {
       expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual(
-        'Places to try'
+        'Cutting area maps'
       );
     });
 
     it('should have a prohibited areas sub-section link', () => {
       expect<any>(element(by.id('tree-locations-prohibited-link')).getText()).toEqual(
         'Prohibited areas and restrictions'
-      );
-    });
-
-    it('should have a cutting area maps section header', () => {
-      expect<any>(element(by.id('tree-locations-maps')).getText()).toEqual(
-        'Cutting area maps'
       );
     });
 
@@ -56,6 +50,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page.navigateTo('shoshone');
       browser.sleep(800);
       page.getTreeLocationLink().click();
+      browser.sleep(100);
     });
 
     it('should have a link to the external forest maps-pubs', () => {
@@ -64,15 +59,14 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      element(by.id('tree-locations-link')).click();
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual(
         'Where to find your tree'
       );
     });
 
-    it('should have a places to try sub-section link', () => {
+    it('should have a cutting areas sub-section link', () => {
       expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual(
-        'Places to try'
+        'Cutting area maps'
       );
     });
 
@@ -94,6 +88,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page.navigateTo('arp');
       browser.sleep(800);
       page.getTreeLocationLink().click();
+      browser.sleep(100);
     });
 
     it('should have a link to the external forest maps-pubs', () => {
@@ -102,15 +97,14 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      element(by.id('tree-locations-link')).click();
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual(
         'Where to find your tree'
       );
     });
 
-    it('should have a places to try sub-section link', () => {
+    it('should have a cutting areas sub-section link', () => {
       expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual(
-        'Places to try'
+        'Cutting area maps'
       );
     });
 
@@ -133,6 +127,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       page.navigateTo('flathead');
       browser.sleep(900);
       page.getTreeLocationLink().click();
+      browser.sleep(100);
     });
 
     it('should have a link to the external forest maps-pubs', () => {
@@ -140,15 +135,14 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
     });
 
     it('should have a where to find a tree section link', () => {
-      element(by.id('tree-locations-link')).click();
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual(
         'Where to find your tree'
       );
     });
 
-    it('should have a places to try sub-section link', () => {
+    it('should have a cutting areas sub-section link', () => {
       expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual(
-        'Places to try'
+        'Cutting area maps'
       );
     });
 
