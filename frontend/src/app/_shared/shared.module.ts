@@ -12,8 +12,6 @@ import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
-import { ChunkArrayPipe } from '../_pipes/chunk-array.pipe';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 
 @NgModule({
@@ -22,9 +20,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     ApiErrorComponent,
     TrackScrollDirective,
     AppButtonComponent,
-    ChunkArrayPipe,
     FilterPipe,
-    LineBreakFormatterPipe,
     ProgressComponent,
     SectionHeadingComponent,
     SidebarComponent,
@@ -37,11 +33,9 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     FilterPipe,
     AppRoutingModule,
     CommonModule,
-    ChunkArrayPipe,
     FilterPipe,
     FormsModule,
     InViewportModule,
-    LineBreakFormatterPipe,
     Ng2AutoCompleteModule,
     AppButtonComponent,
     ProgressComponent,

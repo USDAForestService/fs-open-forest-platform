@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'ChunkArray'
+  name: 'ColumnizeArray'
 })
-export class ChunkArrayPipe implements PipeTransform {
+export class ColumnizeArrayPipe implements PipeTransform {
 
   transform(value: any, n: number): any {
-    return this.chunk(value, n);
+    return this.columnize(value, n);
   }
 
-  chunk(arr, numCols) {
+  columnize(arr, numCols) {
     const result: any[][] = [];
     const numPerArray = Math.ceil(arr.length / numCols);
     for (let i = 0; i < arr.length; i++) {
