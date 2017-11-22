@@ -10,9 +10,9 @@
 <hr>
 <h3>Ranger Districts</h3>
 <div *ngIf="(forest.locations | filter: 'type': 'address').length">
-  <div class='usa-grid' [attr.id]="'tree-contact-district-'+ i" *ngFor="let location of forest.locations | filter: 'type': 'address'; let i=index">
+  <div [attr.id]="'tree-contact-district-'+ i" *ngFor="let location of forest.locations | filter: 'type': 'address'; let i=index">
     <ng-container *ngIf="location.district != null">
-      <div class='usa-width-one-whole trees-contact-district-container'>
+      <div class='trees-contact-district-container'>
         <h4>{{location.district}}</h4>
         <p [outerHTML]="location.description | LineBreakFormatter"></p>
       </div>
