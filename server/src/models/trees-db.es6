@@ -22,20 +22,20 @@ const treesDb = {};
 treesDb.Sequelize = Sequelize;  
 treesDb.sequelize = sequelize;
 
-treesDb.forests = require('../models/forests.es6')(sequelize, Sequelize);
-treesDb.species = require('../models/species.es6')(sequelize, Sequelize);
-treesDb.forestSpecies = require('../models/forest-species.es6')(sequelize, Sequelize);
-treesDb.speciesNotes = require('../models/species-notes.es6')(sequelize, Sequelize);
-treesDb.forestLocations = require('../models/forest-locations.es6')(sequelize, Sequelize);
+treesDb.christmasTreesForests = require('../models/christmas-trees-forests.es6')(sequelize, Sequelize);
+treesDb.species = require('../models/christmas-trees-species.es6')(sequelize, Sequelize);
+treesDb.christmasTreesForestSpecies = require('../models/christmas-trees-forest-species.es6')(sequelize, Sequelize);
+treesDb.speciesNotes = require('../models/christmas-trees-species-notes.es6')(sequelize, Sequelize);
+treesDb.christmasTreesForestLocations = require('../models/christmas-trees-forest-locations.es6')(sequelize, Sequelize);
 
-treesDb.forests.hasMany(treesDb.forestSpecies, {foreignKey: 'forestId', sourceKey: 'id'});
-treesDb.forestSpecies.belongsTo(treesDb.forests, {foreignKey: 'forestId', targetKey: 'id'});
+treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestSpecies, {foreignKey: 'forestId', sourceKey: 'id'});
+treesDb.christmasTreesForestSpecies.belongsTo(treesDb.christmasTreesForests, {foreignKey: 'forestId', targetKey: 'id'});
 
-treesDb.forests.hasMany(treesDb.forestLocations, {foreignKey: 'forestId', sourceKey: 'id'});
-treesDb.forestLocations.belongsTo(treesDb.forests, {foreignKey: 'forestId', targetKey: 'id'});
+treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesForestLocations, {foreignKey: 'forestId', sourceKey: 'id'});
+treesDb.christmasTreesForestLocations.belongsTo(treesDb.christmasTreesForests, {foreignKey: 'forestId', targetKey: 'id'});
 
-treesDb.species.belongsTo(treesDb.forestSpecies, {foreignKey: 'id', targetKey: 'speciesId'});
-treesDb.forestSpecies.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
+treesDb.species.belongsTo(treesDb.christmasTreesForestSpecies, {foreignKey: 'id', targetKey: 'speciesId'});
+treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
 
 treesDb.species.hasMany(treesDb.speciesNotes, {foreignKey: 'speciesId', sourceKey: 'id'});
 treesDb.speciesNotes.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});

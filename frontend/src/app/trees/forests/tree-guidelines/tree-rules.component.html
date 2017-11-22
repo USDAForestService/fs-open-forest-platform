@@ -1,0 +1,41 @@
+<div>
+  <h3>It is prohibited to gather a tree:</h3>
+  <div class="usa-grid">
+    <ul>
+      <li>from plantations and previously thinned stands of trees</li>
+      <li>from within 100 feet of a trail, 200 feet of a campground or recreation site, or within 300 feet of a stream or lake</li>
+      <li>from wilderness areas or areas posted as or gated closed</li>
+      <li>from areas where trees are marked with blue paint</li>
+      <li>using a chainsaw or motorized saw</li> 
+    </ul>
+  </div>
+  <h3>It is prohibited to gather:</h3>
+  <div class="usa-grid">
+    <ul>
+      <li [attr.id]="'tree-rules-prohibited-species-'+ i" 
+      *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let i=index">
+        <span class="usa-width-one-half">{{ tree.name }}</span>
+        <span class="usa-width-one-half">
+          <span aria-hidden='true' class='tree-status usa-label danger'>
+            Prohibited
+          </span>
+          <img src="/assets/img/pacific-yew.jpg" alt="Yew image" />
+        </span>
+    </ul>
+  </div>
+      
+  <h3>Rules for cutting your tree</h3>
+  <div class="usa-grid">
+    <ul>
+      <li>Another tree must be within 8 feet of the one you cut.</li>
+      <li>You must be on national forest land.</li>
+      <li *ngIf="forest.stumpHeight > 0">You must leave a stump of {{forest.stumpHeight}} inches or less.</li>
+      <li *ngIf="forest.stumpDiameter > 0">The tree you cut must be less than {{forest.stumpDiameter}} inches in diameter at the stump.</li>
+      <li *ngIf="forest.treeHeight > 0">The tree must be {{forest.treeHeight}} feet or less.</li>
+      <li>Take the whole tree – do not cut only the top of a standing tree.</li>
+      <li>Scatter excess limbs when you’re finished cutting, moving, and securing your tree.</li>
+      <li>Leave no trace – pack it in pack it out.</li>
+      <li>Safety is your responsibility.</li>
+    </ul>
+  </div>
+</div>

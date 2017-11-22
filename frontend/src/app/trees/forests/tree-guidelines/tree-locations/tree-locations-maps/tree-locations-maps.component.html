@@ -1,9 +1,4 @@
 <div  *ngIf="(forest.locations | filter: 'type': 'district').length">
-  <h3 id="tree-locations-maps" tabindex="-1">Cutting area maps</h3>
-  <p>Some areas within {{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} offer maps that describe the Christmas Tree cutting areas, and those maps are below.
-    Other areas of the forest are also available for tree cutting and more information can be found on the forest’s <a href="{{forest.forestUrl}}" target="_blank" attr.aria-label="Link to {{forest.forestName}} National Forest website. Opens in a new window.">website</a> or at ranger district offices.</p>
-
-
   <div [attr.id]="'tree-locations-maps-'+ i" class="trees-map-container" *ngFor="let location of forest.locations | filter: 'type': 'district'; let i=index">
       <div>
         <figure>

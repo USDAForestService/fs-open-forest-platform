@@ -13,13 +13,15 @@ const translateGuidelinesFromDatabaseToClient = input => {
       id: input.id,
       forestName: input.forestName,
       description: input.description,
+      forestAbbr: input.forestAbbr,
       forestUrl: input.forestUrl,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
-      species: input.forestSpecies.map((species)=>{
+      forestAbbr: input.forestAbbr,
+      species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
           name: species.species.name,
@@ -30,7 +32,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
           })
         };
       }),
-      locations: input.forestLocations.map((location)=>{
+      locations: input.christmasTreesForestLocations.map((location)=>{
         return {
           id: location.id,
           district: location.district,
@@ -46,11 +48,12 @@ const translateGuidelinesFromDatabaseToClient = input => {
 
 christmasTree.getForests = (req, res) => {
 
-  treesDb.forests.findAll({
+  treesDb.christmasTreesForests.findAll({
     attributes: [
       'id',
       'forestName',
-      'description'
+      'description',
+      'forestAbbr'
     ]
   }).then(results => {
     if (results) {
@@ -67,13 +70,13 @@ christmasTree.getForests = (req, res) => {
 
 christmasTree.getOneGuidelines = (req, res) => {
 
-  treesDb.forests.findOne({
+  treesDb.christmasTreesForests.findOne({
     where: {
-      id: req.params.id
+      forestAbbr: req.params.id
     },
     include: [
       {
-        model: treesDb.forestSpecies,
+        model: treesDb.christmasTreesForestSpecies,
         include: [
           {
             model: treesDb.species,
@@ -86,13 +89,13 @@ christmasTree.getOneGuidelines = (req, res) => {
         ]
       },
       {
-        model: treesDb.forestLocations
+        model: treesDb.christmasTreesForestLocations
       }
     ],
     order: [
-      [ treesDb.forestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
-      [ treesDb.forestLocations, 'id', 'ASC'],
-      [ treesDb.forestSpecies, 'id', 'ASC']
+      [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.christmasTreesForestLocations, 'description', 'ASC'],
+      [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {

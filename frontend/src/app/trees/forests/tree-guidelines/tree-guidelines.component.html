@@ -1,1 +1,49 @@
+<div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
+<button id="mobile-menu-btn" class="usa-menu-btn tree-guidelines-menu-btn" (click)='toggleMobileNav()' [style.position]="position" [style.top]="top">Menu</button>
+<nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" class="usa-nav sidenav-mobile">
+  <button class="usa-nav-close" (click)="toggleMobileNav()">
+    <img src="/assets/img/close.svg" alt="close">
+  </button>
+  <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
+
+    <li>
+      <a href="#" id="mobile-need-to-know-link" (click)="util.gotoHashtag('need-to-know', $event); toggleMobileNav();">Which rules you need to know</a>
+    </li>
+    <li>
+      <a href="#" id="mobile-cutting-dates-link" (click)="util.gotoHashtag('cutting-dates', $event); toggleMobileNav();">When to cut your tree</a>
+    </li>
+
+    <li>
+      <a href="#" id="mobile-tree-selection-link" (click)="util.gotoHashtag('tree-selection', $event); toggleMobileNav();">How to choose your tree</a>
+    </li>
+    <li>
+      <a href="#" id="mobile-cutting-instructions-link" (click)="util.gotoHashtag('cutting-instructions', $event); toggleMobileNav();">How to cut your tree</a>
+      <ul class="usa-sidenav-sub_list">
+        <li>
+          <a href="#" id="mobile-cutting-instructions-before-you-cut-link" (click)="util.gotoHashtag('cutting-instructions-before-you-cut', $event); toggleMobileNav();">Before you cut</a>
+        </li>
+        <li>
+          <a href="#" id="mobile-cutting-instructions-when-you-cut-link" (click)="util.gotoHashtag('cutting-instructions-when-you-cut', $event); toggleMobileNav();">When you cut</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#" id="mobile-trip-planning-link" (click)="util.gotoHashtag('trip-planning', $event); toggleMobileNav();">How to plan your trip</a>
+    </li>
+    <li>
+      <a href="#" id="mobile-tree-locations-link" (click)="util.gotoHashtag('tree-locations', $event); toggleMobileNav();">Where to find your tree</a>
+      <ul class="usa-sidenav-sub_list">
+        <li>
+          <a href="#" id="mobile-tree-locations-prohibited-link" (click)="util.gotoHashtag('tree-locations-prohibited', $event); toggleMobileNav();">Prohibited areas and restrictions</a>
+        </li>
+        <li>
+          <a href="#" id="mobile-tree-locations-allowed-link" (click)="util.gotoHashtag('tree-locations-allowed', $event); toggleMobileNav();">Cutting area maps</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#" id="mobile-contact-information-link" (click)="util.gotoHashtag('contact-information', $event); toggleMobileNav();">Contact us</a>
+    </li>
+  </ul>
+</nav>
 <app-sidebar-view *ngIf="template === 'sidebar'" [forest]="forest"></app-sidebar-view>
