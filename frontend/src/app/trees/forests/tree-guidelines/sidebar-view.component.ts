@@ -8,8 +8,6 @@ import { UtilService } from '../../../_services/util.service';
 export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  currentSection: any;
-  currentSubSection: any;
   bottom: string;
   top: string;
   position: string;
@@ -38,10 +36,6 @@ export class SidebarViewComponent implements OnInit {
         this.position = 'fixed';
       }
     }
-  }
-
-  setCurrentSubSection(section) {
-    this.currentSubSection = section;
   }
 
   ngOnInit() {
