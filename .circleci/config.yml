@@ -110,7 +110,11 @@ jobs:
           command: cd frontend; yarn dist-trees;
       - run:
           name: deploy
-          command: ./cg-deploy/deploy.sh public-trees-staging
+#          command: ./cg-deploy/deploy.sh public-trees-staging
+          command: |
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "nciinc" ];
+              then ./cg-deploy/deploy.sh public-trees-staging;
+            fi
 
   prod-deploy:
     docker:
@@ -134,7 +138,11 @@ jobs:
           command: cd frontend; yarn dist-prod;
       - run:
           name: deploy
-          command: ./cg-deploy/deploy.sh public-production
+#          command: ./cg-deploy/deploy.sh public-production
+          command: |
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
+              then ./cg-deploy/deploy.sh public-production;
+            fi
 
 workflows:
   version: 2
@@ -145,13 +153,11 @@ workflows:
           requires:
             - build
           filters:
-            owner: nciinc
             branches:
               only: sprint-4-development
       - prod-deploy:
           requires:
             - build
           filters:
-            owner: 18F
             branches:
               only: master
