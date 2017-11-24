@@ -19,6 +19,7 @@ import { TemporaryOutfittersComponent } from './application-forms/temporary-outf
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
+import { TreeApplicationFormComponent } from './trees/forests/tree-application-form/tree-application-form.component';
 
 const appRoutes: Routes = [
   {
@@ -98,7 +99,15 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas tree permit information' }
+    data: { title: 'Christmas tree permit information' },
+  },
+  {
+    path: 'applications/christmas-trees/:id/new',
+    component: TreeApplicationFormComponent,
+    resolve: {
+      forest: ForestResolver
+    },
+    data: { title: 'Apply for a Christmas tree permit' },
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
