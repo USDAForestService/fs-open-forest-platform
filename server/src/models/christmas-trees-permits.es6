@@ -4,8 +4,8 @@ module.exports = function(sequelize, DataTypes) {
   const christmasTreesPermits =  sequelize.define('christmasTreesPermits',
     {
       permitId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         unique: true,
         field: 'permit_id',
         allowNull: false
