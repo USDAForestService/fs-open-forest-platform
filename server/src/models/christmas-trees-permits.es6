@@ -15,6 +15,11 @@ module.exports = function(sequelize, DataTypes) {
         field: 'forest_id',
         allowNull: false
       },
+      orgStructureCode: {
+        type: DataTypes.STRING(50),
+        field: 'org_structure_code',
+        allowNull: false
+      },
       firstName: {
         type: DataTypes.STRING,
         field: 'first_name'

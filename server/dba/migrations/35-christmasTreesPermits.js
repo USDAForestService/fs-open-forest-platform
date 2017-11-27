@@ -16,6 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         field: 'forest_id'
       },
+      orgStructureCode: { type: Sequelize.STRING(50), field: 'org_structure_code', allowNull: false },
       firstName: { type: Sequelize.STRING, field: 'first_name' },
       lastName: { type: Sequelize.STRING, field: 'last_name' },
       emailAddress: { type: Sequelize.STRING, field: 'email_address', allowNull: false },

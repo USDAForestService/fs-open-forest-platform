@@ -22,6 +22,8 @@ const translateGuidelinesFromDatabaseToClient = input => {
       startDate: input.startDate,
       endDate: input.endDate,
       forestAbbr: input.forestAbbr,
+      treeCost: input.treeCost,
+      maxNumTrees: input.maxNumTrees,
       species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
@@ -51,6 +53,7 @@ const translatePermitFromClientToDatabase = input => {
   return {
     permitId: uuid(),
     forestId: input.forestId,
+    orgStructureCode: input.orgStructureCode,
     firstName: input.firstName,
     lastName: input.lastName,
     emailAddress: input.emailAddress,

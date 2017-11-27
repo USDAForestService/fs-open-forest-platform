@@ -62,6 +62,14 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         field: 'updated',
         allowNull: false
+      },
+      treeCost: {
+        type: DataTypes.DOUBLE(8,2),
+        field: 'tree_cost'
+      },
+      maxNumTrees: {
+        type: DataTypes.INTEGER,
+        field: 'max_num_trees'
       }
     },
     {
