@@ -17,7 +17,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
-import { NumberOfTreesComponent } from './fields/number-of-trees.component';
+import { QuantityComponent } from './fields/quantity.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
@@ -47,7 +47,7 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
-    NumberOfTreesComponent,
+    QuantityComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
     PermitHolderNameComponent,
@@ -74,7 +74,7 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
-    NumberOfTreesComponent,
+    QuantityComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
     PermitHolderNameComponent,

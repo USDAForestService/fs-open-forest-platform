@@ -1,8 +1,0 @@
-<ng-container [formGroup]="parentGroup">
-  <label class="usa-input" id="number-of-trees-label">Number of trees</label>
-  <input id="number-of-trees" type="text" maxlength="1" minLength="1" formControlName="numOfTrees" aria-required="true"
-    [attr.aria-labelledby]="afs.labelledBy(parentGroup.controls.numOfTrees, 'number-of-trees-label', 'number-of-trees-error')"
-    [attr.aria-invalid]="afs.hasError(parentGroup.controls.numOfTrees)"
-  />
-  <app-error-message fieldId="number-of-trees-error" name="Number of trees" [control]="parentGroup.controls.numOfTrees"></app-error-message>
-</ng-container>

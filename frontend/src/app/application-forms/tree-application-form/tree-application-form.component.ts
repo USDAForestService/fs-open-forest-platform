@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
+import { TreesService } from '../../trees/_services/trees.service';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -17,15 +18,15 @@ export class TreeApplicationFormComponent implements OnInit {
   maxNumberOfTrees = 5;
   costPerTree = 10;
 
-  constructor(private route: ActivatedRoute, public formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, public formBuilder: FormBuilder, private treesService: TreesService) {
     this.applicationForm = this.formBuilder.group({
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      numOfTrees: ['', [Validators.required, Validators.maxLength(1), lessThanOrEqualValidator(this.maxNumberOfTrees)]],
-      cost: [0, [Validators.required, currencyValidator()]]
+      quantity: ['', [Validators.required, Validators.maxLength(1), lessThanOrEqualValidator(this.maxNumberOfTrees)]],
+      totalCost: [0, [Validators.required, currencyValidator()]]
     });
-    this.applicationForm.get('numOfTrees').valueChanges.subscribe(value => {
+    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
       this.updateNumTrees();
     });
   }
@@ -48,11 +49,11 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
   updateNumTrees() {
-    const numOfTrees = this.applicationForm.get('numOfTrees').value;
-    if (!isNaN(parseInt(numOfTrees, 10))) {
-      this.applicationForm.get('cost').setValue(parseInt(numOfTrees, 10) * this.costPerTree);
+    const quantity = this.applicationForm.get('quantity').value;
+    if (!isNaN(parseInt(quantity, 10))) {
+      this.applicationForm.get('totalCost').setValue(parseInt(quantity, 10) * this.costPerTree);
     } else {
-      this.applicationForm.get('cost').setValue(0);
+      this.applicationForm.get('totalCost').setValue(0);
     }
   }
 }

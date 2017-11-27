@@ -11,8 +11,8 @@
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
             <app-email [applicantInfo]="applicationForm"></app-email>
-            <app-number-of-trees [parentGroup]="applicationForm"></app-number-of-trees>
-            <label id="numTreesLabel" class="usa-input">Cost for trees: <p>${{applicationForm.controls.cost.value}}</p></label>
+            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits to purchase"></app-quantity>
+            <label id="total-cost" class="usa-input">Cost for trees: <p>${{applicationForm.controls.totalCost.value}}</p></label>
         </div>
       </fieldset>
 
