@@ -16,7 +16,8 @@ export class TreeApplicationFormComponent implements OnInit {
   public christmasTreeForm = this.fb.group({
     firstName: [''],
     lastName: [''],
-    numTrees: [0, Validators.pattern(/(\d+)/)]
+    email: [''],
+    numTrees: ['', Validators.pattern(/^(\d+)$/)]
   })
   constructor(private route: ActivatedRoute, public fb: FormBuilder) { }
 
@@ -32,9 +33,11 @@ export class TreeApplicationFormComponent implements OnInit {
     this.submitted = false;
   }
   onSubmit() {
-    console.log(this.forest)
-    console.log(this.christmasTreeForm.value);
-    this.submitted = true;
+    if (this.christmasTreeForm.valid) {
+      this.submitted = true;
+    } else {
+      this.submitted = false;
+    }
   }
   updateNumTrees(num) {
     if (!isNaN(parseInt(num, 10))) {

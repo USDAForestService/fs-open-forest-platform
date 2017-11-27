@@ -13,6 +13,8 @@
               <input formControlName="firstName" placeholder="First Name" />
               <label id="{{unique}}-primary-permit-holder-last-name-label" class="usa-input">Last name</label>
               <input formControlName="lastName" placeholder="Last Name" />
+              <label id="{{unique}}-primary-permit-holder-email-label" class="usa-input">Email</label>
+              <input formControlName="Email" placeholder="Email" />
               <label id="numTreesLabel" class="usa-input">Number of trees</label>
               <input formControlName="numTrees" placeholder="0" (input)="updateNumTrees($event.target.value)" />
               <label id="numTreesLabel" class="usa-input">Cost for trees: <p>${{cost}}</p></label>
@@ -31,6 +33,6 @@
     <h2>Redirect Notice</h2>
     <p>You are about to be redirected to Pay.gov in order to complete your transaction.</p>
     <p>Continue?</p>
-    <button class="usa-button">Yes</button><button class="usa-button">No</button>
+    <button class="usa-button">Yes</button><a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']" class="usa-button">No</a>
   </div>
 </section>
