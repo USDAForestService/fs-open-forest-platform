@@ -441,22 +441,23 @@ definitions:
         noncommercialFields:
           $ref: '#/definitions/noncommFields'
   christmasTreeApplication:
-    forestId:
-      type: "integer"
-    firstName:
-      type: "string"
-    lastName:
-      type: "string"
-    emailAddress:
-      type: "string"
-    treeCost: 
-      type: "number"
-      format: "double"
-    quantity:
-      type: "integer"
-    totalCost:
-      type: "number"
-      format: "double"
+    properties:
+      forestId:
+        type: "integer"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      emailAddress:
+        type: "string"
+      treeCost: 
+        type: "number"
+        format: "double"
+      quantity:
+        type: "integer"
+      totalCost:
+        type: "number"
+        format: "double"
 externalDocs:
   description: "Find out more about Forest Service"
   url: "https://www.fs.fed.us/"
