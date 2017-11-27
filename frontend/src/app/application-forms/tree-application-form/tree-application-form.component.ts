@@ -5,21 +5,31 @@ import { ActivatedRoute } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
+import { ApplicationService } from '../../_services/application.service';
 
 @Component({
   selector: 'app-tree-application-form',
   templateUrl: './tree-application-form.component.html'
 })
 export class TreeApplicationFormComponent implements OnInit {
-  id: any;
   forest: any;
   submitted: boolean;
+  application: any;
   applicationForm: FormGroup;
   maxNumberOfTrees = 5;
   costPerTree = 10;
+  apiErrors: any;
 
-  constructor(private route: ActivatedRoute, public formBuilder: FormBuilder, private treesService: TreesService) {
+  constructor(
+    private route: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    public applicationService: ApplicationService,
+    private treesService: TreesService
+  ) {
     this.applicationForm = this.formBuilder.group({
+      forestId: ['', [Validators.required]],
+      orgStructureCode: ['', [Validators.required]],
+      treeCost: [this.costPerTree],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
@@ -32,22 +42,37 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-    });
-
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      this.applicationForm.get('forestId').setValue(data.forest.id);
+      this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
+      this.costPerTree = data.forest.treeCost;
+      this.maxNumberOfTrees = data.forest.maxNumTrees;
     });
     this.submitted = false;
   }
   onSubmit() {
+    this.submitted = true;
     if (this.applicationForm.valid) {
-      this.submitted = true;
+      this.createApplication();
     } else {
       this.submitted = false;
+      window.scroll(0, 0);
     }
   }
+
+  createApplication() {
+    this.applicationService.create(JSON.stringify(this.applicationForm.value), '/christmas-trees').subscribe(
+      persistedApplication => {
+        this.application = persistedApplication;
+      },
+      (e: any) => {
+        this.apiErrors = e;
+        window.scroll(0, 0);
+      }
+    );
+  }
+
   updateNumTrees() {
     const quantity = this.applicationForm.get('quantity').value;
     if (!isNaN(parseInt(quantity, 10))) {

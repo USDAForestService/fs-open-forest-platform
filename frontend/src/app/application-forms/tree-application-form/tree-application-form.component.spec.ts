@@ -5,6 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { TreesService } from '../../trees/_services/trees.service';
+import { ApplicationService } from '../../_services/application.service';
 
 describe('TreeApplicationFormComponent', () => {
   let component: TreeApplicationFormComponent;
@@ -14,7 +15,11 @@ describe('TreeApplicationFormComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeApplicationFormComponent],
-        providers: [{ provide: FormBuilder, useClass: FormBuilder }, { provide: TreesService, useClass: TreesService }],
+        providers: [
+          { provide: FormBuilder, useClass: FormBuilder },
+          { provide: TreesService, useClass: TreesService },
+          { provide: ApplicationService, useClass: ApplicationService }
+        ],
         imports: [RouterTestingModule, HttpModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
