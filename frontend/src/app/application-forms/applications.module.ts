@@ -17,6 +17,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
+import { NumberOfTreesComponent } from './fields/number-of-trees.component';
 import { OrganizationNameComponent } from './fields/organization-name.component';
 import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
@@ -28,6 +29,7 @@ import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfi
 import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/temporary-outfitters-learn-more.component';
 import { WebsiteComponent } from './fields/website.component';
 import 'intersection-observer';
+import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import 'intersection-observer';
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
+    NumberOfTreesComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
     PermitHolderNameComponent,
@@ -53,6 +56,7 @@ import 'intersection-observer';
     TemporaryOutfittersComponent,
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
+    TreeApplicationFormComponent,
     WebsiteComponent
   ],
   exports: [
@@ -70,6 +74,7 @@ import 'intersection-observer';
     FileUploadComponent,
     NoncommercialLearnMoreComponent,
     NoncommercialFieldsComponent,
+    NumberOfTreesComponent,
     OrganizationNameComponent,
     OrgTypeComponent,
     PermitHolderNameComponent,
@@ -78,6 +83,7 @@ import 'intersection-observer';
     TemporaryOutfittersComponent,
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
+    TreeApplicationFormComponent,
     WebsiteComponent
   ],
   imports: [FileUploadModule, SharedModule],

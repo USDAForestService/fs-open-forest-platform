@@ -1,0 +1,33 @@
+<section *ngIf="submitted === false" id="application" class="usa-section">
+  <div class="usa-grid">
+    <h1 id="skip-nav-target" tabindex="-1">Apply for a christmas tree permit.</h1>
+    <h2 *ngIf="forest">{{forest.forestName}} National Forest</h2>
+
+    <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
+
+      <fieldset>
+        <legend>Applicant information</legend>
+
+          <div>
+            <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
+            <app-email [applicantInfo]="applicationForm"></app-email>
+            <app-number-of-trees [parentGroup]="applicationForm"></app-number-of-trees>
+            <label id="numTreesLabel" class="usa-input">Cost for trees: <p>${{applicationForm.controls.cost.value}}</p></label>
+        </div>
+      </fieldset>
+
+      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
+
+    </form>
+
+  </div>
+</section>
+
+<section *ngIf="submitted === true" id="redirect-notice" class="usa-section">
+  <div class="usa-grid">
+    <h2>Redirect Notice</h2>
+    <p>You are about to be redirected to Pay.gov in order to complete your transaction.</p>
+    <p>Would you like to continue to Pay.gov?</p>
+    <button class="usa-button">Yes</button><a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']" class="usa-button">No</a>
+  </div>
+</section>

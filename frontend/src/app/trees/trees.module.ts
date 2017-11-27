@@ -24,7 +24,6 @@ import { ForestFinderComponent } from './forests/forest-finder/forest-finder.com
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
-import { TreeApplicationFormComponent } from './forests/tree-application-form/tree-application-form.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { TreeApplicationFormComponent } from './forests/tree-application-form/tr
     ForestFinderComponent,
     RemovePuncPipe,
     LineBreakFormatterPipe,
-    ColumnizeArrayPipe,
-    TreeApplicationFormComponent
+    ColumnizeArrayPipe
   ],
   exports: [
     ContactInfoComponent,

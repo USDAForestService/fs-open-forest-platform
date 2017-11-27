@@ -5,6 +5,8 @@ import { applicationTypeValidator } from '../validators/application-type-validat
 import { urlValidator } from '../validators/url-validation';
 import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
+import { currencyValidator } from '../validators/currency-validation';
+import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
@@ -50,7 +52,9 @@ describe('ErrorMessageComponent', () => {
       type: ['', [applicationTypeValidator()]],
       number: ['', [numberValidator()]],
       state: ['', [stateValidator()]],
-      url: ['', [urlValidator()]]
+      url: ['', [urlValidator()]],
+      cost: ['', [currencyValidator()]],
+      maxNumber: ['', [lessThanOrEqualValidator(4)]]
     });
     form.get('emailAddress').setValue('test');
     expect(component.parseErrors(form.get('emailAddress').errors)).toEqual('Test requires a valid email address. ');
@@ -133,5 +137,33 @@ describe('ErrorMessageComponent', () => {
     expect(component.parseErrors(form.get('type').errors)).toBeFalsy();
     form.get('type').setValue('noncommercial');
     expect(component.parseErrors(form.get('type').errors)).toBeFalsy();
+
+    form.get('cost').setValue('1.222');
+    expect(component.parseErrors(form.get('cost').errors)).toEqual('Test requires a format like 0.00. ');
+    form.get('cost').setValue('1.0');
+    expect(component.parseErrors(form.get('cost').errors)).toEqual('Test requires a format like 0.00. ');
+    form.get('cost').setValue('1.');
+    expect(component.parseErrors(form.get('cost').errors)).toEqual('Test requires a format like 0.00. ');
+    form.get('cost').setValue('asdf');
+    expect(component.parseErrors(form.get('cost').errors)).toEqual('Test requires a format like 0.00. ');
+    form.get('cost').setValue('1');
+    expect(component.parseErrors(form.get('cost').errors)).toBeFalsy();
+    form.get('cost').setValue('1.00');
+    expect(component.parseErrors(form.get('cost').errors)).toBeFalsy();
+    form.get('cost').setValue('100.00');
+    expect(component.parseErrors(form.get('cost').errors)).toBeFalsy();
+
+    form.get('maxNumber').setValue('5');
+    expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
+      'Test must have a value less than or equal to 4. '
+    );
+    form.get('maxNumber').setValue('test');
+    expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
+      'Test must have a value less than or equal to 4. '
+    );
+    form.get('maxNumber').setValue('4');
+    expect(component.parseErrors(form.get('maxNumber').errors)).toBeFalsy();
+    form.get('maxNumber').setValue('3');
+    expect(component.parseErrors(form.get('maxNumber').errors)).toBeFalsy();
   });
 });

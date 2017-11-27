@@ -1,4 +1,21 @@
 
+<div [formGroup]="applicantInfo" *ngIf="!type">
+    <label id="{{unique}}-primary-permit-holder-first-name-label" class="usa-input">First name</label>
+    <input id="{{unique}}-primary-permit-holder-first-name" class="primary-permit-holder-first-name" type="text" formControlName="firstName"
+    [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.primaryFirstName, unique+'-primary-permit-holder-first-name-label', unique+'-primary-permit-holder-first-name-error')"
+    [attr.aria-invalid]="afs.hasError(applicantInfo.controls.primaryFirstName)"
+    aria-required="true" aria-controls="primary-permit-holder-first-name" />
+    <app-error-message fieldId="{{unique}}-primary-permit-holder-first-name-error" name="Permit holder first name" [control]="applicantInfo.controls.firstName"></app-error-message>
+
+
+    <label id="{{unique}}-primary-permit-holder-last-name-label" class="usa-input">Last name</label>
+    <input id="{{unique}}-primary-permit-holder-last-name" class="primary-permit-holder-last-name" type="text" formControlName="lastName"
+      [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.primaryLastName, unique+'-primary-permit-holder-last-name-label', unique+'-primary-permit-holder-last-name-error')"
+      [attr.aria-invalid]="afs.hasError(applicantInfo.controls.primaryLastName)"
+      aria-required="true" aria-controls="primary-permit-holder-last-name" />
+    <app-error-message fieldId="{{unique}}-primary-permit-holder-last-name-error" name="Permit holder last name" [control]="applicantInfo.controls.lastName"></app-error-message>
+</div>
+
 <div [formGroup]="applicantInfo" *ngIf="type === 'primary'">
     <label id="{{unique}}-primary-permit-holder-first-name-label" class="usa-input">{{ name }} first name</label>
     <input id="{{unique}}-primary-permit-holder-first-name" class="primary-permit-holder-first-name" type="text" formControlName="primaryFirstName"
