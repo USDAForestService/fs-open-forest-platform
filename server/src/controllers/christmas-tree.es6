@@ -82,7 +82,7 @@ christmasTree.getForests = (req, res) => {
 };
 
 christmasTree.create = (req, res) => {
-  treesDb.christmasTreesForests.create(translatePermitFromClientToDatabase(req.body))
+  treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
     .then(() => {
       return res.status(201).json(req.body);
     })
