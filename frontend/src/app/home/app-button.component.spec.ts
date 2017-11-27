@@ -3,6 +3,10 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { AppButtonComponent } from './app-button.component';
 import { AuthenticationService } from '../_services/authentication.service';
 
+class MockAuthenticationService {
+  user = true;
+}
+
 describe('AppButtonComponent', () => {
   let component: AppButtonComponent;
   let fixture: ComponentFixture<AppButtonComponent>;
@@ -28,7 +32,3 @@ describe('AppButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-class MockAuthenticationService {
-  user = true;
-}

@@ -1,33 +1,46 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{ formName }}">
-    <label class="usa-input" for="{{type}}-address">Street address 1</label>
-    <input class="{{type}}-address" type="text" formControlName="mailingAddress" aria-required="true" />
-    <app-error-message fieldId="{{type}}-address-error" name="Street address 1" [control]="parentForm.get(formName + '.mailingAddress')"></app-error-message>
+    <label id="{{unique}}-{{type}}-address-label" class="usa-input" >Street address 1</label>
+    <input id="{{unique}}-{{type}}-address" class="{{type}}-address" type="text" formControlName="mailingAddress"
+    [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingAddress'), unique+'-'+type+'-address-label', unique+'-'+type+'-address-error')"
+    [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingAddress'))"
+    aria-required="true" />
+    <app-error-message fieldId="{{unique}}-{{type}}-address-error" name="Street address 1" [control]="parentForm.get(formName + '.mailingAddress')"></app-error-message>
 
-    <label class="usa-input" for="{{type}}-address-line-2">Street address 2 (optional)</label>
-    <input class="{{type}}-address-line-2" formControlName="mailingAddress2" />
-    <app-error-message fieldId="{{type}}-address-line-2-error" name="Street address line 2" [control]="parentForm.get(formName + '.mailingAddress2')"></app-error-message>
+    <label id="{{unique}}-{{type}}-address-line-2-label" class="usa-input">Street address 2 (optional)</label>
+    <input id="{{unique}}-{{type}}-address-line-2" class="{{type}}-address-line-2" formControlName="mailingAddress2"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingAddress2'), unique+'-'+type+'-address-line-2-label', unique+'-'+type+'-address-line-2-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingAddress2'))"
+    />
+    <app-error-message fieldId="{{unique}}-{{type}}-address-line-2-error" name="Street address line 2" [control]="parentForm.get(formName + '.mailingAddress2')"></app-error-message>
 
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="{{type}}-city">City</label>
-        <input class="{{type}}-city" type="text" formControlName="mailingCity" aria-required="true" />
-        <app-error-message fieldId="{{type}}-city-error" name="City" [control]="parentForm.get(formName + '.mailingCity')"></app-error-message>
+        <label  id="{{unique}}-{{type}}-city-label" class="usa-input">City</label>
+        <input id="{{unique}}-{{type}}-city" class="{{type}}-city" type="text" formControlName="mailingCity"
+          [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingCity'), unique+'-'+type+'-city-label', unique+'-'+type+'-city-error')"
+          [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingCity'))"
+          aria-required="true" />
+        <app-error-message fieldId="{{unique}}-{{type}}-city-error" name="City" [control]="parentForm.get(formName + '.mailingCity')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
-        <label class="usa-input" for="{{type}}-state">State</label>
-        <select class="{{type}}-state" formControlName="mailingState" aria-required="true">
+        <label id="{{unique}}-{{type}}-state-label" class="usa-input">State</label>
+        <select id="{{unique}}-{{type}}-state" class="{{type}}-state" formControlName="mailingState" aria-required="true"
+          [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingState'), unique+'-'+type+'-state-label', unique+'-'+type+'-state-error')"
+          [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingState'))">
           <option value="" selected="selected"></option>
           <option *ngFor="let state of states" [value]="state.short">{{state.long}}</option>
         </select>
-        <app-error-message fieldId="{{type}}-state-error" name="State" [control]="parentForm.get(formName + '.mailingState')"></app-error-message>
+        <app-error-message fieldId="{{unique}}-{{type}}-state-error" name="State" [control]="parentForm.get(formName + '.mailingState')"></app-error-message>
       </div>
     </div>
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="{{type}}-zip">ZIP</label>
-        <input class="usa-input-medium" class="{{type}}-zip" formControlName="mailingZIP" minlength="5" maxlength="5" pattern="(^\d{5}$)" aria-required="true" />
-        <app-error-message fieldId="{{type}}-zip-error" name="ZIP code" [control]="parentForm.get(formName + '.mailingZIP')"></app-error-message>
+        <label id="{{unique}}-{{type}}-zip-label" class="usa-input">ZIP</label>
+        <input id="{{unique}}-{{type}}-zip" class="usa-input-medium" class="{{type}}-zip" formControlName="mailingZIP" minlength="5" maxlength="5" pattern="(^\d{5}$)" aria-required="true"
+          [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingZIP'), unique+'-'+type+'-zip-label', unique+'-'+type+'-zip-error')"
+          [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingZIP'))">
+        <app-error-message fieldId="{{unique}}-{{type}}-zip-error" name="ZIP code" [control]="parentForm.get(formName + '.mailingZIP')"></app-error-message>
       </div>
     </div>
   </ng-container>

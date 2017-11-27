@@ -20,6 +20,10 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
 
   constructor(private applicationFieldsService: ApplicationFieldsService, private util: UtilService) {}
 
+  /**
+  * @param conrol  Individual form control to be validated
+  * @returns       css class
+  */
   getControlStatus(control: FormControl) {
     if (control && control.valid && control.touched) {
       return 'ng-valid';
@@ -32,6 +36,10 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+  * @param group  Form group to be validated
+  * @returns      css class
+  */
   getGroupStatus(group: FormGroup, errors) {
     if (group && group.valid) {
       if (group.untouched) {
