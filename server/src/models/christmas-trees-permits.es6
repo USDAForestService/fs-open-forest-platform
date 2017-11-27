@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
       permitId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        unique: true,
+        primaryKey: true,
         field: 'permit_id',
         allowNull: false
       },
