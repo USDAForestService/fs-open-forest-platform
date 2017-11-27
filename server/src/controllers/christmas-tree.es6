@@ -16,6 +16,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
       description: input.description,
       forestAbbr: input.forestAbbr,
       forestUrl: input.forestUrl,
+      orgStructureCode: input.orgStructureCode,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiameter: input.stumpDiameter,

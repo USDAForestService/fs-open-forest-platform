@@ -49,6 +49,10 @@ module.exports = function(sequelize, DataTypes) {
         field: 'end_date',
         allowNull: false
       },
+      orgStructureCode: {
+        type: DataTypes.STRING,
+        field: 'org_structure_code'
+      },
       forestAbbr: {
         type: DataTypes.STRING,
         field: 'forest_abbr'
