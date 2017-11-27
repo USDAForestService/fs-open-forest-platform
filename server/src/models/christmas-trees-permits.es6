@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       lastName: {
         type: DataTypes.STRING,
         field: 'last_name'
-      }
+      },
       emailAddress: {
         type: DataTypes.STRING,
         field: 'email_address'
