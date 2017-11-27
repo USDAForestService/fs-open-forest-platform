@@ -18,11 +18,13 @@ module.exports = {
       },
       firstName: { type: Sequelize.STRING, field: 'first_name' },
       lastName: { type: Sequelize.STRING, field: 'last_name' },
-      email: { type: Sequelize.STRING, field: 'email', allowNull: false },
-      treeCost: { type: Sequelize.DECIMAL(8,2), field: 'tree_cost', allowNull: false },
+      emailAddress: { type: Sequelize.STRING, field: 'email_address', allowNull: false },
+      treeCost: { type: Sequelize.NUMERIC(8,2), field: 'tree_cost', allowNull: false },
       quantity: { type: Sequelize.INTEGER, field: 'quantity', allowNull: false },
-      totalCost: { type: Sequelize.DECIMAL(10,2), field: 'total_cost', allowNull: false },
-      status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', field: 'status' }
+      totalCost: { type: Sequelize.NUMERIC(10,2), field: 'total_cost', allowNull: false },
+      status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', field: 'status' },
+      createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
+      updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
     });
   },
   down: function(queryInterface, Sequelize) {
