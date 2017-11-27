@@ -22,7 +22,7 @@ module.exports = {
       treeCost: { type: Sequelize.NUMERIC(8,2), field: 'tree_cost', allowNull: false },
       quantity: { type: Sequelize.INTEGER, field: 'quantity', allowNull: false },
       totalCost: { type: Sequelize.NUMERIC(10,2), field: 'total_cost', allowNull: false },
-      status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', field: 'status' },
+      status: { type: Sequelize.STRING(50), defaultValue: 'Initiated', allowNull: false, field: 'status' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
     });
