@@ -22,6 +22,12 @@ export class TempOutfittersForm {
   }
 }
 
+export class ChristmasTreeForm {
+  navigateTo() {
+    return browser.get('applications/christmas-trees/forests/arp/new');
+  }
+}
+
 export class AdminApplicationList {
   navigateTo() {
     return browser.get('/admin/applications');
@@ -48,15 +54,7 @@ export class TreesSidebarPage {
   }
 
   getTreeSpecies(type, index) {
-    return element(by.id(`tree-${type}-species-${index}`))
-  }
-
-  cuttingAreaDates(index) {
-    return element(by.id(`tree-cutting-areas-dates-${index}`));
-  }
-
-  cuttingAreaHours(index) {
-    return element(by.id(`tree-cutting-areas-hours-${index}`));
+    return element(by.id(`tree-${type}-species-${index}`));
   }
 
   contactUsSectionLink() {
@@ -105,7 +103,6 @@ export class TreesForestFinderPage {
     return browser.get('/christmas-trees/forests');
   }
 }
-
 
 export class HelpMePick {
   questionStep(cta, question) {

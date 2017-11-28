@@ -13,7 +13,7 @@ import { ApplicationService } from '../../_services/application.service';
 })
 export class TreeApplicationFormComponent implements OnInit {
   forest: any;
-  submitted: boolean = false;
+  submitted = false;
   application: any;
   applicationForm: FormGroup;
   maxNumberOfTrees = 5;
