@@ -10,5 +10,6 @@ export class QuantityComponent {
   @Input() parentGroup: FormGroup;
   @Input() label: string;
   @Input() hintText: string;
+  @Input() length: string;
   constructor(public afs: ApplicationFieldsService) {}
 }

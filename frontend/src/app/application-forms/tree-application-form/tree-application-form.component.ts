@@ -17,6 +17,7 @@ export class TreeApplicationFormComponent implements OnInit {
   application: any;
   applicationForm: FormGroup;
   maxNumberOfTrees: number;
+  quantityLength: number;
   costPerTree: number;
   apiErrors: any;
 
@@ -52,6 +53,7 @@ export class TreeApplicationFormComponent implements OnInit {
       this.costPerTree = data.forest.treeCost;
       this.applicationForm.get('treeCost').setValue(this.costPerTree);
       this.maxNumberOfTrees = data.forest.maxNumTrees;
+      this.quantityLength = this.maxNumberOfTrees.toString().length;
     });
   }
   onSubmit() {
