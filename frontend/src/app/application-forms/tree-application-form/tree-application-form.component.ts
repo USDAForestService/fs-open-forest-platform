@@ -33,10 +33,13 @@ export class TreeApplicationFormComponent implements OnInit {
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      quantity: ['', [Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]],
+      quantity: ['', [Validators.required]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     });
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
+      this.applicationForm
+        .get('quantity')
+        .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]);
       this.updateTotalCost();
     });
   }
