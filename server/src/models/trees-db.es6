@@ -40,4 +40,8 @@ treesDb.christmasTreesForestSpecies.belongsTo(treesDb.species, {foreignKey: 'spe
 treesDb.species.hasMany(treesDb.speciesNotes, {foreignKey: 'speciesId', sourceKey: 'id'});
 treesDb.speciesNotes.belongsTo(treesDb.species, {foreignKey: 'speciesId', targetKey: 'id'});
 
+treesDb.christmasTreesPermits = require('../models/christmas-trees-permits.es6')(sequelize, Sequelize);
+treesDb.christmasTreesForests.hasMany(treesDb.christmasTreesPermits, {foreignKey: 'forestId', sourceKey: 'id'});
+treesDb.christmasTreesPermits.belongsTo(treesDb.christmasTreesForests, {foreignKey: 'forestId', targetKey: 'id'});
+
 module.exports = treesDb;

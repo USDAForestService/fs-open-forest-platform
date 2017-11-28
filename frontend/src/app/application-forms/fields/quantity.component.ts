@@ -3,11 +3,13 @@ import { FormGroup } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
-  selector: 'app-email',
-  templateUrl: './email.component.html'
+  selector: 'app-quantity',
+  templateUrl: './quantity.component.html'
 })
-export class EmailComponent {
-  @Input() applicantInfo: FormGroup;
+export class QuantityComponent {
+  @Input() parentGroup: FormGroup;
+  @Input() label: string;
   @Input() hintText: string;
+  @Input() length: string;
   constructor(public afs: ApplicationFieldsService) {}
 }

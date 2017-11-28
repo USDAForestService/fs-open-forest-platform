@@ -2,6 +2,7 @@
 
 const request = require('supertest');
 
+const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws-app.es6');
 
 const chai = require('chai');
@@ -108,5 +109,24 @@ describe('christmas tree controller tests', () => {
         .expect(404, done);
     });
 
+  });
+  describe('submit permit application', () => {
+    it('POST should return a 201 response when submitted for flathead national forest', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/permits/applications/christmas-trees')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(201, done);
+    });
+    it('POST should return a 400 response when submitted with invalid data', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = undefined;
+      request(server)
+        .post('/permits/applications/christmas-trees')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
   });
 });

@@ -1,0 +1,37 @@
+<section id="application" class="usa-section">
+  <div class="usa-grid">
+    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit.</h1>
+    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+    <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
+      <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
+
+      <div id="form-errors"
+        *ngIf="(submitted && !applicationForm.valid)"
+        class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+        <div class="usa-alert-body">
+          <h3 class="usa-alert-heading">There are errors in your application.</h3>
+          <p class="usa-alert-text">Please correct the errors before submitting.</p>
+        </div>
+      </div>
+
+      <fieldset>
+        <legend>Your information</legend>
+
+          <div>
+            <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
+            <app-email [applicantInfo]="applicationForm" hintText="Please enter your email address so that your permit(s) can be emailed to you."></app-email>
+            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" [length]="quantityLength" hintText="One permit equals one tree"></app-quantity>
+            <label class="margin-top-2 total-cost">Total cost for Christmas tree permits: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
+        </div>
+      </fieldset>
+      <hr />
+      <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
+
+    </form>
+
+  </div>
+</section>
