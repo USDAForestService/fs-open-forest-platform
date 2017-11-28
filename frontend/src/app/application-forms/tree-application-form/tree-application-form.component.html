@@ -1,12 +1,13 @@
 <section *ngIf="!application" id="application" class="usa-section">
   <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Apply for a christmas tree permit.</h1>
-    <h2 *ngIf="forest">{{forest.forestName}} National Forest</h2>
+    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
+    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
-      <p class="form-directions">All form fields are required unless otherwise noted.</p>
+      <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase {{maxNumberOfTrees}} permits.</p>
+      <p>All form fields are required unless otherwise noted.</p>
 
       <div id="form-errors"
         *ngIf="(submitted && !applicationForm.valid)"
@@ -24,7 +25,7 @@
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
             <app-email [applicantInfo]="applicationForm"></app-email>
             <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits to purchase"></app-quantity>
-            <label id="total-cost" class="usa-input">Cost for trees: <p>${{applicationForm.controls.totalCost.value}}</p></label>
+            <label id="total-cost" class="usa-input">Total cost for Christmas tree permits: ${{applicationForm.controls.totalCost.value}}</label>
         </div>
       </fieldset>
 
@@ -42,11 +43,12 @@
     <h3>Order summary</h3>
     <p>Name: {{ application.firstName }} {{ application.lastName }}</p>
     <p>Email address: {{ application.emailAddress }}</p>
-    <p>Number of trees: {{ application.quantity }}</p>
+    <p>Number of Christmas tree permits: {{ application.quantity }}</p>
     <p>Total cost: ${{application.totalCost }}</p>
     <hr />
     <p>You will be redirected to Pay.gov in order to complete your transaction.</p>
     <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']" class="usa-button-outline usa-button usa-button-big">Cancel</a>
-    <button class="usa-button-primary-alt usa-button-big">Checkout with <img class="pay-gov-logo" src="/assets/img/pay-gov.png" alt="Pay.gov" /></button>
+    <button class="usa-button-primary-alt usa-button-big">Checkout</button>
+    <p>We use Pay.gov as our trusted secure payment processor. We’ll send you there to buy your permit(s) and bring you back when you finish.</p>
   </div>
 </section>
