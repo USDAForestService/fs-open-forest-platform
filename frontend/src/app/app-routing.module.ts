@@ -20,6 +20,7 @@ import { TemporaryOutfittersLearnMoreComponent } from './application-forms/tempo
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
+import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 
 const appRoutes: Routes = [
   {
@@ -108,6 +109,11 @@ const appRoutes: Routes = [
       forest: ForestResolver
     },
     data: { title: 'Apply for a Christmas tree permit' }
+  },
+  {
+    path: 'mocks',
+    component: LandingPageComponent,
+    data: { title: 'Complete your Christmas Tree permit transaction' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },

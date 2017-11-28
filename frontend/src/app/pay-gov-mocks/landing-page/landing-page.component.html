@@ -1,0 +1,45 @@
+<div class="usa-grid">
+  <h1>Pay.Gov Payment Form</h1>
+  <form>
+    <label>Payment Amount</label>
+    <input type="text" name="payment-amount" disabled="true" value="5.00">
+    <label>Cardholder Name</label>
+    <input type="text" name="cardholder-name">
+    <label>Cardholder Billing Address</label>
+    <input type="text" name="cardholder-billing-address">
+    <label>Billing Address 2</label>
+    <input type="text" name="cardholder-billing-address-2">
+    <label>City</label>
+    <input type="text" name="city">
+    <label>Country</label>
+    <input type="text" name="country">
+    <label>State/Province</label>
+    <input type="text" name="state-province">
+    <label>ZIP/Postal Code</label>
+    <input type="text" name="zip-postal-code">
+    <label>Card Number</label>
+    <input type="text" name="card-number">
+    <label>Expiration Date</label>
+    <select name="card-exp-month">
+      <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]">{{month}}</option>
+    </select>
+    <select name="card-exp-year">
+      <option *ngFor="let year of [2017,2018,2019,2020,2021,2022,2023]">{{year}}</option>
+    </select>
+    <label>Security Code</label>
+    <input type="text" name="card-security-code">
+    <label>Form Name</label>
+    <input type="text" name="form-name" value="Chistmas Tree Permit - Shoshone National Forest">
+    <label>Applicant Name</label>
+    <p type="text" name="applicant-name">John Doe</p>
+    <label>Applicant Email Address</label>
+    <p type="text" name="applicant-email-address">a@a.co</p>
+    <label>Selected Option</label>
+    <p type="text" name="selected-option">Christmas Tree Permit</p>
+    <label>Description</label>
+    <p type="text" name="description">Something</p>
+    <label>Amount Owed</label>
+    <p type="text" name="amount-owed">$5.00</p>
+    <button>Cancel</button> <button type="submit" class="usa-button-secondary">Review and Submit Payment</button>
+  </form>
+</div>
