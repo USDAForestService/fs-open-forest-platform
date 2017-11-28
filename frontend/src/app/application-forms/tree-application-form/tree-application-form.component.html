@@ -1,4 +1,4 @@
-<section *ngIf="!application" id="application" class="usa-section">
+<section id="application" class="usa-section">
   <div class="usa-grid">
     <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit.</h1>
     <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
@@ -7,7 +7,6 @@
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
       <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
-      <p>All form fields are required unless otherwise noted.</p>
 
       <div id="form-errors"
         *ngIf="(submitted && !applicationForm.valid)"
@@ -19,36 +18,20 @@
       </div>
 
       <fieldset>
-        <legend>Applicant information</legend>
+        <legend>Your information</legend>
 
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
             <app-email [applicantInfo]="applicationForm" hintText="Please enter your email address so that your permit(s) can be emailed to you."></app-email>
-            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits to purchase"></app-quantity>
-            <label id="total-cost" class="usa-input">Total cost for Christmas tree permits: ${{applicationForm.controls.totalCost.value}}</label>
+            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" hintText="One permit equals one tree"></app-quantity>
+            <label class="margin-top-2 total-cost">Total cost for Christmas tree permits: <span class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
         </div>
       </fieldset>
-
-      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
+      <hr />
+      <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>
 
-  </div>
-</section>
-
-<section *ngIf="submitted === true && application" id="redirect-notice" aria-live="assertive" class="usa-section">
-  <div class="usa-grid">
-    <h1>Confirm and pay.</h1>
-    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
-    <h3>Order summary</h3>
-    <p>Name: {{ application.firstName }} {{ application.lastName }}</p>
-    <p>Email address: {{ application.emailAddress }}</p>
-    <p>Number of Christmas tree permits: {{ application.quantity }}</p>
-    <p>Total cost: ${{application.totalCost }}</p>
-    <hr />
-    <p>You will be redirected to Pay.gov in order to complete your transaction.</p>
-    <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']" class="usa-button-outline usa-button usa-button-big">Cancel</a>
-    <button class="usa-button-primary-alt usa-button-big">Checkout</button>
-    <p>We use Pay.gov as our trusted secure payment processor. We’ll send you there to buy your permit(s) and bring you back when you finish.</p>
   </div>
 </section>

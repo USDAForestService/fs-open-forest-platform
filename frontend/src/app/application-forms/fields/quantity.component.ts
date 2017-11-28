@@ -9,5 +9,6 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 export class QuantityComponent {
   @Input() parentGroup: FormGroup;
   @Input() label: string;
+  @Input() hintText: string;
   constructor(public afs: ApplicationFieldsService) {}
 }

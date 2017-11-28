@@ -13,7 +13,7 @@ import { ApplicationService } from '../../_services/application.service';
 })
 export class TreeApplicationFormComponent implements OnInit {
   forest: any;
-  submitted: boolean;
+  submitted: boolean = false;
   application: any;
   applicationForm: FormGroup;
   maxNumberOfTrees = 5;
@@ -33,11 +33,11 @@ export class TreeApplicationFormComponent implements OnInit {
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      quantity: ['', [Validators.required, Validators.maxLength(1), lessThanOrEqualValidator(this.maxNumberOfTrees)]],
+      quantity: ['', [Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     });
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
-      this.updateNumTrees();
+      this.updateTotalCost();
     });
   }
 
@@ -49,12 +49,12 @@ export class TreeApplicationFormComponent implements OnInit {
       this.costPerTree = data.forest.treeCost;
       this.maxNumberOfTrees = data.forest.maxNumTrees;
     });
-    this.submitted = false;
   }
   onSubmit() {
     this.submitted = true;
     if (this.applicationForm.valid) {
       this.createApplication();
+      alert('Permit application saved');
     } else {
       this.submitted = false;
       window.scroll(0, 0);
@@ -73,7 +73,7 @@ export class TreeApplicationFormComponent implements OnInit {
     );
   }
 
-  updateNumTrees() {
+  updateTotalCost() {
     const quantity = this.applicationForm.get('quantity').value;
     if (!isNaN(parseInt(quantity, 10))) {
       this.applicationForm.get('totalCost').setValue(parseInt(quantity, 10) * this.costPerTree);
