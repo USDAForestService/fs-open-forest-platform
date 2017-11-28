@@ -1,12 +1,12 @@
 <section *ngIf="!application" id="application" class="usa-section">
   <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
+    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit.</h1>
     <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
-      <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase {{maxNumberOfTrees}} permits.</p>
+      <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
       <p>All form fields are required unless otherwise noted.</p>
 
       <div id="form-errors"
@@ -23,7 +23,7 @@
 
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
-            <app-email [applicantInfo]="applicationForm"></app-email>
+            <app-email [applicantInfo]="applicationForm" hintText="Please enter your email address so that your permit(s) can be emailed to you."></app-email>
             <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits to purchase"></app-quantity>
             <label id="total-cost" class="usa-input">Total cost for Christmas tree permits: ${{applicationForm.controls.totalCost.value}}</label>
         </div>
@@ -39,7 +39,7 @@
 <section *ngIf="submitted === true && application" id="redirect-notice" aria-live="assertive" class="usa-section">
   <div class="usa-grid">
     <h1>Confirm and pay.</h1>
-    <h2 *ngIf="forest">{{forest.forestName}} National Forest</h2>
+    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
     <h3>Order summary</h3>
     <p>Name: {{ application.firstName }} {{ application.lastName }}</p>
     <p>Email address: {{ application.emailAddress }}</p>
