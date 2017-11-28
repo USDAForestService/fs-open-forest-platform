@@ -16,8 +16,8 @@ export class TreeApplicationFormComponent implements OnInit {
   submitted = false;
   application: any;
   applicationForm: FormGroup;
-  maxNumberOfTrees = 5;
-  costPerTree = 10;
+  maxNumberOfTrees: number;
+  costPerTree: number;
   apiErrors: any;
 
   constructor(
@@ -29,7 +29,7 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationForm = this.formBuilder.group({
       forestId: ['', [Validators.required]],
       orgStructureCode: ['', [Validators.required]],
-      treeCost: [this.costPerTree],
+      treeCost: [''],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
@@ -47,6 +47,7 @@ export class TreeApplicationFormComponent implements OnInit {
       this.applicationForm.get('forestId').setValue(data.forest.id);
       this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
       this.costPerTree = data.forest.treeCost;
+      this.applicationForm.get('treeCost').setValue(this.costPerTree);
       this.maxNumberOfTrees = data.forest.maxNumTrees;
     });
   }
