@@ -10,6 +10,7 @@ import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.
 import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
+import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
@@ -99,6 +100,11 @@ const appRoutes: Routes = [
       forests: ForestFinderResolver
     },
     data: { title: 'Christmas tree permit information' }
+  },
+  {
+    path: 'mocks',
+    component: LandingPageComponent,
+    data: { title: 'Complete your Christmas Tree permit transaction' }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
