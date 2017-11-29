@@ -103,7 +103,7 @@ const appRoutes: Routes = [
     data: { title: 'Christmas tree permit information' }
   },
   {
-    path: 'mocks-pay-gov',
+    path: 'mock-pay-gov',
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
   },
