@@ -65,6 +65,10 @@ vcapConstants.smtpUsername = smtp.credentials.username;
 vcapConstants.smtpPassword = smtp.credentials.password;
 vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
 
+/** Pay.gov */
+const payGov = getUserProvided('pay-gov');
+vcapConstants.payGovUrl = payGov.credentials.url;
+
 /**
  * VCAP Constants
  * @exports vcapConstants
