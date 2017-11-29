@@ -88,9 +88,30 @@ christmasTree.getForests = (req, res) => {
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
     .then(response => {
-      req.body.permitId = response.permitId;
-      req.body.status = response.status;
-      return res.status(201).json(req.body);
+    
+      //req.body.permitId = response.permitId;
+      //req.body.status = response.status;
+      
+      console.log(JSON.stringify(response));
+      
+      const requestOptions = {
+        method: 'POST',
+        url: vcapConstants.payGovUrl,
+        json: true,
+        simple: true,
+        body: {
+          paymentAmount: reponse.totalCost,
+          formName: 'FS Christmas Trees Permit Form',
+          applicantName: response.firstName + ' ' + response.lastName,
+          applicantEmailAddress: response.emailAddress,
+          selectedOption: 'christmas tree permit',
+          description: 'mt.hood national forest',
+          amountOwed: reponse.totalCost
+        }
+      };
+      console.log(requestOptions);
+      return util.request(requestOptions);
+      //return res.status(201).json(req.body);
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
@@ -100,6 +121,34 @@ christmasTree.create = (req, res) => {
       }
     });
 };
+
+// /**
+//  * POST call to Payment system.
+//  */
+// christmasTree.redirectToPayment = application => {
+//   const requestOptions = {
+//     method: 'POST',
+//     url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+//     headers: {},
+//     json: true,
+//     simple: true,
+//     body: translateFromIntakeToMiddleLayer(application)
+//   };
+//   return new Promise((resolve, reject) => {
+//     util
+//       .middleLayerAuth()
+//       .then(token => {
+//         requestOptions.headers['x-access-token'] = token;
+//         util
+//           .request(requestOptions)
+//           .then(resolve)
+//           .catch(reject);
+//       })
+//       .catch(error => {
+//         reject(error);
+//       });
+//   });
+// };
 
 christmasTree.getOneGuidelines = (req, res) => {
 
