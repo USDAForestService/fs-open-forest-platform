@@ -182,6 +182,12 @@ VCAP_SERVICES
       "name": "intake-s3",
       "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" }
     }
+  ],
+  "pay-gov": [
+    {
+      "name": "pay-gov",
+      "credentials": {"url": "http://localhost:8080/mock-pay-gov"}
+    }
   ]
 }
 
