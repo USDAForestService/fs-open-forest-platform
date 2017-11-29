@@ -14,6 +14,7 @@ const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
 const util = require('./util.es6');
 const vcapConstants = require('./vcap-constants.es6');
+const payGov = require('./pay-gov-mocks/christmas-trees-payments.es6');
 
 /**  Create the express application. */
 const app = express();
@@ -45,6 +46,9 @@ app.use(
 
 /** Configure passport for login.gov and eAuth. */
 passportConfig.setup(app);
+
+/** Pay.gov mock route */
+app.use(payGov.router);
 
 /** Add the routes. */
 app.use(router);
