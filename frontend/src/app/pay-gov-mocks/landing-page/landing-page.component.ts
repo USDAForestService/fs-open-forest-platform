@@ -10,11 +10,13 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   applicationForm: FormGroup;
+  successURL: any;
+  failureURL: any;
 
-  constructor(public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
+  constructor(public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,  private router: Router) {
 
     this.applicationForm = this.formBuilder.group({
-      paymentAmount: ['$5.00', [Validators.required]],
+      paymentAmount: ['', [Validators.required]],
       cardholderName: ['', [Validators.required]],
       cardholderBillingAddress  : ['', [Validators.required]],
       cardholderBillingAddress2  : ['', [Validators.required]],
@@ -26,12 +28,12 @@ export class LandingPageComponent implements OnInit {
       cardExpirationMonth  : ['', [Validators.required]],
       cardExpirationYear  : ['', [Validators.required]],
       cardSecurityCode  : ['', [Validators.required]],
-      formName  : ['Chistmas Tree Permit - Shoshone National Forest', [Validators.required]],
-      applicantName  : ['John Doe', [Validators.required]],
-      applicantEmailAddress  : ['a@a.co', [Validators.required]],
-      selectedOption  : ['Christmas Tree Permit', [Validators.required]],
-      description  : ['Something', [Validators.required]],
-      amountOwed  : ['$5.00', [Validators.required]]
+      formName  : ['', [Validators.required]],
+      applicantName  : ['', [Validators.required]],
+      applicantEmailAddress  : ['', [Validators.required]],
+      selectedOption  : ['', [Validators.required]],
+      description  : ['', [Validators.required]],
+      amountOwed  : ['', [Validators.required]]
     });
 
   }
@@ -45,8 +47,13 @@ export class LandingPageComponent implements OnInit {
       this.applicationForm.get('selectedOption').setValue(params['']);
       this.applicationForm.get('description').setValue(params['']);
       this.applicationForm.get('amountOwed').setValue(params['']);
+      this.successURL = params[''];
+      this.failureURL = params[''];
     });
     this.applicationForm.get('paymentAmount').disable();
   }
+
+  cancelButtonClick() {}
+  submitButtonClick() {}
 
 }
