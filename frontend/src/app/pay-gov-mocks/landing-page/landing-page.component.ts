@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import { alphanumericValidator } from '../../application-forms/validators/alphanumeric-validation';
 
 @Component({
   selector: 'app-landing-page',
@@ -16,24 +17,24 @@ export class LandingPageComponent implements OnInit {
   constructor(public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,  private router: Router) {
 
     this.applicationForm = this.formBuilder.group({
-      paymentAmount: ['', [Validators.required]],
-      cardholderName: ['', [Validators.required]],
-      cardholderBillingAddress  : ['', [Validators.required]],
-      cardholderBillingAddress2  : ['', [Validators.required]],
-      cardholderCity  : ['', [Validators.required]],
-      cardholderCountry  : ['', [Validators.required]],
-      cardholderState  : ['', [Validators.required]],
-      cardholderZip  : ['', [Validators.required]],
-      cardNumber  : ['', [Validators.required]],
+      paymentAmount: ['', [Validators.required, alphanumericValidator()]],
+      cardholderName: ['', [Validators.required, alphanumericValidator()]],
+      cardholderBillingAddress  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderBillingAddress2  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderCity  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderCountry  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderState  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderZip  : ['', [Validators.required, Validators.pattern(/(\d{5}|\d{9})/)]],
+      cardNumber  : ['', [Validators.required, Validators.pattern(/(\d{8,19})/)]],
       cardExpirationMonth  : ['', [Validators.required]],
       cardExpirationYear  : ['', [Validators.required]],
-      cardSecurityCode  : ['', [Validators.required]],
-      formName  : ['', [Validators.required]],
-      applicantName  : ['', [Validators.required]],
-      applicantEmailAddress  : ['', [Validators.required]],
-      selectedOption  : ['', [Validators.required]],
-      description  : ['', [Validators.required]],
-      amountOwed  : ['', [Validators.required]]
+      cardSecurityCode  : ['', [Validators.required, Validators.pattern(/(\d{3,4})/)]],
+      formName  : ['', [Validators.required, alphanumericValidator()]],
+      applicantName  : ['', [Validators.required, alphanumericValidator()]],
+      applicantEmailAddress  : ['', [Validators.required, alphanumericValidator()]],
+      selectedOption  : ['', [Validators.required, alphanumericValidator()]],
+      description  : ['', [Validators.required, alphanumericValidator()]],
+      amountOwed  : ['', [Validators.required, alphanumericValidator()]]
     });
 
   }
