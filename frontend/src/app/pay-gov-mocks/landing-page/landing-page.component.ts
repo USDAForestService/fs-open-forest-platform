@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import { alphanumericValidator } from '../../application-forms/validators/alphanumeric-validation';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,34 +11,36 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 export class LandingPageComponent implements OnInit {
 
   applicationForm: FormGroup;
+  successURL: any;
+  failureURL: any;
 
-  constructor(public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
+  constructor(public formBuilder: FormBuilder, private activatedRoute: ActivatedRoute,  private router: Router) {
 
     this.applicationForm = this.formBuilder.group({
-      paymentAmount: ['$5.00', [Validators.required]],
-      cardholderName: ['', [Validators.required]],
-      cardholderBillingAddress  : ['', [Validators.required]],
-      cardholderBillingAddress2  : ['', [Validators.required]],
-      cardholderCity  : ['', [Validators.required]],
-      cardholderCountry  : ['', [Validators.required]],
-      cardholderState  : ['', [Validators.required]],
-      cardholderZip  : ['', [Validators.required]],
-      cardNumber  : ['', [Validators.required]],
+      paymentAmount: ['', [Validators.required, alphanumericValidator()]],
+      cardholderName: ['', [Validators.required, alphanumericValidator()]],
+      cardholderBillingAddress  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderBillingAddress2  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderCity  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderCountry  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderState  : ['', [Validators.required, alphanumericValidator()]],
+      cardholderZip  : ['', [Validators.required, Validators.pattern(/(\d{5}|\d{9})/)]],
+      cardNumber  : ['', [Validators.required, Validators.pattern(/(\d{8,19})/)]],
       cardExpirationMonth  : ['', [Validators.required]],
       cardExpirationYear  : ['', [Validators.required]],
-      cardSecurityCode  : ['', [Validators.required]],
-      formName  : ['Chistmas Tree Permit - Shoshone National Forest', [Validators.required]],
-      applicantName  : ['John Doe', [Validators.required]],
-      applicantEmailAddress  : ['a@a.co', [Validators.required]],
-      selectedOption  : ['Christmas Tree Permit', [Validators.required]],
-      description  : ['Something', [Validators.required]],
-      amountOwed  : ['$5.00', [Validators.required]]
+      cardSecurityCode  : ['', [Validators.required, Validators.pattern(/(\d{3,4})/)]],
+      formName  : ['', [Validators.required, alphanumericValidator()]],
+      applicantName  : ['', [Validators.required, alphanumericValidator()]],
+      applicantEmailAddress  : ['', [Validators.required, alphanumericValidator()]],
+      selectedOption  : ['', [Validators.required, alphanumericValidator()]],
+      description  : ['', [Validators.required, alphanumericValidator()]],
+      amountOwed  : ['', [Validators.required, alphanumericValidator()]]
     });
 
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.applicationForm.get('paymentAmount').setValue(params['']);
       this.applicationForm.get('formName').setValue(params['']);
       this.applicationForm.get('applicantName').setValue(params['']);
@@ -45,8 +48,13 @@ export class LandingPageComponent implements OnInit {
       this.applicationForm.get('selectedOption').setValue(params['']);
       this.applicationForm.get('description').setValue(params['']);
       this.applicationForm.get('amountOwed').setValue(params['']);
+      this.successURL = params[''];
+      this.failureURL = params[''];
     });
     this.applicationForm.get('paymentAmount').disable();
   }
+
+  cancelButtonClick() {}
+  submitButtonClick() {}
 
 }

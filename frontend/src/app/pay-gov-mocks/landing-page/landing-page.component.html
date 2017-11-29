@@ -9,14 +9,20 @@
     <input type="text" name="cardholder-billing-address" formControlName="cardholderBillingAddress">
     <label>Billing Address 2</label>
     <input type="text" name="cardholder-billing-address-2" formControlName="cardholderBillingAddress2">
-    <label>City</label>
-    <input type="text" name="city" formControlName="cardholderCity">
+    <div class="usa-width-one-fourth">
+        <label>City</label>
+        <input type="text" name="city" formControlName="cardholderCity">
+    </div>
+    <div class="usa-width-one-fourth">
+        <label>State/Province</label>
+        <input type="text" name="state-province" formControlName="cardholderState">
+    </div>
+    <div class="usa-width-one-fourth">
+        <label>ZIP/Postal Code</label>
+        <input type="text" name="zip-postal-code" formControlName="cardholderZip">
+    </div>
     <label>Country</label>
     <input type="text" name="country" formControlName="cardholderCountry">
-    <label>State/Province</label>
-    <input type="text" name="state-province" formControlName="cardholderState">
-    <label>ZIP/Postal Code</label>
-    <input type="text" name="zip-postal-code" formControlName="cardholderZip">
     <label>Card Number</label>
     <input type="text" name="card-number" formControlName="cardNumber">
     <label>Expiration Date</label>
@@ -27,7 +33,8 @@
       <option *ngFor="let year of [2017,2018,2019,2020,2021,2022,2023]">{{year}}</option>
     </select>
     <label>Security Code</label>
-    <input type="text" name="card-security-code" formControlName="cardSecurityCode">
+    <input type="text" name="card-security-code" formControlName="cardSecurityCode" class="usa-width-one-fourth">
+    <br />
     <label>Form Name</label>
     <input type="text" name="form-name" formControlName="formName">
     <label>Applicant Name</label>
@@ -40,6 +47,7 @@
     <p type="text" name="description">{{applicationForm.controls.description.value}}</p>
     <label>Amount Owed</label>
     <p type="text" name="amount-owed">{{applicationForm.controls.amountOwed.value}}</p>
-    <button>Cancel</button> <button type="submit" class="usa-button-secondary">Review and Submit Payment</button>
+    <button class="usa-button-grey usa-button-big usa-width-one-fourth" (click)="cancelButtonClick()">Cancel</button>
+    <button class="usa-button-secondary usa-width-one-fourth" (click)="submitButtonClick()">Review and Submit Payment</button>
   </form>
 </div>
