@@ -9,6 +9,7 @@ const express = require('express');
 const commonController = require('../controllers/common.es6');
 const noncommercialController = require('../controllers/noncommercial.es6');
 const tempOutfitterController = require('../controllers/temp-outfitter.es6');
+const christmasTreeController = require('../controllers/christmas-tree.es6');
 
 const router = express.Router();
 
@@ -48,6 +49,9 @@ router.delete('/special-uses/temp-outfitter/file/:id', tempOutfitterController.d
 
 /** GET all applications with specified status */
 router.get('/:statusGroup', commonController.getPermitApplications);
+
+/*POST a new christmas tree application*/
+router.post('/christmas-trees', christmasTreeController.create);
 
 /**
  * Permit application routes

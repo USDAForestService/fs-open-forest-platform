@@ -4,7 +4,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 describe('Christmas tree  - When to Cut Your Tree page', () => {
   let page: TreesSidebarPage;
 
-  describe( 'Mt Hood', () => {
+  describe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -37,11 +37,11 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display default daily hours for the overall forest', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only')
+      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
   });
 
-  describe( 'Shoshone', () => {
+  describe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -74,11 +74,11 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display default daily hours for the overall forest', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only')
+      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
   });
 
-  describe( 'Flathead', () => {
+  describe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -111,11 +111,11 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display default daily hours for the overall forest', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only')
+      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
   });
 
-  describe( 'Arapaho/Roosevelt', () => {
+  describe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -148,17 +148,15 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display default daily hours for the overall forest', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only')
+      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
 
     it('should display cutting area dates', () => {
-      expect<any>(page.cuttingAreaDates(0).isDisplayed()).toBeTruthy();
+      expect<any>(element(by.id(`tree-cutting-areas-dates-0`)).isDisplayed()).toBeTruthy();
     });
 
     it('should display cutting area hours', () => {
-      expect<any>(page.cuttingAreaHours(0).isPresent()).toBeTruthy();
+      expect<any>(element(by.id(`tree-cutting-areas-hours-0`)).isPresent()).toBeTruthy();
     });
   });
-
-
 });

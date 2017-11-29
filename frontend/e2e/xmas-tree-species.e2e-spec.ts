@@ -4,7 +4,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 describe('Xmas tree species page', () => {
   let page: TreesSidebarPage;
 
-  describe( 'Mt Hood', () => {
+  describe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -15,9 +15,7 @@ describe('Xmas tree species page', () => {
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-        'How to choose your tree'
-      );
+      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
     });
 
     describe('recommended species', () => {
@@ -55,7 +53,7 @@ describe('Xmas tree species page', () => {
     });
   });
 
-  describe( 'Arapaho/Roosevelt', () => {
+  describe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -66,9 +64,7 @@ describe('Xmas tree species page', () => {
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-        'How to choose your tree'
-      );
+      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
     });
 
     describe('recommended species', () => {
@@ -90,7 +86,7 @@ describe('Xmas tree species page', () => {
     });
   });
 
-  describe( 'Shoshone', () => {
+  describe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -101,9 +97,7 @@ describe('Xmas tree species page', () => {
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-        'How to choose your tree'
-      );
+      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
     });
 
     describe('recommended species', () => {
@@ -148,7 +142,7 @@ describe('Xmas tree species page', () => {
     });
   });
 
-  describe( 'Flathead', () => {
+  describe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
       browser.driver.manage().window().setSize(1400, 900);
@@ -159,9 +153,7 @@ describe('Xmas tree species page', () => {
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual(
-        'How to choose your tree'
-      );
+      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
     });
 
     describe('recommended species', () => {
@@ -204,5 +196,4 @@ describe('Xmas tree species page', () => {
       });
     });
   });
-
 });
