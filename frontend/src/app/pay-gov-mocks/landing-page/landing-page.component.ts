@@ -41,7 +41,6 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      console.log(params);
       this.applicationForm.get('paymentAmount').setValue(params['']);
       this.applicationForm.get('formName').setValue(params['']);
       this.applicationForm.get('applicantName').setValue(params['']);
