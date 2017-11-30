@@ -5,6 +5,7 @@ const uuid = require('uuid/v4');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
+const util = require('../util.es6');
 
 const christmasTree = {};
 
@@ -85,70 +86,49 @@ christmasTree.getForests = (req, res) => {
     });
 };
 
+const translateFromApplicationToPayment = application => {
+  const result = {
+    paymentAmount: application.totalCost,
+    formName: 'FS Christmas Trees Permit Form',
+    applicantName: application.firstName + ' ' + application.lastName,
+    applicantEmailAddress: application.emailAddress,
+    selectedOption: 'christmas tree permit',
+    description: 'mt.hood national forest',
+    amountOwed: application.totalCost,
+    permitId: application.permitId
+  };
+  return result;
+};
+
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
     .then(response => {
     
-      //req.body.permitId = response.permitId;
-      //req.body.status = response.status;
-      
-      console.log(JSON.stringify(response));
-      
       const requestOptions = {
         method: 'POST',
         url: vcapConstants.payGovUrl,
+        headers: {},
         json: true,
         simple: true,
-        body: {
-          paymentAmount: reponse.totalCost,
-          formName: 'FS Christmas Trees Permit Form',
-          applicantName: response.firstName + ' ' + response.lastName,
-          applicantEmailAddress: response.emailAddress,
-          selectedOption: 'christmas tree permit',
-          description: 'mt.hood national forest',
-          amountOwed: reponse.totalCost
-        }
+        body: translateFromApplicationToPayment(response)
       };
-      console.log(requestOptions);
-      return util.request(requestOptions);
-      //return res.status(201).json(req.body);
+      console.log('requestOptions=',requestOptions);
+      util.request(requestOptions).then((token) => {
+        console.log('token=',token);
+        return res.status(200).send(token);
+      }).catch(error => {
+          return res.status(500).send();
+      });
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({ errors: error.errors });
       } else {
+        //console.log(error);
         return res.status(500).send();
       }
     });
 };
-
-// /**
-//  * POST call to Payment system.
-//  */
-// christmasTree.redirectToPayment = application => {
-//   const requestOptions = {
-//     method: 'POST',
-//     url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
-//     headers: {},
-//     json: true,
-//     simple: true,
-//     body: translateFromIntakeToMiddleLayer(application)
-//   };
-//   return new Promise((resolve, reject) => {
-//     util
-//       .middleLayerAuth()
-//       .then(token => {
-//         requestOptions.headers['x-access-token'] = token;
-//         util
-//           .request(requestOptions)
-//           .then(resolve)
-//           .catch(reject);
-//       })
-//       .catch(error => {
-//         reject(error);
-//       });
-//   });
-// };
 
 christmasTree.getOneGuidelines = (req, res) => {
 
