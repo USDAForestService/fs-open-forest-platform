@@ -89,11 +89,11 @@ christmasTree.getForests = (req, res) => {
 const translateFromApplicationToPayment = application => {
   const result = {
     paymentAmount: application.totalCost,
-    formName: 'FS Christmas Trees Permit Form',
+    formName: '',
     applicantName: application.firstName + ' ' + application.lastName,
     applicantEmailAddress: application.emailAddress,
-    selectedOption: 'christmas tree permit',
-    description: 'mt.hood national forest',
+    selectedOption: '',
+    description: '',
     amountOwed: application.totalCost,
     permitId: application.permitId
   };
@@ -112,19 +112,16 @@ christmasTree.create = (req, res) => {
         simple: true,
         body: translateFromApplicationToPayment(response)
       };
-      console.log('requestOptions=',requestOptions);
       util.request(requestOptions).then((token) => {
-        console.log('token=',token);
         return res.status(200).send(token);
       }).catch(error => {
-          return res.status(500).send();
+        return res.status(500).send();
       });
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({ errors: error.errors });
       } else {
-        //console.log(error);
         return res.status(500).send();
       }
     });
