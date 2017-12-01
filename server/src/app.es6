@@ -15,6 +15,7 @@ const router = require('./routers/router.es6');
 const util = require('./util.es6');
 const vcapConstants = require('./vcap-constants.es6');
 const payGov = require('./pay-gov-mocks/christmas-trees-payments.es6');
+require('body-parser-xml')(bodyParser);
 
 /**  Create the express application. */
 const app = express();
@@ -29,6 +30,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(bodyParser.xml());
 
 /**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
 app.use(
