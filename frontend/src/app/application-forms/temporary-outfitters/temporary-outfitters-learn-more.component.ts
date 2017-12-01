@@ -17,7 +17,7 @@ export class TemporaryOutfittersLearnMoreComponent {
         <li>Authorization to conduct short-term outfitted or guided use on national Forest
 Service land.</li>
         <li>Held by an outfitter qualified to provide the service.</li>
-        <li>Valid for up to 200 days in a 180-day period per use area.</li>
+        <li>Valid for up to 200 <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a> in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
         <li>Based on a flat-rate fee schedule (see “Costs” below).</li>
         <li>Non-renewable and non-competitive.</li>
         <li>Revocable, suspendable and not appealable.</li>
