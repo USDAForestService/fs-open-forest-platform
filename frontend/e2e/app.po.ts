@@ -36,7 +36,7 @@ export class AdminApplicationView {
 
 export class TreesSidebarPage {
   navigateTo(forestId) {
-    return browser.get('/xmas-trees/forests/' + forestId + '/tree-guidelines');
+    return browser.get('/christmas-trees/forests/' + forestId + '/tree-guidelines');
   }
 
   getTreeSelectionLink() {
@@ -50,11 +50,59 @@ export class TreesSidebarPage {
   getTreeSpecies(type, index) {
     return element(by.id(`tree-${type}-species-${index}`))
   }
+
+  cuttingAreaDates(index) {
+    return element(by.id(`tree-cutting-areas-dates-${index}`));
+  }
+
+  cuttingAreaHours(index) {
+    return element(by.id(`tree-cutting-areas-hours-${index}`));
+  }
+
+  contactUsSectionLink() {
+    return element(by.id('contact-information-link'));
+  }
+
+  contactUsSection() {
+    return element(by.id('contact-information'));
+  }
+
+  contactUsHeadquarters() {
+    return element(by.id('tree-contact-headquarters-0'));
+  }
+
+  contactUsDistrict(id) {
+    return element(by.id(`tree-contact-district-${id}`));
+  }
+
+  cuttingDatesSectionLink() {
+    return element(by.id('cutting-dates-link'));
+  }
+
+  cuttingDatesSection() {
+    return element(by.id('cutting-dates'));
+  }
+
+  cuttingDatesSeasonStartAndEnd() {
+    return element(by.id('cutting-season-start-end-date'));
+  }
+
+  cuttingDatesHoursDefault() {
+    return element(by.id('cutting-season-daily-hours-default'));
+  }
+
+  whenToCutDatesSection() {
+    return element(by.id('cutting-dates'));
+  }
+
+  whenToCutDatesSectionLink() {
+    return element(by.id('cutting-dates-link'));
+  }
 }
 
 export class TreesForestFinderPage {
   navigateTo() {
-    return browser.get('/xmas-trees/forests');
+    return browser.get('/christmas-trees/forests');
   }
 }
 

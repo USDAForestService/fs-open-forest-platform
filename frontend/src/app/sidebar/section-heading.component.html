@@ -1,7 +1,17 @@
 <h2
+  *ngIf="selector === 'h2'"
   tabindex="-1"
   id="{{elementId}}"
   in-viewport
   [inViewportOptions]="{ partial: true}"
   (inViewportAction)="elementInView($event)"
   >{{ heading }}</h2>
+
+<h3
+  *ngIf="selector === 'h3'"
+  tabindex="-1"
+  id="{{elementId}}"
+  in-viewport
+  [inViewportOptions]="{ partial: true}"
+  (inViewportAction)="elementInView($event)"
+  >{{ heading }}</h3>

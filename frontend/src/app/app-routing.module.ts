@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthGuardService } from './_services/auth-guard.service';
-import { ForestResolver } from './trees/forests/forest-resolver.service';
-import { ForestFinderResolver } from './trees/forests/forest-finder-resolver.service';
+import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
+import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
@@ -85,15 +85,15 @@ const appRoutes: Routes = [
     data: { title: 'Temporary outfitters permit FAQs' }
   },
   {
-    path: 'xmas-trees/forests/:id/tree-guidelines',
+    path: 'christmas-trees/forests/:id/tree-guidelines',
     component: TreeGuidelinesComponent,
     resolve: {
       forest: ForestResolver
     },
-    data: { title: 'Christmas Tree Permit Guidelines' }
+    data: { title: 'Christmas Tree Permit Information' }
   },
   {
-    path: 'xmas-trees/forests',
+    path: 'christmas-trees/forests',
     component: ForestFinderComponent,
     resolve: {
       forests: ForestFinderResolver

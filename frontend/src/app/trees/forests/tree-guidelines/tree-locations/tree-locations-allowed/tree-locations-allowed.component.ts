@@ -1,14 +1,16 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {TreeLocationsComponent} from '../tree-locations.component';
+import {TreesService} from '../../../../_services/trees.service';
 
 @Component({
   selector: 'app-tree-locations-allowed',
   templateUrl: './tree-locations-allowed.component.html'
 })
 
+
 export class TreeLocationsAllowedComponent implements OnChanges {
   @Input() forest: any;
   allowedDistricts: any = [];
+  constructor(public service: TreesService) {}
 
   populateDistricts() {
     const locations = this.forest.locations;

@@ -56,7 +56,7 @@
     "dev": "yarn; sequelize db:migrate; nodemon --harmony_default_parameters ./src/app.es6",
     "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "sequelize db:migrate",
-    "seed-ci": "sequelize db:seed:all --seeders-path dba/seeders/ci/", 
+    "seed-ci": "sequelize db:seed:all --seeders-path dba/seeders/ci/",
     "seed": "sequelize db:seed:all --seeders-path dba/seeders/prod/",
     "snyk-test": "snyk test",
     "start": "node --harmony_default_parameters ./src/app.es6",

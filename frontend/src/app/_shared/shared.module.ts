@@ -23,24 +23,27 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     FilterPipe,
     ProgressComponent,
     SectionHeadingComponent,
+    SidebarComponent,
     SpacesToDashesPipe,
     UrlPipe,
-    SidebarComponent
+    TrackScrollDirective
   ],
   exports: [
     ApiErrorComponent,
     FilterPipe,
     AppRoutingModule,
-    TrackScrollDirective,
     CommonModule,
-    InViewportModule,
-    ReactiveFormsModule,
+    FilterPipe,
     FormsModule,
+    InViewportModule,
     Ng2AutoCompleteModule,
     AppButtonComponent,
+    ProgressComponent,
+    ReactiveFormsModule,
     SectionHeadingComponent,
-    SpacesToDashesPipe,
     SidebarComponent,
+    SpacesToDashesPipe,
+    TrackScrollDirective,
     UrlPipe,
     ProgressComponent
   ]

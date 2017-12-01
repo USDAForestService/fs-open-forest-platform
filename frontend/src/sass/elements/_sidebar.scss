@@ -1,9 +1,37 @@
+.tree-guidelines-menu-btn {
+  position: absolute;
+  top: 162px;
+  right: 0;
+  @media (min-width: $small-screen) {
+    top: 140px;
+  }
+  @media (min-width: $medium-screen) {
+    top: 120px;
+  }
+}
+
+.sidenav-mobile {
+  height: 100%;
+  overflow-y: auto;
+  @media (min-width: $nav-width) {
+    display: none;
+  }
+}
+
 .usa-sidenav-list {
   display: none;
   margin-right: 14px;
   position: absolute;
   width: 296px;
   top: 250px;
+  &.usa-accordion {
+    display: block;
+    margin-right: 0;
+    position: inherit;
+    width: 100%;
+    top: 50px;
+    padding-right: 40px;
+  }
   @media (min-width: $nav-width) {
     display: block;
   }
