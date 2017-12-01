@@ -12,7 +12,7 @@ import { treeApplicationMock } from './tree-application.mock';
 
 class MockApplicationService {
   create(): Observable<{}> {
-    return Observable.of(treeApplicationMock);
+    return Observable.throw('error');
   }
 }
 
@@ -62,7 +62,7 @@ describe('TreeApplicationFormComponent', () => {
     component.applicationForm.get('emailAddress').setValue('test@test.com');
     component.applicationForm.get('quantity').setValue('2');
     component.onSubmit();
-    expect(component.application).toBeTruthy();
+    expect(component.apiErrors).toEqual('error');
   });
 
   it('should update total cost', () => {
