@@ -43,15 +43,15 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
-  getApplicationData(url, token, appId) {
+  getApplicationData(token, appId) {
     return this.http
-      .get(`${url}?token=${token}&tcsAppID=${appId}`, { withCredentials: true })
+      .get(`${environment.apiUrl}mock-pay-gov?token=${token}&tcsAppID=${appId}`, { withCredentials: true })
       .map((res: Response) => res.json());
   }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.getApplicationData(params['payGovUrl'], params['token'], params['tcsAppID']).subscribe(
+      this.getApplicationData(params['token'], params['tcsAppID']).subscribe(
         (data: any) => {
           this.applicationForm.get('paymentAmount').setValue(data['paymentAmount']);
           this.applicationForm.get('formName').setValue(data['formName']);

@@ -69,7 +69,7 @@ export class TreeApplicationFormComponent implements OnInit {
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value), '/christmas-trees').subscribe(
       response => {
-        window.location.href = `http://localhost:4200/mock-pay-gov?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (e: any) => {
         this.apiErrors = e;
