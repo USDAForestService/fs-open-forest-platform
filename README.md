@@ -175,18 +175,21 @@ VCAP_SERVICES
     {
       "name": "auth-service",
       "credentials": { "jwt_secret_key": "shhhhhhhh!" }
+    },
+    {
+      "name":"pay-gov",
+      "label":"user-provided",
+      "credentials": {
+        "token_url": "http://localhost:8080/mock-pay-gov", 
+        "client_url": "http://localhost:4200/mock-pay-gov", 
+        "tcs_app_id": "FS-100"
+      }
     }
   ],
   "s3": [
     {
       "name": "intake-s3",
       "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" }
-    }
-  ],
-  "pay-gov": [
-    {
-      "name": "pay-gov",
-      "credentials": {"url": "http://localhost:8080/mock-pay-gov"}
     }
   ]
 }
