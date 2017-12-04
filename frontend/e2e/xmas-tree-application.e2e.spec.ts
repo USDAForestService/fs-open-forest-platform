@@ -24,7 +24,7 @@ fdescribe('Apply for a Christmas tree permit', () => {
     element(by.id('quantity')).sendKeys('2');
     expect<any>(element(by.id('total-cost')).getText()).toEqual('$20');
   });
-  
+
   it('should redirect to mock pay.gov on application submit', () => {
     page.navigateTo();
     element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
@@ -35,6 +35,4 @@ fdescribe('Apply for a Christmas tree permit', () => {
     browser.sleep(900);
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
-  
-  
 });
