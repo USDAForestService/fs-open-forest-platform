@@ -7,10 +7,12 @@ import { UtilService } from '../_services/util.service';
 })
 export class SidebarComponent implements OnInit {
   @Input() items: any;
+  @Input() mobileMenu = false;
   currentSection: any;
   bottom: string;
   top: string;
   position: string;
+  showMobileNav = false;
 
   constructor(public util: UtilService) {}
 
@@ -35,6 +37,28 @@ export class SidebarComponent implements OnInit {
         this.top = '-250px';
         this.position = 'fixed';
       }
+    }
+  }
+
+  toggleMobileNav() {
+    this.showMobileNav = !this.showMobileNav;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth >= 951) {
+      this.showMobileNav = false;
+    }
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  public scroll(event: Event) {
+    if (window.pageYOffset > 122) {
+      this.position = 'fixed';
+      this.top = '0px';
+    } else {
+      this.position = 'absolute';
+      this.top = 'inherit';
     }
   }
 

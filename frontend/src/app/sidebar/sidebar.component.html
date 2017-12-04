@@ -1,7 +1,101 @@
-&nbsp;
-<ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
-  <li class="usa-current" *ngFor="let item of items">
-    <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
-      href="#" (click)="gotoHashtag(util.createId(item.sectionName), $event)">{{item.sectionName}}</a>
-  </li>
-</ul>
+<ng-container *ngIf="!mobileMenu">
+  &nbsp;
+  <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+    <li class="usa-current" *ngFor="let item of items">
+      <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
+        href="#" (click)="gotoHashtag(util.createId(item.sectionName), $event)">{{item.sectionName}}</a>
+    </li>
+  </ul>
+</ng-container>
+<ng-container *ngIf="mobileMenu">
+  <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
+  <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="position">Menu</button>
+  <nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" class="usa-nav sidenav-mobile">
+    <button class="usa-nav-close" (click)="toggleMobileNav()">
+      <img src="/assets/img/close.svg" alt="close">
+    </button>
+    <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
+      <li>
+        <a href="#" id="mobile-cutting-dates-link" (click)="util.gotoHashtag('cutting-dates', $event); toggleMobileNav();">When to cut your tree</a>
+      </li>
+
+      <li>
+        <a href="#" id="mobile-tree-selection-link" (click)="util.gotoHashtag('tree-selection', $event); toggleMobileNav();">How to choose your tree</a>
+      </li>
+      <li>
+        <a href="#" id="mobile-cutting-instructions-link" (click)="util.gotoHashtag('cutting-instructions', $event); toggleMobileNav();">How to cut your tree</a>
+        <ul class="usa-sidenav-sub_list">
+          <li>
+            <a href="#" id="mobile-cutting-instructions-before-you-cut-link" (click)="util.gotoHashtag('cutting-instructions-before-you-cut', $event); toggleMobileNav();">Before you cut</a>
+          </li>
+          <li>
+            <a href="#" id="mobile-cutting-instructions-when-you-cut-link" (click)="util.gotoHashtag('cutting-instructions-when-you-cut', $event); toggleMobileNav();">When you cut</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" id="mobile-need-to-know-link" (click)="util.gotoHashtag('need-to-know', $event); toggleMobileNav();">Rules to know</a>
+      </li>
+      <li>
+        <a href="#" id="mobile-trip-planning-link" (click)="util.gotoHashtag('trip-planning', $event); toggleMobileNav();">How to plan your trip</a>
+      </li>
+      <li>
+        <a href="#" id="mobile-tree-locations-link" (click)="util.gotoHashtag('tree-locations', $event); toggleMobileNav();">Where to find your tree</a>
+        <ul class="usa-sidenav-sub_list">
+          <li>
+            <a href="#" id="mobile-tree-locations-prohibited-link" (click)="util.gotoHashtag('tree-locations-prohibited', $event); toggleMobileNav();">Prohibited areas and restrictions</a>
+          </li>
+          <li>
+            <a href="#" id="mobile-tree-locations-allowed-link" (click)="util.gotoHashtag('tree-locations-allowed', $event); toggleMobileNav();">Cutting area maps</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" id="mobile-contact-information-link" (click)="util.gotoHashtag('contact-information', $event); toggleMobileNav();">Contact us</a>
+      </li>
+    </ul>
+  </nav>
+  <aside class="usa-width-one-third usa-layout-docs-sidenav">
+    &nbsp;
+    <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+      <li>
+        <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-dates'}" (click)="util.gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
+      </li>
+      <li>
+        <a href="#" id="tree-selection-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-selection')}" (click)="util.gotoHashtag('tree-selection', $event)">How to choose your tree</a>
+      </li>
+      <li>
+        <a href="#" id="cutting-instructions-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('cutting-instructions')}" (click)="util.gotoHashtag('cutting-instructions', $event, true)">How to cut your tree</a>
+        <ul class="usa-sidenav-sub_list" *ngIf="util.currentSection && util.currentSubSection && util.currentSection.startsWith('cutting-instructions') && util.currentSubSection.startsWith('cutting-instructions')">
+          <li>
+            <a href="#" id="cutting-instructions-before-you-cut-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-instructions-before-you-cut'}" (click)="util.gotoHashtag('cutting-instructions-before-you-cut', $event, true)">Before you cut</a>
+          </li>
+          <li>
+            <a href="#" id="cutting-instructions-when-you-cut-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-instructions-when-you-cut'}" (click)="util.gotoHashtag('cutting-instructions-when-you-cut', $event, true)">When you cut</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" id="need-to-know-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('need-to-know')}" (click)="util.gotoHashtag('need-to-know', $event)">Rules to know</a>
+      </li>
+      <li>
+        <a href="#" id="trip-planning-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'trip-planning'}" (click)="util.gotoHashtag('trip-planning', $event)">How to plan your trip</a>
+      </li>
+      <li>
+        <a href="#" id="tree-locations-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith('tree-locations')}" (click)="util.gotoHashtag('tree-locations', $event, true)">Where to find your tree</a>
+        <ul class="usa-sidenav-sub_list" *ngIf="util.currentSection && util.currentSubSection && util.currentSection.startsWith('tree-locations') && util.currentSubSection.startsWith('tree-locations')">
+          <li>
+            <a href="#" id="tree-locations-prohibited-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-prohibited'}" (click)="util.gotoHashtag('tree-locations-prohibited', $event, true)">Prohibited areas and restrictions</a>
+          </li>
+          <li>
+            <a href="#" id="tree-locations-allowed-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'tree-locations-allowed'}" (click)="util.gotoHashtag('tree-locations-allowed', $event, true)">Cutting area maps</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" id="contact-information-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'contact-information'}" (click)="util.gotoHashtag('contact-information', $event)">Contact us</a>
+      </li>
+
+    </ul>
+  </aside>
+</ng-container>

@@ -11,6 +11,7 @@ export class SidebarViewComponent implements OnInit {
   bottom: string;
   top: string;
   position: string;
+  showMobileNav = false;
 
   constructor(public util: UtilService) {}
 
