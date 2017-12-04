@@ -57,7 +57,6 @@ describe('TreeGuidelinesComponent', () => {
 
   it( 'should set the title', () => {
     inject([TreesService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { forest: { forestName: 'forest name', species: { status: 'test' } } };
       mockBackend.connections.subscribe(connection => {
         connection.mockRespond(
           new Response(
