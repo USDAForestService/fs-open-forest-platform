@@ -22,6 +22,12 @@ export class TempOutfittersForm {
   }
 }
 
+export class ChristmasTreeForm {
+  navigateTo() {
+    return browser.get('applications/christmas-trees/forests/arp/new');
+  }
+}
+
 export class AdminApplicationList {
   navigateTo() {
     return browser.get('/admin/applications');

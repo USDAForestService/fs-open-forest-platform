@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require('request');
+const uuid = require('uuid/v4');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -15,12 +16,15 @@ const translateGuidelinesFromDatabaseToClient = input => {
       description: input.description,
       forestAbbr: input.forestAbbr,
       forestUrl: input.forestUrl,
+      orgStructureCode: input.orgStructureCode,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
       forestAbbr: input.forestAbbr,
+      treeCost: input.treeCost,
+      maxNumTrees: input.maxNumTrees,
       species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
@@ -46,6 +50,20 @@ const translateGuidelinesFromDatabaseToClient = input => {
   }; 
 };
 
+const translatePermitFromClientToDatabase = input => {
+  return {
+    permitId: uuid(),
+    forestId: input.forestId,
+    orgStructureCode: input.orgStructureCode,
+    firstName: input.firstName,
+    lastName: input.lastName,
+    emailAddress: input.emailAddress,
+    treeCost: input.treeCost,
+    quantity: input.quantity,
+    totalCost: input.totalCost 
+  };
+};
+
 christmasTree.getForests = (req, res) => {
 
   treesDb.christmasTreesForests.findAll({
@@ -62,11 +80,26 @@ christmasTree.getForests = (req, res) => {
       res.status(404).send();
     }
   })
-  .catch(error => {
-    res.status(400).json(error);
-  });
+    .catch(error => {
+      res.status(400).json(error);
+    });
 };
 
+christmasTree.create = (req, res) => {
+  treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
+    .then(response => {
+      req.body.permitId = response.permitId;
+      req.body.status = response.status;
+      return res.status(201).json(req.body);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
+};
 
 christmasTree.getOneGuidelines = (req, res) => {
 
@@ -109,5 +142,6 @@ christmasTree.getOneGuidelines = (req, res) => {
       res.status(400).json(error);
     });
 };
+
 
 module.exports = christmasTree;
