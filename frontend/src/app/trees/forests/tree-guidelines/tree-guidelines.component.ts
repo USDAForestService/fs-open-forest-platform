@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TreesService } from '../../_services/trees.service';
@@ -16,7 +17,7 @@ export class TreeGuidelinesComponent implements OnInit {
   position: string;
   top: string;
 
-  constructor(private route: ActivatedRoute, private service: TreesService, public util: UtilService) {}
+  constructor(private route: ActivatedRoute, private titleService: Title, private service: TreesService, public util: UtilService) {}
 
   toggleMobileNav() {
     this.showMobileNav = !this.showMobileNav;
@@ -48,6 +49,9 @@ export class TreeGuidelinesComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      if (data.forest) {
+        this.titleService.setTitle(data.forest.forestName + ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
+      }
     });
   }
 }
