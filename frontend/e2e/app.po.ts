@@ -104,6 +104,14 @@ export class TreesSidebarPage {
   whenToCutDatesSectionLink() {
     return element(by.id('cutting-dates-link'));
   }
+
+  rulesToKnowSectionLink() {
+    return element(by.id('need-to-know-link'));
+  }
+
+  rulesToKnowSection() {
+    return element(by.id('need-to-know'));
+  }
 }
 
 export class TreesForestFinderPage {
