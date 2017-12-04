@@ -4,7 +4,9 @@
     <label>Payment Amount</label>
     <input type="text" name="payment-amount" value="5.00" formControlName="paymentAmount">
     <label>Cardholder Name</label>
-    <input type="text" name="cardholder-name" formControlName="cardholderName">
+    <input type="text" name="cardholder-name" formControlName="applicantName" value="{{applicationForm.controls.applicantName.value}}">
+    <label>Cardholder Email Address</label>
+    <input type="text" name="cardholder-name" formControlName="applicantEmailAddress" value="{{applicationForm.controls.applicantEmailAddress.value}}">
     <label>Cardholder Billing Address</label>
     <input type="text" name="cardholder-billing-address" formControlName="cardholderBillingAddress">
     <label>Billing Address 2</label>
@@ -25,29 +27,23 @@
     <input type="text" name="country" formControlName="cardholderCountry">
     <label>Card Number</label>
     <input type="text" name="card-number" formControlName="cardNumber">
-    <label>Expiration Date</label>
-    <select name="card-exp-month" class="usa-width-one-fourth" formControlName="cardExpirationMonth">
-      <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]">{{month}}</option>
-    </select>
-    <select name="card-exp-year" class="usa-width-one-fourth" formControlName="cardExpirationYear">
-      <option *ngFor="let year of [2017,2018,2019,2020,2021,2022,2023]">{{year}}</option>
-    </select>
-    <label>Security Code</label>
-    <input type="text" name="card-security-code" formControlName="cardSecurityCode" class="usa-width-one-fourth">
-    <br />
-    <label>Form Name</label>
-    <input type="text" name="form-name" formControlName="formName">
-    <label>Applicant Name</label>
-    <p type="text" name="applicant-name">{{applicationForm.controls.applicantName.value}}</p>
-    <label>Applicant Email Address</label>
-    <p type="text" name="applicant-email-address">{{applicationForm.controls.applicantEmailAddress.value}}</p>
-    <label>Selected Option</label>
-    <p type="text" name="selected-option">{{applicationForm.controls.selectedOption.value}}</p>
-    <label>Description</label>
-    <p type="text" name="description">{{applicationForm.controls.description.value}}</p>
-    <label>Amount Owed</label>
-    <p type="text" name="amount-owed">{{applicationForm.controls.amountOwed.value}}</p>
-    <button class="usa-button-grey usa-button-big usa-width-one-fourth" (click)="cancelButtonClick()">Cancel</button>
-    <button class="usa-button-secondary usa-width-one-fourth" (click)="submitButtonClick()">Review and Submit Payment</button>
+    
+    <div class="usa-width-one-half">
+      <label>Expiration Date</label>
+      <select name="card-exp-month" class="usa-width-one-fourth" formControlName="cardExpirationMonth">
+        <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]">{{month}}</option>
+      </select>
+      <select name="card-exp-year" class="usa-width-one-fourth" formControlName="cardExpirationYear">
+        <option *ngFor="let year of [2017,2018,2019,2020,2021,2022,2023]">{{year}}</option>
+      </select>
+    </div>
+    <div class="usa-width-one-fourth">   
+      <label>Security Code</label> 
+      <input type="text" name="card-security-code" formControlName="cardSecurityCode" class="usa-width-one-fourth">
+    </div>
+    <div class="usa-width-one-whole">
+      <button class="usa-button-grey usa-button-big" (click)="cancelButtonClick()">Cancel</button>
+      <button class="usa-button-secondary usa-button-big" (click)="submitButtonClick()">Review and Submit Payment</button>
+    </div>
   </form>
 </div>
