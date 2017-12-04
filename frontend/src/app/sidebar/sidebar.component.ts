@@ -23,18 +23,18 @@ export class SidebarComponent implements OnInit {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
-        this.top = '40px';
+      if (container.getBoundingClientRect().top < 30) {
+        this.top = '140px';
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
-        this.top = '250px';
+        this.top = '270px';
         this.position = 'absolute';
       }
 
       if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = '-250px';
+        this.top = '-10px';
         this.position = 'fixed';
       }
     }
@@ -68,5 +68,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.util.setCurrentSection('');
+    this.top = '270px';
   }
 }

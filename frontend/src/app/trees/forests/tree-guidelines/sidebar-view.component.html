@@ -3,7 +3,8 @@
     <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit information</span>
   </div>
   <div class="usa-grid">
-    <app-sidebar mobileMenu="true"></app-sidebar>
+    <app-sidebar mobileMenu="true" [items]="sidebarItems"></app-sidebar>
+
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Information</h1>
       <br/>

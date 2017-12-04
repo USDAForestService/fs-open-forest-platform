@@ -115,24 +115,4 @@ describe('PermitApplicationListComponent', () => {
       );
     })
   );
-
-  it('should toggle mobile nav', () => {
-    component.toggleMobileNav();
-    expect(component.showMobileNav).toBeTruthy();
-  });
-
-  it('should show mobile nav if screen width is greater than or equal to 951', () => {
-    component.showMobileNav = true;
-    component.onResize({ target: { innerWidth: 950 } });
-    expect(component.showMobileNav).toBeTruthy();
-
-    component.onResize({ target: { innerWidth: 951 } });
-    expect(component.showMobileNav).toBeFalsy();
-  });
-
-  it('should set top value and position value on no scroll', () => {
-    component.scroll(new Event('scroll'));
-    expect(component.position).toEqual('absolute');
-    expect(component.top).toEqual('inherit');
-  });
 });

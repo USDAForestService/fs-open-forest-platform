@@ -7,6 +7,7 @@
     </li>
   </ul>
 </ng-container>
+
 <ng-container *ngIf="mobileMenu">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
   <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="position">Menu</button>
@@ -15,6 +16,17 @@
       <img src="/assets/img/close.svg" alt="close">
     </button>
     <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
+
+      <li *ngFor="let item of items">
+        <a href="#" id="mobile-{{item.id}}-link" (click)="util.gotoHashtag(item.id, $event); toggleMobileNav();">{{item.title}}</a>
+        <ul class="usa-sidenav-sub_list" *ngIf="item.sections">
+          <li *ngFor="let section of item.sections">
+            <a href="#" id="mobile-{{section.id}}-link" (click)="util.gotoHashtag(section.id, $event); toggleMobileNav();">{{section.title}}</a>
+          </li>
+        </ul>
+      </li>
+
+<!--
       <li>
         <a href="#" id="mobile-cutting-dates-link" (click)="util.gotoHashtag('cutting-dates', $event); toggleMobileNav();">When to cut your tree</a>
       </li>
@@ -53,11 +65,22 @@
       <li>
         <a href="#" id="mobile-contact-information-link" (click)="util.gotoHashtag('contact-information', $event); toggleMobileNav();">Contact us</a>
       </li>
+    -->
     </ul>
   </nav>
   <aside class="usa-width-one-third usa-layout-docs-sidenav">
     &nbsp;
     <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+
+      <li *ngFor="let item of items">
+        <a href="#" id="{{item.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === item.id}" (click)="util.gotoHashtag(item.id, $event)">{{item.title}}</a>
+        <ul class="usa-sidenav-sub_list" *ngIf="item.sections && util.currentSection && util.currentSubSection && util.currentSection.startsWith(item.id) && util.currentSubSection.startsWith(item.id)">
+          <li *ngFor="let section of item.sections">
+            <a href="#" id="{{section.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === section.id}" (click)="util.gotoHashtag(section.id, $event, true)">{{section.title}}</a>
+          </li>
+        </ul>
+      </li>
+      <!--
       <li>
         <a href="#" id="cutting-dates-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'cutting-dates'}" (click)="util.gotoHashtag('cutting-dates', $event)">When to cut your tree</a>
       </li>
@@ -95,7 +118,7 @@
       <li>
         <a href="#" id="contact-information-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === 'contact-information'}" (click)="util.gotoHashtag('contact-information', $event)">Contact us</a>
       </li>
-
+-->
     </ul>
   </aside>
 </ng-container>
