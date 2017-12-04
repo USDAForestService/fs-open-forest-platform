@@ -172,6 +172,31 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "Application not found"
+  /permits/applications/christmas-trees:
+    post:
+      tags:
+      - "christmas-tree"
+      summary: "Creates a new christmas-tree application"
+      description: "Creates a new christmas-tree application"
+      operationId: "createChristmasTreeApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A non-christmas-tree application object"
+        required: true
+        schema:
+          $ref: "#/definitions/christmasTreeApplication"
+      responses:
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
+        201:
+          description: "Successful Creation"
   /forests:
     get:
       tags:
@@ -415,6 +440,24 @@ definitions:
           $ref: '#/definitions/noncommApplicantInfo'
         noncommercialFields:
           $ref: '#/definitions/noncommFields'
+  christmasTreeApplication:
+    properties:
+      forestId:
+        type: "integer"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      emailAddress:
+        type: "string"
+      treeCost: 
+        type: "number"
+        format: "double"
+      quantity:
+        type: "integer"
+      totalCost:
+        type: "number"
+        format: "double"
 externalDocs:
   description: "Find out more about Forest Service"
   url: "https://www.fs.fed.us/"

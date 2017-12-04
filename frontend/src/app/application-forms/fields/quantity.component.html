@@ -1,0 +1,9 @@
+<ng-container [formGroup]="parentGroup">
+  <label class="usa-input" id="quantity-label">{{ label }}</label>
+  <span id="quantity-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
+  <input id="quantity" class="usa-input-tiny" type="text" maxlength="{{length}}" formControlName="quantity" aria-required="true"
+    [attr.aria-labelledby]="afs.labelledBy(parentGroup.controls.quantity, 'quantity-label quantity-hint-text', 'quantity-error')"
+    [attr.aria-invalid]="afs.hasError(parentGroup.controls.quantity)"
+  />
+  <app-error-message fieldId="quantity-error" name="{{ label }}" [control]="parentGroup.controls.quantity"></app-error-message>
+</ng-container>

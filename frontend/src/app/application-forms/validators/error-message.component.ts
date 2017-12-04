@@ -39,6 +39,12 @@ export class ErrorMessageComponent {
     if (errors && errors.urlRequirement) {
       message += `${this.name} requires a valid URL. `;
     }
+    if (errors && errors.currencyRequirement) {
+      message += `${this.name} requires a format like 0.00. `;
+    }
+    if (errors && errors.lessThanOrEqualFail) {
+      message += `${this.name} must have a value less than or equal to ${errors.lessThanOrEqualFail.number}. `;
+    }
     if (errors && errors.pattern && errors.pattern.requiredPattern === '^https?://.+$') {
       message += `${this.name} requires a valid URL and must include http://.`;
     }
