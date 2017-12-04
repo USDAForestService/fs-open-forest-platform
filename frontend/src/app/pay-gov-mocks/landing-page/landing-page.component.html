@@ -1,30 +1,33 @@
 <div class="usa-grid">
   <h1>Pay.Gov Payment Form</h1>
   <form [formGroup]="applicationForm">
-    <label>Payment Amount</label>
+    <label>Transaction Amount</label>
     <input type="text" name="payment-amount" value="5.00" formControlName="paymentAmount">
     <label>Account Holder Name</label>
     <input type="text" name="cardholder-name" formControlName="applicantName" value="{{applicationForm.controls.applicantName.value}}">
-    <label>Email Address</label>
-    <input type="text" name="cardholder-name" formControlName="applicantEmailAddress" value="{{applicationForm.controls.applicantEmailAddress.value}}">
+    
     <label>Billing Address</label>
     <input type="text" name="cardholder-billing-address" formControlName="cardholderBillingAddress">
     <label>Billing Address 2</label>
     <input type="text" name="cardholder-billing-address-2" formControlName="cardholderBillingAddress2">
+    <div class="usa-width-one-whole">
     <div class="usa-width-one-fourth">
-        <label>City</label>
+        <label>Billing City</label>
         <input type="text" name="city" formControlName="cardholderCity">
     </div>
     <div class="usa-width-one-fourth">
-        <label>State/Province</label>
-        <input type="text" name="state-province" formControlName="cardholderState">
+        <label>Billing State</label>
+        <input class="usa-width-one-half" type="text" name="state-province" formControlName="cardholderState">
     </div>
     <div class="usa-width-one-fourth">
-        <label>ZIP/Postal Code</label>
-        <input type="text" name="zip-postal-code" formControlName="cardholderZip">
+        <label>Billing ZIP</label>
+        <input class="usa-width-one-half" type="text" name="zip-postal-code" formControlName="cardholderZip">
     </div>
-    <label>Country</label>
+  </div>
+    <label>Billing Country</label>
     <input type="text" name="country" formControlName="cardholderCountry">
+    <label>Email Address</label>
+    <input type="text" name="cardholder-name" formControlName="applicantEmailAddress" value="{{applicationForm.controls.applicantEmailAddress.value}}">
     <label>Card Number</label>
     <input type="text" name="card-number" formControlName="cardNumber">
     
