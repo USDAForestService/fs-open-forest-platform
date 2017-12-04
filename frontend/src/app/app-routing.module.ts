@@ -91,8 +91,7 @@ const appRoutes: Routes = [
     component: TreeGuidelinesComponent,
     resolve: {
       forest: ForestResolver
-    },
-    data: { title: 'Christmas Tree Permit Information' }
+    }
   },
   {
     path: 'christmas-trees/forests',
@@ -100,7 +99,7 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas tree permit information' }
+    data: { title: 'Select a national forest | U.S. Forest Service Christmas Tree Permitting' }
   },
   {
     path: 'mock-pay-gov',
@@ -112,8 +111,7 @@ const appRoutes: Routes = [
     component: TreeApplicationFormComponent,
     resolve: {
       forest: ForestResolver
-    },
-    data: { title: 'Apply for a Christmas tree permit' }
+    }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },

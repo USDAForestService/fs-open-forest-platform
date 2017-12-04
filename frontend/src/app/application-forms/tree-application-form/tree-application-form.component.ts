@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -23,6 +24,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private titleService: Title,
     public formBuilder: FormBuilder,
     public applicationService: ApplicationService,
     private treesService: TreesService
@@ -48,6 +50,7 @@ export class TreeApplicationFormComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      this.titleService.setTitle('Apply for a permit in ' + data.forest.forestName + ' National Forest | U.S. Forest Service Christmas Tree Permitting');
       this.applicationForm.get('forestId').setValue(data.forest.id);
       this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
       this.costPerTree = data.forest.treeCost;

@@ -7,12 +7,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
 import { UtilService } from '../../../_services/util.service';
 import { MockService } from '../../../_services/mock.service';
+import { Title } from '@angular/platform-browser';
 
-describe('PermitApplicationListComponent', () => {
+describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
   let fixture: ComponentFixture<TreeGuidelinesComponent>;
   let mockService: MockService;
   const mockResponse = { forest: { forestName: 'forest name', species: { status: 'test' } } };
+  let userService: Title;
+
   const router = {
     navigate: jasmine.createSpy('navigate')
   };
@@ -27,7 +30,8 @@ describe('PermitApplicationListComponent', () => {
           UtilService,
           { provide: TreesService, useClass: TreesService },
           { provide: XHRBackend, useClass: MockBackend },
-          { provide: MockService, use: mockService }
+          { provide: MockService, use: mockService },
+          { provide: Title, useClass: Title }
         ],
         imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
@@ -50,6 +54,26 @@ describe('PermitApplicationListComponent', () => {
       });
     })
   );
+
+  it( 'should set the title', () => {
+    inject([TreesService, XHRBackend], (service, mockBackend) => {
+      const mockResponse = { forest: { forestName: 'forest name', species: { status: 'test' } } };
+      mockBackend.connections.subscribe(connection => {
+        connection.mockRespond(
+          new Response(
+            new ResponseOptions({
+              body: JSON.stringify(mockResponse)
+            })
+          )
+        );
+      });
+
+      service.getOne(1).subscribe(result => {
+        userService = TestBed.get(Title);
+        expect(userService.getTitle()).toBe('forest name National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
+      });
+    })
+  });
 
   it(
     'should throw error if error',

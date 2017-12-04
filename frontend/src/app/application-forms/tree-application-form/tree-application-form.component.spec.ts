@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationService } from '../../_services/application.service';
 import { treeApplicationMock } from './tree-application.mock';
+import { Title } from '@angular/platform-browser';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -19,6 +20,7 @@ class MockApplicationService {
 describe('TreeApplicationFormComponent', () => {
   let component: TreeApplicationFormComponent;
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
+  let userService: Title;
 
   beforeEach(
     async(() => {
@@ -26,6 +28,7 @@ describe('TreeApplicationFormComponent', () => {
         declarations: [TreeApplicationFormComponent],
         providers: [
           { provide: FormBuilder, useClass: FormBuilder },
+          { provide: Title, useClass: Title },
           { provide: TreesService, useClass: TreesService },
           { provide: ApplicationService, useClass: MockApplicationService },
           {
@@ -52,6 +55,11 @@ describe('TreeApplicationFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     component.ngOnInit();
+  });
+
+  it( 'should set the title', () => {
+    userService = TestBed.get(Title);
+    expect(userService.getTitle()).toBe('Apply for a permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting');
   });
 
   it('should submit application', () => {
