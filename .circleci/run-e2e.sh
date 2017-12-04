@@ -1,7 +1,7 @@
 cd server;
 yarn start &
 serverid=$!
-sleep 20
+sleep 1
 cd ../frontend;
 yarn run e2e:ci;
 e2ereturncode=$?
