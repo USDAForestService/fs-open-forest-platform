@@ -1,36 +1,16 @@
 
-.header-subsection-steps {
-  padding-bottom: 4px;
-}
-
-.trees-header {
-  background-color: $fs-green;
-  color: $white;
-  font-size: 1.5rem;
-  line-height: 3.5rem;
-  border-bottom: none;
-  //position: fixed;
-  //top: 140px;
-  .trees-header-title {
-    font-size: 2.5em;
-    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
-    margin: 0;
-    color: $white;
-    font-weight: bold;
-  }
-  .trees-title-subhead {
-    font-size: 1.5em;
-    color: $white;
-    font-family: Merriweather, Georgia, Cambria, Times New Roman, Times, serif;
-    font-weight: bold;
-    margin: 0;
-  }
-}
-
 .tree-location-description {
   font-size: 2rem;
 }
 
+.tree-image-container {
+  img {
+    max-width: 110px;
+  }
+  figcaption {
+    max-width: 100%;
+  }
+}
 .tree-speci {
   .tree-description {
     padding-top: 2em;
@@ -42,4 +22,35 @@
       padding: .3em;
     }
   }
+}
+
+.trees-map-container {
+  padding-top: 2rem;
+  img {
+    padding-top: 1rem;
+  }
+}
+
+.trees-contact-district-container {
+  padding-bottom: 4rem;
+}
+
+.forest-image-container {
+  h5 {
+    padding-top: 2rem;
+  }
+}
+
+.icon-middle {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.tree-status-prohibited {
+  margin-bottom: 20px;
+  float: right;
+}
+
+.trees-section-divider {
+  margin-top: 5px;
 }

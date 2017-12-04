@@ -1,4 +1,5 @@
 import { Component, Input, HostListener, OnInit } from '@angular/core';
+import { UtilService } from '../../../_services/util.service';
 
 @Component({
   selector: 'app-sidebar-view',
@@ -7,10 +8,11 @@ import { Component, Input, HostListener, OnInit } from '@angular/core';
 export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  currentSection: any;
   bottom: string;
   top: string;
   position: string;
+
+  constructor(public util: UtilService) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
@@ -19,35 +21,24 @@ export class SidebarViewComponent implements OnInit {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
-        this.top = '80px';
+      if (container.getBoundingClientRect().top < 30) {
+        this.top = '140px';
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
-        this.top = '330px';
+        this.top = '270px';
         this.position = 'absolute';
       }
 
       if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = '-150px';
+        this.top = '-10px';
         this.position = 'fixed';
       }
     }
   }
 
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-      this.currentSection = fragment;
-    }
-  }
-
   ngOnInit() {
-    this.currentSection = 'general-guidelines';
-    this.top = '330px';
+    this.top = '270px';
   }
 }

@@ -3,6 +3,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
 [![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-intake-module.svg?style=shield)](https://circleci.com/gh/nciinc/fs-intake-module)
 [![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-intake-module.svg)](https://github.com/nciinc/fs-intake-module/issues)
+[![Code Climate](https://codeclimate.com/github/nciinc/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-intake-module)
 
 # U.S. Forest Service Intake Module
 ### Module for intake of special use applications for Forest Service Application Permits.
@@ -353,6 +354,18 @@ As an alternative to installing all the development tools necessary to run the e
 
 #### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
+
+
+#### Christmas trees sidebar template
+A sidebar template for the tree guidelines page at `/frontend/src/app/trees/forests/tree-guidelines/sidebar-view.component.html`
+The navigation on this page shows up on desktop width browsers and is hidden on mobile. The mobile menu was added to `/frontend/src/app/trees/forests/tree-guidelines/tree-guidelines.component.html`
+
+The menus were duplicated because the desktop and mobile views require different classes and functionality particularly around the active state of the menu items on scroll events.
+
+Refactoring to DRY up the menus could happen.
+
+The mobile menu that was added to the tree guidelines page is not implemented on the application forms that use a sidebar navigation.
+
 
 ## Usability testing
 While developing we spent time usability testing features with the correct users and applied majority feedback.

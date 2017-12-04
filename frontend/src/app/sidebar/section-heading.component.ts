@@ -8,6 +8,7 @@ import { UtilService } from '../_services/util.service';
 export class SectionHeadingComponent {
   @Input() heading: string;
   @Input() elementId: string;
+  @Input() selector = 'h2';
 
   constructor(private renderer: Renderer2, private util: UtilService) {}
 

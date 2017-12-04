@@ -1,12 +1,5 @@
-<p>Our National Forests have an abundance of tree species for you to choose from when you’re ready harvest your
-  Christmas tree. As you search the forest for your tree, you’ll see well-known Firs, less-popular Hemlocks – and even
-  varieties that are protected from cutting. The trees will have a natural appearance, as they have not been
-  professionally pruned. Learning about the available trees before you leave on your trip can assist your search for the
-  perfect tree.</p>
-
-<p>Let’s take a look at how to identify the trees in the {{ forest.forestName }} National Forest.</p>
-<div class="tree-speci margin-bottom-4 usa-width-one-whole"
-     *ngFor="let tree of forest.species | filter: 'status':'recommended'">
+<div [attr.id]="'tree-recommended-species-'+ i" class="tree-speci margin-bottom-4 usa-grid"
+     *ngFor="let tree of forest.species | filter: 'status':'recommended'; let i=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span>
   <div class="tree-description">
@@ -16,12 +9,15 @@
       </ul>
     </div>
     <div class="usa-width-one-third">
-      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+      <figure>
+        <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+        <figcaption>{{tree.name}}</figcaption>
+      </figure>
     </div>
   </div>
 </div>
-<div class="tree-speci margin-bottom-4 usa-width-one-whole"
-     *ngFor="let tree of forest.species | filter: 'status':'not recommended'">
+<div [attr.id]="'tree-not-recommended-species-'+ j" class="tree-speci margin-bottom-4 usa-grid"
+     *ngFor="let tree of forest.species | filter: 'status':'not recommended'; let j=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span>
   <div class="tree-description">
@@ -31,12 +27,15 @@
       </ul>
     </div>
     <div class="usa-width-one-third">
-      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+      <figure>
+        <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+        <figcaption>{{tree.name}}</figcaption>
+      </figure>
     </div>
   </div>
 </div>
-<div class="tree-speci margin-bottom-4 usa-width-one-whole"
-     *ngFor="let tree of forest.species | filter: 'status':'prohibited'">
+<div [attr.id]="'tree-prohibited-species-'+ k" class="tree-speci margin-bottom-4 usa-grid"
+     *ngFor="let tree of forest.species | filter: 'status':'prohibited'; let k=index">
   <hr>
   <span class="tree-name"><strong>{{ tree.name }}</strong></span> <span
  class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
@@ -47,7 +46,10 @@
       </ul>
     </div>
     <div class="usa-width-one-third">
-      <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+      <figure>
+        <img src="/assets/img/{{ tree.name | SpacesToDashes }}.jpg" alt="{{ tree.name }}"/>
+        <figcaption>{{tree.name}}</figcaption>
+      </figure>
     </div>
   </div>
 </div>

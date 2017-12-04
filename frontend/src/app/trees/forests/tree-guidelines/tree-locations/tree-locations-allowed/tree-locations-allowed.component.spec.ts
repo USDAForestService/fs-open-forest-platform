@@ -1,7 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TreeLocationsAllowedComponent } from './tree-locations-allowed.component';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
+import { TreesService } from '../../../../_services/trees.service';
+import { MockBackend } from '@angular/http/testing';
 
 describe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
@@ -10,7 +13,9 @@ describe('TreeLocationsAllowedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsAllowedComponent]
+        declarations: [TreeLocationsAllowedComponent],
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [{ provide: TreesService, use: MockBackend }]
       }).compileComponents();
     })
   );
@@ -22,6 +27,7 @@ describe('TreeLocationsAllowedComponent', () => {
   });
 
   it('should create', () => {
+    component.forest = forest;
     expect(component).toBeTruthy();
   });
 

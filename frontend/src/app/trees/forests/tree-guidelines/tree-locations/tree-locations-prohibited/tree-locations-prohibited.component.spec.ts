@@ -3,7 +3,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { TreeLocationsProhibitedComponent } from './tree-locations-prohibited.component';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
-import { forest } from '../../../../_mocks/forest';
+import { forest } from '../../../../_mocks/forest.mock';
+import * as sinon from 'sinon';
+
+@Pipe({ name: 'filter' })
+class MockPipe implements PipeTransform {
+  transform(value: number): number {
+    return value;
+  }
+}
+
+@Pipe({ name: 'ColumnizeArray' })
+class MockColumnizePipe implements PipeTransform {
+  transform(value: any): any {
+    return [];
+  }
+}
 
 describe('TreeLocationsProhibitedComponent', () => {
   let component: TreeLocationsProhibitedComponent;
@@ -12,7 +27,8 @@ describe('TreeLocationsProhibitedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe]
+        declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe, MockColumnizePipe],
+        providers: [FilterPipe]
       }).compileComponents();
     })
   );
@@ -29,14 +45,15 @@ describe('TreeLocationsProhibitedComponent', () => {
   });
 
   it('should get prohibited districts', () => {
-    component.populateDistricts();
+    component.ngOnChanges();
     expect(component.prohibitedDistricts[0].childNodes[0].id).toEqual(31);
+  });
+
+  it('should not populateDistricts if forest is null', () => {
+    component.forest = {};
+    component.ngOnChanges();
+    const spy = sinon.spy(component, 'populateDistricts');
+    expect(spy.called).toBeFalsy();
   });
 });
 
-@Pipe({ name: 'filter' })
-class MockPipe implements PipeTransform {
-  transform(value: number): number {
-    return value;
-  }
-}
