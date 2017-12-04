@@ -69,7 +69,8 @@ module.exports = {
         description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
         forest_abbr: 'shoshone',
         tree_cost: 8,
-        max_num_trees: 5
+        max_num_trees: 5,
+        allow_additional_height: true
       }
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);
