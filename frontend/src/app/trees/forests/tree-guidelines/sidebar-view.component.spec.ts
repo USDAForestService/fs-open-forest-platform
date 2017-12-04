@@ -30,7 +30,7 @@ describe('SidebarViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set fixed position if top of container is less than 20px', () => {
+  it('should set fixed position if top of the container is less than 20px', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
@@ -44,7 +44,7 @@ describe('SidebarViewComponent', () => {
     expect(component.position).toEqual('fixed');
   });
 
-  it('should set absolute position if top of container is greater than 30px', () => {
+  it('should set absolute position if top of the container is greater than 30px', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
