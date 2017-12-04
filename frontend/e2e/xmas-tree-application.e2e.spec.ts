@@ -2,7 +2,7 @@ import { ChristmasTreeForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('Apply for a Christmas tree permit', () => {
+describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
   let fieldValidation: FieldValidation;
   fieldValidation = new FieldValidation();
