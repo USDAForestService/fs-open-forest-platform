@@ -49,9 +49,17 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         field: 'org_structure_code'
       },
-      forestAbbr: {
-        type: DataTypes.STRING,
-        field: 'forest_abbr'
+      treeCost: {
+        type: DataTypes.DOUBLE(8,2),
+        field: 'tree_cost'
+      },
+      maxNumTrees: {
+        type: DataTypes.INTEGER,
+        field: 'max_num_trees'
+      },
+      allowAdditionalHeight: {
+        type: DataTypes.BOOLEAN,
+        field: 'allow_additional_height'
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -62,14 +70,6 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         field: 'updated',
         allowNull: false
-      },
-      treeCost: {
-        type: DataTypes.DOUBLE(8,2),
-        field: 'tree_cost'
-      },
-      maxNumTrees: {
-        type: DataTypes.INTEGER,
-        field: 'max_num_trees'
       }
     },
     {
