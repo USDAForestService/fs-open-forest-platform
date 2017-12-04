@@ -4,6 +4,7 @@ import { forest } from '../../_mocks/forest.mock';
 import { TreeRulesComponent } from './tree-rules.component';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
+import { UtilService } from '../../../_services/util.service';
 
 describe('TreeRulesComponent', () => {
   let component: TreeRulesComponent;
@@ -12,7 +13,8 @@ describe('TreeRulesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe]
+        declarations: [TreeRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe],
+        providers: [UtilService]
       }).compileComponents();
     })
   );
