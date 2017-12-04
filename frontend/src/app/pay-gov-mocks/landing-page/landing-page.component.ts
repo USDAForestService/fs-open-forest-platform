@@ -67,7 +67,6 @@ export class LandingPageComponent implements OnInit {
       );
     });
     this.applicationForm.get('paymentAmount').disable();
-    this.applicationForm.get('applicantName').disable();
     this.applicationForm.get('applicantEmailAddress').disable();
   }
 
