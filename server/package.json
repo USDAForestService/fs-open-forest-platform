@@ -74,6 +74,9 @@
   "nyc": {
     "extension": [
       ".es6"
+    ],
+    "exclude": [
+      "src/pay-gov-mocks/*.*"
     ]
   }
 }
