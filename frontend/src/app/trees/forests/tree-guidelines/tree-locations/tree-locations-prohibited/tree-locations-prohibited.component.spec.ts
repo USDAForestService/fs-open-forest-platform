@@ -49,7 +49,7 @@ describe('TreeLocationsProhibitedComponent', () => {
     expect(component.prohibitedDistricts[0].childNodes[0].id).toEqual(31);
   });
 
-  it('should not populateDistricts if forest is null', () => {
+  it('should not populate districts if forest is null', () => {
     component.forest = {};
     component.ngOnChanges();
     const spy = sinon.spy(component, 'populateDistricts');

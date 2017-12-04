@@ -63,7 +63,6 @@ export class TreeApplicationFormComponent implements OnInit {
     this.submitted = true;
     if (this.applicationForm.valid) {
       this.createApplication();
-      alert('Permit application saved');
     } else {
       this.submitted = false;
       window.scroll(0, 0);
@@ -72,8 +71,8 @@ export class TreeApplicationFormComponent implements OnInit {
 
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value), '/christmas-trees').subscribe(
-      persistedApplication => {
-        this.application = persistedApplication;
+      response => {
+        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (e: any) => {
         this.apiErrors = e;

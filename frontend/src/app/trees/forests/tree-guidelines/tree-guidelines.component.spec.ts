@@ -6,11 +6,14 @@ import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TreesService } from '../../_services/trees.service';
 import { UtilService } from '../../../_services/util.service';
+import { MockService } from '../../../_services/mock.service';
 import { Title } from '@angular/platform-browser';
 
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
   let fixture: ComponentFixture<TreeGuidelinesComponent>;
+  let mockService: MockService;
+  const mockResponse = { forest: { forestName: 'forest name', species: { status: 'test' } } };
   let userService: Title;
 
   const router = {
@@ -19,14 +22,16 @@ describe('TreeGuidelinesComponent', () => {
 
   beforeEach(
     async(() => {
+      mockService = new MockService();
       TestBed.configureTestingModule({
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
           UtilService,
           { provide: TreesService, useClass: TreesService },
-          { provide: Title, useClass: Title },
-          { provide: XHRBackend, useClass: MockBackend }
+          { provide: XHRBackend, useClass: MockBackend },
+          { provide: MockService, use: mockService },
+          { provide: Title, useClass: Title }
         ],
         imports: [HttpModule, RouterTestingModule]
       }).compileComponents();
@@ -42,16 +47,7 @@ describe('TreeGuidelinesComponent', () => {
   it(
     'should get forest object',
     inject([TreesService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { forest: { forestName: 'forest name', species: { status: 'test' } } };
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+      mockService.mockResponse(mockBackend, mockResponse);
 
       service.getOne(1).subscribe(result => {
         expect(result.forest.forestName).toBe('forest name');

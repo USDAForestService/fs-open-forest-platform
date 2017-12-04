@@ -45,6 +45,11 @@
   "test": {
     "karma": {
       "config": "./karma.conf.js"
+    },
+    "codeCoverage": {
+      "exclude": [
+        "src/app/pay-gov-mocks/**/*"
+      ]
     }
   },
   "defaults": {
