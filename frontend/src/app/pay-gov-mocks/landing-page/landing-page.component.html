@@ -3,11 +3,11 @@
   <form [formGroup]="applicationForm">
     <label>Payment Amount</label>
     <input type="text" name="payment-amount" value="5.00" formControlName="paymentAmount">
-    <label>Cardholder Name</label>
+    <label>Account Holder Name</label>
     <input type="text" name="cardholder-name" formControlName="applicantName" value="{{applicationForm.controls.applicantName.value}}">
-    <label>Cardholder Email Address</label>
+    <label>Email Address</label>
     <input type="text" name="cardholder-name" formControlName="applicantEmailAddress" value="{{applicationForm.controls.applicantEmailAddress.value}}">
-    <label>Cardholder Billing Address</label>
+    <label>Billing Address</label>
     <input type="text" name="cardholder-billing-address" formControlName="cardholderBillingAddress">
     <label>Billing Address 2</label>
     <input type="text" name="cardholder-billing-address-2" formControlName="cardholderBillingAddress2">
