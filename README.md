@@ -188,7 +188,7 @@ VCAP_SERVICES
   ]
 }
 
-
+```
 ##### Install dependencies
 
 run `cd server` then run `yarn` to install dependencies.
