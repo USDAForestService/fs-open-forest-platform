@@ -7,6 +7,7 @@ import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationService } from '../../_services/application.service';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -27,6 +28,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private titleService: Title,
     public formBuilder: FormBuilder,
     public applicationService: ApplicationService,
+    public applicationFieldsService: ApplicationFieldsService,
     private treesService: TreesService
   ) {
     this.applicationForm = this.formBuilder.group({
@@ -50,17 +52,24 @@ export class TreeApplicationFormComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
-      this.titleService.setTitle('Apply for a permit in ' + data.forest.forestName + ' National Forest | U.S. Forest Service Christmas Tree Permitting');
+      this.titleService.setTitle(
+        'Apply for a permit in ' +
+          data.forest.forestName +
+          ' National Forest | U.S. Forest Service Christmas Tree Permitting'
+      );
       this.applicationForm.get('forestId').setValue(data.forest.id);
       this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
       this.costPerTree = data.forest.treeCost;
       this.applicationForm.get('treeCost').setValue(this.costPerTree);
       this.maxNumberOfTrees = data.forest.maxNumTrees;
-      this.quantityLength = this.maxNumberOfTrees.toString().length;
+      if (this.maxNumberOfTrees) {
+        this.quantityLength = this.maxNumberOfTrees.toString().length;
+      }
     });
   }
   onSubmit() {
     this.submitted = true;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {
       this.createApplication();
     } else {
