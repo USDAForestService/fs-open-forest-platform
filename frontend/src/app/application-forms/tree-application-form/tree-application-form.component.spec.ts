@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationService } from '../../_services/application.service';
 import { treeApplicationMock } from './tree-application.mock';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 
 class MockApplicationService {
@@ -31,6 +32,7 @@ describe('TreeApplicationFormComponent', () => {
           { provide: Title, useClass: Title },
           { provide: TreesService, useClass: TreesService },
           { provide: ApplicationService, useClass: MockApplicationService },
+          { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           {
             provide: ActivatedRoute,
             useValue: {
@@ -57,9 +59,11 @@ describe('TreeApplicationFormComponent', () => {
     component.ngOnInit();
   });
 
-  it( 'should set the title', () => {
+  it('should set the title', () => {
     userService = TestBed.get(Title);
-    expect(userService.getTitle()).toBe('Apply for a permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting');
+    expect(userService.getTitle()).toBe(
+      'Apply for a permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting'
+    );
   });
 
   it('should submit application', () => {
