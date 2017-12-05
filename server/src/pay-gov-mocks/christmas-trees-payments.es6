@@ -17,7 +17,6 @@ const payGov = {};
 payGov.router = express.Router();
 
 payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
