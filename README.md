@@ -174,7 +174,7 @@ VCAP_SERVICES
         "token_url": "http://localhost:8080/mock-pay-gov",
         "client_url": "http://localhost:4200/mock-pay-gov",
         "tcs_app_id": "FS-100"
-      }
+      },
       "label":"user-provided",
       "name":"pay-gov"
     }
