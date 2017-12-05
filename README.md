@@ -290,6 +290,12 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 Navigate to `/assets/typedoc/index.html`
 
+
+#### Pay.Gov integration
+VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
+To mock Pay.Gov integration use the values in the VCAP example.
+
+
 #### Enable html5 pushstate on cloud.gov
 In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
 

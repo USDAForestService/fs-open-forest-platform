@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  run-e2e:
     docker:
       - image: circleci/node:6.12.0-browsers
       - image: postgres:9.6
@@ -8,13 +8,11 @@ jobs:
           POSTGRES_USER: "ubuntu"
           POSTGRES_DB: "circle_test"
           POSTGRES_PASSWORD: ""
+    parallelism: 4
     steps:
       - checkout
       - run:
-          name: remove yarn dependencies
-          command: rm -rf ~/.yarn
-      - run:
-          name: instal yarn
+          name: install yarn
           command: sudo npm i -g yarn
       - run:
           name: Install angular cli
@@ -28,12 +26,7 @@ jobs:
       - run:
           name: install dependencies
           command: .circleci/install-dependencies.sh
-      - save_cache:
-          key: dependency-cache-trees1123123
-          paths:
-            - frontend/node_modules
-            - server/node_modules
-            - cache/yarn
+## Setting up DB
       - run:
           name: Migrate db
           command: cd server; ./node_modules/sequelize-cli/lib/sequelize db:migrate
@@ -44,16 +37,58 @@ jobs:
           name: seed db with trees data
           command: cd server; yarn seed
       - run:
+          name: install protractor
+          command: cd frontend; sudo npm install -g protractor
+## Run tests
+      - run:
+          name: run e2e
+          command: .circleci/run-e2e.sh $(circleci tests split <( cd frontend; circleci tests glob ./e2e/**/*.e2e-spec.ts))
+      - store_artifacts:
+          path: frontend/e2e-test-results
+          prefix: e2e-results
+  
+  run-all-other-tests:
+    docker:
+      - image: circleci/node:6.12.0-browsers
+      - image: postgres:9.6
+        environment:
+          POSTGRES_USER: "ubuntu"
+          POSTGRES_DB: "circle_test"
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      - run:
+          name: install yarn
+          command: sudo npm i -g yarn
+      - run:
+          name: Install angular cli
+          command: sudo yarn global add @angular/cli
+      - run:
+          name: Install typedoc
+          command: sudo yarn global add typedoc
+      - run:
+          name: Install sequelize
+          command: yarn global add sequelize-cli
+      - run:
+          name: install dependencies
+          command: .circleci/install-dependencies.sh
+      - run:
           name: run dist on frontend
           command: cd frontend; yarn dist-staging
-
-## Run tests
+## Setting up DB
+      - run:
+          name: Migrate db
+          command: cd server; ./node_modules/sequelize-cli/lib/sequelize db:migrate
+      - run:
+          name: seed db with intake data
+          command: cd server; yarn seed-ci
+      - run:
+          name: seed db with trees data
+          command: cd server; yarn seed
       - run:
           name: install protractor
           command: cd frontend; sudo npm install -g protractor
-      - run:
-          name: run e2e tests
-          command: .circleci/run-e2e.sh
+## Run tests
       - run:
           name: pa11y test
           command: .circleci/pa11y.sh
@@ -84,9 +119,6 @@ jobs:
       - store_artifacts:
           path: server/coverage
           prefix: server-coverage
-      - store_artifacts:
-          path: frontend/e2e-test-results
-          prefix: e2e-results
 
   staging-deploy:
     docker:
@@ -110,7 +142,6 @@ jobs:
           command: cd frontend; yarn dist-trees;
       - run:
           name: deploy
-#          command: ./cg-deploy/deploy.sh public-trees-staging
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "nciinc" ];
               then ./cg-deploy/deploy.sh public-trees-staging;
@@ -138,7 +169,6 @@ jobs:
           command: cd frontend; yarn dist-prod;
       - run:
           name: deploy
-#          command: ./cg-deploy/deploy.sh public-production
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
               then ./cg-deploy/deploy.sh public-production;
@@ -148,16 +178,21 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - build
+      - run-e2e:
+          requires:
+      - run-all-other-tests:
+          requires:
       - staging-deploy:
           requires:
-            - build
+            - run-e2e
+            - run-all-other-tests
           filters:
             branches:
               only: sprint-4-development
       - prod-deploy:
           requires:
-            - build
+            - run-e2e
+            - run-all-other-tests
           filters:
             branches:
               only: master
