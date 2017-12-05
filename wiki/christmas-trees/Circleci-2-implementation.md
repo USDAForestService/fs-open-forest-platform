@@ -4,12 +4,8 @@ We decided to move on to Circleci 2 from Circleci 1 in hopes that circle 2 would
 After a successful implementation of Circle 2, the e2e tests seem to be more stable, and we have not yet encountered any random e2e test failures.
 
 ## Build time
-For a build without deploy, build times are around 13 minutes.
+In order to speed up build times, we have utilized workflows to run parallel tasks for the job which handles running the e2e tests. This has caused build times without depoly to drop to around 7 minutes.
 
-For a build with a deploy, build times are around 21 minutes.
-
-We think that we can decrease the build time significantly by utilizing workflows to run parallel tasks.
-
-Currently, the build/deploy time in Circle 2 is very close to the Circle 1 build/deploy time.
+For a build with a deploy, build times are around 16 minutes.
 
 ## Circle 2 configuration is found in .circleci/config.yml
