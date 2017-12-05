@@ -41,6 +41,7 @@ jobs:
           command: cd frontend; sudo npm install -g protractor
 ## Run tests
       - run:
+          name: run e2e
           command: .circleci/run-e2e.sh $(circleci tests split <( cd frontend; circleci tests glob ./e2e/**/*.e2e-spec.ts))
       - store_artifacts:
           path: frontend/e2e-test-results
