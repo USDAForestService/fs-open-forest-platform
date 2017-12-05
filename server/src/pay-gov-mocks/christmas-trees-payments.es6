@@ -59,12 +59,11 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
-          formName: 'christmas tree form',
           applicantName: permit.firstName + ' ' + permit.lastName,
           applicantEmailAddress: permit.emailAddress,
-          selectedOption: 'christmas tree permit',
-          description: 'christmas tree permit description',
-          amountOwed: permit.totalCost
+          amountOwed: permit.totalCost,
+          tcsAppID: req.query.tcsAppID,
+          orgStructureCode: permit.orgStructureCode
         };
         return res.status(200).send(mockResponse);
       } else {
