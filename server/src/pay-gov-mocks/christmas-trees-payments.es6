@@ -23,10 +23,10 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  
-  const startOnlineCollectionRequest = req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+  const startOnlineCollectionRequest =
+    req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
   const permitId = startOnlineCollectionRequest.permitId[0];
-  
+
   var xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                       <S:Header>
@@ -40,14 +40,13 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </startOnlineCollectionResponse>
                         </ns2:startOnlineCollectionResponse>
                       </S:Body>
-                    </S:Envelope>`
-  
+                    </S:Envelope>`;
+
   res.set('Content-Type', 'application/xml; charset=utf-8');
   res.send(xmlResponse);
 });
 
 payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res) {
-  
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -59,16 +58,14 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
-          formName: 'christmas tree form',
           applicantName: permit.firstName + ' ' + permit.lastName,
           applicantEmailAddress: permit.emailAddress,
-          selectedOption: 'christmas tree permit',
-          description: 'christmas tree permit description',
-          amountOwed: permit.totalCost
+          amountOwed: permit.totalCost,
+          tcsAppID: req.query.tcsAppID,
+          orgStructureCode: permit.orgStructureCode
         };
         return res.status(200).send(mockResponse);
-      } 
-      else {
+      } else {
         res.status(404).send();
       }
     })

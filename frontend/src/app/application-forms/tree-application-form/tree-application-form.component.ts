@@ -6,8 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
-import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -27,7 +27,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private route: ActivatedRoute,
     private titleService: Title,
     public formBuilder: FormBuilder,
-    public applicationService: ApplicationService,
+    public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private treesService: TreesService
   ) {
@@ -78,7 +78,7 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   createApplication() {
-    this.applicationService.create(JSON.stringify(this.applicationForm.value), '/christmas-trees').subscribe(
+    this.applicationService.create(JSON.stringify(this.applicationForm.value) ).subscribe(
       response => {
         window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },

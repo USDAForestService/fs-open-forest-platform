@@ -7,10 +7,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { TreesService } from '../../trees/_services/trees.service';
-import { ApplicationService } from '../../_services/application.service';
 import { treeApplicationMock } from './tree-application.mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
+import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -31,7 +31,7 @@ describe('TreeApplicationFormComponent', () => {
           { provide: FormBuilder, useClass: FormBuilder },
           { provide: Title, useClass: Title },
           { provide: TreesService, useClass: TreesService },
-          { provide: ApplicationService, useClass: MockApplicationService },
+          { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           {
             provide: ActivatedRoute,
