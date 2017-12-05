@@ -4,7 +4,7 @@ applications:
   host: fs-intake-api-trees
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-  memory: 128M
+  memory: 256M
   instances: 1
   services:
     - eauth-service-provider
