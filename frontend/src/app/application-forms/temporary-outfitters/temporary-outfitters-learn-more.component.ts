@@ -41,9 +41,9 @@ and/or permit compliance will be considered in evaluating qualifications.</li>
       {
         sectionName: 'Number of permits and service days',
         sectionCopy: `
-        <p>Permits and service days are managed by use area. The maximum allowable service days varies by use area and is dependent on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service days per use area (no more than 200 service days). See the various permit pool documents for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
+        <p>Permits and service days are managed by use area. The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a> varies by <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a> for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
         <ul>
-          <li><strong>Example 1:</strong> Use Area "A" = 1000 total pool days with with a maximum of 200 days per permit.
+          <li><strong>Example 1:</strong> Use Area "A" = 1000 total <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
 This means you can apply for 1 permit up to 200 days, every 6 months.</li>
           <li><strong>Example 2:</strong> Use Area "B" = 150 total pool days, with a maximum of 50 days per permit.
 This means you can apply for 1 permit up to 50 days, every 6 months.</li>
@@ -118,9 +118,8 @@ found here</a>.</p>
         Administration of the temporary permits varies by pool and is specified in the land or river pool permit documents found here</a>.</p>
         <p>Ideally, there would be plenty of service days available to allow all temporary use permits
 to be issued on a first-come, first-served basis. However, some permit pools have high demand and are limited in service day capacity.
-In this case, we will allocate the permits using a lottery based on due date. The due
-dates are months ahead of the permit period to allow applicants plenty of lead
-time to advertise and prepare for the trips. In the event there are unallocated
+In this case, we will allocate the permits using a lottery based on due date. Due dates are months ahead of their respective permit period so that applicants who
+are granted a permit by means of our lottery will have plenty of time to advertise and prepare. In the event there are unallocated
 days left over after the lottery, additional permits may be issued on a first-come,
 first-served basis.</p>
         <p><a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">For more information on Forest Service outfitter and guide policies and
