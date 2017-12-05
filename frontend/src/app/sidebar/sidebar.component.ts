@@ -13,6 +13,8 @@ export class SidebarComponent implements OnInit {
   top: string;
   position: string;
   showMobileNav = false;
+  menuBtnTop: string;
+  menuBtnPosition: string;
 
   constructor(public util: UtilService) {}
 
@@ -38,6 +40,14 @@ export class SidebarComponent implements OnInit {
         this.position = 'fixed';
       }
     }
+
+    if (window.pageYOffset > 122) {
+      this.menuBtnPosition = 'fixed';
+      this.menuBtnTop = '0px';
+    } else {
+      this.menuBtnPosition = 'absolute';
+      this.menuBtnTop = '';
+    }
   }
 
   toggleMobileNav() {
@@ -49,21 +59,6 @@ export class SidebarComponent implements OnInit {
     if (event.target.innerWidth >= 951) {
       this.showMobileNav = false;
     }
-  }
-
-  @HostListener('document:scroll', ['$event'])
-  public scroll(event: Event) {
-    if (window.pageYOffset > 122) {
-      this.position = 'fixed';
-      this.top = '0px';
-    } else {
-      this.position = 'absolute';
-      this.top = 'inherit';
-    }
-  }
-
-  gotoHashtag(fragment: string, event) {
-    this.util.gotoHashtag(fragment, event);
   }
 
   ngOnInit() {

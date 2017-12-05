@@ -85,12 +85,4 @@ describe('SidebarComponent', () => {
     expect(component.top).toEqual('140px');
     // expect(component.position).toEqual('absolute');
   });
-
-  it(
-    'should set current section',
-    inject([UtilService], util => {
-      component.gotoHashtag('test', new Event('click'));
-      expect(util.currentSection).toEqual('test-section');
-    })
-  );
 });
