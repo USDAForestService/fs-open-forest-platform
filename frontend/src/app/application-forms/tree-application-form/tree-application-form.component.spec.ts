@@ -9,16 +9,18 @@ import { Observable } from 'rxjs/Observable';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationService } from '../../_services/application.service';
 import { treeApplicationMock } from './tree-application.mock';
+import { Title } from '@angular/platform-browser';
 
 class MockApplicationService {
   create(): Observable<{}> {
-    return Observable.of(treeApplicationMock);
+    return Observable.throw('error');
   }
 }
 
 describe('TreeApplicationFormComponent', () => {
   let component: TreeApplicationFormComponent;
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
+  let userService: Title;
 
   beforeEach(
     async(() => {
@@ -26,6 +28,7 @@ describe('TreeApplicationFormComponent', () => {
         declarations: [TreeApplicationFormComponent],
         providers: [
           { provide: FormBuilder, useClass: FormBuilder },
+          { provide: Title, useClass: Title },
           { provide: TreesService, useClass: TreesService },
           { provide: ApplicationService, useClass: MockApplicationService },
           {
@@ -54,6 +57,11 @@ describe('TreeApplicationFormComponent', () => {
     component.ngOnInit();
   });
 
+  it( 'should set the title', () => {
+    userService = TestBed.get(Title);
+    expect(userService.getTitle()).toBe('Apply for a permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting');
+  });
+
   it('should submit application', () => {
     component.onSubmit();
     expect(component.submitted).toBeFalsy();
@@ -62,7 +70,7 @@ describe('TreeApplicationFormComponent', () => {
     component.applicationForm.get('emailAddress').setValue('test@test.com');
     component.applicationForm.get('quantity').setValue('2');
     component.onSubmit();
-    expect(component.application).toBeTruthy();
+    expect(component.apiErrors).toEqual('error');
   });
 
   it('should update total cost', () => {

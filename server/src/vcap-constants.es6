@@ -38,9 +38,6 @@ vcapConstants.middleLayerPassword = middlelayerService.credentials.middlelayer_p
 /** Intake module settings */
 const intakeService = getUserProvided('intake-client-service');
 vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
-vcapConstants.intakeUsername = intakeService.credentials.intake_username;
-vcapConstants.intakePassword = intakeService.credentials.intake_password;
-vcapConstants.jwtSecret = intakeService.credentials.jwt_secret;
 
 /** Login.gov settings */
 const loginGovService = getUserProvided('login-service-provider');
@@ -64,6 +61,12 @@ vcapConstants.smtpHost = smtp.credentials.smtp_server;
 vcapConstants.smtpUsername = smtp.credentials.username;
 vcapConstants.smtpPassword = smtp.credentials.password;
 vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
+
+/** Pay.gov */
+const payGov = getUserProvided('pay-gov');
+vcapConstants.payGovTokenUrl = payGov.credentials.token_url;
+vcapConstants.payGovClientUrl = payGov.credentials.client_url;
+vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
 
 /**
  * VCAP Constants

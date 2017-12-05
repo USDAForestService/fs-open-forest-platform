@@ -81,7 +81,7 @@ DATABASE_URL
 
     or for CircleCI
 
-    postgres://ubuntu:@127.0.0.1:5432/circle_test
+    postgres://ubuntu:@localhost:5432/circle_test
 
 PLATFORM
 
@@ -118,10 +118,7 @@ VCAP_SERVICES
     },
     {
       "credentials": {
-        "intake_client_base_url": "http://localhost:4200",
-        "intake_password": "",
-        "intake_username": "",
-        "jwt_secret": "shhhhhhhh!"
+        "intake_client_base_url": "http://localhost:4200"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -173,14 +170,20 @@ VCAP_SERVICES
       "volume_mounts": []
     },
     {
-      "name": "auth-service",
-      "credentials": { "jwt_secret_key": "shhhhhhhh!" }
+      "credentials": {
+        "token_url": "http://localhost:8080/mock-pay-gov",
+        "client_url": "http://localhost:4200/mock-pay-gov",
+        "tcs_app_id": "FS-100"
+      }
+      "label":"user-provided",
+      "name":"pay-gov"
     }
   ],
   "s3": [
     {
-      "name": "intake-s3",
-      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" }
+      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" },
+      "label": "s3",
+      "name": "intake-s3"
     }
   ]
 }

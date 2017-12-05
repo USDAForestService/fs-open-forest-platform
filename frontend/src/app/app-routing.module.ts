@@ -10,6 +10,7 @@ import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.
 import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
+import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
@@ -90,8 +91,7 @@ const appRoutes: Routes = [
     component: TreeGuidelinesComponent,
     resolve: {
       forest: ForestResolver
-    },
-    data: { title: 'Christmas Tree Permit Information' }
+    }
   },
   {
     path: 'christmas-trees/forests',
@@ -99,15 +99,19 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas tree permit information' }
+    data: { title: 'Select a national forest | U.S. Forest Service Christmas Tree Permitting' }
+  },
+  {
+    path: 'mock-pay-gov',
+    component: LandingPageComponent,
+    data: { title: 'Complete your Christmas Tree permit transaction' }
   },
   {
     path: 'applications/christmas-trees/forests/:id/new',
     component: TreeApplicationFormComponent,
     resolve: {
       forest: ForestResolver
-    },
-    data: { title: 'Apply for a Christmas tree permit' }
+    }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },

@@ -5,6 +5,7 @@ import { TreeLocationsAllowedComponent } from './tree-locations-allowed.componen
 import { forest } from '../../../../_mocks/forest.mock';
 import { TreesService } from '../../../../_services/trees.service';
 import { MockBackend } from '@angular/http/testing';
+import { UtilService } from '../../../../../_services/util.service';
 
 describe('TreeLocationsAllowedComponent', () => {
   let component: TreeLocationsAllowedComponent;
@@ -15,7 +16,7 @@ describe('TreeLocationsAllowedComponent', () => {
       TestBed.configureTestingModule({
         declarations: [TreeLocationsAllowedComponent],
         schemas: [NO_ERRORS_SCHEMA],
-        providers: [{ provide: TreesService, use: MockBackend }]
+        providers: [{ provide: UtilService }]
       }).compileComponents();
     })
   );

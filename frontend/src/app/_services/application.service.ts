@@ -64,21 +64,23 @@ export class ApplicationService {
     let errors: any;
     if (error instanceof Response) {
       if (error.status) {
-        if (error.status === 400) {
-          const body = error.json() || '';
-          errors = body.errors;
-        }
-        if (error.status === 401) {
-          errors = [{ message: 'Please log in.' }];
-        }
-        if (error.status === 403) {
-          errors = [{ message: 'Access denied.' }];
-        }
-        if (error.status === 404) {
-          errors = [{ message: 'The requested application is not found.' }];
-        }
-        if (error.status === 500) {
-          errors = [];
+        switch (error.status) {
+          case 400:
+            const body = error.json() || '';
+            errors = body.errors;
+            break;
+          case 401:
+            errors = [{ message: 'Please log in.' }];
+            break;
+          case 403:
+            errors = [{ message: 'Access denied.' }];
+            break;
+          case 404:
+            errors = [{ message: 'The requested application is not found.' }];
+            break;
+          case 500:
+            errors = [];
+            break;
         }
       } else {
         const body = error.json() || '';

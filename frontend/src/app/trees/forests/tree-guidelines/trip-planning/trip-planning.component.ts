@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TreesService } from '../../../_services/trees.service';
+import { UtilService } from '../../../../_services/util.service';
 
 @Component({
   selector: 'app-tree-trip-planning',
@@ -8,5 +9,5 @@ import { TreesService } from '../../../_services/trees.service';
 export class TripPlanningComponent {
   @Input() forest: any;
 
-  constructor(public service: TreesService) {}
+  constructor(public util: UtilService) {}
 }

@@ -35,13 +35,4 @@ export class TreesService {
     }
     return Observable.throw(errors);
   }
-
-  public gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-    }
-  }
 }
