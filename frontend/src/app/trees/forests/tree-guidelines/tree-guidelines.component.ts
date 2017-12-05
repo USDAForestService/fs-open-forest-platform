@@ -13,33 +13,8 @@ export class TreeGuidelinesComponent implements OnInit {
   forest = [];
   errorMessage: string;
   id: any;
-  showMobileNav = false;
-  position: string;
-  top: string;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private service: TreesService, public util: UtilService) {}
-
-  toggleMobileNav() {
-    this.showMobileNav = !this.showMobileNav;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (event.target.innerWidth >= 951) {
-      this.showMobileNav = false;
-    }
-  }
-
-  @HostListener('document:scroll', ['$event'])
-  public scroll(event: Event) {
-    if (window.pageYOffset > 122) {
-      this.position = 'fixed';
-      this.top = '0px';
-    } else {
-      this.position = 'absolute';
-      this.top = 'inherit';
-    }
-  }
 
   ngOnInit() {
     this.template = 'sidebar';

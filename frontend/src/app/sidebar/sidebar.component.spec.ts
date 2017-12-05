@@ -65,7 +65,7 @@ describe('SidebarComponent', () => {
       };
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('40px');
+    expect(component.top).toEqual('140px');
     expect(component.position).toEqual('fixed');
   });
 
@@ -74,7 +74,7 @@ describe('SidebarComponent', () => {
       return {
         value: 'test',
         getBoundingClientRect() {
-          return { top: 20 };
+          return { top: 30 };
         }
       };
     });
@@ -82,15 +82,21 @@ describe('SidebarComponent', () => {
       return 50;
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('250px');
+    expect(component.top).toEqual('270px');
     expect(component.position).toEqual('absolute');
   });
 
-  it(
-    'should set current section',
-    inject([UtilService], util => {
-      component.gotoHashtag('test', new Event('click'));
-      expect(util.currentSection).toEqual('test-section');
-    })
-  );
+  it('should toggle mobile nav', () => {
+    component.toggleMobileNav();
+    expect(component.showMobileNav).toBeTruthy();
+  });
+
+  it('should show mobile nav if screen width is greater than or equal to 951', () => {
+    component.showMobileNav = true;
+    component.onResize({ target: { innerWidth: 950 } });
+    expect(component.showMobileNav).toBeTruthy();
+
+    component.onResize({ target: { innerWidth: 951 } });
+    expect(component.showMobileNav).toBeFalsy();
+  });
 });

@@ -174,7 +174,7 @@ VCAP_SERVICES
         "token_url": "http://localhost:8080/mock-pay-gov",
         "client_url": "http://localhost:4200/mock-pay-gov",
         "tcs_app_id": "FS-100"
-      }
+      },
       "label":"user-provided",
       "name":"pay-gov"
     }
@@ -361,13 +361,8 @@ The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstrea
 
 #### Christmas trees sidebar template
 A sidebar template for the tree guidelines page at `/frontend/src/app/trees/forests/tree-guidelines/sidebar-view.component.html`
-The navigation on this page shows up on desktop width browsers and is hidden on mobile. The mobile menu was added to `/frontend/src/app/trees/forests/tree-guidelines/tree-guidelines.component.html`
 
-The menus were duplicated because the desktop and mobile views require different classes and functionality particularly around the active state of the menu items on scroll events.
-
-Refactoring to DRY up the menus could happen.
-
-The mobile menu that was added to the tree guidelines page is not implemented on the application forms that use a sidebar navigation.
+A sidebar component was created at `/frontend/src/app/sidebar/sidebar.component.ts` that takes a JSON object with all of the sidebar items and IDs of elements on the page that are linked to. The sidebar component creates both desktop and mobile menus.
 
 
 ## Usability testing
@@ -384,5 +379,3 @@ While developing we spent time usability testing features with the correct users
 * [Usability testing session 8 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-8-summary-October-10-%26-11%2C-2017.md)
 * [Usability testing session 9 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usertesting.com-session-2-summary-October-27%2C-2017.md)
 * [Usability testing session 10 summary](https://github.com/flexion/fs-intake-module/blob/sprint-16-development/wiki/Usability-testing-session-10-summary-November-06%2C-2017.md)
-
-
