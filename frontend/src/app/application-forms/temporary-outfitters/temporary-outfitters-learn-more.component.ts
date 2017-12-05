@@ -17,7 +17,9 @@ export class TemporaryOutfittersLearnMoreComponent {
           <li>Authorization to conduct short-term outfitted or guided use on national Forest
   Service land.</li>
           <li>Held by an outfitter qualified to provide the service.</li>
-          <li>Valid for up to 200 <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a> in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
+          <li>Valid for up to 200
+<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
+in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
           <li>Based on a flat-rate fee schedule (see “Costs” below).</li>
           <li>Non-renewable and non-competitive.</li>
           <li>Revocable, suspendable and not appealable.</li>
@@ -41,13 +43,20 @@ and/or permit compliance will be considered in evaluating qualifications.</li>
       {
         sectionName: 'Number of permits and service days',
         sectionCopy: `
-        <p>Permits and service days are managed by use area. The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a> varies by <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a> for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
+        <p>Permits and service days are managed by use area.
+The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
+varies by <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent
+on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service
+days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a>
+for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
         <ul>
-          <li><strong>Example 1:</strong> Use Area "A" = 1000 total <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
+          <li><strong>Example 1:</strong> Use Area "A" = 1000 total
+<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
 This means you can apply for 1 permit up to 200 days, every 6 months.</li>
           <li><strong>Example 2:</strong> Use Area "B" = 150 total pool days, with a maximum of 50 days per permit.
 This means you can apply for 1 permit up to 50 days, every 6 months.</li>
-          <li><strong>Example 3:</strong> Use Area "A" + "B" = a maximum of 200 days for "A" + a maximum of 50 days for "B" = a maximum of 250 days for use areas "A" and "B." This means you can apply for days from multiple use areas at the
+          <li><strong>Example 3:</strong> Use Area "A" + "B" = a maximum of 200 days for "A" + a
+maximum of 50 days for "B" = a maximum of 250 days for use areas "A" and "B." This means you can apply for days from multiple use areas at the
 same time.</li>
         </ul>
         `
