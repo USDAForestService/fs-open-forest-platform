@@ -129,6 +129,9 @@ christmasTree.create = (req, res) => {
                                           { url_success : 'http://localhost:4200' },
                                           { url_cancel : 'http://localhost:4200' },
                                           { account_holder_name: response.firstName + ' ' + response.lastName },
+                                          { custom_fields: [
+                                            { custom_field_1: req.body.orgStructureCode }
+                                          ]},
                                           // TODO permitId needs to be removed before Pay.Gov integration
                                           { permitId: response.permitId }
                                         ]  
@@ -141,7 +144,6 @@ christmasTree.create = (req, res) => {
                           } 
                         ];
       const xmlData = xml(xmlTemplate);
-      
       request.post({
           url: vcapConstants.payGovTokenUrl,
           method:"POST",

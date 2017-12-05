@@ -73,8 +73,7 @@ export class TreeApplicationFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.createApplication();
     } else {
-      this.submitted = false;
-      window.scroll(0, 0);
+      this.applicationFieldsService.scrollToFirstError();
     }
   }
 
