@@ -38,9 +38,6 @@ vcapConstants.middleLayerPassword = middlelayerService.credentials.middlelayer_p
 /** Intake module settings */
 const intakeService = getUserProvided('intake-client-service');
 vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
-vcapConstants.intakeUsername = intakeService.credentials.intake_username;
-vcapConstants.intakePassword = intakeService.credentials.intake_password;
-vcapConstants.jwtSecret = intakeService.credentials.jwt_secret;
 
 /** Login.gov settings */
 const loginGovService = getUserProvided('login-service-provider');
