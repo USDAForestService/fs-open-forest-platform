@@ -182,6 +182,7 @@ VCAP_SERVICES
   "s3": [
     {
       "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" },
+      "label": "s3",
       "name": "intake-s3"
     }
   ]
