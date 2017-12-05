@@ -1,37 +1,21 @@
 import { Component, Input, HostListener, OnInit } from '@angular/core';
 import { UtilService } from '../../../_services/util.service';
+import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 
 @Component({
   selector: 'app-sidebar-view',
   templateUrl: './sidebar-view.component.html'
 })
-export class SidebarViewComponent {
+export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  sidebarItems = [
-    {
-      id: 'cutting-dates',
-      title: 'When to cut your tree'
-    },
-    {
-      id: 'tree-selection',
-      title: 'How to choose your tree'
-    },
-    {
-      id: 'cutting-instructions',
-      title: 'How to cut your tree',
-      sections: [
-        {
-          id: 'cutting-instructions-before-you-cut',
-          title: 'Before you cut'
-        },
-        {
-          id: 'cutting-instructions-when-you-cut',
-          title: 'When you cut'
-        }
-      ]
-    }
-  ];
+  sidebarItems;
 
-  constructor(public util: UtilService) {}
+  constructor(public util: UtilService, public configService: SidebarConfigService) {}
+
+  ngOnInit() {
+    this.configService.getJSON().subscribe(data => {
+      this.sidebarItems = data;
+    });
+  }
 }

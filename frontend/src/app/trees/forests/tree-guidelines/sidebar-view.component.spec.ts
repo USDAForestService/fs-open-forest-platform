@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SidebarViewComponent } from './sidebar-view.component';
 import { UtilService } from '../../../_services/util.service';
+import { HttpModule, ResponseOptions, XHRBackend} from '@angular/http';
+import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 
 describe('SidebarViewComponent', () => {
   let component: SidebarViewComponent;
@@ -10,7 +12,8 @@ describe('SidebarViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [SidebarViewComponent],
-        providers: [UtilService],
+        providers: [UtilService, SidebarConfigService],
+        imports: [HttpModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -27,34 +30,10 @@ describe('SidebarViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should set fixed position if top of container is less than 20px', () => {
-  //   spyOn(document, 'getElementById').and.callFake(function() {
-  //     return {
-  //       value: 'test',
-  //       getBoundingClientRect() {
-  //         return { top: 19 };
-  //       }
-  //     };
-  //   });
-  //   component.track(new Event('scroll'));
-  //   expect(component.top).toEqual('140px');
-  //   expect(component.position).toEqual('fixed');
-  // });
-  //
-  // it('should set absolute position if top of container is greater than 30px', () => {
-  //   spyOn(document, 'getElementById').and.callFake(function() {
-  //     return {
-  //       value: 'test',
-  //       getBoundingClientRect() {
-  //         return { top: 30 };
-  //       }
-  //     };
-  //   });
-  //   spyOn(window, 'innerHeight').and.callFake(function() {
-  //     return 50;
-  //   });
-  //   component.track(new Event('scroll'));
-  //   expect(component.top).toEqual('270px');
-  //   expect(component.position).toEqual('absolute');
-  // });
+  it ('should have a config file', () => {
+    fixture.whenStable().then(() => {
+      expect(component.sidebarItems.length).toEqual(6);
+    })
+  });
+
 });
