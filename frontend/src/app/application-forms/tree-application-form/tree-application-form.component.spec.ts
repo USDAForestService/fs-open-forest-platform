@@ -68,7 +68,6 @@ describe('TreeApplicationFormComponent', () => {
 
   it('should submit application', () => {
     component.onSubmit();
-    expect(component.submitted).toBeFalsy();
     component.applicationForm.get('firstName').setValue('test');
     component.applicationForm.get('lastName').setValue('test');
     component.applicationForm.get('emailAddress').setValue('test@test.com');
