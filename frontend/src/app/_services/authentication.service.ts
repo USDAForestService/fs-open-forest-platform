@@ -49,12 +49,10 @@ export class AuthenticationService {
 
   private handleError(error: Response | any) {
     let errors: any;
-    if (error instanceof Response) {
-      if (error.status !== 401) {
-        const body = error.json() || '';
-        errors = body.errors;
-        return Observable.throw(errors);
-      }
+    if (error instanceof Response && error.status !== 401) {
+      const body = error.json() || '';
+      errors = body.errors;
+      return Observable.throw(errors);
     }
     return Observable;
   }

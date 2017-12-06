@@ -7,32 +7,19 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { UtilService } from '../../_services/util.service';
 
 @Injectable()
 export class TreesService {
   private endpoint = environment.apiUrl + 'forests/';
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, private router: Router, public util: UtilService) {}
 
   getOne(id) {
     return this.http
       .get(this.endpoint + id, { withCredentials: true })
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
-  private handleError(error: Response | any) {
-    let errors: any;
-    if (error instanceof Response) {
-      if (error.status) {
-        errors = [error.status];
-      } else {
-        const body = error.json() || '';
-        errors = body.errors;
-      }
-    } else {
-      errors = ['Server error'];
-    }
-    return Observable.throw(errors);
-  }
 }

@@ -61,12 +61,14 @@ export class ApplicationService {
   }
 
   private handleError(error: Response | any) {
-    let errors: any;
+    let errors: any = [];
     if (error instanceof Response) {
+      let body = error.json() || '';
+      errors = body.errors;
       if (error.status) {
         switch (error.status) {
           case 400:
-            const body = error.json() || '';
+            body = error.json() || '';
             errors = body.errors;
             break;
           case 401:
@@ -78,17 +80,12 @@ export class ApplicationService {
           case 404:
             errors = [{ message: 'The requested application is not found.' }];
             break;
-          case 500:
+          default:
             errors = [];
-            break;
         }
-      } else {
-        const body = error.json() || '';
-        errors = body.errors;
       }
-    } else {
-      errors = [];
     }
+
     return Observable.throw(errors);
   }
 }

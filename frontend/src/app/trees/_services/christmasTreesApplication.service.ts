@@ -34,8 +34,10 @@ export class ChristmasTreesApplicationService {
   }
 
   private handleError(error: Response | any) {
-    let errors: any;
+    let errors: any = [];
     if (error instanceof Response) {
+      const body = error.json() || '';
+      errors = body.errors;
       if (error.status) {
         switch (error.status) {
           case 400:
@@ -43,24 +45,19 @@ export class ChristmasTreesApplicationService {
             errors = body.errors;
             break;
           case 401:
-            errors = [{ message: 'Please log in.' }];
+            errors = [{message: 'Please log in.'}];
             break;
           case 403:
-            errors = [{ message: 'Access denied.' }];
+            errors = [{message: 'Access denied.'}];
             break;
           case 404:
-            errors = [{ message: 'The requested application is not found.' }];
+            errors = [{message: 'The requested application is not found.'}];
             break;
           case 500:
             errors = [];
             break;
         }
-      } else {
-        const body = error.json() || '';
-        errors = body.errors;
       }
-    } else {
-      errors = [];
     }
     return Observable.throw(errors);
   }
