@@ -30,11 +30,4 @@ describe('TreeRulesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should populate districts on changes', () => {
-    component.ngOnChanges();
-    component.forest = forest;
-    component.ngOnChanges();
-    expect(component.districtsWithPermits[0].id).toEqual(35);
-    expect(component.districtsWithHoursAndDates[0].id).toEqual(34);
-  });
 });

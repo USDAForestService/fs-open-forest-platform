@@ -17,7 +17,7 @@ export class TreesService {
 
   getOne(id) {
     return this.http
-      .get(this.endpoint + id, { withCredentials: true })
+      .get(this.endpoint + id)
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
