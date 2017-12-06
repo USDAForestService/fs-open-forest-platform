@@ -19,3 +19,4 @@ exclude_paths:
 - "server/node_modules/"
 - "server/test/"
 - "server/dba/"
+- "*.spec.ts"
