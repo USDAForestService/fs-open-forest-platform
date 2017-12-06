@@ -135,11 +135,12 @@ export class ApplicationFieldsService {
         invalid = document.getElementById('temporaryId');
       }
     }
-    if (invalid) {
-      invalid.focus();
-      if (invalid.getAttribute('id') === 'temporaryId') {
-        invalid.setAttribute('id', null);
-      }
+    if (!invalid) {
+      return;
+    }
+    invalid.focus();
+    if (invalid.getAttribute('id') === 'temporaryId') {
+      invalid.setAttribute('id', null);
     }
   }
 
