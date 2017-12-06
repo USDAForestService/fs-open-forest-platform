@@ -158,6 +158,7 @@ describe('ErrorMessageComponent', () => {
       'Test must have a value less than or equal to 4. '
     );
     form.get('maxNumber').setValue('test');
+    console.log('XXXXXXXXXXXXXXXXXXXXX', form.get('maxNumber').errors);
     expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
       'Test must have a value less than or equal to 4. '
     );
