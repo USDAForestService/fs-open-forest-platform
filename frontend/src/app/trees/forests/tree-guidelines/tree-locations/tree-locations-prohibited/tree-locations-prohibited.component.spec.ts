@@ -5,6 +5,7 @@ import { TreeLocationsProhibitedComponent } from './tree-locations-prohibited.co
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
 import * as sinon from 'sinon';
+import { TreeDistrictsUtilService } from '../../tree-districts-util.service';
 
 @Pipe({ name: 'filter' })
 class MockPipe implements PipeTransform {
@@ -28,7 +29,7 @@ describe('TreeLocationsProhibitedComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeLocationsProhibitedComponent, TreeLocationsProhibitedComponent, FilterPipe, MockColumnizePipe],
-        providers: [FilterPipe]
+        providers: [FilterPipe, TreeDistrictsUtilService]
       }).compileComponents();
     })
   );
@@ -46,7 +47,7 @@ describe('TreeLocationsProhibitedComponent', () => {
 
   it('should get prohibited districts', () => {
     component.ngOnChanges();
-    expect(component.prohibitedDistricts[0].childNodes[0].id).toEqual(31);
+    expect(component.prohibitedDistricts[0].locations[0].id).toEqual(31);
   });
 
   it('should not populate districts if forest is null', () => {

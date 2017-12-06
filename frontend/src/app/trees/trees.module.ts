@@ -25,6 +25,7 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmasTreesApplication.service';
+import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,6 @@ import { ChristmasTreesApplicationService } from './_services/christmasTreesAppl
     ColumnizeArrayPipe
   ],
   imports: [SharedModule],
-  providers: [TreesService, ForestService, ChristmasTreesApplicationService]
+  providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}
