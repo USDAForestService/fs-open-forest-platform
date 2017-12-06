@@ -11,6 +11,7 @@ import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
 import { MockActivatedRoute, MockRouter } from '../../../_mocks/routes.mock';
 import { MockService } from '../../../_services/mock.service';
+import { UtilService } from '../../../_services/util.service';
 
 describe('ForestFinderComponent', () => {
   let component: ForestFinderComponent;
@@ -36,6 +37,7 @@ describe('ForestFinderComponent', () => {
         declarations: [ForestFinderComponent, RemovePuncPipe, SpacesToDashesPipe],
         imports: [HttpModule, Ng2AutoCompleteModule, RouterTestingModule],
         providers: [
+          UtilService,
           { provide: ForestService, useClass: ForestService },
           { provide: XHRBackend, useClass: MockBackend },
           { provide: MockService, use: mockService }

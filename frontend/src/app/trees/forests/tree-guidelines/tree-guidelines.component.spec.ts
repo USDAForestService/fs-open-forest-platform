@@ -78,13 +78,19 @@ describe('TreeGuidelinesComponent', () => {
     'should throw error if error',
     inject([TreesService, XHRBackend], (service, mockBackend) => {
       mockBackend.connections.subscribe(connection => {
-        connection.mockError(new Error('error'));
+        connection.mockError(
+          new Response(
+            new ResponseOptions({
+              body: { errors: [{message: 'Some strange error'}] },
+              status: 500
+            })
+        ));
       });
 
       service.getOne(1).subscribe(
         success => {},
         (e: any) => {
-          expect(e).toEqual(['Server error']);
+          expect(e).toEqual([]);
         }
       );
     })
@@ -97,7 +103,7 @@ describe('TreeGuidelinesComponent', () => {
         connection.mockError(
           new Response(
             new ResponseOptions({
-              body: { error: 'Some strange error' },
+              body: { errors: [{message: 'Some strange error'}]},
               status: 404
             })
           )
@@ -107,7 +113,7 @@ describe('TreeGuidelinesComponent', () => {
       service.getOne(1).subscribe(
         success => {},
         (e: any) => {
-          expect(e).toEqual([404]);
+          expect(e[0].message).toEqual('The requested application is not found.');
         }
       );
     })

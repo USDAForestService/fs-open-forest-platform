@@ -7,12 +7,13 @@ import { MockRouter } from '../_mocks/routes.mock';
 import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
+import { UtilService } from './util.service';
 
 describe('Application Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [ApplicationService, { provide: XHRBackend, useClass: MockBackend }]
+      providers: [UtilService, ApplicationService, { provide: XHRBackend, useClass: MockBackend }]
     });
   });
 
@@ -66,27 +67,4 @@ describe('Application Service', () => {
     })
   );
 
-  it(
-    'should call handleStatusCode',
-    inject([ApplicationService], service => {
-      const spy = sinon.spy(service, 'handleError');
-      service.handleError('error');
-      service.handleError(
-        new Response(
-          new ResponseOptions({
-            body: JSON.stringify({ test: 'data' })
-          })
-        )
-      );
-      service.handleError(
-        new Response(
-          new ResponseOptions({
-            body: JSON.stringify({}),
-            status: 403
-          })
-        )
-      );
-      expect(spy.calledThrice).toBeTruthy();
-    })
-  );
 });

@@ -3,6 +3,7 @@ import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FaxComponent } from './fax.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { TestService } from '../../_services/test.service';
 
 @Component({
   selector: 'app-test-component-wrapper',
@@ -19,14 +20,15 @@ class TestComponentWrapperComponent {
 describe('fax', () => {
   let component: FaxComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [FaxComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder, ApplicationFieldsService],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule(
+        [FaxComponent, TestComponentWrapperComponent],
+        [FormBuilder, ApplicationFieldsService]
+      );
 
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;

@@ -7,12 +7,13 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { UtilService } from '../../_services/util.service';
 
 @Injectable()
 export class ChristmasTreesApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees/applications';
 
-  constructor(private http: Http, public router: Router) {}
+  constructor(private http: Http, public router: Router, public util: UtilService) {}
 
   create(body, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -24,7 +25,7 @@ export class ChristmasTreesApplicationService {
     return this.http
       .post(this.endpoint, body, options)
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   handleStatusCode(status) {
@@ -33,35 +34,4 @@ export class ChristmasTreesApplicationService {
     }
   }
 
-  private handleError(error: Response | any) {
-    let errors: any;
-    if (error instanceof Response) {
-      if (error.status) {
-        switch (error.status) {
-          case 400:
-            const body = error.json() || '';
-            errors = body.errors;
-            break;
-          case 401:
-            errors = [{ message: 'Please log in.' }];
-            break;
-          case 403:
-            errors = [{ message: 'Access denied.' }];
-            break;
-          case 404:
-            errors = [{ message: 'The requested application is not found.' }];
-            break;
-          case 500:
-            errors = [];
-            break;
-        }
-      } else {
-        const body = error.json() || '';
-        errors = body.errors;
-      }
-    } else {
-      errors = [];
-    }
-    return Observable.throw(errors);
-  }
 }
