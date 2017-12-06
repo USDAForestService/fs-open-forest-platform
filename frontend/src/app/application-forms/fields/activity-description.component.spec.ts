@@ -4,19 +4,19 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { ActivityDescriptionComponent } from './activity-description.component';
+import { TestService } from '../../_services/test.service';
 
 describe('activity description', () => {
   let component: ActivityDescriptionComponent;
   let fixture: ComponentFixture<ActivityDescriptionComponent>;
   let formBuilder: FormBuilder;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [ActivityDescriptionComponent],
-        providers: [FormBuilder, { provide: ApplicationFieldsService, useClass: ApplicationFieldsService }],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule([ActivityDescriptionComponent], [FormBuilder, ApplicationFieldsService]);
+
       formBuilder = new FormBuilder();
       fixture = TestBed.createComponent(ActivityDescriptionComponent);
       component = fixture.debugElement.componentInstance;

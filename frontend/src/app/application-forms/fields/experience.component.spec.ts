@@ -4,29 +4,25 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExperienceComponent } from './experience.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { TestService } from '../../_services/test.service';
 
 describe('Experience Component', () => {
   let component: ExperienceComponent;
   let fixture: ComponentFixture<ExperienceComponent>;
   let formBuilder: FormBuilder;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [ExperienceComponent],
-        providers: [FormBuilder, ApplicationFieldsService],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule([ExperienceComponent], [FormBuilder, ApplicationFieldsService]);
+      formBuilder = new FormBuilder();
+      fixture = TestBed.createComponent(ExperienceComponent);
+      component = fixture.debugElement.componentInstance;
+      component.parentForm = formBuilder.group({});
+      fixture.detectChanges();
     })
   );
-
-  beforeEach(() => {
-    formBuilder = new FormBuilder();
-    fixture = TestBed.createComponent(ExperienceComponent);
-    component = fixture.debugElement.componentInstance;
-    component.parentForm = formBuilder.group({});
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
