@@ -52,10 +52,10 @@ export class ErrorMessageComponent {
   parseErrors(errors) {
     let message = '';
     if (errors) {
-      for (let error in errors) {
+      for (const error in errors) {
         if (this.errorOptions[error] && this.errorOptions[error]['message']) {
           message += `${this.name} ${this.errorOptions[error]['message']}`;
-          for (let option in errors[error]) {
+          for (const option in errors[error]) {
             if (this.errorOptions[error] && this.errorOptions[error][option]) {
               message += `${errors[error][option]}${this.errorOptions[error][option]}`;
             }
