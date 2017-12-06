@@ -5,12 +5,13 @@ import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmasTreesApplication.service';
+import { UtilService } from '../../_services/util.service';
 
 describe('Christmas Trees Application Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [ChristmasTreesApplicationService, { provide: XHRBackend, useClass: MockBackend }]
+      providers: [UtilService, ChristmasTreesApplicationService, { provide: XHRBackend, useClass: MockBackend }]
     });
   });
 
@@ -33,27 +34,4 @@ describe('Christmas Trees Application Service', () => {
     })
   );
 
-  it(
-    'should call handleStatusCode',
-    inject([ChristmasTreesApplicationService], service => {
-      const spy = sinon.spy(service, 'handleError');
-      service.handleError('error');
-      service.handleError(
-        new Response(
-          new ResponseOptions({
-            body: JSON.stringify({ test: 'data' })
-          })
-        )
-      );
-      service.handleError(
-        new Response(
-          new ResponseOptions({
-            body: JSON.stringify({}),
-            status: 403
-          })
-        )
-      );
-      expect(spy.calledThrice).toBeTruthy();
-    })
-  );
 });
