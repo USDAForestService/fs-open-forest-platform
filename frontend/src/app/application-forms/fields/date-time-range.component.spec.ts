@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
+import { TestService } from '../../_services/test.service';
 
 @Component({
   selector: 'app-test-component-wrapper',
@@ -18,14 +19,12 @@ class TestComponentWrapperComponent {
 describe('DateTimeRange', () => {
   let component: DateTimeRangeComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [DateTimeRangeComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule([DateTimeRangeComponent, TestComponentWrapperComponent], [FormBuilder]);
 
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;
