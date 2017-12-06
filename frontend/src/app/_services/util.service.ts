@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UtilService {
@@ -27,5 +32,17 @@ export class UtilService {
   createId(value: string) {
     const id = value.replace(/[^A-Z0-9]+/gi, '-').toLowerCase().substring(0, 20);
     return id;
+  }
+
+  handleError(error: Response | any) {
+    let errors: any = ['Server error'];
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      errors = body.errors;
+      if (error.status) {
+        errors = [error.status];
+      }
+    }
+    return Observable.throw(errors);
   }
 }

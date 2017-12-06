@@ -11,6 +11,7 @@ import { treeApplicationMock } from './tree-application.mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
+import { UtilService } from '../../_services/util.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -28,6 +29,7 @@ describe('TreeApplicationFormComponent', () => {
       TestBed.configureTestingModule({
         declarations: [TreeApplicationFormComponent],
         providers: [
+          UtilService,
           { provide: FormBuilder, useClass: FormBuilder },
           { provide: Title, useClass: Title },
           { provide: TreesService, useClass: TreesService },
