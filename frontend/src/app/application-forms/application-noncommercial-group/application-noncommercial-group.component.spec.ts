@@ -13,6 +13,7 @@ import { MockBackend } from '@angular/http/testing';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { noncommercialMock } from './noncommercial.mock';
+import { UtilService } from '../../_services/util.service';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -24,6 +25,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
         declarations: [ApplicationNoncommercialGroupComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
+          UtilService,
           { provide: ApplicationService, useClass: ApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },

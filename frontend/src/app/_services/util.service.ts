@@ -35,12 +35,28 @@ export class UtilService {
   }
 
   handleError(error: Response | any) {
-    let errors: any = ['Server error'];
+    let errors: any = [];
     if (error instanceof Response) {
-      const body = error.json() || '';
+      let body = error.json() || '';
       errors = body.errors;
       if (error.status) {
-        errors = [error.status];
+        switch (error.status) {
+          case 400:
+            body = error.json() || '';
+            errors = body.errors;
+            break;
+          case 401:
+            errors = [{message: 'Please log in.'}];
+            break;
+          case 403:
+            errors = [{message: 'Access denied.'}];
+            break;
+          case 404:
+            errors = [{message: 'The requested application is not found.'}];
+            break;
+          default:
+            errors = [];
+        }
       }
     }
     return Observable.throw(errors);
