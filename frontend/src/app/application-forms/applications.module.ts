@@ -15,6 +15,7 @@ import { EmailComponent } from './fields/email.component';
 import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
+import { FileUploadService } from './_services/file-upload.service';
 import { NoncommercialFieldsComponent } from './fields/noncommercial-fields.component';
 import { NoncommercialLearnMoreComponent } from './application-noncommercial-group/noncommercial-learn-more.component';
 import { QuantityComponent } from './fields/quantity.component';
@@ -87,6 +88,6 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     WebsiteComponent
   ],
   imports: [FileUploadModule, SharedModule],
-  providers: [ApplicationFieldsService]
+  providers: [ApplicationFieldsService, FileUploadService]
 })
 export class ApplicationsModule {}

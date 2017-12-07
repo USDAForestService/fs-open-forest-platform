@@ -25,9 +25,7 @@ describe('getPassportUser', () => {
     );
     expect(send.callCount).to.equal(1);
     expect(send.calledWith(user)).to.be.false;
-    expect(send.firstCall.args[0])
-      .to.be.an('object')
-      .and.have.property('email');
+    expect(send.firstCall.args[0]).to.be.an('object').and.have.property('email');
     utilstub.restore();
   });
 
