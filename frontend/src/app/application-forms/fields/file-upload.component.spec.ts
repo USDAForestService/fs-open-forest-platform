@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FileUploadComponent } from './file-upload.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { FileUploadService } from '../_services/file-upload.service';
+
 import { FileItem, FileUploaderOptions, FileLikeObject, FileUploadModule } from 'ng2-file-upload';
 import * as sinon from 'sinon';
 
@@ -16,7 +18,7 @@ describe('FileUploadComponent', () => {
       TestBed.configureTestingModule({
         imports: [FileUploadModule],
         declarations: [FileUploadComponent],
-        providers: [FormBuilder, { provide: ApplicationFieldsService, useClass: ApplicationFieldsService }],
+        providers: [FormBuilder, ApplicationFieldsService, FileUploadService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -34,21 +36,21 @@ describe('FileUploadComponent', () => {
   });
 
   it('should remove a file when upload is complete', () => {
-    component.fieldsService.numberOfFiles = 2;
+    component.fileUploadService.numberOfFiles = 2;
     component.onCompleteItem(null, null, null, null);
-    expect(component.fieldsService.numberOfFiles).toEqual(1);
+    expect(component.fileUploadService.numberOfFiles).toEqual(1);
   });
 
   it('should update field after file is added', () => {
-    component.fieldsService.numberOfFiles = 0;
+    component.fileUploadService.numberOfFiles = 0;
     let uploader = { queue: [] };
     component.onAfterAddingFile(uploader);
-    expect(component.fieldsService.numberOfFiles).toEqual(0);
+    expect(component.fileUploadService.numberOfFiles).toEqual(0);
 
     uploader = { queue: [{ file: { name: 'test' } }] };
     component.onAfterAddingFile(uploader);
     expect(component.errorMessage).toEqual('');
-    expect(component.fieldsService.numberOfFiles).toEqual(1);
+    expect(component.fileUploadService.numberOfFiles).toEqual(1);
     expect(component.field.value).toEqual('test');
   });
 

@@ -4,6 +4,7 @@ import { applicationTypeValidator } from '../validators/application-type-validat
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { FileUploadService } from '../_services/file-upload.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, DoCheck, ElementRef, HostListener, Renderer2, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
@@ -53,7 +54,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
-    public renderer: Renderer2
+    public renderer: Renderer2,
+    public fileUploadService: FileUploadService
   ) {
     this.applicationForm = this.formBuilder.group({
       appControlNumber: ['', [Validators.maxLength(255)]],
@@ -199,7 +201,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   numberOfFilesToUpload() {
-    this.numberOfFiles = this.applicationFieldsService.getNumberOfFiles();
+    this.numberOfFiles = this.fileUploadService.getNumberOfFiles();
   }
 
   /**
@@ -334,7 +336,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   retryFileUpload(event) {
-    this.applicationFieldsService.setFileUploadError(false);
+    this.fileUploadService.setFileUploadError(false);
     this.fileUploadError = false;
     this.numberOfFilesToUpload();
     this.uploadFiles = true;
@@ -354,13 +356,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   ngDoCheck() {
-    if (this.applicationFieldsService.fileUploadError) {
+    if (this.fileUploadService.fileUploadError) {
       this.fileUploadError = true;
       this.uploadFiles = false;
     }
     if (this.uploadFiles) {
-      this.fileUploadProgress = this.applicationFieldsService.getFileUploadProgress(this.numberOfFiles + 1);
-      if (this.applicationFieldsService.getNumberOfFiles() < 1) {
+      this.fileUploadProgress = this.fileUploadService.getFileUploadProgress(this.numberOfFiles + 1);
+      if (this.fileUploadService.getNumberOfFiles() < 1) {
         this.uploadFiles = false;
         this.showFileUploadProgress = false;
         this.fileUploadError = false;

@@ -46,13 +46,13 @@ export class UtilService {
             errors = body.errors;
             break;
           case 401:
-            errors = [{message: 'Please log in.'}];
+            errors = [{ message: 'Please log in.' }];
             break;
           case 403:
-            errors = [{message: 'Access denied.'}];
+            errors = [{ message: 'Access denied.' }];
             break;
           case 404:
-            errors = [{message: 'The requested application is not found.'}];
+            errors = [{ message: 'The requested application is not found.' }];
             break;
           default:
             errors = [];
