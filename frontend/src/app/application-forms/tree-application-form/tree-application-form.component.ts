@@ -33,6 +33,7 @@ export class TreeApplicationFormComponent implements OnInit {
   ) {
     this.applicationForm = this.formBuilder.group({
       forestId: ['', [Validators.required]],
+      forestAbbr: ['', [Validators.required]],
       orgStructureCode: ['', [Validators.required]],
       treeCost: [''],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
@@ -58,6 +59,7 @@ export class TreeApplicationFormComponent implements OnInit {
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
       this.applicationForm.get('forestId').setValue(data.forest.id);
+      this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
       this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
       this.costPerTree = data.forest.treeCost;
       this.applicationForm.get('treeCost').setValue(this.costPerTree);
@@ -78,7 +80,7 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   createApplication() {
-    this.applicationService.create(JSON.stringify(this.applicationForm.value) ).subscribe(
+    this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
         window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },

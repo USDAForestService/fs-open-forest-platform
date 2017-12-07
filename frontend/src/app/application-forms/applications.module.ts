@@ -31,6 +31,7 @@ import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/te
 import { WebsiteComponent } from './fields/website.component';
 import 'intersection-observer';
 import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
+import { TreePermitViewComponent } from './tree-application-form/tree-permit-view/tree-permit-view.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitViewComponent,
     WebsiteComponent
   ],
   exports: [
@@ -85,6 +87,7 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitViewComponent,
     WebsiteComponent
   ],
   imports: [FileUploadModule, SharedModule],
