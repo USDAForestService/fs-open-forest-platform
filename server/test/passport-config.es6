@@ -90,8 +90,11 @@ describe('logout', () => {
         redirect
       }
     );
-    expect(redirect.callCount).to.equal(1);
-    expect(logout.callCount).to.equal(0);
-    expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
+    setTimeout(function() {
+      expect(redirect.callCount).to.equal(1);
+      expect(logout.callCount).to.equal(0);
+      expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
+    }, 2000);
+
   });
 });
