@@ -223,5 +223,33 @@ christmasTree.getOneGuidelines = (req, res) => {
     });
 };
 
+christmasTree.getOnePermit = (req, res) => {
+
+  treesDb.christmasTreesPermits.findOne({
+    where: {
+      permitId: req.params.id
+    }
+  })
+    .then(permit => {
+      if (permit) {
+        return res.status(200).send({
+            permitId: permit.permitId,
+            orgStructureCode: permit.orgStructureCode,
+            firstName: permit.firstName,
+            lastName: permit.lastName,
+            emailAddress: permit.emailAddress,
+            totalCost: permit.totalCost,
+            status: permit.status
+        });
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(400).json(error);
+    });
+};
+
 
 module.exports = christmasTree;
