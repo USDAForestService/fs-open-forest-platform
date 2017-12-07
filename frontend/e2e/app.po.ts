@@ -26,7 +26,18 @@ export class ChristmasTreeForm {
   navigateTo() {
     return browser.get('applications/christmas-trees/forests/arp/new');
   }
-
+  firstName() {
+    return element(by.css("[id*=primary-permit-holder-first-name]"));
+  }
+  firstNameError() {
+    return element(by.css("[id*=primary-permit-holder-first-name-error]"));
+  }
+  lastName() {
+    return element(by.css("[id*=primary-permit-holder-last-name]"));
+  }
+  lastNameError() {
+    return element(by.css("[id*=primary-permit-holder-last-name-error]"));
+  }
   submit() {
     return element(by.id('submit-application'));
   }

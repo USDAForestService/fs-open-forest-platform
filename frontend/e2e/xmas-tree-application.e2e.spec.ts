@@ -16,16 +16,17 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit.');
   });
 
-  it( 'should show all fields as invalid if submitted without input', () => {
-    page.submit().click();
-    browser.sleep(500);
-
-
-  });
-
-  // it( 'should require a first name' () => {
-  //
+  // it( 'should show all fields as invalid if submitted without input', () => {
+  //   page.submit().click();
+  //   browser.sleep(500);
+  // 
   // });
+  
+  it( 'should require a first name' () => {
+    page.firstName().clear();
+    element(page.submit()).click();
+    expect<any>(page.firstNameError()).toBeTruthy();
+  });
   //
   // it( 'should require a last name' () => {
   //
