@@ -28,6 +28,26 @@
         </div>
       </fieldset>
       <hr />
+
+      <ul class="usa-accordion-bordered fs-accordion">
+        <li>
+          <button type='button' class="usa-accordion-button"
+                  [attr.aria-expanded]="rulesExpanded"
+                  (click)="rulesExpanded = !rulesExpanded"
+                  aria-controls="rules-to-accept">
+            Permit Rules and Regulations
+          </button>
+          <div id="rules-to-accept-container" class="usa-accordion-content" [attr.aria-hidden]="!rulesExpanded">
+            <app-tree-rules [forest]="forest"></app-tree-rules>
+            <span>
+              <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+              <label for="accept-rules">I have reviewed all of the rules and regulations.</label>
+              <app-error-message fieldId="accept-rules-error" name="Accepting that you have viewed the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
+            </span>
+          </div>
+        </li>
+      </ul>
+
       <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 

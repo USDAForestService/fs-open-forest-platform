@@ -22,6 +22,7 @@ export class TreeApplicationFormComponent implements OnInit {
   quantityLength: number;
   costPerTree: number;
   apiErrors: any;
+  rulesExpanded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,8 @@ export class TreeApplicationFormComponent implements OnInit {
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
       quantity: ['', [Validators.required]],
-      totalCost: [0, [Validators.required, currencyValidator()]]
+      totalCost: [0, [Validators.required, currencyValidator()]],
+      acceptRules: [false, [Validators.required]]
     });
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
       this.applicationForm
@@ -73,6 +75,9 @@ export class TreeApplicationFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.createApplication();
     } else {
+      if (!this.applicationForm.get('acceptRules').valid) {
+        this.rulesExpanded = true;
+      }
       this.applicationFieldsService.scrollToFirstError();
     }
   }
