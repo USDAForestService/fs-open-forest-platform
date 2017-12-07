@@ -25,9 +25,7 @@ describe('getPassportUser', () => {
     );
     expect(send.callCount).to.equal(1);
     expect(send.calledWith(user)).to.be.false;
-    expect(send.firstCall.args[0])
-      .to.be.an('object')
-      .and.have.property('email');
+    expect(send.firstCall.args[0]).to.be.an('object').and.have.property('email');
     utilstub.restore();
   });
 
@@ -90,11 +88,8 @@ describe('logout', () => {
         redirect
       }
     );
-    setTimeout(function() {
-      expect(redirect.callCount).to.equal(1);
-      expect(logout.callCount).to.equal(0);
-      expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
-    }, 2000);
-
+    expect(redirect.callCount).to.equal(1);
+    expect(logout.callCount).to.equal(0);
+    expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
   });
 });
