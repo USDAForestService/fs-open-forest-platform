@@ -22,8 +22,12 @@ export class ChristmasTreesApplicationService {
     }
     const options = new RequestOptions({ headers: headers });
 
+    return this.http.post(this.endpoint, body, options).map((res: Response) => res.json()).catch(this.util.handleError);
+  }
+
+  getOne(id, params = '') {
     return this.http
-      .post(this.endpoint, body, options)
+      .get(this.endpoint + params + id, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
@@ -33,5 +37,4 @@ export class ChristmasTreesApplicationService {
       this.router.navigate(['access-denied']);
     }
   }
-
 }

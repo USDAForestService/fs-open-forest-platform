@@ -7,7 +7,7 @@ import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 
 @Component({
   selector: 'app-tree-application-form',

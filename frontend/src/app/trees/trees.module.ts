@@ -24,7 +24,7 @@ import { ForestFinderComponent } from './forests/forest-finder/forest-finder.com
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
-import { ChristmasTreesApplicationService } from './_services/christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 
 @NgModule({
