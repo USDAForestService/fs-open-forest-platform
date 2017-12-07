@@ -60,5 +60,4 @@ export class ApplicationService {
       this.router.navigate(['access-denied']);
     }
   }
-
 }
