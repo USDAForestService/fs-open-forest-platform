@@ -15,7 +15,7 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
 
     return this.service.getOne(id).take(1).map(data => {
       if (data) {
-        return data.permit;
+        return data;
       } else {
         this.router.navigate(['/']);
         return null;

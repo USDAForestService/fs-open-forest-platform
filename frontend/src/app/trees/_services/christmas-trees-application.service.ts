@@ -11,7 +11,7 @@ import { UtilService } from '../../_services/util.service';
 
 @Injectable()
 export class ChristmasTreesApplicationService {
-  private endpoint = environment.apiUrl + 'forests/christmas-trees/applications';
+  private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
 
   constructor(private http: Http, public router: Router, public util: UtilService) {}
 
@@ -25,9 +25,9 @@ export class ChristmasTreesApplicationService {
     return this.http.post(this.endpoint, body, options).map((res: Response) => res.json()).catch(this.util.handleError);
   }
 
-  getOne(id, params = '') {
+  getOne(id) {
     return this.http
-      .get(this.endpoint + params + id, { withCredentials: true })
+      .get(`${this.endpoint}/${id}`, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }

@@ -14,6 +14,7 @@ export class TreePermitViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
+      console.log(data);
       this.forest = data.forest;
       this.permit = data.permit;
       this.titleService.setTitle(
