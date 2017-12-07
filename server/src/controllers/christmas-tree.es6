@@ -108,7 +108,9 @@ christmasTree.create = (req, res) => {
     .then(response => {
       
       const tcsAppID = vcapConstants.payGovAppId;
-                        
+      
+      const url_success = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/permits/' + response.permitId;
+      const url_cancel = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/new';
       const xmlTemplate = [ 
                           { 
                             'S:Envelope':[
@@ -126,8 +128,8 @@ christmasTree.create = (req, res) => {
                                           { transaction_type : 'Sale' },
                                           { transaction_amount : response.totalCost },
                                           { language : 'en' },
-                                          { url_success : 'http://localhost:4200' },
-                                          { url_cancel : 'http://localhost:4200' },
+                                          { url_success : url_success },
+                                          { url_cancel : url_cancel },
                                           { account_holder_name: response.firstName + ' ' + response.lastName },
                                           { custom_fields: [
                                             { custom_field_1: req.body.orgStructureCode }

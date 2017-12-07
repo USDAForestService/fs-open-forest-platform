@@ -51,10 +51,16 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
     .findOne({
       where: {
         permitId: req.query.token
-      }
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
     })
     .then(permit => {
-      if (permit) {
+      if (permit) {  
+        const successUrl = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + permit.christmasTreesForest.forestAbbr + '/permits/' + permit.permitId;
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
@@ -62,7 +68,8 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
           applicantEmailAddress: permit.emailAddress,
           amountOwed: permit.totalCost,
           tcsAppID: req.query.tcsAppID,
-          orgStructureCode: permit.orgStructureCode
+          orgStructureCode: permit.orgStructureCode,
+          successUrl: successUrl  
         };
         return res.status(200).send(mockResponse);
       } else {
