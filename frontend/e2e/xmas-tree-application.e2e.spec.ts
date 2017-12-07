@@ -16,6 +16,37 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit.');
   });
 
+  it( 'should show all fields as invalid if submitted without input', () => {
+    page.submit().click();
+    browser.sleep(500);
+
+
+  });
+
+  // it( 'should require a first name' () => {
+  //
+  // });
+  //
+  // it( 'should require a last name' () => {
+  //
+  // });
+  //
+  // it( 'should display an error for an invalid email address' () => {
+  //
+  // });
+  //
+  // it( 'should require a valid email address' () => {
+  //
+  // });
+  //
+  // it( 'should display an error for an invalid tree amount' () => {
+  //
+  // });
+  //
+  // it( 'should display an error for a tree amount great than allowed' () => {
+  //
+  // });
+
   it('should calculate total cost', () => {
     page.navigateTo();
     element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');

@@ -26,6 +26,10 @@ export class ChristmasTreeForm {
   navigateTo() {
     return browser.get('applications/christmas-trees/forests/arp/new');
   }
+
+  submit() {
+    return element(by.id('submit-application'));
+  }
 }
 
 export class AdminApplicationList {
