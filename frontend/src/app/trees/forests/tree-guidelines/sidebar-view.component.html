@@ -8,6 +8,8 @@
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Information</h1>
       <br/>
+      <button [routerLink]="['/applications/christmas-trees/forests/', forest.forestAbbr,'new']" class="usa-button-primary-alt">Buy permit now</button>
+      <br/>
       <p>Christmas trees can be cut anywhere on the {{forest.forestName}} National Forest subject to the rules and regulations on your permit and as noted below.</p>
 
 
