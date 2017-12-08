@@ -111,6 +111,7 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(page.rulesAccepted().isPresent()).toBeTruthy();
     page.rulesAccepted().click();
     page.submit().click();
+    browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
 });
