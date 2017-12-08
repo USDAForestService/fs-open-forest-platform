@@ -8,14 +8,13 @@
     <div class="usa-width-two-thirds sidebar-page-main-content">
       <h1>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit Information</h1>
       <br/>
-      <button [routerLink]="['/applications/christmas-trees/forests/', forest.forestAbbr,'new']" class="usa-button-primary-alt">Buy permit now</button>
-      <br/>
       <p>Christmas trees can be cut anywhere on the {{forest.forestName}} National Forest subject to the rules and regulations on your permit and as noted below.</p>
 
 
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
-
+      <br/>
+      <button [routerLink]="['/applications/christmas-trees/forests/', forest.forestAbbr,'new']" class="usa-button-primary-alt">Buy permit</button>
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
       <app-tree-species [forest]="forest"></app-tree-species>
