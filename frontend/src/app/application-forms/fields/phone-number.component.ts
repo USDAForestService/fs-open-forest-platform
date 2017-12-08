@@ -16,6 +16,18 @@ export class PhoneNumberComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
+    this.addFormControls();
+    this.setValueChangeSubscription('dayPhone');
+    this.setValueChangeSubscription('eveningPhone');
+
+    if (this.parentForm.get('addAdditionalPhone')) {
+      this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
+        this.addRemoveValidators(value);
+      });
+    }
+  }
+
+  addFormControls() {
     const dayPhone = this.formBuilder.group({
       areaCode: [null, Validators.maxLength(3)],
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
@@ -33,8 +45,6 @@ export class PhoneNumberComponent implements OnInit {
       tenDigit: ['', Validators.maxLength(10)]
     });
     this.parentForm.addControl('eveningPhone', eveningPhone);
-
-    this.setValueChangeSubscriptions();
   }
 
   addRemoveValidators(value) {
@@ -49,30 +59,14 @@ export class PhoneNumberComponent implements OnInit {
     }
   }
 
-  setValueChangeSubscriptions() {
+  setValueChangeSubscription(type) {
     if (this.parentForm.get('dayPhone.tenDigit')) {
-      this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
+      this.parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
         if (value) {
-          this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
-          this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
-          this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
+          this.parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
+          this.parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
+          this.parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
         }
-      });
-    }
-
-    if (this.parentForm.get('dayPhone.tenDigit')) {
-      this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-        if (value) {
-          this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-          this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-          this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
-        }
-      });
-    }
-
-    if (this.parentForm.get('addAdditionalPhone')) {
-      this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
-        this.addRemoveValidators(value);
       });
     }
   }
