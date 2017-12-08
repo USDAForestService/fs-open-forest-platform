@@ -38,20 +38,19 @@
               Permit Rules and Regulations
             </button>
             <div id="rules-to-accept-container" class="usa-accordion-content" [attr.aria-hidden]="!rulesExpanded">
+              <app-section-heading heading="Rules to know" elementId="rules"></app-section-heading>
               <app-tree-rules [forest]="forest"></app-tree-rules>
-              <span>
-                <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-                <label id='accept-rules-label' for="accept-rules">I have reviewed all of the rules and regulations.</label>
-                <app-error-message fieldId="accept-rules-error" name="Accepting that you have viewed the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
-              </span>
             </div>
           </li>
         </ul>
       </div>
 
-
-
       <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      <span>
+        <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+        <label id='accept-rules-label' for="accept-rules">Check here to indicate that you have read and understood the <a href='#' (click)="goToRules($event)">rules and regulations</a>.</label>
+        <app-error-message fieldId="accept-rules-error" name="Checking that you have viewed the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
+      </span>
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>

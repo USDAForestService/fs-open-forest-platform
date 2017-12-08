@@ -8,6 +8,7 @@ import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-valid
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
+import { UtilService } from '../../_services/util.service';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -21,7 +22,7 @@ export class TreeApplicationFormComponent implements OnInit {
   maxNumberOfTrees: number;
   costPerTree: number;
   apiErrors: any;
-  rulesExpanded = false;
+  rulesExpanded = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +30,8 @@ export class TreeApplicationFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private treesService: TreesService
+    private treesService: TreesService,
+    public util: UtilService
   ) {}
 
   ngOnInit() {
@@ -91,6 +93,11 @@ export class TreeApplicationFormComponent implements OnInit {
         window.scroll(0, 0);
       }
     );
+  }
+
+  goToRules(event) {
+    this.rulesExpanded = true;
+    this.util.gotoHashtag('rules', event);
   }
 
   updateTotalCost() {
