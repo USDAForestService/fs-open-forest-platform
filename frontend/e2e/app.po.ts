@@ -22,6 +22,12 @@ export class TempOutfittersForm {
   }
 }
 
+export class ChristmasTreeForm {
+  navigateTo() {
+    return browser.get('applications/christmas-trees/forests/arp/new');
+  }
+}
+
 export class AdminApplicationList {
   navigateTo() {
     return browser.get('/admin/applications');
@@ -30,7 +36,7 @@ export class AdminApplicationList {
 
 export class AdminApplicationView {
   navigateTo() {
-    return browser.get('/admin/applications/noncommercial/234');
+    return browser.get('/admin/applications/noncommercial/806d3550-309d-46ea-b12a-f021f7b3d447');
   }
 }
 
@@ -48,7 +54,7 @@ export class TreesSidebarPage {
   }
 
   getTreeSpecies(type, index) {
-    return element(by.id(`tree-${type}-species-${index}`))
+    return element(by.id(`tree-${type}-species-${index}`));
   }
 
   cuttingAreaDates(index) {
@@ -98,6 +104,14 @@ export class TreesSidebarPage {
   whenToCutDatesSectionLink() {
     return element(by.id('cutting-dates-link'));
   }
+
+  rulesToKnowSectionLink() {
+    return element(by.id('need-to-know-link'));
+  }
+
+  rulesToKnowSection() {
+    return element(by.id('need-to-know'));
+  }
 }
 
 export class TreesForestFinderPage {
@@ -105,7 +119,6 @@ export class TreesForestFinderPage {
     return browser.get('/christmas-trees/forests');
   }
 }
-
 
 export class HelpMePick {
   questionStep(cta, question) {

@@ -230,8 +230,8 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
 aws-sdk@^2.62.0:
-  version "2.163.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.163.0.tgz#bf0c43878634800c5426aa0931b5683900493d92"
+  version "2.162.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.162.0.tgz#1b16215fc9b599ba7cd2cfe7ce050c7f934381a6"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -366,6 +366,12 @@ block-stream@*:
 bluebird@^3.0.5, bluebird@^3.4.1, bluebird@^3.4.6, bluebird@^3.5.0, bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+
+body-parser-xml@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/body-parser-xml/-/body-parser-xml-1.1.0.tgz#7b56bef1cd7d266c13602b4c1daf4f511d26447c"
+  dependencies:
+    xml2js "^0.4.16"
 
 body-parser@1.18.2:
   version "1.18.2"
@@ -3166,8 +3172,8 @@ nodemailer@^4.1.0:
   resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.4.0.tgz#571989e524a906fb83b1518f3e4c0d3140db24af"
 
 nodemon@^1.12.1:
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.12.2.tgz#edc51e1589a172429ee30353b6435bfa8e7468e5"
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.12.1.tgz#996a56dc49d9f16bbf1b78a4de08f13634b3878d"
   dependencies:
     chokidar "^1.7.0"
     debug "^2.6.8"
@@ -4150,8 +4156,8 @@ sequelize-cli@^3.0.0:
     yargs "^8.0.2"
 
 sequelize@^4.15.0:
-  version "4.26.0"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.26.0.tgz#789ecfa1cd95add5155734879602d95da9d24682"
+  version "4.25.1"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.25.1.tgz#989ed346e31bec01276b29dbe04ced0b67a7c25c"
   dependencies:
     bluebird "^3.4.6"
     cls-bluebird "^2.0.1"
@@ -5156,12 +5162,16 @@ xml2js@0.4.17:
     sax ">=0.6.0"
     xmlbuilder "^4.1.0"
 
-xml2js@0.4.x:
+xml2js@0.4.x, xml2js@^0.4.16, xml2js@^0.4.19:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "~9.0.1"
+
+xml@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
 
 xmlbuilder@2.5.x:
   version "2.5.2"

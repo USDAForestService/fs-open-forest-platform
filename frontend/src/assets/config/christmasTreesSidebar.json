@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cutting-dates",
+    "title": "When to cut your tree"
+  },
+  {
+    "id": "tree-selection",
+    "title": "How to choose your tree"
+  },
+  {
+    "id": "cutting-instructions",
+    "title": "How to cut your tree",
+    "sections": [
+      {
+        "id": "cutting-instructions-before-you-cut",
+        "title": "Before you cut"
+      },
+      {
+        "id": "cutting-instructions-when-you-cut",
+        "title": "When you cut"
+      }
+    ]
+  },
+  {
+    "id": "need-to-know",
+    "title": "Rules to know"
+  },
+  {
+    "id": "trip-planning",
+    "title": "How to plan your trip"
+  },
+  {
+    "id": "tree-locations",
+    "title": "Where to find your tree",
+    "sections": [
+      {
+        "id": "tree-locations-prohibited",
+        "title": "Prohibited areas and restrictions"
+      },
+      {
+        "id": "tree-locations-allowed",
+        "title": "Cutting area maps"
+      }
+    ]
+  },
+  {
+    "id": "contact-information",
+    "title": "Contact us"
+  }
+]

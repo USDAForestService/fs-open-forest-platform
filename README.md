@@ -88,7 +88,7 @@ DATABASE_URL
 
     or for CircleCI
 
-    postgres://ubuntu:@127.0.0.1:5432/circle_test
+    postgres://ubuntu:@localhost:5432/circle_test
 
 PLATFORM
 
@@ -125,10 +125,7 @@ VCAP_SERVICES
     },
     {
       "credentials": {
-        "intake_client_base_url": "http://localhost:4200",
-        "intake_password": "",
-        "intake_username": "",
-        "jwt_secret": "shhhhhhhh!"
+        "intake_client_base_url": "http://localhost:4200"
       },
       "label": "user-provided",
       "name": "intake-client-service",
@@ -180,14 +177,20 @@ VCAP_SERVICES
       "volume_mounts": []
     },
     {
-      "name": "auth-service",
-      "credentials": { "jwt_secret_key": "shhhhhhhh!" }
+      "credentials": {
+        "token_url": "http://localhost:8080/mock-pay-gov",
+        "client_url": "http://localhost:4200/mock-pay-gov",
+        "tcs_app_id": "FS-100"
+      },
+      "label":"user-provided",
+      "name":"pay-gov"
     }
   ],
   "s3": [
     {
-      "name": "intake-s3",
-      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" }
+      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" },
+      "label": "s3",
+      "name": "intake-s3"
     }
   ]
 }
@@ -294,6 +297,12 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 Navigate to `/assets/typedoc/index.html`
 
+
+#### Pay.Gov integration
+VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
+To mock Pay.Gov integration use the values in the VCAP example.
+
+
 #### Enable html5 pushstate on cloud.gov
 In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
 
@@ -365,13 +374,10 @@ The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstrea
 
 #### Christmas trees sidebar template
 A sidebar template for the tree guidelines page at `/frontend/src/app/trees/forests/tree-guidelines/sidebar-view.component.html`
-The navigation on this page shows up on desktop width browsers and is hidden on mobile. The mobile menu was added to `/frontend/src/app/trees/forests/tree-guidelines/tree-guidelines.component.html`
 
-The menus were duplicated because the desktop and mobile views require different classes and functionality particularly around the active state of the menu items on scroll events.
+A sidebar component was created at `/frontend/src/app/sidebar/sidebar.component.ts` that takes a JSON object with all of the sidebar items and IDs of elements on the page that are linked to. The sidebar component creates both desktop and mobile menus.
 
-Refactoring to DRY up the menus could happen.
-
-The mobile menu that was added to the tree guidelines page is not implemented on the application forms that use a sidebar navigation.
+The JSON that is sent to the sidebar component only dynamically creates the sidebar and mobile menus. The component or section to which the items are linked to must be coded in. A future story could consider passing a component containing the linked to section into the JSON.
 
 
 ## Usability testing

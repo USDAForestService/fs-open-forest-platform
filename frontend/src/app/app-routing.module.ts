@@ -10,6 +10,7 @@ import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.
 import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
+import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
@@ -19,6 +20,7 @@ import { TemporaryOutfittersComponent } from './application-forms/temporary-outf
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
+import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 
 const appRoutes: Routes = [
   {
@@ -89,8 +91,7 @@ const appRoutes: Routes = [
     component: TreeGuidelinesComponent,
     resolve: {
       forest: ForestResolver
-    },
-    data: { title: 'Christmas Tree Permit Information' }
+    }
   },
   {
     path: 'christmas-trees/forests',
@@ -98,7 +99,19 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas tree permit information' }
+    data: { title: 'Select a national forest | U.S. Forest Service Christmas Tree Permitting' }
+  },
+  {
+    path: 'mock-pay-gov',
+    component: LandingPageComponent,
+    data: { title: 'Complete your Christmas Tree permit transaction' }
+  },
+  {
+    path: 'applications/christmas-trees/forests/:id/new',
+    component: TreeApplicationFormComponent,
+    resolve: {
+      forest: ForestResolver
+    }
   },
   { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },

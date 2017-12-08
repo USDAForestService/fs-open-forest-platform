@@ -12,4 +12,7 @@ router.get('/', christmasTreeController.getForests);
 /* get regualtions for a single forest */
 router.get('/:id', christmasTreeController.getOneGuidelines);
 
+/*POST a new christmas tree application*/
+router.post('/christmas-trees/applications', christmasTreeController.create);
+
 module.exports = router;

@@ -6,6 +6,7 @@ import {FilterPipe} from '../../../../_pipes/filter.pipe';
 import {LineBreakFormatterPipe} from '../../../../_pipes/line-break-formatter.pipe';
 
 describe('ContactInfoComponent', () => {
+
   let component: ContactInfoComponent;
   let fixture: ComponentFixture<ContactInfoComponent>;
 

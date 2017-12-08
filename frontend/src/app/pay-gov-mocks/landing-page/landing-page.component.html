@@ -1,0 +1,52 @@
+<div class="usa-grid">
+  <h1>Pay.Gov Payment Form</h1>
+  <form [formGroup]="applicationForm">
+    <label>Transaction Amount</label>
+    <input type="text" name="payment-amount" value="5.00" formControlName="paymentAmount">
+    <label>Account Holder Name</label>
+    <input type="text" name="cardholder-name" formControlName="applicantName" value="{{applicationForm.controls.applicantName.value}}">
+    
+    <label>Billing Address</label>
+    <input type="text" name="cardholder-billing-address" formControlName="cardholderBillingAddress">
+    <label>Billing Address 2</label>
+    <input type="text" name="cardholder-billing-address-2" formControlName="cardholderBillingAddress2">
+    <div class="usa-width-one-whole">
+    <div class="usa-width-one-fourth">
+        <label>Billing City</label>
+        <input type="text" name="city" formControlName="cardholderCity">
+    </div>
+    <div class="usa-width-one-fourth">
+        <label>Billing State</label>
+        <input class="usa-width-one-half" type="text" name="state-province" formControlName="cardholderState">
+    </div>
+    <div class="usa-width-one-fourth">
+        <label>Billing ZIP</label>
+        <input class="usa-width-one-half" type="text" name="zip-postal-code" formControlName="cardholderZip">
+    </div>
+  </div>
+    <label>Billing Country</label>
+    <input type="text" name="country" formControlName="cardholderCountry">
+    <label>Email Address</label>
+    <input type="text" name="cardholder-name" formControlName="applicantEmailAddress" value="{{applicationForm.controls.applicantEmailAddress.value}}">
+    <label>Card Number</label>
+    <input type="text" name="card-number" formControlName="cardNumber">
+    
+    <div class="usa-width-one-half">
+      <label>Expiration Date</label>
+      <select name="card-exp-month" class="usa-width-one-fourth" formControlName="cardExpirationMonth">
+        <option *ngFor="let month of [1,2,3,4,5,6,7,8,9,10,11,12]">{{month}}</option>
+      </select>
+      <select name="card-exp-year" class="usa-width-one-fourth" formControlName="cardExpirationYear">
+        <option *ngFor="let year of [2017,2018,2019,2020,2021,2022,2023]">{{year}}</option>
+      </select>
+    </div>
+    <div class="usa-width-one-fourth">   
+      <label>Security Code</label> 
+      <input type="text" name="card-security-code" formControlName="cardSecurityCode" class="usa-width-one-fourth">
+    </div>
+    <div class="usa-width-one-whole">
+      <button class="usa-button-grey usa-button-big" (click)="cancelButtonClick()">Cancel</button>
+      <button class="usa-button-secondary usa-button-big" (click)="submitButtonClick()">Review and Submit Payment</button>
+    </div>
+  </form>
+</div>

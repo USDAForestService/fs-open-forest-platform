@@ -3,7 +3,14 @@ yarn start &
 serverid=$!
 sleep 1
 cd ../frontend;
-yarn run e2e:ci;
+
+ARGUMENTS=''
+for i in "$@"
+do
+  ARGUMENTS=$ARGUMENTS"--specs=${i} "
+done
+
+yarn run e2e:ci $ARGUMENTS;
 e2ereturncode=$?
 
 if [[ $e2ereturncode = 0 ]]

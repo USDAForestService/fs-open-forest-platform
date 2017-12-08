@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import { FilterPipe } from '../../../_pipes/filter.pipe';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
+import { TreeDistrictsUtilService } from './tree-districts-util.service';
 
 @Component({
   selector: 'app-tree-cutting-dates',
@@ -12,25 +13,12 @@ export class TreeCuttingDatesComponent implements OnChanges {
   districtsWithHoursAndDates: any = [];
   districtsWithPermits: any = [];
 
-  constructor(private filter: FilterPipe, private lineBreakFormatter: LineBreakFormatterPipe) {}
+  constructor(private filter: FilterPipe, private lineBreakFormatter: LineBreakFormatterPipe, public districtUtil: TreeDistrictsUtilService) {}
 
   populateDistricts() {
     const locations = this.forest.locations;
-    const districts = Object.create(null);
-
-    locations.forEach(location => (districts[location.district] = { ...location, locations: [] }));
-
-    delete districts.null;
-
-    const districtsTree = [];
-
-    locations.forEach(location => {
-      if (location.district) {
-        districts[location.district].locations.push(location);
-      } else {
-        districtsTree.push(districts[location]);
-      }
-    });
+    const districts = this.districtUtil.mapLocationsToDistricts(locations);
+    this.districtUtil.reduceLocations(locations, districts);
 
     for (const key of Object.keys(districts)) {
       const district = districts[key];

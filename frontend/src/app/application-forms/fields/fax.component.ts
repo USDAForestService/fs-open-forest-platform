@@ -14,7 +14,7 @@ export class FaxComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
-  ngOnInit() {
+  createForm() {
     this.formName = 'fax';
     this[this.formName] = this.formBuilder.group({
       areaCode: [null, Validators.maxLength(3)],
@@ -25,7 +25,9 @@ export class FaxComponent implements OnInit {
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.fax = this.parentForm.get('fax');
+  }
 
+  changeSubscribers() {
     this.parentForm.get('fax.extension').valueChanges.subscribe(value => {
       if (value) {
         this.parentForm
@@ -45,5 +47,10 @@ export class FaxComponent implements OnInit {
         this.parentForm.patchValue({ fax: { number: value.substring(6, 10) } });
       }
     });
+  }
+
+  ngOnInit() {
+    this.createForm();
+    this.changeSubscribers();
   }
 }
