@@ -16,6 +16,18 @@ class TestComponentWrapperComponent {
   }
 }
 
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-date-time-range [parentForm]="applicationForm"></app-date-time-range>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
+
 describe('DateTimeRange', () => {
   let component: DateTimeRangeComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
