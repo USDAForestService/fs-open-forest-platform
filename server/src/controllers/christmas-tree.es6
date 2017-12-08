@@ -64,7 +64,7 @@ const translatePermitFromClientToDatabase = input => {
     emailAddress: input.emailAddress,
     treeCost: input.treeCost,
     quantity: input.quantity,
-    totalCost: input.totalCost 
+    totalCost: input.totalCost
   };
 };
 
@@ -105,11 +105,11 @@ const translateFromApplicationToPayment = application => {
 
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
-    .then(response => {
+    .then(permit => {
       
       const tcsAppID = vcapConstants.payGovAppId;
       
-      const url_success = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/permits/' + response.permitId;
+      const url_success = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/permits/' + permit.permitId;
       const url_cancel = vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/new';
       const xmlTemplate = [ 
                           { 
@@ -124,18 +124,16 @@ christmasTree.create = (req, res) => {
                                       {
                                         'startOnlineCollectionRequest':[
                                           { tcs_app_id : tcsAppID },
-                                          { agency_tracking_id : 'FS-TRACK-100' },
+                                          { agency_tracking_id : permit.permitId },
                                           { transaction_type : 'Sale' },
-                                          { transaction_amount : response.totalCost },
+                                          { transaction_amount : permit.totalCost },
                                           { language : 'en' },
                                           { url_success : url_success },
                                           { url_cancel : url_cancel },
-                                          { account_holder_name: response.firstName + ' ' + response.lastName },
+                                          { account_holder_name: permit.firstName + ' ' + permit.lastName },
                                           { custom_fields: [
                                             { custom_field_1: req.body.orgStructureCode }
-                                          ]},
-                                          // TODO permitId needs to be removed before Pay.Gov integration
-                                          { permitId: response.permitId }
+                                          ]}
                                         ]  
                                       }
                                     ]
@@ -158,7 +156,15 @@ christmasTree.create = (req, res) => {
                   if(!err){
                       const startOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
                       const token = startOnlineCollectionResponse.token[0];
-                      return res.status(200).json({ token: token, payGovUrl: vcapConstants.payGovClientUrl, tcsAppID: tcsAppID });
+                      permit.update({
+                        paygovToken : token
+                      }).then(savedPermit => {
+                          return res.status(200).json({ token: token, payGovUrl: vcapConstants.payGovClientUrl, tcsAppID: tcsAppID });
+                      })
+                      .catch(error => {
+                          return res.status(500).send();
+                      });
+                      
                   }
                   else{
                     return res.status(500).send();
@@ -218,7 +224,6 @@ christmasTree.getOneGuidelines = (req, res) => {
       }
     })
     .catch(error => {
-      console.log(error);
       res.status(400).json(error);
     });
 };
@@ -232,6 +237,31 @@ christmasTree.getOnePermit = (req, res) => {
   })
     .then(permit => {
       if (permit) {
+        
+        const xmlTemplate = [ 
+                            { 
+                              'S:Envelope':[
+                                { _attr: { 'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/' } },
+                                { 'S:Header': [] },
+                                {
+                                  'S:Body': [ 
+                                    { 
+                                      'ns2:completeOnlineCollection': [
+                                        { _attr: { 'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline' } },
+                                        {
+                                          'completeOnlineCollectionRequest':[
+                                            { tcs_app_id : vcapConstants.payGovAppId },
+                                            { token: permit.permitId }
+                                          ]  
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                } 
+                              ] 
+                            } 
+                          ];
+        const xmlData = xml(xmlTemplate);
         return res.status(200).send({
             permitId: permit.permitId,
             orgStructureCode: permit.orgStructureCode,
@@ -247,7 +277,6 @@ christmasTree.getOnePermit = (req, res) => {
       }
     })
     .catch(error => {
-      console.log(error);
       res.status(400).json(error);
     });
 };

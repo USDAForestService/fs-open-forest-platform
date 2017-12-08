@@ -5,6 +5,7 @@ const request = require('request'); // npm install request
 const jose = require('node-jose');
 const passport = require('passport');
 const xml = require('xml');
+const uuid = require('uuid/v4');
 
 const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
@@ -25,7 +26,8 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 payGov.router.post('/mock-pay-gov', function(req, res) {
   const startOnlineCollectionRequest =
     req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
-  const permitId = startOnlineCollectionRequest.permitId[0];
+    
+  const token = uuid();
 
   var xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
@@ -36,7 +38,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                       <S:Body>
                         <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
                           <startOnlineCollectionResponse>
-                            <token>${permitId}</token>
+                            <token>${token}</token>
                           </startOnlineCollectionResponse>
                         </ns2:startOnlineCollectionResponse>
                       </S:Body>
@@ -50,7 +52,7 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
   treesDb.christmasTreesPermits
     .findOne({
       where: {
-        permitId: req.query.token
+        paygovToken: req.query.token
       },
       include: [
         {
