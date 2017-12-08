@@ -18,7 +18,7 @@
     <app-error-message fieldId="advertising-url-error" name="Advertising url" [control]="tempOutfitterFields.controls.advertisingURL"></app-error-message>
 
     <input id="no-promotional-website" type="checkbox" formControlName="noPromotionalWebsite" />
-    <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I would like to provide alternate advertising or marketing information for my operation OR I don’t have a promotional website.</label>
+    <label id="no-promotional-website-label" class="usa-input" for="no-promotional-website">I don't have a promotional website or I would like to provide more advertising information.</label>
 
     <ng-container *ngIf="tempOutfitterFields.controls.noPromotionalWebsite.value">
       <label id="advertising-description-label" class="usa-input" >Advertising description</label>

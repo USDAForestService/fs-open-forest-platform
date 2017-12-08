@@ -129,7 +129,7 @@
           (inViewportAction)="elementInView($event)">
           <legend>Liability insurance</legend>
 
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
+          <p>The holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
           <app-file-upload-field name="Liability insurance" type="insurance-certificate"
             [uploadFiles]="uploadFiles"
@@ -167,7 +167,7 @@
           (inViewportAction)="elementInView($event)">
           <legend>Signature</legend>
           <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here.</label>
+          <label id="signature-label" class="usa-input">Type your initials here as a signature on your application.</label>
 
           <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
             [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
