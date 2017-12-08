@@ -54,7 +54,7 @@ export class TreeApplicationFormComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
       this.titleService.setTitle(
-        'Apply for a permit in ' +
+        'Buy a Christmas tree permit in ' +
           data.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );

@@ -1,3 +1,12 @@
-<p>
-  Hi {{ permit.permitId }}
-</p>
+<section id="application" class="usa-section">
+  <div class="usa-grid">
+    <h1 id="skip-nav-target" tabindex="-1">Christmas tree permit confirmation</h1>
+    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
+    <div class="usa-alert usa-alert-success application-deadline-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Your payment of ${{permit.totalCost}} for {{permit.quantity}} permit(s) was successfully received.</h3>
+        <p class="usa-alert-text">A copy of your permit will be emailed to you at {{permit.emailAddress}} . Or, you can print it now.</p>
+      </div>
+    </div>
+  </div>
+</section>
