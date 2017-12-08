@@ -28,7 +28,7 @@ const checkForOrganizationAddress = function(state) {
 
 const checkForAdditionalPhone = function(state) {
   expect<any>(element(by.id('evening-phone')).isPresent()).toBe(state);
-  expect<any>(element(by.id('evening-ext')).isPresent()).toBe(state);
+  expect<any>(element(by.id('evening-phone-ext')).isPresent()).toBe(state);
 };
 
 describe('Apply for a noncommercial group use permit', () => {
@@ -47,12 +47,12 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should submit an application as individual with only the required fields populated', () => {
     page.navigateTo();
-    element(by.id('primary-permit-holder-first-name')).sendKeys('Micky');
-    element(by.id('primary-permit-holder-last-name')).sendKeys('Watson');
-    element(by.id('primary-permit-holder-address')).sendKeys('933 Easy St');
-    element(by.id('primary-permit-holder-city')).sendKeys('Madison');
-    element(by.id('primary-permit-holder-state')).sendKeys('WI');
-    element(by.id('primary-permit-holder-zip')).sendKeys('55555');
+    element(by.css('#person-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
+    element(by.css('#person-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
+    element(by.css('#person-primary-address .primary-permit-holder-address')).sendKeys('933 Easy St');
+    element(by.css('#person-primary-address .primary-permit-holder-city')).sendKeys('Madison');
+    element(by.css('#person-primary-address .primary-permit-holder-state')).sendKeys('WI');
+    element(by.css('#person-primary-address .primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('3333333333');
     element(by.id('name')).sendKeys('Walk in the park');
@@ -66,9 +66,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');
@@ -83,32 +80,32 @@ describe('Apply for a noncommercial group use permit', () => {
     browser.wait(ec.presenceOf(element(by.id('organization-label'))));
     element(by.id('organization-label')).click();
     element(by.id('organization-name')).sendKeys('Test organization');
-    element(by.id('organization-address')).sendKeys('933 Easy St');
-    element(by.id('organization-city')).sendKeys('Madison');
-    element(by.id('organization-state')).sendKeys('WI');
-    element(by.id('organization-zip')).sendKeys('55555');
+    element(by.css('.organization-address')).sendKeys('933 Easy St');
+    element(by.css('.organization-city')).sendKeys('Madison');
+    element(by.css('.organization-state')).sendKeys('WI');
+    element(by.css('.organization-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
-    element(by.id('day-ext')).sendKeys('2222');
+    element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();
     element(by.id('evening-phone')).sendKeys('1111111111');
-    element(by.id('evening-ext')).sendKeys('1111');
+    element(by.id('evening-phone-ext')).sendKeys('1111');
     element(by.id('website')).sendKeys('http://test.com');
-    element(by.id('primary-permit-holder-first-name')).sendKeys('Micky');
-    element(by.id('primary-permit-holder-last-name')).sendKeys('Watson');
+    element(by.css('#organization-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
+    element(by.css('#organization-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
     element(by.id('primary-permit-holder-same-address-label')).click();
-    element(by.id('primary-permit-holder-address')).sendKeys('933 Easy St');
-    element(by.id('primary-permit-holder-city')).sendKeys('Madison');
-    element(by.id('primary-permit-holder-state')).sendKeys('WI');
-    element(by.id('primary-permit-holder-zip')).sendKeys('55555');
+    element(by.css('#organization-primary-address .primary-permit-holder-address')).sendKeys('933 Easy St');
+    element(by.css('#organization-primary-address .primary-permit-holder-city')).sendKeys('Madison');
+    element(by.css('#organization-primary-address .primary-permit-holder-state')).sendKeys('WI');
+    element(by.css('#organization-primary-address .primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('add-secondary-permit-holder-label')).click();
-    element(by.id('secondary-permit-holder-first-name')).sendKeys('Micky');
-    element(by.id('secondary-permit-holder-last-name')).sendKeys('Watson');
+    element(by.css('.secondary-permit-holder-first-name')).sendKeys('Micky');
+    element(by.css('.secondary-permit-holder-last-name')).sendKeys('Watson');
     element(by.id('secondary-permit-holder-same-address-label')).click();
-    element(by.id('secondary-permit-holder-address')).sendKeys('933 Easy St');
-    element(by.id('secondary-permit-holder-city')).sendKeys('Madison');
-    element(by.id('secondary-permit-holder-state')).sendKeys('WI');
-    element(by.id('secondary-permit-holder-zip')).sendKeys('55555');
+    element(by.css('.secondary-permit-holder-address')).sendKeys('933 Easy St');
+    element(by.css('.secondary-permit-holder-city')).sendKeys('Madison');
+    element(by.css('.secondary-permit-holder-state')).sendKeys('WI');
+    element(by.css('.secondary-permit-holder-zip')).sendKeys('55555');
     element(by.id('name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
     element(by.id('participants')).sendKeys('3');
@@ -120,9 +117,6 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('start-hour')).sendKeys('10');
     element(by.id('start-minutes')).sendKeys('10');
     element(by.id('start-period')).sendKeys('AM');
-    element(by.id('end-month')).sendKeys('10');
-    element(by.id('end-day')).sendKeys('10');
-    element(by.id('end-year')).sendKeys('2020');
     element(by.id('end-hour')).sendKeys('10');
     element(by.id('end-minutes')).sendKeys('10');
     element(by.id('end-period')).sendKeys('PM');

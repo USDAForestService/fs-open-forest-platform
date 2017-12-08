@@ -4,19 +4,19 @@ import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
-  providers: [],
   selector: 'app-permit-application-view',
   templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {
-  errorMessage: string;
+  apiErrors: any;
   id: string;
   type: string;
   isAdmin: boolean;
   userType: string;
-  application = new SpecialUseApplication();
+  application: any = {};
   fixedCtas = false;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
@@ -32,6 +32,7 @@ export class PermitApplicationViewComponent implements OnInit {
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
+    private titleService: Title,
     public router: Router
   ) {
     this.isAdmin = this.authenticationService.isAdmin();
@@ -42,8 +43,7 @@ export class PermitApplicationViewComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.errorMessage = 'The application could not be found.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -57,8 +57,7 @@ export class PermitApplicationViewComponent implements OnInit {
         this.handleUpdateResponse(status);
       },
       (e: any) => {
-        this.applicationService.handleStatusCode(e[0]);
-        this.errorMessage = 'There was an error updating this application.';
+        this.apiErrors = e;
         window.scrollTo(0, 200);
       }
     );
@@ -120,6 +119,7 @@ export class PermitApplicationViewComponent implements OnInit {
       this.type = params['type'];
       this.id = params['id'];
       this.getApplication(this.type, this.id);
+      this.titleService.setTitle(`View ${this.type} application ${this.id}`);
     });
   }
 

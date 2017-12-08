@@ -1,27 +1,32 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './_services/authentication.service';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
-
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
+import { MockService } from './_services/mock.service';
+
+import * as sinon from 'sinon';
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  let mockService: MockService;
+  const mockResponse = { email: 'test@test.com', role: 'admin' };
 
   beforeEach(
     async(() => {
+      mockService = new MockService();
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, HttpModule],
         declarations: [AppComponent, UsaBannerComponent],
         providers: [
           { provide: AuthenticationService, useClass: AuthenticationService },
-          { provide: XHRBackend, useClass: MockBackend }
+          { provide: XHRBackend, useClass: MockBackend },
+          { provide: MockService, use: mockService }
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();
@@ -31,6 +36,9 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
+      mockService.mockResponse(mockBackend, mockResponse);
+    });
     fixture.detectChanges();
   });
 
@@ -42,30 +50,18 @@ describe('AppComponent', () => {
     })
   );
 
-  it('should go to hashtag', () => {
-    component.gotoHashtag('main-content', new MouseEvent('click'));
-    const compiled = fixture.debugElement.nativeElement;
-    const main = compiled.querySelector('#main-content');
-    main.dispatchEvent(new Event('focus'));
-    fixture.detectChanges();
-    const focus = compiled.querySelector(':focus');
-
-    expect(focus).toBe(main);
+  it('should call go to hashtag', () => {
+    const spy = sinon.spy(component, 'gotoHashtag');
+    component.gotoHashtag('main', new Event('click'));
+    component.gotoHashtag(null, new Event('click'));
+    expect(spy.calledTwice).toBeTruthy();
   });
 
   it(
     'should check if user is authenticated',
     inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { email: 'test@test.com', role: 'admin' };
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
+
+      mockService.mockResponse(mockBackend, mockResponse);
 
       service.getAuthenticatedUser().subscribe(user => {
         expect(user.email).toBe('test@test.com');

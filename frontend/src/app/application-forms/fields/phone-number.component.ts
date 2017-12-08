@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-phone-number',
@@ -12,56 +13,61 @@ export class PhoneNumberComponent implements OnInit {
   eveningPhone = 'eveningPhone';
   additionalPhone = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
+    this.addFormControls();
+    this.setValueChangeSubscription('dayPhone');
+    this.setValueChangeSubscription('eveningPhone');
+
+    if (this.parentForm.get('addAdditionalPhone')) {
+      this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
+        this.addRemoveValidators(value);
+      });
+    }
+  }
+
+  addFormControls() {
     const dayPhone = this.formBuilder.group({
-      areaCode: [],
+      areaCode: [null, Validators.maxLength(3)],
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
-      number: [],
-      phoneType: ['dayPhone'],
-      prefix: [],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
       tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
     });
     this.parentForm.addControl('dayPhone', dayPhone);
 
-    this.parentForm.get('dayPhone.tenDigit').valueChanges.subscribe(value => {
-      this.parentForm.patchValue({ dayPhone: { areaCode: value.substring(0, 3) } });
-      this.parentForm.patchValue({ dayPhone: { prefix: value.substring(3, 6) } });
-      this.parentForm.patchValue({ dayPhone: { number: value.substring(6, 10) } });
+    const eveningPhone = this.formBuilder.group({
+      areaCode: [null, Validators.maxLength(3)],
+      extension: [null, Validators.maxLength(6)],
+      number: [null, Validators.maxLength(4)],
+      prefix: [null, Validators.maxLength(3)],
+      tenDigit: ['', Validators.maxLength(10)]
     });
+    this.parentForm.addControl('eveningPhone', eveningPhone);
   }
 
-  addOrRemoveAdditionalPhone() {
-    if (!this.additionalPhone) {
-      this.addAdditionalPhone();
+  addRemoveValidators(value) {
+    if (value) {
+      this.parentForm.get('eveningPhone.extension').setValidators([Validators.minLength(1), Validators.maxLength(6)]);
+      this.parentForm
+        .get('eveningPhone.tenDigit')
+        .setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
     } else {
-      this.removeAdditionalPhone();
+      this.parentForm.get('eveningPhone.extension').setValidators(null);
+      this.parentForm.get('eveningPhone.tenDigit').setValidators(null);
     }
   }
 
-  addAdditionalPhone() {
-    const eveningPhone = this.formBuilder.group({
-      areaCode: [],
-      extension: [],
-      number: [],
-      phoneType: ['eveningPhone'],
-      prefix: [],
-      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
-    });
-    this.parentForm.addControl('eveningPhone', eveningPhone);
-
-    this.parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-      this.parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-      this.parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-      this.parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
-    });
-
-    this.additionalPhone = true;
-  }
-
-  removeAdditionalPhone() {
-    this.parentForm.removeControl('eveningPhone');
-    this.additionalPhone = false;
+  setValueChangeSubscription(type) {
+    if (this.parentForm.get('dayPhone.tenDigit')) {
+      this.parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
+        if (value) {
+          this.parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
+          this.parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
+          this.parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
+        }
+      });
+    }
   }
 }

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TripPlanningComponent } from './trip-planning.component';
+import { MockBackend } from '@angular/http/testing';
+import { UtilService } from '../../../../_services/util.service';
 
 describe('TripPlanningComponent', () => {
   let component: TripPlanningComponent;
@@ -9,7 +11,8 @@ describe('TripPlanningComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TripPlanningComponent]
+        declarations: [TripPlanningComponent],
+        providers: [{ provide: UtilService }]
       }).compileComponents();
     })
   );

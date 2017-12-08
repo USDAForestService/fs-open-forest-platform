@@ -13,12 +13,18 @@ export class AddressComponent implements OnInit {
   address: FormGroup;
   @Input() formName: string;
   @Input() type: string;
+  unique: string;
 
   states = States;
 
-  constructor(private formBuilder: FormBuilder, private applicationFieldsService: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
-    this.applicationFieldsService.addAddress(this.parentForm, this.formName);
+    this.unique = Math.random().toString(36).substring(7);
+
+    this.afs.addAddress(this.parentForm, this.formName);
+    if (this.formName === 'primaryAddress') {
+      this.afs.addAddressValidation(this.parentForm, this.formName);
+    }
   }
 }

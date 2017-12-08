@@ -1,4 +1,6 @@
 import { Component, Input, HostListener, OnInit } from '@angular/core';
+import { UtilService } from '../../../_services/util.service';
+import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 
 @Component({
   selector: 'app-sidebar-view',
@@ -7,47 +9,13 @@ import { Component, Input, HostListener, OnInit } from '@angular/core';
 export class SidebarViewComponent implements OnInit {
   @Input() forest: any;
 
-  currentSection: any;
-  bottom: string;
-  top: string;
-  position: string;
+  sidebarItems;
 
-  @HostListener('document:scroll', ['$event'])
-  public track(event: Event) {
-    const nav = document.getElementById('sidebar-nav');
-    const container = document.getElementById('sidebar-page');
-    const footer = document.getElementById('footer');
-
-    if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
-        this.top = '80px';
-        this.bottom = 'auto';
-        this.position = 'fixed';
-      } else {
-        this.top = '330px';
-        this.position = 'absolute';
-      }
-
-      if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
-        const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = '-150px';
-        this.position = 'fixed';
-      }
-    }
-  }
-
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-      this.currentSection = fragment;
-    }
-  }
+  constructor(public util: UtilService, public configService: SidebarConfigService) {}
 
   ngOnInit() {
-    this.currentSection = 'general-guidelines';
-    this.top = '330px';
+    this.configService.getJSON().subscribe(data => {
+      this.sidebarItems = data;
+    });
   }
 }

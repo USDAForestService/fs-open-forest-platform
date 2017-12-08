@@ -7,6 +7,24 @@ import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../_services/application.service';
 import { MockBackend } from '@angular/http/testing';
 
+class MockApplicationService {
+  get(): Observable<{}> {
+    return Observable.of();
+  }
+
+  scrollToFirstError() {
+    return false;
+  }
+
+  touchAllFields() {
+    return false;
+  }
+
+  create(): Observable<{}> {
+    return Observable.of();
+  }
+}
+
 describe('AuthGuardService', () => {
   let service: AuthenticationService;
   let http: Http;
@@ -41,21 +59,3 @@ describe('AuthGuardService', () => {
     expect(service.isAdmin()).toBeTruthy();
   });
 });
-
-class MockApplicationService {
-  get(): Observable<{}> {
-    return Observable.of();
-  }
-
-  scrollToFirstError() {
-    return false;
-  }
-
-  touchAllFields() {
-    return false;
-  }
-
-  create(): Observable<{}> {
-    return Observable.of();
-  }
-}

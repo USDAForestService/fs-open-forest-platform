@@ -44,7 +44,13 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless1024X768'],
+    customLaunchers: {
+      ChromeHeadless1024X768: {
+        base: "ChromeHeadless",
+        flags: ["--window-size=1024,768"]
+      }
+    },
     singleRun: false
   });
 };

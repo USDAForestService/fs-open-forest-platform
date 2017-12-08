@@ -21,7 +21,7 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
-        "trees": "environments/environment.trees.ts"
+        "trees": "environments/environment.trees.ts",
         "staging": "environments/environment.staging.ts"
       }
     }
@@ -45,6 +45,11 @@
   "test": {
     "karma": {
       "config": "./karma.conf.js"
+    },
+    "codeCoverage": {
+      "exclude": [
+        "src/app/pay-gov-mocks/**/*"
+      ]
     }
   },
   "defaults": {

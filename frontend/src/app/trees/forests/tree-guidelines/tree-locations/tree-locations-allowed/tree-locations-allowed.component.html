@@ -1,5 +1,17 @@
+<p *ngIf="forest">
+  Additional information can be found on the forest’s
+  <a id='forest-maps-publications-link' href="{{forest.forestUrl}}/maps-pubs"
+     target="_blank" attr.aria-label="Link to {{forest.forestName}}
+  National Forest maps-pubs. Opens in a new window.">website</a> or at <a href="#" (click)="util.gotoHashtag('contact-information', $event)">Ranger district offices</a>.
+</p>
+<p>
+  <b>Make sure you are on National Forest Land before cutting your tree.</b>
+</p>
+
+<app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
+
 <ng-container *ngFor="let district of allowedDistricts">
-  <h3>Roads to try on the {{ district.district }} district:</h3>
+  <h3>Roads to try on the {{ district.district }}:</h3>
   <ul>
     <li *ngFor="let road of district.childNodes">
       {{ road.description }}

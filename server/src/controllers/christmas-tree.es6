@@ -1,92 +1,225 @@
 'use strict';
 
 const request = require('request');
+const uuid = require('uuid/v4');
+const xml = require('xml');
+const xml2jsParse = require('xml2js').parseString;
+//const http = request('http');
 
 const vcapConstants = require('../vcap-constants.es6');
-const christmasTreeRegulations = require('../models/forest-regulations.es6');
-const species = require('../models/species.es6');
-const forestSpecies = require('../models/forest-species.es6');
-const speciesNotes = require('../models/species-notes.es6');
-const forestLocations = require('../models/forest-locations.es6');
+const treesDb = require('../models/trees-db.es6');
+const util = require('../util.es6');
 
 const christmasTree = {};
 
-const translateRegulationsFromDatabaseToClient = input => {
+const translateGuidelinesFromDatabaseToClient = input => {
   return {
     forest: {
       id: input.id,
       forestName: input.forestName,
       description: input.description,
+      forestAbbr: input.forestAbbr,
       forestUrl: input.forestUrl,
+      orgStructureCode: input.orgStructureCode,
       treeHeight: input.treeHeight,
       stumpHeight: input.stumpHeight,
       stumpDiameter: input.stumpDiameter,
       startDate: input.startDate,
       endDate: input.endDate,
-      species: input.forestSpecies.map((species)=>{
+      treeCost: input.treeCost,
+      maxNumTrees: input.maxNumTrees,
+      allowAdditionalHeight: input.allowAdditionalHeight,
+      species: input.christmasTreesForestSpecies.map((species)=>{
         return {
           id: species.species.id,
           name: species.species.name,
           webUrl: species.species.webUrl,
-          photos: species.species.photos ? species.species.photos.toString('base64') : species.species.photos,
           status: species.status,
           notes: species.species.speciesNotes.map((notes)=>{
             return notes.note;
           })
         };
       }),
-      locations: input.forestLocations.map((location)=>{
+      locations: input.christmasTreesForestLocations.map((location)=>{
         return {
           id: location.id,
           district: location.district,
           allowed: location.allowed,
           type: location.type,
-          description: location.description
+          description: location.description,
+          imageFilename: location.imageFilename
         };
       })
     }
   }; 
 };
 
+const translatePermitFromClientToDatabase = input => {
+  return {
+    permitId: uuid(),
+    forestId: input.forestId,
+    orgStructureCode: input.orgStructureCode,
+    firstName: input.firstName,
+    lastName: input.lastName,
+    emailAddress: input.emailAddress,
+    treeCost: input.treeCost,
+    quantity: input.quantity,
+    totalCost: input.totalCost 
+  };
+};
 
-christmasTree.getOneRegulations = (req, res) => {
+christmasTree.getForests = (req, res) => {
 
-  christmasTreeRegulations.findOne({
+  treesDb.christmasTreesForests.findAll({
+    attributes: [
+      'id',
+      'forestName',
+      'description',
+      'forestAbbr'
+    ]
+  }).then(results => {
+    if (results) {
+      res.status(200).json(results);
+    } else {
+      res.status(404).send();
+    }
+  })
+    .catch(error => {
+      res.status(400).json(error);
+    });
+};
+
+const translateFromApplicationToPayment = application => {
+  const result = {
+    paymentAmount: application.totalCost,
+    formName: '',
+    applicantName: application.firstName + ' ' + application.lastName,
+    applicantEmailAddress: application.emailAddress,
+    selectedOption: '',
+    description: '',
+    amountOwed: application.totalCost,
+    permitId: application.permitId
+  };
+  return result;
+};
+
+christmasTree.create = (req, res) => {
+  treesDb.christmasTreesPermits.create(translatePermitFromClientToDatabase(req.body))
+    .then(response => {
+      
+      const tcsAppID = vcapConstants.payGovAppId;
+                        
+      const xmlTemplate = [ 
+                          { 
+                            'S:Envelope':[
+                              { _attr: { 'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/' } },
+                              { 'S:Header': [] },
+                              {
+                                'S:Body': [ 
+                                  { 
+                                    'ns2:startOnlineCollection': [ 
+                                      { _attr: { 'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline' } },
+                                      {
+                                        'startOnlineCollectionRequest':[
+                                          { tcs_app_id : tcsAppID },
+                                          { agency_tracking_id : 'FS-TRACK-100' },
+                                          { transaction_type : 'Sale' },
+                                          { transaction_amount : response.totalCost },
+                                          { language : 'en' },
+                                          { url_success : 'http://localhost:4200' },
+                                          { url_cancel : 'http://localhost:4200' },
+                                          { account_holder_name: response.firstName + ' ' + response.lastName },
+                                          { custom_fields: [
+                                            { custom_field_1: req.body.orgStructureCode }
+                                          ]},
+                                          // TODO permitId needs to be removed before Pay.Gov integration
+                                          { permitId: response.permitId }
+                                        ]  
+                                      }
+                                    ]
+                                  }
+                                ]
+                              } 
+                            ] 
+                          } 
+                        ];
+      const xmlData = xml(xmlTemplate);
+      request.post({
+          url: vcapConstants.payGovTokenUrl,
+          method:"POST",
+          headers: {'Content-Type': 'application/xml'},
+          body: xmlData
+        },
+        function (error, response, body) {        
+            if (!error && response.statusCode == 200) {
+              xml2jsParse(body, function (err, result) {
+                  if(!err){
+                      const startOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
+                      const token = startOnlineCollectionResponse.token[0];
+                      return res.status(200).json({ token: token, payGovUrl: vcapConstants.payGovClientUrl, tcsAppID: tcsAppID });
+                  }
+                  else{
+                    return res.status(500).send();
+                  }
+              });
+            }
+            else {
+              return res.status(500).send();
+            }
+        }
+      );
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({ errors: error.errors });
+      } else {
+        return res.status(500).send();
+      }
+    });
+};
+
+christmasTree.getOneGuidelines = (req, res) => {
+
+  treesDb.christmasTreesForests.findOne({
     where: {
-      id: req.params.id
+      forestAbbr: req.params.id
     },
     include: [
       {
-        model: forestSpecies,
+        model: treesDb.christmasTreesForestSpecies,
         include: [
           {
-            model: species,
+            model: treesDb.species,
             include: [
               {
-                model: speciesNotes
+                model: treesDb.speciesNotes
               }
             ]
           }
         ]
       },
       {
-        model: forestLocations
+        model: treesDb.christmasTreesForestLocations
       }
     ],
     order: [
-      [ forestSpecies, species, speciesNotes, 'display_order', 'ASC' ]
+      [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.christmasTreesForestLocations, 'description', 'ASC'],
+      [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
     ]
   })
     .then(app => {
       if (app) {
-        res.status(200).json(translateRegulationsFromDatabaseToClient(app));
+        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
+      console.log(error);
       res.status(400).json(error);
     });
 };
+
 
 module.exports = christmasTree;

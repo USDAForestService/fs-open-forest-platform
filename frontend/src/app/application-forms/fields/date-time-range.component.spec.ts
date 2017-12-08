@@ -2,18 +2,29 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
+import { TestService } from '../../_services/test.service';
+
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-date-time-range [parentForm]="applicationForm"></app-date-time-range>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
 
 describe('DateTimeRange', () => {
   let component: DateTimeRangeComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [DateTimeRangeComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule([DateTimeRangeComponent, TestComponentWrapperComponent], [FormBuilder]);
 
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;
@@ -63,16 +74,12 @@ describe('DateTimeRange', () => {
     component.dateTimeRangeValidator(component.dateTimeRange.value);
     expect(component.dateStatus.startBeforeEnd).toBeFalsy();
   });
+
+  it('should set default time on date only', () => {
+    component.dateOnly = true;
+    component.ngOnInit();
+    expect(component.defaultStartHour).toBe('01');
+    expect(component.defaultEndHour).toBe('02');
+    expect(component.defaultPeriod).toBe('AM');
+  });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-date-time-range [parentForm]="applicationForm"></app-date-time-range>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

@@ -1,49 +1,116 @@
 'use strict';
 
-const AWS = require('aws-sdk');
+/**
+ * Module for various utility functions and constants
+ * @module util
+ */
+
+const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise');
+const Sequelize = require('sequelize');
+const url = require('url');
 
+const Revision = require('./models/revision.es6');
 const vcapConstants = require('./vcap-constants.es6');
-
-const extractField = (errorObj, withArg) => {
-  if (withArg && errorObj.property === 'instance') {
-    return errorObj.argument;
-  } else if (withArg) {
-    // assumption is that the string otherwise is 'instance.<field>'
-    return errorObj.property.substring(9) + '.' + errorObj.argument;
-  } else {
-    return errorObj.property.substring(9);
-  }
-};
 
 let util = {};
 
-util.collateErrors = (result, errorArr, prefix) => {
-  for (var error of result.errors) {
-    if (error.name === 'required') {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, true));
-    } else if (
-      error.name === 'enum' ||
-      error.name === 'pattern' ||
-      error.name === 'type' ||
-      error.name === 'minLength' ||
-      error.name === 'maxLength'
-    ) {
-      errorArr.push(error.name + '-' + (prefix ? prefix : '') + extractField(error, false));
-    }
-  }
+/**  Enum for noncommercial application permit organization types. */
+util.noncommercialOrgTypes = ['Person', 'Corporation'];
 
-  return errorArr;
-};
+/**  UTC date format required by the middle layer API */
+util.datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
+/**  Enum for state codes. */
+util.stateCodes = [
+  'AK',
+  'AL',
+  'AR',
+  'AZ',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'FL',
+  'GA',
+  'HI',
+  'IA',
+  'ID',
+  'IL',
+  'IN',
+  'KS',
+  'KY',
+  'LA',
+  'MA',
+  'MD',
+  'ME',
+  'MI',
+  'MN',
+  'MO',
+  'MS',
+  'MT',
+  'NC',
+  'ND',
+  'NE',
+  'NH',
+  'NJ',
+  'NM',
+  'NV',
+  'NY',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VA',
+  'VT',
+  'WA',
+  'WI',
+  'WV',
+  'WY'
+];
+
+/**  Enum for permit application status. */
+util.statusOptions = ['Submitted', 'Incomplete', 'Hold', 'Review', 'Cancelled', 'Accepted', 'Rejected', 'Expired'];
+
+/**
+ * Validate a UTC datetime string.
+ */
 util.validateDateTime = input => {
   return (
     /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
-    moment(input, 'YYYY-MM-DDTHH:mm:ssZ').isValid()
+    moment(input, util.datetimeFormat).isValid()
   );
 };
 
+/**
+ * Get a sequelize connection.
+ */
+util.getSequelizeConnection = () => {
+  const sequelizeOptions = {
+    dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
+    logging: false
+  };
+  if (
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
+    url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
+  ) {
+    sequelizeOptions.dialectOptions = {
+      ssl: true
+    };
+  }
+  return new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+};
+
+/**
+ * Authenticate to the middle layer.
+ */
 util.middleLayerAuth = () => {
   const requestOptions = {
     method: 'POST',
@@ -59,50 +126,16 @@ util.middleLayerAuth = () => {
   return util.request(requestOptions);
 };
 
-util.prepareCerts = () => {
-  const s3 = new AWS.S3({
-    accessKeyId: vcapConstants.certsAccessKeyId,
-    secretAccessKey: vcapConstants.certsSecretAccessKey,
-    region: vcapConstants.certsRegion
-  });
-
-  const loginGovPrivateKeyPromise = new Promise((resolve, reject) => {
-    s3.getObject(
-      {
-        Bucket: vcapConstants.certsBucket,
-        Key: vcapConstants.loginGovPrivateKey
-      },
-      (error, data) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(data.Body.toString('utf8'));
-      }
-    );
-  });
-
-  const loginGovDecryptionCertPromise = new Promise((resolve, reject) => {
-    s3.getObject(
-      {
-        Bucket: vcapConstants.certsBucket,
-        Key: vcapConstants.loginGovDecryptionCert
-      },
-      (error, data) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(data.Body.toString('utf8'));
-      }
-    );
-  });
-
-  return Promise.all([loginGovPrivateKeyPromise, loginGovDecryptionCertPromise]);
-};
-
+/**
+ * Get the extension from a file name.
+ */
 const getExtension = filename => {
   return filename.split('.').reverse()[0];
 };
 
+/**
+ * Get the content type based on a file name.
+ */
 util.getContentType = filename => {
   if (getExtension(filename) === 'pdf') {
     return 'application/pdf';
@@ -124,12 +157,17 @@ util.getContentType = filename => {
   }
 };
 
-// used to bypass authentication when doing development
+/**
+ * Check for testing environment.
+ */
 util.isLocalOrCI = () => {
   const environments = ['CI', 'local'];
   return environments.indexOf(process.env.PLATFORM) !== -1;
 };
 
+/**
+ * Set the request body's authenticated email based on the passport user.
+ */
 util.setAuthEmail = req => {
   if (util.isLocalOrCI()) {
     req.body.authEmail = 'test@test.com';
@@ -138,23 +176,51 @@ util.setAuthEmail = req => {
   }
 };
 
+/**
+ * Get the passport user from the request object.
+ */
 util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
       email: 'test@test.com',
-      role: 'user'
+      role: 'admin'
     };
   } else {
     return req.user;
   }
 };
 
+/**
+ * Check that a user has permissions to view a permit application.
+ */
+util.hasPermissions = (user, applicationModel) => {
+  return user.role === 'admin' || user.email === applicationModel.authEmail;
+};
+
+/**
+ * Create a new permit application revision entry in the DB.
+ */
+util.createRevision = (user, applicationModel) => {
+  Revision.create({
+    applicationId: applicationModel.applicationId,
+    applicationType: applicationModel.type,
+    status: applicationModel.status,
+    email: user.email
+  });
+};
+
+/**
+ * Convert a camel case string to regular form.
+ */
 util.camelCaseToRegularForm = string => {
   const spaced = string.replace(/([A-Z])/g, ' $1');
   const lowerCase = spaced.toLowerCase();
   return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
 };
 
+/**
+ * Get the business name or personal name based on the data in the permit application.
+ */
 util.businessNameElsePersonalName = application => {
   let businessName = application.applicantInfoOrganizationName;
   if (!businessName) {
@@ -163,10 +229,17 @@ util.businessNameElsePersonalName = application => {
   return businessName;
 };
 
-util.getRandomHexString = () => {
-  return new Buffer(`${Math.random()}${Math.random()}`).toString('hex');
+/**
+ * Create a random hex string.
+ */
+util.getRandomString = length => {
+  return crypto.randomBytes(length).toString('hex');
 };
 
-util.request = request
+util.request = request;
 
+/**
+ * Various utility functions and constants
+ * @exports util
+ */
 module.exports = util;

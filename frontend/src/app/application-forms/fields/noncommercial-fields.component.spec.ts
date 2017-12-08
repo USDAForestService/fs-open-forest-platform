@@ -2,18 +2,33 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NoncommercialFieldsComponent } from './noncommercial-fields.component';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { TestService } from '../../_services/test.service';
+
+@Component({
+  selector: 'app-test-component-wrapper',
+  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
+})
+class TestComponentWrapperComponent {
+  applicationForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
+    this.applicationForm = this.formBuilder.group({});
+  }
+}
 
 describe('noncommercial fields', () => {
   let component: NoncommercialFieldsComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [NoncommercialFieldsComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule(
+        [NoncommercialFieldsComponent, TestComponentWrapperComponent],
+        [FormBuilder, ApplicationFieldsService]
+      );
 
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;
@@ -47,15 +62,3 @@ describe('noncommercial fields', () => {
     expect(component.noncommercialFields.valid).toBeTruthy();
   });
 });
-
-@Component({
-  selector: 'app-test-component-wrapper',
-  template: '<app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>'
-})
-class TestComponentWrapperComponent {
-  applicationForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.applicationForm = this.formBuilder.group({});
-  }
-}

@@ -3,6 +3,7 @@ import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { FileUploadService } from '../_services/file-upload.service';
 
 @Component({
   selector: 'app-file-upload-field',
@@ -28,7 +29,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   maxFileSize = 25 * 1024 * 1024;
   uploader: FileUploader;
 
-  constructor(private fieldsService: ApplicationFieldsService) {
+  constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
     this.uploader = new FileUploader({
       url: environment.apiUrl + 'permits/applications/special-uses/temp-outfitter/file',
       maxFileSize: this.maxFileSize,
@@ -45,25 +46,29 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   onErrorItem(item, response, status, headers) {
-    this.fieldsService.setFileUploadError(true);
+    this.fileUploadService.setFileUploadError(true);
     item._onBeforeUpload();
   }
 
   onCompleteItem(item, response, status, headers) {
-    this.fieldsService.removeOneFile();
+    this.fileUploadService.removeOneFile();
   }
 
   onAfterAddingFile(uploader) {
     if (uploader.queue.length > 0) {
       this.errorMessage = '';
+      this.fileUploadService.addOneFile();
     }
     if (uploader.queue.length > 1) {
       uploader.removeFromQueue(uploader.queue[0]);
+      this.fileUploadService.removeOneFile();
     }
-    this.field.patchValue(uploader.queue[0].file.name);
-    this.field.markAsTouched();
-    this.field.updateValueAndValidity();
-    this.field.setErrors(null);
+    if (uploader.queue.length > 0) {
+      this.field.patchValue(uploader.queue[0].file.name);
+      this.field.markAsTouched();
+      this.field.updateValueAndValidity();
+      this.field.setErrors(null);
+    }
   }
 
   onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {
@@ -109,7 +114,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
       }
     }
     if (this.checkFileUploadHasError) {
-      if (this.required && !this.uploader.queue[0]) {
+      if (this.required && !this.uploader.queue[0] && !this.field.value) {
         this.errorMessage = `${this.name} is required.`;
       }
     }

@@ -2,31 +2,39 @@
   <ng-container formGroupName="{{ dayPhone }}">
     <div class="fs-input-grid-wrapper">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="day-phone">{{ name }} (10 digits)</label>
-        <input id="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true" />
+        <label id="day-phone-label" class="usa-input">{{ name }} (10 digits)</label>
+        <input id="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.tenDigit'), 'day-phone-label', 'day-phone-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))" />
         <app-error-message fieldId="day-phone-error" name="Day phone" [control]="parentForm.get('dayPhone.tenDigit')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
-        <label class="usa-input" for="day-ext">Ext (optional)</label>
-        <input class="usa-input" id="day-ext" type="text" minlength="1" maxlength="6" formControlName="extension"/>
+        <label id="day-phone-ext-label" class="usa-input">Ext (optional)</label>
+        <input id="day-phone-ext" class="usa-input" type="text" minlength="1" maxlength="6" formControlName="extension"
+          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.extension'), 'day-phone-ext-label', 'day-phone-ext-error')"
+          [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.extension'))" />
         <app-error-message fieldId="day-phone-ext-error" name="Day phone extension" [control]="parentForm.get('dayPhone.extension')"></app-error-message>
       </div>
     </div>
   </ng-container>
 
-  <input id="add-additional-phone" name="add-additional-phone" type="checkbox" (change)="addOrRemoveAdditionalPhone()" />
+  <input id="add-additional-phone" name="add-additional-phone" type="checkbox" formControlName="addAdditionalPhone"  />
   <label class="usa-input" id="add-additional-phone-label" for="add-additional-phone">Add additional phone.</label>
 
-  <div class="fs-input-grid-wrapper" *ngIf="additionalPhone">
+  <div class="fs-input-grid-wrapper" *ngIf="parentForm.get('addAdditionalPhone').value">
     <ng-container formGroupName="{{ eveningPhone }}">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label class="usa-input" for="evening-phone">{{ name }} (10 digits)</label>
-        <input id="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true" />
+        <label id="evening-phone-label" class="usa-input">{{ name }} (10 digits)</label>
+        <input id="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('eveningPhone.tenDigit'), 'evening-phone-label', 'evening-phone-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('eveningPhone.tenDigit'))" />
         <app-error-message fieldId="eveing-phone-error" name="Evening phone" [control]="parentForm.get('eveningPhone.tenDigit')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
-        <label class="usa-input" for="evening-ext">Ext (optional)</label>
-        <input class="usa-input" id="evening-ext" type="text" minlength="1" maxlength="6" formControlName="extension"/>
+        <label id="evening-phone-ext-label" class="usa-input">Ext (optional)</label>
+        <input id="evening-phone-ext" class="usa-input" type="text" minlength="1" maxlength="6" formControlName="extension"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('eveningPhone.extension'), 'evening-phone-ext-label', 'evening-phone-ext-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('eveningPhone.extension'))" />
         <app-error-message fieldId="eveing-phone-ext-error" name="Evening phone extension" [control]="parentForm.get('eveningPhone.extension')"></app-error-message>
       </div>
     </ng-container>

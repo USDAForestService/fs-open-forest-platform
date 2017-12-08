@@ -172,28 +172,69 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "Application not found"
-  /forests/{id}/regulations:
-    get:
+  /permits/applications/christmas-trees:
+    post:
       tags:
       - "christmas-tree"
-      summary: "Retrieve existing christmas tree regulations"
-      description: "Retrieve existing christmas tree regulations using the forest id number"
-      operationId: ""
+      summary: "Creates a new christmas-tree application"
+      description: "Creates a new christmas-tree application"
+      operationId: "createChristmasTreeApp"
+      consumes:
+      - "application/json"
       produces:
       - "application/json"
       parameters:
-      - in: "path"
-        name: "id"
-        description: "Forest ID number"
+      - in: "body"
+        name: "body"
+        description: "A non-christmas-tree application object"
         required: true
-        type: "uuid"
+        schema:
+          $ref: "#/definitions/christmasTreeApplication"
+      responses:
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
+        201:
+          description: "Successful Creation"
+  /forests:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve forests for christmas tree harvesting"
+      description: "Retrieve forests for christmas tree harvesting"
+      operationId: ""
+      produces:
+      - "application/json"
       responses:
         200:
           description: "Successful"
         400:
           description: "Invalid input or other error"
         404:
-          description: "Application not found"
+          description: "Forests not found"
+  /forests/{id}:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve existing christmas tree guidelines"
+      description: "Retrieve existing christmas tree guidelines using the forest id number"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "Forest ID number: 1 - Arapaho and Roosevelt, 2 - Flathead, 3 - Mt. Hood, 4 - Shoshone"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Forest guideline not found"
   /uptime:
     get:
       tags:
@@ -399,6 +440,24 @@ definitions:
           $ref: '#/definitions/noncommApplicantInfo'
         noncommercialFields:
           $ref: '#/definitions/noncommFields'
+  christmasTreeApplication:
+    properties:
+      forestId:
+        type: "integer"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      emailAddress:
+        type: "string"
+      treeCost: 
+        type: "number"
+        format: "double"
+      quantity:
+        type: "integer"
+      totalCost:
+        type: "number"
+        format: "double"
 externalDocs:
   description: "Find out more about Forest Service"
   url: "https://www.fs.fed.us/"
