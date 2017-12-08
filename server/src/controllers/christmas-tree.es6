@@ -238,6 +238,7 @@ christmasTree.getOnePermit = (req, res) => {
             firstName: permit.firstName,
             lastName: permit.lastName,
             emailAddress: permit.emailAddress,
+            quantity: permit.quantity,
             totalCost: permit.totalCost,
             status: permit.status
         });
