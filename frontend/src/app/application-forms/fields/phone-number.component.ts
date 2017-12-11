@@ -19,7 +19,6 @@ export class PhoneNumberComponent implements OnInit {
     this.addFormControls();
     this.setValueChangeSubscription('dayPhone');
     this.setValueChangeSubscription('eveningPhone');
-
     if (this.parentForm.get('addAdditionalPhone')) {
       this.parentForm.get('addAdditionalPhone').valueChanges.subscribe(value => {
         this.addRemoveValidators(value);
