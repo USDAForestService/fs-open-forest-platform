@@ -8,13 +8,12 @@ import { Title } from '@angular/platform-browser';
 })
 export class TreePermitViewComponent implements OnInit {
   forest: any;
-  permit: any;
+  permit: any = { totalCost: 0, quantity: 0, emailAddress: '' };
 
   constructor(private route: ActivatedRoute, private titleService: Title) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      console.log(data);
       this.forest = data.forest;
       this.permit = data.permit;
       this.titleService.setTitle(
