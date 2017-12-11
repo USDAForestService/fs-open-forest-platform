@@ -26,6 +26,45 @@ export class ChristmasTreeForm {
   navigateTo() {
     return browser.get('applications/christmas-trees/forests/arp/new');
   }
+  firstName() {
+    return element(by.css('input[id$="primary-permit-holder-first-name"]'));
+  }
+  firstNameError() {
+    return element(by.css('span[id$="primary-permit-holder-first-name-error"]'));
+  }
+  lastName() {
+    return element(by.css('input[id$="primary-permit-holder-last-name"]'));
+  }
+  lastNameError() {
+    return element(by.css('span[id$="primary-permit-holder-last-name-error"]'));
+  }
+
+  email() {
+    return element(by.css('input[id$="email"]'));
+  }
+  emailError() {
+    return element(by.css('span[id$="email-error"]'));
+  }
+
+  treeAmount() {
+    return element(by.css('input[id$="quantity"]'));
+  }
+  treeAmountError() {
+    return element(by.css('span[id$="quantity-error"]'));
+  }
+
+  rulesAccepted() {
+    return element(by.id('accept-rules-label'));
+  }
+  rulesAcceptedError() {
+    return element(by.css('span[id$="accept-rules-error"]'));
+  }
+
+
+
+  submit() {
+    return element(by.id('submit-application'));
+  }
 }
 
 export class AdminApplicationList {
