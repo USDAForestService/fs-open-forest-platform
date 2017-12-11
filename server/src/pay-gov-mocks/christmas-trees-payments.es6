@@ -24,26 +24,54 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  const startOnlineCollectionRequest =
-    req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+  
+  const requestBody =
+    req.body['S:Envelope']['S:Body'][0];
+  
+  // const startOnlineCollectionRequest =
+  //   req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+  let xmlResponse = '';
     
   const token = uuid();
-
-  var xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                    <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                      <S:Header>
-                       <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                       </work:WorkContext>
-                      </S:Header>
-                      <S:Body>
-                        <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                          <startOnlineCollectionResponse>
-                            <token>${token}</token>
-                          </startOnlineCollectionResponse>
-                        </ns2:startOnlineCollectionResponse>
-                      </S:Body>
-                    </S:Envelope>`;
-
+  const paygovTrackingId = util.getRandomString(5).toUpperCase();
+  
+  if(requestBody['ns2:startOnlineCollection'] 
+    && requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]) {
+      
+    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+                        <S:Header>
+                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
+                         </work:WorkContext>
+                        </S:Header>
+                        <S:Body>
+                          <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
+                            <startOnlineCollectionResponse>
+                              <token>${token}</token>
+                            </startOnlineCollectionResponse>
+                          </ns2:startOnlineCollectionResponse>
+                        </S:Body>
+                      </S:Envelope>`;
+    
+  }
+  else if(requestBody['ns2:completeOnlineCollection'] 
+    && requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]) {
+      
+    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+                        <S:Header>
+                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
+                         </work:WorkContext>
+                        </S:Header>
+                        <S:Body>
+                          <ns2:completeOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
+                            <completeOnlineCollectionResponse>
+                              <paygov_tracking_id>${paygovTrackingId}</paygov_tracking_id>
+                            </completeOnlineCollectionResponse>
+                          </ns2:completeOnlineCollectionResponse>
+                        </S:Body>
+                      </S:Envelope>`;
+  }
   res.set('Content-Type', 'application/xml; charset=utf-8');
   res.send(xmlResponse);
 });

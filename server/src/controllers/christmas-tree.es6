@@ -89,18 +89,46 @@ christmasTree.getForests = (req, res) => {
     });
 };
 
-const translateFromApplicationToPayment = application => {
-  const result = {
-    paymentAmount: application.totalCost,
-    formName: '',
-    applicantName: application.firstName + ' ' + application.lastName,
-    applicantEmailAddress: application.emailAddress,
-    selectedOption: '',
-    description: '',
-    amountOwed: application.totalCost,
-    permitId: application.permitId
-  };
-  return result;
+christmasTree.getOneGuidelines = (req, res) => {
+
+  treesDb.christmasTreesForests.findOne({
+    where: {
+      forestAbbr: req.params.id
+    },
+    include: [
+      {
+        model: treesDb.christmasTreesForestSpecies,
+        include: [
+          {
+            model: treesDb.species,
+            include: [
+              {
+                model: treesDb.speciesNotes
+              }
+            ]
+          }
+        ]
+      },
+      {
+        model: treesDb.christmasTreesForestLocations
+      }
+    ],
+    order: [
+      [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
+      [ treesDb.christmasTreesForestLocations, 'description', 'ASC'],
+      [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
+    ]
+  })
+    .then(app => {
+      if (app) {
+        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      res.status(400).json(error);
+    });
 };
 
 christmasTree.create = (req, res) => {
@@ -145,12 +173,12 @@ christmasTree.create = (req, res) => {
                         ];
       const xmlData = xml(xmlTemplate);
       request.post({
-          url: vcapConstants.payGovTokenUrl,
+          url: vcapConstants.payGovUrl,
           method:"POST",
           headers: {'Content-Type': 'application/xml'},
           body: xmlData
         },
-        function (error, response, body) {        
+        function (error, response, body) {
             if (!error && response.statusCode == 200) {
               xml2jsParse(body, function (err, result) {
                   if(!err){
@@ -186,46 +214,18 @@ christmasTree.create = (req, res) => {
     });
 };
 
-christmasTree.getOneGuidelines = (req, res) => {
-
-  treesDb.christmasTreesForests.findOne({
-    where: {
-      forestAbbr: req.params.id
-    },
-    include: [
-      {
-        model: treesDb.christmasTreesForestSpecies,
-        include: [
-          {
-            model: treesDb.species,
-            include: [
-              {
-                model: treesDb.speciesNotes
-              }
-            ]
-          }
-        ]
-      },
-      {
-        model: treesDb.christmasTreesForestLocations
-      }
-    ],
-    order: [
-      [ treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC' ],
-      [ treesDb.christmasTreesForestLocations, 'description', 'ASC'],
-      [ treesDb.christmasTreesForestSpecies, 'id', 'ASC']
-    ]
-  })
-    .then(app => {
-      if (app) {
-        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
-      } else {
-        res.status(404).send();
-      }
-    })
-    .catch(error => {
-      res.status(400).json(error);
-    });
+const permitResult = permit => {
+  const result = {
+    permitId: permit.permitId,
+    orgStructureCode: permit.orgStructureCode,
+    firstName: permit.firstName,
+    lastName: permit.lastName,
+    emailAddress: permit.emailAddress,
+    quantity: permit.quantity,
+    totalCost: permit.totalCost,
+    status: permit.status
+  };
+  return result;
 };
 
 christmasTree.getOnePermit = (req, res) => {
@@ -235,9 +235,12 @@ christmasTree.getOnePermit = (req, res) => {
       permitId: req.params.id
     }
   })
-    .then(permit => {
-      if (permit) {
-        
+  .then(permit => {
+    if (permit) {
+      if(permit.status == 'Completed'){
+        return res.status(200).send(permitResult(permit));
+      }
+      else {
         const xmlTemplate = [ 
                             { 
                               'S:Envelope':[
@@ -251,7 +254,7 @@ christmasTree.getOnePermit = (req, res) => {
                                         {
                                           'completeOnlineCollectionRequest':[
                                             { tcs_app_id : vcapConstants.payGovAppId },
-                                            { token: permit.permitId }
+                                            { token: permit.paygovToken }
                                           ]  
                                         }
                                       ]
@@ -262,24 +265,51 @@ christmasTree.getOnePermit = (req, res) => {
                             } 
                           ];
         const xmlData = xml(xmlTemplate);
-        return res.status(200).send({
-            permitId: permit.permitId,
-            orgStructureCode: permit.orgStructureCode,
-            firstName: permit.firstName,
-            lastName: permit.lastName,
-            emailAddress: permit.emailAddress,
-            quantity: permit.quantity,
-            totalCost: permit.totalCost,
-            status: permit.status
-        });
-      } else {
-        res.status(404).send();
+        
+        request.post({
+            url: vcapConstants.payGovUrl,
+            method:"POST",
+            headers: {'Content-Type': 'application/xml'},
+            body: xmlData
+          },
+          function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              xml2jsParse(body, function (err, result) {
+                if(!err){
+                  const completeOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
+                  const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
+                  permit.update({
+                    paygovTrackingId: paygovTrackingId,
+                    status: 'Completed' 
+                  }).then(savedPermit => {
+                    return res.status(200).send(permitResult(savedPermit));
+                  })
+                  .catch(error => {
+                    
+                      return res.status(500).send();
+                  });
+                }
+                else{
+                  return res.status(500).send();
+                }
+              });
+            }
+            else {
+              return res.status(400).json({ errors: error });
+            }
+        })
       }
-    })
-    .catch(error => {
-      res.status(400).json(error);
-    });
+    } else {
+      res.status(404).send();
+    }
+  })
+  .catch(error => {
+    if (error.name === 'SequelizeValidationError') {
+      return res.status(400).json({ errors: error.errors });
+    } else {
+      return res.status(500).send();
+    }
+  });
 };
-
 
 module.exports = christmasTree;
