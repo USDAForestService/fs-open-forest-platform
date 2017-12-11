@@ -6,6 +6,8 @@ module.exports = factory.factory({
   // required integer
   forestId: 1,
   // required string
+  forestAbbr: 'flathead',
+  // required string
   orgStructureCode: '11-02-10',
   // required string
   treeCost: '10.00',

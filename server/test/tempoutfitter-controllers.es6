@@ -207,7 +207,7 @@ describe('tempoutfitter controllers', () => {
         assert.equal(res.body.revisions[4].status, 'Accepted');
       })
       .expect(200, done);
-  });
+  }).timeout(5000);
 
   it('DELETE should return a 404 status code', done => {
     request(server)

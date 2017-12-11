@@ -275,7 +275,7 @@ christmasTree.getOnePermit = (req, res) => {
           function (error, response, body) {
             if (!error && response.statusCode == 200) {
               xml2jsParse(body, function (err, result) {
-                if(!err){
+                if(!err) { 
                   const completeOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
                   const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
                   permit.update({
@@ -284,18 +284,14 @@ christmasTree.getOnePermit = (req, res) => {
                   }).then(savedPermit => {
                     return res.status(200).send(permitResult(savedPermit));
                   })
-                  .catch(error => {
-                    
-                      return res.status(500).send();
-                  });
                 }
-                else{
-                  return res.status(500).send();
+                else {
+                  throw new Error(err);
                 }
               });
             }
             else {
-              return res.status(400).json({ errors: error });
+              throw new Error(error);
             }
         })
       }
