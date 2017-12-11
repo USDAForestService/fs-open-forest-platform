@@ -69,6 +69,7 @@ export class TreeApplicationFormComponent implements OnInit {
       }
     });
   }
+
   onSubmit() {
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
