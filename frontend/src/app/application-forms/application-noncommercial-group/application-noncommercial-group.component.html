@@ -10,11 +10,10 @@
       <legend>Application process</legend>
       <div>
         <ol>
-          <li>Fill out and submit the application.</li>
-          <li>Your application will be reviewed by our staff within 48 hours.</li>
-          <li>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</li>
-          <li>After the application has been reviewed, you will be notified of the application status. If accepted, it will then move on to a special use administrator for approval.</li>
-          <li>If your application is approved, you will receive your permit within 2 weeks of approval.</li>
+          <li>Fill out and submit the application below.</li>
+          <li>Once submitted, your application will go through a preliminary review within 48 hours.</li>
+          <li>If additional information is needed following the preliminary review and acceptance, a representative of the National Forest Service will contact you via email.</li>
+          <li>Once your application is approved, you will receive your permit within 2 weeks. If your application is not approved, you will be notified via email.</li>
         </ol>
       </div>
 
@@ -63,8 +62,8 @@
 
       <ng-container formGroupName="applicantInfo">
         <input id="add-secondary-permit-holder" type="checkbox" formControlName="addSecondaryPermitHolder" />
-        <label id="add-secondary-permit-holder-label" class="usa-input" for="add-secondary-permit-holder">Add a secondary permit holder.</label>
-        <p id="add-secondary-permit-holder-hint-text" class="help-text usa-form-hint">If there is another person that would be a useful contact or significant user of the permit, please add their information.</p>
+        <label id="add-secondary-permit-holder-label" class="usa-input" for="add-secondary-permit-holder">Add secondary permit holder.</label>
+        <p id="add-secondary-permit-holder-hint-text" class="help-text usa-form-hint">If there is an additional useful contact or a second significant user of the permit, please add their information.</p>
       </ng-container>
 
       <div [hidden]="!applicationForm.get('applicantInfo.addSecondaryPermitHolder').value">
@@ -104,7 +103,7 @@
 
       <fieldset>
         <legend>Signature</legend>
-        <label id="signature-label" class="usa-input">Type your initials here as a signature on your application.</label>
+        <label id="signature-label" class="usa-input">Please sign your application by typing your initials here.</label>
         <input id="signature" name="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
           [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
           [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
