@@ -63,6 +63,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
       this.applicationForm = this.formBuilder.group({
         forestId: ['', [Validators.required]],
+        forestAbbr: [''],
         orgStructureCode: ['', [Validators.required]],
         treeCost: [''],
         firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],

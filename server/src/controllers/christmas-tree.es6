@@ -249,10 +249,12 @@ christmasTree.create = (req, res) => {
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
+        console.log(JSON.stringify(error));
         return res.status(400).json({
           errors: error.errors
         });
       } else {
+        console.log(JSON.stringify(error));
         return res.status(500).send();
       }
     });

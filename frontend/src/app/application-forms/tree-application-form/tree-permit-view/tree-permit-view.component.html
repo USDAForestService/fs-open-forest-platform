@@ -4,8 +4,8 @@
     <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
     <div *ngIf="permit" class="usa-alert usa-alert-success application-deadline-warning">
       <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">Your payment of ${{permit.totalCost}} for {{permit.quantity}} permit(s) was successfully received.</h3>
-        <p class="usa-alert-text">A copy of your permit will be emailed to you at {{permit.emailAddress}} . Or, you can print it now.</p>
+        <h3 id='tree-confirm-payment' class="usa-alert-heading">Your payment of ${{permit.totalCost}} for {{permit.quantity}} permit(s) was successfully received.</h3>
+        <p id='tree-confirm-alert' class="usa-alert-text">A copy of your permit will be emailed to you at {{permit.emailAddress}} . Or, you can print it now.</p>
       </div>
     </div>
   </div>
