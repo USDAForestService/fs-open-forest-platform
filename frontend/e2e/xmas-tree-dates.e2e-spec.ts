@@ -39,6 +39,16 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
+
+    it('should display a link for users to purchase a permit', () => {
+      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
+    });
+
+    it('should route users to page where they can buy a permit', () => {
+      page.buyPermitLink().click();
+      browser.sleep(900);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/mthood/new');
+    })
   });
 
   describe('Shoshone', () => {
@@ -76,6 +86,16 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
+
+    it('should display a link for users to purchase a permit', () => {
+      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
+    });
+
+    it('should route users to page where they can buy a permit', () => {
+      page.buyPermitLink().click();
+      browser.sleep(900);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/shoshone/new');
+    })
   });
 
   describe('Flathead', () => {
@@ -113,6 +133,16 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
+
+    it('should display a link for users to purchase a permit', () => {
+      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
+    });
+
+    it('should route users to page where they can buy a permit', () => {
+      page.buyPermitLink().click();
+      browser.sleep(900);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/flathead/new');
+    })
   });
 
   describe('Arapaho/Roosevelt', () => {
@@ -158,5 +188,15 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display cutting area hours', () => {
       expect<any>(element(by.id(`tree-cutting-areas-hours-0`)).isPresent()).toBeTruthy();
     });
+
+    it('should display a link for users to purchase a permit', () => {
+      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
+    });
+
+    it('should route users to page where they can buy a permit', () => {
+      page.buyPermitLink().click();
+      browser.sleep(900);
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/arp/new');
+    })
   });
 });

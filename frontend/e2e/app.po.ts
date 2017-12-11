@@ -109,6 +109,10 @@ export class TreesSidebarPage {
     return element(by.id('need-to-know-link'));
   }
 
+  buyPermitLink() {
+    return element(by.id('buy-permit-link'));
+  }
+
   rulesToKnowSection() {
     return element(by.id('need-to-know'));
   }
