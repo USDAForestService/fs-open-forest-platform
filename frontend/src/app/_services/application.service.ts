@@ -9,12 +9,13 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
 import { SpecialUseApplication } from '../_models/special-use-application';
+import { UtilService } from './util.service';
 
 @Injectable()
 export class ApplicationService {
   private endpoint = environment.apiUrl + 'permits/applications';
 
-  constructor(private http: Http, public router: Router) {}
+  constructor(private http: Http, public router: Router, public util: UtilService) {}
 
   create(body, type, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -26,21 +27,21 @@ export class ApplicationService {
     return this.http
       .post(this.endpoint + type, body, options)
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   get(params = '') {
     return this.http
       .get(this.endpoint + params, { withCredentials: true })
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   getOne(id, params = '') {
     return this.http
       .get(this.endpoint + params + id, { withCredentials: true })
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   update(body, type) {
@@ -51,42 +52,12 @@ export class ApplicationService {
     return this.http
       .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options)
       .map((res: Response) => res.json())
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   handleStatusCode(status) {
     if (status === 403) {
       this.router.navigate(['access-denied']);
     }
-  }
-
-  private handleError(error: Response | any) {
-    let errors: any;
-    if (error instanceof Response) {
-      if (error.status) {
-        if (error.status === 400) {
-          const body = error.json() || '';
-          errors = body.errors;
-        }
-        if (error.status === 401) {
-          errors = [{ message: 'Please log in.' }];
-        }
-        if (error.status === 403) {
-          errors = [{ message: 'Access denied.' }];
-        }
-        if (error.status === 404) {
-          errors = [{ message: 'The requested application is not found.' }];
-        }
-        if (error.status === 500) {
-          errors = [];
-        }
-      } else {
-        const body = error.json() || '';
-        errors = body.errors;
-      }
-    } else {
-      errors = [];
-    }
-    return Observable.throw(errors);
   }
 }

@@ -8,5 +8,6 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 })
 export class EmailComponent {
   @Input() applicantInfo: FormGroup;
+  @Input() hintText: string;
   constructor(public afs: ApplicationFieldsService) {}
 }

@@ -4,34 +4,30 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PermitHolderNameComponent } from './permit-holder-name.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { TestService } from '../../_services/test.service';
 
 describe('PermitHolderNameComponent', () => {
   let component: PermitHolderNameComponent;
   let fixture: ComponentFixture<PermitHolderNameComponent>;
   let formBuilder: FormBuilder;
+  let testService: TestService;
 
   beforeEach(
     async(() => {
-      TestBed.configureTestingModule({
-        declarations: [PermitHolderNameComponent],
-        providers: [FormBuilder, ApplicationFieldsService],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+      testService = new TestService();
+      testService.configureTestingModule([PermitHolderNameComponent], [FormBuilder, ApplicationFieldsService]);
+      formBuilder = new FormBuilder();
+      fixture = TestBed.createComponent(PermitHolderNameComponent);
+      component = fixture.debugElement.componentInstance;
+      component.name = 'Primary';
+      component.type = 'primary';
+      component.applicantInfo = formBuilder.group({
+        primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator()]]
+      });
+      fixture.detectChanges();
     })
   );
-
-  beforeEach(() => {
-    formBuilder = new FormBuilder();
-    fixture = TestBed.createComponent(PermitHolderNameComponent);
-    component = fixture.debugElement.componentInstance;
-    component.name = 'Primary';
-    component.type = 'primary';
-    component.applicantInfo = formBuilder.group({
-      primaryFirstName: ['', [Validators.required, alphanumericValidator()]],
-      primaryLastName: ['', [Validators.required, alphanumericValidator()]]
-    });
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

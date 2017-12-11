@@ -13,6 +13,7 @@ import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ApiErrorComponent } from '../api-error/api-error.component';
+import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
@@ -46,6 +47,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
     TrackScrollDirective,
     UrlPipe,
     ProgressComponent
-  ]
+  ],
+  providers: [SidebarConfigService]
 })
 export class SharedModule {}

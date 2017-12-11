@@ -8,6 +8,7 @@ import { SpacesToDashesPipe } from '../../../../../_pipes/spaces-to-dashes.pipe'
 import { forest } from '../../../../_mocks/forest.mock';
 
 describe('TreeLocationsMapsComponent', () => {
+
   let component: TreeLocationsMapsComponent;
   let fixture: ComponentFixture<TreeLocationsMapsComponent>;
 

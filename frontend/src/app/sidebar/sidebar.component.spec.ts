@@ -55,7 +55,7 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set fixed position if top of container is less than 20px', () => {
+  it('should set fixed position if top of the container is less than 20px', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
@@ -65,16 +65,16 @@ describe('SidebarComponent', () => {
       };
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('40px');
+    expect(component.top).toEqual('140px');
     expect(component.position).toEqual('fixed');
   });
 
-  it('should set absolute position if top of container is greator than 20px', () => {
+  it('should set absolute position if top of the container is greator than 20px', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
         getBoundingClientRect() {
-          return { top: 20 };
+          return { top: 30 };
         }
       };
     });
@@ -82,15 +82,21 @@ describe('SidebarComponent', () => {
       return 50;
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('250px');
+    expect(component.top).toEqual('270px');
     expect(component.position).toEqual('absolute');
   });
 
-  it(
-    'should set current section',
-    inject([UtilService], util => {
-      component.gotoHashtag('test', new Event('click'));
-      expect(util.currentSection).toEqual('test-section');
-    })
-  );
+  it('should toggle mobile nav', () => {
+    component.toggleMobileNav();
+    expect(component.showMobileNav).toBeTruthy();
+  });
+
+  it('should show mobile nav if screen width is greater than or equal to 951', () => {
+    component.showMobileNav = true;
+    component.onResize({ target: { innerWidth: 950 } });
+    expect(component.showMobileNav).toBeTruthy();
+
+    component.onResize({ target: { innerWidth: 951 } });
+    expect(component.showMobileNav).toBeFalsy();
+  });
 });

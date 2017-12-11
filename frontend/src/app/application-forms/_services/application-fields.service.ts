@@ -6,8 +6,6 @@ import { stateValidator } from '../validators/state-validation';
 
 @Injectable()
 export class ApplicationFieldsService {
-  numberOfFiles: any = 0;
-  fileUploadError = false;
   editApplication = false;
 
   constructor(private formBuilder: FormBuilder) {}
@@ -127,6 +125,10 @@ export class ApplicationFieldsService {
       return;
     }
     invalidElements[0].scrollIntoView();
+    return this.getInvalidElement(invalidElements);
+  }
+
+  getInvalidElement(invalidElements) {
     let invalid = document.getElementById(invalidElements[0].getAttribute('id'));
     if (!invalid) {
       const invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
@@ -135,12 +137,14 @@ export class ApplicationFieldsService {
         invalid = document.getElementById('temporaryId');
       }
     }
-    if (invalid) {
-      invalid.focus();
-      if (invalid.getAttribute('id') === 'temporaryId') {
-        invalid.setAttribute('id', null);
-      }
+    if (!invalid) {
+      return;
     }
+    invalid.focus();
+    if (invalid.getAttribute('id') === 'temporaryId') {
+      invalid.setAttribute('id', null);
+    }
+    return;
   }
 
   touchField(control: FormControl) {
@@ -189,42 +193,6 @@ export class ApplicationFieldsService {
       return errors;
     }
     return;
-  }
-
-  parseNumberOfFilesToUpload(FormControls) {
-    let numberOfFiles = 0;
-    FormControls.forEach(function(control) {
-      if (control && control.value) {
-        numberOfFiles++;
-      }
-    });
-    this.setNumberOfFiles(numberOfFiles);
-    return this.numberOfFiles;
-  }
-
-  getNumberOfFiles() {
-    return this.numberOfFiles;
-  }
-
-  setNumberOfFiles(num) {
-    this.numberOfFiles = num;
-  }
-
-  removeOneFile() {
-    this.numberOfFiles--;
-  }
-
-  addOneFile() {
-    this.numberOfFiles++;
-  }
-
-  getFileUploadProgress(startingNumberOfFiles) {
-    const filesRemaining = this.numberOfFiles;
-    return startingNumberOfFiles - filesRemaining;
-  }
-
-  setFileUploadError(value: boolean) {
-    this.fileUploadError = value;
   }
 
   setEditApplication(value: boolean) {
