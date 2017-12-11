@@ -1,0 +1,21 @@
+.fs-accordion {
+  .usa-accordion-content {
+    border-bottom: 1px solid $black;
+    border-left: 1px solid $black;
+    border-right: 1px solid $black;
+  }
+
+  button {
+    background-color: $fs-tan-dark;
+    &:hover {
+      background-color: $fs-tan-darker;
+      border: 1px solid $black;
+    }
+    border: 1px solid $black;
+  }
+
+}
+
+.accordion-container {
+  margin-top: 2rem;
+}
