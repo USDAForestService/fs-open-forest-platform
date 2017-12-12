@@ -4,18 +4,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientChargesComponent } from './client-charges.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { TestService } from '../../_services/test.service';
 
 describe('Client Charges Component', () => {
   let component: ClientChargesComponent;
   let fixture: ComponentFixture<ClientChargesComponent>;
   let formBuilder: FormBuilder;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule([ClientChargesComponent], [FormBuilder, ApplicationFieldsService]);
+      TestBed.configureTestingModule({
+        declarations: [ClientChargesComponent],
+        providers: [FormBuilder, ApplicationFieldsService],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
       formBuilder = new FormBuilder();
       fixture = TestBed.createComponent(ClientChargesComponent);
       component = fixture.debugElement.componentInstance;
