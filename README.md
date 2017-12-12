@@ -371,6 +371,31 @@ As an alternative to installing all the development tools necessary to run the e
 #### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
 
+#### Available services
+The following services are available to leverage in components.
+
+```
+frontend/
+ ├──/src                       
+      ├──/app
+        ├──/src
+          ├──/_services
+            ├──alert.service.ts             * display alerts
+            ├──application.service.ts       * http requests for applications
+            ├──auth-guard.service.ts        * manage authentication on routes
+            ├──authentication.service.ts    * http requests for authentication
+            ├──mock.service.ts              * utility functions of reusable mocks for specs
+            └──util.json                    * general utility functions
+          ├──/application-forms
+            ├──/_services
+              ├──application-fields.service.ts     * utility functions specific to application fields
+              └──file-upload.service.json          * utility functions related to file uploads
+          ├──/trees  
+            ├──/_services
+              ├──christmas-trees-application.service.ts    * http requests functions for Christmas tree permits
+              ├──forest.service.ts                         * http requests for forests
+              └──trees.service.json                        * http requests for trees
+ ```
 
 #### Christmas trees sidebar template
 A sidebar template for the tree guidelines page at `/frontend/src/app/trees/forests/tree-guidelines/sidebar-view.component.html`
