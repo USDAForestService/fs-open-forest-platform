@@ -3034,7 +3034,7 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.3.0:
+nan@>=2.5.1, nan@^2.3.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
@@ -4257,6 +4257,12 @@ sinon@^3.2.1:
     samsam "^1.1.3"
     text-encoding "0.6.4"
     type-detect "^4.0.0"
+
+sleep@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/sleep/-/sleep-5.1.1.tgz#878fa1d44d08eeb0f26fb2018ef8629eb1a3ab94"
+  dependencies:
+    nan ">=2.5.1"
 
 slice-ansi@1.0.0:
   version "1.0.0"

@@ -117,57 +117,74 @@ describe('tempoutfitter controllers', () => {
   });
 
   it('GET should return a 404 status code when the intakeControlNumber is not found', done => {
-    request(server)
-      .get(`${tempoutfitterUrl}/${invalidIntakeControlNumber}`)
-      .expect(404, done);
+    request(server).get(`${tempoutfitterUrl}/${invalidIntakeControlNumber}`).expect(404, done);
   });
 
   it('GET should return a 500 status code when the intakeControlNumber is malformed', done => {
-    request(server)
-      .get(tempoutfitterUrl + '/' + 'imalformedControlNumber')
-      .expect(500, done);
+    request(server).get(tempoutfitterUrl + '/' + 'imalformedControlNumber').expect(500, done);
   });
 
   it('PUT should return a 200 status code when the status is Submitted', done => {
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Submitted' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Submitted'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
-  });
+  }).timeout(3000);
 
   it('PUT should return a 200 status code when the status is Cancelled', done => {
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Cancelled' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Cancelled'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
-  });
+  }).timeout(3000);
 
   it('PUT should return a 200 status code when the status is Hold', done => {
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Hold', applicantMessage: 'Hold it, buddy.' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Hold',
+          applicantMessage: 'Hold it, buddy.'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
-  });
+  }).timeout(3000);
 
   it('PUT should return a 200 status code when the status is Review', done => {
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Review' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Review'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
-  });
+  }).timeout(3000);
 
   it('PUT should return a 400 status code when the status is Bananas', done => {
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Bananas' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Bananas'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(res => {
         assert.lengthOf(res.body.errors, 1);
@@ -178,19 +195,25 @@ describe('tempoutfitter controllers', () => {
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
-      .post('/auth')
-      .reply(200, { token: 'auth-token' });
+    nock(vcapConstants.middleLayerBaseUrl).post('/auth').reply(200, {
+      token: 'auth-token'
+    });
     nock(vcapConstants.middleLayerBaseUrl)
       .post('/permits/applications/special-uses/commercial/temp-outfitters/')
-      .reply(200, { controlNumber: '1999' });
+      .reply(200, {
+        controlNumber: '1999'
+      });
     request(server)
       .put(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .send(tempOutfitterPermitApplicationFactory.create({ status: 'Accepted' }))
+      .send(
+        tempOutfitterPermitApplicationFactory.create({
+          status: 'Accepted'
+        })
+      )
       .expect('Content-Type', /json/)
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
-  });
+  }).timeout(3000);
 
   it('GET should return a 200 status code, a status of Accepted, a middle layer control number, and a revision history', done => {
     request(server)
@@ -210,14 +233,14 @@ describe('tempoutfitter controllers', () => {
   }).timeout(5000);
 
   it('DELETE should return a 404 status code', done => {
-    request(server)
-      .delete(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .expect(404, done);
+    request(server).delete(`${tempoutfitterUrl}/${intakeControlNumber}`).expect(404, done);
   });
 
   describe('getApplicationFileNames', () => {
     let fakeIntakeControlNumber = 'potato';
-    let app = { fakeIntakeControlNumber };
+    let app = {
+      fakeIntakeControlNumber
+    };
     let findAll;
     beforeEach(() => {
       findAll = sinon.stub(ApplicationFile, 'findAll').resolves(app);
@@ -226,27 +249,21 @@ describe('tempoutfitter controllers', () => {
       findAll.restore();
     });
     it('GET /:appId/files should return all application file names', done => {
-      request(server)
-        .get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`)
-        .expect(200, (err, res) => {
-          expect(res.body.appId).to.equal(app.appId);
-          done();
-        });
+      request(server).get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`).expect(200, (err, res) => {
+        expect(res.body.appId).to.equal(app.appId);
+        done();
+      });
     });
     it('GET /:appId/files should return a 404 not found if the application can not be found', done => {
       findAll.restore();
       findAll = sinon.stub(ApplicationFile, 'findAll').resolves();
-      request(server)
-        .get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`)
-        .expect(404, done);
+      request(server).get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`).expect(404, done);
     });
     it('GET /:appId/files should return a 500 if an error occurs', done => {
       let error = 'No way, no how';
       findAll.restore();
       findAll = sinon.stub(ApplicationFile, 'findAll').rejects(new Error(error));
-      request(server)
-        .get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`)
-        .expect(500, done);
+      request(server).get(`${tempoutfitterUrl}/${fakeIntakeControlNumber}/files`).expect(500, done);
     });
   });
 
@@ -350,9 +367,7 @@ describe('tempoutfitter controllers', () => {
 
   describe('file downloads', () => {
     it('GET should return a 200 status code and an array', done => {
-      request(server)
-        .get(`/permits/applications/special-uses/temp-outfitter/${applicationId}/files`)
-        .expect(200, done);
+      request(server).get(`/permits/applications/special-uses/temp-outfitter/${applicationId}/files`).expect(200, done);
     });
   });
 });

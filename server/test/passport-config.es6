@@ -6,6 +6,7 @@ const sinon = require('sinon');
 const passportConfig = require('../src/auth/passport-config.es6');
 const util = require('../src/util.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
+const sleep = require('sleep');
 
 describe('getPassportUser', () => {
   it('should send a test user if running local or in CI', () => {
@@ -79,6 +80,7 @@ describe('logout', () => {
       role: 'user',
       token: '1234'
     };
+    sleep.msleep(1000);
     passportConfig.logout(
       {
         user,
@@ -91,5 +93,5 @@ describe('logout', () => {
     expect(redirect.callCount).to.equal(1);
     expect(logout.callCount).to.equal(0);
     expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
-  });
+  }).timeout(4000);
 });
