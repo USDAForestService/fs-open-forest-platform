@@ -385,16 +385,16 @@ frontend/
             ├──auth-guard.service.ts        * manage authentication on routes
             ├──authentication.service.ts    * http requests for authentication
             ├──mock.service.ts              * utility functions of reusable mocks for specs
-            └──util.json                    * general utility functions
+            └──util.ts                      * general utility functions
           ├──/application-forms
             ├──/_services
               ├──application-fields.service.ts     * utility functions specific to application fields
-              └──file-upload.service.json          * utility functions related to file uploads
+              └──file-upload.service.ts            * utility functions related to file uploads
           ├──/trees  
             ├──/_services
               ├──christmas-trees-application.service.ts    * http requests functions for Christmas tree permits
               ├──forest.service.ts                         * http requests for forests
-              └──trees.service.json                        * http requests for trees
+              └──trees.service.ts                          * http requests for trees
  ```
 
 #### Christmas trees sidebar template
