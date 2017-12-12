@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AdvertisingComponent } from './advertising.component';
 import { tempOutfitterMock } from '../temporary-outfitters/temp-outfitter.mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { TestService } from '../../_services/test.service';
 
 @Component({
   selector: 'app-test-component-wrapper',
@@ -25,15 +24,15 @@ class TestComponentWrapperComponent {
 describe('Advertising Component', () => {
   let component: AdvertisingComponent;
   let fixture: ComponentFixture<TestComponentWrapperComponent>;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule(
-        [AdvertisingComponent, TestComponentWrapperComponent],
-        [FormBuilder, ApplicationFieldsService]
-      );
+      TestBed.configureTestingModule({
+        declarations: [AdvertisingComponent, TestComponentWrapperComponent],
+        providers: [FormBuilder, ApplicationFieldsService],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+
       fixture = TestBed.createComponent(TestComponentWrapperComponent);
       component = fixture.debugElement.children[0].componentInstance;
       fixture.detectChanges();

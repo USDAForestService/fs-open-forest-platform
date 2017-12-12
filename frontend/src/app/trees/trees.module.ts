@@ -11,7 +11,6 @@ import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
 
 import { TreesService } from './_services/trees.service';
-import { SidebarViewComponent } from './forests/tree-guidelines/sidebar-view.component';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
@@ -36,7 +35,6 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     TreeSpeciesComponent,
     TripPlanningComponent,
     TreeToolsComponent,
-    SidebarViewComponent,
     ForestFinderComponent,
     RemovePuncPipe,
     LineBreakFormatterPipe,
@@ -49,7 +47,6 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
-    SidebarViewComponent,
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
