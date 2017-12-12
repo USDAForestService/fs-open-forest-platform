@@ -20,20 +20,23 @@ export class AuthGuardService implements CanActivate {
     let authorized = false;
     if (user && user.email && user.role) {
       authorized = true;
-      if (isAdminRoute && user.role === 'admin') {
-        authorized = true;
-      } else if (isAdminRoute && user.role !== 'admin') {
+      if (isAdminRoute && user.role !== 'admin') {
         authorized = false;
         this.navigate(['/access-denied']);
       }
-    } else if (isAdminRoute) {
-      localStorage.setItem('requestingUrl', requestingUrl);
-      this.redirect(environment.apiUrl + 'auth/usda-eauth/saml/login');
     } else {
-      localStorage.setItem('requestingUrl', requestingUrl);
-      this.redirect(environment.apiUrl + 'auth/login-gov/openid/login');
+      this.sendToAuthenication(isAdminRoute, requestingUrl);
     }
-    return authorized;
+          return authorized;
+  }
+
+  sendToAuthenication(isAdminRoute, requestingUrl) {
+    localStorage.setItem('requestingUrl', requestingUrl);
+    let authEndpoint = 'login-gov/openid/login';
+    if (isAdminRoute) {
+      authEndpoint = 'usda-eauth/saml/login';
+    }
+    this.redirect(environment.apiUrl + 'auth/' + authEndpoint);
   }
 
   navigate(route) {

@@ -43,7 +43,7 @@ export class HelpMePickComponent implements OnInit {
         this.title = 'The correct permit for you is the "temporary outfitter and guide permit."';
         break;
     }
-  } 
+  }
 
   ngOnInit() {
     if (this.route) {
