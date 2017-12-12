@@ -52,6 +52,28 @@ export class TreeApplicationFormComponent implements OnInit {
     });
   }
 
+  createForm(data, formBuilder) {
+    this.applicationForm = formBuilder.group({
+      forestId: ['', [Validators.required]],
+      forestAbbr: [''],
+      orgStructureCode: ['', [Validators.required]],
+      treeCost: [''],
+      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(data.forest.maxNumTrees)]],
+      totalCost: [0, [Validators.required, currencyValidator()]],
+      acceptRules: [false, [Validators.required]]
+    });
+
+    this.applicationForm.get('forestId').setValue(data.forest.id);
+    this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
+    this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
+    this.costPerTree = data.forest.treeCost;
+    this.applicationForm.get('treeCost').setValue(this.costPerTree);
+    this.maxNumberOfTrees = data.forest.maxNumTrees;
+  }
+
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
@@ -60,26 +82,7 @@ export class TreeApplicationFormComponent implements OnInit {
           data.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
-
-      this.applicationForm = this.formBuilder.group({
-        forestId: ['', [Validators.required]],
-        forestAbbr: [''],
-        orgStructureCode: ['', [Validators.required]],
-        treeCost: [''],
-        firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-        lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-        quantity: ['', [Validators.required, Validators.min(1), Validators.max(data.forest.maxNumTrees)]],
-        totalCost: [0, [Validators.required, currencyValidator()]],
-        acceptRules: [false, [Validators.required]]
-      });
-
-      this.applicationForm.get('forestId').setValue(data.forest.id);
-      this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
-      this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
-      this.costPerTree = data.forest.treeCost;
-      this.applicationForm.get('treeCost').setValue(this.costPerTree);
-      this.maxNumberOfTrees = data.forest.maxNumTrees;
+      this.createForm(data, this.formBuilder);
 
       this.applicationForm.get('quantity').valueChanges.subscribe(value => {
         if (!this.applicationForm.get('quantity').errors) {
