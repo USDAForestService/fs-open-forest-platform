@@ -1,12 +1,63 @@
 <section id="application" class="usa-section">
-  <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Christmas tree permit confirmation</h1>
-    <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
-    <div *ngIf="permit" class="usa-alert usa-alert-success application-deadline-warning">
-      <div class="usa-alert-body">
-        <h3 id='tree-confirm-payment' class="usa-alert-heading">Your payment of ${{permit.totalCost}} for {{permit.quantity}} permit(s) was successfully received.</h3>
-        <p id='tree-confirm-alert' class="usa-alert-text">A copy of your permit will be emailed to you at {{permit.emailAddress}} . Or, you can print it now.</p>
+  <div *ngIf="permit" class="usa-grid">
+    <h1 id="skip-nav-target" tabindex="-1">Christmas tree permit order confirmation</h1>
+    <p>Thank you!</p>
+    <p>Your order number {{permit.permitId | uppercase}} has been received.</p>
+    <h2>Order details</h2>
+    <div id='tree-confirmation-details-container' class="confirmation-details-container usa-grid">
+      <div class="usa-width-one-half">
+        <h3>Order number</h3>
+        <p>{{permit.permitId | uppercase}}</p>
+        <h3>Name</h3>
+        <p>{{permit.firstName}} {{permit.lastName}}</p>
+        <h3>Payment</h3>
+        <p>Credit card</p>
+      </div>
+      <div class="usa-width-one-half">
+        <h3>Transaction date</h3>
+        <p>{{permit.transactionDate | date: 'shortDate'}}</p>
+        <h3>Email</h3>
+        <p>{{permit.emailAddress}}</p>
+      </div>
+
+
+    </div>
+
+    <h2>Order summary</h2>
+    <hr class="header-divider">
+    <div *ngIf="forest" id='tree-order-summary-container' class="usa-grid">
+      <div class="usa-width-one-third">
+        <h3>Quantity</h3>
+        <p>{{permit.quantity}}</p>
+      </div>
+      <div class="usa-width-one-third">
+        <h3>Description</h3>
+        <p>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit(s).</p>
+      </div>
+      <div class="usa-width-one-third">
+        <h3>Order total</h3>
+        <p>{{permit.totalCost}}</p>
       </div>
     </div>
+
+    <div class="usa-grid">
+      <button id='tree-print-permit' class="usa-button-primary-alt usa-button-big" type="button">Print permit</button>
+    </div>
+
+    <h2>Additional information</h2>
+    <hr class="header-divider">
+    <div id="tree-additional-info-container">
+      <p>A link to your permit will be emailed to you at {{permit.emailAddress}}.</p>
+      <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
+    </div>
+
+
+
+    <!--<div *ngIf="permit" class="usa-alert usa-alert-success application-deadline-warning">-->
+      <!--<div class="usa-alert-body">-->
+        <!--<h3 id='tree-confirm-payment' class="usa-alert-heading">Your payment of ${{permit.totalCost}} for {{permit.quantity}} permit(s) was successfully received.</h3>-->
+        <!--<p id='tree-confirm-alert' class="usa-alert-text">A copy of your permit will be emailed to you at {{permit.emailAddress}} . Or, you can print it now.</p>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </section>

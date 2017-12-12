@@ -22,6 +22,24 @@ export class TempOutfittersForm {
   }
 }
 
+export class ChristmasTreeOrderConfirmation {
+  confirmationDetails() {
+    return element(by.id('tree-confirmation-details-container'));
+  }
+
+  orderSummary() {
+    return element(by.id('tree-order-summary-container'));
+  }
+
+  printPermitButton() {
+    return element(by.id('tree-print-permit'));
+  }
+
+  additionalInfo() {
+    return element(by.id('tree-additional-info-container'));
+  }
+}
+
 export class ChristmasTreeForm {
   navigateTo(forestId) {
     return browser.get('applications/christmas-trees/forests/' + forestId + '/new');
@@ -68,13 +86,6 @@ export class ChristmasTreeForm {
     return element(by.id('mock-pay-gov-submit'));
   }
 
-  paymentConfirmAmount() {
-    return element(by.id('tree-confirm-payment'));
-  }
-
-  paymentConfirmAlert() {
-    return element(by.id('tree-confirm-alert'));
-  }
 }
 
 export class AdminApplicationList {
