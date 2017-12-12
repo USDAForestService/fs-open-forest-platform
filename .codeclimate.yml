@@ -20,3 +20,4 @@ exclude_paths:
 - "server/test/"
 - "server/dba/"
 - "**/*.spec.ts"
+- "frontend/karma.conf.js"
