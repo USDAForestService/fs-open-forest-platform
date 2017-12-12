@@ -269,7 +269,8 @@ const permitResult = permit => {
     emailAddress: permit.emailAddress,
     quantity: permit.quantity,
     totalCost: permit.totalCost,
-    status: permit.status
+    status: permit.status,
+    transactionDate: permit.updatedAt
   };
   return result;
 };

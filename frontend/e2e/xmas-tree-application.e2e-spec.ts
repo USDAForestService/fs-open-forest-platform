@@ -1,12 +1,14 @@
-import { ChristmasTreeForm } from './app.po';
+import { ChristmasTreeForm, ChristmasTreeOrderConfirmation } from './app.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
+  let confirmPage: ChristmasTreeOrderConfirmation;
   const forestId = 'arp';
 
   beforeEach(() => {
     page = new ChristmasTreeForm();
+    confirmPage = new ChristmasTreeOrderConfirmation();
   });
 
   it('should display the permit name in the header', () => {
@@ -119,11 +121,21 @@ describe('Apply for a Christmas tree permit', () => {
     );
   });
 
-  it('should show the payment amount', () => {
-    expect<any>(page.paymentConfirmAmount().isPresent()).toBeTruthy();
-  });
+  describe('confirmation page', () => {
+    it('should show confirmation details', () => {
+      expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
+    });
 
-  it('should show the payment alert', () => {
-    expect<any>(page.paymentConfirmAlert().isPresent()).toBeTruthy();
+    it('should show the order summary', () => {
+      expect<any>(confirmPage.orderSummary().isDisplayed()).toBeTruthy();
+    });
+
+    it('should show additional information', () => {
+      expect<any>(confirmPage.additionalInfo().isDisplayed()).toBeTruthy();
+    });
+
+    it('should show the print permit button', () => {
+      expect<any>(confirmPage.printPermitButton().isDisplayed()).toBeTruthy();
+    });
   });
 });
