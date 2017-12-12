@@ -99,6 +99,13 @@
       display: none;
     }
   }
+  .confirmation-details-container {
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 1px;
+    }
+    padding-bottom: 1rem;
+  }
 }
 
 .electronic-signature-success {
@@ -107,3 +114,5 @@
   height: 20px;
   display: inline-block;
 }
+
+
