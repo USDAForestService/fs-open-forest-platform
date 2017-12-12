@@ -7,7 +7,7 @@ import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 
 @Component({
@@ -32,19 +32,38 @@ export class TreeApplicationFormComponent implements OnInit {
     public applicationFieldsService: ApplicationFieldsService,
     private treesService: TreesService,
     public util: UtilService
-  ) {}
+  ) {
+    this.applicationForm = this.formBuilder.group({
+      forestId: ['', [Validators.required]],
+      forestAbbr: ['', [Validators.required]],
+      orgStructureCode: ['', [Validators.required]],
+      treeCost: [''],
+      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+      quantity: ['', [Validators.required]],
+      totalCost: [0, [Validators.required, currencyValidator()]]
+    });
+    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
+      this.applicationForm
+        .get('quantity')
+        .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]);
+      this.updateTotalCost();
+    });
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
       this.titleService.setTitle(
-        'Apply for a permit in ' +
+        'Buy a Christmas tree permit in ' +
           data.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
 
       this.applicationForm = this.formBuilder.group({
         forestId: ['', [Validators.required]],
+        forestAbbr: [''],
         orgStructureCode: ['', [Validators.required]],
         treeCost: [''],
         firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
@@ -56,6 +75,7 @@ export class TreeApplicationFormComponent implements OnInit {
       });
 
       this.applicationForm.get('forestId').setValue(data.forest.id);
+      this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
       this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
       this.costPerTree = data.forest.treeCost;
       this.applicationForm.get('treeCost').setValue(this.costPerTree);
@@ -70,6 +90,7 @@ export class TreeApplicationFormComponent implements OnInit {
       });
     });
   }
+
   onSubmit() {
     this.submitted = true;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
@@ -84,7 +105,7 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   createApplication() {
-    this.applicationService.create(JSON.stringify(this.applicationForm.value) ).subscribe(
+    this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
         window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },

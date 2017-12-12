@@ -64,7 +64,7 @@ vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
 
 /** Pay.gov */
 const payGov = getUserProvided('pay-gov');
-vcapConstants.payGovTokenUrl = payGov.credentials.token_url;
+vcapConstants.payGovUrl = payGov.credentials.url;
 vcapConstants.payGovClientUrl = payGov.credentials.client_url;
 vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
 

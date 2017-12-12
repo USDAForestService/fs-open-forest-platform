@@ -114,7 +114,7 @@ describe('christmas tree controller tests', () => {
     it('POST should return a 200 response when submitted for flathead national forest', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       request(server)
-        .post('/forests/christmas-trees/applications')
+        .post('/forests/christmas-trees/permits')
         .send(permitApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
@@ -123,7 +123,7 @@ describe('christmas tree controller tests', () => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = undefined;
       request(server)
-        .post('/forests/christmas-trees/applications')
+        .post('/forests/christmas-trees/permits')
         .send(permitApplication)
         .expect('Content-Type', /json/)
         .expect(400, done);

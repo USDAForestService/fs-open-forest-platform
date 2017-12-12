@@ -57,6 +57,14 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         field: 'updated',
         allowNull: false
+      },
+      paygovToken: {
+        type: DataTypes.STRING,
+        field: 'paygov_token'
+      },
+      paygovTrackingId: {
+        type: DataTypes.STRING,
+        field: 'paygov_tracking_id'
       }
     },
     {

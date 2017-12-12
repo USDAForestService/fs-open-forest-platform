@@ -71,7 +71,7 @@ describe('TreeGuidelinesComponent', () => {
         userService = TestBed.get(Title);
         expect(userService.getTitle()).toBe('forest name National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
       });
-    })
+    });
   });
 
   it(

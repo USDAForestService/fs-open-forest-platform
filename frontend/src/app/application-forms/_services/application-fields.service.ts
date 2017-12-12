@@ -117,32 +117,32 @@ export class ApplicationFieldsService {
     }
   }
 
+  private getInvalidElement(firstInvalidElement) {
+    let element = document.getElementById(firstInvalidElement.getAttribute('id'));
+    if (!element) {
+      const invalidClass = document.getElementsByClassName(firstInvalidElement.getAttribute('class'));
+      if (invalidClass) {
+        invalidClass[0].setAttribute('id', 'temporaryId');
+        element = document.getElementById('temporaryId');
+      }
+    }
+
+    return element;
+  }
+
   scrollToFirstError() {
     const invalidElements = document.querySelectorAll(
       'input.ng-invalid, select.ng-invalid, textarea.invalid, .usa-file-input.ng-invalid, .ng-untouched.required'
     );
-    if (invalidElements.length === 0) {
-      return;
-    }
-    invalidElements[0].scrollIntoView();
-    return this.getInvalidElement(invalidElements);
-  }
-
-  getInvalidElement(invalidElements) {
-    let invalid = document.getElementById(invalidElements[0].getAttribute('id'));
-    if (!invalid) {
-      const invalidClass = document.getElementsByClassName(invalidElements[0].getAttribute('class'));
-      if (invalidClass) {
-        invalidClass[0].setAttribute('id', 'temporaryId');
-        invalid = document.getElementById('temporaryId');
+    if (invalidElements.length !== 0) {
+      invalidElements[0].scrollIntoView();
+      const invalidElement = this.getInvalidElement(invalidElements[0]);
+      if (invalidElement) {
+        invalidElement.focus();
+        if (invalidElement.getAttribute('id') === 'temporaryId') {
+          invalidElement.setAttribute('id', null);
+        }
       }
-    }
-    if (!invalid) {
-      return;
-    }
-    invalid.focus();
-    if (invalid.getAttribute('id') === 'temporaryId') {
-      invalid.setAttribute('id', null);
     }
     return;
   }

@@ -33,7 +33,7 @@ describe('SidebarViewComponent', () => {
   it ('should have a config file', () => {
     fixture.whenStable().then(() => {
       expect(component.sidebarItems.length).toEqual(6);
-    })
+    });
   });
 
 });
