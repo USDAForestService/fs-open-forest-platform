@@ -14,13 +14,12 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
   });
 
-  it( 'should show all fields as invalid if submitted without input', () => {
+  it('should show all fields as invalid if submitted without input', () => {
     page.submit().click();
     browser.sleep(500);
-
   });
 
-  it( 'should require a first name', () => {
+  it('should require a first name', () => {
     page.navigateTo(forestId);
     expect<any>(page.firstName().isDisplayed()).toBeTruthy();
     page.submit().click();
@@ -35,7 +34,7 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(page.firstNameError().isPresent()).toBeFalsy();
   });
 
-  it( 'should require a last name', () => {
+  it('should require a last name', () => {
     expect<any>(page.lastName().isDisplayed()).toBeTruthy();
     page.submit().click();
     browser.sleep(1000);
@@ -55,7 +54,6 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(page.emailError().isDisplayed()).toBeTruthy();
     page.email().sendKeys('@aaa');
     expect<any>(page.emailError().isPresent()).toBeFalsy();
-
   });
 
   it('should display an error for an invalid tree amount', () => {
@@ -70,7 +68,6 @@ describe('Apply for a Christmas tree permit', () => {
     page.treeAmount().clear();
     page.treeAmount().sendKeys('0');
     expect<any>(page.treeAmountError().isDisplayed()).toBeTruthy();
-
   });
 
   it('should display an error for a tree amount great than max', () => {
@@ -110,21 +107,23 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(page.rulesAccepted().isPresent()).toBeTruthy();
     page.rulesAccepted().click();
     page.submit().click();
-    browser.sleep(1500);
+    browser.sleep(3000);
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
 
-  it ('should redirect back confirmation page from mock pay.gov', () => {
+  it('should redirect back confirmation page from mock pay.gov', () => {
     page.mockPayGovSubmit().click();
-    browser.sleep(1500);
-    expect(browser.getCurrentUrl()).toContain(`http://localhost:4200/applications/christmas-trees/forests/${forestId}/permits/`);
+    browser.sleep(3000);
+    expect(browser.getCurrentUrl()).toContain(
+      `http://localhost:4200/applications/christmas-trees/forests/${forestId}/permits/`
+    );
   });
 
-  it ('should show the payment amount', () => {
+  it('should show the payment amount', () => {
     expect<any>(page.paymentConfirmAmount().isPresent()).toBeTruthy();
   });
 
-  it ('should show the payment alert', () => {
+  it('should show the payment alert', () => {
     expect<any>(page.paymentConfirmAlert().isPresent()).toBeTruthy();
   });
 });
