@@ -169,6 +169,7 @@ christmasTree.create = (req, res) => {
                 .then(savedPermit => {
                   return res.status(200).json({
                     token: token,
+                    permitId: savedPermit.permitId,
                     payGovUrl: vcapConstants.payGovClientUrl,
                     tcsAppID: tcsAppID
                   });
