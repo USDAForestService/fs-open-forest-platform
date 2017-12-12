@@ -17,7 +17,7 @@ export class TreePermitViewComponent implements OnInit {
       this.forest = data.forest;
       this.permit = data.permit;
       this.titleService.setTitle(
-        'View your Christmas tree permit for ' +
+        'View your Christmas tree permit order confirmation for ' +
           data.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
