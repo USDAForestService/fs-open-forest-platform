@@ -80,7 +80,7 @@ describe('logout', () => {
       role: 'user',
       token: '1234'
     };
-    sleep.msleep(1000);
+    sleep.msleep(4000);
     passportConfig.logout(
       {
         user,
@@ -93,5 +93,5 @@ describe('logout', () => {
     expect(redirect.callCount).to.equal(1);
     expect(logout.callCount).to.equal(0);
     expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
-  }).timeout(4000);
+  }).timeout(7000);
 });
