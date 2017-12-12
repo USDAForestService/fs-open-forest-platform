@@ -1,14 +1,14 @@
 'use strict';
 
-const request = require('request');
+const request = require('request-promise');
 const uuid = require('uuid/v4');
-const xml = require('xml');
 const xml2jsParse = require('xml2js').parseString;
 //const http = request('http');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const util = require('../util.es6');
+const paygov = require('../paygov.es6');
 
 const christmasTree = {};
 
@@ -127,134 +127,68 @@ christmasTree.getOneGuidelines = (req, res) => {
     });
 };
 
+const postPayGov = xmlData => {
+  return request.post(
+    {
+      url: vcapConstants.payGovUrl,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/xml'
+      },
+      body: xmlData
+    },
+    function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+        return body;
+      } else {
+        throw new Error(error);
+      }
+    }
+  );
+};
+
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesPermits
     .create(translatePermitFromClientToDatabase(req.body))
     .then(permit => {
       const tcsAppID = vcapConstants.payGovAppId;
-
-      const url_success =
-        vcapConstants.intakeClientBaseUrl +
-        'applications/christmas-trees/forests/' +
-        req.body.forestAbbr +
-        '/permits/' +
-        permit.permitId;
-      const url_cancel =
-        vcapConstants.intakeClientBaseUrl + 'applications/christmas-trees/forests/' + req.body.forestAbbr + '/new';
-      const xmlTemplate = [
-        {
-          'S:Envelope': [
-            {
-              _attr: {
-                'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
-              }
-            },
-            {
-              'S:Header': []
-            },
-            {
-              'S:Body': [
-                {
-                  'ns2:startOnlineCollection': [
-                    {
-                      _attr: {
-                        'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
-                      }
-                    },
-                    {
-                      startOnlineCollectionRequest: [
-                        {
-                          tcs_app_id: tcsAppID
-                        },
-                        {
-                          agency_tracking_id: permit.permitId
-                        },
-                        {
-                          transaction_type: 'Sale'
-                        },
-                        {
-                          transaction_amount: permit.totalCost
-                        },
-                        {
-                          language: 'en'
-                        },
-                        {
-                          url_success: url_success
-                        },
-                        {
-                          url_cancel: url_cancel
-                        },
-                        {
-                          account_holder_name: permit.firstName + ' ' + permit.lastName
-                        },
-                        {
-                          custom_fields: [
-                            {
-                              custom_field_1: req.body.orgStructureCode
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ];
-
-      const xmlData = xml(xmlTemplate);
-      request.post(
-        {
-          url: vcapConstants.payGovUrl,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/xml'
-          },
-          body: xmlData
-        },
-        function(error, response, body) {
-          if (!error && response.statusCode == 200) {
-            xml2jsParse(body, function(err, result) {
-              if (!err) {
-                const startOnlineCollectionResponse =
-                  result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0][
-                    'startOnlineCollectionResponse'
-                  ][0];
-                const token = startOnlineCollectionResponse.token[0];
-                permit
-                  .update({
-                    paygovToken: token
-                  })
-                  .then(savedPermit => {
-                    return res.status(200).json({
-                      token: token,
-                      payGovUrl: vcapConstants.payGovClientUrl,
-                      tcsAppID: tcsAppID
-                    });
-                  })
-                  .catch(error => {
-                    return res.status(500).send();
+      const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+      postPayGov(xmlData).then(xmlResponse => {
+        xml2jsParse(xmlResponse, function(err, result) {
+          if (!err) {
+            try {
+              const startOnlineCollectionResponse =
+                result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0][
+                  'startOnlineCollectionResponse'
+                ][0];
+              const token = startOnlineCollectionResponse.token[0];
+              permit
+                .update({
+                  paygovToken: token
+                })
+                .then(savedPermit => {
+                  return res.status(200).json({
+                    token: token,
+                    payGovUrl: vcapConstants.payGovClientUrl,
+                    tcsAppID: tcsAppID
                   });
-              } else {
-                return res.status(500).send();
-              }
-            });
-          } else {
-            return res.status(500).send();
+                })
+                .catch(error => {
+                  throw new Error(error);
+                });
+            } catch (error) {
+              throw new Error(error);
+            }
           }
-        }
-      );
+        });
+      });
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
-        console.log(JSON.stringify(error));
         return res.status(400).json({
           errors: error.errors
         });
       } else {
-        console.log(JSON.stringify(error));
         return res.status(500).send();
       }
     });
@@ -287,81 +221,32 @@ christmasTree.getOnePermit = (req, res) => {
         if (permit.status == 'Completed') {
           return res.status(200).send(permitResult(permit));
         } else {
-          const xmlTemplate = [
-            {
-              'S:Envelope': [
-                {
-                  _attr: {
-                    'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
-                  }
-                },
-                {
-                  'S:Header': []
-                },
-                {
-                  'S:Body': [
-                    {
-                      'ns2:completeOnlineCollection': [
-                        {
-                          _attr: {
-                            'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
-                          }
-                        },
-                        {
-                          completeOnlineCollectionRequest: [
-                            {
-                              tcs_app_id: vcapConstants.payGovAppId
-                            },
-                            {
-                              token: permit.paygovToken
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
+          const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+          postPayGov(xmlData).then(xmlResponse => {
+            xml2jsParse(xmlResponse, function(err, result) {
+              if (!err) {
+                try {
+                  const completeOnlineCollectionResponse =
+                    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
+                      'completeOnlineCollectionResponse'
+                    ][0];
+                  const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
+                  permit
+                    .update({
+                      paygovTrackingId: paygovTrackingId,
+                      status: 'Completed'
+                    })
+                    .then(savedPermit => {
+                      return res.status(200).send(permitResult(savedPermit));
+                    });
+                } catch (error) {
+                  throw new Error(error);
                 }
-              ]
-            }
-          ];
-
-          const xmlData = xml(xmlTemplate);
-
-          request.post(
-            {
-              url: vcapConstants.payGovUrl,
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/xml'
-              },
-              body: xmlData
-            },
-            function(error, response, body) {
-              if (!error && response.statusCode == 200) {
-                xml2jsParse(body, function(err, result) {
-                  if (!err) {
-                    const completeOnlineCollectionResponse =
-                      result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
-                        'completeOnlineCollectionResponse'
-                      ][0];
-                    const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
-                    permit
-                      .update({
-                        paygovTrackingId: paygovTrackingId,
-                        status: 'Completed'
-                      })
-                      .then(savedPermit => {
-                        return res.status(200).send(permitResult(savedPermit));
-                      });
-                  } else {
-                    throw new Error(err);
-                  }
-                });
               } else {
-                throw new Error(error);
+                throw new Error(err);
               }
-            }
-          );
+            });
+          });
         }
       } else {
         res.status(404).send();
