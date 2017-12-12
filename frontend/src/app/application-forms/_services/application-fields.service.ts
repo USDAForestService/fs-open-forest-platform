@@ -141,7 +141,7 @@ export class ApplicationFieldsService {
       'input.ng-invalid, select.ng-invalid, textarea.invalid, .usa-file-input.ng-invalid, .ng-untouched.required'
     );
     if (invalidElements.length !== 0) {
-      const firstInvalidElement = invalidElements[0]
+      const firstInvalidElement = invalidElements[0];
       firstInvalidElement.scrollIntoView();
       this.setTemporaryIdToNull(this.getInvalidElement(firstInvalidElement));
     }
