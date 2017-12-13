@@ -2,11 +2,7 @@
   <div *ngIf="permit" class="usa-grid ">
     <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
     <p>Thank you!</p>
-    <p>Your order number <b>{{permit.permitId | uppercase}}</b> has been received.</p>
   </div>
-
-
-
 
   <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container usa-grid">
     <h2 class="usa-heading">Order summary</h2>
@@ -30,6 +26,11 @@
       </dl>
     </div>
   </div>
+
+  <div class="usa-grid confirmation-details-container">
+    <button id='tree-print-permit' class="usa-button-primary-alt usa-button-big" type="button">Print permit</button>
+  </div>
+
 
   <div id='tree-confirmation-details-container' class="usa-grid">
     <h2 class="usa-heading">Order details</h2>
@@ -57,9 +58,6 @@
     </table>
   </div>
 
-  <div class="usa-grid confirmation-details-container">
-    <button id='tree-print-permit' class="usa-button-primary-alt usa-button-big" type="button">Print permit</button>
-  </div>
 
 
   <div id="tree-additional-info-container" class="usa-grid confirmation-details-container">
