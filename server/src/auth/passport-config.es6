@@ -18,16 +18,19 @@ const passportConfig = {};
  * Setup passport to integrate with login.gov and eAuth/
  */
 passportConfig.setup = app => {
-  loginGov.setup();
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(loginGov.router);
-  app.use(eAuth.router);
-  passport.serializeUser((user, done) => {
-    done(null, user);
-  });
-  passport.deserializeUser((user, done) => {
-    done(null, user);
+  return new Promise((resolve, reject) => {
+    loginGov.setup().then(() => {
+      app.use(passport.initialize());
+      app.use(passport.session());
+      app.use(loginGov.router);
+      app.use(eAuth.router);
+      passport.serializeUser((user, done) => {
+        done(null, user);
+      });
+      passport.deserializeUser((user, done) => {
+        done(null, user, resolve());
+      });
+    });
   });
 };
 
