@@ -60,13 +60,7 @@ export class PhoneNumberComponent implements OnInit {
 
   setValueChangeSubscription(type) {
     if (this.parentForm.get('dayPhone.tenDigit')) {
-      this.parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
-        if (value) {
-          this.parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
-          this.parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
-          this.parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
-        }
-      });
+      this.afs.phoneChangeSubscribers(this.parentForm, type);
     }
   }
 }

@@ -83,10 +83,14 @@ export class ApplicationFieldsService {
     });
     parentForm.addControl('eveningPhone', eveningPhone);
 
-    parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-      parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-      parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-      parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+    this.phoneChangeSubscribers(parentForm, 'eveningPhone');
+  }
+
+  phoneChangeSubscribers(parentForm, type){
+    parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
+      parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
+      parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
+      parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
     });
   }
 
