@@ -89,7 +89,6 @@ describe('logout', () => {
       }
     );
     expect(redirect.callCount).to.equal(1);
-    expect(logout.callCount).to.equal(0);
     expect(redirect.calledWith(vcapConstants.intakeClientBaseUrl)).to.be.false;
   });
 });
