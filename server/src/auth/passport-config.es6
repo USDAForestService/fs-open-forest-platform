@@ -13,26 +13,26 @@ const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const passportConfig = {};
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 
 /**
  * Setup passport to integrate with login.gov and eAuth/
  */
-passportConfig.setup = app => {
-  return new Promise((resolve, reject) => {
-    loginGov.setup().then(() => {
-      app.use(passport.initialize());
-      app.use(passport.session());
-      app.use(loginGov.router);
-      app.use(eAuth.router);
-      passport.serializeUser((user, done) => {
-        done(null, user);
-      });
-      passport.deserializeUser((user, done) => {
-        done(null, user, resolve());
-      });
-    });
+passportConfig.setup = async(function(app) {
+  var loginGovSetup = await (loginGov.setup());
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(loginGov.router);
+  app.use(eAuth.router);
+  passport.serializeUser((user, done) => {
+    done(null, user);
   });
-};
+  passport.deserializeUser((user, done) => {
+    done(null, user, resolve());
+  });
+});
 
 /**
  * Get the authetication user.

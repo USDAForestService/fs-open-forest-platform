@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "description": "fs-intake-module",
   "dependencies": {
+    "asyncawait": "^1.0.6",
     "aws-sdk": "^2.62.0",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
@@ -72,7 +73,11 @@
     "node": "^6.10.3"
   },
   "nyc": {
-    "extension": [".es6"],
-    "exclude": ["src/pay-gov-mocks/*.*"]
+    "extension": [
+      ".es6"
+    ],
+    "exclude": [
+      "src/pay-gov-mocks/*.*"
+    ]
   }
 }
