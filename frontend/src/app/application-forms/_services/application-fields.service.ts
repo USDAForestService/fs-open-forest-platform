@@ -130,19 +130,20 @@ export class ApplicationFieldsService {
     return element;
   }
 
+  setTemporaryIdToNull (invalidElement) {
+    if (invalidElement && invalidElement.getAttribute('id') === 'temporaryId') {
+      invalidElement.setAttribute('id', null);
+    }
+  }
+
   scrollToFirstError() {
     const invalidElements = document.querySelectorAll(
       'input.ng-invalid, select.ng-invalid, textarea.invalid, .usa-file-input.ng-invalid, .ng-untouched.required'
     );
     if (invalidElements.length !== 0) {
-      invalidElements[0].scrollIntoView();
-      const invalidElement = this.getInvalidElement(invalidElements[0]);
-      if (invalidElement) {
-        invalidElement.focus();
-        if (invalidElement.getAttribute('id') === 'temporaryId') {
-          invalidElement.setAttribute('id', null);
-        }
-      }
+      const firstInvalidElement = invalidElements[0];
+      firstInvalidElement.scrollIntoView();
+      this.setTemporaryIdToNull(this.getInvalidElement(firstInvalidElement));
     }
     return;
   }
