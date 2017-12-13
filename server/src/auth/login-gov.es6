@@ -41,47 +41,41 @@ loginGov.params = {
  * Setup the passport OpenIDConnectStrategy.
  */
 loginGov.setup = () => {
-  return new Promise((resolve, reject) => {
-    Issuer.defaultHttpOptions = basicAuthOptions;
-    /** issuer discovery */
-    Issuer.discover(vcapConstants.loginGovDiscoveryUrl).then(loginGovIssuer => {
-      loginGov.issuer = loginGovIssuer;
-      let keys = {
-        keys: [vcapConstants.loginGovJwk]
-      };
-      /** a joseKeystore is required by openid-client */
-      jose.JWK.asKeyStore(keys).then(joseKeystore => {
-        let client = new loginGovIssuer.Client(
+  Issuer.defaultHttpOptions = basicAuthOptions;
+  /** issuer discovery */
+  Issuer.discover(vcapConstants.loginGovDiscoveryUrl).then(loginGovIssuer => {
+    loginGov.issuer = loginGovIssuer;
+    let keys = {
+      keys: [vcapConstants.loginGovJwk]
+    };
+    /** a joseKeystore is required by openid-client */
+    jose.JWK.asKeyStore(keys).then(joseKeystore => {
+      let client = new loginGovIssuer.Client(
+        {
+          client_id: vcapConstants.loginGovIssuer,
+          token_endpoint_auth_method: 'private_key_jwt',
+          id_token_signed_response_alg: 'RS256'
+        },
+        joseKeystore
+      );
+      /** instantiate the passport strategy */
+      passport.use(
+        'oidc',
+        new OpenIDConnectStrategy(
           {
-            client_id: vcapConstants.loginGovIssuer,
-            token_endpoint_auth_method: 'private_key_jwt',
-            id_token_signed_response_alg: 'RS256'
+            client: client,
+            params: loginGov.params
           },
-          joseKeystore
-        );
-        /** instantiate the passport strategy */
-        passport.use(
-          'oidc',
-          new OpenIDConnectStrategy(
-            {
-              client: client,
-              params: loginGov.params
-            },
-            (tokenset, done) => {
-              return done(
-                null,
-                {
-                  email: tokenset.claims.email,
-                  role: 'user',
-                  /** the token is required to logout of login.gov */
-                  token: tokenset.id_token
-                },
-                resolve()
-              );
-            }
-          )
-        );
-      });
+          (tokenset, done) => {
+            return done(null, {
+              email: tokenset.claims.email,
+              role: 'user',
+              /** the token is required to logout of login.gov */
+              token: tokenset.id_token
+            });
+          }
+        )
+      );
     });
   });
 };
