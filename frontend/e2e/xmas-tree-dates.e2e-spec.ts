@@ -48,7 +48,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
       expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/mthood/new');
-    })
+    });
   });
 
   describe('Shoshone', () => {
@@ -95,7 +95,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
       expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/shoshone/new');
-    })
+    });
   });
 
   describe('Flathead', () => {
@@ -142,7 +142,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
       expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/flathead/new');
-    })
+    });
   });
 
   describe('Arapaho/Roosevelt', () => {
@@ -197,6 +197,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
       expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/arp/new');
-    })
+    });
   });
 });
