@@ -40,11 +40,11 @@ export class UtilService {
       let body;
       try {
         body = error.json() || '';
+        errors = body.errors;
       } catch (err) {
-        console.log('HANDLE ERROR', err, error);
+        return Observable;
       }
 
-      errors = body.errors;
       if (error.status) {
         switch (error.status) {
           case 400:
