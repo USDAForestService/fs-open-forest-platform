@@ -65,6 +65,7 @@ export class UtilService {
         }
       }
     }
+    console.log('ERROR', errors);
     return Observable.throw(errors);
   }
 }

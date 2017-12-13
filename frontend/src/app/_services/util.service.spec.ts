@@ -41,14 +41,35 @@ describe('UtilService', () => {
 
   it('should throw an observable if response does not contain errors', () => {
     const response = new Response(new ResponseOptions());
+    expect(service.handleError('string')).toEqual(jasmine.any(Observable));
+    expect(service.handleError(new Error('error'))).toEqual(jasmine.any(Observable));
     expect(service.handleError(response)).toEqual(jasmine.any(Observable));
   });
 
-  it('should throw an observable if response does not contain errors', () => {
-    expect(service.handleError('string')).toEqual(jasmine.any(Observable));
+  it('should throw an observable if response has status 400', () => {
+    const response = new Response(new ResponseOptions({ status: 400, body: { errors: ['error'] } }));
+    expect(service.handleError(response)).toEqual(Observable.throw(['error']));
   });
 
-  it('should throw an observable if response does not contain errors', () => {
-    expect(service.handleError(new Error('error'))).toEqual(jasmine.any(Observable));
+  it('should throw an observable if response has status 401', () => {
+    const response = new Response(new ResponseOptions({ status: 401, body: { errors: ['error'] } }));
+    expect(service.handleError(response)).toEqual(Observable.throw([{ message: 'Please log in.' }]));
+  });
+
+  it('should throw an observable if response has status 403', () => {
+    const response = new Response(new ResponseOptions({ status: 403, body: { errors: ['error'] } }));
+    expect(service.handleError(response)).toEqual(Observable.throw([{ message: 'Access denied.' }]));
+  });
+
+  it('should throw an observable if response has status 404', () => {
+    const response = new Response(new ResponseOptions({ status: 404, body: { errors: ['error'] } }));
+    expect(service.handleError(response)).toEqual(
+      Observable.throw([{ message: 'The requested application is not found.' }])
+    );
+  });
+
+  it('should throw an observable if response has status 405', () => {
+    const response = new Response(new ResponseOptions({ status: 405, body: { errors: ['error'] } }));
+    expect(service.handleError(response)).toEqual(Observable.throw([]));
   });
 });
