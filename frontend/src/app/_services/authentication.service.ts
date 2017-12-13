@@ -4,13 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { UtilService } from './util.service';
 
 @Injectable()
 export class AuthenticationService {
   private endpoint = environment.apiUrl;
   user: any;
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, private router: Router, public util: UtilService) {}
 
   getAuthenticatedUser() {
     return this.isAuthenticated().map(
@@ -36,7 +37,7 @@ export class AuthenticationService {
       .map((res: Response) => {
         return res.json();
       })
-      .catch(this.handleError);
+      .catch(this.util.handleError);
   }
 
   getUser() {
@@ -45,15 +46,5 @@ export class AuthenticationService {
 
   removeUser() {
     this.user = null;
-  }
-
-  private handleError(error: Response | any) {
-    let errors: any;
-    if (error instanceof Response && error.status !== 401) {
-      const body = error.json() || '';
-      errors = body.errors;
-      return Observable.throw(errors);
-    }
-    return Observable;
   }
 }

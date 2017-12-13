@@ -1,6 +1,13 @@
 [![FS ePermit API](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 [![CircleCI](https://circleci.com/gh/flexion/fs-intake-module.svg?style=shield)](https://circleci.com/gh/flexion/fs-intake-module)
-[![GitHub Issues](https://img.shields.io/github/issues/flexion/fs-intake-module.svg)](https://github.com/flexion/fs-intake-module/issues)
+
+*Master*
+[![CircleCI](https://circleci.com/gh/18F/fs-intake-module/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-intake-module/tree/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-intake-module/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-intake-module/test_coverage)
+
+
+*Staging:*
 [![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-intake-module.svg?style=shield)](https://circleci.com/gh/nciinc/fs-intake-module)
 [![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-intake-module.svg)](https://github.com/nciinc/fs-intake-module/issues)
 [![Code Climate](https://codeclimate.com/github/nciinc/fs-intake-module/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-intake-module)
@@ -171,7 +178,7 @@ VCAP_SERVICES
     },
     {
       "credentials": {
-        "token_url": "http://localhost:8080/mock-pay-gov",
+        "url": "http://localhost:8080/mock-pay-gov",
         "client_url": "http://localhost:4200/mock-pay-gov",
         "tcs_app_id": "FS-100"
       },
@@ -364,6 +371,31 @@ As an alternative to installing all the development tools necessary to run the e
 #### Known technical Debt
 The file frontend/src/sass/_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
 
+#### Available services
+The following services are available to leverage in components.
+
+```
+frontend/
+ ├──/src                       
+      ├──/app
+        ├──/src
+          ├──/_services
+            ├──alert.service.ts             * display alerts
+            ├──application.service.ts       * http requests for applications
+            ├──auth-guard.service.ts        * manage authentication on routes
+            ├──authentication.service.ts    * http requests for authentication
+            ├──mock.service.ts              * utility functions of reusable mocks for specs
+            └──util.ts                      * general utility functions
+          ├──/application-forms
+            ├──/_services
+              ├──application-fields.service.ts     * utility functions specific to application fields
+              └──file-upload.service.ts            * utility functions related to file uploads
+          ├──/trees  
+            ├──/_services
+              ├──christmas-trees-application.service.ts    * http requests functions for Christmas tree permits
+              ├──forest.service.ts                         * http requests for forests
+              └──trees.service.ts                          * http requests for trees
+ ```
 
 #### Christmas trees sidebar template
 A sidebar template for the tree guidelines page at `/frontend/src/app/trees/forests/tree-guidelines/sidebar-view.component.html`

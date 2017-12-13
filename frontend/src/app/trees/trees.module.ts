@@ -11,20 +11,16 @@ import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
 
 import { TreesService } from './_services/trees.service';
-import { SidebarViewComponent } from './forests/tree-guidelines/sidebar-view.component';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
 import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locations/tree-locations-maps/tree-locations-maps.component';
-
-import { TreeRulesComponent } from './forests/tree-guidelines/tree-rules.component';
-
 import { ForestService } from './_services/forest.service';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
-import { ChristmasTreesApplicationService } from './_services/christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 
 @NgModule({
@@ -38,9 +34,7 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     TreeLocationsAllowedComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
-    TreeRulesComponent,
     TreeToolsComponent,
-    SidebarViewComponent,
     ForestFinderComponent,
     RemovePuncPipe,
     LineBreakFormatterPipe,
@@ -53,9 +47,6 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     TripPlanningComponent,
-    TreeRulesComponent,
-    TreeToolsComponent,
-    SidebarViewComponent,
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],

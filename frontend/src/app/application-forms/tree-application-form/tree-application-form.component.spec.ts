@@ -10,7 +10,7 @@ import { TreesService } from '../../trees/_services/trees.service';
 import { treeApplicationMock } from './tree-application.mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
-import { ChristmasTreesApplicationService } from '../../trees/_services/christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 
 class MockApplicationService {
@@ -39,7 +39,14 @@ describe('TreeApplicationFormComponent', () => {
             provide: ActivatedRoute,
             useValue: {
               data: Observable.of({
-                forest: { id: '1', forestName: 'Mt Hood', orgStructureCode: '123', treeCost: 10, maxNumTrees: 5 }
+                forest: {
+                  id: '1',
+                  forestName: 'Mt Hood',
+                  orgStructureCode: '123',
+                  forestAbbr: 'mthood',
+                  treeCost: 10,
+                  maxNumTrees: 5
+                }
               })
             }
           }
@@ -64,7 +71,7 @@ describe('TreeApplicationFormComponent', () => {
   it('should set the title', () => {
     userService = TestBed.get(Title);
     expect(userService.getTitle()).toBe(
-      'Apply for a permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting'
+      'Buy a Christmas tree permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting'
     );
   });
 

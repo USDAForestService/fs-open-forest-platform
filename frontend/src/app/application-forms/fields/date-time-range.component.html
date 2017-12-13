@@ -1,7 +1,7 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{formName}}">
     <fieldset>
-      <legend class="fs-datetime-legend">Start date (2 digit month/day, 4 digit year)</legend>
+      <legend class="fs-datetime-legend">Start date (Use 2 digits for month and day. Use 4 digits for year.)</legend>
       <div class="usa-form-group usa-form-group-month">
         <label for="start-month">Month</label>
         <input class="usa-input-inline" id="start-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" aria-required="true" />
@@ -56,7 +56,7 @@
     <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday">Start date and time must be in the future.</span>
 
     <fieldset>
-      <legend class="fs-datetime-legend">End date (2 digit month/day, 4 digit year)</legend>
+      <legend class="fs-datetime-legend">End date (Use 2 digits for month and day. Use 4 digits for year.)</legend>
 
       <div class="usa-form-group usa-form-group-month">
         <label for="end-month">Month</label>

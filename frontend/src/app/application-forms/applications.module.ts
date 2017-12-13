@@ -8,6 +8,7 @@ import { AdvertisingComponent } from './fields/advertising.component';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
+import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
 import { ErrorMessageComponent } from './validators/error-message.component';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
@@ -31,6 +32,7 @@ import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/te
 import { WebsiteComponent } from './fields/website.component';
 import 'intersection-observer';
 import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
+import { TreePermitViewComponent } from './tree-application-form/tree-permit-view/tree-permit-view.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitViewComponent,
     WebsiteComponent
   ],
   exports: [
@@ -85,9 +88,10 @@ import { TreeApplicationFormComponent } from './tree-application-form/tree-appli
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitViewComponent,
     WebsiteComponent
   ],
   imports: [FileUploadModule, SharedModule],
-  providers: [ApplicationFieldsService, FileUploadService]
+  providers: [ApplicationFieldsService, FileUploadService, ChristmasTreePermitResolver]
 })
 export class ApplicationsModule {}

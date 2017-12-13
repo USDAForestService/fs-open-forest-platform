@@ -1,6 +1,6 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit.</h1>
+    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
     <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
@@ -23,12 +23,34 @@
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
             <app-email [applicantInfo]="applicationForm" hintText="Please enter your email address so that your permit(s) can be emailed to you."></app-email>
-            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" [length]="quantityLength" hintText="One permit equals one tree. Up to 5 permits allowed per household."></app-quantity>
+            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" hintText="One permit equals one tree. Up to {{maxNumberOfTrees}} permits allowed per household."></app-quantity>
             <label class="margin-top-2 total-cost">Total cost for Christmas tree permits: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
         </div>
       </fieldset>
-      <hr />
+
+      <div class='accordion-container'>
+        <ul class="usa-accordion-bordered fs-accordion">
+          <li>
+            <button type='button' class="usa-accordion-button"
+                    [attr.aria-expanded]="rulesExpanded"
+                    (click)="rulesExpanded = !rulesExpanded"
+                    aria-controls="rules-to-accept">
+              Permit Rules and Regulations
+            </button>
+            <div id="rules-to-accept-container" class="usa-accordion-content" [attr.aria-hidden]="!rulesExpanded">
+              <app-section-heading heading="Rules to know" elementId="rules"></app-section-heading>
+              <app-tree-rules [forest]="forest"></app-tree-rules>
+            </div>
+          </li>
+        </ul>
+      </div>
+
       <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      <span>
+        <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+        <label id='accept-rules-label' for="accept-rules">Check here to indicate that you have read and understood the <a href='#' (click)="goToRules($event)">rules and regulations</a>.</label>
+        <app-error-message fieldId="accept-rules-error" name="Checking that you have viewed the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
+      </span>
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>

@@ -37,8 +37,14 @@ export class UtilService {
   handleError(error: Response | any) {
     let errors: any = [];
     if (error instanceof Response) {
-      let body = error.json() || '';
-      errors = body.errors;
+      let body;
+      try {
+        body = error.json() || '';
+        errors = body.errors;
+      } catch (err) {
+        return Observable;
+      }
+
       if (error.status) {
         switch (error.status) {
           case 400:
