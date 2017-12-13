@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
       }
     });
     if (localStorage.getItem('status')) {
-      console.log('LOCAL STORAGE STATUS');
       try {
         this.status = JSON.parse(localStorage.getItem('status'));
         localStorage.removeItem('status');
