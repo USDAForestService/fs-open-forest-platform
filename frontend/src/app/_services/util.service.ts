@@ -37,7 +37,13 @@ export class UtilService {
   handleError(error: Response | any) {
     let errors: any = [];
     if (error instanceof Response) {
-      let body = error.json() || '';
+      let body;
+      try {
+        body = error.json() || '';
+      } catch (err) {
+        console.log('HANDLE ERROR', err, error);
+      }
+
       errors = body.errors;
       if (error.status) {
         switch (error.status) {
