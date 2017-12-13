@@ -13,7 +13,8 @@
 
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
-
+      <br>
+      <button *ngIf="forest" [routerLink]="['/applications/christmas-trees/forests/', forest.forestAbbr,'new']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit</button>
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
       <app-tree-species [forest]="forest"></app-tree-species>
