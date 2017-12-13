@@ -1,5 +1,52 @@
 version: 2
 jobs:
+  run-e2e:
+    docker:
+      - image: circleci/node:6.12.0-browsers
+      - image: postgres:9.6
+        environment:
+          POSTGRES_USER: "ubuntu"
+          POSTGRES_DB: "circle_test"
+          POSTGRES_PASSWORD: ""
+    parallelism: 4
+    steps:
+      - checkout
+      - run:
+          name: install yarn
+          command: sudo npm i -g yarn
+      - run:
+          name: Install angular cli
+          command: sudo yarn global add @angular/cli
+      - run:
+          name: Install typedoc
+          command: sudo yarn global add typedoc
+      - run:
+          name: Install sequelize
+          command: yarn global add sequelize-cli
+      - run:
+          name: install dependencies
+          command: .circleci/install-dependencies.sh
+## Setting up DB
+      - run:
+          name: Migrate db
+          command: cd server; ./node_modules/sequelize-cli/lib/sequelize db:migrate
+      - run:
+          name: seed db with intake data
+          command: cd server; yarn seed-ci
+      - run:
+          name: seed db with trees data
+          command: cd server; yarn seed
+      - run:
+          name: install protractor
+          command: cd frontend; sudo npm install -g protractor
+## Run tests
+      - run:
+          name: run e2e
+          command: .circleci/run-e2e.sh $(circleci tests split <( cd frontend; circleci tests glob ./e2e/**/*.e2e-spec.ts))
+      - store_artifacts:
+          path: frontend/e2e-test-results
+          prefix: e2e-results
+  
   run-all-other-tests:
     docker:
       - image: circleci/node:6.12.0-browsers
@@ -72,53 +119,6 @@ jobs:
       - store_artifacts:
           path: server/coverage
           prefix: server-coverage
-
-  run-e2e:
-    docker:
-      - image: circleci/node:6.12.0-browsers
-      - image: postgres:9.6
-        environment:
-          POSTGRES_USER: "ubuntu"
-          POSTGRES_DB: "circle_test"
-          POSTGRES_PASSWORD: ""
-    parallelism: 4
-    steps:
-      - checkout
-      - run:
-          name: install yarn
-          command: sudo npm i -g yarn
-      - run:
-          name: Install angular cli
-          command: sudo yarn global add @angular/cli
-      - run:
-          name: Install typedoc
-          command: sudo yarn global add typedoc
-      - run:
-          name: Install sequelize
-          command: yarn global add sequelize-cli
-      - run:
-          name: install dependencies
-          command: .circleci/install-dependencies.sh
-## Setting up DB
-      - run:
-          name: Migrate db
-          command: cd server; ./node_modules/sequelize-cli/lib/sequelize db:migrate
-      - run:
-          name: seed db with intake data
-          command: cd server; yarn seed-ci
-      - run:
-          name: seed db with trees data
-          command: cd server; yarn seed
-      - run:
-          name: install protractor
-          command: cd frontend; sudo npm install -g protractor
-## Run tests
-      - run:
-          name: run e2e
-          command: .circleci/run-e2e.sh $(circleci tests split <( cd frontend; circleci tests glob ./e2e/**/*.e2e-spec.ts))
-      - store_artifacts:
-          path: frontend/e2e-test-results
-          prefix: e2e-results
 
   staging-deploy:
     docker:
