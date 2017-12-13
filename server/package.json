@@ -72,11 +72,7 @@
     "node": "^6.10.3"
   },
   "nyc": {
-    "extension": [
-      ".es6"
-    ],
-    "exclude": [
-      "src/pay-gov-mocks/*.*"
-    ]
+    "extension": [".es6"],
+    "exclude": ["src/pay-gov-mocks/*.*"]
   }
 }
