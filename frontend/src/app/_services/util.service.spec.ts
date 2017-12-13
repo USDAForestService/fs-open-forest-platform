@@ -1,5 +1,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { UtilService } from '../_services/util.service';
+import { Observable } from 'rxjs/Observable';
+import { Response, ResponseOptions } from '@angular/http';
 import * as sinon from 'sinon';
 
 describe('UtilService', () => {
@@ -35,5 +37,18 @@ describe('UtilService', () => {
     service.gotoHashtag('main', new Event('click'));
     service.gotoHashtag(null, new Event('click'));
     expect(spy.calledTwice).toBeTruthy();
+  });
+
+  it('should throw an observable if response does not contain errors', () => {
+    const response = new Response(new ResponseOptions());
+    expect(service.handleError(response)).toEqual(jasmine.any(Observable));
+  });
+
+  it('should throw an observable if response does not contain errors', () => {
+    expect(service.handleError('string')).toEqual(jasmine.any(Observable));
+  });
+
+  it('should throw an observable if response does not contain errors', () => {
+    expect(service.handleError(new Error('error'))).toEqual(jasmine.any(Observable));
   });
 });
