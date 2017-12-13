@@ -108,6 +108,9 @@
     dd {
       -webkit-margin-start: 0px;
     }
+    button {
+      margin-top: 1rem;
+    }
     padding-bottom: 1rem;
   }
 
@@ -118,6 +121,7 @@
       background-color: $fs-tan;
       border: 0;
       padding-left: 1px;
+      padding: 0.5rem 1rem;
     }
   }
 }
@@ -128,5 +132,3 @@
   height: 20px;
   display: inline-block;
 }
-
-
