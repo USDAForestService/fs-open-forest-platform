@@ -222,6 +222,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   removeUnusedActivityDescription() {
+    const form = this.applicationForm;
     if (form.get('tempOutfitterFields.activityDescriptionFields')) {
       if (!form.get('tempOutfitterFields.activityDescriptionFields.needGovernmentFacilities').value) {
         form.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').setValue('');
@@ -242,6 +243,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   removedUnusedExperience() {
+    const form = this.applicationForm;
     if (form.get('tempOutfitterFields.experienceFields')) {
       if (!form.get('tempOutfitterFields.experienceFields.haveNationalForestPermits').value) {
         form.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').setValue('');
