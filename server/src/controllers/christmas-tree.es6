@@ -237,6 +237,23 @@ christmasTree.getOnePermit = (req, res) => {
               throw err;
             }
             const frag = JSDOM.fragment(svgData.toString('utf8'));
+
+            let treeHeightStumpDiameter = '';
+            if (permit.christmasTreesForest.treeHeight > 0 && permit.christmasTreesForest.stumpDiameter > 0) {
+              treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
+              treeHeightStumpDiameter += ` WITH DIAMETER ${permit.christmasTreesForest
+                .stumpDiameter} INCHES OR LESS AT THE STUMP`;
+            } else if (permit.christmasTreesForest.treeHeight > 0) {
+              treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
+            } else if (permit.christmasTreesForest.stumpDiameter > 0) {
+              treeHeightStumpDiameter += `TREE DIAMETER MUST BE ${permit.christmasTreesForest
+                .stumpDiameter} INCHES OR LESS AT THE STUMP`;
+            }
+            frag.querySelector('#tree-height-stump-diameter').textContent = treeHeightStumpDiameter;
+            if (permit.christmasTreesForest.stumpHeight > 0) {
+              frag.querySelector('#stump-height').textContent = `YOU MUST LEAVE A STUMP OF ${permit.christmasTreesForest
+                .stumpHeight} INCHES OR LESS`;
+            }
             frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
             frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();
             frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
@@ -261,8 +278,8 @@ christmasTree.getOnePermit = (req, res) => {
               'MMM DD'
             );
 
-            frag.querySelector('#last-name').textContent = permit.lastName.toUpperCase();
-            frag.querySelector('#first-name').textContent = permit.firstName.toUpperCase();
+            frag.querySelector('#last-name').textContent = permit.lastName.substring(0, 18).toUpperCase();
+            frag.querySelector('#first-name').textContent = permit.firstName.substring(0, 18).toUpperCase();
             return res.status(200).send(permitResult(permit, frag.firstChild.outerHTML));
           });
         } else {
