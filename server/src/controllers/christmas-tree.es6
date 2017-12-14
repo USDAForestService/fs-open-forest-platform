@@ -3,16 +3,12 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
-const fs = require('fs-extra');
 //const http = request('http');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const util = require('../util.es6');
 const paygov = require('../paygov.es6');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const moment = require('moment');
 
 const christmasTree = {};
 
@@ -228,63 +224,10 @@ christmasTree.getOnePermit = (req, res) => {
       ]
     })
     .then(permit => {
-      console.log('PERMIT', permit.christmasTreesForest.forestName);
       if (permit) {
         if (permit.status == 'Completed') {
-          fs.readFile('src/templates/christmas-trees/sp_05_permit_design-02.svg', function read(err, svgData) {
-            if (err) {
-              console.log(err);
-              throw err;
-            }
-            const frag = JSDOM.fragment(svgData.toString('utf8'));
-
-            let treeHeightStumpDiameter = '';
-            if (permit.christmasTreesForest.treeHeight > 0 && permit.christmasTreesForest.stumpDiameter > 0) {
-              treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
-              treeHeightStumpDiameter += ` WITH DIAMETER ${permit.christmasTreesForest
-                .stumpDiameter} INCHES OR LESS AT THE STUMP`;
-            } else if (permit.christmasTreesForest.treeHeight > 0) {
-              treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
-            } else if (permit.christmasTreesForest.stumpDiameter > 0) {
-              treeHeightStumpDiameter += `TREE DIAMETER MUST BE ${permit.christmasTreesForest
-                .stumpDiameter} INCHES OR LESS AT THE STUMP`;
-            }
-            frag.querySelector('#tree-height-stump-diameter').textContent = treeHeightStumpDiameter;
-            if (permit.christmasTreesForest.stumpHeight > 0) {
-              frag.querySelector('#stump-height').textContent = `YOU MUST LEAVE A STUMP OF ${permit.christmasTreesForest
-                .stumpHeight} INCHES OR LESS`;
-            }
-            frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
-            frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();
-            frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
-            if (permit.forestId === 1) {
-              frag.querySelector('#national-forest').textContent = 'NATIONAL FORESTS';
-            }
-            frag.querySelector(
-              '#permit-year-vertical'
-            ).textContent = permit.christmasTreesForest.startDate.getFullYear();
-
-            frag.querySelector(
-              '#permit-harvest-expiration'
-            ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR ${moment(
-              permit.christmasTreesForest.endDate,
-              util.datetimeFormat
-            )
-              .format('MMM D, YYYY h:mm A')
-              .toUpperCase()}`;
-            frag.querySelector('#permit-expiration').textContent = moment(
-              permit.christmasTreesForest.endDate,
-              util.datetimeFormat
-            )
-              .format('MMM D, YYYY h:mm A')
-              .toUpperCase();
-            frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat)
-              .format('MMM DD')
-              .toUpperCase();
-
-            frag.querySelector('#last-name').textContent = permit.lastName.substring(0, 18).toUpperCase();
-            frag.querySelector('#first-name').textContent = permit.firstName.substring(0, 18).toUpperCase();
-            return res.status(200).send(permitResult(permit, frag.firstChild.outerHTML));
+          paygov.generateSvgPermit(permit).then(svgData => {
+            return res.status(200).send(permitResult(permit, svgData));
           });
         } else {
           const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
@@ -303,10 +246,7 @@ christmasTree.getOnePermit = (req, res) => {
                       status: 'Completed'
                     })
                     .then(savedPermit => {
-                      fs.readFile('docs/ForestServiceLogo.svg', function read(err, svgData) {
-                        if (err) {
-                          throw err;
-                        }
+                      paygov.generateSvgPermit(permit).then(svgData => {
                         return res.status(200).send(permitResult(savedPermit, svgData));
                       });
                     });
@@ -319,13 +259,11 @@ christmasTree.getOnePermit = (req, res) => {
             });
           });
         }
-        // }
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
-      console.log('ERROR', error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
