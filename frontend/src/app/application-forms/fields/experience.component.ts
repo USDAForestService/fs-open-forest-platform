@@ -18,7 +18,7 @@ export class ExperienceComponent implements OnInit {
       {'toggleField': 'haveOtherPermits',
       'dataField': 'listAllOtherPermits'},
       {'toggleField': 'haveCitations',
-      'dataField':'listAllCitations'}
+      'dataField': 'listAllCitations'}
     ];
   }
 

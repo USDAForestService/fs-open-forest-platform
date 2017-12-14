@@ -86,7 +86,7 @@ export class ApplicationFieldsService {
     this.phoneChangeSubscribers(parentForm, 'eveningPhone');
   }
 
-  phoneChangeSubscribers(parentForm, type){
+  phoneChangeSubscribers(parentForm, type) {
     parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
       parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
       parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });

@@ -371,7 +371,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     }
   }
 
-  endOfUpload(){
+  endOfUpload() {
       this.uploadFiles = false;
       this.showFileUploadProgress = false;
       this.fileUploadError = false;
