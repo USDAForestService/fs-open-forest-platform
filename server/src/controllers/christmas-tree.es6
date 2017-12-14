@@ -12,6 +12,7 @@ const util = require('../util.es6');
 const paygov = require('../paygov.es6');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
+const moment = require('moment');
 
 const christmasTree = {};
 
@@ -219,9 +220,15 @@ christmasTree.getOnePermit = (req, res) => {
     .findOne({
       where: {
         permitId: req.params.id
-      }
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
     })
     .then(permit => {
+      console.log('PERMIT', permit.christmasTreesForest.forestName);
       if (permit) {
         if (permit.status == 'Completed') {
           fs.readFile('src/templates/christmas-trees/sp_05_permit_design-02.svg', function read(err, svgData) {
@@ -230,7 +237,24 @@ christmasTree.getOnePermit = (req, res) => {
               throw err;
             }
             const frag = JSDOM.fragment(svgData.toString('utf8'));
-            frag.querySelector('#last-name').textContent = 'Why hello there!';
+            frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
+            frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();
+            frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
+            if (permit.forestId === 1) {
+              frag.querySelector('#national-forest').textContent = 'NATIONAL FORESTS';
+            }
+            // frag.querySelector('#permit-year-header').textContent = permit.createdAt.getFullYear();
+            frag.querySelector('#permit-year-vertical').textContent = permit.createdAt.getFullYear();
+            frag.querySelector(
+              '#permit-harvest-expiration'
+            ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR DEC 25 12:00AM ${permit.createdAt.getFullYear()}`;
+            frag.querySelector('#permit-expiration').textContent = `DEC 24 12:00AM ${permit.createdAt.getFullYear()}`;
+            frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat).format(
+              'MMM DD'
+            );
+
+            frag.querySelector('#last-name').textContent = permit.lastName.toUpperCase();
+            frag.querySelector('#first-name').textContent = permit.firstName.toUpperCase();
             return res.status(200).send(permitResult(permit, frag.firstChild.outerHTML));
           });
         } else {
@@ -272,6 +296,7 @@ christmasTree.getOnePermit = (req, res) => {
       }
     })
     .catch(error => {
+      console.log('ERROR', error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors

@@ -51,7 +51,7 @@
       }
 
       .cls-11 {
-        font-size: 28px;
+        font-size: 24px;
       }
 
       .cls-12, .cls-13, .cls-18 {
@@ -87,6 +87,9 @@
       .cls-19 {
         font-size: 10px;
       }
+      .forest-name {
+        text-align: right;
+      }
     </style>
   </defs>
   <title>sp_05_permit_design-02</title>
@@ -96,10 +99,11 @@
     <text class="cls-3" transform="translate(528.78 501.33)">I H<tspan class="cls-4" x="10.22" y="0">A</tspan><tspan x="14.96" y="0">VE PRINTED</tspan><tspan class="cls-5" x="62.97" y="0"> </tspan><tspan x="65.05" y="0">THE RULES</tspan><tspan class="cls-6" x="109.95" y="0"> </tspan><tspan x="111.73" y="0">AND REGUL</tspan><tspan class="cls-4" x="158.41" y="0">A</tspan><tspan x="163.15" y="0">TIONS</tspan></text>
     <rect class="cls-7" x="141.98" y="340" width="633" height="88"/>
     <text class="cls-8" transform="translate(27.48 58)">CHRISTMAS TREE PERMIT</text>
-    <text class="cls-9" transform="translate(278 386)">ARA<tspan class="cls-4" x="86.66" y="0">P</tspan><tspan x="110.37" y="0">AHO - ROOSEVE</tspan><tspan class="cls-4" x="432.64" y="0">L</tspan><tspan x="454.1" y="0">T</tspan></text>
-    <text class="cls-10" transform="translate(116.18 417) rotate(-90)">2017</text>
+    <text id="forest-name" class="cls-9 forest-name" transform="translate(180 386)">ARAPAHO - ROOSEVELT</tspan></text>
+    <text id="national-forest" class="cls-14" transform="translate(180 417)">NATIONAL FOREST</tspan></text>
+    <text id="permit-year-vertical" class="cls-10" transform="translate(116.18 417) rotate(-90)">2017</text>
     <text class="cls-3" transform="translate(153.88 104.5)">MONTH</text>
-    <text class="cls-11" transform="translate(617.48 64)">0000000001</text>
+    <text id="permit-id" class="cls-11" transform="translate(617.48 64)">0000000001</text>
     <text class="cls-3" transform="translate(273 463.5)">FOLD OR CU<tspan class="cls-5" x="49.34" y="0">T</tspan><tspan class="cls-6" x="54.08" y="0"> </tspan><tspan x="55.86" y="0">ALONG DOTTED LINE</tspan><tspan class="cls-6" x="138.98" y="0"> </tspan><tspan x="140.77" y="0">AND DISPL</tspan><tspan class="cls-4" x="183" y="0">A</tspan><tspan class="cls-5" x="187.74" y="0">Y</tspan><tspan x="192.93" y="0" xml:space="preserve"> IN FRON</tspan><tspan class="cls-5" x="228.04" y="0">T</tspan><tspan x="232.79" y="0" xml:space="preserve"> WINDSHIELD</tspan></text>
     <line class="cls-12" x1="143" y1="69" x2="143" y2="428"/>
     <line class="cls-12" x1="774" y1="16" x2="20" y2="16"/>
@@ -111,7 +115,6 @@
       <line class="cls-12" x1="3" y1="449" y2="449"/>
     </g>
     <text class="cls-3" transform="translate(456.48 104.5)">D<tspan class="cls-4" x="5.78" y="0">A</tspan><tspan class="cls-5" x="10.52" y="0">Y</tspan></text>
-    <text class="cls-14" transform="translate(557 417)">N<tspan class="cls-4" x="14.44" y="0">A</tspan><tspan x="26.3" y="0">TIONA</tspan><tspan class="cls-15" x="87.41" y="0">L</tspan><tspan x="97.79" y="0" xml:space="preserve"> FORESTS</tspan></text>
     <g class="cls-16">
       <path class="cls-2" d="M702.86,284.36a7.24,7.24,0,0,1-7.14,7.14H644.15q.11,1.9.67,9.77t.56,12.11a6.37,6.37,0,0,1-2,4.74,6.65,6.65,0,0,1-4.8,2H602.86a6.64,6.64,0,0,1-4.8-2,6.37,6.37,0,0,1-2-4.74q0-4.24.56-12.11t.67-9.77H545.71a7.1,7.1,0,0,1-5-12.17l44.87-45H560a7.1,7.1,0,0,1-5-12.17l44.87-45h-22a7.1,7.1,0,0,1-5-12.17l42.86-42.86a7,7,0,0,1,10,0L668.59,165a7.14,7.14,0,0,1-5,12.17h-22l44.87,45a7.14,7.14,0,0,1-5,12.17H655.87l44.87,45A6.87,6.87,0,0,1,702.86,284.36Z"/>
     </g>
@@ -129,9 +132,9 @@
     <text class="cls-17" transform="translate(510.5 516.65)">LAS<tspan class="cls-5" x="9.45" y="0">T</tspan><tspan x="12.41" y="0" xml:space="preserve"> NAME</tspan></text>
     <line class="cls-18" x1="422" y1="479.31" x2="422" y2="594.7"/>
     <line class="cls-18" x1="502.98" y1="479.31" x2="502.98" y2="540.44"/>
-    <text class="cls-19" transform="translate(429.26 532.19)">NOV 10</text>
-    <text id='last-name' class="cls-19" transform="translate(511.26 532.19)">SMITH</text>
-    <text class="cls-19" transform="translate(650.25 532.19)">SIMON</text>
+    <text id="issue-date" class="cls-19" transform="translate(429.26 532.19)">NOV 10</text>
+    <text id="last-name" class="cls-19" transform="translate(511.26 532.19)">SMITH</text>
+    <text id="first-name" class="cls-19" transform="translate(650.25 532.19)">SIMON</text>
     <line class="cls-18" x1="644" y1="508.95" x2="644" y2="540.44"/>
     <line class="cls-18" x1="774" y1="480.58" x2="774" y2="595.96"/>
     <line class="cls-18" x1="775" y1="570.46" x2="422.11" y2="570.46"/>
@@ -141,13 +144,13 @@
     <text class="cls-3" transform="translate(29.86 553.98)">YOU MUS<tspan class="cls-5" x="37.34" y="0">T</tspan><tspan x="42.08" y="0" xml:space="preserve"> LE</tspan><tspan class="cls-4" x="54.09" y="0">A</tspan><tspan x="58.83" y="0">VE</tspan><tspan class="cls-6" x="69.5" y="0" xml:space="preserve"> A</tspan><tspan x="76.18" y="0" xml:space="preserve"> STUM</tspan><tspan class="cls-5" x="101.06" y="0">P</tspan><tspan x="106.25" y="0" xml:space="preserve"> OF 6 INCHES OR LESS</tspan></text>
     <line class="cls-18" x1="775" y1="479.31" x2="19.87" y2="479.31"/>
     <text class="cls-17" transform="translate(429.26 487.65)">PERMI<tspan class="cls-5" x="15.83" y="0">T</tspan><tspan x="18.8" y="0" xml:space="preserve"> NUMBER</tspan></text>
-    <text class="cls-19" transform="translate(429.26 502.02)">0000000001</text>
+    <text id="permit-id-small" class="cls-19" transform="translate(429.26 502.02)">0000000001</text>
     <line class="cls-18" x1="775" y1="595.96" x2="20" y2="595.96"/>
-    <text class="cls-19" transform="translate(429.26 561.75)">DEC 24 12:00AM 2017</text>
+    <text id="permit-expiration" class="cls-19" transform="translate(429.26 561.75)">DEC 24 12:00AM 2017</text>
     <line class="cls-18" x1="541.04" y1="408" x2="541.04" y2="427.5"/>
     <text class="cls-3" transform="translate(264.45 440.48)">PLEASE FIL<tspan class="cls-15" x="44.91" y="0">L</tspan><tspan x="49.06" y="0" xml:space="preserve"> OU</tspan><tspan class="cls-5" x="63.29" y="0">T </tspan><tspan x="70.11" y="0">THE MONTH</tspan><tspan class="cls-6" x="117.66" y="0"> </tspan><tspan x="119.44" y="0">AND D</tspan><tspan class="cls-4" x="144.33" y="0">A</tspan><tspan class="cls-5" x="149.07" y="0">Y </tspan><tspan x="156.34" y="0">YOU PLAN</tspan><tspan class="cls-5" x="196.8" y="0" xml:space="preserve"> T</tspan><tspan x="203.62" y="0">O CU</tspan><tspan class="cls-5" x="223.62" y="0">T </tspan><tspan x="230.44" y="0">YOUR</tspan><tspan class="cls-5" x="253.55" y="0"> </tspan><tspan x="255.63" y="0">TREE DOWN</tspan></text>
     <text class="cls-17" transform="translate(429.26 548.5)">PERMI<tspan class="cls-5" x="15.83" y="0">T</tspan><tspan x="18.8" y="0" xml:space="preserve"> EXPIR</tspan><tspan class="cls-4" x="35.19" y="0">A</tspan><tspan x="38.16" y="0">TION</tspan></text>
-    <text class="cls-3" transform="translate(171.88 80.54)">THIS PERMI<tspan class="cls-5" x="45.78" y="0">T</tspan><tspan x="50.52" y="0" xml:space="preserve"> EXPIRES</tspan><tspan class="cls-6" x="87.43" y="0"> </tspan><tspan class="cls-4" x="89.21" y="0">A</tspan><tspan class="cls-5" x="93.95" y="0">T</tspan><tspan x="98.69" y="0" xml:space="preserve"> MIDNIGH</tspan><tspan class="cls-5" x="135.58" y="0">T</tspan><tspan x="140.32" y="0" xml:space="preserve"> OF</tspan><tspan class="cls-5" x="153.65" y="0"> </tspan><tspan x="155.73" y="0">THE HA</tspan><tspan class="cls-5" x="185.07" y="0">R</tspan><tspan x="190.7" y="0">VES</tspan><tspan class="cls-5" x="206.71" y="0">T</tspan><tspan x="211.45" y="0" xml:space="preserve"> D</tspan><tspan class="cls-4" x="219.45" y="0">A</tspan><tspan x="224.19" y="0">TE FILLED IN BELOW OR DEC 25 12:00AM 2017 </tspan></text>
+    <text id="permit-harvest-expiration" class="cls-3" transform="translate(171.88 80.54)">THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR DEC 25 12:00AM 2017</tspan></text>
     <line class="cls-12" x1="774" y1="86.45" x2="142.09" y2="86.45"/>
     <text class="cls-3" transform="translate(29.86 540.04)">TREE DIAMETER MUS<tspan class="cls-5" x="84.89" y="0">T</tspan><tspan x="89.64" y="0" xml:space="preserve"> BE 6 INCHES OR LESS</tspan><tspan class="cls-6" x="178.55" y="0"> </tspan><tspan class="cls-4" x="180.34" y="0">A</tspan><tspan class="cls-5" x="185.08" y="0">T </tspan><tspan x="191.9" y="0">THE STUM</tspan><tspan class="cls-5" x="232.79" y="0">P</tspan></text>
     <text class="cls-3" transform="translate(29.86 581.88)">LE<tspan class="cls-4" x="9.79" y="0">A</tspan><tspan x="14.53" y="0">VE NO</tspan><tspan class="cls-5" x="39.42" y="0"> </tspan><tspan x="41.5" y="0">TRACE - </tspan><tspan class="cls-4" x="75.72" y="0">P</tspan><tspan x="80.46" y="0">ACK I</tspan><tspan class="cls-5" x="101.36" y="0">T</tspan><tspan x="106.1" y="0" xml:space="preserve"> IN, </tspan><tspan class="cls-4" x="120.77" y="0">P</tspan><tspan x="125.51" y="0">ACK I</tspan><tspan class="cls-5" x="146.41" y="0">T</tspan><tspan x="151.15" y="0" xml:space="preserve"> OU</tspan><tspan class="cls-5" x="165.37" y="0">T</tspan></text>
