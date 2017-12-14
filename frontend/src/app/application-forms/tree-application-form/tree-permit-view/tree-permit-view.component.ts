@@ -28,10 +28,18 @@ export class TreePermitViewComponent implements OnInit {
   }
 
   printPermit() {
-    const printContents = document.getElementById('toPrint').innerHTML;
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
+    let printContents, popupWin;
+    printContents = document.getElementById('toPrint').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print tab</title>
+        </head>
+      <body onload="window.print();window.close()">${printContents}</body>
+      </html>`
+    );
+    popupWin.document.close();
   }
 }
