@@ -37,9 +37,17 @@ export class TreePermitViewComponent implements OnInit {
         <head>
           <title>Print tab</title>
         </head>
+        <style>
+          @page {
+            size: auto;
+            margin: 0mm;
+          }
+          body {
+            max-height: 816px;
+          }
+        </style>
       <body onload="window.print();window.close()">${printContents}</body>
-      </html>`
-    );
+      </html>`);
     popupWin.document.close();
   }
 }
