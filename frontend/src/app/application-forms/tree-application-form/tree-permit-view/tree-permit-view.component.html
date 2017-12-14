@@ -27,8 +27,10 @@
     </div>
   </div>
 
+  <div id="toPrint" hidden="true" [innerHTML]="image"></div>
+
   <div class="usa-grid confirmation-details-container">
-    <button id='tree-print-permit' class="usa-button-primary-alt usa-button-big" type="button">Print permit</button>
+    <button id='tree-print-permit' class="usa-button-primary-alt usa-button-big" type="button" (click)="printPermit()">Print permit</button>
   </div>
 
 
