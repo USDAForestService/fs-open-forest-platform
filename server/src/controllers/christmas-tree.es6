@@ -269,14 +269,18 @@ christmasTree.getOnePermit = (req, res) => {
             ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR ${moment(
               permit.christmasTreesForest.endDate,
               util.datetimeFormat
-            ).format('MMM D, YYYY h:mm A')}`;
+            )
+              .format('MMM D, YYYY h:mm A')
+              .toUpperCase()}`;
             frag.querySelector('#permit-expiration').textContent = moment(
               permit.christmasTreesForest.endDate,
               util.datetimeFormat
-            ).format('MMM D, YYYY h:mm A');
-            frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat).format(
-              'MMM DD'
-            );
+            )
+              .format('MMM D, YYYY h:mm A')
+              .toUpperCase();
+            frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat)
+              .format('MMM DD')
+              .toUpperCase();
 
             frag.querySelector('#last-name').textContent = permit.lastName.substring(0, 18).toUpperCase();
             frag.querySelector('#first-name').textContent = permit.firstName.substring(0, 18).toUpperCase();
