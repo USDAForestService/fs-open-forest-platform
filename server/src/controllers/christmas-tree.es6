@@ -3,6 +3,7 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
+const fs = require('fs-extra');
 //const http = request('http');
 
 const vcapConstants = require('../vcap-constants.es6');
@@ -195,7 +196,7 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const permitResult = permit => {
+const permitResult = (permit, svgData) => {
   const result = {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
@@ -205,7 +206,8 @@ const permitResult = permit => {
     quantity: permit.quantity,
     totalCost: permit.totalCost,
     status: permit.status,
-    transactionDate: permit.updatedAt
+    transactionDate: permit.updatedAt,
+    permitImage: svgData
   };
   return result;
 };
@@ -219,36 +221,41 @@ christmasTree.getOnePermit = (req, res) => {
     })
     .then(permit => {
       if (permit) {
-        if (permit.status == 'Completed') {
-          return res.status(200).send(permitResult(permit));
-        } else {
-          const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-          postPayGov(xmlData).then(xmlResponse => {
-            xml2jsParse(xmlResponse, function(err, result) {
-              if (!err) {
-                try {
-                  const completeOnlineCollectionResponse =
-                    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
-                      'completeOnlineCollectionResponse'
-                    ][0];
-                  const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
-                  permit
-                    .update({
-                      paygovTrackingId: paygovTrackingId,
-                      status: 'Completed'
-                    })
-                    .then(savedPermit => {
-                      return res.status(200).send(permitResult(savedPermit));
+        // if (permit.status == 'Completed') {
+        //   return res.status(200).send(permitResult(permit));
+        // } else {
+        const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+        postPayGov(xmlData).then(xmlResponse => {
+          xml2jsParse(xmlResponse, function(err, result) {
+            if (!err) {
+              try {
+                const completeOnlineCollectionResponse =
+                  result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
+                    'completeOnlineCollectionResponse'
+                  ][0];
+                const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
+                permit
+                  .update({
+                    paygovTrackingId: paygovTrackingId,
+                    status: 'Completed'
+                  })
+                  .then(savedPermit => {
+                    fs.readFile('docs/ForestServiceLogo.svg', function read(err, svgData) {
+                      if (err) {
+                        throw err;
+                      }
+                      return res.status(200).send(permitResult(savedPermit, svgData));
                     });
-                } catch (error) {
-                  throw new Error(error);
-                }
-              } else {
-                throw new Error(err);
+                  });
+              } catch (error) {
+                throw new Error(error);
               }
-            });
+            } else {
+              throw new Error(err);
+            }
           });
-        }
+        });
+        // }
       } else {
         res.status(404).send();
       }
