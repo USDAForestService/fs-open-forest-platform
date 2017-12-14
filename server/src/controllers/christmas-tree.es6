@@ -243,12 +243,20 @@ christmasTree.getOnePermit = (req, res) => {
             if (permit.forestId === 1) {
               frag.querySelector('#national-forest').textContent = 'NATIONAL FORESTS';
             }
-            // frag.querySelector('#permit-year-header').textContent = permit.createdAt.getFullYear();
-            frag.querySelector('#permit-year-vertical').textContent = permit.createdAt.getFullYear();
+            frag.querySelector(
+              '#permit-year-vertical'
+            ).textContent = permit.christmasTreesForest.startDate.getFullYear();
+
             frag.querySelector(
               '#permit-harvest-expiration'
-            ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR DEC 25 12:00AM ${permit.createdAt.getFullYear()}`;
-            frag.querySelector('#permit-expiration').textContent = `DEC 24 12:00AM ${permit.createdAt.getFullYear()}`;
+            ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR ${moment(
+              permit.christmasTreesForest.endDate,
+              util.datetimeFormat
+            ).format('MMM D, YYYY h:mm A')}`;
+            frag.querySelector('#permit-expiration').textContent = moment(
+              permit.christmasTreesForest.endDate,
+              util.datetimeFormat
+            ).format('MMM D, YYYY h:mm A');
             frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat).format(
               'MMM DD'
             );
