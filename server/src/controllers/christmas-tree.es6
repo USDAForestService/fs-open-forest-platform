@@ -10,6 +10,8 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const util = require('../util.es6');
 const paygov = require('../paygov.es6');
+const jsdom = require('jsdom');
+const { JSDOM } = jsdom;
 
 const christmasTree = {};
 
@@ -221,9 +223,19 @@ christmasTree.getOnePermit = (req, res) => {
     })
     .then(permit => {
       if (permit) {
-        // if (permit.status == 'Completed') {
-        //   return res.status(200).send(permitResult(permit));
-        // } else {
+        if (permit.status == 'Completed') {
+          fs.readFile('src/templates/christmas-trees/sp_05_permit_design-02.svg', function read(err, svgData) {
+            if (err) {
+              console.log(err);
+              throw err;
+            }
+            const frag = JSDOM.fragment(svgData.toString('utf8'));
+            frag.querySelector("#last-name").textContent = "Why hello there!";
+            return res.status(200).send(permitResult(permit, frag.firstChild.outerHTML));
+
+          });
+
+        }
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
         postPayGov(xmlData).then(xmlResponse => {
           xml2jsParse(xmlResponse, function(err, result) {
