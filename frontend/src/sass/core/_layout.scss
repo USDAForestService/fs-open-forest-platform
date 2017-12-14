@@ -1,4 +1,8 @@
 /** This file is for defining styles that effect the layout, e.g. floats and margins **/
+@page {
+  size: auto;
+  margin: 0mm;
+}
 
 .clear {
   clear: both;
