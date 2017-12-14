@@ -5,18 +5,19 @@ import { QuantityComponent } from './quantity.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { TestService } from '../../_services/test.service';
 
 describe('QuantityComponent', () => {
   let component: QuantityComponent;
   let fixture: ComponentFixture<QuantityComponent>;
   let formBuilder: FormBuilder;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule([QuantityComponent], [FormBuilder, ApplicationFieldsService]);
+      TestBed.configureTestingModule({
+        declarations: [QuantityComponent],
+        providers: [FormBuilder, ApplicationFieldsService],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
       formBuilder = new FormBuilder();
       fixture = TestBed.createComponent(QuantityComponent);
       component = fixture.debugElement.componentInstance;

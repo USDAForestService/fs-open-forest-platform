@@ -3,18 +3,19 @@ import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from 
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { PhoneNumberComponent } from './phone-number.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { TestService } from '../../_services/test.service';
 
 describe('phone number component', () => {
   let component: PhoneNumberComponent;
   let fixture: ComponentFixture<PhoneNumberComponent>;
   let formBuilder: FormBuilder;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule([PhoneNumberComponent], [FormBuilder, ApplicationFieldsService]);
+      TestBed.configureTestingModule({
+        declarations: [PhoneNumberComponent],
+        providers: [FormBuilder, ApplicationFieldsService],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
       formBuilder = new FormBuilder();
       fixture = TestBed.createComponent(PhoneNumberComponent);
       component = fixture.componentInstance;

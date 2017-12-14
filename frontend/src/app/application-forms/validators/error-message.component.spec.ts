@@ -54,7 +54,9 @@ describe('ErrorMessageComponent', () => {
       state: ['', [stateValidator()]],
       url: ['', [urlValidator()]],
       cost: ['', [currencyValidator()]],
-      maxNumber: ['', [lessThanOrEqualValidator(4)]]
+      maxNumber: ['', [lessThanOrEqualValidator(4)]],
+      max: ['', Validators.max(5)],
+      min: ['', Validators.min(1)]
     });
     form.get('emailAddress').setValue('test');
     expect(component.parseErrors(form.get('emailAddress').errors)).toEqual('Test requires a valid email address. ');
@@ -155,15 +157,27 @@ describe('ErrorMessageComponent', () => {
 
     form.get('maxNumber').setValue('5');
     expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
-      'Test must have a value less than or equal to 4. '
+      'Test must have a value less than or equal to 4 and greater than or equal to -99999. '
     );
     form.get('maxNumber').setValue('test');
     expect(component.parseErrors(form.get('maxNumber').errors)).toEqual(
-      'Test must have a value less than or equal to 4. '
+      'Test must have a value less than or equal to 4 and greater than or equal to -99999. '
     );
     form.get('maxNumber').setValue('4');
     expect(component.parseErrors(form.get('maxNumber').errors)).toBeFalsy();
     form.get('maxNumber').setValue('3');
     expect(component.parseErrors(form.get('maxNumber').errors)).toBeFalsy();
+
+    // max
+    form.get('max').setValue(10);
+    expect(component.parseErrors(form.get('max').errors)).toEqual(
+      'Test must have a value less than or equal to 5. '
+    );
+
+    // min
+    form.get('min').setValue(0);
+    expect(component.parseErrors(form.get('min').errors)).toEqual(
+      'Test must have a value greater than or equal to 1. '
+    );
   });
 });

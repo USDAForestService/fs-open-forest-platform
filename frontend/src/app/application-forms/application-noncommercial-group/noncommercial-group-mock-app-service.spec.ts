@@ -11,6 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { noncommercialMock } from './noncommercial.mock';
+import { UtilService } from '../../_services/util.service';
 
 export class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -48,7 +49,8 @@ describe('Noncommercial with mock application service', () => {
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
           AlertService,
-          AuthenticationService
+          AuthenticationService,
+          UtilService
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();

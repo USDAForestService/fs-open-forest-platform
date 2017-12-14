@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class SidebarConfigService {
 
-  SIDEBAR_CONFIG_FILE_URL = 'assets/config/christmasTreesSidebar.json'
+  SIDEBAR_CONFIG_FILE_URL = 'assets/config/christmasTreesSidebar.json';
 
   constructor(private http: Http) {
     let obj;
