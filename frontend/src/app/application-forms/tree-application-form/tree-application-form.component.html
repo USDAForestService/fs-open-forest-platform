@@ -12,8 +12,8 @@
         *ngIf="(submitted && !applicationForm.valid)"
         class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">There are errors in your application.</h3>
-          <p class="usa-alert-text">Please correct the errors before submitting.</p>
+          <h3 class="usa-alert-heading">There are errors with processing your permit.</h3>
+          <p class="usa-alert-text">Please correct the errors before you checkout.</p>
         </div>
       </div>
 
@@ -36,7 +36,7 @@
       <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
       <span>
         <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-        <label id='accept-rules-label' for="accept-rules">Check here to indicate that you have read and understood the <a href='#' (click)="goToRules($event)">rules and regulations</a>.</label>
+        <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit <a href='#' (click)="goToRules($event)">rules and regulations</a>.</label>
         <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules and regulations" [control]="applicationForm.controls.acceptRules"></app-error-message>
       </span>
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
