@@ -10,7 +10,7 @@ import * as sinon from 'sinon';
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
   let fixture: ComponentFixture<TreePermitViewComponent>;
-  let mockActivatedRoute = {
+  const mockActivatedRoute = {
     data: Observable.of({
       permit: {
         permitId: '123',
@@ -18,15 +18,6 @@ describe('TreePermitViewComponent', () => {
         quantity: 0,
         emailAddress: '',
         forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
-      }
-    })
-  };
-
-  let mockActivatedRouteError = {
-    data: Observable.of({
-      permit: {
-        status: 404,
-        message: 'Error'
       }
     })
   };
@@ -63,6 +54,5 @@ describe('TreePermitViewComponent', () => {
     const spy = sinon.spy(component, 'printPermit');
     component.printPermit();
     expect(spy.called).toBeTruthy();
-    spy.restore;
   });
 });

@@ -44,7 +44,7 @@ export class TreePermitViewComponent implements OnInit {
     popupWin.document.write(`
       <html>
         <head>
-          <title>Print tab</title>
+          <title>Print permit</title>
         </head>
         <style>
           @page {

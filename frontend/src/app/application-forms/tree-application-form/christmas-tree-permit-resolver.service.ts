@@ -23,7 +23,7 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
       })
       .catch(errors => {
         if (errors.length) {
-          for (let error of errors) {
+          for (const error of errors) {
             if (error.status === 404) {
               this.router.navigate([`applications/christmas-trees/forests/${forest}/new`]);
             }
