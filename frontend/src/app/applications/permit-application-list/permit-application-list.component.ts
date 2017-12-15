@@ -47,24 +47,6 @@ export class PermitApplicationListComponent implements OnInit {
     this.getApplications(this.applicationStatus);
   }
 
-  isApproachingBeginDateTime(startDateTime) {
-    const now = moment();
-    const deadline = moment(startDateTime, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'weeks');
-    return now.isAfter(deadline);
-  }
-
-  isPastDate(dateTime) {
-    const now = moment();
-    const pastDate = moment(dateTime, 'YYYY-MM-DDTHH:mm:ss');
-    return now.isAfter(pastDate);
-  }
-
-  isOverOneDayOld(submittedDateTime) {
-    const now = moment();
-    const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(1, 'days');
-    return now.isAfter(deadline);
-  }
-
   isOverTwoDaysOld(submittedDateTime) {
     const now = moment();
     const deadline = moment(submittedDateTime, 'YYYY-MM-DDTHH:mm:ss').add(2, 'days');
