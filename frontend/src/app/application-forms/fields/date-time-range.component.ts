@@ -61,7 +61,13 @@ export class DateTimeRangeComponent implements OnInit {
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
 
     const startDateFieldsToWatch = ['startMonth', 'startDay', 'startYear'];
-    this.dateFieldWatcher(startDateFieldsToWatch);
+    for (const field of startDateFieldsToWatch) {
+      this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
+        const values = this.parentForm.get('dateTimeRange').value;
+        values[field] = value;
+        this.startDateChangeHandler(values);
+      });
+    }
 
     const dateFieldsToWatch = [
       'startMonth',
@@ -77,10 +83,16 @@ export class DateTimeRangeComponent implements OnInit {
       'endMinutes',
       'endPeriod'
     ];
-    this.dateFieldWatcher(dateFieldsToWatch);
+    for (const field of dateFieldsToWatch) {
+      this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
+        const values = this.parentForm.get('dateTimeRange').value;
+        values[field] = value;
+        this.dateTimeRangeValidator(values);
+      });
+    }
   }
 
-  dateFieldWatcher(fieldsToWatch) {
+  dateFieldWatcher(fieldsToWatch){
     for (const field of fieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
         const values = this.parentForm.get('dateTimeRange').value;
