@@ -13,7 +13,7 @@
     "express": "4.16.0",
     "fs-extra": "^5.0.0",
     "helmet": "^3.6.1",
-    "jsdom": "^11.5.1",
+    "jsdom": "https://github.com/nciinc/jsdom/tarball/master/9c957d7b0d60787502979b7566a3c2c91a82aead",
     "jsonwebtoken": "^8.0.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
@@ -57,9 +57,11 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
+    "coverage":
+      "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
     "dev": "yarn; sequelize db:migrate; nodemon --harmony_default_parameters ./src/app.es6",
-    "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
+    "lint":
+      "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "sequelize db:migrate",
     "seed-ci": "sequelize db:seed:all --seeders-path dba/seeders/ci/",
     "seed": "sequelize db:seed:all --seeders-path dba/seeders/prod/",
@@ -74,11 +76,7 @@
     "node": "^6.10.3"
   },
   "nyc": {
-    "extension": [
-      ".es6"
-    ],
-    "exclude": [
-      "src/pay-gov-mocks/*.*"
-    ]
+    "extension": [".es6"],
+    "exclude": ["src/pay-gov-mocks/*.*"]
   }
 }
