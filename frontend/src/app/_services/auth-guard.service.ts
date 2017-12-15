@@ -27,7 +27,7 @@ export class AuthGuardService implements CanActivate {
     } else {
       this.sendToAuthenication(isAdminRoute, requestingUrl);
     }
-          return authorized;
+    return authorized;
   }
 
   sendToAuthenication(isAdminRoute, requestingUrl) {
