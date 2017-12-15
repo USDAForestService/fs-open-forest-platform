@@ -64,7 +64,7 @@ describe('TreeGuidelinesComponent', () => {
     })
   );
 
-  it( 'should set the title', () => {
+  it('should set the title', () => {
     inject([TreesService, XHRBackend], (service, mockBackend) => {
       mockBackend.connections.subscribe(connection => {
         connection.mockRespond(
@@ -78,7 +78,9 @@ describe('TreeGuidelinesComponent', () => {
 
       service.getOne(1).subscribe(result => {
         userService = TestBed.get(Title);
-        expect(userService.getTitle()).toBe('forest name National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
+        expect(userService.getTitle()).toBe(
+          'forest name National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
+        );
       });
     });
   });
@@ -90,16 +92,17 @@ describe('TreeGuidelinesComponent', () => {
         connection.mockError(
           new Response(
             new ResponseOptions({
-              body: { errors: [{message: 'Some strange error'}] },
+              body: { errors: [{ message: 'Some strange error' }] },
               status: 500
             })
-        ));
+          )
+        );
       });
 
       service.getOne(1).subscribe(
         success => {},
         (e: any) => {
-          expect(e).toEqual([]);
+          expect(e).toEqual([{ status: 500, message: 'Server error' }]);
         }
       );
     })
@@ -112,7 +115,7 @@ describe('TreeGuidelinesComponent', () => {
         connection.mockError(
           new Response(
             new ResponseOptions({
-              body: { errors: [{message: 'Some strange error'}]},
+              body: { errors: [{ message: 'Some strange error' }] },
               status: 404
             })
           )
@@ -150,7 +153,7 @@ describe('TreeGuidelinesComponent', () => {
     })
   );
 
-  it ('should have a config file', () => {
+  it('should have a config file', () => {
     fixture.whenStable().then(() => {
       expect(component.sidebarItems.length).toEqual(6);
     });

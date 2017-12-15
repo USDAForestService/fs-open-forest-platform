@@ -43,9 +43,8 @@ export class UtilService {
 
   handleError(error: Response | any) {
     let errors: any = [];
+    let body;
     if (error instanceof Response) {
-      let body;
-
       if (error.status) {
         switch (error.status) {
           case 400:
@@ -61,19 +60,21 @@ export class UtilService {
           case 404:
             errors = [{ status: error.status, message: 'The requested application is not found.' }];
             break;
+          case 500:
+            errors = [{ status: error.status, message: 'Server error' }];
+            break;
           default:
-            errors = [];
+            errors = [{ status: error.status }];
         }
         return Observable.throw(errors);
       }
-
-      try {
-        body = error.json() || '';
-        errors = body.errors;
-        return Observable.throw(errors);
-      } catch (err) {
-        return Observable.throw([{ status: 500, message: 'Server error' }]);
-      }
+    }
+    try {
+      body = error.json() || '';
+      errors = body.errors;
+      return Observable.throw(errors);
+    } catch (err) {
+      return Observable.throw([{ status: 500, message: 'Server error' }]);
     }
   }
 }
