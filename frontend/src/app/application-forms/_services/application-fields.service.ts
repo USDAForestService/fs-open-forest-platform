@@ -111,6 +111,16 @@ export class ApplicationFieldsService {
     });
   }
 
+  toggleSwitchAdder(toggleSubFields, parentFieldName, parentForm){
+    toggleSubFields.forEach(subField => {
+      this.simpleRequireToggle(
+        parentForm.get(`${parentFieldName}.${subField.toggleField}`),
+        parentForm.get(`${parentFieldName}.${subField.dataField}`)
+      );
+    });
+  }
+
+
   updateValidators(dataField, validate, length = null) {
     if (dataField && validate && length) {
       dataField.setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(length)]);

@@ -32,12 +32,7 @@ export class ExperienceComponent implements OnInit {
       listAllCitations: ['', Validators.maxLength(512)]
     });
     this.parentForm.addControl('experienceFields', experienceFields);
+    this.afs.toggleSwitchAdder(this.toggleSubFields, 'experienceFields', this.parentForm);
 
-    this.toggleSubFields.forEach(subField => {
-      this.afs.simpleRequireToggle(
-        this.parentForm.get(`experienceFields.${subField.toggleField}`),
-        this.parentForm.get(`experienceFields.${subField.dataField}`)
-      );
-    });
   }
 }

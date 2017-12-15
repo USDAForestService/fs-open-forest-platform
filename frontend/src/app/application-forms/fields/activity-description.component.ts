@@ -64,13 +64,8 @@ export class ActivityDescriptionComponent implements OnInit {
       ]
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
+    this.afs.toggleSwitchAdder(this.toggleSubFields, 'activityDescriptionFields', this.parentForm);
 
-    this.toggleSubFields.forEach(subField => {
-      this.afs.simpleRequireToggle(
-        this.parentForm.get(`activityDescriptionFields.${subField.toggleField}`),
-        this.parentForm.get(`activityDescriptionFields.${subField.dataField}`)
-      );
-    });
   }
 
   updateDateStatus(dateStatus: any): void {
