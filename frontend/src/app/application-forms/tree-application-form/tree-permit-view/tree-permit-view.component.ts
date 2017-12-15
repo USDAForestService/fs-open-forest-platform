@@ -1,5 +1,5 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -12,18 +12,27 @@ export class TreePermitViewComponent implements OnInit {
   permit: any = { totalCost: 0, quantity: 0, emailAddress: '' };
   image: any;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private sanitizer: DomSanitizer) {}
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private sanitizer: DomSanitizer,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.forest = data.forest;
-      this.permit = data.permit;
-      this.titleService.setTitle(
-        'View your Christmas tree permit order confirmation for ' +
-          data.forest.forestName +
-          ' National Forest | U.S. Forest Service Christmas Tree Permitting'
-      );
-      this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
+      if (data.permit && data.permit.forest) {
+        this.forest = data.permit.forest;
+        this.permit = data.permit;
+        this.titleService.setTitle(
+          'View your Christmas tree permit order confirmation for ' +
+            data.permit.forest.forestName +
+            ' National Forest | U.S. Forest Service Christmas Tree Permitting'
+        );
+        this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
+      } else {
+        this.router.navigate([`/`]);
+      }
     });
   }
 

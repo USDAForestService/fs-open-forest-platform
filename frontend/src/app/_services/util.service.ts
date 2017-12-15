@@ -15,7 +15,11 @@ export class UtilService {
   }
 
   convertCamelToHyphenCase(string) {
-    return string.replace(/\s+/g, '-').replace(/([a-z])([A-Z])/g, '$1-$2').replace(/s+$/, '').toLowerCase();
+    return string
+      .replace(/\s+/g, '-')
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .replace(/s+$/, '')
+      .toLowerCase();
   }
 
   gotoHashtag(fragment: string, event, subSection = '') {
@@ -30,7 +34,10 @@ export class UtilService {
   }
 
   createId(value: string) {
-    const id = value.replace(/[^A-Z0-9]+/gi, '-').toLowerCase().substring(0, 20);
+    const id = value
+      .replace(/[^A-Z0-9]+/gi, '-')
+      .toLowerCase()
+      .substring(0, 20);
     return id;
   }
 
@@ -38,12 +45,6 @@ export class UtilService {
     let errors: any = [];
     if (error instanceof Response) {
       let body;
-      try {
-        body = error.json() || '';
-        errors = body.errors;
-      } catch (err) {
-        return Observable;
-      }
 
       if (error.status) {
         switch (error.status) {
@@ -52,20 +53,27 @@ export class UtilService {
             errors = body.errors;
             break;
           case 401:
-            errors = [{ message: 'Please log in.' }];
+            errors = [{ status: error.status, message: 'Please log in.' }];
             break;
           case 403:
-            errors = [{ message: 'Access denied.' }];
+            errors = [{ status: error.status, message: 'Access denied.' }];
             break;
           case 404:
-            errors = [{ message: 'The requested application is not found.' }];
+            errors = [{ status: error.status, message: 'The requested application is not found.' }];
             break;
           default:
             errors = [];
         }
+        return Observable.throw(errors);
+      }
+
+      try {
+        body = error.json() || '';
+        errors = body.errors;
+        return Observable.throw(errors);
+      } catch (err) {
+        return Observable.throw([{ status: 500, message: 'Server error' }]);
       }
     }
-    console.log('ERROR', errors);
-    return Observable.throw(errors);
   }
 }

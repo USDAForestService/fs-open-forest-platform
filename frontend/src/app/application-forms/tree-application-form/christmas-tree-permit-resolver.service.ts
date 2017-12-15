@@ -10,16 +10,42 @@ import { ChristmasTreesApplicationService } from '../../trees/_services/christma
 export class ChristmasTreePermitResolver implements Resolve<any> {
   constructor(private service: ChristmasTreesApplicationService, private router: Router) {}
 
+  // resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  //   const id = route.paramMap.get('permitId');
+  //
+  //   return this.service.getOne(id).subscribe(
+  //     data => {
+  //       // console.log('BEFORE DATA', data);
+  //       return data;
+  //     },
+  //     (e: any) => {
+  //       console.log('ERROR OBSERVABLE', e);
+  //     }
+  //   );
+  // }
+
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('permitId');
+    const forest = route.paramMap.get('id');
 
-    return this.service.getOne(id).take(1).map(data => {
-      if (data) {
-        return data;
-      } else {
-        this.router.navigate(['/']);
-        return null;
-      }
-    });
+    return this.service
+      .getOne(id)
+      .map(data => {
+        if (data) {
+          return data;
+        }
+      })
+      .catch(errors => {
+        if (errors.length) {
+          for (let error of errors) {
+            if (error.status === 404) {
+              this.router.navigate([`applications/christmas-trees/forests/${forest}/new`]);
+            }
+          }
+        } else {
+          this.router.navigate(['/']);
+        }
+        return Observable.of(errors);
+      });
   }
 }

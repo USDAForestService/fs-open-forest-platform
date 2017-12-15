@@ -206,7 +206,11 @@ const permitResult = (permit, svgData) => {
     totalCost: permit.totalCost,
     status: permit.status,
     transactionDate: permit.updatedAt,
-    permitImage: svgData
+    permitImage: svgData,
+    forest: {
+      forestName: permit.christmasTreesForest.forestName,
+      forestAbbr: permit.christmasTreesForest.forestAbbr
+    }
   };
   return result;
 };
@@ -226,9 +230,7 @@ christmasTree.getOnePermit = (req, res) => {
     .then(permit => {
       if (permit) {
         if (permit.status == 'Completed') {
-          paygov.generateSvgPermit(permit).then(svgData => {
-            return res.status(200).send(permitResult(permit, svgData));
-          });
+          return res.status(404).send();
         } else {
           const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
           postPayGov(xmlData).then(xmlResponse => {
