@@ -152,11 +152,6 @@ describe('Apply for a Christmas tree permit', () => {
               expect(browser.driver.getCurrentUrl()).toEqual('chrome://print/');
             });
         });
-
-        browser.get(url);
-        expect(browser.getCurrentUrl()).toContain(
-          `http://localhost:4200/applications/christmas-trees/forests/${forestId}/new`
-        );
       });
     });
   });
