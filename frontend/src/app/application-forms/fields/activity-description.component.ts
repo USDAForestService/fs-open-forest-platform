@@ -21,9 +21,24 @@ export class ActivityDescriptionComponent implements OnInit {
     dateTimeSpan: 0
   };
 
+  toggleSubFields: any;
+
   @Output() updateRootDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {
+    this.toggleSubFields = [
+      {'toggleField': 'needGovernmentFacilities',
+      'dataField': 'listOfGovernmentFacilities'},
+      {'toggleField': 'needTemporaryImprovements',
+      'dataField': 'listOfTemporaryImprovements'},
+      {'toggleField': 'haveMotorizedEquipment',
+      'dataField': 'statementOfMotorizedEquipment'},
+      {'toggleField': 'haveLivestock',
+      'dataField': 'statementOfTransportationOfLivestock'},
+      {'toggleField': 'needAssignedSite',
+      'dataField': 'statementOfAssignedSite'}
+    ];
+  }
 
   ngOnInit() {
     const activityDescription = this.formBuilder.group({
@@ -50,30 +65,12 @@ export class ActivityDescriptionComponent implements OnInit {
     });
     this.parentForm.addControl('activityDescriptionFields', activityDescription);
 
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('activityDescriptionFields.needGovernmentFacilities'),
-      this.parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('activityDescriptionFields.needTemporaryImprovements'),
-      this.parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('activityDescriptionFields.haveMotorizedEquipment'),
-      this.parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('activityDescriptionFields.haveLivestock'),
-      this.parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('activityDescriptionFields.needAssignedSite'),
-      this.parentForm.get('activityDescriptionFields.statementOfAssignedSite')
-    );
+    this.toggleSubFields.forEach(subField => {
+      this.afs.simpleRequireToggle(
+        this.parentForm.get(`activityDescriptionFields.${subField.toggleField}`),
+        this.parentForm.get(`activityDescriptionFields.${subField.dataField}`)
+      );
+    });
   }
 
   updateDateStatus(dateStatus: any): void {
