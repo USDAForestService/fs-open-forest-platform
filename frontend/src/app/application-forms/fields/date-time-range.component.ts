@@ -92,16 +92,6 @@ export class DateTimeRangeComponent implements OnInit {
     }
   }
 
-  dateFieldWatcher(fieldsToWatch){
-    for (const field of fieldsToWatch) {
-      this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
-        const values = this.parentForm.get('dateTimeRange').value;
-        values[field] = value;
-        this.dateTimeRangeValidator(values);
-      });
-    }
-  }
-
   private checkHasStartAndNoEnd(values) {
     return (
       values.startMonth &&
