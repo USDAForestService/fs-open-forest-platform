@@ -111,7 +111,7 @@ export class ApplicationFieldsService {
     });
   }
 
-  toggleSwitchAdder(toggleSubFields, parentFieldName, parentForm){
+  toggleSwitchAdder(toggleSubFields, parentFieldName, parentForm) {
     toggleSubFields.forEach(subField => {
       this.simpleRequireToggle(
         parentForm.get(`${parentFieldName}.${subField.toggleField}`),

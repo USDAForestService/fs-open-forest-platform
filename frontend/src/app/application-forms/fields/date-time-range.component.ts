@@ -80,7 +80,7 @@ export class DateTimeRangeComponent implements OnInit {
     this.dateFieldWatcher(dateFieldsToWatch);
   }
 
-  dateFieldWatcher(fieldsToWatch){
+  dateFieldWatcher(fieldsToWatch) {
     for (const field of fieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
         const values = this.parentForm.get('dateTimeRange').value;

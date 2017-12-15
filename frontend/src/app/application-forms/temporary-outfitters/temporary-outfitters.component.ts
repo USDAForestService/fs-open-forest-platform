@@ -214,9 +214,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.removeDataWrapper(form, 'experienceFields');
   }
 
-  removeDataWrapper(form, fieldGroup){
-    if(form.get(`tempOutfitterFields.${fieldGroup}`)){
-      if(fieldGroup == 'activityDescriptionFields'){
+  removeDataWrapper(form, fieldGroup) {
+    if (form.get(`tempOutfitterFields.${fieldGroup}`)) {
+      if (fieldGroup === 'activityDescriptionFields') {
         this.removeUnusedActivityDescription(form);
       } else {
         this.removedUnusedExperience(form);
@@ -224,36 +224,36 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     }
   }
 
-  removeUnusedActivityDescription(form){
+  removeUnusedActivityDescription(form) {
     const fieldGroup = 'tempOutfitterFields.activityDescriptionFields';
-      if (!form.get(`${fieldGroup}.needGovernmentFacilities`).value) {
-        form.get(`${fieldGroup}.listOfGovernmentFacilities`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.needTemporaryImprovements`).value) {
-        form.get(`${fieldGroup}.listOfTemporaryImprovements`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.haveMotorizedEquipment`).value) {
-        form.get(`${fieldGroup}.statementOfMotorizedEquipment`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.haveLivestock`).value) {
-        form.get(`${fieldGroup}.statementOfTransportationOfLivestock`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.needAssignedSite`).value) {
-        form.get(`${fieldGroup}.statementOfAssignedSite`).setValue('');
-      }
+    if (!form.get(`${fieldGroup}.needGovernmentFacilities`).value) {
+      form.get(`${fieldGroup}.listOfGovernmentFacilities`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needTemporaryImprovements`).value) {
+      form.get(`${fieldGroup}.listOfTemporaryImprovements`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveMotorizedEquipment`).value) {
+      form.get(`${fieldGroup}.statementOfMotorizedEquipment`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveLivestock`).value) {
+      form.get(`${fieldGroup}.statementOfTransportationOfLivestock`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needAssignedSite`).value) {
+      form.get(`${fieldGroup}.statementOfAssignedSite`).setValue('');
+    }
   }
 
   removedUnusedExperience(form) {
     const fieldGroup = 'tempOutfitterFields.experienceFields';
-      if (!form.get(`${fieldGroup}.haveNationalForestPermits`).value) {
-        form.get(`${fieldGroup}.listAllNationalForestPermits`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.haveOtherPermits`).value) {
-        form.get(`${fieldGroup}.listAllOtherPermits`).setValue('');
-      }
-      if (!form.get(`${fieldGroup}.haveCitations`).value) {
-        form.get(`${fieldGroup}.listAllCitations`).setValue('');
-      }
+    if (!form.get(`${fieldGroup}.haveNationalForestPermits`).value) {
+      form.get(`${fieldGroup}.listAllNationalForestPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveOtherPermits`).value) {
+      form.get(`${fieldGroup}.listAllOtherPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveCitations`).value) {
+      form.get(`${fieldGroup}.listAllCitations`).setValue('');
+    }
   }
 
   getApplication(id) {
