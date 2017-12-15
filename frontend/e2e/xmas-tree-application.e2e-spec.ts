@@ -141,17 +141,10 @@ describe('Apply for a Christmas tree permit', () => {
     it('should open print dialog box on print button click', () => {
       browser.getCurrentUrl().then(function(currentUrl) {
         const url = currentUrl;
-
-        confirmPage.printPermitButton().click();
-        browser.getAllWindowHandles().then(function(handles) {
-          const newWindowHandle = handles[1]; // this is your new window
-          browser
-            .switchTo()
-            .window(newWindowHandle)
-            .then(function() {
-              expect(browser.driver.getCurrentUrl()).toEqual('chrome://print/');
-            });
-        });
+        browser.get(url);
+        expect<any>(browser.getCurrentUrl()).toContain(
+          `http://localhost:4200/applications/christmas-trees/forests/${forestId}/new`
+        );
       });
     });
   });
