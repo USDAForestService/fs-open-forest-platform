@@ -51,8 +51,22 @@ export class TreePermitViewComponent implements OnInit {
             size: auto;
             margin: 0mm;
           }
-          body {
-            max-height: 816px;
+          @media print {
+            html,body{
+              height:100%;
+              width:100%;
+              max-height: 810px;
+              margin:0;
+              padding:0;
+            }
+            svg{
+              width: 100%;
+              display: block;
+              margin-top: 175px;
+              transform: rotate(-90deg) scale(1.25, 1.25);
+              -webkit-transform: rotate(-90deg) scale(1.25, 1.25); 
+              -moz-transform:rotate(-90deg) scale(1.25, 1.25); 
+            }
           }
         </style>
       <body onload="window.print();window.close()">${printContents}</body>

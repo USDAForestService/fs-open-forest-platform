@@ -31,7 +31,7 @@
 
   <div class="usa-grid confirmation-details-container">
     <div id="printing-instructions" class='usa-form-hint'>
-      Please print your permit(s) on plain white paper and in landscape orientation.
+      You must print this official U.S. Forest Service permit and have it properly displayed on your vehicle when cutting down your tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
     </div>
     <button id="tree-print-permit" class="usa-button-primary-alt usa-button-big" type="button" (click)="printPermit()">Print permit</button>
   </div>
@@ -63,9 +63,7 @@
     </table>
   </div>
 
-
-
-  <div id="tree-additional-info-container" class="usa-grid confirmation-details-container">
+  <div id="tree-additional-info-container" class="usa-grid confirmation-details-container margin-top-2 margin-bottom-2">
     <h2 class="usa-heading">Additional information</h2>
     <hr class="header-divider">
     <b>Your permit will be emailed to you at {{permit.emailAddress}}.</b>
