@@ -53,23 +53,23 @@ describe('UtilService', () => {
 
   it('should throw an observable if response has status 401', () => {
     const response = new Response(new ResponseOptions({ status: 401, body: { errors: ['error'] } }));
-    expect(service.handleError(response)).toEqual(Observable.throw([{ message: 'Please log in.' }]));
+    expect(service.handleError(response)).toEqual(Observable.throw([{ status: 401, message: 'Please log in.' }]));
   });
 
   it('should throw an observable if response has status 403', () => {
     const response = new Response(new ResponseOptions({ status: 403, body: { errors: ['error'] } }));
-    expect(service.handleError(response)).toEqual(Observable.throw([{ message: 'Access denied.' }]));
+    expect(service.handleError(response)).toEqual(Observable.throw([{ status: 403, message: 'Access denied.' }]));
   });
 
   it('should throw an observable if response has status 404', () => {
     const response = new Response(new ResponseOptions({ status: 404, body: { errors: ['error'] } }));
     expect(service.handleError(response)).toEqual(
-      Observable.throw([{ message: 'The requested application is not found.' }])
+      Observable.throw([{ status: 404, message: 'The requested application is not found.' }])
     );
   });
 
   it('should throw an observable if response has status 405', () => {
     const response = new Response(new ResponseOptions({ status: 405, body: { errors: ['error'] } }));
-    expect(service.handleError(response)).toEqual(Observable.throw([]));
+    expect(service.handleError(response)).toEqual(Observable.throw([{ status: 405 }]));
   });
 });

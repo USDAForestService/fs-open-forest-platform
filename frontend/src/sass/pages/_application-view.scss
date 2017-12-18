@@ -108,9 +108,11 @@
     dd {
       -webkit-margin-start: 0px;
     }
-    button {
-      margin-top: 1rem;
-      margin-bottom: 2rem;
+    button#tree-print-permit {
+      margin-bottom: 4rem;
+    }
+    #printing-instructions {
+      margin-top: 3rem;
     }
     padding-bottom: 1rem;
   }

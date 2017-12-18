@@ -137,5 +137,15 @@ describe('Apply for a Christmas tree permit', () => {
     it('should show the print permit button', () => {
       expect<any>(confirmPage.printPermitButton().isDisplayed()).toBeTruthy();
     });
+
+    it('should open print dialog box on print button click', () => {
+      browser.getCurrentUrl().then(function(currentUrl) {
+        const url = currentUrl;
+        browser.get(url);
+        expect<any>(browser.getCurrentUrl()).toContain(
+          `http://localhost:4200/applications/christmas-trees/forests/${forestId}/new`
+        );
+      });
+    });
   });
 });

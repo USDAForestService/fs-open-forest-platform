@@ -195,7 +195,7 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const permitResult = permit => {
+const permitResult = (permit, svgData) => {
   const result = {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
@@ -205,7 +205,12 @@ const permitResult = permit => {
     quantity: permit.quantity,
     totalCost: permit.totalCost,
     status: permit.status,
-    transactionDate: permit.updatedAt
+    transactionDate: permit.updatedAt,
+    permitImage: svgData,
+    forest: {
+      forestName: permit.christmasTreesForest.forestName,
+      forestAbbr: permit.christmasTreesForest.forestAbbr
+    }
   };
   return result;
 };
@@ -215,12 +220,17 @@ christmasTree.getOnePermit = (req, res) => {
     .findOne({
       where: {
         permitId: req.params.id
-      }
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
     })
     .then(permit => {
       if (permit) {
         if (permit.status == 'Completed') {
-          return res.status(200).send(permitResult(permit));
+          return res.status(404).send();
         } else {
           const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
           postPayGov(xmlData).then(xmlResponse => {
@@ -238,7 +248,9 @@ christmasTree.getOnePermit = (req, res) => {
                       status: 'Completed'
                     })
                     .then(savedPermit => {
-                      return res.status(200).send(permitResult(savedPermit));
+                      paygov.generateSvgPermit(permit).then(svgData => {
+                        return res.status(200).send(permitResult(savedPermit, svgData));
+                      });
                     });
                 } catch (error) {
                   throw new Error(error);

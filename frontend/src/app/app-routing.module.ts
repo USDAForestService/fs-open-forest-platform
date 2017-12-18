@@ -119,7 +119,6 @@ const appRoutes: Routes = [
     path: 'applications/christmas-trees/forests/:id/permits/:permitId',
     component: TreePermitViewComponent,
     resolve: {
-      forest: ForestResolver,
       permit: ChristmasTreePermitResolver
     }
   },

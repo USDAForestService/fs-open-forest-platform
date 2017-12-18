@@ -111,7 +111,7 @@ describe('christmas tree controller tests', () => {
     });
   });
   describe('submit permit application', () => {
-    it('POST should return a 200 response when submitted for to get pay.gov token', done => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       request(server)
         .post('/forests/christmas-trees/permits')
@@ -122,11 +122,17 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 200 response when submitted for complete pay.gov transaction', done => {
+    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
+    });
+    it('GET should return a 404 response when requesting for already completed permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .set('Accept', 'application/json')
+        .expect(404, done);
     });
     it('POST should return a 400 response when submitted with invalid data', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
