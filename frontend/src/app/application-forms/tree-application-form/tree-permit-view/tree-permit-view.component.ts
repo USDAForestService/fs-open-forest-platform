@@ -64,8 +64,8 @@ export class TreePermitViewComponent implements OnInit {
               display: block;
               margin-top: 175px;
               transform: rotate(-90deg) scale(1.25, 1.25);
-              -webkit-transform: rotate(-90deg) scale(1.25, 1.25); 
-              -moz-transform:rotate(-90deg) scale(1.25, 1.25); 
+              -webkit-transform: rotate(-90deg) scale(1.25, 1.25);
+              -moz-transform:rotate(-90deg) scale(1.25, 1.25);
             }
           }
         </style>
