@@ -137,7 +137,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 
 paygov.generateSvgPermit = permit => {
   return new Promise((resolve, reject) => {
-    fs.readFile('src/templates/christmas-trees/sp_05_permit_design-02.svg', function read(err, svgData) {
+    fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
         reject(err);
       }
