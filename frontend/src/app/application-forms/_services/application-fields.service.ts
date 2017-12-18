@@ -83,10 +83,14 @@ export class ApplicationFieldsService {
     });
     parentForm.addControl('eveningPhone', eveningPhone);
 
-    parentForm.get('eveningPhone.tenDigit').valueChanges.subscribe(value => {
-      parentForm.patchValue({ eveningPhone: { areaCode: value.substring(0, 3) } });
-      parentForm.patchValue({ eveningPhone: { prefix: value.substring(3, 6) } });
-      parentForm.patchValue({ eveningPhone: { number: value.substring(6, 10) } });
+    this.phoneChangeSubscribers(parentForm, 'eveningPhone');
+  }
+
+  phoneChangeSubscribers(parentForm, type) {
+    parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
+      parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
+      parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
+      parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
     });
   }
 
@@ -106,6 +110,16 @@ export class ApplicationFieldsService {
       this.updateValidators(dataFieldTwo, value, 255);
     });
   }
+
+  toggleSwitchAdder(toggleSubFields, parentFieldName, parentForm) {
+    toggleSubFields.forEach(subField => {
+      this.simpleRequireToggle(
+        parentForm.get(`${parentFieldName}.${subField.toggleField}`),
+        parentForm.get(`${parentFieldName}.${subField.dataField}`)
+      );
+    });
+  }
+
 
   updateValidators(dataField, validate, length = null) {
     if (dataField && validate && length) {

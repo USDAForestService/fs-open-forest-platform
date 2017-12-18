@@ -62,42 +62,6 @@ describe('PermitApplicationListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should return true if we are past deadline', () => {
-    const now = moment();
-    const startDateTime = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(1, 'weeks');
-    expect(component.isApproachingBeginDateTime(startDateTime)).toBeTruthy();
-  });
-
-  it('should return false if we are prior to deadline', () => {
-    const now = moment();
-    const startDateTime = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(3, 'weeks');
-    expect(component.isApproachingBeginDateTime(startDateTime)).toBeFalsy();
-  });
-
-  it('should return true if now is past date', () => {
-    const now = moment();
-    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').subtract(1, 'weeks');
-    expect(component.isPastDate(date)).toBeTruthy();
-  });
-
-  it('should return false if now is not past date', () => {
-    const now = moment();
-    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').add(1, 'weeks');
-    expect(component.isPastDate(date)).toBeFalsy();
-  });
-
-  it('should return true if over one day old', () => {
-    const now = moment();
-    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').subtract(2, 'days');
-    expect(component.isOverOneDayOld(date)).toBeTruthy();
-  });
-
-  it('should return false if less than one day old', () => {
-    const now = moment();
-    const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').subtract(1, 'hours');
-    expect(component.isOverOneDayOld(date)).toBeFalsy();
-  });
-
   it('should return true if over two days old', () => {
     const now = moment();
     const date = moment(now, 'YYYY-MM-DDTHH:mm:ss').subtract(3, 'days');

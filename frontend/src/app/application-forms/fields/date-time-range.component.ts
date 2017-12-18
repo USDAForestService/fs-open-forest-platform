@@ -65,9 +65,6 @@ export class DateTimeRangeComponent implements OnInit {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
         const values = this.parentForm.get('dateTimeRange').value;
         values[field] = value;
-        // console.log('field', field);
-        // console.log('value', value);
-        // console.log('values', values);
         this.startDateChangeHandler(values);
       });
     }
