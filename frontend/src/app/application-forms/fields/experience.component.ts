@@ -10,8 +10,17 @@ export class ExperienceComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() pointOfView: string;
   experienceFields = 'experienceFields';
-
-  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
+  toggleSubFields: any;
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {
+    this.toggleSubFields = [
+      {'toggleField': 'haveNationalForestPermits',
+      'dataField': 'listAllNationalForestPermits'},
+      {'toggleField': 'haveOtherPermits',
+      'dataField': 'listAllOtherPermits'},
+      {'toggleField': 'haveCitations',
+      'dataField': 'listAllCitations'}
+    ];
+  }
 
   ngOnInit() {
     const experienceFields = this.formBuilder.group({
@@ -23,20 +32,7 @@ export class ExperienceComponent implements OnInit {
       listAllCitations: ['', Validators.maxLength(512)]
     });
     this.parentForm.addControl('experienceFields', experienceFields);
+    this.afs.toggleSwitchAdder(this.toggleSubFields, 'experienceFields', this.parentForm);
 
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('experienceFields.haveNationalForestPermits'),
-      this.parentForm.get('experienceFields.listAllNationalForestPermits')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('experienceFields.haveOtherPermits'),
-      this.parentForm.get('experienceFields.listAllOtherPermits')
-    );
-
-    this.afs.simpleRequireToggle(
-      this.parentForm.get('experienceFields.haveCitations'),
-      this.parentForm.get('experienceFields.listAllCitations')
-    );
   }
 }

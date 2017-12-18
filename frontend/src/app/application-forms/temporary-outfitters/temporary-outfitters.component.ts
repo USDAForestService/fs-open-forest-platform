@@ -134,7 +134,10 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
   orgTypeChange(type): void {
     this.pointOfView = 'We';
+    this.goodStandingEvidenceMessage = '';
+    this.orgTypeFileUpload = true;
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
+    this.applicationFieldsService.updateValidators(gse, true, 255);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
@@ -144,33 +147,23 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
-        this.orgTypeFileUpload = true;
-        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'Limited Liability Company (LLC)':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
-        this.orgTypeFileUpload = true;
-        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'Limited Liability Partnership (LLP)':
         this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
-        this.orgTypeFileUpload = true;
-        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
       case 'State Government':
-        this.goodStandingEvidenceMessage = '';
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
       case 'Local Govt':
-        this.goodStandingEvidenceMessage = '';
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
       case 'Nonprofit':
         this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
-        this.orgTypeFileUpload = true;
-        this.applicationFieldsService.updateValidators(gse, true, 255);
         break;
     }
   }
@@ -217,33 +210,49 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         service.removeAdditionalPhone(form.get('applicantInfo'));
       }
     }
-    if (form.get('tempOutfitterFields.activityDescriptionFields')) {
-      if (!form.get('tempOutfitterFields.activityDescriptionFields.needGovernmentFacilities').value) {
-        form.get('tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.activityDescriptionFields.needTemporaryImprovements').value) {
-        form.get('tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.activityDescriptionFields.haveMotorizedEquipment').value) {
-        form.get('tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.activityDescriptionFields.haveLivestock').value) {
-        form.get('tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.activityDescriptionFields.needAssignedSite').value) {
-        form.get('tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite').setValue('');
+    this.removeDataWrapper(form, 'activityDescriptionFields');
+    this.removeDataWrapper(form, 'experienceFields');
+  }
+
+  removeDataWrapper(form, fieldGroup) {
+    if (form.get(`tempOutfitterFields.${fieldGroup}`)) {
+      if (fieldGroup === 'activityDescriptionFields') {
+        this.removeUnusedActivityDescription(form);
+      } else {
+        this.removedUnusedExperience(form);
       }
     }
-    if (form.get('tempOutfitterFields.experienceFields')) {
-      if (!form.get('tempOutfitterFields.experienceFields.haveNationalForestPermits').value) {
-        form.get('tempOutfitterFields.experienceFields.listAllNationalForestPermits').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.experienceFields.haveOtherPermits').value) {
-        form.get('tempOutfitterFields.experienceFields.listAllOtherPermits').setValue('');
-      }
-      if (!form.get('tempOutfitterFields.experienceFields.haveCitations').value) {
-        form.get('tempOutfitterFields.experienceFields.listAllCitations').setValue('');
-      }
+  }
+
+  removeUnusedActivityDescription(form) {
+    const fieldGroup = 'tempOutfitterFields.activityDescriptionFields';
+    if (!form.get(`${fieldGroup}.needGovernmentFacilities`).value) {
+      form.get(`${fieldGroup}.listOfGovernmentFacilities`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needTemporaryImprovements`).value) {
+      form.get(`${fieldGroup}.listOfTemporaryImprovements`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveMotorizedEquipment`).value) {
+      form.get(`${fieldGroup}.statementOfMotorizedEquipment`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveLivestock`).value) {
+      form.get(`${fieldGroup}.statementOfTransportationOfLivestock`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needAssignedSite`).value) {
+      form.get(`${fieldGroup}.statementOfAssignedSite`).setValue('');
+    }
+  }
+
+  removedUnusedExperience(form) {
+    const fieldGroup = 'tempOutfitterFields.experienceFields';
+    if (!form.get(`${fieldGroup}.haveNationalForestPermits`).value) {
+      form.get(`${fieldGroup}.listAllNationalForestPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveOtherPermits`).value) {
+      form.get(`${fieldGroup}.listAllOtherPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveCitations`).value) {
+      form.get(`${fieldGroup}.listAllCitations`).setValue('');
     }
   }
 
@@ -363,31 +372,35 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     if (this.uploadFiles) {
       this.fileUploadProgress = this.fileUploadService.getFileUploadProgress(this.numberOfFiles + 1);
       if (this.fileUploadService.getNumberOfFiles() < 1) {
-        this.uploadFiles = false;
-        this.showFileUploadProgress = false;
-        this.fileUploadError = false;
-
-        if (this.applicationFieldsService.getEditApplication()) {
-          this.alertService.addSuccessMessage('Permit application was successfully updated.');
-          if (this.authentication.isAdmin()) {
-            this.router.navigate([`admin/applications/temp-outfitter/${this.application.appControlNumber}`]);
-          } else {
-            this.router.navigate([`user/applications/temp-outfitter/${this.application.appControlNumber}`]);
-          }
-        } else {
-          this.application.status = 'Submitted';
-          this.applicationService.update(this.application, 'temp-outfitter').subscribe(
-            (data: any) => {
-              this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
-            },
-            (e: any) => {
-              this.apiErrors = e;
-              window.scrollTo(0, 200);
-            }
-          );
-        }
+        this.endOfUpload();
       }
     }
+  }
+
+  endOfUpload() {
+      this.uploadFiles = false;
+      this.showFileUploadProgress = false;
+      this.fileUploadError = false;
+      if (this.applicationFieldsService.getEditApplication()) {
+        this.alertService.addSuccessMessage('Permit application was successfully updated.');
+        if (this.authentication.isAdmin()) {
+          this.router.navigate([`admin/applications/temp-outfitter/${this.application.appControlNumber}`]);
+        } else {
+          this.router.navigate([`user/applications/temp-outfitter/${this.application.appControlNumber}`]);
+        }
+      } else {
+        this.application.status = 'Submitted';
+        this.applicationService.update(this.application, 'temp-outfitter').subscribe(
+          (data: any) => {
+            this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scrollTo(0, 200);
+          }
+        );
+      }
+
   }
 
   ngOnInit() {
