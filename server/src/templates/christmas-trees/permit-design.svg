@@ -60,6 +60,12 @@
         stroke-miterlimit: 10;
       }
 
+      .line {
+        fill: none;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
       .cls-12, .cls-13 {
         stroke-width: 2px;
       }
@@ -96,11 +102,13 @@
   <g id="Layer_2" data-name="Layer 2">
     <rect id="background_-_fff" data-name="background - #fff" class="cls-1" width="792" height="612"/>
     <rect class="cls-2" x="20" y="189" width="123" height="239"/>
-    <text class="cls-3" transform="translate(528.78 501.33)">I H<tspan class="cls-4" x="10.22" y="0">A</tspan><tspan x="14.96" y="0">VE PRINTED</tspan><tspan class="cls-5" x="62.97" y="0"> </tspan><tspan x="65.05" y="0">THE RULES</tspan><tspan class="cls-6" x="109.95" y="0"> </tspan><tspan x="111.73" y="0">AND REGUL</tspan><tspan class="cls-4" x="158.41" y="0">A</tspan><tspan x="163.15" y="0">TIONS</tspan></text>
+    <line class="line" x1="511.3" y1="492" x2="521.3" y2="502"/>
+    <line class="line" x1="511.3" y1="502" x2="521.3" y2="492"/>
+    <text class="cls-3" transform="translate(528.78 501.33)">I HAVE PRINTED THE RULES AND REGULATIONS</text>
     <rect class="cls-7" x="141.98" y="340" width="633" height="88"/>
     <text class="cls-8" transform="translate(27.48 58)">CHRISTMAS TREE PERMIT</text>
-    <text id="forest-name" class="cls-9 forest-name" transform="translate(180 386)">ARAPAHO - ROOSEVELT</tspan></text>
-    <text id="national-forest" class="cls-14" transform="translate(180 417)">NATIONAL FOREST</tspan></text>
+    <text id="forest-name" class="cls-9 forest-name" transform="translate(180 386)">ARAPAHO - ROOSEVELT</text>
+    <text id="national-forest" class="cls-14" transform="translate(180 417)">NATIONAL FOREST</text>
     <text id="permit-year-vertical" class="cls-10" transform="translate(116.18 417) rotate(-90)">2017</text>
     <text class="cls-3" transform="translate(153.88 104.5)">MONTH</text>
     <text id="permit-id" class="cls-11" transform="translate(617.48 64)">0000000001</text>
@@ -146,14 +154,14 @@
     <text class="cls-3" transform="translate(29.86 567.93)">DO NOT CUT TREE TOPS OFF - TAKE THE WHOLE TREE</text>
     <text class="cls-3" transform="translate(29.86 581.88)">LEAVE NO TRACE - PACK IT IN, PACK IT OUT</text>
     <line class="cls-18" x1="775" y1="479.31" x2="19.87" y2="479.31"/>
-    <text class="cls-17" transform="translate(429.26 487.65)">PERMIT NUMBER</tspan></text>
+    <text class="cls-17" transform="translate(429.26 487.65)">PERMIT NUMBER</text>
     <text id="permit-id-small" class="cls-19" transform="translate(429.26 502.02)">0000000001</text>
     <line class="cls-18" x1="775" y1="595.96" x2="20" y2="595.96"/>
     <text id="permit-expiration" class="cls-19" transform="translate(429.26 561.75)">DEC 24 12:00AM 2017</text>
     <line class="cls-18" x1="541.04" y1="408" x2="541.04" y2="427.5"/>
     <text class="cls-3" transform="translate(264.45 440.48)">PLEASE FIL<tspan class="cls-15" x="44.91" y="0">L</tspan><tspan x="49.06" y="0" xml:space="preserve"> OU</tspan><tspan class="cls-5" x="63.29" y="0">T </tspan><tspan x="70.11" y="0">THE MONTH</tspan><tspan class="cls-6" x="117.66" y="0"> </tspan><tspan x="119.44" y="0">AND D</tspan><tspan class="cls-4" x="144.33" y="0">A</tspan><tspan class="cls-5" x="149.07" y="0">Y </tspan><tspan x="156.34" y="0">YOU PLAN</tspan><tspan class="cls-5" x="196.8" y="0" xml:space="preserve"> T</tspan><tspan x="203.62" y="0">O CU</tspan><tspan class="cls-5" x="223.62" y="0">T </tspan><tspan x="230.44" y="0">YOUR</tspan><tspan class="cls-5" x="253.55" y="0"> </tspan><tspan x="255.63" y="0">TREE DOWN</tspan></text>
     <text class="cls-17" transform="translate(429.26 548.5)">PERMIT EXPIRATION</text>
-    <text id="permit-harvest-expiration" class="cls-3" transform="translate(171.88 80.54)">THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR DEC 25 12:00AM 2017</tspan></text>
+    <text id="permit-harvest-expiration" class="cls-3" transform="translate(171.88 80.54)">THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR DEC 25 12:00AM 2017</text>
     <line class="cls-12" x1="774" y1="86.45" x2="142.09" y2="86.45"/>
     <text class="cls-19" transform="translate(428.81 586.6)">SAFET<tspan class="cls-5" x="32.78" y="0">Y</tspan><tspan x="39.27" y="0" xml:space="preserve"> IS</tspan><tspan class="cls-5" x="51.49" y="0"> </tspan><tspan x="54.09" y="0">YOUR RESPONSIBILIT</tspan><tspan class="cls-5" x="162.44" y="0">Y</tspan></text>
     <line class="cls-18" x1="20" y1="479.31" x2="20" y2="594.69"/>
