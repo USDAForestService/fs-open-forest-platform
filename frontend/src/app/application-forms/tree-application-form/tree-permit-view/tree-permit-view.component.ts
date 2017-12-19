@@ -62,7 +62,7 @@ export class TreePermitViewComponent implements OnInit {
             svg{
               width: 100%;
               display: block;
-              margin-top: 175px;
+              margin-top: 210px;
               transform: rotate(-90deg) scale(1.25, 1.25);
               -webkit-transform: rotate(-90deg) scale(1.25, 1.25);
               -moz-transform:rotate(-90deg) scale(1.25, 1.25);
