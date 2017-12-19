@@ -110,7 +110,7 @@ describe('christmas tree controller tests', () => {
         .expect(404, done);
     });
   });
-  describe('submit permit application', () => {
+  describe('submit permit application flathead national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       request(server)
@@ -142,6 +142,50 @@ describe('christmas tree controller tests', () => {
         .send(permitApplication)
         .expect('Content-Type', /json/)
         .expect(400, done);
+    });
+  });
+  describe('submit permit application for mt.hood national forest', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+  });
+  describe('submit permit application for shoshone national forest', () => {
+    it('POST should return a 200 response when submitted (shoshone nat forest) to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 4;
+      permitApplication.forestAbbr = 'shoshone';
+      permitApplication.orgStructureCode = '11-02-14';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
     });
   });
 });
