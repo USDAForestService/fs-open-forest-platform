@@ -49,7 +49,7 @@ export class TreeApplicationFormComponent implements OnInit {
   quantityChange(value) {
     this.applicationForm
       .get('quantity')
-      .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]);
+      .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees, 1)]);
     if (!this.applicationForm.get('quantity').errors) {
       this.updateTotalCost();
     } else {
