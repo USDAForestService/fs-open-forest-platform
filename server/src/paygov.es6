@@ -23,7 +23,9 @@ const paygov = {};
 paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
   const tcsAppID = vcapConstants.payGovAppId;
 
-  const url_success = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/permits/${permit.permitId}`;
+  const url_success = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/permits/${
+    permit.permitId
+  }`;
   const url_cancel = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/new`;
   const xmlTemplate = [
     {
@@ -147,18 +149,21 @@ paygov.generateSvgPermit = permit => {
         let treeHeightStumpDiameter = '';
         if (permit.christmasTreesForest.treeHeight > 0 && permit.christmasTreesForest.stumpDiameter > 0) {
           treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
-          treeHeightStumpDiameter += ` WITH DIAMETER ${permit.christmasTreesForest
-            .stumpDiameter} INCHES OR LESS AT THE STUMP`;
+          treeHeightStumpDiameter += ` WITH DIAMETER ${
+            permit.christmasTreesForest.stumpDiameter
+          } INCHES OR LESS AT THE STUMP`;
         } else if (permit.christmasTreesForest.treeHeight > 0) {
           treeHeightStumpDiameter += `TREE HEIGHT MUST BE ${permit.christmasTreesForest.treeHeight} FEET OR LESS`;
         } else if (permit.christmasTreesForest.stumpDiameter > 0) {
-          treeHeightStumpDiameter += `TREE DIAMETER MUST BE ${permit.christmasTreesForest
-            .stumpDiameter} INCHES OR LESS AT THE STUMP`;
+          treeHeightStumpDiameter += `TREE DIAMETER MUST BE ${
+            permit.christmasTreesForest.stumpDiameter
+          } INCHES OR LESS AT THE STUMP`;
         }
         frag.querySelector('#tree-height-stump-diameter').textContent = treeHeightStumpDiameter;
         if (permit.christmasTreesForest.stumpHeight > 0) {
-          frag.querySelector('#stump-height').textContent = `YOU MUST LEAVE A STUMP OF ${permit.christmasTreesForest
-            .stumpHeight} INCHES OR LESS`;
+          frag.querySelector('#stump-height').textContent = `YOU MUST LEAVE A STUMP OF ${
+            permit.christmasTreesForest.stumpHeight
+          } INCHES OR LESS`;
         }
         frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
         frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();

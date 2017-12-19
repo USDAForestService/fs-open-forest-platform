@@ -44,12 +44,17 @@ export class TreeApplicationFormComponent implements OnInit {
       quantity: ['', [Validators.required]],
       totalCost: [0, [Validators.required, currencyValidator()]]
     });
-    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
-      this.applicationForm
-        .get('quantity')
-        .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]);
+  }
+
+  quantityChange(value) {
+    this.applicationForm
+      .get('quantity')
+      .setValidators([Validators.required, lessThanOrEqualValidator(this.maxNumberOfTrees)]);
+    if (!this.applicationForm.get('quantity').errors) {
       this.updateTotalCost();
-    });
+    } else {
+      this.applicationForm.get('totalCost').setValue(0);
+    }
   }
 
   createForm(data, formBuilder) {
@@ -83,14 +88,10 @@ export class TreeApplicationFormComponent implements OnInit {
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
       this.createForm(data, this.formBuilder);
+    });
 
-      this.applicationForm.get('quantity').valueChanges.subscribe(value => {
-        if (!this.applicationForm.get('quantity').errors) {
-          this.updateTotalCost();
-        } else {
-          this.applicationForm.get('totalCost').setValue(0);
-        }
-      });
+    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
+      this.quantityChange(value);
     });
   }
 
@@ -100,9 +101,6 @@ export class TreeApplicationFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.createApplication();
     } else {
-      if (!this.applicationForm.get('acceptRules').valid) {
-        this.rulesExpanded = true;
-      }
       this.applicationFieldsService.scrollToFirstError();
     }
   }
@@ -120,7 +118,6 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   goToRules(event) {
-    this.rulesExpanded = true;
     this.util.gotoHashtag('rules', event);
   }
 

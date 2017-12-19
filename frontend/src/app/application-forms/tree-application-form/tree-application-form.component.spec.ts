@@ -12,6 +12,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
+import * as sinon from 'sinon';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -90,5 +91,11 @@ describe('TreeApplicationFormComponent', () => {
     expect(component.applicationForm.get('totalCost').value).toEqual(0);
     component.applicationForm.get('quantity').setValue('3');
     expect(component.applicationForm.get('totalCost').value).toEqual(30);
+  });
+
+  it('should go to rules', () => {
+    const spy = sinon.spy(component, 'goToRules');
+    component.goToRules(new Event('click'));
+    expect(spy.called).toBeTruthy();
   });
 });
