@@ -32,13 +32,13 @@
         <app-section-heading heading="Rules to know" elementId="rules"></app-section-heading>
         <app-tree-rules [forest]="forest"></app-tree-rules>
       </div>
-
-      <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
       <span>
         <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-        <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit <a href='#' (click)="goToRules($event)">rules and regulations</a>.</label>
-        <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules and regulations" [control]="applicationForm.controls.acceptRules"></app-error-message>
+        <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit <a href='#' (click)="goToRules($event)">rules</a>.</label>
+        <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
       </span>
+      <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>
