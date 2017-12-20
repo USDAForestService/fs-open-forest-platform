@@ -42,8 +42,8 @@ export class UtilService {
   }
 
   handleError(error: Response | any) {
-    let errors: any = [];
     let body;
+    let errors: any = [];
     if (error instanceof Response) {
       if (error.status) {
         switch (error.status) {
