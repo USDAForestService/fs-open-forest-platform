@@ -43,21 +43,7 @@ export class UtilService {
 
   handleError(error: Response | any) {
     let body;
-    let errors = this.handleCode(error);
-    if (errors.length) {
-      return Observable.throw(errors);
-    }
-    try {
-      body = error.json() || '';
-      errors = body.errors;
-      return Observable.throw(errors);
-    } catch (err) {
-      return Observable.throw([{ status: 500, message: 'Server error' }]);
-    }
-  }
-
-  handleCode(error: Response | any) {
-    let body;
+    console.log('ERROR OBJECT', error);
     let errors: any = [];
     if (error instanceof Response) {
       if (error.status) {
@@ -81,8 +67,15 @@ export class UtilService {
           default:
             errors = [{ status: error.status }];
         }
+        return Observable.throw(errors);
       }
     }
-    return errors;
+    try {
+      body = error.json() || '';
+      errors = body.errors;
+      return Observable.throw(errors);
+    } catch (err) {
+      return Observable.throw([{ status: 500, message: 'Server error' }]);
+    }
   }
 }
