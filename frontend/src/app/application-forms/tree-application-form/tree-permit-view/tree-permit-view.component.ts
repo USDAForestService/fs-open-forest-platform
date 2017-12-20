@@ -36,8 +36,36 @@ export class TreePermitViewComponent implements OnInit {
     });
   }
 
+  printStyle() {
+    return `
+      <style>
+        @page {
+          size: auto;
+          margin: 0mm;
+        }
+        @media print {
+          html,body{
+            height:100%;
+            width:100%;
+            max-height: 810px;
+            margin:0;
+            padding:0;
+          }
+          svg{
+            width: 100%;
+            display: block;
+            margin-top: 210px;
+            transform: rotate(-90deg) scale(1.25, 1.25);
+            -webkit-transform: rotate(-90deg) scale(1.25, 1.25);
+            -moz-transform:rotate(-90deg) scale(1.25, 1.25);
+          }
+        }
+      </style>`;
+  }
+
   printPermit() {
     let printContents, popupWin;
+    let htmlStyle = this.printStyle();
     printContents = document.getElementById('toPrint').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
@@ -46,31 +74,10 @@ export class TreePermitViewComponent implements OnInit {
         <head>
           <title>Print permit</title>
         </head>
-        <style>
-          @page {
-            size: auto;
-            margin: 0mm;
-          }
-          @media print {
-            html,body{
-              height:100%;
-              width:100%;
-              max-height: 810px;
-              margin:0;
-              padding:0;
-            }
-            svg{
-              width: 100%;
-              display: block;
-              margin-top: 210px;
-              transform: rotate(-90deg) scale(1.25, 1.25);
-              -webkit-transform: rotate(-90deg) scale(1.25, 1.25);
-              -moz-transform:rotate(-90deg) scale(1.25, 1.25);
-            }
-          }
-        </style>
-      <body onload="window.print();window.close()">${printContents}</body>
-      </html>`);
+        ${htmlStyle}
+        <body onload="window.print();window.close()">${printContents}</body>
+      </html>
+      `);
     popupWin.document.close();
   }
 }
