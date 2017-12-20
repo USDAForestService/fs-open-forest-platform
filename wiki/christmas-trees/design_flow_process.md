@@ -1,4 +1,4 @@
-#Design Approval and Review Process
+# Design Approval and Review Process
 
 1. After initial content workflow (content is researched, added to story, approved by Amber and Melissa), create design mockup.
    Note: Design mockups could be done in html/live code on a branch or in any other tool.
