@@ -14,6 +14,7 @@ import { InViewportModule } from 'ng-in-viewport';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
+import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules.component';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
@@ -27,7 +28,8 @@ import { SidebarConfigService } from '../sidebar/sidebar-config.service';
     SidebarComponent,
     SpacesToDashesPipe,
     UrlPipe,
-    TrackScrollDirective
+    TrackScrollDirective,
+    TreeRulesComponent
   ],
   exports: [
     ApiErrorComponent,
@@ -45,6 +47,7 @@ import { SidebarConfigService } from '../sidebar/sidebar-config.service';
     SidebarComponent,
     SpacesToDashesPipe,
     TrackScrollDirective,
+    TreeRulesComponent,
     UrlPipe,
     ProgressComponent
   ],

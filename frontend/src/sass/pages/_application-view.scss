@@ -99,6 +99,34 @@
       display: none;
     }
   }
+  .confirmation-details-container {
+    h2 {
+      margin-top: 2rem;
+      margin-bottom: 1px;
+    }
+
+    dd {
+      -webkit-margin-start: 0px;
+    }
+    button#tree-print-permit {
+      margin-bottom: 4rem;
+    }
+    #printing-instructions {
+      margin-top: 3rem;
+    }
+    padding-bottom: 1rem;
+  }
+
+  .tree-confirmation-table {
+    margin: 0;
+    margin-bottom: 1rem;
+    td {
+      background-color: $fs-tan;
+      border: 0;
+      padding-left: 1px;
+      padding: 0.5rem 1rem;
+    }
+  }
 }
 
 .electronic-signature-success {
