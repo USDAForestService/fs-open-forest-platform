@@ -65,7 +65,7 @@ export class TreePermitViewComponent implements OnInit {
 
   printPermit() {
     let printContents, popupWin;
-    let htmlStyle = this.printStyle();
+    const htmlStyle = this.printStyle();
     printContents = document.getElementById('toPrint').innerHTML;
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
