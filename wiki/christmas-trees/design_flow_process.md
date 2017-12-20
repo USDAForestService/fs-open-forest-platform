@@ -5,8 +5,8 @@
 2. Attach one or more screenshots of designs (as needed) to the story and uses @symbol address to notify for review.
 3. If necessary a small adhoc meeting to demo the mockups should be held.
 4. If needed, usability testing is done on the selected mockup.
-5. Product owner reviews mockups and comments "PRE-APPROVED" which implies that the story can be deployed to staging.
-6. After PR and staging deploy, card is moved into "Staging" column on Zendhub board.
+5. TTS reviews mockups and checks the "Pre approved" task which implies that the story can be deployed to staging.
+6. After PR and staging deploy, card is moved into "In Staging" column on Zendhub board.
 7. If changes are needed additional tasks can be added to the story and implemented until product owner gives final approval.
 8. Product owner checks the "Design approved" task on the story.
 9. Story is moved to "In review".
