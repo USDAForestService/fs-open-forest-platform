@@ -43,7 +43,6 @@ export class UtilService {
 
   handleError(error: Response | any) {
     let body;
-    console.log('ERROR OBJECT', error);
     let errors: any = [];
     if (error instanceof Response) {
       if (error.status) {
