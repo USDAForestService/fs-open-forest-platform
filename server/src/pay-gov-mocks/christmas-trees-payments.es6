@@ -14,6 +14,8 @@ const middleware = require('../middleware.es6');
 
 const payGov = {};
 
+let transactions = {};
+
 /** router for mock pay.gov  specific endpoints */
 payGov.router = express.Router();
 
@@ -24,20 +26,17 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  
-  const requestBody =
-    req.body['S:Envelope']['S:Body'][0];
-  
-  // const startOnlineCollectionRequest =
-  //   req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+  const requestBody = req.body['S:Envelope']['S:Body'][0];
+
   let xmlResponse = '';
-    
+
   const token = uuid();
   const paygovTrackingId = util.getRandomString(5).toUpperCase();
-  
-  if(requestBody['ns2:startOnlineCollection'] 
-    && requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]) {
-      
+
+  if (
+    requestBody['ns2:startOnlineCollection'] &&
+    requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
+  ) {
     xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
@@ -52,12 +51,38 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </ns2:startOnlineCollectionResponse>
                         </S:Body>
                       </S:Envelope>`;
-    
-  }
-  else if(requestBody['ns2:completeOnlineCollection'] 
-    && requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]) {
-      
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+  } else if (
+    requestBody['ns2:completeOnlineCollection'] &&
+    requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
+  ) {
+    let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
+    let requestToken = collectionRequest.token[0];
+    let tokenStatus = transactions[requestToken];
+
+    if (tokenStatus && tokenStatus.status == 'failure') {
+      let returnCode = '0000';
+      if (tokenStatus.errorCode) {
+        returnCode = tokenStatus.errorCode;
+      }
+      xmlResponse = `<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+                        <S:Header>
+                           <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
+                        </S:Header>
+                        <S:Body>
+                          <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+                            <faultcode>S:Server</faultcode>
+                            <faultstring>TCS Error</faultstring>
+                            <detail>
+                              <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
+                                <return_code>${returnCode}</return_code>
+                                <return_detail>No agency application found for given tcs_app_id 2610.</return_detail>
+                              </ns2:TCSServiceFault>
+                            </detail>
+                          </S:Fault>
+                         </S:Body>
+                      </S:Envelope>`;
+    } else {
+      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
                          <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
@@ -71,9 +96,30 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </ns2:completeOnlineCollectionResponse>
                         </S:Body>
                       </S:Envelope>`;
+    }
   }
   res.set('Content-Type', 'application/xml; charset=utf-8');
   res.send(xmlResponse);
+});
+
+payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
+  const token = req.body.token;
+  const cc = req.body.cc;
+  if (cc) {
+    let status = 'success';
+    let errorCode;
+    if (cc.startsWith('000000000000')) {
+      status = 'failure';
+      let code = cc.slice(cc.length - 4, cc.length + 1);
+      if (code != '0000') {
+        errorCode = code;
+      }
+    }
+    transactions[token] = { status: status, errorCode: errorCode };
+    return res.status(200).send(transactions);
+  } else {
+    return res.status(404);
+  }
 });
 
 payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res) {
