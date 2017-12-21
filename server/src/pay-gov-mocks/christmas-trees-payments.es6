@@ -102,7 +102,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   res.send(xmlResponse);
 });
 
-payGov.router.post('/mock-pay-gov-process', function(req, res) {
+payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
   const token = req.body.token;
   const cc = req.body.cc;
   if (cc) {
