@@ -229,9 +229,7 @@ christmasTree.getOnePermit = (req, res) => {
     })
     .then(permit => {
       if (permit) {
-        if (permit.status == 'Completed') {
-          return res.status(404).send();
-        } else {
+        if (permit.status == 'Initiated') {
           const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
           postPayGov(xmlData).then(xmlResponse => {
             xml2jsParse(xmlResponse, function(err, result) {
@@ -258,16 +256,22 @@ christmasTree.getOnePermit = (req, res) => {
                       result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
                     const errorCode = faultMesssage.return_code;
                     const errorMessage = faultMesssage.return_detail;
-                    res.status(400).json({
-                      errors: [
-                        {
-                          status: 400,
-                          errorCode: errorCode,
-                          message: errorMessage,
-                          permit: permitResult(permit, null)
-                        }
-                      ]
-                    });
+                    permit
+                      .update({
+                        status: 'Error'
+                      })
+                      .then(savedPermit => {
+                        res.status(400).json({
+                          errors: [
+                            {
+                              status: 400,
+                              errorCode: errorCode,
+                              message: errorMessage,
+                              permit: permitResult(permit, null)
+                            }
+                          ]
+                        });
+                      });
                   } catch (faultError) {
                     throw new Error(faultError);
                   }
@@ -277,6 +281,8 @@ christmasTree.getOnePermit = (req, res) => {
               }
             });
           });
+        } else {
+          return res.status(404).send();
         }
       } else {
         res.status(404).send();
