@@ -76,17 +76,13 @@
   <div class="usa-grid">
     <div id="form-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
       <div class="usa-alert-body">
-        <h3 class="usa-alert-heading">There were errors while processing your permit.</h3>
-        <p class="usa-alert-text">Your credit card has not been charged.</p>
+        <h3 class="usa-alert-heading">Unable to process your permit. Your credit card has not been charged.</h3>
+        <p class="usa-alert-text">{{error.message}}</p>
       </div>
     </div>
     <div class="margin-top-2 margin-bottom-2">
-      <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Sorry! There's been a problem.</h1>
-      <p>{{error.message}}</p>
-
-      <h2 class="usa-heading">Additional information</h2>
-      <hr class="header-divider">
-      <p *ngIf="forest">Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and please try again.</p>
+      <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">What to do next.</h1>
+      <p *ngIf="forest">Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</p>
       <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
     </div>
   </div>
