@@ -64,9 +64,11 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
       if (tokenStatus.errorCode) {
         returnCode = tokenStatus.errorCode;
       }
-      xmlResponse = `<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
                            <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
+                           </work:WorkContext>
                         </S:Header>
                         <S:Body>
                           <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
@@ -75,7 +77,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                             <detail>
                               <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
                                 <return_code>${returnCode}</return_code>
-                                <return_detail>No agency application found for given tcs_app_id 2610.</return_detail>
+                                <return_detail>The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.</return_detail>
                               </ns2:TCSServiceFault>
                             </detail>
                           </S:Fault>
@@ -98,6 +100,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                       </S:Envelope>`;
     }
   }
+
   res.set('Content-Type', 'application/xml; charset=utf-8');
   res.send(xmlResponse);
 });
@@ -105,21 +108,18 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
 payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
   const token = req.body.token;
   const cc = req.body.cc;
-  if (cc) {
-    let status = 'success';
-    let errorCode;
-    if (cc.startsWith('000000000000')) {
-      status = 'failure';
-      let code = cc.slice(cc.length - 4, cc.length + 1);
-      if (code != '0000') {
-        errorCode = code;
-      }
+
+  let status = 'success';
+  let errorCode;
+  if (cc.startsWith('000000000000')) {
+    status = 'failure';
+    let code = cc.slice(cc.length - 4, cc.length + 1);
+    if (code != '0000') {
+      errorCode = code;
     }
-    transactions[token] = { status: status, errorCode: errorCode };
-    return res.status(200).send(transactions);
-  } else {
-    return res.status(404);
   }
+  transactions[token] = { status: status, errorCode: errorCode };
+  return res.status(200).json(transactions[token]);
 });
 
 payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res) {

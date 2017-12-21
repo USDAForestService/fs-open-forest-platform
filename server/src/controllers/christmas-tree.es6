@@ -253,7 +253,24 @@ christmasTree.getOnePermit = (req, res) => {
                       });
                     });
                 } catch (error) {
-                  throw new Error(error);
+                  try {
+                    const faultMesssage =
+                      result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
+                    const errorCode = faultMesssage.return_code;
+                    const errorMessage = faultMesssage.return_detail;
+                    res.status(400).json({
+                      errors: [
+                        {
+                          status: 400,
+                          errorCode: errorCode,
+                          message: errorMessage,
+                          permit: permitResult(permit, null)
+                        }
+                      ]
+                    });
+                  } catch (faultError) {
+                    throw new Error(faultError);
+                  }
                 }
               } else {
                 throw new Error(err);

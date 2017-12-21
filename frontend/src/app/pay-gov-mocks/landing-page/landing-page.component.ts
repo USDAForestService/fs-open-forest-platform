@@ -83,7 +83,11 @@ export class LandingPageComponent implements OnInit {
       token: this.token,
       cc: cardNumber
     };
-    this.httpClient.post(url, params).subscribe();
-    window.location.href = this.successUrl;
+    this.httpClient.post(url, params).subscribe(
+      response => {
+        window.location.href = this.successUrl;
+      },
+      (e: any) => {}
+    );
   }
 }
