@@ -1,4 +1,4 @@
-<section id="application-view" class="usa-section">
+<section *ngIf="!error" id="application-view" class="usa-section">
   <div *ngIf="permit" class="usa-grid ">
     <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
     <p>Thank you!</p>
@@ -70,4 +70,24 @@
     <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
   </div>
 
+</section>
+
+<section *ngIf="error && permit && forest" id="application-view" class="usa-section">
+  <div class="usa-grid">
+    <div id="form-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">There are errors with processing your permit.</h3>
+        <p class="usa-alert-text">Please correct the errors before you checkout.</p>
+      </div>
+    </div>
+    <div class="usa-grid margin-top-2 margin-bottom-2">
+      <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Sorry! There's been a problem.</h1>
+      <h2>Error {{error.status}} - {{error.message}}</h2>
+      <p>Message somewhat explaining the error and what to do next</p>
+
+      <h2 class="usa-heading">Additional information</h2>
+      <hr class="header-divider">
+      <p *ngIf="forest">Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree purchase form.</a></p>
+    </div>
+  </div>
 </section>
