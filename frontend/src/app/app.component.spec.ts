@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
 import { MockBackend } from '@angular/http/testing';
 import { MockService } from './_services/mock.service';
+import { UtilService } from './_services/util.service';
 
 import * as sinon from 'sinon';
 
@@ -26,7 +27,8 @@ describe('AppComponent', () => {
         providers: [
           { provide: AuthenticationService, useClass: AuthenticationService },
           { provide: XHRBackend, useClass: MockBackend },
-          { provide: MockService, use: mockService }
+          { provide: MockService, use: mockService },
+          UtilService
         ],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();
@@ -60,7 +62,6 @@ describe('AppComponent', () => {
   it(
     'should check if user is authenticated',
     inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
-
       mockService.mockResponse(mockBackend, mockResponse);
 
       service.getAuthenticatedUser().subscribe(user => {
@@ -84,13 +85,19 @@ describe('AppComponent', () => {
     'should throw error if error',
     inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
       mockBackend.connections.subscribe(connection => {
-        connection.mockError(new Error('error'));
+        connection.mockError(
+          new Response(
+            new ResponseOptions({
+              body: JSON.stringify({ errors: ['error'] })
+            })
+          )
+        );
       });
 
       service.getAuthenticatedUser().subscribe(
         success => {},
         (e: any) => {
-          expect(e).toBe('error');
+          expect(e).toEqual(['error']);
         }
       );
     })

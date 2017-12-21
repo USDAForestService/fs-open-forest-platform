@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
-import { ChristmasTreesApplicationService } from './christmasTreesApplication.service';
+import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 
 describe('Christmas Trees Application Service', () => {
@@ -34,4 +34,14 @@ describe('Christmas Trees Application Service', () => {
     })
   );
 
+  it(
+    'should call getOne',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'getOne');
+      service.getOne('id');
+      expect(spy.called).toBeTruthy();
+      service.getOne('id', 'test');
+      expect(spy.called).toBeTruthy();
+    })
+  );
 });

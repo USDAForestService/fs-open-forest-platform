@@ -28,8 +28,8 @@ describe('ColumnizeArrayPipe', () => {
         {
           sixth: 6
         }
-      ]
-    const result = pipe.transform(input, 2)
+      ];
+    const result = pipe.transform(input, 2);
     expect(result[0].length).toEqual(3);
     expect(result[1].length).toEqual(3);
   });

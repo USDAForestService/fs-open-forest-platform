@@ -104,7 +104,9 @@ loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
 loginGov.router.get(
   '/auth/login-gov/openid/callback',
   /** the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case */
-  passport.authenticate('oidc', { failureRedirect: vcapConstants.intakeClientBaseUrl }),
+  passport.authenticate('oidc', {
+    failureRedirect: vcapConstants.intakeClientBaseUrl
+  }),
   (req, res) => {
     /** res.redirect doesn't pass the Blink's Content Security Policy directive */
     return res.send(`<script>window.location = '${vcapConstants.intakeClientBaseUrl}/logged-in'</script>`);

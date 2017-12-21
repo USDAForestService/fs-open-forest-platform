@@ -6,6 +6,7 @@ import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../_services/application.service';
 import { MockBackend } from '@angular/http/testing';
+import { UtilService } from './util.service';
 
 class MockApplicationService {
   get(): Observable<{}> {
@@ -30,13 +31,14 @@ describe('AuthGuardService', () => {
   let http: Http;
 
   beforeEach(() => {
-    service = new AuthenticationService(http, null);
+    service = new AuthenticationService(http, null, null);
     http = new Http(null, null);
 
     TestBed.configureTestingModule({
       providers: [
         { provide: ApplicationService, useClass: MockApplicationService },
-        { provide: XHRBackend, useClass: MockBackend }
+        { provide: XHRBackend, useClass: MockBackend },
+        UtilService
       ],
       imports: [RouterTestingModule, HttpModule]
     });
