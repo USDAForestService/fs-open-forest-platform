@@ -3,18 +3,19 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrgTypeComponent } from './org-type.component';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
-import { TestService } from '../../_services/test.service';
 
 describe('Org Type Component', () => {
   let component: OrgTypeComponent;
   let fixture: ComponentFixture<OrgTypeComponent>;
   let formBuilder: FormBuilder;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule([OrgTypeComponent], [FormBuilder]);
+      TestBed.configureTestingModule({
+        declarations: [OrgTypeComponent],
+        providers: [FormBuilder],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
       formBuilder = new FormBuilder();
       fixture = TestBed.createComponent(OrgTypeComponent);
       component = fixture.debugElement.componentInstance;

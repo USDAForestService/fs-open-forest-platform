@@ -22,10 +22,70 @@ export class TempOutfittersForm {
   }
 }
 
-export class ChristmasTreeForm {
-  navigateTo() {
-    return browser.get('applications/christmas-trees/forests/arp/new');
+export class ChristmasTreeOrderConfirmation {
+  confirmationDetails() {
+    return element(by.id('tree-confirmation-details-container'));
   }
+
+  orderSummary() {
+    return element(by.id('tree-order-summary-container'));
+  }
+
+  printPermitButton() {
+    return element(by.id('tree-print-permit'));
+  }
+
+  additionalInfo() {
+    return element(by.id('tree-additional-info-container'));
+  }
+}
+
+export class ChristmasTreeForm {
+  navigateTo(forestId) {
+    return browser.get('applications/christmas-trees/forests/' + forestId + '/new');
+  }
+  firstName() {
+    return element(by.css('input[id$="primary-permit-holder-first-name"]'));
+  }
+  firstNameError() {
+    return element(by.css('span[id$="primary-permit-holder-first-name-error"]'));
+  }
+  lastName() {
+    return element(by.css('input[id$="primary-permit-holder-last-name"]'));
+  }
+  lastNameError() {
+    return element(by.css('span[id$="primary-permit-holder-last-name-error"]'));
+  }
+
+  email() {
+    return element(by.css('input[id$="email"]'));
+  }
+  emailError() {
+    return element(by.css('span[id$="email-error"]'));
+  }
+
+  treeAmount() {
+    return element(by.css('input[id$="quantity"]'));
+  }
+  treeAmountError() {
+    return element(by.css('span[id$="quantity-error"]'));
+  }
+
+  rulesAccepted() {
+    return element(by.id('accept-rules-label'));
+  }
+  rulesAcceptedError() {
+    return element(by.css('span[id$="accept-rules-error"]'));
+  }
+
+  submit() {
+    return element(by.id('submit-application'));
+  }
+
+  mockPayGovSubmit() {
+    return element(by.id('mock-pay-gov-submit'));
+  }
+
 }
 
 export class AdminApplicationList {
@@ -107,6 +167,10 @@ export class TreesSidebarPage {
 
   rulesToKnowSectionLink() {
     return element(by.id('need-to-know-link'));
+  }
+
+  buyPermitLink() {
+    return element(by.id('buy-permit-link'));
   }
 
   rulesToKnowSection() {

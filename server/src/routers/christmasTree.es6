@@ -13,6 +13,9 @@ router.get('/', christmasTreeController.getForests);
 router.get('/:id', christmasTreeController.getOneGuidelines);
 
 /*POST a new christmas tree application*/
-router.post('/christmas-trees/applications', christmasTreeController.create);
+router.post('/christmas-trees/permits', christmasTreeController.create);
+
+/* get one permit */
+router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
 
 module.exports = router;

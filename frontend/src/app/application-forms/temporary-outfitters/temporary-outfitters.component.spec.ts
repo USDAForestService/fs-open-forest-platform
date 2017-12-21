@@ -13,6 +13,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { tempOutfitterMock } from './temp-outfitter.mock';
+import { UtilService } from '../../_services/util.service';
 
 class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -66,7 +67,8 @@ describe('TemporaryOutfittersComponent', () => {
           FileUploadService,
           FormBuilder,
           AlertService,
-          AuthenticationService
+          AuthenticationService,
+          UtilService
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();

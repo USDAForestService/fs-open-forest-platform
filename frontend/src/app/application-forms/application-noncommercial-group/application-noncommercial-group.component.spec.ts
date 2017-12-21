@@ -31,7 +31,8 @@ describe('ApplicationNoncommercialGroupComponent', () => {
           { provide: FormBuilder, useClass: FormBuilder },
           { provide: XHRBackend, useClass: MockBackend },
           AlertService,
-          AuthenticationService
+          AuthenticationService,
+          UtilService
         ],
         imports: [RouterTestingModule, HttpModule]
       }).compileComponents();

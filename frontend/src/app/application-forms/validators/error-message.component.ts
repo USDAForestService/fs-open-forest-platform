@@ -63,7 +63,15 @@ export class ErrorMessageComponent {
   }
 
   lessThanOrEqualFail(errors) {
-    return `${this.name} must have a value less than or equal to ${errors.lessThanOrEqualFail.number}. `;
+    return `${this.name} must have a value less than or equal to ${errors.lessThanOrEqualFail.number} and greater than or equal to ${errors.lessThanOrEqualFail.minNumber}. `;
+  }
+
+  min(errors) {
+    return `${this.name} must have a value greater than or equal to ${errors.min.min}. ` ;
+  }
+
+  max(errors) {
+    return `${this.name} must have a value less than or equal to ${errors.max.max}. ` ;
   }
 
   pattern(errors) {

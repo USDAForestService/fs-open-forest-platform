@@ -4,18 +4,14 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AddressComponent } from './address.component';
-import { TestService } from '../../_services/test.service';
 
 describe('AddressComponent', () => {
   let component: AddressComponent;
   let fixture: ComponentFixture<AddressComponent>;
   let formBuilder: FormBuilder;
-  let testService: TestService;
 
   beforeEach(
     async(() => {
-      testService = new TestService();
-      testService.configureTestingModule([AddressComponent], [FormBuilder, ApplicationFieldsService]);
       TestBed.configureTestingModule({
         declarations: [AddressComponent],
         providers: [FormBuilder, ApplicationFieldsService],

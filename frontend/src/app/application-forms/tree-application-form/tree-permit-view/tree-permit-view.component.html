@@ -1,0 +1,73 @@
+<section id="application-view" class="usa-section">
+  <div *ngIf="permit" class="usa-grid ">
+    <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
+    <p>Thank you!</p>
+  </div>
+
+  <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container usa-grid">
+    <h2 class="usa-heading">Order summary</h2>
+    <hr class="header-divider">
+    <div class="usa-width-one-third">
+      <dl>
+        <dt>Quantity</dt>
+        <dd><b>{{permit.quantity}}</b></dd>
+      </dl>
+    </div>
+    <div class="usa-width-one-third">
+      <dl>
+        <dt>Description</dt>
+        <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
+      </dl>
+    </div>
+    <div class="usa-width-one-third">
+      <dl>
+        <dt>Order total</dt>
+        <dd><b>${{permit.totalCost}}</b></dd>
+      </dl>
+    </div>
+  </div>
+
+  <div id="toPrint" hidden="true" [innerHTML]="image"></div>
+
+  <div class="usa-grid confirmation-details-container">
+    <div id="printing-instructions" class='usa-form-hint'>
+      You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
+    </div>
+    <button id="tree-print-permit" class="usa-button-primary-alt usa-button-big" type="button" (click)="printPermit()">Print permit</button>
+  </div>
+
+
+  <div id='tree-confirmation-details-container' class="usa-grid">
+    <h2 class="usa-heading">Order details</h2>
+    <table class="tree-confirmation-table">
+      <tr>
+        <td>Order number</td>
+        <td><b>{{permit.permitId | uppercase}}</b></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><b>{{permit.firstName}} {{permit.lastName}}</b></td>
+      </tr>
+      <tr>
+        <td>Payment
+        <td><b>Credit card</b></td>
+      </tr>
+      <tr>
+        <td>Transaction date</td>
+        <td><b>{{permit.transactionDate | date: 'shortDate'}}</b></td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><b>{{permit.emailAddress}}</b></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="tree-additional-info-container" class="usa-grid confirmation-details-container margin-top-2 margin-bottom-2">
+    <h2 class="usa-heading">Additional information</h2>
+    <hr class="header-divider">
+    <b>Your permit will be emailed to you at {{permit.emailAddress}}.</b>
+    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
+  </div>
+
+</section>
