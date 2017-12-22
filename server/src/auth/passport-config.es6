@@ -13,7 +13,6 @@ const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const passportConfig = {};
-const sleep = require('sleep');
 
 /**
  * Setup passport to integrate with login.gov and eAuth/
