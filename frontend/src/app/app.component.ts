@@ -41,12 +41,8 @@ export class AppComponent implements OnInit {
       }
     });
     if (localStorage.getItem('status')) {
-      try {
-        this.status = JSON.parse(localStorage.getItem('status'));
-        localStorage.removeItem('status');
-      } catch (error) {
-        console.log('LOCAL STORAGE ERROR', error);
-      }
+      this.status = JSON.parse(localStorage.getItem('status'));
+      localStorage.removeItem('status');
     } else {
       this.status = {
         heading: '',

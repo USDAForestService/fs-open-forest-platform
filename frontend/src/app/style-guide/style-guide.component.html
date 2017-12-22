@@ -53,22 +53,4 @@
     <p class="demo-fs-red-dark">$fs-red-dark</p>
     <p class="demo-fs-red-darker">$fs-red-darker</p>
 
-    <h2>Accordion</h2>
-    <div class='accordion-container'>
-      <ul class="usa-accordion-bordered fs-accordion">
-        <li>
-          <button type='button' class="usa-accordion-button"
-                  [attr.aria-expanded]="expanded"
-                  (click)="expanded = !expanded"
-                  aria-controls="accordion">
-            Accordion Style
-          </button>
-          <div  class="usa-accordion-content" [attr.aria-hidden]="!expanded">
-            Accordions rule!
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
 </section>
