@@ -39,8 +39,6 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   ) {
     let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
     let accountHolderName = startCollectionRequest.account_holder_name;
-    console.log('accountHolderName=', accountHolderName);
-
     if (accountHolderName && accountHolderName == '1 1') {
       xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
@@ -63,7 +61,9 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </S:Fault>
                          </S:Body>
                       </S:Envelope>`;
-    } else {
+    } else if(accountHolderName && accountHolderName == '1 2') {
+      xmlResponse = null;
+    }else {
       xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
@@ -128,8 +128,14 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                       </S:Envelope>`;
     }
   }
-  res.set('Content-Type', 'application/xml; charset=utf-8');
-  res.send(xmlResponse);
+  if (xmlResponse !== null) {
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.send(xmlResponse);
+  }
+  else {
+    res.status(500).send();
+  }
+  
 });
 
 payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
