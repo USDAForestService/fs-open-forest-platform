@@ -10,5 +10,5 @@
 7. If changes are needed additional tasks can be added to the story and implemented until product owner gives final approval.
 8. Product owner checks the "Design approved" task on the story.
 9. Story is moved to "In review".
-10. If additional changes need to be made, another story should be created for future prioritization.
-
+10. The "In Review" column is where a code review should be conducted by TTS.
+10. If story passes code review, it should receive the "18F Code reviewed" label and moved to "Done" column.
