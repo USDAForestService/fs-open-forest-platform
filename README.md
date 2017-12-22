@@ -111,8 +111,10 @@ VCAP_APPLICATION
     {"uris":["http://localhost:8080"]}
 
 VCAP_SERVICES
-[Local or CI configuration]('vcap-services/local-or-ci.json')
-[Staging configuration]('vcap-services/staging.json')
+
+[Local or CI configuration](vcap-services/local-or-ci.json)
+
+[Staging configuration](vcap-services/staging.json)
 
 ##### Install dependencies
 
