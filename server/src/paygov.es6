@@ -201,6 +201,11 @@ paygov.generateSvgPermit = permit => {
   });
 };
 
+paygov.getResponseError = result => {
+  const faultMesssage = result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
+  return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
+};
+
 /**
  * pay.gov utility
  * @exports paygov

@@ -37,7 +37,34 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     requestBody['ns2:startOnlineCollection'] &&
     requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
   ) {
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+    let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+    let accountHolderName = startCollectionRequest.account_holder_name;
+    console.log('accountHolderName=', accountHolderName);
+
+    if (accountHolderName && accountHolderName == '1 1') {
+      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
+                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+                        <S:Header>
+                           <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
+                           </work:WorkContext>
+                        </S:Header>
+                        <S:Body>
+                          <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+                            <faultcode>S:Server</faultcode>
+                            <faultstring>TCS Error</faultstring>
+                            <detail>
+                              <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
+                                <return_code>4019</return_code>
+                                <return_detail>>No agency application found for given tcs_app_id ${
+                                  startCollectionRequest.tcs_app_id
+                                }.</return_detail>
+                              </ns2:TCSServiceFault>
+                            </detail>
+                          </S:Fault>
+                         </S:Body>
+                      </S:Envelope>`;
+    } else {
+      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
                          <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
@@ -51,6 +78,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </ns2:startOnlineCollectionResponse>
                         </S:Body>
                       </S:Envelope>`;
+    }
   } else if (
     requestBody['ns2:completeOnlineCollection'] &&
     requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
@@ -100,7 +128,6 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                       </S:Envelope>`;
     }
   }
-
   res.set('Content-Type', 'application/xml; charset=utf-8');
   res.send(xmlResponse);
 });

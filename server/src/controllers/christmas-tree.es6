@@ -141,7 +141,7 @@ const postPayGov = xmlData => {
       if (!error && response.statusCode == 200) {
         return body;
       } else {
-        throw new Error(error);
+        return error;
       }
     }
   );
@@ -153,36 +153,59 @@ christmasTree.create = (req, res) => {
     .then(permit => {
       const tcsAppID = vcapConstants.payGovAppId;
       const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-      postPayGov(xmlData).then(xmlResponse => {
-        xml2jsParse(xmlResponse, function(err, result) {
-          if (!err) {
-            try {
-              const startOnlineCollectionResponse =
-                result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0][
-                  'startOnlineCollectionResponse'
-                ][0];
-              const token = startOnlineCollectionResponse.token[0];
-              permit
-                .update({
-                  paygovToken: token
-                })
-                .then(savedPermit => {
-                  return res.status(200).json({
-                    token: token,
-                    permitId: savedPermit.permitId,
-                    payGovUrl: vcapConstants.payGovClientUrl,
-                    tcsAppID: tcsAppID
+      postPayGov(xmlData)
+        .then(xmlResponse => {
+          xml2jsParse(xmlResponse, function(err, result) {
+            if (!err) {
+              try {
+                const startOnlineCollectionResponse =
+                  result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0][
+                    'startOnlineCollectionResponse'
+                  ][0];
+                const token = startOnlineCollectionResponse.token[0];
+                permit
+                  .update({
+                    paygovToken: token
+                  })
+                  .then(savedPermit => {
+                    return res.status(200).json({
+                      token: token,
+                      permitId: savedPermit.permitId,
+                      payGovUrl: vcapConstants.payGovClientUrl,
+                      tcsAppID: tcsAppID
+                    });
+                  })
+                  .catch(error => {
+                    throw new Error(error);
                   });
-                })
-                .catch(error => {
-                  throw new Error(error);
-                });
-            } catch (error) {
-              throw new Error(error);
+              } catch (error) {
+                try {
+                  const paygovError = paygov.getResponseError(result);
+                  permit
+                    .update({
+                      status: 'Error'
+                    })
+                    .then(savedPermit => {
+                      res.status(400).json({
+                        errors: [
+                          {
+                            status: 400,
+                            errorCode: paygovError.errorCode,
+                            message: paygovError.errorMessage
+                          }
+                        ]
+                      });
+                    });
+                } catch (faultError) {
+                  throw new Error(faultError);
+                }
+              }
             }
-          }
+          });
+        })
+        .catch(error => {
+          return res.status(500).send();
         });
-      });
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
@@ -252,10 +275,7 @@ christmasTree.getOnePermit = (req, res) => {
                     });
                 } catch (error) {
                   try {
-                    const faultMesssage =
-                      result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
-                    const errorCode = faultMesssage.return_code;
-                    const errorMessage = faultMesssage.return_detail;
+                    const paygovError = paygov.getResponseError(result);
                     permit
                       .update({
                         status: 'Error'
@@ -265,8 +285,8 @@ christmasTree.getOnePermit = (req, res) => {
                           errors: [
                             {
                               status: 400,
-                              errorCode: errorCode,
-                              message: errorMessage,
+                              errorCode: paygovError.errorCode,
+                              message: paygovError.errorMessage,
                               permit: permitResult(permit, null)
                             }
                           ]
