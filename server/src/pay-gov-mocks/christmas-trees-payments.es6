@@ -53,7 +53,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                             <detail>
                               <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
                                 <return_code>4019</return_code>
-                                <return_detail>>No agency application found for given tcs_app_id ${
+                                <return_detail>No agency application found for given tcs_app_id ${
                                   startCollectionRequest.tcs_app_id
                                 }.</return_detail>
                               </ns2:TCSServiceFault>
@@ -61,9 +61,9 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </S:Fault>
                          </S:Body>
                       </S:Envelope>`;
-    } else if(accountHolderName && accountHolderName == '1 2') {
+    } else if (accountHolderName && accountHolderName == '1 2') {
       xmlResponse = null;
-    }else {
+    } else {
       xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
@@ -131,11 +131,9 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   if (xmlResponse !== null) {
     res.set('Content-Type', 'application/xml; charset=utf-8');
     res.send(xmlResponse);
-  }
-  else {
+  } else {
     res.status(500).send();
   }
-  
 });
 
 payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
