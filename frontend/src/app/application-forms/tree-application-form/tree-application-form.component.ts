@@ -22,7 +22,6 @@ export class TreeApplicationFormComponent implements OnInit {
   maxNumberOfTrees: number;
   costPerTree: number;
   apiErrors: any;
-  rulesExpanded = true;
 
   constructor(
     private route: ActivatedRoute,
