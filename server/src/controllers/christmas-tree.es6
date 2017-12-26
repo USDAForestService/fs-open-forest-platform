@@ -176,7 +176,7 @@ christmasTree.create = (req, res) => {
                     });
                   })
                   .catch(error => {
-                    throw new Error(error);
+                    throwError(error);
                   });
               } catch (error) {
                 try {
@@ -185,7 +185,7 @@ christmasTree.create = (req, res) => {
                     .update({
                       status: 'Error'
                     })
-                    .then(savedPermit => {
+                    .then(() => {
                       res.status(400).json({
                         errors: [
                           {
@@ -197,13 +197,13 @@ christmasTree.create = (req, res) => {
                       });
                     });
                 } catch (faultError) {
-                  throw new Error(faultError);
+                  throwError(faultError);
                 }
               }
             }
           });
         })
-        .catch(error => {
+        .catch(() => {
           return res.status(500).send();
         });
     })
@@ -238,6 +238,63 @@ const permitResult = (permit, svgData) => {
   return result;
 };
 
+const returnSavedPermit = (res, savedPermit, svgData) => {
+  return res.status(200).send(permitResult(savedPermit, svgData));
+};
+
+const parseXMLFromPayGov = (res, xmlResponse, permit) => {
+  xml2jsParse(xmlResponse, (err, result) => {
+    if (!err) {
+      try {
+        const completeOnlineCollectionResponse =
+          result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
+            'completeOnlineCollectionResponse'
+          ][0];
+        const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
+        permit
+          .update({
+            paygovTrackingId: paygovTrackingId,
+            status: 'Completed'
+          })
+          .then(savedPermit => {
+            createPermit.generateSvgPermit(permit)
+              .then(
+                svgData => returnSavedPermit(res, savedPermit, svgData)
+              );
+          });
+      } catch (error) {
+        try {
+          const paygovError = paygov.getResponseError(result);
+          permit
+            .update({
+              status: 'Error'
+            })
+            .then(
+              res.status(400).json({
+                errors: [
+                  {
+                    status: 400,
+                    errorCode: paygovError.errorCode,
+                    message: paygovError.errorMessage,
+                    permit: permitResult(permit, null)
+                  }
+                ]
+              })
+            );
+        } catch (faultError) {
+          throwError(faultError);
+        }
+      }
+    } else {
+      throwError(err);
+    }
+  });
+};
+
+const throwError = (err) => {
+  throw new Error(err);
+};
+
 christmasTree.getOnePermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -251,61 +308,13 @@ christmasTree.getOnePermit = (req, res) => {
       ]
     })
     .then(permit => {
-      if (permit) {
-        if (permit.status == 'Initiated') {
-          const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-          postPayGov(xmlData).then(xmlResponse => {
-            xml2jsParse(xmlResponse, function(err, result) {
-              if (!err) {
-                try {
-                  const completeOnlineCollectionResponse =
-                    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
-                      'completeOnlineCollectionResponse'
-                    ][0];
-                  const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
-                  permit
-                    .update({
-                      paygovTrackingId: paygovTrackingId,
-                      status: 'Completed'
-                    })
-                    .then(savedPermit => {
-                      paygov.generateSvgPermit(permit).then(svgData => {
-                        return res.status(200).send(permitResult(savedPermit, svgData));
-                      });
-                    });
-                } catch (error) {
-                  try {
-                    const paygovError = paygov.getResponseError(result);
-                    permit
-                      .update({
-                        status: 'Error'
-                      })
-                      .then(savedPermit => {
-                        res.status(400).json({
-                          errors: [
-                            {
-                              status: 400,
-                              errorCode: paygovError.errorCode,
-                              message: paygovError.errorMessage,
-                              permit: permitResult(permit, null)
-                            }
-                          ]
-                        });
-                      });
-                  } catch (faultError) {
-                    throw new Error(faultError);
-                  }
-                }
-              } else {
-                throw new Error(err);
-              }
-            });
-          });
-        } else {
-          return res.status(404).send();
-        }
+      if (permit && permit.status === 'Initiated') {
+        const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+        postPayGov(xmlData).then(xmlResponse => {
+          parseXMLFromPayGov(res, xmlResponse, permit);
+        });
       } else {
-        res.status(404).send();
+        return res.status(404).send();
       }
     })
     .catch(error => {
