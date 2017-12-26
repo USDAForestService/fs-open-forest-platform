@@ -1,16 +1,14 @@
 'use strict';
 
 const express = require('express');
-const request = require('request'); // npm install request
-const jose = require('node-jose');
-const passport = require('passport');
-const xml = require('xml');
 const uuid = require('uuid/v4');
 
 const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../middleware.es6');
+
+const templates = require('../pay-gov-mocks/pay-gov-templates.es6');
 
 const payGov = {};
 
@@ -40,44 +38,11 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
     let accountHolderName = startCollectionRequest.account_holder_name;
     if (accountHolderName && accountHolderName == '1 1') {
-      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                           <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                           </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
-                            <faultcode>S:Server</faultcode>
-                            <faultstring>TCS Error</faultstring>
-                            <detail>
-                              <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                                <return_code>4019</return_code>
-                                <return_detail>No agency application found for given tcs_app_id ${
-                                  startCollectionRequest.tcs_app_id
-                                }.</return_detail>
-                              </ns2:TCSServiceFault>
-                            </detail>
-                          </S:Fault>
-                         </S:Body>
-                      </S:Envelope>`;
+      xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
     } else if (accountHolderName && accountHolderName == '1 2') {
-      xmlResponse = null;
+      xmlResponse = templates.startOnlineCollectionRequest.noResponse();
     } else {
-      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                         </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                            <startOnlineCollectionResponse>
-                              <token>${token}</token>
-                            </startOnlineCollectionResponse>
-                          </ns2:startOnlineCollectionResponse>
-                        </S:Body>
-                      </S:Envelope>`;
+      xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
     }
   } else if (
     requestBody['ns2:completeOnlineCollection'] &&
@@ -92,40 +57,9 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
       if (tokenStatus.errorCode) {
         returnCode = tokenStatus.errorCode;
       }
-      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                           <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                           </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <S:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
-                            <faultcode>S:Server</faultcode>
-                            <faultstring>TCS Error</faultstring>
-                            <detail>
-                              <ns2:TCSServiceFault xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                                <return_code>${returnCode}</return_code>
-                                <return_detail>The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.</return_detail>
-                              </ns2:TCSServiceFault>
-                            </detail>
-                          </S:Fault>
-                         </S:Body>
-                      </S:Envelope>`;
+      xmlResponse = templates.completeOnlineCollectionRequest.tokenError(returnCode);
     } else {
-      xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                         </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <ns2:completeOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                            <completeOnlineCollectionResponse>
-                              <paygov_tracking_id>${paygovTrackingId}</paygov_tracking_id>
-                            </completeOnlineCollectionResponse>
-                          </ns2:completeOnlineCollectionResponse>
-                        </S:Body>
-                      </S:Envelope>`;
+      xmlResponse = templates.completeOnlineCollectionRequest.successfulResponse(paygovTrackingId);
     }
   }
   if (xmlResponse !== null) {
