@@ -3,12 +3,11 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
-//const http = request('http');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
-const util = require('../util.es6');
 const paygov = require('../paygov.es6');
+const createPermit = require('../create-svg.es6');
 
 const christmasTree = {};
 
