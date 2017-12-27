@@ -91,6 +91,71 @@ export class ChristmasTreeForm {
       const url = currentUrl;
       browser.get(url);
       expect<any>(browser.getCurrentUrl()).toContain(
+        `http://localhost:4200/applications/christmas-trees/forests/${forest}/new/`
+      );
+    });
+  }
+}
+
+export class ChristmasTreeFormAfterCancel {
+  navigateTo(forestId, paygovToken) {
+    return browser.get(`applications/christmas-trees/forests/${forestId}/new/${paygovToken}`);
+  }
+  firstName() {
+    return element(by.css('input[id$="primary-permit-holder-first-name"]'));
+  }
+  firstNameError() {
+    return element(by.css('span[id$="primary-permit-holder-first-name-error"]'));
+  }
+  lastName() {
+    return element(by.css('input[id$="primary-permit-holder-last-name"]'));
+  }
+  lastNameError() {
+    return element(by.css('span[id$="primary-permit-holder-last-name-error"]'));
+  }
+
+  email() {
+    return element(by.css('input[id$="email"]'));
+  }
+  emailError() {
+    return element(by.css('span[id$="email-error"]'));
+  }
+
+  treeAmount() {
+    return element(by.css('input[id$="quantity"]'));
+  }
+  treeAmountError() {
+    return element(by.css('span[id$="quantity-error"]'));
+  }
+
+  permitCost() {
+    return element(by.css('span[id$="total-cost"]'));
+  }
+
+  rulesAccepted() {
+    return element(by.id('accept-rules-label'));
+  }
+  rulesAcceptedError() {
+    return element(by.css('span[id$="accept-rules-error"]'));
+  }
+
+  cancelInfo() {
+    return element(by.css('.usa-alert-info'));
+  }
+
+  submit() {
+    return element(by.id('submit-application'));
+  }
+
+  mockPayGovSubmit() {
+    return element(by.id('mock-pay-gov-submit'));
+  }
+
+  refreshAndReturnToForm(forest) {
+    return browser.getCurrentUrl().then(function(currentUrl) {
+      const url = currentUrl;
+      browser.get(url);
+      expect<any>(browser.getCurrentUrl()).toContain(
         `http://localhost:4200/applications/christmas-trees/forests/${forest}/new`
       );
     });

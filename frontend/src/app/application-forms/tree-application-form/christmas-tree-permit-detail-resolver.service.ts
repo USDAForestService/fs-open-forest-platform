@@ -11,7 +11,7 @@ export class ChristmasTreePermitDetailResolver implements Resolve<any> {
   constructor(private service: ChristmasTreesApplicationService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const id = route.paramMap.get('permitId');
+    const id = route.paramMap.get('paygovId');
     const forest = route.paramMap.get('id');
 
     return this.service
