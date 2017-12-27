@@ -152,7 +152,6 @@ christmasTree.create = (req, res) => {
     .then(permit => {
       const tcsAppID = vcapConstants.payGovAppId;
       const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-      console.log('xmlData=', xmlData);
       postPayGov(xmlData)
         .then(xmlResponse => {
           xml2jsParse(xmlResponse, function(err, result) {
