@@ -152,6 +152,7 @@ christmasTree.create = (req, res) => {
     .then(permit => {
       const tcsAppID = vcapConstants.payGovAppId;
       const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+      console.log('xmlData=', xmlData);
       postPayGov(xmlData)
         .then(xmlResponse => {
           xml2jsParse(xmlResponse, function(err, result) {
@@ -256,10 +257,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
             status: 'Completed'
           })
           .then(savedPermit => {
-            createPermit.generateSvgPermit(permit)
-              .then(
-                svgData => returnSavedPermit(res, savedPermit, svgData)
-              );
+            createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, savedPermit, svgData));
           });
       } catch (error) {
         try {
@@ -290,7 +288,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
   });
 };
 
-const throwError = (err) => {
+const throwError = err => {
   throw new Error(err);
 };
 
@@ -337,8 +335,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
     .then(permit => {
       if (permit.status === 'Completed' || permit.status === 'Canceled') {
         res.status(404).send();
-      }
-      else {
+      } else {
         res.status(200).json(permit);
       }
     })
@@ -357,10 +354,8 @@ christmasTree.cancelOne = (req, res) => {
     .then(permit => {
       if (permit.status !== 'Initiated') {
         res.status(404).send();
-      }
-      else {
-        permit.update({status: 'Canceled'})
-          .then(res.status(200).json(permit));
+      } else {
+        permit.update({ status: 'Canceled' }).then(res.status(200).json(permit));
       }
     })
     .catch(() => {

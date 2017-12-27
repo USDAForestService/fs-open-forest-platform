@@ -8,7 +8,6 @@
 const xml = require('xml');
 const vcapConstants = require('./vcap-constants.es6');
 
-
 const paygov = {};
 
 /**
@@ -20,7 +19,9 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
   const url_success = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/permits/${
     permit.permitId
   }`;
-  const url_cancel = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/new`;
+  const url_cancel = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/new/${
+    permit.permitId
+  }`;
   const xmlTemplate = [
     {
       'S:Envelope': [
