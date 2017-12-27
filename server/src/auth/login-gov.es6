@@ -12,6 +12,7 @@ const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const middleware = require('../middleware.es6');
 
 const loginGov = {};
 
@@ -43,41 +44,45 @@ loginGov.params = {
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   /** issuer discovery */
-  Issuer.discover(vcapConstants.loginGovDiscoveryUrl).then(loginGovIssuer => {
-    loginGov.issuer = loginGovIssuer;
-    let keys = {
-      keys: [vcapConstants.loginGovJwk]
-    };
-    /** a joseKeystore is required by openid-client */
-    jose.JWK.asKeyStore(keys).then(joseKeystore => {
-      let client = new loginGovIssuer.Client(
-        {
-          client_id: vcapConstants.loginGovIssuer,
-          token_endpoint_auth_method: 'private_key_jwt',
-          id_token_signed_response_alg: 'RS256'
-        },
-        joseKeystore
-      );
-      /** instantiate the passport strategy */
-      passport.use(
-        'oidc',
-        new OpenIDConnectStrategy(
+  Issuer.discover(vcapConstants.loginGovDiscoveryUrl)
+    .then(loginGovIssuer => {
+      loginGov.issuer = loginGovIssuer;
+      let keys = {
+        keys: [vcapConstants.loginGovJwk]
+      };
+      /** a joseKeystore is required by openid-client */
+      jose.JWK.asKeyStore(keys).then(joseKeystore => {
+        let client = new loginGovIssuer.Client(
           {
-            client: client,
-            params: loginGov.params
+            client_id: vcapConstants.loginGovIssuer,
+            token_endpoint_auth_method: 'private_key_jwt',
+            id_token_signed_response_alg: 'RS256'
           },
-          (tokenset, done) => {
-            return done(null, {
-              email: tokenset.claims.email,
-              role: 'user',
-              /** the token is required to logout of login.gov */
-              token: tokenset.id_token
-            });
-          }
-        )
-      );
+          joseKeystore
+        );
+        /** instantiate the passport strategy */
+        passport.use(
+          'oidc',
+          new OpenIDConnectStrategy(
+            {
+              client: client,
+              params: loginGov.params
+            },
+            (tokenset, done) => {
+              return done(null, {
+                email: tokenset.claims.email,
+                role: 'user',
+                /** the token is required to logout of login.gov */
+                token: tokenset.id_token
+              });
+            }
+          )
+        );
+      });
+    })
+    .catch(e => {
+      throw new Error(e);
     });
-  });
 };
 
 /** router for login.gov specific endpoints */

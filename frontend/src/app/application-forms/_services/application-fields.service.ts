@@ -120,7 +120,6 @@ export class ApplicationFieldsService {
     });
   }
 
-
   updateValidators(dataField, validate, length = null) {
     if (dataField && validate && length) {
       dataField.setValidators([Validators.required, alphanumericValidator(), Validators.maxLength(length)]);
@@ -131,6 +130,9 @@ export class ApplicationFieldsService {
     }
   }
 
+  /*
+  ** Gets first invalid element and assigns id if id isn't set.
+  */
   private getInvalidElement(firstInvalidElement) {
     let element = document.getElementById(firstInvalidElement.getAttribute('id'));
     if (!element) {
@@ -144,7 +146,7 @@ export class ApplicationFieldsService {
     return element;
   }
 
-  setTemporaryIdToNull (invalidElement) {
+  setTemporaryIdToNull(invalidElement) {
     if (invalidElement && invalidElement.getAttribute('id') === 'temporaryId') {
       invalidElement.setAttribute('id', null);
     }

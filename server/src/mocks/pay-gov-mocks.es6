@@ -24,20 +24,17 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  
-  const requestBody =
-    req.body['S:Envelope']['S:Body'][0];
-  
-  // const startOnlineCollectionRequest =
-  //   req.body['S:Envelope']['S:Body'][0]['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+  const requestBody = req.body['S:Envelope']['S:Body'][0];
+
   let xmlResponse = '';
-    
+
   const token = uuid();
   const paygovTrackingId = util.getRandomString(5).toUpperCase();
-  
-  if(requestBody['ns2:startOnlineCollection'] 
-    && requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]) {
-      
+
+  if (
+    requestBody['ns2:startOnlineCollection'] &&
+    requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
+  ) {
     xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
@@ -52,11 +49,10 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
                           </ns2:startOnlineCollectionResponse>
                         </S:Body>
                       </S:Envelope>`;
-    
-  }
-  else if(requestBody['ns2:completeOnlineCollection'] 
-    && requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]) {
-      
+  } else if (
+    requestBody['ns2:completeOnlineCollection'] &&
+    requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
+  ) {
     xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
                       <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
                         <S:Header>
