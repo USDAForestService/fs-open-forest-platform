@@ -71,7 +71,10 @@ export class LandingPageComponent implements OnInit {
     this.applicationForm.get('applicantEmailAddress').disable();
   }
 
-  cancelButtonClick() {}
+  cancelButtonClick() {
+    const url = this.successUrl.replace('permits', 'new');
+    window.location.href = url;
+  }
   submitButtonClick() {
     window.location.href = this.successUrl;
   }

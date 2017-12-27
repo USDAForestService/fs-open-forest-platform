@@ -16,6 +16,7 @@ import { UtilService } from '../../_services/util.service';
 })
 export class TreeApplicationFormComponent implements OnInit {
   forest: any;
+  permit: any;
   submitted = false;
   application: any;
   applicationForm: FormGroup;
@@ -81,12 +82,16 @@ export class TreeApplicationFormComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      this.permit = data.permit;
       this.titleService.setTitle(
         'Buy a Christmas tree permit in ' +
           data.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
       this.createForm(data, this.formBuilder);
+      if (this.permit) {
+        this.rePopulateForm();
+      }
     });
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
@@ -104,6 +109,13 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  rePopulateForm() {
+    this.applicationForm.get('firstName').setValue(this.permit.firstName);
+    this.applicationForm.get('lastName').setValue(this.permit.lastName);
+    this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
+    this.applicationForm.get('quantity').setValue(this.permit.quantity);
+    this.quantityChange(this.permit.quantity);
+  }
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {

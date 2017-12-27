@@ -276,4 +276,23 @@ christmasTree.getOnePermit = (req, res) => {
     });
 };
 
+christmasTree.getOnePermitDetail = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.params.id
+      }
+    })
+    .then(permit => {
+      if (permit.status === 'Completed') {
+        res.status(404).send();
+      }
+      else {
+        res.status(200).json(permit);
+      }
+    })
+    .catch(() => {
+      res.status(404).send();
+    });
+};
 module.exports = christmasTree;

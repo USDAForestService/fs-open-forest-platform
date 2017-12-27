@@ -7,6 +7,7 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
+import { ChristmasTreePermitDetailResolver } from './application-forms/tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -113,6 +114,14 @@ const appRoutes: Routes = [
     component: TreeApplicationFormComponent,
     resolve: {
       forest: ForestResolver
+    }
+  },
+  {
+    path: 'applications/christmas-trees/forests/:id/new/:permitId',
+    component: TreeApplicationFormComponent,
+    resolve: {
+      forest: ForestResolver,
+      permit: ChristmasTreePermitDetailResolver
     }
   },
   {

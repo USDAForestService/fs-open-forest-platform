@@ -18,4 +18,6 @@ router.post('/christmas-trees/permits', christmasTreeController.create);
 /* get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
 
+router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
+
 module.exports = router;

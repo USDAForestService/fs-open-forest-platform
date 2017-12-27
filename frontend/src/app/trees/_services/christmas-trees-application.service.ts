@@ -32,6 +32,13 @@ export class ChristmasTreesApplicationService {
       .catch(this.util.handleError);
   }
 
+  getDetails(id) {
+    return this.http
+      .get(`${this.endpoint}/${id}/details`, { withCredentials: true })
+      .map((res: Response) => res.json())
+      .catch(this.util.handleError);
+  }
+
   handleStatusCode(status) {
     if (status === 403) {
       this.router.navigate(['access-denied']);
