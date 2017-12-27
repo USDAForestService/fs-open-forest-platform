@@ -188,7 +188,7 @@ workflows:
             - run-e2e
           filters:
             branches:
-              only: sprint-5-development
+              only: sprint-6-development
       - prod-deploy:
           requires:
             - run-e2e
