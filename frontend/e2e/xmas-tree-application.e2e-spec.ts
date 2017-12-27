@@ -158,4 +158,23 @@ fdescribe('Apply for a Christmas tree permit', () => {
       page.refreshAndReturnToForm(forestId);
     });
   });
+  describe('pay gov token errors', () => {
+    it('should show 500 error if first name is 1 and last name is 2', () => {
+      element(by.css('.primary-permit-holder-first-name')).sendKeys('1');
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('2');
+      element(by.id('email')).sendKeys('msdf@noemail.com');
+      element(by.id('quantity')).sendKeys('2');
+      page.rulesAccepted().click();
+      page.submit().click();
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual('We were unable to process your request.');
+    });
+    it('should show 500 error if first name is 1 and last name is 2', () => {
+      element(by.css('.primary-permit-holder-last-name')).clear();
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
+      page.submit().click();
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
+        'We were unable to process your permit application.'
+      );
+    });
+  });
 });
