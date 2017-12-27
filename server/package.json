@@ -1,8 +1,8 @@
 {
-  "name": "fs-intake-module",
+  "name": "fs-permit-platform",
   "private": true,
   "version": "0.0.1",
-  "description": "fs-intake-module",
+  "description": "fs-permit-platform",
   "dependencies": {
     "aws-sdk": "^2.62.0",
     "basic-auth": "^1.1.0",
