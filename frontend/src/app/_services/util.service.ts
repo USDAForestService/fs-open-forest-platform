@@ -61,7 +61,9 @@ export class UtilService {
             errors = [{ status: error.status, message: 'The requested application is not found.' }];
             break;
           case 500:
-            errors = [{ status: error.status, message: 'We were unable to process your request.' }];
+            errors = [
+              { status: error.status, message: 'Sorry, we were unable to process your request. Please try again.' }
+            ];
             break;
           default:
             errors = [{ status: error.status }];
