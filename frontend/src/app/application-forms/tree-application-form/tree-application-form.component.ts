@@ -119,7 +119,15 @@ export class TreeApplicationFormComponent implements OnInit {
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
-        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        if (this.permit) {
+          this.applicationService.cancelOldApp(this.permit.permitId).subscribe(
+            cancelResponse => {
+              window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+            }
+          );
+        } else {
+          window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        }
       },
       (e: any) => {
         this.apiErrors = e;

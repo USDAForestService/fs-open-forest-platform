@@ -284,11 +284,32 @@ christmasTree.getOnePermitDetail = (req, res) => {
       }
     })
     .then(permit => {
-      if (permit.status === 'Completed') {
+      if (permit.status === 'Completed' || permit.status === 'Canceled') {
         res.status(404).send();
       }
       else {
         res.status(200).json(permit);
+      }
+    })
+    .catch(() => {
+      res.status(404).send();
+    });
+};
+
+christmasTree.cancelOne = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.body.permitId
+      }
+    })
+    .then(permit => {
+      if (permit.status !== 'Initiated') {
+        res.status(404).send();
+      }
+      else {
+        permit.update({status: 'Canceled'})
+          .then(res.status(200).json(permit));
       }
     })
     .catch(() => {
