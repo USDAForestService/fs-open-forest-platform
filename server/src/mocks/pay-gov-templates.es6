@@ -1,9 +1,8 @@
-
 const templates = {};
 templates.startOnlineCollectionRequest = {};
 templates.completeOnlineCollectionRequest = {};
 
-templates.startOnlineCollectionRequest.applicationError = (tcs_app_id) =>{
+templates.startOnlineCollectionRequest.applicationError = tcs_app_id => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
       <S:Header>
@@ -27,7 +26,7 @@ templates.startOnlineCollectionRequest.applicationError = (tcs_app_id) =>{
 templates.startOnlineCollectionRequest.noResponse = () => {
   return null;
 };
-templates.startOnlineCollectionRequest.successfulResponse = (token) => {
+templates.startOnlineCollectionRequest.successfulResponse = token => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
       <S:Header>
@@ -43,7 +42,7 @@ templates.startOnlineCollectionRequest.successfulResponse = (token) => {
       </S:Body>
     </S:Envelope>`;
 };
-templates.completeOnlineCollectionRequest.tokenError = (returnCode) => {
+templates.completeOnlineCollectionRequest.cardError = returnCode => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
       <S:Header>
@@ -64,7 +63,7 @@ templates.completeOnlineCollectionRequest.tokenError = (returnCode) => {
        </S:Body>
     </S:Envelope>`;
 };
-templates.completeOnlineCollectionRequest.successfulResponse = (paygovTrackingId) => {
+templates.completeOnlineCollectionRequest.successfulResponse = paygovTrackingId => {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
       <S:Header>

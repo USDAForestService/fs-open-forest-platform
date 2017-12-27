@@ -8,7 +8,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../middleware.es6');
 
-const templates = require('../pay-gov-mocks/pay-gov-templates.es6');
+const templates = require('./pay-gov-templates.es6');
 
 const payGov = {};
 
@@ -50,14 +50,14 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   ) {
     let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
     let requestToken = collectionRequest.token[0];
-    let tokenStatus = transactions[requestToken];
+    let transactionStatus = transactions[requestToken];
 
-    if (tokenStatus && tokenStatus.status == 'failure') {
+    if (transactionStatus && transactionStatus.status == 'failure') {
       let returnCode = '0000';
-      if (tokenStatus.errorCode) {
-        returnCode = tokenStatus.errorCode;
+      if (transactionStatus.errorCode) {
+        returnCode = transactionStatus.errorCode;
       }
-      xmlResponse = templates.completeOnlineCollectionRequest.tokenError(returnCode);
+      xmlResponse = templates.completeOnlineCollectionRequest.cardError(returnCode);
     } else {
       xmlResponse = templates.completeOnlineCollectionRequest.successfulResponse(paygovTrackingId);
     }
