@@ -36,7 +36,8 @@
   "resolutions": {
     "debug": "^3.1.0",
     "tough-cookie": "^2.3.3",
-    "xml-encryption": "^0.11.0"
+    "xml-encryption": "^0.11.0",
+    "aws-sdk/crypto-browserify": "^3.0.0"
   },
   "devDependencies": {
     "blob": "^0.0.4",
