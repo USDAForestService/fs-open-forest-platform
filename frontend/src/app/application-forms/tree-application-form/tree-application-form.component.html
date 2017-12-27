@@ -1,5 +1,11 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
+    <div *ngIf="permit" class="demo-fs-blue-light">
+      Your permit purchase has been cancelled.
+      You must complete the purchase transaction before a permit will be created.
+      Your credit card has not been charged.
+    </div>
+    <br>
     <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
     <h2 *ngIf="forest">{{forest.forestName}} National Forest<span *ngIf="forest.id === 1">s</span></h2>
 
