@@ -5,7 +5,7 @@ info:
   title: "Forest Service Intake Module"
   license:
     name: "Open Source"
-    url: "https://github.com/18F/fs-intake-module/LICENSE.md"
+    url: "https://github.com/18F/fs-permit-platform/LICENSE.md"
 basePath: "/"
 schemes:
 - "http"

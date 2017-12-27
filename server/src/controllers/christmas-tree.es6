@@ -256,10 +256,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
             status: 'Completed'
           })
           .then(savedPermit => {
-            createPermit.generateSvgPermit(permit)
-              .then(
-                svgData => returnSavedPermit(res, savedPermit, svgData)
-              );
+            createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, savedPermit, svgData));
           });
       } catch (error) {
         try {
@@ -290,7 +287,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
   });
 };
 
-const throwError = (err) => {
+const throwError = err => {
   throw new Error(err);
 };
 
@@ -327,4 +324,41 @@ christmasTree.getOnePermit = (req, res) => {
     });
 };
 
+christmasTree.getOnePermitDetail = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.params.id
+      }
+    })
+    .then(permit => {
+      if (permit.status === 'Completed' || permit.status === 'Canceled') {
+        res.status(404).send();
+      } else {
+        res.status(200).json(permit);
+      }
+    })
+    .catch(() => {
+      res.status(404).send();
+    });
+};
+
+christmasTree.cancelOne = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.body.permitId
+      }
+    })
+    .then(permit => {
+      if (permit.status !== 'Initiated') {
+        res.status(404).send();
+      } else {
+        permit.update({ status: 'Canceled' }).then(res.status(200).json(permit));
+      }
+    })
+    .catch(() => {
+      res.status(404).send();
+    });
+};
 module.exports = christmasTree;

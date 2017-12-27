@@ -16,7 +16,7 @@ Review updates to the application elements, specifically:
 * Requiring less detail in overview of activity description
 * Thoughts about service days calculation
 
-[Results](https://github.com/flexion/fs-intake-module/wiki/Usability-Testing-8-17-2017)
+[Results](/wiki/Usability-Testing-8-17-2017)
 
 # August 24 and 25, 2017
 

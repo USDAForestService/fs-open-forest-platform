@@ -61,6 +61,7 @@ describe('TreeApplicationFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TreeApplicationFormComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -97,5 +98,28 @@ describe('TreeApplicationFormComponent', () => {
     const spy = sinon.spy(component, 'goToRules');
     component.goToRules(new Event('click'));
     expect(spy.called).toBeTruthy();
+  });
+
+  it('should repopulate form fields', () => {
+    component.permit = {
+      firstName: 'test',
+      lastName: 'test',
+      emailAddress: 'test@test.com',
+      quantity: '2'
+    };
+    component.createForm(
+      {
+        forest: {
+          id: '1',
+          forestName: 'Mt Hood',
+          orgStructureCode: '123',
+          forestAbbr: 'mthood',
+          treeCost: 10,
+          maxNumTrees: 5
+        }
+      },
+      component.formBuilder
+    );
+    expect(component.applicationForm.get('firstName').value).toEqual('test');
   });
 });

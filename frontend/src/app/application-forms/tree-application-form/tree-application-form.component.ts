@@ -16,6 +16,7 @@ import { UtilService } from '../../_services/util.service';
 })
 export class TreeApplicationFormComponent implements OnInit {
   forest: any;
+  permit: any;
   submitted = false;
   application: any;
   applicationForm: FormGroup;
@@ -31,19 +32,7 @@ export class TreeApplicationFormComponent implements OnInit {
     public applicationFieldsService: ApplicationFieldsService,
     private treesService: TreesService,
     public util: UtilService
-  ) {
-    this.applicationForm = this.formBuilder.group({
-      forestId: ['', [Validators.required]],
-      forestAbbr: ['', [Validators.required]],
-      orgStructureCode: ['', [Validators.required]],
-      treeCost: [''],
-      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      quantity: ['', [Validators.required]],
-      totalCost: [0, [Validators.required, currencyValidator()]]
-    });
-  }
+  ) {}
 
   quantityChange(value) {
     this.applicationForm
@@ -76,11 +65,15 @@ export class TreeApplicationFormComponent implements OnInit {
     this.costPerTree = data.forest.treeCost;
     this.applicationForm.get('treeCost').setValue(this.costPerTree);
     this.maxNumberOfTrees = data.forest.maxNumTrees;
+    if (this.permit) {
+      this.rePopulateForm();
+    }
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      this.permit = data.permit;
       this.titleService.setTitle(
         'Buy a Christmas tree permit in ' +
           data.forest.forestName +
@@ -104,10 +97,23 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  rePopulateForm() {
+    this.applicationForm.get('firstName').setValue(this.permit.firstName);
+    this.applicationForm.get('lastName').setValue(this.permit.lastName);
+    this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
+    this.applicationForm.get('quantity').setValue(this.permit.quantity);
+    this.quantityChange(this.permit.quantity);
+  }
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
-        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        if (this.permit) {
+          this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
+            window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+          });
+        } else {
+          window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        }
       },
       (e: any) => {
         this.apiErrors = e;

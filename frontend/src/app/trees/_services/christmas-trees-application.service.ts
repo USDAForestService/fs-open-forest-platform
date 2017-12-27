@@ -25,9 +25,26 @@ export class ChristmasTreesApplicationService {
     return this.http.post(this.endpoint, body, options).map((res: Response) => res.json()).catch(this.util.handleError);
   }
 
+  cancelOldApp(id) {
+    const body = {permitId: id};
+    return this.http
+    .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
+    .map((res: Response) => {
+      res.json();
+    })
+    .catch(this.util.handleError);
+  }
+
   getOne(id) {
     return this.http
       .get(`${this.endpoint}/${id}`, { withCredentials: true })
+      .map((res: Response) => res.json())
+      .catch(this.util.handleError);
+  }
+
+  getDetails(id) {
+    return this.http
+      .get(`${this.endpoint}/${id}/details`, { withCredentials: true })
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }

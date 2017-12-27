@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 export class LandingPageComponent implements OnInit {
   applicationForm: FormGroup;
   successUrl: any;
-  failureUrl: any;
+  cancelUrl: any;
   token: any;
 
   constructor(
@@ -65,6 +65,7 @@ export class LandingPageComponent implements OnInit {
           this.applicationForm.get('description').setValue(data['description']);
           this.applicationForm.get('amountOwed').setValue(data['amountOwed']);
           this.successUrl = data['successUrl'];
+          this.cancelUrl = data['cancelUrl'];
         },
         (e: any) => {
           console.log(e);
@@ -75,7 +76,9 @@ export class LandingPageComponent implements OnInit {
     this.applicationForm.get('applicantEmailAddress').disable();
   }
 
-  cancelButtonClick() {}
+  cancelButtonClick() {
+    window.location.href = this.cancelUrl;
+  }
   submitButtonClick() {
     const cardNumber = this.applicationForm.get('cardNumber').value;
     const url = `${environment.apiUrl}mock-pay-gov-process`;

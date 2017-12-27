@@ -15,7 +15,13 @@ router.get('/:id', christmasTreeController.getOneGuidelines);
 /*POST a new christmas tree application*/
 router.post('/christmas-trees/permits', christmasTreeController.create);
 
+/*Cancel permit*/
+router.post('/christmas-trees/permits/cancel', christmasTreeController.cancelOne);
+
 /* get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
+
+/* get details of one permit which has not been completed*/
+router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
 
 module.exports = router;
