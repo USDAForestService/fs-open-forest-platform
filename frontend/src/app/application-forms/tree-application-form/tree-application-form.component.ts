@@ -32,19 +32,7 @@ export class TreeApplicationFormComponent implements OnInit {
     public applicationFieldsService: ApplicationFieldsService,
     private treesService: TreesService,
     public util: UtilService
-  ) {
-    this.applicationForm = this.formBuilder.group({
-      forestId: ['', [Validators.required]],
-      forestAbbr: ['', [Validators.required]],
-      orgStructureCode: ['', [Validators.required]],
-      treeCost: [''],
-      firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      quantity: ['', [Validators.required]],
-      totalCost: [0, [Validators.required, currencyValidator()]]
-    });
-  }
+  ) {}
 
   quantityChange(value) {
     this.applicationForm
@@ -77,6 +65,9 @@ export class TreeApplicationFormComponent implements OnInit {
     this.costPerTree = data.forest.treeCost;
     this.applicationForm.get('treeCost').setValue(this.costPerTree);
     this.maxNumberOfTrees = data.forest.maxNumTrees;
+    if (this.permit) {
+      this.rePopulateForm();
+    }
   }
 
   ngOnInit() {
@@ -89,9 +80,6 @@ export class TreeApplicationFormComponent implements OnInit {
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
       this.createForm(data, this.formBuilder);
-      if (this.permit) {
-        this.rePopulateForm();
-      }
     });
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
@@ -120,11 +108,9 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
         if (this.permit) {
-          this.applicationService.cancelOldApp(this.permit.permitId).subscribe(
-            cancelResponse => {
-              window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-            }
-          );
+          this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
+            window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+          });
         } else {
           window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
         }
