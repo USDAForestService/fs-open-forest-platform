@@ -8,7 +8,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../middleware.es6');
 
-const templates = require('../pay-gov-mocks/pay-gov-templates.es6');
+const templates = require('./pay-gov-templates.es6');
 
 const payGov = {};
 
