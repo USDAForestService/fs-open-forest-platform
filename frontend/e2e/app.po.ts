@@ -91,7 +91,7 @@ export class ChristmasTreeForm {
       const url = currentUrl;
       browser.get(url);
       expect<any>(browser.getCurrentUrl()).toContain(
-        `http://localhost:4200/applications/christmas-trees/forests/${forest}/new/`
+        `http://localhost:4200/applications/christmas-trees/forests/${forest}/new`
       );
     });
   }
@@ -149,16 +149,6 @@ export class ChristmasTreeFormAfterCancel {
 
   mockPayGovSubmit() {
     return element(by.id('mock-pay-gov-submit'));
-  }
-
-  refreshAndReturnToForm(forest) {
-    return browser.getCurrentUrl().then(function(currentUrl) {
-      const url = currentUrl;
-      browser.get(url);
-      expect<any>(browser.getCurrentUrl()).toContain(
-        `http://localhost:4200/applications/christmas-trees/forests/${forest}/new`
-      );
-    });
   }
 }
 
