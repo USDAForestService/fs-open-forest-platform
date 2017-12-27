@@ -8,6 +8,7 @@ const server = require('./mock-aws-app.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
+let paygovToken;
 
 describe('christmas tree controller tests', () => {
   describe('get forests', () => {
@@ -143,6 +144,51 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
+    it('POST should return 400 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "1")', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.firstName = '1';
+      permitApplication.lastName = '1';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
+    it('POST should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.firstName = '1';
+      permitApplication.lastName = '2';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect(500, done);
+    });
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+          paygovToken = res.body.token;
+        })
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card', done => {
+      const processTransaction = { token: paygovToken, cc: '0000000000000000' };
+      request(server)
+        .post('/mock-pay-gov-process')
+        .send(processTransaction)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
   });
   describe('submit permit application for mt.hood national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
@@ -167,7 +213,7 @@ describe('christmas tree controller tests', () => {
     });
   });
   describe('submit permit application for shoshone national forest', () => {
-    it('POST should return a 200 response when submitted (shoshone nat forest) to get pay.gov token', done => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';

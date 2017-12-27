@@ -114,6 +114,7 @@ describe('Apply for a Christmas tree permit', () => {
   });
 
   it('should redirect back confirmation page from mock pay.gov', () => {
+    element(by.id('credit-card-number')).sendKeys('1100000000000123');
     page.mockPayGovSubmit().click();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain(
@@ -138,14 +139,42 @@ describe('Apply for a Christmas tree permit', () => {
       expect<any>(confirmPage.printPermitButton().isDisplayed()).toBeTruthy();
     });
 
-    it('should open print dialog box on print button click', () => {
-      browser.getCurrentUrl().then(function(currentUrl) {
-        const url = currentUrl;
-        browser.get(url);
-        expect<any>(browser.getCurrentUrl()).toContain(
-          `http://localhost:4200/applications/christmas-trees/forests/${forestId}/new`
-        );
-      });
+    it('should redirect to christmas tree application page on refresh', () => {
+      page.refreshAndReturnToForm(forestId);
+    });
+
+    it('should show error page if credit card error', () => {
+      element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
+      element(by.id('email')).sendKeys('msdf@noemail.com');
+      element(by.id('quantity')).sendKeys('2');
+      page.rulesAccepted().click();
+      page.submit().click();
+      browser.sleep(1500);
+      element(by.id('credit-card-number')).sendKeys('0000000000000123');
+      page.mockPayGovSubmit().click();
+      browser.sleep(1500);
+      expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
+      page.refreshAndReturnToForm(forestId);
+    });
+  });
+  describe('pay gov token errors', () => {
+    it('should show 500 error if first name is 1 and last name is 2', () => {
+      element(by.css('.primary-permit-holder-first-name')).sendKeys('1');
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('2');
+      element(by.id('email')).sendKeys('msdf@noemail.com');
+      element(by.id('quantity')).sendKeys('2');
+      page.rulesAccepted().click();
+      page.submit().click();
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual('We were unable to process your request.');
+    });
+    it('should show 500 error if first name is 1 and last name is 2', () => {
+      element(by.css('.primary-permit-holder-last-name')).clear();
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
+      page.submit().click();
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
+        'We were unable to process your permit application.'
+      );
     });
   });
 });

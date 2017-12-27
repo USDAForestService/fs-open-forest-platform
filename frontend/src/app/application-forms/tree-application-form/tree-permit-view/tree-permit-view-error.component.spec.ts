@@ -13,12 +13,19 @@ describe('TreePermitViewComponent', () => {
   const mockActivatedRoute = {
     data: Observable.of({
       permit: {
-        permitId: '123',
-        totalCost: 0,
-        quantity: 0,
-        emailAddress: '',
-        permitImage: 'test',
-        forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
+        error: {
+          status: 400,
+          errorCode: '123',
+          message:
+            'The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.',
+          permit: {
+            permitId: '123',
+            totalCost: 0,
+            quantity: 0,
+            emailAddress: '',
+            forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
+          }
+        }
       }
     })
   };
@@ -39,21 +46,8 @@ describe('TreePermitViewComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should set forest on init', () => {
-    expect(component.forest.forestName).toEqual('Mt Hood');
-  });
-
-  it('should set permit on init', () => {
-    expect(component.permit.permitId).toEqual('123');
-  });
-
-  it('should initialize print screen', () => {
-    const spy = sinon.spy(component, 'printPermit');
-    component.printPermit();
-    expect(spy.called).toBeTruthy();
+  it('should display error', () => {
+    expect(component.error).toBeTruthy();
+    expect(component.error.status).toEqual(400);
   });
 });

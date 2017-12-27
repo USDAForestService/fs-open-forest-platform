@@ -102,7 +102,7 @@ describe('TreeGuidelinesComponent', () => {
       service.getOne(1).subscribe(
         success => {},
         (e: any) => {
-          expect(e).toEqual([{ status: 500, message: 'Server error' }]);
+          expect(e).toEqual([{ status: 500, message: 'We were unable to process your request.' }]);
         }
       );
     })
