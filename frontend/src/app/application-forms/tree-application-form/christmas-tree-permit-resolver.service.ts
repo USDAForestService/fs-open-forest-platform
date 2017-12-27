@@ -27,9 +27,8 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
             if (error.status === 404) {
               this.router.navigate([`applications/christmas-trees/forests/${forest}/new`]);
             }
+            return Observable.of({ error: error });
           }
-        } else {
-          this.router.navigate(['/']);
         }
         return Observable.of(errors);
       });

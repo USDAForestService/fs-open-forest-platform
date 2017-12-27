@@ -11,6 +11,7 @@ export class TreePermitViewComponent implements OnInit {
   forest: any;
   permit: any;
   image: any;
+  error: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,21 +22,31 @@ export class TreePermitViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if (data.permit && data.permit.forest) {
-        this.forest = data.permit.forest;
-        this.permit = data.permit;
-        this.titleService.setTitle(
-          'View your Christmas tree permit order confirmation for ' +
-            data.permit.forest.forestName +
-            ' National Forest | U.S. Forest Service Christmas Tree Permitting'
-        );
-        this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
+      if (data.permit && data.permit.error) {
+        this.processError(data.permit.error);
       } else {
-        this.router.navigate([`/`]);
+        this.setPageData(data, 'View your Christmas tree permit order confirmation');
       }
     });
   }
 
+  processError(data) {
+    this.setPageData(data, 'There was an error processing your Christmas tree permit order');
+    this.error = data;
+  }
+
+  setPageData(data, title) {
+    if (data.permit && data.permit.forest) {
+      this.forest = data.permit.forest;
+      this.permit = data.permit;
+      if (this.permit.permitImage) {
+        this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
+      }
+      this.titleService.setTitle(
+        `${title} for ${data.permit.forest.forestName} National Forest | U.S. Forest Service Christmas Tree Permitting`
+      );
+    }
+  }
   printPermit() {
     let printContents, popupWin;
     printContents = document.getElementById('toPrint').innerHTML;

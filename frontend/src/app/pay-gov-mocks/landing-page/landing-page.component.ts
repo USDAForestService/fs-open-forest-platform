@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { alphanumericValidator } from '../../application-forms/validators/alphanumeric-validation';
 import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -14,12 +15,14 @@ export class LandingPageComponent implements OnInit {
   applicationForm: FormGroup;
   successUrl: any;
   failureUrl: any;
+  token: any;
 
   constructor(
     public formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private http: Http
+    private http: Http,
+    private httpClient: HttpClient
   ) {
     this.applicationForm = this.formBuilder.group({
       paymentAmount: ['', [Validators.required, alphanumericValidator()]],
@@ -30,7 +33,7 @@ export class LandingPageComponent implements OnInit {
       cardholderCountry: ['', [Validators.required, alphanumericValidator()]],
       cardholderState: ['', [Validators.required, alphanumericValidator()]],
       cardholderZip: ['', [Validators.required, Validators.pattern(/(\d{5}|\d{9})/)]],
-      cardNumber: ['', [Validators.required, Validators.pattern(/(\d{8,19})/)]],
+      cardNumber: ['', [Validators.required, Validators.pattern(/(\d{16})/)]],
       cardExpirationMonth: ['', [Validators.required]],
       cardExpirationYear: ['', [Validators.required]],
       cardSecurityCode: ['', [Validators.required, Validators.pattern(/(\d{3,4})/)]],
@@ -51,6 +54,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.token = params['token'];
       this.getApplicationData(params['token'], params['tcsAppID']).subscribe(
         (data: any) => {
           this.applicationForm.get('paymentAmount').setValue(data['paymentAmount']);
@@ -76,6 +80,17 @@ export class LandingPageComponent implements OnInit {
     window.location.href = url;
   }
   submitButtonClick() {
-    window.location.href = this.successUrl;
+    const cardNumber = this.applicationForm.get('cardNumber').value;
+    const url = `${environment.apiUrl}mock-pay-gov-process`;
+    const params = {
+      token: this.token,
+      cc: cardNumber
+    };
+    this.httpClient.post(url, params).subscribe(
+      response => {
+        window.location.href = this.successUrl;
+      },
+      (e: any) => {}
+    );
   }
 }
