@@ -76,7 +76,9 @@ export class UtilService {
       errors = body.errors;
       return Observable.throw(errors);
     } catch (err) {
-      return Observable.throw([{ status: 500, message: 'Server error' }]);
+      return Observable.throw([
+        { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
+      ]);
     }
   }
 }
