@@ -59,13 +59,11 @@ export class ChristmasTreesApplicationService {
   }
 
   resolverError(errors, route) {
-    if (errors.length) {
-      for (const error of errors) {
-        if (error.status === 404) {
-          this.router.navigate([route]);
-        }
-        return Observable.of({ error: error });
+    for (const error of errors) {
+      if (error && error.status === 404) {
+        this.router.navigate([route]);
       }
+      return Observable.of({ error: error });
     }
     return Observable.of(errors);
   }
