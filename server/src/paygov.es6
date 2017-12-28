@@ -132,11 +132,22 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
   return xml(xmlTemplate);
 };
 
+paygov.getToken = result => {
+  const startOnlineCollectionResponse =
+    result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
+  return startOnlineCollectionResponse.token[0];
+};
+
 paygov.getResponseError = result => {
   const faultMesssage = result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
   return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
 };
 
+paygov.getTrackingId = result => {
+  const completeOnlineCollectionResponse =
+    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
+  return completeOnlineCollectionResponse.paygov_tracking_id[0];
+};
 /**
  * pay.gov utility
  * @exports paygov
