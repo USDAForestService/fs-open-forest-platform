@@ -145,6 +145,7 @@ describe('Apply for a Christmas tree permit', () => {
       page.refreshAndReturnToForm(forestId);
     });
   });
+
   describe('pay gov token errors', () => {
     it('should show 500 error if first name is 1 and last name is 2', () => {
       page.fillOutFormAndSubmit('1', '2');
@@ -152,6 +153,7 @@ describe('Apply for a Christmas tree permit', () => {
         'Sorry, we were unable to process your request. Please try again.'
       );
     });
+
     it('should show 500 error if first name is 1 and last name is 2', () => {
       element(by.css('.primary-permit-holder-last-name')).clear();
       element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
