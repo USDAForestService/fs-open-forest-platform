@@ -1,7 +1,7 @@
 import { ChristmasTreeForm, ChristmasTreeOrderConfirmation, ChristmasTreeFormAfterCancel } from './app.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('Apply for a Christmas tree permit', () => {
+describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
   let confirmPage: ChristmasTreeOrderConfirmation;
   let prefilledPage: ChristmasTreeFormAfterCancel;
@@ -177,32 +177,26 @@ fdescribe('Apply for a Christmas tree permit', () => {
     });
 
     it('should have the first name prefilled', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.firstName().getAttribute('value')).toBe('Sarah');
     });
 
     it('should have the last name prefilled', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.lastName().getAttribute('value')).toBe('Bell');
     });
 
     it('should have the email address prefilled', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.email().getAttribute('value')).toBe('msdf@noemail.com');
     });
 
     it('should have the quantity prefilled', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.treeAmount().getAttribute('value')).toBe('2');
     });
 
     it('should have the cost calculated', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.permitCost().getText()).not.toEqual('$0');
     });
 
     it('should be hide message telling the user what to do next if they resubmit with errors', () => {
-      prefilledPage.navigateTo(forestId, permitId);
       prefilledPage.submit().click();
       expect(prefilledPage.cancelInfo().isPresent()).toBeFalsy();
     });
