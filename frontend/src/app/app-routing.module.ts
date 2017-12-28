@@ -117,7 +117,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/christmas-trees/forests/:id/new/:paygovId',
+    path: 'applications/christmas-trees/forests/:id/new/:permitId',
     component: TreeApplicationFormComponent,
     resolve: {
       forest: ForestResolver,

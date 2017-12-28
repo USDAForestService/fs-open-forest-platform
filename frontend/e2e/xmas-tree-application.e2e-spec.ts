@@ -183,8 +183,8 @@ describe('Apply for a Christmas tree permit', () => {
   });
 
   describe('repopulating fields after cancel', () => {
-    let paygovToken = '';
-    it('should redirect to application on cancel', () => {
+    let permitId = '';
+    it('should redirect to application on cancel and display a message telling the user what to do', () => {
       page.navigateTo(forestId);
       element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
       element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
@@ -193,46 +193,41 @@ describe('Apply for a Christmas tree permit', () => {
       page.rulesAccepted().click();
       page.submit().click();
       browser.sleep(1500);
+      element(by.css('.usa-button-grey')).click();
+      browser.sleep(1500);
+      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
       browser.getCurrentUrl().then(url => {
-        paygovToken = url.split('=')[1].split('&')[0];
-        element(by.css('.usa-button-grey')).click();
-        browser.sleep(1500);
-        expect(browser.getCurrentUrl()).toContain(`http://localhost:4200/applications/christmas-trees/forests/${forestId}/new/${paygovToken}`);
+        permitId = url.split('/')[8];
       });
     });
 
     it('should have the first name prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.firstName().getAttribute('value')).toBe('Sarah');
     });
 
     it('should have the last name prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.lastName().getAttribute('value')).toBe('Bell');
     });
 
     it('should have the email address prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.email().getAttribute('value')).toBe('msdf@noemail.com');
     });
 
     it('should have the quantity prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.treeAmount().getAttribute('value')).toBe('2');
     });
 
     it('should have the cost calculated', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       expect(prefilledPage.permitCost().getText()).not.toEqual('$0');
     });
 
-    it('should be showing message telling the user what to do next', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
-      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
-    });
-
     it('should be hide message telling the user what to do next if they resubmit with errors', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
+      prefilledPage.navigateTo(forestId, permitId);
       prefilledPage.submit().click();
       expect(prefilledPage.cancelInfo().isPresent()).toBeFalsy();
     });
