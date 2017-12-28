@@ -8,6 +8,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const paygov = require('../paygov.es6');
 const createPermit = require('../create-svg.es6');
+const email = require('../email/email-util.es6');
 
 const christmasTree = {};
 
@@ -238,6 +239,7 @@ const permitResult = (permit, svgData) => {
 };
 
 const returnSavedPermit = (res, savedPermit, svgData) => {
+  email.sendEmail('christmasTreesPermitCreated', savedPermit);
   return res.status(200).send(permitResult(savedPermit, svgData));
 };
 
@@ -354,7 +356,11 @@ christmasTree.cancelOne = (req, res) => {
       if (permit.status !== 'Initiated') {
         res.status(404).send();
       } else {
-        permit.update({ status: 'Canceled' }).then(res.status(200).json(permit));
+        permit
+          .update({
+            status: 'Canceled'
+          })
+          .then(res.status(200).json(permit));
       }
     })
     .catch(() => {

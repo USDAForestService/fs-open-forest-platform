@@ -27,6 +27,8 @@ const tempOutfitterApplicationHold = require('./templates/temp-outfitter/applica
 const noncommercialApplicationRemoveHold = require('./templates/noncommercial/application-remove-hold.es6');
 const tempOutfitterApplicationRemoveHold = require('./templates/temp-outfitter/application-remove-hold.es6');
 
+const christmasTreesPermitCreated = require('./templates/christmas-trees/permit-created.es6');
+
 const email = {};
 
 email.noncommercialApplicationSubmittedConfirmation = application => {
@@ -97,6 +99,10 @@ email.noncommercialApplicationRemoveHold = application => {
 
 email.tempOutfitterApplicationRemoveHold = application => {
   return tempOutfitterApplicationRemoveHold(application);
+};
+
+email.christmasTreesPermitCreated = application => {
+  return christmasTreesPermitCreated(application);
 };
 
 module.exports = email;
