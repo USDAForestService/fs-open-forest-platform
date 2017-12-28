@@ -2,9 +2,8 @@
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length === 1 && !errors[0].errorCode">{{ errors[0].message }}</h3>
     <h3 class="usa-alert-heading"
-    *ngIf="errors && errors.length === 1 && errors[0].errorCode || errors.length < 1">
-      Sorry, we were unable to process your request. Please try again.
-    </h3>
+    *ngIf="(errors && errors.length === 1 && errors[0].errorCode) || !errors">
+      Sorry, we were unable to process your request. Please try again.</h3>
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length > 1">The application received the following errors.</h3>
     <ul *ngIf="errors && errors.length > 1">
       <li *ngFor="let error of errors">{{error.message}}</li>
