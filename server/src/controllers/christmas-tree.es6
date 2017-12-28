@@ -314,7 +314,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
-        paygov_token: req.params.id
+        permitId: req.params.id
       }
     })
     .then(permit => {

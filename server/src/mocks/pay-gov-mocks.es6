@@ -112,7 +112,7 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
           '/applications/christmas-trees/forests/' +
           permit.christmasTreesForest.forestAbbr +
           '/new/' +
-          permit.paygovToken;
+          permit.permitId;
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
