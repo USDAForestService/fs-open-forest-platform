@@ -86,6 +86,22 @@ export class ChristmasTreeForm {
     return element(by.id('mock-pay-gov-submit'));
   }
 
+  fillOutForm() {
+    element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
+    element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
+    element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('quantity')).sendKeys('2');
+  }
+
+  fillOutFormAndSubmit(first = 'Sarah', last = 'Bell') {
+    element(by.css('.primary-permit-holder-first-name')).sendKeys(first);
+    element(by.css('.primary-permit-holder-last-name')).sendKeys(last);
+    element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('quantity')).sendKeys('2');
+    this.rulesAccepted().click();
+    this.submit().click();
+  }
+
   refreshAndReturnToForm(forest) {
     return browser.getCurrentUrl().then(function(currentUrl) {
       const url = currentUrl;

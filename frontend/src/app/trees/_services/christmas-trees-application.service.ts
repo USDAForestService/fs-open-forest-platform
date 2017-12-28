@@ -22,17 +22,20 @@ export class ChristmasTreesApplicationService {
     }
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint, body, options).map((res: Response) => res.json()).catch(this.util.handleError);
+    return this.http
+      .post(this.endpoint, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.util.handleError);
   }
 
   cancelOldApp(id) {
-    const body = {permitId: id};
+    const body = { permitId: id };
     return this.http
-    .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
-    .map((res: Response) => {
-      res.json();
-    })
-    .catch(this.util.handleError);
+      .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
+      .map((res: Response) => {
+        res.json();
+      })
+      .catch(this.util.handleError);
   }
 
   getOne(id) {
@@ -53,5 +56,17 @@ export class ChristmasTreesApplicationService {
     if (status === 403) {
       this.router.navigate(['access-denied']);
     }
+  }
+
+  resolverError(errors, route) {
+    if (errors.length) {
+      for (const error of errors) {
+        if (error.status === 404) {
+          this.router.navigate([route]);
+        }
+        return Observable.of({ error: error });
+      }
+    }
+    return Observable.of(errors);
   }
 }
