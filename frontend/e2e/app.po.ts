@@ -98,8 +98,8 @@ export class ChristmasTreeForm {
 }
 
 export class ChristmasTreeFormAfterCancel {
-  navigateTo(forestId, paygovToken) {
-    return browser.get(`applications/christmas-trees/forests/${forestId}/new/${paygovToken}`);
+  navigateTo(forestId, permitId) {
+    return browser.get(`applications/christmas-trees/forests/${forestId}/new/${permitId}`);
   }
   firstName() {
     return element(by.css('input[id$="primary-permit-holder-first-name"]'));
