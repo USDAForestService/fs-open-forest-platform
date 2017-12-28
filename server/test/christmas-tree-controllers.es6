@@ -8,6 +8,7 @@ const server = require('./mock-aws-app.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
+let invalidPermitId = 'xxxxx';
 let paygovToken;
 
 describe('christmas tree controller tests', () => {
@@ -135,6 +136,12 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect(404, done);
     });
+    it('GET should return a 500 response when requesting an invalid permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}`)
+        .set('Accept', 'application/json')
+        .expect(500, done);
+    });
     it('POST should return a 400 response when submitted with invalid data', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = undefined;
@@ -205,11 +212,27 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
+    it('GET should return a 200 response when getting details of "initiated" permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/details`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
     it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
+    });
+    it('GET should return a 404 response when getting details of "completed" permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/details`)
+        .expect(404, done);
+    });
+    it('GET should return a 404 response when getting details of an invalid permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}/details`)
+        .expect(404, done);
     });
   });
   describe('submit permit application for shoshone national forest', () => {
@@ -232,6 +255,41 @@ describe('christmas tree controller tests', () => {
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
+    });
+    it('POST should return a 404 response when submitted to cancel already completed permit application', done => {
+      const cancelApplication = { permitId: permitId };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect(404, done);
+    });
+  });
+  describe('cancelling permit application', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to cancel existing permit application', done => {
+      const cancelApplication = { permitId: permitId };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('POST should return a 404 response when submitted to cancel an invalid permit application', done => {
+      const cancelApplication = { permitId: invalidPermitId };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect(404, done);
     });
   });
 });
