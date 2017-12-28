@@ -2,6 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { UtilService } from '../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { Response, ResponseOptions } from '@angular/http';
+import { Router } from '@angular/router';
 import * as sinon from 'sinon';
 
 describe('UtilService', () => {

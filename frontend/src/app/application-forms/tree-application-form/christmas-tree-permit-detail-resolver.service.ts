@@ -3,7 +3,6 @@ import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 
 @Injectable()
@@ -22,15 +21,7 @@ export class ChristmasTreePermitDetailResolver implements Resolve<any> {
         }
       })
       .catch(errors => {
-        if (errors.length) {
-          for (const error of errors) {
-            if (error.status === 404) {
-              this.router.navigate([`applications/christmas-trees/forests/${forest}/new`]);
-            }
-            return Observable.of({ error: error });
-          }
-        }
-        return Observable.of(errors);
+        return this.service.resolverError(errors, `applications/christmas-trees/forests/${forest}/new`);
       });
   }
 }

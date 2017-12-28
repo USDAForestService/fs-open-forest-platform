@@ -67,6 +67,7 @@ export class TreeApplicationFormComponent implements OnInit {
     this.maxNumberOfTrees = data.forest.maxNumTrees;
     if (this.permit) {
       this.rePopulateForm();
+      this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {});
     }
   }
 
@@ -104,19 +105,14 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationForm.get('quantity').setValue(this.permit.quantity);
     this.quantityChange(this.permit.quantity);
   }
+
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
-        if (this.permit) {
-          this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
-            window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-          });
-        } else {
-          window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
-        }
+        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
-      (e: any) => {
-        this.apiErrors = e;
+      (error: any) => {
+        this.apiErrors = error;
         window.scroll(0, 0);
       }
     );
