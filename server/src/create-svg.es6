@@ -76,14 +76,10 @@ createPermit.generateSvgPermit = permit => {
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
 
-        //  console.log('FRAG', frag.firstChild.outerHTML);
-
-        // sharp(Buffer.from(frag, 'utf8'))
-        sharp('src/templates/christmas-trees/permit-design.svg')
+        sharp(Buffer.from(frag.firstChild.outerHTML, 'utf8'))
           .resize(958, 740)
           .toBuffer()
           .then(data => {
-            console.log('SUCCESS', data);
             resolve({
               svgBuffer: frag.firstChild.outerHTML,
               pngBuffer: data
