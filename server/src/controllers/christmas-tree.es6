@@ -243,9 +243,16 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const returnSavedPermit = (res, savedPermit, svgData) => {
-  email.sendEmail('christmasTreesPermitCreated', savedPermit);
-  return res.status(200).send(permitResult(savedPermit, svgData));
+const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
+  const attachments = [
+    {
+      filename: 'permit.png',
+      content: new Buffer(pngBuffer, 'utf-8'),
+      cid: 'unique@kreata.ee'
+    }
+  ];
+  email.sendEmailWithAttachments('christmasTreesPermitCreated', savedPermit, attachments);
+  return res.status(200).send(permitResult(savedPermit, svgBuffer));
 };
 
 const parseXMLFromPayGov = (res, xmlResponse, permit) => {
@@ -259,7 +266,11 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
             status: 'Completed'
           })
           .then(savedPermit => {
-            createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, savedPermit, svgData));
+            createPermit
+              .generateSvgPermit(permit)
+              .then(permitImages =>
+                returnSavedPermit(res, savedPermit, permitImages.svgBuffer, permitImages.pngBuffer)
+              );
           });
       } catch (error) {
         try {

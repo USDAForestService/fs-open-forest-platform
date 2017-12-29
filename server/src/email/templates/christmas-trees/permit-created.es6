@@ -2,7 +2,7 @@ const moment = require('moment');
 
 const util = require('../../../util.es6');
 
-module.exports = application => {
+module.exports = (application, attachments) => {
   return {
     to: application.emailAddress,
     subject: 'Your Christmas trees permit application has been submitted!',
@@ -45,12 +45,6 @@ Thank you for your interest in our National Forests.
     <p>permit information</p>
     <p>Embedded permit: <img src="cid:unique@kreata.ee"/></p>
     `,
-    attachments: [
-      {
-        filename: 'permit.png',
-        path: 'src/templates/christmas-trees/permit.png',
-        cid: 'unique@kreata.ee'
-      }
-    ]
+    attachments: attachments
   };
 };

@@ -49,14 +49,25 @@ emailUtil.sendEmail = (templateName, data) => {
   if (emailTemplates[templateName]) {
     const template = emailTemplates[templateName](data);
     let html;
-    let attachments;
+    if (template.html) {
+      html = template.html;
+    }
+    emailUtil.send(template.to, template.subject, template.body, html);
+  }
+};
+
+emailUtil.sendEmailWithAttachments = (templateName, data, attachments) => {
+  if (emailTemplates[templateName]) {
+    const template = emailTemplates[templateName](data, attachments);
+    let html;
+    let templateAttachments;
     if (template.html) {
       html = template.html;
     }
     if (template.attachments) {
-      attachments = template.attachments;
+      templateAttachments = template.attachments;
     }
-    emailUtil.send(template.to, template.subject, template.body, html, attachments);
+    emailUtil.send(template.to, template.subject, template.body, html, templateAttachments);
   }
 };
 
