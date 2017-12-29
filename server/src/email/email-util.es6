@@ -27,7 +27,7 @@ if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
 
 const transporter = nodemailer.createTransport(smtpConfig);
 
-emailUtil.send = (to, subject, body, html = false) => {
+emailUtil.send = (to, subject, body, html = false, attachments = false) => {
   let mailOptions = {
     from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
     to: to,
@@ -36,6 +36,9 @@ emailUtil.send = (to, subject, body, html = false) => {
   };
   if (html) {
     mailOptions.html = html;
+  }
+  if (attachments) {
+    mailOptions.attachments = attachments;
   }
   if (vcapConstants.smtpHost) {
     transporter.sendMail(mailOptions);
@@ -46,10 +49,14 @@ emailUtil.sendEmail = (templateName, data) => {
   if (emailTemplates[templateName]) {
     const template = emailTemplates[templateName](data);
     let html;
+    let attachments;
     if (template.html) {
       html = template.html;
     }
-    emailUtil.send(template.to, template.subject, template.body, html);
+    if (template.attachments) {
+      attachments = template.attachments;
+    }
+    emailUtil.send(template.to, template.subject, template.body, html, attachments);
   }
 };
 

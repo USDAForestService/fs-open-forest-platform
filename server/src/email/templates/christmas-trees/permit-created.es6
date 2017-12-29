@@ -43,6 +43,14 @@ Thank you for your interest in our National Forests.
     html: `
     <h1>Christmas tree permit!</h1>
     <p>permit information</p>
-    `
+    <p>Embedded permit: <img src="cid:unique@kreata.ee"/></p>
+    `,
+    attachments: [
+      {
+        filename: 'permit.png',
+        path: 'src/templates/christmas-trees/permit.png',
+        cid: 'unique@kreata.ee'
+      }
+    ]
   };
 };
