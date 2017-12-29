@@ -147,55 +147,80 @@ const postPayGov = xmlData => {
   );
 };
 
+const permitResult = (permit, svgData) => {
+  const result = {
+    permitId: permit.permitId,
+    orgStructureCode: permit.orgStructureCode,
+    firstName: permit.firstName,
+    lastName: permit.lastName,
+    emailAddress: permit.emailAddress,
+    quantity: permit.quantity,
+    totalCost: permit.totalCost,
+    status: permit.status,
+    transactionDate: permit.updatedAt,
+    permitImage: svgData,
+    forest: {
+      forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
+      forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null
+    }
+  };
+  return result;
+};
+
+const updatePermitWithToken = (res, permit, token) => {
+  const tcsAppID = vcapConstants.payGovAppId;
+  permit
+    .update({
+      paygovToken: token
+    })
+    .then(savedPermit => {
+      return res.status(200).json({
+        token: token,
+        permitId: savedPermit.permitId,
+        payGovUrl: vcapConstants.payGovClientUrl,
+        tcsAppID: tcsAppID
+      });
+    })
+    .catch(error => {
+      throwError(error);
+    });
+};
+
+const updatePermitWithError = (res, permit, paygovError) => {
+  permit
+    .update({
+      status: 'Error'
+    })
+    .then(() => {
+      return res.status(400).json({
+        errors: [
+          {
+            status: 400,
+            errorCode: paygovError.errorCode,
+            message: paygovError.errorMessage,
+            permit: permitResult(permit, null)
+          }
+        ]
+      });
+    });
+};
+
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesPermits
     .create(translatePermitFromClientToDatabase(req.body))
     .then(permit => {
-      const tcsAppID = vcapConstants.payGovAppId;
       const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
       postPayGov(xmlData)
         .then(xmlResponse => {
           xml2jsParse(xmlResponse, function(err, result) {
             if (!err) {
               try {
-                const startOnlineCollectionResponse =
-                  result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0][
-                    'startOnlineCollectionResponse'
-                  ][0];
-                const token = startOnlineCollectionResponse.token[0];
-                permit
-                  .update({
-                    paygovToken: token
-                  })
-                  .then(savedPermit => {
-                    return res.status(200).json({
-                      token: token,
-                      permitId: savedPermit.permitId,
-                      payGovUrl: vcapConstants.payGovClientUrl,
-                      tcsAppID: tcsAppID
-                    });
-                  })
-                  .catch(error => {
-                    throwError(error);
-                  });
+                const token = paygov.getToken(result);
+                return updatePermitWithToken(res, permit, token);
               } catch (error) {
                 try {
                   const paygovError = paygov.getResponseError(result);
-                  permit
-                    .update({
-                      status: 'Error'
-                    })
-                    .then(() => {
-                      res.status(400).json({
-                        errors: [
-                          {
-                            status: 400,
-                            errorCode: paygovError.errorCode,
-                            message: paygovError.errorMessage
-                          }
-                        ]
-                      });
-                    });
+                  return updatePermitWithError(res, permit, paygovError);
                 } catch (faultError) {
                   throwError(faultError);
                 }
@@ -218,26 +243,6 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const permitResult = (permit, svgData) => {
-  const result = {
-    permitId: permit.permitId,
-    orgStructureCode: permit.orgStructureCode,
-    firstName: permit.firstName,
-    lastName: permit.lastName,
-    emailAddress: permit.emailAddress,
-    quantity: permit.quantity,
-    totalCost: permit.totalCost,
-    status: permit.status,
-    transactionDate: permit.updatedAt,
-    permitImage: svgData,
-    forest: {
-      forestName: permit.christmasTreesForest.forestName,
-      forestAbbr: permit.christmasTreesForest.forestAbbr
-    }
-  };
-  return result;
-};
-
 const returnSavedPermit = (res, savedPermit, svgData) => {
   email.sendEmail('christmasTreesPermitCreated', savedPermit);
   return res.status(200).send(permitResult(savedPermit, svgData));
@@ -247,11 +252,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
   xml2jsParse(xmlResponse, (err, result) => {
     if (!err) {
       try {
-        const completeOnlineCollectionResponse =
-          result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
-            'completeOnlineCollectionResponse'
-          ][0];
-        const paygovTrackingId = completeOnlineCollectionResponse.paygov_tracking_id[0];
+        const paygovTrackingId = paygov.getTrackingId(result);
         permit
           .update({
             paygovTrackingId: paygovTrackingId,
@@ -263,22 +264,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
       } catch (error) {
         try {
           const paygovError = paygov.getResponseError(result);
-          permit
-            .update({
-              status: 'Error'
-            })
-            .then(
-              res.status(400).json({
-                errors: [
-                  {
-                    status: 400,
-                    errorCode: paygovError.errorCode,
-                    message: paygovError.errorMessage,
-                    permit: permitResult(permit, null)
-                  }
-                ]
-              })
-            );
+          return updatePermitWithError(res, permit, paygovError);
         } catch (faultError) {
           throwError(faultError);
         }
@@ -330,7 +316,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
-        paygov_token: req.params.id
+        permitId: req.params.id
       }
     })
     .then(permit => {

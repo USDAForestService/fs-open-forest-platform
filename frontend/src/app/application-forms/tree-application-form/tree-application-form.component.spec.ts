@@ -18,6 +18,9 @@ class MockApplicationService {
   create(): Observable<{}> {
     return Observable.throw('error');
   }
+  cancelOldApp(permitId): Observable<{}> {
+    return Observable.of({ success: 'success' });
+  }
 }
 
 describe('TreeApplicationFormComponent', () => {
@@ -102,6 +105,7 @@ describe('TreeApplicationFormComponent', () => {
 
   it('should repopulate form fields', () => {
     component.permit = {
+      permitId: '123',
       firstName: 'test',
       lastName: 'test',
       emailAddress: 'test@test.com',

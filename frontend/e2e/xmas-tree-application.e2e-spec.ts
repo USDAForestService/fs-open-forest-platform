@@ -88,10 +88,7 @@ describe('Apply for a Christmas tree permit', () => {
 
   it('should calculate total cost', () => {
     page.navigateTo(forestId);
-    element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-    element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-    element(by.id('email')).sendKeys('msdf@noemail.com');
-    element(by.id('quantity')).sendKeys('2');
+    page.fillOutForm();
     browser.sleep(500);
     expect<any>(element(by.id('total-cost')).getText()).toEqual('$20');
   });
@@ -103,14 +100,7 @@ describe('Apply for a Christmas tree permit', () => {
 
   it('should redirect to mock pay.gov on application submit', () => {
     page.navigateTo(forestId);
-    element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-    element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-    element(by.id('email')).sendKeys('msdf@noemail.com');
-    element(by.id('quantity')).sendKeys('2');
-    page.submit().click();
-    expect<any>(page.rulesAccepted().isPresent()).toBeTruthy();
-    page.rulesAccepted().click();
-    page.submit().click();
+    page.fillOutFormAndSubmit();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
@@ -146,12 +136,7 @@ describe('Apply for a Christmas tree permit', () => {
     });
 
     it('should show error page if credit card error', () => {
-      element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-      element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-      element(by.id('email')).sendKeys('msdf@noemail.com');
-      element(by.id('quantity')).sendKeys('2');
-      page.rulesAccepted().click();
-      page.submit().click();
+      page.fillOutFormAndSubmit();
       browser.sleep(1500);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       page.mockPayGovSubmit().click();
@@ -160,18 +145,15 @@ describe('Apply for a Christmas tree permit', () => {
       page.refreshAndReturnToForm(forestId);
     });
   });
+
   describe('pay gov token errors', () => {
     it('should show 500 error if first name is 1 and last name is 2', () => {
-      element(by.css('.primary-permit-holder-first-name')).sendKeys('1');
-      element(by.css('.primary-permit-holder-last-name')).sendKeys('2');
-      element(by.id('email')).sendKeys('msdf@noemail.com');
-      element(by.id('quantity')).sendKeys('2');
-      page.rulesAccepted().click();
-      page.submit().click();
+      page.fillOutFormAndSubmit('1', '2');
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'
       );
     });
+
     it('should show 500 error if first name is 1 and last name is 2', () => {
       element(by.css('.primary-permit-holder-last-name')).clear();
       element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
@@ -183,60 +165,42 @@ describe('Apply for a Christmas tree permit', () => {
   });
 
   describe('repopulating fields after cancel', () => {
-    let paygovToken = '';
-    it('should redirect to application on cancel', () => {
+    let permitId = '';
+    it('should redirect to application on cancel and display a message telling the user what to do', () => {
       page.navigateTo(forestId);
-      element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-      element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-      element(by.id('email')).sendKeys('msdf@noemail.com');
-      element(by.id('quantity')).sendKeys('2');
-      page.rulesAccepted().click();
-      page.submit().click();
+      page.fillOutFormAndSubmit();
       browser.sleep(1500);
+      element(by.css('.usa-button-grey')).click();
+      browser.sleep(1500);
+      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
       browser.getCurrentUrl().then(url => {
-        paygovToken = url.split('=')[1].split('&')[0];
-        element(by.css('.usa-button-grey')).click();
-        browser.sleep(1500);
-        expect(browser.getCurrentUrl()).toContain(`http://localhost:4200/applications/christmas-trees/forests/${forestId}/new/${paygovToken}`);
+        permitId = url.split('/')[8];
       });
     });
 
     it('should have the first name prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       expect(prefilledPage.firstName().getAttribute('value')).toBe('Sarah');
     });
 
     it('should have the last name prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       expect(prefilledPage.lastName().getAttribute('value')).toBe('Bell');
     });
 
     it('should have the email address prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       expect(prefilledPage.email().getAttribute('value')).toBe('msdf@noemail.com');
     });
 
     it('should have the quantity prefilled', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       expect(prefilledPage.treeAmount().getAttribute('value')).toBe('2');
     });
 
     it('should have the cost calculated', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       expect(prefilledPage.permitCost().getText()).not.toEqual('$0');
     });
 
-    it('should be showing message telling the user what to do next', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
-      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
-    });
-
     it('should be hide message telling the user what to do next if they resubmit with errors', () => {
-      prefilledPage.navigateTo(forestId, paygovToken);
       prefilledPage.submit().click();
       expect(prefilledPage.cancelInfo().isPresent()).toBeFalsy();
     });
-
-
   });
 });

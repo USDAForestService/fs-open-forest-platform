@@ -28,7 +28,6 @@ const addRules = (permit, frag) => {
   }
 };
 
-
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
   frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();
@@ -64,8 +63,6 @@ const addForestSpecificInfo = (permit, frag) => {
     .toUpperCase();
 };
 
-
-
 createPermit.generateSvgPermit = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
@@ -77,7 +74,7 @@ createPermit.generateSvgPermit = permit => {
         addRules(permit, frag);
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
-        
+
         resolve(frag.firstChild.outerHTML);
       } catch (err) {
         reject(err);
