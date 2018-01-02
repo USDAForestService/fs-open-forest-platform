@@ -28,21 +28,31 @@ if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
 const transporter = nodemailer.createTransport(smtpConfig);
 
 emailUtil.send = (to, subject, body, html = false, attachments = false) => {
-  let mailOptions = {
-    from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
-    to: to,
-    subject: subject,
-    text: body // plain text
-  };
-  if (html) {
-    mailOptions.html = html;
-  }
-  if (attachments) {
-    mailOptions.attachments = attachments;
-  }
-  if (vcapConstants.smtpHost) {
-    transporter.sendMail(mailOptions);
-  }
+  return new Promise((resolve, reject) => {
+    let mailOptions = {
+      from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
+      to: to,
+      subject: subject,
+      text: body // plain text
+    };
+    if (html) {
+      mailOptions.html = html;
+    }
+    if (attachments) {
+      mailOptions.attachments = attachments;
+    }
+    if (vcapConstants.smtpHost) {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return resolve(false);
+        } else {
+          return resolve(true);
+        }
+      });
+    } else {
+      return resolve(false);
+    }
+  });
 };
 
 emailUtil.sendEmail = (templateName, data) => {
@@ -57,18 +67,22 @@ emailUtil.sendEmail = (templateName, data) => {
 };
 
 emailUtil.sendEmailWithAttachments = (templateName, data, attachments) => {
-  if (emailTemplates[templateName]) {
-    const template = emailTemplates[templateName](data, attachments);
-    let html;
-    let templateAttachments;
-    if (template.html) {
-      html = template.html;
+  return new Promise((resolve, reject) => {
+    if (emailTemplates[templateName]) {
+      const template = emailTemplates[templateName](data, attachments);
+      let html;
+      let templateAttachments;
+      if (template.html) {
+        html = template.html;
+      }
+      if (template.attachments) {
+        templateAttachments = template.attachments;
+      }
+      emailUtil.send(template.to, template.subject, template.body, html, templateAttachments).then(emailSent => {
+        return resolve(emailSent);
+      });
     }
-    if (template.attachments) {
-      templateAttachments = template.attachments;
-    }
-    emailUtil.send(template.to, template.subject, template.body, html, templateAttachments);
-  }
+  });
 };
 
 module.exports = emailUtil;
