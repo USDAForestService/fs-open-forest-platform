@@ -130,11 +130,11 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
-    it('GET should return a 404 response when requesting for already completed permit', done => {
+    it('GET should return a 200 response when requesting for already completed permit', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .set('Accept', 'application/json')
-        .expect(404, done);
+        .expect(200, done);
     });
     it('GET should return a 500 response when requesting an invalid permit', done => {
       request(server)

@@ -64,7 +64,8 @@ const translatePermitFromClientToDatabase = input => {
     emailAddress: input.emailAddress,
     treeCost: input.treeCost,
     quantity: input.quantity,
-    totalCost: input.totalCost
+    totalCost: input.totalCost,
+    permitExpireDate: input.expDate
   };
 };
 
@@ -158,7 +159,7 @@ const permitResult = (permit, svgData) => {
     totalCost: permit.totalCost,
     status: permit.status,
     transactionDate: permit.updatedAt,
-    permitImage: svgData,
+    permitImage: svgData ? svgData : null,
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null
@@ -206,40 +207,54 @@ const updatePermitWithError = (res, permit, paygovError) => {
 };
 
 christmasTree.create = (req, res) => {
-  treesDb.christmasTreesPermits
-    .create(translatePermitFromClientToDatabase(req.body))
-    .then(permit => {
-      const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-      postPayGov(xmlData)
-        .then(xmlResponse => {
-          xml2jsParse(xmlResponse, function(err, result) {
-            if (!err) {
-              try {
-                const token = paygov.getToken(result);
-                return updatePermitWithToken(res, permit, token);
-              } catch (error) {
-                try {
-                  const paygovError = paygov.getResponseError(result);
-                  return updatePermitWithError(res, permit, paygovError);
-                } catch (faultError) {
-                  throwError(faultError);
+  treesDb.christmasTreesForests
+    .findOne({
+      where: {
+        id: req.body.forestId
+      }
+    })
+    .then(forest => {
+      req.body.expDate = forest.endDate;
+      treesDb.christmasTreesPermits
+        .create(translatePermitFromClientToDatabase(req.body))
+        .then(permit => {
+          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+          postPayGov(xmlData)
+            .then(xmlResponse => {
+              xml2jsParse(xmlResponse, function(err, result) {
+                if (!err) {
+                  try {
+                    const token = paygov.getToken(result);
+                    return updatePermitWithToken(res, permit, token);
+                  } catch (error) {
+                    try {
+                      const paygovError = paygov.getResponseError(result);
+                      return updatePermitWithError(res, permit, paygovError);
+                    } catch (faultError) {
+                      throwError(faultError);
+                    }
+                  }
                 }
-              }
-            }
-          });
+              });
+            })
+            .catch(() => {
+              return res.status(500).send();
+            });
         })
-        .catch(() => {
-          return res.status(500).send();
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else {
+            return res.status(500).send();
+          }
         });
     })
     .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else {
-        return res.status(500).send();
-      }
+      return res.status(400).json({
+        errors: error.errors
+      });
     });
 };
 
@@ -279,6 +294,7 @@ const throwError = err => {
 };
 
 christmasTree.getOnePermit = (req, res) => {
+  console.log('inside getOnePermit')
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -297,10 +313,10 @@ christmasTree.getOnePermit = (req, res) => {
           parseXMLFromPayGov(res, xmlResponse, permit);
         });
       } else if (permit.status === 'Completed') {
-        if (moment(permit.christmasTreesForest.endDate).isAfter(moment())){
+        if (moment(permit.permitExpireDate).isAfter(moment())){
           createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, permit, svgData));
         } else {
-          return res.status(410).send();
+          returnSavedPermit(res, permit);
         }
       } else {
         return res.status(404).send();
