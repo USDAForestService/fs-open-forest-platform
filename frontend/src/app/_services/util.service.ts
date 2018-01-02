@@ -54,7 +54,7 @@ export class UtilService {
             break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
-            break;
+            return Observable.of(errors);
           case 403:
             errors = [{ status: error.status, message: 'Access denied.' }];
             break;
