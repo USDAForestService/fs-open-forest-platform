@@ -255,7 +255,7 @@ const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
       content: new Buffer(pngBuffer, 'utf-8')
     }
   ];
-  email.sendEmailWithAttachments('christmasTreesPermitCreated', savedPermit, attachments);
+  email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
   return res.status(200).send(permitResult(savedPermit, svgBuffer));
 };
 

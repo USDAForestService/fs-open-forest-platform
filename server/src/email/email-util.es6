@@ -4,6 +4,8 @@ const nodemailer = require('nodemailer');
 
 const vcapConstants = require('../vcap-constants.es6');
 const emailTemplates = require('./email-templates.es6');
+const htmlTemplate = require('./assets/html-template.es6');
+const inlineCss = require('nodemailer-juice');
 
 const emailUtil = {};
 
@@ -37,32 +39,23 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
   if (html) {
     mailOptions.html = html;
   }
-  if (attachments) {
+  if (attachments && attachments.length) {
     mailOptions.attachments = attachments;
   }
   if (vcapConstants.smtpHost) {
+    transporter.use('compile', inlineCss());
     transporter.sendMail(mailOptions);
   }
 };
 
-emailUtil.sendEmail = (templateName, data) => {
+emailUtil.sendEmail = (templateName, data, attachments = []) => {
   if (emailTemplates[templateName]) {
+    data.attachments = attachments.concat(htmlTemplate.attachments);
     const template = emailTemplates[templateName](data);
-    let html;
-    if (template.html) {
-      html = template.html;
-    }
-    emailUtil.send(template.to, template.subject, template.body, html);
-  }
-};
-
-emailUtil.sendEmailWithAttachments = (templateName, data, attachments) => {
-  if (emailTemplates[templateName]) {
-    const template = emailTemplates[templateName](data, attachments);
     let html;
     let templateAttachments;
     if (template.html) {
-      html = template.html;
+      html = `${htmlTemplate.forestService}<div class="body">${template.html}</div>`;
     }
     if (template.attachments) {
       templateAttachments = template.attachments;

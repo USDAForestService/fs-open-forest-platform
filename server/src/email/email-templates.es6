@@ -101,8 +101,8 @@ email.tempOutfitterApplicationRemoveHold = application => {
   return tempOutfitterApplicationRemoveHold(application);
 };
 
-email.christmasTreesPermitCreated = (application, attachments) => {
-  return christmasTreesPermitCreated(application, attachments);
+email.christmasTreesPermitCreated = application => {
+  return christmasTreesPermitCreated(application);
 };
 
 module.exports = email;

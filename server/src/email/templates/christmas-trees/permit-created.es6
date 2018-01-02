@@ -1,11 +1,11 @@
 const moment = require('moment');
-
+const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../util.es6');
 
-module.exports = (application, attachments) => {
+module.exports = application => {
   return {
     to: application.emailAddress,
-    subject: 'Your Christmas trees permit application has been submitted!',
+    subject: 'U.S. Forest Service: Your Christmas Tree Permit',
     body: `
 Christmas tree permit!
 **************************************
@@ -41,10 +41,28 @@ Email: sshermanbiery@fs.fed.us
 Thank you for your interest in our National Forests.
 `,
     html: `
-    <h1>Christmas tree permit!</h1>
-    <p>permit information</p>
-    <p>Embedded permit: <img src="cid:unique@kreata.ee"/></p>
+    <div class="body">
+    <div class="float-right">Tracking id: ${application.paygovTrackingId}</div>
+    <p>Hello ${application.firstName},</p>
+    <p>Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
+    <p>Below are the details of your purchase and your permit.</p>
+    <h2>Order Details</h2>
+    <p>Forest: ${application.christmasTreesForest.forestName}<br/>
+    No. of Trees: ${application.quantity}<br />
+    Name: ${application.firstName} ${application.lastName}<br />
+    Payment: $${application.totalCost}<br />
+    Transaction date: ${moment(application.createdAt, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}<br />
+    </p>
+    <p>You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.</p>
+    <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
+      application.christmasTreesForest.forestAbbr
+    }/tree-guidelines">${
+      application.christmasTreesForest.forestName
+    } Christmas tree permit website</a> for more information about cutting down your tree.</p>
+
+    <p><img src="cid:unique@kreata.ee"/></p>
+    </div>
     `,
-    attachments: attachments
+    attachments: application.attachments
   };
 };
