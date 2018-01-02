@@ -294,7 +294,6 @@ const throwError = err => {
 };
 
 christmasTree.getOnePermit = (req, res) => {
-  console.log('inside getOnePermit')
   treesDb.christmasTreesPermits
     .findOne({
       where: {
