@@ -3,6 +3,7 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
+const moment = require('moment');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -295,6 +296,12 @@ christmasTree.getOnePermit = (req, res) => {
         postPayGov(xmlData).then(xmlResponse => {
           parseXMLFromPayGov(res, xmlResponse, permit);
         });
+      } else if (permit.status === 'Completed') {
+        if (moment(permit.christmasTreesForest.endDate).isAfter(moment())){
+          createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, permit, svgData));
+        } else {
+          return res.status(410).send();
+        }
       } else {
         return res.status(404).send();
       }
