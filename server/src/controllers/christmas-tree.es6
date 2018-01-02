@@ -250,6 +250,10 @@ const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
       filename: 'permit.png',
       content: new Buffer(pngBuffer, 'utf-8'),
       cid: 'unique@kreata.ee'
+    },
+    {
+      filename: 'permit-attachment.png',
+      content: new Buffer(pngBuffer, 'utf-8')
     }
   ];
   email.sendEmailWithAttachments('christmasTreesPermitCreated', savedPermit, attachments).then(emailSent => {
