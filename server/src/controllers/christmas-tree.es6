@@ -8,7 +8,7 @@ const moment = require('moment');
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const paygov = require('../paygov.es6');
-const createPermit = require('../create-svg.es6');
+const permitSvgService = require('../create-svg.es6');
 
 const christmasTree = {};
 
@@ -188,10 +188,7 @@ const updatePermitWithToken = (res, permit, token) => {
 };
 
 const updatePermitWithError = (res, permit, paygovError) => {
-  permit
-    .update({
-      status: 'Error'
-    })
+  updatePermit(permit, {status: 'Error'})
     .then(() => {
       return res.status(400).json({
         errors: [
@@ -262,35 +259,47 @@ const returnSavedPermit = (res, savedPermit, svgData) => {
   return res.status(200).send(permitResult(savedPermit, svgData));
 };
 
+const updatePermit = (permit, updateObject) => {
+  return new Promise((resolve, reject) => {
+    permit.update(updateObject)
+      .then(permit => {
+        resolve(permit);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
 const parseXMLFromPayGov = (res, xmlResponse, permit) => {
-  xml2jsParse(xmlResponse, (err, result) => {
-    if (!err) {
-      try {
-        const paygovTrackingId = paygov.getTrackingId(result);
-        permit
-          .update({
-            paygovTrackingId: paygovTrackingId,
-            status: 'Completed'
-          })
-          .then(savedPermit => {
-            createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, savedPermit, svgData));
-          });
-      } catch (error) {
+  return new Promise((resolve, reject) => {
+    xml2jsParse(xmlResponse, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
         try {
-          const paygovError = paygov.getResponseError(result);
-          return updatePermitWithError(res, permit, paygovError);
-        } catch (faultError) {
-          throwError(faultError);
+          const paygovTrackingId = paygov.getTrackingId(result);
+          resolve(paygovTrackingId);
+        } catch (error) {
+          try {
+            const paygovError = paygov.getResponseError(result);
+            reject(null);
+            return updatePermitWithError(res, permit, paygovError);
+          } catch (faultError) {
+            reject(faultError);
+          }
         }
       }
-    } else {
-      throwError(err);
-    }
+    });
   });
 };
 
 const throwError = err => {
   throw new Error(err);
+};
+
+const checkPermitValid = permitExpireDate => {
+  return moment(permitExpireDate).isAfter(moment());
 };
 
 christmasTree.getOnePermit = (req, res) => {
@@ -308,14 +317,27 @@ christmasTree.getOnePermit = (req, res) => {
     .then(permit => {
       if (permit && permit.status === 'Initiated') {
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-        postPayGov(xmlData).then(xmlResponse => {
-          parseXMLFromPayGov(res, xmlResponse, permit);
-        });
-      } else if (permit.status === 'Completed') {
-        if (moment(permit.permitExpireDate).isAfter(moment())){
-          createPermit.generateSvgPermit(permit).then(svgData => returnSavedPermit(res, permit, svgData));
+        postPayGov(xmlData)
+          .then(xmlResponse => {
+            parseXMLFromPayGov(res, xmlResponse, permit)
+              .then(paygovTrackingId => {
+                return updatePermit(permit, {paygovTrackingId: paygovTrackingId, status: 'Completed'});
+              })
+              .then(updatePermit => {
+                permitSvgService.generatePermitSvg(updatePermit)
+                  .then(svgData => {
+                    returnSavedPermit(res, updatePermit, svgData);
+                  });
+              })
+              .catch(error => {
+                throwError(error);
+              });
+          });
+      } else if (permit && permit.status === 'Completed') {
+        if (checkPermitValid(permit.permitExpireDate)){
+          permitSvgService.generatePermitSvg(permit).then(svgData => returnSavedPermit(res, permit, svgData));
         } else {
-          returnSavedPermit(res, permit);
+          returnSavedPermit(res, permit, null);
         }
       } else {
         return res.status(404).send();

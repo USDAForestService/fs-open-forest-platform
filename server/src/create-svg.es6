@@ -63,7 +63,7 @@ const addForestSpecificInfo = (permit, frag) => {
     .toUpperCase();
 };
 
-createPermit.generateSvgPermit = permit => {
+createPermit.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
