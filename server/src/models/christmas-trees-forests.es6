@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const christmasTreesForests = sequelize.define('christmasTreesForests',
+  const christmasTreesForests = sequelize.define(
+    'christmasTreesForests',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -54,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
         field: 'org_structure_code'
       },
       treeCost: {
-        type: DataTypes.DOUBLE(8,2),
+        type: DataTypes.DOUBLE,
         field: 'tree_cost'
       },
       maxNumTrees: {
@@ -79,6 +80,7 @@ module.exports = function(sequelize, DataTypes) {
     {
       timestamps: true,
       freezeTableName: true
-    });
+    }
+  );
   return christmasTreesForests;
 };

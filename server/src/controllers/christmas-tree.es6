@@ -182,7 +182,8 @@ const updatePermitWithToken = (res, permit, token) => {
       });
     })
     .catch(error => {
-      throwError(error);
+      console.error(error);
+      return res.status(500).send();
     });
 };
 
