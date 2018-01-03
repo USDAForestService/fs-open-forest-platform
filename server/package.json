@@ -21,6 +21,7 @@
     "multer-s3": "^2.7.0",
     "node-jose": "^0.9.5",
     "nodemailer": "^4.1.0",
+    "nodemailer-juice": "^1.0.0",
     "openid-client": "^1.13.0",
     "passport": "^0.4.0",
     "passport-saml": "^0.15.0",
@@ -29,6 +30,7 @@
     "request-promise": "^4.2.2",
     "sequelize": "^4.15.0",
     "sequelize-cli": "^3.0.0",
+    "sharp": "^0.18.4",
     "uuid": "^3.1.0",
     "xml": "^1.0.1",
     "xml2js": "^0.4.19"
@@ -58,11 +60,9 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage":
-      "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
+    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
     "dev": "yarn; sequelize db:migrate; nodemon --harmony_default_parameters ./src/app.es6",
-    "lint":
-      "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
+    "lint": "eslint ./app.es6 ./models/noncommercial-application.es6 ./util.es6 ./test/noncommercial.js ./middlelayer-interaction.es6 ./test/test-util.js ./test/middlelayer-unit.js ./test/test-validate.js ./vcap-services.es6 ./temp-outfitter.es6 ./test/tempoutfitter-tests.js ./noncommercial.es6 ./application-general.es6",
     "migrate": "sequelize db:migrate",
     "seed-ci": "sequelize db:seed:all --seeders-path dba/seeders/ci/",
     "seed": "sequelize db:seed:all --seeders-path dba/seeders/prod/",
@@ -77,7 +77,11 @@
     "node": "^6.10.3"
   },
   "nyc": {
-    "extension": [".es6"],
-    "exclude": ["src/pay-gov-mocks/*.*"]
+    "extension": [
+      ".es6"
+    ],
+    "exclude": [
+      "src/pay-gov-mocks/*.*"
+    ]
   }
 }

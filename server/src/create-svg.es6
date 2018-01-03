@@ -3,6 +3,7 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment');
 const fs = require('fs-extra');
+const sharp = require('sharp');
 
 const createPermit = {};
 
@@ -75,7 +76,18 @@ createPermit.generateSvgPermit = permit => {
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
 
-        resolve(frag.firstChild.outerHTML);
+        sharp(Buffer.from(frag.firstChild.outerHTML, 'utf8'))
+          .resize(958, 740)
+          .toBuffer()
+          .then(data => {
+            resolve({
+              svgBuffer: frag.firstChild.outerHTML,
+              pngBuffer: data
+            });
+          })
+          .catch(err => {
+            console.log('ERROR', err);
+          });
       } catch (err) {
         reject(err);
       }
