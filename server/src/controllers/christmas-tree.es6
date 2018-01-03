@@ -259,7 +259,7 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
+const sendEmail = (res, savedPermit, pngBuffer) => {
   const attachments = [
     {
       filename: 'permit.png',
@@ -272,6 +272,9 @@ const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
     }
   ];
   email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
+};
+
+const returnSavedPermit = (res, savedPermit, svgBuffer) => {
   return res.status(200).send(permitResult(savedPermit, svgBuffer));
 };
 
@@ -341,8 +344,11 @@ christmasTree.getOnePermit = (req, res) => {
           })
           .then(updatedPermit => {
             permitSvgService.generatePermitSvg(updatedPermit)
-            .then(permitImages => {
-              returnSavedPermit(res, updatedPermit, permitImages.svgBuffer, permitImages.pngBuffer);
+            .then(permitSvgBuffer => {
+              permitSvgService.generatePermitPng(permitSvgBuffer).then(permitPngBuffer => {
+                sendEmail(res, updatedPermit, permitPngBuffer);
+              });
+              returnSavedPermit(res, updatedPermit, permitSvgBuffer );
             });
           })
           .catch(error => {
@@ -354,7 +360,9 @@ christmasTree.getOnePermit = (req, res) => {
         jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
           if (decoded) {
             if (checkPermitValid(permit.permitExpireDate)) {
-              permitSvgService.generatePermitSvg(permit).then(permitImages => returnSavedPermit(res, permit, permitImages.svgBuffer, permitImages.pngBuffer));
+              permitSvgService.generatePermitSvg(permit).then(
+                permitSvgBuffer => {
+                  returnSavedPermit(res, permit, permitSvgBuffer)});
             } else {
               returnSavedPermit(res, permit, null);
             }
