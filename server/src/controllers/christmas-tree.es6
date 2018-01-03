@@ -147,7 +147,7 @@ const postPayGov = xmlData => {
   );
 };
 
-const permitResult = (permit, svgData, emailSent) => {
+const permitResult = (permit, svgData) => {
   const result = {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
@@ -159,7 +159,6 @@ const permitResult = (permit, svgData, emailSent) => {
     status: permit.status,
     transactionDate: permit.updatedAt,
     permitImage: svgData,
-    emailSent: emailSent,
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null
@@ -199,7 +198,7 @@ const updatePermitWithError = (res, permit, paygovError) => {
             status: 400,
             errorCode: paygovError.errorCode,
             message: paygovError.errorMessage,
-            permit: permitResult(permit, null, false)
+            permit: permitResult(permit, null)
           }
         ]
       });
@@ -257,7 +256,7 @@ const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
     }
   ];
   email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
-  return res.status(200).send(permitResult(savedPermit, svgBuffer, true));
+  return res.status(200).send(permitResult(savedPermit, svgBuffer));
 };
 
 const parseXMLFromPayGov = (res, xmlResponse, permit) => {
