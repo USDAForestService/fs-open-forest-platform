@@ -21,6 +21,7 @@
     "multer-s3": "^2.7.0",
     "node-jose": "^0.9.5",
     "nodemailer": "^4.1.0",
+    "nodemailer-juice": "^1.0.0",
     "openid-client": "^1.13.0",
     "passport": "^0.4.0",
     "passport-saml": "^0.15.0",
@@ -29,6 +30,7 @@
     "request-promise": "^4.2.2",
     "sequelize": "^4.15.0",
     "sequelize-cli": "^3.0.0",
+    "sharp": "^0.18.4",
     "uuid": "^3.1.0",
     "xml": "^1.0.1",
     "xml2js": "^0.4.19"

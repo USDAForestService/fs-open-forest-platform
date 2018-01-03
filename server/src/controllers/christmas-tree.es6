@@ -10,6 +10,8 @@ const treesDb = require('../models/trees-db.es6');
 const paygov = require('../paygov.es6');
 const permitSvgService = require('../create-svg.es6');
 const jwt = require('jsonwebtoken');
+const email = require('../email/email-util.es6');
+
 const christmasTree = {};
 
 const translateGuidelinesFromDatabaseToClient = input => {
@@ -184,7 +186,8 @@ const updatePermitWithToken = (res, permit, token) => {
       });
     })
     .catch(error => {
-      throwError(error);
+      console.error(error);
+      return res.status(500).send();
     });
 };
 
@@ -256,8 +259,20 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const returnSavedPermit = (res, savedPermit, svgData) => {
-  return res.status(200).send(permitResult(savedPermit, svgData));
+const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
+  const attachments = [
+    {
+      filename: 'permit.png',
+      content: new Buffer(pngBuffer, 'utf-8'),
+      cid: 'unique@kreata.ee'
+    },
+    {
+      filename: 'permit-attachment.png',
+      content: new Buffer(pngBuffer, 'utf-8')
+    }
+  ];
+  email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
+  return res.status(200).send(permitResult(savedPermit, svgBuffer));
 };
 
 const updatePermit = (permit, updateObject) => {
@@ -390,7 +405,11 @@ christmasTree.cancelOne = (req, res) => {
       if (permit.status !== 'Initiated') {
         res.status(404).send();
       } else {
-        permit.update({ status: 'Canceled' }).then(res.status(200).json(permit));
+        permit
+          .update({
+            status: 'Canceled'
+          })
+          .then(res.status(200).json(permit));
       }
     })
     .catch(() => {

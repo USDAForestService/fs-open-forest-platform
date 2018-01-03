@@ -1,7 +1,8 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const christmasTreesPermits =  sequelize.define('christmasTreesPermits',
+  const christmasTreesPermits = sequelize.define(
+    'christmasTreesPermits',
     {
       permitId: {
         type: DataTypes.UUID,
@@ -33,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
         field: 'email_address'
       },
       treeCost: {
-        type: DataTypes.DOUBLE(8,2),
+        type: DataTypes.DOUBLE,
         field: 'tree_cost'
       },
       quantity: {
@@ -41,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
         field: 'quantity'
       },
       totalCost: {
-        type: DataTypes.DOUBLE(10,2),
+        type: DataTypes.DOUBLE,
         field: 'total_cost'
       },
       status: {
@@ -75,6 +76,7 @@ module.exports = function(sequelize, DataTypes) {
     {
       timestamps: true,
       freezeTableName: true
-    });
+    }
+  );
   return christmasTreesPermits;
 };
