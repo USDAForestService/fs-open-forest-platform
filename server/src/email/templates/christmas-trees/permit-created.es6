@@ -42,18 +42,39 @@ Thank you for your interest in our National Forests.
 `,
     html: `
     <div class="body">
-    <div class="float-right">Tracking id: ${application.paygovTrackingId}</div>
-    <p>Hello ${application.firstName},</p>
-    <p>Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
-    <p>Below are the details of your purchase and your permit.</p>
-    <h2>Order Details</h2>
-    <p>Forest: ${application.christmasTreesForest.forestName}<br/>
-    No. of Trees: ${application.quantity}<br />
-    Name: ${application.firstName} ${application.lastName}<br />
-    Payment: $${application.totalCost}<br />
-    Transaction date: ${moment(application.createdAt, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}<br />
-    </p>
-    <p>You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.</p>
+    <div class="float-right">Order number: ${application.paygovTrackingId}</div>
+    <p>Hello ${
+      application.firstName
+    }. Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
+    <h2 class="border-bottom">Order Details</h2>
+    <table class="bordered" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="width: 150px;" class="border-bottom border-right">Forest</td>
+        <td class="border-bottom">${application.christmasTreesForest.forestName}</td>
+      </tr>
+      <tr>
+        <td class="border-bottom border-right">Number of trees</td>
+        <td class="border-bottom">${application.quantity}</td>
+      </tr>
+      <tr>
+        <td class="border-bottom border-right">Name</td>
+        <td class="border-bottom">${application.firstName} ${application.lastName}</td>
+      </tr>
+      <tr>
+        <td class="border-bottom border-right">Payment</td>
+        <td class="border-bottom">$${application.totalCost}</td>
+      </tr>
+      <tr>
+        <td class="border-right">Transaction date</td>
+        <td>${moment(application.createdAt, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}</td>
+      </tr>
+    </table>
+
+    <h2 class="border-bottom">Permit Printing Guidelines</h2>
+    <ul>
+      <li>Print your permit on plain white paper.</li>
+      <li>Display your printed permit on your vehicle when cutting down your Christmas tree. (Your printed permit has display instructions.)</li>
+    </ul>
     <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
     }/tree-guidelines">${

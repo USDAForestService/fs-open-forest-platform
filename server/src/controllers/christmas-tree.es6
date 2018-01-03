@@ -256,9 +256,8 @@ const returnSavedPermit = (res, savedPermit, svgBuffer, pngBuffer) => {
       content: new Buffer(pngBuffer, 'utf-8')
     }
   ];
-  email.sendEmailWithAttachments('christmasTreesPermitCreated', savedPermit, attachments).then(emailSent => {
-    return res.status(200).send(permitResult(savedPermit, svgBuffer, emailSent));
-  });
+  email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
+  return res.status(200).send(permitResult(savedPermit, svgBuffer, true));
 };
 
 const parseXMLFromPayGov = (res, xmlResponse, permit) => {
