@@ -334,27 +334,27 @@ christmasTree.getOnePermit = (req, res) => {
       if (permit && permit.status === 'Initiated') {
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
         postPayGov(xmlData)
-          .then(xmlResponse => {
-            parseXMLFromPayGov(res, xmlResponse, permit)
-              .then(paygovTrackingId => {
-                return updatePermit(permit, {paygovTrackingId: paygovTrackingId, status: 'Completed'});
-              })
-              .then(updatePermit => {
-                permitSvgService.generatePermitSvg(updatePermit)
-                  .then(svgData => {
-                    returnSavedPermit(res, updatePermit, svgData);
-                  });
-              })
-              .catch(error => {
-                throwError(error);
-              });
+        .then(xmlResponse => {
+          parseXMLFromPayGov(res, xmlResponse, permit)
+          .then(paygovTrackingId => {
+            return updatePermit(permit, { paygovTrackingId: paygovTrackingId, status: 'Completed' });
+          })
+          .then(updatedPermit => {
+            permitSvgService.generatePermitSvg(updatedPermit)
+            .then(permitImages => {
+              returnSavedPermit(res, updatedPermit, permitImages.svgBuffer, permitImages.pngBuffer);
+            });
+          })
+          .catch(error => {
+            throwError(error);
           });
+        });
       } else if (permit && permit.status === 'Completed') {
         const token = req.query.t;
         jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
           if (decoded) {
             if (checkPermitValid(permit.permitExpireDate)) {
-              permitSvgService.generatePermitSvg(permit).then(svgData => returnSavedPermit(res, permit, svgData));
+              permitSvgService.generatePermitSvg(permit).then(permitImages => returnSavedPermit(res, permit, permitImages.svgBuffer, permitImages.pngBuffer));
             } else {
               returnSavedPermit(res, permit, null);
             }
