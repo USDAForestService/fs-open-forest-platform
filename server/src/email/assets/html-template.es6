@@ -53,7 +53,7 @@ template.forestService = `
 
       table.bordered {
         width: 100%;
-        border: 1px solid #212121;
+        border: 1px solid #dfe2e5;
       }
       
       .bordered td, 
@@ -63,11 +63,11 @@ template.forestService = `
       }
 
       .border-bottom {
-        border-bottom: 1px solid #212121;
+        border-bottom: 1px solid #dfe2e5;
       }
       
       .border-right {
-        border-right: 1px solid #212121;
+        border-right: 1px solid #dfe2e5;
       }
       
       hr {
@@ -84,10 +84,6 @@ template.forestService = `
       
       .logo {
         max-height: 100px;
-      }
-
-      .float-right {
-        float: right;
       }
       
     </style>
