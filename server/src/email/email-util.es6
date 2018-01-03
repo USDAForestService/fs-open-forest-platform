@@ -46,7 +46,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
     transporter.use('compile', inlineCss());
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
-        throwError(error);
+        console.error(error);
       }
     });
   }
