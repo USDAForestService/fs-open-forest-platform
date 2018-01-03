@@ -4,7 +4,7 @@
  * pay.gov utility
  * @module paygov
  */
-
+const jwt = require('jsonwebtoken');
 const xml = require('xml');
 const vcapConstants = require('./vcap-constants.es6');
 
@@ -16,12 +16,22 @@ const paygov = {};
 paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
   const tcsAppID = vcapConstants.payGovAppId;
 
-  const url_success = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/permits/${
+  const claims = {
+    issuer: 'trees-permit-api',
+    subject: 'christmas tree permit orders',
+    audience: 'fs-trees-permit-api-users'
+  };
+  const token = jwt.sign({
+    data: permit.id
+  }, vcapConstants.permitSecret, claims);
+  const url_success = `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/permits/${
+    permit.permitId
+  }?t=${token}`;
+
+  const url_cancel = `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/new/${
     permit.permitId
   }`;
-  const url_cancel = `${vcapConstants.intakeClientBaseUrl}applications/christmas-trees/forests/${forestAbbr}/new/${
-    permit.permitId
-  }`;
+
   const xmlTemplate = [
     {
       'S:Envelope': [

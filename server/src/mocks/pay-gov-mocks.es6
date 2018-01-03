@@ -13,6 +13,7 @@ const templates = require('./pay-gov-templates.es6');
 const payGov = {};
 
 let transactions = {};
+let tokens = {};
 
 /** router for mock pay.gov  specific endpoints */
 payGov.router = express.Router();
@@ -44,6 +45,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     } else {
       xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
     }
+    tokens[token] = { successUrl: startCollectionRequest.url_success[0] };
   } else if (
     requestBody['ns2:completeOnlineCollection'] &&
     requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
@@ -101,12 +103,15 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
     })
     .then(permit => {
       if (permit) {
-        const successUrl =
-          vcapConstants.intakeClientBaseUrl +
-          '/applications/christmas-trees/forests/' +
-          permit.christmasTreesForest.forestAbbr +
-          '/permits/' +
-          permit.permitId;
+        console.log(tokens);
+        const successUrl = tokens[req.query.token].successUrl;
+        console.log(successUrl);
+        // const successUrl =
+        //   vcapConstants.intakeClientBaseUrl +
+        //   '/applications/christmas-trees/forests/' +
+        //   permit.christmasTreesForest.forestAbbr +
+        //   '/permits/' +
+        //   permit.permitId;
         const cancelUrl =
           vcapConstants.intakeClientBaseUrl +
           '/applications/christmas-trees/forests/' +

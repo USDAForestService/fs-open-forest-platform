@@ -6,6 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 import * as sinon from 'sinon';
 import { TreeDistrictsUtilService } from './tree-districts-util.service';
+import { WindowRef } from '../../../_services/native-window.service';
 
 describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;
@@ -15,7 +16,7 @@ describe('TreeCuttingDatesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeCuttingDatesComponent, FilterPipe, LineBreakFormatterPipe],
-        providers: [TreeDistrictsUtilService]
+        providers: [TreeDistrictsUtilService, WindowRef]
       }).compileComponents();
     })
   );

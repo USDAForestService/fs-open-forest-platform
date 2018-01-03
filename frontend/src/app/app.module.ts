@@ -34,6 +34,7 @@ import { TitleDirective } from './_directives/title.directive';
 import { TreesModule } from './trees/trees.module';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
+import { WindowRef } from "./_services/native-window.service";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { UtilService } from './_services/util.service';
     UsaBannerComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpModule, PayGovMocksModule, SharedModule, TreesModule],
-  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService, UtilService],
+  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService, UtilService, WindowRef],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

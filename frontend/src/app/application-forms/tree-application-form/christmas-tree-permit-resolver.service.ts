@@ -11,17 +11,11 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('permitId');
-    const forest = route.paramMap.get('id');
-
-    return this.service
-      .getOne(id)
-      .map(data => {
-        if (data) {
-          return data;
-        }
-      })
-      .catch(errors => {
-        return this.service.resolverError(errors, `applications/christmas-trees/forests/${forest}/new`);
-      });
+    const token = route.queryParams['t'];
+    let result = this.service.getOne(id, token).catch(err => {
+      this.router.navigate(["/"]);
+      return Observable.empty();
+    });
+    return result;
   }
 }

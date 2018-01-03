@@ -1,5 +1,8 @@
 'use strict';
 
+const jwt = require('jsonwebtoken');
+const vcapConstants = require('../src/vcap-constants.es6');
+
 const request = require('supertest');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
@@ -131,8 +134,11 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('GET should return a 200 response when requesting for already completed permit', done => {
+      const token = jwt.sign({
+        data: permitId
+      }, vcapConstants.permitSecret);
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
         .set('Accept', 'application/json')
         .expect(200, done);
     });

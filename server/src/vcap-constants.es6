@@ -20,6 +20,10 @@ const getUserProvided = function(name) {
 /** Base URL of this instance */
 vcapConstants.baseUrl = 'https://' + vcapApplication.uris[0];
 
+/** jwt token **/
+const jwt = getUserProvided('jwt');
+vcapConstants.permitSecret = jwt.credentials.permit_secret;
+
 /** Intake S3 bucket settings */
 const intakeS3 = vcapServices['s3'].find(element => {
   return element.name === 'intake-s3';
@@ -67,6 +71,7 @@ const payGov = getUserProvided('pay-gov');
 vcapConstants.payGovUrl = payGov.credentials.url;
 vcapConstants.payGovClientUrl = payGov.credentials.client_url;
 vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
+
 
 /**
  * VCAP Constants

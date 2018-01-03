@@ -73,6 +73,13 @@
       },
       "label": "user-provided",
       "name": "pay-gov"
+    },
+    {
+      "credentials": {
+        "permit_secret": ""
+      },
+      "label": "user-provided",
+      "name": "jwt"
     }
   ],
   "s3": [

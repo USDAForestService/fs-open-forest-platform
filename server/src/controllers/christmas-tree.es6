@@ -9,7 +9,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const paygov = require('../paygov.es6');
 const permitSvgService = require('../create-svg.es6');
-
+const jwt = require('jsonwebtoken');
 const christmasTree = {};
 
 const translateGuidelinesFromDatabaseToClient = input => {
@@ -160,6 +160,7 @@ const permitResult = (permit, svgData) => {
     status: permit.status,
     transactionDate: permit.updatedAt,
     permitImage: svgData ? svgData : null,
+    expirationDate: permit.permitExpireDate,
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null
@@ -334,13 +335,18 @@ christmasTree.getOnePermit = (req, res) => {
               });
           });
       } else if (permit && permit.status === 'Completed') {
-        if (checkPermitValid(permit.permitExpireDate)){
-          permitSvgService.generatePermitSvg(permit).then(svgData => returnSavedPermit(res, permit, svgData));
-        } else {
-          returnSavedPermit(res, permit, null);
-        }
-      } else {
-        return res.status(404).send();
+        const token = req.query.t;
+        jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
+          if (decoded) {
+            if (checkPermitValid(permit.permitExpireDate)) {
+              permitSvgService.generatePermitSvg(permit).then(svgData => returnSavedPermit(res, permit, svgData));
+            } else {
+              returnSavedPermit(res, permit, null);
+            }
+          } else {
+            return res.status(404).send();
+          }
+        });
       }
     })
     .catch(error => {

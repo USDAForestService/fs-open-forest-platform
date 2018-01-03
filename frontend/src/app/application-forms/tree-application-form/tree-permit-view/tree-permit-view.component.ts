@@ -2,6 +2,7 @@ import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
+import { WindowRef } from '../../../_services/native-window.service';
 
 @Component({
   selector: 'app-tree-permit-view',
@@ -12,13 +13,18 @@ export class TreePermitViewComponent implements OnInit {
   permit: any;
   image: any;
   error: any = null;
+  nativeWindow: any;
+  isPermitExpired: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
     private sanitizer: DomSanitizer,
-    private router: Router
-  ) {}
+    private router: Router,
+    private winRef: WindowRef
+  ) {
+    this.nativeWindow = winRef.getNativeWindow();
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -42,15 +48,17 @@ export class TreePermitViewComponent implements OnInit {
       if (this.permit.permitImage) {
         this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
       }
+      this.isPermitExpired = data.permit.expirationDate < new Date();
       this.titleService.setTitle(
         `${title} for ${data.permit.forest.forestName} National Forest | U.S. Forest Service Christmas Tree Permitting`
       );
     }
   }
+
   printPermit() {
     let printContents, popupWin;
     printContents = document.getElementById('toPrint').innerHTML;
-    popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     popupWin.document.open();
     popupWin.document.write(`
       <html>
