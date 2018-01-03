@@ -26,6 +26,9 @@ Permit Printing Guidelines
 1. Download the attached permit.
 2. Print your permit on plain white paper.
 3. Display your printed permit on your vehicle when cutting down your Christmas tree. (Your printed permit has display instructions.)
+4. Your permit is available for printing from the following url. Copy and paste the following url into your browser:
+
+${application.permitUrl} 
 
 Return to the ${application.christmasTreesForest.forestName} Christmas tree permit website, ${
       vcapConstants.intakeClientBaseUrl
@@ -70,6 +73,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     <ul>
       <li>Print your permit on plain white paper.</li>
       <li>Display your printed permit on your vehicle when cutting down your Christmas tree. (Your printed permit has display instructions.)</li>
+      <li>Your permit is available for printing from <a href="${ application.permitUrl }">this link</a> or in an attachment to this email.
     </ul>
     <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr

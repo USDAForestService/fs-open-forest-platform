@@ -346,6 +346,7 @@ christmasTree.getOnePermit = (req, res) => {
             permitSvgService.generatePermitSvg(updatedPermit)
             .then(permitSvgBuffer => {
               permitSvgService.generatePermitPng(permitSvgBuffer).then(permitPngBuffer => {
+                updatedPermit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
                 sendEmail(res, updatedPermit, permitPngBuffer);
               });
               returnSavedPermit(res, updatedPermit, permitSvgBuffer );

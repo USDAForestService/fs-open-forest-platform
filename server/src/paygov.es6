@@ -11,22 +11,31 @@ const vcapConstants = require('./vcap-constants.es6');
 const paygov = {};
 
 /**
- * Generate XML from the template to use for getting pay.gov transaction token.
+ * create success url
  */
-paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
-  const tcsAppID = vcapConstants.payGovAppId;
-
+paygov.createSuccessUrl = (forestAbbr, permitId) => {
   const claims = {
     issuer: 'trees-permit-api',
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
   const token = jwt.sign({
-    data: permit.id
+    data: permitId
   }, vcapConstants.permitSecret, claims);
-  const url_success = `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/permits/${
-    permit.permitId
-  }?t=${token}`;
+  return `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/permits/${permitId}?t=${token}`;
+}
+
+/**
+ * Generate XML from the template to use for getting pay.gov transaction token.
+ */
+paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
+  const tcsAppID = vcapConstants.payGovAppId;
+  let url_success = '';
+  try {
+    url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
+  } catch (e) {
+    console.error('problem creating success url for permit ' + permit.id, e);
+  }
 
   const url_cancel = `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/new/${
     permit.permitId
