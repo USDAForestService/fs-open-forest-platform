@@ -5,37 +5,37 @@
 		<rect id="background_-__x23_fff_1_" x="-89.2" y="91.7" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -90.9017 704.4312)" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="792" height="612"/>
 
 		<rect x="165.9" y="-65" transform="matrix(6.123234e-17 -1 1 6.123234e-17 146.9977 307.7554)" fill="#D1D3D4" width="123" height="290.8"/>
-	<text transform="matrix(0 -1 1 0 587.5045 285.3418)" font-family="'ArialMT'" font-size="8px">I HAVE READ, UNDERSTOOD, AND AGREED TO THE RULES</text>
+	<text transform="matrix(0 -1 1 0 587.5045 285.3418)" font-family="'Arial'" font-size="8px">I HAVE READ, UNDERSTOOD, AND AGREED TO THE RULES</text>
 	<rect x="-331.8" y="365.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -350.6807 447.1039)" width="760" height="67.1"/>
-	<text transform="matrix(0 -1 1 0 68.7799 763.8789)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="56px">CHRISTMAS TREE PERMIT</text>
-	<text id="forest-name" transform="matrix(0 -1 1 0 343.7643 769.8789)" font-family="'Arial-BoldMT'" font-size="24px">ARAPAHO - ROOSEVELT</text>
-	<text id="national-forest" transform="matrix(0 -1 1 0 362.7642 768.8789)" font-family="'ArialMT'" font-size="12px">NATIONAL FORESTS</text>
-	<text id="permit-year-vertical" transform="matrix(1 -1.980000e-03 1.980000e-03 1 106.1864 117.9544)" font-family="'Arial-BoldMT'" font-size="112px">2018</text>
+	<text transform="matrix(0 -1 1 0 68.7799 763.8789)" fill="#FFFFFF" font-family="'Arial'" font-weight="bold" font-size="56px">CHRISTMAS TREE PERMIT</text>
+	<text id="forest-name" transform="matrix(0 -1 1 0 343.7643 769.8789)" font-family="'Arial'" font-weight="bold" font-size="24px">ARAPAHO - ROOSEVELT</text>
+	<text id="national-forest" transform="matrix(0 -1 1 0 362.7642 768.8789)" font-family="'Arial'" font-size="12px">NATIONAL FORESTS</text>
+	<text id="permit-year-vertical" transform="matrix(1 -1.980000e-03 1.980000e-03 1 106.1864 117.9544)" font-family="'Arial'" font-weight="bold" font-size="112px">2018</text>
 	<g id="_x5F_guides">
 	</g>
 	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="16.8" y1="19.9" x2="16.8" y2="773.9"/>
 	<rect x="144" y="398" display="none" fill="#D1D3D4" width="631" height="30"/>
 	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="372.8" y1="18.9" x2="372.8" y2="778.9"/>
-	<text transform="matrix(0 -1 1 0 548.2437 699.6533)" font-family="'ArialMT'" font-size="4.6884px">ISSUE DATE</text>
+	<text transform="matrix(0 -1 1 0 548.2437 699.6533)" font-family="'Arial'" font-size="4.6884px">ISSUE DATE</text>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="424.1" y1="311.9" x2="596.7" y2="311.9"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="540.1" y1="637.5" x2="569.7" y2="637.5"/>
-	<text id="issue-date" transform="matrix(0 -1 1 0 562.7281 700.1992)" font-family="'Arial-BoldMT'" font-size="10px">NOV 10</text>
+	<text id="issue-date" transform="matrix(0 -1 1 0 562.7281 700.1992)" font-family="'Arial'" font-weight="bold" font-size="10px">NOV 10</text>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="424.1" y1="18.9" x2="596.7" y2="18.9"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="596.7" y1="18.9" x2="596.7" y2="778.9"/>
 
 		<rect x="579.3" y="291.4" transform="matrix(6.123234e-17 -1 1 6.123234e-17 287.8353 880.6942)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="10" height="10"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="424.1" y1="18.9" x2="424.1" y2="778.9"/>
-	<text id="permit-id" transform="matrix(0 -1 1 0 562.7271 774.8789)" font-family="'Arial-BoldMT'" font-size="10px">0000000001</text>
-	<text transform="matrix(0 -1 1 0 548.1431 633.1992)" font-family="'ArialMT'" font-size="5px">PERMIT EXPIRATION</text>
-	<text id="permit-expiration" transform="matrix(0 -1 1 0 562.7271 633.1992)" font-family="'Arial-BoldMT'" font-size="10px">DEC 24 12:00AM 2018</text>
+	<text id="permit-id" transform="matrix(0 -1 1 0 562.7271 774.8789)" font-family="'Arial'" font-weight="bold" font-size="10px">0000000001</text>
+	<text transform="matrix(0 -1 1 0 548.1431 633.1992)" font-family="'Arial'" font-size="5px">PERMIT EXPIRATION</text>
+	<text id="permit-expiration" transform="matrix(0 -1 1 0 562.7271 633.1992)" font-family="'Arial'" font-weight="bold" font-size="10px">DEC 24 12:00AM 2018</text>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="424.1" y1="778.9" x2="596.7" y2="778.9"/>
-	<text transform="matrix(0 -1 1 0 404.4234 773.8789)" font-family="'Arial-BoldMT'" font-size="17px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
+	<text transform="matrix(0 -1 1 0 404.4234 773.8789)" font-family="'Arial'" font-weight="bold" font-size="16px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
 	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="82" y1="141.9" x2="373.8" y2="141.9"/>
 	<g>
-		<text transform="matrix(0 -1 1 0 94.8209 467.4297)" font-family="'ArialMT'" font-size="7px">(MM)</text>
+		<text transform="matrix(0 -1 1 0 94.8209 467.4297)" font-family="'Arial'" font-size="7px">(MM)</text>
 		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="81.5" y1="478.2" x2="230.8" y2="478.2"/>
 		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="81.8" y1="310.8" x2="230.8" y2="310.8"/>
-		<text transform="matrix(0 -1 1 0 94.8209 300.4336)" font-family="'ArialMT'" font-size="7px">(DD)</text>
+		<text transform="matrix(0 -1 1 0 94.8209 300.4336)" font-family="'Arial'" font-size="7px">(DD)</text>
 		<g opacity="0.2">
 			<path fill="#D1D3D4" d="M200.6,173.5c1.3,0,2.4,0.5,3.3,1.4c0.9,0.9,1.4,2,1.4,3.3v33.7c0.8,0,3-0.2,6.4-0.4
 				c3.4-0.2,6.1-0.4,7.9-0.4c1.2,0,2.2,0.4,3.1,1.3c0.8,0.9,1.3,1.9,1.3,3.1v23.3c0,1.2-0.4,2.3-1.3,3.1c-0.9,0.9-1.9,1.3-3.1,1.3
@@ -56,10 +56,10 @@
 		</g>
 		<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="230.8" y1="141.9" x2="230.8" y2="478.2"/>
 	</g>
-	<text transform="matrix(0 -1 1 0 548.1431 774.2129)" font-family="'ArialMT'" font-size="5px">PERMIT NUMBER</text>
-	<text transform="matrix(0 -1 1 0 587.3267 299.8506)" font-family="'ArialMT'" font-size="9.054px">X</text>
+	<text transform="matrix(0 -1 1 0 548.1431 774.2129)" font-family="'Arial'" font-size="5px">PERMIT NUMBER</text>
+	<text transform="matrix(0 -1 1 0 587.3267 299.8506)" font-family="'Arial'" font-size="9.054px">X</text>
 	<g>
-		<text transform="matrix(0 -1 1 0 439.9244 288.7119)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="8px">Fill in dates (month, day) </tspan><tspan x="89.8" y="0" font-family="'Arial-BoldMT'" font-size="8px" text-decoration=" underline">must</tspan><tspan x="108.9" y="0" font-family="'Arial-BoldMT'" font-size="8px"> </tspan><tspan x="111.1" y="0" font-family="'ArialMT'" font-size="8px">be filled out using bold black ink only. </tspan><tspan x="0" y="12" font-family="'ArialMT'" font-size="8px">(i.e. Sharpie, marker, felt-tip pen)</tspan><tspan x="0" y="24" font-family="'ArialMT'" font-size="8px">Month and day should be filled out on the date you cut your tree.  </tspan><tspan x="0" y="36" font-family="'ArialMT'" font-size="8px">Permit </tspan><tspan x="25.3" y="36" font-family="'Arial-BoldMT'" font-size="8px" text-decoration=" underline">must</tspan><tspan x="44.4" y="36" font-family="'ArialMT'" font-size="8px"> be completed before transporting tree. </tspan><tspan x="0" y="48" font-family="'ArialMT'" font-size="8px">Permit holder </tspan><tspan x="49.8" y="48" font-family="'Arial-BoldMT'" font-size="8px" text-decoration=" underline">must</tspan><tspan x="68.9" y="48" font-family="'Arial-BoldMT'" font-size="8px"> </tspan><tspan x="71.1" y="48" font-family="'ArialMT'" font-size="8px">be present at time of tree cutting. </tspan><tspan x="0" y="60" font-family="'ArialMT'" font-size="8px">Do </tspan><tspan x="12.4" y="60" font-family="'Arial-BoldMT'" font-size="8px" text-decoration=" underline">not</tspan><tspan x="24.9" y="60" font-family="'Arial-BoldMT'" font-size="8px"> </tspan><tspan x="27.1" y="60" font-family="'ArialMT'" font-size="8px">cut tree tops off - take the whole tree. </tspan><tspan x="0" y="72" font-family="'ArialMT'" font-size="8px">Leave no trace - pack it in, pack it out. </tspan><tspan x="0" y="84" font-family="'ArialMT'" font-size="8px">You </tspan><tspan x="16.5" y="84" font-family="'Arial-BoldMT'" font-size="8px" text-decoration=" underline">must</tspan><tspan x="35.6" y="84" font-family="'ArialMT'" font-size="8px"> be on National Forest land when cutting your Christmas tree(s) </tspan><tspan x="0" y="96" font-family="'ArialMT'" font-size="8px">under this permit. </tspan><tspan x="0" y="108" font-family="'ArialMT'" font-size="8px">It is unlawful to reuse or duplicate this permit for the purpose of removing</tspan><tspan x="0" y="120" font-family="'ArialMT'" font-size="8px">more products than the permit holder has purchased.</tspan></text>
+		<text transform="matrix(0 -1 1 0 439.9244 288.7119)"><tspan x="0" y="0" font-family="'Arial'" font-size="8px">Fill in dates (month, day) </tspan><tspan x="89.8" y="0" font-family="'Arial'" font-weight="bold" font-size="8px" text-decoration=" underline">must</tspan><tspan x="108.9" y="0" font-family="'Arial'" font-weight="bold" font-size="8px"> </tspan><tspan x="111.1" y="0" font-family="'Arial'" font-size="8px">be filled out using bold black ink only. </tspan><tspan x="0" y="12" font-family="'Arial'" font-size="8px">(i.e. Sharpie, marker, felt-tip pen)</tspan><tspan x="0" y="24" font-family="'Arial'" font-size="8px">Month and day should be filled out on the date you cut your tree.  </tspan><tspan x="0" y="36" font-family="'Arial'" font-size="8px">Permit </tspan><tspan x="25.3" y="36" font-family="'Arial'" font-weight="bold" font-size="8px" text-decoration=" underline">must</tspan><tspan x="44.4" y="36" font-family="'Arial'" font-size="8px"> be completed before transporting tree. </tspan><tspan x="0" y="48" font-family="'Arial'" font-size="8px">Permit holder </tspan><tspan x="49.8" y="48" font-family="'Arial'" font-weight="bold" font-size="8px" text-decoration=" underline">must</tspan><tspan x="68.9" y="48" font-family="'Arial'" font-weight="bold" font-size="8px"> </tspan><tspan x="71.1" y="48" font-family="'Arial'" font-size="8px">be present at time of tree cutting. </tspan><tspan x="0" y="60" font-family="'Arial'" font-size="8px">Do </tspan><tspan x="12.4" y="60" font-family="'Arial'" font-weight="bold" font-size="8px" text-decoration=" underline">not</tspan><tspan x="24.9" y="60" font-family="'Arial'" font-weight="bold" font-size="8px"> </tspan><tspan x="27.1" y="60" font-family="'Arial'" font-size="8px">cut tree tops off - take the whole tree. </tspan><tspan x="0" y="72" font-family="'Arial'" font-size="8px">Leave no trace - pack it in, pack it out. </tspan><tspan x="0" y="84" font-family="'Arial'" font-size="8px">You </tspan><tspan x="16.5" y="84" font-family="'Arial'" font-weight="bold" font-size="8px" text-decoration=" underline">must</tspan><tspan x="35.6" y="84" font-family="'Arial'" font-size="8px"> be on National Forest land when cutting your Christmas tree(s) </tspan><tspan x="0" y="96" font-family="'Arial'" font-size="8px">under this permit. </tspan><tspan x="0" y="108" font-family="'Arial'" font-size="8px">It is unlawful to reuse or duplicate this permit for the purpose of removing</tspan><tspan x="0" y="120" font-family="'Arial'" font-size="8px">more products than the permit holder has purchased.</tspan></text>
 		<ellipse transform="matrix(0.7071 -0.7071 0.7071 0.7071 -82.1529 396.5243)" cx="437.6" cy="297.4" rx="2" ry="2"/>
 		<circle cx="509.2" cy="297.4" r="2"/>
 		<circle cx="461.6" cy="297.4" r="2"/>
@@ -69,40 +69,40 @@
 		<circle cx="521.2" cy="297.4" r="2"/>
 		<circle cx="545.4" cy="297.4" r="2"/>
 	</g>
-	<text transform="matrix(0 -1 1 0 578.1978 773.8789)" font-family="'ArialMT'" font-size="5.0716px">PERMIT HOLDER</text>
-	<text id="full-name" transform="matrix(0 -1 1 0 591.898 774.8789)" font-family="'Arial-BoldMT'" font-size="10.1432px">FIRST NAME LAST NAME</text>
+	<text transform="matrix(0 -1 1 0 578.1978 773.8789)" font-family="'Arial'" font-size="5.0716px">PERMIT HOLDER</text>
+	<text id="full-name" transform="matrix(0 -1 1 0 591.898 774.8789)" font-family="'Arial'" font-weight="bold" font-size="10.1432px">FIRST NAME LAST NAME</text>
 	<g id="max_stump_height_2_">
 
 			<rect x="434.5" y="356.9" transform="matrix(6.123234e-17 -1 1 6.123234e-17 102.6669 866.4216)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
-		<text transform="matrix(0 -1 1 0 469.3716 425.1416)" font-family="'ArialMT'" font-size="5px">MAX STUMP HEIGHT</text>
-		<text id="stump-height" transform="matrix(0 -1 1 0 503.481 424.7339)" font-family="'Arial-BoldMT'" font-size="30px">6</text>
-		<text transform="matrix(0 -1 1 0 487.7105 382.2188)"><tspan id="stump-height-inches" x="0" y="0" font-family="'ArialMT'" font-size="12px">INCHES</tspan><tspan id="stump-height-or-less" x="-6.7" y="14.4" font-family="'ArialMT'" font-size="12px">OR LESS</tspan></text>
+		<text transform="matrix(0 -1 1 0 469.3716 425.1416)" font-family="'Arial'" font-size="5px">MAX STUMP HEIGHT</text>
+		<text id="stump-height" transform="matrix(0 -1 1 0 503.481 424.7339)" font-family="'Arial'" font-weight="bold" font-size="30px">6</text>
+		<text transform="matrix(0 -1 1 0 487.7105 382.2188)"><tspan id="stump-height-inches" x="0" y="0" font-family="'Arial'" font-size="12px">INCHES</tspan><tspan id="stump-height-or-less" x="-6.7" y="14.4" font-family="'Arial'" font-size="12px">OR LESS</tspan></text>
 	</g>
 	<g>
 
 			<rect x="434.2" y="466" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -6.8342 975.256)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
-		<text transform="matrix(0 -1 1 0 469.0386 536.1426)" font-family="'ArialMT'" font-size="5px">MAX STUMP DIAMETER</text>
-		<text id="stump-diameter" transform="matrix(0 -1 1 0 502.0328 534.4009)" font-family="'Arial-BoldMT'" font-size="30px">6</text>
-		<text id="stump-diameter-inches" transform="matrix(0 -1 1 0 502.2623 491.5449)" font-family="'ArialMT'" font-size="12px">INCHES</text>
+		<text transform="matrix(0 -1 1 0 469.0386 536.1426)" font-family="'Arial'" font-size="5px">MAX STUMP DIAMETER</text>
+		<text id="stump-diameter" transform="matrix(0 -1 1 0 502.0328 534.4009)" font-family="'Arial'" font-weight="bold" font-size="30px">6</text>
+		<text id="stump-diameter-inches" transform="matrix(0 -1 1 0 502.2623 491.5449)" font-family="'Arial'" font-size="12px">INCHES</text>
 	</g>
 	<g id="max_tree_height_2_">
 
 			<rect x="434.2" y="576" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -116.8342 1085.256)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
-		<text transform="matrix(0 -1 1 0 468.6871 645.9258)" font-family="'ArialMT'" font-size="5px">MAX TREE HEIGHT</text>
-		<text id="tree-height" transform="matrix(0 -1 1 0 502.3091 644.9893)" font-family="'Arial-BoldMT'" font-size="30px">12</text>
-		<text id="tree-height-feet" transform="matrix(0 -1 1 0 502.3091 587.2109)" font-family="'ArialMT'" font-size="12px">FEET</text>
+		<text transform="matrix(0 -1 1 0 468.6871 645.9258)" font-family="'Arial'" font-size="5px">MAX TREE HEIGHT</text>
+		<text id="tree-height" transform="matrix(0 -1 1 0 502.3091 644.9893)" font-family="'Arial'" font-weight="bold" font-size="30px">12</text>
+		<text id="tree-height-feet" transform="matrix(0 -1 1 0 502.3091 587.2109)" font-family="'Arial'" font-size="12px">FEET</text>
 	</g>
 	<g id="tree_count_2_">
 		<rect x="434.2" y="686" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -226.8342 1195.256)" width="100" height="50"/>
-		<text transform="matrix(0 -1 1 0 469.0855 755.5449)" fill="#FFFFFF" font-family="'ArialMT'" font-size="5px">PERMIT VALID FOR</text>
-		<text id="quantity" transform="matrix(0 -1 1 0 502.3101 754.0532)" fill="#FFFFFF" font-family="'Arial-BoldMT'" font-size="30px">2</text>
-		<text transform="matrix(0 -1 1 0 502.3091 706.5449)" fill="#FFFFFF" font-family="'ArialMT'" font-size="12px">TREES</text>
+		<text transform="matrix(0 -1 1 0 469.0855 755.5449)" fill="#FFFFFF" font-family="'Arial'" font-size="5px">PERMIT VALID FOR</text>
+		<text id="quantity" transform="matrix(0 -1 1 0 502.3101 754.0532)" fill="#FFFFFF" font-family="'Arial'" font-weight="bold" font-size="30px">2</text>
+		<text transform="matrix(0 -1 1 0 502.3091 706.5449)" fill="#FFFFFF" font-family="'Arial'" font-size="12px">TREES</text>
 	</g>
-	<text transform="matrix(0 -1 1 0 433.689 773.8789)" font-family="'ArialMT'" font-size="5px">CUTTING GUIDELINES</text>
+	<text transform="matrix(0 -1 1 0 433.689 773.8789)" font-family="'Arial'" font-size="5px">CUTTING GUIDELINES</text>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="569.7" y1="18.9" x2="569.7" y2="778.9"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="540.4" y1="704.1" x2="570.1" y2="704.1"/>
 	<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="540.4" y1="311.9" x2="540.4" y2="779.3"/>
-	<text transform="matrix(0 -1 1 0 248.4312 437.0449)" font-family="'ArialMT'" font-size="10px">FILL IN THE MONTH AND DAY YOU CUT YOUR TREE</text>
+	<text transform="matrix(0 -1 1 0 248.4312 437.0449)" font-family="'Arial'" font-size="10px">FILL IN THE MONTH AND DAY YOU CUT YOUR TREE</text>
 	<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="14.7" y1="19.9" x2="372.8" y2="19.9"/>
 </g>
 <g id="Layer_3">
