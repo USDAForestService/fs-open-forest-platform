@@ -3,7 +3,7 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment');
 const fs = require('fs-extra');
-const svg2png = require("svg2png");
+const svg2png = require('svg2png');
 
 const createPermit = {};
 
@@ -76,7 +76,6 @@ createPermit.generatePermitSvg = permit => {
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
         resolve(frag.firstChild.outerHTML);
-
       } catch (err) {
         reject(err);
       }
@@ -86,16 +85,17 @@ createPermit.generatePermitSvg = permit => {
 
 createPermit.generatePermitPng = svgBuffer => {
   return new Promise((resolve, reject) => {
-    svg2png(svgBuffer, { width: 958, height: 740 })
-    .then(data => {
-      resolve(data);
+    svg2png(svgBuffer, {
+      width: 958,
+      height: 740
     })
-    .catch(err => {
-      console.log('ERROR', err);
-    });
+      .then(data => {
+        resolve(data);
+      })
+      .catch(err => {
+        console.log('ERROR', err);
+      });
   });
 };
-
-
 
 module.exports = createPermit;
