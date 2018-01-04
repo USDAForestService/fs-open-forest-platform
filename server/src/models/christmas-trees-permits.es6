@@ -66,6 +66,16 @@ module.exports = function(sequelize, DataTypes) {
       paygovTrackingId: {
         type: DataTypes.STRING,
         field: 'paygov_tracking_id'
+      },
+      permitExpireDate: {
+        type: DataTypes.DATE,
+        field: 'permit_expire_date',
+        allowNull: false
+      },
+      paygovError: {
+        type: DataTypes.STRING(500),
+        field: 'paygov_error',
+        allowNull: true
       }
     },
     {

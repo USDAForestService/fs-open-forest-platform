@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import * as sinon from 'sinon';
+import { WindowRef } from '../../../_services/native-window.service';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -14,17 +13,21 @@ describe('TreePermitViewComponent', () => {
     data: Observable.of({
       permit: {
         error: {
-          status: 400,
-          errorCode: '123',
-          message:
-            'The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.',
-          permit: {
-            permitId: '123',
-            totalCost: 0,
-            quantity: 0,
-            emailAddress: '',
-            forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
-          }
+          errors: [
+            {
+              status: 400,
+              errorCode: '123',
+              message:
+                'The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.',
+              permit: {
+                permitId: '123',
+                totalCost: 0,
+                quantity: 0,
+                emailAddress: '',
+                forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
+              }
+            }
+          ]
         }
       }
     })
@@ -34,7 +37,8 @@ describe('TreePermitViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
-        declarations: [TreePermitViewComponent]
+        declarations: [TreePermitViewComponent],
+        providers: [{ provide: WindowRef, useClass: WindowRef }]
       }).compileComponents();
     })
   );

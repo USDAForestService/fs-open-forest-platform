@@ -3,7 +3,7 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment');
 const fs = require('fs-extra');
-const sharp = require('sharp');
+const svg2png = require('svg2png');
 
 const createPermit = {};
 
@@ -64,7 +64,7 @@ const addForestSpecificInfo = (permit, frag) => {
     .toUpperCase();
 };
 
-createPermit.generateSvgPermit = permit => {
+createPermit.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
@@ -75,23 +75,26 @@ createPermit.generateSvgPermit = permit => {
         addRules(permit, frag);
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
-
-        sharp(Buffer.from(frag.firstChild.outerHTML, 'utf8'))
-          .resize(958, 740)
-          .toBuffer()
-          .then(data => {
-            resolve({
-              svgBuffer: frag.firstChild.outerHTML,
-              pngBuffer: data
-            });
-          })
-          .catch(err => {
-            console.log('ERROR', err);
-          });
+        resolve(frag.firstChild.outerHTML);
       } catch (err) {
         reject(err);
       }
     });
+  });
+};
+
+createPermit.generatePermitPng = svgBuffer => {
+  return new Promise((resolve, reject) => {
+    svg2png(svgBuffer, {
+      width: 958,
+      height: 740
+    })
+      .then(data => {
+        resolve(data);
+      })
+      .catch(err => {
+        console.log('ERROR', err);
+      });
   });
 };
 
