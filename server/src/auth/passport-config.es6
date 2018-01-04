@@ -27,7 +27,7 @@ passportConfig.setup = app => {
     done(null, user);
   });
   passport.deserializeUser((user, done) => {
-    done(null, user, resolve());
+    done(null, user);
   });
 };
 
