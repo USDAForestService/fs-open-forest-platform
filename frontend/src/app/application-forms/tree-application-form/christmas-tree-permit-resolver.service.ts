@@ -14,8 +14,6 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
     const forest = route.paramMap.get('id');
     const token = route.queryParams['t'];
     const result = this.service.getOne(id, token).catch(err => {
-      //  this.router.navigate(['/']);
-      //    return Observable.of(err);
       return this.service.resolverError(err, `applications/christmas-trees/forests/${forest}/new`);
     });
     return result;
