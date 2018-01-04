@@ -50,7 +50,13 @@
       "volume_mounts": []
     },
     {
-      "credentials": { "whitelist": [], "issuer": "", "entrypoint": "", "cert": "", "private_key": "" },
+      "credentials": {
+        "whitelist": [],
+        "issuer": "",
+        "entrypoint": "",
+        "cert": "",
+        "private_key": ""
+      },
       "label": "user-provided",
       "name": "eauth-service-provider",
       "syslog_drain_url": "",
@@ -58,7 +64,10 @@
       "volume_mounts": []
     },
     {
-      "credentials": { "smtp_server": "", "username": "" },
+      "credentials": {
+        "smtp_server": "",
+        "username": ""
+      },
       "label": "user-provided",
       "name": "smtp-service",
       "syslog_drain_url": "",
@@ -84,7 +93,12 @@
   ],
   "s3": [
     {
-      "credentials": { "bucket": "", "access_key_id": "", "region": "us-east-1", "secret_access_key": "" },
+      "credentials": {
+        "bucket": "",
+        "access_key_id": "",
+        "region": "us-east-1",
+        "secret_access_key": ""
+      },
       "label": "s3",
       "name": "intake-s3"
     }
