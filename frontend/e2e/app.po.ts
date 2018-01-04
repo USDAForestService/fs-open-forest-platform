@@ -101,16 +101,6 @@ export class ChristmasTreeForm {
     this.rulesAccepted().click();
     this.submit().click();
   }
-
-  refreshAndReturnToForm(forest) {
-    return browser.getCurrentUrl().then(function(currentUrl) {
-      const url = currentUrl;
-      browser.get(url);
-      expect<any>(browser.getCurrentUrl()).toContain(
-        `http://localhost:4200/applications/christmas-trees/forests/${forest}/new`
-      );
-    });
-  }
 }
 
 export class ChristmasTreeFormAfterCancel {

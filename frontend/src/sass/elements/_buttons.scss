@@ -54,6 +54,9 @@
     &:active {
       background-color: $fs-green-darker;
     }
+    &:disabled {
+      background-color: $light-grey;
+    }
   }
 
   .usa-button-secondary {
