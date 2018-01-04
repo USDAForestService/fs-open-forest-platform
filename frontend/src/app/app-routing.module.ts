@@ -137,8 +137,8 @@ const appRoutes: Routes = [
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
-  { path: '404', component: NotFoundComponent, data: { title: 'Page not found' } },
-  { path: '**', component: NotFoundComponent, data: { title: 'Page not found' } }
+  { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
+  { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];
 
 @NgModule({

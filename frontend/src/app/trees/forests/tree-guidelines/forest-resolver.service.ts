@@ -13,14 +13,9 @@ export class ForestResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('id');
 
-    return this.service.getOne(id).take(1).map(data => {
-      if (data) {
-        return data.forest;
-      } else {
-        // This should go to forests selector
-        this.router.navigate(['/']);
-        return null;
-      }
+    const forest = this.service.getOne(id).catch(err => {
+      return Observable.of(null);
     });
+    return forest;
   }
 }

@@ -16,7 +16,13 @@ export class TreeGuidelinesComponent implements OnInit {
   id: any;
   sidebarItems;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private service: TreesService, public util: UtilService, public configService: SidebarConfigService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+    private service: TreesService,
+    public util: UtilService,
+    public configService: SidebarConfigService
+  ) {}
 
   ngOnInit() {
     this.template = 'sidebar';
@@ -25,9 +31,12 @@ export class TreeGuidelinesComponent implements OnInit {
     });
 
     this.route.data.subscribe(data => {
-      this.forest = data.forest;
-      if (data.forest) {
-        this.titleService.setTitle(data.forest.forestName + ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
+      this.forest = data.forest.forest;
+      if (data.forest.forest) {
+        this.titleService.setTitle(
+          data.forest.forestName +
+            ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
+        );
       }
     });
 

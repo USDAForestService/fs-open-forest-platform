@@ -16,9 +16,6 @@ export class ForestService {
   constructor(private http: HttpClient, private router: Router, public util: UtilService) {}
 
   getAll() {
-    return this.http
-      .get(this.endpoint, { withCredentials: true })
-      .map((res: Response) => res.json())
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint);
   }
 }

@@ -11,19 +11,9 @@ export class ForestFinderResolver implements Resolve<any> {
   constructor(private service: ForestService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const trees = this.service.getAll();
-    console.log(trees);
+    const trees = this.service.getAll().catch(err => {
+      return Observable.of(null);
+    });
     return trees;
-    // .map(data => {
-    //   if (data) {
-    //     return data;
-    //   } else {
-    //     return null;
-    //   }
-    // });
   }
 }
-
-// const result = this.service.getOne(id, token).catch(err => {
-//   return this.service.resolverError(err, `applications/christmas-trees/forests/${forest}/new`);
-// });
