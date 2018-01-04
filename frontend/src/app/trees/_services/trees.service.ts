@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,7 +14,7 @@ import { UtilService } from '../../_services/util.service';
 export class TreesService {
   private endpoint = environment.apiUrl + 'forests/';
 
-  constructor(private http: Http, private router: Router, public util: UtilService) {}
+  constructor(private http: HttpClient, private router: Router, public util: UtilService) {}
 
   getOne(id) {
     return this.http
@@ -21,5 +22,4 @@ export class TreesService {
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
-
 }
