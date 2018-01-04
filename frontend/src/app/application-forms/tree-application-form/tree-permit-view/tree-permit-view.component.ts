@@ -14,7 +14,7 @@ export class TreePermitViewComponent implements OnInit {
   image: any;
   error: any = null;
   nativeWindow: any;
-  isPermitExpired: boolean = false;
+  isPermitExpired = false;
 
   constructor(
     private route: ActivatedRoute,

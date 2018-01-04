@@ -12,8 +12,8 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('permitId');
     const token = route.queryParams['t'];
-    let result = this.service.getOne(id, token).catch(err => {
-      this.router.navigate(["/"]);
+    const result = this.service.getOne(id, token).catch(err => {
+      this.router.navigate(['/']);
       return Observable.empty();
     });
     return result;

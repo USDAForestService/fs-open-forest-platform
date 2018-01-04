@@ -40,10 +40,7 @@ export class ChristmasTreesApplicationService {
   }
 
   getOne(id, token) {
-    return this.httpClient.get(
-      `${this.endpoint}/${id}`,
-      { params: new HttpParams().set('t', token) }
-      )
+    return this.httpClient.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
   }
 
   getDetails(id) {
