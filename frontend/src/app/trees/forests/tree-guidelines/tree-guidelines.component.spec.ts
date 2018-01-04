@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MockBackend } from '@angular/http/testing';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,6 +10,7 @@ import { UtilService } from '../../../_services/util.service';
 import { MockService } from '../../../_services/mock.service';
 import { Title } from '@angular/platform-browser';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
+import { environment } from '../../../../environments/environment';
 
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
@@ -17,9 +19,11 @@ describe('TreeGuidelinesComponent', () => {
   let userService: Title;
   const mockResponse = {
     forest: {
-      forestName: 'forest name',
-      species: {
-        status: 'test'
+      forest: {
+        forestName: 'forest name',
+        species: {
+          status: 'test'
+        }
       }
     }
   };
@@ -42,7 +46,7 @@ describe('TreeGuidelinesComponent', () => {
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
         ],
-        imports: [HttpModule, RouterTestingModule]
+        imports: [HttpModule, HttpClientTestingModule, RouterTestingModule]
       }).compileComponents();
     })
   );
@@ -53,16 +57,20 @@ describe('TreeGuidelinesComponent', () => {
     fixture.detectChanges();
   });
 
-  it(
-    'should get forest object',
-    inject([TreesService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
+  it('should get forest object', () => {
+    const treesService = TestBed.get(TreesService);
+    const http = TestBed.get(HttpTestingController);
 
-      service.getOne(1).subscribe(result => {
-        expect(result.forest.forestName).toBe('forest name');
-      });
-    })
-  );
+    let data;
+    treesService.getOne('arp').subscribe(result => {
+      console.log('RESULT=', result);
+      data = result;
+    });
+
+    http.expectOne(environment.apiUrl + 'forests/arp').flush(mockResponse);
+
+    expect(data.forest.forest.forestName).toBe('forest name');
+  });
 
   it('should set the title', () => {
     inject([TreesService, XHRBackend], (service, mockBackend) => {

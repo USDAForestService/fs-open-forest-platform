@@ -6,6 +6,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ForestService } from '../../_services/forest.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import { HttpModule, XHRBackend, ResponseOptions, Response } from '@angular/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockBackend } from '@angular/http/testing';
 import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
@@ -35,7 +36,7 @@ describe('ForestFinderComponent', () => {
       mockService = new MockService();
       TestBed.configureTestingModule({
         declarations: [ForestFinderComponent, RemovePuncPipe, SpacesToDashesPipe],
-        imports: [HttpModule, Ng2AutoCompleteModule, RouterTestingModule],
+        imports: [HttpModule, HttpClientTestingModule, Ng2AutoCompleteModule, RouterTestingModule],
         providers: [
           UtilService,
           { provide: ForestService, useClass: ForestService },
