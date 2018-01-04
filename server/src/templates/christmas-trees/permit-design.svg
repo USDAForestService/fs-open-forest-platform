@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 612.2 793.3" enable-background="new 0 0 612.2 793.3" xml:space="preserve">
 <g id="Layer_2">
@@ -78,21 +76,21 @@
 			<rect x="434.5" y="356.9" transform="matrix(6.123234e-17 -1 1 6.123234e-17 102.6669 866.4216)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
 		<text transform="matrix(0 -1 1 0 469.3716 425.1416)" font-family="'ArialMT'" font-size="5px">MAX STUMP HEIGHT</text>
 		<text id="stump-height" transform="matrix(0 -1 1 0 503.481 424.7339)" font-family="'Arial-BoldMT'" font-size="30px">6</text>
-		<text transform="matrix(0 -1 1 0 487.7105 382.2188)"><tspan x="0" y="0" font-family="'ArialMT'" font-size="12px">INCHES </tspan><tspan x="-6.7" y="14.4" font-family="'ArialMT'" font-size="12px">OR LESS</tspan></text>
+		<text transform="matrix(0 -1 1 0 487.7105 382.2188)"><tspan id="stump-height-inches" x="0" y="0" font-family="'ArialMT'" font-size="12px">INCHES</tspan><tspan id="stump-height-or-less" x="-6.7" y="14.4" font-family="'ArialMT'" font-size="12px">OR LESS</tspan></text>
 	</g>
 	<g>
 
 			<rect x="434.2" y="466" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -6.8342 975.256)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
 		<text transform="matrix(0 -1 1 0 469.0386 536.1426)" font-family="'ArialMT'" font-size="5px">MAX STUMP DIAMETER</text>
 		<text id="stump-diameter" transform="matrix(0 -1 1 0 502.0328 534.4009)" font-family="'Arial-BoldMT'" font-size="30px">6</text>
-		<text transform="matrix(0 -1 1 0 502.2623 491.5449)" font-family="'ArialMT'" font-size="12px">INCHES</text>
+		<text "stump-diameter-inches" transform="matrix(0 -1 1 0 502.2623 491.5449)" font-family="'ArialMT'" font-size="12px">INCHES</text>
 	</g>
 	<g id="max_tree_height_2_">
 
 			<rect x="434.2" y="576" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -116.8342 1085.256)" fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" width="100" height="50"/>
 		<text transform="matrix(0 -1 1 0 468.6871 645.9258)" font-family="'ArialMT'" font-size="5px">MAX TREE HEIGHT</text>
 		<text id="tree-height" transform="matrix(0 -1 1 0 502.3091 644.9893)" font-family="'Arial-BoldMT'" font-size="30px">12</text>
-		<text transform="matrix(0 -1 1 0 502.3091 587.2109)" font-family="'ArialMT'" font-size="12px">FEET</text>
+		<text id="tree-height-feet" transform="matrix(0 -1 1 0 502.3091 587.2109)" font-family="'ArialMT'" font-size="12px">FEET</text>
 	</g>
 	<g id="tree_count_2_">
 		<rect x="434.2" y="686" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -226.8342 1195.256)" width="100" height="50"/>
