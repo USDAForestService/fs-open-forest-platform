@@ -72,6 +72,11 @@ module.exports = function(sequelize, DataTypes) {
         field: 'permit_expire_date',
         allowNull: false
       },
+      paygovError: {
+        type: DataTypes.STRING(500),
+        field: 'paygov_error',
+        allowNull: true
+      }
     },
     {
       timestamps: true,

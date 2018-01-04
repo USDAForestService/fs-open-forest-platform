@@ -103,15 +103,7 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
     })
     .then(permit => {
       if (permit) {
-        console.log(tokens);
         const successUrl = tokens[req.query.token].successUrl;
-        console.log(successUrl);
-        // const successUrl =
-        //   vcapConstants.intakeClientBaseUrl +
-        //   '/applications/christmas-trees/forests/' +
-        //   permit.christmasTreesForest.forestAbbr +
-        //   '/permits/' +
-        //   permit.permitId;
         const cancelUrl =
           vcapConstants.intakeClientBaseUrl +
           '/applications/christmas-trees/forests/' +

@@ -192,19 +192,23 @@ const updatePermitWithToken = (res, permit, token) => {
 };
 
 const updatePermitWithError = (res, permit, paygovError) => {
-  updatePermit(permit, {status: 'Error'})
-    .then(() => {
-      return res.status(400).json({
-        errors: [
-          {
-            status: 400,
-            errorCode: paygovError.errorCode,
-            message: paygovError.errorMessage,
-            permit: permitResult(permit, null)
-          }
-        ]
-      });
-    });
+  updatePermit(permit, { status: 'Error', paygovError: JSON.stringify(paygovError) }).then(updatedPermit => {
+    return getPermitError(res, updatedPermit);
+  });
+};
+
+const getPermitError = (res, permit) => {
+  let permitErrors = JSON.parse(permit.paygovError);
+  return res.status(400).json({
+    errors: [
+      {
+        status: 400,
+        errorCode: permitErrors.errorCode[0],
+        message: permitErrors.errorMessage[0],
+        permit: permitResult(permit, null)
+      }
+    ]
+  });
 };
 
 christmasTree.create = (req, res) => {
@@ -280,7 +284,8 @@ const returnSavedPermit = (res, savedPermit, svgBuffer) => {
 
 const updatePermit = (permit, updateObject) => {
   return new Promise((resolve, reject) => {
-    permit.update(updateObject)
+    permit
+      .update(updateObject)
       .then(permit => {
         resolve(permit);
       })
@@ -302,7 +307,6 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
         } catch (error) {
           try {
             const paygovError = paygov.getResponseError(result);
-            reject(null);
             return updatePermitWithError(res, permit, paygovError);
           } catch (faultError) {
             reject(faultError);
@@ -334,36 +338,40 @@ christmasTree.getOnePermit = (req, res) => {
       ]
     })
     .then(permit => {
-      if (permit && permit.status === 'Initiated') {
+      if (permit && permit.status === 'Error') {
+        return getPermitError(res, permit);
+      } else if (permit && permit.status === 'Initiated') {
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-        postPayGov(xmlData)
-        .then(xmlResponse => {
+        debugger;
+        postPayGov(xmlData).then(xmlResponse => {
           parseXMLFromPayGov(res, xmlResponse, permit)
-          .then(paygovTrackingId => {
-            return updatePermit(permit, { paygovTrackingId: paygovTrackingId, status: 'Completed' });
-          })
-          .then(updatedPermit => {
-            permitSvgService.generatePermitSvg(updatedPermit)
-            .then(permitSvgBuffer => {
-              permitSvgService.generatePermitPng(permitSvgBuffer).then(permitPngBuffer => {
-                updatedPermit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
-                sendEmail(res, updatedPermit, permitPngBuffer);
+            .then(paygovTrackingId => {
+              return updatePermit(permit, { paygovTrackingId: paygovTrackingId, status: 'Completed' });
+            })
+            .then(updatedPermit => {
+              permitSvgService.generatePermitSvg(updatedPermit).then(permitSvgBuffer => {
+                permitSvgService.generatePermitPng(permitSvgBuffer).then(permitPngBuffer => {
+                  updatedPermit.permitUrl = paygov.createSuccessUrl(
+                    permit.christmasTreesForest.forestAbbr,
+                    permit.permitId
+                  );
+                  sendEmail(res, updatedPermit, permitPngBuffer);
+                });
+                returnSavedPermit(res, updatedPermit, permitSvgBuffer);
               });
-              returnSavedPermit(res, updatedPermit, permitSvgBuffer );
+            })
+            .catch(error => {
+              throwError(error);
             });
-          })
-          .catch(error => {
-            throwError(error);
-          });
         });
       } else if (permit && permit.status === 'Completed') {
         const token = req.query.t;
-        jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
+        jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
           if (decoded) {
             if (checkPermitValid(permit.permitExpireDate)) {
-              permitSvgService.generatePermitSvg(permit).then(
-                permitSvgBuffer => {
-                  returnSavedPermit(res, permit, permitSvgBuffer)});
+              permitSvgService.generatePermitSvg(permit).then(permitSvgBuffer => {
+                returnSavedPermit(res, permit, permitSvgBuffer);
+              });
             } else {
               returnSavedPermit(res, permit, null);
             }
