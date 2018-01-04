@@ -13,17 +13,21 @@ describe('TreePermitViewComponent', () => {
     data: Observable.of({
       permit: {
         error: {
-          status: 400,
-          errorCode: '123',
-          message:
-            'The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.',
-          permit: {
-            permitId: '123',
-            totalCost: 0,
-            quantity: 0,
-            emailAddress: '',
-            forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
-          }
+          errors: [
+            {
+              status: 400,
+              errorCode: '123',
+              message:
+                'The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.',
+              permit: {
+                permitId: '123',
+                totalCost: 0,
+                quantity: 0,
+                emailAddress: '',
+                forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
+              }
+            }
+          ]
         }
       }
     })
@@ -34,9 +38,7 @@ describe('TreePermitViewComponent', () => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
         declarations: [TreePermitViewComponent],
-        providers: [
-          { provide: WindowRef, useClass: WindowRef }
-        ]
+        providers: [{ provide: WindowRef, useClass: WindowRef }]
       }).compileComponents();
     })
   );
