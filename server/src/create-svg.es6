@@ -31,14 +31,16 @@ const addRules = (permit, frag) => {
 
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
-  frag.querySelector('#permit-id-small').textContent = permit.paygovTrackingId.toUpperCase();
 
   frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat)
     .format('MMM DD')
     .toUpperCase();
 
-  frag.querySelector('#last-name').textContent = permit.lastName.substring(0, 18).toUpperCase();
-  frag.querySelector('#first-name').textContent = permit.firstName.substring(0, 18).toUpperCase();
+  frag.querySelector('#full-name').textContent = `${permit.lastName
+    .substring(0, 18)
+    .toUpperCase()} ${permit.firstName.substring(0, 18).toUpperCase()}`;
+
+  frag.querySelector('#quantity').textContent = permit.quantity;
 };
 const addForestSpecificInfo = (permit, frag) => {
   frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
@@ -48,20 +50,16 @@ const addForestSpecificInfo = (permit, frag) => {
 
   frag.querySelector('#permit-year-vertical').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
-  frag.querySelector(
-    '#permit-harvest-expiration'
-  ).textContent = `THIS PERMIT EXPIRES AT MIDNIGHT OF THE HARVEST DATE FILLED IN BELOW OR ${moment(
-    permit.christmasTreesForest.endDate,
-    util.datetimeFormat
-  )
-    .format('MMM D, YYYY h:mm A')
-    .toUpperCase()}`;
   frag.querySelector('#permit-expiration').textContent = moment(
     permit.christmasTreesForest.endDate,
     util.datetimeFormat
   )
     .format('MMM D, YYYY h:mm A')
     .toUpperCase();
+
+  frag.querySelector('#stump-height').textContent = permit.christmasTreesForest.stumpHeight;
+  frag.querySelector('#stump-diameter').textContent = permit.christmasTreesForest.stumpDiameter;
+  frag.querySelector('#tree-height').textContent = permit.christmasTreesForest.treeHeight;
 };
 
 createPermit.generateSvgPermit = permit => {
@@ -72,7 +70,7 @@ createPermit.generateSvgPermit = permit => {
       }
       try {
         const frag = JSDOM.fragment(svgData.toString('utf8'));
-        addRules(permit, frag);
+        // addRules(permit, frag);
         addApplicantInfo(permit, frag);
         addForestSpecificInfo(permit, frag);
 
