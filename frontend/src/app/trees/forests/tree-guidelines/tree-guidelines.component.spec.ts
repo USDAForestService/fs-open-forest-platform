@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { TreeGuidelinesComponent } from './tree-guidelines.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UtilService } from '../../../_services/util.service';
