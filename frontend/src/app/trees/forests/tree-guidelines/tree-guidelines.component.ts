@@ -1,7 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TreesService } from '../../_services/trees.service';
 import { UtilService } from '../../../_services/util.service';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 
@@ -19,7 +18,6 @@ export class TreeGuidelinesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private service: TreesService,
     public util: UtilService,
     public configService: SidebarConfigService
   ) {}
@@ -31,8 +29,8 @@ export class TreeGuidelinesComponent implements OnInit {
     });
 
     this.route.data.subscribe(data => {
-      this.forest = data.forest.forest;
-      if (data.forest.forest) {
+      this.forest = data.forest;
+      if (data.forest) {
         this.titleService.setTitle(
           data.forest.forestName +
             ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
