@@ -30,11 +30,15 @@ if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
 const transporter = nodemailer.createTransport(smtpConfig);
 
 emailUtil.send = (to, subject, body, html = false, attachments = false) => {
+  const bodyAndNoReply = `${body}
+  
+Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email`;
+
   let mailOptions = {
     from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
     to: to,
     subject: subject,
-    text: body // plain text
+    text: bodyAndNoReply // plain text
   };
   if (html) {
     mailOptions.html = html;
@@ -59,7 +63,9 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
     let html;
     let templateAttachments;
     if (template.html) {
-      html = `${htmlTemplate.forestService}<div class="body">${template.html}</div>`;
+      html = `${htmlTemplate.forestService}<div class="body">${
+        template.html
+      }<p>Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
     }
     if (template.attachments) {
       templateAttachments = template.attachments;
