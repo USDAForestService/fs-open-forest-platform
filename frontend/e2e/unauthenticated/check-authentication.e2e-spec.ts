@@ -1,7 +1,7 @@
 import { FrontendPage, HelpMePick } from '../app.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('frontend App', () => {
+describe('frontend App', () => {
   let page: FrontendPage;
 
   beforeEach(() => {
