@@ -59,7 +59,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest).to.include.all.keys('species', 'locations');
+          expect(res.body).to.include.all.keys('species', 'locations');
         })
         .expect(200, done);
     });
@@ -70,7 +70,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species.locations).to.not.equal(0);
+          expect(res.body.species.locations).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -81,7 +81,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species[0]).to.include.all.keys('name', 'status', 'notes');
+          expect(res.body.species[0]).to.include.all.keys('name', 'status', 'notes');
         })
         .expect(200, done);
     });
@@ -92,7 +92,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species[0].notes.length).to.not.equal(0);
+          expect(res.body.species[0].notes.length).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -103,7 +103,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.locations.length).to.not.equal(0);
+          expect(res.body.locations.length).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -134,9 +134,12 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('GET should return a 200 response when requesting for already completed permit', done => {
-      const token = jwt.sign({
-        data: permitId
-      }, vcapConstants.permitSecret);
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.permitSecret
+      );
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
         .set('Accept', 'application/json')
@@ -189,7 +192,10 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card', done => {
-      const processTransaction = { token: paygovToken, cc: '0000000000000000' };
+      const processTransaction = {
+        token: paygovToken,
+        cc: '0000000000000000'
+      };
       request(server)
         .post('/mock-pay-gov-process')
         .send(processTransaction)
@@ -263,7 +269,9 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 404 response when submitted to cancel already completed permit application', done => {
-      const cancelApplication = { permitId: permitId };
+      const cancelApplication = {
+        permitId: permitId
+      };
       request(server)
         .post('/forests/christmas-trees/permits/cancel')
         .send(cancelApplication)
@@ -283,7 +291,9 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 200 response when submitted to cancel existing permit application', done => {
-      const cancelApplication = { permitId: permitId };
+      const cancelApplication = {
+        permitId: permitId
+      };
       request(server)
         .post('/forests/christmas-trees/permits/cancel')
         .send(cancelApplication)
@@ -291,7 +301,9 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 404 response when submitted to cancel an invalid permit application', done => {
-      const cancelApplication = { permitId: invalidPermitId };
+      const cancelApplication = {
+        permitId: invalidPermitId
+      };
       request(server)
         .post('/forests/christmas-trees/permits/cancel')
         .send(cancelApplication)

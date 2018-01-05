@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
   let fixture: ComponentFixture<TreeGuidelinesComponent>;
-  let userService: Title;
+  const userService: Title;
   const mockRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({
