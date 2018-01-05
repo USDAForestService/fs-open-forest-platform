@@ -12,6 +12,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 
 class MockApplicationService {
@@ -55,7 +56,7 @@ describe('TreeApplicationFormComponent', () => {
             }
           }
         ],
-        imports: [RouterTestingModule, HttpModule],
+        imports: [RouterTestingModule, HttpModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

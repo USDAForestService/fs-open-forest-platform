@@ -10,7 +10,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 })
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
-  forest = [];
+  forest: any = [];
   errorMessage: string;
   id: any;
   sidebarItems;
@@ -30,9 +30,9 @@ export class TreeGuidelinesComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.forest = data.forest;
-      if (data.forest) {
+      if (this.forest) {
         this.titleService.setTitle(
-          data.forest.forestName +
+          this.forest.forestName +
             ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
         );
       }
