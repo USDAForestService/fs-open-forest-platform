@@ -117,7 +117,7 @@ jobs:
           name: run e2e
           command: .circleci/run-e2e.sh $(circleci tests split <( cd frontend; circleci tests glob ./e2e/*.e2e-spec.ts))
       - run:
-          name: run unauthenticated e2e
+          name: run unauthenticated e2e 
           command: .circleci/run-unauthenticated-e2e.sh
           environment:
             PLATFORM: 'not ci'
