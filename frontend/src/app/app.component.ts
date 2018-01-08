@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   buildDate = environment.buildDate;
   currentRoute: string;
   apiurl = environment.apiUrl;
+  currentUrl = '/';
   user: any;
   status = {
     heading: '',
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
     window.scrollTo(0, 0);
   }
 }
