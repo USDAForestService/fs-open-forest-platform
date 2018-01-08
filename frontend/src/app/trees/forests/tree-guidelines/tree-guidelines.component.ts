@@ -12,7 +12,6 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
   forest = [];
-  errorMessage: string;
   id: any;
   sidebarItems;
 
