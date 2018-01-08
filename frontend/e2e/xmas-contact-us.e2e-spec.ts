@@ -1,13 +1,16 @@
-import { TreesSidebarPage } from './app.po';
+import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Christmas tree  - Contact Us', () => {
   let page: TreesSidebarPage;
 
-  describe( 'Mt Hood', () => {
+  describe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(800);
     });
@@ -24,7 +27,12 @@ describe('Christmas tree  - Contact Us', () => {
 
     it('should have a headquarters section', () => {
       expect<any>(page.contactUsHeadquarters().isPresent()).toBeTruthy();
-      expect<any>(page.contactUsHeadquarters().element(by.css('h3')).getText()).toEqual('Mt. Hood National Forest');
+      expect<any>(
+        page
+          .contactUsHeadquarters()
+          .element(by.css('h3'))
+          .getText()
+      ).toEqual('Mt. Hood National Forest');
     });
 
     it('should have Ranger districts', () => {
@@ -33,13 +41,15 @@ describe('Christmas tree  - Contact Us', () => {
       expect<any>(page.contactUsDistrict(2).isPresent()).toBeTruthy();
       expect<any>(page.contactUsDistrict(3).isPresent()).toBeTruthy();
     });
-
   });
 
-  describe( 'Arapaho', () => {
+  describe('Arapaho', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('arp');
       browser.sleep(800);
     });
@@ -56,7 +66,12 @@ describe('Christmas tree  - Contact Us', () => {
 
     it('should have a headquarters section', () => {
       expect<any>(page.contactUsHeadquarters().isPresent()).toBeTruthy();
-      expect<any>(page.contactUsHeadquarters().element(by.css('h3')).getText()).toEqual('Arapaho and Roosevelt National Forests');
+      expect<any>(
+        page
+          .contactUsHeadquarters()
+          .element(by.css('h3'))
+          .getText()
+      ).toEqual('Arapaho and Roosevelt National Forests');
     });
 
     it('should have Ranger districts', () => {
@@ -65,12 +80,14 @@ describe('Christmas tree  - Contact Us', () => {
       expect<any>(page.contactUsDistrict(2).isPresent()).toBeTruthy();
       expect<any>(page.contactUsDistrict(3).isPresent()).toBeTruthy();
     });
-
   });
-  describe( 'Shoshone', () => {
+  describe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('shoshone');
       browser.sleep(800);
     });
@@ -87,7 +104,12 @@ describe('Christmas tree  - Contact Us', () => {
 
     it('should have a headquarters section', () => {
       expect<any>(page.contactUsHeadquarters().isPresent()).toBeTruthy();
-      expect<any>(page.contactUsHeadquarters().element(by.css('h3')).getText()).toEqual('Shoshone National Forest');
+      expect<any>(
+        page
+          .contactUsHeadquarters()
+          .element(by.css('h3'))
+          .getText()
+      ).toEqual('Shoshone National Forest');
     });
 
     it('should have Ranger districts', () => {
@@ -96,12 +118,14 @@ describe('Christmas tree  - Contact Us', () => {
       expect<any>(page.contactUsDistrict(2).isPresent()).toBeTruthy();
       expect<any>(page.contactUsDistrict(3).isPresent()).toBeTruthy();
     });
-
   });
-  describe( 'Flathead', () => {
+  describe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('flathead');
       browser.sleep(800);
     });
@@ -118,7 +142,12 @@ describe('Christmas tree  - Contact Us', () => {
 
     it('should have a headquarters section', () => {
       expect<any>(page.contactUsHeadquarters().isPresent()).toBeTruthy();
-      expect<any>(page.contactUsHeadquarters().element(by.css('h3')).getText()).toEqual('Flathead National Forest');
+      expect<any>(
+        page
+          .contactUsHeadquarters()
+          .element(by.css('h3'))
+          .getText()
+      ).toEqual('Flathead National Forest');
     });
 
     it('should have Ranger districts', () => {
@@ -127,8 +156,5 @@ describe('Christmas tree  - Contact Us', () => {
       expect<any>(page.contactUsDistrict(2).isPresent()).toBeTruthy();
       expect<any>(page.contactUsDistrict(3).isPresent()).toBeTruthy();
     });
-
   });
-
-
 });
