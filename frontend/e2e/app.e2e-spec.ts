@@ -50,11 +50,25 @@ describe('frontend App', () => {
       );
     });
 
+    it('should display header links for authenticated user', () => {
+      page.navigateTo();
+      expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
+      expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
+      expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
+      expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
+      expect<any>(element(by.id('login-to-suds')).isPresent()).toBeTruthy();
+    });
+
+    it('should have ctas to apply for different permits', () => {
+      expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
+      expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
+      expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
+    });
+
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('no', 'Does your activity involve more than 75 people (spectators and participants)?');
     helpMePick.landingPage('Your activity does not require a permit.', 'Thanks for checking!');
-
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');
