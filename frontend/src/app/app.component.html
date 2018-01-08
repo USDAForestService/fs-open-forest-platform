@@ -1,66 +1,17 @@
 <ng-container appPageTitle></ng-container>
 <a tabindex="0" class="usa-skipnav" href="#skip-nav-target" (click)="gotoHashtag('skip-nav-target', $event)">Skip to main content</a>
-<header role="banner" class="usa-header usa-header-extended">
+<header role="banner" class="usa-header usa-header-extended" [ngClass]="router.url.indexOf('mock') > -1 ? 'usa-mock-header' : ''">
   <app-usa-banner></app-usa-banner>
-  <div class="usa-navbar">
-    <div id="logo" class="usa-logo">
-      <div class="fs-branding">
-        <a href="//usda.gov">
-          <img src="/assets/img/usda.svg" class="usda-logo" alt="United States Department of Agriculture" role="img" />
-        </a>
-        <a routerLink="/" id="us-forest-service-logo"><img src="/assets/img/usfslogo.svg" alt="US Forest Service" width="50" class="fs-logo" role="img">
-          <div class="fs-name-slogan"><span class="fs-name">U.S. FOREST SERVICE</span><span class="fs-slogan">Caring for the land and serving people</span>
-            <div class="beta-label"><span class="usa-label">beta</span></div>
-          </div>
-        </a>
-      </div>
-    </div>
+  <div *ngIf="router.url.indexOf('mock') === -1" class="usa-navbar">
+    <app-page-header></app-page-header>
     <app-authenticated></app-authenticated>
+  </div>
+  <div *ngIf="router.url.indexOf('mock') > -1" class="usa-navbar">
+    <app-mock-page-header *ngIf="router.url.indexOf('mock') > -1"></app-mock-page-header>
   </div>
 </header>
 <main id="main-content" tabindex="0">
   <app-status [message]="status.message" [heading]="status.heading"></app-status>
   <router-outlet (activate)="isAuthenticated()"></router-outlet>
 </main>
-<footer id="footer" role="contentinfo" class="usa-footer usa-footer-slim">
-  <div class="usa-footer-primary-section">
-    <div class="usa-grid">
-      <ul class="usa-unstyled-list fs-footer-links">
-        <li class="fs-footer-item"><a href="http://www.usda.gov/wps/portal/usda/usdahome">USDA.gov</a></li>
-        <li class="fs-footer-item"><a href="http://www.usda.gov/wps/portal/usda/usdahome?navtype=FT&amp;navid=PRIVACY_POLICY">Privacy Policy</a></li>
-        <li class="fs-footer-item"><a href="https://www.usda.gov/oig/">Office of Inspector General</a></li>
-        <li class="fs-footer-item"><a href="https://www.fs.fed.us/about-agency">About Us</a></li>
-        <li class="fs-footer-item"><a href="http://www.dm.usda.gov/foia/">FOIA</a></li>
-        <li class="fs-footer-item"><a href="https://www.eeoc.gov/eeoc/statistics/nofear/qanda.cfm">No Fear Data Act</a></li>
-        <li class="fs-footer-item"><a href="https://www.fs.fed.us/about-agency/budget-performance">Budget and Performance</a></li>
-      </ul>
-      <ul class="usa-unstyled-list">
-        <li class="fs-footer-item">(800) 832-1355</li>
-        <li class="fs-footer-item"><a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="usa-footer-secondary_section">
-    <div class="usa-grid">
-      <div class="usa-width-two-thirds">
-        <img src="/assets/img/usfslogo.svg" alt="US Forest Service" class="fs-footer-logo" role="img">
-        <div class="usa-footer-logo-heading">
-          <div class="fs-name-slogan">
-            <span class="fs-name">U.S. FOREST SERVICE</span>
-            <span class="fs-slogan">Caring for the land and serving people</span>
-          </div>
-        </div>
-      </div>
-      <div class="usa-footer-contact-links usa-width-one-third">
-        <a href="https://www.facebook.com/USForestService/" class="usa-link-facebook"><img src="/assets/img/social-icon-facebook.svg" alt="Facebook" target="_blank" /></a>
-        <a href="https://twitter.com/forestservice" class="usa-link-twitter"><img src="/assets/img/social-icon-twitter.svg" alt="Twitter" target="_blank" /></a>
-        <a href="https://www.youtube.com/user/usdaForestService" class="usa-link-youtube"><img src="/assets/img/social-icon-youtube.svg" alt="YouTube" target="_blank" /></a>
-      </div>
-    </div>
-    <div class="usa-grid build-version">
-      <div class="usa-width-one-whole">
-        <p>version: {{ version }}, released on: {{ buildDate |  date: 'MM/dd/yyyy'  }}</p>
-      </div>
-    </div>
-  </div>
-</footer>
+<app-page-footer *ngIf="router.url.indexOf('mock') === -1" [version]="version" [buildDate]="buildDate"></app-page-footer>
