@@ -43,5 +43,5 @@ export class ForestFinderComponent implements OnInit {
 
   forestListFormatter = (data: any) => {
     return `${data.description}`;
-  }
+  };
 }
