@@ -3,8 +3,8 @@
     <div class="breadcrumbs">
       <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
     </div>
-    <form id="skip-nav-target" tabindex="-1" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-      <label>Find a Forest:</label>
+    <form id="skip-nav-target" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
+      <label for="forest-finder-input">Find a Forest:</label>
       <input id='forest-finder-input'
              name='selectForest'
              auto-complete

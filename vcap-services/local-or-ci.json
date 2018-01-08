@@ -53,7 +53,7 @@
       "credentials": {
         "whitelist": [],
         "issuer": "",
-        "entrypoint": "",
+        "entrypoint": "https://www.eauth.usda.gov/",
         "cert": "",
         "private_key": ""
       },
