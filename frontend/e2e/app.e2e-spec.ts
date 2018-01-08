@@ -6,18 +6,18 @@ describe('frontend App', () => {
   let helpMePick: HelpMePick;
   helpMePick = new HelpMePick();
 
-  describe('error handling', () => {
+  fdescribe('error handling', () => {
     it('should have a 404 page', () => {
       browser.get('/404');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Lost?');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
     });
     it('should redirect to 404 page for unknown urls', () => {
       browser.get('/smokeybear');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Lost?');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
     });
   });
 
-  describe('permit application', () => {
+  fdescribe('permit application', () => {
     beforeEach(() => {
       page = new FrontendPage();
     });
@@ -25,29 +25,6 @@ describe('frontend App', () => {
     it('should display page title', () => {
       page.navigateTo();
       expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
-    });
-
-  it('should display header links for authenticated user', () => {
-    page.navigateTo();
-    expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
-    expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
-    expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
-    expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
-    expect<any>(element(by.id('login-to-suds')).isPresent()).toBeTruthy();
-  });
-
-  it('should have ctas to apply for different permits', () => {
-    expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
-    expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
-    expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
-  });
-
-    it('should go to help me pick wizard if help me find permit button is clicked', () => {
-      page.navigateTo();
-      element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
-        'Are you charging a participation fee for your activity?'
-      );
     });
 
     it('should display header links for authenticated user', () => {
@@ -63,6 +40,14 @@ describe('frontend App', () => {
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
+    });
+
+    it('should go to help me pick wizard if help me find permit button is clicked', () => {
+      page.navigateTo();
+      element(by.id('help-find-permit')).click();
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+        'Are you charging a participation fee for your activity?'
+      );
     });
 
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
