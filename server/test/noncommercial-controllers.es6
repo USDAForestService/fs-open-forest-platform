@@ -586,7 +586,9 @@ describe('noncommercial controllers', () => {
       .expect(/"applicationId":[\d]+/)
       .expect(200, done);
   }).timeout(3000);
+});
 
+describe('noncommercial controllers revisions', () => {
   it('GET should return a 200 status code, a status of Accepted, a middle layer control number, and a revision history', done => {
     request(server)
       .get(`${noncommercialUrl}/${intakeControlNumber}`)
