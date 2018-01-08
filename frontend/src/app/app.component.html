@@ -3,15 +3,15 @@
 <header role="banner" class="usa-header usa-header-extended" [ngClass]="router.url.indexOf('mock') > -1 ? 'usa-mock-header' : ''">
   <app-usa-banner></app-usa-banner>
   <div *ngIf="router.url.indexOf('mock') === -1" class="usa-navbar">
-    <page-header></page-header>
+    <app-page-header></app-page-header>
     <app-authenticated></app-authenticated>
   </div>
   <div *ngIf="router.url.indexOf('mock') > -1" class="usa-navbar">
-    <mock-page-header *ngIf="router.url.indexOf('mock') > -1"></mock-page-header>
+    <app-mock-page-header *ngIf="router.url.indexOf('mock') > -1"></app-mock-page-header>
   </div>
 </header>
 <main id="main-content" tabindex="0">
   <app-status [message]="status.message" [heading]="status.heading"></app-status>
   <router-outlet (activate)="isAuthenticated()"></router-outlet>
 </main>
-<page-footer *ngIf="router.url.indexOf('mock') === -1"></page-footer>
+<app-page-footer *ngIf="router.url.indexOf('mock') === -1" [version]="version" [buildDate]="buildDate"></app-page-footer>

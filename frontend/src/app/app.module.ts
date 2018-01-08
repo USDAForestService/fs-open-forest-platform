@@ -35,10 +35,10 @@ import { TreesModule } from './trees/trees.module';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
 import { WindowRef } from './_services/native-window.service';
-import { PageHeader } from './home/header.component';
-import { MockPageHeader } from './pay-gov-mocks/mock-header.component';
-import { PageFooter } from './home/footer.component';
-import { MockPageFooter } from './pay-gov-mocks/mock-footer.component';
+import { PageHeaderComponent } from './home/header.component';
+import { MockPageHeaderComponent } from './pay-gov-mocks/mock-header.component';
+import { PageFooterComponent } from './home/footer.component';
+import { MockPageFooterComponent } from './pay-gov-mocks/mock-footer.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +52,11 @@ import { MockPageFooter } from './pay-gov-mocks/mock-footer.component';
     HomeComponent,
     HoursFromOrDate,
     LoggedInComponent,
-    MockPageFooter,
-    MockPageHeader,
+    MockPageFooterComponent,
+    MockPageHeaderComponent,
     NoncommercialDetailsComponent,
-    PageFooter,
-    PageHeader,
+    PageFooterComponent,
+    PageHeaderComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     RevisionHistoryComponent,

@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     message: ''
   };
 
-  constructor(private router: Router, private authentication: AuthenticationService) {
+  constructor(public router: Router, private authentication: AuthenticationService) {
     router.events.subscribe(scroll => {
       // Scroll to top of page on route change
       window.scrollTo(0, 0);
