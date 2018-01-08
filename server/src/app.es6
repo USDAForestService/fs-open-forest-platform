@@ -47,9 +47,6 @@ app.use(
   })
 );
 
-/** Configure passport for login.gov and eAuth. */
-passportConfig.setup(app);
-
 /** Pay.gov mock route */
 app.use(payGovMocks.router);
 app.use(loginGovMocks.router);
@@ -59,6 +56,9 @@ app.use(router);
 
 /** Listen on port 8080. */
 app.listen(8080);
+
+/** Configure passport for login.gov and eAuth. */
+passportConfig.setup(app);
 
 /**
  * FS Intake API Server
