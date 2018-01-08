@@ -218,6 +218,14 @@ Navigate to `/assets/typedoc/index.html`
 VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
 To mock Pay.Gov integration use the values in the VCAP example.
 
+##### Pay.gov error mocking
+
+* To mock a pay.gov token error, in the Christmas trees application form, set the first name to 1 and last name to 1.
+
+* To mock a pay.gov 500 error, in the Christmas trees application form, set the first name to 1 and last name to 2.
+
+* To mock a pay.gov complete collection error, use credit card number 000000000000XXXX. The last four XXXX represent the pay.gov error code.
+
 #### Enable html5 pushstate on cloud.gov
 
 In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`

@@ -76,7 +76,7 @@
   <div id="tree-additional-info-container" class="usa-grid confirmation-details-container margin-top-2 margin-bottom-2">
     <h2 class="usa-heading">Additional information</h2>
     <hr class="header-divider">
-    <b>Your permit was emailed to you at {{permit.emailAddress}}.</b>
+    <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>
     <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
   </div>
 

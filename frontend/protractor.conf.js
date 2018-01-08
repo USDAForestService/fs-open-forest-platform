@@ -12,7 +12,7 @@ var screenshotReporter = new HtmlScreenshotReporter({
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['./e2e/**/*.e2e-spec.ts'],
+  specs: ['./e2e/*.e2e-spec.ts'],
   capabilities: {
     browserName: 'chrome'
   },
@@ -28,7 +28,7 @@ exports.config = {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
-    return new Promise(function(resolve){
+    return new Promise(function(resolve) {
       screenshotReporter.beforeLaunch(resolve);
     });
   },
@@ -43,7 +43,7 @@ exports.config = {
     jasmine.getEnv().addReporter(screenshotReporter);
   },
   afterLaunch: function(exitCode) {
-    return new Promise(function(resolve){
+    return new Promise(function(resolve) {
       screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
     });
   }
