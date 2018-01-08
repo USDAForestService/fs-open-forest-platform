@@ -13,6 +13,7 @@ const expect = chai.expect;
 let permitId;
 let invalidPermitId = 'xxxxx';
 let paygovToken;
+let tcsAppID;
 
 describe('christmas tree controller tests', () => {
   describe('get forests', () => {
@@ -134,9 +135,12 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('GET should return a 200 response when requesting for already completed permit', done => {
-      const token = jwt.sign({
-        data: permitId
-      }, vcapConstants.permitSecret);
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.permitSecret
+      );
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
         .set('Accept', 'application/json')
@@ -194,6 +198,17 @@ describe('christmas tree controller tests', () => {
         .post('/mock-pay-gov-process')
         .send(processTransaction)
         .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
+      const processTransaction = { token: paygovToken, cc: '0000000000001234' };
+      request(server)
+        .post('/mock-pay-gov-process')
+        .send(processTransaction)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body.errorCode).to.equal('1234');
+        })
         .expect(200, done);
     });
     it('GET should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
@@ -295,6 +310,41 @@ describe('christmas tree controller tests', () => {
       request(server)
         .post('/forests/christmas-trees/permits/cancel')
         .send(cancelApplication)
+        .expect(404, done);
+    });
+  });
+  describe('permit application redirect to mock paygov', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+          paygovToken = res.body.token;
+          tcsAppID = res.body.tcsAppID;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when requested to open mock pay.gov', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${paygovToken}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when requested to open mock pay.gov with token and tcsAppID', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${paygovToken}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 404 response when requested to open mock pay.gov with invalid token and tcsAppID', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
         .expect(404, done);
     });
   });
