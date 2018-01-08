@@ -1,7 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TreesService } from '../../_services/trees.service';
 import { UtilService } from '../../../_services/util.service';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 
@@ -11,11 +10,16 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 })
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
-  forest = [];
+  forest: any = [];
   id: any;
   sidebarItems;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private service: TreesService, public util: UtilService, public configService: SidebarConfigService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+    public util: UtilService,
+    public configService: SidebarConfigService
+  ) {}
 
   ngOnInit() {
     this.template = 'sidebar';
@@ -25,8 +29,11 @@ export class TreeGuidelinesComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.forest = data.forest;
-      if (data.forest) {
-        this.titleService.setTitle(data.forest.forestName + ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting');
+      if (this.forest) {
+        this.titleService.setTitle(
+          this.forest.forestName +
+            ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
+        );
       }
     });
 

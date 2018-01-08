@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AccessDeniedComponent } from './login/access-denied.component';
+import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AppComponent } from './app.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
+import { NotFoundComponent } from './error-pages/not-found.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -136,7 +137,8 @@ const appRoutes: Routes = [
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
   { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
-  { path: '**', component: HomeComponent, data: { title: 'US Forest Service ePermit' } }
+  { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
+  { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];
 
 @NgModule({

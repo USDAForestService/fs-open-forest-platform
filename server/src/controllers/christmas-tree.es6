@@ -16,43 +16,41 @@ const christmasTree = {};
 
 const translateGuidelinesFromDatabaseToClient = input => {
   return {
-    forest: {
-      id: input.id,
-      forestName: input.forestName,
-      description: input.description,
-      forestAbbr: input.forestAbbr,
-      forestUrl: input.forestUrl,
-      orgStructureCode: input.orgStructureCode,
-      treeHeight: input.treeHeight,
-      stumpHeight: input.stumpHeight,
-      stumpDiameter: input.stumpDiameter,
-      startDate: input.startDate,
-      endDate: input.endDate,
-      treeCost: input.treeCost,
-      maxNumTrees: input.maxNumTrees,
-      allowAdditionalHeight: input.allowAdditionalHeight,
-      species: input.christmasTreesForestSpecies.map(species => {
-        return {
-          id: species.species.id,
-          name: species.species.name,
-          webUrl: species.species.webUrl,
-          status: species.status,
-          notes: species.species.speciesNotes.map(notes => {
-            return notes.note;
-          })
-        };
-      }),
-      locations: input.christmasTreesForestLocations.map(location => {
-        return {
-          id: location.id,
-          district: location.district,
-          allowed: location.allowed,
-          type: location.type,
-          description: location.description,
-          imageFilename: location.imageFilename
-        };
-      })
-    }
+    id: input.id,
+    forestName: input.forestName,
+    description: input.description,
+    forestAbbr: input.forestAbbr,
+    forestUrl: input.forestUrl,
+    orgStructureCode: input.orgStructureCode,
+    treeHeight: input.treeHeight,
+    stumpHeight: input.stumpHeight,
+    stumpDiameter: input.stumpDiameter,
+    startDate: input.startDate,
+    endDate: input.endDate,
+    treeCost: input.treeCost,
+    maxNumTrees: input.maxNumTrees,
+    allowAdditionalHeight: input.allowAdditionalHeight,
+    species: input.christmasTreesForestSpecies.map(species => {
+      return {
+        id: species.species.id,
+        name: species.species.name,
+        webUrl: species.species.webUrl,
+        status: species.status,
+        notes: species.species.speciesNotes.map(notes => {
+          return notes.note;
+        })
+      };
+    }),
+    locations: input.christmasTreesForestLocations.map(location => {
+      return {
+        id: location.id,
+        district: location.district,
+        allowed: location.allowed,
+        type: location.type,
+        description: location.description,
+        imageFilename: location.imageFilename
+      };
+    })
   };
 };
 
@@ -192,7 +190,10 @@ const updatePermitWithToken = (res, permit, token) => {
 };
 
 const updatePermitWithError = (res, permit, paygovError) => {
-  updatePermit(permit, { status: 'Error', paygovError: JSON.stringify(paygovError) }).then(updatedPermit => {
+  updatePermit(permit, {
+    status: 'Error',
+    paygovError: JSON.stringify(paygovError)
+  }).then(updatedPermit => {
     return getPermitError(res, updatedPermit);
   });
 };
@@ -345,7 +346,10 @@ christmasTree.getOnePermit = (req, res) => {
         postPayGov(xmlData).then(xmlResponse => {
           parseXMLFromPayGov(res, xmlResponse, permit)
             .then(paygovTrackingId => {
-              return updatePermit(permit, { paygovTrackingId: paygovTrackingId, status: 'Completed' });
+              return updatePermit(permit, {
+                paygovTrackingId: paygovTrackingId,
+                status: 'Completed'
+              });
             })
             .then(updatedPermit => {
               permitSvgService.generatePermitSvg(updatedPermit).then(permitSvgBuffer => {

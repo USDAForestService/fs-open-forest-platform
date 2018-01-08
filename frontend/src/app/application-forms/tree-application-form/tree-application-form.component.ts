@@ -77,7 +77,7 @@ export class TreeApplicationFormComponent implements OnInit {
       this.permit = data.permit;
       this.titleService.setTitle(
         'Buy a Christmas tree permit in ' +
-          data.forest.forestName +
+          this.forest.forestName +
           ' National Forest | U.S. Forest Service Christmas Tree Permitting'
       );
       this.createForm(data, this.formBuilder);
