@@ -6,7 +6,7 @@ describe('frontend App', () => {
   let helpMePick: HelpMePick;
   helpMePick = new HelpMePick();
 
-  fdescribe('error handling', () => {
+  describe('error handling', () => {
     it('should have a 404 page', () => {
       browser.get('/404');
       expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
@@ -17,7 +17,7 @@ describe('frontend App', () => {
     });
   });
 
-  fdescribe('permit application', () => {
+  describe('permit application', () => {
     beforeEach(() => {
       page = new FrontendPage();
     });
