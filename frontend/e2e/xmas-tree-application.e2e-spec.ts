@@ -1,4 +1,8 @@
-import { ChristmasTreeForm, ChristmasTreeOrderConfirmation, ChristmasTreeFormAfterCancel } from './app.po';
+import {
+  ChristmasTreeForm,
+  ChristmasTreeOrderConfirmation,
+  ChristmasTreeFormAfterCancel
+} from './xmas-tree-application.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('Apply for a Christmas tree permit', () => {

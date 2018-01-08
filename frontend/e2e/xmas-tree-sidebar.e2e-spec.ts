@@ -1,4 +1,4 @@
-import { TreesSidebarPage } from './app.po';
+import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Xmas sidebar page', () => {
@@ -6,7 +6,10 @@ describe('Xmas sidebar page', () => {
 
   beforeEach(() => {
     page = new TreesSidebarPage();
-    browser.driver.manage().window().setSize(1400, 900);
+    browser.driver
+      .manage()
+      .window()
+      .setSize(1400, 900);
     page.navigateTo('mthood'); // 3 is mt hood, 4 is shoshone etc.
   });
 
@@ -32,7 +35,12 @@ describe('Xmas sidebar page', () => {
 
   it('should go to plan your trip section if link is clicked', () => {
     element(by.id('trip-planning-link')).click();
-    expect<any>(browser.driver.switchTo().activeElement().getAttribute('id')).toEqual('trip-planning');
+    expect<any>(
+      browser.driver
+        .switchTo()
+        .activeElement()
+        .getAttribute('id')
+    ).toEqual('trip-planning');
   });
 
   it('should have a breadcrumb', () => {
@@ -43,19 +51,30 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a menu button and hide sidebar nav when resized to mobile', () => {
-    browser.driver.manage().window().setSize(800, 1280);
+    browser.driver
+      .manage()
+      .window()
+      .setSize(800, 1280);
     expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
     expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeFalsy();
   });
 
   it('should open menu if menu button is clicked', () => {
-    browser.driver.manage().window().setSize(800, 1280);
+    browser.driver
+      .manage()
+      .window()
+      .setSize(800, 1280);
     expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
     element(by.id('mobile-menu-btn')).click();
     browser.sleep(500);
     expect<any>(element(by.id('sidenav-mobile')).isDisplayed()).toBeTruthy();
     browser.sleep(500);
     element(by.id('mobile-trip-planning-link')).click();
-    expect<any>(browser.driver.switchTo().activeElement().getAttribute('id')).toEqual('trip-planning');
+    expect<any>(
+      browser.driver
+        .switchTo()
+        .activeElement()
+        .getAttribute('id')
+    ).toEqual('trip-planning');
   });
 });
