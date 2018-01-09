@@ -4,7 +4,7 @@ const util = require('../../../util.es6');
 
 module.exports = application => {
   console.log(application);
-  const forestOrForests = application.christmasTreesForest.id === 1 ? 'Forests' : 'Forest';
+  const forestOrForests = application.christmasTreesForest.forestName.indexOf(' and ') > 0 ? 'Forests' : 'Forest';
   return {
     to: application.emailAddress,
     subject: 'U.S. Forest Service: Your Christmas Tree Permit',
