@@ -20,7 +20,7 @@
     <div class="usa-width-one-third">
       <dl>
         <dt>Description</dt>
-        <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
+        <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
       </dl>
     </div>
     <div class="usa-width-one-third">
@@ -77,7 +77,7 @@
     <h2 class="usa-heading">Additional information</h2>
     <hr class="header-divider">
     <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>
-    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
+    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
   </div>
 
 </section>
@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="margin-top-2 margin-bottom-2">
-      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new/' + permit.permitId">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
+      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new/' + permit.permitId">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
       <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
     </div>
   </div>

@@ -383,6 +383,8 @@ christmasTree.getOnePermit = (req, res) => {
             return res.status(404).send();
           }
         });
+      } else if (!permit) {
+        return res.status(404).send();
       }
     })
     .catch(error => {
@@ -390,6 +392,8 @@ christmasTree.getOnePermit = (req, res) => {
         return res.status(400).json({
           errors: error.errors
         });
+      } else if (error.name === 'SequelizeDatabaseError') {
+          return res.status(404).send();
       } else {
         return res.status(500).send();
       }
