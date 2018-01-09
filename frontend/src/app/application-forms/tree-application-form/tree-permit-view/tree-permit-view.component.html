@@ -91,7 +91,7 @@
       </div>
     </div>
     <div class="margin-top-2 margin-bottom-2">
-      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
+      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new/' + permit.permitId">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
       <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
     </div>
   </div>

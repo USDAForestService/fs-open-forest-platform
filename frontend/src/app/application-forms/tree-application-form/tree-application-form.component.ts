@@ -90,6 +90,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.apiErrors = null;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {
       this.createApplication();
@@ -103,6 +104,7 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationForm.get('lastName').setValue(this.permit.lastName);
     this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
     this.applicationForm.get('quantity').setValue(this.permit.quantity);
+    this.applicationForm.get('acceptRules').setValue(false);
     this.quantityChange(this.permit.quantity);
   }
 
@@ -113,6 +115,8 @@ export class TreeApplicationFormComponent implements OnInit {
       },
       (error: any) => {
         this.apiErrors = error;
+        this.submitted = false;
+        this.applicationForm.get('acceptRules').setValue(false);
         window.scroll(0, 0);
       }
     );
