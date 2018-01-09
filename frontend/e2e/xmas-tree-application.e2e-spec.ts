@@ -158,7 +158,7 @@ describe('Apply for a Christmas tree permit', () => {
     it('should show 500 error if first name is 1 and last name is 1', () => {
       element(by.css('.primary-permit-holder-last-name')).clear();
       element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
-      page.rulesAccepted().click(); //unclicked on previous submit with error
+      page.rulesAccepted().click(); // unclicked on previous submit with error
       page.submit().click();
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'
