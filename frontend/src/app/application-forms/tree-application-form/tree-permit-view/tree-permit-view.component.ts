@@ -48,7 +48,7 @@ export class TreePermitViewComponent implements OnInit {
       if (this.permit.permitImage) {
         this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
       }
-      this.isPermitExpired = data.permit.expirationDate < new Date();
+      this.isPermitExpired = new Date(data.permit.expirationDate) < new Date();
       this.titleService.setTitle(
         `${title} for ${data.permit.forest.forestName} National Forest | U.S. Forest Service Christmas Tree Permitting`
       );
