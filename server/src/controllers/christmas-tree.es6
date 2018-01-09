@@ -159,6 +159,7 @@ const permitResult = (permit, svgData) => {
     totalCost: permit.totalCost,
     status: permit.status,
     transactionDate: permit.updatedAt,
+    paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
     forest: {
