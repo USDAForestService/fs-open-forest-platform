@@ -13,7 +13,7 @@ Hello, ${application.firstName}. Thank you for purchasing your Christmas tree pe
 Order Details
 **************************************
 
-Order number: ${application.paygovTrackingId}
+Permit number: ${application.paygovTrackingId}
 Forest: ${application.christmasTreesForest.forestName} National Forest
 Number of trees: ${application.quantity}
 Name: ${application.firstName} ${application.lastName}
@@ -44,7 +44,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     <h2 class="border-bottom">Order Details</h2>
     <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
-        <td style="width: 150px;" class="border-bottom border-right">Order number</td>
+        <td style="width: 150px;" class="border-bottom border-right">Permit number</td>
         <td class="border-bottom">${application.paygovTrackingId}</td>
       </tr>
       <tr>
