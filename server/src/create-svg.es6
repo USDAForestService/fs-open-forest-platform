@@ -25,6 +25,8 @@ const addForestSpecificInfo = (permit, frag) => {
   frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
   if (permit.forestId === 1) {
     frag.querySelector('#national-forest').textContent = 'NATIONAL FORESTS';
+  } else {
+    frag.querySelector('#national-forest').textContent = 'NATIONAL FOREST';
   }
 
   frag.querySelector('#permit-year-vertical').textContent = permit.christmasTreesForest.startDate.getFullYear();
