@@ -159,6 +159,7 @@ const permitResult = (permit, svgData) => {
     totalCost: permit.totalCost,
     status: permit.status,
     transactionDate: permit.updatedAt,
+    paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
     forest: {
@@ -382,6 +383,8 @@ christmasTree.getOnePermit = (req, res) => {
             return res.status(404).send();
           }
         });
+      } else if (!permit) {
+        return res.status(404).send();
       }
     })
     .catch(error => {
@@ -389,6 +392,8 @@ christmasTree.getOnePermit = (req, res) => {
         return res.status(400).json({
           errors: error.errors
         });
+      } else if (error.name === 'SequelizeDatabaseError') {
+          return res.status(404).send();
       } else {
         return res.status(500).send();
       }

@@ -1,6 +1,13 @@
 # Use node 6.11 as the base image
 FROM node:6.11.1
 
+# Install Google Chrome 
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update && apt-get install -y google-chrome-stable \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV CHROME_BIN /usr/bin/google-chrome
 # create a top level node directory and copy the frontend package.json
 # into it
 # set the work dir to /node
@@ -25,6 +32,16 @@ WORKDIR /app
 
 # Make port 4200 available to the world outside this container
 EXPOSE 4200
+
+ARG SNYK_TOKEN
+ARG VCAP_SERVICES
+ARG VCAP_APPLICATION
+ARG PLATFORM
+
+ENV SNYK_TOKEN=$SNYK_TOKEN
+ENV VCAP_SERVICES=$VCAP_SERVICES
+ENV VCAP_APPLICATION=$VCAP_APPLICATION
+ENV PLATFORM=$PLATFORM
 
 # create a symlink to the new node_modules in the app dir
 # so that angular can find the node modules

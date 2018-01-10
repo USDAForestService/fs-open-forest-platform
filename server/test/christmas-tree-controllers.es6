@@ -146,11 +146,11 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect(200, done);
     });
-    it('GET should return a 500 response when requesting an invalid permit', done => {
+    it('GET should return a 404 response when requesting an invalid permit', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${invalidPermitId}`)
         .set('Accept', 'application/json')
-        .expect(500, done);
+        .expect(404, done);
     });
     it('POST should return a 400 response when submitted with invalid data', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();

@@ -3,6 +3,8 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../util.es6');
 
 module.exports = application => {
+  console.log(application);
+  const forestOrForests = application.christmasTreesForest.forestName.indexOf(' and ') > 0 ? 'Forests' : 'Forest';
   return {
     to: application.emailAddress,
     subject: 'U.S. Forest Service: Your Christmas Tree Permit',
@@ -13,7 +15,7 @@ Hello, ${application.firstName}. Thank you for purchasing your Christmas tree pe
 Order Details
 **************************************
 
-Order number: ${application.paygovTrackingId}
+Permit number: ${application.paygovTrackingId}
 Forest: ${application.christmasTreesForest.forestName} National Forest
 Number of trees: ${application.quantity}
 Name: ${application.firstName} ${application.lastName}
@@ -28,9 +30,11 @@ Permit Printing Guidelines
 3. Printed permit must be placed and clearly visible on your vehicle's dashboard with the permit side facing up.
 4. Your permit is available for printing from the following url. Copy and paste the following url into your browser:
 
-${application.permitUrl} 
+${application.permitUrl}
 
-Return to the ${application.christmasTreesForest.forestName} Christmas tree permit website, ${
+Return to the ${
+      application.christmasTreesForest.forestName
+    } National ${forestOrForests} Christmas tree permit website, ${
       vcapConstants.intakeClientBaseUrl
     }/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
@@ -44,7 +48,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     <h2 class="border-bottom">Order Details</h2>
     <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
-        <td style="width: 150px;" class="border-bottom border-right">Order number</td>
+        <td style="width: 150px;" class="border-bottom border-right">Permit number</td>
         <td class="border-bottom">${application.paygovTrackingId}</td>
       </tr>
       <tr>
@@ -73,13 +77,15 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     <ul>
       <li>Print your permit on plain white paper.</li>
       <li>Printed permit must be placed and clearly visible on your vehicle's dashboard with the permit side facing up.</li>
-      <li>Your permit is available for printing from <a href="${ application.permitUrl }">this link</a> or in an attachment to this email.</li>
+      <li>Your permit is available for printing from <a href="${
+        application.permitUrl
+      }">this link</a> or in an attachment to this email.</li>
     </ul>
     <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
     }/tree-guidelines">${
       application.christmasTreesForest.forestName
-    } Christmas tree permit website</a> for more information about cutting down your tree.</p>
+    } National ${forestOrForests} Christmas tree permit website</a> for more information about cutting down your tree.</p>
 
     <p><img src="cid:unique@kreata.ee"/></p>
     </div>
