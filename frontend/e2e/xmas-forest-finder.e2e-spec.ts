@@ -12,7 +12,7 @@ describe('Xmas tree  - Find a forest', () => {
         .window()
         .setSize(1400, 900);
       page.navigateTo();
-      browser.sleep(900);
+      browser.sleep(1900);
     });
 
     it('should appear on the page', () => {
