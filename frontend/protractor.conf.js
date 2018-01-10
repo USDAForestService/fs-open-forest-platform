@@ -1,5 +1,6 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/lib/config.ts
+const isDocker = require('is-docker')();
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
@@ -14,7 +15,8 @@ exports.config = {
   allScriptsTimeout: 11000,
   specs: ['./e2e/*.e2e-spec.ts'],
   capabilities: {
-    browserName: 'chrome'
+    browserName: 'chrome',
+    chromeOptions: isDocker ? {'args': ["--headless", 'no-sandbox', "--window-size=800x600"]} : {}
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
