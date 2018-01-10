@@ -13,10 +13,8 @@
   }
   svg {
     display: block;
-    margin-top: 210px;
-    transform: rotate(-90deg) scale(1.25, 1.25);
     width: 100%;
-    -moz-transform: rotate(-90deg) scale(1.25, 1.25);
-    -webkit-transform: rotate(-90deg) scale(1.25, 1.25);
+    margin-top: -2px;
+    padding: 0;
   }
 }

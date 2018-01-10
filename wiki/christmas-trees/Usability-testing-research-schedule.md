@@ -16,7 +16,7 @@ Review of the page's purpose:
 * Is there anything that stands out or that the user does not like about the page?
 * Is it clear which forest they are currently viewing?
 
-[Results](https://github.com/nciinc/fs-intake-module/wiki/Design-Feedback-Email-Summary---October-27,-2017)
+[Results](https://github.com/nciinc/fs-permit-platform/wiki/Design-Feedback-Email-Summary---October-27,-2017)
 
 
 # November 6, 2017
@@ -39,4 +39,4 @@ Review of the tree cutting page:
 * Does this information allow the user to identify a wildlife designated tree?
 * What are the requirements of a stump when harvesting a tree?
 
-[Results](https://github.com/nciinc/fs-intake-module/wiki/Usability-testing-session-1-summary-November-6,-2017)
+[Results](https://github.com/nciinc/fs-permit-platform/wiki/Usability-testing-session-1-summary-November-6,-2017)

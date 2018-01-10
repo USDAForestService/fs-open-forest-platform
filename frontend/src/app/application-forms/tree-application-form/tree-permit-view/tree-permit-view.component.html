@@ -1,10 +1,14 @@
-<section id="application-view" class="usa-section">
+<section *ngIf="!error" id="application-view" class="usa-section">
   <div *ngIf="permit" class="usa-grid ">
     <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
-    <p>Thank you!</p>
   </div>
 
   <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container usa-grid">
+    <div *ngIf="isPermitExpired" class="usa-alert usa-alert-error permit-expiration-warning">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3>
+      </div>
+    </div>
     <h2 class="usa-heading">Order summary</h2>
     <hr class="header-divider">
     <div class="usa-width-one-third">
@@ -16,7 +20,7 @@
     <div class="usa-width-one-third">
       <dl>
         <dt>Description</dt>
-        <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
+        <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
       </dl>
     </div>
     <div class="usa-width-one-third">
@@ -27,22 +31,28 @@
     </div>
   </div>
 
-  <div id="toPrint" hidden="true" [innerHTML]="image"></div>
+  <div *ngIf="!isPermitExpired" id="toPrint" hidden="true" [innerHTML]="image"></div>
 
   <div class="usa-grid confirmation-details-container">
     <div id="printing-instructions" class='usa-form-hint'>
       You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
     </div>
-    <button id="tree-print-permit" class="usa-button-primary-alt usa-button-big" type="button" (click)="printPermit()">Print permit</button>
+    <button
+     id="tree-print-permit"
+     class="usa-button-primary-alt usa-button-big"
+     type="button"
+     [disabled]="isPermitExpired"
+     (click)="printPermit()">
+      Print permit
+    </button>
   </div>
-
 
   <div id='tree-confirmation-details-container' class="usa-grid">
     <h2 class="usa-heading">Order details</h2>
     <table class="tree-confirmation-table">
       <tr>
-        <td>Order number</td>
-        <td><b>{{permit.permitId | uppercase}}</b></td>
+        <td>Permit number</td>
+        <td><b>{{permit.paygovTrackingId | uppercase}}</b></td>
       </tr>
       <tr>
         <td>Name</td>
@@ -66,8 +76,23 @@
   <div id="tree-additional-info-container" class="usa-grid confirmation-details-container margin-top-2 margin-bottom-2">
     <h2 class="usa-heading">Additional information</h2>
     <hr class="header-divider">
-    <b>Your permit will be emailed to you at {{permit.emailAddress}}.</b>
-    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf('and') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
+    <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>
+    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
   </div>
 
+</section>
+
+<section *ngIf="error && permit && forest" id="application-view" class="usa-section">
+  <div class="usa-grid">
+    <div id="pay-gov-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Unable to process your permit. Your credit card has not been charged.</h3>
+        <p class="usa-alert-text">{{error.message}}</p>
+      </div>
+    </div>
+    <div class="margin-top-2 margin-bottom-2">
+      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new/' + permit.permitId">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
+      <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
+    </div>
+  </div>
 </section>

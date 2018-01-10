@@ -27,7 +27,7 @@ passportConfig.setup = app => {
     done(null, user);
   });
   passport.deserializeUser((user, done) => {
-    done(null, user, resolve());
+    done(null, user);
   });
 };
 
@@ -43,7 +43,7 @@ passportConfig.getPassportUser = (req, res) => {
  */
 passportConfig.logout = (req, res) => {
   /** login.gov requires the user to visit the idp to logout */
-  if (req.user.role === 'user' && loginGov.issuer) {
+  if (req.user && req.user.role === 'user' && loginGov.issuer) {
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
         vcapConstants.baseUrl + '/auth/login-gov/openid/logout'

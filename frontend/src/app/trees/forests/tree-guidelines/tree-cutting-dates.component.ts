@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { FilterPipe } from '../../../_pipes/filter.pipe';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 import { TreeDistrictsUtilService } from './tree-districts-util.service';
