@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { UtilService } from '../_services/util.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,8 +16,9 @@ export class SidebarComponent implements OnInit {
   showMobileNav = false;
   menuBtnTop: string;
   menuBtnPosition: string;
+  route: string;
 
-  constructor(public util: UtilService) {}
+  constructor(public util: UtilService, private router: Router) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
@@ -64,5 +66,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.util.setCurrentSection('');
     this.top = '270px';
+    console.log(this.router);
+    this.route = this.router.url.split('#')[0];
   }
 }
