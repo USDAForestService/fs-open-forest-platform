@@ -3,8 +3,6 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../util.es6');
 
 module.exports = application => {
-  console.log(application);
-  const forestOrForests = application.christmasTreesForest.forestName.indexOf(' and ') > 0 ? 'Forests' : 'Forest';
   return {
     to: application.emailAddress,
     subject: 'U.S. Forest Service: Your Christmas Tree Permit',
@@ -32,9 +30,7 @@ Permit Printing Guidelines
 
 ${application.permitUrl}
 
-Return to the ${
-      application.christmasTreesForest.forestName
-    } National ${forestOrForests} Christmas tree permit website, ${
+Return to the ${application.christmasTreesForest.forestName} Christmas tree permit website, ${
       vcapConstants.intakeClientBaseUrl
     }/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
@@ -85,7 +81,7 @@ Return to the ${
       application.christmasTreesForest.forestAbbr
     }/tree-guidelines">${
       application.christmasTreesForest.forestName
-    } National ${forestOrForests} Christmas tree permit website</a> for more information about cutting down your tree.</p>
+    } Christmas tree permit website</a> for more information about cutting down your tree.</p>
 
     <p><img src="cid:unique@kreata.ee"/></p>
     </div>

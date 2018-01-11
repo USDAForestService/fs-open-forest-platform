@@ -22,8 +22,8 @@ const addApplicantInfo = (permit, frag) => {
 };
 
 const addForestSpecificInfo = (permit, frag) => {
-  frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestName.toUpperCase();
-  if (permit.christmasTreesForest.forestName.indexOf(' and ') > 0) {
+  frag.querySelector('#forest-name').textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
+  if (permit.christmasTreesForest.forestNameShort.indexOf(' and ') > 0) {
     frag.querySelector('#national-forest').textContent = 'NATIONAL FORESTS';
   } else {
     frag.querySelector('#national-forest').textContent = 'NATIONAL FOREST';
