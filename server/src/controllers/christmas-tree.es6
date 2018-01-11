@@ -4,6 +4,7 @@ const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment');
+const Sequelize = require('sequelize');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -13,6 +14,7 @@ const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 
 const christmasTree = {};
+const Op = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
   return {
@@ -393,7 +395,7 @@ christmasTree.getOnePermit = (req, res) => {
           errors: error.errors
         });
       } else if (error.name === 'SequelizeDatabaseError') {
-          return res.status(404).send();
+        return res.status(404).send();
       } else {
         return res.status(500).send();
       }
@@ -439,6 +441,39 @@ christmasTree.cancelOne = (req, res) => {
     })
     .catch(() => {
       res.status(404).send();
+    });
+};
+
+christmasTree.getPermits = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findAll({
+      attributes: ['forestId', 'paygovTrackingId', 'updatedAt'],
+      where: {
+        forestId: req.params.forestId,
+        status: 'Completed',
+        updatedAt: {
+          [Op.gte]: req.params.startDate,
+          [Op.lte]: req.params.endDate
+        }
+      }
+    })
+    .then(results => {
+      if (results) {
+        res.status(200).json(results);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({
+          errors: error.errors
+        });
+      } else if (error.name === 'SequelizeDatabaseError') {
+        return res.status(404).send();
+      } else {
+        return res.status(500).send();
+      }
     });
 };
 module.exports = christmasTree;
