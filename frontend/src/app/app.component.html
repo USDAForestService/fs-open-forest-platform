@@ -1,5 +1,5 @@
 <ng-container appPageTitle></ng-container>
-<a tabindex="0" class="usa-skipnav" href="#skip-nav-target" (click)="gotoHashtag('skip-nav-target', $event)">Skip to main content</a>
+<a tabindex="0" class="usa-skipnav" href="#skip-nav-target" (click)="util.gotoHashtag('skip-nav-target', $event)">Skip to main content</a>
 <header role="banner" class="usa-header usa-header-extended" [ngClass]="router.url.indexOf('mock') > -1 ? 'usa-mock-header' : ''">
   <app-usa-banner></app-usa-banner>
   <div *ngIf="router.url.indexOf('mock') === -1" class="usa-navbar">

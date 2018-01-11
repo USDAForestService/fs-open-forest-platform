@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, Router, UrlSegment, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
+import { UtilService } from './_services/util.service';
 
 @Component({
   selector: 'app-root',
@@ -19,20 +20,17 @@ export class AppComponent implements OnInit {
     message: ''
   };
 
-  constructor(public router: Router, private authentication: AuthenticationService) {
+  constructor(public router: Router, private authentication: AuthenticationService, public util: UtilService) {
     router.events.subscribe(scroll => {
-      // Scroll to top of page on route change
-      window.scrollTo(0, 0);
+      if (scroll instanceof NavigationEnd) {
+        const tree = router.parseUrl(router.url);
+        if (tree.fragment) {
+          util.gotoHashtag(tree.fragment, new Event('click'));
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }
     });
-  }
-
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-    }
   }
 
   isAuthenticated() {

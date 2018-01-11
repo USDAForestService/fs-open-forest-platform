@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
 
@@ -35,6 +36,7 @@ describe('SidebarComponent', () => {
       TestBed.configureTestingModule({
         declarations: [SidebarComponent],
         providers: [{ provide: UtilService, useClass: MockUtilService }],
+        imports: [RouterTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
