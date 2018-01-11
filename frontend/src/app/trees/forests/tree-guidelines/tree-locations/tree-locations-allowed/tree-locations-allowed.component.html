@@ -11,10 +11,12 @@
 <app-tree-locations-maps [forest]="forest"></app-tree-locations-maps>
 
 <ng-container *ngFor="let district of allowedDistricts">
-  <h3>Roads to try on the {{ district.district }}:</h3>
-  <ul>
-    <li *ngFor="let road of district.childNodes">
-      {{ road.description }}
-    </li>
-  </ul>
+  <ng-container *ngIf="district.childNodes">
+    <h3>Roads to try on the {{ district.district }}:</h3>
+    <ul>
+      <li *ngFor="let road of district.childNodes">
+        {{ road.description }}
+      </li>
+    </ul>
+  </ng-container>
 </ng-container>

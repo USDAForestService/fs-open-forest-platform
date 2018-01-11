@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ForestFinderComponent } from './forest-finder.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -6,89 +6,101 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ForestService } from '../../_services/forest.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import { HttpModule, XHRBackend, ResponseOptions, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MockBackend } from '@angular/http/testing';
 import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
-import { MockActivatedRoute, MockRouter } from '../../../_mocks/routes.mock';
-import { MockService } from '../../../_services/mock.service';
+import { MockRouter } from '../../../_mocks/routes.mock';
 import { UtilService } from '../../../_services/util.service';
+import { TreeGuidelinesComponent } from '../tree-guidelines/tree-guidelines.component';
 
 describe('ForestFinderComponent', () => {
   let component: ForestFinderComponent;
   let fixture: ComponentFixture<ForestFinderComponent>;
-  let mockActivatedRoute: MockActivatedRoute;
-  let mockRouter: MockRouter;
-  let mockService: MockService;
+  let router: Router;
+  let location: Location;
 
-  const mockResponse = [
-    {
-      id: 1,
-      forestName: 'Forest National Forest',
-      description: 'ForestName'
-    }
-  ];
+  const mockActivatedRoute = {
+    params: Observable.of({ id: 1 }),
+    data: Observable.of({
+      forests: [
+        {
+          id: 1,
+          forestName: 'Arapaho and Roosevelt',
+          description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+          forestAbbr: 'arp'
+        },
+        { id: 2, forestName: 'Flathead', description: 'Flathead | Montana | Kalispell, MT', forestAbbr: 'flathead' },
+        { id: 3, forestName: 'Mt. Hood', description: 'Mt. Hood | Oregon | Portland, OR', forestAbbr: 'mthood' },
+        {
+          id: 4,
+          forestName: 'Shoshone',
+          description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
+          forestAbbr: 'shoshone'
+        }
+      ]
+    })
+  };
 
   beforeEach(
     async(() => {
-      mockActivatedRoute = new MockActivatedRoute({ data: {} });
-      mockRouter = new MockRouter();
-      mockService = new MockService();
       TestBed.configureTestingModule({
         declarations: [ForestFinderComponent, RemovePuncPipe, SpacesToDashesPipe],
-        imports: [HttpModule, Ng2AutoCompleteModule, RouterTestingModule],
-        providers: [
-          UtilService,
-          { provide: ForestService, useClass: ForestService },
-          { provide: XHRBackend, useClass: MockBackend },
-          { provide: MockService, use: mockService }
-        ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [UtilService, { provide: ForestService, useClass: ForestService }],
+        imports: [
+          HttpModule,
+          HttpClientTestingModule,
+          RouterTestingModule.withRoutes([
+            {
+              path: 'christmas-trees/forests/:id/tree-guidelines',
+              component: ForestFinderComponent
+            }
+          ])
+        ]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
+    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
     fixture = TestBed.createComponent(ForestFinderComponent);
     component = fixture.componentInstance;
-    inject([ForestService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
-    });
-
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    fixture.whenStable().then(() => {
-      expect(component).toBeTruthy();
-    });
+    expect(component).toBeTruthy();
   });
 
-  it('should filter the forests for the typeahead', () => {
-    fixture.whenStable().then(() => {
-      expect(component.forestSearchResults('hood') instanceof ScalarObservable);
-    });
-  });
-
-  it('should filter the forests for the typeahead', () => {
-    inject([ForestService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
-
-      service.getAll().subscribe(result => {
-        expect(result[0].forestName).toBe('Forest National Forest');
-        fixture.detectChanges();
-        expect(component.forestListFormatter(component.forests[0])).toEqual('ForestName');
-      });
-    });
+  it('should have 2 rows', () => {
+    expect(component.rows.length).toEqual(2);
+    component.forests = null;
   });
 
   it(
-    'should get forest object',
-    inject([ForestService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
-
-      service.getAll().subscribe(result => {
-        expect(result[0].forestName).toBe('Forest National Forest');
-      });
+    'should redirect to forest page on click',
+    fakeAsync(() => {
+      component.goToForest('arp');
+      tick();
+      expect(location.path()).toBe('/christmas-trees/forests/arp/tree-guidelines');
     })
   );
+
+  it('should return filtered results', () => {
+    expect(component.forestSearchResults('Arap') instanceof ScalarObservable);
+    component.forests = null;
+    expect(component.forestSearchResults('Arap')).toBeFalsy();
+  });
+
+  it('should format forest list', () => {
+    expect(component.forestListFormatter(component.forests[0])).toEqual(
+      'Arapaho & Roosevelt | Colorado | Fort Collins, CO'
+    );
+  });
 });

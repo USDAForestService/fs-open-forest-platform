@@ -1,12 +1,7 @@
-cd server;
-yarn start &
-serverid=$!
-sleep 1
-cd ../frontend;
-ng serve &
-clientserverid=$!
-sleep 30
-yarn run pa11y
+docker-compose up fs-intake-frontend &
+sleep 60
+cd ../frontend
+pa11y-ci
 pa11yreturncode=$?
 if [[ $pa11yreturncode = 0 ]]
 then
@@ -14,7 +9,6 @@ then
 else
   echo 'FAIL'
 fi
-
-kill -int $serverid
-kill -int $clientserverid
+cd ../docker
+docker-compose down
 exit $pa11yreturncode

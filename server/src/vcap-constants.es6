@@ -20,6 +20,10 @@ const getUserProvided = function(name) {
 /** Base URL of this instance */
 vcapConstants.baseUrl = 'https://' + vcapApplication.uris[0];
 
+/** jwt token used to generate permit confirmation URL **/
+const jwt = getUserProvided('jwt');
+vcapConstants.permitSecret = jwt.credentials.permit_secret;
+
 /** Intake S3 bucket settings */
 const intakeS3 = vcapServices['s3'].find(element => {
   return element.name === 'intake-s3';
