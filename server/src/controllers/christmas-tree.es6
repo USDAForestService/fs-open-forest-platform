@@ -76,6 +76,7 @@ christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
       attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr']
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate']
     })
     .then(results => {
       if (results) {
