@@ -75,6 +75,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.DATE,
         field: 'updated',
         allowNull: false
+      },
+      forestNameShort: {
+        type: DataTypes.STRING,
+        field: 'forest_name_short'
       }
     },
     {

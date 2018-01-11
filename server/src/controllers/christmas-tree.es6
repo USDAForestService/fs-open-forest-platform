@@ -22,6 +22,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
     forestName: input.forestName,
     description: input.description,
     forestAbbr: input.forestAbbr,
+    forestNameShort: input.forestNameShort,
     forestUrl: input.forestUrl,
     orgStructureCode: input.orgStructureCode,
     treeHeight: input.treeHeight,
@@ -74,7 +75,7 @@ const translatePermitFromClientToDatabase = input => {
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'description', 'forestAbbr']
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr']
     })
     .then(results => {
       if (results) {
@@ -166,7 +167,8 @@ const permitResult = (permit, svgData) => {
     expirationDate: permit.permitExpireDate,
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
-      forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null
+      forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
+      forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
     }
   };
   return result;
