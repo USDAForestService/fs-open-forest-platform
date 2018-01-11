@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../_pipes/filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from '../home/app-button.component';
+import { ErrorMessageComponent } from '../application-forms/validators/error-message.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
@@ -20,6 +21,7 @@ import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules.
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, InViewportModule.forRoot()],
   declarations: [
     ApiErrorComponent,
+    ErrorMessageComponent,
     TrackScrollDirective,
     AppButtonComponent,
     FilterPipe,
@@ -33,6 +35,7 @@ import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules.
   ],
   exports: [
     ApiErrorComponent,
+    ErrorMessageComponent,
     FilterPipe,
     AppRoutingModule,
     CommonModule,

@@ -1,0 +1,22 @@
+<h2>Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
+<h3>Number of Christmas trees sold: 20</h3>
+<h3>Total: $200</h3>
+<table>
+  <caption>All permits</caption>
+  <thead>
+    <tr>
+      <th scope="col">Permit Number</th>
+      <th scope="col">Issue Date</th>
+      <th scope="col">Number of trees</th>
+      <th scope="col">Permit cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of result.permits">
+      <td>{{result.paygovTrackingId}}</td>
+      <td>{{result.updatedAt|date: 'MM/dd/yyyy'}}</td>
+      <td>{{result.quantity}}</td>
+      <td>${{result.totalCost}}</td>
+    </tr>
+  </tbody>
+</table>

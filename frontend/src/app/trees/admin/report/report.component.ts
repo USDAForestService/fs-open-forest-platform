@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -12,11 +13,13 @@ import * as moment from 'moment/moment';
 })
 export class ReportComponent implements OnInit {
   forests: any;
+  forest: any;
   form: any;
-  results: any;
+  result: any;
+  apiErrors: any;
+  reportParameters: any;
 
   public myDatePickerOptions: IMyDpOptions = {
-    // other options...
     dateFormat: 'mm/dd/yyyy',
     height: '4.4rem',
     selectionTxtFontSize: '1.7rem'
@@ -25,12 +28,19 @@ export class ReportComponent implements OnInit {
   constructor(
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public afs: ApplicationFieldsService
   ) {
     this.form = formBuilder.group({
-      forestId: [1, [Validators.required]],
+      forestId: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]]
+    });
+
+    this.form.get('forestId').valueChanges.subscribe(forest => {
+      this.forest = this.getForestById(forest);
+      this.form.get('startDate').setValue({ formatted: moment(this.forest.startDate).format('MM/DD/YYYY') });
+      this.form.get('endDate').setValue({ formatted: moment(this.forest.endDate).format('MM/DD/YYYY') });
     });
   }
 
@@ -42,26 +52,32 @@ export class ReportComponent implements OnInit {
 
   getForestById(id) {
     for (const forest of this.forests) {
-      if (forest.id === id) {
+      if (forest.id === parseInt(id)) {
         return forest;
       }
     }
   }
 
   getReport() {
+    this.afs.touchAllFields(this.form);
+    this.reportParameters = {
+      forestName: this.forest.forestName,
+      startDate: this.form.get('startDate').value.formatted,
+      endDate: this.form.get('endDate').value.formatted
+    };
     if (this.form.valid) {
       this.service
         .getAllByDateRange(
-          this.form.get('forestId').value,
-          moment(this.form.get('startDate').value.formatted).format('YYYY-MM-DD'),
-          moment(this.form.get('endDate').value.formatted).format('YYYY-MM-DD')
+          this.forest.id,
+          moment(this.reportParameters.startDate).format('YYYY-MM-DD'),
+          moment(this.reportParameters.endDate).format('YYYY-MM-DD')
         )
         .subscribe(
           results => {
-            this.results = results;
+            this.result = { permits: results, parameters: this.reportParameters };
           },
           err => {
-            console.log('ERROR!', err);
+            this.apiErrors = err;
           }
         );
     }

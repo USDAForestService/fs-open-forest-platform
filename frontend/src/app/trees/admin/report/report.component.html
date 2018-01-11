@@ -1,5 +1,8 @@
 <section class="usa-section">
   <div class="usa-grid">
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
     <h1 id="skip-nav-target" tabindex="-1">Christmas tree permits report.</h1>
 
     <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
@@ -7,42 +10,33 @@
 
       <div class="usa-form-group">
         <label id="forest-label" class="usa-input">Forest</label>
-        <select id="forest" formControlName="forestId" aria-required="true">
-          <!-- [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingState'), unique+'-'+type+'-state-label', unique+'-'+type+'-state-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingState'))"> -->
+        <select id="forest" formControlName="forestId" aria-required="true"
+          [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
+          [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
           <option value="" selected="selected"></option>
           <option *ngFor="let forest of forests" [value]="forest.id">{{forest.forestName}} </option>
         </select>
-        <!-- <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forest"></app-error-message> -->
+        <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
 
-        <label for="start-date">Start date (format: mm/dd/yyyy)</label>
-        <my-date-picker id="start-date" class="usa-input-inline" name="startDate" [options]="myDatePickerOptions" formControlName="startDate"></my-date-picker>
+        <label id="start-date-label" for="start-date">Start date (format: mm/dd/yyyy)</label>
+        <my-date-picker id="start-date" class="usa-input-inline" name="startDate" [options]="myDatePickerOptions" formControlName="startDate"
+        [attr.aria-labelledby]="afs.labelledBy(form.controls.startDate, 'start-date-label', 'start-date-error')"
+        [attr.aria-invalid]="afs.hasError(form.controls.startDate)"></my-date-picker>
+        <app-error-message fieldId="start-date-error" name="Start date" [control]="form.controls.startDate"></app-error-message>
 
-        <label for="start-date">End date (format: mm/dd/yyyy)</label>
-        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions"  formControlName="endDate"></my-date-picker>
+        <label id="end-date-error" for="start-date">End date (format: mm/dd/yyyy)</label>
+        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions"  formControlName="endDate"
+        [attr.aria-labelledby]="afs.labelledBy(form.controls.endDate, 'end-date-label', 'end-date-error')"
+        [attr.aria-invalid]="afs.hasError(form.controls.endDate)"></my-date-picker>
+        
+        <app-error-message fieldId="end-date-error" name="End date" [control]="form.controls.endDate"></app-error-message>
       </div>
 
       <button id="get-report" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
 
     </form>
 
-    <div *ngIf="results">
-      <h2>Report generated for {{ getForestById(form.get('forestId').value).forestName }} National Forests from {{form.get('startDate').value.formatted }} to {{ form.get('endDate').value.formatted }}</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Permit Number</th>
-            <th scope="col">Issue Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let result of results">
-            <td>{{result.paygovTrackingId}}</td>
-            <td>{{result.updatedAt|date: 'MM/dd/yyyy'}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <app-report-results *ngIf="result" [result]="result"></app-report-results>
 
   </div>
 </section>
