@@ -1,0 +1,32 @@
+#main-content {
+  .mydp .btnclear,
+  .mydp .btndecrease,
+  .mydp .btnincrease,
+  .mydp .btnpicker {
+    height: 78%;
+    margin-right: 3px;
+  }
+  .mydp .headerbtnenabled,
+  .mydp .monthlabel,
+  .mydp .yearchangebtnenabled,
+  .mydp .yearlabel {
+    color: $black;
+  }
+
+  .mydp .caltable,
+  .mydp .daycell,
+  .mydp .monthcell,
+  .mydp .monthtable,
+  .mydp .weekdaytitle,
+  .mydp .yearcell,
+  .mydp .yeartable {
+    color: $black;
+  }
+
+  .mydp .selectedday .datevalue,
+  .mydp .selectedmonth .monthvalue,
+  .mydp .selectedyear .yearvalue {
+    background-color: $light-grey;
+    padding: 2px;
+  }
+}

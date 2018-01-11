@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpResponse } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,6 +13,7 @@ import { UtilService } from '../../_services/util.service';
 @Injectable()
 export class ChristmasTreesApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
+  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees/permits';
 
   constructor(private http: Http, private httpClient: HttpClient, public router: Router, public util: UtilService) {}
 
@@ -47,6 +48,13 @@ export class ChristmasTreesApplicationService {
     return this.http
       .get(`${this.endpoint}/${id}/details`)
       .map((res: Response) => res.json())
+      .catch(this.util.handleError);
+  }
+
+  getAllByDateRange(forestId, startDate, endDate) {
+    return this.httpClient
+      .get(`${this.adminEndpoint}/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .map((res: HttpResponse<Object>) => res)
       .catch(this.util.handleError);
   }
 

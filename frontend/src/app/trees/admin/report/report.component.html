@@ -1,0 +1,48 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <h1 id="skip-nav-target" tabindex="-1">Christmas tree permits report.</h1>
+
+    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
+      <legend class="fs-datetime-legend">To generate a report, please select a forest and enter a start and end date.</legend>
+
+      <div class="usa-form-group">
+        <label id="forest-label" class="usa-input">Forest</label>
+        <select id="forest" formControlName="forestId" aria-required="true">
+          <!-- [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.mailingState'), unique+'-'+type+'-state-label', unique+'-'+type+'-state-error')"
+          [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.mailingState'))"> -->
+          <option value="" selected="selected"></option>
+          <option *ngFor="let forest of forests" [value]="forest.id">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}}</option>
+        </select>
+        <!-- <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forest"></app-error-message> -->
+
+        <label for="start-date">Start date (format: mm/dd/yyyy)</label>
+        <my-date-picker id="start-date" class="usa-input-inline" name="startDate" [options]="myDatePickerOptions" formControlName="startDate"></my-date-picker>
+
+        <label for="start-date">End date (format: mm/dd/yyyy)</label>
+        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions"  formControlName="endDate"></my-date-picker>
+      </div>
+
+      <button id="get-report" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
+
+    </form>
+
+    <div *ngIf="results">
+      <h2>Report generated for {{ getForestById(form.get('forestId').value).forestName }} National Forests from {{form.get('startDate').value.formatted }} to {{ form.get('endDate').value.formatted }}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Permit Number</th>
+            <th scope="col">Issue Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <td>{{result.paygovTrackingId}}</td>
+            <td>{{result.updatedAt|date: 'MM/dd/yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>

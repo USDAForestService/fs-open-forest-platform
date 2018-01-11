@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ContactInfoComponent } from './forests/tree-guidelines/contact-info/contact-info.component';
+import { ReportComponent } from './admin/report/report.component';
 import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates.component';
@@ -22,10 +23,12 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
     ContactInfoComponent,
+    ReportComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -42,6 +45,7 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
   ],
   exports: [
     ContactInfoComponent,
+    ReportComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -50,7 +54,7 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, MyDatePickerModule],
   providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}
