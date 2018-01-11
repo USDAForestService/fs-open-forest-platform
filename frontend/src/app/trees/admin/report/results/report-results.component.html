@@ -1,6 +1,6 @@
 <h2>Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
-<h3>Number of Christmas trees sold: 20</h3>
-<h3>Total: $200</h3>
+<h3>Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
+<h3>Total: ${{result.sumOfCost}}</h3>
 <table>
   <caption>All permits</caption>
   <thead>
@@ -12,11 +12,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let result of result.permits">
-      <td>{{result.paygovTrackingId}}</td>
-      <td>{{result.updatedAt|date: 'MM/dd/yyyy'}}</td>
-      <td>{{result.quantity}}</td>
-      <td>${{result.totalCost}}</td>
+    <tr *ngFor="let permit of result.permits">
+      <td>{{permit.paygovTrackingId}}</td>
+      <td>{{permit.updatedAt|date: 'MM/dd/yyyy'}}</td>
+      <td>{{permit.quantity}}</td>
+      <td>${{permit.totalCost}}</td>
     </tr>
   </tbody>
 </table>
