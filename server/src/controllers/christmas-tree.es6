@@ -449,7 +449,7 @@ christmasTree.cancelOne = (req, res) => {
 christmasTree.getPermits = (req, res) => {
   treesDb.christmasTreesPermits
     .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt'],
+      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost'],
       where: {
         forestId: req.params.forestId,
         status: 'Completed',
