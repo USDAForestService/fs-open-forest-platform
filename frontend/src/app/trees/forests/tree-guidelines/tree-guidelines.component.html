@@ -1,6 +1,11 @@
 <section id="sidebar-page" class="usa-section usa-content">
-  <div class="usa-grid breadcrumbs" *ngIf="forest">
-    <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span><a routerLink="/christmas-trees/forests">Find a forest</a></span><span> > {{ forest.forestName }} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit information</span>
+  <div class="usa-grid" *ngIf="forest">
+    <nav class="breadcrumb">
+      <ol>
+        <li><a routerLink="/christmas-trees/forests">Christmas tree permit forests</a></li>
+        <li>{{ forest.forestName }} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}}</li>
+      </ol>
+    </nav>
   </div>
   <div class="usa-grid">
     <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>

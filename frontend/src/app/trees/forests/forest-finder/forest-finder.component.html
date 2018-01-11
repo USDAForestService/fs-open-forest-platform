@@ -1,8 +1,10 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <div class="breadcrumbs">
-      <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
-    </div>
+    <nav class="breadcrumb">
+      <ol>
+        <li>Christmas tree permit forests</li>
+      </ol>
+    </nav>
     <form id="skip-nav-target" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
       <label for="forest-finder-input">Find a Forest:</label>
       <input id='forest-finder-input'

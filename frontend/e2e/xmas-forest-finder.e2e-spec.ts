@@ -19,6 +19,10 @@ describe('Xmas tree  - Find a forest', () => {
       expect<any>(element(by.id('forest-finder-input')).isPresent()).toBeTruthy();
     });
 
+    it ('should show the breadcrumb', () => {
+      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
+    });
+
     it('should let the user enter a forest name and navigate to that forest', () => {
       element(by.id('forest-finder-input')).sendKeys('shoshone');
       browser.sleep(960);
