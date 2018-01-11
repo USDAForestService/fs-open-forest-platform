@@ -23,7 +23,7 @@ export class UtilService {
       .toLowerCase();
   }
 
-  gotoHashtag(fragment: string, event, subSection = '') {
+  gotoHashtag(fragment: string, event) {
     event.preventDefault();
     const element = document.querySelector('#' + fragment);
     this.currentSubSection = fragment;

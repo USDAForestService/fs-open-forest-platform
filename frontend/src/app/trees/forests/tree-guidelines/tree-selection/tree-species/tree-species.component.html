@@ -1,7 +1,7 @@
 <div [attr.id]="'tree-recommended-species-'+ i" class="tree-speci margin-bottom-4 usa-grid"
      *ngFor="let tree of forest.species | filter: 'status':'recommended'; let i=index">
   <hr>
-  <span class="tree-name"><strong>{{ tree.name }}</strong></span>
+  <h3 class="tree-name">{{ tree.name }}</h3>
   <div class="tree-description">
     <div class="usa-width-two-thirds">
       <ul *ngFor="let note of tree.notes">

@@ -52,13 +52,6 @@ describe('AppComponent', () => {
     })
   );
 
-  it('should call go to hashtag', () => {
-    const spy = sinon.spy(component, 'gotoHashtag');
-    component.gotoHashtag('main', new Event('click'));
-    component.gotoHashtag(null, new Event('click'));
-    expect(spy.calledTwice).toBeTruthy();
-  });
-
   it(
     'should check if user is authenticated',
     inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
