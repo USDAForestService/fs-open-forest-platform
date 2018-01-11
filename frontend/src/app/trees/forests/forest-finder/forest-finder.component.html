@@ -5,7 +5,7 @@
         <li>Christmas tree permit forests</li>
       </ol>
     </nav>
-    <form id="skip-nav-target" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
+    <form id="skip-nav-target" tabindex="-1" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
       <label for="forest-finder-input">Find a Forest:</label>
       <input id='forest-finder-input'
              name='selectForest'
@@ -21,6 +21,7 @@
       <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
     </form>
     <hr>
+    <h2>Pilot Christmas tree permit forests</h2>
     <div *ngFor='let i of rows' class='usa-grid'>
       <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
         <div class='usa-width-one-half forest-image-container'>
