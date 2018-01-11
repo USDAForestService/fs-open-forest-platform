@@ -34,6 +34,7 @@ import { WebsiteComponent } from './fields/website.component';
 import 'intersection-observer';
 import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './tree-application-form/tree-permit-view/tree-permit-view.component';
+import { TreePermitRulesComponent } from './tree-application-form/tree-permit-rules/tree-permit-rules.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { TreePermitViewComponent } from './tree-application-form/tree-permit-vie
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitRulesComponent,
     TreePermitViewComponent,
     WebsiteComponent
   ],
@@ -89,6 +91,7 @@ import { TreePermitViewComponent } from './tree-application-form/tree-permit-vie
     TempOutfitterLeftNavComponent,
     TemporaryOutfittersLearnMoreComponent,
     TreeApplicationFormComponent,
+    TreePermitRulesComponent,
     TreePermitViewComponent,
     WebsiteComponent
   ],
