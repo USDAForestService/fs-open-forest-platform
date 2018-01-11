@@ -1,10 +1,11 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <div class="breadcrumbs">
-      <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
-    </div>
-    <h1 id="skip-nav-target" tabindex="-1">Find a Christmas tree permit forest</h1>
-    <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
+    <nav class="breadcrumb">
+      <ol>
+        <li>Christmas tree permit forests</li>
+      </ol>
+    </nav>
+    <form id="skip-nav-target" tabindex="-1" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
       <label for="forest-finder-input">Find a Forest:</label>
       <input id='forest-finder-input'
              name='selectForest'
@@ -24,7 +25,7 @@
     <div *ngFor='let i of rows' class='usa-grid'>
       <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
         <div class='usa-width-one-half forest-image-container'>
-          <h3>{{forest.forestName}} National Forest</h3>
+          <h5>{{forest.forestName}} National Forest</h5>
           <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']">
             <img id="{{forest.forestAbbr}}-map-img" src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
           </a>

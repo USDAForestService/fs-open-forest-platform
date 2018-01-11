@@ -22,6 +22,10 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
   });
 
+  it ('should show the breadcrumb', () => {
+    expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
+  });
+
   it ('should show the rules to know section',  () => {
     expect<any>(element(by.id('rules')).getText()).toEqual('Rules to know');
   });
@@ -129,6 +133,10 @@ describe('Apply for a Christmas tree permit', () => {
   describe('confirmation page', () => {
     it('should show confirmation details', () => {
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
+    });
+
+    it ('should show the breadcrumb', () => {
+      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
     });
 
     it('should show the order summary', () => {
