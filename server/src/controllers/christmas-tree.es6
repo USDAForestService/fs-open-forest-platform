@@ -448,6 +448,7 @@ christmasTree.cancelOne = (req, res) => {
 };
 
 const getPermitsData = (req, res) => {
+  let nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
   return treesDb.christmasTreesPermits
     .findAll({
       attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost'],
@@ -456,7 +457,7 @@ const getPermitsData = (req, res) => {
         status: 'Completed',
         updatedAt: {
           [Op.gte]: req.params.startDate,
-          [Op.lte]: req.params.endDate
+          [Op.lt]: nextDay
         }
       },
       order: [['updatedAt', 'ASC']]
