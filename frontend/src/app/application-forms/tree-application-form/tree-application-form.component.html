@@ -1,12 +1,20 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
+    <nav class="breadcrumb">
+      <ol>
+        <li><a routerLink="/christmas-trees/forests">Christmas tree permit forests</a></li>
+        <li><a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{ forest.forestName }} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}}</a></li>
+        <li>Buy a permit</li>
+      </ol>
+    </nav>
+
     <div *ngIf="(permit && !submitted)" class="usa-alert usa-alert-info">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Your permit purchase has been cancelled.</h3>
         <p class="usa-alert-text">Your credit card has not been charged. To create a permit you must complete the purchase transaction.</p>
       </div>
     </div>
-    <br>
+
     <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
     <h2 *ngIf="forest">{{forest.forestName}}</h2>
 
@@ -14,6 +22,7 @@
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
       <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
+      <p><b>Only printed permits are valid. Permits stored on mobile devices will not be accepted.</b></p>
 
       <div id="form-errors"
         *ngIf="(submitted && !applicationForm.valid)"
@@ -29,7 +38,7 @@
 
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
-            <app-email [applicantInfo]="applicationForm" hintText="Please enter your email address so that your permit(s) can be emailed to you."></app-email>
+            <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
             <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" hintText="One permit equals one tree. Up to {{maxNumberOfTrees}} permits allowed per household."></app-quantity>
             <label class="margin-top-2 total-cost">Total cost for Christmas tree permits: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
         </div>
@@ -38,6 +47,8 @@
       <div>
         <app-section-heading heading="Rules to know" elementId="rules"></app-section-heading>
         <app-tree-rules [forest]="forest"></app-tree-rules>
+        <app-tree-permit-rules></app-tree-permit-rules>
+
       </div>
       <span>
         <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
@@ -49,6 +60,7 @@
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>
+    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit information</a> page.</p>
 
   </div>
 </section>

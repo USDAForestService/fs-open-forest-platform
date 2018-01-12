@@ -19,6 +19,13 @@ const addApplicantInfo = (permit, frag) => {
     .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity').textContent = permit.quantity;
+
+  //set additional trees to blank so that user can fill them in
+  for (i = 1; i < permit.quantity; i++) {
+    querySelector = '#additional-tree-' + i;
+    frag.querySelector(querySelector).style = 'display:none';
+  }
+
 };
 
 const addForestSpecificInfo = (permit, frag) => {

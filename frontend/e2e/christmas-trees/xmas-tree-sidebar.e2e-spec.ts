@@ -43,13 +43,6 @@ describe('Xmas sidebar page', () => {
     ).toEqual('trip-planning');
   });
 
-  it('should have a breadcrumb', () => {
-    browser.sleep(500);
-    expect<any>(element(by.css('.breadcrumbs')).getText()).toEqual(
-      'Christmas tree permits > Find a forest > Mt. Hood National Forest Christmas tree permit information'
-    );
-  });
-
   it('should have a menu button and hide sidebar nav when resized to mobile', () => {
     browser.driver
       .manage()
