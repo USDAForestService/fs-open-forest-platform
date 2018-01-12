@@ -5,7 +5,6 @@ const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment');
 const Sequelize = require('sequelize');
-const json2csv = require('json2csv');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -447,9 +446,8 @@ christmasTree.cancelOne = (req, res) => {
     });
 };
 
-const getPermitsData = (req, res) => {
-  let nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
-  return treesDb.christmasTreesPermits
+christmasTree.getPermits = (req, res) => {
+  treesDb.christmasTreesPermits
     .findAll({
       attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost'],
       where: {
@@ -457,23 +455,19 @@ const getPermitsData = (req, res) => {
         status: 'Completed',
         updatedAt: {
           [Op.gte]: req.params.startDate,
-          [Op.lt]: nextDay
+          [Op.lte]: req.params.endDate
         }
-      },
-      order: [['updatedAt', 'ASC']]
+      }
     })
     .then(results => {
       if (results) {
-        let permits = [];
+        let sumOfTrees = 0;
+        let sumOfCost = 0;
         results.forEach(permit => {
-          let eachPermit = {};
-          eachPermit.permitNumber = permit.paygovTrackingId;
-          eachPermit.quantity = permit.quantity;
-          eachPermit.totalCost = permit.totalCost;
-          eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
-          permits.push(eachPermit);
+          sumOfTrees += permit.quantity;
+          sumOfCost += parseFloat(permit.totalCost);
         });
-        return permits;
+        res.status(200).json({ sumOfTrees: sumOfTrees, sumOfCost: sumOfCost.toFixed(2), permits: results });
       } else {
         res.status(404).send();
       }
@@ -489,32 +483,5 @@ const getPermitsData = (req, res) => {
         return res.status(500).send();
       }
     });
-};
-
-christmasTree.getPermits = (req, res) => {
-  getPermitsData(req, res).then(results => {
-    let sumOfTrees = 0;
-    let sumOfCost = 0;
-    results.forEach(permit => {
-      sumOfTrees += permit.quantity;
-      sumOfCost += parseFloat(permit.totalCost);
-    });
-    res.status(200).json({ sumOfTrees: sumOfTrees, sumOfCost: sumOfCost.toFixed(2), permits: results });
-  });
-};
-
-christmasTree.getPermitsDownload = (req, res) => {
-  getPermitsData(req, res).then(results => {
-    let fields = ['permitNumber', 'issueDate', 'quantity', 'totalCost'];
-    let fieldNames = ['Permit Number', 'Issue Date', 'Number of trees', 'Permit cost'];
-    json2csv({ data: results, fields: fields, fieldNames: fieldNames }, function(err, csv) {
-      if (err) {
-        return res.status(500).send();
-      }
-      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
-      res.set('Content-Type', 'text/csv');
-      res.status(200).send(csv);
-    });
-  });
 };
 module.exports = christmasTree;
