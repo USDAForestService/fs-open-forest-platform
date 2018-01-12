@@ -465,6 +465,7 @@ christmasTree.getPermits = (req, res) => {
         let permits = [];
         let sumOfTrees = 0;
         let sumOfCost = 0;
+        let numberOfPermits = 0;
         results.forEach(permit => {
           let eachPermit = {};
           eachPermit.permitNumber = permit.paygovTrackingId;
@@ -473,9 +474,15 @@ christmasTree.getPermits = (req, res) => {
           eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
           sumOfTrees += permit.quantity;
           sumOfCost += parseFloat(permit.totalCost);
+          numberOfPermits++;
           permits.push(eachPermit);
         });
-        res.status(200).json({ sumOfTrees: sumOfTrees, sumOfCost: sumOfCost.toFixed(2), permits: permits });
+        res.status(200).json({
+          sumOfTrees: sumOfTrees,
+          sumOfCost: sumOfCost.toFixed(2),
+          numberOfPermits: numberOfPermits,
+          permits: permits
+        });
       } else {
         res.status(404).send();
       }
