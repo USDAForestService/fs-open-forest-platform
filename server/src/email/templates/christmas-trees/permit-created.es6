@@ -14,7 +14,7 @@ Order Details
 **************************************
 
 Permit number: ${application.paygovTrackingId}
-Forest: ${application.christmasTreesForest.forestName} National Forest
+Forest: ${application.christmasTreesForest.forestName}
 Number of trees: ${application.quantity}
 Name: ${application.firstName} ${application.lastName}
 Payment: $${application.totalCost}
@@ -49,7 +49,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       </tr>
       <tr>
         <td class="border-bottom border-right">Forest</td>
-        <td class="border-bottom">${application.christmasTreesForest.forestName} National Forest</td>
+        <td class="border-bottom">${application.christmasTreesForest.forestName}</td>
       </tr>
       <tr>
         <td class="border-bottom border-right">Number of trees</td>
