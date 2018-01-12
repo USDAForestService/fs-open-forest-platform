@@ -2,7 +2,9 @@
   <div class="progress-inner">
     <div *ngIf="!fileUploadError">
       <p>Submitting your application.</p>
-      <span class="ds-c-spinner ds-u-fill--background-inverse ds-u-color--base-inverse ds-c-spinner--filled ds-u-valign--middle" aria-valuetext="Loading" role="progressbar"></span>
+      <div class="spinner-container">
+        <spinner class="spinner" [size]="28" [tickness]="4"></spinner>
+      </div>
       <p>Uploading file {{ fileUploadProgress }} of {{ numberOfFiles }}.</p>
     </div>
     <div *ngIf="fileUploadError"
