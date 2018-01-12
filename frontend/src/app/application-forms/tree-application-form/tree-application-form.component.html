@@ -22,6 +22,7 @@
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
       <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
+      <p><b>Only printed permits are valid. Permits stored on mobile devices will not be accepted.</b></p>
 
       <div id="form-errors"
         *ngIf="(submitted && !applicationForm.valid)"
