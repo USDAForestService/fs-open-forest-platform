@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 const request = require('supertest');
+const moment = require('moment');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws-app.es6');
@@ -14,6 +15,7 @@ let permitId;
 let invalidPermitId = 'xxxxx';
 let paygovToken;
 let tcsAppID;
+let today = moment(new Date()).format('YYYY-MM-DD');
 
 describe('christmas tree controller tests', () => {
   describe('get forests', () => {
@@ -355,6 +357,18 @@ describe('christmas tree controller tests', () => {
         .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
         .set('Accept', 'application/json')
         .expect(404, done);
+    });
+  });
+  describe('admin user reports', () => {
+    it('GET should return a 200 response for the given report parameters forest, start and end date', done => {
+      request(server)
+        .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+        })
+        .expect(200, done);
     });
   });
 });
