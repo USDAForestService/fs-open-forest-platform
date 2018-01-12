@@ -42,11 +42,11 @@ exports.config = {
         }
       })
     );
-    //jasmine.getEnv().addReporter(screenshotReporter);
+    jasmine.getEnv().addReporter(screenshotReporter);
   },
-  // afterLaunch: function(exitCode) {
-  //   return new Promise(function(resolve) {
-  //     screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
-  //   });
-  // }
+  afterLaunch: function(exitCode) {
+    return new Promise(function(resolve) {
+      screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
+    });
+  }
 };
