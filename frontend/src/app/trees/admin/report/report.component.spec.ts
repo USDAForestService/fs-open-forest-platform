@@ -47,11 +47,31 @@ describe('ReportComponent', () => {
     })
   };
 
+  class MockApplicationService {
+    getAllByDateRange(): Observable<{}> {
+      return Observable.of({
+        parameters: {
+          forestName: 'Arapaho and Roosevelt National Forests',
+          startDate: '10/10/2018',
+          endDate: '10/10/2019',
+          sumOfTrees: '12',
+          sumOfCost: '100',
+          permits: {}
+        }
+      });
+    }
+  }
+
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [ReportComponent],
-        providers: [ApplicationFieldsService, ChristmasTreesApplicationService, FormBuilder, UtilService],
+        providers: [
+          ApplicationFieldsService,
+          { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+          FormBuilder,
+          UtilService
+        ],
         imports: [RouterTestingModule, HttpClientTestingModule, HttpModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -72,5 +92,14 @@ describe('ReportComponent', () => {
   it('should get forest by id', () => {
     const forest = component.getForestById('2');
     expect(forest.forestName).toEqual('Flathead National Forest');
+  });
+
+  it('should get report', () => {
+    component.form.get('forestId').setValue('1');
+    component.form.get('startDate').setValue('10/10/2018');
+    component.form.get('endDate').setValue('10/10/2018');
+    expect(component.form.valid).toBeTruthy();
+    component.getReport();
+    expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
   });
 });
