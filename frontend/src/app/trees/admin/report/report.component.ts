@@ -75,6 +75,7 @@ export class ReportComponent implements OnInit {
         .subscribe(
           results => {
             this.result = {
+              numberOfPermits: results.numberOfPermits,
               sumOfTrees: results.sumOfTrees,
               sumOfCost: results.sumOfCost,
               permits: results.permits,
