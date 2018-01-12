@@ -1,8 +1,8 @@
-<h2>Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
-<h3>Number of permits sold: {{result.numberOfPermits }}</h3>
-<h3>Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
-<h3>Total: ${{result.sumOfCost}}</h3>
-<table>
+<h2 id="report-title">Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
+<h3 id="report-permit-total">Number of permits sold: {{result.numberOfPermits }}</h3>
+<h3 id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
+<h3 id="report-total">Total: ${{result.sumOfCost}}</h3>
+<table id="report-table">
   <caption>Report details
   <button id="download-report" class="usa-button-outline" (click)="downloadReport()">Download as Excel/CSV</button>
   </caption>

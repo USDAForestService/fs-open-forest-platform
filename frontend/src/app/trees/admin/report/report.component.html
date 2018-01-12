@@ -9,12 +9,12 @@
       <legend class="fs-datetime-legend">To generate a report, please select a forest and enter a start and end date.</legend>
 
       <div class="usa-form-group">
-        <label id="forest-label" class="usa-input">Forest</label>
-        <select id="forest" formControlName="forestId" aria-required="true"
+        <label id="forest-label" for="forest-select" class="usa-input">Forest</label>
+        <select id="forest-select" formControlName="forestId" aria-required="true"
           [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
           [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
           <option value="" selected="selected"></option>
-          <option *ngFor="let forest of forests" [value]="forest.id">{{forest.forestName}} </option>
+          <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }} </option>
         </select>
         <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
 
@@ -24,8 +24,8 @@
         [attr.aria-invalid]="afs.hasError(form.controls.startDate)"></my-date-picker>
         <app-error-message fieldId="start-date-error" name="Start date" [control]="form.controls.startDate"></app-error-message>
 
-        <label id="end-date-error" for="start-date">End date (format: mm/dd/yyyy)</label>
-        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions"  formControlName="endDate"
+        <label id="end-date-label" for="end-date">End date (format: mm/dd/yyyy)</label>
+        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions" formControlName="endDate"
         [attr.aria-labelledby]="afs.labelledBy(form.controls.endDate, 'end-date-label', 'end-date-error')"
         [attr.aria-invalid]="afs.hasError(form.controls.endDate)"></my-date-picker>
 

@@ -13,7 +13,7 @@ var screenshotReporter = new HtmlScreenshotReporter({
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['./e2e/*.e2e-spec.ts'],
+  specs: ['./e2e/**/*.e2e-spec.ts'],
   capabilities: {
     browserName: 'chrome',
     chromeOptions: isDocker ? {'args': ["--headless", 'no-sandbox', "--window-size=800x600"]} : {}
@@ -42,11 +42,11 @@ exports.config = {
         }
       })
     );
-    jasmine.getEnv().addReporter(screenshotReporter);
+    //jasmine.getEnv().addReporter(screenshotReporter);
   },
-  afterLaunch: function(exitCode) {
-    return new Promise(function(resolve) {
-      screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
-    });
-  }
+  // afterLaunch: function(exitCode) {
+  //   return new Promise(function(resolve) {
+  //     screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
+  //   });
+  // }
 };

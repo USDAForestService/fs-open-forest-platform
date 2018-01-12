@@ -39,8 +39,10 @@ export class ReportComponent implements OnInit {
 
     this.form.get('forestId').valueChanges.subscribe(forest => {
       this.forest = this.getForestById(forest);
-      this.form.get('startDate').setValue({ formatted: moment(this.forest.startDate).format('MM/DD/YYYY') });
-      this.form.get('endDate').setValue({ formatted: moment(this.forest.endDate).format('MM/DD/YYYY') });
+      if (this.forest) {
+        this.form.get('startDate').setValue({formatted: moment(this.forest.startDate).format('MM/DD/YYYY')});
+        this.form.get('endDate').setValue({formatted: moment(this.forest.endDate).format('MM/DD/YYYY')});
+      }
     });
   }
 
