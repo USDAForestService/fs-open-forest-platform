@@ -74,7 +74,12 @@ export class ReportComponent implements OnInit {
         )
         .subscribe(
           results => {
-            this.result = { permits: results, parameters: this.reportParameters };
+            this.result = {
+              sumOfTrees: results.sumOfTrees,
+              sumOfCost: results.sumOfCost,
+              permits: results.permits,
+              parameters: this.reportParameters
+            };
           },
           err => {
             this.apiErrors = err;

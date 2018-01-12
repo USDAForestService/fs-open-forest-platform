@@ -461,7 +461,13 @@ christmasTree.getPermits = (req, res) => {
     })
     .then(results => {
       if (results) {
-        res.status(200).json(results);
+        let sumOfTrees = 0;
+        let sumOfCost = 0;
+        results.forEach(permit => {
+          sumOfTrees += permit.quantity;
+          sumOfCost += parseFloat(permit.totalCost);
+        });
+        res.status(200).json({ sumOfTrees: sumOfTrees, sumOfCost: sumOfCost.toFixed(2), permits: results });
       } else {
         res.status(404).send();
       }
