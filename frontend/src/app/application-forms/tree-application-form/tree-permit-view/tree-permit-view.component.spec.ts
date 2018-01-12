@@ -3,9 +3,9 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Title } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as sinon from 'sinon';
+import { WindowRef } from '../../../_services/native-window.service';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -17,6 +17,7 @@ describe('TreePermitViewComponent', () => {
         totalCost: 0,
         quantity: 0,
         emailAddress: '',
+        permitImage: 'test',
         forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
       }
     })
@@ -26,7 +27,10 @@ describe('TreePermitViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule],
-        declarations: [TreePermitViewComponent]
+        declarations: [TreePermitViewComponent],
+        providers: [
+          { provide: WindowRef, useClass: WindowRef }
+        ]
       }).compileComponents();
     })
   );

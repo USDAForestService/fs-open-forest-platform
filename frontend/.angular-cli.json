@@ -20,6 +20,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "docker": "environments/environment-docker.ts",
         "prod": "environments/environment.prod.ts",
         "trees": "environments/environment.trees.ts",
         "staging": "environments/environment.staging.ts"

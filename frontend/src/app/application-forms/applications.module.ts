@@ -9,6 +9,7 @@ import { ApplicationNoncommercialGroupComponent } from './application-noncommerc
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
 import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
+import { ChristmasTreePermitDetailResolver } from './tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ErrorMessageComponent } from './validators/error-message.component';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
@@ -92,6 +93,6 @@ import { TreePermitViewComponent } from './tree-application-form/tree-permit-vie
     WebsiteComponent
   ],
   imports: [FileUploadModule, SharedModule],
-  providers: [ApplicationFieldsService, FileUploadService, ChristmasTreePermitResolver]
+  providers: [ApplicationFieldsService, FileUploadService, ChristmasTreePermitResolver, ChristmasTreePermitDetailResolver]
 })
 export class ApplicationsModule {}

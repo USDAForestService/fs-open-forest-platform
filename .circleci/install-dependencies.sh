@@ -1,4 +1,3 @@
-
 cd frontend
 yarn
 cd ../server

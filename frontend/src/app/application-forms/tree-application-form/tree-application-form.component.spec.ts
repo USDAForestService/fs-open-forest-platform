@@ -12,11 +12,15 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 
 class MockApplicationService {
   create(): Observable<{}> {
     return Observable.throw('error');
+  }
+  cancelOldApp(permitId): Observable<{}> {
+    return Observable.of({ success: 'success' });
   }
 }
 
@@ -52,7 +56,7 @@ describe('TreeApplicationFormComponent', () => {
             }
           }
         ],
-        imports: [RouterTestingModule, HttpModule],
+        imports: [RouterTestingModule, HttpModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -61,6 +65,7 @@ describe('TreeApplicationFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TreeApplicationFormComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -97,5 +102,29 @@ describe('TreeApplicationFormComponent', () => {
     const spy = sinon.spy(component, 'goToRules');
     component.goToRules(new Event('click'));
     expect(spy.called).toBeTruthy();
+  });
+
+  it('should repopulate form fields', () => {
+    component.permit = {
+      permitId: '123',
+      firstName: 'test',
+      lastName: 'test',
+      emailAddress: 'test@test.com',
+      quantity: '2'
+    };
+    component.createForm(
+      {
+        forest: {
+          id: '1',
+          forestName: 'Mt Hood',
+          orgStructureCode: '123',
+          forestAbbr: 'mthood',
+          treeCost: 10,
+          maxNumTrees: 5
+        }
+      },
+      component.formBuilder
+    );
+    expect(component.applicationForm.get('firstName').value).toEqual('test');
   });
 });
