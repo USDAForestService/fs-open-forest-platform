@@ -15,7 +15,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules.component';
-import { SpinnerModule } from 'angular2-spinner';
+import { SpinnerModule } from 'angular2-spinner/dist';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, SpinnerModule, InViewportModule.forRoot()],
