@@ -1,11 +1,12 @@
-.ds-u-color--success {
-  color: $fs-green !important;
+.spinner-container {
+  background: $fs-green;
+  padding: 9px;
+  border-radius: 24px;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
 }
-
-.ds-u-fill--background-inverse {
+.spinner {
+  border-color: $fs-tan rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.1) !important;
   background-color: $fs-green !important;
-}
-
-.ds-u-color--base-inverse {
-  color: $fs-tan !important;
 }
