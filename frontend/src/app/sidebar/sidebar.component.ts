@@ -66,7 +66,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.util.setCurrentSection('');
     this.top = '270px';
-    console.log(this.router);
     this.route = this.router.url.split('#')[0];
   }
 }
