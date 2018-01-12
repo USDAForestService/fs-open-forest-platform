@@ -41,7 +41,7 @@ const appRoutes: Routes = [
     data: { title: 'View application' }
   },
   {
-    path: 'admin/christmas-trees/report',
+    path: 'admin/christmas-trees/reports',
     component: ReportComponent,
     canActivate: [AuthGuardService],
     resolve: {

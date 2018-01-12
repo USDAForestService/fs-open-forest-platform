@@ -6,14 +6,14 @@
   <caption>All permits</caption>
   <thead>
     <tr>
-      <th scope="col">{{titles.permitNumber}}</th>
-      <th scope="col">{{titles.issueDate}}</th>
-      <th scope="col">{{titles.quantity}}</th>
-      <th scope="col">{{titles.totalCost}}</th>
+      <th scope="col">{{permits[0].permitNumber}}</th>
+      <th scope="col">{{permits[0].issueDate}}</th>
+      <th scope="col">{{permits[0].quantity}}</th>
+      <th scope="col">{{permits[0].totalCost}}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let permit of result.permits">
+    <tr *ngFor="let permit of permits | slice:1">
       <td>{{permit.permitNumber}}</td>
       <td>{{permit.issueDate}}</td>
       <td>{{permit.quantity}}</td>
