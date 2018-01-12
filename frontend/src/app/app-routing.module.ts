@@ -47,7 +47,7 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Christmas Trees Report' }
+    data: { title: 'Christmas Trees Permits Report' }
   },
   {
     path: 'user/applications',
