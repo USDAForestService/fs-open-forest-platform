@@ -14,6 +14,7 @@
     "fs-extra": "^5.0.0",
     "helmet": "^3.6.1",
     "jsdom": "https://github.com/nciinc/jsdom/tarball/master/9c957d7b0d60787502979b7566a3c2c91a82aead",
+    "json2csv": "^3.11.5",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",

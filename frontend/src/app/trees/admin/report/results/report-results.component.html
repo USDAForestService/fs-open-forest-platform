@@ -13,8 +13,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let permit of result.permits">
-      <td>{{permit.paygovTrackingId}}</td>
-      <td>{{permit.updatedAt|date: 'MM/dd/yyyy'}}</td>
+      <td>{{permit.permitNumber}}</td>
+      <td>{{permit.issueDate}}</td>
       <td>{{permit.quantity}}</td>
       <td>${{permit.totalCost}}</td>
     </tr>
