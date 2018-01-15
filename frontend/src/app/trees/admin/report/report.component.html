@@ -23,18 +23,8 @@
         </select>
         <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
 
-        <label id="start-date-label" for="start-date">Start date (format: mm/dd/yyyy)</label>
-        <my-date-picker id="start-date" class="usa-input-inline" name="startDate" [options]="myDatePickerOptions" formControlName="startDate"
-        [attr.aria-labelledby]="afs.labelledBy(form.controls.startDate, 'start-date-label', 'start-date-error')"
-        [attr.aria-invalid]="afs.hasError(form.controls.startDate)"></my-date-picker>
-        <app-error-message fieldId="start-date-error" name="Start date" [control]="form.controls.startDate"></app-error-message>
+        <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true"></app-date-time-range>
 
-        <label id="end-date-label" for="end-date">End date (format: mm/dd/yyyy)</label>
-        <my-date-picker id="end-date" class="usa-input-inline" name="endDate" [options]="myDatePickerOptions" formControlName="endDate"
-        [attr.aria-labelledby]="afs.labelledBy(form.controls.endDate, 'end-date-label', 'end-date-error')"
-        [attr.aria-invalid]="afs.hasError(form.controls.endDate)"></my-date-picker>
-
-        <app-error-message fieldId="end-date-error" name="End date" [control]="form.controls.endDate"></app-error-message>
       </div>
 
       <button id="get-report" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>

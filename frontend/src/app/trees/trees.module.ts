@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { ApplicationsModule } from '../application-forms/applications.module';
 import { ContactInfoComponent } from './forests/tree-guidelines/contact-info/contact-info.component';
 import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
@@ -57,7 +57,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
-  imports: [SharedModule, MyDatePickerModule],
+  imports: [SharedModule, MyDatePickerModule, ApplicationsModule],
   providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}

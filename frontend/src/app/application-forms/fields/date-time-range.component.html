@@ -53,7 +53,7 @@
         (dateTimeRange.controls.startHour.invalid || dateTimeRange.controls.startMinutes.invalid || dateTimeRange.controls.startPeriod.invalid)
       ">Start time is required.</span>
     <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd">Start date and time must be before end date and time.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday">Start date and time must be in the future.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday && !includePastDates">Start date and time must be in the future.</span>
 
     <fieldset>
       <legend class="fs-datetime-legend">End date (Use 2 digits for month and day. Use 4 digits for year.)</legend>

@@ -11,6 +11,7 @@ import * as moment from 'moment/moment';
 export class DateTimeRangeComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() dateOnly: boolean;
+  @Input() includePastDates: boolean;
   formName: string;
   dateStatus = {
     startDateTimeValid: true,
