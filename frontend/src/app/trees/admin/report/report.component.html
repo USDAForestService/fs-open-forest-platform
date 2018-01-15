@@ -19,11 +19,11 @@
           [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
           [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
           <option value="" selected="selected"></option>
-          <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }} </option>
+          <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
         </select>
         <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
 
-        <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true"></app-date-time-range>
+        <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
 
       </div>
 

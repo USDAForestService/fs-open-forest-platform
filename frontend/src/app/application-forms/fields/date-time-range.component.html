@@ -20,7 +20,9 @@
         (dateTimeRange.controls.startMonth.touched && dateTimeRange.controls.startDay.touched && dateTimeRange.controls.startYear.touched) &&
         (dateTimeRange.controls.startMonth.invalid || dateTimeRange.controls.startDay.invalid || dateTimeRange.controls.startYear.invalid)
       ">Start date is required.</span>
-    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startDateTimeValid">Start date is invalid.</span>
+    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false"
+    *ngIf="!dateStatus.startDateTimeValid"
+    >Start date is invalid.</span>
 
     <fieldset *ngIf="!dateOnly">
       <legend class="fs-datetime-legend">Start time </legend>
@@ -52,7 +54,7 @@
         (dateTimeRange.controls.startHour.touched && dateTimeRange.controls.startMinutes.touched && dateTimeRange.controls.startPeriod.touched) &&
         (dateTimeRange.controls.startHour.invalid || dateTimeRange.controls.startMinutes.invalid || dateTimeRange.controls.startPeriod.invalid)
       ">Start time is required.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd">Start date and time must be before end date and time.</span>
+    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd && dateStatus.startDateTimeValid">Start date and time must be before end date and time.</span>
     <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday && !includePastDates">Start date and time must be in the future.</span>
 
     <fieldset>

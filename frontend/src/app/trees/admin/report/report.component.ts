@@ -21,6 +21,15 @@ export class ReportComponent implements OnInit {
   apiErrors: any;
   reportParameters: any;
 
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false,
+    dateTimeSpan: 0
+  };
+
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'mm/dd/yyyy',
     height: '4.4rem',
@@ -39,7 +48,7 @@ export class ReportComponent implements OnInit {
 
     this.form.get('forestId').valueChanges.subscribe(forest => {
       this.forest = this.getForestById(forest);
-      if (this.forest) {
+      if (this.forest && this.form.get('dateTimeRange')) {
         this.form.get('dateTimeRange.startMonth').setValue(moment(this.forest.startDate).format('MM'));
         this.form.get('dateTimeRange.startDay').setValue(moment(this.forest.startDate).format('DD'));
         this.form.get('dateTimeRange.startYear').setValue(moment(this.forest.startDate).format('YYYY'));
@@ -56,9 +65,13 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
+  }
+
   getForestById(id) {
     for (const forest of this.forests) {
-      if (forest.id === parseInt(id)) {
+      if (forest.id === parseInt(id, 10)) {
         return forest;
       }
     }
@@ -66,32 +79,34 @@ export class ReportComponent implements OnInit {
 
   getReport() {
     this.afs.touchAllFields(this.form);
-    this.reportParameters = {
-      forestName: this.forest.forestName,
-      startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
-      endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
-    };
-    if (this.form.valid) {
-      this.service
-        .getAllByDateRange(
-          this.forest.id,
-          moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
-          moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
-        )
-        .subscribe(
-          results => {
-            this.result = {
-              numberOfPermits: results.numberOfPermits,
-              sumOfTrees: results.sumOfTrees,
-              sumOfCost: results.sumOfCost,
-              permits: results.permits,
-              parameters: this.reportParameters
-            };
-          },
-          err => {
-            this.apiErrors = err;
-          }
-        );
+    if (this.forest) {
+      this.reportParameters = {
+        forestName: this.forest.forestName,
+        startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
+        endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
+      };
+      if (this.form.valid && !this.dateStatus.hasErrors) {
+        this.service
+          .getAllByDateRange(
+            this.forest.id,
+            moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
+            moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
+          )
+          .subscribe(
+            results => {
+              this.result = {
+                numberOfPermits: results.numberOfPermits,
+                sumOfTrees: results.sumOfTrees,
+                sumOfCost: results.sumOfCost,
+                permits: results.permits,
+                parameters: this.reportParameters
+              };
+            },
+            err => {
+              this.apiErrors = err;
+            }
+          );
+      }
     }
   }
 }

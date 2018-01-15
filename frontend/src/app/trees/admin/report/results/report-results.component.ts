@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ChristmasTreesApplicationService } from '../../../_services/christmas-trees-application.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
@@ -6,17 +6,17 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   selector: 'app-report-results',
   templateUrl: './report-results.component.html'
 })
-export class ReportResultsComponent implements OnInit {
+export class ReportResultsComponent implements OnChanges {
   @Input() result: any;
   permits: any;
   titles = {
-    permitNumber: 'Permit Number',
-    issueDate: 'Issue Date',
+    permitNumber: 'Permit number',
+    issueDate: 'Issue date',
     quantity: 'Number of trees',
     totalCost: 'Permit cost'
   };
 
-  ngOnInit() {
+  ngOnChanges() {
     this.permits = this.result.permits;
     this.permits.unshift(this.titles);
   }
@@ -30,6 +30,6 @@ export class ReportResultsComponent implements OnInit {
       showTitle: false,
       useBom: false
     };
-    new Angular2Csv(this.result.permits, 'Christmas Trees Permits Report', options);
+    const ng2csv = new Angular2Csv(this.result.permits, 'Christmas Trees Permits Report', options);
   }
 }

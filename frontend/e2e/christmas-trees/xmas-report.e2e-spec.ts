@@ -1,7 +1,7 @@
 import { TreesReportPage } from './xmas-tree-admin.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-fdescribe('Xmas tree - Admin Reports', () => {
+describe('Xmas tree - Admin Reports', () => {
   let page: TreesReportPage;
 
   describe('Permit report page', () => {
@@ -22,18 +22,22 @@ fdescribe('Xmas tree - Admin Reports', () => {
       });
 
       it('should display a start date', () => {
-        expect<any>(page.startDateInput().isPresent()).toBeTruthy();
+        expect<any>(page.startMonthInput().isPresent()).toBeTruthy();
+        expect<any>(page.startDayInput().isPresent()).toBeTruthy();
+        expect<any>(page.startYearInput().isPresent()).toBeTruthy();
       });
 
       it('should display a end date', () => {
-        expect<any>(page.endDateInput().isPresent()).toBeTruthy();
+        expect<any>(page.endMonthInput().isPresent()).toBeTruthy();
+        expect<any>(page.endDayInput().isPresent()).toBeTruthy();
+        expect<any>(page.endYearInput().isPresent()).toBeTruthy();
       });
     });
 
     describe('forest select', () => {
       it('should have the forests in the select', () => {
-        expect<any>(page.forestSelectOption('Flathead').getText()).toEqual('Flathead ');
-        expect<any>(page.forestSelectOption('Mt. Hood').getText()).toEqual('Mt. Hood ');
+        expect<any>(page.forestSelectOption('Flathead').getText()).toEqual('Flathead National Forest');
+        expect<any>(page.forestSelectOption('Mt. Hood').getText()).toEqual('Mt. Hood National Forest');
       });
 
       it('should show an error if the form is submitted without a selected forest', () => {
@@ -50,7 +54,19 @@ fdescribe('Xmas tree - Admin Reports', () => {
       });
 
       it('should display the default start and end date for the forest when a forest is selected', () => {
-        expect<any>(page.startDateInputValue().isPresent()).toBeTruthy();
+        expect<any>(page.startMonthInput().getAttribute('value')).toBeTruthy();
+        expect<any>(page.endMonthInput().getAttribute('value')).toBeTruthy();
+      });
+
+      it('should display error if start date is after end date', () => {
+        page.startYearInput().clear();
+        page.startYearInput().sendKeys('2040');
+        expect<any>(element(by.css('.usa-input-error-message')).getText()).toEqual(
+          'Start date and time must be before end date and time.'
+        );
+        page.startYearInput().clear();
+        page.startYearInput().sendKeys('2014');
+        expect<any>(element(by.css('.usa-input-error-message')).isPresent()).toBeFalsy();
       });
     });
 
@@ -58,7 +74,7 @@ fdescribe('Xmas tree - Admin Reports', () => {
       beforeAll(() => {
         page.forestSelectOption('Flathead').click();
         page.reportSubmit().click();
-        browser.sleep(2000)
+        browser.sleep(2000);
       });
 
       it('should have a details table', () => {
@@ -79,14 +95,11 @@ fdescribe('Xmas tree - Admin Reports', () => {
 
       it('should display the report total', () => {
         expect<any>(page.reportTotal().isDisplayed()).toBeTruthy();
-
       });
 
       it('should display the trees total', () => {
         expect<any>(page.reportTreeTotal().isDisplayed()).toBeTruthy();
-
       });
     });
   });
-
 });

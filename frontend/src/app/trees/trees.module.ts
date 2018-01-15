@@ -24,7 +24,6 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
-import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
@@ -57,7 +56,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
-  imports: [SharedModule, MyDatePickerModule, ApplicationsModule],
+  imports: [SharedModule, ApplicationsModule],
   providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}

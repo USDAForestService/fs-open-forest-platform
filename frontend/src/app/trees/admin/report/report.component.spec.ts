@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 describe('ReportComponent', () => {
   let component: ReportComponent;
   let fixture: ComponentFixture<ReportComponent>;
+  let formBuilder: FormBuilder;
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
@@ -82,6 +83,26 @@ describe('ReportComponent', () => {
     TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
     fixture = TestBed.createComponent(ReportComponent);
     component = fixture.debugElement.componentInstance;
+    formBuilder = new FormBuilder();
+    component.form = formBuilder.group({
+      forestId: ['', [Validators.required]],
+      dateTimeRange: formBuilder.group({
+        endDateTime: [''],
+        endDay: [''],
+        endMonth: [''],
+        endYear: [''],
+        endHour: [''],
+        endMinutes: ['00'],
+        endPeriod: [''],
+        startDateTime: [''],
+        startDay: [''],
+        startMonth: [''],
+        startYear: [''],
+        startHour: [''],
+        startMinutes: ['00'],
+        startPeriod: ['']
+      })
+    });
     fixture.detectChanges();
   });
 
@@ -95,9 +116,19 @@ describe('ReportComponent', () => {
   });
 
   it('should get report', () => {
+    component.forest = {
+      id: 1,
+      forestName: 'Arapaho and Roosevelt National Forests',
+      description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+      forestAbbr: 'arp'
+    };
     component.form.get('forestId').setValue('1');
-    component.form.get('startDate').setValue('10/10/2018');
-    component.form.get('endDate').setValue('10/10/2018');
+    component.form.get('dateTimeRange.startMonth').setValue('10');
+    component.form.get('dateTimeRange.startDay').setValue('10');
+    component.form.get('dateTimeRange.startYear').setValue('2017');
+    component.form.get('dateTimeRange.endMonth').setValue('10');
+    component.form.get('dateTimeRange.endDay').setValue('10');
+    component.form.get('dateTimeRange.endYear').setValue('2018');
     expect(component.form.valid).toBeTruthy();
     component.getReport();
     expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');

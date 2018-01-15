@@ -2,9 +2,9 @@
 <h3 id="report-permit-total">Number of permits sold: {{result.numberOfPermits }}</h3>
 <h3 id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
 <h3 id="report-total">Total: ${{result.sumOfCost}}</h3>
-<table id="report-table">
+<table id="report-table" *ngIf="permits">
   <caption>Report details
-  <button id="download-report" class="usa-button-outline" (click)="downloadReport()">Download as Excel/CSV</button>
+  <button id="download-report" class="usa-button-primary-alt" (click)="downloadReport()">Download as Excel/CSV</button>
   </caption>
   <thead>
     <tr>

@@ -9,16 +9,28 @@ export class TreesReportPage {
     return element(by.id('forest-select'));
   }
 
-  startDateInput() {
-    return element(by.id('start-date'));
+  startMonthInput() {
+    return element(by.id('start-month'));
   }
 
-  startDateInputValue() {
-    return element(by.css('#end-date input'));
+  startDayInput() {
+    return element(by.id('start-day'));
   }
 
-  endDateInput() {
-    return element(by.id('end-date'));
+  startYearInput() {
+    return element(by.id('start-year'));
+  }
+
+  endMonthInput() {
+    return element(by.id('end-month'));
+  }
+
+  endDayInput() {
+    return element(by.id('end-day'));
+  }
+
+  endYearInput() {
+    return element(by.id('end-year'));
   }
 
   forestSelectOption(text) {
@@ -64,5 +76,4 @@ export class TreesReportPage {
   reportDetailsTable() {
     return element(by.id('report-table'));
   }
-
 }

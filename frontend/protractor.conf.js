@@ -13,10 +13,14 @@ var screenshotReporter = new HtmlScreenshotReporter({
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['./e2e/**/*.e2e-spec.ts'],
+  specs: ['./e2e/*.e2e-spec.ts', './e2e/christmas-trees/*.e2e-spec.ts'],
   capabilities: {
     browserName: 'chrome',
-    chromeOptions: isDocker ? {'args': ["--headless", 'no-sandbox', "--window-size=800x600"]} : {}
+    chromeOptions: isDocker
+      ? {
+          args: ['--headless', 'no-sandbox', '--window-size=800x600']
+        }
+      : {}
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
