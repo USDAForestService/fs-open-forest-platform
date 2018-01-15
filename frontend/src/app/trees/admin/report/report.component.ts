@@ -6,7 +6,6 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
-import { IMyDpOptions } from 'mydatepicker';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -28,12 +27,6 @@ export class ReportComponent implements OnInit {
     startAfterToday: true,
     hasErrors: false,
     dateTimeSpan: 0
-  };
-
-  public myDatePickerOptions: IMyDpOptions = {
-    dateFormat: 'mm/dd/yyyy',
-    height: '4.4rem',
-    selectionTxtFontSize: '1.7rem'
   };
 
   constructor(
