@@ -2,7 +2,7 @@
   <nav class="breadcrumb">
     <ol>
       <li><a routerLink="/christmas-trees/forests">Christmas tree permit forests</a></li>
-      <li><a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{ forest.forestName }} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}}</a></li>
+      <li><a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{ forest.forestName }}</a></li>
       <li><a [routerLink]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">Buy a permit</a></li>
       <li>Permit order confirmation</li>
     </ol>
@@ -29,7 +29,7 @@
       <div class="usa-width-one-third">
         <dl>
           <dt>Description</dt>
-          <dd><b>{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas Tree Permit(s)</b></dd>
+          <dd><b>{{forest.forestName}}  Christmas Tree Permit(s)</b></dd>
         </dl>
       </div>
       <div class="usa-width-one-third">

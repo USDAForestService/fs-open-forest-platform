@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-
+import { ApplicationsModule } from '../application-forms/applications.module';
 import { ContactInfoComponent } from './forests/tree-guidelines/contact-info/contact-info.component';
+import { ReportComponent } from './admin/report/report.component';
+import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates.component';
@@ -26,6 +28,8 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
 @NgModule({
   declarations: [
     ContactInfoComponent,
+    ReportComponent,
+    ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -42,6 +46,8 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
   ],
   exports: [
     ContactInfoComponent,
+    ReportComponent,
+    ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -50,7 +56,7 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, ApplicationsModule],
   providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}

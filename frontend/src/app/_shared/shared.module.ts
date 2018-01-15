@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../_pipes/filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppButtonComponent } from '../home/app-button.component';
+import { ErrorMessageComponent } from '../application-forms/validators/error-message.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
@@ -21,6 +22,7 @@ import { SpinnerModule } from 'angular2-spinner/dist';
   imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, SpinnerModule, InViewportModule.forRoot()],
   declarations: [
     ApiErrorComponent,
+    ErrorMessageComponent,
     TrackScrollDirective,
     AppButtonComponent,
     FilterPipe,
@@ -34,6 +36,7 @@ import { SpinnerModule } from 'angular2-spinner/dist';
   ],
   exports: [
     ApiErrorComponent,
+    ErrorMessageComponent,
     FilterPipe,
     AppRoutingModule,
     CommonModule,

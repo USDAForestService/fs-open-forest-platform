@@ -300,6 +300,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular2-csv@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/angular2-csv/-/angular2-csv-0.2.5.tgz#8179f4392ed5c62b4043bf819e3bfc1ee8abf8f3"
+
 angular2-spinner@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/angular2-spinner/-/angular2-spinner-1.0.10.tgz#88ecc2d25320db2fba2f1231b7361bafa8ae63d1"
@@ -4390,6 +4394,10 @@ multicast-dns@^6.0.1:
 mute-stream@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.6.tgz#48962b19e169fd1dfc240b3f1e7317627bbc47db"
+
+mydatepicker@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/mydatepicker/-/mydatepicker-2.6.1.tgz#c9504bb978eeb091bd83347669eee67bbbe9a0c4"
 
 nan@^2.3.0, nan@^2.3.2:
   version "2.8.0"

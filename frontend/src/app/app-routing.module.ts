@@ -18,6 +18,7 @@ import { NoncommercialLearnMoreComponent } from './application-forms/application
 import { NotFoundComponent } from './error-pages/not-found.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
+import { ReportComponent } from './trees/admin/report/report.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
@@ -38,6 +39,15 @@ const appRoutes: Routes = [
     component: PermitApplicationViewComponent,
     canActivate: [AuthGuardService],
     data: { title: 'View application' }
+  },
+  {
+    path: 'admin/christmas-trees/reports',
+    component: ReportComponent,
+    canActivate: [AuthGuardService],
+    resolve: {
+      forests: ForestFinderResolver
+    },
+    data: { title: 'Christmas Trees Permits Report' }
   },
   {
     path: 'user/applications',

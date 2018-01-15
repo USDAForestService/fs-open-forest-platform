@@ -11,6 +11,7 @@ import * as moment from 'moment/moment';
 export class DateTimeRangeComponent implements OnInit {
   @Input() parentForm: FormGroup;
   @Input() dateOnly: boolean;
+  @Input() includePastDates: boolean;
   formName: string;
   dateStatus = {
     startDateTimeValid: true,
@@ -174,7 +175,7 @@ export class DateTimeRangeComponent implements OnInit {
       !this.dateStatus.startDateTimeValid ||
       !this.dateStatus.endDateTimeValid ||
       !this.dateStatus.startBeforeEnd ||
-      !this.dateStatus.startAfterToday;
+      (!this.includePastDates && !this.dateStatus.startAfterToday);
     if (this.dateStatus.hasErrors) {
       this.dateTimeRange.controls.startDateTime.markAsTouched();
       this.dateTimeRange.controls.startDateTime.setErrors({

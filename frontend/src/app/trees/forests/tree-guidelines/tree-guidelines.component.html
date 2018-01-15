@@ -3,7 +3,7 @@
     <nav class="breadcrumb">
       <ol>
         <li><a routerLink="/christmas-trees/forests">Christmas tree permit forests</a></li>
-        <li>{{ forest.forestName }} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}}</li>
+        <li>{{ forest.forestName }}</li>
       </ol>
     </nav>
   </div>
@@ -11,9 +11,9 @@
     <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
-      <h1 *ngIf="forest">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas Tree Permit Information</h1>
+      <h1 *ngIf="forest">{{forest.forestName}}  Christmas Tree Permit Information</h1>
       <br/>
-      <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} National Forest subject to the rules and regulations on your permit and as noted below.</p>
+      <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
