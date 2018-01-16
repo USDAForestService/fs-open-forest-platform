@@ -25,12 +25,12 @@ export class AuthGuardService implements CanActivate {
         this.navigate(['/access-denied']);
       }
     } else {
-      this.sendToAuthenication(isAdminRoute, requestingUrl);
+      this.sendToAuthentication(isAdminRoute, requestingUrl);
     }
     return authorized;
   }
 
-  sendToAuthenication(isAdminRoute, requestingUrl) {
+  sendToAuthentication(isAdminRoute, requestingUrl) {
     localStorage.setItem('requestingUrl', requestingUrl);
     let authEndpoint = 'login-gov/openid/login';
     if (isAdminRoute) {

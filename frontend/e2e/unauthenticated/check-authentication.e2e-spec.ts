@@ -20,19 +20,19 @@ describe('frontend App', () => {
   it('should go to login url when login is clicked', () => {
     element(by.id('log-in')).click();
     browser.sleep(1000);
-    expect(browser.driver.getCurrentUrl()).toContain('login');
+    expect(browser.driver.getCurrentUrl()).toContain('login.gov');
   });
 
   it('should go to login url when link to permit application form is clicked', () => {
     page.navigateTo();
     element(by.css('#noncommercial-background .usa-button')).click();
     browser.sleep(1000);
-    expect(browser.driver.getCurrentUrl()).toContain('login');
+    expect(browser.driver.getCurrentUrl()).toContain('login.gov');
   });
 
   it('should go to eauth url when accessing admin pages', () => {
     browser.driver.get('http://localhost:4200/admin/applications');
     browser.sleep(1000);
-    expect(browser.driver.getCurrentUrl()).toContain('usda');
+    expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
 });
