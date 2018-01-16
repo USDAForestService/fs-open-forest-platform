@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.13",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "build": "ng build",
@@ -19,7 +19,7 @@
     "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
     "test": "ng test -sm=false",
     "typedoc": "typedoc",
-    "update-version": "npm version patch && node ./replace.build.js"
+    "update-version": "node ./replace.build.js"
   },
   "private": true,
   "dependencies": {

@@ -213,6 +213,10 @@ typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at
 
 Navigate to `/assets/typedoc/index.html`
 
+#### JWT Usage
+
+VCAP service value for jwt token is used for appending a token to permit URL to view the purchased permit so that the users cannot easily guess the permit URL.
+
 #### Pay.Gov integration
 
 VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
