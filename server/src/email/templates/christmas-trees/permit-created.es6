@@ -83,7 +83,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       application.christmasTreesForest.forestName
     } Christmas tree permit website</a> for more information about cutting down your tree.</p>
 
-    <p><img src="cid:unique@kreata.ee"/></p>
+    <p><img src="cid:christmas-tree-permit-image"/></p>
     </div>
     `,
     attachments: application.attachments

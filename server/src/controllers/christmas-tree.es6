@@ -274,7 +274,7 @@ const sendEmail = (res, savedPermit, pngBuffer) => {
     {
       filename: 'permit.png',
       content: new Buffer(pngBuffer, 'utf-8'),
-      cid: 'unique@kreata.ee'
+      cid: 'christmas-tree-permit-image'
     },
     {
       filename: 'permit-attachment.png',
