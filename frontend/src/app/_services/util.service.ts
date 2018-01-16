@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -53,7 +54,7 @@ export class UtilService {
             break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
-            return Observable.of(errors);
+            return Observable;
           case 403:
             errors = [{ status: error.status, message: 'Access denied.' }];
             break;
@@ -61,7 +62,9 @@ export class UtilService {
             errors = [{ status: error.status, message: 'The requested application is not found.' }];
             break;
           case 500:
-            errors = [{ status: error.status, message: 'Server error' }];
+            errors = [
+              { status: error.status, message: 'Sorry, we were unable to process your request. Please try again.' }
+            ];
             break;
           default:
             errors = [{ status: error.status }];
@@ -74,7 +77,9 @@ export class UtilService {
       errors = body.errors;
       return Observable.throw(errors);
     } catch (err) {
-      return Observable.throw([{ status: 500, message: 'Server error' }]);
+      return Observable.throw([
+        { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
+      ]);
     }
   }
 }

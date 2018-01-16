@@ -53,7 +53,7 @@
       "credentials": {
         "whitelist": [],
         "issuer": "",
-        "entrypoint": "",
+        "entrypoint": "https://www.eauth.usda.gov/",
         "cert": "",
         "private_key": ""
       },
@@ -76,12 +76,19 @@
     },
     {
       "credentials": {
+        "permit_secret": "secret"
+      },
+      "label": "user-provided",
+      "name": "jwt"
+    },
+    {
+      "name": "pay-gov",
+      "label": "user-provided",
+      "credentials": {
         "url": "http://localhost:8080/mock-pay-gov",
         "client_url": "http://localhost:4200/mock-pay-gov",
         "tcs_app_id": "FS-100"
-      },
-      "label": "user-provided",
-      "name": "pay-gov"
+      }
     }
   ],
   "s3": [

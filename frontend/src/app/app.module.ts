@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AccessDeniedComponent } from './login/access-denied.component';
+import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AlertService } from './_services/alert.service';
 import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
@@ -16,11 +17,13 @@ import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
 import { CancelApplicationComponent } from './applications/actions/cancel-application.component';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
+import { ErrorInterceptor } from './error-pages/error-interceptor.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
 import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialDetailsComponent } from './applications/permit-application-view/noncommercial-details.component';
+import { NotFoundComponent } from './error-pages/not-found.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { PayGovMocksModule } from './pay-gov-mocks/pay-gov-mocks.module';
@@ -34,6 +37,11 @@ import { TitleDirective } from './_directives/title.directive';
 import { TreesModule } from './trees/trees.module';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
+import { WindowRef } from './_services/native-window.service';
+import { PageHeaderComponent } from './home/header.component';
+import { MockPageHeaderComponent } from './pay-gov-mocks/mock-header.component';
+import { PageFooterComponent } from './home/footer.component';
+import { MockPageFooterComponent } from './pay-gov-mocks/mock-footer.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +55,12 @@ import { UtilService } from './_services/util.service';
     HomeComponent,
     HoursFromOrDate,
     LoggedInComponent,
+    MockPageFooterComponent,
+    MockPageHeaderComponent,
     NoncommercialDetailsComponent,
+    NotFoundComponent,
+    PageFooterComponent,
+    PageHeaderComponent,
     PermitApplicationListComponent,
     PermitApplicationViewComponent,
     RevisionHistoryComponent,
@@ -59,7 +72,19 @@ import { UtilService } from './_services/util.service';
     UsaBannerComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpModule, PayGovMocksModule, SharedModule, TreesModule],
-  providers: [AlertService, ApplicationService, AuthGuardService, AuthenticationService, UtilService],
+  providers: [
+    AlertService,
+    ApplicationService,
+    AuthGuardService,
+    AuthenticationService,
+    UtilService,
+    WindowRef,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

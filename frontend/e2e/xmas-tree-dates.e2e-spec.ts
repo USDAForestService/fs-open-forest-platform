@@ -1,4 +1,4 @@
-import { TreesSidebarPage } from './app.po';
+import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Christmas tree  - When to Cut Your Tree page', () => {
@@ -7,7 +7,10 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
   describe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(800);
       page.whenToCutDatesSectionLink().click();
@@ -54,7 +57,10 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
   describe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('shoshone');
       browser.sleep(800);
       page.whenToCutDatesSectionLink().click();
@@ -94,14 +100,19 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/shoshone/new');
+      expect(browser.getCurrentUrl()).toEqual(
+        'http://localhost:4200/applications/christmas-trees/forests/shoshone/new'
+      );
     });
   });
 
   describe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('flathead');
       browser.sleep(800);
       page.whenToCutDatesSectionLink().click();
@@ -141,14 +152,19 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/flathead/new');
+      expect(browser.getCurrentUrl()).toEqual(
+        'http://localhost:4200/applications/christmas-trees/forests/flathead/new'
+      );
     });
   });
 
   describe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('arp');
       browser.sleep(800);
       page.whenToCutDatesSectionLink().click();

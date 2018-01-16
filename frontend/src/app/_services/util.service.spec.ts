@@ -2,6 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { UtilService } from '../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { Response, ResponseOptions } from '@angular/http';
+import { Router } from '@angular/router';
 import * as sinon from 'sinon';
 
 describe('UtilService', () => {
@@ -53,7 +54,7 @@ describe('UtilService', () => {
 
   it('should throw an observable if response has status 401', () => {
     const response = new Response(new ResponseOptions({ status: 401, body: { errors: ['error'] } }));
-    expect(service.handleError(response)).toEqual(Observable.of([{ status: 401, message: 'Please log in.' }]));
+    expect(service.handleError(response)).toEqual(Observable);
   });
 
   it('should throw an observable if response has status 403', () => {

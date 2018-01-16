@@ -1,14 +1,20 @@
-import { ChristmasTreeForm, ChristmasTreeOrderConfirmation } from './app.po';
+import {
+  ChristmasTreeForm,
+  ChristmasTreeOrderConfirmation,
+  ChristmasTreeFormAfterCancel
+} from './xmas-tree-application.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
   let confirmPage: ChristmasTreeOrderConfirmation;
+  let prefilledPage: ChristmasTreeFormAfterCancel;
   const forestId = 'arp';
 
   beforeEach(() => {
     page = new ChristmasTreeForm();
     confirmPage = new ChristmasTreeOrderConfirmation();
+    prefilledPage = new ChristmasTreeFormAfterCancel();
   });
 
   it('should display the permit name in the header', () => {
@@ -86,10 +92,7 @@ describe('Apply for a Christmas tree permit', () => {
 
   it('should calculate total cost', () => {
     page.navigateTo(forestId);
-    element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-    element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-    element(by.id('email')).sendKeys('msdf@noemail.com');
-    element(by.id('quantity')).sendKeys('2');
+    page.fillOutForm();
     browser.sleep(500);
     expect<any>(element(by.id('total-cost')).getText()).toEqual('$20');
   });
@@ -101,19 +104,13 @@ describe('Apply for a Christmas tree permit', () => {
 
   it('should redirect to mock pay.gov on application submit', () => {
     page.navigateTo(forestId);
-    element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
-    element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
-    element(by.id('email')).sendKeys('msdf@noemail.com');
-    element(by.id('quantity')).sendKeys('2');
-    page.submit().click();
-    expect<any>(page.rulesAccepted().isPresent()).toBeTruthy();
-    page.rulesAccepted().click();
-    page.submit().click();
+    page.fillOutFormAndSubmit();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
 
   it('should redirect back confirmation page from mock pay.gov', () => {
+    element(by.id('credit-card-number')).sendKeys('1100000000000123');
     page.mockPayGovSubmit().click();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain(
@@ -138,14 +135,74 @@ describe('Apply for a Christmas tree permit', () => {
       expect<any>(confirmPage.printPermitButton().isDisplayed()).toBeTruthy();
     });
 
-    it('should open print dialog box on print button click', () => {
-      browser.getCurrentUrl().then(function(currentUrl) {
-        const url = currentUrl;
-        browser.get(url);
-        expect<any>(browser.getCurrentUrl()).toContain(
-          `http://localhost:4200/applications/christmas-trees/forests/${forestId}/new`
-        );
+    it('should show error page if credit card error', () => {
+      page.navigateTo(forestId);
+      page.fillOutFormAndSubmit();
+      browser.sleep(1500);
+      element(by.id('credit-card-number')).sendKeys('0000000000000123');
+      page.mockPayGovSubmit().click();
+      browser.sleep(1500);
+      expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
+      page.navigateTo(forestId);
+    });
+  });
+
+  describe('pay gov token errors', () => {
+    it('should show 500 error if first name is 1 and last name is 2', () => {
+      page.fillOutFormAndSubmit('1', '2');
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
+        'Sorry, we were unable to process your request. Please try again.'
+      );
+    });
+
+    it('should show 500 error if first name is 1 and last name is 1', () => {
+      element(by.css('.primary-permit-holder-last-name')).clear();
+      element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
+      page.rulesAccepted().click(); // unclicked on previous submit with error
+      page.submit().click();
+      expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
+        'Sorry, we were unable to process your request. Please try again.'
+      );
+    });
+  });
+
+  describe('repopulating fields after cancel', () => {
+    let permitId = '';
+    it('should redirect to application on cancel and display a message telling the user what to do', () => {
+      page.navigateTo(forestId);
+      page.fillOutFormAndSubmit();
+      browser.sleep(1500);
+      element(by.css('.usa-button-grey')).click();
+      browser.sleep(1500);
+      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
+      browser.getCurrentUrl().then(url => {
+        permitId = url.split('/')[8];
       });
+    });
+
+    it('should have the first name prefilled', () => {
+      expect(prefilledPage.firstName().getAttribute('value')).toBe('Sarah');
+    });
+
+    it('should have the last name prefilled', () => {
+      expect(prefilledPage.lastName().getAttribute('value')).toBe('Bell');
+    });
+
+    it('should have the email address prefilled', () => {
+      expect(prefilledPage.email().getAttribute('value')).toBe('msdf@noemail.com');
+    });
+
+    it('should have the quantity prefilled', () => {
+      expect(prefilledPage.treeAmount().getAttribute('value')).toBe('2');
+    });
+
+    it('should have the cost calculated', () => {
+      expect(prefilledPage.permitCost().getText()).not.toEqual('$0');
+    });
+
+    it('should be hide message telling the user what to do next if they resubmit with errors', () => {
+      prefilledPage.submit().click();
+      expect(prefilledPage.cancelInfo().isPresent()).toBeFalsy();
     });
   });
 });

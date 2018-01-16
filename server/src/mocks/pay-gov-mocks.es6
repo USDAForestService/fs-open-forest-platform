@@ -1,10 +1,6 @@
 'use strict';
 
 const express = require('express');
-const request = require('request'); // npm install request
-const jose = require('node-jose');
-const passport = require('passport');
-const xml = require('xml');
 const uuid = require('uuid/v4');
 
 const util = require('../util.es6');
@@ -12,7 +8,12 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../middleware.es6');
 
+const templates = require('./pay-gov-templates.es6');
+
 const payGov = {};
+
+let transactions = {};
+let tokens = {};
 
 /** router for mock pay.gov  specific endpoints */
 payGov.router = express.Router();
@@ -35,41 +36,57 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     requestBody['ns2:startOnlineCollection'] &&
     requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
   ) {
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                         </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                            <startOnlineCollectionResponse>
-                              <token>${token}</token>
-                            </startOnlineCollectionResponse>
-                          </ns2:startOnlineCollectionResponse>
-                        </S:Body>
-                      </S:Envelope>`;
+    let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+    let accountHolderName = startCollectionRequest.account_holder_name;
+    if (accountHolderName && accountHolderName == '1 1') {
+      xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
+    } else if (accountHolderName && accountHolderName == '1 2') {
+      xmlResponse = templates.startOnlineCollectionRequest.noResponse();
+    } else {
+      xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
+    }
+    tokens[token] = { successUrl: startCollectionRequest.url_success[0] };
   } else if (
     requestBody['ns2:completeOnlineCollection'] &&
     requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
   ) {
-    xmlResponse = `<?xml version="1.0" encoding="UTF-8"?>
-                      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-                        <S:Header>
-                         <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-                         </work:WorkContext>
-                        </S:Header>
-                        <S:Body>
-                          <ns2:completeOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
-                            <completeOnlineCollectionResponse>
-                              <paygov_tracking_id>${paygovTrackingId}</paygov_tracking_id>
-                            </completeOnlineCollectionResponse>
-                          </ns2:completeOnlineCollectionResponse>
-                        </S:Body>
-                      </S:Envelope>`;
+    let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
+    let requestToken = collectionRequest.token[0];
+    let transactionStatus = transactions[requestToken];
+
+    if (transactionStatus && transactionStatus.status == 'failure') {
+      let returnCode = '0000';
+      if (transactionStatus.errorCode) {
+        returnCode = transactionStatus.errorCode;
+      }
+      xmlResponse = templates.completeOnlineCollectionRequest.cardError(returnCode);
+    } else {
+      xmlResponse = templates.completeOnlineCollectionRequest.successfulResponse(paygovTrackingId);
+    }
   }
-  res.set('Content-Type', 'application/xml; charset=utf-8');
-  res.send(xmlResponse);
+  if (xmlResponse !== null) {
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    res.send(xmlResponse);
+  } else {
+    res.status(500).send();
+  }
+});
+
+payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
+  const token = req.body.token;
+  const cc = req.body.cc;
+
+  let status = 'success';
+  let errorCode;
+  if (cc.startsWith('000000000000')) {
+    status = 'failure';
+    let code = cc.slice(cc.length - 4, cc.length + 1);
+    if (code != '0000') {
+      errorCode = code;
+    }
+  }
+  transactions[token] = { status: status, errorCode: errorCode };
+  return res.status(200).json(transactions[token]);
 });
 
 payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res) {
@@ -86,11 +103,12 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
     })
     .then(permit => {
       if (permit) {
-        const successUrl =
+        const successUrl = tokens[req.query.token].successUrl;
+        const cancelUrl =
           vcapConstants.intakeClientBaseUrl +
           '/applications/christmas-trees/forests/' +
           permit.christmasTreesForest.forestAbbr +
-          '/permits/' +
+          '/new/' +
           permit.permitId;
         const mockResponse = {
           token: permit.permitId,
@@ -100,7 +118,8 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
           amountOwed: permit.totalCost,
           tcsAppID: req.query.tcsAppID,
           orgStructureCode: permit.orgStructureCode,
-          successUrl: successUrl
+          successUrl: successUrl,
+          cancelUrl: cancelUrl
         };
         return res.status(200).send(mockResponse);
       } else {

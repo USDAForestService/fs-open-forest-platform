@@ -1,16 +1,18 @@
-import { TreesForestFinderPage, TreesSidebarPage } from './app.po';
+import { TreesForestFinderPage, TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
-
 
 describe('Xmas tree  - Find a forest', () => {
   let page: TreesForestFinderPage;
 
-  describe( 'text search', () => {
+  describe('text search', () => {
     beforeEach(() => {
       page = new TreesForestFinderPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo();
-      browser.sleep(900);
+      browser.sleep(1900);
     });
 
     it('should appear on the page', () => {
@@ -25,13 +27,15 @@ describe('Xmas tree  - Find a forest', () => {
       browser.sleep(900);
       expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone/tree-guidelines');
     });
-
   });
 
-  describe( 'forest map image link', () => {
+  describe('forest map image link', () => {
     beforeEach(() => {
       page = new TreesForestFinderPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo();
       browser.sleep(900);
     });

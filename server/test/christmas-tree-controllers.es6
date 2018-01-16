@@ -1,5 +1,8 @@
 'use strict';
 
+const jwt = require('jsonwebtoken');
+const vcapConstants = require('../src/vcap-constants.es6');
+
 const request = require('supertest');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
@@ -8,6 +11,9 @@ const server = require('./mock-aws-app.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
+let invalidPermitId = 'xxxxx';
+let paygovToken;
+let tcsAppID;
 
 describe('christmas tree controller tests', () => {
   describe('get forests', () => {
@@ -54,7 +60,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest).to.include.all.keys('species', 'locations');
+          expect(res.body).to.include.all.keys('species', 'locations');
         })
         .expect(200, done);
     });
@@ -65,7 +71,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species.locations).to.not.equal(0);
+          expect(res.body.species.locations).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -76,7 +82,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species[0]).to.include.all.keys('name', 'status', 'notes');
+          expect(res.body.species[0]).to.include.all.keys('name', 'status', 'notes');
         })
         .expect(200, done);
     });
@@ -87,7 +93,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.species[0].notes.length).to.not.equal(0);
+          expect(res.body.species[0].notes.length).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -98,7 +104,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body.forest.locations.length).to.not.equal(0);
+          expect(res.body.locations.length).to.not.equal(0);
         })
         .expect(200, done);
     });
@@ -128,9 +134,21 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
-    it('GET should return a 404 response when requesting for already completed permit', done => {
+    it('GET should return a 200 response when requesting for already completed permit', done => {
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.permitSecret
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
+        .set('Accept', 'application/json')
+        .expect(200, done);
+    });
+    it('GET should return a 404 response when requesting an invalid permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}`)
         .set('Accept', 'application/json')
         .expect(404, done);
     });
@@ -140,6 +158,65 @@ describe('christmas tree controller tests', () => {
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
+    it('POST should return 400 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "1")', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.firstName = '1';
+      permitApplication.lastName = '1';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
+    it('POST should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.firstName = '1';
+      permitApplication.lastName = '2';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect(500, done);
+    });
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+          paygovToken = res.body.token;
+        })
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card', done => {
+      const processTransaction = {
+        token: paygovToken,
+        cc: '0000000000000000'
+      };
+      request(server)
+        .post('/mock-pay-gov-process')
+        .send(processTransaction)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
+      const processTransaction = { token: paygovToken, cc: '0000000000001234' };
+      request(server)
+        .post('/mock-pay-gov-process')
+        .send(processTransaction)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body.errorCode).to.equal('1234');
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
@@ -159,15 +236,31 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
+    it('GET should return a 200 response when getting details of "initiated" permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/details`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
     it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
+    it('GET should return a 404 response when getting details of "completed" permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/details`)
+        .expect(404, done);
+    });
+    it('GET should return a 404 response when getting details of an invalid permit', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}/details`)
+        .expect(404, done);
+    });
   });
   describe('submit permit application for shoshone national forest', () => {
-    it('POST should return a 200 response when submitted (shoshone nat forest) to get pay.gov token', done => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
@@ -186,6 +279,82 @@ describe('christmas tree controller tests', () => {
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
+    });
+    it('POST should return a 404 response when submitted to cancel already completed permit application', done => {
+      const cancelApplication = {
+        permitId: permitId
+      };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect(404, done);
+    });
+  });
+  describe('cancelling permit application', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('POST should return a 200 response when submitted to cancel existing permit application', done => {
+      const cancelApplication = {
+        permitId: permitId
+      };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('POST should return a 404 response when submitted to cancel an invalid permit application', done => {
+      const cancelApplication = {
+        permitId: invalidPermitId
+      };
+      request(server)
+        .post('/forests/christmas-trees/permits/cancel')
+        .send(cancelApplication)
+        .expect(404, done);
+    });
+  });
+  describe('permit application redirect to mock paygov', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+          paygovToken = res.body.token;
+          tcsAppID = res.body.tcsAppID;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when requested to open mock pay.gov', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${paygovToken}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when requested to open mock pay.gov with token and tcsAppID', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${paygovToken}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 404 response when requested to open mock pay.gov with invalid token and tcsAppID', done => {
+      request(server)
+        .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
+        .set('Accept', 'application/json')
+        .expect(404, done);
     });
   });
 });

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -13,7 +14,7 @@ import { UtilService } from '../../_services/util.service';
 export class ChristmasTreesApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
 
-  constructor(private http: Http, public router: Router, public util: UtilService) {}
+  constructor(private http: Http, private httpClient: HttpClient, public router: Router, public util: UtilService) {}
 
   create(body, multipart = false) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -22,12 +23,29 @@ export class ChristmasTreesApplicationService {
     }
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.endpoint, body, options).map((res: Response) => res.json()).catch(this.util.handleError);
+    return this.http
+      .post(this.endpoint, body, options)
+      .map((res: Response) => res.json())
+      .catch(this.util.handleError);
   }
 
-  getOne(id) {
+  cancelOldApp(id) {
+    const body = { permitId: id };
     return this.http
-      .get(`${this.endpoint}/${id}`, { withCredentials: true })
+      .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
+      .map((res: Response) => {
+        res.json();
+      })
+      .catch(this.util.handleError);
+  }
+
+  getOne(id, token) {
+    return this.httpClient.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
+  }
+
+  getDetails(id) {
+    return this.http
+      .get(`${this.endpoint}/${id}/details`)
       .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
@@ -36,5 +54,15 @@ export class ChristmasTreesApplicationService {
     if (status === 403) {
       this.router.navigate(['access-denied']);
     }
+  }
+
+  resolverError(errors, route) {
+    for (const error of errors) {
+      if (error && error.status === 404) {
+        this.router.navigate([route]);
+      }
+      return Observable.of({ error: error });
+    }
+    return Observable.of(errors);
   }
 }

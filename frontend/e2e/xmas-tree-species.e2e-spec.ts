@@ -1,4 +1,4 @@
-import { TreesSidebarPage } from './app.po';
+import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Xmas tree species page', () => {
@@ -7,7 +7,10 @@ describe('Xmas tree species page', () => {
   describe('Mt Hood', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(500);
       page.getTreeSelectionLink().click();
@@ -56,7 +59,10 @@ describe('Xmas tree species page', () => {
   describe('Arapaho/Roosevelt', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('arp');
       browser.sleep(500);
       page.getTreeSelectionLink().click();
@@ -89,7 +95,10 @@ describe('Xmas tree species page', () => {
   describe('Shoshone', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('shoshone');
       browser.sleep(500);
       page.getTreeSelectionLink().click();
@@ -145,7 +154,10 @@ describe('Xmas tree species page', () => {
   describe('Flathead', () => {
     beforeEach(() => {
       page = new TreesSidebarPage();
-      browser.driver.manage().window().setSize(1400, 900);
+      browser.driver
+        .manage()
+        .window()
+        .setSize(1400, 900);
       page.navigateTo('flathead');
       browser.sleep(500);
       page.getTreeSelectionLink().click();
