@@ -27,11 +27,11 @@ describe('Apply for a Christmas tree permit', () => {
   });
 
   it ('should show the rules to know section',  () => {
-    expect<any>(element(by.id('rules')).getText()).toEqual('Rules to know');
+    expect<any>(page.rulesToKnow().getText()).toEqual('Rules to know');
   });
 
   it ('should show the permit rules section',  () => {
-    expect<any>(element(by.id('permit-rules')).getText()).toEqual('Rules for your permit:');
+    expect<any>(page.permitRules().getText()).toEqual('Rules for your permit:');
   });
 
   it('should show all fields as invalid if submitted without input', () => {
