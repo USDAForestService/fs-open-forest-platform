@@ -12,18 +12,10 @@ the option to purchase Christmas tree permits online.</p>
     <div id="forest-finder-form">
       <h2>Find a forest that sells online Christmas tree permits</h2>
       <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-        <label for="forest-finder-input">Find a Forest:</label>
-        <input id='forest-finder-input'
-               name='selectForest'
-               auto-complete
-               placeholder='Type a forest name, city, or state...'
-               [(ngModel)]='selectedForest'
-               [source]='forestSearchResults.bind(this)'
-               [list-formatter]='forestListFormatter'
-               min-chars='1'
-               value-property-name='id'
-               display-property-name='description'
-        />
+        <label for="forest-finder-select">Choose a pilot forest:</label>
+        <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
+          <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
+        </select>
         <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
       </form>
     </div>
