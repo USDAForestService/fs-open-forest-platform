@@ -13,7 +13,8 @@ export class ReportResultsComponent implements OnChanges {
     permitNumber: 'Permit number',
     issueDate: 'Issue date',
     quantity: 'Number of trees',
-    totalCost: 'Permit cost'
+    totalCost: 'Permit cost',
+    expireDate: 'Expiration date'
   };
 
   ngOnChanges() {

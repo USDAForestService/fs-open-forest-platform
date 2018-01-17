@@ -447,15 +447,16 @@ christmasTree.cancelOne = (req, res) => {
 };
 
 christmasTree.getPermits = (req, res) => {
+  const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
   treesDb.christmasTreesPermits
     .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost'],
+      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
       where: {
         forestId: req.params.forestId,
         status: 'Completed',
         updatedAt: {
           [Op.gte]: req.params.startDate,
-          [Op.lte]: req.params.endDate
+          [Op.lt]: nextDay
         }
       },
       order: [['updatedAt', 'ASC']]
@@ -468,9 +469,10 @@ christmasTree.getPermits = (req, res) => {
         results.forEach(permit => {
           let eachPermit = {};
           eachPermit.permitNumber = permit.paygovTrackingId;
+          eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
           eachPermit.quantity = permit.quantity;
           eachPermit.totalCost = permit.totalCost;
-          eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+          eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
           sumOfTrees += permit.quantity;
           sumOfCost += parseFloat(permit.totalCost);
           permits.push(eachPermit);
