@@ -21,7 +21,7 @@
 	<text id="permit-id" transform="matrix(6.123234e-17 -1 1 6.123234e-17 562.8701 773.002)" font-family="'Arial'" font-weight="bold"  font-size="10px">0000000001</text>
 	<text id="permit-expiration" transform="matrix(6.123234e-17 -1 1 6.123234e-17 562.8699 631.3242)" font-family="'Arial'" font-weight="bold"  font-size="10px">DEC 24 12:00AM 2018</text>
 	<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 548.2856 631.3223)" font-family="'Arial'" font-size="5px">PERMIT EXPIRATION</text>
-	<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.9853 771.002)" font-family="'Arial'" font-weight="bold"  font-size="17px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
+	<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.9853 760.002)" font-family="'Arial'" font-weight="bold"  font-size="16px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
 	<g>
 		<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 111.0146 487.6738)" font-family="'Arial'" font-size="7px">(MM)</text>
 		<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 111.0147 330.6777)" font-family="'Arial'" font-size="7px">(DD)</text>
