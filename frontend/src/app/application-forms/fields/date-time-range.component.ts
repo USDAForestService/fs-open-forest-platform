@@ -86,6 +86,7 @@ export class DateTimeRangeComponent implements OnInit {
     ];
     for (const field of dateFieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
+        // this.getFieldErrors(this.parentForm.get('dateTimeRange.' + field));
         const values = this.parentForm.get('dateTimeRange').value;
         values[field] = value;
         this.dateTimeRangeValidator(values);
@@ -97,7 +98,7 @@ export class DateTimeRangeComponent implements OnInit {
     return (
       values.startMonth &&
       values.startDay &&
-      values.startYear.toString().length === 4 &&
+      (values.startYear && values.startYear.toString().length === 4) &&
       !values.endMonth &&
       !values.endDay &&
       !values.endYear
@@ -166,22 +167,58 @@ export class DateTimeRangeComponent implements OnInit {
     const today = moment();
     this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' } });
     this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' } });
+
+    this.dateStatus.startAfterToday = this.setError(
+      today.isBefore(startDateTime),
+      'startDateTime',
+      {
+        startDateInFuture: true
+      },
+      this.includePastDates
+    );
+
+    this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
+      startDateAfterEndDate: true
+    });
+
     this.dateStatus.startDateTimeValid = startDateTime.isValid();
     this.dateStatus.endDateTimeValid = endDateTime.isValid();
-    this.dateStatus.startBeforeEnd = startDateTime.isBefore(endDateTime);
-    this.dateStatus.startAfterToday = today.isBefore(startDateTime);
+
+    // this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
+    //   invalidDate: true
+    // });
+    //
+    // this.dateStatus.endDateTimeValid = this.setError(endDateTime.isValid(), 'endDateTime', {
+    //   invalidDate: true
+    // });
+
     this.dateStatus.dateTimeSpan = startDateTime.diff(endDateTime, 'days') + 1;
+
     this.dateStatus.hasErrors =
       !this.dateStatus.startDateTimeValid ||
       !this.dateStatus.endDateTimeValid ||
       !this.dateStatus.startBeforeEnd ||
       (!this.includePastDates && !this.dateStatus.startAfterToday);
-    if (this.dateStatus.hasErrors) {
-      this.dateTimeRange.controls.startDateTime.markAsTouched();
-      this.dateTimeRange.controls.startDateTime.setErrors({
-        dateErrors: { dateErrors: 'date form has errors' }
-      });
-    }
+
     this.updateDateStatus.emit(this.dateStatus);
+  }
+
+  // getFieldErrors(field) {
+  //   if (!this.dateStatus.hasErrors) {
+  //     if (field.errors) {
+  //       this.dateTimeRange.controls.startDateTime.markAsTouched();
+  //       this.dateTimeRange.controls.startDateTime.setErrors(field.errors);
+  //     }
+  //   }
+  // }
+
+  setError(requiredCondition, control, errors, exclude = false) {
+    if (!requiredCondition && !exclude) {
+      this.dateTimeRange.controls[control].markAsTouched();
+      this.dateTimeRange.controls[control].setErrors(errors);
+      return false;
+    } else {
+      return true;
+    }
   }
 }
