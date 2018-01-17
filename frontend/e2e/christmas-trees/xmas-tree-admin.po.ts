@@ -33,6 +33,38 @@ export class TreesReportPage {
     return element(by.id('end-year'));
   }
 
+  startMonthError() {
+    return element(by.id('start-month-error'));
+  }
+
+  startDayError() {
+    return element(by.id('start-day-error'));
+  }
+
+  startYearError() {
+    return element(by.id('start-year-error'));
+  }
+
+  endMonthError() {
+    return element(by.id('end-month-error'));
+  }
+
+  endDayError() {
+    return element(by.id('end-day-error'));
+  }
+
+  endYearError() {
+    return element(by.id('end-year-error'));
+  }
+
+  startDateTimeError() {
+    return element(by.id('start-date-time-error'));
+  }
+
+  endDateTimeError() {
+    return element(by.id('end-date-time-error'));
+  }
+
   forestSelectOption(text) {
     return element(by.cssContainingText('#forest-select option', text));
   }
