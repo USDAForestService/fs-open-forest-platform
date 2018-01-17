@@ -113,7 +113,7 @@ const appRoutes: Routes = [
     resolve: {
       forests: ForestFinderResolver
     },
-    data: { title: 'Select a national forest | U.S. Forest Service Christmas Tree Permitting' }
+    data: { title: 'Buy a Christmas tree permit | U.S. Forest Service Christmas Tree Permitting' }
   },
   {
     path: 'mock-pay-gov',
