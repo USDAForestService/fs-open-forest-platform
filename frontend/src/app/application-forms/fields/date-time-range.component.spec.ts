@@ -54,6 +54,26 @@ describe('DateTimeRange', () => {
     expect(component.dateTimeRange.valid).toBeTruthy();
   });
 
+  it('should be invalid if start month field is not a valid month', () => {
+    setValues('13', '10', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
+    expect(component.dateTimeRange.valid).toBeFalsy();
+  });
+
+  it('should be invalid if start day field is not a valid day', () => {
+    setValues('11', '31', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
+    expect(component.dateTimeRange.valid).toBeFalsy();
+  });
+
+  it('should be invalid if end month field is not a valid month', () => {
+    setValues('13', '10', '2024', '13', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
+    expect(component.dateTimeRange.valid).toBeFalsy();
+  });
+
+  it('should be invalid if end day field is not a valid day', () => {
+    setValues('11', '31', '2024', '10', '32', 'AM', '10', '10', '2024', '02', '45', 'PM');
+    expect(component.dateTimeRange.valid).toBeFalsy();
+  });
+
   it('should be invalid if start day field is not completed', () => {
     setValues('10', '', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
@@ -74,6 +94,96 @@ describe('DateTimeRange', () => {
     setValues('10', '10', '2024', '06', '10', 'AM', '10', '09', '2024', '02', '45', 'PM');
     component.dateTimeRangeValidator(component.dateTimeRange.value);
     expect(component.dateStatus.startBeforeEnd).toBeFalsy();
+  });
+
+  it('start month should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['startMonth'].setValue('123');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startMonth'].setValue('');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startMonth'].setValue('aa');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startMonth'].setValue('a1');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startMonth'].setValue('01');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeTruthy();
+    component.dateTimeRange.controls['startMonth'].setValue('14');
+    expect(component.dateTimeRange.controls['startMonth'].valid).toBeFalsy();
+  });
+
+  it('start day should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['startDay'].setValue('123');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startDay'].setValue('0');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startDay'].setValue('a1');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startDay'].setValue('aa');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startDay'].setValue('1');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeTruthy();
+    component.dateTimeRange.controls['startDay'].setValue('21');
+    expect(component.dateTimeRange.controls['startDay'].valid).toBeTruthy();
+  });
+
+  it('start year should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['startYear'].setValue('19000');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startYear'].setValue('0');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startYear'].setValue('22');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startYear'].setValue('222');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startYear'].setValue('aaaa');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['startYear'].setValue('2000');
+    expect(component.dateTimeRange.controls['startYear'].valid).toBeTruthy();
+  });
+
+  it('end month should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['endMonth'].setValue('123');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endMonth'].setValue('');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endMonth'].setValue('a1');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endMonth'].setValue('aa');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endMonth'].setValue('01');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeTruthy();
+    component.dateTimeRange.controls['endMonth'].setValue('14');
+    expect(component.dateTimeRange.controls['endMonth'].valid).toBeFalsy();
+  });
+
+  it('end day should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['endDay'].setValue('123');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endDay'].setValue('0');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endDay'].setValue('a1');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endDay'].setValue('aa');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endDay'].setValue('1');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeTruthy();
+    component.dateTimeRange.controls['endDay'].setValue('21');
+    expect(component.dateTimeRange.controls['endDay'].valid).toBeTruthy();
+  });
+
+  it('end year should be invalid if entered incorrectly', () => {
+    component.dateTimeRange.controls['endYear'].setValue('19000');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endYear'].setValue('0');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endYear'].setValue('22');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endYear'].setValue('222');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endYear'].setValue('aaaa');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeFalsy();
+    component.dateTimeRange.controls['endYear'].setValue('2000');
+    expect(component.dateTimeRange.controls['endYear'].valid).toBeTruthy();
   });
 
   it('should set default time on date only', () => {
