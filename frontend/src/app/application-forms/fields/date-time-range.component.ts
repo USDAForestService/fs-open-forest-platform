@@ -245,14 +245,6 @@ export class DateTimeRangeComponent implements OnInit {
       });
     }
 
-    // this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
-    //   invalidDate: true
-    // });
-    //
-    // this.dateStatus.endDateTimeValid = this.setError(endDateTime.isValid(), 'endDateTime', {
-    //   invalidDate: true
-    // });
-
     this.dateStatus.dateTimeSpan = startDateTime.diff(endDateTime, 'days') + 1;
 
     this.dateStatus.hasErrors =
@@ -260,22 +252,8 @@ export class DateTimeRangeComponent implements OnInit {
       !this.dateStatus.endDateTimeValid ||
       !this.dateStatus.startBeforeEnd ||
       (!this.includePastDates && !this.dateStatus.startAfterToday);
-    // if (this.dateStatus.hasErrors) {
-    //   this.dateTimeRange.controls.startDateTime.markAsTouched();
-    //   this.dateTimeRange.controls.startDateTime.setErrors({ invalidDate: true });
-    // }
-
     this.updateDateStatus.emit(this.dateStatus);
   }
-
-  // getFieldErrors(field) {
-  //   if (!this.dateStatus.hasErrors) {
-  //     if (field.errors) {
-  //       this.dateTimeRange.controls.startDateTime.markAsTouched();
-  //       this.dateTimeRange.controls.startDateTime.setErrors(field.errors);
-  //     }
-  //   }
-  // }
 
   setError(requiredCondition, control, errors, exclude = false) {
     if (!requiredCondition && !exclude) {
