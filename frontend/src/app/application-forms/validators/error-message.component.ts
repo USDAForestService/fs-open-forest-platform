@@ -11,6 +11,7 @@ export class ErrorMessageComponent {
   @Input() name: string;
 
   parseErrors(errors) {
+    console.log(errors);
     let message = '';
     if (errors) {
       for (const error in errors) {
@@ -94,6 +95,9 @@ export class ErrorMessageComponent {
     }
     if (errors.pattern.requiredPattern === '^(0?[1-9]|1[0-9]|2[0-9]|3[01])$') {
       return `${this.name} requires a 1 or 2 digit number. `;
+    }
+    if (errors.pattern.requiredPattern === '^(0?[1-9]|1[012])$') {
+      return `${this.name} requires a 1 or 2 digit number that is less than 13. `;
     }
     if (errors.pattern.requiredPattern === '^([0-9]{4})$') {
       return `${this.name} requires a 4 digit number. `;

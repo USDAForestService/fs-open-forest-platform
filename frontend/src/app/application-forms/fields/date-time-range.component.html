@@ -1,34 +1,31 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{formName}}">
+    <span id="twoDigitHint" class="display-none" aria-disabled="true">For example: 01</span>
+    <span id="fourDigitHint" class="display-none" aria-disabled="true">For example: 2020</span>
     <fieldset>
-      <legend class="fs-datetime-legend">Start date (Use 2 digits for month and day. Use 4 digits for year.)</legend>
+      <legend class="fs-datetime-legend">Start date</legend>
+      <span class="usa-form-hint" id="startDateHint">For example: 01 31 2020</span>
+
       <div class="usa-form-group usa-form-group-month">
         <label for="start-month">Month</label>
-        <input class="usa-input-inline" id="start-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startMonth" aria-required="true" />
+        <input class="usa-input-inline" id="start-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" aria-required="true" aria-describedby="twoDigitHint" />
       </div>
       <div class="usa-form-group usa-form-group-day">
         <label for="start-day">Day</label>
-        <input class="usa-input-inline" id="start-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay" aria-required="true" />
+        <input class="usa-input-inline" id="start-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay" aria-required="true" aria-describedby="twoDigitHint" />
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-year">Year</label>
-        <input class="usa-input-inline" id="start-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" aria-required="true" />
+        <input class="usa-input-inline" id="start-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" aria-required="true" aria-describedby="fourDigitHint" />
       </div>
     </fieldset>
-    <!-- <span id="start-date-error" class="usa-input-error-message" role="alert"
-       aria-live="assertive" aria-hidden="false" *ngIf="
-        (dateTimeRange.controls.startMonth.touched && dateTimeRange.controls.startDay.touched && dateTimeRange.controls.startYear.touched) &&
-        (dateTimeRange.controls.startMonth.invalid || dateTimeRange.controls.startDay.invalid || dateTimeRange.controls.startYear.invalid)
-      ">Start date is required.</span>
-    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false"
-    *ngIf="!dateStatus.startDateTimeValid"
-    >Start date is invalid.</span> -->
+
     <app-error-message fieldId="start-month-error" name="Start month" [control]="parentForm.get('dateTimeRange.startMonth')"></app-error-message>
     <app-error-message fieldId="start-day-error" name="Start day" [control]="parentForm.get('dateTimeRange.startDay')"></app-error-message>
     <app-error-message fieldId="start-year-error" name="Start year" [control]="parentForm.get('dateTimeRange.startYear')"></app-error-message>
 
     <fieldset *ngIf="!dateOnly">
-      <legend class="fs-datetime-legend">Start time </legend>
+      <legend class="fs-datetime-legend">Start time</legend>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-hour">Hour</label>
         <select class="usa-input-inline" id="start-hour" formControlName="startHour" aria-required="true">
@@ -51,41 +48,30 @@
         </select>
       </div>
     </fieldset>
-    <!-- <span id="start-time-error" class="usa-input-error-message" role="alert"
-       aria-live="assertive" aria-hidden="false" *ngIf="
-        !dateOnly &&
-        (dateTimeRange.controls.startHour.touched && dateTimeRange.controls.startMinutes.touched && dateTimeRange.controls.startPeriod.touched) &&
-        (dateTimeRange.controls.startHour.invalid || dateTimeRange.controls.startMinutes.invalid || dateTimeRange.controls.startPeriod.invalid)
-      ">Start time is required.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startBeforeEnd && dateStatus.startDateTimeValid">Start date and time must be before end date and time.</span>
-    <span class="usa-input-error-message" role="alert"  aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.startAfterToday && !includePastDates">Start date and time must be in the future.</span> -->
+
     <app-error-message fieldId="start-hour-error" name="Start hour" [control]="parentForm.get('dateTimeRange.startHour')"></app-error-message>
     <app-error-message fieldId="start-minutes-error" name="Start minutes" [control]="parentForm.get('dateTimeRange.startMinutes')"></app-error-message>
     <app-error-message fieldId="start-period-error" name="Start period" [control]="parentForm.get('dateTimeRange.startPeriod')"></app-error-message>
     <app-error-message fieldId="start-date-time-error" name="Start date" [control]="parentForm.get('dateTimeRange.startDateTime')"></app-error-message>
 
     <fieldset>
-      <legend class="fs-datetime-legend">End date (Use 2 digits for month and day. Use 4 digits for year.)</legend>
+      <legend class="fs-datetime-legend">End date</legend>
+      <span class="usa-form-hint" id="endDateHint">For example: 01 31 2020</span>
 
       <div class="usa-form-group usa-form-group-month">
         <label for="end-month">Month</label>
-        <input class="usa-input-inline" id="end-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endMonth" aria-required="true" />
+        <input class="usa-input-inline" id="end-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" aria-required="true" aria-describedby="twoDigitHint" />
       </div>
       <div class="usa-form-group usa-form-group-day">
         <label for="end-day">Day</label>
-        <input class="usa-input-inline" id="end-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" aria-required="true" />
+        <input class="usa-input-inline" id="end-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" aria-required="true" aria-describedby="twoDigitHint" />
       </div>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-year">Year</label>
-        <input class="usa-input-inline" id="end-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" aria-required="true" />
+        <input class="usa-input-inline" id="end-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" aria-required="true" aria-describedby="fourDigitHint" />
       </div>
     </fieldset>
-    <!-- <span id="end-date-error" class="usa-input-error-message" role="alert"
-       aria-live="assertive" aria-hidden="false" *ngIf="
-        (dateTimeRange.controls.endMonth.touched && dateTimeRange.controls.endDay.touched && dateTimeRange.controls.endYear.touched) &&
-        (dateTimeRange.controls.endMonth.invalid || dateTimeRange.controls.endDay.invalid || dateTimeRange.controls.endYear.invalid)
-      ">End date is required.</span>
-    <span class="usa-input-error-message" role="alert" aria-live="assertive" aria-hidden="false" *ngIf="!dateStatus.endDateTimeValid">End date is invalid.</span> -->
+
     <app-error-message fieldId="end-month-error" name="End month" [control]="parentForm.get('dateTimeRange.endMonth')"></app-error-message>
     <app-error-message fieldId="end-day-error" name="End day" [control]="parentForm.get('dateTimeRange.endDay')"></app-error-message>
     <app-error-message fieldId="end-year-error" name="End year" [control]="parentForm.get('dateTimeRange.endYear')"></app-error-message>
@@ -115,12 +101,6 @@
         </select>
       </div>
     </fieldset>
-    <!-- <span id="end-time-error" class="usa-input-error-message" role="alert"
-       aria-live="assertive" aria-hidden="false" *ngIf="
-       !dateOnly &&
-       (dateTimeRange.controls.endHour.touched && dateTimeRange.controls.endMinutes.touched && dateTimeRange.controls.endPeriod.touched) &&
-       (dateTimeRange.controls.endHour.invalid || dateTimeRange.controls.endMinutes.invalid || dateTimeRange.controls.endPeriod.invalid)
-      ">End time is required.</span> -->
 
     <app-error-message fieldId="end-hour-error" name="End hour" [control]="parentForm.get('dateTimeRange.endHour')"></app-error-message>
     <app-error-message fieldId="end-minutes-error" name="End minutes" [control]="parentForm.get('dateTimeRange.endMinutes')"></app-error-message>
