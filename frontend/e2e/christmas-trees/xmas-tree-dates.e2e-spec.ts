@@ -50,7 +50,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/mthood/new');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/mthood/applications');
     });
   });
 

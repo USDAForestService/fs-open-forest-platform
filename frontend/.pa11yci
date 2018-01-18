@@ -25,6 +25,15 @@
     "http://localhost:4200/help-me-pick/6",
     "http://localhost:4200/help-me-pick/7",
     "http://localhost:4200/help-me-pick/8",
-    "http://localhost:4200/christmas-trees/forests/3/tree-guidelines"
+    "http://localhost:4200/christmas-trees/forests/arp",
+    "http://localhost:4200/christmas-trees/forests/mthood",
+    "http://localhost:4200/christmas-trees/forests/flathead",
+    "http://localhost:4200/christmas-trees/forests/shoshone",
+    "http://localhost:4200/christmas-trees/forests/arp/applications",
+    "http://localhost:4200/christmas-trees/forests/mthood/applications",
+    "http://localhost:4200/christmas-trees/forests/flathead/applications",
+    "http://localhost:4200/christmas-trees/forests/shoshone/applications",
+    "http://localhost:4200/christmas-trees/forests",
+    "http://localhost:4200/admin/christmas-trees/reports"
   ]
 }

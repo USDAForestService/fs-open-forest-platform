@@ -6,6 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as sinon from 'sinon';
 import { WindowRef } from '../../../_services/native-window.service';
+import {
+  McBreadcrumbsComponent, McBreadcrumbsService, McBreadcrumbsModule,
+  McBreadcrumbsConfig
+} from 'ngx-breadcrumbs';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -26,9 +30,11 @@ describe('TreePermitViewComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
+        imports: [RouterTestingModule, McBreadcrumbsModule],
         declarations: [TreePermitViewComponent],
         providers: [
+          McBreadcrumbsService,
+          McBreadcrumbsConfig,
           { provide: WindowRef, useClass: WindowRef }
         ]
       }).compileComponents();

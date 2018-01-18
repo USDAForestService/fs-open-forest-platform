@@ -31,17 +31,16 @@ export class TreePermitViewComponent implements OnInit {
       if (data.permit && data.permit.error) {
         this.processError(data.permit.error.errors[0]);
       } else {
-        this.setPageData(data, 'View your Christmas tree permit order confirmation');
+        this.setPageData(data);
       }
     });
   }
 
   processError(data) {
-    this.setPageData(data, 'There was an error processing your Christmas tree permit order');
     this.error = data;
   }
 
-  setPageData(data, title) {
+  setPageData(data) {
     if (data.permit && data.permit.forest) {
       this.forest = data.permit.forest;
       this.permit = data.permit;
@@ -50,7 +49,7 @@ export class TreePermitViewComponent implements OnInit {
       }
       this.isPermitExpired = new Date(data.permit.expirationDate) < new Date();
       this.titleService.setTitle(
-        `${title} for ${data.permit.forest.forestName} National Forest | U.S. Forest Service Christmas Tree Permitting`
+        `Permit order confirmation | ${data.permit.forest.forestName} | U.S. Forest Service Christmas Tree Permitting`
       );
     }
   }

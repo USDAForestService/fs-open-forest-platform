@@ -1,8 +1,11 @@
 <section id="application-view" class="usa-section">
   <div class="usa-grid">
-    <div class="breadcrumbs">
-      <a routerLink="/{{userType}}/applications">Permit applications</a> > <span>{{ application.eventName }}</span>
-    </div>
+    <nav class="breadcrumb">
+      <ol>
+        <li><a routerLink="/{{userType}}/applications">Permit applications</a></li>
+        <li>{{ application.eventName }}</li>
+      </ol>
+    </nav>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 

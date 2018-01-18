@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class TreesSidebarPage {
   navigateTo(forestId) {
-    return browser.get('/christmas-trees/forests/' + forestId + '/tree-guidelines');
+    return browser.get('/christmas-trees/forests/' + forestId);
   }
 
   getTreeSelectionLink() {

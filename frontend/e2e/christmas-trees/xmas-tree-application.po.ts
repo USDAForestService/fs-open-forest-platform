@@ -20,7 +20,7 @@ export class ChristmasTreeOrderConfirmation {
 
 export class ChristmasTreeForm {
   navigateTo(forestId) {
-    return browser.get('applications/christmas-trees/forests/' + forestId + '/new');
+    return browser.get('christmas-trees/forests/' + forestId + '/applications');
   }
   firstName() {
     return element(by.css('input[id$="primary-permit-holder-first-name"]'));
@@ -91,7 +91,7 @@ export class ChristmasTreeForm {
 
 export class ChristmasTreeFormAfterCancel {
   navigateTo(forestId, permitId) {
-    return browser.get(`applications/christmas-trees/forests/${forestId}/new/${permitId}`);
+    return browser.get(`christmas-trees/forests/${forestId}/applications/${permitId}`);
   }
   firstName() {
     return element(by.css('input[id$="primary-permit-holder-first-name"]'));

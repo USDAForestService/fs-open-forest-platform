@@ -28,7 +28,7 @@ export class ForestFinderComponent implements OnInit {
   }
 
   goToForest(forestAbbr: string): void {
-    const navTo = '/christmas-trees/forests/' + forestAbbr + '/tree-guidelines';
+    const navTo = '/christmas-trees/forests/' + forestAbbr;
     this.router.navigate([navTo]);
   }
 

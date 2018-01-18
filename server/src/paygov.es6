@@ -22,7 +22,7 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
   const token = jwt.sign({
     data: permitId
   }, vcapConstants.permitSecret, claims);
-  return `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/permits/${permitId}?t=${token}`;
+  return `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 }
 
 /**
@@ -37,7 +37,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
     console.error('problem creating success url for permit ' + permit.id, e);
   }
 
-  const url_cancel = `${vcapConstants.intakeClientBaseUrl}/applications/christmas-trees/forests/${forestAbbr}/new/${
+  const url_cancel = `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/${
     permit.permitId
   }`;
 

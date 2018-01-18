@@ -1,14 +1,10 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <nav class="breadcrumb">
-      <ol>
-        <li><a routerLink="/christmas-trees/forests">Christmas tree permits</a></li>
-        <li><a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{ forest.forestName }}</a></li>
-        <li>Buy a permit</li>
-      </ol>
+      <mc-breadcrumbs></mc-breadcrumbs>
     </nav>
 
-    <div *ngIf="(permit && !submitted)" class="usa-alert usa-alert-info">
+    <div *ngIf="(permit && permit.status === 'Canceled' && !submitted)" class="usa-alert usa-alert-info margin-bottom-2">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Your permit purchase has been cancelled.</h3>
         <p class="usa-alert-text">Your credit card has not been charged. To create a permit you must complete the purchase transaction.</p>
@@ -60,7 +56,7 @@
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>
-    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit information</a> page.</p>
+    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit information</a> page.</p>
 
   </div>
 </section>

@@ -1,7 +1,7 @@
 import { TreesForestFinderPage, TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-fdescribe('Xmas tree  - Find a forest', () => {
+describe('Xmas tree  - Find a forest', () => {
   let page: TreesForestFinderPage;
 
   describe('text search', () => {
@@ -28,7 +28,7 @@ fdescribe('Xmas tree  - Find a forest', () => {
       browser.sleep(960);
       element(by.id('forest-finder-submit')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone/tree-guidelines');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone');
     });
   });
 
@@ -46,7 +46,7 @@ fdescribe('Xmas tree  - Find a forest', () => {
     it('should let the user click a forest map and navigate to that forest', () => {
       element(by.id('arp-map-img')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp/tree-guidelines');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp');
     });
   });
 });

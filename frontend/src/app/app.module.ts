@@ -1,16 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AlertService } from './_services/alert.service';
 import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './application-forms/applications.module';
-import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AuthenticatedComponent } from './login/authenticated.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
