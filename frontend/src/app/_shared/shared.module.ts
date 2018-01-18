@@ -12,14 +12,13 @@ import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
-import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules/tree-rules.component';
 import { SpinnerModule } from 'angular2-spinner/dist';
 
 @NgModule({
-  imports: [CommonModule, AppRoutingModule, Ng2AutoCompleteModule, SpinnerModule, InViewportModule.forRoot()],
+  imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot()],
   declarations: [
     ApiErrorComponent,
     ErrorMessageComponent,
@@ -43,7 +42,6 @@ import { SpinnerModule } from 'angular2-spinner/dist';
     FilterPipe,
     FormsModule,
     InViewportModule,
-    Ng2AutoCompleteModule,
     AppButtonComponent,
     ProgressComponent,
     ReactiveFormsModule,
