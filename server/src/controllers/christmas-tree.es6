@@ -446,6 +446,33 @@ christmasTree.cancelOne = (req, res) => {
     });
 };
 
+const returnPermitResults = (results, res) => {
+  if (results) {
+    let permits = [];
+    let sumOfTrees = 0;
+    let sumOfCost = 0;
+    results.forEach(permit => {
+      let eachPermit = {};
+      eachPermit.permitNumber = permit.paygovTrackingId;
+      eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+      eachPermit.quantity = permit.quantity;
+      eachPermit.totalCost = permit.totalCost;
+      eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      sumOfTrees += permit.quantity;
+      sumOfCost += parseFloat(permit.totalCost);
+      permits.push(eachPermit);
+    });
+    res.status(200).json({
+      sumOfTrees: sumOfTrees,
+      sumOfCost: sumOfCost.toFixed(2),
+      numberOfPermits: results.length,
+      permits: permits
+    });
+  } else {
+    res.status(404).send();
+  }
+};
+
 christmasTree.getPermits = (req, res) => {
   const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
   treesDb.christmasTreesPermits
@@ -462,30 +489,7 @@ christmasTree.getPermits = (req, res) => {
       order: [['updatedAt', 'ASC']]
     })
     .then(results => {
-      if (results) {
-        let permits = [];
-        let sumOfTrees = 0;
-        let sumOfCost = 0;
-        results.forEach(permit => {
-          let eachPermit = {};
-          eachPermit.permitNumber = permit.paygovTrackingId;
-          eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
-          eachPermit.quantity = permit.quantity;
-          eachPermit.totalCost = permit.totalCost;
-          eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
-          sumOfTrees += permit.quantity;
-          sumOfCost += parseFloat(permit.totalCost);
-          permits.push(eachPermit);
-        });
-        res.status(200).json({
-          sumOfTrees: sumOfTrees,
-          sumOfCost: sumOfCost.toFixed(2),
-          numberOfPermits: results.length,
-          permits: permits
-        });
-      } else {
-        res.status(404).send();
-      }
+      return returnPermitResults(results, res);
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
