@@ -57,7 +57,8 @@ const appRoutes: Routes = [
     path: 'admin/applications',
     data: {
       breadcrumbs: true,
-      text: 'Permit applications'
+      text: 'Permit applications',
+      admin: true
     },
     children: [
       {
@@ -89,7 +90,8 @@ const appRoutes: Routes = [
     },
     data: {
       title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
-      breadcrumbs: 'Christmas trees permits report'
+      breadcrumbs: 'Christmas trees permits report',
+      admin: true
     }
   },
   {
