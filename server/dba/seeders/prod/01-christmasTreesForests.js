@@ -80,7 +80,7 @@ module.exports = {
     return queryInterface.bulkInsert('christmasTreesForests', forests);
   },
   down: function(queryInterface, Sequelize) {
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('christmasTreesForests', { id: { [Op.in]: [1, 2, 3, 4] } });
+    const operator = Sequelize.Op;
+    return queryInterface.bulkDelete('christmasTreesForests', { id: { [operator.in]: [1, 2, 3, 4] } });
   }
 };
