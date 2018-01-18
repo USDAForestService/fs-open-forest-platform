@@ -172,31 +172,6 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "Application not found"
-  /permits/applications/christmas-trees:
-    post:
-      tags:
-      - "christmas-tree"
-      summary: "Creates a new christmas-tree application"
-      description: "Creates a new christmas-tree application"
-      operationId: "createChristmasTreeApp"
-      consumes:
-      - "application/json"
-      produces:
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "A non-christmas-tree application object"
-        required: true
-        schema:
-          $ref: "#/definitions/christmasTreeApplication"
-      responses:
-        400:
-          description: "Validation error"
-        500:
-          description: "General server error"
-        201:
-          description: "Successful Creation"
   /forests:
     get:
       tags:
@@ -235,6 +210,134 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "Forest guideline not found"
+  /forests/christmas-trees/permits:
+    post:
+      tags:
+      - "christmas-tree"
+      summary: "Creates a new christmas-tree application"
+      description: "Creates a new christmas-tree application"
+      operationId: "createChristmasTreeApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A non-christmas-tree application object"
+        required: true
+        schema:
+          $ref: "#/definitions/christmasTreeApplication"
+      responses:
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
+        201:
+          description: "Successful Creation"
+  /forests/christmas-trees/permits/cancel:
+    post:
+      tags:
+      - "christmas-tree"
+      summary: "Cancels an initiated christmas-tree application"
+      description: "Cancels an initiated christmas-tree application"
+      operationId: "cancelChristmasTreeApp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A non-christmas-tree application object"
+        required: true
+        schema:
+          properties:
+            permitId:
+              type: "integer"
+      responses:
+        400:
+          description: "Validation error"
+        500:
+          description: "General server error"
+        201:
+          description: "Successful Creation"
+  /forests/christmas-trees/permits/{id}:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve existing christmas tree permit and SVG of permit"
+      description: "Retrieve existing christmas tree permit using the permit id"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "Id number of permit"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Permit not found"
+  /forests/christmas-trees/permits/{id}/details:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve existing, non-completed christmas tree permit without SVG"
+      description: "Retrieve existing, non-completed christmas tree permit using the permit id"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        description: "Id number of permit"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Permit not found or permit is completed/canceled"
+  /admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve list of completed christmas tree permit within provided date range"
+      description: "Retrieve list of completed christmas tree permit within provided date range"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "forestId"
+        description: "Id number of permit"
+        required: true
+        type: "integer"
+      - in: "path"
+        name: "startDate"
+        description: "Beginning of date range to search for permits"
+        required: true
+        type: "integer"
+      - in: "path"
+        name: "endDate"
+        description: "End of date range to search for permits"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "No permits not found in the date range provided"
   /uptime:
     get:
       tags:
