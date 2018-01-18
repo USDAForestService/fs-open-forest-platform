@@ -10,9 +10,8 @@
 cutting season. For those that do, you can buy your Christmas tree permits in person at the forest ranger district offices. Some forests offer
 the option to purchase Christmas tree permits online.</p>
     <div id="forest-finder-form">
-      <h2>Find a forest that sells online Christmas tree permits</h2>
       <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-        <label for="forest-finder-select">Choose a pilot forest:</label>
+        <label for="forest-finder-select">Choose a forest that sells online Christmas tree permits:</label>
         <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
           <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
         </select>
