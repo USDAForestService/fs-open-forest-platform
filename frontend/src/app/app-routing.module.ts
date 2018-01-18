@@ -154,7 +154,7 @@ const appRoutes: Routes = [
             ]
           },
           {
-            //cancel route
+            // cancel route
             path: 'applications/:permitId',
             component: TreeApplicationFormComponent,
             resolve: {
