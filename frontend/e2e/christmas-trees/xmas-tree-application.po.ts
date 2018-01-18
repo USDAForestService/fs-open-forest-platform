@@ -49,6 +49,14 @@ export class ChristmasTreeForm {
     return element(by.css('span[id$="quantity-error"]'));
   }
 
+  permitRules() {
+    return element(by.id('permit-rules'));
+  }
+
+  rulesToKnow() {
+    return element(by.id('rules'));
+  }
+
   rulesAccepted() {
     return element(by.id('accept-rules-label'));
   }

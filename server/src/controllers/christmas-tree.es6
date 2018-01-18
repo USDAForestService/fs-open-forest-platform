@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 
 const christmasTree = {};
-const Op = Sequelize.Op;
+const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
   return {
@@ -274,7 +274,7 @@ const sendEmail = (res, savedPermit, pngBuffer) => {
     {
       filename: 'permit.png',
       content: new Buffer(pngBuffer, 'utf-8'),
-      cid: 'unique@kreata.ee'
+      cid: 'christmas-tree-permit-image'
     },
     {
       filename: 'permit-attachment.png',
@@ -446,44 +446,50 @@ christmasTree.cancelOne = (req, res) => {
     });
 };
 
+const returnPermitResults = (results, res) => {
+  if (results) {
+    let permits = [];
+    let sumOfTrees = 0;
+    let sumOfCost = 0;
+    results.forEach(permit => {
+      let eachPermit = {};
+      eachPermit.permitNumber = permit.paygovTrackingId;
+      eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+      eachPermit.quantity = permit.quantity;
+      eachPermit.totalCost = permit.totalCost;
+      eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      sumOfTrees += permit.quantity;
+      sumOfCost += parseFloat(permit.totalCost);
+      permits.push(eachPermit);
+    });
+    res.status(200).json({
+      sumOfTrees: sumOfTrees,
+      sumOfCost: sumOfCost.toFixed(2),
+      numberOfPermits: results.length,
+      permits: permits
+    });
+  } else {
+    res.status(404).send();
+  }
+};
+
 christmasTree.getPermits = (req, res) => {
+  const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
   treesDb.christmasTreesPermits
     .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost'],
+      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
       where: {
         forestId: req.params.forestId,
         status: 'Completed',
         updatedAt: {
-          [Op.gte]: req.params.startDate,
-          [Op.lte]: req.params.endDate
+          [operator.gte]: req.params.startDate,
+          [operator.lt]: nextDay
         }
       },
       order: [['updatedAt', 'ASC']]
     })
     .then(results => {
-      if (results) {
-        let permits = [];
-        let sumOfTrees = 0;
-        let sumOfCost = 0;
-        results.forEach(permit => {
-          let eachPermit = {};
-          eachPermit.permitNumber = permit.paygovTrackingId;
-          eachPermit.quantity = permit.quantity;
-          eachPermit.totalCost = permit.totalCost;
-          eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
-          sumOfTrees += permit.quantity;
-          sumOfCost += parseFloat(permit.totalCost);
-          permits.push(eachPermit);
-        });
-        res.status(200).json({
-          sumOfTrees: sumOfTrees,
-          sumOfCost: sumOfCost.toFixed(2),
-          numberOfPermits: results.length,
-          permits: permits
-        });
-      } else {
-        res.status(404).send();
-      }
+      return returnPermitResults(results, res);
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {

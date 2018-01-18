@@ -21,8 +21,8 @@
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
-      <p>Christmas tree permits cost ${{costPerTree}} each and a household is allowed to purchase up to {{maxNumberOfTrees}} permits.</p>
-      <p><b>Only printed permits are valid. Permits stored on mobile devices will not be accepted.</b></p>
+      <p>Christmas trees cost ${{costPerTree}} each and a household is allowed to cut up to {{maxNumberOfTrees}} trees per permit.</p>
+      <p><b>Your permit must be printed to be valid and cannot be stored on a mobile device.</b></p>
 
       <div id="form-errors"
         *ngIf="(submitted && !applicationForm.valid)"
@@ -39,8 +39,8 @@
           <div>
             <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
             <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
-            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas tree permits" hintText="One permit equals one tree. Up to {{maxNumberOfTrees}} permits allowed per household."></app-quantity>
-            <label class="margin-top-2 total-cost">Total cost for Christmas tree permits: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
+            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
+            <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
         </div>
       </fieldset>
 

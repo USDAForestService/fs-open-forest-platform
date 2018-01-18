@@ -140,15 +140,16 @@ workflows:
           requires:
       - run-e2e:
           requires:
-            - run-all-other-tests
       - staging-deploy:
           requires:
+            - run-all-other-tests
             - run-e2e
           filters:
             branches:
               only: sprint-7-development
       - prod-deploy:
           requires:
+            - run-all-other-tests
             - run-e2e
           filters:
             branches:

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { ForestFinderComponent } from './forest-finder.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -10,12 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MockBackend } from '@angular/http/testing';
-import { ScalarObservable } from 'rxjs/observable/ScalarObservable';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
-import { MockRouter } from '../../../_mocks/routes.mock';
 import { UtilService } from '../../../_services/util.service';
-import { TreeGuidelinesComponent } from '../tree-guidelines/tree-guidelines.component';
 
 describe('ForestFinderComponent', () => {
   let component: ForestFinderComponent;
@@ -92,15 +87,4 @@ describe('ForestFinderComponent', () => {
     })
   );
 
-  it('should return filtered results', () => {
-    expect(component.forestSearchResults('Arap') instanceof ScalarObservable);
-    component.forests = null;
-    expect(component.forestSearchResults('Arap')).toBeFalsy();
-  });
-
-  it('should format forest list', () => {
-    expect(component.forestListFormatter(component.forests[0])).toEqual(
-      'Arapaho & Roosevelt | Colorado | Fort Collins, CO'
-    );
-  });
 });

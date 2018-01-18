@@ -37,7 +37,9 @@ label {
 
 .usa-form-hint {
   color: $dark-grey;
+  display: block;
   font-size: 15px;
+  line-height: 23px;
 }
 
 .usa-form-group label {
