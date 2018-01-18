@@ -18,7 +18,7 @@ export class AuthGuardService implements CanActivate {
     const requestingUrl = route['_routeConfig'].path;
     let isAdminRoute = false;
     if (route.data) {
-      isAdminRoute = route.data.admin
+      isAdminRoute = route.data.admin;
     };
     let authorized = false;
     if (user && user.email && user.role) {
