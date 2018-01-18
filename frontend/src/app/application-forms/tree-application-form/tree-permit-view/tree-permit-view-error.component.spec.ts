@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WindowRef } from '../../../_services/native-window.service';
 import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx-breadcrumbs';
+import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -38,7 +39,7 @@ describe('TreePermitViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, McBreadcrumbsModule],
-        declarations: [TreePermitViewComponent],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent],
         providers: [
           McBreadcrumbsConfig,
           McBreadcrumbsService,

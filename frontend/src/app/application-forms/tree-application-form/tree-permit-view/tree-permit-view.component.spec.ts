@@ -7,9 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import * as sinon from 'sinon';
 import { WindowRef } from '../../../_services/native-window.service';
 import {
-  McBreadcrumbsComponent, McBreadcrumbsService, McBreadcrumbsModule,
+  McBreadcrumbsService, McBreadcrumbsModule,
   McBreadcrumbsConfig
 } from 'ngx-breadcrumbs';
+import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -31,7 +32,7 @@ describe('TreePermitViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, McBreadcrumbsModule],
-        declarations: [TreePermitViewComponent],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent],
         providers: [
           McBreadcrumbsService,
           McBreadcrumbsConfig,

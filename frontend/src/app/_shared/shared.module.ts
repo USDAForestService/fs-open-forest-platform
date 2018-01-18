@@ -16,11 +16,13 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules/tree-rules.component';
 import { SpinnerModule } from 'angular2-spinner/dist';
+import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot()],
   declarations: [
     ApiErrorComponent,
+    BreadcrumbsComponent,
     ErrorMessageComponent,
     TrackScrollDirective,
     AppButtonComponent,
@@ -35,6 +37,7 @@ import { SpinnerModule } from 'angular2-spinner/dist';
   ],
   exports: [
     ApiErrorComponent,
+    BreadcrumbsComponent,
     ErrorMessageComponent,
     FilterPipe,
     AppRoutingModule,

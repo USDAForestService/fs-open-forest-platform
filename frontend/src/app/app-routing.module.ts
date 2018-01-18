@@ -30,16 +30,55 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 
 const appRoutes: Routes = [
   {
-    path: 'admin/applications',
-    component: PermitApplicationListComponent,
-    canActivate: [AuthGuardService],
-    data: { title: 'Application administration listing' }
+    path: '',
+    data: {
+      breadcrumbs: true,
+      text: 'Apply for a permit'
+    },
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        data: {
+          title: 'US Forest Service ePermit',
+        },
+      },
+      {
+        path: 'help-me-pick/:id',
+        component: HelpMePickComponent,
+        data: {
+          title: 'Help me find a permit',
+          breadcrumbs: 'Help me find a permit'
+        }
+      },
+    ]
   },
   {
-    path: 'admin/applications/:type/:id',
-    component: PermitApplicationViewComponent,
-    canActivate: [AuthGuardService],
-    data: { title: 'View application' }
+    path: 'admin/applications',
+    data: {
+      breadcrumbs: true,
+      text: 'Permit applications'
+    },
+    children: [
+      {
+        path: '',
+        component: PermitApplicationListComponent,
+        canActivate: [AuthGuardService],
+        data: {
+          title: 'Application administration listing'
+        }
+      },
+      {
+        path: ':type/:id',
+        component: PermitApplicationViewComponent,
+        canActivate: [AuthGuardService],
+        data: {
+          title: 'View application',
+          breadcrumbs: 'View application'
+        }
+      },
+
+    ]
   },
   {
     path: 'admin/christmas-trees/reports',
@@ -172,11 +211,10 @@ const appRoutes: Routes = [
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
   },
-  { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
+
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
-  { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
   { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];

@@ -1,11 +1,6 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <nav class="breadcrumb">
-      <ol>
-        <li><a routerLink="/">Apply for a permit</a></li>
-        <li>Help me find a permit</li>
-      </ol>
-    </nav>
+    <app-breadcrumbs></app-breadcrumbs>
     <h1 id="skip-nav-target" tabindex="-1">{{ title }}</h1>
     <div *ngIf="id == 1">
       <a class="usa-button yes" attr.aria-label="Yes, the purpose of your activity is selling goods or services" type="button" routerLink="/help-me-pick/5">Yes</a>

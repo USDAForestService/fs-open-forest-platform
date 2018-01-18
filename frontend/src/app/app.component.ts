@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
   };
 
   constructor(public router: Router, private authentication: AuthenticationService, public util: UtilService) {
-    router.events.subscribe(scroll => {
-      if (scroll instanceof NavigationEnd) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           util.gotoHashtag(tree.fragment, new Event('click'));
