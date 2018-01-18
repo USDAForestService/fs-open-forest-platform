@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 
 const christmasTree = {};
-const Op = Sequelize.Op;
+const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
   return {
@@ -455,8 +455,8 @@ christmasTree.getPermits = (req, res) => {
         forestId: req.params.forestId,
         status: 'Completed',
         updatedAt: {
-          [Op.gte]: req.params.startDate,
-          [Op.lt]: nextDay
+          [operator.gte]: req.params.startDate,
+          [operator.lt]: nextDay
         }
       },
       order: [['updatedAt', 'ASC']]
