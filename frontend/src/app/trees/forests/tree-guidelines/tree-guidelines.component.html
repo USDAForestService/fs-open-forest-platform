@@ -1,13 +1,7 @@
 <section id="sidebar-page" class="usa-section usa-content">
-  <div class="usa-grid" *ngIf="forest">
-    <nav class="breadcrumb">
-      <ol>
-        <li><a routerLink="/christmas-trees/forests">Christmas tree permits</a></li>
-        <li>{{ forest.forestName }}</li>
-      </ol>
-    </nav>
-  </div>
   <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
     <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
@@ -19,7 +13,7 @@
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
-      <button *ngIf="forest" [routerLink]="['/applications/christmas-trees/forests/', forest.forestAbbr,'new']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
+      <button *ngIf="forest" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
       <app-tree-species [forest]="forest"></app-tree-species>

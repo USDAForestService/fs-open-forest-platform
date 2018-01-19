@@ -77,7 +77,7 @@ describe('TreeApplicationFormComponent', () => {
   it('should set the title', () => {
     userService = TestBed.get(Title);
     expect(userService.getTitle()).toBe(
-      'Buy a Christmas tree permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting'
+      'Buy a permit | Mt Hood | U.S. Forest Service Christmas Tree Permitting'
     );
   });
 

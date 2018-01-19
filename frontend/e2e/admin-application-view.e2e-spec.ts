@@ -11,6 +11,6 @@ describe('Admin applications page', () => {
 
   it('should display breadcrumbs', () => {
     page.navigateTo();
-    expect<any>(element(by.css('.breadcrumbs')).isDisplayed()).toBeTruthy();
+    expect<any>(element(by.css('nav')).isDisplayed()).toBeTruthy();
   });
 });

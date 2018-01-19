@@ -51,7 +51,7 @@ describe('ForestFinderComponent', () => {
           HttpClientTestingModule,
           RouterTestingModule.withRoutes([
             {
-              path: 'christmas-trees/forests/:id/tree-guidelines',
+              path: 'christmas-trees/forests/:id',
               component: ForestFinderComponent
             }
           ])
@@ -83,7 +83,7 @@ describe('ForestFinderComponent', () => {
     fakeAsync(() => {
       component.goToForest('arp');
       tick();
-      expect(location.path()).toBe('/christmas-trees/forests/arp/tree-guidelines');
+      expect(location.path()).toBe('/christmas-trees/forests/arp');
     })
   );
 

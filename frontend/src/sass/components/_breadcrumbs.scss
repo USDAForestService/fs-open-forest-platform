@@ -1,4 +1,4 @@
-nav.breadcrumb {
+nav.breadcrumbs {
   color: $fs-green;
   padding-bottom: 1em;
   padding-right: 70px;
@@ -7,18 +7,18 @@ nav.breadcrumb {
   }
 }
 
-nav.breadcrumb ol {
+nav.breadcrumbs ol {
   max-width: 100% !important;
   margin: 0;
   padding-left: 0;
   list-style: none;
 }
 
-nav.breadcrumb li {
+nav.breadcrumbs li {
   display: inline;
 }
 
-nav.breadcrumb li + li::before {
+nav.breadcrumbs li + li::before {
   display: inline-block;
   margin: 0 .4em;
   transform: rotate(15deg);
@@ -27,7 +27,7 @@ nav.breadcrumb li + li::before {
   content: '';
 }
 
-nav.breadcrumb [aria-current="page"] {
+nav.breadcrumbs [aria-current="page"] {
   color: #000;
   font-weight: 700;
   text-decoration: none;

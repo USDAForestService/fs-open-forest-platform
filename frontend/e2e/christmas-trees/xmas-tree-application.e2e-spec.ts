@@ -121,12 +121,12 @@ describe('Apply for a Christmas tree permit', () => {
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
 
-  it('should redirect back confirmation page from mock pay.gov', () => {
+  it('should redirect to confirmation page from mock pay.gov on success', () => {
     element(by.id('credit-card-number')).sendKeys('1100000000000123');
     page.mockPayGovSubmit().click();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain(
-      `http://localhost:4200/applications/christmas-trees/forests/${forestId}/permits/`
+      `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
     );
   });
 
@@ -157,7 +157,7 @@ describe('Apply for a Christmas tree permit', () => {
       browser.sleep(1500);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       page.mockPayGovSubmit().click();
-      browser.sleep(1500);
+      browser.sleep(2500);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
       page.navigateTo(forestId);
     });

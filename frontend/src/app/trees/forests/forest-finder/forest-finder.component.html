@@ -1,10 +1,6 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <nav class="breadcrumb">
-      <ol>
-        <li>Christmas tree permits</li>
-      </ol>
-    </nav>
+    <app-breadcrumbs></app-breadcrumbs>
     <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit online</h1>
     <p>National Forests have their own rules, season dates and permit prices for cutting down Christmas trees. During this Christmas tree cutting season, 
       the Forests below are offering the option to buy a Christmas tree permit online as a pilot program. For National Forests that do not offer the online permit option, you can buy a permit at the local Ranger District office.</p>
@@ -23,7 +19,7 @@
       <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
         <div class='usa-width-one-half forest-image-container'>
           <h3>{{forest.forestName}}</h3>
-          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']">
+          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr]">
             <img id="{{forest.forestAbbr}}-map-img" src="/assets/img/{{ forest.forestNameShort | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
           </a>
         </div>

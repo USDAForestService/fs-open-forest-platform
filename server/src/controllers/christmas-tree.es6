@@ -412,13 +412,14 @@ christmasTree.getOnePermitDetail = (req, res) => {
       }
     })
     .then(permit => {
-      if (permit.status === 'Completed' || permit.status === 'Canceled') {
+      if (permit.status === 'Completed') {
         res.status(404).send();
       } else {
         res.status(200).json(permit);
       }
     })
-    .catch(() => {
+    .catch((error) => {
+      console.error(error);
       res.status(404).send();
     });
 };

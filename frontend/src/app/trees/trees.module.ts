@@ -24,6 +24,7 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
+import { McBreadcrumbsComponent } from 'ngx-breadcrumbs';
 
 @NgModule({
   declarations: [

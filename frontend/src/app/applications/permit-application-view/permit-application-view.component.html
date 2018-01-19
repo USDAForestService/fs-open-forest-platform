@@ -1,9 +1,6 @@
 <section id="application-view" class="usa-section">
   <div class="usa-grid">
-    <div class="breadcrumbs">
-      <a routerLink="/{{userType}}/applications">Permit applications</a> > <span>{{ application.eventName }}</span>
-    </div>
-
+    <app-breadcrumbs></app-breadcrumbs>
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <div *ngIf="application.status === 'Hold'" class="usa-alert usa-alert-warning application-deadline-warning permit-alert-warning">

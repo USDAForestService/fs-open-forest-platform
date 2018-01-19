@@ -1,12 +1,5 @@
 <section id="application-view" class="usa-section usa-grid">
-  <nav class="breadcrumb">
-    <ol>
-      <li><a routerLink="/christmas-trees/forests">Christmas tree permits</a></li>
-      <li><a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{ forest.forestName }}</a></li>
-      <li><a [routerLink]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new'">Buy a permit</a></li>
-      <li>Permit order confirmation</li>
-    </ol>
-  </nav>
+  <app-breadcrumbs></app-breadcrumbs>
   <div *ngIf="!error">
     <div *ngIf="permit" >
       <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
@@ -86,7 +79,7 @@
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
       <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>
-      <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/tree-guidelines'">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit website.</a></p>
+      <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit website.</a></p>
     </div>
   </div>
 
@@ -99,7 +92,7 @@
       </div>
     </div>
     <div class="margin-top-2 margin-bottom-2">
-      <p *ngIf="forest"><strong>Return to the <a [href]="'/applications/christmas-trees/forests/' + forest.forestAbbr + '/new/' + permit.permitId">{{forest.forestName}} National Forest{{ forest.forestName.indexOf(' and ') > 0 ? 's' : ''}} Christmas tree permit purchase form</a> and try again.</strong></p>
+      <p *ngIf="forest"><strong>Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/applications/' + permit.permitId">{{forest.forestName}} Christmas tree permit purchase form</a> and try again.</strong></p>
       <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
     </div>
   </div>
