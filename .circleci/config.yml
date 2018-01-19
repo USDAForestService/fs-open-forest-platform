@@ -43,7 +43,7 @@ jobs:
           name: frontend snyk tests
           command: cd docker; docker-compose run fs-intake-frontend yarn run snyk-test
       - run:
-          name: generate typedocs 
+          name: generate typedocs
           command: cd docker; docker-compose run fs-intake-frontend bash -c "yarn global add typedoc && yarn run docs"
       - store_artifacts:
           path: frontend/coverage
@@ -70,9 +70,9 @@ jobs:
 ## Run tests
       - run:
           name: run e2e
-          command: cd docker; ../.circleci/run-e2e.sh $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/*.e2e-spec.ts))
+          command: cd docker; ../.circleci/run-e2e.sh $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
       - run:
-          name: run unauthenticated e2e 
+          name: run unauthenticated e2e
           command: cd docker; ../.circleci/run-unauthenticated-e2e.sh
       - store_artifacts:
           path: frontend/e2e-test-results
