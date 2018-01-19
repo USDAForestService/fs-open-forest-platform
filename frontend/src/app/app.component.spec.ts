@@ -1,35 +1,30 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './_services/authentication.service';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs/Observable';
-import { MockBackend } from '@angular/http/testing';
-import { MockService } from './_services/mock.service';
 import { UtilService } from './_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import * as sinon from 'sinon';
+export class MockAuthenticationService {
+  getAuthenticatedUser(): Observable<{}> {
+    return Observable.of({ email: 'test@test.com', role: 'admin' });
+  }
+}
 
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let mockService: MockService;
-  const mockResponse = { email: 'test@test.com', role: 'admin' };
 
   beforeEach(
     async(() => {
-      mockService = new MockService();
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule, HttpModule],
+        imports: [RouterTestingModule, HttpClientTestingModule],
         declarations: [AppComponent, UsaBannerComponent],
-        providers: [
-          { provide: AuthenticationService, useClass: AuthenticationService },
-          { provide: XHRBackend, useClass: MockBackend },
-          { provide: MockService, use: mockService },
-          UtilService
-        ],
+        providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
         schemas: [CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();
     })
@@ -38,9 +33,6 @@ describe('AppComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
-    });
     fixture.detectChanges();
   });
 
@@ -54,9 +46,7 @@ describe('AppComponent', () => {
 
   it(
     'should check if user is authenticated',
-    inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
-      mockService.mockResponse(mockBackend, mockResponse);
-
+    inject([AuthenticationService], (service, mockBackend) => {
       service.getAuthenticatedUser().subscribe(user => {
         expect(user.email).toBe('test@test.com');
       });
@@ -74,27 +64,10 @@ describe('AppComponent', () => {
     })
   );
 
-  it(
-    'should throw error if error',
-    inject([AuthenticationService, XHRBackend], (service, mockBackend) => {
-      mockBackend.connections.subscribe(connection => {
-        connection.mockError(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify({ errors: ['error'] })
-            })
-          )
-        );
-      });
-
-      service.getAuthenticatedUser().subscribe(
-        success => {},
-        (e: any) => {
-          expect(e).toEqual(['error']);
-        }
-      );
-    })
-  );
+  it('should set user if user is authenticated', () => {
+    component.isAuthenticated();
+    expect(component.user).toEqual({ email: 'test@test.com', role: 'admin' });
+  });
 
   it('should update status', () => {
     component.updateStatus({ heading: 'test', message: 'test message' });

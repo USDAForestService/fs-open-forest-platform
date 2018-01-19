@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { UtilService } from './util.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthenticationService {
   private endpoint = environment.apiUrl;
   user: any;
 
-  constructor(private http: Http, private router: Router, public util: UtilService) {}
+  constructor(private http: HttpClient, private router: Router, public util: UtilService) {}
 
   getAuthenticatedUser() {
     return this.isAuthenticated().map(
@@ -32,12 +31,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.http
-      .get(this.endpoint + 'auth/user', { withCredentials: true })
-      .map((res: Response) => {
-        return res.json();
-      })
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
   }
 
   getUser() {
