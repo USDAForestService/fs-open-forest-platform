@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable()
 export class UtilService {
@@ -42,14 +41,14 @@ export class UtilService {
     return id;
   }
 
-  handleError(error: Response | any) {
+  handleError(error: HttpResponse<any> | any) {
     let body;
     let errors: any = [];
-    if (error instanceof Response) {
+    if (error instanceof HttpResponse) {
       if (error.status) {
         switch (error.status) {
           case 400:
-            body = error.json() || '';
+            body = error.body || '';
             errors = body.errors;
             break;
           case 401:
