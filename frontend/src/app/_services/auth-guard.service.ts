@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
     let isAdminRoute = false;
     if (route.data) {
       isAdminRoute = route.data.admin;
-    };
+    }
     let authorized = false;
     if (user && user.email && user.role) {
       authorized = true;
