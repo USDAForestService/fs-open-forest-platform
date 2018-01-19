@@ -1,5 +1,4 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { AlertService } from '../_services/alert.service';
 
 describe('AlertService', () => {

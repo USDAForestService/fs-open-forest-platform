@@ -1,12 +1,12 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { HttpModule, XHRBackend } from '@angular/http';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../_services/application.service';
 import { MockBackend } from '@angular/http/testing';
 import { UtilService } from './util.service';
+import { HttpClient } from '@angular/common/http';
 
 class MockApplicationService {
   get(): Observable<{}> {
@@ -28,11 +28,11 @@ class MockApplicationService {
 
 describe('AuthGuardService', () => {
   let service: AuthenticationService;
-  let http: Http;
+  let http: HttpClient;
 
   beforeEach(() => {
     service = new AuthenticationService(http, null, null);
-    http = new Http(null, null);
+    http = new HttpClient(null);
 
     TestBed.configureTestingModule({
       providers: [

@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { HttpParams, HttpClient, HttpResponse } from '@angular/common/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { HttpParams, HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -15,18 +13,21 @@ export class ChristmasTreesApplicationService {
   private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
   private adminEndpoint = environment.apiUrl + 'admin/christmas-trees/permits';
 
-  constructor(private http: Http, private httpClient: HttpClient, public router: Router, public util: UtilService) {}
+  constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
   create(body, multipart = false) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
     if (multipart) {
-      headers = new Headers({ 'Content-Type': 'application/json', enctype: 'multipart/form-data' });
+      headers = new HttpHeaders().set('Content-Type', 'application/json').set('enctype', 'multipart/form-data');
     }
-    const options = new RequestOptions({ headers: headers });
+
+    const options = {
+      params: new HttpParams().set('withCredentials', 'true'),
+      headers: headers
+    };
 
     return this.http
       .post(this.endpoint, body, options)
-      .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
 
@@ -34,27 +35,22 @@ export class ChristmasTreesApplicationService {
     const body = { permitId: id };
     return this.http
       .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
-      .map((res: Response) => {
-        res.json();
-      })
       .catch(this.util.handleError);
   }
 
   getOne(id, token) {
-    return this.httpClient.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
+    return this.http.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
   }
 
   getDetails(id) {
     return this.http
       .get(`${this.endpoint}/${id}/details`)
-      .map((res: Response) => res.json())
       .catch(this.util.handleError);
   }
 
   getAllByDateRange(forestId, startDate, endDate) {
-    return this.httpClient
+    return this.http
       .get(`${this.adminEndpoint}/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
-      .map((res: HttpResponse<Object>) => res)
       .catch(this.util.handleError);
   }
 

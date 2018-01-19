@@ -2,7 +2,7 @@ import { AdminApplicationView } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-describe('Admin applications page', () => {
+fdescribe('Admin applications page', () => {
   let page: AdminApplicationView;
 
   beforeEach(() => {
@@ -11,6 +11,7 @@ describe('Admin applications page', () => {
 
   it('should display breadcrumbs', () => {
     page.navigateTo();
-    expect<any>(element(by.css('nav')).isDisplayed()).toBeTruthy();
+    browser.sleep(900);
+    expect<any>(element(by.css('.breadcrumbs')).isDisplayed()).toBeTruthy();
   });
 });

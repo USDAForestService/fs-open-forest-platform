@@ -4,16 +4,14 @@ import * as sinon from 'sinon';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule } from '@angular/forms';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+import { FormBuilder } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { noncommercialMock } from './noncommercial.mock';
 import { UtilService } from '../../_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { XHRBackend } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -29,12 +27,11 @@ describe('ApplicationNoncommercialGroupComponent', () => {
           { provide: ApplicationService, useClass: ApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
-          { provide: XHRBackend, useClass: MockBackend },
           AlertService,
           AuthenticationService,
           UtilService
         ],
-        imports: [RouterTestingModule, HttpModule]
+        imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
     })
   );
@@ -104,11 +101,7 @@ describe('ApplicationNoncommercialGroupComponent', () => {
       const mockResponse = { eventName: 'test', id: '123' };
       mockBackend.connections.subscribe(connection => {
         connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
+          new HttpResponse( { body: JSON.stringify(mockResponse) })
         );
       });
 

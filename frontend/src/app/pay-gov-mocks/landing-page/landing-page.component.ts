@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { alphanumericValidator } from '../../application-forms/validators/alphanumeric-validation';
-import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
@@ -21,7 +20,6 @@ export class LandingPageComponent implements OnInit {
     public formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private http: Http,
     private httpClient: HttpClient
   ) {
     this.applicationForm = this.formBuilder.group({
@@ -47,9 +45,8 @@ export class LandingPageComponent implements OnInit {
   }
 
   getApplicationData(token, appId) {
-    return this.http
-      .get(`${environment.apiUrl}mock-pay-gov?token=${token}&tcsAppID=${appId}`, { withCredentials: true })
-      .map((res: Response) => res.json());
+    return this.httpClient
+      .get(`${environment.apiUrl}mock-pay-gov?token=${token}&tcsAppID=${appId}`, { withCredentials: true });
   }
 
   ngOnInit() {
