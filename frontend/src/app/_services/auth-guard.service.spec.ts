@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthGuardService } from './auth-guard.service';
 import { Observable } from 'rxjs/Observable';
 
-fdescribe('AuthGuardService', () => {
+describe('AuthGuardService', () => {
   let service: AuthGuardService;
 
   beforeEach(() => {
