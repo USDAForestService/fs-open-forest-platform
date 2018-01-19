@@ -63,5 +63,4 @@ describe('Application Service', () => {
       expect(spy.calledTwice).toBeTruthy();
     })
   );
-
 });

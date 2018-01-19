@@ -6,15 +6,14 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class SidebarConfigService {
-
   SIDEBAR_CONFIG_FILE_URL = 'assets/config/christmasTreesSidebar.json';
 
   constructor(private http: HttpClient) {
     let obj;
-    this.getJSON().subscribe(data => obj = data);
+    this.getJSON().subscribe(data => (obj = data));
   }
 
   public getJSON(): Observable<any> {
-    return this.http.get(this.SIDEBAR_CONFIG_FILE_URL)
+    return this.http.get(this.SIDEBAR_CONFIG_FILE_URL);
   }
 }
