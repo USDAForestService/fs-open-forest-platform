@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthGuardService } from './auth-guard.service';
 import { Observable } from 'rxjs/Observable';
 
-describe('AuthGuardService', () => {
+fdescribe('AuthGuardService', () => {
   let service: AuthGuardService;
 
   beforeEach(() => {
@@ -32,7 +32,7 @@ describe('AuthGuardService', () => {
   it('should not allow a normal user to access an admin route', () => {
     const valid = service.validateUser(
       { email: 'test@test.com', role: 'user' },
-      { _routeConfig: { path: 'admin/applications' } }
+      { data: { admin: true }, _routeConfig: { path: 'admin/applications' } }
     );
     expect(valid).toBeFalsy();
   });
