@@ -116,12 +116,20 @@ describe('ReportComponent', () => {
   });
 
   it('should get report', () => {
+    component.result = {};
+    component.getReport();
+    expect(component.result).toEqual({});
     component.forest = {
       id: 1,
       forestName: 'Arapaho and Roosevelt National Forests',
       description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
       forestAbbr: 'arp'
     };
+    component.dateStatus.hasErrors = true;
+    component.getReport();
+    expect(component.result).toEqual({});
+
+    component.dateStatus.hasErrors = false;
     component.form.get('forestId').setValue('1');
     component.form.get('dateTimeRange.startMonth').setValue('10');
     component.form.get('dateTimeRange.startDay').setValue('10');
@@ -132,5 +140,24 @@ describe('ReportComponent', () => {
     expect(component.form.valid).toBeTruthy();
     component.getReport();
     expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
+  });
+
+  it('should update date status', () => {
+    component.updateDateStatus({
+      startDateTimeValid: false,
+      endDateTimeValid: false,
+      startBeforeEnd: false,
+      startAfterToday: false,
+      hasErrors: false,
+      dateTimeSpan: 0
+    });
+    expect(component.dateStatus).toEqual({
+      startDateTimeValid: false,
+      endDateTimeValid: false,
+      startBeforeEnd: false,
+      startAfterToday: false,
+      hasErrors: false,
+      dateTimeSpan: 0
+    });
   });
 });
