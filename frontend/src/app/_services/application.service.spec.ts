@@ -1,8 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttpModule, XHRBackend } from '@angular/http';
 import { ApplicationService } from '../_services/application.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { UtilService } from './util.service';
@@ -12,7 +10,7 @@ describe('Application Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [UtilService, ApplicationService, { provide: XHRBackend, useClass: MockBackend }]
+      providers: [UtilService, ApplicationService]
     });
   });
 

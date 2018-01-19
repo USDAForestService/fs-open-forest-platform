@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ForestService } from '../../_services/forest.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
-import { HttpModule, XHRBackend, ResponseOptions, Response } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
