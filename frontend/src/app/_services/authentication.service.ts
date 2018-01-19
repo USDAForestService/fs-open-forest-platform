@@ -31,9 +31,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.http
-      .get(this.endpoint + 'auth/user', { withCredentials: true })
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
   }
 
   getUser() {

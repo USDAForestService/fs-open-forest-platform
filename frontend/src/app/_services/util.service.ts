@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class UtilService {
@@ -41,15 +41,14 @@ export class UtilService {
     return id;
   }
 
-  handleError(error: HttpResponse<any> | any) {
+  handleError(error: HttpErrorResponse | any) {
     let body;
     let errors: any = [];
-    if (error instanceof HttpResponse) {
+    if (error instanceof HttpErrorResponse) {
       if (error.status) {
         switch (error.status) {
           case 400:
-            body = error.body || '';
-            errors = body.errors;
+            errors = error.error.errors || '';
             break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
@@ -72,8 +71,7 @@ export class UtilService {
       }
     }
     try {
-      body = error.json() || '';
-      errors = body.errors;
+      errors = error.error.errors;
       return Observable.throw(errors);
     } catch (err) {
       return Observable.throw([
