@@ -100,9 +100,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual(
-        'http://localhost:4200/applications/christmas-trees/forests/shoshone/new'
-      );
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone/applications');
     });
   });
 
@@ -152,9 +150,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual(
-        'http://localhost:4200/applications/christmas-trees/forests/flathead/new'
-      );
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/flathead/applications');
     });
   });
 
@@ -212,7 +208,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should route users to page where they can buy a permit', () => {
       page.buyPermitLink().click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/christmas-trees/forests/arp/new');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp/applications');
     });
   });
 });
