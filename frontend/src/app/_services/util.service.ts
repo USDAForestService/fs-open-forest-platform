@@ -42,7 +42,6 @@ export class UtilService {
   }
 
   handleError(error: HttpErrorResponse | any) {
-    let body;
     let errors: any = [];
     if (error instanceof HttpErrorResponse) {
       if (error.status) {
