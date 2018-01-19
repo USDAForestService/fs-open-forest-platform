@@ -16,30 +16,24 @@ export class ApplicationService {
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
   create(body, type, multipart = false) {
-    let headers = new HttpHeaders().set('Content-Type','application/json');
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
     if (multipart) {
-      headers = new HttpHeaders().set('Content-Type','application/json').set('enctype', 'multipart/form-data');
+      headers = new HttpHeaders().set('Content-Type', 'application/json').set('enctype', 'multipart/form-data');
     }
     const options = {
       params: new HttpParams().set('withCredentials', 'true'),
       headers: headers
     };
 
-    return this.http
-      .post(this.endpoint + type, body, options)
-      .catch(this.util.handleError);
+    return this.http.post(this.endpoint + type, body, options).catch(this.util.handleError);
   }
 
   get(params = '') {
-    return this.http
-      .get(this.endpoint + params, { withCredentials: true })
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint + params, { withCredentials: true }).catch(this.util.handleError);
   }
 
   getOne(id, params = '') {
-    return this.http
-      .get(this.endpoint + params + id, { withCredentials: true })
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint + params + id, { withCredentials: true }).catch(this.util.handleError);
   }
 
   update(body, type) {

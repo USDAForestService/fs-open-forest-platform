@@ -93,23 +93,4 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
   });
-
-  it(
-    'should create a new application', () => {
-      component.createApplication();
-      //expect(component.getApplication(null)).toBe('test');
-    }
-    // inject([ApplicationService], (service, mockBackend) => {
-    //   const mockResponse = { eventName: 'test', id: '123' };
-    //   mockBackend.connections.subscribe(connection => {
-    //     connection.mockRespond(
-    //       new HttpResponse( { body: JSON.stringify(mockResponse) })
-    //     );
-    //   });
-    //
-    //   service.create().subscribe(data => {
-    //     expect(data.eventName).toBe('test');
-    //   });
-    // })
-  );
 });
