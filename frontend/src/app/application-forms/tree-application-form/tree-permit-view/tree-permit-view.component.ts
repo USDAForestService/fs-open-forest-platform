@@ -38,6 +38,7 @@ export class TreePermitViewComponent implements OnInit {
 
   processError(data) {
     this.error = data;
+    this.setPageData(data);
   }
 
   setPageData(data) {
