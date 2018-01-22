@@ -19,7 +19,6 @@ describe('BreadcrumbsComponent', () => {
   let fixture: ComponentFixture<BreadcrumbsComponent>;
   let router: Router;
   let breadcrumbElement: DebugElement;
-  const spy: any;
   let breadcrumbService: any;
 
   beforeEach(
