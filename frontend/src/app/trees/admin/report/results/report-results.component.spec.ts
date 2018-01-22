@@ -41,4 +41,19 @@ describe('ReportResultsComponent', () => {
     component.downloadReport();
     expect(spy.calledOnce).toBeTruthy();
   });
+
+  it('should set permits on changes', () => {
+    component.result = {
+      parameters: {
+        forestName: 'Mt. Hood National Forest',
+        startDate: '10/10/2018',
+        endDate: '10/10/2019',
+        sumOfTrees: '12',
+        sumOfCost: '100'
+      },
+      permits: [{ permitNumber: '112', quantity: 8, totalCost: '40.00', issueDate: '01/11/2018' }]
+    };
+    component.ngOnChanges();
+    expect(component.permits[1].permitNumber).toEqual('112');
+  });
 });
