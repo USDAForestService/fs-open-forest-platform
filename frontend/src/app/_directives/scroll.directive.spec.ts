@@ -24,7 +24,7 @@ describe('Directive: TrackScrollDirective', () => {
     inputEl = fixture.debugElement.query(By.css('#test'));
   });
 
-  it('should instantiate',() => {
+  it('should instantiate', () => {
     inputEl.triggerEventHandler('scroll', null);
     fixture.detectChanges();
     expect(inputEl).toBeTruthy();

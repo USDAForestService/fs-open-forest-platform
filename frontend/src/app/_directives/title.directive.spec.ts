@@ -20,7 +20,7 @@ describe('Directive: Title', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[RouterTestingModule.withRoutes([
+      imports: [RouterTestingModule.withRoutes([
         { path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: 'home', component: TestTitleDirectiveComponent, data: {title: 'test'} }
       ])],
