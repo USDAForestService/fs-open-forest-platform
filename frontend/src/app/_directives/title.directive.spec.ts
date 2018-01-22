@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 class TestTitleDirectiveComponent {
 }
 
-fdescribe('Directive: Title', () => {
+describe('Directive: Title', () => {
   let component: TestTitleDirectiveComponent;
   let fixture: ComponentFixture<TestTitleDirectiveComponent>;
   let inputEl: DebugElement;
