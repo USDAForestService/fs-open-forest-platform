@@ -6,12 +6,17 @@ import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 
 describe('Christmas Trees Application Service', () => {
+  let mockRouter: MockRouter;
+
   beforeEach(() => {
+    mockRouter = new MockRouter();
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [UtilService, ChristmasTreesApplicationService]
+      imports: [HttpClientTestingModule, HttpClientTestingModule],
+      providers: [UtilService, ChristmasTreesApplicationService, { provide: Router, useValue: mockRouter }]
     });
   });
 
@@ -50,6 +55,35 @@ describe('Christmas Trees Application Service', () => {
     inject([ChristmasTreesApplicationService], service => {
       expect(service.resolverError([{ status: 400 }])).toEqual(Observable.of({ error: { status: 400 } }));
       expect(service.resolverError([])).toEqual(Observable.of([]));
+      service.resolverError([{ status: 404 }], '/test');
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/test']);
+    })
+  );
+
+  it(
+    'should cancel old app',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'cancelOldApp');
+      service.cancelOldApp(1);
+      expect(spy.called).toBeTruthy();
+    })
+  );
+
+  it(
+    'should get details',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'getDetails');
+      service.getDetails(1);
+      expect(spy.called).toBeTruthy();
+    })
+  );
+
+  it(
+    'should get all by date range',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'getAllByDateRange');
+      service.getAllByDateRange(1, '10/10/2018', '10/10/2019');
+      expect(spy.called).toBeTruthy();
     })
   );
 });
