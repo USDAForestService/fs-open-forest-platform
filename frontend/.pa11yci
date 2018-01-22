@@ -1,5 +1,6 @@
 {
   "defaults": {
+    "wait": 500,
     "page": {
       "viewport": {
           "width": 320,
