@@ -7,7 +7,7 @@ const request = require('supertest');
 const moment = require('moment');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
-const server = require('./mock-aws-app.es6');
+const server = require('./mock-aws.spec.es6');
 
 const chai = require('chai');
 const expect = chai.expect;

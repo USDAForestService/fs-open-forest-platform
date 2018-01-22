@@ -1,12 +1,16 @@
 'use strict';
 
 const assert = require('chai').assert;
+const should = require('chai').should;
+const expect = require('chai').expect;
 const nock = require('nock');
 const request = require('supertest');
 
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-permit-application-factory.es6');
-const server = require('./mock-aws-app.es6');
+const noncommercialPermitFromDatabaseFactory = require('./data/noncommercial-permit-from-db-factory.es6');
+const server = require('./mock-aws.spec.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
+const noncommercial = require('../src/controllers/noncommercial.es6');
 
 const noncommercialUrl = '/permits/applications/special-uses/noncommercial';
 
@@ -611,5 +615,43 @@ describe('noncommercial controllers revisions', () => {
     request(server)
       .delete(`${noncommercialUrl}/${intakeControlNumber}`)
       .expect(404, done);
+  });
+});
+
+describe('unit tests for noncommercial applications', () => {
+  it('Existing "Hold" application should be create "Review" status', () => {
+    const model = {
+      status: 'Hold',
+      authEmail: 'test@email.com'
+    };
+    const user = {
+      role: 'user',
+      email: 'test@email.com'
+    };
+    const submittedApplication = noncommercialPermitApplicationFactory.create();
+    submittedApplication.status = 'Hold';
+
+    noncommercial.updateApplicationModel(model, submittedApplication, user);
+    expect(model.status).to.equal('Review');
+  });
+  it('Existing "Review" application should keep "Review" status', () => {
+    const model = {
+      authEmail: 'test@email.com'
+    };
+    const user = {
+      role: 'user',
+      email: 'test@email.com'
+    };
+    const submittedApplication = noncommercialPermitApplicationFactory.create();
+    submittedApplication.status = 'Review';
+
+    noncommercial.updateApplicationModel(model, submittedApplication, user);
+    expect(model.status).to.equal('Review');
+  });
+  it('translateFromIntakeToMiddleLayer() function to translate address for "Corporation" org type', () => {
+    const noncommercialPermitFromDB = noncommercialPermitFromDatabaseFactory.create();
+
+    const result = noncommercial.translateFromIntakeToMiddleLayer(noncommercialPermitFromDB);
+    expect(result.applicantInfo.mailingAddress).to.equal(noncommercialPermitFromDB.applicantInfoOrgMailingAddress);
   });
 });
