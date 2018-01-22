@@ -12,11 +12,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 class TestTitleDirectiveComponent {
 }
 
-describe('Directive: Title', () => {
+fdescribe('Directive: Title', () => {
   let component: TestTitleDirectiveComponent;
   let fixture: ComponentFixture<TestTitleDirectiveComponent>;
   let inputEl: DebugElement;
   let router: Router;
+  let titleService: Title;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -43,5 +44,7 @@ describe('Directive: Title', () => {
     inputEl = fixture.debugElement.query(By.css('#test'));
     fixture.detectChanges();
     expect(inputEl).toBeTruthy();
+    titleService = TestBed.get(Title);
+    expect(titleService.getTitle()).toBe('test');
   });
 });
