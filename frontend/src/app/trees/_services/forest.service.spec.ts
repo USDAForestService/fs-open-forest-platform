@@ -4,8 +4,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 
 describe('ForestService', () => {
-  let service: ForestService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
