@@ -12,6 +12,7 @@ const server = require('./mock-aws-app.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 const util = require('../src/util.es6');
+const tempOutfitter = require('../src/controllers/temp-outfitter.es6');
 
 const fileUploadUrl = '/permits/applications/special-uses/temp-outfitter/file';
 const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
@@ -385,5 +386,37 @@ describe('file downloads', () => {
     request(server)
       .get(`/permits/applications/special-uses/temp-outfitter/${applicationId}/files`)
       .expect(200, done);
+  });
+});
+
+describe('unit tests for tempoutfitter ', () => {
+  it('Existing "Hold" application should be create "Review" status', () => {
+    const model = {
+      status: 'Hold',
+      authEmail: 'test@email.com'
+    };
+    const user = {
+      role: 'user',
+      email: 'test@email.com'
+    };
+    const submittedApplication = tempOutfitterPermitApplicationFactory.create();
+    submittedApplication.status = 'Hold';
+
+    tempOutfitter.updateApplicationModel(model, submittedApplication, user);
+    expect(model.status).to.equal('Review');
+  });
+  it('Existing "Review" application should keep "Review" status', () => {
+    const model = {
+      authEmail: 'test@email.com'
+    };
+    const user = {
+      role: 'user',
+      email: 'test@email.com'
+    };
+    const submittedApplication = tempOutfitterPermitApplicationFactory.create();
+    submittedApplication.status = 'Review';
+
+    tempOutfitter.updateApplicationModel(model, submittedApplication, user);
+    expect(model.status).to.equal('Review');
   });
 });

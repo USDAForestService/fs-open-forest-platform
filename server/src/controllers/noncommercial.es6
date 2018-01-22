@@ -218,7 +218,7 @@ const translateFromDatabaseToClient = input => {
 /**
  * Translate permit application object from database format to middle layer format.
  */
-const translateFromIntakeToMiddleLayer = input => {
+noncommercial.translateFromIntakeToMiddleLayer = input => {
   let result = {
     intakeId: input.applicationId,
     region: input.region,
@@ -305,7 +305,7 @@ noncommercial.acceptApplication = application => {
     headers: {},
     json: true,
     simple: true,
-    body: translateFromIntakeToMiddleLayer(application)
+    body: noncommercial.translateFromIntakeToMiddleLayer(application)
   };
   return new Promise((resolve, reject) => {
     util
