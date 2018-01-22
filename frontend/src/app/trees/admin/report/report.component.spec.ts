@@ -24,13 +24,17 @@ describe('ReportComponent', () => {
           id: 1,
           forestName: 'Arapaho and Roosevelt National Forests',
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-          forestAbbr: 'arp'
+          forestAbbr: 'arp',
+          startDate: '10/31/2018',
+          endDate: '9/30/2019'
         },
         {
           id: 2,
           forestName: 'Flathead National Forest',
           description: 'Flathead | Montana | Kalispell, MT',
-          forestAbbr: 'flathead'
+          forestAbbr: 'flathead',
+          startDate: '10/31/2018',
+          endDate: '9/30/2019'
         },
         {
           id: 3,
@@ -159,5 +163,17 @@ describe('ReportComponent', () => {
       hasErrors: false,
       dateTimeSpan: 0
     });
+  });
+
+  it('should set start and end dates', () => {
+    component.setStartEndDate('2');
+    expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
+    expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
+    expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
+    expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
+    expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
+    expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+    component.setStartEndDate('5');
+    expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });
 });

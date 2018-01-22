@@ -40,15 +40,7 @@ export class ReportComponent implements OnInit {
     });
 
     this.form.get('forestId').valueChanges.subscribe(forest => {
-      this.forest = this.getForestById(forest);
-      if (this.forest && this.form.get('dateTimeRange')) {
-        this.form.get('dateTimeRange.startMonth').setValue(moment(this.forest.startDate).format('MM'));
-        this.form.get('dateTimeRange.startDay').setValue(moment(this.forest.startDate).format('DD'));
-        this.form.get('dateTimeRange.startYear').setValue(moment(this.forest.startDate).format('YYYY'));
-        this.form.get('dateTimeRange.endMonth').setValue(moment(this.forest.endDate).format('MM'));
-        this.form.get('dateTimeRange.endDay').setValue(moment(this.forest.endDate).format('DD'));
-        this.form.get('dateTimeRange.endYear').setValue(moment(this.forest.endDate).format('YYYY'));
-      }
+      this.setStartEndDate(forest);
     });
   }
 
@@ -56,6 +48,18 @@ export class ReportComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
     });
+  }
+
+  setStartEndDate(forest) {
+    this.forest = this.getForestById(forest);
+    if (this.forest && this.form.get('dateTimeRange')) {
+      this.form.get('dateTimeRange.startMonth').setValue(moment(this.forest.startDate).format('MM'));
+      this.form.get('dateTimeRange.startDay').setValue(moment(this.forest.startDate).format('DD'));
+      this.form.get('dateTimeRange.startYear').setValue(moment(this.forest.startDate).format('YYYY'));
+      this.form.get('dateTimeRange.endMonth').setValue(moment(this.forest.endDate).format('MM'));
+      this.form.get('dateTimeRange.endDay').setValue(moment(this.forest.endDate).format('DD'));
+      this.form.get('dateTimeRange.endYear').setValue(moment(this.forest.endDate).format('YYYY'));
+    }
   }
 
   updateDateStatus(dateStatus: any): void {
