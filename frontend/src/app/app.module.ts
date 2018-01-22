@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AlertService } from './_services/alert.service';
@@ -67,7 +66,7 @@ import { MockPageFooterComponent } from './pay-gov-mocks/mock-footer.component';
     TitleDirective,
     UsaBannerComponent
   ],
-  imports: [ApplicationsModule, BrowserModule, HttpModule, PayGovMocksModule, SharedModule, TreesModule],
+  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
   providers: [
     AlertService,
     ApplicationService,

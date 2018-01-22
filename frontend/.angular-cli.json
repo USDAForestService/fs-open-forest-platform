@@ -49,7 +49,10 @@
     },
     "codeCoverage": {
       "exclude": [
-        "src/app/pay-gov-mocks/**/*"
+        "src/app/pay-gov-mocks/**/*",
+        "src/app/_mocks/**/*",
+        "src/app/_models/**/*",
+        "src/app/_shared/**/*"
       ]
     }
   },
