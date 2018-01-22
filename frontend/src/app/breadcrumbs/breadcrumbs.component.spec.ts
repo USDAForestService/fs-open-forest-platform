@@ -19,7 +19,7 @@ describe('BreadcrumbsComponent', () => {
   let fixture: ComponentFixture<BreadcrumbsComponent>;
   let router: Router;
   let breadcrumbElement: DebugElement;
-  let spy: any;
+  const spy: any;
   let breadcrumbService: any;
 
   beforeEach(
@@ -30,7 +30,7 @@ describe('BreadcrumbsComponent', () => {
           { path: 'home', component: TestBreadcrumbsComponent, data: { breadcrumbs: 'test' } }
         ])],
         declarations: [BreadcrumbsComponent, TestBreadcrumbsComponent],
-        providers:[McBreadcrumbsService, McBreadcrumbsConfig]
+        providers: [McBreadcrumbsService, McBreadcrumbsConfig]
       }).compileComponents();
       breadcrumbService = TestBed.get(McBreadcrumbsService);
       spyOn(breadcrumbService, 'crumbs$').and.returnValue(Observable.of([{text: 'test', path: null}]));
