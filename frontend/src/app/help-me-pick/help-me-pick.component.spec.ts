@@ -1,15 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HelpMePickComponent } from './help-me-pick.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpModule } from '@angular/http';
 import { MockRouter, MockActivatedRoute } from '../_mocks/routes.mock';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
-import { Type } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HelpMePickComponent', () => {
   let component: HelpMePickComponent;
@@ -27,7 +21,7 @@ describe('HelpMePickComponent', () => {
           { provide: ActivatedRoute, useValue: mockActivatedRoute },
           { provide: Router, useValue: mockRouter }
         ],
-        imports: [HttpModule],
+        imports: [HttpClientModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

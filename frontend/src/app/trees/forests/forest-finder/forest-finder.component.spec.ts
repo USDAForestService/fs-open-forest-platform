@@ -4,13 +4,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ForestService } from '../../_services/forest.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
-import { HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../_services/util.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ForestFinderComponent', () => {
   let component: ForestFinderComponent;
@@ -47,7 +47,7 @@ describe('ForestFinderComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [UtilService, { provide: ForestService, useClass: ForestService }],
         imports: [
-          HttpModule,
+          HttpClientModule,
           HttpClientTestingModule,
           RouterTestingModule.withRoutes([
             {

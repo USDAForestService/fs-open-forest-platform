@@ -77,6 +77,9 @@ jobs:
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
+      - store_artifacts:
+          path: frontend/e2e-unauth-test-results
+          prefix: unauth-e2e-results
 
   staging-deploy:
     docker:

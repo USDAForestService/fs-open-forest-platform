@@ -1,13 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReportComponent } from './report.component';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpModule } from '@angular/http';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -77,7 +76,7 @@ describe('ReportComponent', () => {
           FormBuilder,
           UtilService
         ],
-        imports: [RouterTestingModule, HttpClientTestingModule, HttpModule],
+        imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
