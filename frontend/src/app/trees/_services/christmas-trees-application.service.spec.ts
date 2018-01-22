@@ -15,7 +15,7 @@ describe('Christmas Trees Application Service', () => {
   beforeEach(() => {
     mockRouter = new MockRouter();
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpClientTestingModule],
+      imports: [HttpClientTestingModule],
       providers: [UtilService, ChristmasTreesApplicationService, { provide: Router, useValue: mockRouter }]
     });
   });
