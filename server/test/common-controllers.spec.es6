@@ -3,7 +3,7 @@
 const assert = require('chai').assert;
 const request = require('supertest');
 
-const server = require('./mock-aws-app.es6');
+const server = require('./mock-aws.spec.es6');
 
 describe('common controller', () => {
   it('GET all pending permit applications should return a 200 status code and an array', done => {

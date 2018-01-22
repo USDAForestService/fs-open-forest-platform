@@ -8,7 +8,7 @@ const request = require('supertest');
 const sinon = require('sinon');
 
 const ApplicationFile = require('../src/models/application-files.es6');
-const server = require('./mock-aws-app.es6');
+const server = require('./mock-aws.spec.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 const util = require('../src/util.es6');

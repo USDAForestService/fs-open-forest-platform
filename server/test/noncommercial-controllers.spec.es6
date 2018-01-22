@@ -8,7 +8,7 @@ const request = require('supertest');
 
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-permit-application-factory.es6');
 const noncommercialPermitFromDatabaseFactory = require('./data/noncommercial-permit-from-db-factory.es6');
-const server = require('./mock-aws-app.es6');
+const server = require('./mock-aws.spec.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 const noncommercial = require('../src/controllers/noncommercial.es6');
 
