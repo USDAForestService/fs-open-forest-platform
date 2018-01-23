@@ -149,7 +149,8 @@ const appRoutes: Routes = [
     path: 'christmas-trees/forests',
     data: {
       breadcrumbs: true,
-      text: 'Christmas tree permits'
+      text: 'Christmas tree permits',
+      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting'
     },
     children: [
       {
@@ -157,10 +158,7 @@ const appRoutes: Routes = [
         component: ForestFinderComponent,
         resolve: {
           forests: ForestFinderResolver
-        },
-        data: {
-          title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting'
-        },
+        }
       },
       {
         path: ':id',
