@@ -68,10 +68,11 @@ export class TreePermitViewComponent implements OnInit {
           <title>Print permit</title>
           <link href="/assets/css/print-permit.css" rel="stylesheet" type="text/css">
         </head>
-        <body onload="setTimeout(window.print(),0); window.onfocus=function(){ window.close()}">${printContents}</body>
+        <body onload="window.focus(); setTimeout(window.print(),0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
       </html>
       `);
 
     popupWin.document.close();
+
   }
 }
