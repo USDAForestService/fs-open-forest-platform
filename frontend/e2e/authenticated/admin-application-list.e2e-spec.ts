@@ -2,7 +2,7 @@ import { AdminApplicationList } from './app.po';
 import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('Apply for a ', () => {
+describe('Apply for a ', () => {
   let list: AdminApplicationList;
 
   beforeEach(() => {
