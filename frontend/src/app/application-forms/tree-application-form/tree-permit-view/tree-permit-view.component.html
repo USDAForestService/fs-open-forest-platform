@@ -79,7 +79,7 @@
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
       <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>
-      <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit website.</a></p>
+      <p *ngIf="forest">Return to the <a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit website.</a></p>
     </div>
   </div>
 

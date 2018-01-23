@@ -53,7 +53,7 @@
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 
     </form>
-    <p *ngIf="forest">Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit information</a> page.</p>
+    <p *ngIf="forest">Return to the <a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit information</a> page.</p>
 
   </div>
 </section>
