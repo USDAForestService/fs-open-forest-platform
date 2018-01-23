@@ -58,17 +58,20 @@ export class TreePermitViewComponent implements OnInit {
   printPermit() {
     let printContents, popupWin;
     printContents = document.getElementById('toPrint').innerHTML;
-    popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+
     popupWin.document.open();
+
     popupWin.document.write(`
       <html>
         <head>
           <title>Print permit</title>
           <link href="/assets/css/print-permit.css" rel="stylesheet" type="text/css">
         </head>
-        <body onload="window.print();window.close();">${printContents}</body>
+        <body onload="setTimeout(window.print(), 0);" onafterprint="setTimeout(window.close(), 0)">${printContents}</body>
       </html>
       `);
+
     popupWin.document.close();
   }
 }
