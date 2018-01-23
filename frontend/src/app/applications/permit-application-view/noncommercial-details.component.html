@@ -17,7 +17,7 @@
     <h3>Identification number:</h3>
     <span>{{ application.applicationId }}</span>
     <h3>Permit application type:</h3>
-    <span>Noncommercial</span>
+    <span id="permit-type">Noncommercial</span>
     <h2 class="app-item-label padding-right-1">Primary permit holder</h2>
     <div *ngIf="application.applicantInfo.orgType === 'Corporation'" class="margin-bottom-1">
       <span class="display-block">{{ application.applicantInfo.organizationName }}</span>

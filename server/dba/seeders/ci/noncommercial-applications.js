@@ -20,15 +20,16 @@ module.exports = {
         appl_info_pri_mailing_state: 'OR',
         appl_info_pri_mailing_zip: '97321',
         type: 'noncommercial',
-        noncomm_fields_activity_descr: 'PROVIDING WHITEWATER OUTFITTING AND GUIDING ACTIVITIES ON NATIONAL FOREST LANDS',
+        noncomm_fields_activity_descr:
+          'PROVIDING WHITEWATER OUTFITTING AND GUIDING ACTIVITIES ON NATIONAL FOREST LANDS',
         noncomm_fields_location_descr: 'string',
-        noncomm_fields_start_date_time: '2013-01-12T12:00:00Z',
-        noncomm_fields_end_date_time: '2013-01-19T12:00:00Z',
+        noncomm_fields_start_date_time: '2020-01-12T12:00:00Z',
+        noncomm_fields_end_date_time: '2020-01-19T12:00:00Z',
         noncomm_fields_num_participants: 45,
         noncomm_fields_spectator_count: 50,
         created: 'now()',
         updated: 'now()',
-        status: 'Received',
+        status: 'Submitted',
         event_name: 'test event',
         applicant_info_org_type: 'Person',
         signature: 'aaa',
@@ -39,6 +40,10 @@ module.exports = {
     return queryInterface.bulkInsert('noncommercialApplications', noncommApps);
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('noncommercialApplications', [{ region: ['99'] }]);
+    return queryInterface.bulkDelete('noncommercialApplications', [
+      {
+        region: ['99']
+      }
+    ]);
   }
 };
