@@ -32,7 +32,7 @@ export class TreeGuidelinesComponent implements OnInit {
       if (this.forest) {
         this.titleService.setTitle(
           this.forest.forestName +
-            ' National Forest Christmas tree permit information | U.S. Forest Service Christmas Tree Permitting'
+            ' | U.S. Forest Service Christmas Tree Permitting'
         );
       }
     });

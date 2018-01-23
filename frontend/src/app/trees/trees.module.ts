@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
-
+import { ApplicationsModule } from '../application-forms/applications.module';
 import { ContactInfoComponent } from './forests/tree-guidelines/contact-info/contact-info.component';
+import { ReportComponent } from './admin/report/report.component';
+import { ReportResultsComponent } from './admin/report/results/report-results.component';
 import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
-import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates.component';
+import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/tree-species/tree-species.component';
 
 import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
@@ -22,10 +24,13 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
+import { McBreadcrumbsComponent } from 'ngx-breadcrumbs';
 
 @NgModule({
   declarations: [
     ContactInfoComponent,
+    ReportComponent,
+    ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -42,6 +47,8 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
   ],
   exports: [
     ContactInfoComponent,
+    ReportComponent,
+    ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -50,7 +57,7 @@ import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-distric
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, ApplicationsModule],
   providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}

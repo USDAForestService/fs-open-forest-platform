@@ -22,6 +22,18 @@ describe('Apply for a Christmas tree permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
   });
 
+  it ('should show the breadcrumb', () => {
+    expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
+  });
+
+  it ('should show the rules to know section',  () => {
+    expect<any>(page.rulesToKnow().getText()).toEqual('Rules to know');
+  });
+
+  it ('should show the permit rules section',  () => {
+    expect<any>(page.permitRules().getText()).toEqual('Rules for your permit:');
+  });
+
   it('should show all fields as invalid if submitted without input', () => {
     page.submit().click();
     browser.sleep(500);
@@ -109,18 +121,22 @@ describe('Apply for a Christmas tree permit', () => {
     expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
   });
 
-  it('should redirect back confirmation page from mock pay.gov', () => {
+  it('should redirect to confirmation page from mock pay.gov on success', () => {
     element(by.id('credit-card-number')).sendKeys('1100000000000123');
     page.mockPayGovSubmit().click();
     browser.sleep(1500);
     expect(browser.getCurrentUrl()).toContain(
-      `http://localhost:4200/applications/christmas-trees/forests/${forestId}/permits/`
+      `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
     );
   });
 
   describe('confirmation page', () => {
     it('should show confirmation details', () => {
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
+    });
+
+    it ('should show the breadcrumb', () => {
+      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
     });
 
     it('should show the order summary', () => {
@@ -141,7 +157,7 @@ describe('Apply for a Christmas tree permit', () => {
       browser.sleep(1500);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       page.mockPayGovSubmit().click();
-      browser.sleep(1500);
+      browser.sleep(2500);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
       page.navigateTo(forestId);
     });

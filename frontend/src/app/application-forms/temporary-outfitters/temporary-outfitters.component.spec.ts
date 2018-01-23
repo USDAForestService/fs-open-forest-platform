@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -10,10 +9,10 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { FileUploadService } from '../_services/file-upload.service';
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';
 import { UtilService } from '../../_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -70,7 +69,7 @@ describe('TemporaryOutfittersComponent', () => {
           AuthenticationService,
           UtilService
         ],
-        imports: [RouterTestingModule, HttpModule]
+        imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
     })
   );

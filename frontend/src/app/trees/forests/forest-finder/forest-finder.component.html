@@ -1,30 +1,26 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <div class="breadcrumbs">
-      <a routerLink="/christmas-trees/forests">Christmas tree permits</a> > <span>Find a forest</span>
+    <app-breadcrumbs></app-breadcrumbs>
+    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit online</h1>
+    <p>National forests have their own rules, season dates and permit prices for cutting down Christmas trees. During this Christmas tree cutting season,
+      the forests below are offering the option to buy a Christmas tree permit online. For national forests that do not offer the online permit option, you can buy a permit at the local Ranger District office.</p>
+    <div id="forest-finder-form">
+      <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
+        <label for="forest-finder-select">Choose a forest that sells online Christmas tree permits:</label>
+        <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
+          <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
+        </select>
+        <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
+      </form>
     </div>
-    <form id="skip-nav-target" name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-      <label for="forest-finder-input">Find a Forest:</label>
-      <input id='forest-finder-input'
-             name='selectForest'
-             auto-complete
-             placeholder='Type a forest name, city, or state...'
-             [(ngModel)]='selectedForest'
-             [source]='forestSearchResults.bind(this)'
-             [list-formatter]='forestListFormatter'
-             min-chars='1'
-             value-property-name='id'
-             display-property-name='description'
-      />
-      <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
-    </form>
     <hr>
+    <h2>Christmas tree permit forests</h2>
     <div *ngFor='let i of rows' class='usa-grid'>
       <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
         <div class='usa-width-one-half forest-image-container'>
-          <h5>{{forest.forestName}} National Forest</h5>
-          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'tree-guidelines']">
-            <img id="{{forest.forestAbbr}}-map-img" src="/assets/img/{{ forest.forestName | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
+          <h3>{{forest.forestName}}</h3>
+          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr]">
+            <img id="{{forest.forestAbbr}}-map-img" src="/assets/img/{{ forest.forestNameShort | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
           </a>
         </div>
       </div>

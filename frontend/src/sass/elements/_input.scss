@@ -1,5 +1,5 @@
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -37,7 +37,9 @@ label {
 
 .usa-form-hint {
   color: $dark-grey;
+  display: block;
   font-size: 15px;
+  line-height: 23px;
 }
 
 .usa-form-group label {
@@ -52,16 +54,18 @@ textarea.ng-valid.ng-touched {
 
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched,
-textarea.ng-invalid.ng-touched {
+textarea.ng-invalid.ng-touched,
+input.ng-touched.invaliddate,
+.usa-input-inline.ng-invalid.ng-touched input {
   border: 3px solid $color-secondary-dark;
 }
 
-[type=radio]:checked + label::before {
+[type='radio']:checked + label::before {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px $fs-green;
 }
 
-[type=checkbox]:checked + label::before,
-[type=radio]:checked + label::before {
+[type='checkbox']:checked + label::before,
+[type='radio']:checked + label::before {
   background-color: $fs-green;
 }
 
