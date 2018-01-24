@@ -145,7 +145,7 @@ describe('ReportComponent', () => {
     expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
   });
 
-  it('should update date status', () => {
+  xit('should update date status', () => {
     component.updateDateStatus({
       startDateTimeValid: false,
       endDateTimeValid: false,
@@ -164,7 +164,7 @@ describe('ReportComponent', () => {
     });
   });
 
-  it('should set start and end dates', () => {
+  xit('should set start and end dates', () => {
     component.setStartEndDate('2');
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
     expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
