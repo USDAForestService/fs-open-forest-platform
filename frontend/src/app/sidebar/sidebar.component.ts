@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
     const footer = document.getElementById('footer');
     const header = document.getElementById('header');
 
-    if (nav && this.items.length > 0) {
+    if (nav && this.items && this.items.length > 0) {
       if (container.getBoundingClientRect().top < (this.items.length * 4.3)) {
         this.top = header.getBoundingClientRect().height - 40 + 'px'; //distance from top of page to start of sidebar without header
         this.bottom = 'auto';

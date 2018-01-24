@@ -5,8 +5,8 @@
       <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
         href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
     </li>
-    <li class="usa-current" *ngFor="let item of items | filter:'type':'button'">
-      <button type="button" [routerLink]="[item.routerLink]">{{item.title}}</button>
+    <li *ngFor="let item of items | filter:'type':'button'">
+      <button type="button" class="usa-button-primary-alt" [routerLink]="[item.routerLink]">{{item.title}}</button>
     </li>
 
   </ul>
@@ -29,8 +29,8 @@
           </li>
         </ul>
       </li>
-      <li class="usa-current" *ngFor="let item of items | filter:'type':'button'">
-        <button type="button" [routerLink]="[item.routerLink]">{{item.title}}</button>
+      <li *ngFor="let item of items | filter:'type':'button'">
+        <button type="button" class="usa-button-primary-alt" [routerLink]="[item.routerLink]">{{item.title}}</button>
       </li>
     </ul>
   </nav>
@@ -46,7 +46,7 @@
           </li>
         </ul>
       </li>
-      <li class="usa-current" *ngFor="let item of items | filter:'type':'button'">
+      <li *ngFor="let item of items | filter:'type':'button'">
         <button id="item.id" class="usa-button-primary-alt" type="button" [routerLink]="[item.routerLink]">{{item.title}}</button>
       </li>
     </ul>
