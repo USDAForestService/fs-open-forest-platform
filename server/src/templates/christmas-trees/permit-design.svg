@@ -133,9 +133,9 @@
 			
 				<text id="stump-height_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 524.3835 432.499)" fill="#010101" font-family="'Arial'" font-weight="bold" font-size="30px">6</text>
 			
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 508.6126 389.9814)" fill="#010101" font-family="'Arial'" font-size="12px">INCHES </text>
+				<text id="stump-height-inches_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 508.6126 389.9814)" fill="#010101" font-family="'Arial'" font-size="12px">INCHES </text>
 			
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 523.0126 396.6826)" fill="#010101" font-family="'Arial'" font-size="12px">OR LESS</text>
+				<text id="stump-height-or-less_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 523.0126 396.6826)" fill="#010101" font-family="'Arial'" font-size="12px">OR LESS</text>
 		</g>
 		<g>
 			<rect x="480.5" y="448.8" fill="#E6E7E7" stroke="#010101" stroke-miterlimit="10" width="50" height="100"/>
