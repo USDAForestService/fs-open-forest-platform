@@ -54,7 +54,7 @@ describe('Application Service', () => {
     })
   );
 
-  xit(
+  it(
     'should call handleStatusCode',
     inject([ApplicationService], service => {
       const spy = sinon.spy(service, 'handleStatusCode');
