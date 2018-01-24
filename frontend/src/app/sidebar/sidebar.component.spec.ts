@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
+import { FilterPipe } from '../_pipes/filter.pipe';
 
 class MockUtilService {
   currentSection: string;
@@ -34,7 +35,7 @@ describe('SidebarComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [SidebarComponent],
+        declarations: [SidebarComponent, FilterPipe],
         providers: [{ provide: UtilService, useClass: MockUtilService }],
         imports: [RouterTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
@@ -45,7 +46,7 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.debugElement.componentInstance;
-    component.items = [];
+    component.items = [{'test': true},{'test': true},{'test2': true},{'test3': true},{'test4': true}];
     component.currentSection = 'test';
     component.bottom = '10px';
     component.top = '20px';
@@ -57,7 +58,7 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set fixed position if top of the container is less than 20px', () => {
+  it('should set fixed position if top of the container is less than items times offset', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
@@ -67,11 +68,11 @@ describe('SidebarComponent', () => {
       };
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('140px');
+    expect(component.top).toEqual('-45px');
     expect(component.position).toEqual('fixed');
   });
 
-  it('should set absolute position if top of the container is greator than 20px', () => {
+  it('should set absolute position if top of the container is greater than items times offset', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
@@ -84,8 +85,8 @@ describe('SidebarComponent', () => {
       return 50;
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('270px');
-    expect(component.position).toEqual('absolute');
+    expect(component.top).toEqual('-45px');
+    expect(component.position).toEqual('fixed');
   });
 
   it('should toggle mobile nav', () => {
