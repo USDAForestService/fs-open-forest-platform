@@ -24,7 +24,7 @@ Transaction date: ${moment(application.createdAt, util.datetimeFormat).format('M
 Permit Printing Guidelines
 **************************************
 1. Download the attached permit.
-2. Print your permit on plain white paper.
+2. Print your permit on plain white paper. Your permit must be printed to be valid and cannot be stored on a mobile device.
 3. Printed permit must be placed and clearly visible on your vehicle's dashboard with the permit side facing up.
 4. Your permit is available for printing from the following url. Copy and paste the following url into your browser:
 
@@ -71,7 +71,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
 
     <h2 class="border-bottom">Permit Printing Guidelines</h2>
     <ul>
-      <li>Print your permit on plain white paper.</li>
+      <li>Print your permit on plain white paper. Your permit must be printed to be valid and cannot be stored on a mobile device.</li>
       <li>Printed permit must be placed and clearly visible on your vehicle's dashboard with the permit side facing up.</li>
       <li>Your permit is available for printing from <a href="${
         application.permitUrl
