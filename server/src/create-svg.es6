@@ -11,7 +11,7 @@ const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id').textContent = permit.paygovTrackingId.toUpperCase();
 
   frag.querySelector('#issue-date').textContent = moment(permit.createdAt, util.datetimeFormat)
-    .format('MMM DD')
+    .format('MMM DD YYYY')
     .toUpperCase();
 
   frag.querySelector('#full-name').textContent = `${permit.firstName
