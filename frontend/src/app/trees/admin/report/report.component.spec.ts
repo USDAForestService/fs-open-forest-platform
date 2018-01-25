@@ -10,7 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 
-xdescribe('ReportComponent', () => {
+describe('ReportComponent', () => {
   let component: ReportComponent;
   let fixture: ComponentFixture<ReportComponent>;
   let formBuilder: FormBuilder;
@@ -24,7 +24,7 @@ xdescribe('ReportComponent', () => {
           forestName: 'Arapaho and Roosevelt National Forests',
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
           forestAbbr: 'arp',
-          startDate: '10/31/2018',
+          startDate: '10/30/2018',
           endDate: '9/30/2019'
         },
         {
@@ -167,7 +167,7 @@ xdescribe('ReportComponent', () => {
   it('should set start and end dates', () => {
     component.setStartEndDate('2');
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
-    expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
+    expect(component.form.get('dateTimeRange.startDay').value).toEqual('29');
     expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
     expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
