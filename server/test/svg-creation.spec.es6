@@ -20,13 +20,13 @@ describe('svg creation tests', () => {
         });
     });
     it('should set stump-height to N/A', () => {
-      expect(frag.querySelector('#stump-height').textContent).to.equal('N/A');
+      expect(frag.querySelector('#stump-height_1_').textContent).to.equal('N/A');
     });
     it('should set stump-height-inches to blank', () => {
-      expect(frag.querySelector('#stump-height-inches').textContent).to.equal('');
+      expect(frag.querySelector('#stump-height-inches_1_').textContent).to.equal('');
     });
     it('should set stump-height-or-less to blank', () => {
-      expect(frag.querySelector('#stump-height-or-less').textContent).to.equal('');
+      expect(frag.querySelector('#stump-height-or-less_1_').textContent).to.equal('');
     });
   });
 });
