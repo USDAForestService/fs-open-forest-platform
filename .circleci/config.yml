@@ -21,9 +21,9 @@ jobs:
           name: seed db with intake data
           command: cd docker; docker-compose run fs-intake-server yarn seed-ci
 ## Run tests
-      - run:
-          name: pa11y test
-          command: cd docker; ../.circleci/pa11y.sh
+      # - run:
+      #     name: pa11y test
+      #     command: cd docker; ../.circleci/pa11y.sh
       - run:
           name: frontend unit tests
           command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
