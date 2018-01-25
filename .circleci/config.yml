@@ -44,7 +44,7 @@ jobs:
           command: cd docker; docker-compose run fs-intake-frontend yarn run snyk-test
       - run:
           name: generate typedocs
-          command: cd docker; docker-compose run fs-intake-frontend bash -c "yarn global add typedoc && yarn run docs"
+          command: cd docker; docker-compose run fs-intake-frontend bash -c "sudo yarn global add typedoc && sudo yarn run docs"
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
