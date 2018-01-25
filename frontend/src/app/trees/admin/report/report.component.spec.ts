@@ -167,7 +167,7 @@ describe('ReportComponent', () => {
   it('should set start and end dates', () => {
     component.setStartEndDate('2');
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
-    expect(component.form.get('dateTimeRange.startDay').value).toEqual('29');
+    expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
     expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
     expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
