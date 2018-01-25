@@ -29,17 +29,17 @@ export class SidebarComponent implements OnInit {
 
     if (nav && this.items && this.items.length > 0) {
       if (container.getBoundingClientRect().top < (this.items.length * 4.3)) {
-        this.top = header.getBoundingClientRect().height - 40 + 'px'; //distance from top of page to start of sidebar without header
+        this.top = header.getBoundingClientRect().height - 40 + 'px'; // distance from top of page to start of sidebar without header
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
-        this.top = header.getBoundingClientRect().height + 100 + 'px'; //distance from top of page to start of sidebar with header
+        this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
         this.position = 'absolute';
       }
 
-      if (footer.getBoundingClientRect().top < (this.items.length * 60)) { //sidebar bottom hits top of footer
+      if (footer.getBoundingClientRect().top < (this.items.length * 60)) { // sidebar bottom hits top of footer
         const bottom = -Math.abs(footer.getBoundingClientRect().top) + (this.items.length * 2.5);
-        this.top = (this.items.length * -9) +'px';
+        this.top = (this.items.length * -9) + 'px';
         this.position = 'fixed';
       }
     }
