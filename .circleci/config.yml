@@ -24,9 +24,9 @@ jobs:
       # - run:
       #     name: pa11y test
       #     command: cd docker; ../.circleci/pa11y.sh
-      - run:
-          name: frontend unit tests
-          command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
+      # - run:
+      #     name: frontend unit tests
+      #     command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
       - run:
           name: frontend linting
           command: cd docker; docker-compose run fs-intake-frontend yarn run lint
