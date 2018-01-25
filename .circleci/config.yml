@@ -6,7 +6,7 @@ jobs:
       - checkout
       - run:
           name: install pa11y
-          command: cd frontend; 'sudo npm i -g pa11y-ci'
+          command: 'cd frontend; sudo npm i -g pa11y-ci'
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
