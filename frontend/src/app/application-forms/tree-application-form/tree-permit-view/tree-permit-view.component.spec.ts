@@ -61,9 +61,4 @@ describe('TreePermitViewComponent', () => {
     expect(component.permit.permitId).toEqual('123');
   });
 
-  it('should initialize print screen', () => {
-    const spy = sinon.spy(component, 'printPermit');
-    component.printPermit();
-    expect(spy.called).toBeTruthy();
-  });
 });

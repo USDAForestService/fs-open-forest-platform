@@ -21,8 +21,8 @@ export class ApplicationService {
       headers = new HttpHeaders().set('Content-Type', 'application/json').set('enctype', 'multipart/form-data');
     }
     const options = {
-      params: new HttpParams().set('withCredentials', 'true'),
-      headers: headers
+      headers: headers,
+      withCredentials: true
     };
 
     return this.http.post(this.endpoint + type, body, options).catch(this.util.handleError);
@@ -39,7 +39,7 @@ export class ApplicationService {
   update(body, type) {
     const bodyString = JSON.stringify(body);
     const options = {
-      params: new HttpParams().set('withCredentials', 'true'),
+      withCredentials: true,
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
     return this.http
