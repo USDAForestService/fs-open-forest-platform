@@ -56,7 +56,7 @@
   },
   {
     "id": "buy-permit",
-    "title": "Buy a permit with credit card",
+    "title": "Buy permit with credit card",
     "type": "button",
     "routerLink": "applications"
   }
