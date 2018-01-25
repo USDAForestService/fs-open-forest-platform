@@ -34,7 +34,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       vcapConstants.intakeClientBaseUrl
     }/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
-    }/tree-guidelines, for more information about cutting down your tree.
+    }, for more information about cutting down your tree.
 `,
     html: `
     <div class="body">
@@ -79,7 +79,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     </ul>
     <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
-    }/tree-guidelines">${
+    }">${
       application.christmasTreesForest.forestName
     } Christmas tree permit website</a> for more information about cutting down your tree.</p>
 
