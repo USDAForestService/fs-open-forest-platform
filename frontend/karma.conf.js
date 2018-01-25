@@ -46,7 +46,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless1024X768'],
+    browsers: ['Chrome'],
     customLaunchers: {
       ChromeHeadless1024X768: {
         base: "ChromeHeadless",
