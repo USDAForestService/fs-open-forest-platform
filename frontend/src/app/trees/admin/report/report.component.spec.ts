@@ -24,7 +24,7 @@ describe('ReportComponent', () => {
           forestName: 'Arapaho and Roosevelt National Forests',
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
           forestAbbr: 'arp',
-          startDate: '10/31/2018',
+          startDate: '10/30/2018',
           endDate: '9/30/2019'
         },
         {
