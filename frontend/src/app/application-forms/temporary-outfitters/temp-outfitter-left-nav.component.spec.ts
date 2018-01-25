@@ -67,7 +67,7 @@ describe('TempOutfitterLeftNavComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set fixed position if top of container is less than 20px', () => {
+  xit('should set fixed position if top of container is less than 20px', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',

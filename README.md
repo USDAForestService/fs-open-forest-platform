@@ -167,6 +167,7 @@ Login.gov uses the openid-client passport plugin for the OpenID Connect protocol
 
 Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
 
+Note: if running in a clustered environment Session Affinity (sticky sessions) should be configured.
 #### Frontend Development
 
 ##### Install angular cli
