@@ -4,7 +4,7 @@ do
   ARGUMENTS=$ARGUMENTS"--specs=${i} "
 done
 
-docker-compose run fs-intake-frontend yarn e2e:ci --environment docker $ARGUMENTS;
+docker-compose run fs-intake-frontend sudo yarn e2e:ci --environment docker $ARGUMENTS;
 e2ereturncode=$?
 
 if [[ $e2ereturncode = 0 ]]
