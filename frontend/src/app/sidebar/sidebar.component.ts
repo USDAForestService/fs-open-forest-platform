@@ -42,13 +42,14 @@ export class SidebarComponent implements OnInit {
         this.top = (this.items.length * -9) + 'px';
         this.position = 'fixed';
       }
-    }
-    if (window.pageYOffset > (this.items.length * 16)) {
-      this.menuBtnPosition = 'fixed';
-      this.menuBtnTop = '0px';
-    } else {
-      this.menuBtnPosition = 'absolute';
-      this.menuBtnTop = '';
+
+      if (window.pageYOffset > (this.items.length * 16)) {
+        this.menuBtnPosition = 'fixed';
+        this.menuBtnTop = '0px';
+      } else {
+        this.menuBtnPosition = 'absolute';
+        this.menuBtnTop = '';
+      }
     }
   }
 
