@@ -22,12 +22,11 @@ const addApplicantInfo = (permit, frag) => {
 
   //set additional trees to blank so that user can fill them in
   for (i = 1; i < permit.quantity; i++) {
-    querySelector = '#additional-tree-' + i + '-' + i;
+    querySelector = '#additional-tree-' + i + '-' + 1;
     frag.querySelector(querySelector).style = 'display:none';
-    querySelector = '#additional-tree-' + i + '-' + (i+1);
+    querySelector = '#additional-tree-' + i + '-' + 2;
     frag.querySelector(querySelector).style = 'display:none';
   }
-
 };
 
 const addForestSpecificInfo = (permit, frag) => {
