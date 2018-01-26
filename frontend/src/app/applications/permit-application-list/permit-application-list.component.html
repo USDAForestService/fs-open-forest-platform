@@ -40,17 +40,17 @@
         <div>&nbsp;</div>
       </div>
       <div *ngFor="let application of applications | SortArray: 'createdAt'"
-        class="application-field-list-values">
+        class="application-field-list-values" id="permit-{{application.appControlNumber}}">
         <div class="application-status">
           <span *ngIf="application.status === 'Hold'" class="usa-label warning">{{holdText}}</span>
           <span *ngIf="application.status === 'Review'" class="usa-label">{{reviewText}}</span>
         </div>
         <label *ngIf="isAdmin">Type</label>
-        <div *ngIf="isAdmin">{{ application.type }}</div>
+        <div class="application-type" *ngIf="isAdmin">{{ application.type }}</div>
         <label>Identification Number</label>
-        <div>{{ application.applicationId }}</div>
+        <div class="application-id">{{ application.applicationId }}</div>
         <label>Submitted</label>
-        <div [ngClass]="
+        <div class="application-submitted-date" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isOverTwoDaysOld(application.createdAt) &&
@@ -58,14 +58,14 @@
             ['Review', 'Submitted'].indexOf(application.status) !== -1
           }">{{ application.createdAt | HoursFromOrDate:48 }}</div>
         <label>Start date</label>
-        <div *ngIf="application.type === 'Noncommercial'" [ngClass]="
+        <div class="application-start-date" *ngIf="application.type === 'Noncommercial'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.noncommercialFieldsStartDateTime) &&
             ['Submitted', 'Hold', 'Review'].indexOf(application.status) !== -1
           }">{{ application.noncommercialFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
-        <div *ngIf="application.type === 'Temp outfitter'" [ngClass]="
+        <div class="application-start-date" *ngIf="application.type === 'Temp outfitter'" [ngClass]="
           {'deadline-warning':
             isAdmin &&
             isWeekAwayOrPast(application.tempOutfitterFieldsActDescFieldsStartDateTime) &&
@@ -73,11 +73,11 @@
           }">{{ application.tempOutfitterFieldsActDescFieldsStartDateTime | DaysToOrDate:7 }}
         </div>
         <label *ngIf='isAdmin'>End date</label>
-        <div *ngIf="application.type === 'Noncommercial' && isAdmin">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
-        <div *ngIf="application.type === 'Temp outfitter' && isAdmin">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div class="application-end-date" *ngIf="application.type === 'Noncommercial' && isAdmin">{{ application.noncommercialFieldsEndDateTime | DaysToOrDate:7 }}</div>
+        <div class="application-end-date" *ngIf="application.type === 'Temp outfitter' && isAdmin">{{ application.tempOutfitterFieldsActDescFieldsEndDateTime | DaysToOrDate:7 }}</div>
         <label>Permit holder</label>
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
-        <div>
+        <div class="application-details">
           <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>

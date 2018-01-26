@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FilterPipe } from '../../../_pipes/filter.pipe';
-import { forest } from '../../_mocks/forest.mock';
+import { FilterPipe } from '../../../../_pipes/filter.pipe';
+import { forest } from '../../../_mocks/forest.mock';
 import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
 import { Pipe, PipeTransform } from '@angular/core';
-import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
+import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import * as sinon from 'sinon';
-import { TreeDistrictsUtilService } from './tree-districts-util.service';
-import { WindowRef } from '../../../_services/native-window.service';
+import { TreeDistrictsUtilService } from '../tree-districts-util.service';
+import { WindowRef } from '../../../../_services/native-window.service';
 
 describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;

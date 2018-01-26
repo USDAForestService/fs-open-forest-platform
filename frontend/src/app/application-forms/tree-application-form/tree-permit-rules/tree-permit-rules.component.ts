@@ -4,11 +4,11 @@ import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pip
 import { UtilService } from '../../../_services/util.service';
 
 @Component({
-  selector: 'app-tree-rules',
-  templateUrl: './tree-rules.component.html',
+  selector: 'app-tree-permit-rules',
+  templateUrl: './tree-permit-rules.component.html',
   providers: [FilterPipe, LineBreakFormatterPipe]
 })
-export class TreeRulesComponent {
+export class TreePermitRulesComponent {
   @Input() forest: any;
 
   constructor(private filter: FilterPipe, private lineBreakFormatter: LineBreakFormatterPipe, public util: UtilService) {}

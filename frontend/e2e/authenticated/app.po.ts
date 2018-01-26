@@ -26,6 +26,10 @@ export class AdminApplicationList {
   navigateTo() {
     return browser.get('/admin/applications');
   }
+
+  permitId() {
+    return 'permit-806d3550-309d-46ea-b12a-f021f7b3d447';
+  }
 }
 
 export class AdminApplicationView {

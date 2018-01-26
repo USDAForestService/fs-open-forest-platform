@@ -11,6 +11,7 @@ export class ErrorMessageComponent {
   @Input() name: string;
 
   parseErrors(errors) {
+    console.log(errors);
     let message = '';
     if (errors) {
       for (const error in errors) {
@@ -63,20 +64,43 @@ export class ErrorMessageComponent {
   }
 
   lessThanOrEqualFail(errors) {
-    return `${this.name} must have a value less than or equal to ${errors.lessThanOrEqualFail.number} and greater than or equal to ${errors.lessThanOrEqualFail.minNumber}. `;
+    return `${this.name} must have a value less than or equal to ${
+      errors.lessThanOrEqualFail.number
+    } and greater than or equal to ${errors.lessThanOrEqualFail.minNumber}. `;
   }
 
   min(errors) {
-    return `${this.name} must have a value greater than or equal to ${errors.min.min}. ` ;
+    return `${this.name} must have a value greater than or equal to ${errors.min.min}. `;
   }
 
   max(errors) {
-    return `${this.name} must have a value less than or equal to ${errors.max.max}. ` ;
+    return `${this.name} must have a value less than or equal to ${errors.max.max}. `;
+  }
+
+  startDateAfterEndDate(errors) {
+    return `Start date and time must be before end date and time. `;
+  }
+
+  startDateInFuture(errors) {
+    return `Start date and time must be in the future. `;
+  }
+
+  invalidDate(errors) {
+    return `${this.name} is invalid. `;
   }
 
   pattern(errors) {
     if (errors.pattern.requiredPattern === '^https?://.+$') {
       return `${this.name} requires a valid URL and must include http://.`;
+    }
+    if (errors.pattern.requiredPattern === '^(0?[1-9]|1[0-9]|2[0-9]|3[01])$') {
+      return `${this.name} requires a 1 or 2 digit number. `;
+    }
+    if (errors.pattern.requiredPattern === '^(0?[1-9]|1[012])$') {
+      return `${this.name} requires a 1 or 2 digit number that is less than 13. `;
+    }
+    if (errors.pattern.requiredPattern === '^([0-9]{4})$') {
+      return `${this.name} requires a 4 digit number. `;
     }
   }
 }

@@ -6,6 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import * as sinon from 'sinon';
 import { WindowRef } from '../../../_services/native-window.service';
+import {
+  McBreadcrumbsService, McBreadcrumbsModule,
+  McBreadcrumbsConfig
+} from 'ngx-breadcrumbs';
+import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -26,9 +31,11 @@ describe('TreePermitViewComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
-        declarations: [TreePermitViewComponent],
+        imports: [RouterTestingModule, McBreadcrumbsModule],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent],
         providers: [
+          McBreadcrumbsService,
+          McBreadcrumbsConfig,
           { provide: WindowRef, useClass: WindowRef }
         ]
       }).compileComponents();
@@ -54,9 +61,4 @@ describe('TreePermitViewComponent', () => {
     expect(component.permit.permitId).toEqual('123');
   });
 
-  it('should initialize print screen', () => {
-    const spy = sinon.spy(component, 'printPermit');
-    component.printPermit();
-    expect(spy.called).toBeTruthy();
-  });
 });

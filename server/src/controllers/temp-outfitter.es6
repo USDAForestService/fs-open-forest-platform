@@ -240,7 +240,7 @@ const translateFromDatabaseToClient = input => {
 /**
  * Translate permit application object from database format to middle layer format.
  */
-const translateFromIntakeToMiddleLayer = application => {
+tempOutfitter.translateFromIntakeToMiddleLayer = application => {
   const result = {
     intakeId: application.applicationId,
     region: application.region,
@@ -416,7 +416,7 @@ const getAllFileNames = applicationId => {
 /**
  * Update the permit application model based on permissions.
  */
-const updateApplicationModel = (model, submitted, user) => {
+tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
@@ -444,7 +444,7 @@ const acceptApplication = application => {
           headers: {},
           simple: true,
           formData: {
-            body: JSON.stringify(translateFromIntakeToMiddleLayer(application))
+            body: JSON.stringify(tempOutfitter.translateFromIntakeToMiddleLayer(application))
           }
         };
 
@@ -681,7 +681,7 @@ tempOutfitter.update = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      updateApplicationModel(app, req.body, util.getUser(req));
+      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
       if (app.status === 'Accepted') {
         acceptApplication(app)
           .then(response => {

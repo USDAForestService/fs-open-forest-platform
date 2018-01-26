@@ -16,16 +16,19 @@ describe('Xmas tree  - Find a forest', () => {
     });
 
     it('should appear on the page', () => {
-      expect<any>(element(by.id('forest-finder-input')).isPresent()).toBeTruthy();
+      expect<any>(element(by.id('forest-finder-select')).isPresent()).toBeTruthy();
+    });
+
+    it ('should show the breadcrumb', () => {
+      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
     });
 
     it('should let the user enter a forest name and navigate to that forest', () => {
-      element(by.id('forest-finder-input')).sendKeys('shoshone');
+      element(by.id('forest-finder-select')).sendKeys('shoshone');
       browser.sleep(960);
-      element(by.tagName('ng2-auto-complete')).click();
       element(by.id('forest-finder-submit')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone/tree-guidelines');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone');
     });
   });
 
@@ -43,7 +46,7 @@ describe('Xmas tree  - Find a forest', () => {
     it('should let the user click a forest map and navigate to that forest', () => {
       element(by.id('arp-map-img')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp/tree-guidelines');
+      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp');
     });
   });
 });

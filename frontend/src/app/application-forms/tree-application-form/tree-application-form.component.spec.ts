@@ -1,13 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { TreeApplicationFormComponent } from './tree-application-form.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
+import { ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { TreesService } from '../../trees/_services/trees.service';
-import { treeApplicationMock } from './tree-application.mock';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
@@ -56,7 +54,7 @@ describe('TreeApplicationFormComponent', () => {
             }
           }
         ],
-        imports: [RouterTestingModule, HttpModule, HttpClientTestingModule],
+        imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -77,7 +75,7 @@ describe('TreeApplicationFormComponent', () => {
   it('should set the title', () => {
     userService = TestBed.get(Title);
     expect(userService.getTitle()).toBe(
-      'Buy a Christmas tree permit in Mt Hood National Forest | U.S. Forest Service Christmas Tree Permitting'
+      'Buy a permit | Mt Hood | U.S. Forest Service Christmas Tree Permitting'
     );
   });
 

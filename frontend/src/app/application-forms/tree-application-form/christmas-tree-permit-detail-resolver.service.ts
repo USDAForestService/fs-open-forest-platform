@@ -21,7 +21,7 @@ export class ChristmasTreePermitDetailResolver implements Resolve<any> {
         }
       })
       .catch(errors => {
-        return this.service.resolverError(errors, `applications/christmas-trees/forests/${forest}/new`);
+        return this.service.resolverError(errors, `christmas-trees/forests/${forest}/applications`);
       });
   }
 }

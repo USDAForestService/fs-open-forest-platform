@@ -5,7 +5,7 @@ module.exports = {
     let forests = [
       {
         id: 1,
-        forest_name: 'Arapaho and Roosevelt',
+        forest_name: 'Arapaho and Roosevelt National Forests',
         forest_url: 'https://www.fs.usda.gov/main/arp',
         tree_height: 0,
         stump_height: 6,
@@ -18,11 +18,12 @@ module.exports = {
         description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
         forest_abbr: 'arp',
         tree_cost: 10,
-        max_num_trees: 5
+        max_num_trees: 5,
+        forest_name_short: 'Arapaho and Roosevelt'
       },
       {
         id: 2,
-        forest_name: 'Flathead',
+        forest_name: 'Flathead National Forest',
         forest_url: 'https://www.fs.usda.gov/main/flathead',
         tree_height: 0,
         stump_height: 8,
@@ -35,11 +36,12 @@ module.exports = {
         description: 'Flathead | Montana | Kalispell, MT',
         forest_abbr: 'flathead',
         tree_cost: 5,
-        max_num_trees: 3
+        max_num_trees: 3,
+        forest_name_short: 'Flathead'
       },
       {
         id: 3,
-        forest_name: 'Mt. Hood',
+        forest_name: 'Mt. Hood National Forest',
         forest_url: 'https://www.fs.usda.gov/main/mthood',
         tree_height: 12,
         stump_height: 6,
@@ -52,11 +54,12 @@ module.exports = {
         description: 'Mt. Hood | Oregon | Portland, OR',
         forest_abbr: 'mthood',
         tree_cost: 5,
-        max_num_trees: 5
+        max_num_trees: 5,
+        forest_name_short: 'Mt. Hood'
       },
       {
         id: 4,
-        forest_name: 'Shoshone',
+        forest_name: 'Shoshone National Forest',
         forest_url: 'https://www.fs.usda.gov/main/shoshone',
         tree_height: 20,
         stump_height: 4,
@@ -70,13 +73,14 @@ module.exports = {
         forest_abbr: 'shoshone',
         tree_cost: 8,
         max_num_trees: 5,
-        allow_additional_height: true
+        allow_additional_height: true,
+        forest_name_short: 'Shoshone'
       }
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);
   },
   down: function(queryInterface, Sequelize) {
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('christmasTreesForests', { id: { [Op.in]: [1, 2, 3, 4] } });
+    const operator = Sequelize.Op;
+    return queryInterface.bulkDelete('christmasTreesForests', { id: { [operator.in]: [1, 2, 3, 4] } });
   }
 };
