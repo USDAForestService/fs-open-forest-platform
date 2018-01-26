@@ -21,6 +21,10 @@ export class TreesSidebarPage {
     return element(by.id(`tree-cutting-areas-dates-${index}`));
   }
 
+  seasonOpenAlert() {
+    return element(by.id('forest-season-open-alert'));
+  }
+
   cuttingAreaHours(index) {
     return element(by.id(`tree-cutting-areas-hours-${index}`));
   }

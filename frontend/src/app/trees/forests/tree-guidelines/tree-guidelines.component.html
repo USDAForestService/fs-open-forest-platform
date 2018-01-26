@@ -5,15 +5,19 @@
     <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
-      <h1 *ngIf="forest">{{forest.forestName}}  Christmas Tree Permit Information</h1>
-      <br/>
+      <h1 *ngIf="forest">{{forest.forestName}} Christmas Tree Permit Information</h1>
+      <div id="forest-season-open-alert"[hidden]="forest.isSeasonOpen" class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ forest.seasonOpenAlert }}</p>
+        </div>
+      </div>
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
       <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
-      <button *ngIf="forest" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
+      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
       <hr class="thick">
       <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
       <app-tree-species [forest]="forest"></app-tree-species>

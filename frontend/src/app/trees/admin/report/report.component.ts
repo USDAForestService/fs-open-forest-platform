@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment/moment';
 
 @Component({
