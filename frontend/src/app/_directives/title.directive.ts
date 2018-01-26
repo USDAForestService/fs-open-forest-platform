@@ -30,8 +30,10 @@ export class TitleDirective implements OnInit {
       .filter(route => route.outlet === 'primary')
       .filter(route => route['data']['value']['title'] !== '')
       .mergeMap(route => route.data)
-      .subscribe(event => {
-        this.titleService.setTitle(`${event['title']}`);
+      .subscribe(routeData => {
+        if (routeData.title) {
+          this.titleService.setTitle(`${routeData['title']}`);
+        }
       });
   }
 }

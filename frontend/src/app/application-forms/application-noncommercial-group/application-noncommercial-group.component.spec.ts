@@ -4,16 +4,13 @@ import * as sinon from 'sinon';
 import { ApplicationNoncommercialGroupComponent } from './application-noncommercial-group.component';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule } from '@angular/forms';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
+import { FormBuilder } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { noncommercialMock } from './noncommercial.mock';
 import { UtilService } from '../../_services/util.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpResponse } from '@angular/common/http';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -29,12 +26,11 @@ describe('ApplicationNoncommercialGroupComponent', () => {
           { provide: ApplicationService, useClass: ApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
-          { provide: XHRBackend, useClass: MockBackend },
           AlertService,
           AuthenticationService,
           UtilService
         ],
-        imports: [RouterTestingModule, HttpModule]
+        imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
     })
   );
@@ -97,24 +93,4 @@ describe('ApplicationNoncommercialGroupComponent', () => {
     expect(component.applicationForm.get('applicantInfo.secondaryAddress')).toBeFalsy();
     expect(component.applicationForm.get('applicantInfo.eveningPhone')).toBeFalsy();
   });
-
-  it(
-    'should create a new application',
-    inject([ApplicationService, XHRBackend], (service, mockBackend) => {
-      const mockResponse = { eventName: 'test', id: '123' };
-      mockBackend.connections.subscribe(connection => {
-        connection.mockRespond(
-          new Response(
-            new ResponseOptions({
-              body: JSON.stringify(mockResponse)
-            })
-          )
-        );
-      });
-
-      service.create().subscribe(data => {
-        expect(data.eventName).toBe('test');
-      });
-    })
-  );
 });

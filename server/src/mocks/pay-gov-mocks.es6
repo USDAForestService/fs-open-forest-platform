@@ -106,9 +106,9 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
         const successUrl = tokens[req.query.token].successUrl;
         const cancelUrl =
           vcapConstants.intakeClientBaseUrl +
-          '/applications/christmas-trees/forests/' +
+          '/christmas-trees/forests/' +
           permit.christmasTreesForest.forestAbbr +
-          '/new/' +
+          '/applications/' +
           permit.permitId;
         const mockResponse = {
           token: permit.permitId,

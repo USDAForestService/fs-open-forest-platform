@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationSubmittedComponent } from './application-submitted.component';
-import { HttpModule } from '@angular/http';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import { Observable } from 'rxjs/Observable';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial.mock';
 import { ApplicationService } from '../../_services/application.service';
+import { HttpClientModule } from '@angular/common/http';
 
 export class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -34,7 +34,7 @@ describe('ApplicationSubmittedComponent', () => {
           { provide: Router, useValue: mockRouter },
           { provide: ApplicationService, useClass: MockApplicationService }
         ],
-        imports: [HttpModule]
+        imports: [HttpClientModule]
       }).compileComponents();
     })
   );

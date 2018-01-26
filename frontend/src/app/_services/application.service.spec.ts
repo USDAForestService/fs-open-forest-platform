@@ -1,19 +1,16 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttpModule, Http, Response, ResponseOptions, XHRBackend } from '@angular/http';
 import { ApplicationService } from '../_services/application.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
-import { MockRouter } from '../_mocks/routes.mock';
-import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { UtilService } from './util.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('Application Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [UtilService, ApplicationService, { provide: XHRBackend, useClass: MockBackend }]
+      imports: [HttpClientModule, HttpClientTestingModule, RouterTestingModule],
+      providers: [UtilService, ApplicationService]
     });
   });
 
@@ -66,5 +63,4 @@ describe('Application Service', () => {
       expect(spy.calledTwice).toBeTruthy();
     })
   );
-
 });

@@ -67,7 +67,11 @@ export class TreeApplicationFormComponent implements OnInit {
     this.maxNumberOfTrees = data.forest.maxNumTrees;
     if (this.permit) {
       this.rePopulateForm();
-      this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {});
+      if (this.permit.status !== 'Canceled' || this.permit.status !== 'Error') {
+        this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
+          this.permit.status = 'Canceled';
+        });
+      }
     }
   }
 
@@ -75,12 +79,14 @@ export class TreeApplicationFormComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
       this.permit = data.permit;
-      this.titleService.setTitle(
-        'Buy a Christmas tree permit in ' +
+      if (this.forest) {
+        this.titleService.setTitle(
+          'Buy a permit | ' +
           this.forest.forestName +
-          ' National Forest | U.S. Forest Service Christmas Tree Permitting'
-      );
-      this.createForm(data, this.formBuilder);
+          ' | U.S. Forest Service Christmas Tree Permitting'
+        );
+        this.createForm(data, this.formBuilder);
+      }
     });
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {

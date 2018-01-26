@@ -15,8 +15,11 @@ export class AuthGuardService implements CanActivate {
 
   validateUser(user, route) {
     localStorage.removeItem('requestingUrl');
-    const requestingUrl = route['_routeConfig'].path;
-    const isAdminRoute = requestingUrl.split('/')[0] === 'admin';
+    const requestingUrl = route.routeConfig.path;
+    let isAdminRoute = false;
+    if (route.data) {
+      isAdminRoute = route.data.admin;
+    }
     let authorized = false;
     if (user && user.email && user.role) {
       authorized = true;
@@ -25,12 +28,12 @@ export class AuthGuardService implements CanActivate {
         this.navigate(['/access-denied']);
       }
     } else {
-      this.sendToAuthenication(isAdminRoute, requestingUrl);
+      this.sendToAuthentication(isAdminRoute, requestingUrl);
     }
     return authorized;
   }
 
-  sendToAuthenication(isAdminRoute, requestingUrl) {
+  sendToAuthentication(isAdminRoute, requestingUrl) {
     localStorage.setItem('requestingUrl', requestingUrl);
     let authEndpoint = 'login-gov/openid/login';
     if (isAdminRoute) {

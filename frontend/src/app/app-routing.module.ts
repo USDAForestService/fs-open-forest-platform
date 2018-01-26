@@ -18,6 +18,7 @@ import { NoncommercialLearnMoreComponent } from './application-forms/application
 import { NotFoundComponent } from './error-pages/not-found.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
+import { ReportComponent } from './trees/admin/report/report.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
@@ -25,19 +26,73 @@ import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-gu
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
+import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 
 const appRoutes: Routes = [
   {
-    path: 'admin/applications',
-    component: PermitApplicationListComponent,
-    canActivate: [AuthGuardService],
-    data: { title: 'Application administration listing' }
+    path: '',
+    data: {
+      breadcrumbs: true,
+      text: 'Apply for a permit'
+    },
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        data: {
+          title: 'US Forest Service ePermit',
+        },
+      },
+      {
+        path: 'help-me-pick/:id',
+        component: HelpMePickComponent,
+        data: {
+          title: 'Help me find a permit',
+          breadcrumbs: 'Help me find a permit'
+        }
+      },
+    ]
   },
   {
-    path: 'admin/applications/:type/:id',
-    component: PermitApplicationViewComponent,
+    path: 'admin/applications',
+    data: {
+      breadcrumbs: true,
+      text: 'Permit applications',
+      admin: true
+    },
+    children: [
+      {
+        path: '',
+        component: PermitApplicationListComponent,
+        canActivate: [AuthGuardService],
+        data: {
+          title: 'Application administration listing'
+        }
+      },
+      {
+        path: ':type/:id',
+        component: PermitApplicationViewComponent,
+        canActivate: [AuthGuardService],
+        data: {
+          title: 'View application',
+          breadcrumbs: 'View application'
+        }
+      },
+
+    ]
+  },
+  {
+    path: 'admin/christmas-trees/reports',
+    component: ReportComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'View application' }
+    resolve: {
+      forests: ForestFinderResolver
+    },
+    data: {
+      title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
+      breadcrumbs: 'Christmas trees permits report',
+      admin: true
+    }
   },
   {
     path: 'user/applications',
@@ -91,59 +146,82 @@ const appRoutes: Routes = [
     data: { title: 'Temporary outfitters permit FAQs' }
   },
   {
-    path: 'christmas-trees/forests/:id/tree-guidelines',
-    component: TreeGuidelinesComponent,
-    resolve: {
-      forest: ForestResolver
-    }
-  },
-  {
     path: 'christmas-trees/forests',
-    component: ForestFinderComponent,
-    resolve: {
-      forests: ForestFinderResolver
+    data: {
+      breadcrumbs: true,
+      text: 'Christmas tree permits',
+      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting'
     },
-    data: { title: 'Select a national forest | U.S. Forest Service Christmas Tree Permitting' }
-  },
+    children: [
+      {
+        path: '',
+        component: ForestFinderComponent,
+        resolve: {
+          forests: ForestFinderResolver
+        }
+      },
+      {
+        path: ':id',
+        resolve: {
+          forest: ForestResolver
+        },
+        data: {
+          breadcrumbs: true,
+          text: '{{forest.forestName}}'
+        },
+        children: [
+          {
+            path: '',
+            component: TreeGuidelinesComponent,
+          },
+          {
+            path: 'applications',
+            data: {breadcrumbs: 'Buy a permit'},
+            children: [
+              {
+                path: '',
+                component: TreeApplicationFormComponent,
+              },
+              {
+                path: 'permits/:permitId',
+                component: TreePermitViewComponent,
+                resolve: {
+                  permit: ChristmasTreePermitResolver
+                },
+                data: {breadcrumbs: 'Permit confirmation'}
+              },
+            ]
+          },
+          {
+            // cancel route
+            path: 'applications/:permitId',
+            component: TreeApplicationFormComponent,
+            resolve: {
+              permit: ChristmasTreePermitDetailResolver
+            },
+            data: {breadcrumbs: 'Buy a permit'},
+          },
+        ]
+      }
+    ]
+  }
+  ,
   {
     path: 'mock-pay-gov',
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
   },
-  {
-    path: 'applications/christmas-trees/forests/:id/new',
-    component: TreeApplicationFormComponent,
-    resolve: {
-      forest: ForestResolver
-    }
-  },
-  {
-    path: 'applications/christmas-trees/forests/:id/new/:permitId',
-    component: TreeApplicationFormComponent,
-    resolve: {
-      forest: ForestResolver,
-      permit: ChristmasTreePermitDetailResolver
-    }
-  },
-  {
-    path: 'applications/christmas-trees/forests/:id/permits/:permitId',
-    component: TreePermitViewComponent,
-    resolve: {
-      permit: ChristmasTreePermitResolver
-    }
-  },
-  { path: 'help-me-pick/:id', component: HelpMePickComponent, data: { title: '' } },
+
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
-  { path: '', component: HomeComponent, data: { title: 'US Forest Service ePermit' } },
   { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
   { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { useHash: false })],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
+  exports: [RouterModule, McBreadcrumbsModule],
   providers: [ForestResolver, ForestFinderResolver]
 })
 export class AppRoutingModule {}

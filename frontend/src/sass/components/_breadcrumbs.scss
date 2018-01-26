@@ -1,8 +1,34 @@
-.breadcrumbs {
+nav.breadcrumbs {
   color: $fs-green;
   padding-bottom: 1em;
   padding-right: 70px;
   a {
     color: $fs-green;
   }
+}
+
+nav.breadcrumbs ol {
+  max-width: 100% !important;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+nav.breadcrumbs li {
+  display: inline;
+}
+
+nav.breadcrumbs li + li::before {
+  display: inline-block;
+  margin: 0 .4em;
+  transform: rotate(15deg);
+  border-right: .1em solid currentColor;
+  height: .8em;
+  content: '';
+}
+
+nav.breadcrumbs [aria-current="page"] {
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
 }

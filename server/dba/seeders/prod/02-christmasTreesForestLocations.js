@@ -11,8 +11,7 @@ module.exports = {
         type: 'area',
         description: 'Wilderness & research natural areas',
         image_filename: null
-      }
-      ,
+      },
       {
         id: 2,
         forest_id: 3,
@@ -235,7 +234,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'Vehicles with proper traction devices capable of handling the winter conditions in the cutting area are required. Improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone',
+        description:
+          'Vehicles with proper traction devices capable of handling the winter conditions in the cutting area are required. Improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone',
         image_filename: null
       },
       {
@@ -244,7 +244,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'Four-wheel drive (not all-wheel drive) or appropriate traction devices (chains or similar, not tire socks) are required on all vehicles in the cutting area.',
+        description:
+          'Four-wheel drive (not all-wheel drive) or appropriate traction devices (chains or similar, not tire socks) are required on all vehicles in the cutting area.',
         image_filename: null
       },
       {
@@ -253,7 +254,8 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'info',
-        description: 'You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.',
+        description:
+          'You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.',
         image_filename: null
       },
       {
@@ -361,11 +363,12 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        'Closed 11:30 a.m. - 12:30 p.m.\n' +
-        '\n(503) 668-1700\n' +
-        '\nHeadquarters\n16400 Champion Way\n' +
-        'Sandy, OR 97055\n',
+        description:
+          'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          'Closed 11:30 a.m. - 12:30 p.m.\n' +
+          '\n(503) 668-1700\n' +
+          '\nHeadquarters\n16400 Champion Way\n' +
+          'Sandy, OR 97055\n',
         image_filename: null
       },
       {
@@ -374,10 +377,11 @@ module.exports = {
         district: 'Barlow',
         allowed: false,
         type: 'address',
-        description: 'Dufur Ranger Station\nMonday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
-        '\n(541) 467-2291\n' +
-        '\n780 NE Court Street\n' +
-        'Dufur, OR 97021',
+        description:
+          'Dufur Ranger Station\nMonday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
+          '\n(541) 467-2291\n' +
+          '\n780 NE Court Street\n' +
+          'Dufur, OR 97021',
         image_filename: null
       },
       {
@@ -386,12 +390,13 @@ module.exports = {
         district: 'Clackamas River',
         allowed: false,
         type: 'address',
-        description: 'Estacada Ranger Station\n' +
-        'Monday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
-        'Closed 11:30 a.m. - 12:30 p.m.\n' +
-        '\n(503) 630-6861\n' +
-        '\n595 NW Industrial Way\n' +
-        'Estacada, OR 97023',
+        description:
+          'Estacada Ranger Station\n' +
+          'Monday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
+          'Closed 11:30 a.m. - 12:30 p.m.\n' +
+          '\n(503) 630-6861\n' +
+          '\n595 NW Industrial Way\n' +
+          'Estacada, OR 97023',
         image_filename: null
       },
       {
@@ -400,11 +405,12 @@ module.exports = {
         district: 'Hood River',
         allowed: false,
         type: 'address',
-        description: 'Hood River Ranger Station\n' +
-        'Monday - Saturday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(541) 352-6002\n' +
-        '\n6780 Highway 35\n' +
-        'Parkdale, OR 97041',
+        description:
+          'Hood River Ranger Station\n' +
+          'Monday - Saturday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(541) 352-6002\n' +
+          '\n6780 Highway 35\n' +
+          'Parkdale, OR 97041',
         image_filename: null
       },
       {
@@ -413,13 +419,14 @@ module.exports = {
         district: 'Zigzag',
         allowed: false,
         type: 'address',
-        description: 'Zigzag Ranger Station\n' +
-        'Monday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
-        'Closed 12 - 1 p.m.\n' +
-        '\n(503) 622-3191\n' +
-        '\n' +
-        '70220 E. Highway 26\n' +
-        'Zigzag, OR 97049\n\n',
+        description:
+          'Zigzag Ranger Station\n' +
+          'Monday - Friday, 7:45 a.m. - 4:30 p.m.\n' +
+          'Closed 12 - 1 p.m.\n' +
+          '\n(503) 622-3191\n' +
+          '\n' +
+          '70220 E. Highway 26\n' +
+          'Zigzag, OR 97049\n\n',
         image_filename: null
       },
       {
@@ -428,11 +435,12 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(406) 758-5208\n' +
-        '\nSupervisor\'s Office\n' +
-        '650 Wolfpack Way\n' +
-        'Kalispell, MT 59901\n',
+        description:
+          'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(406) 758-5208\n' +
+          "\nSupervisor's Office\n" +
+          '650 Wolfpack Way\n' +
+          'Kalispell, MT 59901\n',
         image_filename: null
       },
       {
@@ -441,9 +449,7 @@ module.exports = {
         district: 'Tally Lake',
         allowed: false,
         type: 'address',
-        description: '(406) 758-5204\n' +
-        '\n650 Wolfpack Way\n' +
-        'Kalispell, MT 59901',
+        description: '(406) 758-5204\n' + '\n650 Wolfpack Way\n' + 'Kalispell, MT 59901',
         image_filename: null
       },
       {
@@ -452,11 +458,12 @@ module.exports = {
         district: 'Swan Lake',
         allowed: false,
         type: 'address',
-        description: '' +
-        '\nMonday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(406) 837-7500\n' +
-        '\n200 Ranger Station Road\n' +
-        'Bigfork, MT 59911',
+        description:
+          '' +
+          '\nMonday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(406) 837-7500\n' +
+          '\n200 Ranger Station Road\n' +
+          'Bigfork, MT 59911',
         image_filename: null
       },
       {
@@ -465,10 +472,11 @@ module.exports = {
         district: 'Glacier View, Hungry Horse, Spotted Bear (winter)',
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday 8 a.m. - 4:30 p.m.\n' +
-        '\n(406) 387-3800\n' +
-        '\n10 Hungry Horse Drive\nHungry Horse, MT 59919\n' +
-        '\nThe Spotted Bear Ranger District does not sell Christmas tree permits onsite.',
+        description:
+          'Monday - Friday 8 a.m. - 4:30 p.m.\n' +
+          '\n(406) 387-3800\n' +
+          '\n10 Hungry Horse Drive\nHungry Horse, MT 59919\n' +
+          '\nThe Spotted Bear Ranger District does not sell Christmas tree permits onsite.',
         image_filename: null
       },
       {
@@ -477,11 +485,12 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'address',
-        description: '(970) 295-6600\n' +
-        '\nForest Supervisor\'s Office\n' +
-        '2150 Centre Avenue, Building E\n' +
-        'Fort Collins, CO 80526\n' +
-        '\nCall 970-295-6700 first to ensure someone who can sell permits is available.',
+        description:
+          '(970) 295-6600\n' +
+          "\nForest Supervisor's Office\n" +
+          '2150 Centre Avenue, Building E\n' +
+          'Fort Collins, CO 80526\n' +
+          '\nCall 970-295-6700 first to ensure someone who can sell permits is available.',
         image_filename: null
       },
       {
@@ -490,10 +499,11 @@ module.exports = {
         district: 'Boulder',
         allowed: false,
         type: 'address',
-        description: '(303) 541-2500\n' +
-        '\n2140 Yarmouth Avenue\n' +
-        'Boulder,  CO 80301\n' +
-        '\nChristmas tree permits are not available for purchase from this district office.',
+        description:
+          '(303) 541-2500\n' +
+          '\n2140 Yarmouth Avenue\n' +
+          'Boulder,  CO 80301\n' +
+          '\nChristmas tree permits are not available for purchase from this district office.',
         image_filename: null
       },
       {
@@ -502,10 +512,11 @@ module.exports = {
         district: 'Canyon Lakes',
         allowed: false,
         type: 'address',
-        description: '(970) 295-6700\n' +
-        '\n2150 Centre Avenue, Building E\n' +
-        'Fort Collins, CO 80526\n' +
-        '\nCall 970-295-6700 first to ensure someone who can sell permits is available.',
+        description:
+          '(970) 295-6700\n' +
+          '\n2150 Centre Avenue, Building E\n' +
+          'Fort Collins, CO 80526\n' +
+          '\nCall 970-295-6700 first to ensure someone who can sell permits is available.',
         image_filename: null
       },
       {
@@ -514,11 +525,12 @@ module.exports = {
         district: 'Clear Creek',
         allowed: false,
         type: 'address',
-        description: '(303) 567-4382\n' +
-        '\nIdaho Springs Visitors Center\n' +
-        '2060 Miner Street\n' +
-        'Idaho Springs, CO 80452\n' +
-        '\nChristmas tree permits are not available for purchase from this district office.',
+        description:
+          '(303) 567-4382\n' +
+          '\nIdaho Springs Visitors Center\n' +
+          '2060 Miner Street\n' +
+          'Idaho Springs, CO 80452\n' +
+          '\nChristmas tree permits are not available for purchase from this district office.',
         image_filename: null
       },
       {
@@ -527,11 +539,12 @@ module.exports = {
         district: 'Sulphur',
         allowed: false,
         type: 'address',
-        description: '(970) 887-4100\n' +
-        '\n9 Ten Mile Drive\n' +
-        'P.O. Box 10\n' +
-        'Granby, CO 80446\n' +
-        '\nPermits must be purchased in advance to cut down trees in the Elk Creek cutting area.',
+        description:
+          '(970) 887-4100\n' +
+          '\n9 Ten Mile Drive\n' +
+          'P.O. Box 10\n' +
+          'Granby, CO 80446\n' +
+          '\nPermits must be purchased in advance to cut down trees in the Elk Creek cutting area.',
         image_filename: null
       },
       {
@@ -540,11 +553,12 @@ module.exports = {
         district: null,
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. to 4:30 p.m.' +
-        '\n(307) 527-6241 (tty)\n' +
-        '\nSupervisor\'s Office\n' +
-        '808 Meadowlane Ave.\n' +
-        'Cody, WY 82414',
+        description:
+          'Monday - Friday, 8 a.m. to 4:30 p.m.' +
+          '\n(307) 527-6241 (tty)\n' +
+          "\nSupervisor's Office\n" +
+          '808 Meadowlane Ave.\n' +
+          'Cody, WY 82414',
         image_filename: null
       },
       {
@@ -553,12 +567,13 @@ module.exports = {
         district: 'Clarks Fork, Greybull, and Wapiti',
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(307) 527-6921\n' +
-        '\n808 Meadowlane Ave.\n' +
-        'Cody, WY 82414\n' +
-        '\n203A Yellowstone Ave.\n' +
-        'Cody, WY 82414-9313',
+        description:
+          'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(307) 527-6921\n' +
+          '\n808 Meadowlane Ave.\n' +
+          'Cody, WY 82414\n' +
+          '\n203A Yellowstone Ave.\n' +
+          'Cody, WY 82414-9313',
         image_filename: null
       },
       {
@@ -567,10 +582,11 @@ module.exports = {
         district: 'Washakie',
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(307) 332-5460\n' +
-        '\n333 Highway 789, South\n' +
-        'Lander, WY 82520',
+        description:
+          'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(307) 332-5460\n' +
+          '\n333 Highway 789, South\n' +
+          'Lander, WY 82520',
         image_filename: null
       },
       {
@@ -579,10 +595,11 @@ module.exports = {
         district: 'Wind River',
         allowed: false,
         type: 'address',
-        description: 'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
-        '\n(307) 455-2466\n' +
-        '\n1403 W Ramshorn\n' +
-        'Dubois, WY 82513-0186',
+        description:
+          'Monday - Friday, 8 a.m. - 4:30 p.m.\n' +
+          '\n(307) 455-2466\n' +
+          '\n1403 W Ramshorn\n' +
+          'Dubois, WY 82513-0186',
         image_filename: null
       },
       {
@@ -609,7 +626,8 @@ module.exports = {
         district: 'Red Feather Lakes',
         allowed: true,
         type: 'cutting-area-hours',
-        description: '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        description:
+          '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
         image_filename: null
       },
       {
@@ -618,7 +636,8 @@ module.exports = {
         district: 'Elk Creek',
         allowed: true,
         type: 'cutting-area-hours',
-        description: '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
+        description:
+          '8:30 am - 2:30 pm.\nMust arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.',
         image_filename: null
       },
       {
@@ -627,8 +646,7 @@ module.exports = {
         district: 'Sulphur Ranger District',
         allowed: true,
         type: 'district-permits',
-        description: 'Nov. 1 – Jan. 6, 2018\n' +
-        'Grand County Locations (Winter Park, Fraser, Granby, Grand Lake)',
+        description: 'Nov. 1 – Jan. 6, 2018\n' + 'Grand County Locations (Winter Park, Fraser, Granby, Grand Lake)',
         image_filename: null
       },
       {
@@ -640,15 +658,14 @@ module.exports = {
         description: 'Nov. 27 – Dec. 10, 2017',
         image_filename: null
       }
-
     ];
     return queryInterface.bulkInsert('christmasTreesForestLocations', forestLocations);
   },
   down: function(queryInterface, Sequelize) {
-    const Op = Sequelize.Op;
+    const operator = Sequelize.Op;
     return queryInterface.bulkDelete('christmasTreesForestLocations', {
       forest_id: {
-        [Op.in]: [1, 2, 3, 4]
+        [operator.in]: [1, 2, 3, 4]
       }
     });
   }
