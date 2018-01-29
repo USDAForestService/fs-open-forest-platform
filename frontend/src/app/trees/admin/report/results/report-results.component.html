@@ -1,27 +1,33 @@
-<h2 id="report-title">Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
-<h3 id="report-permit-total">Number of permits sold: {{result.numberOfPermits }}</h3>
-<h3 id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
-<h3 id="report-total">Total: ${{result.sumOfCost}}</h3>
-<table id="report-table" *ngIf="permits">
-  <caption>Report details
-  <button id="download-report" class="usa-button-primary-alt" (click)="downloadReport()">Download as Excel/CSV</button>
-  </caption>
-  <thead>
-    <tr>
-      <th scope="col">{{permits[0].permitNumber}}</th>
-      <th scope="col">{{permits[0].issueDate}}</th>
-      <th scope="col">{{permits[0].quantity}}</th>
-      <th scope="col">{{permits[0].totalCost}}</th>
-      <th scope="col">{{permits[0].expireDate}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let permit of permits | slice:1">
-      <td>{{permit.permitNumber}}</td>
-      <td>{{permit.issueDate}}</td>
-      <td>{{permit.quantity}}</td>
-      <td>${{permit.totalCost}}</td>
-      <td>{{permit.expireDate}}</td>
-    </tr>
-  </tbody>
-</table>
+<ng-container>
+  <h2 *ngIf="result.parameters" id="report-title">Report generated for {{ result.parameters.forestName }} from {{ result.parameters.startDate }} to {{ result.parameters.endDate }}</h2>
+  <h2 *ngIf="!result.parameters" id="permit-report-title">Report generated for {{ result.permits[1].permitNumber }}</h2>
+
+  <h3 *ngIf="result.parameters" id="report-permit-total">Number of permits sold: {{result.numberOfPermits }}</h3>
+  <h3 *ngIf="result.parameters" id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
+  <h3 *ngIf="result.parameters" id="report-total">Total: ${{result.sumOfCost}}</h3>
+
+  <table id="report-table">
+    <caption>Permit details
+    <button id="download-report" class="usa-button-primary-alt" (click)="downloadReport()">Download as Excel/CSV</button>
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">{{permits[0].permitNumber}}</th>
+        <th scope="col">{{permits[0].issueDate}}</th>
+        <th scope="col">{{permits[0].quantity}}</th>
+        <th scope="col">{{permits[0].totalCost}}</th>
+        <th scope="col">{{permits[0].expireDate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let permit of permits | slice:1">
+        <td>{{permit.permitNumber}}</td>
+        <td>{{permit.issueDate}}</td>
+        <td>{{permit.quantity}}</td>
+        <td>${{permit.totalCost}}</td>
+        <td>{{permit.expireDate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+

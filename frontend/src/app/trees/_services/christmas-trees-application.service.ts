@@ -54,6 +54,11 @@ export class ChristmasTreesApplicationService {
       .catch(this.util.handleError);
   }
 
+  getReportByPermitNumber(permitNumber) {
+    return this.http.get(`${this.adminEndpoint}/${permitNumber}`, { withCredentials: true })
+      .catch(this.util.handleError);
+  }
+
   handleStatusCode(status) {
     if (status === 403) {
       this.router.navigate(['access-denied']);

@@ -505,19 +505,20 @@ christmasTree.getPermits = (req, res) => {
     });
 };
 
-christmasTree.getSinglePermit = (req, res) => {
+christmasTree.getPermitByTrackingId = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
       where: {
-        permitId: req.params.permitId,
+        paygovTrackingId: req.params.paygovTrackingId,
         status: 'Completed',
       }
     })
     .then(requestedPermit => {
-      return res.send(200).json(requestedPermit);
+      return returnPermitResults([requestedPermit], res)
     })
     .catch(error => {
+      console.error(error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors

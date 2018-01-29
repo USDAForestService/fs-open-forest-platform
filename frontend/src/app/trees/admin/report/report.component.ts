@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -16,9 +13,11 @@ export class ReportComponent implements OnInit {
   forests: any;
   forest: any;
   form: any;
+  permitNumberSearchForm: any;
   result: any;
   apiErrors: any;
   reportParameters: any;
+  isDateSearch = true;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -39,9 +38,18 @@ export class ReportComponent implements OnInit {
       forestId: ['', [Validators.required]]
     });
 
+    this.permitNumberSearchForm = formBuilder.group({
+      permitNumber: ['', [Validators.required]]
+    });
+
     this.form.get('forestId').valueChanges.subscribe(forest => {
       this.setStartEndDate(forest);
     });
+  }
+
+  resetForms() {
+    this.result = null;
+    this.forest = null;
   }
 
   ngOnInit() {
@@ -76,13 +84,15 @@ export class ReportComponent implements OnInit {
 
   getReport() {
     this.afs.touchAllFields(this.form);
-    if (this.forest) {
-      this.reportParameters = {
-        forestName: this.forest.forestName,
-        startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
-        endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
-      };
+    this.result = null;
+    if (this.isDateSearch && this.forest) {
+      this.permitNumberSearchForm.reset();
       if (this.form.valid && !this.dateStatus.hasErrors) {
+        this.reportParameters = {
+          forestName: this.forest.forestName,
+          startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
+          endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
+        };
         this.service
           .getAllByDateRange(
             this.forest.id,
@@ -104,6 +114,23 @@ export class ReportComponent implements OnInit {
             }
           );
       }
+    } else {
+      this.form.reset();
+      this.afs.touchAllFields(this.permitNumberSearchForm);
+
+      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value)
+        .subscribe(results => {
+            this.result = {
+              numberOfPermits: 1,
+              sumOfTrees: results.permits[0].quantity,
+              sumOfCost: results.permits[0].totalCost,
+              permits: results.permits,
+              parameters: null
+            };
+        },
+        err => {
+          this.apiErrors = err;
+        });
     }
   }
 }
