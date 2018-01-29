@@ -11,7 +11,6 @@ export class ErrorMessageComponent {
   @Input() name: string;
 
   parseErrors(errors) {
-    console.log(errors);
     let message = '';
     if (errors) {
       for (const error in errors) {
