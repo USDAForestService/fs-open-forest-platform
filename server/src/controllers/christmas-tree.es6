@@ -514,4 +514,36 @@ christmasTree.getPermits = (req, res) => {
       }
     });
 };
+
+christmasTree.getPermitByTrackingId = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      where: {
+        paygovTrackingId: req.params.paygovTrackingId,
+        status: 'Completed',
+      }
+    })
+    .then(requestedPermit => {
+      if(requestedPermit === null) {
+        return res.status(404).send();
+      }
+      else {
+        return returnPermitResults([requestedPermit], res);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({
+          errors: error.errors
+        });
+      } else if (error.name === 'SequelizeDatabaseError') {
+        return res.status(404).send();
+      } else {
+        return res.status(500).send();
+      }
+    });
+};
+
 module.exports = christmasTree;

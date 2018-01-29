@@ -6,28 +6,57 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Create a Christmas tree permits report</h1>
 
-    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
-      <legend class="fs-datetime-legend">To generate a report, please select a forest and enter a start and end date.
+    <fieldset class="usa-fieldset-inputs">
+      <legend class="fs-datetime-legend">Search by:</legend>
+
+      <input id="date-search-button" type="radio"  (change)="isDateSearch = !isDateSearch; result=null" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
+      <label for="date-search-button" >Date range</label>
+
+      <input id="permit-id-search-button" type="radio" (change)="isDateSearch = !isDateSearch; result=null"  name="isDateSearch" [value]="false" [ngModel]="isDateSearch" [checked]="!isDateSearch">
+      <label for="permit-id-search-button">Permit number</label>
+
+    </fieldset>
+
+    <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getReport()">
+      <legend class="fs-datetime-legend">To generate a report, please enter a valid permit number.
       </legend>
 
-      <div class="usa-form-group">
-        <label id="forest-label" for="forest-select" class="usa-input">Forest</label>
-        <select id="forest-select" formControlName="forestId" aria-required="true"
-                [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
-                [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
-          <option value="" selected="selected"></option>
-          <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
-        </select>
-        <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+      <fieldset class="usa-form-group">
+        <div *ngIf="!form.value.isDateSearch">
+          <input type="text" id="permit-number-input" formControlName="permitNumber"/>
+        </div>
+      </fieldset>
 
-        <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true"
-                             (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+      <button id="get-report-permitnumber" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
+    </form>
 
+    <form *ngIf="isDateSearch" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
+      <div>
+        <legend class="fs-datetime-legend">To generate a report, please select a forest.
+        </legend>
+
+        <fieldset class="usa-form-group">
+          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
+          <select id="forest-select" formControlName="forestId" aria-required="true"
+                  [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
+                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
+          </select>
+          <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+        </fieldset>
+
+        <div>
+          <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true"
+                           (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+        </div>
       </div>
 
       <button id="get-report" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
 
     </form>
+
+    <hr>
 
     <app-report-results *ngIf="result" [result]="result"></app-report-results>
 
