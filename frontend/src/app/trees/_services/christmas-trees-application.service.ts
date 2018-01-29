@@ -22,7 +22,7 @@ export class ChristmasTreesApplicationService {
     }
 
     const options = {
-      params: new HttpParams().set('withCredentials', 'true'),
+      withCredentials: true,
       headers: headers
     };
 

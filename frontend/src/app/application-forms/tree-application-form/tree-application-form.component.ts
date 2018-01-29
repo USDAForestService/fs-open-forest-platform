@@ -2,13 +2,15 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
+import * as moment from 'moment/moment';
+
 
 @Component({
   selector: 'app-tree-application-form',
@@ -26,6 +28,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
     public applicationService: ChristmasTreesApplicationService,
@@ -75,9 +78,16 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  checkSeasonStartDate(forest) {
+    if (forest && moment(forest.startDate).isAfter(moment())) {
+      this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr ]);
+    }
+  }
+
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forest = data.forest;
+      this.checkSeasonStartDate(this.forest);
       this.permit = data.permit;
       if (this.forest) {
         this.titleService.setTitle(

@@ -9,7 +9,7 @@ describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
   let confirmPage: ChristmasTreeOrderConfirmation;
   let prefilledPage: ChristmasTreeFormAfterCancel;
-  const forestId = 'arp';
+  const forestId = 'mthood';
 
   beforeEach(() => {
     page = new ChristmasTreeForm();
@@ -106,7 +106,7 @@ describe('Apply for a Christmas tree permit', () => {
     page.navigateTo(forestId);
     page.fillOutForm();
     browser.sleep(500);
-    expect<any>(element(by.id('total-cost')).getText()).toEqual('$20');
+    expect<any>(element(by.id('total-cost')).getText()).toEqual('$10');
   });
 
   it('should make the user accept the rules before they can submit', () => {
