@@ -515,7 +515,12 @@ christmasTree.getPermitByTrackingId = (req, res) => {
       }
     })
     .then(requestedPermit => {
-      return returnPermitResults([requestedPermit], res)
+      if(requestedPermit === null) {
+        return res.status(404).send();
+      }
+      else {
+        return returnPermitResults([requestedPermit], res);
+      }
     })
     .catch(error => {
       console.error(error);
