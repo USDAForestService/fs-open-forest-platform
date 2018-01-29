@@ -71,6 +71,8 @@ const payGov = getUserProvided('pay-gov');
 vcapConstants.payGovUrl = payGov.credentials.url;
 vcapConstants.payGovClientUrl = payGov.credentials.client_url;
 vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
+vcapConstants.payGovCert = payGov.credentials.certificate;
+vcapConstants.payGovPrivateKey = payGov.credentials.private_key;
 
 /**
  * VCAP Constants

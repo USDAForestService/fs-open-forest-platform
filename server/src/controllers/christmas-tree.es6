@@ -132,6 +132,9 @@ christmasTree.getOneGuidelines = (req, res) => {
 };
 
 const postPayGov = xmlData => {
+  const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
+  const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
+  const payGovCertCa = Buffer.from(vcapConstants.payGovCert[1], 'utf8');
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -139,7 +142,10 @@ const postPayGov = xmlData => {
       headers: {
         'Content-Type': 'application/xml'
       },
-      body: xmlData
+      body: xmlData,
+      key: payGovPrivateKey,
+      cert: payGovCert,
+      ca: payGovCertCa
     },
     function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -418,7 +424,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
         res.status(200).json(permit);
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error);
       res.status(404).send();
     });
