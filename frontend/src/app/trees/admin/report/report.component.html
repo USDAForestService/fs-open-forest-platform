@@ -6,8 +6,8 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Create a Christmas tree permits report</h1>
 
-    <fieldset class="usa-fieldset-inputs usa-sans">
-      <legend class="fs-datetime-legend">Search by: </legend>
+    <fieldset class="usa-fieldset-inputs">
+      <legend class="fs-datetime-legend">Search by:</legend>
 
       <input id="date-search-button" type="radio"  (change)="isDateSearch = !isDateSearch; result=null" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
       <label for="date-search-button" >Date range</label>
@@ -31,12 +31,12 @@
     </form>
 
     <form *ngIf="isDateSearch" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
-      <div >
+      <div>
         <legend class="fs-datetime-legend">To generate a report, please select a forest.
         </legend>
 
         <fieldset class="usa-form-group">
-          <label id="forest-label" for="forest-select" class="usa-input">Forest</label>
+          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
           <select id="forest-select" formControlName="forestId" aria-required="true"
                   [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
                   [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
