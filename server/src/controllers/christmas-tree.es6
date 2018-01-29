@@ -515,7 +515,7 @@ christmasTree.getSinglePermit = (req, res) => {
       }
     })
     .then(requestedPermit => {
-      return res.send(200).json(requestedPermit);
+      return res.status(200).json(requestedPermit);
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
