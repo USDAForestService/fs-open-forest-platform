@@ -87,9 +87,9 @@ export class ReportComponent implements OnInit {
     this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
 
-    if (this.isDateSearch && this.forest) {
+    if (this.isDateSearch) {
       this.permitNumberSearchForm.reset();
-      if (this.form.valid && !this.dateStatus.hasErrors) {
+      if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
         this.reportParameters = {
           forestName: this.forest.forestName,
           startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
