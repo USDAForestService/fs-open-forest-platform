@@ -370,5 +370,44 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
+    let submittedPermit, completedPermit;
+    it('POST create permit', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 4;
+      permitApplication.forestAbbr = 'shoshone';
+      permitApplication.orgStructureCode = '11-02-14';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          submittedPermit = res.body;
+        })
+        .expect(200, done);
+    });
+    it('GET created permit to complete transaction', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${submittedPermit.permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(permitRes => {
+          completedPermit = permitRes.body;
+        })
+        .expect(200, done);
+    });
+    it('GET permit details back', done => {
+      request(server)
+        .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body.permits[0]).to.include.all.keys('permitNumber', 'issueDate', 'quantity', 'totalCost', 'expireDate');
+        })
+        .expect(200, done);
+    });
+    it('GET permit details back should get 404 for invalid permit number', done => {
+      request(server)
+        .get('/admin/christmas-trees/permits/123')
+        .set('Accept', 'application/json')
+        .expect(404, done);
+    });
   });
 });
