@@ -6,7 +6,7 @@
   <h3 *ngIf="result.parameters" id="report-tree-total">Number of Christmas trees sold: {{result.sumOfTrees}}</h3>
   <h3 *ngIf="result.parameters" id="report-total">Total: ${{result.sumOfCost}}</h3>
 
-  <table id="report-table">
+  <table id="report-table" *ngIf="permits">
     <caption>Permit details
     <button id="download-report" class="usa-button-primary-alt" (click)="downloadReport()">Download as Excel/CSV</button>
     </caption>

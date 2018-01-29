@@ -84,7 +84,9 @@ export class ReportComponent implements OnInit {
 
   getReport() {
     this.afs.touchAllFields(this.form);
+    this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
+
     if (this.isDateSearch && this.forest) {
       this.permitNumberSearchForm.reset();
       if (this.form.valid && !this.dateStatus.hasErrors) {
@@ -116,17 +118,15 @@ export class ReportComponent implements OnInit {
       }
     } else {
       this.form.reset();
-      this.afs.touchAllFields(this.permitNumberSearchForm);
-
       this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value)
         .subscribe(results => {
-            this.result = {
-              numberOfPermits: 1,
-              sumOfTrees: results.permits[0].quantity,
-              sumOfCost: results.permits[0].totalCost,
-              permits: results.permits,
-              parameters: null
-            };
+          this.result = {
+            numberOfPermits: 1,
+            sumOfTrees: results.permits[0].quantity,
+            sumOfCost: results.permits[0].totalCost,
+            permits: results.permits,
+            parameters: null
+          };
         },
         err => {
           this.apiErrors = err;
