@@ -504,4 +504,30 @@ christmasTree.getPermits = (req, res) => {
       }
     });
 };
+
+christmasTree.getSinglePermit = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      where: {
+        permitId: req.params.permitId,
+        status: 'Completed',
+      }
+    })
+    .then(requestedPermit => {
+      return res.send(200).json(requestedPermit);
+    })
+    .catch(error => {
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({
+          errors: error.errors
+        });
+      } else if (error.name === 'SequelizeDatabaseError') {
+        return res.status(404).send();
+      } else {
+        return res.status(500).send();
+      }
+    });
+};
+
 module.exports = christmasTree;
