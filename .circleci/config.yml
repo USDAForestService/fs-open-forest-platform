@@ -141,6 +141,8 @@ workflows:
     jobs:
       - run-all-other-tests:
           requires:
+      - run-e2e:
+          requires:
       - staging-deploy:
           requires:
           filters:
