@@ -139,8 +139,8 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      # - run-all-other-tests:
-      #     requires:
+      - run-all-other-tests:
+          requires:
       # - run-e2e:
       #     requires:
       - staging-deploy:
