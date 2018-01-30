@@ -413,8 +413,8 @@ describe('christmas tree controller tests', () => {
     });
   });
 
-  describe.only('admin user reports', () => {
-    xit('GET should return a 200 response for the given report parameters forest, start and end date', done => {
+  describe('admin user reports', () => {
+    it('GET should return a 200 response for the given report parameters forest, start and end date', done => {
       request(server)
         .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
         .set('Accept', 'application/json')
@@ -448,7 +448,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    xit('GET permit details back', done => {
+    it('GET permit details back', done => {
       request(server)
         .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
         .expect('Content-Type', /json/)
@@ -457,7 +457,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    xit('GET permit details back should get 404 for invalid permit number', done => {
+    it('GET permit details back should get 404 for invalid permit number', done => {
       request(server)
         .get('/admin/christmas-trees/permits/123')
         .set('Accept', 'application/json')
