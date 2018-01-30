@@ -141,12 +141,8 @@ workflows:
     jobs:
       - run-all-other-tests:
           requires:
-      # - run-e2e:
-      #     requires:
       - staging-deploy:
-          # requires:
-            # - run-all-other-tests
-            # - run-e2e
+          requires:
           filters:
             branches:
               only: 144_paygov_integration
