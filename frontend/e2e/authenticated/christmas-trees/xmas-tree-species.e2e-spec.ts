@@ -13,7 +13,6 @@ describe('Xmas tree species page', () => {
         .setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(500);
-      
     });
 
     it('should have a species section link', () => {
