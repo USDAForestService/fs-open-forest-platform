@@ -16,10 +16,6 @@ jobs:
       - run:
           name: run dist on frontend
           command: cd docker; docker-compose run fs-intake-frontend sudo yarn dist-staging
-## Setting up DB
-      - run:
-          name: seed db with intake data
-          command: cd docker; docker-compose run fs-intake-server yarn seed-ci
 ## Run tests
       - run:
           name: pa11y test
@@ -63,10 +59,6 @@ jobs:
       - run:
           name: install dependencies
           command: cd docker; ../.circleci/install-dependencies-docker.sh
-## Setting up DB
-      - run:
-          name: seed db with intake data
-          command: cd docker; docker-compose run fs-intake-server yarn seed-ci
 ## Run tests
       - run:
           name: run e2e
