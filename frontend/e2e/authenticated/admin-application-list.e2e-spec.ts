@@ -26,7 +26,6 @@ describe('Apply for a ', () => {
   it('should swich applications when changing filter', () => {
     element(by.cssContainingText('option', 'Accepted')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Accepted permit applications');
-    // expect<any>(element(by.id(list.permitId())).isPresent()).toBeFalsy();
 
     element(by.cssContainingText('option', 'Rejected')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Rejected permit applications');
