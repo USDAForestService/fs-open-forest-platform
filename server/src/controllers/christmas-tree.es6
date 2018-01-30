@@ -158,7 +158,7 @@ const postPayGov = xmlData => {
     },
     function(error, response, body) {
       if (!error) {
-        console.log('response=', response);
+        console.log('response=', response.body);
         return body;
       } else {
         console.log('postPayGov ERROR', error);
@@ -247,9 +247,11 @@ christmasTree.create = (req, res) => {
         .create(translatePermitFromClientToDatabase(req.body))
         .then(permit => {
           const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+          console.log('request xmlData=', xmlData);
           postPayGov(xmlData)
             .then(xmlResponse => {
               xml2jsParse(xmlResponse, function(err, result) {
+                console.log('PARSE result=', result);
                 if (!err) {
                   try {
                     const token = paygov.getToken(result);
