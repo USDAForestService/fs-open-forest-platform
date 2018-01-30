@@ -134,7 +134,12 @@ christmasTree.getOneGuidelines = (req, res) => {
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-  const payGovCertCa = vcapConstants.payGovCert;
+
+  const payGovCertCa = [];
+  payGovCertCa.push(vcapConstants.payGovCert[1]);
+  payGovCertCa.push(vcapConstants.payGovCert[2]);
+  payGovCertCa.push(vcapConstants.payGovCert[3]);
+  payGovCertCa.push(vcapConstants.payGovCert[4]);
 
   return request.post(
     {
