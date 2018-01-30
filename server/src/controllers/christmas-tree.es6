@@ -151,6 +151,7 @@ const postPayGov = xmlData => {
       if (!error && response.statusCode == 200) {
         return body;
       } else {
+        console.log('postPayGov ERROR', error);
         return error;
       }
     }
