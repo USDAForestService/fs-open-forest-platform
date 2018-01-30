@@ -427,13 +427,13 @@ describe('christmas tree controller tests', () => {
     let submittedPermit, completedPermit;
     it('POST create permit', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
-      permitApplication.forestId = 4;
-      permitApplication.forestAbbr = 'shoshone';
-      permitApplication.orgStructureCode = '11-02-14';
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
-        // .expect('Content-Type', /json/)
+        .expect('Content-Type', /json/)
         .expect(res => {
           submittedPermit = res.body;
         })
