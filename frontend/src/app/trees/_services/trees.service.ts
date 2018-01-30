@@ -13,11 +13,11 @@ export class TreesService {
     return this.http.get<any>(this.endpoint + id)
       .map(data => {
         if (data && !environment.production) {
-          if (environment.forestOverrides) {
-            for (let key in environment.forestOverrides) {
-              for (let attrname in environment.forestOverrides[key]) {
+          if (environment.hasOwnProperty('forestOverrides')) {
+            for (let key in environment['forestOverrides']) {
+              for (let attrname in environment['forestOverrides'][key]) {
                 if ((data.id + '') === key) {
-                  data[attrname] = environment.forestOverrides[key][attrname];
+                  data[attrname] = environment['forestOverrides'][key][attrname];
                 }
               }
             }
