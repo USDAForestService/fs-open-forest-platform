@@ -8,9 +8,9 @@ import { environment } from '../../environments/environment';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent implements OnInit {
-  constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
-
   private requiresLogin = true;
+
+  constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
@@ -48,7 +48,7 @@ export class AuthenticatedComponent implements OnInit {
       })
       .mergeMap(route => route.data)
       .subscribe(data => {
-        this.requiresLogin = data.requireLogin
+        this.requiresLogin = data.requireLogin;
       });
 
   }
