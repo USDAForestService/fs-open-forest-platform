@@ -15,7 +15,7 @@ jobs:
           command: cd docker; ../.circleci/install-dependencies-docker.sh
       - run:
           name: run dist on frontend
-          command: cd docker; docker-compose run fs-intake-frontend sudo yarn dist-staging
+          command: cd docker; docker-compose run fs-intake-frontend sudo yarn dist-trees
 ## Setting up DB
       - run:
           name: seed db with intake data
