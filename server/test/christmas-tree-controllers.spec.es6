@@ -433,7 +433,7 @@ describe('christmas tree controller tests', () => {
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
-        .expect('Content-Type', /json/)
+        // .expect('Content-Type', /json/)
         .expect(res => {
           submittedPermit = res.body;
         })
