@@ -141,6 +141,8 @@ const postPayGov = xmlData => {
   payGovCertCa.push(vcapConstants.payGovCert[3]);
   payGovCertCa.push(vcapConstants.payGovCert[4]);
 
+  console.log('PayGov CERTIFICATES=', vcapConstants.payGovCert);
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -154,7 +156,8 @@ const postPayGov = xmlData => {
       // ca: payGovCertCa
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error) {
+        console.log('response.statusCode', response.statusCode);
         return body;
       } else {
         console.log('postPayGov ERROR', error);
