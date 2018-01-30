@@ -32,28 +32,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  checkLocalStatus() {
-    // this.authentication.getAuthenticatedUser().subscribe((user: any) => {
-    //   if (user) {
-    //     this.user = user;
-    //   }
-    // });
-
-    if (localStorage.getItem('status')) {
-      this.status = JSON.parse(localStorage.getItem('status'));
-      localStorage.removeItem('status');
-    } else {
-      this.status = {
-        heading: '',
-        message: ''
-      };
-    }
-  }
-
-  updateStatus(status: any) {
-    this.status = status;
-  }
-
   ngOnInit() {
     this.currentUrl = this.router.url;
     window.scrollTo(0, 0);

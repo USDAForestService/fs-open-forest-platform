@@ -13,22 +13,27 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public util: UtilService) {}
 
-  getAuthenticatedUser() {
-    if (this.user) {
-      return Observable.of(this.user);
+  getAuthenticatedUser(doLogin = true) {
+    let user = this.getUser();
+    if (user) {
+      return Observable.of(user);
     }
 
-    return this.isAuthenticated().map(
-      (user: any) => {
-        if (user) {
-          this.user = user;
-          return this.user;
+    if (doLogin) {
+      return this.isAuthenticated().map(
+        (user: any) => {
+          if (user) {
+            this.setUser(user);
+            return this.getUser();
+          }
+        },
+        (e: any) => {
+          console.error(e);
         }
-      },
-      (e: any) => {
-        console.error(e);
-      }
-    );
+      );
+    } else {
+      return Observable.of(null); //no user but don't login
+    }
   }
 
   isAdmin() {
@@ -42,7 +47,22 @@ export class AuthenticationService {
   }
 
   getUser() {
-    return this.user;
+    if (this.user) {
+      return this.user;
+    } else {
+      //check local storage
+      try {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        return this.user;
+      } catch {
+        return null;
+      }
+    }
+  }
+
+  setUser(user) {
+    this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   removeUser() {

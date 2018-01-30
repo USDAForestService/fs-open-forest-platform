@@ -21,6 +21,7 @@ export class AuthenticatedComponent implements OnInit {
     const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
     localStorage.setItem('status', JSON.stringify(status));
     localStorage.removeItem('requestingUrl');
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.authentication.removeUser();
     window.location.href = environment.apiUrl + 'auth/logout';
@@ -49,5 +50,6 @@ export class AuthenticatedComponent implements OnInit {
       .subscribe(data => {
         this.requiresLogin = data.requireLogin
       });
+
   }
 }

@@ -1,7 +1,6 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logged-in',
@@ -13,6 +12,11 @@ export class LoggedInComponent implements OnInit {
   ngOnInit() {
     this.authentication.getAuthenticatedUser().subscribe((user: any) => {
       const requestingUrl = localStorage.getItem('requestingUrl');
+
+      if (user) {
+        this.authentication.setUser(user);
+      }
+
       if (requestingUrl) {
         localStorage.removeItem('requestingUrl');
         return this.router.navigate([requestingUrl]);

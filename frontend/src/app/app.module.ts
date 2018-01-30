@@ -37,6 +37,7 @@ import { PageHeaderComponent } from './home/header.component';
 import { MockPageHeaderComponent } from './pay-gov-mocks/mock-header.component';
 import { PageFooterComponent } from './home/footer.component';
 import { MockPageFooterComponent } from './pay-gov-mocks/mock-footer.component';
+import { UserResolver } from './user-resolver.service';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { MockPageFooterComponent } from './pay-gov-mocks/mock-footer.component';
     AuthGuardService,
     AuthenticationService,
     UtilService,
+    UserResolver,
     WindowRef,
     {
       provide: HTTP_INTERCEPTORS,
