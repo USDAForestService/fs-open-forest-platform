@@ -9,17 +9,11 @@ describe('Admin applications page', () => {
     page = new AdminApplicationList();
   });
 
-  it('should go to application view page on click', () => {
+  it('should have three call to action buttons', () => {
     page.navigateTo();
-
-    element(by.css(`#${page.permitId()} .application-details .usa-button`)).click();
-
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
     browser.sleep(500);
 
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('test event');
-  });
-
-  it('should have three call to action buttons', () => {
     expect(element(by.id('accept-application-btn')).isPresent()).toBeTruthy();
     expect(element(by.id('hold-application-btn')).isPresent()).toBeTruthy();
     expect(element(by.id('return-application-btn')).isPresent()).toBeTruthy();
@@ -27,10 +21,6 @@ describe('Admin applications page', () => {
 
   it('should have breadcrumbs', () => {
     expect<any>(element(by.css('.breadcrumbs')).isPresent()).toBeTruthy();
-  });
-
-  it('should have type noncommercial', () => {
-    expect<any>(element(by.id('permit-type')).getText()).toEqual('Noncommercial');
   });
 
   it('should return to list page on hold click', () => {
@@ -45,7 +35,7 @@ describe('Admin applications page', () => {
   });
 
   it('should return to view application page to update status', () => {
-    element(by.css(`#${page.permitId()} .application-details .usa-button`)).click();
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
 
     element(by.id('accept-application-btn')).click();
     expect(element(by.css('#reason-for-action label')).getText()).toEqual('Additional message for the permit holder.');
