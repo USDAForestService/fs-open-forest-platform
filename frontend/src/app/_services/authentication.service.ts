@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
-import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { UtilService } from './util.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +10,7 @@ export class AuthenticationService {
   private endpoint = environment.apiUrl;
   user: any;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public util: UtilService) {}
+  constructor(private http: HttpClient, public util: UtilService) {}
 
   getAuthenticatedUser(doLogin = true) {
     let user = this.getUser();
