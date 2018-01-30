@@ -413,8 +413,8 @@ describe('christmas tree controller tests', () => {
     });
   });
 
-  describe('admin user reports', () => {
-    it('GET should return a 200 response for the given report parameters forest, start and end date', done => {
+  describe.only('admin user reports', () => {
+    xit('GET should return a 200 response for the given report parameters forest, start and end date', done => {
       request(server)
         .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
         .set('Accept', 'application/json')
@@ -425,7 +425,7 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     let submittedPermit, completedPermit;
-    xit('POST create permit', done => {
+    it('POST create permit', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
@@ -439,7 +439,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    xit('GET created permit to complete transaction', done => {
+    it('GET created permit to complete transaction', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${submittedPermit.permitId}`)
         .expect('Content-Type', /json/)
@@ -457,7 +457,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET permit details back should get 404 for invalid permit number', done => {
+    xit('GET permit details back should get 404 for invalid permit number', done => {
       request(server)
         .get('/admin/christmas-trees/permits/123')
         .set('Accept', 'application/json')
