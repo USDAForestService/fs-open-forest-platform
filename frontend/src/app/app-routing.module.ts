@@ -149,7 +149,8 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Christmas tree permits',
-      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting'
+      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting',
+      requireLogin: false
     },
     children: [
       {
@@ -175,7 +176,7 @@ const appRoutes: Routes = [
           },
           {
             path: 'applications',
-            data: {breadcrumbs: 'Buy a permit'},
+            data: { breadcrumbs: 'Buy a permit' },
             children: [
               {
                 path: '',
@@ -187,7 +188,7 @@ const appRoutes: Routes = [
                 resolve: {
                   permit: ChristmasTreePermitResolver
                 },
-                data: {breadcrumbs: 'Permit confirmation'}
+                data: { breadcrumbs: 'Permit confirmation' }
               },
             ]
           },
@@ -198,7 +199,7 @@ const appRoutes: Routes = [
             resolve: {
               permit: ChristmasTreePermitDetailResolver
             },
-            data: {breadcrumbs: 'Buy a permit'},
+            data: { breadcrumbs: 'Buy a permit'} ,
           },
         ]
       }

@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, CanActivate, Router } from '@angular/router';
 import { UtilService } from './util.service';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
   private endpoint = environment.apiUrl;
   user: any;
 
-  constructor(private http: HttpClient, private router: Router, public util: UtilService) {}
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public util: UtilService) {}
 
   getAuthenticatedUser() {
+    if (this.user) {
+      return Observable.of(this.user);
+    }
+
     return this.isAuthenticated().map(
       (user: any) => {
         if (user) {
@@ -31,7 +36,9 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
+    return this.http.get(this.endpoint + 'auth/user',
+      { withCredentials: true })
+      .catch(this.util.handleError);
   }
 
   getUser() {

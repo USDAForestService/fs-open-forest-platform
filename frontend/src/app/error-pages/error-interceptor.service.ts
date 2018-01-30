@@ -10,9 +10,17 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let url = req.url;
+    let request = req;
     return next.handle(req).catch((err: HttpErrorResponse) => {
       if (err.status === 404) {
         this.router.navigate(['/404']);
+      }
+      else if (err.status === 0) {
+        if (url.indexOf('forest') > -1) {
+          this.router.navigate(['/christmas-trees/forests']);
+        }
+        this.router.navigate(['/']);
       }
       return Observable.throw(err);
     });

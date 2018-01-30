@@ -12,6 +12,6 @@
 </header>
 <main id="main-content" tabindex="0">
   <app-status [message]="status.message" [heading]="status.heading"></app-status>
-  <router-outlet (activate)="isAuthenticated()"></router-outlet>
+  <router-outlet (activate)="checkLocalStatus()"></router-outlet>
 </main>
 <app-page-footer *ngIf="router.url.indexOf('mock') === -1" [version]="version" [buildDate]="buildDate"></app-page-footer>

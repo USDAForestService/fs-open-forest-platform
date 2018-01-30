@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
 
@@ -11,7 +11,6 @@ import { UtilService } from './_services/util.service';
 export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
-  currentRoute: string;
   apiurl = environment.apiUrl;
   currentUrl = '/';
   user: any;
@@ -33,12 +32,13 @@ export class AppComponent implements OnInit {
     });
   }
 
-  isAuthenticated() {
-    this.authentication.getAuthenticatedUser().subscribe((user: any) => {
-      if (user) {
-        this.user = user;
-      }
-    });
+  checkLocalStatus() {
+    // this.authentication.getAuthenticatedUser().subscribe((user: any) => {
+    //   if (user) {
+    //     this.user = user;
+    //   }
+    // });
+
     if (localStorage.getItem('status')) {
       this.status = JSON.parse(localStorage.getItem('status'));
       localStorage.removeItem('status');

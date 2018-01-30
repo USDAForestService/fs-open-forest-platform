@@ -1,5 +1,5 @@
 <div class="authentication">
-  <ng-container *ngIf="!authentication.user">
+  <ng-container *ngIf="requiresLogin && !authentication.user">
     <a id="log-in" href="javascript:void(0)" (click)="login()">Log in</a>
     or
     <a id="create-account" href="javascript:void(0)" (click)="login()">create an account</a>
