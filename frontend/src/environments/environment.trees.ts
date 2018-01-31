@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://fs-intake-api-trees.app.cloud.gov/',
+  production: false,
+  apiUrl: 'http://localhost:8080/',
   buildDate: 'Tue Jan 16 2018 17:06:56 GMT-0500 (EST)',
   version: '',
   forestOverrides: {
