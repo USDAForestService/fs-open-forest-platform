@@ -8,7 +8,8 @@ import { environment } from '../../environments/environment';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent implements OnInit {
-  private requiresLogin = true;
+  private displayLogin = true;
+  private user;
 
   constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
@@ -48,7 +49,8 @@ export class AuthenticatedComponent implements OnInit {
       })
       .mergeMap(route => route.data)
       .subscribe(data => {
-        this.requiresLogin = data.requireLogin;
+        this.user = data.user ? data.user : null;
+        this.displayLogin = data.displayLogin;
       });
 
   }

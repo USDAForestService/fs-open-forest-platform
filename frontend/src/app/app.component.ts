@@ -35,5 +35,14 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUrl = this.router.url;
     window.scrollTo(0, 0);
+    if (localStorage.getItem('status')) {
+      this.status = JSON.parse(localStorage.getItem('status'));
+      localStorage.removeItem('status');
+    } else {
+      this.status = {
+        heading: '',
+        message: ''
+      };
+    }
   }
 }

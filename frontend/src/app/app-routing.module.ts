@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Apply for a permit',
-      requireLogin: true
+      displayLogin: true
     },
     resolve: {
       user: UserResolver
@@ -156,6 +156,9 @@ const appRoutes: Routes = [
       text: 'Christmas tree permits',
       title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting',
       requireLogin: false
+    },
+    resolve: {
+      user: UserResolver
     },
     children: [
       {

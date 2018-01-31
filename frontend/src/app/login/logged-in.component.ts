@@ -12,15 +12,10 @@ export class LoggedInComponent implements OnInit {
   ngOnInit() {
     this.authentication.getAuthenticatedUser().subscribe((user: any) => {
       const requestingUrl = localStorage.getItem('requestingUrl');
-
-      if (user) {
-        this.authentication.setUser(user);
-      }
-
       if (requestingUrl) {
         localStorage.removeItem('requestingUrl');
         return this.router.navigate([requestingUrl]);
-      } else if (user.role === 'admin') {
+      } else if (user && user.role === 'admin') {
         this.router.navigate(['/admin/applications']);
       } else {
         this.router.navigate(['/']);
