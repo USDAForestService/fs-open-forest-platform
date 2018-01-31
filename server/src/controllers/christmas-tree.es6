@@ -12,6 +12,7 @@ const paygov = require('../paygov.es6');
 const permitSvgService = require('../create-svg.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
+const util = require('../util.es6');
 
 const christmasTree = {};
 const operator = Sequelize.Op;
@@ -232,9 +233,8 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      const environments = ['CI', 'local'];
-      if (environments.indexOf(process.env.PLATFORM) === -1 &&
-        !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+
+      if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
         return res.status(404).send(); // season is closed or not yet started
       } else {
         req.body.expDate = forest.endDate;
