@@ -53,7 +53,7 @@ export class AuthenticationService {
       try {
         this.user = JSON.parse(localStorage.getItem('user'));
         return this.user;
-      } catch {
+      } catch (e) {
         return null;
       }
     }
