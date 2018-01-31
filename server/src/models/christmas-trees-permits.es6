@@ -76,6 +76,11 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(500),
         field: 'paygov_error',
         allowNull: true
+      },
+      permitIssueDate: {
+        type: DataTypes.STRING(50),
+        field: 'permit_issue_date',
+        allowNull: true
       }
     },
     {

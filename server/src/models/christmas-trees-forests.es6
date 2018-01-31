@@ -41,12 +41,12 @@ module.exports = function(sequelize, DataTypes) {
         field: 'stump_diameter'
       },
       startDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         field: 'start_date',
         allowNull: false
       },
       endDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         field: 'end_date',
         allowNull: false
       },
