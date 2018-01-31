@@ -412,11 +412,11 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     let submittedPermit, completedPermit;
-    xit('POST create permit', done => {
+    it('POST create permit', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
-      permitApplication.forestId = 4;
-      permitApplication.forestAbbr = 'shoshone';
-      permitApplication.orgStructureCode = '11-02-14';
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -426,7 +426,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    xit('GET created permit to complete transaction', done => {
+    it('GET created permit to complete transaction', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${submittedPermit.permitId}`)
         .expect('Content-Type', /json/)
@@ -435,7 +435,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    xit('GET permit details back', done => {
+    it('GET permit details back', done => {
       request(server)
         .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
         .expect('Content-Type', /json/)
