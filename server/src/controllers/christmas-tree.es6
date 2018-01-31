@@ -232,7 +232,9 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+      const environments = ['CI', 'local'];
+      if (environments.indexOf(process.env.PLATFORM) === -1 &&
+        !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
         return res.status(404).send(); // season is closed or not yet started
       } else {
         req.body.expDate = forest.endDate;
