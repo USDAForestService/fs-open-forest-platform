@@ -67,7 +67,7 @@ describe('TreeGuidelinesComponent', () => {
   });
 
   describe ('season closed', () => {
-    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not started', () => {
+    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
       const mockSeasonNotOpenRoute = {
         params: Observable.of({ id: 1 }),
         data: Observable.of({
@@ -88,7 +88,7 @@ describe('TreeGuidelinesComponent', () => {
 
       const forest: any = component.forest;
       expect(forest.isSeasonOpen).toBeFalsy();
-      expect(forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100');
+      expect(forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
     });
 
     it ('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {

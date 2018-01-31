@@ -1,6 +1,6 @@
 {
   "defaults": {
-    "concurrency": 1,
+    "concurrency": 4,
     "timeout": 15000,
     "wait": 900,
     "page": {
