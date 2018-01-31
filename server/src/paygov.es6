@@ -64,7 +64,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
               startOnlineCollection: [
                 {
                   _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
+                    xmlns: 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
@@ -134,7 +134,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
               completeOnlineCollection: [
                 {
                   _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
+                    xmlns: 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
