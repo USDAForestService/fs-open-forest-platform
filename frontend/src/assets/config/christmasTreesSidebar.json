@@ -5,11 +5,6 @@
     "title": "When to cut your tree"
   },
   {
-    "id": "tree-selection",
-    "type": "anchor",
-    "title": "How to choose your tree"
-  },
-  {
     "id": "cutting-instructions",
     "type": "anchor",
     "title": "How to cut your tree",
@@ -21,6 +16,10 @@
       {
         "id": "cutting-instructions-when-you-cut",
         "title": "When you cut"
+      },
+      {
+        "id": "cutting-instructions-tree-selection",
+        "title": "Identifying tree species"
       }
     ]
   },

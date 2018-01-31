@@ -242,44 +242,48 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      req.body.expDate = forest.endDate;
-      treesDb.christmasTreesPermits
-        .create(translatePermitFromClientToDatabase(req.body))
-        .then(permit => {
-          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-          console.log('request xmlData=', xmlData);
-          postPayGov(xmlData)
-            .then(xmlResponse => {
-              xml2jsParse(xmlResponse, function(err, result) {
-                console.log('PARSE result=', result);
-                if (!err) {
-                  try {
-                    const token = paygov.getToken(result);
-                    return updatePermitWithToken(res, permit, token);
-                  } catch (error) {
+      if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        return res.status(404).send(); // season is closed or not yet started
+      } else {
+        req.body.expDate = forest.endDate;
+        treesDb.christmasTreesPermits
+          .create(translatePermitFromClientToDatabase(req.body))
+          .then(permit => {
+            const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+            console.log('request xmlData=', xmlData);
+            postPayGov(xmlData)
+              .then(xmlResponse => {
+                xml2jsParse(xmlResponse, function(err, result) {
+                  console.log('PARSE result=', result);
+                  if (!err) {
                     try {
-                      const paygovError = paygov.getResponseError(result);
-                      return updatePermitWithError(res, permit, paygovError);
-                    } catch (faultError) {
-                      throwError(faultError);
+                      const token = paygov.getToken(result);
+                      return updatePermitWithToken(res, permit, token);
+                    } catch (error) {
+                      try {
+                        const paygovError = paygov.getResponseError(result);
+                        return updatePermitWithError(res, permit, paygovError);
+                      } catch (faultError) {
+                        throwError(faultError);
+                      }
                     }
                   }
-                }
+                });
+              })
+              .catch(() => {
+                return res.status(500).send();
               });
-            })
-            .catch(() => {
+          })
+          .catch(error => {
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({
+                errors: error.errors
+              });
+            } else {
               return res.status(500).send();
-            });
-        })
-        .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else {
-            return res.status(500).send();
-          }
-        });
+            }
+          });
+      }
     })
     .catch(error => {
       return res.status(400).json({
@@ -523,4 +527,43 @@ christmasTree.getPermits = (req, res) => {
       }
     });
 };
+
+christmasTree.getPermitByTrackingId = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
+      where: {
+        paygovTrackingId: req.params.paygovTrackingId,
+        status: 'Completed'
+      }
+    })
+    .then(requestedPermit => {
+      if (requestedPermit === null) {
+        return res.status(404).send();
+      } else {
+        return returnPermitResults([requestedPermit], res);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      if (error.name === 'SequelizeValidationError') {
+        return res.status(400).json({
+          errors: error.errors
+        });
+      } else if (error.name === 'SequelizeDatabaseError') {
+        return res.status(404).send();
+      } else {
+        return res.status(500).send();
+      }
+    });
+};
+
 module.exports = christmasTree;

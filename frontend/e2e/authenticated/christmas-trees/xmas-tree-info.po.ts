@@ -6,7 +6,7 @@ export class TreesSidebarPage {
   }
 
   getTreeSelectionLink() {
-    return element(by.id('tree-selection-link'));
+    return element(by.id('cutting-instructions-tree-selection-link'));
   }
 
   getTreeLocationLink() {
