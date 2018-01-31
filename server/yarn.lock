@@ -3479,7 +3479,7 @@ mock-require@^2.0.2:
   dependencies:
     caller-id "^0.1.0"
 
-moment-timezone@^0.5.4:
+moment-timezone@^0.5.14, moment-timezone@^0.5.4:
   version "0.5.14"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.14.tgz#4eb38ff9538b80108ba467a458f3ed4268ccfcb1"
   dependencies:

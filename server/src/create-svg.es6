@@ -1,7 +1,7 @@
 const util = require('./util.es6');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
-const moment = require('moment');
+const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 
@@ -40,7 +40,8 @@ const addForestSpecificInfo = (permit, frag) => {
 
   frag.querySelector('#permit-expiration_1_').textContent =
     moment(permit.christmasTreesForest.endDate, util.datetimeFormat)
-      .format('MMM D')
+      .tz(permit.christmasTreesForest.timezone)
+      .format('MMM D, YYYY')
       .toUpperCase() + ' MIDNIGHT';
   if (permit.christmasTreesForest.treeHeight > 0) {
     frag.querySelector('#tree-height_1_').textContent = permit.christmasTreesForest.treeHeight;

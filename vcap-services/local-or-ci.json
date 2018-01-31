@@ -24,7 +24,7 @@
     },
     {
       "credentials": {
-        "entrypoint": "",
+        "entrypoint": "https://login.gov",
         "issuer": "",
         "private_key": "",
         "discovery_url": "http://localhost:8080/mocks/login-gov/discovery-url/",
@@ -86,8 +86,14 @@
         "url": "http://localhost:8080/mock-pay-gov",
         "client_url": "http://localhost:4200/mock-pay-gov",
         "tcs_app_id": "fs-100",
-        "certificate": ["x509 string1", "x509 string2", "x509 string3", "x509 string4"],
-        "private_key": "-----BEGIN RSA PRIVATE KEY-----\nkey\n-----END RSA PRIVATE KEY-----\n"
+        "certificate": [
+          "-----BEGIN CERTIFICATE-----\n cert1 -----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\n cert2 -----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\n cert3 -----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\n cert4 -----END CERTIFICATE-----\n",
+          "-----BEGIN CERTIFICATE-----\n cert5 -----END CERTIFICATE-----\n"
+        ],
+        "private_key": "-----BEGIN RSA PRIVATE KEY-----\n key \n-----END RSA PRIVATE KEY-----\n"
       },
       "label": "user-provided",
       "name": "pay-gov"
