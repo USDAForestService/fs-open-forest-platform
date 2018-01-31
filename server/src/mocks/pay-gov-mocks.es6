@@ -25,7 +25,7 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  const requestBody = req.body['S:Envelope']['S:Body'][0];
+  const requestBody = req.body['soapenv:Envelope']['soapenv:Body'][0];
 
   let xmlResponse = '';
 
@@ -33,10 +33,10 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   const paygovTrackingId = util.getRandomString(5).toUpperCase();
 
   if (
-    requestBody['ns2:startOnlineCollection'] &&
-    requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
+    requestBody['startOnlineCollection'] &&
+    requestBody['startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
   ) {
-    let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
+    let startCollectionRequest = requestBody['startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
     let accountHolderName = startCollectionRequest.account_holder_name;
     if (accountHolderName && accountHolderName == '1 1') {
       xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
@@ -47,10 +47,10 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     }
     tokens[token] = { successUrl: startCollectionRequest.url_success[0] };
   } else if (
-    requestBody['ns2:completeOnlineCollection'] &&
-    requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
+    requestBody['completeOnlineCollection'] &&
+    requestBody['completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
   ) {
-    let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
+    let collectionRequest = requestBody['completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
     let requestToken = collectionRequest.token[0];
     let transactionStatus = transactions[requestToken];
 
