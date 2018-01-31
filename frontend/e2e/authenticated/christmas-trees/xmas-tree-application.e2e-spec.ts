@@ -5,7 +5,7 @@ import {
 } from './xmas-tree-application.po';
 import { browser, element, by, Key } from 'protractor';
 
-fdescribe('Apply for a Christmas tree permit', () => {
+describe('Apply for a Christmas tree permit', () => {
   let page: ChristmasTreeForm;
   let confirmPage: ChristmasTreeOrderConfirmation;
   let prefilledPage: ChristmasTreeFormAfterCancel;
