@@ -33,6 +33,7 @@ const translateGuidelinesFromDatabaseToClient = input => {
     treeCost: input.treeCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
+    timezone: input.timezone,
     species: input.christmasTreesForestSpecies.map(species => {
       return {
         id: species.species.id,
