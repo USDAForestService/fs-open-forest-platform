@@ -237,19 +237,6 @@ describe('christmas tree controller tests', () => {
     });
   });
 
-  describe('submit permit application for flathead national forest', () => {
-    it('POST should return a 404 response when season is not open', done => {
-      const permitApplication = christmasTreePermitApplicationFactory.create();
-      permitApplication.forestId = 1;
-      permitApplication.forestAbbr = 'flathead';
-      permitApplication.orgStructureCode = '11-02-10';
-      request(server)
-        .post('/forests/christmas-trees/permits')
-        .send(permitApplication)
-        .expect(404, done);
-    });
-  });
-
   describe('submit permit application mthood national forest pay.gov errors', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
@@ -293,8 +280,8 @@ describe('christmas tree controller tests', () => {
     });
   });
 
-  describe('submit permit application for forest when season has ended', () => {
-    it('POST should return a 404 response when submitted to get pay.gov token', done => {
+  describe('submit permit application for forest', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
@@ -302,7 +289,7 @@ describe('christmas tree controller tests', () => {
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
-        .expect(404, done);
+        .expect(200, done);
     });
   });
 
