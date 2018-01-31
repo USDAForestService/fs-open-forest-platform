@@ -52,7 +52,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
       'soapenv:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
@@ -122,7 +122,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
       'soapenv:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
