@@ -2,17 +2,15 @@
 
 let doTransaction = require('./modules/transaction');
 
-const TABLE_NAME = 'christmasTreesPermits';
+const TABLE_NAME = 'christmasTreesForests';
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
     let operations = [
       {
-        operation: 'change',
-        field: 'permit_expire_date',
-        options: {
-          type: Sequelize.DATEONLY
-        }
+        operation: 'add',
+        field: 'timezone',
+        type: Sequelize.STRING(50)
       }
     ];
 
@@ -21,11 +19,8 @@ module.exports = {
   down: function(queryInterface, Sequelize) {
     let operations = [
       {
-        operation: 'change',
-        field: 'permit_expire_date',
-        options: {
-          type: Sequelize.DATE
-        }
+        operation: 'remove',
+        field: 'timezone'
       }
     ];
 

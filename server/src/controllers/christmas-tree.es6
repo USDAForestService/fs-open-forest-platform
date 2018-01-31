@@ -75,7 +75,8 @@ const translatePermitFromClientToDatabase = input => {
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate']
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate'],
+      order: [['id', 'ASC']]
     })
     .then(results => {
       if (results) {
@@ -237,40 +238,40 @@ christmasTree.create = (req, res) => {
       } else {
         req.body.expDate = forest.endDate;
         treesDb.christmasTreesPermits
-        .create(translatePermitFromClientToDatabase(req.body))
-        .then(permit => {
-          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-          postPayGov(xmlData)
-            .then(xmlResponse => {
-              xml2jsParse(xmlResponse, function (err, result) {
-                if (!err) {
-                  try {
-                    const token = paygov.getToken(result);
-                    return updatePermitWithToken(res, permit, token);
-                  } catch (error) {
+          .create(translatePermitFromClientToDatabase(req.body))
+          .then(permit => {
+            const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+            postPayGov(xmlData)
+              .then(xmlResponse => {
+                xml2jsParse(xmlResponse, function(err, result) {
+                  if (!err) {
                     try {
-                      const paygovError = paygov.getResponseError(result);
-                      return updatePermitWithError(res, permit, paygovError);
-                    } catch (faultError) {
-                      throwError(faultError);
+                      const token = paygov.getToken(result);
+                      return updatePermitWithToken(res, permit, token);
+                    } catch (error) {
+                      try {
+                        const paygovError = paygov.getResponseError(result);
+                        return updatePermitWithError(res, permit, paygovError);
+                      } catch (faultError) {
+                        throwError(faultError);
+                      }
                     }
                   }
-                }
+                });
+              })
+              .catch(() => {
+                return res.status(500).send();
               });
-            })
-            .catch(() => {
+          })
+          .catch(error => {
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({
+                errors: error.errors
+              });
+            } else {
               return res.status(500).send();
-            });
-        })
-        .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else {
-            return res.status(500).send();
-          }
-        });
+            }
+          });
       }
     })
     .catch(error => {
@@ -519,17 +520,24 @@ christmasTree.getPermits = (req, res) => {
 christmasTree.getPermitByTrackingId = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
       where: {
         paygovTrackingId: req.params.paygovTrackingId,
-        status: 'Completed',
+        status: 'Completed'
       }
     })
     .then(requestedPermit => {
-      if(requestedPermit === null) {
+      if (requestedPermit === null) {
         return res.status(404).send();
-      }
-      else {
+      } else {
         return returnPermitResults([requestedPermit], res);
       }
     })

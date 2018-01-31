@@ -36,15 +36,12 @@ const addForestSpecificInfo = (permit, frag) => {
   } else {
     frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FOREST';
   }
-
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
-  frag.querySelector('#permit-expiration_1_').textContent = moment(
-    permit.christmasTreesForest.endDate,
-    util.datetimeFormat
-  )
-    .format('MMM D, YYYY h:mm A')
-    .toUpperCase();
+  frag.querySelector('#permit-expiration_1_').textContent =
+    moment(permit.christmasTreesForest.endDate, util.datetimeFormat)
+      .format('MMM D')
+      .toUpperCase() + ' MIDNIGHT';
   if (permit.christmasTreesForest.treeHeight > 0) {
     frag.querySelector('#tree-height_1_').textContent = permit.christmasTreesForest.treeHeight;
   } else {

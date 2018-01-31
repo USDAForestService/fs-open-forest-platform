@@ -41,12 +41,12 @@ module.exports = function(sequelize, DataTypes) {
         field: 'stump_diameter'
       },
       startDate: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         field: 'start_date',
         allowNull: false
       },
       endDate: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         field: 'end_date',
         allowNull: false
       },
@@ -79,6 +79,10 @@ module.exports = function(sequelize, DataTypes) {
       forestNameShort: {
         type: DataTypes.STRING,
         field: 'forest_name_short'
+      },
+      timezone: {
+        type: DataTypes.STRING,
+        field: 'timezone'
       }
     },
     {
