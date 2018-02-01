@@ -36,7 +36,7 @@ export class TreeGuidelinesComponent implements OnInit {
       if (forest.isSeasonOpen && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
         forest.isSeasonOpen = false;
 
-        forest.seasonOpenAlert = `Online permits become available for purchase   ${moment(forest.startDate).format(
+        forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(
           'MMM. D, YYYY'
         )}`;
       }

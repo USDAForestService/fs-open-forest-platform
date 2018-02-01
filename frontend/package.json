@@ -16,8 +16,8 @@
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
     "snyk-test": "snyk test",
     "start": "ng serve",
-    "test:ci": "ng test --single-run=true --watch=false --progress=false --code-coverage",
-    "test": "ng test -sm=false",
+    "test:ci": "ng test --sourcemaps=false --single-run=true --watch=false --progress=false --code-coverage",
+    "test": "ng test --sourcemaps=false",
     "typedoc": "typedoc",
     "update-version": "node ./replace.build.js"
   },
