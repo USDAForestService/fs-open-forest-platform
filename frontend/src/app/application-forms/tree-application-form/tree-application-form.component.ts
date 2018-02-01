@@ -78,22 +78,17 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   checkSeasonStartDate(forest) {
-    if (
-      forest &&
-      moment(forest.startDate)
-        .tz(forest.timezone)
-        .isAfter(moment().tz(forest.timezone))
-    ) {
+    if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
       this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.forest = data.forest;
-      this.checkSeasonStartDate(this.forest);
-      this.permit = data.permit;
-      if (this.forest) {
+      if (data.forest) {
+        this.forest = data.forest;
+        this.checkSeasonStartDate(this.forest);
+        this.permit = data.permit;
         this.titleService.setTitle(
           'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );

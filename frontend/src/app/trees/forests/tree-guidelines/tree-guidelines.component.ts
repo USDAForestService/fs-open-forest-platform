@@ -38,7 +38,7 @@ export class TreeGuidelinesComponent implements OnInit {
 
         forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(
           'MMM. D, YYYY'
-        )}`;
+        )}.`;
       }
     }
     return forest;
