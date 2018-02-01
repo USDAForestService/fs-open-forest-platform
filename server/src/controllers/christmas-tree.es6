@@ -133,8 +133,17 @@ christmasTree.getOneGuidelines = (req, res) => {
 
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
+  //let cert = vcapConstants.payGovCert[0].replace('\n', '');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-  const payGovCertCa = Buffer.from(vcapConstants.payGovCert[1], 'utf8');
+
+  const payGovCertCa = [];
+  payGovCertCa.push(vcapConstants.payGovCert[1]);
+  payGovCertCa.push(vcapConstants.payGovCert[2]);
+  payGovCertCa.push(vcapConstants.payGovCert[3]);
+  payGovCertCa.push(vcapConstants.payGovCert[4]);
+
+  console.log('PayGov CERTIFICATE=', payGovCert);
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -144,11 +153,12 @@ const postPayGov = xmlData => {
       },
       body: xmlData,
       key: payGovPrivateKey,
-      cert: payGovCert,
-      ca: payGovCertCa
+      cert: payGovCert
+      // ca: payGovCertCa
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error) {
+        console.log('response=', response.body);
         return body;
       } else {
         console.log('postPayGov ERROR', error);
@@ -237,40 +247,42 @@ christmasTree.create = (req, res) => {
       } else {
         req.body.expDate = forest.endDate;
         treesDb.christmasTreesPermits
-        .create(translatePermitFromClientToDatabase(req.body))
-        .then(permit => {
-          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-          postPayGov(xmlData)
-            .then(xmlResponse => {
-              xml2jsParse(xmlResponse, function (err, result) {
-                if (!err) {
-                  try {
-                    const token = paygov.getToken(result);
-                    return updatePermitWithToken(res, permit, token);
-                  } catch (error) {
+          .create(translatePermitFromClientToDatabase(req.body))
+          .then(permit => {
+            const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+            console.log('request xmlData=', xmlData);
+            postPayGov(xmlData)
+              .then(xmlResponse => {
+                xml2jsParse(xmlResponse, function(err, result) {
+                  console.log('PARSE result=', result);
+                  if (!err) {
                     try {
-                      const paygovError = paygov.getResponseError(result);
-                      return updatePermitWithError(res, permit, paygovError);
-                    } catch (faultError) {
-                      throwError(faultError);
+                      const token = paygov.getToken(result);
+                      return updatePermitWithToken(res, permit, token);
+                    } catch (error) {
+                      try {
+                        const paygovError = paygov.getResponseError(result);
+                        return updatePermitWithError(res, permit, paygovError);
+                      } catch (faultError) {
+                        throwError(faultError);
+                      }
                     }
                   }
-                }
+                });
+              })
+              .catch(() => {
+                return res.status(500).send();
               });
-            })
-            .catch(() => {
+          })
+          .catch(error => {
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({
+                errors: error.errors
+              });
+            } else {
               return res.status(500).send();
-            });
-        })
-        .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else {
-            return res.status(500).send();
-          }
-        });
+            }
+          });
       }
     })
     .catch(error => {
@@ -519,17 +531,24 @@ christmasTree.getPermits = (req, res) => {
 christmasTree.getPermitByTrackingId = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
       where: {
         paygovTrackingId: req.params.paygovTrackingId,
-        status: 'Completed',
+        status: 'Completed'
       }
     })
     .then(requestedPermit => {
-      if(requestedPermit === null) {
+      if (requestedPermit === null) {
         return res.status(404).send();
-      }
-      else {
+      } else {
         return returnPermitResults([requestedPermit], res);
       }
     })

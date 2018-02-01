@@ -19,11 +19,17 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  const token = jwt.sign({
-    data: permitId
-  }, vcapConstants.permitSecret, claims);
-  return `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
-}
+  const token = jwt.sign(
+    {
+      data: permitId
+    },
+    vcapConstants.permitSecret,
+    claims
+  );
+  return `${
+    vcapConstants.intakeClientBaseUrl
+  }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
+};
 
 /**
  * Generate XML from the template to use for getting pay.gov transaction token.
@@ -43,22 +49,22 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soapenv:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
+          'soapenv:Header': []
         },
         {
-          'S:Body': [
+          'soapenv:Body': [
             {
-              'ns2:startOnlineCollection': [
+              startOnlineCollection: [
                 {
                   _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
+                    xmlns: 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
@@ -113,22 +119,22 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soapenv:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
+          'soapenv:Header': []
         },
         {
-          'S:Body': [
+          'soapenv:Body': [
             {
-              'ns2:completeOnlineCollection': [
+              completeOnlineCollection: [
                 {
                   _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
+                    xmlns: 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
@@ -153,18 +159,23 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
-    result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
+    result['soapenv:Envelope']['soapenv:Body'][0]['startOnlineCollectionResponse'][0][
+      'startOnlineCollectionResponse'
+    ][0];
   return startOnlineCollectionResponse.token[0];
 };
 
 paygov.getResponseError = result => {
-  const faultMesssage = result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
+  const faultMesssage =
+    result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0]['detail'][0]['TCSServiceFault'][0];
   return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
 };
 
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
-    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
+    result['soapenv:Envelope']['soapenv:Body'][0]['completeOnlineCollectionResponse'][0][
+      'completeOnlineCollectionResponse'
+    ][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
 };
 /**
