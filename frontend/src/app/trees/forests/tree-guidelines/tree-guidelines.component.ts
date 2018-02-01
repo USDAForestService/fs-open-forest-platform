@@ -35,7 +35,7 @@ export class TreeGuidelinesComponent implements OnInit {
       forest.isSeasonOpen = moment(forest.endDate).isAfter(moment());
       if (forest.isSeasonOpen && moment(forest.startDate).isAfter(moment())) {
         forest.isSeasonOpen = false;
-        forest.seasonOpenAlert = `Online permits become available for purchase on ${this.datePipe.transform(this.forest.startDate, 'MMM. d, yyyy')}`;
+        forest.seasonOpenAlert = `Online permits become available for purchase on ${this.datePipe.transform(this.forest.startDate, 'MMM. d, yyyy')}.`;
       }
     }
     return forest;

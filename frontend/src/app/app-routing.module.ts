@@ -26,13 +26,18 @@ import { ForestFinderComponent } from './trees/forests/forest-finder/forest-find
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
+import { UserResolver } from './user-resolver.service';
 
 const appRoutes: Routes = [
   {
     path: '',
     data: {
       breadcrumbs: true,
-      text: 'Apply for a permit'
+      text: 'Apply for a permit',
+      displayLogin: true
+    },
+    resolve: {
+      user: UserResolver
     },
     children: [
       {
@@ -40,7 +45,7 @@ const appRoutes: Routes = [
         component: HomeComponent,
         data: {
           title: 'US Forest Service ePermit',
-        },
+        }
       },
       {
         path: 'help-me-pick/:id',
@@ -149,7 +154,11 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Christmas tree permits',
-      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting'
+      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting',
+      requireLogin: false
+    },
+    resolve: {
+      user: UserResolver
     },
     children: [
       {
@@ -175,7 +184,7 @@ const appRoutes: Routes = [
           },
           {
             path: 'applications',
-            data: {breadcrumbs: 'Buy a permit'},
+            data: { breadcrumbs: 'Buy a permit' },
             children: [
               {
                 path: '',
@@ -187,7 +196,7 @@ const appRoutes: Routes = [
                 resolve: {
                   permit: ChristmasTreePermitResolver
                 },
-                data: {breadcrumbs: 'Permit confirmation'}
+                data: { breadcrumbs: 'Permit confirmation' }
               },
             ]
           },
@@ -198,7 +207,7 @@ const appRoutes: Routes = [
             resolve: {
               permit: ChristmasTreePermitDetailResolver
             },
-            data: {breadcrumbs: 'Buy a permit'},
+            data: { breadcrumbs: 'Buy a permit'} ,
           },
         ]
       }
