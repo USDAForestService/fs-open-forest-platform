@@ -58,7 +58,7 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should set fixed position if top of the container is less than items times offset', () => {
+  it('should set fixed position if top of the container is less than items times offset', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
@@ -72,7 +72,7 @@ describe('SidebarComponent', () => {
     expect(component.position).toEqual('fixed');
   });
 
-  xit('should set absolute position if top of the container is greater than items times offset', () => {
+  it('should set absolute position if top of the container is greater than items times offset', () => {
     spyOn(document, 'getElementById').and.callFake(function() {
       return {
         value: 'test',
