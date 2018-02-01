@@ -471,12 +471,15 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
-      // console.log(permit.christmasTreesForest.timezone);
       eachPermit.permitNumber = permit.paygovTrackingId;
-      eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+      eachPermit.issueDate = moment(permit.updatedAt)
+        .tz(permit.christmasTreesForest.timezone)
+        .format('MM/DD/YYYY');
       eachPermit.quantity = permit.quantity;
       eachPermit.totalCost = permit.totalCost;
-      eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      eachPermit.expireDate = moment(permit.permitExpireDate)
+        .tz(permit.christmasTreesForest.timezone)
+        .format('MM/DD/YYYY');
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(eachPermit);

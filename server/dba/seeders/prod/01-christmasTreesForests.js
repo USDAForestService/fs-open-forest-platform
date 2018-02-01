@@ -10,7 +10,7 @@ module.exports = {
         tree_height: 0,
         stump_height: 6,
         stump_diameter: 6,
-        start_date: '2018-11-01T07:00:00Z',
+        start_date: '2018-11-01T06:00:00Z',
         end_date: '2019-01-06T06:59:59Z',
         created: 'now()',
         updated: 'now()',
@@ -48,7 +48,7 @@ module.exports = {
         tree_height: 12,
         stump_height: 6,
         stump_diameter: 6,
-        start_date: '2017-11-01T08:00:00Z',
+        start_date: '2017-11-01T07:00:00Z',
         end_date: '2019-12-25T07:59:59Z',
         created: 'now()',
         updated: 'now()',
@@ -85,6 +85,10 @@ module.exports = {
   },
   down: function(queryInterface, Sequelize) {
     const operator = Sequelize.Op;
-    return queryInterface.bulkDelete('christmasTreesForests', { id: { [operator.in]: [1, 2, 3, 4] } });
+    return queryInterface.bulkDelete('christmasTreesForests', {
+      id: {
+        [operator.in]: [1, 2, 3, 4]
+      }
+    });
   }
 };

@@ -18,9 +18,6 @@
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
       <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
-      <!--<hr class="thick">-->
-      <!--<app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>-->
-      <!--<app-tree-species [forest]="forest"></app-tree-species>-->
 
       <hr class="thick" />
       <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
