@@ -26,7 +26,8 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     vcapConstants.permitSecret,
     claims
   );
-  return `${
+  return;
+  `${
     vcapConstants.intakeClientBaseUrl
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 };
@@ -73,7 +74,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       tcs_app_id: tcsAppID
                     },
                     {
-                      agency_tracking_id: permit.permitId
+                      agency_tracking_id: permit.permitId.substring(0, 20)
                     },
                     {
                       transaction_type: 'Sale'
@@ -168,7 +169,10 @@ paygov.getToken = result => {
 paygov.getResponseError = result => {
   const faultMesssage =
     result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0]['detail'][0]['TCSServiceFault'][0];
-  return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
+  return {
+    errorCode: faultMesssage.return_code,
+    errorMessage: faultMesssage.return_detail
+  };
 };
 
 paygov.getTrackingId = result => {
