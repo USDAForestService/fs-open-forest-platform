@@ -3,7 +3,7 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
-const moment = require('moment');
+const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 
 const vcapConstants = require('../vcap-constants.es6');
@@ -12,11 +12,15 @@ const paygov = require('../paygov.es6');
 const permitSvgService = require('../create-svg.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
+const util = require('../util.es6');
 
 const christmasTree = {};
 const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
+  let startDate = moment(input.startDate);
+  let endDate = moment(input.endDate);
+
   return {
     id: input.id,
     forestName: input.forestName,
@@ -28,8 +32,8 @@ const translateGuidelinesFromDatabaseToClient = input => {
     treeHeight: input.treeHeight,
     stumpHeight: input.stumpHeight,
     stumpDiameter: input.stumpDiameter,
-    startDate: input.startDate,
-    endDate: input.endDate,
+    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD h:mm:ss'),
+    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD h:mm:ss'),
     treeCost: input.treeCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
