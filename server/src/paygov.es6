@@ -27,8 +27,7 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     claims
   );
   console.log('jwt_token=', token);
-  return;
-  `${
+  return `${
     vcapConstants.intakeClientBaseUrl
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 };
