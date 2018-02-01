@@ -9,8 +9,7 @@ import { TreesService } from '../../trees/_services/trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
-import * as moment from 'moment/moment';
-
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -79,8 +78,13 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   checkSeasonStartDate(forest) {
-    if (forest && moment(forest.startDate).isAfter(moment())) {
-      this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr ]);
+    if (
+      forest &&
+      moment(forest.startDate)
+        .tz(forest.timezone)
+        .isAfter(moment().tz(forest.timezone))
+    ) {
+      this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
   }
 
@@ -91,9 +95,7 @@ export class TreeApplicationFormComponent implements OnInit {
       this.permit = data.permit;
       if (this.forest) {
         this.titleService.setTitle(
-          'Buy a permit | ' +
-          this.forest.forestName +
-          ' | U.S. Forest Service Christmas Tree Permitting'
+          'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );
         this.createForm(data, this.formBuilder);
       }
