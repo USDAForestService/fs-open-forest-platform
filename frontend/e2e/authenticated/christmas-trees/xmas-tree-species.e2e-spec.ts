@@ -13,12 +13,13 @@ describe('Xmas tree species page', () => {
         .setSize(1400, 900);
       page.navigateTo('mthood');
       browser.sleep(500);
-      page.getTreeSelectionLink().click();
-      browser.sleep(100);
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
+      element(by.id('cutting-instructions-link')).click();
+      expect<any>(element(by.id('cutting-instructions-tree-selection-link')).getText()).toEqual('Identifying tree species');
+      element(by.id('cutting-instructions-tree-selection-link')).click();
+      browser.sleep(100);
     });
 
     describe('recommended species', () => {
@@ -65,12 +66,14 @@ describe('Xmas tree species page', () => {
         .setSize(1400, 900);
       page.navigateTo('arp');
       browser.sleep(500);
+      element(by.id('cutting-instructions-link')).click();
+      browser.sleep(100);
       page.getTreeSelectionLink().click();
       browser.sleep(100);
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
+      expect<any>(element(by.id('cutting-instructions-tree-selection-link')).getText()).toEqual('Identifying tree species');
     });
 
     describe('recommended species', () => {
@@ -101,12 +104,14 @@ describe('Xmas tree species page', () => {
         .setSize(1400, 900);
       page.navigateTo('shoshone');
       browser.sleep(500);
+      element(by.id('cutting-instructions-link')).click();
+      browser.sleep(100);
       page.getTreeSelectionLink().click();
       browser.sleep(100);
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
+      expect<any>(element(by.id('cutting-instructions-tree-selection-link')).getText()).toEqual('Identifying tree species');
     });
 
     describe('recommended species', () => {
@@ -160,12 +165,14 @@ describe('Xmas tree species page', () => {
         .setSize(1400, 900);
       page.navigateTo('flathead');
       browser.sleep(500);
+      element(by.id('cutting-instructions-link')).click();
+      browser.sleep(100);
       page.getTreeSelectionLink().click();
       browser.sleep(100);
     });
 
     it('should have a species section link', () => {
-      expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
+      expect<any>(element(by.id('cutting-instructions-tree-selection-link')).getText()).toEqual('Identifying tree species');
     });
 
     describe('recommended species', () => {
