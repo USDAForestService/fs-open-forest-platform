@@ -471,6 +471,7 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
+      // console.log(permit.christmasTreesForest.timezone);
       eachPermit.permitNumber = permit.paygovTrackingId;
       eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
       eachPermit.quantity = permit.quantity;
@@ -495,7 +496,20 @@ christmasTree.getPermits = (req, res) => {
   const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
   treesDb.christmasTreesPermits
     .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      attributes: [
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate',
+        'christmasTreesForest.timezone'
+      ],
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ],
       where: {
         forestId: req.params.forestId,
         status: 'Completed',
