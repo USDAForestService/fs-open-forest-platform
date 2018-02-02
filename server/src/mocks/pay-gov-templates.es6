@@ -65,18 +65,18 @@ templates.completeOnlineCollectionRequest.cardError = returnCode => {
 };
 templates.completeOnlineCollectionRequest.successfulResponse = paygovTrackingId => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Header>
-       <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-       </work:WorkContext>
-      </soap:Header>
-      <soap:Body>
+    <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+      <S:Header>
+       <WorkContext xmlns="http://oracle.com/weblogic/soap/workarea/">
+       </WorkContext>
+      </S:Header>
+      <S:Body>
         <ns2:completeOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
           <completeOnlineCollectionResponse>
             <paygov_tracking_id>${paygovTrackingId}</paygov_tracking_id>
           </completeOnlineCollectionResponse>
         </ns2:completeOnlineCollectionResponse>
-      </soap:Body>
-    </soap:Envelope>`;
+      </S:Body>
+    </S:Envelope>`;
 };
 module.exports = templates;

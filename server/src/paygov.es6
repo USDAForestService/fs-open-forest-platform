@@ -170,9 +170,7 @@ paygov.getResponseError = result => {
 
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
-    result['soap:Envelope']['soap:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
-      'completeOnlineCollectionResponse'
-    ][0];
+    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
 };
 /**
