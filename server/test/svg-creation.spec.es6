@@ -78,7 +78,7 @@ describe('svg creation tests', () => {
       expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FORESTS');
     });
   });
-  describe('should set #national-forest_1_ to NATIONAL FOREST', () => {
+  describe('single forest', () => {
     let frag;
     before(done => {
       const permit = christmasTreesPermitFactory.create();
@@ -88,7 +88,7 @@ describe('svg creation tests', () => {
           done();
         });
     });
-    it('should set tree-height_1_ to N/A', () => {
+    it('should set #national-forest_1_ to NATIONAL FOREST', () => {
       expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FOREST');
     });
   });
