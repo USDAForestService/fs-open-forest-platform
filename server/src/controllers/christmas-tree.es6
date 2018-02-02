@@ -374,9 +374,12 @@ christmasTree.getOnePermit = (req, res) => {
         return getPermitError(res, permit);
       } else if (permit && permit.status === 'Initiated') {
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+        console.log('CompleteTransaction xmlData=', xmlData);
         postPayGov(xmlData).then(xmlResponse => {
+          console.log('xmlResponse=', xmlResponse);
           parseXMLFromPayGov(res, xmlResponse, permit)
             .then(paygovTrackingId => {
+              console.log('paygovTrackingId=', paygovTrackingId);
               return updatePermit(permit, {
                 paygovTrackingId: paygovTrackingId,
                 status: 'Completed'

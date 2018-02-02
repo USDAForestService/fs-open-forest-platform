@@ -47,10 +47,10 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     }
     tokens[token] = { successUrl: startCollectionRequest.url_success[0] };
   } else if (
-    requestBody['completeOnlineCollection'] &&
-    requestBody['completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
+    requestBody['ns2:completeOnlineCollection'] &&
+    requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
   ) {
-    let collectionRequest = requestBody['completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
+    let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
     let requestToken = collectionRequest.token[0];
     let transactionStatus = transactions[requestToken];
 

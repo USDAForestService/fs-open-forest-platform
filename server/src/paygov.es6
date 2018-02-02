@@ -26,7 +26,9 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     vcapConstants.permitSecret,
     claims
   );
-  return `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}`;
+  return `${
+    vcapConstants.intakeClientBaseUrl
+  }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 };
 
 /**
@@ -126,10 +128,10 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
         {
           'soap:Body': [
             {
-              completeOnlineCollection: [
+              'ns2:completeOnlineCollection': [
                 {
                   _attr: {
-                    xmlns: 'http://fms.treas.gov/services/tcsonline'
+                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
@@ -168,7 +170,7 @@ paygov.getResponseError = result => {
 
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
-    result['soap:Envelope']['soap:Body'][0]['completeOnlineCollectionResponse'][0][
+    result['soap:Envelope']['soap:Body'][0]['ns2:completeOnlineCollectionResponse'][0][
       'completeOnlineCollectionResponse'
     ][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
