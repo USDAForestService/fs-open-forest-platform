@@ -64,4 +64,32 @@ describe('svg creation tests', () => {
       expect(frag.querySelector('#tree-height-feet_1_').textContent).to.equal('');
     });
   });
+  describe('multiple forests', () => {
+    let frag;
+    before(done => {
+      const permit = christmasTreesPermitFactory.create({'christmasTreesForest.forestNameShort':'Name and Name'});
+      permitSvgService.generatePermitSvg(permit)
+        .then(svg => {
+          frag = JSDOM.fragment(svg.toString('utf8'));
+          done();
+        });
+    });
+    it('should set #national-forest_1_ to NATIONAL FORESTS', () => {
+      expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FORESTS');
+    });
+  });
+  describe('should set #national-forest_1_ to NATIONAL FOREST', () => {
+    let frag;
+    before(done => {
+      const permit = christmasTreesPermitFactory.create();
+      permitSvgService.generatePermitSvg(permit)
+        .then(svg => {
+          frag = JSDOM.fragment(svg.toString('utf8'));
+          done();
+        });
+    });
+    it('should set tree-height_1_ to N/A', () => {
+      expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FOREST');
+    });
+  });
 });
