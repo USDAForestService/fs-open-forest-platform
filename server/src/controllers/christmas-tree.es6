@@ -238,7 +238,6 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-
       if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
         return res.status(404).send(); // season is closed or not yet started
       } else {
@@ -473,14 +472,19 @@ const returnPermitResults = (results, res) => {
     results.forEach(permit => {
       let eachPermit = {};
       eachPermit.permitNumber = permit.paygovTrackingId;
-      eachPermit.issueDate = moment(permit.updatedAt)
-        .tz(permit.christmasTreesForest.timezone)
-        .format('MM/DD/YYYY');
+      if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
+        eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
+
+        eachPermit.expireDate = moment
+          .tz(permit.permitExpireDate, permit.christmasTreesForest.timezone)
+          .format('MM/DD/YYYY');
+      } else {
+        eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+        eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      }
       eachPermit.quantity = permit.quantity;
       eachPermit.totalCost = permit.totalCost;
-      eachPermit.expireDate = moment(permit.permitExpireDate)
-        .tz(permit.christmasTreesForest.timezone)
-        .format('MM/DD/YYYY');
+
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(eachPermit);
