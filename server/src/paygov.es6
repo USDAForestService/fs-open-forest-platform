@@ -47,22 +47,19 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 
   const xmlTemplate = [
     {
-      'soapenv:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'soapenv:Header': []
-        },
-        {
-          'soapenv:Body': [
+          'soap:Body': [
             {
-              startOnlineCollection: [
+              'ns2:startOnlineCollection': [
                 {
                   _attr: {
-                    xmlns: 'http://fms.treas.gov/services/tcsonline'
+                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
                   }
                 },
                 {
@@ -80,7 +77,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       transaction_amount: permit.totalCost
                     },
                     {
-                      language: 'en'
+                      language: 'EN'
                     },
                     {
                       url_success: url_success
@@ -117,17 +114,17 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
     {
-      'soapenv:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:soapenv': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'soapenv:Header': []
+          'soap:Header': []
         },
         {
-          'soapenv:Body': [
+          'soap:Body': [
             {
               completeOnlineCollection: [
                 {
@@ -157,15 +154,12 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
-    result['soapenv:Envelope']['soapenv:Body'][0]['startOnlineCollectionResponse'][0][
-      'startOnlineCollectionResponse'
-    ][0];
+    result['soap:Envelope']['soap:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
   return startOnlineCollectionResponse.token[0];
 };
 
 paygov.getResponseError = result => {
-  const faultMesssage =
-    result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0]['detail'][0]['TCSServiceFault'][0];
+  const faultMesssage = result['soap:Envelope']['soap:Body'][0]['soap:Fault'][0]['detail'][0]['TCSServiceFault'][0];
   return {
     errorCode: faultMesssage.return_code,
     errorMessage: faultMesssage.return_detail
@@ -174,7 +168,7 @@ paygov.getResponseError = result => {
 
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
-    result['soapenv:Envelope']['soapenv:Body'][0]['completeOnlineCollectionResponse'][0][
+    result['soap:Envelope']['soap:Body'][0]['completeOnlineCollectionResponse'][0][
       'completeOnlineCollectionResponse'
     ][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
