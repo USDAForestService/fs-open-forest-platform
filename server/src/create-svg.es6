@@ -39,8 +39,8 @@ const addForestSpecificInfo = (permit, frag) => {
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
   frag.querySelector('#permit-expiration_1_').textContent =
-    moment(permit.christmasTreesForest.endDate, util.datetimeFormat)
-      .tz(permit.christmasTreesForest.timezone)
+    moment
+      .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
       .format('MMM D, YYYY')
       .toUpperCase() + ' MIDNIGHT';
   if (permit.christmasTreesForest.treeHeight > 0) {
