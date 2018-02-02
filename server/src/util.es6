@@ -165,11 +165,6 @@ util.isLocalOrCI = () => {
   return environments.indexOf(process.env.PLATFORM) !== -1;
 };
 
-util.isProd = () => {
-  const environments = ['prod'];
-  return environments.indexOf(process.env.PLATFORM) !== -1;
-};
-
 /**
  * Set the request body's authenticated email based on the passport user.
  */
