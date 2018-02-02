@@ -37,8 +37,8 @@ export class DateTimeRangeComponent implements OnInit {
 
   ngOnInit() {
     if (this.dateOnly) {
-      this.defaultStartHour = '05';
-      this.defaultEndHour = '06';
+      this.defaultStartHour = '01';
+      this.defaultEndHour = '02';
       this.defaultPeriod = 'AM';
     }
     this.formName = 'dateTimeRange';

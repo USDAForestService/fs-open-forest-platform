@@ -39,6 +39,7 @@
     "intersection-observer": "^0.4.0",
     "intl": "^1.2.5",
     "is-docker": "^1.1.0",
+    "moment-timezone": "^0.5.14",
     "ng-in-viewport": "^1.2.0",
     "ng2-file-upload": "^1.2.1",
     "ngx-breadcrumbs": "^0.0.3",
@@ -46,7 +47,6 @@
     "rxjs": "5.5.2",
     "uglifyjs-webpack-plugin": "1.1.6",
     "uswds": "^1.4.2",
-    "uglifyjs-webpack-plugin": "1.1.6",
     "web-animations-js": "^2.2.5",
     "zone.js": "^0.8.12"
   },

@@ -30,7 +30,7 @@ describe('TreeApplicationFormComponent', () => {
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
   let userService: Title;
 
-  describe ('should check the season start date', () => {
+  describe('should check the season start date', () => {
     let mockRouter: MockRouter;
 
     beforeEach(
@@ -81,18 +81,18 @@ describe('TreeApplicationFormComponent', () => {
     });
   });
 
-  describe ('', () => {
+  describe('', () => {
     beforeEach(
       async(() => {
         TestBed.configureTestingModule({
           declarations: [TreeApplicationFormComponent],
           providers: [
             UtilService,
-            {provide: FormBuilder, useClass: FormBuilder},
-            {provide: Title, useClass: Title},
-            {provide: TreesService, useClass: TreesService},
-            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            {provide: ApplicationFieldsService, useClass: ApplicationFieldsService},
+            { provide: FormBuilder, useClass: FormBuilder },
+            { provide: Title, useClass: Title },
+            { provide: TreesService, useClass: TreesService },
+            { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+            { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
               provide: ActivatedRoute,
               useValue: {
@@ -131,9 +131,7 @@ describe('TreeApplicationFormComponent', () => {
 
     it('should set the title', () => {
       userService = TestBed.get(Title);
-      expect(userService.getTitle()).toBe(
-        'Buy a permit | Mt Hood | U.S. Forest Service Christmas Tree Permitting'
-      );
+      expect(userService.getTitle()).toBe('Buy a permit | Mt Hood | U.S. Forest Service Christmas Tree Permitting');
     });
 
     it('should submit application', () => {

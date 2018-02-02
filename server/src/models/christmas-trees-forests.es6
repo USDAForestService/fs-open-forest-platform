@@ -79,6 +79,10 @@ module.exports = function(sequelize, DataTypes) {
       forestNameShort: {
         type: DataTypes.STRING,
         field: 'forest_name_short'
+      },
+      timezone: {
+        type: DataTypes.STRING,
+        field: 'timezone'
       }
     },
     {
