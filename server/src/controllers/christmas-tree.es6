@@ -234,8 +234,8 @@ christmasTree.create = (req, res) => {
     })
     .then(forest => {
 
-      if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-        return res.status(404).send(); // season is closed or not yet started
+      if (!util.isProd() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        return res.status(404).send(); // season is closed or not yet started only checked in prod
       } else {
         req.body.expDate = forest.endDate;
         treesDb.christmasTreesPermits
