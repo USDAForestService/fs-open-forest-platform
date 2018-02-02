@@ -38,9 +38,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
   const tcsAppID = vcapConstants.payGovAppId;
   let url_success = '';
   try {
-    console.log('vcapConstants.permitSecret=', vcapConstants.permitSecret);
     url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
-    console.log('url_success=', url_success);
   } catch (e) {
     console.error('problem creating success url for permit ' + permit.id, e);
   }
