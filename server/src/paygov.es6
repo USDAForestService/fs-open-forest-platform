@@ -154,7 +154,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
-    result['soap:Envelope']['soap:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
+    result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
   return startOnlineCollectionResponse.token[0];
 };
 

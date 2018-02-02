@@ -28,29 +28,29 @@ templates.startOnlineCollectionRequest.noResponse = () => {
 };
 templates.startOnlineCollectionRequest.successfulResponse = token => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Header>
-       <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
-       </work:WorkContext>
-      </soap:Header>
-      <soap:Body>
-        <startOnlineCollectionResponse xmlns="http://fms.treas.gov/services/tcsonline">
+    <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+      <S:Header>
+       <WorkContext xmlns="http://oracle.com/weblogic/soap/workarea/">
+       </WorkContext>
+      </S:Header>
+      <S:Body>
+        <ns2:startOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
           <startOnlineCollectionResponse>
             <token>${token}</token>
           </startOnlineCollectionResponse>
-        </startOnlineCollectionResponse>
-      </soap:Body>
-    </soap:Envelope>`;
+        </ns2:startOnlineCollectionResponse>
+      </S:Body>
+    </S:Envelope>`;
 };
 templates.completeOnlineCollectionRequest.cardError = returnCode => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
       <soap:Header>
          <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
          </work:WorkContext>
       </soap:Header>
       <soap:Body>
-        <soap:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
+        <soap:Fault xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
           <faultcode>S:Server</faultcode>
           <faultstring>TCS Error</faultstring>
           <detail>
@@ -65,17 +65,17 @@ templates.completeOnlineCollectionRequest.cardError = returnCode => {
 };
 templates.completeOnlineCollectionRequest.successfulResponse = paygovTrackingId => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
       <soap:Header>
        <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
        </work:WorkContext>
       </soap:Header>
       <soap:Body>
-        <completeOnlineCollectionResponse xmlns="http://fms.treas.gov/services/tcsonline">
+        <ns2:completeOnlineCollectionResponse xmlns:ns2="http://fms.treas.gov/services/tcsonline">
           <completeOnlineCollectionResponse>
             <paygov_tracking_id>${paygovTrackingId}</paygov_tracking_id>
           </completeOnlineCollectionResponse>
-        </completeOnlineCollectionResponse>
+        </ns2:completeOnlineCollectionResponse>
       </soap:Body>
     </soap:Envelope>`;
 };
