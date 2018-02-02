@@ -501,46 +501,55 @@ const returnPermitResults = (results, res) => {
 };
 
 christmasTree.getPermits = (req, res) => {
-  const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
-  treesDb.christmasTreesPermits
-    .findAll({
-      attributes: [
-        'forestId',
-        'paygovTrackingId',
-        'updatedAt',
-        'quantity',
-        'totalCost',
-        'permitExpireDate',
-        'christmasTreesForest.timezone'
-      ],
-      include: [
-        {
-          model: treesDb.christmasTreesForests
-        }
-      ],
+  treesDb.christmasTreesForests
+    .findOne({
       where: {
-        forestId: req.params.forestId,
-        status: 'Completed',
-        updatedAt: {
-          [operator.gte]: req.params.startDate,
-          [operator.lt]: nextDay
-        }
-      },
-      order: [['updatedAt', 'ASC']]
-    })
-    .then(results => {
-      return returnPermitResults(results, res);
-    })
-    .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else if (error.name === 'SequelizeDatabaseError') {
-        return res.status(404).send();
-      } else {
-        return res.status(500).send();
+        id: req.params.forestId
       }
+    })
+    .then(forest => {
+      const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
+      const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
+      treesDb.christmasTreesPermits
+        .findAll({
+          attributes: [
+            'forestId',
+            'paygovTrackingId',
+            'updatedAt',
+            'quantity',
+            'totalCost',
+            'permitExpireDate',
+            'christmasTreesForest.timezone'
+          ],
+          include: [
+            {
+              model: treesDb.christmasTreesForests
+            }
+          ],
+          where: {
+            forestId: req.params.forestId,
+            status: 'Completed',
+            updatedAt: {
+              [operator.gte]: startDate,
+              [operator.lt]: nextDay
+            }
+          },
+          order: [['updatedAt', 'ASC']]
+        })
+        .then(results => {
+          return returnPermitResults(results, res);
+        })
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else if (error.name === 'SequelizeDatabaseError') {
+            return res.status(404).send();
+          } else {
+            return res.status(500).send();
+          }
+        });
     });
 };
 
