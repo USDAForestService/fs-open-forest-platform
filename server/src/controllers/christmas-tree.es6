@@ -134,16 +134,7 @@ christmasTree.getOneGuidelines = (req, res) => {
 
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
-  //let cert = vcapConstants.payGovCert[0].replace('\n', '');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-
-  const payGovCertCa = [];
-  payGovCertCa.push(vcapConstants.payGovCert[1]);
-  payGovCertCa.push(vcapConstants.payGovCert[2]);
-  payGovCertCa.push(vcapConstants.payGovCert[3]);
-  payGovCertCa.push(vcapConstants.payGovCert[4]);
-
-  console.log('PayGov CERTIFICATE=', payGovCert);
 
   return request.post(
     {
@@ -155,14 +146,11 @@ const postPayGov = xmlData => {
       body: xmlData,
       key: payGovPrivateKey,
       cert: payGovCert
-      // ca: payGovCertCa
     },
     function(error, response, body) {
       if (!error) {
-        console.log('postPayGov response=', response.body);
         return body;
       } else {
-        console.log('postPayGov ERROR', error);
         return error;
       }
     }
@@ -199,7 +187,6 @@ const updatePermitWithToken = (res, permit, token) => {
       paygovToken: token
     })
     .then(savedPermit => {
-      console.log('token saved into database');
       return res.status(200).json({
         token: token,
         permitId: savedPermit.permitId,
@@ -244,23 +231,17 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      // if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-      //   return res.status(404).send(); // season is closed or not yet started
-      // } else {
       req.body.expDate = forest.endDate;
       treesDb.christmasTreesPermits
         .create(translatePermitFromClientToDatabase(req.body))
         .then(permit => {
           const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-          console.log('request xmlData=', xmlData);
           postPayGov(xmlData)
             .then(xmlResponse => {
               xml2jsParse(xmlResponse, function(err, result) {
-                console.log('PARSE result=', result);
                 if (!err) {
                   try {
                     const token = paygov.getToken(result);
-                    console.log('PayGov token=', token);
                     return updatePermitWithToken(res, permit, token);
                   } catch (error) {
                     try {
@@ -286,7 +267,6 @@ christmasTree.create = (req, res) => {
             return res.status(500).send();
           }
         });
-      // }
     })
     .catch(error => {
       return res.status(400).json({
@@ -374,12 +354,9 @@ christmasTree.getOnePermit = (req, res) => {
         return getPermitError(res, permit);
       } else if (permit && permit.status === 'Initiated') {
         const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-        console.log('CompleteTransaction xmlData=', xmlData);
         postPayGov(xmlData).then(xmlResponse => {
-          console.log('xmlResponse=', xmlResponse);
           parseXMLFromPayGov(res, xmlResponse, permit)
             .then(paygovTrackingId => {
-              console.log('paygovTrackingId=', paygovTrackingId);
               return updatePermit(permit, {
                 paygovTrackingId: paygovTrackingId,
                 status: 'Completed'
