@@ -26,7 +26,6 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     vcapConstants.permitSecret,
     claims
   );
-  console.log('jwt_token=', token);
   return `${
     vcapConstants.intakeClientBaseUrl
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
@@ -52,17 +51,14 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
-        },
-        {
-          'S:Body': [
+          'soap:Body': [
             {
               'ns2:startOnlineCollection': [
                 {
@@ -76,7 +72,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       tcs_app_id: tcsAppID
                     },
                     {
-                      agency_tracking_id: permit.permitId
+                      agency_tracking_id: permit.permitId.substring(0, 20)
                     },
                     {
                       transaction_type: 'Sale'
@@ -85,7 +81,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       transaction_amount: permit.totalCost
                     },
                     {
-                      language: 'en'
+                      language: 'EN'
                     },
                     {
                       url_success: url_success
@@ -122,17 +118,17 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
+          'soap:Header': []
         },
         {
-          'S:Body': [
+          'soap:Body': [
             {
               'ns2:completeOnlineCollection': [
                 {
@@ -167,8 +163,11 @@ paygov.getToken = result => {
 };
 
 paygov.getResponseError = result => {
-  const faultMesssage = result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
-  return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
+  const faultMesssage = result['soap:Envelope']['soap:Body'][0]['soap:Fault'][0]['detail'][0]['TCSServiceFault'][0];
+  return {
+    errorCode: faultMesssage.return_code,
+    errorMessage: faultMesssage.return_detail
+  };
 };
 
 paygov.getTrackingId = result => {

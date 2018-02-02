@@ -140,7 +140,7 @@ christmasTree.getOneGuidelines = (req, res) => {
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-  const payGovCertCa = Buffer.from(vcapConstants.payGovCert[1], 'utf8');
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -150,14 +150,12 @@ const postPayGov = xmlData => {
       },
       body: xmlData,
       key: payGovPrivateKey,
-      cert: payGovCert,
-      ca: payGovCertCa
+      cert: payGovCert
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error) {
         return body;
       } else {
-        console.log('postPayGov ERROR', error);
         return error;
       }
     }
@@ -238,46 +236,42 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-        return res.status(404).send(); // season is closed or not yet started
-      } else {
-        req.body.expDate = forest.endDate;
-        treesDb.christmasTreesPermits
-          .create(translatePermitFromClientToDatabase(req.body))
-          .then(permit => {
-            const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-            postPayGov(xmlData)
-              .then(xmlResponse => {
-                xml2jsParse(xmlResponse, function(err, result) {
-                  if (!err) {
+      req.body.expDate = forest.endDate;
+      treesDb.christmasTreesPermits
+        .create(translatePermitFromClientToDatabase(req.body))
+        .then(permit => {
+          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+          postPayGov(xmlData)
+            .then(xmlResponse => {
+              xml2jsParse(xmlResponse, function(err, result) {
+                if (!err) {
+                  try {
+                    const token = paygov.getToken(result);
+                    return updatePermitWithToken(res, permit, token);
+                  } catch (error) {
                     try {
-                      const token = paygov.getToken(result);
-                      return updatePermitWithToken(res, permit, token);
-                    } catch (error) {
-                      try {
-                        const paygovError = paygov.getResponseError(result);
-                        return updatePermitWithError(res, permit, paygovError);
-                      } catch (faultError) {
-                        throwError(faultError);
-                      }
+                      const paygovError = paygov.getResponseError(result);
+                      return updatePermitWithError(res, permit, paygovError);
+                    } catch (faultError) {
+                      throwError(faultError);
                     }
                   }
-                });
-              })
-              .catch(() => {
-                return res.status(500).send();
+                }
               });
-          })
-          .catch(error => {
-            if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({
-                errors: error.errors
-              });
-            } else {
+            })
+            .catch(() => {
               return res.status(500).send();
-            }
-          });
-      }
+            });
+        })
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else {
+            return res.status(500).send();
+          }
+        });
     })
     .catch(error => {
       return res.status(400).json({
