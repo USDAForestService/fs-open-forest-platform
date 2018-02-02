@@ -135,7 +135,7 @@ christmasTree.getOneGuidelines = (req, res) => {
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-  const payGovCertCa = Buffer.from(vcapConstants.payGovCert[1], 'utf8');
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -145,14 +145,12 @@ const postPayGov = xmlData => {
       },
       body: xmlData,
       key: payGovPrivateKey,
-      cert: payGovCert,
-      ca: payGovCertCa
+      cert: payGovCert
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error) {
         return body;
       } else {
-        console.log('postPayGov ERROR', error);
         return error;
       }
     }
@@ -233,18 +231,14 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-
-      if (!util.isLocalOrCI() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-        return res.status(404).send(); // season is closed or not yet started
-      } else {
-        req.body.expDate = forest.endDate;
-        treesDb.christmasTreesPermits
+      req.body.expDate = forest.endDate;
+      treesDb.christmasTreesPermits
         .create(translatePermitFromClientToDatabase(req.body))
         .then(permit => {
           const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
           postPayGov(xmlData)
             .then(xmlResponse => {
-              xml2jsParse(xmlResponse, function (err, result) {
+              xml2jsParse(xmlResponse, function(err, result) {
                 if (!err) {
                   try {
                     const token = paygov.getToken(result);
@@ -273,7 +267,6 @@ christmasTree.create = (req, res) => {
             return res.status(500).send();
           }
         });
-      }
     })
     .catch(error => {
       return res.status(400).json({
@@ -521,17 +514,24 @@ christmasTree.getPermits = (req, res) => {
 christmasTree.getPermitByTrackingId = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
       where: {
         paygovTrackingId: req.params.paygovTrackingId,
-        status: 'Completed',
+        status: 'Completed'
       }
     })
     .then(requestedPermit => {
-      if(requestedPermit === null) {
+      if (requestedPermit === null) {
         return res.status(404).send();
-      }
-      else {
+      } else {
         return returnPermitResults([requestedPermit], res);
       }
     })
