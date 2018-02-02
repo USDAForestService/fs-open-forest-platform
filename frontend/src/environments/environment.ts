@@ -7,5 +7,20 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/',
   buildDate: new Date(),
-  version: 'DEV'
+  version: 'DEV',
+  forestOverrides: {
+    '1': {
+      startDate: '2018-11-01T12:00:00Z',
+      endDate: '2019-01-06T12:00:00Z'
+    },
+    '3': {
+      startDate: '2017-11-01T12:00:00Z',
+      endDate: '2019-12-24T12:00:00Z'
+    },
+    '4': {
+      startDate: '2017-11-21T12:00:00Z',
+      endDate: '2017-12-24T12:00:00Z'
+    }
+  }
+
 };

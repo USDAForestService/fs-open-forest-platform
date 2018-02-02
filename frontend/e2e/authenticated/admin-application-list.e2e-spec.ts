@@ -23,21 +23,9 @@ describe('Apply for a ', () => {
     expect<any>(element(by.css('.application-list')).isPresent).toBeTruthy();
   });
 
-  it('should show noncommercial app in grid', () => {
-    expect<any>(element(by.css(`#${list.permitId()}  .application-type`)).getText()).toEqual('Noncommercial');
-    expect<any>(element(by.css(`#${list.permitId()}  .application-start-date`)).getText()).toEqual(
-      '01/12/2019 12:00 pm'
-    );
-
-    expect<any>(element(by.css(`#${list.permitId()}  .application-end-date`)).getText()).toEqual('01/19/2019 12:00 pm');
-
-    expect<any>(element(by.css(`#${list.permitId()}  .permit-holder-name`)).getText()).toEqual('John Doe');
-  });
-
   it('should swich applications when changing filter', () => {
     element(by.cssContainingText('option', 'Accepted')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Accepted permit applications');
-    expect<any>(element(by.id(list.permitId())).isPresent()).toBeFalsy();
 
     element(by.cssContainingText('option', 'Rejected')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Rejected permit applications');
@@ -50,6 +38,5 @@ describe('Apply for a ', () => {
 
     element(by.cssContainingText('option', 'Pending')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications');
-    expect<any>(element(by.id(list.permitId())).isPresent()).toBeTruthy();
   });
 });

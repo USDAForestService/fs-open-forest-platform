@@ -14,6 +14,9 @@ class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {
     return Observable.of({ role: 'admin' });
   }
+  setUser(obj) {
+    return '';
+  }
 }
 
 describe('LoggedInComponent', () => {
