@@ -3,7 +3,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import * as moment from 'moment/moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-report',
@@ -92,14 +92,18 @@ export class ReportComponent implements OnInit {
       if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
         this.reportParameters = {
           forestName: this.forest.forestName,
-          startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
-          endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
+          startDate: moment
+            .tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone)
+            .format('MM/DD/YYYY'),
+          endDate: moment
+            .tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone)
+            .format('MM/DD/YYYY')
         };
         this.service
           .getAllByDateRange(
             this.forest.id,
-            moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
-            moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
+            moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
+            moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
           )
           .subscribe(
             results => {
@@ -118,8 +122,8 @@ export class ReportComponent implements OnInit {
       }
     } else {
       this.form.reset();
-      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value)
-        .subscribe(results => {
+      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
+        results => {
           this.result = {
             numberOfPermits: 1,
             sumOfTrees: results.permits[0].quantity,
@@ -130,7 +134,8 @@ export class ReportComponent implements OnInit {
         },
         err => {
           this.apiErrors = err;
-        });
+        }
+      );
     }
   }
 }

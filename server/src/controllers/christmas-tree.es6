@@ -3,7 +3,7 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
-const moment = require('moment');
+const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 
 const vcapConstants = require('../vcap-constants.es6');
@@ -18,6 +18,9 @@ const christmasTree = {};
 const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
+  let startDate = moment(input.startDate);
+  let endDate = moment(input.endDate);
+
   return {
     id: input.id,
     forestName: input.forestName,
@@ -29,11 +32,12 @@ const translateGuidelinesFromDatabaseToClient = input => {
     treeHeight: input.treeHeight,
     stumpHeight: input.stumpHeight,
     stumpDiameter: input.stumpDiameter,
-    startDate: input.startDate,
-    endDate: input.endDate,
+    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD h:mm:ss'),
+    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD h:mm:ss'),
     treeCost: input.treeCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
+    timezone: input.timezone,
     species: input.christmasTreesForestSpecies.map(species => {
       return {
         id: species.species.id,
@@ -76,7 +80,8 @@ const translatePermitFromClientToDatabase = input => {
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate']
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate'],
+      order: [['id', 'ASC']]
     })
     .then(results => {
       if (results) {
@@ -135,7 +140,7 @@ christmasTree.getOneGuidelines = (req, res) => {
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
-  const payGovCertCa = Buffer.from(vcapConstants.payGovCert[1], 'utf8');
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -145,14 +150,12 @@ const postPayGov = xmlData => {
       },
       body: xmlData,
       key: payGovPrivateKey,
-      cert: payGovCert,
-      ca: payGovCertCa
+      cert: payGovCert
     },
     function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+      if (!error) {
         return body;
       } else {
-        console.log('postPayGov ERROR', error);
         return error;
       }
     }
@@ -235,40 +238,40 @@ christmasTree.create = (req, res) => {
     .then(forest => {
       req.body.expDate = forest.endDate;
       treesDb.christmasTreesPermits
-      .create(translatePermitFromClientToDatabase(req.body))
-      .then(permit => {
-        const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-        postPayGov(xmlData)
-          .then(xmlResponse => {
-            xml2jsParse(xmlResponse, function (err, result) {
-              if (!err) {
-                try {
-                  const token = paygov.getToken(result);
-                  return updatePermitWithToken(res, permit, token);
-                } catch (error) {
+        .create(translatePermitFromClientToDatabase(req.body))
+        .then(permit => {
+          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+          postPayGov(xmlData)
+            .then(xmlResponse => {
+              xml2jsParse(xmlResponse, function(err, result) {
+                if (!err) {
                   try {
-                    const paygovError = paygov.getResponseError(result);
-                    return updatePermitWithError(res, permit, paygovError);
-                  } catch (faultError) {
-                    throwError(faultError);
+                    const token = paygov.getToken(result);
+                    return updatePermitWithToken(res, permit, token);
+                  } catch (error) {
+                    try {
+                      const paygovError = paygov.getResponseError(result);
+                      return updatePermitWithError(res, permit, paygovError);
+                    } catch (faultError) {
+                      throwError(faultError);
+                    }
                   }
                 }
-              }
+              });
+            })
+            .catch(() => {
+              return res.status(500).send();
             });
-          })
-          .catch(() => {
+        })
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else {
             return res.status(500).send();
-          });
-      })
-      .catch(error => {
-        if (error.name === 'SequelizeValidationError') {
-          return res.status(400).json({
-            errors: error.errors
-          });
-        } else {
-          return res.status(500).send();
-        }
-      });
+          }
+        });
     })
     .catch(error => {
       return res.status(400).json({
@@ -463,10 +466,19 @@ const returnPermitResults = (results, res) => {
     results.forEach(permit => {
       let eachPermit = {};
       eachPermit.permitNumber = permit.paygovTrackingId;
-      eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+      if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
+        eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
+
+        eachPermit.expireDate = moment
+          .tz(permit.permitExpireDate, permit.christmasTreesForest.timezone)
+          .format('MM/DD/YYYY');
+      } else {
+        eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+        eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      }
       eachPermit.quantity = permit.quantity;
       eachPermit.totalCost = permit.totalCost;
-      eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(eachPermit);
@@ -483,50 +495,79 @@ const returnPermitResults = (results, res) => {
 };
 
 christmasTree.getPermits = (req, res) => {
-  const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
-  treesDb.christmasTreesPermits
-    .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+  treesDb.christmasTreesForests
+    .findOne({
       where: {
-        forestId: req.params.forestId,
-        status: 'Completed',
-        updatedAt: {
-          [operator.gte]: req.params.startDate,
-          [operator.lt]: nextDay
-        }
-      },
-      order: [['updatedAt', 'ASC']]
-    })
-    .then(results => {
-      return returnPermitResults(results, res);
-    })
-    .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else if (error.name === 'SequelizeDatabaseError') {
-        return res.status(404).send();
-      } else {
-        return res.status(500).send();
+        id: req.params.forestId
       }
+    })
+    .then(forest => {
+      const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
+      const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
+      treesDb.christmasTreesPermits
+        .findAll({
+          attributes: [
+            'forestId',
+            'paygovTrackingId',
+            'updatedAt',
+            'quantity',
+            'totalCost',
+            'permitExpireDate',
+            'christmasTreesForest.timezone'
+          ],
+          include: [
+            {
+              model: treesDb.christmasTreesForests
+            }
+          ],
+          where: {
+            forestId: req.params.forestId,
+            status: 'Completed',
+            updatedAt: {
+              [operator.gte]: startDate,
+              [operator.lt]: nextDay
+            }
+          },
+          order: [['updatedAt', 'ASC']]
+        })
+        .then(results => {
+          return returnPermitResults(results, res);
+        })
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else if (error.name === 'SequelizeDatabaseError') {
+            return res.status(404).send();
+          } else {
+            return res.status(500).send();
+          }
+        });
     });
 };
 
 christmasTree.getPermitByTrackingId = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: ['permitId', 'forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
       where: {
         paygovTrackingId: req.params.paygovTrackingId,
-        status: 'Completed',
+        status: 'Completed'
       }
     })
     .then(requestedPermit => {
-      if(requestedPermit === null) {
+      if (requestedPermit === null) {
         return res.status(404).send();
-      }
-      else {
+      } else {
         return returnPermitResults([requestedPermit], res);
       }
     })
