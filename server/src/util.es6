@@ -169,7 +169,7 @@ util.isLocalOrCI = () => {
  * is production flag
  */
 util.isProduction = () => {
-  return vcapConstants.nodeEnv !== 'production';
+  return vcapConstants.nodeEnv === 'production';
 };
 
 /**
