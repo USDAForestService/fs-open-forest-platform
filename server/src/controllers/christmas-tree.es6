@@ -133,6 +133,7 @@ christmasTree.getOneGuidelines = (req, res) => {
       }
     })
     .catch(error => {
+      console.error('christmasTree controller getOneGuidelines error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
@@ -236,8 +237,11 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      req.body.expDate = forest.endDate;
-      treesDb.christmasTreesPermits
+      if (util.isProduction() && !moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        return res.status(404).send(); // season is closed or not yet started
+      } else {
+        req.body.expDate = forest.endDate;
+        treesDb.christmasTreesPermits
         .create(translatePermitFromClientToDatabase(req.body))
         .then(permit => {
           const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
@@ -272,6 +276,7 @@ christmasTree.create = (req, res) => {
             return res.status(500).send();
           }
         });
+      }
     })
     .catch(error => {
       return res.status(400).json({
