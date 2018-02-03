@@ -166,10 +166,10 @@ util.isLocalOrCI = () => {
 };
 
 /**
- * isprod flag
+ * is production flag
  */
-util.isProd = () => {
-  return process.env.PLATFORM === 'production';
+util.isProduction = () => {
+  return vcapConstants.nodeEnv !== 'production';
 };
 
 /**
