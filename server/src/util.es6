@@ -166,6 +166,13 @@ util.isLocalOrCI = () => {
 };
 
 /**
+ * isprod flag
+ */
+util.isProd = () => {
+  return process.env.PLATFORM === 'production';
+};
+
+/**
  * Set the request body's authenticated email based on the passport user.
  */
 util.setAuthEmail = req => {
