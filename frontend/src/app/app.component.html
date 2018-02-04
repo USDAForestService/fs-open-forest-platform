@@ -1,17 +1,14 @@
 <ng-container appPageTitle></ng-container>
 <a tabindex="0" class="usa-skipnav" href="#skip-nav-target" (click)="util.gotoHashtag('skip-nav-target', $event)">Skip to main content</a>
-<header id="header" role="banner" class="usa-header usa-header-extended" [ngClass]="router.url.indexOf('mock') > -1 ? 'usa-mock-header' : ''">
+<header id="header" role="banner" class="usa-header usa-header-extended">
   <app-usa-banner></app-usa-banner>
-  <div *ngIf="router.url.indexOf('mock') === -1" class="usa-navbar">
+  <div class="usa-navbar">
     <app-page-header></app-page-header>
     <app-authenticated></app-authenticated>
-  </div>
-  <div *ngIf="router.url.indexOf('mock') > -1" class="usa-navbar">
-    <app-mock-page-header *ngIf="router.url.indexOf('mock') > -1"></app-mock-page-header>
   </div>
 </header>
 <main id="main-content" tabindex="0">
   <app-status [message]="status.message" [heading]="status.heading"></app-status>
   <router-outlet></router-outlet>
 </main>
-<app-page-footer *ngIf="router.url.indexOf('mock') === -1" [version]="version" [buildDate]="buildDate"></app-page-footer>
+<app-page-footer [version]="version" [buildDate]="buildDate"></app-page-footer>
