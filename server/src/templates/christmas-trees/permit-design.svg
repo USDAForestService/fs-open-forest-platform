@@ -30,7 +30,7 @@
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 547.3784 590.9639)" fill="#010101" font-family="'Arial'" font-size="5px">PERMIT EXPIRATION</text>
 
-			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.0781 770.6445)" fill="#010101" font-family="'Arial-Bold'" font-size="17px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
+			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.0781 770.6445)" fill="#010101" font-family="'Arial'" font-weight="bold" font-size="17px">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
 		<g>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 110.1074 487.3154)" fill="#010101" font-family="'Arial'" font-size="7px">(MM)</text>
@@ -937,12 +937,11 @@ RQAAAABJRU5ErkJggg==" transform="matrix(6.693307e-17 -1.0931 1.1318 6.930277e-17
 				</g>
 			</g>
 
-				<text transform="matrix(0.9832 0 0 1 40.9106 591.75)" display="inline" fill="#010101" font-family="'SourceSansPro-Regular'" font-size="9.5407px">Maximum stump</text>
+				<text transform="matrix(0.9832 0 0 1 40.9106 591.75)" display="inline" fill="#010101" font-family="'Arial'" font-size="9.5407px">Maximum stump</text>
 
-				<text transform="matrix(0.9832 0 0 1 57.2319 603.1504)" display="inline" fill="#010101" font-family="'SourceSansPro-Regular'" font-size="9.5407px">height is </text>
+				<text transform="matrix(0.9832 0 0 1 57.2319 603.1504)" display="inline" fill="#010101" font-family="'Arial'" font-size="9.5407px">height is </text>
 
-				<text transform="matrix(0.9832 0 0 1 54.479 614.6504)" display="inline" fill="#010101" font-family="'SourceSansPro-Bold'" font-size="9.5407px">6“ or less</text>
-
+				<text transform="matrix(0.9832 0 0 1 54.479 614.6504)" display="inline" fill="#010101" font-family="'Arial'" font-weight="bold" font-size="9.5407px">6“ or less</text>
 				<ellipse id="border_-_green_2_" display="inline" fill="none" stroke="#046938" stroke-width="2" stroke-miterlimit="10" cx="74" cy="529.1" rx="43.9" ry="44.7"/>
 		</g>
 	</g>
