@@ -137,6 +137,8 @@ workflows:
           requires:
       - staging-deploy:
           requires:
+            - run-all-other-tests
+            - run-e2e
           filters:
             branches:
               only: sprint-8-development
