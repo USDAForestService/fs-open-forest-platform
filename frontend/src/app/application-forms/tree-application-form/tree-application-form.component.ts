@@ -69,9 +69,9 @@ export class TreeApplicationFormComponent implements OnInit {
     this.maxNumberOfTrees = data.forest.maxNumTrees;
     if (this.permit) {
       this.rePopulateForm();
-      if (this.permit.status !== 'Canceled' || this.permit.status !== 'Error') {
+      if (this.permit.status !== 'Cancelled' || this.permit.status !== 'Error') {
         this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
-          this.permit.status = 'Canceled';
+          this.permit.status = 'Cancelled';
         });
       }
     }

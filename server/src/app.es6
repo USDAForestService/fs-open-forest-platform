@@ -21,6 +21,8 @@ require('body-parser-xml')(bodyParser);
 /**  Create the express application. */
 const app = express();
 
+vcapConstants.nodeEnv = process.env.NODE_ENV;
+
 /** Use helmet for increased security. */
 app.use(helmet());
 

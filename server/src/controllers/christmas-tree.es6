@@ -5,6 +5,7 @@ const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
+const uniqid = require('uniqid');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -73,7 +74,8 @@ const translatePermitFromClientToDatabase = input => {
     treeCost: input.treeCost,
     quantity: input.quantity,
     totalCost: input.totalCost,
-    permitExpireDate: input.expDate
+    permitExpireDate: input.expDate,
+    permitTrackingId: uniqid()
   };
 };
 
@@ -133,6 +135,7 @@ christmasTree.getOneGuidelines = (req, res) => {
       }
     })
     .catch(error => {
+      console.error('christmasTree controller getOneGuidelines error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
@@ -236,8 +239,11 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      req.body.expDate = forest.endDate;
-      treesDb.christmasTreesPermits
+      if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        return res.status(404).send(); // season is closed or not yet started
+      } else {
+        req.body.expDate = forest.endDate;
+        treesDb.christmasTreesPermits
         .create(translatePermitFromClientToDatabase(req.body))
         .then(permit => {
           const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
@@ -272,6 +278,7 @@ christmasTree.create = (req, res) => {
             return res.status(500).send();
           }
         });
+      }
     })
     .catch(error => {
       return res.status(400).json({
@@ -435,7 +442,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
     });
 };
 
-christmasTree.cancelOne = (req, res) => {
+christmasTree.update = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -443,12 +450,12 @@ christmasTree.cancelOne = (req, res) => {
       }
     })
     .then(permit => {
-      if (permit.status !== 'Initiated') {
+      if (permit.status !== 'Initiated' && permit.status !== 'Completed') {
         res.status(404).send();
       } else {
         permit
           .update({
-            status: 'Canceled'
+            status: req.body.status
           })
           .then(res.status(200).json(permit));
       }

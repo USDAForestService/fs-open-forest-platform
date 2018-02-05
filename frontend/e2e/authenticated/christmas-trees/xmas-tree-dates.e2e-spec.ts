@@ -82,6 +82,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
+      expect<any>(page.cuttingDatesSeasonStartAndEnd().getText()).toEqual('Dates not yet available.');
     });
 
     it('should display a daily hours heading for the overall forest', () => {

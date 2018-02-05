@@ -1,5 +1,8 @@
 'use strict';
 
+const moment = require('moment-timezone');
+const util = require('../util.es6');
+
 module.exports = function(sequelize, DataTypes) {
   const christmasTreesForests = sequelize.define(
     'christmasTreesForests',
@@ -90,5 +93,28 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true
     }
   );
+
+  christmasTreesForests.addHook('afterFind', (forest, options) => {
+    if (!util.isProduction()) {
+      if (forest) {
+        // forest is closed and configured
+        if (forest.id === 1) {
+          forest.startDate = moment().tz(forest.timezone).add(6, 'months').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).add(8, 'months').format('YYYY-MM-DD h:mm:ss');
+        }
+        // open forest is Mt Hood
+        if (forest.id === 3) {
+          forest.startDate = moment().tz(forest.timezone).subtract(2, 'months').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).add(1, 'months').format('YYYY-MM-DD h:mm:ss');
+        }
+        // closed forest with nothing configured yet is Shoshone
+        if (forest.id === 4) {
+          forest.startDate = moment().tz(forest.timezone).subtract(2, 'years').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).subtract(1, 'years').format('YYYY-MM-DD h:mm:ss');
+        }
+      }
+    }
+  });
+
   return christmasTreesForests;
 };
