@@ -437,7 +437,7 @@ christmasTree.getOnePermitDetail = (req, res) => {
     });
 };
 
-christmasTree.cancelOne = (req, res) => {
+christmasTree.update = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -445,12 +445,12 @@ christmasTree.cancelOne = (req, res) => {
       }
     })
     .then(permit => {
-      if (permit.status !== 'Initiated') {
+      if (permit.status !== 'Initiated' && permit.status !== 'Completed') {
         res.status(404).send();
       } else {
         permit
           .update({
-            status: 'Canceled'
+            status: req.body.status
           })
           .then(res.status(200).json(permit));
       }
