@@ -9,7 +9,6 @@ cf install-plugin autopilot -f -r CF-Community
 API="https://api.fr.cloud.gov"
 ORG="usda-forest-service"
 SPACE=$1
-SERVER_NPM = 'npm run migrate && npm run undoAllSeed && npm run seed && npm run start'
 
 
 if [ $# -ne 1 ]; then
