@@ -48,7 +48,7 @@ export class TreeGuidelinesComponent implements OnInit {
     // set mock data info warning if on test environment
     if (!environment.production) {
       forest.isMockData = true;
-      forest.mockDataAlert = ' Note: Forest season dates are mocked for testing purposes.'
+      forest.mockDataAlert = ' Note: Forest season dates are mocked for testing purposes.';
     }
     return forest;
   }

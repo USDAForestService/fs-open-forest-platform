@@ -21,7 +21,7 @@ describe('Temp Outfitters Learn More', () => {
     });
 
     it( 'should have a applicant section link', () => {
-      expect<any>(element(by.partialLinkText("Applicant")).getText()).toEqual('Applicant requirements');
+      expect<any>(element(by.partialLinkText('Applicant')).getText()).toEqual('Applicant requirements');
     });
 
   });

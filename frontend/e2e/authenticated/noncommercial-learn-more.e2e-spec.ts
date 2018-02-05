@@ -21,15 +21,15 @@ describe('NonCommercial Learn More', () => {
     });
 
     it( 'should have a who section', () => {
-      expect<any>(element(by.partialLinkText("Who has to get a permit")).getText()).toEqual('Who has to get a permit under the regulation?');
+      expect<any>(element(by.partialLinkText('Who has to get a permit')).getText()).toEqual('Who has to get a permit under the regulation?');
     });
 
     it( 'should have a applicant section link', () => {
-      expect<any>(element(by.partialLinkText("Applicant")).getText()).toEqual('Applicant requirements');
+      expect<any>(element(by.partialLinkText('Applicant')).getText()).toEqual('Applicant requirements');
     });
 
     it( 'should have a evaluation section link', () => {
-      expect<any>(element(by.partialLinkText("Evaluation")).getText()).toEqual('Evaluation process');
+      expect<any>(element(by.partialLinkText('Evaluation')).getText()).toEqual('Evaluation process');
     });
 
   });
