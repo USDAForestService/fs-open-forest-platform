@@ -265,7 +265,7 @@ christmasTree.create = (req, res) => {
                 }
               });
             })
-            .catch(() => {
+            .catch(error => {
               console.error('postPayGov error=', error);
               return res.status(500).send();
             });
