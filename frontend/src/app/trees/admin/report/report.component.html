@@ -4,7 +4,7 @@
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
-    <h1 id="skip-nav-target" tabindex="-1">Create a Christmas tree permits report</h1>
+    <h1 id="skip-nav-target" tabindex="-1">Generate a Christmas tree permits report</h1>
 
     <fieldset class="usa-fieldset-inputs">
       <legend class="fs-datetime-legend">Search by:</legend>
@@ -18,12 +18,12 @@
     </fieldset>
 
     <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getReport()">
-      <legend class="fs-datetime-legend">To generate a report, please enter a valid permit number.
+      <legend class="fs-datetime-legend">To generate a report, please enter a permit number.
       </legend>
 
       <fieldset class="usa-form-group">
         <div *ngIf="!form.value.isDateSearch">
-          <input type="text" id="permit-number-input" formControlName="permitNumber"/>
+          <input type="text" class="usa-width-one-third" id="permit-number-input" formControlName="permitNumber"/>
         </div>
       </fieldset>
 
