@@ -5,6 +5,7 @@ const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
+const uniqid = require('uniqid');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -73,7 +74,8 @@ const translatePermitFromClientToDatabase = input => {
     treeCost: input.treeCost,
     quantity: input.quantity,
     totalCost: input.totalCost,
-    permitExpireDate: input.expDate
+    permitExpireDate: input.expDate,
+    permitTrackingId: uniqid()
   };
 };
 

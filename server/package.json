@@ -32,6 +32,7 @@
     "sequelize": "^4.15.0",
     "sequelize-cli": "^3.0.0",
     "svg2png": "^4.1.1",
+    "uniqid": "^4.1.1",
     "uuid": "^3.1.0",
     "xml": "^1.0.1",
     "xml2js": "^0.4.19"
