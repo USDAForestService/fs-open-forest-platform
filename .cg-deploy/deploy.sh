@@ -9,13 +9,14 @@ cf install-plugin autopilot -f -r CF-Community
 API="https://api.fr.cloud.gov"
 ORG="usda-forest-service"
 SPACE=$1
+SERVER_NPM = 'npm run migrate && npm run undoAllSeed && npm run seed && npm run start'
+
 
 if [ $# -ne 1 ]; then
 echo "Usage: deploy <space>"
 exit
 fi
 
-SERVER_NPM = 'npm run migrate && npm run undoAllSeed && npm run seed && npm run start'
 
 if [ $SPACE = 'public-production' ]; then
   FRONTEND_NAME="forest-service-epermit"
@@ -24,7 +25,7 @@ if [ $SPACE = 'public-production' ]; then
   API_MANIFEST="./.cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
-  SERVER_START=$SERVER_NPM
+  SERVER_START="npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
 elif [ $SPACE = 'public-staging' ]; then
   FRONTEND_NAME="fs-intake-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/staging/manifest-frontend-staging.yml"
@@ -32,7 +33,7 @@ elif [ $SPACE = 'public-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  SERVER_START='NODE_ENV=staging && ' + $SERVER_NPM
+  SERVER_START="NODE_ENV=staging npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
 elif [ $SPACE = 'public-trees-staging' ]; then
   FRONTEND_NAME="forest-service-trees-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
@@ -40,7 +41,7 @@ elif [ $SPACE = 'public-trees-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-api-trees-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  SERVER_START='NODE_ENV=staging && ' + $SERVER_NPM
+  SERVER_START="NODE_ENV=staging npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
 else
 echo "Unknown space: $SPACE"
 exit
