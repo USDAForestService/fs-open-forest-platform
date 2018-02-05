@@ -99,18 +99,18 @@ module.exports = function(sequelize, DataTypes) {
       if (forest) {
         // forest is closed and configured
         if (forest.id === 1) {
-          forest.startDate = moment().add(6, 'months').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
-          forest.endDate = moment().add(8, 'months').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
+          forest.startDate = moment().tz(forest.timezone).add(6, 'months').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).add(8, 'months').format('YYYY-MM-DD h:mm:ss');
         }
         // open forest is Mt Hood
         if (forest.id === 3) {
-          forest.startDate = moment().subtract(2, 'months').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
-          forest.endDate = moment().add(1, 'months').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
+          forest.startDate = moment().tz(forest.timezone).subtract(2, 'months').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).add(1, 'months').format('YYYY-MM-DD h:mm:ss');
         }
         // closed forest with nothing configured yet is Shoshone
         if (forest.id === 4) {
-          forest.startDate = moment().subtract(2, 'years').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
-          forest.endDate = moment().subtract(1, 'years').tz(forest.timezone).format('YYYY-MM-DD h:mm:ss');
+          forest.startDate = moment().tz(forest.timezone).subtract(2, 'years').format('YYYY-MM-DD h:mm:ss');
+          forest.endDate = moment().tz(forest.timezone).subtract(1, 'years').format('YYYY-MM-DD h:mm:ss');
         }
       }
     }

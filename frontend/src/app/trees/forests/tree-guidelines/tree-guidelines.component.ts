@@ -5,6 +5,7 @@ import { UtilService } from '../../../_services/util.service';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { DatePipe } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-tree-info',
@@ -32,14 +33,22 @@ export class TreeGuidelinesComponent implements OnInit {
     forest.seasonOpenAlert = this.seasonOpenAlert;
 
     if (forest.endDate && forest.startDate) {
-      forest.isSeasonOpen = moment(forest.endDate).isAfter(moment().tz(forest.timezone));
-      if (forest.isSeasonOpen && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
-        forest.isSeasonOpen = false;
-
-        forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(
-          'MMM. D, YYYY'
-        )}.`;
+      forest.isSeasonOpen = moment(forest.endDate, 'YYYY-MM-DD h:mm:ss').tz(forest.timezone).isAfter(moment().tz(forest.timezone));
+      if (forest.isSeasonOpen) {
+        forest.seasonOpenAlert = '';
+        if (moment(forest.startDate, 'YYYY-MM-DD h:mm:ss').tz(forest.timezone).isAfter(moment().tz(forest.timezone))) {
+          forest.isSeasonOpen = false;
+          forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(
+            'MMM. D, YYYY'
+          )}.`;
+        }
       }
+    }
+
+    // set mock data info warning if on test environment
+    if (!environment.production) {
+      forest.isMockData = true;
+      forest.mockDataAlert = ' Note: Forest season dates are mocked for testing purposes.'
     }
     return forest;
   }

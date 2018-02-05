@@ -4,7 +4,10 @@
   </svg>
   Season dates
 </h3>
-<p id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</p>
+
+<div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
+<div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
+
 <h3 id="cutting-season-daily-hours-heading">
   <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
     <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />

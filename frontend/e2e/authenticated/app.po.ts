@@ -16,6 +16,18 @@ export class NoncommercialGroupForm {
   }
 }
 
+export class NonCommercialLearnMorePage {
+  navigateTo() {
+    return browser.get('/applications/noncommercial-group-use/learn-more');
+  }
+}
+
+export class TempOutfittersLearnMorePage {
+  navigateTo() {
+    return browser.get('/applications/temp-outfitters/learn-more');
+  }
+}
+
 export class TempOutfittersForm {
   navigateTo() {
     return browser.get('/applications/temp-outfitters/new');

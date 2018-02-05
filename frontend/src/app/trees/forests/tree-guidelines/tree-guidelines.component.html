@@ -6,9 +6,14 @@
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
       <h1 *ngIf="forest">{{forest.forestName}} Christmas Tree Permit Information</h1>
-      <div id="forest-season-open-alert"[hidden]="forest.isSeasonOpen" class="usa-alert usa-alert-info">
+      <div id="forest-season-open-alert" [hidden]="forest.isSeasonOpen" class="usa-alert usa-alert-info">
         <div class="usa-alert-body">
           <p class="usa-alert-text">{{ forest.seasonOpenAlert }}</p>
+        </div>
+      </div>
+      <div id="forest-mock-data-alert" [hidden]="!forest.isMockData" class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
         </div>
       </div>
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
