@@ -266,10 +266,12 @@ christmasTree.create = (req, res) => {
               });
             })
             .catch(() => {
+              console.error('postPayGov error=', error);
               return res.status(500).send();
             });
         })
         .catch(error => {
+          console.error('permit create error=', error);
           if (error.name === 'SequelizeValidationError') {
             return res.status(400).json({
               errors: error.errors
