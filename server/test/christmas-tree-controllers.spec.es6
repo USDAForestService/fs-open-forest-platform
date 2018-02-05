@@ -342,20 +342,22 @@ describe('christmas tree controller tests', () => {
     });
     it('POST should return a 200 response when submitted to cancel existing permit application', done => {
       const cancelApplication = {
-        permitId: permitId
+        permitId: permitId,
+        status: 'Cancelled'
       };
       request(server)
-        .post('/forests/christmas-trees/permits/cancel')
+        .put('/forests/christmas-trees/permits')
         .send(cancelApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
     it('POST should return a 404 response when submitted to cancel an invalid permit application', done => {
       const cancelApplication = {
-        permitId: invalidPermitId
+        permitId: invalidPermitId,
+        status: 'Cancelled'
       };
       request(server)
-        .post('/forests/christmas-trees/permits/cancel')
+        .put('/forests/christmas-trees/permits')
         .send(cancelApplication)
         .expect(404, done);
     });

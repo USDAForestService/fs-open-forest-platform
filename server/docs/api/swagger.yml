@@ -306,7 +306,7 @@ paths:
         400:
           description: "Invalid input or other error"
         404:
-          description: "Permit not found or permit is completed/canceled"
+          description: "Permit not found or permit is completed/cancelled"
   /admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}:
     get:
       tags:

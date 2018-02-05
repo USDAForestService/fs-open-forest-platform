@@ -1,7 +1,7 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <app-breadcrumbs></app-breadcrumbs>
-    <div *ngIf="(permit && permit.status === 'Canceled' && !submitted)" class="usa-alert usa-alert-info margin-bottom-2">
+    <div *ngIf="(permit && permit.status === 'Cancelled' && !submitted)" class="usa-alert usa-alert-info margin-bottom-2">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Your permit purchase has been cancelled.</h3>
         <p class="usa-alert-text">Your credit card has not been charged. To create a permit you must complete the purchase transaction.</p>
