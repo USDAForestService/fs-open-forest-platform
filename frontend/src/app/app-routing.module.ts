@@ -64,6 +64,9 @@ const appRoutes: Routes = [
       text: 'Permit applications',
       admin: true
     },
+    resolve: {
+      user: UserResolver
+    },
     children: [
       {
         path: '',
@@ -90,7 +93,8 @@ const appRoutes: Routes = [
     component: ReportComponent,
     canActivate: [AuthGuardService],
     resolve: {
-      forests: ForestFinderResolver
+      forests: ForestFinderResolver,
+      user: UserResolver
     },
     data: {
       title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
@@ -102,52 +106,79 @@ const appRoutes: Routes = [
     path: 'user/applications',
     component: PermitApplicationListComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'Submitted applications' }
+    data: { title: 'Submitted applications' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'user/applications/:type/:id',
     component: PermitApplicationViewComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'View Submitted Application' }
+    data: { title: 'View Submitted Application' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'Apply for a noncommercial group use permit' }
+    data: { title: 'Apply for a noncommercial group use permit' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/noncommercial-group-use/:id/edit',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'Edit your noncommercial group use permit' }
+    data: { title: 'Edit your noncommercial group use permit' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/noncommercial-group-use/learn-more',
     component: NoncommercialLearnMoreComponent,
-    data: { title: 'Noncommercial permit FAQs' }
+    data: { title: 'Noncommercial permit FAQs' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/:type/submitted/:id',
     component: ApplicationSubmittedComponent,
-    data: { title: 'Application submitted for review' }
+    data: { title: 'Application submitted for review' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'Apply for a temporary outfitters permit' }
+    data: { title: 'Apply for a temporary outfitters permit' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/temp-outfitters/:id/edit',
     component: TemporaryOutfittersComponent,
     canActivate: [AuthGuardService],
-    data: { title: 'Edit your temporary outfitters permit' }
+    data: { title: 'Edit your temporary outfitters permit' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'applications/temp-outfitters/learn-more',
     component: TemporaryOutfittersLearnMoreComponent,
-    data: { title: 'Temporary outfitters permit FAQs' }
+    data: { title: 'Temporary outfitters permit FAQs' },
+    resolve: {
+      user: UserResolver
+    }
   },
   {
     path: 'christmas-trees/forests',
