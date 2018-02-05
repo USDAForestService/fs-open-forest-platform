@@ -8,6 +8,7 @@ export const forest = {
   stumpDiameter: 6,
   startDate: '2017-11-01T12:00:00.000Z',
   endDate: '2017-12-24T12:00:00.000Z',
+  timezone: 'America/Los_Angeles',
   species: [
     {
       id: 2,
