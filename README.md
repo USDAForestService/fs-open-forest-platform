@@ -168,6 +168,7 @@ Login.gov uses the openid-client passport plugin for the OpenID Connect protocol
 Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
 
 Note: if running in a clustered environment Session Affinity (sticky sessions) should be configured.
+
 #### Frontend Development
 
 ##### Install angular cli
@@ -223,13 +224,17 @@ VCAP service value for jwt token is used for appending a token to permit URL to 
 VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
 To mock Pay.Gov integration use the values in the VCAP example.
 
-##### Pay.gov error mocking
+##### Pay.gov error mocking in local environment
 
 * To mock a pay.gov token error, in the Christmas trees application form, set the first name to 1 and last name to 1.
 
 * To mock a pay.gov 500 error, in the Christmas trees application form, set the first name to 1 and last name to 2.
 
-* To mock a pay.gov complete collection error, use credit card number 000000000000XXXX. The last four XXXX represent the pay.gov error code.
+* To mock a pay.gov complete collection error, use credit card number `000000000000XXXX`. The last four XXXX represent the pay.gov error code.
+
+##### Pay.gov in staging environment
+
+* A valid credit card number in staging environment is `4111111111111111`.
 
 #### Enable html5 pushstate on cloud.gov
 
