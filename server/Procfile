@@ -1,1 +1,0 @@
-web: NODE_ENV=staging && npm run migrate && npm run undoAllSeed && npm run seed && npm run start

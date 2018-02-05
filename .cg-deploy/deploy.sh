@@ -15,6 +15,8 @@ echo "Usage: deploy <space>"
 exit
 fi
 
+SERVER_NPM = 'npm run migrate && npm run undoAllSeed && npm run seed && npm run start'
+
 if [ $SPACE = 'public-production' ]; then
   FRONTEND_NAME="forest-service-epermit"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/production/manifest-frontend.yml"
@@ -22,6 +24,7 @@ if [ $SPACE = 'public-production' ]; then
   API_MANIFEST="./.cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
+  SERVER_START=$SERVER_NPM
 elif [ $SPACE = 'public-staging' ]; then
   FRONTEND_NAME="fs-intake-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/staging/manifest-frontend-staging.yml"
@@ -29,6 +32,7 @@ elif [ $SPACE = 'public-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
+  SERVER_START='NODE_ENV=staging && ' + $SERVER_NPM
 elif [ $SPACE = 'public-trees-staging' ]; then
   FRONTEND_NAME="forest-service-trees-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
@@ -36,6 +40,7 @@ elif [ $SPACE = 'public-trees-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-api-trees-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
+  SERVER_START='NODE_ENV=staging && ' + $SERVER_NPM
 else
 echo "Unknown space: $SPACE"
 exit
@@ -55,6 +60,6 @@ while IFS= read -r LINE
        cf delete -f $app$suffix
     fi
   done
-
+  
 cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
-cf zero-downtime-push $API_NAME -f $API_MANIFEST
+cf zero-downtime-push $API_NAME -f $API_MANIFEST -c $SERVER_START
