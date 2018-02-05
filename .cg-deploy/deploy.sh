@@ -4,6 +4,7 @@ export PATH=$HOME:$PATH
 #travis_retry curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.15.0"
 curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.26.0"
 tar xzvf $HOME/cf.tgz -C $HOME
+
 cf install-plugin autopilot -f -r CF-Community
 
 API="https://api.fr.cloud.gov"
@@ -24,7 +25,6 @@ if [ $SPACE = 'public-production' ]; then
   API_MANIFEST="./.cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
-  SERVER_START="npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
 elif [ $SPACE = 'public-staging' ]; then
   FRONTEND_NAME="fs-intake-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/staging/manifest-frontend-staging.yml"
@@ -32,7 +32,7 @@ elif [ $SPACE = 'public-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  SERVER_START="NODE_ENV=staging npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
+  sed -i -e 's/npm run start/NODE_ENV=staging npm run start/' ../server/Procfile
 elif [ $SPACE = 'public-trees-staging' ]; then
   FRONTEND_NAME="forest-service-trees-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
@@ -40,7 +40,7 @@ elif [ $SPACE = 'public-trees-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-api-trees-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  SERVER_START="NODE_ENV=staging npm run migrate && npm run undoAllSeed && npm run seed && npm run start"
+  sed -i -e 's/npm run start/NODE_ENV=staging npm run start/' ../server/Procfile
 else
 echo "Unknown space: $SPACE"
 exit
@@ -62,4 +62,4 @@ while IFS= read -r LINE
   done
   
 cf zero-downtime-push $FRONTEND_NAME -f $FRONTEND_MANIFEST
-cf zero-downtime-push $API_NAME -f $API_MANIFEST -c $SERVER_START
+cf zero-downtime-push $API_NAME -f $API_MANIFEST
