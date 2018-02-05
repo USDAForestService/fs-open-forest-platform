@@ -32,9 +32,9 @@ export class ChristmasTreesApplicationService {
   }
 
   cancelOldApp(id) {
-    const body = { permitId: id };
+    const body = { permitId: id, status: 'Cancelled' };
     return this.http
-      .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
+      .put(`${environment.apiUrl}forests/christmas-trees/permits`, body)
       .catch(this.util.handleError);
   }
 

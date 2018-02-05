@@ -235,8 +235,7 @@ paths:
           description: "General server error"
         201:
           description: "Successful Creation"
-  /forests/christmas-trees/permits/cancel:
-    post:
+    put:
       tags:
       - "christmas-tree"
       summary: "Cancels an initiated christmas-tree application"
@@ -255,6 +254,8 @@ paths:
           properties:
             permitId:
               type: "integer"
+            status:
+              type: "string"
       responses:
         400:
           description: "Validation error"
@@ -305,7 +306,7 @@ paths:
         400:
           description: "Invalid input or other error"
         404:
-          description: "Permit not found or permit is completed/canceled"
+          description: "Permit not found or permit is completed/cancelled"
   /admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}:
     get:
       tags:
