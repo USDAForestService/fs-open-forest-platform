@@ -169,6 +169,11 @@ Due to security restrictions testing can't be done locally, you must use a serve
 
 Note: if running in a clustered environment Session Affinity (sticky sessions) should be configured.
 
+=======
+##### Mock Data
+Some models (e.g. christmasTreesForests) use a sequelize hook to change the data as configured in the seed commands
+at run-time for purposes of testing.  An alert is also displayed in the frontend. Mock data application uses the NODE_ENV and environment values in the server and frontend code respectively.
+
 #### Frontend Development
 
 ##### Install angular cli
@@ -342,7 +347,7 @@ A sidebar template for the tree guidelines page at `/frontend/src/app/trees/fore
 
 A sidebar component was created at `/frontend/src/app/sidebar/sidebar.component.ts` that takes a JSON object with all of the sidebar items and IDs of elements on the page that are linked to. The sidebar component creates both desktop and mobile menus.
 
-The JSON that is sent to the sidebar component only dynamically creates the sidebar and mobile menus. The component or section to which the items are linked to must be coded in. A future story could consider passing a component containing the linked to section into the JSON.
+The JSON that is sent to the sidebar component only dynamically creates the sidebar and mobile menus. The component or section to which the items are linked to must be coded in.
 
 ## Usability testing
 

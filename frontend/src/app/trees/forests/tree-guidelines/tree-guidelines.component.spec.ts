@@ -23,7 +23,8 @@ describe('TreeGuidelinesComponent', () => {
           status: 'test'
         },
         startDate: moment('2000-01-02').toDate(),
-        endDate: moment('2101-01-01').toDate()
+        endDate: moment('2101-01-01').toDate(),
+        timezone: 'America/Denver'
       }
     })
   };
@@ -77,7 +78,8 @@ describe('TreeGuidelinesComponent', () => {
               status: 'test'
             },
             startDate: moment('2100-01-02').toDate(),
-            endDate: moment('2101-01-01').toDate()
+            endDate: moment('2101-01-01').toDate(),
+            timezone: 'America/Denver'
           }
         })
       };
@@ -101,7 +103,8 @@ describe('TreeGuidelinesComponent', () => {
               status: 'test'
             },
             startDate: moment('2000-01-02').toDate(),
-            endDate: moment('2001-01-01').toDate()
+            endDate: moment('2001-01-01').toDate(),
+            timezone: 'America/Denver'
           }
         })
       };

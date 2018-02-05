@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module for VCAP Consntants
+ * Module for VCAP Constants
  * @module vcap-constants
  */
 

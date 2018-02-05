@@ -12,6 +12,7 @@ export class TemporaryOutfittersLearnMoreComponent {
     this.items = [
       {
         sectionName: 'A temporary use permit is',
+        type: 'anchor',
         sectionCopy: `
         <ul>
           <li>Authorization to conduct short-term outfitted or guided use on national Forest
@@ -28,6 +29,7 @@ in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permi
       },
       {
         sectionName: 'Applicant requirements',
+        type: 'anchor',
         sectionCopy: `
         <p>Qualified applicants must submit the following documentation as part of the
 permit application process:</p>
@@ -42,6 +44,7 @@ and/or permit compliance will be considered in evaluating qualifications.</li>
       },
       {
         sectionName: 'Number of permits and service days',
+        type: 'anchor',
         sectionCopy: `
         <p>Permits and service days are managed by use area.
 The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
@@ -63,6 +66,7 @@ same time.</li>
       },
       {
         sectionName: 'Benefits of a temporary use permit',
+        type: 'anchor',
         sectionCopy: `
         <ul>
           <li>Allows for short-term allocation of use to meet seasonal needs</li>
@@ -75,6 +79,7 @@ same time.</li>
       },
       {
         sectionName: 'Activities and locations',
+        type: 'anchor',
         sectionCopy: `
         <ul>
           <li>Land-based outfitting and guide permits are available throughout the forest at the discretion of district rangers.</li>
@@ -88,6 +93,7 @@ found here</a>.</p>
       },
       {
         sectionName: 'Costs',
+        type: 'anchor',
         sectionCopy: `
         <h3>Cost chart</h3>
         <table class="faq-table">
@@ -122,6 +128,7 @@ found here</a>.</p>
       },
       {
         sectionName: 'Application due dates',
+        type: 'anchor',
         sectionCopy: `
         <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">
         Administration of the temporary permits varies by pool and is specified in the land or river pool permit documents found here</a>.</p>
