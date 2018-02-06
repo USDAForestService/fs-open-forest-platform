@@ -28,24 +28,20 @@ export class SidebarComponent implements OnInit {
     const header = document.getElementById('header');
 
     if (nav && this.items && this.items.length > 0) {
-      if (container.getBoundingClientRect().top < this.items.length * 4.3) {
-        this.top = header.getBoundingClientRect().height - 40 + 'px'; // distance from top of page to start of sidebar without header
-        this.bottom = 'auto';
-        this.position = 'fixed';
-      } else {
-        this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
-        this.position = 'absolute';
-      }
-
+      this.sidebarHeaderIntersection(container, header);
       this.sidebarFooterIntersection(footer);
+      this.pageYOffset();
+    }
+  }
 
-      if (window.pageYOffset > this.items.length * 16) {
-        this.menuBtnPosition = 'fixed';
-        this.menuBtnTop = '0px';
-      } else {
-        this.menuBtnPosition = 'absolute';
-        this.menuBtnTop = '';
-      }
+  private sidebarHeaderIntersection(container, header) {
+    if (container.getBoundingClientRect().top < this.items.length * 4.3) {
+      this.top = header.getBoundingClientRect().height - 40 + 'px'; // distance from top of page to start of sidebar without header
+      this.bottom = 'auto';
+      this.position = 'fixed';
+    } else {
+      this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
+      this.position = 'absolute';
     }
   }
 
@@ -55,6 +51,16 @@ export class SidebarComponent implements OnInit {
       const bottom = -Math.abs(footer.getBoundingClientRect().top) + this.items.length * 2.5;
       this.top = this.items.length * -9 + 'px';
       this.position = 'fixed';
+    }
+  }
+
+  private pageYOffset() {
+    if (window.pageYOffset > this.items.length * 16) {
+      this.menuBtnPosition = 'fixed';
+      this.menuBtnTop = '0px';
+    } else {
+      this.menuBtnPosition = 'absolute';
+      this.menuBtnTop = '';
     }
   }
 
