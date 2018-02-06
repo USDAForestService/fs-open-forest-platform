@@ -88,54 +88,64 @@ export class ReportComponent implements OnInit {
     this.result = null;
 
     if (this.isDateSearch) {
-      this.permitNumberSearchForm.reset();
-      if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
-        this.reportParameters = {
-          forestName: this.forest.forestName,
-          startDate: moment
-            .tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone)
-            .format('MM/DD/YYYY'),
-          endDate: moment
-            .tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone)
-            .format('MM/DD/YYYY')
-        };
-        this.service
-          .getAllByDateRange(
-            this.forest.id,
-            moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
-            moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
-          )
-          .subscribe(
-            results => {
-              this.result = {
-                numberOfPermits: results.numberOfPermits,
-                sumOfTrees: results.sumOfTrees,
-                sumOfCost: results.sumOfCost,
-                permits: results.permits,
-                parameters: this.reportParameters
-              };
-            },
-            err => {
-              this.apiErrors = err;
-            }
-          );
-      }
+      this.getPermitsByDate();
     } else {
-      this.form.reset();
-      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
-        results => {
-          this.result = {
-            numberOfPermits: 1,
-            sumOfTrees: results.permits[0].quantity,
-            sumOfCost: results.permits[0].totalCost,
-            permits: results.permits,
-            parameters: null
-          };
-        },
-        err => {
-          this.apiErrors = err;
-        }
-      );
+      this.getPermitByNumber();
     }
+  }
+
+  private setReportParameters() {
+    this.reportParameters = {
+      forestName: this.forest.forestName,
+      startDate: moment
+        .tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone)
+        .format('MM/DD/YYYY'),
+      endDate: moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('MM/DD/YYYY')
+    };
+  }
+
+  private getPermitsByDate() {
+    this.permitNumberSearchForm.reset();
+    if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
+      this.setReportParameters();
+      this.service
+        .getAllByDateRange(
+          this.forest.id,
+          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
+          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
+        )
+        .subscribe(
+          results => {
+            this.result = {
+              numberOfPermits: results.numberOfPermits,
+              sumOfTrees: results.sumOfTrees,
+              sumOfCost: results.sumOfCost,
+              permits: results.permits,
+              parameters: this.reportParameters
+            };
+          },
+          err => {
+            this.apiErrors = err;
+          }
+        );
+    }
+  }
+
+  private getPermitByNumber() {
+    this.form.reset();
+    this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
+      results => {
+        this.result = {
+          numberOfPermits: 1,
+          sumOfTrees: results.permits[0].quantity,
+          sumOfCost: results.permits[0].totalCost,
+          permits: results.permits,
+          parameters: null
+        };
+      },
+      err => {
+        this.apiErrors = err;
+      }
+    );
   }
 }
