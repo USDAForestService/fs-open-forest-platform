@@ -256,7 +256,7 @@ christmasTree.create = (req, res) => {
                     return updatePermitWithToken(res, permit, token);
                   } catch (error) {
                     try {
-                      const paygovError = paygov.getResponseError(result);
+                      const paygovError = paygov.getResponseError('startOnlineCollection', result);
                       return updatePermitWithError(res, permit, paygovError);
                     } catch (faultError) {
                       throwError(faultError);
@@ -332,7 +332,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
           resolve(paygovTrackingId);
         } catch (error) {
           try {
-            const paygovError = paygov.getResponseError(result);
+            const paygovError = paygov.getResponseError('completeOnlineCollection', result);
             return updatePermitWithError(res, permit, paygovError);
           } catch (faultError) {
             reject(faultError);

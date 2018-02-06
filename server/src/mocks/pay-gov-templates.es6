@@ -4,24 +4,24 @@ templates.completeOnlineCollectionRequest = {};
 
 templates.startOnlineCollectionRequest.applicationError = tcs_app_id => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Header>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+      <soapenv:Header>
          <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
          </work:WorkContext>
-      </soap:Header>
-      <soap:Body>
-        <soap:Fault xmlns:ns4="http://www.w3.org/2003/05/soap-envelope">
-          <faultcode>S:Server</faultcode>
-          <faultstring>TCS Error</faultstring>
+      </soapenv:Header>
+      <soapenv:Body>
+        <soapenv:Fault xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+          <faultcode>soap:Server</faultcode>
+          <faultstring>Schema validation error (Paygov).</faultstring>
           <detail>
             <TCSServiceFault xmlns="http://fms.treas.gov/services/tcsonline">
               <return_code>4019</return_code>
               <return_detail>No agency application found for given tcs_app_id ${tcs_app_id}.</return_detail>
             </TCSServiceFault>
           </detail>
-        </soap:Fault>
-       </soap:Body>
-    </soap:Envelope>`;
+        </soapenv:Fault>
+       </soapenv:Body>
+    </soapenv:Envelope>`;
 };
 templates.startOnlineCollectionRequest.noResponse = () => {
   return null;
@@ -44,14 +44,14 @@ templates.startOnlineCollectionRequest.successfulResponse = token => {
 };
 templates.completeOnlineCollectionRequest.cardError = returnCode => {
   return `<?xml version="1.0" encoding="UTF-8"?>
-    <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Header>
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+      <soapenv:Header>
          <work:WorkContext xmlns:work="http://oracle.com/weblogic/soap/workarea/">
          </work:WorkContext>
-      </soap:Header>
-      <soap:Body>
-        <soap:Fault xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
-          <faultcode>S:Server</faultcode>
+      </soapenv:Header>
+      <soapenv:Body>
+        <soapenv:Fault xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+          <faultcode>soap:Server</faultcode>
           <faultstring>TCS Error</faultstring>
           <detail>
             <TCSServiceFault xmlns="http://fms.treas.gov/services/tcsonline">
@@ -59,9 +59,9 @@ templates.completeOnlineCollectionRequest.cardError = returnCode => {
               <return_detail>The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.</return_detail>
             </TCSServiceFault>
           </detail>
-        </soap:Fault>
-       </soap:Body>
-    </soap:Envelope>`;
+        </soapenv:Fault>
+       </soapenv:Body>
+    </soapenv:Envelope>`;
 };
 templates.completeOnlineCollectionRequest.successfulResponse = paygovTrackingId => {
   return `<?xml version="1.0" encoding="UTF-8"?>
