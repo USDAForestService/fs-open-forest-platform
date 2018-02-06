@@ -14,12 +14,17 @@ export class ErrorMessageComponent {
     let message = '';
     if (errors) {
       for (const error in errors) {
-        if (typeof this[error] === 'function') {
-          message += this[error](errors);
-        }
+        message += this.appendErrorToMessage(errors, error);
       }
     }
     return message;
+  }
+
+  private appendErrorToMessage(errors, error) {
+    if (typeof this[error] === 'function') {
+      return this[error](errors);
+    }
+    return '';
   }
 
   email(errors) {
