@@ -81,6 +81,12 @@ export class ReportComponent implements OnInit {
       }
     }
   }
+  
+  getForestDate(dateField){
+    return moment
+      .tz(this.form.get(dateField).value, this.forest.timezone)
+      .format('MM/DD/YYYY')
+  }
 
   getReport() {
     this.afs.touchAllFields(this.form);
@@ -97,10 +103,8 @@ export class ReportComponent implements OnInit {
   private setReportParameters() {
     this.reportParameters = {
       forestName: this.forest.forestName,
-      startDate: moment
-        .tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone)
-        .format('MM/DD/YYYY'),
-      endDate: moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('MM/DD/YYYY')
+      startDate: this.getForestDate('dateTimeRange.startDateTime'),
+      endDate: this.getForestDate('dateTimeRange.endDateTime')
     };
   }
 
