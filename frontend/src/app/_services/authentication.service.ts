@@ -12,9 +12,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
-  getAuthenticatedUser(doLogin = true) {
+  getAuthenticatedUser(doLogin = true, checkUser = false) {
     const user = this.getUser();
-    if (user) {
+    if (user && !checkUser) {
       return Observable.of(user);
     }
 
@@ -40,9 +40,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.http.get(this.endpoint + 'auth/user',
-      { withCredentials: true })
-      .catch(this.util.handleError);
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
   }
 
   getUser() {
