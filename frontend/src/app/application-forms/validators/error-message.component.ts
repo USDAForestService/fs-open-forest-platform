@@ -13,18 +13,18 @@ export class ErrorMessageComponent {
   parseErrors(errors) {
     let message = '';
     if (errors) {
-      for (const error in errors) {
-        message += this.appendErrorToMessage(errors, error);
-      }
+      message = this.appendErrorToMessage(errors, message);
     }
     return message;
   }
 
-  private appendErrorToMessage(errors, error) {
-    if (typeof this[error] === 'function') {
-      return this[error](errors);
+  private appendErrorToMessage(errors, message) {
+    for (const error in errors) {
+      if (typeof this[error] === 'function') {
+        message += this[error](errors);
+      }
     }
-    return '';
+    return message;
   }
 
   email(errors) {
