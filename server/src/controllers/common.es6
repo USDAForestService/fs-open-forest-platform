@@ -18,47 +18,47 @@ const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
   switch (statusGroup) {
-    case 'pending':
-      orCondition = [
-        {
-          status: 'Submitted'
-        },
-        {
-          status: 'Hold'
-        },
-        {
-          status: 'Review'
-        }
-      ];
-      break;
-    case 'accepted':
-      orCondition = [
-        {
-          status: 'Accepted'
-        }
-      ];
-      break;
-    case 'rejected':
-      orCondition = [
-        {
-          status: 'Rejected'
-        }
-      ];
-      break;
-    case 'cancelled':
-      orCondition = [
-        {
-          status: 'Cancelled'
-        }
-      ];
-      break;
-    case 'expired':
-      orCondition = [
-        {
-          status: 'Expired'
-        }
-      ];
-      break;
+  case 'pending':
+    orCondition = [
+      {
+        status: 'Submitted'
+      },
+      {
+        status: 'Hold'
+      },
+      {
+        status: 'Review'
+      }
+    ];
+    break;
+  case 'accepted':
+    orCondition = [
+      {
+        status: 'Accepted'
+      }
+    ];
+    break;
+  case 'rejected':
+    orCondition = [
+      {
+        status: 'Rejected'
+      }
+    ];
+    break;
+  case 'cancelled':
+    orCondition = [
+      {
+        status: 'Cancelled'
+      }
+    ];
+    break;
+  case 'expired':
+    orCondition = [
+      {
+        status: 'Expired'
+      }
+    ];
+    break;
   }
   return orCondition;
 };

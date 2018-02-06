@@ -21,8 +21,8 @@ const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
   //set additional trees to blank so that user can fill them in
-  for (i = 1; i < permit.quantity; i++) {
-    querySelector = '#additional-tree-' + i + '-' + 1;
+  for (let i = 1; i < permit.quantity; i++) {
+    let querySelector = '#additional-tree-' + i + '-' + 1;
     frag.querySelector(querySelector).style = 'display:none';
     querySelector = '#additional-tree-' + i + '-' + 2;
     frag.querySelector(querySelector).style = 'display:none';
@@ -85,7 +85,7 @@ createPermit.generatePermitSvg = permit => {
 };
 
 createPermit.generatePermitPng = svgBuffer => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     svg2png(svgBuffer, {
       width: 740,
       height: 958
