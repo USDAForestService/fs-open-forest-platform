@@ -459,11 +459,14 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET permit details back should get 404 for invalid permit number', done => {
+    it('GET permit details back should get 400 for invalid permit number', done => {
       request(server)
         .get('/admin/christmas-trees/permits/123')
         .set('Accept', 'application/json')
-        .expect(404, done);
+        .expect(function(res) {
+          expect(res.body.errors[0].message).to.equal('Permit 123 was not found.');
+        })
+        .expect(400, done);
     });
   });
 });
