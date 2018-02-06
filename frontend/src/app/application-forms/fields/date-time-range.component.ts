@@ -218,10 +218,23 @@ export class DateTimeRangeComponent implements OnInit {
 
   private processDateStatus(startDateTime, endDateTime) {
     const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
-    const today = moment();
     this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' } });
     this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' } });
 
+    this.setValidity(startDateTime, endDateTime);
+
+    this.dateStatus.dateTimeSpan = startDateTime.diff(endDateTime, 'days') + 1;
+
+    this.dateStatus.hasErrors =
+      !this.dateStatus.startDateTimeValid ||
+      !this.dateStatus.endDateTimeValid ||
+      !this.dateStatus.startBeforeEnd ||
+      (!this.includePastDates && !this.dateStatus.startAfterToday);
+    this.updateDateStatus.emit(this.dateStatus);
+  }
+
+  private setValidity(startDateTime, endDateTime) {
+    const today = moment();
     this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
       invalidDate: true
     });
@@ -244,18 +257,9 @@ export class DateTimeRangeComponent implements OnInit {
         startDateAfterEndDate: true
       });
     }
-
-    this.dateStatus.dateTimeSpan = startDateTime.diff(endDateTime, 'days') + 1;
-
-    this.dateStatus.hasErrors =
-      !this.dateStatus.startDateTimeValid ||
-      !this.dateStatus.endDateTimeValid ||
-      !this.dateStatus.startBeforeEnd ||
-      (!this.includePastDates && !this.dateStatus.startAfterToday);
-    this.updateDateStatus.emit(this.dateStatus);
   }
 
-  setError(requiredCondition, control, errors, exclude = false) {
+  private setError(requiredCondition, control, errors, exclude = false) {
     if (!requiredCondition && !exclude) {
       this.dateTimeRange.controls[control].markAsTouched();
       this.dateTimeRange.controls[control].setErrors(errors);
