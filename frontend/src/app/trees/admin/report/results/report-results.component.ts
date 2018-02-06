@@ -18,17 +18,7 @@ export class ReportResultsComponent implements OnChanges {
   };
 
   ngOnChanges() {
-    const orderedPermits = [];
-    for (const permit of this.result.permits) {
-      orderedPermits.push({
-        permitNumber: permit.permitNumber,
-        issueDate: permit.issueDate,
-        quantity: permit.quantity,
-        totalCost: permit.totalCost,
-        expireDate: permit.expireDate
-      });
-    }
-    this.permits = orderedPermits;
+    this.permits = this.result.permits;
     this.permits.unshift(this.titles);
   }
 
@@ -41,8 +31,18 @@ export class ReportResultsComponent implements OnChanges {
       showTitle: false,
       useBom: false
     };
-    if (this.permits) {
-      const ng2csv = new Angular2Csv(this.permits, 'Christmas Trees Permits Report', options);
+
+    const orderedPermits = [];
+    for (const permit of this.result.permits) {
+      orderedPermits.push({
+        permitNumber: permit.permitNumber,
+        issueDate: permit.issueDate,
+        quantity: permit.quantity,
+        totalCost: permit.totalCost,
+        expireDate: permit.expireDate
+      });
     }
+
+    const ng2csv = new Angular2Csv(orderedPermits, 'Christmas Trees Permits Report', options);
   }
 }
