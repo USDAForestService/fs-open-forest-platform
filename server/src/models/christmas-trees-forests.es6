@@ -94,7 +94,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  christmasTreesForests.addHook('afterFind', (forest, options) => {
+  christmasTreesForests.addHook('afterFind', (forest) => {
     if (!util.isProduction()) {
       if (forest) {
         // forest is closed and configured

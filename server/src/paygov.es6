@@ -163,14 +163,14 @@ paygov.getToken = result => {
 paygov.getResponseError = (requestType, result) => {
   let resultMesssage = {faultcode: '9999', faultstring: requestType};
   try {
-      let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
-      resultMesssage.faultcode = faultMesssage.faultcode;
-      resultMesssage.faultstring = faultMesssage.faultstring;
-      
-      if(faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]){
-        resultMesssage.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
-        resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
-      }
+    let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
+    resultMesssage.faultcode = faultMesssage.faultcode;
+    resultMesssage.faultstring = faultMesssage.faultstring;
+
+    if(faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]){
+      resultMesssage.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
+      resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
+    }
   } catch (e) {
     console.error('paygov error while parsing error response=', e);
     // return the default error messages

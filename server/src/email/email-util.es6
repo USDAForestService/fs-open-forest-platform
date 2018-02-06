@@ -48,7 +48,7 @@ Please do not reply to this message. This email message was sent from a notifica
   }
   if (vcapConstants.smtpHost) {
     transporter.use('compile', inlineCss());
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error) => {
       if (error) {
         console.error(error);
       }

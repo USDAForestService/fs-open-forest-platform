@@ -1,10 +1,8 @@
 'use strict';
 
-const AWS = require('mock-aws');
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const mockS3 = require('./data/mock-s3.es6');
 const util = require('../src/util.es6');
 
 describe('util tests', () => {
