@@ -81,11 +81,9 @@ export class ReportComponent implements OnInit {
       }
     }
   }
-  
-  getForestDate(dateField){
-    return moment
-      .tz(this.form.get(dateField).value, this.forest.timezone)
-      .format('MM/DD/YYYY')
+
+  getForestDate(dateField) {
+    return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
   }
 
   getReport() {

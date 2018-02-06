@@ -46,7 +46,7 @@ export class TreeApplicationFormComponent implements OnInit {
       this.applicationForm.get('totalCost').setValue(0);
     }
   }
-  
+
   getApplicationForm(formBuilder, maxNumTrees) {
     return formBuilder.group({
       forestId: ['', [Validators.required]],
@@ -59,7 +59,7 @@ export class TreeApplicationFormComponent implements OnInit {
       quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
       totalCost: [0, [Validators.required, currencyValidator()]],
       acceptRules: [false, [Validators.required]]
-    })
+    });
   }
 
   createForm(data, formBuilder) {
