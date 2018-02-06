@@ -47,7 +47,7 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-   this.forest.isSeasonConfigured = moment(this.forest.startDate, 'YYYY-MM-DD h:mm:ss').tz(this.forest.timezone).isAfter(moment().tz(this.forest.timezone));
+   this.forest.isSeasonConfigured = moment(this.forest.startDate).tz(this.forest.timezone).isAfter(moment().tz(this.forest.timezone));
 
   }
 }
