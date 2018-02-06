@@ -9,7 +9,7 @@
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 70.0138 761.6445)" fill="#FFFFFF" font-family="'Arial'" font-size="56px">CHRISTMAS TREE PERMIT</text>
 
-			<text id="forest-name_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 433.3059 767.8105)" fill="#010101" font-family="'Arial'" font-size="24px">ARAPAHO - ROOSEVELT</text>
+			<text id="forest-name_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 433.3059 767.8105)" fill="#010101" font-family="'Arial'" font-size="24px" font-weight="bold">ARAPAHO - ROOSEVELT</text>
 		<g id="_x5F_guides_1_">
 		</g>
 		<line fill="none" stroke="#010101" stroke-width="2" stroke-miterlimit="10" x1="18" y1="17.6" x2="18" y2="771.6"/>
@@ -21,12 +21,12 @@
 		<line fill="none" stroke="#010101" stroke-miterlimit="10" x1="405.2" y1="329.6" x2="596" y2="329.6"/>
 		<line fill="none" stroke="#010101" stroke-miterlimit="10" x1="539.3" y1="595.2" x2="569" y2="595.2"/>
 
-			<text id="issue-date_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9632 697.9639)" fill="#010101" font-family="'Arial'" font-size="10px">NOV 10, 2018</text>
+			<text id="issue-date_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9632 697.9639)" fill="#010101" font-family="'Arial'" font-size="10px" font-weight="bold">NOV 10, 2018</text>
 		<rect x="578.5" y="309.2" fill="#E6E7E7" stroke="#010101" stroke-miterlimit="10" width="10" height="10"/>
 
-			<text id="permit-id_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9629 772.6445)" fill="#010101" font-family="'Arial'" font-size="10px">0000000001</text>
+			<text id="permit-id_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9629 772.6445)" fill="#010101" font-family="'Arial'" font-size="10px" font-weight="bold">0000000001</text>
 
-			<text id="permit-expiration_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9626 590.9658)" fill="#010101" font-family="'Arial'" font-size="10px">DEC 24 12:00AM 2018</text>
+			<text id="permit-expiration_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 561.9626 590.9658)" fill="#010101" font-family="'Arial'" font-size="10px" font-weight="bold">DEC 24 12:00AM 2018</text>
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 547.3784 590.9639)" fill="#010101" font-family="'Arial'" font-size="5px">PERMIT EXPIRATION</text>
 
@@ -77,15 +77,13 @@
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 480.1704 278.5342)" fill="#010101" font-family="'Arial'" font-size="8px" font-weight="bold" text-decoration="underline">must</text>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 480.1704 259.4346)" fill="#010101" font-family="'Arial'" font-size="8px">&nbsp;be completed before transporting tree. </text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 480.1704 258.4346)" fill="#010101" font-family="'Arial'" font-size="8px"> be completed before transporting tree.</text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 494.1704 303.835)" fill="#010101" font-family="'Arial'" font-size="8px">Permit holder </text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 494.1704 254.0342)" fill="#010101" font-family="'Arial'" font-size="8px" font-weight="bold" text-decoration="underline">must</text>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 483.1704 234.9346)" fill="#010101" font-family="'Arial'" font-size="8px"> </text>
-
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 494.1704 232.7354)" fill="#010101" font-family="'Arial'" font-size="8px">&nbsp;be present at time of tree cutting. </text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 494.1704 232.7354)" fill="#010101" font-family="'Arial'" font-size="8px"> be present at time of tree cutting. </text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 495.1704 278.9346)" fill="#010101" font-family="'Arial'" font-size="8px"> </text>
 
@@ -93,7 +91,7 @@
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 531.1704 261.335)" fill="#010101" font-family="'Arial'" font-size="8px" font-weight="bold" text-decoration="underline">must</text>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 531.1704 242.2354)" fill="#010101" font-family="'Arial'" font-size="8px">&nbsp;be printed to be valid and cannot be stored on a mobile</text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 531.1704 240.2354)" fill="#010101" font-family="'Arial'" font-size="8px">be printed to be valid and cannot be stored on a mobile</text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 543.1704 303.835)" fill="#010101" font-family="'Arial'" font-size="8px"> device.</text>
 
@@ -112,7 +110,7 @@
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 577.4333 771.6445)" fill="#010101" font-family="'Arial'" font-size="5.0716px">PERMIT HOLDER</text>
 
-			<text id="full-name_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 591.1333 772.6445)" fill="#010101" font-family="'Arial'" font-size="10.1432px">FIRST NAME LAST NAME</text>
+			<text id="full-name_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 591.1333 772.6445)" fill="#010101" font-family="'Arial'" font-size="10.1432px" font-weight="bold">FIRST NAME LAST NAME</text>
 		<g id="max_stump_height_1_">
 			<rect x="480.4" y="339.6" fill="#E6E7E7" stroke="#010101" stroke-miterlimit="10" width="50" height="100"/>
 
