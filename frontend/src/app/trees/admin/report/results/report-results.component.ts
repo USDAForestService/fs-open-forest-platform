@@ -31,6 +31,18 @@ export class ReportResultsComponent implements OnChanges {
       showTitle: false,
       useBom: false
     };
-    const ng2csv = new Angular2Csv(this.result.permits, 'Christmas Trees Permits Report', options);
+
+    const orderedPermits = [];
+    for (const permit of this.result.permits) {
+      orderedPermits.push({
+        permitNumber: permit.permitNumber,
+        issueDate: permit.issueDate,
+        quantity: permit.quantity,
+        totalCost: permit.totalCost,
+        expireDate: permit.expireDate
+      });
+    }
+
+    const ng2csv = new Angular2Csv(orderedPermits, 'Christmas Trees Permits Report', options);
   }
 }
