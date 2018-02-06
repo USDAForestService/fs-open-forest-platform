@@ -9,7 +9,7 @@ export class TreeToolsComponent implements OnChanges {
   prohibitedTree = {};
 
   findTreeByName(name) {
-    if (this.forest.species != null && this.forest.species.length) {
+    if (this.forest.species != null) {
       for (const species of this.forest.species) {
         if (species.name === name) {
           return species;
