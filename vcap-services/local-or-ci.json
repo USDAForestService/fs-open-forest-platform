@@ -97,6 +97,13 @@
       },
       "label": "user-provided",
       "name": "pay-gov"
+    },
+    {
+      "credentials": {
+        "whitelist": [{"user_email": "test@test.com", "forests": ["arp","mthood"]}, {"user_email": "test2@test.com", "forests": ["mthood"]} ]
+      },
+      "label": "user-provided",
+      "name": "trees-forest-admins"
     }
   ],
   "s3": [
