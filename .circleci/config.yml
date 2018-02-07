@@ -141,7 +141,7 @@ workflows:
             - run-e2e
           filters:
             branches:
-              only: sprint-8-development
+              only: sprint-9-development
       - prod-deploy:
           requires:
             - run-all-other-tests
