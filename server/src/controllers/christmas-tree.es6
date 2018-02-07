@@ -3,8 +3,9 @@
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
-const moment = require('moment');
+const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
+const uniqid = require('uniqid');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -12,11 +13,15 @@ const paygov = require('../paygov.es6');
 const permitSvgService = require('../create-svg.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
+const util = require('../util.es6');
 
 const christmasTree = {};
 const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
+  let startDate = moment(input.startDate);
+  let endDate = moment(input.endDate);
+
   return {
     id: input.id,
     forestName: input.forestName,
@@ -28,11 +33,12 @@ const translateGuidelinesFromDatabaseToClient = input => {
     treeHeight: input.treeHeight,
     stumpHeight: input.stumpHeight,
     stumpDiameter: input.stumpDiameter,
-    startDate: input.startDate,
-    endDate: input.endDate,
+    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
+    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
     treeCost: input.treeCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,
+    timezone: input.timezone,
     species: input.christmasTreesForestSpecies.map(species => {
       return {
         id: species.species.id,
@@ -68,14 +74,16 @@ const translatePermitFromClientToDatabase = input => {
     treeCost: input.treeCost,
     quantity: input.quantity,
     totalCost: input.totalCost,
-    permitExpireDate: input.expDate
+    permitExpireDate: input.expDate,
+    permitTrackingId: uniqid()
   };
 };
 
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate']
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate'],
+      order: [['id', 'ASC']]
     })
     .then(results => {
       if (results) {
@@ -127,11 +135,15 @@ christmasTree.getOneGuidelines = (req, res) => {
       }
     })
     .catch(error => {
+      console.error('christmasTree controller getOneGuidelines error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
 
 const postPayGov = xmlData => {
+  const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
+  const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
+
   return request.post(
     {
       url: vcapConstants.payGovUrl,
@@ -139,10 +151,12 @@ const postPayGov = xmlData => {
       headers: {
         'Content-Type': 'application/xml'
       },
-      body: xmlData
+      body: xmlData,
+      key: payGovPrivateKey,
+      cert: payGovCert
     },
-    function(error, response, body) {
-      if (!error && response.statusCode == 200) {
+    function (error, response, body) {
+      if (!error) {
         return body;
       } else {
         return error;
@@ -225,42 +239,48 @@ christmasTree.create = (req, res) => {
       }
     })
     .then(forest => {
-      req.body.expDate = forest.endDate;
-      treesDb.christmasTreesPermits
-        .create(translatePermitFromClientToDatabase(req.body))
-        .then(permit => {
-          const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
-          postPayGov(xmlData)
-            .then(xmlResponse => {
-              xml2jsParse(xmlResponse, function(err, result) {
-                if (!err) {
-                  try {
-                    const token = paygov.getToken(result);
-                    return updatePermitWithToken(res, permit, token);
-                  } catch (error) {
+      if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        return res.status(404).send(); // season is closed or not yet started
+      } else {
+        req.body.expDate = forest.endDate;
+        treesDb.christmasTreesPermits
+          .create(translatePermitFromClientToDatabase(req.body))
+          .then(permit => {
+            const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
+            postPayGov(xmlData)
+              .then(xmlResponse => {
+                xml2jsParse(xmlResponse, function (err, result) {
+                  if (!err) {
                     try {
-                      const paygovError = paygov.getResponseError(result);
-                      return updatePermitWithError(res, permit, paygovError);
-                    } catch (faultError) {
-                      throwError(faultError);
+                      const token = paygov.getToken(result);
+                      return updatePermitWithToken(res, permit, token);
+                    } catch (error) {
+                      try {
+                        const paygovError = paygov.getResponseError('startOnlineCollection', result);
+                        return updatePermitWithError(res, permit, paygovError);
+                      } catch (faultError) {
+                        throwError(faultError);
+                      }
                     }
                   }
-                }
+                });
+              })
+              .catch(error => {
+                console.error('postPayGov error=', error);
+                return res.status(500).send();
               });
-            })
-            .catch(() => {
+          })
+          .catch(error => {
+            console.error('permit create error=', error);
+            if (error.name === 'SequelizeValidationError') {
+              return res.status(400).json({
+                errors: error.errors
+              });
+            } else {
               return res.status(500).send();
-            });
-        })
-        .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else {
-            return res.status(500).send();
-          }
-        });
+            }
+          });
+      }
     })
     .catch(error => {
       return res.status(400).json({
@@ -312,7 +332,7 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
           resolve(paygovTrackingId);
         } catch (error) {
           try {
-            const paygovError = paygov.getResponseError(result);
+            const paygovError = paygov.getResponseError('completeOnlineCollection', result);
             return updatePermitWithError(res, permit, paygovError);
           } catch (faultError) {
             reject(faultError);
@@ -374,7 +394,7 @@ christmasTree.getOnePermit = (req, res) => {
         });
       } else if (permit && permit.status === 'Completed') {
         const token = req.query.t;
-        jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
+        jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
           if (decoded) {
             if (checkPermitValid(permit.permitExpireDate)) {
               permitSvgService.generatePermitSvg(permit).then(permitSvgBuffer => {
@@ -418,13 +438,13 @@ christmasTree.getOnePermitDetail = (req, res) => {
         res.status(200).json(permit);
       }
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error);
       res.status(404).send();
     });
 };
 
-christmasTree.cancelOne = (req, res) => {
+christmasTree.update = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -432,12 +452,12 @@ christmasTree.cancelOne = (req, res) => {
       }
     })
     .then(permit => {
-      if (permit.status !== 'Initiated') {
+      if (permit.status !== 'Initiated' && permit.status !== 'Completed') {
         res.status(404).send();
       } else {
         permit
           .update({
-            status: 'Canceled'
+            status: req.body.status
           })
           .then(res.status(200).json(permit));
       }
@@ -455,10 +475,19 @@ const returnPermitResults = (results, res) => {
     results.forEach(permit => {
       let eachPermit = {};
       eachPermit.permitNumber = permit.paygovTrackingId;
-      eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+      if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
+        eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
+
+        eachPermit.expireDate = moment
+          .tz(permit.permitExpireDate, permit.christmasTreesForest.timezone)
+          .format('MM/DD/YYYY');
+      } else {
+        eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+        eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+      }
       eachPermit.quantity = permit.quantity;
       eachPermit.totalCost = permit.totalCost;
-      eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
+
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(eachPermit);
@@ -475,24 +504,84 @@ const returnPermitResults = (results, res) => {
 };
 
 christmasTree.getPermits = (req, res) => {
-  const nextDay = moment(req.params.endDate, 'YYYY-MM-DD').add(1, 'days');
-  treesDb.christmasTreesPermits
-    .findAll({
-      attributes: ['forestId', 'paygovTrackingId', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+  treesDb.christmasTreesForests
+    .findOne({
       where: {
-        forestId: req.params.forestId,
-        status: 'Completed',
-        updatedAt: {
-          [operator.gte]: req.params.startDate,
-          [operator.lt]: nextDay
-        }
-      },
-      order: [['updatedAt', 'ASC']]
+        id: req.params.forestId
+      }
     })
-    .then(results => {
-      return returnPermitResults(results, res);
+    .then(forest => {
+      const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
+      const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
+      treesDb.christmasTreesPermits
+        .findAll({
+          attributes: [
+            'forestId',
+            'paygovTrackingId',
+            'updatedAt',
+            'quantity',
+            'totalCost',
+            'permitExpireDate',
+            'christmasTreesForest.timezone'
+          ],
+          include: [
+            {
+              model: treesDb.christmasTreesForests
+            }
+          ],
+          where: {
+            forestId: req.params.forestId,
+            status: 'Completed',
+            updatedAt: {
+              [operator.gte]: startDate,
+              [operator.lt]: nextDay
+            }
+          },
+          order: [['updatedAt', 'ASC']]
+        })
+        .then(results => {
+          return returnPermitResults(results, res);
+        })
+        .catch(error => {
+          if (error.name === 'SequelizeValidationError') {
+            return res.status(400).json({
+              errors: error.errors
+            });
+          } else if (error.name === 'SequelizeDatabaseError') {
+            return res.status(404).send();
+          } else {
+            return res.status(500).send();
+          }
+        });
+    });
+};
+
+christmasTree.getPermitByTrackingId = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      attributes: [
+        'permitId',
+        'forestId',
+        'paygovTrackingId',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate'
+      ],
+      where: {
+        paygovTrackingId: req.params.paygovTrackingId,
+        status: 'Completed'
+      }
+    })
+    .then(requestedPermit => {
+      if (requestedPermit === null) {
+        return res.status(400).json({ errors: [ { message:'Permit ' + req.params.paygovTrackingId + ' was not found.' } ] });
+      } else {
+        return returnPermitResults([requestedPermit], res);
+      }
     })
     .catch(error => {
+      console.error(error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
@@ -504,4 +593,5 @@ christmasTree.getPermits = (req, res) => {
       }
     });
 };
+
 module.exports = christmasTree;

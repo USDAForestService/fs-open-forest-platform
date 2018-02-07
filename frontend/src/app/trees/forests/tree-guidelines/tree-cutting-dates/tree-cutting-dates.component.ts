@@ -1,14 +1,15 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import { TreeDistrictsUtilService } from '../tree-districts-util.service';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-tree-cutting-dates',
   templateUrl: './tree-cutting-dates.component.html',
   providers: [FilterPipe, LineBreakFormatterPipe]
 })
-export class TreeCuttingDatesComponent implements OnChanges {
+export class TreeCuttingDatesComponent implements OnInit, OnChanges {
   @Input() forest: any;
   districtsWithHoursAndDates: any = [];
   districtsWithPermits: any = [];
@@ -43,5 +44,10 @@ export class TreeCuttingDatesComponent implements OnChanges {
     if (this.forest && this.forest.locations) {
       this.populateDistricts();
     }
+  }
+
+  ngOnInit() {
+   this.forest.isSeasonConfigured = moment(this.forest.startDate).tz(this.forest.timezone).isAfter(moment().tz(this.forest.timezone));
+
   }
 }

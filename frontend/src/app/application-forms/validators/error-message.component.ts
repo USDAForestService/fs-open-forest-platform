@@ -11,13 +11,17 @@ export class ErrorMessageComponent {
   @Input() name: string;
 
   parseErrors(errors) {
-    console.log(errors);
     let message = '';
     if (errors) {
-      for (const error in errors) {
-        if (typeof this[error] === 'function') {
-          message += this[error](errors);
-        }
+      message = this.appendErrorToMessage(errors, message);
+    }
+    return message;
+  }
+
+  private appendErrorToMessage(errors, message) {
+    for (const error in errors) {
+      if (typeof this[error] === 'function') {
+        message += this[error](errors);
       }
     }
     return message;

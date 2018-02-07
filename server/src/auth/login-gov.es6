@@ -12,7 +12,6 @@ const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../util.es6');
 const vcapConstants = require('../vcap-constants.es6');
-const middleware = require('../middleware.es6');
 
 const loginGov = {};
 

@@ -1,15 +1,15 @@
 <div class="authentication">
-  <ng-container *ngIf="!authentication.user">
+  <ng-container *ngIf="displayLogin && !user">
     <a id="log-in" href="javascript:void(0)" (click)="login()">Log in</a>
     or
     <a id="create-account" href="javascript:void(0)" (click)="login()">create an account</a>
   </ng-container>
 
-  <ng-container *ngIf="authentication.user">
-    Welcome<span *ngIf="authentication.user.role === 'admin'"> admin</span> {{ authentication.user.email }}
+  <ng-container *ngIf="user">
+    Welcome <span *ngIf="user.role === 'admin'">admin</span> {{ user.email }}
     <div class="user-link">
-      <a id="view-applications" href="#" *ngIf="authentication.user.role !== 'admin'" routerLink="/user/applications"> View applications. | </a>
-      <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="authentication.user.role === 'admin'"> Log in to SUDS. | </a>
+      <a id="view-applications" href="#" *ngIf="user.role !== 'admin'" routerLink="/user/applications"> View applications. | </a>
+      <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="user.role === 'admin'"> Log in to SUDS. | </a>
       <a id="log-out" class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
     </div>
 
