@@ -5,6 +5,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { environment } from '../../environments/environment';
 import * as sinon from 'sinon';
 import { RouterTestingModule } from '@angular/router/testing';
+import { UtilService } from '../_services/util.service';
 
 class MockAuthenticationService {
   user = true;
@@ -22,7 +23,7 @@ describe('AuthenticatedComponent', () => {
       TestBed.configureTestingModule({
         declarations: [AuthenticatedComponent],
         imports: [RouterTestingModule],
-        providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }],
+        providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

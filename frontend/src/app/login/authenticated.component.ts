@@ -2,6 +2,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { UtilService } from '../_services/util.service';
 
 @Component({
   selector: 'app-authenticated',
@@ -11,10 +12,18 @@ export class AuthenticatedComponent implements OnInit {
   private displayLogin = true;
   private user;
 
-  constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(
+    public authentication: AuthenticationService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    public util: UtilService
+  ) {}
 
   login() {
-    window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+    this.util.setLoginRedirectMessage();
+    setTimeout(() => {
+      window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+    }, 1000);
   }
 
   logout(e: Event) {
@@ -29,8 +38,7 @@ export class AuthenticatedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router
-      .events
+    this.router.events
       .filter(e => e instanceof NavigationEnd)
       .map(() => {
         let route = this.activatedRoute.firstChild;
@@ -52,6 +60,5 @@ export class AuthenticatedComponent implements OnInit {
         this.user = data.user ? data.user : null;
         this.displayLogin = data.displayLogin;
       });
-
   }
 }

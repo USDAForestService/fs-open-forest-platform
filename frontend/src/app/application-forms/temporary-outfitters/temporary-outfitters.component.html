@@ -185,4 +185,4 @@
     </div>
   </div>
 </section>
-<app-progress *ngIf="showFileUploadProgress" [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
+<app-progress *ngIf="showFileUploadProgress" message="Submitting your application." [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
