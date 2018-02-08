@@ -155,7 +155,7 @@ const postPayGov = xmlData => {
       key: payGovPrivateKey,
       cert: payGovCert
     },
-    function (error, response, body) {
+    function(error, response, body) {
       if (!error) {
         return body;
       } else {
@@ -249,7 +249,7 @@ christmasTree.create = (req, res) => {
             const xmlData = paygov.getXmlForToken(req.body.forestAbbr, req.body.orgStructureCode, permit);
             postPayGov(xmlData)
               .then(xmlResponse => {
-                xml2jsParse(xmlResponse, function (err, result) {
+                xml2jsParse(xmlResponse, function(err, result) {
                   if (!err) {
                     try {
                       const token = paygov.getToken(result);
@@ -394,7 +394,7 @@ christmasTree.getOnePermit = (req, res) => {
         });
       } else if (permit && permit.status === 'Completed') {
         const token = req.query.t;
-        jwt.verify(token, vcapConstants.permitSecret, function (err, decoded) {
+        jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
           if (decoded) {
             if (checkPermitValid(permit.permitExpireDate)) {
               permitSvgService.generatePermitSvg(permit).then(permitSvgBuffer => {
@@ -575,7 +575,9 @@ christmasTree.getPermitByTrackingId = (req, res) => {
     })
     .then(requestedPermit => {
       if (requestedPermit === null) {
-        return res.status(400).json({ errors: [ { message:'Permit ' + req.params.paygovTrackingId + ' was not found.' } ] });
+        return res
+          .status(400)
+          .json({ errors: [{ message: 'Permit ' + req.params.paygovTrackingId + ' was not found.' }] });
       } else {
         return returnPermitResults([requestedPermit], res);
       }
@@ -591,6 +593,37 @@ christmasTree.getPermitByTrackingId = (req, res) => {
       } else {
         return res.status(500).send();
       }
+    });
+};
+
+christmasTree.updateForest = (req, res) => {
+  treesDb.christmasTreesForests
+    .findOne({
+      where: {
+        id: req.params.forestId
+      }
+    })
+    .then(forest => {
+      if (forest) {
+        const startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
+        const endDate = moment
+          .tz(req.body.endDate, forest.timezone)
+          .subtract(1, 'ms')
+          .format(util.datetimeFormat);
+        forest
+          .update({
+            startDate: startDate,
+            endDate: endDate
+          })
+          .then(savedForest => {
+            return res.status(200).json(savedForest);
+          });
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      res.status(400).json(error);
     });
 };
 

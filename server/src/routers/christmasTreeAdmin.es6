@@ -11,4 +11,6 @@ router.get('/christmas-trees/permits/:forestId/:startDate/:endDate', christmasTr
 
 router.get('/christmas-trees/permits/:paygovTrackingId', christmasTreeController.getPermitByTrackingId);
 
+router.put('/christmas-trees/forests/:forestId', christmasTreeController.updateForest);
+
 module.exports = router;
