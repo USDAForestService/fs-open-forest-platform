@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
+import { WindowRef } from '../_services/native-window.service';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
@@ -25,6 +26,8 @@ export class MockAuthenticationService {
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
   let fixture: ComponentFixture<AuthenticatedComponent>;
+  let mockWindow: WindowRef;
+  mockWindow = <any> { location: <any> {hash: 'WAOW-MOCK-HASH'}};
   let routeStub = {
     data: null
   };
@@ -39,7 +42,9 @@ describe('AuthenticatedComponent', () => {
             user: {role: 'admin', email: 'test@test.com'},
             displayLogin: true
           })}},
-          { provide: AuthenticationService, useClass: MockAuthenticationService }],
+          { provide: AuthenticationService, useClass: MockAuthenticationService },
+          { provide: WindowRef, useValue: mockWindow}
+        ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -55,8 +60,7 @@ describe('AuthenticatedComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  //TODO use window service in authenticated component
-  xit('should let a user logout', async(() => {
+  it('should let a user logout', async(() => {
     component.user = { email: 'test@test.com', role: 'admin' };
     fixture.detectChanges();
     const element = fixture.debugElement.query(By.css("#log-out"));

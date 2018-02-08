@@ -2,6 +2,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { WindowRef } from '../_services/native-window.service';
 
 @Component({
   selector: 'app-authenticated',
@@ -11,7 +12,7 @@ export class AuthenticatedComponent implements OnInit {
   displayLogin = true;
   user;
 
-  constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router, private winRef: WindowRef) {}
 
   login() {
     window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
@@ -26,7 +27,7 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('token');
     this.authentication.removeUser();
     this.user = null;
-    window.location.href = environment.apiUrl + 'auth/logout';
+    this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
   }
 
   ngOnInit() {

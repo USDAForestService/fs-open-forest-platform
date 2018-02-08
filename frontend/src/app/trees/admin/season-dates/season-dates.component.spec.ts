@@ -9,11 +9,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminSeasonDatesComponent } from './season-dates.component';
+import { WindowRef } from '../../../_services/native-window.service';
 
 describe('Season Dates Admin Component', () => {
   let component: AdminSeasonDatesComponent;
   let fixture: ComponentFixture<AdminSeasonDatesComponent>;
   let formBuilder: FormBuilder;
+
+  class MockWindowRef {
+    location = { hash: 'WAOW-MOCK-HASH' };
+    getNativeWindow() { return { scroll() {} } }
+  }
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
@@ -78,7 +84,8 @@ describe('Season Dates Admin Component', () => {
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
-          UtilService
+          UtilService,
+          { provide: WindowRef, useClass: MockWindowRef }
         ],
         imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]

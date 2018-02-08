@@ -29,7 +29,7 @@ export class TreePermitViewComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       if (data.permit && data.permit.error) {
-        this.processError(data.permit.error.errors[0]);
+        this.processError(data.permit.error);
       } else {
         this.setPageData(data);
       }

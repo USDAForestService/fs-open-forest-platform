@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
+import { WindowRef } from '../../../_services/native-window.service';
 
 @Component({
   selector: 'app-season-dates',
@@ -31,7 +32,8 @@ export class AdminSeasonDatesComponent implements OnInit {
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    public afs: ApplicationFieldsService
+    public afs: ApplicationFieldsService,
+    private winRef: WindowRef
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
@@ -104,18 +106,19 @@ export class AdminSeasonDatesComponent implements OnInit {
   private updateDates() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
-      const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD');
-      const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD');
+      const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
+      const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
       this.service.updateSeasonDates(
         this.forest.id,
-        newStart,
-        newEnd
+        newStart.format('YYYY-MM-DD'),
+        newEnd.format('YYYY-MM-DD')
       ).subscribe(() => {
-        this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart} to  ${newEnd}`;
-        window.scroll(0, 200);
+        this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format('MMM DD, YYYY')} to  ${newEnd.format('MMM DD, YYYY')}`;
+        this.winRef.getNativeWindow().scroll(0, 200);
       },
       err => {
         this.apiErrors = err;
+        this.winRef.getNativeWindow().scroll(0, 200);
       });
     }
   }

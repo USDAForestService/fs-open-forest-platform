@@ -1,7 +1,7 @@
 import { TreesAdminDatesPage } from './xmas-tree-admin-dates.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-fdescribe('Xmas tree - Update Season Dates', () => {
+describe('Xmas tree - Update Season Dates', () => {
   let page: TreesAdminDatesPage;
 
   describe('Permit report page', () => {

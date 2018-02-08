@@ -30,16 +30,6 @@ describe('Christmas Trees Application Service', () => {
   );
 
   it(
-    'should call handleStatusCode',
-    inject([ChristmasTreesApplicationService], service => {
-      const spy = sinon.spy(service, 'handleStatusCode');
-      service.handleStatusCode(403);
-      service.handleStatusCode(402);
-      expect(spy.calledTwice).toBeTruthy();
-    })
-  );
-
-  it(
     'should call getOne',
     inject([ChristmasTreesApplicationService], service => {
       const spy = sinon.spy(service, 'getOne');

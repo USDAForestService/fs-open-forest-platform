@@ -9,11 +9,14 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { WindowRef } from '../../../_services/native-window.service';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
   let fixture: ComponentFixture<ReportComponent>;
   let formBuilder: FormBuilder;
+  let mockWindow: WindowRef;
+  mockWindow = <any> { location: <any> {hash: 'WAOW-MOCK-HASH'}};
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
@@ -84,7 +87,8 @@ describe('ReportComponent', () => {
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
-          UtilService
+          UtilService,
+          { provide: WindowRef, useValue: mockWindow }
         ],
         imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]

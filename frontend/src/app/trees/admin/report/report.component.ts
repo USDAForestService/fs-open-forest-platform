@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
+import { WindowRef } from '../../../_services/native-window.service';
 
 @Component({
   selector: 'app-report',
@@ -32,7 +33,8 @@ export class ReportComponent implements OnInit {
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    public afs: ApplicationFieldsService
+    public afs: ApplicationFieldsService,
+    private winRef: WindowRef
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
@@ -128,6 +130,7 @@ export class ReportComponent implements OnInit {
           },
           err => {
             this.apiErrors = err;
+            this.winRef.getNativeWindow().scroll(0, 200);
           }
         );
     }
@@ -147,6 +150,7 @@ export class ReportComponent implements OnInit {
       },
       err => {
         this.apiErrors = err;
+        this.winRef.getNativeWindow().scroll(0, 200);
       }
     );
   }
