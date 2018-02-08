@@ -22,28 +22,31 @@ export class MockAuthenticationService {
   }
 }
 
-
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
   let fixture: ComponentFixture<AuthenticatedComponent>;
   let mockWindow: WindowRef;
-  mockWindow = <any> { location: <any> {hash: 'WAOW-MOCK-HASH'}};
-  let routeStub = {
+  mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
+  const routeStub = {
     data: null
   };
-  let route;
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [AuthenticatedComponent],
         imports: [RouterTestingModule],
-        providers: [{ provide: ActivatedRoute, useValue: {
-          data: Observable.of({
-            user: {role: 'admin', email: 'test@test.com'},
-            displayLogin: true
-          })}},
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: {
+              data: Observable.of({
+                user: { role: 'admin', email: 'test@test.com' },
+                displayLogin: true
+              })
+            }
+          },
           { provide: AuthenticationService, useClass: MockAuthenticationService },
-          { provide: WindowRef, useValue: mockWindow}
+          { provide: WindowRef, useValue: mockWindow }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -60,11 +63,14 @@ describe('AuthenticatedComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should let a user logout', async(() => {
-    component.user = { email: 'test@test.com', role: 'admin' };
-    fixture.detectChanges();
-    const element = fixture.debugElement.query(By.css("#log-out"));
-    element.triggerEventHandler("click", new Event('Click'));
-    expect(component.user).toBeNull();
-  }));
+  it(
+    'should let a user logout',
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin' };
+      fixture.detectChanges();
+      const element = fixture.debugElement.query(By.css('#log-out'));
+      element.triggerEventHandler('click', new Event('Click'));
+      expect(component.user).toBeNull();
+    })
+  );
 });

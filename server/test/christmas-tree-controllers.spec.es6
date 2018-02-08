@@ -31,7 +31,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -41,7 +41,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
         })
         .expect(200, done);
@@ -62,7 +62,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body).to.include.all.keys('species', 'locations');
         })
         .expect(200, done);
@@ -73,7 +73,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species.locations).to.not.equal(0);
         })
         .expect(200, done);
@@ -84,7 +84,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species[0]).to.include.all.keys('name', 'status', 'notes');
         })
         .expect(200, done);
@@ -95,7 +95,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species[0].notes.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -106,7 +106,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/mthood')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.locations.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -224,7 +224,7 @@ describe('christmas tree controller tests', () => {
         .post('/mock-pay-gov-process')
         .send(processTransaction)
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.errorCode).to.equal('1234');
         })
         .expect(200, done);

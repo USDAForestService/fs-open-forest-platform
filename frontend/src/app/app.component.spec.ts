@@ -61,7 +61,6 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
       })
     );
-
   });
 
   describe('status alert', () => {
@@ -82,7 +81,7 @@ describe('AppComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
-      localStorage.setItem('status', JSON.stringify({ message: 'test', heading: 'test'}));
+      localStorage.setItem('status', JSON.stringify({ message: 'test', heading: 'test' }));
       fixture.detectChanges();
     });
 
