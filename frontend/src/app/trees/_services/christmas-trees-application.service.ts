@@ -65,6 +65,11 @@ export class ChristmasTreesApplicationService {
     }
   }
 
+  updateSeasonDates(forestId, startDate, endDate) {
+    const body = {startDate: startDate, endDate: endDate };
+    return this.http.put(`${environment.apiUrl}christmas-trees/forests/${forestId}`, body,{ withCredentials: true } );
+  }
+
   resolverError(errors, route) {
     for (const error of errors) {
       if (error && error.status === 404) {

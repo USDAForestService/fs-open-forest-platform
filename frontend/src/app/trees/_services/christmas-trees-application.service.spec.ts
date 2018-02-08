@@ -6,8 +6,8 @@ import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
+import { Router } from '@angular/router';
+import { MockRouter } from '../../_mocks/routes.mock';
 
 describe('Christmas Trees Application Service', () => {
   let mockRouter: MockRouter;
@@ -83,6 +83,15 @@ describe('Christmas Trees Application Service', () => {
     inject([ChristmasTreesApplicationService], service => {
       const spy = sinon.spy(service, 'getAllByDateRange');
       service.getAllByDateRange(1, '10/10/2018', '10/10/2019');
+      expect(spy.called).toBeTruthy();
+    })
+  );
+
+  it(
+    'should updateSeasonDates',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'updateSeasonDates');
+      service.updateSeasonDates(1, '10/10/2018', '10/10/2019');
       expect(spy.called).toBeTruthy();
     })
   );

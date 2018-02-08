@@ -1,0 +1,42 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h1 id="skip-nav-target" tabindex="-1">Update Forest Season Dates</h1>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">{{ updateStatus }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
+      <div>
+        <legend class="fs-datetime-legend">To update season dates, please select a forest.
+        </legend>
+
+        <fieldset class="usa-form-group">
+          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
+          <select id="forest-select" formControlName="forestId" aria-required="true"
+                  [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
+                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
+            <option value="" selected="selected"></option>
+            <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
+          </select>
+          <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+        </fieldset>
+
+        <div>
+          <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="false"
+                           (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+        </div>
+      </div>
+
+      <button id="update-dates" class="usa-button-primary-alt usa-button-big" type="submit">Update season dates</button>
+
+    </form>
+
+  </div>
+</section>

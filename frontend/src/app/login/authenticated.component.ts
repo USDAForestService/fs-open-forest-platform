@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent implements OnInit {
-  private displayLogin = true;
-  private user;
+  displayLogin = true;
+  user;
 
   constructor(public authentication: AuthenticationService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
@@ -25,6 +25,7 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.authentication.removeUser();
+    this.user = null;
     window.location.href = environment.apiUrl + 'auth/logout';
   }
 
@@ -52,6 +53,5 @@ export class AuthenticatedComponent implements OnInit {
         this.user = data.user ? data.user : null;
         this.displayLogin = data.displayLogin;
       });
-
   }
 }
