@@ -4,7 +4,6 @@ const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
-const Sequelize = require('sequelize');
 const uniqid = require('uniqid');
 
 const vcapConstants = require('../vcap-constants.es6');
@@ -13,10 +12,8 @@ const paygov = require('../services/paygov.es6');
 const permitSvgService = require('../services/svg-util.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
-const util = require('../services/util.es6');
 
 const christmasTree = {};
-const operator = Sequelize.Op;
 
 const translateGuidelinesFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);

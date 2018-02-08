@@ -1,6 +1,5 @@
 'use strict';
 
-const request = require('request-promise');
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 

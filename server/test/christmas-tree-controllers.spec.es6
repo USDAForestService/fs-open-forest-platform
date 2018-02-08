@@ -219,7 +219,7 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
-      const processTransaction = {token: paygovToken, cc: '0000000000001234'};
+      const processTransaction = { token: paygovToken, cc: '0000000000001234' };
       request(server)
         .post('/mock-pay-gov-process')
         .send(processTransaction)
@@ -412,61 +412,6 @@ describe('christmas tree controller tests', () => {
         .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
         .set('Accept', 'application/json')
         .expect(404, done);
-    });
-  });
-
-  describe('admin user reports', () => {
-    it('GET should return a 200 response for the given report parameters forest, start and end date', done => {
-      request(server)
-        .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function (res) {
-          expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
-        })
-        .expect(200, done);
-    });
-    let submittedPermit, completedPermit;
-    it('POST create permit', done => {
-      const permitApplication = christmasTreePermitApplicationFactory.create();
-      permitApplication.forestId = 3;
-      permitApplication.forestAbbr = 'mthood';
-      permitApplication.orgStructureCode = '11-06-06';
-      request(server)
-        .post('/forests/christmas-trees/permits')
-        .send(permitApplication)
-        .expect('Content-Type', /json/)
-        .expect(res => {
-          submittedPermit = res.body;
-        })
-        .expect(200, done);
-    });
-    it('GET created permit to complete transaction', done => {
-      request(server)
-        .get(`/forests/christmas-trees/permits/${submittedPermit.permitId}`)
-        .expect('Content-Type', /json/)
-        .expect(permitRes => {
-          completedPermit = permitRes.body;
-        })
-        .expect(200, done);
-    });
-    it('GET permit details back', done => {
-      request(server)
-        .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
-        .expect('Content-Type', /json/)
-        .expect(function (res) {
-          expect(res.body.permits[0]).to.include.all.keys('permitNumber', 'issueDate', 'quantity', 'totalCost', 'expireDate');
-        })
-        .expect(200, done);
-    });
-    it('GET permit details back should get 400 for invalid permit number', done => {
-      request(server)
-        .get('/admin/christmas-trees/permits/123')
-        .set('Accept', 'application/json')
-        .expect(function(res) {
-          expect(res.body.errors[0].message).to.equal('Permit 123 was not found.');
-        })
-        .expect(400, done);
     });
   });
 });
