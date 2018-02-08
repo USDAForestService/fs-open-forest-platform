@@ -608,6 +608,7 @@ christmasTree.updateForest = (req, res) => {
         const startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
         const endDate = moment
           .tz(req.body.endDate, forest.timezone)
+          .add(1, 'days')
           .subtract(1, 'ms')
           .format(util.datetimeFormat);
         forest
