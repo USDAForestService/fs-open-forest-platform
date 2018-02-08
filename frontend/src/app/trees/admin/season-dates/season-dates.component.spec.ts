@@ -10,6 +10,7 @@ import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminSeasonDatesComponent } from './season-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
+import { TreesAdminService } from '../trees-admin.service';
 
 describe('Season Dates Admin Component', () => {
   let component: AdminSeasonDatesComponent;
@@ -84,6 +85,7 @@ describe('Season Dates Admin Component', () => {
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
+          TreesAdminService,
           UtilService,
           { provide: WindowRef, useClass: MockWindowRef }
         ],
@@ -170,14 +172,18 @@ describe('Season Dates Admin Component', () => {
   });
 
   it('should set start and end dates', () => {
-    component.setStartEndDate('2');
+    component.forest = component.getForestById('2')
+
+    component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
     expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
     expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
     expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
-    component.setStartEndDate('5');
+
+    component.forest = component.getForestById('5')
+    component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });
 

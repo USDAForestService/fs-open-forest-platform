@@ -5,6 +5,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
+import { TreesAdminService } from '../trees-admin.service';
 
 @Component({
   selector: 'app-report',
@@ -34,6 +35,7 @@ export class ReportComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
+    private treesAdminService: TreesAdminService,
     private winRef: WindowRef
   ) {
     this.form = formBuilder.group({
@@ -44,8 +46,9 @@ export class ReportComponent implements OnInit {
       permitNumber: ['', [Validators.required]]
     });
 
-    this.form.get('forestId').valueChanges.subscribe(forest => {
-      this.setStartEndDate(forest);
+    this.form.get('forestId').valueChanges.subscribe(forestId => {
+      this.forest = this.getForestById(forestId);
+      this.setStartEndDate(this.forest, this.form);
     });
   }
 
@@ -60,16 +63,8 @@ export class ReportComponent implements OnInit {
     });
   }
 
-  setStartEndDate(forest) {
-    this.forest = this.getForestById(forest);
-    if (this.forest && this.form.get('dateTimeRange')) {
-      this.form.get('dateTimeRange.startMonth').setValue(moment(this.forest.startDate).format('MM'));
-      this.form.get('dateTimeRange.startDay').setValue(moment(this.forest.startDate).format('DD'));
-      this.form.get('dateTimeRange.startYear').setValue(moment(this.forest.startDate).format('YYYY'));
-      this.form.get('dateTimeRange.endMonth').setValue(moment(this.forest.endDate).format('MM'));
-      this.form.get('dateTimeRange.endDay').setValue(moment(this.forest.endDate).format('DD'));
-      this.form.get('dateTimeRange.endYear').setValue(moment(this.forest.endDate).format('YYYY'));
-    }
+  setStartEndDate(forest, form) {
+    this.treesAdminService.setStartEndDate(forest, form);
   }
 
   updateDateStatus(dateStatus: any): void {
