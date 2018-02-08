@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-const util = require('../../../util.es6');
+const util = require('../../../services/util.es6');
 
 module.exports = application => {
   return {

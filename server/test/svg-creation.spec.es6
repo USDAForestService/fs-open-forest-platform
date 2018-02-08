@@ -5,19 +5,18 @@ const expect = chai.expect;
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
-const permitSvgService = require('../src/create-svg.es6');
+const permitSvgService = require('../src/services/svg-util.es6');
 const christmasTreesPermitFactory = require('./data/christmas-trees-permit-factory.es6');
 
 describe('svg creation tests', () => {
   describe('no stump height', () => {
     let frag;
     before(done => {
-      const permit = christmasTreesPermitFactory.create({'christmasTreesForest.stumpHeight': 0});
-      permitSvgService.generatePermitSvg(permit)
-        .then(svg => {
-          frag = JSDOM.fragment(svg.toString('utf8'));
-          done();
-        });
+      const permit = christmasTreesPermitFactory.create({ 'christmasTreesForest.stumpHeight': 0 });
+      permitSvgService.generatePermitSvg(permit).then(svg => {
+        frag = JSDOM.fragment(svg.toString('utf8'));
+        done();
+      });
     });
     it('should set stump-height to N/A', () => {
       expect(frag.querySelector('#stump-height_1_').textContent).to.equal('N/A');
@@ -32,12 +31,11 @@ describe('svg creation tests', () => {
   describe('no stump diameter', () => {
     let frag;
     before(done => {
-      const permit = christmasTreesPermitFactory.create({'christmasTreesForest.stumpDiameter': 0});
-      permitSvgService.generatePermitSvg(permit)
-        .then(svg => {
-          frag = JSDOM.fragment(svg.toString('utf8'));
-          done();
-        });
+      const permit = christmasTreesPermitFactory.create({ 'christmasTreesForest.stumpDiameter': 0 });
+      permitSvgService.generatePermitSvg(permit).then(svg => {
+        frag = JSDOM.fragment(svg.toString('utf8'));
+        done();
+      });
     });
     it('should set stump-diameter_1_ to N/A', () => {
       expect(frag.querySelector('#stump-diameter_1_').textContent).to.equal('N/A');
@@ -50,12 +48,11 @@ describe('svg creation tests', () => {
   describe('no tree height', () => {
     let frag;
     before(done => {
-      const permit = christmasTreesPermitFactory.create({'christmasTreesForest.treeHeight': 0});
-      permitSvgService.generatePermitSvg(permit)
-        .then(svg => {
-          frag = JSDOM.fragment(svg.toString('utf8'));
-          done();
-        });
+      const permit = christmasTreesPermitFactory.create({ 'christmasTreesForest.treeHeight': 0 });
+      permitSvgService.generatePermitSvg(permit).then(svg => {
+        frag = JSDOM.fragment(svg.toString('utf8'));
+        done();
+      });
     });
     it('should set tree-height_1_ to N/A', () => {
       expect(frag.querySelector('#tree-height_1_').textContent).to.equal('N/A');
@@ -67,12 +64,11 @@ describe('svg creation tests', () => {
   describe('multiple forests', () => {
     let frag;
     before(done => {
-      const permit = christmasTreesPermitFactory.create({'christmasTreesForest.forestNameShort':'Name and Name'});
-      permitSvgService.generatePermitSvg(permit)
-        .then(svg => {
-          frag = JSDOM.fragment(svg.toString('utf8'));
-          done();
-        });
+      const permit = christmasTreesPermitFactory.create({ 'christmasTreesForest.forestNameShort': 'Name and Name' });
+      permitSvgService.generatePermitSvg(permit).then(svg => {
+        frag = JSDOM.fragment(svg.toString('utf8'));
+        done();
+      });
     });
     it('should set #national-forest_1_ to NATIONAL FORESTS', () => {
       expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FORESTS');
@@ -82,11 +78,10 @@ describe('svg creation tests', () => {
     let frag;
     before(done => {
       const permit = christmasTreesPermitFactory.create();
-      permitSvgService.generatePermitSvg(permit)
-        .then(svg => {
-          frag = JSDOM.fragment(svg.toString('utf8'));
-          done();
-        });
+      permitSvgService.generatePermitSvg(permit).then(svg => {
+        frag = JSDOM.fragment(svg.toString('utf8'));
+        done();
+      });
     });
     it('should set #national-forest_1_ to NATIONAL FOREST', () => {
       expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FOREST');

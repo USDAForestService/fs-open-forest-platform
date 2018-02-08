@@ -11,8 +11,8 @@ const request = require('request-promise');
 const Sequelize = require('sequelize');
 const url = require('url');
 
-const Revision = require('./models/revision.es6');
-const vcapConstants = require('./vcap-constants.es6');
+const Revision = require('../models/revision.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 let util = {};
 
@@ -245,11 +245,11 @@ util.getRandomString = length => {
 };
 
 /**
-* Get the assigned forests to the christmas trees forest admins by email address
-*/
+ * Get the assigned forests to the christmas trees forest admins by email address
+ */
 util.getAdminForests = emailAddress => {
   return vcapConstants.forestAmninWhitelist.find(element => {
-    if (element.user_email === emailAddress){
+    if (element.user_email === emailAddress) {
       return element;
     }
   });

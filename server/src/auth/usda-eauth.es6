@@ -9,7 +9,7 @@ const express = require('express');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 
 const eAuth = {};
 

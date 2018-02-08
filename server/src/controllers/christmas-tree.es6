@@ -9,11 +9,11 @@ const uniqid = require('uniqid');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
-const paygov = require('../paygov.es6');
-const permitSvgService = require('../create-svg.es6');
+const paygov = require('../services/paygov.es6');
+const permitSvgService = require('../services/svg-util.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 
 const christmasTree = {};
 const operator = Sequelize.Op;

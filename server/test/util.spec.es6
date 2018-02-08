@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const util = require('../src/util.es6');
+const util = require('../src/services/util.es6');
 
 describe('util tests', () => {
   describe('getContentType', () => {

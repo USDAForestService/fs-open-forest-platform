@@ -85,7 +85,7 @@ createPermit.generatePermitSvg = permit => {
 };
 
 createPermit.generatePermitPng = svgBuffer => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     svg2png(svgBuffer, {
       width: 740,
       height: 958

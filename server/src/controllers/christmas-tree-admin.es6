@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 
 const treesDb = require('../models/trees-db.es6');
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 
 const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
