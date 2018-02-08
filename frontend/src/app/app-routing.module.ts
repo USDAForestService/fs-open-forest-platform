@@ -27,6 +27,7 @@ import { TreeApplicationFormComponent } from './application-forms/tree-applicati
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
+import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 
 const appRoutes: Routes = [
   {
@@ -89,18 +90,32 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'admin/christmas-trees/reports',
-    component: ReportComponent,
+    path: 'admin/christmas-trees',
     canActivate: [AuthGuardService],
     resolve: {
       forests: ForestFinderResolver,
       user: UserResolver
     },
-    data: {
-      title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
-      breadcrumbs: 'Christmas trees permits report',
-      admin: true
-    }
+    children: [
+      {
+        path: 'reports',
+        component: ReportComponent,
+        data: {
+          title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits report',
+          admin: true
+        }
+      },
+      {
+        path: 'season-dates',
+        component: AdminSeasonDatesComponent,
+        data: {
+          title: 'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits season dates',
+          admin: true
+        }
+      }
+    ]
   },
   {
     path: 'user/applications',
