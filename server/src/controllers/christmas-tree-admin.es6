@@ -16,7 +16,7 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
-      eachPermit.permitNumber = permit.paygovTrackingId;
+      eachPermit.permitNumber = permit.permitTrackingId;
       if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
         eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -59,7 +59,7 @@ christmasTreeAdmin.getPermits = (req, res) => {
         .findAll({
           attributes: [
             'forestId',
-            'paygovTrackingId',
+            'permitTrackingId',
             'updatedAt',
             'quantity',
             'totalCost',
@@ -104,14 +104,14 @@ christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
       attributes: [
         'permitId',
         'forestId',
-        'paygovTrackingId',
+        'permitTrackingId',
         'updatedAt',
         'quantity',
         'totalCost',
         'permitExpireDate'
       ],
       where: {
-        paygovTrackingId: req.params.paygovTrackingId,
+        permitTrackingId: req.params.permitTrackingId,
         status: 'Completed'
       }
     })
@@ -119,7 +119,7 @@ christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
       if (requestedPermit === null) {
         return res
           .status(400)
-          .json({ errors: [{ message: 'Permit ' + req.params.paygovTrackingId + ' was not found.' }] });
+          .json({ errors: [{ message: 'Permit ' + req.params.permitTrackingId + ' was not found.' }] });
       } else {
         return returnPermitResults([requestedPermit], res);
       }

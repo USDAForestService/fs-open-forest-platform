@@ -71,8 +71,7 @@ const translatePermitFromClientToDatabase = input => {
     treeCost: input.treeCost,
     quantity: input.quantity,
     totalCost: input.totalCost,
-    permitExpireDate: input.expDate,
-    permitTrackingId: uniqid()
+    permitExpireDate: input.expDate
   };
 };
 
@@ -176,6 +175,7 @@ const permitResult = (permit, svgData) => {
     paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
+    permitTrackingId: permit.permitTrackingId,
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
