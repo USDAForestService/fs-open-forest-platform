@@ -10,7 +10,7 @@ module.exports = {
     let operations = [
       {
         operation: 'raw',
-        query: 'CREATE SEQUENCE ' + SEQUENCE_NAME + ' START 10000000 MAXVALUE 99999999'
+        query: 'CREATE SEQUENCE ' + SEQUENCE_NAME + ' START 1 MAXVALUE 99999999'
       },
       {
         operation: 'raw',

@@ -4,11 +4,12 @@ const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
+const zpad = require('zpad');
 
 const createPermit = {};
 
 const addApplicantInfo = (permit, frag) => {
-  frag.querySelector('#permit-id_1_').textContent = permit.permitTrackingId;
+  frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitTrackingId, 8);
 
   frag.querySelector('#issue-date_1_').textContent = moment(permit.createdAt, util.datetimeFormat)
     .format('MMM DD, YYYY')

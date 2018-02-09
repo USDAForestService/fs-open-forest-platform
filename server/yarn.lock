@@ -6032,3 +6032,7 @@ yauzl@2.4.1:
   resolved "https://registry.yarnpkg.com/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
   dependencies:
     fd-slicer "~1.0.1"
+
+zpad@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/zpad/-/zpad-0.5.0.tgz#e3255b3f0c2d5338514a644dedfa5b844779edc4"

@@ -2,6 +2,7 @@
 
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
+const zpad = require('zpad');
 
 const treesDb = require('../models/trees-db.es6');
 const util = require('../services/util.es6');
@@ -16,7 +17,7 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
-      eachPermit.permitNumber = permit.permitTrackingId;
+      eachPermit.permitNumber = zpad(permit.permitTrackingId, 8);
       if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
         eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -119,7 +120,14 @@ christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
       if (requestedPermit === null) {
         return res
           .status(400)
-          .json({ errors: [{ message: 'Permit number was not found.', possibleResolution: 'Please check that you’ve entered the correct permit number and try again.' }] });
+          .json({
+            errors: [
+              {
+                message: 'Permit number was not found.',
+                possibleResolution: 'Please check that you’ve entered the correct permit number and try again.'
+              }
+            ]
+          });
       } else {
         return returnPermitResults([requestedPermit], res);
       }
