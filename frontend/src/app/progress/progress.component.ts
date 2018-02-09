@@ -8,6 +8,7 @@ export class ProgressComponent {
   @Input() numberOfFiles: number;
   @Input() fileUploadProgress: number;
   @Input() fileUploadError: boolean;
+  @Input() message: string;
   @Output() retryFileUpload: EventEmitter<any> = new EventEmitter<any>();
 
   retry() {

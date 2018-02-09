@@ -1,12 +1,14 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthGuardService } from './auth-guard.service';
+import { UtilService } from './util.service';
 
 describe('AuthGuardService', () => {
   let service: AuthGuardService;
+  let util: UtilService;
 
   beforeEach(() => {
-    service = new AuthGuardService(null, null);
+    service = new AuthGuardService(null, null, null);
     service.redirect = () => {
       return false;
     };
@@ -14,9 +16,10 @@ describe('AuthGuardService', () => {
       return true;
     };
     TestBed.configureTestingModule({
-      providers: [AuthGuardService],
+      providers: [AuthGuardService, UtilService],
       imports: [RouterTestingModule]
     });
+    util = new UtilService();
   });
 
   it('should allow an admin user to access an admin route', () => {
@@ -52,6 +55,7 @@ describe('AuthGuardService', () => {
   });
 
   it('should not allow a non-authenticated user to access a normal restricted route', () => {
+    service.util = new UtilService();
     const valid = service.validateUser(null, { routeConfig: { path: 'applications/temp-outfitters/new' } });
     expect(valid).toBeFalsy();
   });

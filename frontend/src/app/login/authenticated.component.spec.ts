@@ -9,6 +9,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
 import { WindowRef } from '../_services/native-window.service';
+import { UtilService } from '../_services/util.service';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
@@ -46,7 +47,8 @@ describe('AuthenticatedComponent', () => {
             }
           },
           { provide: AuthenticationService, useClass: MockAuthenticationService },
-          { provide: WindowRef, useValue: mockWindow }
+          { provide: WindowRef, useValue: mockWindow },
+          UtilService
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
