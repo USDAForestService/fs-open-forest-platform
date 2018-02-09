@@ -10,7 +10,7 @@ const moment = require('moment');
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const Revision = require('../models/revision.es6');
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const noncommercial = {};

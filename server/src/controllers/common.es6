@@ -7,7 +7,7 @@
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 
 const commonControllers = {};
 

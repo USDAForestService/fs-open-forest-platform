@@ -2,6 +2,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
 
 @Component({
@@ -9,14 +10,15 @@ import { UtilService } from '../_services/util.service';
   templateUrl: './authenticated.component.html'
 })
 export class AuthenticatedComponent implements OnInit {
-  private displayLogin = true;
-  private user;
+  displayLogin = true;
+  user;
 
   constructor(
     public authentication: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public util: UtilService
+    public util: UtilService,
+    private winRef: WindowRef
   ) {}
 
   login() {
@@ -34,7 +36,8 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.authentication.removeUser();
-    window.location.href = environment.apiUrl + 'auth/logout';
+    this.user = null;
+    this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
   }
 
   ngOnInit() {

@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const middleware = require('../src/middleware.es6');
+const middleware = require('../src/services/middleware.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 describe('middleware', () => {
