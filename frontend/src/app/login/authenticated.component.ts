@@ -54,5 +54,6 @@ export class AuthenticatedComponent implements OnInit {
         this.user = data.user ? data.user : null;
         this.displayLogin = data.displayLogin;
       });
+
   }
 }
