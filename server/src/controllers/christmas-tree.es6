@@ -575,7 +575,7 @@ christmasTree.getPermitByTrackingId = (req, res) => {
     })
     .then(requestedPermit => {
       if (requestedPermit === null) {
-        return res.status(400).json({ errors: [ { message:'Permit ' + req.params.paygovTrackingId + ' was not found.' } ] });
+        return res.status(400).json({ errors: [ { message:'Permit number was not found.', possibleResolution:'Please check that you’ve entered the correct permit number and try again.' } ] });
       } else {
         return returnPermitResults([requestedPermit], res);
       }
