@@ -43,7 +43,7 @@ export class ReportComponent implements OnInit {
     });
 
     this.permitNumberSearchForm = formBuilder.group({
-      permitNumber: ['', [Validators.required]]
+      permitNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]]
     });
 
     this.form.get('forestId').valueChanges.subscribe(forestId => {
@@ -91,7 +91,11 @@ export class ReportComponent implements OnInit {
     if (this.isDateSearch) {
       this.getPermitsByDate();
     } else {
-      this.getPermitByNumber();
+      if (this.permitNumberSearchForm.valid) {
+        this.getPermitByNumber();
+      } else {
+        this.afs.scrollToFirstError();
+      }
     }
   }
 

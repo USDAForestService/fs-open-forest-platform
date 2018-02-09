@@ -119,7 +119,7 @@ christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
       if (requestedPermit === null) {
         return res
           .status(400)
-          .json({ errors: [{ message: 'Permit ' + req.params.permitTrackingId + ' was not found.' }] });
+          .json({ errors: [{ message: 'Permit number was not found.', possibleResolution: 'Please check that you’ve entered the correct permit number and try again.' }] });
       } else {
         return returnPermitResults([requestedPermit], res);
       }

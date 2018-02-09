@@ -24,6 +24,7 @@
       <fieldset class="usa-form-group">
         <div *ngIf="!form.value.isDateSearch">
           <input type="text" class="usa-width-one-third" id="permit-number-input" formControlName="permitNumber"/>
+          <app-error-message fieldId="permit-number-error" name="Permit Number" [control]="permitNumberSearchForm.controls.permitNumber"></app-error-message>
         </div>
       </fieldset>
 

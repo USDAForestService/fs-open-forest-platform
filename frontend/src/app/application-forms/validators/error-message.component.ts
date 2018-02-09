@@ -106,5 +106,8 @@ export class ErrorMessageComponent {
     if (errors.pattern.requiredPattern === '^([0-9]{4})$') {
       return `${this.name} requires a 4 digit number. `;
     }
+    if (errors.pattern.requiredPattern === '/^[0-9]{8}$/') {
+      return `${this.name} requires a 8 digit number. `;
+    }
   }
 }
