@@ -17,7 +17,7 @@ describe('ReportComponent', () => {
   let fixture: ComponentFixture<ReportComponent>;
   let formBuilder: FormBuilder;
   let mockWindow: WindowRef;
-  mockWindow = <any> { location: <any> {hash: 'WAOW-MOCK-HASH'}};
+  mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
@@ -74,8 +74,7 @@ describe('ReportComponent', () => {
           sumOfTrees: '12',
           sumOfCost: '100'
         },
-        permits: [{forestId: 1, quantity: 1, totalCost: '5'}]
-
+        permits: [{ forestId: 1, quantity: 1, totalCost: '5' }]
       });
     }
   }
@@ -177,7 +176,7 @@ describe('ReportComponent', () => {
   });
 
   it('should set start and end dates', () => {
-    component.forest = component.getForestById('2')
+    component.forest = component.getForestById('2');
 
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
@@ -187,7 +186,7 @@ describe('ReportComponent', () => {
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
 
-    component.forest = component.getForestById('5')
+    component.forest = component.getForestById('5');
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });

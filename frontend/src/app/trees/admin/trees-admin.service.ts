@@ -3,7 +3,6 @@ import * as moment from 'moment-timezone';
 
 @Injectable()
 export class TreesAdminService {
-
   setStartEndDate(forest, form) {
     if (forest && form.get('dateTimeRange')) {
       form.get('dateTimeRange.startMonth').setValue(moment(forest.startDate).format('MM'));
@@ -14,5 +13,4 @@ export class TreesAdminService {
       form.get('dateTimeRange.endYear').setValue(moment(forest.endDate).format('YYYY'));
     }
   }
-
 }

@@ -26,16 +26,12 @@ export class ChristmasTreesApplicationService {
       headers: headers
     };
 
-    return this.http
-      .post(`${this.endpoint}/permits`, body, options)
-      .catch(this.util.handleError);
+    return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
   }
 
   cancelOldApp(id) {
     const body = { permitId: id, status: 'Cancelled' };
-    return this.http
-      .put(`${this.endpoint}/permits`, body)
-      .catch(this.util.handleError);
+    return this.http.put(`${this.endpoint}/permits`, body).catch(this.util.handleError);
   }
 
   getOne(id, token) {
@@ -45,9 +41,7 @@ export class ChristmasTreesApplicationService {
   }
 
   getDetails(id) {
-    return this.http
-      .get(`${this.endpoint}/permits/${id}/details`)
-      .catch(this.util.handleError);
+    return this.http.get(`${this.endpoint}/permits/${id}/details`).catch(this.util.handleError);
   }
 
   getAllByDateRange(forestId, startDate, endDate) {
@@ -63,9 +57,9 @@ export class ChristmasTreesApplicationService {
   }
 
   updateSeasonDates(forestId, startDate, endDate) {
-    const body = {startDate: startDate, endDate: endDate };
+    const body = { startDate: startDate, endDate: endDate };
     return this.http
-      .put(`${this.adminEndpoint}/forests/${forestId}`, body,{ withCredentials: true } )
+      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
