@@ -12,3 +12,4 @@
   <router-outlet></router-outlet>
 </main>
 <app-page-footer [version]="version" [buildDate]="buildDate"></app-page-footer>
+<app-progress *ngIf="util.progress.display" [message]="util.progress.message"></app-progress>

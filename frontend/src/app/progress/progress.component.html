@@ -1,11 +1,11 @@
-<div class="progress-wrapper" role="alert" aria-live="assertive">
+<div id="progress-wrapper" class="progress-wrapper" role="alert" aria-live="assertive">
   <div class="progress-inner">
     <div *ngIf="!fileUploadError">
-      <p>Submitting your application.</p>
+      <p>{{message}}</p>
       <div class="spinner-container">
         <spinner class="spinner" [size]="28" [tickness]="4"></spinner>
       </div>
-      <p>Uploading file {{ fileUploadProgress }} of {{ numberOfFiles }}.</p>
+      <p *ngIf="fileUploadProgress && numberOfFiles">Uploading file {{ fileUploadProgress }} of {{ numberOfFiles }}.</p>
     </div>
     <div *ngIf="fileUploadError"
       class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">

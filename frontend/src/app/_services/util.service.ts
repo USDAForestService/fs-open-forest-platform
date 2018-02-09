@@ -9,9 +9,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UtilService {
   currentSection: any;
   currentSubSection: any;
+  progress = {
+    display: false,
+    message: 'Loading, please wait.'
+  };
 
   setCurrentSection(section) {
     this.currentSection = section;
+  }
+
+  setLoginRedirectMessage() {
+    localStorage.setItem('showLoggedIn', 'logged in');
+    this.progress = {
+      display: true,
+      message: 'Redirecting to login page, please wait.'
+    };
   }
 
   convertCamelToHyphenCase(string) {

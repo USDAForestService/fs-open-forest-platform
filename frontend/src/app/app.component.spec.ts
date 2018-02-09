@@ -10,6 +10,7 @@ import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 export class MockAuthenticationService {
+  user = { email: 'test@test.com', role: 'admin' };
   getAuthenticatedUser(): Observable<{}> {
     return Observable.of({ email: 'test@test.com', role: 'admin' });
   }
@@ -44,4 +45,11 @@ describe('AppComponent', () => {
     })
   );
 
+  it('should set logged in message', () => {
+    component.setLoggedInMessage();
+    expect(component.status).toEqual({
+      heading: '',
+      message: 'You have successfully logged in using eAuthentication as test@test.com.'
+    });
+  });
 });
