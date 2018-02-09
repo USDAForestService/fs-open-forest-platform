@@ -4,7 +4,6 @@ const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
-const uniqid = require('uniqid');
 const zpad = require('zpad');
 
 const vcapConstants = require('../vcap-constants.es6');
