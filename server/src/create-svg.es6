@@ -8,7 +8,7 @@ const svg2png = require('svg2png');
 const createPermit = {};
 
 const addApplicantInfo = (permit, frag) => {
-  frag.querySelector('#permit-id_1_').textContent = permit.paygovTrackingId.toUpperCase();
+  frag.querySelector('#permit-id_1_').textContent = permit.permitTrackingId;
 
   frag.querySelector('#issue-date_1_').textContent = moment(permit.createdAt, util.datetimeFormat)
     .format('MMM DD, YYYY')
@@ -85,7 +85,7 @@ createPermit.generatePermitSvg = permit => {
 };
 
 createPermit.generatePermitPng = svgBuffer => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     svg2png(svgBuffer, {
       width: 740,
       height: 958

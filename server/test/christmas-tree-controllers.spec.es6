@@ -31,7 +31,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -41,7 +41,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
         })
         .expect(200, done);
@@ -62,7 +62,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body).to.include.all.keys('species', 'locations');
         })
         .expect(200, done);
@@ -73,7 +73,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species.locations).to.not.equal(0);
         })
         .expect(200, done);
@@ -84,7 +84,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species[0]).to.include.all.keys('name', 'status', 'notes');
         })
         .expect(200, done);
@@ -95,7 +95,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/arp')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.species[0].notes.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -106,7 +106,7 @@ describe('christmas tree controller tests', () => {
         .get('/forests/mthood')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.locations.length).to.not.equal(0);
         })
         .expect(200, done);
@@ -219,12 +219,12 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
-      const processTransaction = {token: paygovToken, cc: '0000000000001234'};
+      const processTransaction = { token: paygovToken, cc: '0000000000001234' };
       request(server)
         .post('/mock-pay-gov-process')
         .send(processTransaction)
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body.errorCode).to.equal('1234');
         })
         .expect(200, done);
@@ -421,7 +421,7 @@ describe('christmas tree controller tests', () => {
         .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
-        .expect(function (res) {
+        .expect(function(res) {
           expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
         })
         .expect(200, done);
@@ -452,10 +452,16 @@ describe('christmas tree controller tests', () => {
     });
     it('GET permit details back', done => {
       request(server)
-        .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
+        .get(`/admin/christmas-trees/permits/${completedPermit.permitTrackingId}`)
         .expect('Content-Type', /json/)
-        .expect(function (res) {
-          expect(res.body.permits[0]).to.include.all.keys('permitNumber', 'issueDate', 'quantity', 'totalCost', 'expireDate');
+        .expect(function(res) {
+          expect(res.body.permits[0]).to.include.all.keys(
+            'permitNumber',
+            'issueDate',
+            'quantity',
+            'totalCost',
+            'expireDate'
+          );
         })
         .expect(200, done);
     });
