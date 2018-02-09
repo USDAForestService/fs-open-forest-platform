@@ -56,9 +56,11 @@ export class AdminSeasonDatesComponent implements OnInit {
       if (data) {
         this.user = data.user;
         this.forests = data.forests;
-        this.forests = this.forests.filter(forest =>
-          this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-        );
+        if (this.user.forests.find(forest => forest !== 'all')) {
+          this.forests = this.forests.filter(forest =>
+            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
+          );
+        }
       }
     });
   }
@@ -81,18 +83,20 @@ export class AdminSeasonDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
       const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
-      this.service.updateSeasonDates(
-        this.forest.id,
-        newStart.format('YYYY-MM-DD'),
-        newEnd.format('YYYY-MM-DD')
-      ).subscribe(() => {
-        this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format('MMM DD, YYYY')} to  ${newEnd.format('MMM DD, YYYY')}`;
-        this.winRef.getNativeWindow().scroll(0, 200);
-      },
-      err => {
-        this.apiErrors = err;
-        this.winRef.getNativeWindow().scroll(0, 200);
-      });
+      this.service
+        .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
+        .subscribe(
+          () => {
+            this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
+              'MMM DD, YYYY'
+            )} to  ${newEnd.format('MMM DD, YYYY')}`;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          },
+          err => {
+            this.apiErrors = err;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          }
+        );
     }
   }
 }

@@ -62,6 +62,9 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
       })
     );
+    it('should show the status alert if present', () => {
+      expect(localStorage.getItem('status')).toBe(null);
+    });
     it('should set logged in message', () => {
       component.setLoggedInMessage();
       expect(component.status).toEqual({
@@ -92,11 +95,5 @@ describe('AppComponent', () => {
       localStorage.setItem('status', JSON.stringify({ message: 'test', heading: 'test' }));
       fixture.detectChanges();
     });
-
-    it('should show the status alert if present', () => {
-      expect(localStorage.getItem('status')).toBe(null);
-    });
   });
-
-
 });

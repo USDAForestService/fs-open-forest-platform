@@ -75,4 +75,8 @@ describe('AuthenticatedComponent', () => {
       expect(component.user).toBeNull();
     })
   );
+
+  afterEach(() => {
+    localStorage.clear();
+  });
 });
