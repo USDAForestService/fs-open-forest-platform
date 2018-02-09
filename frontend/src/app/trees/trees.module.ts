@@ -24,13 +24,15 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
-import { McBreadcrumbsComponent } from 'ngx-breadcrumbs';
+import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
+import { TreesAdminService } from './admin/trees-admin.service';
 
 @NgModule({
   declarations: [
     ContactInfoComponent,
     ReportComponent,
     ReportResultsComponent,
+    AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
@@ -58,6 +60,6 @@ import { McBreadcrumbsComponent } from 'ngx-breadcrumbs';
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [TreesService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
+  providers: [TreesService, TreesAdminService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
 })
 export class TreesModule {}

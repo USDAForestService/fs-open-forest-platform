@@ -6,7 +6,7 @@
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
-const vcapConstants = require('./vcap-constants.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 const paygov = {};
 
@@ -161,13 +161,13 @@ paygov.getToken = result => {
 };
 
 paygov.getResponseError = (requestType, result) => {
-  let resultMesssage = {faultcode: '9999', faultstring: requestType};
+  let resultMesssage = { faultcode: '9999', faultstring: requestType };
   try {
     let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
     resultMesssage.faultcode = faultMesssage.faultcode;
     resultMesssage.faultstring = faultMesssage.faultstring;
 
-    if(faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]){
+    if (faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]) {
       resultMesssage.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
       resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
     }

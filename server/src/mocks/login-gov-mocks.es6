@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const middleware = require('../middleware.es6');
+const middleware = require('../services/middleware.es6');
 
 const loginGovMocks = {};
 /**

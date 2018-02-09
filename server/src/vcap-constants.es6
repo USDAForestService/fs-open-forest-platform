@@ -74,6 +74,10 @@ vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
 vcapConstants.payGovCert = payGov.credentials.certificate;
 vcapConstants.payGovPrivateKey = payGov.credentials.private_key;
 
+/** Chrismas Trees Forest Admins */
+const treesForestAdmins = getUserProvided('trees-forest-admins');
+vcapConstants.forestAmninWhitelist = treesForestAdmins.credentials.whitelist;
+
 /**
  * VCAP Constants
  * @exports vcapConstants

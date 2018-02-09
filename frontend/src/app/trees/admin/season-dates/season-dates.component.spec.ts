@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ReportComponent } from './report.component';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -9,19 +8,26 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { AdminSeasonDatesComponent } from './season-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
 
-describe('ReportComponent', () => {
-  let component: ReportComponent;
-  let fixture: ComponentFixture<ReportComponent>;
+describe('Season Dates Admin Component', () => {
+  let component: AdminSeasonDatesComponent;
+  let fixture: ComponentFixture<AdminSeasonDatesComponent>;
   let formBuilder: FormBuilder;
-  let mockWindow: WindowRef;
-  mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
+
+  class MockWindowRef {
+    location = { hash: 'WAOW-MOCK-HASH' };
+    getNativeWindow() {
+      return { scroll() {} };
+    }
+  }
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({
+      user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'] },
       forests: [
         {
           id: 1,
@@ -68,28 +74,22 @@ describe('ReportComponent', () => {
       });
     }
 
-    getReportByPermitNumber(): Observable<{}> {
-      return Observable.of({
-        parameters: {
-          sumOfTrees: '12',
-          sumOfCost: '100'
-        },
-        permits: [{ forestId: 1, quantity: 1, totalCost: '5' }]
-      });
+    updateSeasonDates(): Observable<{}> {
+      return Observable.of({});
     }
   }
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [ReportComponent],
+        declarations: [AdminSeasonDatesComponent],
         providers: [
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
           TreesAdminService,
           UtilService,
-          { provide: WindowRef, useValue: mockWindow }
+          { provide: WindowRef, useClass: MockWindowRef }
         ],
         imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
@@ -99,7 +99,7 @@ describe('ReportComponent', () => {
 
   beforeEach(() => {
     TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
-    fixture = TestBed.createComponent(ReportComponent);
+    fixture = TestBed.createComponent(AdminSeasonDatesComponent);
     component = fixture.debugElement.componentInstance;
     formBuilder = new FormBuilder();
     component.form = formBuilder.group({
@@ -128,14 +128,8 @@ describe('ReportComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get forest by id', () => {
-    const forest = component.getForestById('2');
-    expect(forest.forestName).toEqual('Flathead National Forest');
-  });
-
-  it('should get report', () => {
-    component.result = {};
-    component.isDateSearch = true;
+  it('should update season dates', () => {
+    component.updateStatus = '';
     component.forest = {
       id: 1,
       forestName: 'Arapaho and Roosevelt National Forests',
@@ -152,8 +146,7 @@ describe('ReportComponent', () => {
     component.form.get('dateTimeRange.endDay').setValue('10');
     component.form.get('dateTimeRange.endYear').setValue('2018');
     expect(component.form.valid).toBeTruthy();
-    component.getReport();
-    expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
+    component.updateSeasonDates();
   });
 
   it('should update date status', () => {
@@ -176,7 +169,7 @@ describe('ReportComponent', () => {
   });
 
   it('should set start and end dates', () => {
-    component.forest = component.getForestById('2');
+    component.forest = component.forests.find(forest => forest.id === 2);
 
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
@@ -186,18 +179,8 @@ describe('ReportComponent', () => {
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
 
-    component.forest = component.getForestById('5');
+    component.forest = component.forests.find(forest => forest.id === 5);
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
-  });
-
-  it('should get report by permit number', () => {
-    component.result = {};
-    component.isDateSearch = false;
-    component.forest = null;
-    component.permitNumberSearchForm.get('permitNumber').setValue('1');
-    expect(component.permitNumberSearchForm.valid).toBeTruthy();
-    component.getReport();
-    expect(component.result.permits[0].forestId).toEqual(1);
   });
 });

@@ -9,6 +9,7 @@ const express = require('express');
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
+const util = require('../services/util.es6');
 
 const eAuth = {};
 
@@ -39,7 +40,8 @@ passport.use(
     (profile, done) => {
       return done(null, {
         email: profile.usdaemail,
-        role: getRole(profile.usdaemail)
+        role: getRole(profile.usdaemail),
+        forests: util.getAdminForests(profile.usdaemail).forests
       });
     }
   )
