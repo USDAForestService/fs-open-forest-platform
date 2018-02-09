@@ -17,7 +17,6 @@ export class AdminSeasonDatesComponent implements OnInit {
   forest: any;
   form: any;
   updateStatus: any;
-  reportParameters: any;
   apiErrors: any;
 
   dateStatus = {
@@ -42,7 +41,7 @@ export class AdminSeasonDatesComponent implements OnInit {
     });
 
     this.form.get('forestId').valueChanges.subscribe(forestId => {
-      this.forest = this.getForestById(forestId);
+      this.forest = this.forests.find(forest => forest.id === parseInt(forestId, 10));
       this.setStartEndDate(this.forest, this.form);
     });
   }
@@ -72,35 +71,14 @@ export class AdminSeasonDatesComponent implements OnInit {
     this.dateStatus = dateStatus;
   }
 
-  getForestById(id) {
-    for (const forest of this.forests) {
-      if (forest.id === parseInt(id, 10)) {
-        return forest;
-      }
-    }
-  }
-
-  getForestDate(dateField) {
-    return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
-  }
-
   updateSeasonDates() {
     this.afs.touchAllFields(this.form);
     this.updateStatus = null;
     this.updateDates();
   }
 
-  private setReportParameters() {
-    this.reportParameters = {
-      forestName: this.forest.forestName,
-      startDate: this.getForestDate('dateTimeRange.startDateTime'),
-      endDate: this.getForestDate('dateTimeRange.endDateTime')
-    };
-  }
-
   private updateDates() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
-      this.setReportParameters();
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
       const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
       this.service.updateSeasonDates(

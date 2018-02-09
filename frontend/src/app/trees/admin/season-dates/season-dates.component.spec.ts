@@ -128,11 +128,6 @@ describe('Season Dates Admin Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get forest by id', () => {
-    const forest = component.getForestById('2');
-    expect(forest.forestName).toEqual('Flathead National Forest');
-  });
-
   it('should update season dates', () => {
     component.updateStatus = '';
     component.forest = {
@@ -174,7 +169,7 @@ describe('Season Dates Admin Component', () => {
   });
 
   it('should set start and end dates', () => {
-    component.forest = component.getForestById('2');
+    component.forest = component.forests.find(forest => forest.id === 2);
 
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
@@ -184,7 +179,7 @@ describe('Season Dates Admin Component', () => {
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
 
-    component.forest = component.getForestById('5');
+    component.forest = component.forests.find(forest => forest.id === 5);
     component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });
