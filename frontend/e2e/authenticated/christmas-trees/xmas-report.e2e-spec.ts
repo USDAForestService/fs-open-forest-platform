@@ -155,14 +155,14 @@ describe('Xmas tree - Admin Reports', () => {
     it('should show a required message if not permit number is entered', () => {
       page.permitNumberSubmit().click();
       expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
-      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number is required.");
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual('permit number is required.');
     });
 
     it('should show a error if not permit number is not a number', () => {
       page.permitNumber().sendKeys('a');
       page.permitNumberSubmit().click();
       expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
-      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number requires a 8 digit number.");
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual('permit number requires a 8 digit number.');
     });
 
     it('should show a error if not permit number is not long enough', () => {
@@ -170,7 +170,7 @@ describe('Xmas tree - Admin Reports', () => {
       page.permitNumber().sendKeys('1');
       page.permitNumberSubmit().click();
       expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
-      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number requires a 8 digit number.");
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual('permit number requires a 8 digit number.');
     });
 
     it('should show a error if the permit is not found', () => {
@@ -179,7 +179,7 @@ describe('Xmas tree - Admin Reports', () => {
       expect<any>(page.permitNumberRequiredError().isPresent()).toBeFalsy();
       page.permitNumberSubmit().click();
       expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
-      expect<any>(page.permitNotFoundError().getText()).toEqual("Please check that you've entered the correct permit number and try again.");
+      expect<any>(page.permitNotFoundError().getText()).toEqual('Please check that you\'ve entered the correct permit number and try again.');
       expect<any>(element(by.id('api-error')).isDisplayed()).toBeTruthy();
     });
 

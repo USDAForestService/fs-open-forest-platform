@@ -110,11 +110,11 @@ export class TreesReportPage {
   }
 
   dateReportRadio() {
-    return element(by.id('date-search-button-label'))
+    return element(by.id('date-search-button-label'));
   }
 
   permitNumberReportRadio() {
-    return element(by.id('permit-id-search-button-label'))
+    return element(by.id('permit-id-search-button-label'));
   }
 
   permitNumberRequiredError() {

@@ -56,7 +56,7 @@ export class ReportComponent implements OnInit {
     this.result = null;
     this.forest = null;
     this.isDateSearch = !this.isDateSearch;
-    this.apiErrors = null
+    this.apiErrors = null;
   }
 
   ngOnInit() {
@@ -141,7 +141,7 @@ export class ReportComponent implements OnInit {
             permits: results.permits,
             parameters: null
           };
-        },err => {
+        },  err => {
           this.apiErrors = err;
           this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
           this.winRef.getNativeWindow().scroll(0, 200);
