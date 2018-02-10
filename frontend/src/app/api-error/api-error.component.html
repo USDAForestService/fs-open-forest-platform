@@ -9,7 +9,6 @@
       <li *ngFor="let error of errors">{{error.message}}</li>
     </ul>
     <p class="usa-alert-text" *ngIf="errors && errors[0] && errors[0].errorCode">{{ errors[0].message }}</p>
-    <p class="usa-alert-text" *ngIf="errors && errors[0] && errors[0].possibleResolution">{{errors[0].possibleResolution}}
     <p class="usa-alert-text" *ngIf="showContact">If you continue to get this error, contact <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a>.</p>
   </div>
 </div>

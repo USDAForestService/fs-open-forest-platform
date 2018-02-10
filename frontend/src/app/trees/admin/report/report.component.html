@@ -9,23 +9,35 @@
     <fieldset class="usa-fieldset-inputs">
       <legend class="fs-datetime-legend">Search by:</legend>
 
-      <input id="date-search-button" type="radio"  (change)="isDateSearch = !isDateSearch; result=null" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
-      <label for="date-search-button" >Date range</label>
+      <input id="date-search-button" type="radio"  (change)="resetForms()" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
+      <label for="date-search-button" id="date-search-button-label">Date range</label>
 
-      <input id="permit-id-search-button" type="radio" (change)="isDateSearch = !isDateSearch; result=null"  name="isDateSearch" [value]="false" [ngModel]="isDateSearch" [checked]="!isDateSearch">
-      <label for="permit-id-search-button">Permit number</label>
+      <input id="permit-id-search-button" type="radio" (change)="resetForms()" name="isDateSearch" [value]="false" [ngModel]="isDateSearch" [checked]="!isDateSearch">
+      <label for="permit-id-search-button" id="permit-id-search-button-label">Permit number</label>
 
     </fieldset>
 
-    <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getReport()">
+    <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getPermitByNumber()">
       <legend class="fs-datetime-legend">To generate a report, please enter a permit number.
       </legend>
 
       <fieldset class="usa-form-group">
         <div *ngIf="!form.value.isDateSearch">
-          <input type="text" class="usa-width-one-third" id="permit-number-input" formControlName="permitNumber"/>
-          <app-error-message fieldId="permit-number-error" name="Permit Number" [control]="permitNumberSearchForm.controls.permitNumber"></app-error-message>
+          <input
+            class="small-input"
+           type="text"
+           id="permit-number-input"
+           formControlName="permitNumber"
+           name="permit-number"
+          />
         </div>
+        <div>
+          <span id="permit-not-found-error" class="usa-input-error-message" *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
+            && permitNumberSearchForm.controls.permitNumber.errors && permitNumberSearchForm.controls.permitNumber.errors.notFound">
+            Please check that you've entered the correct permit number and try again.
+          </span>
+        </div>
+        <app-error-message fieldId="permit-number-error" name="permit number" [control]="permitNumberSearchForm.controls.permitNumber"></app-error-message>
       </fieldset>
 
       <button id="get-report-permitnumber" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
@@ -33,7 +45,8 @@
 
     <form *ngIf="isDateSearch" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
       <div>
-        <legend class="fs-datetime-legend">To generate a report, please select a forest.
+        <legend class="fs-datetime-legend">
+          To generate a report, please select a forest.
         </legend>
 
         <fieldset class="usa-form-group">
@@ -48,8 +61,12 @@
         </fieldset>
 
         <div>
-          <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="true"
-                           (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+          <app-date-time-range
+           [parentForm]="form"
+           dateOnly="true"
+           includePastDates="true"
+           (updateDateStatus)="updateDateStatus($event)">
+          </app-date-time-range>
         </div>
       </div>
 

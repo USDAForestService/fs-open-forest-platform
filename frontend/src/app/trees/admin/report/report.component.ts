@@ -55,6 +55,8 @@ export class ReportComponent implements OnInit {
   resetForms() {
     this.result = null;
     this.forest = null;
+    this.isDateSearch = !this.isDateSearch;
+    this.apiErrors = null
   }
 
   ngOnInit() {
@@ -85,18 +87,8 @@ export class ReportComponent implements OnInit {
 
   getReport() {
     this.afs.touchAllFields(this.form);
-    this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
-
-    if (this.isDateSearch) {
-      this.getPermitsByDate();
-    } else {
-      if (this.permitNumberSearchForm.valid) {
-        this.getPermitByNumber();
-      } else {
-        this.afs.scrollToFirstError();
-      }
-    }
+    this.getPermitsByDate();
   }
 
   private setReportParameters() {
@@ -108,7 +100,6 @@ export class ReportComponent implements OnInit {
   }
 
   private getPermitsByDate() {
-    this.permitNumberSearchForm.reset();
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
       this.service
@@ -132,25 +123,31 @@ export class ReportComponent implements OnInit {
             this.winRef.getNativeWindow().scroll(0, 200);
           }
         );
+    } else {
+      this.afs.scrollToFirstError();
     }
   }
 
-  private getPermitByNumber() {
-    this.form.reset();
-    this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
-      results => {
-        this.result = {
-          numberOfPermits: 1,
-          sumOfTrees: results.permits[0].quantity,
-          sumOfCost: results.permits[0].totalCost,
-          permits: results.permits,
-          parameters: null
-        };
-      },
-      err => {
-        this.apiErrors = err;
-        this.winRef.getNativeWindow().scroll(0, 200);
-      }
-    );
+  getPermitByNumber() {
+    this.afs.touchAllFields(this.permitNumberSearchForm);
+    this.result = null;
+    if (this.permitNumberSearchForm.valid) {
+      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
+        results => {
+          this.result = {
+            numberOfPermits: 1,
+            sumOfTrees: results.permits[0].quantity,
+            sumOfCost: results.permits[0].totalCost,
+            permits: results.permits,
+            parameters: null
+          };
+        },
+        err => {
+          this.apiErrors = err;
+          this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
+          this.winRef.getNativeWindow().scroll(0, 200);
+        }
+      );
+    }
   }
 }

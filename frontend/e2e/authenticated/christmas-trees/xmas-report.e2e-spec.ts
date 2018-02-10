@@ -21,6 +21,14 @@ describe('Xmas tree - Admin Reports', () => {
         expect<any>(page.forestSelect().isPresent()).toBeTruthy();
       });
 
+      it('should have a date search radio', () => {
+        expect(page.dateReportRadio().isPresent()).toBeTruthy();
+      });
+
+      it('should have a permit number search radio', () => {
+        expect(page.permitNumberReportRadio().isPresent()).toBeTruthy();
+      });
+
       it('should display a start date', () => {
         expect<any>(page.startMonthInput().isPresent()).toBeTruthy();
         expect<any>(page.startDayInput().isPresent()).toBeTruthy();
@@ -135,6 +143,51 @@ describe('Xmas tree - Admin Reports', () => {
       it('should display the trees total', () => {
         expect<any>(page.reportTreeTotal().isDisplayed()).toBeTruthy();
       });
+    });
+  });
+
+  describe('search by permit number', () => {
+    beforeAll(() => {
+      page.permitNumberReportRadio().click();
+      browser.sleep(500);
+    });
+
+    it('should show a required message if not permit number is entered', () => {
+      page.permitNumberSubmit().click();
+      expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number is required.");
+    });
+
+    it('should show a error if not permit number is not a number', () => {
+      page.permitNumber().sendKeys('a');
+      page.permitNumberSubmit().click();
+      expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number requires a 8 digit number.");
+    });
+
+    it('should show a error if not permit number is not long enough', () => {
+      page.permitNumber().clear();
+      page.permitNumber().sendKeys('1');
+      page.permitNumberSubmit().click();
+      expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
+      expect<any>(page.permitNumberRequiredError().getText()).toEqual("permit number requires a 8 digit number.");
+    });
+
+    it('should show a error if the permit is not found', () => {
+      page.permitNumber().clear();
+      page.permitNumber().sendKeys('11111111');
+      expect<any>(page.permitNumberRequiredError().isPresent()).toBeFalsy();
+      page.permitNumberSubmit().click();
+      expect<any>(page.permitNumberRequiredError().isDisplayed()).toBeTruthy();
+      expect<any>(page.permitNotFoundError().getText()).toEqual("Please check that you've entered the correct permit number and try again.");
+      expect<any>(element(by.id('api-error')).isDisplayed()).toBeTruthy();
+    });
+
+    it('should clear all errors when date search is selected', () => {
+      page.dateReportRadio().click();
+      expect<any>(page.permitNotFoundError().isPresent()).toBeFalsy();
+      expect<any>(element(by.id('api-error')).isPresent()).toBeFalsy();
+      expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
     });
   });
 });
