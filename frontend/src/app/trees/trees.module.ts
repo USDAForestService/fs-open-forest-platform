@@ -7,11 +7,8 @@ import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/tree-species/tree-species.component';
-
 import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
-
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
-
 import { TreesService } from './_services/trees.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
@@ -60,6 +57,12 @@ import { TreesAdminService } from './admin/trees-admin.service';
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [TreesService, TreesAdminService, ForestService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
+  providers: [
+    TreesService,
+    TreesAdminService,
+    ForestService,
+    ChristmasTreesApplicationService,
+    TreeDistrictsUtilService
+  ]
 })
 export class TreesModule {}

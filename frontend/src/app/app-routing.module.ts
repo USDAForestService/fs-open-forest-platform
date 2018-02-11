@@ -45,7 +45,7 @@ const appRoutes: Routes = [
         path: '',
         component: HomeComponent,
         data: {
-          title: 'US Forest Service ePermit',
+          title: 'US Forest Service ePermit'
         }
       },
       {
@@ -55,7 +55,7 @@ const appRoutes: Routes = [
           title: 'Help me find a permit',
           breadcrumbs: 'Help me find a permit'
         }
-      },
+      }
     ]
   },
   {
@@ -85,13 +85,15 @@ const appRoutes: Routes = [
           title: 'View application',
           breadcrumbs: 'View application'
         }
-      },
-
+      }
     ]
   },
   {
     path: 'admin/christmas-trees',
     canActivate: [AuthGuardService],
+    data: {
+      admin: true
+    },
     resolve: {
       forests: ForestFinderResolver,
       user: UserResolver
@@ -226,7 +228,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: '',
-            component: TreeGuidelinesComponent,
+            component: TreeGuidelinesComponent
           },
           {
             path: 'applications',
@@ -234,7 +236,7 @@ const appRoutes: Routes = [
             children: [
               {
                 path: '',
-                component: TreeApplicationFormComponent,
+                component: TreeApplicationFormComponent
               },
               {
                 path: 'permits/:permitId',
@@ -243,7 +245,7 @@ const appRoutes: Routes = [
                   permit: ChristmasTreePermitResolver
                 },
                 data: { breadcrumbs: 'Permit confirmation' }
-              },
+              }
             ]
           },
           {
@@ -253,13 +255,12 @@ const appRoutes: Routes = [
             resolve: {
               permit: ChristmasTreePermitDetailResolver
             },
-            data: { breadcrumbs: 'Buy a permit'} ,
-          },
+            data: { breadcrumbs: 'Buy a permit' }
+          }
         ]
       }
     ]
-  }
-  ,
+  },
   {
     path: 'mock-pay-gov',
     component: LandingPageComponent,
