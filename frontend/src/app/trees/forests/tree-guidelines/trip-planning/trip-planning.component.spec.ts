@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TripPlanningComponent } from './trip-planning.component';
 import { MockBackend } from '@angular/http/testing';
 import { UtilService } from '../../../../_services/util.service';
@@ -12,7 +12,8 @@ describe('TripPlanningComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TripPlanningComponent],
-        providers: [{ provide: UtilService }]
+        providers: [{ provide: UtilService }],
+        schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
