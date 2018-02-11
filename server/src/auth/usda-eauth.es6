@@ -20,11 +20,7 @@ eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
  * Check the whitelist for approved FS admin accounts.
  */
 const getRole = email => {
-  if (vcapConstants.eAuthUserWhiteList.includes(email)) {
-    return 'admin';
-  } else {
-    return 'user';
-  }
+  return util.getUserRole(email);
 };
 
 /** Instantiate the passport SamlStrategy */

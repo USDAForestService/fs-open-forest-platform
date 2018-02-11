@@ -255,6 +255,16 @@ util.getAdminForests = emailAddress => {
   });
 };
 
+util.getUserRole = emailAddress => {
+  return vcapConstants.eAuthUserWhiteList.find(element => {
+    if (element.user_email === emailAddress) {
+      return 'admin';
+    } else {
+      return 'user';
+    }
+  });
+};
+
 util.request = request;
 
 /**
