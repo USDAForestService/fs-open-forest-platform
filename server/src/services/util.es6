@@ -256,6 +256,10 @@ util.getAdminForests = emailAddress => {
 util.getUserRole = emailAddress => {
   console.log('EMAIL ADDRESS', emailAddress);
   console.log('WHITELIST', vcapConstants.eAuthUserWhiteList);
+  console.log(
+    'WHITELIST FIND RESULTS',
+    vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
+  );
   return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? ADMIN_ROLE : USER_ROLE;
 };
 
