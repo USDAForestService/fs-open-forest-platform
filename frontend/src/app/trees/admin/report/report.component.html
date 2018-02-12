@@ -6,9 +6,8 @@
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors" [showContact]=false></app-api-error>
 
+    <legend class="fs-datetime-legend">Search by:</legend>
     <fieldset class="usa-fieldset-inputs">
-      <legend class="fs-datetime-legend">Search by:</legend>
-
       <input id="date-search-button" type="radio"  (change)="resetForms()" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
       <label for="date-search-button" id="date-search-button-label">Date range</label>
 
@@ -50,14 +49,10 @@
         </legend>
 
         <fieldset class="usa-form-group">
-          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
-          <select id="forest-select" formControlName="forestId" aria-required="true"
-                  [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
-                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
-            <option value="" selected="selected"></option>
-            <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
-          </select>
-          <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
         </fieldset>
 
         <div>

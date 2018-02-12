@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -11,7 +11,7 @@ import { TreesAdminService } from '../trees-admin.service';
   selector: 'app-season-dates',
   templateUrl: './season-dates.component.html'
 })
-export class AdminSeasonDatesComponent implements OnInit {
+export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   user: any;
   forests: any;
   forest: any;
@@ -61,8 +61,15 @@ export class AdminSeasonDatesComponent implements OnInit {
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
         }
+        this.forest = this.forests[0];
       }
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.setStartEndDate(this.forest, this.form);
+    }, 0);
   }
 
   setStartEndDate(forest, form) {

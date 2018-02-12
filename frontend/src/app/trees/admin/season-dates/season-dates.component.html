@@ -18,21 +18,14 @@
         </legend>
 
         <fieldset class="usa-form-group">
-          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
-          <select id="forest-select"
-                  formControlName="forestId"
-                  aria-required="true"
-                  [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
-                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)"
-                  (change) = 'updateStatus = null'
-          >
-            <option value="" selected="selected"></option>
-            <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
-          </select>
-          <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
         </fieldset>
 
         <div>
+          <p>If your forest is not listed, please <a href="#">request access</a>.</p>
           <p>The time on the season start date and end date will be set to midnight.</p>
           <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="false"
                            (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
