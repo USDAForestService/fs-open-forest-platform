@@ -6,22 +6,40 @@
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors" [showContact]=false></app-api-error>
 
-    <fieldset class="usa-fieldset-inputs">
-      <legend class="fs-datetime-legend">Search by:</legend>
 
-      <input id="date-search-button" type="radio"  (change)="resetForms()" name="isDateSearch" [value]="true" [ngModel]="isDateSearch" [checked]="isDateSearch">
+    <fieldset class="usa-fieldset-inputs">
+      <legend id="search-by-legend" class="fs-datetime-legend">Search by:</legend>
+
+      <input id="date-search-button"
+             type="radio"
+             (change)="resetForms()"
+             name="isDateSearch"
+             [value]="true"
+             [ngModel]="isDateSearch"
+             [checked]="isDateSearch"
+             [attr.aria-labelledby]="date-search-button-label"
+      >
       <label for="date-search-button" id="date-search-button-label">Date range</label>
 
-      <input id="permit-id-search-button" type="radio" (change)="resetForms()" name="isDateSearch" [value]="false" [ngModel]="isDateSearch" [checked]="!isDateSearch">
+      <input id="permit-id-search-button"
+             type="radio" (change)="resetForms()"
+             name="isDateSearch"
+             [value]="false"
+             [ngModel]="isDateSearch"
+             [checked]="!isDateSearch"
+             [attr.aria-labelledby]="permit-id-search-button-label"
+      >
       <label for="permit-id-search-button" id="permit-id-search-button-label">Permit number</label>
 
     </fieldset>
 
     <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getPermitByNumber()">
-      <legend class="fs-datetime-legend">To generate a report, please enter a permit number.
-      </legend>
+
 
       <fieldset class="usa-form-group">
+        <legend class="fs-datetime-legend">
+          To generate a report, please enter a permit number.
+        </legend>
         <div *ngIf="!form.value.isDateSearch">
           <input
             class="small-input"
@@ -45,19 +63,14 @@
 
     <form *ngIf="isDateSearch" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
       <div>
-        <legend class="fs-datetime-legend">
-          To generate a report, please select a forest.
-        </legend>
-
         <fieldset class="usa-form-group">
-          <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
-          <select id="forest-select" formControlName="forestId" aria-required="true"
-                  [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
-                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
-            <option value="" selected="selected"></option>
-            <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
-          </select>
-          <app-error-message fieldId="forest-error" name="Forest" [control]="form.controls.forestId"></app-error-message>
+          <legend class="fs-datetime-legend">
+            To generate a report, please select a forest.
+          </legend>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
         </fieldset>
 
         <div>

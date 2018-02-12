@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -11,7 +11,7 @@ import { TreesAdminService } from '../trees-admin.service';
   selector: 'app-report',
   templateUrl: './report.component.html'
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
   forests: any;
   forest: any;
   form: any;
@@ -62,7 +62,14 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+      this.forest = this.forests[0];
     });
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.setStartEndDate(this.forest, this.form);
+    }, 0);
   }
 
   setStartEndDate(forest, form) {
