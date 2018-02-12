@@ -59,8 +59,8 @@ eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) 
 });
 
 /**
- * USDA eAuth integration
- * @exports auth/eAuth
+ *   USDA eAuth integration
+ *   @exports auth/eAuth
  */
-module.exports = eAuth; * @exports auth / eAuth * /
+
 module.exports = eAuth;
