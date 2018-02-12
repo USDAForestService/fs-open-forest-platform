@@ -25,22 +25,20 @@ const getRole = email => {
 
 /** Instantiate the passport SamlStrategy */
 passport.use(
-  new SamlStrategy(
-    {
-      path: vcapConstants.baseUrl + eAuth.callbackPath,
-      entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
-      issuer: vcapConstants.eAuthIssuer,
-      privateCert: vcapConstants.eAuthPrivateKey,
-      cert: vcapConstants.eAuthCert
-    },
-    (profile, done) => {
-      return done(null, {
-        email: profile.usdaemail,
-        role: util.getAdminForests(profile.usdaemail).forests ? 'admin' : 'user',
-        forests: util.getAdminForests(profile.usdaemail).forests
-      });
-    }
-  )
+  new SamlStrategy({
+    path: vcapConstants.baseUrl + eAuth.callbackPath,
+    entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
+    issuer: vcapConstants.eAuthIssuer,
+    privateCert: vcapConstants.eAuthPrivateKey,
+    cert: vcapConstants.eAuthCert
+  }, (profile, done) => {
+    console.log('PROFILE', profile);
+    return done(null, {
+      email: profile.usdaemail,
+      role: util.getAdminForests(profile.usdaemail).forests ? 'admin' : 'user',
+      forests: util.getAdminForests(profile.usdaemail).forests
+    });
+  })
 );
 
 /** router for eAuth specific endpoints */
@@ -64,7 +62,5 @@ eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) 
  * USDA eAuth integration
  * @exports auth/eAuth
  */
-module.exports = eAuth;
- * @exports auth/eAuth
- */
+module.exports = eAuth; * @exports auth / eAuth * /
 module.exports = eAuth;
