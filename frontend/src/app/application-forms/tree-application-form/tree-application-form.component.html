@@ -49,7 +49,12 @@
         <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit <a href='#' (click)="goToRules($event)">rules</a>.</label>
         <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
       </span>
-      <p>We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.</p>
+      <p>
+        We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
+      </p>
+      <p>
+        You can also buy a permit at the local Ranger District office.
+      </p>
 
       <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
 

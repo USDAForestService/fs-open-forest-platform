@@ -52,5 +52,21 @@ describe('util tests', () => {
         done();
       });
     });
+
+    it('should return admin role', () => {
+      expect(util.getUserRole('test@test.com')).to.equal('admin');
+    });
+
+    it('should return user role', () => {
+      expect(util.getUserRole('notest@test.com')).to.equal('user');
+    });
+
+    it('should get admin forests', () => {
+      var should = require('chai').should();
+      util
+        .getAdminForests('test@test.com')
+        .should.have.property('forests')
+        .with.lengthOf(2);
+    });
   });
 });
