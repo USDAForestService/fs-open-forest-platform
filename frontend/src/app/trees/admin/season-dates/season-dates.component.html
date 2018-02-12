@@ -19,9 +19,13 @@
 
         <fieldset class="usa-form-group">
           <legend id="forest-label" for="forest-select" class="usa-input">Forest</legend>
-          <select id="forest-select" formControlName="forestId" aria-required="true"
+          <select id="forest-select"
+                  formControlName="forestId"
+                  aria-required="true"
                   [attr.aria-labelledby]="afs.labelledBy(form.controls.forestId, 'forest-label', 'forest-error')"
-                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)">
+                  [attr.aria-invalid]="afs.hasError(form.controls.forestId)"
+                  (change) = 'updateStatus = null'
+          >
             <option value="" selected="selected"></option>
             <option *ngFor="let forest of forests" [value]="forest.id">{{ forest.forestName }}</option>
           </select>

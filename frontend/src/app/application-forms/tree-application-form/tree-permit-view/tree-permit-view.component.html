@@ -5,7 +5,7 @@
       <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
     </div>
 
-    <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container usa-grid">
+    <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container">
       <div *ngIf="isPermitExpired" class="usa-alert usa-alert-error permit-expiration-warning">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3>
@@ -35,7 +35,7 @@
 
     <div *ngIf="!isPermitExpired" id="toPrint" hidden="true" [innerHTML]="image"></div>
 
-    <div class="usa-grid confirmation-details-container">
+    <div class="confirmation-details-container">
       <div id="printing-instructions" class='usa-form-hint'>
         You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
       </div>
@@ -49,12 +49,12 @@
       </button>
     </div>
 
-    <div id='tree-confirmation-details-container' class="usa-grid">
+    <div id='tree-confirmation-details-container'>
       <h2 class="usa-heading">Order details</h2>
       <table class="tree-confirmation-table">
         <tr>
           <td>Permit number</td>
-          <td><b>{{permit.paygovTrackingId | uppercase}}</b></td>
+          <td><b>{{permit.permitTrackingId | uppercase}}</b></td>
         </tr>
         <tr>
           <td>Name</td>
@@ -75,7 +75,7 @@
       </table>
     </div>
 
-    <div id="tree-additional-info-container" class="usa-grid confirmation-details-container margin-top-2 margin-bottom-2">
+    <div id="tree-additional-info-container" class="confirmation-details-container margin-top-2 margin-bottom-2">
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
       <h3>Your permit was emailed to you at {{permit.emailAddress}}.</h3>

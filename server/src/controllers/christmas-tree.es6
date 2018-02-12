@@ -4,7 +4,7 @@ const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
-const uniqid = require('uniqid');
+const zpad = require('zpad');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -71,8 +71,7 @@ const translatePermitFromClientToDatabase = input => {
     treeCost: input.treeCost,
     quantity: input.quantity,
     totalCost: input.totalCost,
-    permitExpireDate: input.expDate,
-    permitTrackingId: uniqid()
+    permitExpireDate: input.expDate
   };
 };
 
@@ -176,6 +175,7 @@ const permitResult = (permit, svgData) => {
     paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
+    permitTrackingId: zpad(permit.permitTrackingId, 8),
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,

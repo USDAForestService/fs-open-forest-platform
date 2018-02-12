@@ -195,9 +195,9 @@ describe('ReportComponent', () => {
     component.result = {};
     component.isDateSearch = false;
     component.forest = null;
-    component.permitNumberSearchForm.get('permitNumber').setValue('1');
+    component.permitNumberSearchForm.get('permitNumber').setValue('11111111');
     expect(component.permitNumberSearchForm.valid).toBeTruthy();
-    component.getReport();
+    component.getPermitByNumber();
     expect(component.result.permits[0].forestId).toEqual(1);
   });
 });

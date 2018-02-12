@@ -69,6 +69,11 @@ input.ng-touched.invaliddate,
   background-color: $fs-green;
 }
 
+.small-input {
+  max-width: 50%;
+}
+
+
 .usa-file-input {
   border: solid 1px $dark-grey;
   padding: 10px;
