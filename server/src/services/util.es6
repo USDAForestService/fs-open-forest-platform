@@ -248,23 +248,11 @@ util.getRandomString = length => {
  * Get the assigned forests to the christmas trees forest admins by email address
  */
 util.getAdminForests = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => {
-    if (element.user_email === emailAddress) {
-      return element;
-    }
-  });
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
 };
 
 util.getUserRole = emailAddress => {
-  let role;
-  vcapConstants.eAuthUserWhiteList.find(element => {
-    if (element.user_email === emailAddress) {
-      role = 'admin';
-    } else {
-      role = 'user';
-    }
-  });
-  return role;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? 'admin' : 'user';
 };
 
 util.request = request;
