@@ -13,10 +13,11 @@ const url = require('url');
 
 const Revision = require('../models/revision.es6');
 const vcapConstants = require('../vcap-constants.es6');
-const ADMIN_ROLE = 'admin';
-const USER_ROLE = 'user';
 
 let util = {};
+
+util.ADMIN_ROLE = 'admin';
+util.USER_ROLE = 'user';
 
 /**  Enum for noncommercial application permit organization types. */
 util.noncommercialOrgTypes = ['Person', 'Corporation'];
@@ -192,7 +193,7 @@ util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
       email: 'test@test.com',
-      role: 'admin',
+      role: util.ADMIN_ROLE,
       forests: util.getAdminForests('test@test.com').forests
     };
   } else {
@@ -204,7 +205,7 @@ util.getUser = req => {
  * Check that a user has permissions to view a permit application.
  */
 util.hasPermissions = (user, applicationModel) => {
-  return user.role === 'admin' || user.email === applicationModel.authEmail;
+  return user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
 };
 
 /**
@@ -260,7 +261,9 @@ util.getUserRole = emailAddress => {
     'WHITELIST FIND RESULTS',
     vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
   );
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? ADMIN_ROLE : USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
 };
 
 util.request = request;
