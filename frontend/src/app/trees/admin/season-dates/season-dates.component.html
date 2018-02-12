@@ -14,10 +14,10 @@
 
     <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
       <div>
-        <legend class="fs-datetime-legend">To update season dates, please select a forest.
-        </legend>
-
         <fieldset class="usa-form-group">
+          <legend class="fs-datetime-legend">
+            To update season dates, please select a forest.
+          </legend>
           <ng-container *ngFor="let forest of forests; let i = index">
             <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>

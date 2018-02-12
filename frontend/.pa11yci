@@ -11,32 +11,7 @@
     }
 },
   "urls": [
-    "http://localhost:4200/",
-    "http://localhost:4200/admin/applications",
-    "http://localhost:4200/applications/noncommercial-group-use/new",
-    "http://localhost:4200/applications/temp-outfitters/new'",
-    "http://localhost:4200/applications/submitted",
-    "http://localhost:4200/applications/noncommercial-group-use/learn-more",
-    "http://localhost:4200/applications/temp-outfitters/learn-more",
-    "http://localhost:4200/login",
-    "http://localhost:4200/admin/applications",
-    "http://localhost:4200/help-me-pick/1",
-    "http://localhost:4200/help-me-pick/2",
-    "http://localhost:4200/help-me-pick/3",
-    "http://localhost:4200/help-me-pick/4",
-    "http://localhost:4200/help-me-pick/5",
-    "http://localhost:4200/help-me-pick/6",
-    "http://localhost:4200/help-me-pick/7",
-    "http://localhost:4200/help-me-pick/8",
-    "http://localhost:4200/christmas-trees/forests/arp",
-    "http://localhost:4200/christmas-trees/forests/mthood",
-    "http://localhost:4200/christmas-trees/forests/flathead",
-    "http://localhost:4200/christmas-trees/forests/shoshone",
-    "http://localhost:4200/christmas-trees/forests/arp/applications",
-    "http://localhost:4200/christmas-trees/forests/mthood/applications",
-    "http://localhost:4200/christmas-trees/forests/flathead/applications",
-    "http://localhost:4200/christmas-trees/forests/shoshone/applications",
-    "http://localhost:4200/christmas-trees/forests",
-    "http://localhost:4200/admin/christmas-trees/reports"
+    "http://localhost:4200/admin/christmas-trees/reports",
+    "http://localhost:4200/admin/christmas-trees/season-dates"
   ]
 }
