@@ -6,7 +6,7 @@ jobs:
       - checkout
       - run:
           name: install pa11y
-          command: cd frontend; npm i -g pa11y-ci && npm i -g tslint && npm i -g @angular/cli
+          command: cd frontend; npm i -g pa11y-ci && npm i
       - run:
           name: install eslint
           command: cd server; npm i -g eslint
