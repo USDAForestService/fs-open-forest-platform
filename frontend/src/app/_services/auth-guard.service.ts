@@ -23,7 +23,7 @@ export class AuthGuardService implements CanActivate {
 
   validateUser(user, route) {
     localStorage.removeItem("requestingUrl");
-    const requestingUrl = window.location.href;
+    const requestingUrl = window.location.pathname;
     let isAdminRoute = false;
     if (route.data) {
       isAdminRoute = route.data.admin;
