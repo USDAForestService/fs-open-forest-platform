@@ -1,0 +1,34 @@
+{
+  "name": "arp",
+  "treeSpecies": [
+    {
+      "id": "engelmann-spruce",
+      "name": "Engelmann Spruce",
+      "status": "recommended"
+    },
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "webUrl": "https://plants.usda.gov/plantguide/pdf/cs_psme.pdf",
+      "status": "recommended"
+    },
+    {
+      "id": "ponderosa-pine",
+      "name": "Ponderosa Pine",
+      "webUrl": "https://plants.usda.gov/plantguide/pdf/pg_pipo.pdf",
+      "status": "not recommended"
+    },
+    {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "webUrl": null,
+      "status": "not recommended"
+    },
+    {
+      "id": "subalpine-fir",
+      "name": "Subalpine Fir",
+      "webUrl": null,
+      "status": "recommended"
+    }
+  ]
+}
