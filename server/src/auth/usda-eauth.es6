@@ -36,7 +36,7 @@ passport.use(
     (profile, done) => {
       return done(null, {
         email: profile.usdaemail,
-        role: getRole(profile.usdaemail),
+        role: util.getAdminForests(profile.usdaemail).forests ? 'admin' : 'user',
         forests: util.getAdminForests(profile.usdaemail).forests
       });
     }
@@ -62,6 +62,9 @@ eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) 
 
 /**
  * USDA eAuth integration
+ * @exports auth/eAuth
+ */
+module.exports = eAuth;
  * @exports auth/eAuth
  */
 module.exports = eAuth;
