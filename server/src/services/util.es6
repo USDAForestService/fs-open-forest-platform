@@ -13,6 +13,8 @@ const url = require('url');
 
 const Revision = require('../models/revision.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const ADMIN_ROLE = 'admin';
+const USER_ROLE = 'user';
 
 let util = {};
 
@@ -252,7 +254,9 @@ util.getAdminForests = emailAddress => {
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? 'admin' : 'user';
+  console.log('EMAIL ADDRESS', emailAddress);
+  console.log('WHITELIST', vcapConstants.eAuthUserWhiteList);
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? ADMIN_ROLE : USER_ROLE;
 };
 
 util.request = request;
