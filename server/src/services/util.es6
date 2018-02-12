@@ -256,13 +256,15 @@ util.getAdminForests = emailAddress => {
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => {
+  let role;
+  vcapConstants.eAuthUserWhiteList.find(element => {
     if (element.user_email === emailAddress) {
-      return 'admin';
+      role = 'admin';
     } else {
-      return 'user';
+      role = 'user';
     }
   });
+  return role;
 };
 
 util.request = request;
