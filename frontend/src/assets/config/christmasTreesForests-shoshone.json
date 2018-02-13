@@ -1,5 +1,5 @@
 {
-  "name": "arp",
+  "forest": "shoshone",
   "treeSpecies": [
     {
       "id": "engelmann-spruce",
@@ -9,26 +9,27 @@
     {
       "id": "douglas-fir",
       "name": "Douglas-fir",
-      "webUrl": "https://plants.usda.gov/plantguide/pdf/cs_psme.pdf",
       "status": "recommended"
-    },
-    {
-      "id": "ponderosa-pine",
-      "name": "Ponderosa Pine",
-      "webUrl": "https://plants.usda.gov/plantguide/pdf/pg_pipo.pdf",
-      "status": "not recommended"
     },
     {
       "id": "lodgepole-pine",
       "name": "Lodgepole Pine",
-      "webUrl": null,
-      "status": "not recommended"
+      "status": "recommended"
     },
     {
       "id": "subalpine-fir",
       "name": "Subalpine Fir",
-      "webUrl": null,
       "status": "recommended"
+    },
+    {
+      "id": "blue-spruce",
+      "name": "Blue Spruce",
+      "status": "recommended"
+    },
+    {
+      "id": "whitebark-pine",
+      "name": "Whitebark Pine",
+      "status": "prohibited"
     }
   ]
 }
