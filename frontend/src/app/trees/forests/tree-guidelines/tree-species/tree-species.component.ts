@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ForestService } from '../../../../_services/forest.service';
+import { ForestService } from '../../../_services/forest.service';
 
 @Component({
   selector: 'app-tree-species',
