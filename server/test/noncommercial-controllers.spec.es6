@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const should = require('chai').should;
 const expect = require('chai').expect;
 const nock = require('nock');
 const request = require('supertest');

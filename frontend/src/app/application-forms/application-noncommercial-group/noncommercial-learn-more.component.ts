@@ -12,6 +12,7 @@ export class NoncommercialLearnMoreComponent {
     this.items = [
       {
         sectionName: 'Who  has to get a permit under the regulation?',
+        type: 'anchor',
         sectionCopy: `
         <ul>
         <li>Authorization for non-commercial groups to use national Forest Service land.</li>
@@ -24,6 +25,7 @@ export class NoncommercialLearnMoreComponent {
       },
       {
         sectionName: 'Applicant requirements',
+        type: 'anchor',
         sectionCopy: `
         <ul>
         <li>Must be at least 21 years old.</li>
@@ -33,6 +35,7 @@ export class NoncommercialLearnMoreComponent {
       },
       {
         sectionName: 'Evaluation process',
+        type: 'anchor',
         sectionCopy: `
         <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity
         and will be evaluated by the Forest Service within 48 hours of receipt. Otherwise,

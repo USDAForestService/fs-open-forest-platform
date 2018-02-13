@@ -8,7 +8,8 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router, private authentication: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
-    return this.authentication.getAuthenticatedUser().map((user: any) => {
+    // force login and dont use cached user for authenticated routes
+    return this.authentication.getAuthenticatedUser(true, true).map((user: any) => {
       return this.validateUser(user, route);
     });
   }

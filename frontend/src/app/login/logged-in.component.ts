@@ -1,7 +1,6 @@
 import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logged-in',
@@ -16,7 +15,7 @@ export class LoggedInComponent implements OnInit {
       if (requestingUrl) {
         localStorage.removeItem('requestingUrl');
         return this.router.navigate([requestingUrl]);
-      } else if (user.role === 'admin') {
+      } else if (user && user.role === 'admin') {
         this.router.navigate(['/admin/applications']);
       } else {
         this.router.navigate(['/']);

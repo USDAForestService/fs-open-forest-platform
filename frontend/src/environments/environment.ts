@@ -8,4 +8,5 @@ export const environment = {
   apiUrl: 'http://localhost:8080/',
   buildDate: new Date(),
   version: 'DEV'
+
 };

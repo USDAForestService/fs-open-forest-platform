@@ -1,8 +1,8 @@
 {
   "defaults": {
     "concurrency": 1,
-    "timeout": 15000,
-    "wait": 900,
+    "timeout": 20000,
+    "wait": 1200,
     "page": {
       "viewport": {
           "width": 320,

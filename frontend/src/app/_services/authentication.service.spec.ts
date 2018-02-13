@@ -31,7 +31,7 @@ describe('AuthGuardService', () => {
   let http: HttpClient;
 
   beforeEach(() => {
-    service = new AuthenticationService(http, null, null);
+    service = new AuthenticationService(http, null);
     http = new HttpClient(null);
 
     TestBed.configureTestingModule({

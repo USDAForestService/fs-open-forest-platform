@@ -82,6 +82,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
+      expect<any>(page.cuttingDatesSeasonStartAndEnd().getText()).toEqual('Dates not yet available.');
     });
 
     it('should display a daily hours heading for the overall forest', () => {
@@ -93,16 +94,15 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
 
-    it('should display a link for users to purchase a permit', () => {
-      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
+    it('should not display a link for users to purchase a permit', () => {
+      expect<any>(page.buyPermitLink().isDisplayed()).toBeFalsy();
     });
 
-    it('should route users to page where they can buy a permit', () => {
-      page.buyPermitLink().click();
-      browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone/applications');
+    it ('should show the season not open info alert', () => {
+      expect<any>(page.seasonOpenAlert().isDisplayed()).toBeTruthy();
     });
-  });
+
+   });
 
   describe('Flathead', () => {
     beforeEach(() => {
@@ -143,15 +143,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
 
-    it('should display a link for users to purchase a permit', () => {
-      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
-    });
-
-    it('should route users to page where they can buy a permit', () => {
-      page.buyPermitLink().click();
-      browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/flathead/applications');
-    });
   });
 
   describe('Arapaho/Roosevelt', () => {
@@ -201,14 +192,5 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(element(by.id(`tree-cutting-areas-hours-0`)).isPresent()).toBeTruthy();
     });
 
-    it('should display a link for users to purchase a permit', () => {
-      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
-    });
-
-    it('should route users to page where they can buy a permit', () => {
-      page.buyPermitLink().click();
-      browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp/applications');
-    });
   });
 });
