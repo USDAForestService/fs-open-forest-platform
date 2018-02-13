@@ -28,7 +28,7 @@
       <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
       <app-section-heading heading="Before you cut" elementId="cutting-instructions-before-you-cut" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <app-tree-tools [forest]="forest"></app-tree-tools>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/cutting-instructions/how-to-cut-before-cut.md"></markdown>
       <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
@@ -43,20 +43,21 @@
 
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" elementId="trip-planning"></app-section-heading>
-      <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/trip-planning/how-to-plan-your-trip.md"></markdown>
 
       <hr class="thick" />
       <app-section-heading heading="Where to find your tree" elementId="tree-locations"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" elementId="tree-locations-prohibited" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/tree-locations/prohibited.md"></markdown>
+
       <app-section-heading heading="Cutting area maps" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/tree-locations/allowed.md"></markdown>
 
       <hr class="thick" />
       <app-section-heading heading="Contact us" elementId="contact-information"></app-section-heading>
-      <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/contact-information/contact-us.md"></markdown>
     </div>
   </div>
 </section>
