@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TreesService } from '../../../_services/trees.service';
+import { ForestService } from '../../../_services/forest.service';
 import { UtilService } from '../../../../_services/util.service';
 
 @Component({
