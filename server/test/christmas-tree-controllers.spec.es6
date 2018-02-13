@@ -48,7 +48,7 @@ describe('christmas tree controller tests', () => {
     });
   });
 
-  describe('get forest guidelines info', () => {
+  describe('get forest info', () => {
     it('should return a 200 response', done => {
       request(server)
         .get('/forests/arp')
@@ -63,51 +63,7 @@ describe('christmas tree controller tests', () => {
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(function(res) {
-          expect(res.body).to.include.all.keys('species', 'locations');
-        })
-        .expect(200, done);
-    });
-
-    it('should contain data in the species field', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body.species.locations).to.not.equal(0);
-        })
-        .expect(200, done);
-    });
-
-    it('should include name, status and notes fields in the species', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body.species[0]).to.include.all.keys('name', 'status', 'notes');
-        })
-        .expect(200, done);
-    });
-
-    it('should contain data in the field for notes about the species', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body.species[0].notes.length).to.not.equal(0);
-        })
-        .expect(200, done);
-    });
-
-    it('should contain data in the field for locations', done => {
-      request(server)
-        .get('/forests/mthood')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body.locations.length).to.not.equal(0);
+          expect(res.body).to.include.all.keys('startDate', 'endDate', 'treeCost', 'timezone');
         })
         .expect(200, done);
     });
