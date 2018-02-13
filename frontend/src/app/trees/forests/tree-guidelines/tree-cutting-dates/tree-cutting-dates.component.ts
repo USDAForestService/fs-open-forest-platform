@@ -27,12 +27,16 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
 
     for (const key of Object.keys(districts)) {
       const district = districts[key];
-      const areaLocations = district.locations.filter(location => location.type.startsWith('cutting-area'));
+      const areaLocations = district.locations.filter(location =>
+        location.type.startsWith('cutting-area')
+      );
       if (areaLocations.length) {
         district.locations = areaLocations;
         this.districtsWithHoursAndDates.push(district);
       }
-      const permitLocations = district.locations.filter(location => location.type === 'district-permits');
+      const permitLocations = district.locations.filter(
+        location => location.type === 'district-permits'
+      );
       if (permitLocations.length) {
         district.locations = permitLocations;
         this.districtsWithPermits.push(district);
@@ -47,7 +51,8 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-   this.forest.isSeasonConfigured = moment(this.forest.startDate).tz(this.forest.timezone).isAfter(moment().tz(this.forest.timezone));
-
+    this.forest.isSeasonConfigured = moment(this.forest.startDate)
+      .tz(this.forest.timezone)
+      .isAfter(moment().tz(this.forest.timezone));
   }
 }

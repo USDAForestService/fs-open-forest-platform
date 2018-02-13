@@ -19,7 +19,7 @@
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
-      <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
+      <app-section-heading heading="When to cut your tree" elementId="when-to-cut"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
       <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
