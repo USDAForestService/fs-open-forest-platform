@@ -13,7 +13,6 @@ import { TreesService } from './_services/trees.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
-import { TreeLocationsMapsComponent } from './forests/tree-guidelines/tree-locations/tree-locations-maps/tree-locations-maps.component';
 import { ForestService } from './_services/forest.service';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
@@ -33,7 +32,6 @@ import { TreesAdminService } from './admin/trees-admin.service';
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
     TreeCuttingDatesComponent,
-    TreeLocationsMapsComponent,
     TreeLocationsProhibitedComponent,
     TreeLocationsAllowedComponent,
     TreeSpeciesComponent,
