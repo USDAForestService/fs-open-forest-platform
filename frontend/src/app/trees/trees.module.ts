@@ -10,7 +10,7 @@ import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-selection/t
 import { TreeToolsComponent } from './forests/tree-guidelines/tree-cutting/tree-tools/tree-tools.component';
 import { TripPlanningComponent } from './forests/tree-guidelines/trip-planning/trip-planning.component';
 import { TreesService } from './_services/trees.service';
-import { TreeSpeciesService } from './_services/tree-species.service';
+import { ForestContentService } from './_services/forest-content.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
 import { TreeLocationsProhibitedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-prohibited/tree-locations-prohibited.component';
 import { TreeLocationsAllowedComponent } from './forests/tree-guidelines/tree-locations/tree-locations-allowed/tree-locations-allowed.component';
@@ -60,7 +60,7 @@ import { TreesAdminService } from './admin/trees-admin.service';
   imports: [SharedModule, ApplicationsModule],
   providers: [
     TreesService,
-    TreeSpeciesService,
+    ForestContentService,
     TreesAdminService,
     ForestService,
     ChristmasTreesApplicationService,
