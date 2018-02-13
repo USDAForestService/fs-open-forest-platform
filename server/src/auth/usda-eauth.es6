@@ -16,17 +16,6 @@ const eAuth = {};
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
-/**
- * Check the whitelist for approved FS admin accounts.
- */
-const getRole = email => {
-  if (vcapConstants.eAuthUserWhiteList.includes(email)) {
-    return 'admin';
-  } else {
-    return 'user';
-  }
-};
-
 /** Instantiate the passport SamlStrategy */
 passport.use(
   new SamlStrategy(
@@ -40,7 +29,7 @@ passport.use(
     (profile, done) => {
       return done(null, {
         email: profile.usdaemail,
-        role: getRole(profile.usdaemail),
+        role: util.getUserRole(profile.usdaemail),
         forests: util.getAdminForests(profile.usdaemail).forests
       });
     }
@@ -65,7 +54,7 @@ eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) 
 });
 
 /**
- * USDA eAuth integration
- * @exports auth/eAuth
+ *   USDA eAuth integration
+ *   @exports auth/eAuth
  */
 module.exports = eAuth;

@@ -78,8 +78,10 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
       },
       permitTrackingId: {
-        type: DataTypes.STRING,
-        field: 'permit_tracking_id'
+        type: DataTypes.INTEGER,
+        field: 'permit_tracking_id',
+        allowNull: false,
+        autoIncrement: true
       }
     },
     {

@@ -54,7 +54,7 @@ describe('christmas tree admin controller tests', () => {
   });
   it('GET permit details back by the admin', done => {
     request(server)
-      .get(`/admin/christmas-trees/permits/${completedPermit.paygovTrackingId}`)
+      .get(`/admin/christmas-trees/permits/${completedPermit.permitTrackingId}`)
       .expect('Content-Type', /json/)
       .expect(function(res) {
         expect(res.body.permits[0]).to.include.all.keys(
@@ -72,7 +72,7 @@ describe('christmas tree admin controller tests', () => {
       .get('/admin/christmas-trees/permits/123')
       .set('Accept', 'application/json')
       .expect(function(res) {
-        expect(res.body.errors[0].message).to.equal('Permit 123 was not found.');
+        expect(res.body.errors[0].message).to.equal('Permit number 123 was not found.');
       })
       .expect(400, done);
   });

@@ -48,10 +48,10 @@ middleware.checkAdminPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
     next();
   } else {
-    if (req.user.role !== 'admin' || !vcapConstants.eAuthUserWhiteList.includes(req.user.email)) {
-      res.status(403).send();
-    } else {
+    if (req.user && util.getUserRole(req.user.email) === util.ADMIN_ROLE) {
       next();
+    } else {
+      res.status(403).send();
     }
   }
 };

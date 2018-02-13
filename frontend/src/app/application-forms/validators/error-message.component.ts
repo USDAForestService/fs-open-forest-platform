@@ -94,17 +94,20 @@ export class ErrorMessageComponent {
   }
 
   pattern(errors) {
+    let result = '';
+
     if (errors.pattern.requiredPattern === '^https?://.+$') {
-      return `${this.name} requires a valid URL and must include http://.`;
+      result = `${this.name} requires a valid URL and must include http://.`;
+    } else if (errors.pattern.requiredPattern === '^(0?[1-9]|1[0-9]|2[0-9]|3[01])$') {
+      result = `${this.name} requires a 1 or 2 digit number. `;
+    } else if (errors.pattern.requiredPattern === '^(0?[1-9]|1[012])$') {
+      result = `${this.name} requires a 1 or 2 digit number that is less than 13. `;
+    } else if (errors.pattern.requiredPattern === '^([0-9]{4})$') {
+      result = `${this.name} requires a 4 digit number. `;
+    } else if (errors.pattern.requiredPattern === '/^[0-9]{8}$/') {
+      result = `${this.name} requires a 8 digit number. `;
     }
-    if (errors.pattern.requiredPattern === '^(0?[1-9]|1[0-9]|2[0-9]|3[01])$') {
-      return `${this.name} requires a 1 or 2 digit number. `;
-    }
-    if (errors.pattern.requiredPattern === '^(0?[1-9]|1[012])$') {
-      return `${this.name} requires a 1 or 2 digit number that is less than 13. `;
-    }
-    if (errors.pattern.requiredPattern === '^([0-9]{4})$') {
-      return `${this.name} requires a 4 digit number. `;
-    }
+
+    return result;
   }
 }

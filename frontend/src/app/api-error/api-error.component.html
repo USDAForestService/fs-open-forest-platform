@@ -2,14 +2,13 @@
 <div id="api-error" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length === 1 && !errors[0].errorCode">{{ errors[0].message }}</h3>
-    <h3 class="usa-alert-heading"
-    *ngIf="(errors && errors.length === 1 && errors[0].errorCode) || !errors">
+    <h3 class="usa-alert-heading" *ngIf="(errors && errors.length === 1 && errors[0].errorCode) || !errors">
       Sorry, we were unable to process your request. Please try again.</h3>
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length > 1">The application received the following errors.</h3>
     <ul *ngIf="errors && errors.length > 1">
       <li *ngFor="let error of errors">{{error.message}}</li>
     </ul>
     <p class="usa-alert-text" *ngIf="errors && errors[0] && errors[0].errorCode">{{ errors[0].message }}</p>
-    <p class="usa-alert-text">If you continue to get this error, contact <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a>.</p>
+    <p class="usa-alert-text" *ngIf="showContact">If you continue to get this error, contact <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov</a>.</p>
   </div>
 </div>

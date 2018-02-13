@@ -16,6 +16,9 @@ const vcapConstants = require('../vcap-constants.es6');
 
 let util = {};
 
+util.ADMIN_ROLE = 'admin';
+util.USER_ROLE = 'user';
+
 /**  Enum for noncommercial application permit organization types. */
 util.noncommercialOrgTypes = ['Person', 'Corporation'];
 
@@ -190,7 +193,7 @@ util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
       email: 'test@test.com',
-      role: 'admin',
+      role: util.ADMIN_ROLE,
       forests: util.getAdminForests('test@test.com').forests
     };
   } else {
@@ -202,7 +205,7 @@ util.getUser = req => {
  * Check that a user has permissions to view a permit application.
  */
 util.hasPermissions = (user, applicationModel) => {
-  return user.role === 'admin' || user.email === applicationModel.authEmail;
+  return user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
 };
 
 /**
@@ -248,11 +251,13 @@ util.getRandomString = length => {
  * Get the assigned forests to the christmas trees forest admins by email address
  */
 util.getAdminForests = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => {
-    if (element.user_email === emailAddress) {
-      return element;
-    }
-  });
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
+};
+
+util.getUserRole = emailAddress => {
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
 };
 
 util.request = request;
