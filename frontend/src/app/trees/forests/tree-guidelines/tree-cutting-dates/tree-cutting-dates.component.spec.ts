@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { FilterPipe } from "../../../../_pipes/filter.pipe";
-import { forest } from "../../../_mocks/forest.mock";
-import { TreeCuttingDatesComponent } from "./tree-cutting-dates.component";
-import { Pipe, PipeTransform } from "@angular/core";
-import { LineBreakFormatterPipe } from "../../../../_pipes/line-break-formatter.pipe";
-import * as sinon from "sinon";
-import { TreeDistrictsUtilService } from "../tree-districts-util.service";
-import { WindowRef } from "../../../../_services/native-window.service";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FilterPipe } from '../../../../_pipes/filter.pipe';
+import { forest } from '../../../_mocks/forest.mock';
+import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
+import { Pipe, PipeTransform } from '@angular/core';
+import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
+import * as sinon from 'sinon';
+import { TreeDistrictsUtilService } from '../tree-districts-util.service';
+import { WindowRef } from '../../../../_services/native-window.service';
 
-describe("TreeCuttingDatesComponent", () => {
+describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;
   let fixture: ComponentFixture<TreeCuttingDatesComponent>;
 
@@ -34,43 +34,43 @@ describe("TreeCuttingDatesComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should sort cutting areas and hours into districts", () => {
+  it('should sort cutting areas and hours into districts', () => {
     component.populateDistricts();
     expect(
       component.districtsWithHoursAndDates[0].locations[0].district
-    ).toEqual("cutting area");
+    ).toEqual('cutting area');
   });
 
-  it("should sort permit sales for districts", () => {
+  it('should sort permit sales for districts', () => {
     component.ngOnChanges();
     expect(component.districtsWithPermits[0].locations[0].district).toEqual(
-      "district"
+      'district'
     );
     expect(component.districtsWithPermits[0].locations[0].description).toEqual(
-      "permit sales dates"
+      'permit sales dates'
     );
   });
 
-  it("should not populateDistricts if forest is null", () => {
+  it('should not populateDistricts if forest is null', () => {
     component.forest = {};
     component.ngOnChanges();
-    const spy = sinon.spy(component, "populateDistricts");
+    const spy = sinon.spy(component, 'populateDistricts');
     expect(spy.called).toBeFalsy();
   });
 });
 
-@Pipe({ name: "filter" })
+@Pipe({ name: 'filter' })
 class MockPipe implements PipeTransform {
   transform(value: number): number {
     return value;
   }
 }
 
-@Pipe({ name: "LineBreakFormatter" })
+@Pipe({ name: 'LineBreakFormatter' })
 class MockLBPipe implements PipeTransform {
   transform(value: number): number {
     return value;

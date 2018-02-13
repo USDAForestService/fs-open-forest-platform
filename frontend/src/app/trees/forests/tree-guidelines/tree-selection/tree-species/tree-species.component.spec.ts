@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA
+} from '@angular/core';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { SpacesToDashesPipe } from '../../../../../_pipes/spaces-to-dashes.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
@@ -41,7 +45,12 @@ describe('TreeSpeciesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeSpeciesComponent, TestComponentWrapperComponent, FilterPipe, SpacesToDashesPipe],
+        declarations: [
+          TreeSpeciesComponent,
+          TestComponentWrapperComponent,
+          FilterPipe,
+          SpacesToDashesPipe
+        ],
         schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
       }).compileComponents();
     })
@@ -65,4 +74,3 @@ describe('TreeSpeciesComponent', () => {
     expect(component.statusClass('asdf')).toEqual('');
   });
 });
-
