@@ -1,5 +1,5 @@
 {
-  "name": "arp",
+  "forest": "shoshone",
   "treeSpecies": [
     {
       "id": "engelmann-spruce",
@@ -12,19 +12,24 @@
       "status": "recommended"
     },
     {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "status": "recommended"
+    },
+    {
       "id": "subalpine-fir",
       "name": "Subalpine Fir",
       "status": "recommended"
     },
     {
-      "id": "ponderosa-pine",
-      "name": "Ponderosa Pine",
-      "status": "not recommended"
+      "id": "blue-spruce",
+      "name": "Blue Spruce",
+      "status": "recommended"
     },
     {
-      "id": "lodgepole-pine",
-      "name": "Lodgepole Pine",
-      "status": "not recommended"
+      "id": "whitebark-pine",
+      "name": "Whitebark Pine",
+      "status": "prohibited"
     }
   ]
 }
