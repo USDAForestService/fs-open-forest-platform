@@ -87,4 +87,3 @@ export class TreesForestFinderPage {
     return browser.get('/christmas-trees/forests');
   }
 }
-

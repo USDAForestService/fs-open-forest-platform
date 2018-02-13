@@ -27,7 +27,7 @@ export class ContactInfoComponent implements OnInit {
       smartLists: true,
       smartypants: false
     });
-    
+
     this.markdown.renderer.heading = (text, level) => {
       return `<h${level}>${text}</h${level}>`;
     };
