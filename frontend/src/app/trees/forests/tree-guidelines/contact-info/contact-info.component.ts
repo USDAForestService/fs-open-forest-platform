@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import { FilterPipe } from '../../../../_pipes/filter.pipe';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MarkdownService } from 'ngx-md';
 
 @Component({
