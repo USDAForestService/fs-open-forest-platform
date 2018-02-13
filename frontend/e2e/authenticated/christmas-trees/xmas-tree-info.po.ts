@@ -46,11 +46,11 @@ export class TreesSidebarPage {
   }
 
   cuttingDatesSectionLink() {
-    return element(by.id('when-to-cut-link'));
+    return element(by.id('season-dates-link'));
   }
 
   cuttingDatesSection() {
-    return element(by.id('when-to-cut'));
+    return element(by.id('season-dates'));
   }
 
   cuttingDatesSeasonStartAndEnd() {
@@ -62,11 +62,11 @@ export class TreesSidebarPage {
   }
 
   whenToCutDatesSection() {
-    return element(by.id('when-to-cut'));
+    return element(by.id('season-dates'));
   }
 
   whenToCutDatesSectionLink() {
-    return element(by.id('when-to-cut-link'));
+    return element(by.id('season-dates-link'));
   }
 
   rulesToKnowSectionLink() {
