@@ -19,43 +19,43 @@
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
-      <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
+      <app-section-heading heading="When to cut your tree" id="cutting-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
-      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit</button>
+      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link" tabIndex="-1">Buy permit with credit card</button>
 
       <hr class="thick" />
-      <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
-      <app-section-heading heading="Before you cut" elementId="cutting-instructions-before-you-cut" selector="h3"></app-section-heading>
+      <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
+      <app-section-heading heading="Before you cut" id="cutting-instructions-before-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-tools [forest]="forest"></app-tree-tools>
-      <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
+      <app-section-heading heading="When you cut" id="cutting-instructions-when-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
-      <app-section-heading heading="Identifying tree species" elementId="cutting-instructions-tree-selection" selector="h3"></app-section-heading>
+      <app-section-heading heading="Identifying tree species" id="cutting-instructions-tree-selection" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-species [forest]="forest"></app-tree-species>
 
 
       <hr class="thick" />
-      <app-section-heading heading="Rules to know" elementId="need-to-know"></app-section-heading>
+      <app-section-heading heading="Rules to know" id="need-to-know" tabIndex="-1"></app-section-heading>
       <app-tree-rules [forest]="forest"></app-tree-rules>
 
       <hr class="thick" />
-      <app-section-heading heading="How to plan your trip" elementId="trip-planning"></app-section-heading>
+      <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
       <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
 
       <hr class="thick" />
-      <app-section-heading heading="Where to find your tree" elementId="tree-locations"></app-section-heading>
-      <app-section-heading heading="Prohibited areas and restrictions" elementId="tree-locations-prohibited" selector="h3"></app-section-heading>
+      <app-section-heading heading="Where to find your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
+      <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
-      <app-section-heading heading="Cutting area maps" elementId="tree-locations-allowed" selector="h3"></app-section-heading>
+      <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
 
       <hr class="thick" />
-      <app-section-heading heading="Contact us" elementId="contact-information"></app-section-heading>
+      <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
       <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
     </div>
   </div>
