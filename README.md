@@ -346,7 +346,6 @@ frontend/
             ├──/_services
               ├──christmas-trees-application.service.ts    * http requests functions for Christmas tree permits
               ├──forest.service.ts                         * http requests for forests
-              └──trees.service.ts                          * http requests for trees
 ```
 
 #### Christmas trees sidebar template

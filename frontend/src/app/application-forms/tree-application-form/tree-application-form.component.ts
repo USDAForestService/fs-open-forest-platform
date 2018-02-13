@@ -5,7 +5,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { TreesService } from '../../trees/_services/trees.service';
+import { ForestService } from '../../trees/_services/forest.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
@@ -32,7 +32,7 @@ export class TreeApplicationFormComponent implements OnInit {
     public formBuilder: FormBuilder,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private treesService: TreesService,
+    private forestService: ForestService,
     public util: UtilService
   ) {}
 

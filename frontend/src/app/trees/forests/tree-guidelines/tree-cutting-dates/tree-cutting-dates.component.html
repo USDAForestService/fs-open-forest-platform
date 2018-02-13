@@ -16,46 +16,4 @@
 </h3>
 <div id="cutting-season-daily-hours-default">Daylight hours only</div>
 
-<h3 *ngIf="districtsWithHoursAndDates.length">Special Christmas Tree Cutting Areas</h3>
-<div *ngFor="let district of districtsWithHoursAndDates; let i=index">
-  <h4>
-    {{district.district}}
-  </h4>
-  <div [attr.id]="'tree-cutting-areas-dates-'+ i" *ngFor="let cuttingArea of district.locations | filter: 'type': 'cutting-area'">
-    <h5>
-      <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-        <use xlink:href="/assets/img/sprites.svg#fa-calendar" fill="black" />
-      </svg>
-      Season dates
-    </h5>
-    <div>
-      {{cuttingArea.description}}
-    </div>
-  </div>
-  <div [attr.id]="'tree-cutting-areas-hours-'+ i" *ngFor="let cuttingArea of district.locations | filter: 'type': 'cutting-area-hours'">
-    <h5>
-      <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-        <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
-      </svg>
-      Cutting hours
-    </h5>
-    <div [outerHTML]="cuttingArea.description | LineBreakFormatter">
-    </div>
-  </div>
-
-</div>
-<h3 *ngIf="districtsWithPermits.length">
-  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-    <use xlink:href="/assets/img/sprites.svg#fa-money" fill="black" />
-  </svg>
-  Permit Sales
-</h3>
-<div *ngFor="let district of districtsWithPermits; let i=index">
-  <h4>
-    {{district.district}}
-  </h4>
-  <div [attr.id]="'tree-permit-sales-'+ i" *ngFor="let location of district.locations">
-    <div [outerHTML]="location.description | LineBreakFormatter">
-    </div>
-  </div>
-</div>
+<markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/season-dates/additional-information.md"></markdown>

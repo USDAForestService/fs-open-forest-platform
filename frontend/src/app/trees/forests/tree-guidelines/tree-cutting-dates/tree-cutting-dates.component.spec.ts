@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { forest } from '../../../_mocks/forest.mock';
 import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
@@ -7,6 +8,8 @@ import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.
 import * as sinon from 'sinon';
 import { TreeDistrictsUtilService } from '../tree-districts-util.service';
 import { WindowRef } from '../../../../_services/native-window.service';
+import { MarkdownService } from 'ngx-md';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;
@@ -15,8 +18,14 @@ describe('TreeCuttingDatesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeCuttingDatesComponent, FilterPipe, LineBreakFormatterPipe],
-        providers: [TreeDistrictsUtilService, WindowRef]
+        declarations: [
+          TreeCuttingDatesComponent,
+          FilterPipe,
+          LineBreakFormatterPipe
+        ],
+        providers: [TreeDistrictsUtilService, WindowRef, MarkdownService],
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [HttpClientTestingModule]
       }).compileComponents();
     })
   );
@@ -34,13 +43,19 @@ describe('TreeCuttingDatesComponent', () => {
 
   it('should sort cutting areas and hours into districts', () => {
     component.populateDistricts();
-    expect(component.districtsWithHoursAndDates[0].locations[0].district).toEqual('cutting area');
+    expect(
+      component.districtsWithHoursAndDates[0].locations[0].district
+    ).toEqual('cutting area');
   });
 
   it('should sort permit sales for districts', () => {
     component.ngOnChanges();
-    expect(component.districtsWithPermits[0].locations[0].district).toEqual('district');
-    expect(component.districtsWithPermits[0].locations[0].description).toEqual('permit sales dates');
+    expect(component.districtsWithPermits[0].locations[0].district).toEqual(
+      'district'
+    );
+    expect(component.districtsWithPermits[0].locations[0].description).toEqual(
+      'permit sales dates'
+    );
   });
 
   it('should not populateDistricts if forest is null', () => {
