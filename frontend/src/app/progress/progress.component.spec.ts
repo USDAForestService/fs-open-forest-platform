@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProgressComponent } from './progress.component';
 
-describe('AccessDeniedComponent', () => {
+describe('ProgressComponent', () => {
   let component: ProgressComponent;
   let fixture: ComponentFixture<ProgressComponent>;
 

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
+import { UtilService } from './util.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-  constructor(private router: Router, private authentication: AuthenticationService) {}
+  constructor(private router: Router, private authentication: AuthenticationService, public util: UtilService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
-    return this.authentication.getAuthenticatedUser().map((user: any) => {
+    // force login and dont use cached user for authenticated routes
+    return this.authentication.getAuthenticatedUser(true, true).map((user: any) => {
       return this.validateUser(user, route);
     });
   }
@@ -39,7 +41,10 @@ export class AuthGuardService implements CanActivate {
     if (isAdminRoute) {
       authEndpoint = 'usda-eauth/saml/login';
     }
-    this.redirect(environment.apiUrl + 'auth/' + authEndpoint);
+    this.util.setLoginRedirectMessage();
+    setTimeout(() => {
+      this.redirect(environment.apiUrl + 'auth/' + authEndpoint);
+    }, 1000);
   }
 
   navigate(route) {

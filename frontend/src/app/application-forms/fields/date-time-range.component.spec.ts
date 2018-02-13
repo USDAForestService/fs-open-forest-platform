@@ -189,8 +189,8 @@ describe('DateTimeRange', () => {
   it('should set default time on date only', () => {
     component.dateOnly = true;
     component.ngOnInit();
-    expect(component.defaultStartHour).toBe('05');
-    expect(component.defaultEndHour).toBe('06');
+    expect(component.defaultStartHour).toBe('01');
+    expect(component.defaultEndHour).toBe('02');
     expect(component.defaultPeriod).toBe('AM');
   });
 });

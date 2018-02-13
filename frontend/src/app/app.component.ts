@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
 
@@ -11,7 +11,6 @@ import { UtilService } from './_services/util.service';
 export class AppComponent implements OnInit {
   version = environment.version;
   buildDate = environment.buildDate;
-  currentRoute: string;
   apiurl = environment.apiUrl;
   currentUrl = '/';
   user: any;
@@ -20,7 +19,7 @@ export class AppComponent implements OnInit {
     message: ''
   };
 
-  constructor(public router: Router, private authentication: AuthenticationService, public util: UtilService) {
+  constructor(public router: Router, public authentication: AuthenticationService, public util: UtilService) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
@@ -29,29 +28,28 @@ export class AppComponent implements OnInit {
         } else {
           window.scrollTo(0, 0);
         }
+        if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
+          this.setLoggedInMessage();
+        } else if (localStorage.getItem('status')) {
+          this.status = JSON.parse(localStorage.getItem('status'));
+          localStorage.removeItem('status');
+        } else {
+          this.status = {
+            heading: '',
+            message: ''
+          };
+        }
       }
     });
   }
 
-  isAuthenticated() {
-    this.authentication.getAuthenticatedUser().subscribe((user: any) => {
-      if (user) {
-        this.user = user;
-      }
-    });
-    if (localStorage.getItem('status')) {
-      this.status = JSON.parse(localStorage.getItem('status'));
-      localStorage.removeItem('status');
-    } else {
-      this.status = {
-        heading: '',
-        message: ''
-      };
-    }
-  }
-
-  updateStatus(status: any) {
-    this.status = status;
+  setLoggedInMessage() {
+    const authType = this.authentication.user.role === 'user' ? 'login.gov' : 'eAuthentication';
+    this.status = {
+      heading: '',
+      message: `You have successfully logged in using ${authType} as ${this.authentication.user.email}.`
+    };
+    localStorage.removeItem('showLoggedIn');
   }
 
   ngOnInit() {

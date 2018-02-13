@@ -25,10 +25,6 @@ describe('Xmas sidebar page', () => {
     expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
   });
 
-  it('should have a species section link', () => {
-    expect<any>(element(by.id('tree-selection-link')).getText()).toEqual('How to choose your tree');
-  });
-
   it('should have a plan your trip link', () => {
     expect<any>(element(by.id('trip-planning-link')).getText()).toEqual('How to plan your trip');
   });

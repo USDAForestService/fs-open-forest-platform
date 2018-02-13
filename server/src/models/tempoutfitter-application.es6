@@ -7,7 +7,7 @@
 
 const Sequelize = require('sequelize');
 
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 
 module.exports = util.getSequelizeConnection().define(
   'tempOutfitterApplications',

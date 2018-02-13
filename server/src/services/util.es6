@@ -11,8 +11,8 @@ const request = require('request-promise');
 const Sequelize = require('sequelize');
 const url = require('url');
 
-const Revision = require('./models/revision.es6');
-const vcapConstants = require('./vcap-constants.es6');
+const Revision = require('../models/revision.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 let util = {};
 
@@ -166,6 +166,13 @@ util.isLocalOrCI = () => {
 };
 
 /**
+ * is production flag
+ */
+util.isProduction = () => {
+  return vcapConstants.nodeEnv === 'production';
+};
+
+/**
  * Set the request body's authenticated email based on the passport user.
  */
 util.setAuthEmail = req => {
@@ -183,7 +190,8 @@ util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
       email: 'test@test.com',
-      role: 'admin'
+      role: 'admin',
+      forests: util.getAdminForests('test@test.com').forests
     };
   } else {
     return req.user;
@@ -234,6 +242,17 @@ util.businessNameElsePersonalName = application => {
  */
 util.getRandomString = length => {
   return crypto.randomBytes(length).toString('hex');
+};
+
+/**
+ * Get the assigned forests to the christmas trees forest admins by email address
+ */
+util.getAdminForests = emailAddress => {
+  return vcapConstants.eAuthUserWhiteList.find(element => {
+    if (element.user_email === emailAddress) {
+      return element;
+    }
+  });
 };
 
 util.request = request;

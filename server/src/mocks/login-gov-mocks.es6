@@ -1,9 +1,7 @@
 'use strict';
 
 const express = require('express');
-const util = require('../util.es6');
-const vcapConstants = require('../vcap-constants.es6');
-const middleware = require('../middleware.es6');
+const middleware = require('../services/middleware.es6');
 
 const loginGovMocks = {};
 /**

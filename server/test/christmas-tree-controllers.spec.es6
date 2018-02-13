@@ -12,7 +12,7 @@ const server = require('./mock-aws.spec.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
-let invalidPermitId = 'xxxxx';
+let invalidPermitId = 'xxxxxxxx-189d-43ba-xxxx-c233ef94f02f';
 let paygovToken;
 let tcsAppID;
 let today = moment(new Date()).format('YYYY-MM-DD');
@@ -47,6 +47,7 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
   });
+
   describe('get forest guidelines info', () => {
     it('should return a 200 response', done => {
       request(server)
@@ -118,9 +119,12 @@ describe('christmas tree controller tests', () => {
         .expect(404, done);
     });
   });
-  describe('submit permit application flathead national forest', () => {
+  describe('submit permit application mthood national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -167,6 +171,9 @@ describe('christmas tree controller tests', () => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '1';
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -177,6 +184,9 @@ describe('christmas tree controller tests', () => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '2';
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -184,6 +194,9 @@ describe('christmas tree controller tests', () => {
     });
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -223,7 +236,8 @@ describe('christmas tree controller tests', () => {
         .expect(400, done);
     });
   });
-  describe('submit permit application for mt.hood national forest', () => {
+
+  describe('submit permit application mthood national forest pay.gov errors', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 3;
@@ -238,35 +252,66 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
+
     it('GET should return a 200 response when getting details of "initiated" permit', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}/details`)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
+
     it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}`)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
+
     it('GET should return a 404 response when getting details of "completed" permit', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}/details`)
         .expect(404, done);
     });
+
     it('GET should return a 404 response when getting details of an invalid permit', done => {
       request(server)
         .get(`/forests/christmas-trees/permits/${invalidPermitId}/details`)
         .expect(404, done);
     });
   });
-  describe('submit permit application for shoshone national forest', () => {
+
+  describe('submit permit application for open forest', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect(200, done);
+    });
+  });
+
+  describe('submit permit application for closed forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
-      permitApplication.orgStructureCode = '11-02-14';
+      permitApplication.orgStructureCode = '11-02-02';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect(404, done);
+    });
+  });
+
+  describe('submit permit application already cancelled on pay.gov', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -292,9 +337,13 @@ describe('christmas tree controller tests', () => {
         .expect(404, done);
     });
   });
+
   describe('cancelling permit application', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -306,27 +355,33 @@ describe('christmas tree controller tests', () => {
     });
     it('POST should return a 200 response when submitted to cancel existing permit application', done => {
       const cancelApplication = {
-        permitId: permitId
+        permitId: permitId,
+        status: 'Cancelled'
       };
       request(server)
-        .post('/forests/christmas-trees/permits/cancel')
+        .put('/forests/christmas-trees/permits')
         .send(cancelApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
     it('POST should return a 404 response when submitted to cancel an invalid permit application', done => {
       const cancelApplication = {
-        permitId: invalidPermitId
+        permitId: invalidPermitId,
+        status: 'Cancelled'
       };
       request(server)
-        .post('/forests/christmas-trees/permits/cancel')
+        .put('/forests/christmas-trees/permits')
         .send(cancelApplication)
         .expect(404, done);
     });
   });
+
   describe('permit application redirect to mock paygov', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
       request(server)
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
@@ -357,18 +412,6 @@ describe('christmas tree controller tests', () => {
         .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
         .set('Accept', 'application/json')
         .expect(404, done);
-    });
-  });
-  describe('admin user reports', () => {
-    it('GET should return a 200 response for the given report parameters forest, start and end date', done => {
-      request(server)
-        .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
-        })
-        .expect(200, done);
     });
   });
 });

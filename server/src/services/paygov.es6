@@ -6,7 +6,7 @@
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
-const vcapConstants = require('./vcap-constants.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 const paygov = {};
 
@@ -19,11 +19,17 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  const token = jwt.sign({
-    data: permitId
-  }, vcapConstants.permitSecret, claims);
-  return `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
-}
+  const token = jwt.sign(
+    {
+      data: permitId
+    },
+    vcapConstants.permitSecret,
+    claims
+  );
+  return `${
+    vcapConstants.intakeClientBaseUrl
+  }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
+};
 
 /**
  * Generate XML from the template to use for getting pay.gov transaction token.
@@ -43,17 +49,14 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
-        },
-        {
-          'S:Body': [
+          'soap:Body': [
             {
               'ns2:startOnlineCollection': [
                 {
@@ -67,7 +70,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       tcs_app_id: tcsAppID
                     },
                     {
-                      agency_tracking_id: permit.permitId
+                      agency_tracking_id: permit.permitTrackingId
                     },
                     {
                       transaction_type: 'Sale'
@@ -76,7 +79,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       transaction_amount: permit.totalCost
                     },
                     {
-                      language: 'en'
+                      language: 'EN'
                     },
                     {
                       url_success: url_success
@@ -113,17 +116,17 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
     {
-      'S:Envelope': [
+      'soap:Envelope': [
         {
           _attr: {
-            'xmlns:S': 'http://schemas.xmlsoap.org/soap/envelope/'
+            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
           }
         },
         {
-          'S:Header': []
+          'soap:Header': []
         },
         {
-          'S:Body': [
+          'soap:Body': [
             {
               'ns2:completeOnlineCollection': [
                 {
@@ -157,9 +160,26 @@ paygov.getToken = result => {
   return startOnlineCollectionResponse.token[0];
 };
 
-paygov.getResponseError = result => {
-  const faultMesssage = result['S:Envelope']['S:Body'][0]['S:Fault'][0]['detail'][0]['ns2:TCSServiceFault'][0];
-  return { errorCode: faultMesssage.return_code, errorMessage: faultMesssage.return_detail };
+paygov.getResponseError = (requestType, result) => {
+  let resultMesssage = { faultcode: '9999', faultstring: requestType };
+  try {
+    let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
+    resultMesssage.faultcode = faultMesssage.faultcode;
+    resultMesssage.faultstring = faultMesssage.faultstring;
+
+    if (faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]) {
+      resultMesssage.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
+      resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
+    }
+  } catch (e) {
+    console.error('paygov error while parsing error response=', e);
+    // return the default error messages
+  } finally {
+    return {
+      errorCode: resultMesssage.faultcode,
+      errorMessage: resultMesssage.faultstring
+    };
+  }
 };
 
 paygov.getTrackingId = result => {

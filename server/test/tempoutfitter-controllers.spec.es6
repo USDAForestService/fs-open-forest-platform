@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('chai').assert;
-const crypto = require('crypto');
 const expect = require('chai').expect;
 const nock = require('nock');
 const request = require('supertest');
@@ -11,7 +10,7 @@ const ApplicationFile = require('../src/models/application-files.es6');
 const server = require('./mock-aws.spec.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
-const util = require('../src/util.es6');
+const util = require('../src/services/util.es6');
 const tempOutfitter = require('../src/controllers/temp-outfitter.es6');
 
 const fileUploadUrl = '/permits/applications/special-uses/temp-outfitter/file';
@@ -20,7 +19,6 @@ const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
 const invalidIntakeControlNumber = 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10';
 let intakeControlNumber;
 let applicationId;
-let fileId;
 
 describe('tempoutfitter controllers', () => {
   it('POST should return a 201 status code and an intakeControlNumber', done => {
@@ -296,7 +294,7 @@ describe(`POST ${fileUploadUrl} accepts a file`, () => {
       .expect('Content-Type', /json/)
       .expect(/"applicationId":"[\d]+"/)
       .expect(res => {
-        fileId = res.body.fileId;
+        res.body.fileId;
       })
       .expect(201, err => {
         expect(err).to.be.null;

@@ -9,7 +9,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class ApplicationSubmittedComponent implements OnInit {
   application: any = {};
-  // TODO Use type in the template to filter content. type = 'noncommercial' or 'temp-outfitter'
   type: string;
   errorMessage: string;
 

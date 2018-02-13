@@ -2,8 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FilterPipe } from '../../../../../_pipes/filter.pipe';
 import { SpacesToDashesPipe } from '../../../../../_pipes/spaces-to-dashes.pipe';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { forest } from '../../../../_mocks/forest.mock';
 
+import { ForestService } from '../../../../_services/forest.service';
 import { TreeSpeciesComponent } from './tree-species.component';
 
 @Component({
@@ -41,8 +43,10 @@ describe('TreeSpeciesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
+        providers: [ForestService],
         declarations: [TreeSpeciesComponent, TestComponentWrapperComponent, FilterPipe, SpacesToDashesPipe],
-        schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+        imports: [HttpClientTestingModule]
       }).compileComponents();
     })
   );
@@ -65,4 +69,3 @@ describe('TreeSpeciesComponent', () => {
     expect(component.statusClass('asdf')).toEqual('');
   });
 });
-

@@ -9,11 +9,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { WindowRef } from '../../../_services/native-window.service';
+import { TreesAdminService } from '../trees-admin.service';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
   let fixture: ComponentFixture<ReportComponent>;
   let formBuilder: FormBuilder;
+  let mockWindow: WindowRef;
+  mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
 
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
@@ -24,7 +28,7 @@ describe('ReportComponent', () => {
           forestName: 'Arapaho and Roosevelt National Forests',
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
           forestAbbr: 'arp',
-          startDate: '10/31/2018',
+          startDate: '10/30/2018',
           endDate: '9/30/2019'
         },
         {
@@ -59,9 +63,18 @@ describe('ReportComponent', () => {
           startDate: '10/10/2018',
           endDate: '10/10/2019',
           sumOfTrees: '12',
-          sumOfCost: '100',
-          permits: {}
+          sumOfCost: '100'
         }
+      });
+    }
+
+    getReportByPermitNumber(): Observable<{}> {
+      return Observable.of({
+        parameters: {
+          sumOfTrees: '12',
+          sumOfCost: '100'
+        },
+        permits: [{ forestId: 1, quantity: 1, totalCost: '5' }]
       });
     }
   }
@@ -74,7 +87,9 @@ describe('ReportComponent', () => {
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
-          UtilService
+          TreesAdminService,
+          UtilService,
+          { provide: WindowRef, useValue: mockWindow }
         ],
         imports: [RouterTestingModule, HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
@@ -120,17 +135,13 @@ describe('ReportComponent', () => {
 
   it('should get report', () => {
     component.result = {};
-    component.getReport();
-    expect(component.result).toEqual({});
+    component.isDateSearch = true;
     component.forest = {
       id: 1,
       forestName: 'Arapaho and Roosevelt National Forests',
       description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
       forestAbbr: 'arp'
     };
-    component.dateStatus.hasErrors = true;
-    component.getReport();
-    expect(component.result).toEqual({});
 
     component.dateStatus.hasErrors = false;
     component.form.get('forestId').setValue('1');
@@ -165,14 +176,28 @@ describe('ReportComponent', () => {
   });
 
   it('should set start and end dates', () => {
-    component.setStartEndDate('2');
+    component.forest = component.getForestById('2');
+
+    component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
     expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
     expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
     expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
-    component.setStartEndDate('5');
+
+    component.forest = component.getForestById('5');
+    component.setStartEndDate(component.forest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+  });
+
+  it('should get report by permit number', () => {
+    component.result = {};
+    component.isDateSearch = false;
+    component.forest = null;
+    component.permitNumberSearchForm.get('permitNumber').setValue('1');
+    expect(component.permitNumberSearchForm.valid).toBeTruthy();
+    component.getReport();
+    expect(component.result.permits[0].forestId).toEqual(1);
   });
 });

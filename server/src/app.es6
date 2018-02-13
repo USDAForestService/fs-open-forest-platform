@@ -12,7 +12,7 @@ const session = require('cookie-session');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
-const util = require('./util.es6');
+const util = require('./services/util.es6');
 const vcapConstants = require('./vcap-constants.es6');
 const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
@@ -20,6 +20,8 @@ require('body-parser-xml')(bodyParser);
 
 /**  Create the express application. */
 const app = express();
+
+vcapConstants.nodeEnv = process.env.NODE_ENV;
 
 /** Use helmet for increased security. */
 app.use(helmet());

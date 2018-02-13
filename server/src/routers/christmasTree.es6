@@ -16,7 +16,7 @@ router.get('/:id', christmasTreeController.getOneGuidelines);
 router.post('/christmas-trees/permits', christmasTreeController.create);
 
 /*Cancel permit*/
-router.post('/christmas-trees/permits/cancel', christmasTreeController.cancelOne);
+router.put('/christmas-trees/permits', christmasTreeController.update);
 
 /* get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);

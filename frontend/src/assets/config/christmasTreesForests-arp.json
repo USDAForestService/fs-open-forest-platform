@@ -1,0 +1,30 @@
+{
+  "name": "arp",
+  "treeSpecies": [
+    {
+      "id": "engelmann-spruce",
+      "name": "Engelmann Spruce",
+      "status": "recommended"
+    },
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "status": "recommended"
+    },
+    {
+      "id": "subalpine-fir",
+      "name": "Subalpine Fir",
+      "status": "recommended"
+    },
+    {
+      "id": "ponderosa-pine",
+      "name": "Ponderosa Pine",
+      "status": "not recommended"
+    },
+    {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "status": "not recommended"
+    }
+  ]
+}

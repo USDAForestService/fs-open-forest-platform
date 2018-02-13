@@ -6,7 +6,7 @@ export class TreesSidebarPage {
   }
 
   getTreeSelectionLink() {
-    return element(by.id('tree-selection-link'));
+    return element(by.id('cutting-instructions-tree-selection-link'));
   }
 
   getTreeLocationLink() {
@@ -19,6 +19,10 @@ export class TreesSidebarPage {
 
   cuttingAreaDates(index) {
     return element(by.id(`tree-cutting-areas-dates-${index}`));
+  }
+
+  seasonOpenAlert() {
+    return element(by.id('forest-season-open-alert'));
   }
 
   cuttingAreaHours(index) {

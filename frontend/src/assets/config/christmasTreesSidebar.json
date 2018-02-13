@@ -1,14 +1,12 @@
 [
   {
-    "id": "cutting-dates",
+    "id": "when-to-cut",
+    "type": "anchor",
     "title": "When to cut your tree"
   },
   {
-    "id": "tree-selection",
-    "title": "How to choose your tree"
-  },
-  {
     "id": "cutting-instructions",
+    "type": "anchor",
     "title": "How to cut your tree",
     "sections": [
       {
@@ -18,20 +16,27 @@
       {
         "id": "cutting-instructions-when-you-cut",
         "title": "When you cut"
+      },
+      {
+        "id": "cutting-instructions-tree-selection",
+        "title": "Identifying tree species"
       }
     ]
   },
   {
-    "id": "need-to-know",
+    "id": "rules-to-know",
+    "type": "anchor",
     "title": "Rules to know"
   },
   {
     "id": "trip-planning",
+    "type": "anchor",
     "title": "How to plan your trip"
   },
   {
     "id": "tree-locations",
     "title": "Where to find your tree",
+    "type": "anchor",
     "sections": [
       {
         "id": "tree-locations-prohibited",
@@ -45,6 +50,13 @@
   },
   {
     "id": "contact-information",
+    "type": "anchor",
     "title": "Contact us"
+  },
+  {
+    "id": "buy-permit",
+    "title": "Buy permit with credit card",
+    "type": "button",
+    "routerLink": "applications"
   }
 ]

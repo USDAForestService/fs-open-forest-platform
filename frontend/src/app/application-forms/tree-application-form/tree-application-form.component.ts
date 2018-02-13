@@ -2,13 +2,14 @@ import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { TreesService } from '../../trees/_services/trees.service';
+import { ForestService } from '../../trees/_services/forest.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -26,11 +27,12 @@ export class TreeApplicationFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private treesService: TreesService,
+    private forestService: ForestService,
     public util: UtilService
   ) {}
 
@@ -45,8 +47,8 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
-  createForm(data, formBuilder) {
-    this.applicationForm = formBuilder.group({
+  getApplicationForm(formBuilder, maxNumTrees) {
+    return formBuilder.group({
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
       orgStructureCode: ['', [Validators.required]],
@@ -54,10 +56,14 @@ export class TreeApplicationFormComponent implements OnInit {
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      quantity: ['', [Validators.required, Validators.min(1), Validators.max(data.forest.maxNumTrees)]],
+      quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
       totalCost: [0, [Validators.required, currencyValidator()]],
       acceptRules: [false, [Validators.required]]
     });
+  }
+
+  createForm(data, formBuilder) {
+    this.applicationForm = this.getApplicationForm(formBuilder, data.forest.maxNumTrees);
 
     this.applicationForm.get('forestId').setValue(data.forest.id);
     this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
@@ -67,23 +73,28 @@ export class TreeApplicationFormComponent implements OnInit {
     this.maxNumberOfTrees = data.forest.maxNumTrees;
     if (this.permit) {
       this.rePopulateForm();
-      if (this.permit.status !== 'Canceled' || this.permit.status !== 'Error') {
+      if (this.permit.status !== 'Cancelled' || this.permit.status !== 'Error') {
         this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
-          this.permit.status = 'Canceled';
+          this.permit.status = 'Cancelled';
         });
       }
     }
   }
 
+  checkSeasonStartDate(forest) {
+    if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
+      this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
+    }
+  }
+
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.forest = data.forest;
-      this.permit = data.permit;
-      if (this.forest) {
+      if (data.forest) {
+        this.forest = data.forest;
+        this.checkSeasonStartDate(this.forest);
+        this.permit = data.permit;
         this.titleService.setTitle(
-          'Buy a permit | ' +
-          this.forest.forestName +
-          ' | U.S. Forest Service Christmas Tree Permitting'
+          'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );
         this.createForm(data, this.formBuilder);
       }

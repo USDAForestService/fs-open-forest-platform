@@ -5,18 +5,24 @@
     <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
-      <h1 *ngIf="forest">{{forest.forestName}}  Christmas Tree Permit Information</h1>
-      <br/>
+      <h1 *ngIf="forest">{{forest.forestName}} Christmas Tree Permit Information</h1>
+      <div id="forest-season-open-alert" [hidden]="forest.isSeasonOpen" class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ forest.seasonOpenAlert }}</p>
+        </div>
+      </div>
+      <div id="forest-mock-data-alert" [hidden]="!forest.isMockData" class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
+        </div>
+      </div>
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
-      <app-section-heading heading="When to cut your tree" elementId="cutting-dates"></app-section-heading>
+      <app-section-heading heading="When to cut your tree" elementId="when-to-cut"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
-      <button *ngIf="forest" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
-      <hr class="thick">
-      <app-section-heading heading="How to choose your tree" elementId="tree-selection"></app-section-heading>
-      <app-tree-species [forest]="forest"></app-tree-species>
+      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link">Buy permit with credit card</button>
 
       <hr class="thick" />
       <app-section-heading heading="How to cut your tree" elementId="cutting-instructions"></app-section-heading>
@@ -26,9 +32,13 @@
       <app-section-heading heading="When you cut" elementId="cutting-instructions-when-you-cut" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
+      <app-section-heading heading="Identifying tree species" elementId="cutting-instructions-tree-selection" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
+      <app-tree-species [forest]="forest"></app-tree-species>
+
 
       <hr class="thick" />
-      <app-section-heading heading="Rules to know" elementId="need-to-know"></app-section-heading>
+      <app-section-heading heading="Rules to know" elementId="rules-to-know"></app-section-heading>
       <app-tree-rules [forest]="forest"></app-tree-rules>
 
       <hr class="thick" />

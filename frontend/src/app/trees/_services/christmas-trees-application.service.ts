@@ -10,8 +10,8 @@ import { UtilService } from '../../_services/util.service';
 
 @Injectable()
 export class ChristmasTreesApplicationService {
-  private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
-  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees/permits';
+  private endpoint = environment.apiUrl + 'forests/christmas-trees';
+  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees';
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
@@ -22,42 +22,45 @@ export class ChristmasTreesApplicationService {
     }
 
     const options = {
-      params: new HttpParams().set('withCredentials', 'true'),
+      withCredentials: true,
       headers: headers
     };
 
-    return this.http
-      .post(this.endpoint, body, options)
-      .catch(this.util.handleError);
+    return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
   }
 
   cancelOldApp(id) {
-    const body = { permitId: id };
-    return this.http
-      .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
-      .catch(this.util.handleError);
+    const body = { permitId: id, status: 'Cancelled' };
+    return this.http.put(`${this.endpoint}/permits`, body).catch(this.util.handleError);
   }
 
   getOne(id, token) {
-    return this.http.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
+    return this.http
+      .get(`${this.endpoint}/permits/${id}`, { params: new HttpParams().set('t', token) })
+      .catch(this.util.handleError);
   }
 
   getDetails(id) {
-    return this.http
-      .get(`${this.endpoint}/${id}/details`)
-      .catch(this.util.handleError);
+    return this.http.get(`${this.endpoint}/permits/${id}/details`).catch(this.util.handleError);
   }
 
   getAllByDateRange(forestId, startDate, endDate) {
     return this.http
-      .get(`${this.adminEndpoint}/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
-  handleStatusCode(status) {
-    if (status === 403) {
-      this.router.navigate(['access-denied']);
-    }
+  getReportByPermitNumber(permitNumber) {
+    return this.http
+      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true })
+      .catch(this.util.handleError);
+  }
+
+  updateSeasonDates(forestId, startDate, endDate) {
+    const body = { startDate: startDate, endDate: endDate };
+    return this.http
+      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true })
+      .catch(this.util.handleError);
   }
 
   resolverError(errors, route) {

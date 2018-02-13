@@ -1,3 +1,4 @@
+<!--errorCode is used for external (pay.gov) error codes-->
 <div id="api-error" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length === 1 && !errors[0].errorCode">{{ errors[0].message }}</h3>
