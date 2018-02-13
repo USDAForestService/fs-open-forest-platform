@@ -8,6 +8,7 @@ import { SpacesToDashesPipe } from "../../../../_pipes/spaces-to-dashes.pipe";
 import { UtilService } from "../../../../_services/util.service";
 import { MarkdownService } from "ngx-md";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { ForestContentService } from "../../../_services/forest-content.service";
 
 describe("TreeRulesComponent", () => {
   let component: TreeRulesComponent;
@@ -22,7 +23,7 @@ describe("TreeRulesComponent", () => {
           LineBreakFormatterPipe,
           SpacesToDashesPipe
         ],
-        providers: [UtilService, MarkdownService],
+        providers: [UtilService, MarkdownService, ForestContentService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
       }).compileComponents();

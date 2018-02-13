@@ -1,5 +1,7 @@
 [comment]: <> (TREEHEIGHT, STUMPHEIGHT and STUMPDIAMETER are replaced with the values in the database.)
 
+### Rules for cutting your tree
+
 * Another tree must be within 8 feet of the one you cut.
 * You must be on national forest land.
 * You must leave a stump of STUMPHEIGHT inches or less.
