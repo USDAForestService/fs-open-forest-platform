@@ -14,11 +14,11 @@ export class ContactInfoComponent implements OnInit {
   constructor(
     private filter: FilterPipe,
     private lineBreakFormatter: LineBreakFormatterPipe,
-    public markdownService: MarkdownService
+    public markdown: MarkdownService
   ) {}
 
   ngOnInit() {
-    this.markdownService.setMarkedOptions({
+    this.markdown.setMarkedOptions({
       gfm: true,
       tables: true,
       breaks: true,
@@ -27,5 +27,10 @@ export class ContactInfoComponent implements OnInit {
       smartLists: true,
       smartypants: false
     });
+    
+    this.markdown.renderer.heading = (text, level) => {
+      return `<h${level}>${text}</h${level}>`;
+    };
+
   }
 }

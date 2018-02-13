@@ -8,6 +8,8 @@ import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.
 import * as sinon from 'sinon';
 import { TreeDistrictsUtilService } from '../tree-districts-util.service';
 import { WindowRef } from '../../../../_services/native-window.service';
+import { MarkdownService } from 'ngx-md';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TreeCuttingDatesComponent', () => {
   let component: TreeCuttingDatesComponent;
@@ -21,8 +23,9 @@ describe('TreeCuttingDatesComponent', () => {
           FilterPipe,
           LineBreakFormatterPipe
         ],
-        providers: [TreeDistrictsUtilService, WindowRef],
-        schemas: [NO_ERRORS_SCHEMA]
+        providers: [TreeDistrictsUtilService, WindowRef, MarkdownService],
+        schemas: [NO_ERRORS_SCHEMA],
+        imports: [HttpClientTestingModule]
       }).compileComponents();
     })
   );

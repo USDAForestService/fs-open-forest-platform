@@ -34,6 +34,11 @@ export class TreeRulesComponent implements OnInit {
           .replace('STUMPHEIGHT', this.forest.stumpHeight)
           .replace('STUMPDIAMETER', this.forest.stumpDiameter);
       };
+
+      this.markdown.renderer.heading = (text, level) => {
+        return `<h${level}>${text}</h${level}>`;
+      };
+
     }
   }
 }
