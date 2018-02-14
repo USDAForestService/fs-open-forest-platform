@@ -9,13 +9,19 @@ jobs:
           command: cd frontend; npm i -g pa11y-ci && npm i
       - run:
           name: install eslint
-          command: cd server; npm i -g eslint
+          command: cd server; npm i -g eslint && npm i snyk
       - run:
           name: frontend linting
-          command: cd frontend; npm run lint
+          command: cd frontend; npm run lint 
+      - run:
+          name: frontend snyk
+          command: cd frontend; npm run snyk-test
       - run:
           name: server linting
-          command: cd server; npm run lint
+          command: cd server; npm run lint 
+      - run:
+          name: server snyk
+          command: cd server; npm run snyk-test
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
@@ -32,21 +38,9 @@ jobs:
       - run:
           name: frontend unit tests
           command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
-      # - run:
-      #     name: frontend linting
-      #     command: cd docker; docker-compose run fs-intake-frontend yarn run lint
       - run:
           name: server unit tests
           command: cd docker; docker-compose run fs-intake-server yarn coverage
-      # - run:
-      #     name: server linting
-      #     command: cd docker; docker-compose run fs-intake-server yarn run lint
-      - run:
-          name: server snyk tests
-          command: cd docker; docker-compose run fs-intake-server yarn run snyk-test
-      - run:
-          name: frontend snyk tests
-          command: cd docker; docker-compose run fs-intake-frontend yarn run snyk-test
       - run:
           name: generate typedocs
           command: cd docker; docker-compose run fs-intake-frontend bash -c "sudo yarn global add typedoc && sudo yarn run docs"
@@ -84,7 +78,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:6.12.0
     steps:
       - checkout
       - run:
@@ -111,7 +105,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:6.12.0
     steps:
       - checkout
       - run:
@@ -145,6 +139,20 @@ workflows:
       - run-e2e:
           requires:
       - staging-deploy:
+          requires:
+            - run-all-other-tests
+            - run-e2e
+          filters:
+            branches:
+              only: sprint-9-development
+      - prod-deploy:
+          requires:
+            - run-all-other-tests
+            - run-e2e
+          filters:
+            branches:
+              only: master
+-deploy:
           requires:
             - run-all-other-tests
             - run-e2e
