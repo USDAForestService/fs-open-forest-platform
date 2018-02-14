@@ -78,7 +78,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:6.12.0
+      - image: circleci/node:8.9.4
     steps:
       - checkout
       - run:
@@ -105,7 +105,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:6.12.0
+      - image: circleci/node:8.9.4
     steps:
       - checkout
       - run:
@@ -139,20 +139,6 @@ workflows:
       - run-e2e:
           requires:
       - staging-deploy:
-          requires:
-            - run-all-other-tests
-            - run-e2e
-          filters:
-            branches:
-              only: sprint-9-development
-      - prod-deploy:
-          requires:
-            - run-all-other-tests
-            - run-e2e
-          filters:
-            branches:
-              only: master
--deploy:
           requires:
             - run-all-other-tests
             - run-e2e
