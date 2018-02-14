@@ -245,7 +245,7 @@ To mock Pay.Gov integration use the values in the VCAP example.
 
 * To mock a pay.gov complete collection error, use credit card number `000000000000XXXX`. The last four XXXX represent the pay.gov error code.
 
-##### Pay.gov in staging environment
+##### Pay.gov in QA environment
 
 * A valid credit card number in staging environment is `4111111111111111`.
 
