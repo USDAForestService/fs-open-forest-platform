@@ -25,7 +25,7 @@ describe('Season Dates Admin Component', () => {
     }
   }
 
-  let mockActivatedRoute = {
+  const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({
       user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'] },
@@ -194,7 +194,7 @@ describe('Season Dates Admin Component', () => {
   describe('user check', () => {
     let mockRouter: MockRouter;
 
-    let mockNoForestsActivatedRoute = {
+    const mockNoForestsActivatedRoute = {
       params: Observable.of(
         {id: 1}
       ),
@@ -258,7 +258,7 @@ describe('Season Dates Admin Component', () => {
     });
 
     it ('should send a user with null forests to access denied', () => {
-      let mockNullForestsActivatedRoute = {
+      const mockNullForestsActivatedRoute = {
         params: Observable.of(
           {id: 1}
         ),
