@@ -18,22 +18,19 @@ eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
 /** Instantiate the passport SamlStrategy */
 passport.use(
-  new SamlStrategy(
-    {
-      path: vcapConstants.baseUrl + eAuth.callbackPath,
-      entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
-      issuer: vcapConstants.eAuthIssuer,
-      privateCert: vcapConstants.eAuthPrivateKey,
-      cert: vcapConstants.eAuthCert
-    },
-    (profile, done) => {
-      return done(null, {
-        email: profile.usdaemail,
-        role: util.getUserRole(profile.usdaemail),
-        forests: util.getAdminForests(profile.usdaemail).forests
-      });
-    }
-  )
+  new SamlStrategy({
+    path: vcapConstants.baseUrl + eAuth.callbackPath,
+    entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
+    issuer: vcapConstants.eAuthIssuer,
+    privateCert: vcapConstants.eAuthPrivateKey,
+    cert: vcapConstants.eAuthCert
+  }, (profile, done) => {
+    return done(null, {
+      email: profile.usdaemail,
+      role: util.getUserRole(profile.usdaemail),
+      forests: util.getAdminForests(profile.usdaemail)
+    });
+  })
 );
 
 /** router for eAuth specific endpoints */
