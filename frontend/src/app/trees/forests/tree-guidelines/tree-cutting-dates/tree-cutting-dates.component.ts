@@ -3,6 +3,7 @@ import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import { TreeDistrictsUtilService } from '../tree-districts-util.service';
 import * as moment from 'moment-timezone';
+import { MarkdownService } from 'ngx-md';
 
 @Component({
   selector: 'app-tree-cutting-dates',
@@ -17,7 +18,8 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
   constructor(
     private filter: FilterPipe,
     private lineBreakFormatter: LineBreakFormatterPipe,
-    public districtUtil: TreeDistrictsUtilService
+    public districtUtil: TreeDistrictsUtilService,
+    public markdown: MarkdownService
   ) {}
 
   populateDistricts() {
@@ -27,12 +29,16 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
 
     for (const key of Object.keys(districts)) {
       const district = districts[key];
-      const areaLocations = district.locations.filter(location => location.type.startsWith('cutting-area'));
+      const areaLocations = district.locations.filter(location =>
+        location.type.startsWith('cutting-area')
+      );
       if (areaLocations.length) {
         district.locations = areaLocations;
         this.districtsWithHoursAndDates.push(district);
       }
-      const permitLocations = district.locations.filter(location => location.type === 'district-permits');
+      const permitLocations = district.locations.filter(
+        location => location.type === 'district-permits'
+      );
       if (permitLocations.length) {
         district.locations = permitLocations;
         this.districtsWithPermits.push(district);
@@ -47,7 +53,13 @@ export class TreeCuttingDatesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-   this.forest.isSeasonConfigured = moment(this.forest.startDate).tz(this.forest.timezone).isAfter(moment().tz(this.forest.timezone));
+    this.forest.isSeasonConfigured = moment(this.forest.startDate)
+      .tz(this.forest.timezone)
+      .isAfter(moment().tz(this.forest.timezone));
+
+      this.markdown.renderer.heading = (text, level) => {
+        return `<h${level}>${text}</h${level}>`;
+      };
 
   }
 }

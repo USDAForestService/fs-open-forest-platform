@@ -19,6 +19,7 @@
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
 
+
       <app-section-heading heading="When to cut your tree" id="cutting-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
@@ -28,7 +29,8 @@
       <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Before you cut" id="cutting-instructions-before-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <app-tree-tools [forest]="forest"></app-tree-tools>
+
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/cutting-instructions/how-to-cut-before-cut.md"></markdown>
       <app-section-heading heading="When you cut" id="cutting-instructions-when-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
@@ -43,20 +45,24 @@
 
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
-      <app-tree-trip-planning [forest]="forest"></app-tree-trip-planning>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/trip-planning/how-to-plan-your-trip.md"></markdown>
 
       <hr class="thick" />
       <app-section-heading heading="Where to find your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <app-tree-locations-prohibited [forest]="forest"></app-tree-locations-prohibited>
+
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/tree-locations/prohibited.md"></markdown>
       <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
+
       <hr class="trees-section-divider">
-      <app-tree-locations-allowed [forest]="forest"></app-tree-locations-allowed>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/tree-locations/allowed.md"></markdown>
 
       <hr class="thick" />
+
       <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
-      <app-tree-contact-info [forest]="forest"></app-tree-contact-info>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/contact-information/contact-us.md"></markdown>
+
     </div>
   </div>
 </section>

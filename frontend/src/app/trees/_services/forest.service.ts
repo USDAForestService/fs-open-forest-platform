@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -10,5 +11,13 @@ export class ForestService {
 
   getAll() {
     return this.http.get(this.endpoint);
+  }
+
+  getOne(id) {
+    return this.http.get<any>(this.endpoint + id);
+  }
+
+  getJSON(forest): Observable<any> {
+    return this.http.get('assets/config/christmasTreesForests-' + forest + '.json');
   }
 }

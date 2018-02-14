@@ -19,9 +19,6 @@ describe('Xmas tree - Forest', () => {
       expect<any>(page.rulesToKnowSection().isPresent()).toBeTruthy();
     });
 
-    it('should display additional height information', () => {
-      expect<any>(element(by.id('allow-additional-height-info')).isPresent()).toBeTruthy();
-    });
   });
 
   describe('Arapaho - Rules To Know', () => {
@@ -39,8 +36,5 @@ describe('Xmas tree - Forest', () => {
       expect<any>(page.rulesToKnowSection().isPresent()).toBeTruthy();
     });
 
-    it('should not display additional height information', () => {
-      expect<any>(element(by.id('allow-additional-height-info')).isPresent()).toBeFalsy();
-    });
   });
 });
