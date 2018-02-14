@@ -3,7 +3,7 @@
 let doTransaction = require('./modules/transaction');
 
 const TABLE_NAME = 'christmasTreesPermits';
-const SEQUENCE_NAME = 'christmasTreesPermits_agency_tracking_seq';
+const SEQUENCE_NAME = 'public.christmasTreesPermits_permit_number_seq';
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -17,19 +17,19 @@ module.exports = {
         query:
           'ALTER TABLE "' +
           TABLE_NAME +
-          '" ADD permit_tracking_id integer NOT NULL DEFAULT nextval(\'' +
+          '" ALTER COLUMN permit_number SET DEFAULT nextval(\'' +
           SEQUENCE_NAME +
           "'::regclass)"
       }
     ];
 
-    return doTransaction(TABLE_NAME, queryInterface, operations);
+    return doTransaction('', queryInterface, operations);
   },
   down: function(queryInterface, Sequelize) {
     let operations = [
       {
-        operation: 'remove',
-        field: 'permit_tracking_id'
+        operation: 'raw',
+        query: 'ALTER TABLE "' + TABLE_NAME + '" ALTER COLUMN permit_number DROP DEFAULT'
       },
       {
         operation: 'raw',
@@ -37,6 +37,6 @@ module.exports = {
       }
     ];
 
-    return doTransaction(TABLE_NAME, queryInterface, operations);
+    return doTransaction('', queryInterface, operations);
   }
 };

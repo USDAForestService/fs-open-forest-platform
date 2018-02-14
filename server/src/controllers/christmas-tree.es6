@@ -131,7 +131,7 @@ const permitResult = (permit, svgData) => {
     paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
-    permitTrackingId: zpad(permit.permitTrackingId, 8),
+    permitNumber: zpad(permit.permitNumber, 8),
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,

@@ -77,9 +77,9 @@ module.exports = function(sequelize, DataTypes) {
         field: 'paygov_error',
         allowNull: true
       },
-      permitTrackingId: {
+      permitNumber: {
         type: DataTypes.INTEGER,
-        field: 'permit_tracking_id',
+        field: 'permit_number',
         allowNull: false,
         autoIncrement: true
       }
