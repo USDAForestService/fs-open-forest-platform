@@ -9,23 +9,25 @@ export class SectionHeadingComponent {
   @Input() heading: string;
   @Input() elementId: string;
   @Input() selector = 'h2';
-  @Input() id:string = '';
+  @Input() id = '';
 
   constructor(private renderer: Renderer2, private util: UtilService) {}
 
   elementInView(event) {
-    if (event.value) {
+    if (event && event.value) {
       this.renderer.addClass(event.target, 'in-view');
     } else {
       this.renderer.removeClass(event.target, 'in-view');
     }
+    this.setCurrentSection();
+  }
 
+  private setCurrentSection() {
     const viewableElements = document.getElementsByClassName('in-view');
     if (viewableElements[0]) {
-      if(viewableElements[0].attributes['attr-id'].value) {
-        console.log('IN VIEW', viewableElements[0].attributes['attr-id'].value);
+      if (viewableElements[0].attributes['attr-id'].value) {
         this.util.setCurrentSection(viewableElements[0].attributes['attr-id'].value);
-      }else{
+      } else {
         this.util.setCurrentSection(viewableElements[0].id);
       }
     }
