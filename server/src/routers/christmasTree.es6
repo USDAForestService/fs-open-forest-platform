@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', christmasTreeController.getForests);
 
 /* get regualtions for a single forest */
-router.get('/:id', christmasTreeController.getOneGuidelines);
+router.get('/:id', christmasTreeController.getForest);
 
 /*POST a new christmas tree application*/
 router.post('/christmas-trees/permits', christmasTreeController.create);

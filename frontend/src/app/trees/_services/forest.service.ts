@@ -14,7 +14,13 @@ export class ForestService {
   }
 
   getOne(id) {
-    return this.http.get<any>(this.endpoint + id);
+    return this.http.get<any>(this.endpoint + id)
+      .flatMap(forest =>
+        this.getJSON(forest.forestAbbr)
+      .map(forestJSON => {
+        forest.species = forestJSON.treeSpecies;
+        return forest;
+      }));
   }
 
   getJSON(forest): Observable<any> {

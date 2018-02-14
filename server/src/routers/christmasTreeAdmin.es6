@@ -9,7 +9,7 @@ const router = express.Router();
 /*GET christmas tree permit*/
 router.get('/christmas-trees/permits/:forestId/:startDate/:endDate', christmasTreeAdminController.getPermits);
 
-router.get('/christmas-trees/permits/:permitTrackingId', christmasTreeAdminController.getPermitByTrackingId);
+router.get('/christmas-trees/permits/:permitNumber', christmasTreeAdminController.getPermit);
 
 router.put('/christmas-trees/forests/:forestId', christmasTreeAdminController.updateForest);
 

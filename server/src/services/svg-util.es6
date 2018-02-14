@@ -9,7 +9,7 @@ const zpad = require('zpad');
 const createPermit = {};
 
 const addApplicantInfo = (permit, frag) => {
-  frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitTrackingId, 8);
+  frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
 
   frag.querySelector('#issue-date_1_').textContent = moment(permit.createdAt, util.datetimeFormat)
     .format('MMM DD, YYYY')

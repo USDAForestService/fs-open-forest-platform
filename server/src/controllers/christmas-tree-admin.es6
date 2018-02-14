@@ -17,7 +17,7 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
-      eachPermit.permitNumber = zpad(permit.permitTrackingId, 8);
+      eachPermit.permitNumber = zpad(permit.permitNumber, 8);
       if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
         eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -60,7 +60,7 @@ christmasTreeAdmin.getPermits = (req, res) => {
         .findAll({
           attributes: [
             'forestId',
-            'permitTrackingId',
+            'permitNumber',
             'updatedAt',
             'quantity',
             'totalCost',
@@ -99,35 +99,25 @@ christmasTreeAdmin.getPermits = (req, res) => {
     });
 };
 
-christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
+christmasTreeAdmin.getPermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: [
-        'permitId',
-        'forestId',
-        'permitTrackingId',
-        'updatedAt',
-        'quantity',
-        'totalCost',
-        'permitExpireDate'
-      ],
+      attributes: ['permitId', 'forestId', 'permitNumber', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
       where: {
-        permitTrackingId: req.params.permitTrackingId,
+        permitNumber: req.params.permitNumber,
         status: 'Completed'
       }
     })
     .then(requestedPermit => {
       if (requestedPermit === null) {
-        return res
-          .status(400)
-          .json({
-            errors: [
-              {
-                errorCode: 'notFound',
-                message: `Permit number ${req.params.permitTrackingId} was not found.`,
-              }
-            ]
-          });
+        return res.status(400).json({
+          errors: [
+            {
+              errorCode: 'notFound',
+              message: `Permit number ${req.params.permitNumber} was not found.`
+            }
+          ]
+        });
       } else {
         return returnPermitResults([requestedPermit], res);
       }

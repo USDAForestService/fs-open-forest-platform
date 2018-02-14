@@ -46,7 +46,6 @@
     "cheerio": "^1.0.0-rc.2",
     "hoek": "^5.0.2",
     "juice": "^4.2.2"
-
   },
   "devDependencies": {
     "blob": "^0.0.4",
@@ -67,15 +66,16 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
+    "coverage":
+      "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
     "dev": "yarn; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
     "lint": "eslint **/**/*.es6",
     "migrate": "sequelize db:migrate",
-    "seed": "sequelize db:seed:all --seeders-path dba/seeders/prod/",
+    "seed": "sequelize db:seed:all",
     "snyk-test": "snyk test",
     "start": "node ./src/app.es6",
     "test": "mocha ./test/**/*.es6 ./test/*.es6",
-    "undoAllSeed": "sequelize db:seed:undo:all --seeders-path dba/seeders/prod/",
+    "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
     "undoLastMigrate": "sequelize db:migrate:undo"
   },
@@ -83,11 +83,7 @@
     "node": "^8.9.4"
   },
   "nyc": {
-    "extension": [
-      ".es6"
-    ],
-    "exclude": [
-      "src/pay-gov-mocks/*.*"
-    ]
+    "extension": [".es6"],
+    "exclude": ["src/pay-gov-mocks/*.*"]
   }
 }

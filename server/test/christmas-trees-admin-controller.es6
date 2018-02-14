@@ -54,7 +54,7 @@ describe('christmas tree admin controller tests', () => {
   });
   it('GET permit details back by the admin', done => {
     request(server)
-      .get(`/admin/christmas-trees/permits/${completedPermit.permitTrackingId}`)
+      .get(`/admin/christmas-trees/permits/${completedPermit.permitNumber}`)
       .expect('Content-Type', /json/)
       .expect(function(res) {
         expect(res.body.permits[0]).to.include.all.keys(
