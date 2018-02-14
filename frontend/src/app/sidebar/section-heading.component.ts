@@ -9,6 +9,7 @@ export class SectionHeadingComponent {
   @Input() heading: string;
   @Input() elementId: string;
   @Input() selector = 'h2';
+  @Input() id:string = '';
 
   constructor(private renderer: Renderer2, private util: UtilService) {}
 
@@ -21,7 +22,12 @@ export class SectionHeadingComponent {
 
     const viewableElements = document.getElementsByClassName('in-view');
     if (viewableElements[0]) {
-      this.util.setCurrentSection(viewableElements[0].id);
+      if(viewableElements[0].attributes['attr-id'].value) {
+        console.log('IN VIEW', viewableElements[0].attributes['attr-id'].value);
+        this.util.setCurrentSection(viewableElements[0].attributes['attr-id'].value);
+      }else{
+        this.util.setCurrentSection(viewableElements[0].id);
+      }
     }
   }
 }
