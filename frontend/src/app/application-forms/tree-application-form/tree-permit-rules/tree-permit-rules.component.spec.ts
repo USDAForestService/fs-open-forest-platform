@@ -4,7 +4,7 @@ import { TreePermitRulesComponent } from './tree-permit-rules.component';
 import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../_services/util.service';
-import { forest } from '../../../trees/_mocks/forest.mock';
+import { forest } from '../../../_mocks/forest.mock';
 
 describe('TreePermitRulesComponent', () => {
   let component: TreePermitRulesComponent;
