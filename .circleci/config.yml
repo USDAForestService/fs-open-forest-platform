@@ -12,10 +12,10 @@ jobs:
           command: cd server; npm i -g eslint
       - run:
           name: frontend linting
-          command: cd frontend; npm run lint 
+          command: cd frontend; npm run lint
       - run:
           name: server linting
-          command: cd server; npm run lint 
+          command: cd server; npm run lint
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
@@ -84,7 +84,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:6.12.0
+      - image: circleci/node:8.9.4
     steps:
       - checkout
       - run:
@@ -111,7 +111,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:6.12.0
+      - image: circleci/node:8.9.4
     steps:
       - checkout
       - run:
