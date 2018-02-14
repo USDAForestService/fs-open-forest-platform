@@ -16,6 +16,18 @@ export class NoncommercialGroupForm {
   }
 }
 
+export class NonCommercialLearnMorePage {
+  navigateTo() {
+    return browser.get('/applications/noncommercial-group-use/learn-more');
+  }
+}
+
+export class TempOutfittersLearnMorePage {
+  navigateTo() {
+    return browser.get('/applications/temp-outfitters/learn-more');
+  }
+}
+
 export class TempOutfittersForm {
   navigateTo() {
     return browser.get('/applications/temp-outfitters/new');
@@ -25,16 +37,6 @@ export class TempOutfittersForm {
 export class AdminApplicationList {
   navigateTo() {
     return browser.get('/admin/applications');
-  }
-
-  permitId() {
-    return 'permit-806d3550-309d-46ea-b12a-f021f7b3d447';
-  }
-}
-
-export class AdminApplicationView {
-  navigateTo() {
-    return browser.get('/admin/applications/noncommercial/806d3550-309d-46ea-b12a-f021f7b3d447');
   }
 }
 

@@ -76,6 +76,10 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING(500),
         field: 'paygov_error',
         allowNull: true
+      },
+      permitTrackingId: {
+        type: DataTypes.STRING,
+        field: 'permit_tracking_id'
       }
     },
     {

@@ -25,7 +25,7 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov', function(req, res) {
-  const requestBody = req.body['S:Envelope']['S:Body'][0];
+  const requestBody = req.body['soap:Envelope']['soap:Body'][0];
 
   let xmlResponse = '';
 

@@ -235,8 +235,7 @@ paths:
           description: "General server error"
         201:
           description: "Successful Creation"
-  /forests/christmas-trees/permits/cancel:
-    post:
+    put:
       tags:
       - "christmas-tree"
       summary: "Cancels an initiated christmas-tree application"
@@ -255,6 +254,8 @@ paths:
           properties:
             permitId:
               type: "integer"
+            status:
+              type: "string"
       responses:
         400:
           description: "Validation error"
@@ -276,7 +277,7 @@ paths:
         name: "id"
         description: "Id number of permit"
         required: true
-        type: "integer"
+        type: "uuid"
       responses:
         200:
           description: "Successful"
@@ -298,39 +299,41 @@ paths:
         name: "id"
         description: "Id number of permit"
         required: true
-        type: "integer"
+        type: "uuid"
       responses:
         200:
           description: "Successful"
         400:
           description: "Invalid input or other error"
         404:
-          description: "Permit not found or permit is completed/canceled"
+          description: "Permit not found or permit is completed/cancelled"
   /admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}:
     get:
       tags:
       - "christmas-tree"
-      summary: "Retrieve list of completed christmas tree permit within provided date range"
-      description: "Retrieve list of completed christmas tree permit within provided date range"
+      summary: "Retrieve list of completed christmas tree permits within provided date range"
+      description: "Retrieve list of completed christmas tree permits within provided date range"
       operationId: ""
       produces:
       - "application/json"
       parameters:
       - in: "path"
         name: "forestId"
-        description: "Id number of permit"
+        description: "Id number of forest to query for"
         required: true
         type: "integer"
       - in: "path"
         name: "startDate"
         description: "Beginning of date range to search for permits"
         required: true
-        type: "integer"
+        type: "string"
+        format: "date-time"
       - in: "path"
         name: "endDate"
         description: "End of date range to search for permits"
         required: true
-        type: "integer"
+        type: "string"
+        format: "date-time"
       responses:
         200:
           description: "Successful"
@@ -338,6 +341,28 @@ paths:
           description: "Invalid input or other error"
         404:
           description: "No permits not found in the date range provided"
+  /admin/christmas-trees/permits/{permitId}:
+    get:
+      tags:
+      - "christmas-tree"
+      summary: "Retrieve details of a completed christmas tree permit"
+      description: "Retrieve details of a completed christmas tree permit"
+      operationId: ""
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "permitId"
+        description: "Id number of permit to get details on"
+        required: true
+        type: "uuid"
+      responses:
+        200:
+          description: "Successful"
+        400:
+          description: "Invalid input or other error"
+        404:
+          description: "Permit not found"
   /uptime:
     get:
       tags:

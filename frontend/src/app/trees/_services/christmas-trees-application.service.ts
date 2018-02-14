@@ -22,7 +22,7 @@ export class ChristmasTreesApplicationService {
     }
 
     const options = {
-      params: new HttpParams().set('withCredentials', 'true'),
+      withCredentials: true,
       headers: headers
     };
 
@@ -32,9 +32,9 @@ export class ChristmasTreesApplicationService {
   }
 
   cancelOldApp(id) {
-    const body = { permitId: id };
+    const body = { permitId: id, status: 'Cancelled' };
     return this.http
-      .post(`${environment.apiUrl}forests/christmas-trees/permits/cancel`, body)
+      .put(`${environment.apiUrl}forests/christmas-trees/permits`, body)
       .catch(this.util.handleError);
   }
 
@@ -51,6 +51,11 @@ export class ChristmasTreesApplicationService {
   getAllByDateRange(forestId, startDate, endDate) {
     return this.http
       .get(`${this.adminEndpoint}/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .catch(this.util.handleError);
+  }
+
+  getReportByPermitNumber(permitNumber) {
+    return this.http.get(`${this.adminEndpoint}/${permitNumber}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 

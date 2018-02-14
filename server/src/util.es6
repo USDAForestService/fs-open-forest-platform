@@ -166,6 +166,13 @@ util.isLocalOrCI = () => {
 };
 
 /**
+ * is production flag
+ */
+util.isProduction = () => {
+  return vcapConstants.nodeEnv === 'production';
+};
+
+/**
  * Set the request body's authenticated email based on the passport user.
  */
 util.setAuthEmail = req => {

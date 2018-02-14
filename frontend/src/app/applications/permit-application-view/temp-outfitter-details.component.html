@@ -101,10 +101,10 @@
     <ng-container *ngIf="application.tempOutfitterFields && application.tempOutfitterFields.activityDescriptionFields">
       <h2>Description of proposed activity</h2>
       <h3>Start date:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime | date: 'MM/dd/yyyy' }}</span>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime | date: 'MM/dd/yyyy': 'UTC' }}</span>
 
       <h3>End date:</h3>
-      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime | date: 'MM/dd/yyyy' }}</span>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime | date: 'MM/dd/yyyy': 'UTC' }}</span>
 
       <h3>The anticipated number of trips:</h3>
       <span>{{ application.tempOutfitterFields.activityDescriptionFields.numberOfTrips }}</span>

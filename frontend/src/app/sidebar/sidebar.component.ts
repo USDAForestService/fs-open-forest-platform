@@ -25,25 +25,37 @@ export class SidebarComponent implements OnInit {
     const nav = document.getElementById('sidebar-nav');
     const container = document.getElementById('sidebar-page');
     const footer = document.getElementById('footer');
+    const header = document.getElementById('header');
 
-    if (nav) {
-      if (container.getBoundingClientRect().top < 30) {
-        this.top = '140px';
-        this.bottom = 'auto';
-        this.position = 'fixed';
-      } else {
-        this.top = '270px';
-        this.position = 'absolute';
-      }
-
-      if (window.innerHeight < 720 && footer.getBoundingClientRect().top < 480) {
-        const bottom = -Math.abs(footer.getBoundingClientRect().top) + 840;
-        this.top = '-10px';
-        this.position = 'fixed';
-      }
+    if (nav && this.items && this.items.length > 0) {
+      this.sidebarHeaderIntersection(container, header);
+      this.sidebarFooterIntersection(footer);
+      this.pageYOffset();
     }
+  }
 
-    if (window.pageYOffset > 122) {
+  private sidebarHeaderIntersection(container, header) {
+    if (container.getBoundingClientRect().top < this.items.length * 4.3) {
+      this.top = header.getBoundingClientRect().height - 40 + 'px'; // distance from top of page to start of sidebar without header
+      this.bottom = 'auto';
+      this.position = 'fixed';
+    } else {
+      this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
+      this.position = 'absolute';
+    }
+  }
+
+  private sidebarFooterIntersection(footer) {
+    if (footer.getBoundingClientRect().top < this.items.length * 60) {
+      // sidebar bottom hits top of footer
+      const bottom = -Math.abs(footer.getBoundingClientRect().top) + this.items.length * 2.5;
+      this.top = this.items.length * -9 + 'px';
+      this.position = 'fixed';
+    }
+  }
+
+  private pageYOffset() {
+    if (window.pageYOffset > this.items.length * 16) {
       this.menuBtnPosition = 'fixed';
       this.menuBtnTop = '0px';
     } else {

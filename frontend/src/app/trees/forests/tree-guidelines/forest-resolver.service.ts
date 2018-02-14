@@ -8,7 +8,7 @@ import { TreesService } from '../../_services/trees.service';
 
 @Injectable()
 export class ForestResolver implements Resolve<any> {
-  constructor(private service: TreesService, private router: Router) {}
+  constructor(private service: TreesService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('id');

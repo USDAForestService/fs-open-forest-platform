@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { Observable } from 'rxjs/Observable';
-import * as moment from 'moment/moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-report',
@@ -16,9 +13,11 @@ export class ReportComponent implements OnInit {
   forests: any;
   forest: any;
   form: any;
+  permitNumberSearchForm: any;
   result: any;
   apiErrors: any;
   reportParameters: any;
+  isDateSearch = true;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -39,9 +38,18 @@ export class ReportComponent implements OnInit {
       forestId: ['', [Validators.required]]
     });
 
+    this.permitNumberSearchForm = formBuilder.group({
+      permitNumber: ['', [Validators.required]]
+    });
+
     this.form.get('forestId').valueChanges.subscribe(forest => {
       this.setStartEndDate(forest);
     });
+  }
+
+  resetForms() {
+    this.result = null;
+    this.forest = null;
   }
 
   ngOnInit() {
@@ -74,36 +82,72 @@ export class ReportComponent implements OnInit {
     }
   }
 
+  getForestDate(dateField) {
+    return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
+  }
+
   getReport() {
     this.afs.touchAllFields(this.form);
-    if (this.forest) {
-      this.reportParameters = {
-        forestName: this.forest.forestName,
-        startDate: moment(this.form.get('dateTimeRange.startDateTime').value).format('MM/DD/YYYY'),
-        endDate: moment(this.form.get('dateTimeRange.endDateTime').value).format('MM/DD/YYYY')
-      };
-      if (this.form.valid && !this.dateStatus.hasErrors) {
-        this.service
-          .getAllByDateRange(
-            this.forest.id,
-            moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
-            moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
-          )
-          .subscribe(
-            results => {
-              this.result = {
-                numberOfPermits: results.numberOfPermits,
-                sumOfTrees: results.sumOfTrees,
-                sumOfCost: results.sumOfCost,
-                permits: results.permits,
-                parameters: this.reportParameters
-              };
-            },
-            err => {
-              this.apiErrors = err;
-            }
-          );
-      }
+    this.afs.touchAllFields(this.permitNumberSearchForm);
+    this.result = null;
+
+    if (this.isDateSearch) {
+      this.getPermitsByDate();
+    } else {
+      this.getPermitByNumber();
     }
+  }
+
+  private setReportParameters() {
+    this.reportParameters = {
+      forestName: this.forest.forestName,
+      startDate: this.getForestDate('dateTimeRange.startDateTime'),
+      endDate: this.getForestDate('dateTimeRange.endDateTime')
+    };
+  }
+
+  private getPermitsByDate() {
+    this.permitNumberSearchForm.reset();
+    if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
+      this.setReportParameters();
+      this.service
+        .getAllByDateRange(
+          this.forest.id,
+          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
+          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
+        )
+        .subscribe(
+          results => {
+            this.result = {
+              numberOfPermits: results.numberOfPermits,
+              sumOfTrees: results.sumOfTrees,
+              sumOfCost: results.sumOfCost,
+              permits: results.permits,
+              parameters: this.reportParameters
+            };
+          },
+          err => {
+            this.apiErrors = err;
+          }
+        );
+    }
+  }
+
+  private getPermitByNumber() {
+    this.form.reset();
+    this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
+      results => {
+        this.result = {
+          numberOfPermits: 1,
+          sumOfTrees: results.permits[0].quantity,
+          sumOfCost: results.permits[0].totalCost,
+          permits: results.permits,
+          parameters: null
+        };
+      },
+      err => {
+        this.apiErrors = err;
+      }
+    );
   }
 }

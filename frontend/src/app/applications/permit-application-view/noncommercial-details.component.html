@@ -82,11 +82,11 @@
 
     <ng-container *ngIf="application.dateTimeRange">
       <h3>Start date:</h3>
-      <span>{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}</span>
+      <span>{{ application.dateTimeRange.startDateTime | date: 'MM/dd/yyyy h:mm a': 'UTC' }}</span>
 
       <h3>End date:</h3>
       <span>
-        {{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy hh:mm a Z' }}
+        {{ application.dateTimeRange.endDateTime | date: 'MM/dd/yyyy h:mm a': 'UTC' }}
       </span>
     </ng-container>
 
