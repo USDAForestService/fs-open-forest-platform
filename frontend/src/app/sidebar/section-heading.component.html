@@ -2,6 +2,7 @@
   *ngIf="selector === 'h2'"
   tabindex="-1"
   id="{{elementId}}"
+  [attr.attr-id]="id"
   in-viewport
   [inViewportOptions]="{ partial: true}"
   (inViewportAction)="elementInView($event)"
@@ -11,6 +12,7 @@
   *ngIf="selector === 'h3'"
   tabindex="-1"
   id="{{elementId}}"
+  [attr.attr-id]="id"
   in-viewport
   [inViewportOptions]="{ partial: true}"
   (inViewportAction)="elementInView($event)"

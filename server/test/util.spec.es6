@@ -62,11 +62,7 @@ describe('util tests', () => {
     });
 
     it('should get admin forests', () => {
-      var should = require('chai').should();
-      util
-        .getAdminForests('test@test.com')
-        .should.have.property('forests')
-        .with.lengthOf(2);
+      expect(util.getAdminForests('test@test.com')[0]).to.equal('arp');
     });
   });
 });

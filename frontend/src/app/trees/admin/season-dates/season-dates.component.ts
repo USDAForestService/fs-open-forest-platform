@@ -56,7 +56,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       if (data) {
         this.user = data.user;
         this.forests = data.forests;
-        if (this.user.forests.find(forest => forest !== 'all')) {
+        if (!this.user.forests || !this.user.forests.length || this.user.forests.find(forest => forest !== 'all')) {
           this.forests = this.forests.filter(forest =>
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
