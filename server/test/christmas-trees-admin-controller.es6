@@ -89,6 +89,33 @@ describe('christmas tree admin controller tests', () => {
       .expect(200, done);
   });
 
+  it('PUT forest should return 403 when updating forest season dates that user do not have permission', done => {
+    const forestSeasonDates = {
+      startDate: '2020-10-01',
+      endDate: '2020-12-24'
+    };
+    request(server)
+      .put('/admin/christmas-trees/forests/2')
+      .send(forestSeasonDates)
+      .expect('Content-Type', /json/)
+      .expect(403, done);
+  });
+
+  it('PUT forest should return 200 when updating district season dates', done => {
+    const districtDates = {
+      cuttingAreas:
+        '{ "ELKCREEK": {"startDate": "2018-12-02 15:30:00Z", "endDate": "2018-12-09 21:30:00Z"},' +
+        '"REDFEATHERLAKES": {"startDate": "2018-12-02 15:30:00Z", "endDate": "2018-12-10 21:30:00Z"},' +
+        '"SULPHUR": {"startDate": "2018-11-01 12:00:00Z", "endDate": "2019-01-06 21:30:00Z"},' +
+        '"CANYONLAKES": {"startDate": "2018-11-27 15:30:00Z", "endDate": "2018-12-10 21:30:00Z"} }'
+    };
+    request(server)
+      .put('/admin/christmas-trees/forests/1')
+      .send(districtDates)
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
+
   it('PUT forest should return 400 with an invalid forest id with season dates', done => {
     const forestSeasonDates = {
       startDate: '2020-10-01',
