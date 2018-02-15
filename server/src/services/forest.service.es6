@@ -12,18 +12,10 @@ forestService.translateForestFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);
   let endDate = moment(input.endDate);
 
-  const cuttingAreas =
-    '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z"},' +
-    '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"},' +
-    '"SULPHUR": {"startDate": "2017-11-01 12:00:00Z", "endDate": "2018-01-06 21:30:00Z"},' +
-    '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"} }'
-  ;
-
-
   return {
     id: input.id,
     forestName: input.forestName,
-    cuttingAreas: JSON.parse(cuttingAreas),
+    cuttingAreas: JSON.parse(input.cuttingAreas),
     description: input.description,
     forestAbbr: input.forestAbbr,
     forestNameShort: input.forestNameShort,
