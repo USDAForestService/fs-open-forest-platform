@@ -20,7 +20,12 @@ module.exports = {
         tree_cost: 10,
         max_num_trees: 5,
         forest_name_short: 'Arapaho and Roosevelt',
-        timezone: 'America/Denver'
+        timezone: 'America/Denver',
+        cutting_areas:
+          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z"},' +
+          '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"},' +
+          '"SULPHUR": {"startDate": "2017-11-01 12:00:00Z", "endDate": "2018-01-06 21:30:00Z"},' +
+          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"} }'
       },
       {
         id: 2,
@@ -39,7 +44,8 @@ module.exports = {
         tree_cost: 5,
         max_num_trees: 3,
         forest_name_short: 'Flathead',
-        timezone: 'America/Denver'
+        timezone: 'America/Denver',
+        cutting_areas: '{}'
       },
       {
         id: 3,
@@ -58,7 +64,8 @@ module.exports = {
         tree_cost: 5,
         max_num_trees: 5,
         forest_name_short: 'Mt. Hood',
-        timezone: 'America/Los_Angeles'
+        timezone: 'America/Los_Angeles',
+        cutting_areas: '{}'
       },
       {
         id: 4,
@@ -78,7 +85,8 @@ module.exports = {
         max_num_trees: 5,
         allow_additional_height: true,
         forest_name_short: 'Shoshone',
-        timezone: 'America/Denver'
+        timezone: 'America/Denver',
+        cutting_areas: '{}'
       }
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);
