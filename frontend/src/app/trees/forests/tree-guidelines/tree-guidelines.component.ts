@@ -75,7 +75,7 @@ export class TreeGuidelinesComponent implements OnInit {
   formatCuttingAreaDate(startDate, endDate) {
     const start = moment(startDate).tz(this.forest.timezone);
     const end = moment(endDate).tz(this.forest.timezone);
-    let startFormat = 'MMM. D -';
+    const startFormat = 'MMM. D -';
     let endFormat = ' D, YYYY';
 
     if (start.month() !== end.month()) {
@@ -93,14 +93,14 @@ export class TreeGuidelinesComponent implements OnInit {
     const markdownKeys = ['treeHeight', 'stumpHeight', 'stumpDiameter'];
 
     this.markdownService.renderer.text = (text: string) => {
-      for (let key of markdownKeys) {
+      for (const key of markdownKeys) {
         if (text.indexOf(key.toUpperCase()) > -1) {
           text = text.replace(key.toUpperCase(), this.forest[key]);
         }
       }
 
-      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES']
-      for (let key of cuttingAreaKeys) {
+      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
+      for (const key of cuttingAreaKeys) {
         if (text.indexOf(key) > -1) {
           text = text
             .replace(key + 'DATE', this.formatCuttingAreaDate(this.forest.cuttingAreas[key].startDate, this.forest.cuttingAreas[key].endDate))
