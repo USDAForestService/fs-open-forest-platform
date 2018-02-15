@@ -68,8 +68,10 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
         }
-        this.form.get('forestId').setValue(this.forest.id);
         this.forest = this.forests[0];
+        if (this.forest) {
+          this.form.get('forestId').setValue(this.forest.id);
+        }
       }
     });
   }

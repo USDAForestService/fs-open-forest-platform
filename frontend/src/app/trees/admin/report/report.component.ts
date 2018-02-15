@@ -65,7 +65,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
       this.forest = this.forests[0];
-      this.form.get('forestId').setValue(this.forest.id);
+      if (this.forest) {
+        this.form.get('forestId').setValue(this.forest.id);
+      }
     });
   }
 
