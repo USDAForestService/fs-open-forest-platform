@@ -9,6 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment/moment';
+import { MarkdownService } from 'ngx-md';
 
 
 describe('TreeGuidelinesComponent', () => {
@@ -36,6 +37,7 @@ describe('TreeGuidelinesComponent', () => {
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
           UtilService,
+          MarkdownService,
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
         ],
