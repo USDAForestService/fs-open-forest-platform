@@ -47,8 +47,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
 
     this.form.get('forestId').valueChanges.subscribe(forestId => {
-      this.forest = this.getForestById(forestId);
-      this.setStartEndDate(this.forest, this.form);
+      if (forestId) {
+        this.forest = this.getForestById(forestId);
+        this.setStartEndDate(this.forest, this.form);
+      }
     });
   }
 
@@ -63,6 +65,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
       this.forest = this.forests[0];
+      this.form.get('forestId').setValue(this.forest.id);
     });
   }
 
@@ -81,11 +84,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
 
   getForestById(id) {
-    for (const forest of this.forests) {
-      if (forest.id === parseInt(id, 10)) {
-        return forest;
-      }
-    }
+    return this.forests.find(forest => forest.id === parseInt(id, 10)) ;
   }
 
   getForestDate(dateField) {
@@ -109,8 +108,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   private getPermitsByDate() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
-      this.service
-        .getAllByDateRange(
+      this.service.getAllByDateRange(
           this.forest.id,
           moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
           moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
