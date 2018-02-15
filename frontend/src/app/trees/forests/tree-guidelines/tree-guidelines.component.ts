@@ -60,8 +60,7 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   private checkSeasonStartDate(forest) {
-    if (
-      moment(forest.startDate)
+    if (moment(forest.startDate)
         .tz(forest.timezone)
         .isAfter(moment().tz(forest.timezone))
     ) {
@@ -74,8 +73,15 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   formatCuttingAreaDate(startDate, endDate) {
-    const start = moment(startDate).tz(this.forest.timezone).format('MMM. D -');
-    return start + moment(endDate).tz(this.forest.timezone).format(' D, YYYY');
+    const start = moment(startDate).tz(this.forest.timezone);
+    const end = moment(endDate).tz(this.forest.timezone);
+    let startFormat = 'MMM. D -';
+    let endFormat = ' D, YYYY';
+
+    if (start.month() !== end.month()) {
+      endFormat = ' MMM. D, YYYY';
+    }
+    return start.format(startFormat) + end.format(endFormat);
   }
 
   formatCuttingAreaTime(startDate, endDate) {
@@ -93,7 +99,7 @@ export class TreeGuidelinesComponent implements OnInit {
         }
       }
 
-      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES']
+      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES']
       for (let key of cuttingAreaKeys) {
         if (text.indexOf(key) > -1) {
           text = text

@@ -23,10 +23,8 @@ REDFEATHERLAKESTIME Must arrive at the cutting area before 2:30 and be out of th
 ### Permit Sales
 
 #### Sulphur Ranger District
-
-Nov. 1 – Jan. 6, 2018  
+SULPHURDATE
 Grand County Locations (Winter Park, Fraser, Granby, Grand Lake)
 
 #### Canyon Lakes Ranger District
-
-Nov. 27 – Dec. 10, 2017
+CANYONLAKESDATE
