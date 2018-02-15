@@ -23,14 +23,14 @@
       <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
-      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link" tabIndex="-1">Buy permit with credit card</button>
+      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link" tabIndex="-1">Buy permit</button>
 
       <hr class="thick" />
       <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Before you cut" id="cutting-instructions-before-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
 
-      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/cutting-instructions/how-to-cut-before-cut.md"></markdown>
+      <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/cutting-instructions/before-you-cut.md"></markdown>
       <app-section-heading heading="When you cut" id="cutting-instructions-when-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
