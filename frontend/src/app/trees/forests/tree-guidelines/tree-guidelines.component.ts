@@ -6,6 +6,8 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { MarkdownService } from 'ngx-md';
+
 
 @Component({
   selector: 'app-tree-info',
@@ -25,7 +27,8 @@ export class TreeGuidelinesComponent implements OnInit {
     private titleService: Title,
     public util: UtilService,
     public configService: SidebarConfigService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private markdownService: MarkdownService
   ) {}
 
   setSeasonStatus(forest) {
@@ -70,6 +73,42 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  formatCuttingAreaDate(startDate, endDate) {
+    const start = moment(startDate).tz(this.forest.timezone).format('MMM. D -');
+    return start + moment(endDate).tz(this.forest.timezone).format(' D, YYYY');
+  }
+
+  formatCuttingAreaTime(startDate, endDate) {
+    const start = moment(startDate).tz(this.forest.timezone).format('h:mm a - ');
+    return start + moment(endDate).tz(this.forest.timezone).format('h:mm a.');
+  }
+
+  updateMarkdownText() {
+    const markdownKeys = ['treeHeight', 'stumpHeight', 'stumpDiameter'];
+
+    this.markdownService.renderer.text = (text: string) => {
+      for (let key of markdownKeys) {
+        if (text.indexOf(key.toUpperCase()) > -1) {
+          text = text.replace(key.toUpperCase(), this.forest[key]);
+        }
+      }
+
+      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES']
+      for (let key of cuttingAreaKeys) {
+        if (text.indexOf(key) > -1) {
+          text = text
+            .replace(key + 'DATE', this.formatCuttingAreaDate(this.forest.cuttingAreas[key].startDate, this.forest.cuttingAreas[key].endDate))
+            .replace(key + 'TIME', this.formatCuttingAreaTime(this.forest.cuttingAreas[key].startDate, this.forest.cuttingAreas[key].endDate));
+        }
+      }
+      return text;
+    };
+
+    this.markdownService.renderer.heading = (text, level) => {
+      return `<h${level}>${text}</h${level}>`;
+    };
+  }
+
   ngOnInit() {
     this.template = 'sidebar';
     this.route.params.subscribe(params => {
@@ -80,6 +119,9 @@ export class TreeGuidelinesComponent implements OnInit {
       this.forest = data.forest;
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
+
+        this.updateMarkdownText();
+
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
         this.configService.getJSON().subscribe(configData => {
           this.sidebarItems = configData;

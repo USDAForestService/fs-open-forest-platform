@@ -12,32 +12,9 @@ const paygov = require('../services/paygov.es6');
 const permitSvgService = require('../services/svg-util.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
+const forestService = require('../services/forest.service.es6');
 
 const christmasTree = {};
-
-const translateForestFromDatabaseToClient = input => {
-  let startDate = moment(input.startDate);
-  let endDate = moment(input.endDate);
-
-  return {
-    id: input.id,
-    forestName: input.forestName,
-    description: input.description,
-    forestAbbr: input.forestAbbr,
-    forestNameShort: input.forestNameShort,
-    forestUrl: input.forestUrl,
-    orgStructureCode: input.orgStructureCode,
-    treeHeight: input.treeHeight,
-    stumpHeight: input.stumpHeight,
-    stumpDiameter: input.stumpDiameter,
-    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
-    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
-    treeCost: input.treeCost,
-    maxNumTrees: input.maxNumTrees,
-    allowAdditionalHeight: input.allowAdditionalHeight,
-    timezone: input.timezone
-  };
-};
 
 const translatePermitFromClientToDatabase = input => {
   return {
@@ -81,7 +58,7 @@ christmasTree.getForest = (req, res) => {
     })
     .then(app => {
       if (app) {
-        res.status(200).json(translateForestFromDatabaseToClient(app));
+        res.status(200).json(forestService.translateForestFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }

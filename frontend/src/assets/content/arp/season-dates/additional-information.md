@@ -1,4 +1,5 @@
 [comment]: <> (This section appears under the cutting dates)
+[comment]: <> (ELKCREEKDATE, ELKCREEKTIME etc are replaced with the values in the database.)
 
 ### Special Christmas Tree Cutting Areas
 
@@ -6,23 +7,18 @@
 
 ##### Season dates
 
-Dec. 2 - 9, 2017
+ELKCREEKDATE
 
 ##### Cutting hours
-
-8:30 am - 2:30 pm.  
-Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
+ELKCREEKTIME Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
 
 #### Red Feather Lakes
 
 ##### Season dates
-
-Dec. 2 - 10, 2017
+REDFEATHERLAKESDATE
 
 ##### Cutting hours
-
-8:30 am - 2:30 pm.  
-Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
+REDFEATHERLAKESTIME Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
 
 ### Permit Sales
 
