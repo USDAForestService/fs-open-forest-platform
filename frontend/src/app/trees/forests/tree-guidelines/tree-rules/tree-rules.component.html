@@ -1,6 +1,5 @@
 <div>
 
-  <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/rules-to-know/prohibited-rules.md"></markdown>
   <markdown [data]="forest.content.prohibitedRules"></markdown>
 
   <ng-container *ngIf="(forest.species | filter: 'status':'prohibited').length">
