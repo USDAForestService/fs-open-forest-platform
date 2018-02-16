@@ -12,8 +12,9 @@ import { AdminDistrictDatesComponent } from './district-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
 import { MockRouter } from '../../../_mocks/routes.mock';
+import { ForestService } from '../../_services/forest.service';
 
-xdescribe('District Dates Admin Component', () => {
+describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;
@@ -36,7 +37,14 @@ xdescribe('District Dates Admin Component', () => {
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
           forestAbbr: 'arp',
           startDate: '10/30/2018',
-          endDate: '9/30/2019'
+          endDate: '9/30/2019',
+          cuttingAreas: {
+            "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z"},
+            "REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"},
+            "SULPHUR": {"startDate": "2017-11-01 12:00:00Z", "endDate": "2018-01-06 21:30:00Z"},
+            "CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"}
+          },
+          timezone: 'America/Denver'
         },
         {
           id: 2,
@@ -90,6 +98,7 @@ xdescribe('District Dates Admin Component', () => {
           providers: [
             ApplicationFieldsService,
             {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            ForestService,
             FormBuilder,
             RouterTestingModule,
             TreesAdminService,
@@ -107,8 +116,10 @@ xdescribe('District Dates Admin Component', () => {
       fixture = TestBed.createComponent(AdminDistrictDatesComponent);
       component = fixture.debugElement.componentInstance;
       formBuilder = new FormBuilder();
+
       component.form = formBuilder.group({
-        forestId: ['', [Validators.required]],
+        forestAbbr: ['', [Validators.required]],
+        districtId: [''],
         dateTimeRange: formBuilder.group({
           endDateTime: [''],
           endDay: [''],
@@ -126,6 +137,7 @@ xdescribe('District Dates Admin Component', () => {
           startPeriod: ['']
         })
       });
+
       fixture.detectChanges();
     });
 
@@ -134,23 +146,23 @@ xdescribe('District Dates Admin Component', () => {
     });
 
 
-    it('should update season dates', () => {
+    it('should update district dates', () => {
       component.updateStatus = '';
-      component.forest = {
-        id: 1,
-        forestName: 'Arapaho and Roosevelt National Forests',
-        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-        forestAbbr: 'arp'
-      };
+      component.forest = component.forests.find(forest => forest.id === 1);
+
 
       component.dateStatus.hasErrors = false;
-      component.form.get('forestId').setValue('1');
+      component.form.get('forestAbbr').setValue('1');
+      component.form.get('districtId').setValue('ELKCREEK');
       component.form.get('dateTimeRange.startMonth').setValue('10');
       component.form.get('dateTimeRange.startDay').setValue('10');
       component.form.get('dateTimeRange.startYear').setValue('2017');
       component.form.get('dateTimeRange.endMonth').setValue('10');
       component.form.get('dateTimeRange.endDay').setValue('10');
       component.form.get('dateTimeRange.endYear').setValue('2018');
+      component.form.get('dateTimeRange.startHour').setValue('08');
+      component.form.get('dateTimeRange.startMinutes').setValue('30');
+      component.form.get('dateTimeRange.startPeriod').setValue('AM');
       expect(component.form.valid).toBeTruthy();
       component.updateSeasonDates();
     });
@@ -174,21 +186,29 @@ xdescribe('District Dates Admin Component', () => {
       });
     });
 
-    // it('should set start and end dates', () => {
-    //   component.forest = component.forests.find(forest => forest.id === 2);
-    //
-    //   component.setStartEndDate(component.forest, component.form);
-    //   expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
-    //   expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
-    //   expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
-    //   expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
-    //   expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
-    //   expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
-    //
-    //   component.forest = component.forests.find(forest => forest.id === 5);
-    //   component.setStartEndDate(component.forest, component.form);
-    //   expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
-    // });
+    it('should set start and end dates', () => {
+      component.forest = component.forests.find(forest => forest.id === 1);
+      component.district = component.forest.cuttingAreas.ELKCREEK;
+
+      component.setStartEndDate(component.forest, component.district, component.form);
+      expect(component.form.get('dateTimeRange.startMonth').value).toEqual('12');
+      expect(component.form.get('dateTimeRange.startDay').value).toEqual('02');
+      expect(component.form.get('dateTimeRange.startYear').value).toEqual('2017');
+
+      expect(component.form.get('dateTimeRange.startHour').value).toEqual('08');
+      expect(component.form.get('dateTimeRange.startMinutes').value).toEqual('30');
+      expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('AM');
+
+      expect(component.form.get('dateTimeRange.endMonth').value).toEqual('12');
+      expect(component.form.get('dateTimeRange.endDay').value).toEqual('09');
+      expect(component.form.get('dateTimeRange.endYear').value).toEqual('2017');
+
+      expect(component.form.get('dateTimeRange.endHour').value).toEqual('02');
+      expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
+      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
+
+
+    });
   });
 
   describe('user check', () => {
@@ -214,6 +234,7 @@ xdescribe('District Dates Admin Component', () => {
           providers: [
             ApplicationFieldsService,
             {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            ForestService,
             FormBuilder,
             { provide: Router, useValue: mockRouter },
             { provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute },
@@ -226,12 +247,14 @@ xdescribe('District Dates Admin Component', () => {
         }).compileComponents();
       })
     );
+
     beforeEach(() => {
       fixture = TestBed.createComponent(AdminDistrictDatesComponent);
       component = fixture.debugElement.componentInstance;
       formBuilder = new FormBuilder();
       component.form = formBuilder.group({
-        forestId: ['', [Validators.required]],
+        forestAbbr: ['', [Validators.required]],
+        districtId: [''],
         dateTimeRange: formBuilder.group({
           endDateTime: [''],
           endDay: [''],
