@@ -101,8 +101,9 @@ export class AdminDistrictDatesComponent implements OnInit {
           this.forests = this.forests.filter(forest =>
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
+          this.setForest(this.forests[0].forestAbbr);
         }
-        this.setForest(this.forests[0].forestAbbr);
+
       }
     });
   }
