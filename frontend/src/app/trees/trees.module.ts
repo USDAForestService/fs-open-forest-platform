@@ -16,11 +16,13 @@ import { ChristmasTreesApplicationService } from './_services/christmas-trees-ap
 import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
+import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 
 @NgModule({
   declarations: [
     ReportComponent,
     ReportResultsComponent,
+    AdminDistrictDatesComponent,
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,

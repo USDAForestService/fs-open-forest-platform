@@ -1,0 +1,62 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h1 id="skip-nav-target" tabindex="-1">Update District Dates</h1>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">{{ updateStatus }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
+      <div>
+        <fieldset class="usa-form-group">
+          <legend class="fs-datetime-legend">
+            To update individual district dates, please select a forest.
+          </legend>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
+        </fieldset>
+
+
+        <div>
+          <p>If your forest is not listed, please <a href="#">request access</a>.</p>
+        </div>
+        <div *ngIf="!districts && forest">{{forest.forestName}} does not have any districts or cutting areas
+          with start and end times different from the forest season start and end dates. Please
+          <a href="#">submit a request</a> to have them created if needed.
+        </div>
+
+        <div [hidden]="!districts">
+          <fieldset class="usa-form-group" *ngIf="districts">
+            <legend class="fs-datetime-legend">
+              To update district dates with times different than the forest season dates, please select a district or cutting area.
+
+            </legend>
+            <p>To update, remove or create a new cutting area or district please
+              <a href="#">submit a request</a>.
+            </p>
+            <ng-container *ngFor="let district of districts; let i = index">
+              <input id="{{district.name}}-button" type="radio" [value]="district.name" formControlName="districtName" [checked]="i === 0">
+              <label for="{{district.name}}-button" id="{{district.name}}-button-label">{{district.name}}</label>
+            </ng-container>
+          </fieldset>
+          <div>
+            <app-date-time-range [parentForm]="form" includePastDates="false"
+                                 (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+          </div>
+
+
+          <button id="update-dates" class="usa-button-primary-alt usa-button-big" type="submit">Update dates and times</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>

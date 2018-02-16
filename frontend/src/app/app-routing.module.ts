@@ -28,6 +28,7 @@ import { TreePermitViewComponent } from './application-forms/tree-application-fo
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
+import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
 
 const appRoutes: Routes = [
   {
@@ -114,6 +115,15 @@ const appRoutes: Routes = [
         data: {
           title: 'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting',
           breadcrumbs: 'Christmas trees permits season dates',
+          admin: true
+        }
+      },
+      {
+        path: 'district-dates',
+        component: AdminDistrictDatesComponent,
+        data: {
+          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits Ranger District dates',
           admin: true
         }
       }
