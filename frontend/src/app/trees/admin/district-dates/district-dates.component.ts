@@ -66,7 +66,7 @@ export class AdminDistrictDatesComponent implements OnInit {
       this.forest = forest;
       if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
         this.districts = Object.keys(forest.cuttingAreas).map(cuttingArea => {
-          let district = forest.cuttingAreas[cuttingArea];
+          const district = forest.cuttingAreas[cuttingArea];
           district.id = cuttingArea;
           return district;
         });
@@ -108,7 +108,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   setStartEndDate(forest, area, form) {
-    let formGroup = { startDate: null, endDate: null };
+    const formGroup = { startDate: null, endDate: null };
     formGroup.startDate = moment(area.startDate).tz(forest.timezone);
     formGroup.endDate = moment(area.endDate).tz(forest.timezone);
     this.treesAdminService.setStartEndDate(formGroup, form);
