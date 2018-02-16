@@ -47,12 +47,16 @@ export class AdminDistrictDatesComponent implements OnInit {
     });
 
     this.form.get('forestAbbr').valueChanges.subscribe(forestAbbr => {
-      this.setForest(forestAbbr);
+      if (forestAbbr) {
+        this.setForest(forestAbbr);
+      }
     });
 
     this.form.get('districtName').valueChanges.subscribe(districtName => {
-      this.district = this.districts.find(district => district.name === districtName);
-      this.setStartEndDate(this.forest, this.district, this.form);
+      if (districtName) {
+        this.district = this.districts.find(district => district.name === districtName);
+        this.setStartEndDate(this.forest, this.district, this.form);
+      }
     });
 
   }
@@ -69,6 +73,12 @@ export class AdminDistrictDatesComponent implements OnInit {
         });
         this.district = this.districts[0];
         this.setStartEndDate(this.forest, this.district, this.form);
+        if (this.forest && this.form.get('forestAbbr').value !== this.forests[0].forestAbbr) {
+          this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
+        }
+        if (this.district && this.form.get('districtName').value !== this.district.name) {
+          this.form.get('districtName').setValue(this.district.name);
+        }
       } else {
         this.district = null;
         this.districts = null;
@@ -94,13 +104,7 @@ export class AdminDistrictDatesComponent implements OnInit {
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
         }
-        this.setForest(this.forests[0].forestAbbr); // set default to first forest
-        if (this.forest) {
-          this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
-        }
-        if (this.district) {
-          this.form.get('districtName').setValue(this.district.name);
-        }
+        this.setForest(this.forests[0].forestAbbr);
       }
     });
   }
@@ -121,16 +125,17 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   private updateDates() {
-    if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
+    debugger
+    if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
       const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
       this.service
-        .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
+        .updateDistrictDates(this.forest, this.district.name, newStart, newEnd)
         .subscribe(
           () => {
-            this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
-              'MMM DD, YYYY'
-            )} to  ${newEnd.format('MMM DD, YYYY')}`;
+            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} are now ${newStart.format(
+              'MMM DD, YYYY hh:mm a'
+            )} to  ${newEnd.format('MMM DD, YYYY hh:mm a')}`;
             this.winRef.getNativeWindow().scroll(0, 200);
           },
           err => {
