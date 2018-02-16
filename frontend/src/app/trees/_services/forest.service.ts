@@ -1,3 +1,5 @@
+/* tslint:disable:no-shadowed-variable prefer-const */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
