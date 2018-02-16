@@ -145,20 +145,35 @@ christmasTreeAdmin.updateForest = (req, res) => {
     })
     .then(forest => {
       if (forest) {
-        const startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
-        const endDate = moment
-          .tz(req.body.endDate, forest.timezone)
-          .add(1, 'days')
-          .subtract(1, 'ms')
-          .format(util.datetimeFormat);
-        forest
-          .update({
-            startDate: startDate,
-            endDate: endDate
-          })
-          .then(savedForest => {
-            return res.status(200).json(savedForest);
-          });
+        if (util.getUser(req).forests.includes(forest.forestAbbr)) {
+          let startDate = forest.startDate;
+          let endDate = forest.endDate;
+          let cuttingAreas = forest.cuttingAreas;
+
+          if (req.body.cuttingAreas) {
+            cuttingAreas = req.body.cuttingAreas;
+          }
+          if (req.body.startDate && req.body.endDate) {
+            startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
+            endDate = moment
+              .tz(req.body.endDate, forest.timezone)
+              .add(1, 'days')
+              .subtract(1, 'ms')
+              .format(util.datetimeFormat);
+          }
+
+          forest
+            .update({
+              startDate: startDate,
+              endDate: endDate,
+              cuttingAreas: cuttingAreas
+            })
+            .then(savedForest => {
+              return res.status(200).json(savedForest);
+            });
+        } else {
+          return res.status(403).json({ errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] });
+        }
       } else {
         return res.status(400).json({ errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] });
       }
