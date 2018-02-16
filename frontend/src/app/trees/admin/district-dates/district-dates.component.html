@@ -16,7 +16,7 @@
       <div>
         <fieldset class="usa-form-group">
           <legend class="fs-datetime-legend">
-            To update individual district dates, please select a forest.
+            To update individual area dates and times, please select a forest.
           </legend>
           <ng-container *ngFor="let forest of forests; let i = index">
             <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
@@ -28,18 +28,17 @@
         <div>
           <p>If your forest is not listed, please <a href="#">request access</a>.</p>
         </div>
-        <div *ngIf="!districts && forest">{{forest.forestName}} does not have any districts or cutting areas
-          with start and end times different from the forest season start and end dates. Please
+        <div *ngIf="!districts && forest">{{forest.forestName}} does not have any individual areas configured. Please
           <a href="#">submit a request</a> to have them created if needed.
         </div>
 
         <div [hidden]="!districts">
           <fieldset class="usa-form-group" *ngIf="districts">
             <legend class="fs-datetime-legend">
-              To update district dates with times different than the forest season dates, please select a district or cutting area.
+              To update individual areas, please select an area.
 
             </legend>
-            <p>To update, remove or create a new cutting area or district please
+            <p>To update, remove or create a new area please
               <a href="#">submit a request</a>.
             </p>
             <ng-container *ngFor="let district of districts; let i = index">
