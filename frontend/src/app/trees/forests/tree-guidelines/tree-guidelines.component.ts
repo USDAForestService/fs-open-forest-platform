@@ -8,7 +8,6 @@ import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
 
-
 @Component({
   selector: 'app-tree-info',
   templateUrl: './tree-guidelines.component.html',
@@ -136,6 +135,16 @@ export class TreeGuidelinesComponent implements OnInit {
           }
         });
       }
+    });
+
+    this.markdownService.setMarkedOptions({ 
+      gfm: true, 
+      tables: true,
+      breaks: true, 
+      pedantic: false, 
+      sanitize: false,
+      smartLists: true, 
+      smartypants: false 
     });
   }
 }
