@@ -66,11 +66,20 @@ export class ChristmasTreesApplicationService {
   }
 
   updateDistrictDates(forest, districtName, startDate, endDate) {
-    const cuttingAreas = forest.cuttingAreas;
-    cuttingAreas[districtName].startDate = moment(startDate).tz(forest.timezone).format('YYYY-MM-DD HH:mm:ss');
-    cuttingAreas[districtName].endDate = moment(endDate).tz(forest.timezone).format('YYYY-MM-DD HH:mm:ss');
+    const cuttingAreas = Object.assign({}, forest.cuttingAreas);
+    const format = 'YYYY-MM-DDTHH:mm:ss';
+
+    const tzStartDate = moment.tz(startDate, format, forest.timezone);
+    tzStartDate.utc();
+
+    const tzEndDate = moment.tz(endDate, format, forest.timezone);
+    tzEndDate.utc();
+
+    cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
+    cuttingAreas[districtName].endDate = tzEndDate.format(format) + 'Z';
 
     const body = { cuttingAreas: cuttingAreas };
+
     return this.http
       .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true })
       .catch(this.util.handleError);
