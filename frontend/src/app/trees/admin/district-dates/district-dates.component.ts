@@ -48,12 +48,14 @@ export class AdminDistrictDatesComponent implements OnInit {
 
     this.form.get('forestAbbr').valueChanges.subscribe(forestAbbr => {
       if (forestAbbr) {
+        this.updateStatus = null;
         this.setForest(forestAbbr);
       }
     });
 
     this.form.get('districtId').valueChanges.subscribe(districtId => {
       if (districtId) {
+        this.updateStatus = null;
         this.district = this.districts.find(district => district.id === districtId);
         this.setStartEndDate(this.forest, this.district, this.form);
       }
@@ -82,11 +84,6 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.districts = null;
       }
     });
-  }
-
-  resetForms() {
-    this.updateStatus = null;
-    this.forest = null;
   }
 
   ngOnInit() {

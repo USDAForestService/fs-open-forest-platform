@@ -44,15 +44,11 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     this.form.get('forestId').valueChanges.subscribe(id => {
       const forestId = parseInt(id, 10);
       if (forestId) {
+        this.updateStatus = null;
         this.forest = this.forests.find(forest => forest.id === forestId);
         this.setStartEndDate(this.forest, this.form);
       }
     });
-  }
-
-  resetForms() {
-    this.updateStatus = null;
-    this.forest = null;
   }
 
   ngOnInit() {
