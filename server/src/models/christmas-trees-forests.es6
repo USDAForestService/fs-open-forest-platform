@@ -86,6 +86,10 @@ module.exports = function(sequelize, DataTypes) {
       timezone: {
         type: DataTypes.STRING,
         field: 'timezone'
+      },
+      cuttingAreas: {
+        type: DataTypes.STRING(500),
+        field: 'cutting_areas'
       }
     },
     {

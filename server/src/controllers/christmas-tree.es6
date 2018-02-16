@@ -12,53 +12,9 @@ const paygov = require('../services/paygov.es6');
 const permitSvgService = require('../services/svg-util.es6');
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
+const forestService = require('../services/forest.service.es6');
 
 const christmasTree = {};
-
-const translateGuidelinesFromDatabaseToClient = input => {
-  let startDate = moment(input.startDate);
-  let endDate = moment(input.endDate);
-
-  return {
-    id: input.id,
-    forestName: input.forestName,
-    description: input.description,
-    forestAbbr: input.forestAbbr,
-    forestNameShort: input.forestNameShort,
-    forestUrl: input.forestUrl,
-    orgStructureCode: input.orgStructureCode,
-    treeHeight: input.treeHeight,
-    stumpHeight: input.stumpHeight,
-    stumpDiameter: input.stumpDiameter,
-    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
-    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
-    treeCost: input.treeCost,
-    maxNumTrees: input.maxNumTrees,
-    allowAdditionalHeight: input.allowAdditionalHeight,
-    timezone: input.timezone,
-    species: input.christmasTreesForestSpecies.map(species => {
-      return {
-        id: species.species.id,
-        name: species.species.name,
-        webUrl: species.species.webUrl,
-        status: species.status,
-        notes: species.species.speciesNotes.map(notes => {
-          return notes.note;
-        })
-      };
-    }),
-    locations: input.christmasTreesForestLocations.map(location => {
-      return {
-        id: location.id,
-        district: location.district,
-        allowed: location.allowed,
-        type: location.type,
-        description: location.description,
-        imageFilename: location.imageFilename
-      };
-    })
-  };
-};
 
 const translatePermitFromClientToDatabase = input => {
   return {
@@ -93,45 +49,22 @@ christmasTree.getForests = (req, res) => {
     });
 };
 
-christmasTree.getOneGuidelines = (req, res) => {
+christmasTree.getForest = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
       where: {
         forestAbbr: req.params.id
-      },
-      include: [
-        {
-          model: treesDb.christmasTreesForestSpecies,
-          include: [
-            {
-              model: treesDb.species,
-              include: [
-                {
-                  model: treesDb.speciesNotes
-                }
-              ]
-            }
-          ]
-        },
-        {
-          model: treesDb.christmasTreesForestLocations
-        }
-      ],
-      order: [
-        [treesDb.christmasTreesForestSpecies, treesDb.species, treesDb.speciesNotes, 'display_order', 'ASC'],
-        [treesDb.christmasTreesForestLocations, 'description', 'ASC'],
-        [treesDb.christmasTreesForestSpecies, 'id', 'ASC']
-      ]
+      }
     })
     .then(app => {
       if (app) {
-        res.status(200).json(translateGuidelinesFromDatabaseToClient(app));
+        res.status(200).json(forestService.translateForestFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
     })
     .catch(error => {
-      console.error('christmasTree controller getOneGuidelines error for forest abbr ' + req.params.id, error);
+      console.error('christmasTree controller getForest error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
@@ -175,7 +108,7 @@ const permitResult = (permit, svgData) => {
     paygovTrackingId: permit.paygovTrackingId,
     permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
-    permitTrackingId: zpad(permit.permitTrackingId, 8),
+    permitNumber: zpad(permit.permitNumber, 8),
     forest: {
       forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
       forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,

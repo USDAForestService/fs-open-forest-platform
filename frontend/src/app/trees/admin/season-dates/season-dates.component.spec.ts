@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { AdminSeasonDatesComponent } from './season-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
+import { MockRouter } from '../../../_mocks/routes.mock';
 
 describe('Season Dates Admin Component', () => {
   let component: AdminSeasonDatesComponent;
@@ -79,108 +80,200 @@ describe('Season Dates Admin Component', () => {
     }
   }
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [AdminSeasonDatesComponent],
-        providers: [
-          ApplicationFieldsService,
-          { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
-          FormBuilder,
-          TreesAdminService,
-          UtilService,
-          { provide: WindowRef, useClass: MockWindowRef }
-        ],
-        imports: [RouterTestingModule, HttpClientTestingModule],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
-    })
-  );
 
-  beforeEach(() => {
-    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
-    fixture = TestBed.createComponent(AdminSeasonDatesComponent);
-    component = fixture.debugElement.componentInstance;
-    formBuilder = new FormBuilder();
-    component.form = formBuilder.group({
-      forestId: ['', [Validators.required]],
-      dateTimeRange: formBuilder.group({
-        endDateTime: [''],
-        endDay: [''],
-        endMonth: [''],
-        endYear: [''],
-        endHour: [''],
-        endMinutes: ['00'],
-        endPeriod: [''],
-        startDateTime: [''],
-        startDay: [''],
-        startMonth: [''],
-        startYear: [''],
-        startHour: [''],
-        startMinutes: ['00'],
-        startPeriod: ['']
+
+  describe('', () => {
+    beforeEach(
+      async(() => {
+        TestBed.configureTestingModule({
+          declarations: [AdminSeasonDatesComponent],
+          providers: [
+            ApplicationFieldsService,
+            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            FormBuilder,
+            RouterTestingModule,
+            TreesAdminService,
+            UtilService,
+            {provide: WindowRef, useClass: MockWindowRef}
+          ],
+          imports: [RouterTestingModule, HttpClientTestingModule],
+          schemas: [NO_ERRORS_SCHEMA]
+        }).compileComponents();
       })
+    );
+
+    beforeEach(() => {
+      TestBed.overrideProvider(ActivatedRoute, {useValue: mockActivatedRoute});
+      fixture = TestBed.createComponent(AdminSeasonDatesComponent);
+      component = fixture.debugElement.componentInstance;
+      formBuilder = new FormBuilder();
+      component.form = formBuilder.group({
+        forestId: ['', [Validators.required]],
+        dateTimeRange: formBuilder.group({
+          endDateTime: [''],
+          endDay: [''],
+          endMonth: [''],
+          endYear: [''],
+          endHour: [''],
+          endMinutes: ['00'],
+          endPeriod: [''],
+          startDateTime: [''],
+          startDay: [''],
+          startMonth: [''],
+          startYear: [''],
+          startHour: [''],
+          startMinutes: ['00'],
+          startPeriod: ['']
+        })
+      });
+      fixture.detectChanges();
     });
-    fixture.detectChanges();
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+
+    it('should update season dates', () => {
+      component.updateStatus = '';
+      component.forest = {
+        id: 1,
+        forestName: 'Arapaho and Roosevelt National Forests',
+        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+        forestAbbr: 'arp'
+      };
+
+      component.dateStatus.hasErrors = false;
+      component.form.get('forestId').setValue('1');
+      component.form.get('dateTimeRange.startMonth').setValue('10');
+      component.form.get('dateTimeRange.startDay').setValue('10');
+      component.form.get('dateTimeRange.startYear').setValue('2017');
+      component.form.get('dateTimeRange.endMonth').setValue('10');
+      component.form.get('dateTimeRange.endDay').setValue('10');
+      component.form.get('dateTimeRange.endYear').setValue('2018');
+      expect(component.form.valid).toBeTruthy();
+      component.updateSeasonDates();
+    });
+
+    it('should update date status', () => {
+      component.updateDateStatus({
+        startDateTimeValid: false,
+        endDateTimeValid: false,
+        startBeforeEnd: false,
+        startAfterToday: false,
+        hasErrors: false,
+        dateTimeSpan: 0
+      });
+      expect(component.dateStatus).toEqual({
+        startDateTimeValid: false,
+        endDateTimeValid: false,
+        startBeforeEnd: false,
+        startAfterToday: false,
+        hasErrors: false,
+        dateTimeSpan: 0
+      });
+    });
+
+    it('should set start and end dates', () => {
+      component.forest = component.forests.find(forest => forest.id === 2);
+
+      component.setStartEndDate(component.forest, component.form);
+      expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
+      expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
+      expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
+      expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
+      expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
+      expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+
+      component.forest = component.forests.find(forest => forest.id === 5);
+      component.setStartEndDate(component.forest, component.form);
+      expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('user check', () => {
+    let mockRouter: MockRouter;
 
-  it('should update season dates', () => {
-    component.updateStatus = '';
-    component.forest = {
-      id: 1,
-      forestName: 'Arapaho and Roosevelt National Forests',
-      description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-      forestAbbr: 'arp'
+    const mockNoForestsActivatedRoute = {
+      params: Observable.of(
+        {id: 1}
+      ),
+      data: Observable.of(
+        {
+          user: {email: 'test@test.com', role: 'admin', forests: []},
+          forests: []
+        }
+      )
     };
 
-    component.dateStatus.hasErrors = false;
-    component.form.get('forestId').setValue('1');
-    component.form.get('dateTimeRange.startMonth').setValue('10');
-    component.form.get('dateTimeRange.startDay').setValue('10');
-    component.form.get('dateTimeRange.startYear').setValue('2017');
-    component.form.get('dateTimeRange.endMonth').setValue('10');
-    component.form.get('dateTimeRange.endDay').setValue('10');
-    component.form.get('dateTimeRange.endYear').setValue('2018');
-    expect(component.form.valid).toBeTruthy();
-    component.updateSeasonDates();
-  });
+    beforeEach(
+      async(() => {
+        mockRouter = new MockRouter();
+        TestBed.configureTestingModule({
+          declarations: [AdminSeasonDatesComponent],
+          providers: [
+            ApplicationFieldsService,
+            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            FormBuilder,
+            { provide: Router, useValue: mockRouter },
+            { provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute },
+            TreesAdminService,
+            UtilService,
+            {provide: WindowRef, useClass: MockWindowRef}
+          ],
+          imports: [HttpClientTestingModule],
+          schemas: [NO_ERRORS_SCHEMA]
+        }).compileComponents();
+      })
+    );
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AdminSeasonDatesComponent);
+      component = fixture.debugElement.componentInstance;
+      formBuilder = new FormBuilder();
+      component.form = formBuilder.group({
+        forestId: ['', [Validators.required]],
+        dateTimeRange: formBuilder.group({
+          endDateTime: [''],
+          endDay: [''],
+          endMonth: [''],
+          endYear: [''],
+          endHour: [''],
+          endMinutes: ['00'],
+          endPeriod: [''],
+          startDateTime: [''],
+          startDay: [''],
+          startMonth: [''],
+          startYear: [''],
+          startHour: [''],
+          startMinutes: ['00'],
+          startPeriod: ['']
+        })
+      });
 
-  it('should update date status', () => {
-    component.updateDateStatus({
-      startDateTimeValid: false,
-      endDateTimeValid: false,
-      startBeforeEnd: false,
-      startAfterToday: false,
-      hasErrors: false,
-      dateTimeSpan: 0
     });
-    expect(component.dateStatus).toEqual({
-      startDateTimeValid: false,
-      endDateTimeValid: false,
-      startBeforeEnd: false,
-      startAfterToday: false,
-      hasErrors: false,
-      dateTimeSpan: 0
+
+    it ('should send a user with no forests to access denied', () => {
+      fixture.detectChanges();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
     });
-  });
 
-  it('should set start and end dates', () => {
-    component.forest = component.forests.find(forest => forest.id === 2);
+    it ('should send a user with null forests to access denied', () => {
+      const mockNullForestsActivatedRoute = {
+        params: Observable.of(
+          {id: 1}
+        ),
+        data: Observable.of(
+          {
+            user: {email: 'test@test.com', role: 'admin'},
+            forests: []
+          }
+        )
+      };
+      TestBed.overrideProvider(ActivatedRoute, { useValue: mockNullForestsActivatedRoute });
 
-    component.setStartEndDate(component.forest, component.form);
-    expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
-    expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
-    expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
-    expect(component.form.get('dateTimeRange.endMonth').value).toEqual('09');
-    expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
-    expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+      fixture.detectChanges();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
+    });
 
-    component.forest = component.forests.find(forest => forest.id === 5);
-    component.setStartEndDate(component.forest, component.form);
-    expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });
 });

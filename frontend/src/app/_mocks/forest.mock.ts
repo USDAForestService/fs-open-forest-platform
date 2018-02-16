@@ -1,13 +1,20 @@
+import * as moment from 'moment-timezone';
+
+
 export const forest = {
   id: 3,
   forestName: 'Mt. Hood',
+  forestAbbr: 'mthood',
+  treeCost: 10,
+  maxNumTrees: 5,
   description: null,
   forestUrl: 'https://www.fs.usda.gov/mthood',
   treeHeight: 12,
   stumpHeight: 6,
+  orgStructureCode: '123',
   stumpDiameter: 6,
-  startDate: '2017-11-01T12:00:00.000Z',
-  endDate: '2017-12-24T12:00:00.000Z',
+  startDate: moment('2017-11-01T12:00:00.000Z').toDate(),
+  endDate: moment('2017-12-24T12:00:00.000Z').toDate(),
   timezone: 'America/Los_Angeles',
   species: [
     {

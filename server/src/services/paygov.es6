@@ -70,7 +70,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                       tcs_app_id: tcsAppID
                     },
                     {
-                      agency_tracking_id: permit.permitTrackingId
+                      agency_tracking_id: permit.permitNumber
                     },
                     {
                       transaction_type: 'Sale'

@@ -24,6 +24,137 @@ The opportunity statement = the problem we are trying to solve with the ePermitt
 
 We had the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
 
+## Site maintenance
+
+### Database and seeders
+
+The database is used to provide data for a minimal set of variables that are shared
+throughout the site (e.g. on the permit svg and the guidelines.)  Currently the database contains the following fields:
+
+#### ChristmasTreesForests database table
+
+#### Fields
+
+**id**: Automatically created for each forest starting at 1.  
+**forest_name**: The complete forest name, e.g. Arapaho and Roosevelt National Forests - should contain "National Forest"  
+**forest_url**: Link to the main USDA site, e.g., 'https://www.fs.usda.gov/main/arp'  
+**tree_height**: Maxmimum tree harvesting height in feet, e.g. 12. Set to 0 if not used in the forest.  
+**stump_height**: Maximum stump height in inches, e.g. 6. Set to 0 if unused.   
+**stump_diameter**: Maximum stump diameter in inches, e.g. 4. Set to 0 if unused.  
+**start_date**: The season start date, e.g. '2018-11-01T06:00:00Z'. Set via the admin page.  
+**end_date**: The season end date, e.g. '2018-11-01T06:00:00Z'. Set via the admin page.  
+**org_structure_code**: The USDA org structure code, e.g. '11-02-10T'    
+**description**: A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt | Colorado | Fort Collins, CO.      
+**forest_abbr**: The forest abbreviation as determined by the USDA, e.g., arp    
+**tree_cost**: Cost per harvested tree in dollars, e.g. 10.   
+**max_num_trees**: Maximum number of trees that can be harvested on a single permit, e.g. 5.    
+**forest_name_short**: The forest name short format, e.g., Arapaho and Roosevelt.    
+**timezone**: The timezone of the forest for moment.js as determined by a major city, e.g. America/Denver.    
+
+### Markdown and forest content
+
+Each forest has a separate directory under *frontend/src/assets/content* which uses the forest_abbr as added to the ChristmasTreeForests table in 
+the database, e.g. *frontend/src/assets/content/mthood*.
+
+Each directory contains several markdown files and folders that comprise the bulk of the data for the forest within the site
+on the guidelines page, e.g. */christmas-trees/forests/flathead*. 
+
+#### Season dates
+
+**Directory**: frontend/src/assets/content/*forestAbbr*/season-dates  
+
+**File**: additional-information.md  
+**Contains**: Start dates for various districts within the forest if they differ from the overall start date and end dates.
+
+
+#### Cutting instructions
+
+**Directory**: frontend/src/assets/content/*forestAbbr*/cutting-instructions  
+
+**File**: before-you-cut.md  
+**Contains**: Information to help the user locate trees they can harvest and avoid those they cannot harvest.
+
+**File**: when-you-cut.md  
+**Contains**: Information to help the user harvest a tree.
+
+#### Rules to know
+
+**Directory**: frontend/src/assets/content/*forestAbbr*/rules-to-know  
+
+**File**: cutting-your-tree.md  
+**Contains**: Rules user must follow when harvesting.
+
+**File**: prohibited-rules.md  
+**Contains**: Rules users must follow when selecting a tree.
+
+#### Trip planning
+**Directory**: frontend/src/assets/content/*forestAbbr*/trip-planning  
+
+**File**: how-to-plan-your-trip.md  
+**Contains**: Helpful information before leaving home to visit the forest.
+
+#### Tree locations
+
+**Directory**: frontend/src/assets/content/*forestAbbr*/tree-locations  
+
+**File**: allowed.md  
+**Contains**: Information on where harvesting is allowed in the forest along with links to maps
+found in */assets/images*.
+
+**File**: prohibited.md  
+**Contains**: Information on where harvesting is not allowed in the forest.
+
+#### Contact information
+
+**Directory**: frontend/src/assets/content/*forestAbbr*/contact-information  
+
+**File**: contact-us.md  
+**Contains**: Contact information for the forest.
+ 
+
+### JSON forest content
+JSON files for forest content are in */assets/config*
+
+#### Forest JSON - tree species
+Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., shared
+tree species information.  The shared tree species are located in *frontend/src/assets/content/common/species*.
+
+To remove a species from a given forest simply delete the json for the species from the forest's treeSpecies json.
+
+To associate a species to a forest add the data into the json.  For example to add Lodgepole Pine
+to Mt. Hood:
+
+1. Open up */assets/config/christmasTreesForests-mthood.json
+2. At the correct position in the json add the treeSpecies json within the treeSpecies object.
+```
+      {
+         "id": "pacific-yew",
+         "name": "Pacific Yew",
+         "status": "prohibited"
+      },
+      {
+         "id": "lodgepole-pine",
+         "name": "Lodgepole Pine",
+         "status": "not recommended"
+      }
+    ]  
+```
+
+To change the status of a tree species simply update the status to one of the following:
+
+```
+  prohibited
+  not recommended
+  recommended
+```
+
+#### Christmas Tree sidebar
+Sidebar data is in */assets/config/christmasTreesSidebar.json*
+
+The ids in the sidebar json must match the ids in the tree-guidelines.component.html for the
+sidebar scrolling and section indicator to work correctly.
+
+
 ## Development
 
 ### Contributing
@@ -245,7 +376,7 @@ To mock Pay.Gov integration use the values in the VCAP example.
 
 * To mock a pay.gov complete collection error, use credit card number `000000000000XXXX`. The last four XXXX represent the pay.gov error code.
 
-##### Pay.gov in staging environment
+##### Pay.gov in QA environment
 
 * A valid credit card number in staging environment is `4111111111111111`.
 

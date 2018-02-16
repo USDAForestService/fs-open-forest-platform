@@ -17,7 +17,7 @@ const returnPermitResults = (results, res) => {
     let sumOfCost = 0;
     results.forEach(permit => {
       let eachPermit = {};
-      eachPermit.permitNumber = zpad(permit.permitTrackingId, 8);
+      eachPermit.permitNumber = zpad(permit.permitNumber, 8);
       if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
         eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -60,7 +60,7 @@ christmasTreeAdmin.getPermits = (req, res) => {
         .findAll({
           attributes: [
             'forestId',
-            'permitTrackingId',
+            'permitNumber',
             'updatedAt',
             'quantity',
             'totalCost',
@@ -99,35 +99,25 @@ christmasTreeAdmin.getPermits = (req, res) => {
     });
 };
 
-christmasTreeAdmin.getPermitByTrackingId = (req, res) => {
+christmasTreeAdmin.getPermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
-      attributes: [
-        'permitId',
-        'forestId',
-        'permitTrackingId',
-        'updatedAt',
-        'quantity',
-        'totalCost',
-        'permitExpireDate'
-      ],
+      attributes: ['permitId', 'forestId', 'permitNumber', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
       where: {
-        permitTrackingId: req.params.permitTrackingId,
+        permitNumber: req.params.permitNumber,
         status: 'Completed'
       }
     })
     .then(requestedPermit => {
       if (requestedPermit === null) {
-        return res
-          .status(400)
-          .json({
-            errors: [
-              {
-                errorCode: 'notFound',
-                message: `Permit number ${req.params.permitTrackingId} was not found.`,
-              }
-            ]
-          });
+        return res.status(400).json({
+          errors: [
+            {
+              errorCode: 'notFound',
+              message: `Permit number ${req.params.permitNumber} was not found.`
+            }
+          ]
+        });
       } else {
         return returnPermitResults([requestedPermit], res);
       }
@@ -155,20 +145,35 @@ christmasTreeAdmin.updateForest = (req, res) => {
     })
     .then(forest => {
       if (forest) {
-        const startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
-        const endDate = moment
-          .tz(req.body.endDate, forest.timezone)
-          .add(1, 'days')
-          .subtract(1, 'ms')
-          .format(util.datetimeFormat);
-        forest
-          .update({
-            startDate: startDate,
-            endDate: endDate
-          })
-          .then(savedForest => {
-            return res.status(200).json(savedForest);
-          });
+        if (util.getUser(req).forests.includes(forest.forestAbbr)) {
+          let startDate = forest.startDate;
+          let endDate = forest.endDate;
+          let cuttingAreas = forest.cuttingAreas;
+
+          if (req.body.cuttingAreas) {
+            cuttingAreas = req.body.cuttingAreas;
+          }
+          if (req.body.startDate && req.body.endDate) {
+            startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
+            endDate = moment
+              .tz(req.body.endDate, forest.timezone)
+              .add(1, 'days')
+              .subtract(1, 'ms')
+              .format(util.datetimeFormat);
+          }
+
+          forest
+            .update({
+              startDate: startDate,
+              endDate: endDate,
+              cuttingAreas: cuttingAreas
+            })
+            .then(savedForest => {
+              return res.status(200).json(savedForest);
+            });
+        } else {
+          return res.status(403).json({ errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] });
+        }
       } else {
         return res.status(400).json({ errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] });
       }

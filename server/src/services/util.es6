@@ -194,7 +194,7 @@ util.getUser = req => {
     return {
       email: 'test@test.com',
       role: util.ADMIN_ROLE,
-      forests: util.getAdminForests('test@test.com').forests
+      forests: util.getAdminForests('test@test.com')
     };
   } else {
     return req.user;
@@ -251,13 +251,17 @@ util.getRandomString = length => {
  * Get the assigned forests to the christmas trees forest admins by email address
  */
 util.getAdminForests = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
+  const user = vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
+  if (user && user.forests) {
+    return user.forests;
+  } else {
+    return [];
+  }
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
-    ? util.ADMIN_ROLE
-    : util.USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? util.ADMIN_ROLE :
+    util.USER_ROLE;
 };
 
 util.request = request;

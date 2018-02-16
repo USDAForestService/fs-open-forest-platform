@@ -19,7 +19,7 @@ module.exports = factory.factory({
   paygovTrackingId: 'C81BBB6BED',
   permitExpireDate: new Date('2018-12-24T12:00:00.000Z'),
   paygovError: null,
-  permitTrackingId: 99999999,
+  permitNumber: 99999999,
   christmasTreesForest: {
     id: 3,
     forestName: 'Mt. Hood National Forest',

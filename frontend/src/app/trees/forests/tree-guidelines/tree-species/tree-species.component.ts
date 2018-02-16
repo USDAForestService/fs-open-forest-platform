@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ForestService } from '../../../_services/forest.service';
 
 @Component({
   selector: 'app-tree-species',
   templateUrl: './tree-species.component.html'
 })
-export class TreeSpeciesComponent implements OnInit {
+export class TreeSpeciesComponent {
   @Input() forest: any;
-  species: any;
 
   constructor(public forestService: ForestService) {}
   statusClass(status) {
@@ -24,10 +23,5 @@ export class TreeSpeciesComponent implements OnInit {
         break;
     }
     return css_class;
-  }
-  ngOnInit() {
-    this.forestService.getJSON(this.forest.forestAbbr).subscribe(speciesData => {
-      this.species = speciesData.treeSpecies;
-    });
   }
 }

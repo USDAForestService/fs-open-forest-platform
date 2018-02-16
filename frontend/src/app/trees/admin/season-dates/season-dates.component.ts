@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
@@ -32,6 +32,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     private treesAdminService: TreesAdminService,
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
     private winRef: WindowRef
@@ -40,9 +41,12 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       forestId: ['', [Validators.required]]
     });
 
-    this.form.get('forestId').valueChanges.subscribe(forestId => {
-      this.forest = this.forests.find(forest => forest.id === parseInt(forestId, 10));
-      this.setStartEndDate(this.forest, this.form);
+    this.form.get('forestId').valueChanges.subscribe(id => {
+      const forestId = parseInt(id, 10);
+      if (forestId) {
+        this.forest = this.forests.find(forest => forest.id === forestId);
+        this.setStartEndDate(this.forest, this.form);
+      }
     });
   }
 
@@ -53,15 +57,21 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if (data) {
+      if (data && data.user) {
         this.user = data.user;
         this.forests = data.forests;
-        if (this.user.forests.find(forest => forest !== 'all')) {
+        if (!this.user.forests || !this.user.forests.length) {
+          // route to access denied if the user doesn't have any forests
+          this.router.navigate(['access-denied']);
+        } else if (this.user.forests.find(forest => forest !== 'all')) {
           this.forests = this.forests.filter(forest =>
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
         }
         this.forest = this.forests[0];
+        if (this.forest) {
+          this.form.get('forestId').setValue(this.forest.id);
+        }
       }
     });
   }
@@ -90,8 +100,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
       const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
-      this.service
-        .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
+      this.service.updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
         .subscribe(
           () => {
             this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
