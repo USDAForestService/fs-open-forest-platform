@@ -14,18 +14,12 @@ import { MarkdownService } from 'ngx-md';
 export class MockMarked {
   public test = 'test';
   public text(text) {
-    console.log('INSIDE MARKED');
-    return 'test';
+    return text;
   }
 }
 
 export class MockMarkdownService {
-  public text() {
-    return 'test';
-  }
-
   public renderer() {
-    console.log('INSIDE RENDERER');
     return new MockMarked;
   }
 }
