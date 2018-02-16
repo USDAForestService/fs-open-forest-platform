@@ -1,30 +1,28 @@
 [comment]: <> (This section appears under the cutting dates)
 [comment]: <> (ELKCREEKDATE, ELKCREEKTIME etc are replaced with the values in the database.)
+[comment]: <> (H4's in this Markdown file are converted to span's in HTML to accomplish the look desired for this section)
 
-### Special Christmas Tree Cutting Areas
+<!-- ### Special Christmas Tree Cutting Areas -->
 
-#### Elk Creek
+### Sulphur Ranger District
+Permit sales are SULPHURDATE
+***
 
-##### Season dates
+#### Special Elk Creek Area
 
-ELKCREEKDATE
+Season dates | Cutting hours
+-------------|
+ELKCREEKDATE | ELKCREEKTIME
 
-##### Cutting hours
-ELKCREEKTIME Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
+***
 
-#### Red Feather Lakes
+### Canyon Lakes Ranger District
+Permit sales are CANYONLAKESDATE
+***
 
-##### Season dates
-REDFEATHERLAKESDATE
+#### Special Red Feather Lakes Area
 
-##### Cutting hours
-REDFEATHERLAKESTIME Must arrive at the cutting area before 2:30 and be out of the cutting area by 4:00.
+Season dates | Cutting hours
+-------------|
+REDFEATHERLAKESDATE | REDFEATHERLAKESTIME
 
-### Permit Sales
-
-#### Sulphur Ranger District
-SULPHURDATE
-Grand County Locations (Winter Park, Fraser, Granby, Grand Lake)
-
-#### Canyon Lakes Ranger District
-CANYONLAKESDATE

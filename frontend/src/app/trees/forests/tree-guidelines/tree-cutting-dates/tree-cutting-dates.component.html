@@ -1,19 +1,32 @@
-<h3 id="cutting-season-dates-heading">
-  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-    <use xlink:href="/assets/img/sprites.svg#fa-calendar" fill="black" />
-  </svg>
-  Season dates
-</h3>
+<div class="usa-grid" id="forest-cutting-hours-dates-container">
+  <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-hours-dates">
+    <div class="usa-width-one-sixth">
+      <svg class="icon" width="48" height="48" viewBox="0 0 66 66" aria-hidden="true">
+        <use xlink:href="/assets/img/season-dates-icon.svg#season-date-icon" fill="white"/>
+      </svg>
+    </div>
+    <div class="usa-width-five-sixths">
+      <h3 id="cutting-season-dates-heading" style="color:white">
+        Season dates
+      </h3>
+      <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
+      <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
+    </div>
+  </div>
 
-<div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
-<div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
+  <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-hours-dates">
+    <div class="usa-width-one-sixth" id="icon" >
+      <svg class="icon" width="48" height="48" viewBox="0 0 2304 2304" aria-hidden="true">
+        <use xlink:href="/assets/img/cutting-time-icon.svg#cutting-time-icon" fill="white" />
+      </svg>
+    </div>
+    <div class="usa-width-five-sixths">
+      <h3 id="cutting-season-daily-hours-heading" style="color:white">
+        Cutting hours
+      </h3>
+      <div id="cutting-season-daily-hours-default">Daylight hours only</div>
+    </div>
+  </div>
+</div>
 
-<h3 id="cutting-season-daily-hours-heading">
-  <svg class="icon" width="32" height="32" viewBox="0 0 2304 2304" aria-hidden="true">
-    <use xlink:href="/assets/img/sprites.svg#fa-clock-o" fill="black" />
-  </svg>
-  Cutting hours
-</h3>
-<div id="cutting-season-daily-hours-default">Daylight hours only</div>
-
-<markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/season-dates/additional-information.md"></markdown>
+<markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/season-dates/additional-information.md" id="season-dates-markdown"></markdown>
