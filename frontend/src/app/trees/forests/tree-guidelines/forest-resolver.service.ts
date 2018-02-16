@@ -13,7 +13,7 @@ export class ForestResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('id');
 
-    return this.service.getOne(id).catch(err => {
+    return this.service.getForestWithContent(id).catch(err => {
       return Observable.of(null);
     });
   }
