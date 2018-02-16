@@ -12,7 +12,6 @@ import * as moment from 'moment/moment';
 import { MarkdownService } from 'ngx-md';
 
 export class MockMarked {
-  public test = 'test';
   public text(text) {
     return text;
   }
