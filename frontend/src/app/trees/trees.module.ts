@@ -15,11 +15,13 @@ import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
+import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 
 @NgModule({
   declarations: [
     ReportComponent,
     ReportResultsComponent,
+    AdminDistrictDatesComponent,
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
