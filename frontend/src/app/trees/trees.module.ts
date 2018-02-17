@@ -13,7 +13,6 @@ import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
-import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
 
@@ -42,6 +41,6 @@ import { TreesAdminService } from './admin/trees-admin.service';
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ForestService, TreesAdminService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
+  providers: [ForestService, TreesAdminService, ChristmasTreesApplicationService]
 })
 export class TreesModule {}
