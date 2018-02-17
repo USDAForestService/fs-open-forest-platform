@@ -28,7 +28,7 @@ export class TreeGuidelinesComponent implements OnInit {
     public util: UtilService,
     public configService: SidebarConfigService,
     private datePipe: DatePipe,
-    private markdownService: MarkdownService
+    public markdownService: MarkdownService
   ) {}
 
   setSeasonStatus(forest) {
