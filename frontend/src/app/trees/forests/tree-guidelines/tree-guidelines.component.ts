@@ -93,7 +93,7 @@ export class TreeGuidelinesComponent implements OnInit {
     this.markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(this.forest);
       if (text.indexOf('{{') > -1) {
-        for(var i = 0; i < replaceArray.length; i++) {
+        for (let i = 0; i < replaceArray.length; i++) {
           text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), this.forest[replaceArray[i]]);
         }
       }
