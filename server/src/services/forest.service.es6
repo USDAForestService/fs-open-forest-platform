@@ -15,7 +15,7 @@ forestService.translateForestFromDatabaseToClient = input => {
   return {
     id: input.id,
     forestName: input.forestName,
-    cuttingAreas: JSON.parse(input.cuttingAreas),
+    cuttingAreas: input.cuttingAreas,
     description: input.description,
     forestAbbr: input.forestAbbr,
     forestNameShort: input.forestNameShort,

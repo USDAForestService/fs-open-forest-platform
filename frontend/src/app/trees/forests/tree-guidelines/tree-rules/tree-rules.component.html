@@ -1,6 +1,6 @@
 <div>
 
-  <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/rules-to-know/prohibited-rules.md"></markdown>
+  <markdown *ngIf="forest && forest.content" [data]="forest.content.prohibitedRules"></markdown>
 
   <ng-container *ngIf="(forest.species | filter: 'status':'prohibited').length">
     <h3>It is prohibited to gather:</h3>
@@ -22,5 +22,5 @@
     </div>
   </ng-container>
 
-  <markdown *ngIf="forest" path="/assets/content/{{forest.forestAbbr}}/rules-to-know/cutting-your-tree.md"></markdown>
+  <markdown *ngIf="forest && forest.content" [data]="forest.content.cuttingYourTree"></markdown>
 </div>

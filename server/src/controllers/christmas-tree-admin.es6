@@ -145,7 +145,7 @@ christmasTreeAdmin.updateForest = (req, res) => {
     })
     .then(forest => {
       if (forest) {
-        if (util.getUser(req).forests.includes(forest.forestAbbr)) {
+        if (util.getUser(req).forests.includes(forest.forestAbbr) || util.getUser(req).forests.includes('all')) {
           let startDate = forest.startDate;
           let endDate = forest.endDate;
           let cuttingAreas = forest.cuttingAreas;
