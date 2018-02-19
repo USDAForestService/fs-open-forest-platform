@@ -20,6 +20,8 @@ export class TreeGuidelinesComponent implements OnInit {
   sidebarItems;
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
+  private CUTTING_AREA_KEYS =  ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,8 @@ export class TreeGuidelinesComponent implements OnInit {
     private datePipe: DatePipe,
     public markdownService: MarkdownService
   ) {}
+
+
 
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
@@ -83,6 +87,19 @@ export class TreeGuidelinesComponent implements OnInit {
     return start.format(startFormat) + end.format(endFormat);
   }
 
+  parseCuttingAreaMarkdown(text) {
+    for (const key of this.CUTTING_AREA_KEYS) {
+      if (text.indexOf(key) > -1) {
+        const jsonKey = key.toUpperCase();
+        text = text
+          .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate))
+          .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate));
+      }
+    }
+
+    return text;
+  }
+
   formatCuttingAreaTime(startDate, endDate) {
     const start = moment(startDate).tz(this.forest.timezone).format('h:mm a - ');
     return start + moment(endDate).tz(this.forest.timezone).format('h:mm a.');
@@ -92,19 +109,14 @@ export class TreeGuidelinesComponent implements OnInit {
     this.markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(this.forest);
       if (text.indexOf('{{') > -1) {
+        text = this.parseCuttingAreaMarkdown(text); // cutting areas are handled special from other variables
+
         for (let i = 0; i < replaceArray.length; i++) {
           text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), this.forest[replaceArray[i]]);
         }
       }
 
-      const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
-      for (const key of cuttingAreaKeys) {
-        if (text.indexOf(key) > -1) {
-          text = text
-            .replace(key + 'DATE', this.formatCuttingAreaDate(this.forest.cuttingAreas[key].startDate, this.forest.cuttingAreas[key].endDate))
-            .replace(key + 'TIME', this.formatCuttingAreaTime(this.forest.cuttingAreas[key].startDate, this.forest.cuttingAreas[key].endDate));
-        }
-      }
+
       return text;
     };
 
