@@ -27,6 +27,7 @@ export class SectionHeadingComponent {
     if (viewableElements[0]) {
       if (viewableElements[0].attributes['attr-id'].value) {
         this.util.setCurrentSection(viewableElements[0].attributes['attr-id'].value);
+        history.replaceState(undefined, undefined, window.location.pathname + '#' + viewableElements[0].attributes['attr-id'].value)
       } else {
         this.util.setCurrentSection(viewableElements[0].id);
       }
