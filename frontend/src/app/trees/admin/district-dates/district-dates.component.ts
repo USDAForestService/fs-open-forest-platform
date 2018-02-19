@@ -91,6 +91,7 @@ export class AdminDistrictDatesComponent implements OnInit {
       if (data && data.user) {
         this.user = data.user;
         this.forests = data.forests;
+
         if (!this.user.forests || !this.user.forests.length) {
           // route to access denied if the user doesn't have any forests
           this.router.navigate(['access-denied']);
@@ -98,6 +99,9 @@ export class AdminDistrictDatesComponent implements OnInit {
           this.forests = this.forests.filter(forest =>
             this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
           );
+        }
+
+        if (this.forests[0]) { // set default forest to first one
           this.setForest(this.forests[0].forestAbbr);
         }
 
