@@ -40,7 +40,6 @@ describe('ForestService', () => {
     inject([ForestService], service => {
       const spy = sinon.spy(service, 'getForestWithContent');
       service.getForestWithContent(1);
-      service.getForestWithContent();
       expect(spy.called).toBeTruthy();
     })
   );
