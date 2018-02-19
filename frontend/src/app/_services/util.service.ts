@@ -35,10 +35,10 @@ export class UtilService {
   }
 
   gotoHashtag(fragment: string, event = null) {
-    if(event) {
+    if (event) {
       event.preventDefault();
     }
-    if(this.currentSection !== fragment) {
+    if (this.currentSection !== fragment) {
       this.currentSection = fragment;
       const element = document.querySelector('#' + fragment);
       this.currentSubSection = fragment;
