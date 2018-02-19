@@ -62,7 +62,7 @@ describe('District Dates Admin Component', () => {
       description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
       forestAbbr: 'shoshone'
     }
-  ]
+  ];
 
   class MockForestService {
     getOne(): Observable<{}> {
