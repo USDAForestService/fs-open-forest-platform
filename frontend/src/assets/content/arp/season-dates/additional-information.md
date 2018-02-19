@@ -2,8 +2,6 @@
 [comment]: <> (ELKCREEKDATE, ELKCREEKTIME etc are replaced with the values in the database.)
 [comment]: <> (H4's in this Markdown file are converted to span's in HTML to accomplish the look desired for this section)
 
-<!-- ### Special Christmas Tree Cutting Areas -->
-
 ### Sulphur Ranger District
 Permit sales are SULPHURDATE
 ***
