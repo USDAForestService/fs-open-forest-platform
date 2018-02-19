@@ -4,7 +4,6 @@
 
 ### Sulphur Ranger District
 Permit sales are SULPHURDATE
-***
 
 #### Elk Creek special cutting area
 
@@ -16,7 +15,6 @@ ELKCREEKDATE | ELKCREEKTIME
 
 ### Canyon Lakes Ranger District
 Permit sales are CANYONLAKESDATE
-***
 
 #### Red Feather Lakes special cutting area
 
