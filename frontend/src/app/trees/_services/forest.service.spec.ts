@@ -54,7 +54,7 @@ describe('ForestService', () => {
         whenYouCut: 'test3',
         cuttingYourTree: 'test4',
         prohibitedRules: 'test5',
-        sesonDatesAdditionalInformation: 'test6',
+        seasonDatesAdditionalInformation: 'test6',
         treeLocationsAllowed: 'test7',
         treeLocationsProhibited: 'test8',
         howToPlanYourTrip: 'test9'

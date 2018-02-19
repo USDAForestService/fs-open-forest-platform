@@ -8,7 +8,6 @@ import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
 
-
 @Component({
   selector: 'app-tree-info',
   templateUrl: './tree-guidelines.component.html',

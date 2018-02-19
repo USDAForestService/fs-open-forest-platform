@@ -74,7 +74,7 @@ export class ForestService {
       whenYouCut: this.getText(`/assets/content/${forest.forestAbbr}/cutting-instructions/when-you-cut.md`),
       cuttingYourTree: this.getText(`/assets/content/${forest.forestAbbr}/rules-to-know/cutting-your-tree.md`),
       prohibitedRules: this.getText(`/assets/content/${forest.forestAbbr}/rules-to-know/prohibited-rules.md`),
-      sesonDatesAdditionalInformation: this.getText(`/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`),
+      seasonDatesAdditionalInformation: this.getText(`/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`),
       treeLocationsAllowed: this.getText(`/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`),
       treeLocationsProhibited: this.getText(`/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`),
       howToPlanYourTrip: this.getText(`/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`)
