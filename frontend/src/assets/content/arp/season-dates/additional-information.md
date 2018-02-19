@@ -8,9 +8,9 @@
 Permit sales are SULPHURDATE
 ***
 
-#### Special Elk Creek Area
+#### Elk Creek special cutting area
 
-Season dates | Cutting hours
+Cutting dates | Cutting hours
 -------------|
 ELKCREEKDATE | ELKCREEKTIME
 
@@ -20,9 +20,9 @@ ELKCREEKDATE | ELKCREEKTIME
 Permit sales are CANYONLAKESDATE
 ***
 
-#### Special Red Feather Lakes Area
+#### Red Feather Lakes special cutting area
 
-Season dates | Cutting hours
+Cutting dates | Cutting hours
 -------------|
 REDFEATHERLAKESDATE | REDFEATHERLAKESTIME
 

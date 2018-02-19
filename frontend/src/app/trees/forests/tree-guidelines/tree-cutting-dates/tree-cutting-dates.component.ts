@@ -23,7 +23,7 @@ export class TreeCuttingDatesComponent implements OnInit {
 
       this.markdown.renderer.heading = (text, level) => {
         if (level === 4) {
-          return `<div><span class='usa-label'>${text}</span></div>`;
+          return `<div><span class='usa-label'>${text}</span></div><br/>`;
         } else {
           return `<h${level}>${text}</h${level}>`;
         }

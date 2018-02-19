@@ -18,8 +18,6 @@
       </div>
       <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
 
-      <p *ngIf="forest">Below are the cutting dates and hours for the {{forest.forestName}} as well as special Christmas tree cutting areas.</p>
-
       <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
