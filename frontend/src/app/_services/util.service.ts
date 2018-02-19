@@ -34,14 +34,19 @@ export class UtilService {
       .toLowerCase();
   }
 
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    this.currentSubSection = fragment;
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-      return fragment;
+  gotoHashtag(fragment: string, event = null) {
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.currentSection !== fragment) {
+      this.currentSection = fragment;
+      const element = document.querySelector('#' + fragment);
+      this.currentSubSection = fragment;
+      if (element) {
+        element.scrollIntoView();
+        document.getElementById(fragment).focus();
+        return fragment;
+      }
     }
   }
 
