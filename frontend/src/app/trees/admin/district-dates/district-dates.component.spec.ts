@@ -14,7 +14,7 @@ import { TreesAdminService } from '../trees-admin.service';
 import { MockRouter } from '../../../_mocks/routes.mock';
 import { ForestService } from '../../_services/forest.service';
 
-fdescribe('District Dates Admin Component', () => {
+describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;
