@@ -7,7 +7,7 @@ import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelin
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
 import { ForestService } from './_services/forest.service';
-import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
+import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
