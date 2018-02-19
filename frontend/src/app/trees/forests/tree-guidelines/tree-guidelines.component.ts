@@ -89,17 +89,16 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   parseCuttingAreaMarkdown(text) {
-    let result = text;
     for (const key of this.CUTTING_AREA_KEYS) {
       if (text.indexOf(key) > -1) {
         const jsonKey = key.toUpperCase();
-        result = text
+        text = text
           .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate))
           .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate));
       }
     }
 
-    return result;
+    return text;
   }
 
   formatCuttingAreaTime(startDate, endDate) {
@@ -110,7 +109,6 @@ export class TreeGuidelinesComponent implements OnInit {
   updateMarkdownText() {
     this.markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(this.forest);
-
       if (text.indexOf('{{') > -1) {
         text = this.parseCuttingAreaMarkdown(text); // cutting areas are handled special from other variables
 
