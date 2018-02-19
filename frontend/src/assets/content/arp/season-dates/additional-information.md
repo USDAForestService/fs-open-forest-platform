@@ -18,4 +18,4 @@ Permit sales are {{canyonLakesDate}}
 
 Cutting dates | Cutting hours
 -------------|
-{{redFeatherLakesDate}} | REDFEATHERLAKESTIME
+{{redFeatherLakesDate}} | {{redFeatherLakesTime}}
