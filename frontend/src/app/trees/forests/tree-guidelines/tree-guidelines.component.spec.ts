@@ -107,7 +107,7 @@ describe('TreeGuidelinesComponent', () => {
     });
 
     it('should render markdown', () => {
-      expect(component.markdownService.renderer.text('Test TREEHEIGHT and STUMPHEIGHT and STUMPDIAMETER and ELKCREEKDATE and REDFEATHERLAKESDATE and SULPHURDATE and CANYONLAKESDATE'))
+      expect(component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and ELKCREEKDATE and REDFEATHERLAKESDATE and SULPHURDATE and CANYONLAKESDATE'))
       .toEqual('Test 12 and 4 and 12 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1 - Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017');
     });
 

@@ -90,12 +90,11 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   updateMarkdownText() {
-    const markdownKeys = ['treeHeight', 'stumpHeight', 'stumpDiameter'];
-
     this.markdownService.renderer.text = (text: string) => {
-      for (const key of markdownKeys) {
-        if (text.indexOf(key.toUpperCase()) > -1) {
-          text = text.replace(key.toUpperCase(), this.forest[key]);
+      const replaceArray = Object.keys(this.forest);
+      if (text.indexOf('{{') > -1) {
+        for (let i = 0; i < replaceArray.length; i++) {
+          text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), this.forest[replaceArray[i]]);
         }
       }
 
