@@ -16,4 +16,4 @@
 </h3>
 <div id="cutting-season-daily-hours-default">Daylight hours only</div>
 
-<markdown [data]="forest.content.sesonDatesAdditionalInformation"></markdown>
+<markdown *ngIf="forest && forest.content" [data]="forest.content.sesonDatesAdditionalInformation"></markdown>

@@ -30,7 +30,7 @@
       <app-section-heading heading="Before you cut" id="cutting-instructions-before-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
 
-      <markdown [data]="forest.content.beforeYouCut"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></markdown>
       <app-section-heading heading="When you cut" id="cutting-instructions-when-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
@@ -45,23 +45,23 @@
 
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
-      <markdown [data]="forest.content.howToPlanYourTrip"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></markdown>
 
       <hr class="thick" />
       <app-section-heading heading="Where to find your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <markdown [data]="forest.content.treeLocationsProhibited"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsProhibited"></markdown>
 
       <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
 
       <hr class="trees-section-divider">
-      <markdown [data]="forest.content.treeLocationsAllowed"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsAllowed"></markdown>
 
       <hr class="thick" />
 
       <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
-      <markdown [data]="forest.content.contactUs"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.contactUs"></markdown>
 
     </div>
   </div>
