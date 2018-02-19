@@ -1,4 +1,4 @@
-[comment]: <> ({{treeHeight}}, STUMPHEIGHT and {{stumpDiameter}} are replaced with the values in the database.)
+[comment]: <> ({{treeHeight}}, {{stumpHeight}} and {{stumpDiameter}} are replaced with the values in the database.)
 
 ### Rules for cutting your tree
 
