@@ -20,14 +20,5 @@ export class TreeCuttingDatesComponent implements OnInit {
         .tz(this.forest.timezone)
         .isAfter(moment().tz(this.forest.timezone));
     }
-
-      this.markdown.renderer.heading = (text, level) => {
-        if (level === 4) {
-          return `<div><span class='usa-label'>${text}</span></div>`;
-        } else {
-          return `<h${level}>${text}</h${level}>`;
-        }
-      };
-
   }
 }

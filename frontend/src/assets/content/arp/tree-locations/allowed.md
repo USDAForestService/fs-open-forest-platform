@@ -1,6 +1,5 @@
 Additional information can be found on the forest’s [website](https://www.fs.usda.gov/main/arp/maps-pubs) or at [Ranger district offices](#).
 
-
 **Make sure you are on National Forest Land before cutting your tree.**
 
 [Christmas tree map of Canyon Lakes Ranger District - Red Feather Cutting Area. (Click to view larger map)](/assets/img/red-feather-map.png)

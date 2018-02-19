@@ -1,28 +1,21 @@
-[comment]: <> (This section appears under the cutting dates)
-[comment]: <> (ELKCREEKDATE, ELKCREEKTIME etc are replaced with the values in the database.)
-[comment]: <> (H4's in this Markdown file are converted to span's in HTML to accomplish the look desired for this section)
-
-<!-- ### Special Christmas Tree Cutting Areas -->
+[comment]: <> ({{elkCreekDate}}, {{elkCreekTime}} etc are replaced with the values in the christmasTreesForests table cutting_areas JSON in the database and include special formatting.)
 
 ### Sulphur Ranger District
-Permit sales are SULPHURDATE
-***
+Permit sales are {{sulphurDate}}
 
-#### Special Elk Creek Area
+#### Elk Creek special cutting area
 
-Season dates | Cutting hours
+Cutting dates | Cutting hours
 -------------|
-ELKCREEKDATE | ELKCREEKTIME
+{{elkCreekDate}} | {{elkCreekTime}}
 
 ***
 
 ### Canyon Lakes Ranger District
-Permit sales are CANYONLAKESDATE
-***
+Permit sales are {{canyonLakesDate}}
 
-#### Special Red Feather Lakes Area
+#### Red Feather Lakes special cutting area
 
-Season dates | Cutting hours
+Cutting dates | Cutting hours
 -------------|
-REDFEATHERLAKESDATE | REDFEATHERLAKESTIME
-
+{{redFeatherLakesDate}} | REDFEATHERLAKESTIME

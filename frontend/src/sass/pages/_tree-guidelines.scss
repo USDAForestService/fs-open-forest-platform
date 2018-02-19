@@ -80,9 +80,16 @@ markdown#season-dates-markdown {
         padding-left: 0px;
       }
   }
-  span {
+  h4 {
     background-color: $fs-green;
     float: left;
+    text-transform: none;
+    margin-top: 5px;
+    display: inline;
+    color: white;
+    padding: 0.1rem 0.7rem;
+    border-radius: 2px;
+    font-size: 1.5rem;
   }
   div { text-align:center }
   p { margin: 0px; }
@@ -97,7 +104,7 @@ markdown#season-dates-markdown {
 
 
 app-tree-cutting-dates {
-  div#forest-cutting-hours-dates {
+  div#forest-cutting-hours, div#forest-cutting-dates {
     padding: 20px;
     margin: 1px;
   }
