@@ -26,47 +26,55 @@ describe('District Dates Admin Component', () => {
     }
   }
 
+  const forests = [
+    {
+      id: 1,
+      forestName: 'Arapaho and Roosevelt National Forests',
+      description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+      forestAbbr: 'arp',
+      startDate: '10/30/2018',
+      endDate: '9/30/2019',
+      cuttingAreas: {
+        'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
+        'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
+        'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
+        'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+      },
+      timezone: 'America/Denver'
+    },
+    {
+      id: 2,
+      forestName: 'Flathead National Forest',
+      description: 'Flathead | Montana | Kalispell, MT',
+      forestAbbr: 'flathead',
+      startDate: '10/31/2018',
+      endDate: '9/30/2019'
+    },
+    {
+      id: 3,
+      forestName: 'Mt. Hood National Forest',
+      description: 'Mt. Hood | Oregon | Portland, OR',
+      forestAbbr: 'mthood'
+    },
+    {
+      id: 4,
+      forestName: 'Shoshone National Forest',
+      description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
+      forestAbbr: 'shoshone'
+    }
+  ]
+
+  class MockForestService {
+    getOne(): Observable<{}> {
+      return Observable.of(forests[0]);
+    }
+  }
+
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({
       user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'] },
-      forests: [
-        {
-          id: 1,
-          forestName: 'Arapaho and Roosevelt National Forests',
-          description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-          forestAbbr: 'arp',
-          startDate: '10/30/2018',
-          endDate: '9/30/2019',
-          cuttingAreas: {
-            'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-            'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-            'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-            'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
-          },
-          timezone: 'America/Denver'
-        },
-        {
-          id: 2,
-          forestName: 'Flathead National Forest',
-          description: 'Flathead | Montana | Kalispell, MT',
-          forestAbbr: 'flathead',
-          startDate: '10/31/2018',
-          endDate: '9/30/2019'
-        },
-        {
-          id: 3,
-          forestName: 'Mt. Hood National Forest',
-          description: 'Mt. Hood | Oregon | Portland, OR',
-          forestAbbr: 'mthood'
-        },
-        {
-          id: 4,
-          forestName: 'Shoshone National Forest',
-          description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
-          forestAbbr: 'shoshone'
-        }
-      ]
+      forests: forests
     })
   };
 
@@ -81,6 +89,10 @@ describe('District Dates Admin Component', () => {
           sumOfCost: '100'
         }
       });
+    }
+
+    updateDistrictDates(): Observable<{}> {
+      return Observable.of({});
     }
 
     updateSeasonDates(): Observable<{}> {
@@ -98,7 +110,7 @@ describe('District Dates Admin Component', () => {
           providers: [
             ApplicationFieldsService,
             {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            ForestService,
+            {provide: ForestService, useClass: MockForestService },
             FormBuilder,
             RouterTestingModule,
             TreesAdminService,
