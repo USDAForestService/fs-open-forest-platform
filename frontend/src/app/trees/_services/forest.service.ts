@@ -52,7 +52,7 @@ export class ForestService {
 
   nameMdArray(content, forest) {
     const mdKeys = Object.keys(this.getMdFiles(forest));
-    const files = [];
+    const files = {};
     let i = 0;
     for (const key of mdKeys) {
       files[key] = content[i];
@@ -77,7 +77,7 @@ export class ForestService {
       sesonDatesAdditionalInformation: this.getText(`/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`),
       treeLocationsAllowed: this.getText(`/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`),
       treeLocationsProhibited: this.getText(`/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`),
-      howToPlanYourTrip: this.getText(`/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`),
+      howToPlanYourTrip: this.getText(`/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`)
     };
   }
 }

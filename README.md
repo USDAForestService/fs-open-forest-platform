@@ -50,6 +50,7 @@ throughout the site (e.g. on the permit svg and the guidelines.)  Currently the 
 **max_num_trees**: Maximum number of trees that can be harvested on a single permit, e.g. 5.    
 **forest_name_short**: The forest name short format, e.g., Arapaho and Roosevelt.    
 **timezone**: The timezone of the forest for moment.js as determined by a major city, e.g. America/Denver.    
+**cutting_areas**: A JSON blob representing the cutting areas/special areas for each forest. 
 
 ### Markdown and forest content
 
