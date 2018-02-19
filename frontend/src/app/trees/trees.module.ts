@@ -7,20 +7,21 @@ import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelin
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
 import { ForestService } from './_services/forest.service';
-import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting/tree-cutting-rules/tree-cutting-rules.component';
+import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
 import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
-import { TreeDistrictsUtilService } from './forests/tree-guidelines/tree-districts-util.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
+import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 
 @NgModule({
   declarations: [
     ReportComponent,
     ReportResultsComponent,
+    AdminDistrictDatesComponent,
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
@@ -42,6 +43,6 @@ import { TreesAdminService } from './admin/trees-admin.service';
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ForestService, TreesAdminService, ChristmasTreesApplicationService, TreeDistrictsUtilService]
+  providers: [ForestService, TreesAdminService, ChristmasTreesApplicationService]
 })
 export class TreesModule {}
