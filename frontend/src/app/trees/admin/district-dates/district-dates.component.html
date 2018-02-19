@@ -1,0 +1,60 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h1 id="skip-nav-target" tabindex="-1">Update District Dates</h1>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">{{ updateStatus }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
+      <div>
+        <fieldset class="usa-form-group">
+          <legend class="fs-datetime-legend">
+            To update individual area dates and times, please select a forest.
+          </legend>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
+        </fieldset>
+
+
+        <div>
+          <p>If your forest is not listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">request access</a>.</p>
+        </div>
+        <div *ngIf="!districts && forest">{{forest.forestName}} season dates apply to the entire forest and it has special cutting areas with different dates or times. Please
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">submit a request</a> to have special areas configured if needed.
+        </div>
+
+        <div [hidden]="!districts">
+          <fieldset class="usa-form-group" *ngIf="districts">
+            <legend class="fs-datetime-legend">
+              To update individual areas, please select an area.
+
+            </legend>
+            <p>To update, remove or create a new area please
+              <a href="#">submit a request</a>.
+            </p>
+            <ng-container *ngFor="let district of districts; let i = index">
+              <input id="{{district.id}}-button" type="radio" [value]="district.id" formControlName="districtId" [checked]="i === 0">
+              <label for="{{district.id}}-button" id="{{district.id}}-button-label">{{district.name}}</label>
+            </ng-container>
+          </fieldset>
+          <div>
+            <app-date-time-range [parentForm]="form" includePastDates="true"
+                                 (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+          </div>
+
+          <button id="update-dates" class="usa-button-primary-alt usa-button-big" type="submit">Update area dates and times</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>

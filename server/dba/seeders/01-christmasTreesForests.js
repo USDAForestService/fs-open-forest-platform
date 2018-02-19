@@ -22,10 +22,10 @@ module.exports = {
         forest_name_short: 'Arapaho and Roosevelt',
         timezone: 'America/Denver',
         cutting_areas:
-          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z"},' +
-          '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"},' +
-          '"SULPHUR": {"startDate": "2017-11-01 12:00:00Z", "endDate": "2018-01-06 21:30:00Z"},' +
-          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z"} }'
+          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z", "name": "Elk Creek"},' +
+          '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Red Feather Lakes"},' +
+          '"SULPHUR": {"startDate": "2017-11-01 15:00:00Z", "endDate": "2018-01-06 22:30:00Z", "name": "Sulphur"},' +
+          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }'
       },
       {
         id: 2,

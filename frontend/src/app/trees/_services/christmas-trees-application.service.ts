@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
+import * as moment from 'moment-timezone';
+
 
 @Injectable()
 export class ChristmasTreesApplicationService {
@@ -60,6 +62,26 @@ export class ChristmasTreesApplicationService {
     const body = { startDate: startDate, endDate: endDate };
     return this.http
       .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true })
+      .catch(this.util.handleError);
+  }
+
+  updateDistrictDates(forest, districtName, startDate, endDate) {
+    const cuttingAreas = Object.assign({}, forest.cuttingAreas);
+    const format = 'YYYY-MM-DDTHH:mm:ss';
+
+    const tzStartDate = moment.tz(startDate, format, forest.timezone);
+    tzStartDate.utc();
+
+    const tzEndDate = moment.tz(endDate, format, forest.timezone);
+    tzEndDate.utc();
+
+    cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
+    cuttingAreas[districtName].endDate = tzEndDate.format(format) + 'Z';
+
+    const body = { cuttingAreas: cuttingAreas };
+
+    return this.http
+      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true })
       .catch(this.util.handleError);
   }
 

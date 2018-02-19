@@ -6,7 +6,6 @@ import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import * as sinon from 'sinon';
-import { TreeDistrictsUtilService } from '../tree-districts-util.service';
 import { WindowRef } from '../../../../_services/native-window.service';
 import { MarkdownService } from 'ngx-md';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -23,7 +22,7 @@ describe('TreeCuttingDatesComponent', () => {
           FilterPipe,
           LineBreakFormatterPipe
         ],
-        providers: [TreeDistrictsUtilService, WindowRef, MarkdownService],
+        providers: [WindowRef, MarkdownService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
       }).compileComponents();
@@ -44,5 +43,3 @@ describe('TreeCuttingDatesComponent', () => {
 
 
 });
-
-
