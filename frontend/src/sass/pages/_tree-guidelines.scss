@@ -63,7 +63,7 @@
 markdown#season-dates-markdown {
   table {
     width: 75%;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 10px;
       th {
         background-color: $fs-tan;
@@ -84,7 +84,8 @@ markdown#season-dates-markdown {
     background-color: $fs-green;
     float: left;
     text-transform: none;
-    margin-top: 5px;
+    margin-top: 25px;
+    margin-bottom: -5px;
     display: inline;
     color: white;
     padding: 0.1rem 0.7rem;
