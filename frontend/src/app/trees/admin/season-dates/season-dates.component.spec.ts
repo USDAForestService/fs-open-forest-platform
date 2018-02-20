@@ -80,8 +80,6 @@ describe('Season Dates Admin Component', () => {
     }
   }
 
-
-
   describe('', () => {
     beforeEach(
       async(() => {
@@ -215,6 +213,57 @@ describe('Season Dates Admin Component', () => {
             ApplicationFieldsService,
             {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
             FormBuilder,
+            {provide: Router, useValue: mockRouter},
+            {provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute},
+            TreesAdminService,
+            UtilService,
+            {provide: WindowRef, useClass: MockWindowRef}
+          ],
+          imports: [HttpClientTestingModule],
+          schemas: [NO_ERRORS_SCHEMA]
+        }).compileComponents();
+      })
+    );
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AdminSeasonDatesComponent);
+      component = fixture.debugElement.componentInstance;
+      formBuilder = new FormBuilder();
+      component.form = formBuilder.group({
+        forestId: ['', [Validators.required]]
+      });
+
+    });
+
+    it('should send a user with no forests to access denied', () => {
+      fixture.detectChanges();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
+    });
+  });
+
+  describe('user check', () => {
+    let mockRouter: MockRouter;
+
+    const mockNoForestsActivatedRoute = {
+      params: Observable.of(
+        {id: 1}
+      ),
+      data: Observable.of(
+        {
+          user: {email: 'test@test.com', role: 'admin'},
+          forests: []
+        }
+      )
+    };
+
+    beforeEach(
+      async(() => {
+        mockRouter = new MockRouter();
+        TestBed.configureTestingModule({
+          declarations: [AdminSeasonDatesComponent],
+          providers: [
+            ApplicationFieldsService,
+            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            FormBuilder,
             { provide: Router, useValue: mockRouter },
             { provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute },
             TreesAdminService,
@@ -231,48 +280,84 @@ describe('Season Dates Admin Component', () => {
       component = fixture.debugElement.componentInstance;
       formBuilder = new FormBuilder();
       component.form = formBuilder.group({
-        forestId: ['', [Validators.required]],
-        dateTimeRange: formBuilder.group({
-          endDateTime: [''],
-          endDay: [''],
-          endMonth: [''],
-          endYear: [''],
-          endHour: [''],
-          endMinutes: ['00'],
-          endPeriod: [''],
-          startDateTime: [''],
-          startDay: [''],
-          startMonth: [''],
-          startYear: [''],
-          startHour: [''],
-          startMinutes: ['00'],
-          startPeriod: ['']
-        })
+        forestId: ['', [Validators.required]]
       });
 
     });
 
-    it ('should send a user with no forests to access denied', () => {
+
+    it ('should send a user with null forests to access denied', () => {
       fixture.detectChanges();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
     });
 
-    it ('should send a user with null forests to access denied', () => {
-      const mockNullForestsActivatedRoute = {
-        params: Observable.of(
-          {id: 1}
-        ),
-        data: Observable.of(
-          {
-            user: {email: 'test@test.com', role: 'admin'},
-            forests: []
-          }
-        )
-      };
-      TestBed.overrideProvider(ActivatedRoute, { useValue: mockNullForestsActivatedRoute });
+  });
 
+  describe('user check', () => {
+    let mockRouter: MockRouter;
+
+    const mockForestsActivatedRoute = {
+      params: Observable.of(
+        { id: 1 }
+      ),
+      data: Observable.of(
+        {
+          user: { email: 'test@test.com', role: 'admin', forests: ['all'] },
+          forests: [
+            {
+              id: 1,
+              forestName: 'Arapaho and Roosevelt National Forests',
+              description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+              forestAbbr: 'arp',
+              startDate: '10/30/2018',
+              endDate: '9/30/2019',
+              cuttingAreas: {
+                'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
+                'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
+                'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
+                'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+              },
+              timezone: 'America/Denver'
+            }
+          ]
+        }
+      )
+    };
+
+    beforeEach(
+      async(() => {
+        mockRouter = new MockRouter();
+        TestBed.configureTestingModule({
+          declarations: [AdminSeasonDatesComponent],
+          providers: [
+            ApplicationFieldsService,
+            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
+            FormBuilder,
+            {provide: Router, useValue: mockRouter},
+            {provide: ActivatedRoute, useValue: mockForestsActivatedRoute},
+            TreesAdminService,
+            UtilService,
+            {provide: WindowRef, useClass: MockWindowRef}
+          ],
+          imports: [HttpClientTestingModule],
+          schemas: [NO_ERRORS_SCHEMA]
+        }).compileComponents();
+      })
+    );
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AdminSeasonDatesComponent);
+      component = fixture.debugElement.componentInstance;
+      formBuilder = new FormBuilder();
+      component.form = formBuilder.group({
+        forestId: ['', [Validators.required]]
+      });
+
+    });
+
+    it ('should work for a user with all forests', () => {
       fixture.detectChanges();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
+      expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
 
   });

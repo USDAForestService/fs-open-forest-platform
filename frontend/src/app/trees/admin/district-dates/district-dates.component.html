@@ -38,14 +38,17 @@
               To update individual areas, please select an area.
 
             </legend>
-            <p>To update, remove or create a new area please
-              <a href="#">submit a request</a>.
-            </p>
+
             <ng-container *ngFor="let district of districts; let i = index">
               <input id="{{district.id}}-button" type="radio" [value]="district.id" formControlName="districtId" [checked]="i === 0">
               <label for="{{district.id}}-button" id="{{district.id}}-button-label">{{district.name}}</label>
             </ng-container>
           </fieldset>
+          <div>
+            <p>To update, remove, or create a new area please
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">submit a request</a>.
+            </p>
+          </div>
           <div>
             <app-date-time-range [parentForm]="form" includePastDates="true"
                                  (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
