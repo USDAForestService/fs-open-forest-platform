@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           setTimeout(() => {
-            util.gotoHashtag(tree.fragment, new Event('click'));
+            util.gotoHashtag(tree.fragment);
           }, 0);
         } else {
           window.scrollTo(0, 0);

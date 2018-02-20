@@ -28,102 +28,60 @@ We had the opportunity to modernize the ability to apply for special use permits
 
 ### Database and seeders
 
-The database is used to provide data for a minimal set of variables that are shared
-throughout the site (e.g. on the permit svg and the guidelines.)  Currently the database contains the following fields:
+The database is used to provide data for a minimal set of variables that are shared throughout the site (e.g. on the permit svg and the guidelines.)  The database contains the following fields:
 
 #### ChristmasTreesForests database table
 
-#### Fields
+The ChristmasTreesForests database and its related seeders are used to provide data for a minimal set of variables that are shared by all National Forest Christmas tree sites (for example, on the permit svg file and the permit information webpages). The database contains the following:  
 
-**id**: Automatically created for each forest starting at 1.  
-**forest_name**: The complete forest name, e.g. Arapaho and Roosevelt National Forests - should contain "National Forest"  
-**forest_url**: Link to the main USDA site, e.g., 'https://www.fs.usda.gov/main/arp'  
-**tree_height**: Maxmimum tree harvesting height in feet, e.g. 12. Set to 0 if not used in the forest.  
-**stump_height**: Maximum stump height in inches, e.g. 6. Set to 0 if unused.   
-**stump_diameter**: Maximum stump diameter in inches, e.g. 4. Set to 0 if unused.  
-**start_date**: The season start date, e.g. '2018-11-01T06:00:00Z'. Set via the admin page.  
-**end_date**: The season end date, e.g. '2018-11-01T06:00:00Z'. Set via the admin page.  
-**org_structure_code**: The USDA org structure code, e.g. '11-02-10T'    
-**description**: A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt | Colorado | Fort Collins, CO.      
-**forest_abbr**: The forest abbreviation as determined by the USDA, e.g., arp    
-**tree_cost**: Cost per harvested tree in dollars, e.g. 10.   
-**max_num_trees**: Maximum number of trees that can be harvested on a single permit, e.g. 5.    
-**forest_name_short**: The forest name short format, e.g., Arapaho and Roosevelt.    
-**timezone**: The timezone of the forest for moment.js as determined by a major city, e.g. America/Denver.    
-**cutting_areas**: A JSON blob representing the cutting areas/special areas for each forest. 
+| Database Fields | Description |
+| ----- | :----- |
+| ID |  A number that represents each forest; the number is set automatically to start at 1.|
+| forest_name 			| The complete forest name, e.g. Arapaho and Roosevelt National Forests. The name should include "National Forest.” |
+| forest_name_short:	| The forest name in shortened format, e.g., Arapaho and Roosevelt. |
+| forest_url			| A hyperlink to the main USDA Forest Service national forest website, e.g.,https://www.fs.usda.gov/main/arp. |
+| tree_height: 		        | Maximum tree height in feet, e.g. 12. If the forest does not have a maximum tree height, this value is set to 0. |
+| stump_height:		| Maximum stump height in inches, e.g. 6. If the forest does not have a maximum stump height, this value is set to 0.  |
+| stump_diameter:	        | Maximum stump diameter in inches, e.g. 4. If the forest does not have a maximum stump diameter, this value is set to 0.|
+| start_date:			| The season start date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage. |
+| end_date:			| The season end date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage. |
+| org_structure_code:	| The USDA organization structure code, e.g. '11-02-10T.’ |.
+| description:			| A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt | Colorado | Fort Collins, CO. This information is used in the search bar.|
+| forest_abbr:			| The forest abbreviation as determined by the USDA, e.g., arp. |
+| tree_cost:			| Cost per harvested tree in dollars, e.g. 10. | 
+| max_num_trees:		| Maximum number of trees that can be harvested on a single permit, e.g. 5. |
+| timezone:			| The forest’s timezone as determined by a major city, e.g. America/Denver. (Uses moment.js.)  |
+| cutting_areas: | A JSON blob representing the cutting areas/special areas for each forest. |
+
 
 ### Markdown and forest content
 
-Each forest has a separate directory under *frontend/src/assets/content* which uses the forest_abbr as added to the ChristmasTreeForests table in 
-the database, e.g. *frontend/src/assets/content/mthood*.
+To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under frontend/src/assets/content and then adding the forest_abbr to the url. (For example, *frontend/src/assets/content/mthood*.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, */christmas-trees/forests/flathead*.)
 
-Each directory contains several markdown files and folders that comprise the bulk of the data for the forest within the site
-on the guidelines page, e.g. */christmas-trees/forests/flathead*. 
+In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}. 
 
-#### Season dates
+Below is a list of content sections, their location and the files that can be modified with markdown to update the content. 
 
-**Directory**: frontend/src/assets/content/*forestAbbr*/season-dates  
+Content section | Directory | File name | Description 
+---- | -------- | ----------- | -----------
+| Season dates               | frontend/src/assets/content/forestAbbr/season-dates          |   additional-information.md | Start dates for various districts within the forest if they differ from the overall start date and end dates.
+| Cutting instructions       | frontend/src/assets/content/forestAbbr/cutting-instructions |  before-you-cut.md <br> when-you-cut.md  | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
+| Rules to know | frontend/src/assets/content/forestAbbr/rules-to-know | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.
+| Trip planning | frontend/src/assets/content/forestAbbr/trip-planning | how-to-plan-your-trip.md | Helpful information before leaving home to visit the forest.
+| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | allowed.md | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.
+| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | prohibited.md | Information on where harvesting is not allowed in the forest.
+| Contact information | frontend/src/assets/content/forestAbbr/contact-information | contact-us.md | Contact information for the forest.
 
-**File**: additional-information.md  
-**Contains**: Start dates for various districts within the forest if they differ from the overall start date and end dates.
-
-
-#### Cutting instructions
-
-**Directory**: frontend/src/assets/content/*forestAbbr*/cutting-instructions  
-
-**File**: before-you-cut.md  
-**Contains**: Information to help the user locate trees they can harvest and avoid those they cannot harvest.
-
-**File**: when-you-cut.md  
-**Contains**: Information to help the user harvest a tree.
-
-#### Rules to know
-
-**Directory**: frontend/src/assets/content/*forestAbbr*/rules-to-know  
-
-**File**: cutting-your-tree.md  
-**Contains**: Rules user must follow when harvesting.
-
-**File**: prohibited-rules.md  
-**Contains**: Rules users must follow when selecting a tree.
-
-#### Trip planning
-**Directory**: frontend/src/assets/content/*forestAbbr*/trip-planning  
-
-**File**: how-to-plan-your-trip.md  
-**Contains**: Helpful information before leaving home to visit the forest.
-
-#### Tree locations
-
-**Directory**: frontend/src/assets/content/*forestAbbr*/tree-locations  
-
-**File**: allowed.md  
-**Contains**: Information on where harvesting is allowed in the forest along with links to maps
-found in */assets/images*.
-
-**File**: prohibited.md  
-**Contains**: Information on where harvesting is not allowed in the forest.
-
-#### Contact information
-
-**Directory**: frontend/src/assets/content/*forestAbbr*/contact-information  
-
-**File**: contact-us.md  
-**Contains**: Contact information for the forest.
  
-
 ### JSON forest content
 JSON files for forest content are in */assets/config*
 
 #### Forest JSON - tree species
-Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., shared
-tree species information.  The shared tree species are located in *frontend/src/assets/content/common/species*.
+Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., sharedtree species information.  The shared tree species are located in *frontend/src/assets/content/common/species*.
 
 To remove a species from a given forest simply delete the json for the species from the forest's treeSpecies json.
 
-To associate a species to a forest add the data into the json.  For example to add Lodgepole Pine
-to Mt. Hood:
+To associate a species to a forest add the data into the json.  For example to add Lodgepole Pine to Mt. Hood:
 
 1. Open up */assets/config/christmasTreesForests-mthood.json
 2. At the correct position in the json add the treeSpecies json within the treeSpecies object.
@@ -145,16 +103,10 @@ To change the status of a tree species simply update the status to one of the fo
 
 ```
   prohibited
+  recommended 
   not recommended
-  recommended
+
 ```
-
-#### Christmas Tree sidebar
-Sidebar data is in */assets/config/christmasTreesSidebar.json*
-
-The ids in the sidebar json must match the ids in the tree-guidelines.component.html for the
-sidebar scrolling and section indicator to work correctly.
-
 
 ## Development
 
@@ -487,6 +439,8 @@ A sidebar template for the tree guidelines page at `/frontend/src/app/trees/fore
 A sidebar component was created at `/frontend/src/app/sidebar/sidebar.component.ts` that takes a JSON object with all of the sidebar items and IDs of elements on the page that are linked to. The sidebar component creates both desktop and mobile menus.
 
 The JSON that is sent to the sidebar component only dynamically creates the sidebar and mobile menus. The component or section to which the items are linked to must be coded in.
+
+The ids in the sidebar JSON must match the ids in the tree-guidelines.component.html for the sidebar scrolling and section indicator to work correctly.
 
 ## Usability testing
 
