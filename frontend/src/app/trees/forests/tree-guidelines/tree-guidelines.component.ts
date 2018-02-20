@@ -1,17 +1,15 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UtilService } from '../../../_services/util.service';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
-import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
+import { ForestService } from '../../_services/forest.service';
 
 @Component({
   selector: 'app-tree-info',
-  templateUrl: './tree-guidelines.component.html',
-  providers: [DatePipe]
+  templateUrl: './tree-guidelines.component.html'
 })
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
@@ -20,19 +18,15 @@ export class TreeGuidelinesComponent implements OnInit {
   sidebarItems;
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
-  private CUTTING_AREA_KEYS =  ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
 
 
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    public util: UtilService,
-    public configService: SidebarConfigService,
-    private datePipe: DatePipe,
+    private forestService: ForestService,
+    private configService: SidebarConfigService,
     public markdownService: MarkdownService
   ) {}
-
-
 
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
@@ -75,56 +69,6 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
-  formatCuttingAreaDate(startDate, endDate) {
-    const start = moment(startDate).tz(this.forest.timezone);
-    const end = moment(endDate).tz(this.forest.timezone);
-    const startFormat = 'MMM. D -';
-    let endFormat = ' D, YYYY';
-
-    if (start.month() !== end.month()) {
-      endFormat = ' MMM. D, YYYY';
-    }
-    return start.format(startFormat) + end.format(endFormat);
-  }
-
-  parseCuttingAreaMarkdown(text) {
-    for (const key of this.CUTTING_AREA_KEYS) {
-      if (text.indexOf(key) > -1) {
-        const jsonKey = key.toUpperCase();
-        text = text
-          .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate))
-          .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(this.forest.cuttingAreas[jsonKey].startDate, this.forest.cuttingAreas[jsonKey].endDate));
-      }
-    }
-
-    return text;
-  }
-
-  formatCuttingAreaTime(startDate, endDate) {
-    const start = moment(startDate).tz(this.forest.timezone).format('h:mm a - ');
-    return start + moment(endDate).tz(this.forest.timezone).format('h:mm a.');
-  }
-
-  updateMarkdownText() {
-    this.markdownService.renderer.text = (text: string) => {
-      const replaceArray = Object.keys(this.forest);
-      if (text.indexOf('{{') > -1) {
-        text = this.parseCuttingAreaMarkdown(text); // cutting areas are handled special from other variables
-
-        for (let i = 0; i < replaceArray.length; i++) {
-          text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), this.forest[replaceArray[i]]);
-        }
-      }
-
-
-      return text;
-    };
-
-    this.markdownService.renderer.heading = (text, level) => {
-      return `<h${level}>${text}</h${level}>`;
-    };
-  }
-
   ngOnInit() {
     this.template = 'sidebar';
     this.route.params.subscribe(params => {
@@ -135,8 +79,9 @@ export class TreeGuidelinesComponent implements OnInit {
       this.forest = data.forest;
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
-
-        this.updateMarkdownText();
+        if (this.forest) {
+          this.forestService.updateMarkdownText(this.markdownService, this.forest);
+        }
 
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
         this.configService.getJSON().subscribe(configData => {
