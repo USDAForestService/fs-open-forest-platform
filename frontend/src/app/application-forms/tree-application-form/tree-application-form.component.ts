@@ -31,7 +31,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
-    private markdownService: MarkdownService,
+    public markdownService: MarkdownService,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private forestService: ForestService,

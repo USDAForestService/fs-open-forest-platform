@@ -17,6 +17,7 @@ import * as moment from 'moment-timezone';
 import { MockRouter } from '../../_mocks/routes.mock';
 import { forest } from '../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
+import { MockMarkdownService } from '../../_mocks/markdownService.mock';
 
 
 class MockApplicationService {
@@ -25,18 +26,6 @@ class MockApplicationService {
   }
   cancelOldApp(permitId): Observable<{}> {
     return Observable.of({ success: 'success' });
-  }
-}
-
-class MockMarked {
-  public text(text) {
-    return text;
-  }
-}
-
-class MockMarkdownService {
-  public renderer() {
-    return new MockMarked;
   }
 }
 
@@ -175,5 +164,10 @@ describe('TreeApplicationFormComponent', () => {
       );
       expect(component.applicationForm.get('firstName').value).toEqual('test');
     });
+  });
+
+  it('should render markdown', () => {
+    expect(component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}'))
+      .toEqual('Test 12 and 6 and 6');
   });
 });
