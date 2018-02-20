@@ -77,11 +77,33 @@ describe('Christmas Trees Application Service', () => {
     })
   );
 
-  it(
-    'should updateSeasonDates',
+  it('should updateSeasonDates',
     inject([ChristmasTreesApplicationService], service => {
       const spy = sinon.spy(service, 'updateSeasonDates');
       service.updateSeasonDates(1, '10/10/2018', '10/10/2019');
+      expect(spy.called).toBeTruthy();
+    })
+  );
+
+  it('should updateDistrictDates',
+    inject([ChristmasTreesApplicationService], service => {
+      const spy = sinon.spy(service, 'updateDistrictDates');
+      const forest = {
+        id: 1,
+        forestName: 'Arapaho and Roosevelt National Forests',
+        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+        forestAbbr: 'arp',
+        startDate: '10/30/2018',
+        endDate: '9/30/2019',
+        cuttingAreas: {
+          'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
+          'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
+          'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
+          'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+        },
+        timezone: 'America/Denver'
+      };
+      service.updateDistrictDates(forest, 'ELKCREEK', '2017-11-01T09:00:00Z', '2018-01-06T15:30:00Z');
       expect(spy.called).toBeTruthy();
     })
   );
