@@ -17,30 +17,11 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       browser.sleep(800);
     });
 
-    it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-publications-link')).getAttribute('href')).toEqual(
-        'https://www.fs.usda.gov/main/mthood/maps-pubs'
-      );
-    });
 
     it('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
     });
 
-    it('should have a cutting areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual('Cutting area maps');
-    });
-
-    it('should have a prohibited areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-prohibited-link')).getText()).toEqual(
-        'Prohibited areas and restrictions'
-      );
-    });
-
-    it('should have cutting area maps', () => {
-      expect<any>(element(by.id('tree-locations-maps-0')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('tree-locations-maps-1')).isPresent()).toBeTruthy();
-    });
   });
 
   describe('Shoshone', () => {
@@ -56,25 +37,11 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       browser.sleep(100);
     });
 
-    it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-publications-link')).getAttribute('href')).toEqual(
-        'https://www.fs.usda.gov/main/shoshone/maps-pubs'
-      );
-    });
 
     it('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
     });
 
-    it('should have a cutting areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual('Cutting area maps');
-    });
-
-    it('should have a prohibited areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-prohibited-link')).getText()).toEqual(
-        'Prohibited areas and restrictions'
-      );
-    });
   });
 
   describe('Arapaho/Roosevelt', () => {
@@ -90,31 +57,12 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       browser.sleep(100);
     });
 
-    it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-publications-link')).getAttribute('href')).toEqual(
-        'https://www.fs.usda.gov/main/arp/maps-pubs'
-      );
-    });
 
     it('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
     });
 
-    it('should have a cutting areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual('Cutting area maps');
-    });
-
-    it('should have a prohibited areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-prohibited-link')).getText()).toEqual(
-        'Prohibited areas and restrictions'
-      );
-    });
-
-    it('should have cutting area maps', () => {
-      expect<any>(element(by.id('tree-locations-maps-0')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('tree-locations-maps-1')).isPresent()).toBeTruthy();
-    });
-  });
+   });
 
   describe('Flathead', () => {
     beforeEach(() => {
@@ -129,24 +77,10 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
       browser.sleep(100);
     });
 
-    it('should have a link to the external forest maps-pubs', () => {
-      expect<any>(element(by.id('forest-maps-publications-link')).getAttribute('href')).toEqual(
-        'https://www.fs.usda.gov/main/flathead/maps-pubs'
-      );
-    });
 
     it('should have a where to find a tree section link', () => {
       expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
     });
 
-    it('should have a cutting areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-allowed-link')).getText()).toEqual('Cutting area maps');
-    });
-
-    it('should have a prohibited areas sub-section link', () => {
-      expect<any>(element(by.id('tree-locations-prohibited-link')).getText()).toEqual(
-        'Prohibited areas and restrictions'
-      );
-    });
   });
 });

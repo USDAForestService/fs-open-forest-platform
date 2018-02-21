@@ -1,62 +1,47 @@
-[
-  {
-    "id": "cutting-dates",
-    "type": "anchor",
-    "title": "When to cut your tree"
-  },
-  {
-    "id": "cutting-instructions",
-    "type": "anchor",
-    "title": "How to cut your tree",
-    "sections": [
-      {
-        "id": "cutting-instructions-before-you-cut",
-        "title": "Before you cut"
-      },
-      {
-        "id": "cutting-instructions-when-you-cut",
-        "title": "When you cut"
-      },
-      {
-        "id": "cutting-instructions-tree-selection",
-        "title": "Identifying tree species"
-      }
-    ]
-  },
-  {
-    "id": "need-to-know",
-    "type": "anchor",
-    "title": "Rules to know"
-  },
-  {
-    "id": "trip-planning",
-    "type": "anchor",
-    "title": "How to plan your trip"
-  },
-  {
-    "id": "tree-locations",
-    "title": "Where to find your tree",
-    "type": "anchor",
-    "sections": [
-      {
-        "id": "tree-locations-prohibited",
-        "title": "Prohibited areas and restrictions"
-      },
-      {
-        "id": "tree-locations-allowed",
-        "title": "Cutting area maps"
-      }
-    ]
-  },
-  {
-    "id": "contact-information",
-    "type": "anchor",
-    "title": "Contact us"
-  },
-  {
-    "id": "buy-permit",
-    "title": "Buy permit with credit card",
-    "type": "button",
-    "routerLink": "applications"
-  }
-]
+[{
+  "id": "season-dates",
+  "type": "anchor",
+  "title": "When to cut your tree"
+}, {
+  "id": "cutting-instructions",
+  "type": "anchor",
+  "title": "How to cut your tree",
+  "sections": [{
+    "id": "cutting-instructions-before-you-cut",
+    "title": "Before you cut"
+  }, {
+    "id": "cutting-instructions-when-you-cut",
+    "title": "When you cut"
+  }, {
+    "id": "cutting-instructions-tree-selection",
+    "title": "Identifying tree species"
+  }]
+}, {
+  "id": "rules-to-know",
+  "type": "anchor",
+  "title": "Rules to know"
+}, {
+  "id": "trip-planning",
+  "type": "anchor",
+  "title": "How to plan your trip"
+}, {
+  "id": "tree-locations",
+  "title": "Where to find your tree",
+  "type": "anchor",
+  "sections": [{
+    "id": "tree-locations-prohibited",
+    "title": "Prohibited areas and restrictions"
+  }, {
+    "id": "tree-locations-allowed",
+    "title": "Cutting area maps"
+  }]
+}, {
+  "id": "contact-information",
+  "type": "anchor",
+  "title": "Contact us"
+}, {
+  "id": "buy-permit",
+  "title": "Buy permit",
+  "type": "button",
+  "routerLink": "applications"
+}]

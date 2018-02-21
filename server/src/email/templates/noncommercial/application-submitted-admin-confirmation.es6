@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const vcapConstants = require('../../../vcap-constants.es6');
-const util = require('../../../util.es6');
+const util = require('../../../services/util.es6');
 
 module.exports = application => {
   const applicationUrl = `${vcapConstants.intakeClientBaseUrl}/admin/applications/noncommercial/${application.appControlNumber}`;

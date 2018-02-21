@@ -9,9 +9,21 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UtilService {
   currentSection: any;
   currentSubSection: any;
+  progress = {
+    display: false,
+    message: 'Loading, please wait.'
+  };
 
   setCurrentSection(section) {
     this.currentSection = section;
+  }
+
+  setLoginRedirectMessage() {
+    localStorage.setItem('showLoggedIn', 'logged in');
+    this.progress = {
+      display: true,
+      message: 'Redirecting to login page, please wait.'
+    };
   }
 
   convertCamelToHyphenCase(string) {
@@ -22,14 +34,19 @@ export class UtilService {
       .toLowerCase();
   }
 
-  gotoHashtag(fragment: string, event) {
-    event.preventDefault();
-    const element = document.querySelector('#' + fragment);
-    this.currentSubSection = fragment;
-    if (element) {
-      element.scrollIntoView();
-      document.getElementById(fragment).focus();
-      return fragment;
+  gotoHashtag(fragment: string, event = null) {
+    if (event) {
+      event.preventDefault();
+    }
+    if (this.currentSection !== fragment) {
+      this.currentSection = fragment;
+      const element = document.querySelector('#' + fragment);
+      this.currentSubSection = fragment;
+      if (element) {
+        element.scrollIntoView();
+        document.getElementById(fragment).focus();
+        return fragment;
+      }
     }
   }
 

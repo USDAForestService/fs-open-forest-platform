@@ -51,7 +51,7 @@
     },
     {
       "credentials": {
-        "whitelist": [],
+        "whitelist": [{ "user_email": "test@test.com", "forests": ["arp", "mthood"] }],
         "issuer": "",
         "entrypoint": "https://www.eauth.usda.gov/",
         "cert": "",

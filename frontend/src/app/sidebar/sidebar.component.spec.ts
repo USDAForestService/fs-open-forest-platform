@@ -47,7 +47,6 @@ describe('SidebarComponent', () => {
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.debugElement.componentInstance;
     component.items = [ {'test': true }, { 'test': true }, { 'test2': true }, { 'test3': true }, { 'test4': true } ];
-    component.currentSection = 'test';
     component.bottom = '10px';
     component.top = '20px';
     component.position = 'absolute';

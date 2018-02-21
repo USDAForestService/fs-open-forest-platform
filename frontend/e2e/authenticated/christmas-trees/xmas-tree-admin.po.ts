@@ -108,4 +108,28 @@ export class TreesReportPage {
   reportDetailsTable() {
     return element(by.id('report-table'));
   }
+
+  dateReportRadio() {
+    return element(by.id('date-search-button-label'));
+  }
+
+  permitNumberReportRadio() {
+    return element(by.id('permit-id-search-button-label'));
+  }
+
+  permitNumberRequiredError() {
+    return element(by.id('permit-number-error'));
+  }
+
+  permitNumber() {
+    return element(by.id('permit-number-input'));
+  }
+
+  permitNumberSubmit() {
+    return element(by.id('get-report-permitnumber'));
+  }
+
+  permitNotFoundError() {
+    return element(by.id('permit-not-found-error'));
+  }
 }

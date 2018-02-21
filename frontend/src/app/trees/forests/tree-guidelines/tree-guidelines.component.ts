@@ -1,16 +1,15 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UtilService } from '../../../_services/util.service';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
-import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { MarkdownService } from 'ngx-md';
+import { ForestService } from '../../_services/forest.service';
 
 @Component({
   selector: 'app-tree-info',
-  templateUrl: './tree-guidelines.component.html',
-  providers: [DatePipe]
+  templateUrl: './tree-guidelines.component.html'
 })
 export class TreeGuidelinesComponent implements OnInit {
   template: string;
@@ -20,12 +19,13 @@ export class TreeGuidelinesComponent implements OnInit {
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
 
+
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    public util: UtilService,
-    public configService: SidebarConfigService,
-    private datePipe: DatePipe
+    private forestService: ForestService,
+    private configService: SidebarConfigService,
+    public markdownService: MarkdownService
   ) {}
 
   setSeasonStatus(forest) {
@@ -57,8 +57,7 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   private checkSeasonStartDate(forest) {
-    if (
-      moment(forest.startDate)
+    if (moment(forest.startDate)
         .tz(forest.timezone)
         .isAfter(moment().tz(forest.timezone))
     ) {
@@ -80,6 +79,10 @@ export class TreeGuidelinesComponent implements OnInit {
       this.forest = data.forest;
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
+        if (this.forest) {
+          this.forestService.updateMarkdownText(this.markdownService, this.forest);
+        }
+
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
         this.configService.getJSON().subscribe(configData => {
           this.sidebarItems = configData;

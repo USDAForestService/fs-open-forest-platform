@@ -8,8 +8,10 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment/moment';
-
+import * as moment from 'moment-timezone';
+import { MarkdownService } from 'ngx-md';
+import { ForestService } from '../../_services/forest.service';
+import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
@@ -22,9 +24,18 @@ describe('TreeGuidelinesComponent', () => {
         species: {
           status: 'test'
         },
+        treeHeight: '12',
+        stumpHeight: '4',
+        stumpDiameter: '12',
         startDate: moment('2000-01-02').toDate(),
         endDate: moment('2101-01-01').toDate(),
-        timezone: 'America/Denver'
+        timezone: 'America/Denver',
+        cuttingAreas: {
+          ELKCREEK: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
+          REDFEATHERLAKES: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
+          SULPHUR: {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
+          CANYONLAKES: {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+        }
       }
     })
   };
@@ -35,7 +46,8 @@ describe('TreeGuidelinesComponent', () => {
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          UtilService,
+          ForestService,
+          { provide: MarkdownService, useClass: MockMarkdownService },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
         ],
@@ -65,6 +77,14 @@ describe('TreeGuidelinesComponent', () => {
       const forest: any = component.forest;
       expect(forest.isSeasonOpen).toBeTruthy();
     });
+
+    it('should render markdown', () => {
+      expect(
+        component.markdownService.renderer
+          .text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'))
+      .toEqual('Test 12 and 4 and 12 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1 - Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017');
+    });
+
   });
 
   describe ('season closed', () => {

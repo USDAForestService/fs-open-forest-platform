@@ -30,7 +30,7 @@
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 547.3784 590.9639)" fill="#010101" font-family="'Arial'" font-size="5px">PERMIT EXPIRATION</text>
 
-			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.0781 770.6445)" fill="#010101" font-family="'Arial'" font-size="17px" font-weight="bold">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
+			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 387.0781 750.6445)" fill="#010101" font-family="'Arial'" font-size="16px" font-weight="bold">PERMIT MUST BE PLACED AND CLEARLY VISIBLE ON DASHBOARD FACING THIS SIDE UP</text>
 		<g>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 110.1074 487.3154)" fill="#010101" font-family="'Arial'" font-size="7px">(MM)</text>

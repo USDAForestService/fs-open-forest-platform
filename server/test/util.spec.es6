@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const util = require('../src/util.es6');
+const util = require('../src/services/util.es6');
 
 describe('util tests', () => {
   describe('getContentType', () => {
@@ -51,6 +51,18 @@ describe('util tests', () => {
         expect(_res).to.equal(res);
         done();
       });
+    });
+
+    it('should return admin role', () => {
+      expect(util.getUserRole('test@test.com')).to.equal('admin');
+    });
+
+    it('should return user role', () => {
+      expect(util.getUserRole('notest@test.com')).to.equal('user');
+    });
+
+    it('should get admin forests', () => {
+      expect(util.getAdminForests('test@test.com')[0]).to.equal('arp');
     });
   });
 });

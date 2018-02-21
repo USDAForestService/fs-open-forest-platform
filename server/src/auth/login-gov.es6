@@ -10,7 +10,7 @@ const Issuer = require('openid-client').Issuer;
 const jose = require('node-jose');
 const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
-const util = require('../util.es6');
+const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const loginGov = {};
