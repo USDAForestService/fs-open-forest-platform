@@ -4,8 +4,25 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Observable } from 'rxjs/Rx';
 import * as sinon from 'sinon';
 
+
 describe('ForestService', () => {
   let httpMock: HttpTestingController;
+
+  const forest = {
+    id: 1,
+    forestName: 'Arapaho and Roosevelt National Forests',
+    description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+    forestAbbr: 'arp',
+    startDate: '10/30/2018',
+    endDate: '9/30/2019',
+    cuttingAreas: {
+      'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
+      'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
+      'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
+      'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+    },
+    timezone: 'America/Denver'
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -42,22 +59,6 @@ describe('ForestService', () => {
   it(
     'should call get forest with content',
     inject([ForestService], service => {
-      const forest = {
-        id: 1,
-        forestName: 'Arapaho and Roosevelt National Forests',
-        description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-        forestAbbr: 'arp',
-        startDate: '10/30/2018',
-        endDate: '9/30/2019',
-        cuttingAreas: {
-          'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-          'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-          'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-          'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
-        },
-        timezone: 'America/Denver'
-      };
-
       const forestJSON = {
         'name': 'arp',
         'treeSpecies': [
@@ -141,5 +142,20 @@ describe('ForestService', () => {
     })
   );
 
+  it('should return formatted start and end dates', inject([ForestService], service => {
+    expect(service.formatCuttingAreaDate(forest, '2017-12-02 10:00:00Z', '2017-12-12 10:00:00Z'))
+    .toEqual('Dec. 2 - 12, 2017');
+
+    expect(service.formatCuttingAreaDate(forest, '2017-12-02 01:00:00Z', '2017-12-12 01:00:00Z'))
+    .toEqual('Dec. 1 - 11, 2017');
+
+    expect(service.formatCuttingAreaDate(forest, '2017-11-02 10:00:00Z', '2017-12-09 10:00:00Z'))
+    .toEqual('Nov. 2 - Dec. 9, 2017');
+  }));
+
+  it('should return formatted cutting hours', inject([ForestService], service => {
+      expect(service.formatCuttingAreaTime(forest, '2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z'))
+      .toEqual('4:00 am - 1:00 pm.');
+  }));
 
 });

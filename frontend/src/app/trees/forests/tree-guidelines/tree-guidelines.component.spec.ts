@@ -8,21 +8,10 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-import * as moment from 'moment/moment';
+import * as moment from 'moment-timezone';
 import { MarkdownService } from 'ngx-md';
-
-export class MockMarked {
-  public text(text) {
-    return text;
-  }
-}
-
-export class MockMarkdownService {
-  public renderer() {
-    return new MockMarked;
-  }
-}
-
+import { ForestService } from '../../_services/forest.service';
+import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
@@ -57,9 +46,8 @@ describe('TreeGuidelinesComponent', () => {
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          UtilService,
+          ForestService,
           { provide: MarkdownService, useClass: MockMarkdownService },
-          { provide: MockMarked },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
         ],
@@ -88,22 +76,6 @@ describe('TreeGuidelinesComponent', () => {
     it ('should set the forest isSeasonOpen to true', () => {
       const forest: any = component.forest;
       expect(forest.isSeasonOpen).toBeTruthy();
-    });
-
-    it('should return formatted start and end dates', () => {
-      expect(component.formatCuttingAreaDate('2017-12-02 10:00:00Z', '2017-12-02 10:00:00Z'))
-      .toEqual('Dec. 2 - 2, 2017');
-
-      expect(component.formatCuttingAreaDate('2017-12-02 01:00:00Z', '2017-12-02 01:00:00Z'))
-      .toEqual('Dec. 1 - 1, 2017');
-
-      expect(component.formatCuttingAreaDate('2017-11-02 10:00:00Z', '2017-12-09 10:00:00Z'))
-      .toEqual('Nov. 2 - Dec. 9, 2017');
-    });
-
-    it('should return formatted cutting hours', () => {
-      expect(component.formatCuttingAreaTime('2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z'))
-      .toEqual('4:00 am - 1:00 pm.');
     });
 
     it('should render markdown', () => {

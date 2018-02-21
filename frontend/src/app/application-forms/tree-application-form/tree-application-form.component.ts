@@ -10,6 +10,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
+import { MarkdownService } from 'ngx-md';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -30,6 +31,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
+    public markdownService: MarkdownService,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private forestService: ForestService,
@@ -79,6 +81,10 @@ export class TreeApplicationFormComponent implements OnInit {
         });
       }
     }
+
+    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
+      this.quantityChange(value);
+    });
   }
 
   checkSeasonStartDate(forest) {
@@ -87,21 +93,24 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+
   ngOnInit() {
     this.route.data.subscribe(data => {
       if (data.forest) {
         this.forest = data.forest;
+
+        if (this.forest) {
+          this.forestService.updateMarkdownText(this.markdownService, this.forest);
+        }
+
         this.checkSeasonStartDate(this.forest);
         this.permit = data.permit;
         this.titleService.setTitle(
           'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );
         this.createForm(data, this.formBuilder);
-      }
-    });
 
-    this.applicationForm.get('quantity').valueChanges.subscribe(value => {
-      this.quantityChange(value);
+      }
     });
   }
 

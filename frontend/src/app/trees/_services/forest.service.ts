@@ -5,10 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import * as moment from 'moment-timezone';
+
 
 @Injectable()
 export class ForestService {
   private endpoint = environment.apiUrl + 'forests/';
+  private CUTTING_AREA_KEYS =  ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
 
   constructor(private http: HttpClient) {}
 
@@ -92,5 +95,52 @@ export class ForestService {
     }
 
     return result;
+  }
+
+  parseCuttingAreaMarkdown(text, forest) {
+    for (const key of this.CUTTING_AREA_KEYS) {
+      if (text.indexOf(key) > -1) {
+        const jsonKey = key.toUpperCase();
+        text = text
+          .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(forest, forest.cuttingAreas[jsonKey].startDate, forest.cuttingAreas[jsonKey].endDate))
+          .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(forest, forest.cuttingAreas[jsonKey].startDate, forest.cuttingAreas[jsonKey].endDate));
+      }
+    }
+
+    return text;
+  }
+
+  formatCuttingAreaDate(forest, startDate, endDate) {
+    const start = moment(startDate).tz(forest.timezone);
+    const end = moment(endDate).tz(forest.timezone);
+    const startFormat = 'MMM. D -';
+    let endFormat = ' D, YYYY';
+
+    if (start.month() !== end.month()) {
+      endFormat = ' MMM. D, YYYY';
+    }
+    return start.format(startFormat) + end.format(endFormat);
+  }
+
+  formatCuttingAreaTime(forest, startDate, endDate) {
+    const start = moment(startDate).tz(forest.timezone).format('h:mm a - ');
+    return start + moment(endDate).tz(forest.timezone).format('h:mm a.');
+  }
+
+  updateMarkdownText(markdownService, forest) {
+    markdownService.renderer.text = (text: string) => {
+      const replaceArray = Object.keys(forest);
+      if (text.indexOf('{{') > -1) {
+        for (let i = 0; i < replaceArray.length; i++) {
+          text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), forest[replaceArray[i]]);
+          text = this.parseCuttingAreaMarkdown(text, forest); // cutting areas are handled special from other variables
+        }
+      }
+      return text;
+    };
+
+    markdownService.renderer.heading = (text, level) => {
+      return `<h${level}>${text}</h${level}>`;
+    };
   }
 }
