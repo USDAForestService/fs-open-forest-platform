@@ -24,69 +24,88 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode
-    ? input.applicantInfo.eveningPhone.areaCode
-    : null;
-  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension
-    ? input.applicantInfo.eveningPhone.extension
-    : null;
-  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number
-    ? input.applicantInfo.eveningPhone.number
-    : null;
-  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
-    ? input.applicantInfo.eveningPhone.prefix
-    : null;
+  output.applicantInfoEveningPhoneAreaCode =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null;
+  output.applicantInfoEveningPhoneExtension =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
+      ? input.applicantInfo.eveningPhone.extension
+      : null;
+  output.applicantInfoEveningPhoneNumber =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
+      ? input.applicantInfo.eveningPhone.number
+      : null;
+  output.applicantInfoEveningPhonePrefix =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
+      ? input.applicantInfo.eveningPhone.prefix
+      : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
-  output.applicantInfoOrgMailingAddress = input.applicantInfo.organizationAddress.mailingAddress
-    ? input.applicantInfo.organizationAddress.mailingAddress
-    : null;
-  output.applicantInfoOrgMailingAddress2 = input.applicantInfo.organizationAddress.mailingAddress2
-    ? input.applicantInfo.organizationAddress.mailingAddress2
-    : null;
-  output.applicantInfoOrgMailingCity = input.applicantInfo.organizationAddress.mailingCity
-    ? input.applicantInfo.organizationAddress.mailingCity
-    : null;
-  output.applicantInfoOrgMailingState = input.applicantInfo.organizationAddress.mailingState
-    ? input.applicantInfo.organizationAddress.mailingState
-    : null;
-  output.applicantInfoOrgMailingZIP = input.applicantInfo.organizationAddress.mailingZIP
-    ? input.applicantInfo.organizationAddress.mailingZIP
-    : null;
+  output.applicantInfoOrgMailingAddress =
+    input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress
+      ? input.applicantInfo.organizationAddress.mailingAddress
+      : null;
+  output.applicantInfoOrgMailingAddress2 =
+    input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress2
+      ? input.applicantInfo.organizationAddress.mailingAddress2
+      : null;
+  output.applicantInfoOrgMailingCity =
+    input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingCity
+      ? input.applicantInfo.organizationAddress.mailingCity
+      : null;
+  output.applicantInfoOrgMailingState =
+    input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingState
+      ? input.applicantInfo.organizationAddress.mailingState
+      : null;
+  output.applicantInfoOrgMailingZIP =
+    input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingZIP
+      ? input.applicantInfo.organizationAddress.mailingZIP
+      : null;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
   output.applicantInfoPrimaryLastName = input.applicantInfo.primaryLastName;
-  output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress
-    ? input.applicantInfo.primaryAddress.mailingAddress
-    : null;
-  output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2
-    ? input.applicantInfo.primaryAddress.mailingAddress2
-    : null;
-  output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity
-    ? input.applicantInfo.primaryAddress.mailingCity
-    : null;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState
-    ? input.applicantInfo.primaryAddress.mailingState
-    : null;
-  output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP
-    ? input.applicantInfo.primaryAddress.mailingZIP
-    : null;
+  output.applicantInfoPrimaryMailingAddress =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress
+      ? input.applicantInfo.primaryAddress.mailingAddress
+      : null;
+  output.applicantInfoPrimaryMailingAddress2 =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress2
+      ? input.applicantInfo.primaryAddress.mailingAddress2
+      : null;
+  output.applicantInfoPrimaryMailingCity =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingCity
+      ? input.applicantInfo.primaryAddress.mailingCity
+      : null;
+  output.applicantInfoPrimaryMailingState =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+      ? input.applicantInfo.primaryAddress.mailingState
+      : null;
+  output.applicantInfoPrimaryMailingZIP =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingZIP
+      ? input.applicantInfo.primaryAddress.mailingZIP
+      : null;
   output.applicantInfoSecondaryFirstName = input.applicantInfo.secondaryFirstName;
   output.applicantInfoSecondaryLastName = input.applicantInfo.secondaryLastName;
-  output.applicantInfoSecondaryMailingAddress = input.applicantInfo.secondaryAddress.mailingAddress
-    ? input.applicantInfo.secondaryAddress.mailingAddress
-    : null;
-  output.applicantInfoSecondaryMailingAddress2 = input.applicantInfo.secondaryAddress.mailingAddress2
-    ? input.applicantInfo.secondaryAddress.mailingAddress2
-    : null;
-  output.applicantInfoSecondaryMailingCity = input.applicantInfo.secondaryAddress.mailingCity
-    ? input.applicantInfo.secondaryAddress.mailingCity
-    : null;
-  output.applicantInfoSecondaryMailingState = input.applicantInfo.secondaryAddress.mailingState
-    ? input.applicantInfo.secondaryAddress.mailingState
-    : null;
-  output.applicantInfoSecondaryMailingZIP = input.applicantInfo.secondaryAddress.mailingZIP
-    ? input.applicantInfo.secondaryAddress.mailingZIP
-    : null;
+  output.applicantInfoSecondaryMailingAddress =
+    input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress
+      ? input.applicantInfo.secondaryAddress.mailingAddress
+      : null;
+  output.applicantInfoSecondaryMailingAddress2 =
+    input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress2
+      ? input.applicantInfo.secondaryAddress.mailingAddress2
+      : null;
+  output.applicantInfoSecondaryMailingCity =
+    input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingCity
+      ? input.applicantInfo.secondaryAddress.mailingCity
+      : null;
+  output.applicantInfoSecondaryMailingState =
+    input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingState
+      ? input.applicantInfo.secondaryAddress.mailingState
+      : null;
+  output.applicantInfoSecondaryMailingZIP =
+    input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingZIP
+      ? input.applicantInfo.secondaryAddress.mailingZIP
+      : null;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
   output.authorizingOfficerTitle = input.authorizingOfficerTitle;
