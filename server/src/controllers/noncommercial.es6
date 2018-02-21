@@ -24,32 +24,32 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode
     ? input.applicantInfo.eveningPhone.areaCode
     : null;
-  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension
     ? input.applicantInfo.eveningPhone.extension
     : null;
-  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number
     ? input.applicantInfo.eveningPhone.number
     : null;
-  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
     ? input.applicantInfo.eveningPhone.prefix
     : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
-  output.applicantInfoOrgMailingAddress = input.applicantInfo.organizationAddress
+  output.applicantInfoOrgMailingAddress = input.applicantInfo.organizationAddress.mailingAddress
     ? input.applicantInfo.organizationAddress.mailingAddress
     : null;
-  output.applicantInfoOrgMailingAddress2 = input.applicantInfo.organizationAddress
+  output.applicantInfoOrgMailingAddress2 = input.applicantInfo.organizationAddress.mailingAddress2
     ? input.applicantInfo.organizationAddress.mailingAddress2
     : null;
-  output.applicantInfoOrgMailingCity = input.applicantInfo.organizationAddress
+  output.applicantInfoOrgMailingCity = input.applicantInfo.organizationAddress.mailingCity
     ? input.applicantInfo.organizationAddress.mailingCity
     : null;
-  output.applicantInfoOrgMailingState = input.applicantInfo.organizationAddress
+  output.applicantInfoOrgMailingState = input.applicantInfo.organizationAddress.mailingState
     ? input.applicantInfo.organizationAddress.mailingState
     : null;
-  output.applicantInfoOrgMailingZIP = input.applicantInfo.organizationAddress
+  output.applicantInfoOrgMailingZIP = input.applicantInfo.organizationAddress.mailingZIP
     ? input.applicantInfo.organizationAddress.mailingZIP
     : null;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
@@ -72,19 +72,19 @@ const translateFromClientToDatabase = (input, output) => {
     : null;
   output.applicantInfoSecondaryFirstName = input.applicantInfo.secondaryFirstName;
   output.applicantInfoSecondaryLastName = input.applicantInfo.secondaryLastName;
-  output.applicantInfoSecondaryMailingAddress = input.applicantInfo.secondaryAddress
+  output.applicantInfoSecondaryMailingAddress = input.applicantInfo.secondaryAddress.mailingAddress
     ? input.applicantInfo.secondaryAddress.mailingAddress
     : null;
-  output.applicantInfoSecondaryMailingAddress2 = input.applicantInfo.secondaryAddress
+  output.applicantInfoSecondaryMailingAddress2 = input.applicantInfo.secondaryAddress.mailingAddress2
     ? input.applicantInfo.secondaryAddress.mailingAddress2
     : null;
-  output.applicantInfoSecondaryMailingCity = input.applicantInfo.secondaryAddress
+  output.applicantInfoSecondaryMailingCity = input.applicantInfo.secondaryAddress.mailingCity
     ? input.applicantInfo.secondaryAddress.mailingCity
     : null;
-  output.applicantInfoSecondaryMailingState = input.applicantInfo.secondaryAddress
+  output.applicantInfoSecondaryMailingState = input.applicantInfo.secondaryAddress.mailingState
     ? input.applicantInfo.secondaryAddress.mailingState
     : null;
-  output.applicantInfoSecondaryMailingZIP = input.applicantInfo.secondaryAddress
+  output.applicantInfoSecondaryMailingZIP = input.applicantInfo.secondaryAddress.mailingZIP
     ? input.applicantInfo.secondaryAddress.mailingZIP
     : null;
   output.applicantInfoWebsite = input.applicantInfo.website;
