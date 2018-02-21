@@ -36,18 +36,22 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode
-    ? input.applicantInfo.eveningPhone.areaCode
-    : null;
-  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension
-    ? input.applicantInfo.eveningPhone.extension
-    : null;
-  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number
-    ? input.applicantInfo.eveningPhone.number
-    : null;
-  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
-    ? input.applicantInfo.eveningPhone.prefix
-    : null;
+  output.applicantInfoEveningPhoneAreaCode =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null;
+  output.applicantInfoEveningPhoneExtension =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
+      ? input.applicantInfo.eveningPhone.extension
+      : null;
+  output.applicantInfoEveningPhoneNumber =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
+      ? input.applicantInfo.eveningPhone.number
+      : null;
+  output.applicantInfoEveningPhonePrefix =
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
+      ? input.applicantInfo.eveningPhone.prefix
+      : null;
   output.applicantInfoFaxAreaCode =
     input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
   output.applicantInfoFaxExtension =
@@ -63,9 +67,10 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState
-    ? input.applicantInfo.primaryAddress.mailingState
-    : null;
+  output.applicantInfoPrimaryMailingState =
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+      ? input.applicantInfo.primaryAddress.mailingState
+      : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
