@@ -36,22 +36,26 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode
     ? input.applicantInfo.eveningPhone.areaCode
     : null;
-  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension
     ? input.applicantInfo.eveningPhone.extension
     : null;
-  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number
     ? input.applicantInfo.eveningPhone.number
     : null;
-  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
     ? input.applicantInfo.eveningPhone.prefix
     : null;
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax ? input.applicantInfo.fax.areaCode : null;
-  output.applicantInfoFaxExtension = input.applicantInfo.fax ? input.applicantInfo.fax.extension : null;
-  output.applicantInfoFaxNumber = input.applicantInfo.fax ? input.applicantInfo.fax.number : null;
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax ? input.applicantInfo.fax.prefix : null;
+  output.applicantInfoFaxAreaCode =
+    input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension =
+    input.applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber =
+    input.applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix =
+    input.applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -59,7 +63,9 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState;
+  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState
+    ? input.applicantInfo.primaryAddress.mailingState
+    : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -622,7 +628,9 @@ tempOutfitter.create = (req, res) => {
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({ errors: error.errors });
+        return res.status(400).json({
+          errors: error.errors
+        });
       } else {
         return res.status(500).send();
       }
@@ -716,7 +724,9 @@ tempOutfitter.update = (req, res) => {
           })
           .catch(error => {
             if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({ errors: error.errors });
+              return res.status(400).json({
+                errors: error.errors
+              });
             } else {
               return res.status(500).send();
             }
