@@ -36,14 +36,18 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode ? input.applicantInfo.eveningPhone
-    .areaCode : null;
-  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension ? input.applicantInfo.eveningPhone
-    .extension : null;
-  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number ? input.applicantInfo.eveningPhone
-    .number : null;
-  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix ? input.applicantInfo.eveningPhone
-    .prefix : null;
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone.areaCode
+    ? input.applicantInfo.eveningPhone.areaCode
+    : null;
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone.extension
+    ? input.applicantInfo.eveningPhone.extension
+    : null;
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone.number
+    ? input.applicantInfo.eveningPhone.number
+    : null;
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
+    ? input.applicantInfo.eveningPhone.prefix
+    : null;
   output.applicantInfoFaxAreaCode = input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
   output.applicantInfoFaxExtension = input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
   output.applicantInfoFaxNumber = input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
@@ -55,8 +59,9 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState ? input.applicantInfo
-    .primaryAddress.mailingState : null;
+  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress.mailingState
+    ? input.applicantInfo.primaryAddress.mailingState
+    : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -118,14 +123,16 @@ const translateFromDatabaseToClient = input => {
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
         extension: input.applicantInfoDayPhoneExtension || '',
-        tenDigit: input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
+        tenDigit:
+          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
         areaCode: input.applicantInfoEveningPhoneAreaCode || '',
         prefix: input.applicantInfoEveningPhonePrefix || '',
         number: input.applicantInfoEveningPhoneNumber || '',
         extension: input.applicantInfoEveningPhoneExtension || '',
-        tenDigit: input.applicantInfoEveningPhoneAreaCode +
+        tenDigit:
+          input.applicantInfoEveningPhoneAreaCode +
           input.applicantInfoEveningPhonePrefix +
           input.applicantInfoEveningPhoneNumber
       },
@@ -195,8 +202,7 @@ const translateFromDatabaseToClient = input => {
           startDay: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('D'),
           startYear: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
           startHour: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('hh'),
-          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
-            'mm'),
+          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('mm'),
           startPeriod: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('A'),
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
           endMonth: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('M'),
@@ -208,12 +214,19 @@ const translateFromDatabaseToClient = input => {
         }
       },
       experienceFields: {
-        haveCitations: input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations
-          .length > 0 ? true : false,
-        haveNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
-          input.tempOutfitterFieldsExpNatForestPermits.length > 0 ? true : false,
-        haveOtherPermits: input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits
-          .length > 0 ? true : false,
+        haveCitations:
+          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
+            ? true
+            : false,
+        haveNationalForestPermits:
+          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0
+            ? true
+            : false,
+        haveOtherPermits:
+          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
+            ? true
+            : false,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
         listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
         listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
@@ -248,10 +261,11 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       },
       eveningPhone: {
         areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
-        number: application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
+        number:
+          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
           application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
-        extension: application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension ||
-          undefined,
+        extension:
+          application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'evening'
       },
       emailAddress: application.applicantInfoEmailAddress,
@@ -269,7 +283,8 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       // Start date
-      activityDescription: application.tempOutfitterFieldsActDescFieldsStartDateTime +
+      activityDescription:
+        application.tempOutfitterFieldsActDescFieldsStartDateTime +
         '\n' +
         // End date
         application.tempOutfitterFieldsActDescFieldsEndDateTime +
@@ -323,20 +338,23 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
  */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
-    s3.getObject({
-      Bucket: vcapConstants.bucket,
-      Key: key
-    }, (error, data) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({
-          fileBuffer: data.Body,
-          documentType: documentType,
-          key: key
-        });
+    s3.getObject(
+      {
+        Bucket: vcapConstants.bucket,
+        Key: key
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({
+            fileBuffer: data.Body,
+            documentType: documentType,
+            key: key
+          });
+        }
       }
-    });
+    );
   });
 };
 
@@ -346,10 +364,10 @@ const getFile = (key, documentType) => {
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
-        where: {
-          applicationId: applicationId
-        }
-      })
+      where: {
+        applicationId: applicationId
+      }
+    })
       .then(results => {
         let filePromises = [];
         for (let item of results) {
@@ -424,8 +442,7 @@ const acceptApplication = application => {
       .then(files => {
         const requestOptions = {
           method: 'POST',
-          url: vcapConstants.middleLayerBaseUrl +
-            'permits/applications/special-uses/commercial/temp-outfitters/',
+          url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
           simple: true,
           formData: {
@@ -543,20 +560,20 @@ tempOutfitter.streamToS3 = multer({
  */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
-      where: {
-        applicationId: req.body.applicationId,
-        applicationType: 'tempoutfitters',
-        documentType: req.body.documentType
-      }
-    })
+    where: {
+      applicationId: req.body.applicationId,
+      applicationType: 'tempoutfitters',
+      documentType: req.body.documentType
+    }
+  })
     .then(() => {
       ApplicationFile.create({
-          applicationId: req.body.applicationId,
-          applicationType: 'tempoutfitters',
-          documentType: req.body.documentType,
-          s3FileName: req.files[0].key,
-          originalFileName: req.files[0].key
-        })
+        applicationId: req.body.applicationId,
+        applicationType: 'tempoutfitters',
+        documentType: req.body.documentType,
+        s3FileName: req.files[0].key,
+        originalFileName: req.files[0].key
+      })
         .then(appfile => {
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
@@ -575,10 +592,10 @@ tempOutfitter.attachFile = (req, res) => {
  */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
-      where: {
-        fileId: req.params.id
-      }
-    })
+    where: {
+      fileId: req.params.id
+    }
+  })
     .then(() => {
       return res.status(204);
     })
@@ -621,10 +638,10 @@ tempOutfitter.create = (req, res) => {
  */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
-      where: {
-        app_control_number: req.params.id
-      }
-    })
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (!app) {
         return res.status(404).send();
@@ -633,11 +650,11 @@ tempOutfitter.getOne = (req, res) => {
         return res.status(403).send();
       }
       Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
         .then(revisions => {
           const formattedApp = translateFromDatabaseToClient(app);
           formattedApp.revisions = revisions;
@@ -657,10 +674,10 @@ tempOutfitter.getOne = (req, res) => {
  */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
-      where: {
-        app_control_number: req.params.id
-      }
-    })
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (!app) {
         return res.status(404).send();
