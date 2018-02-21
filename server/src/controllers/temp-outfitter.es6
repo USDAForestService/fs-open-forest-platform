@@ -48,10 +48,14 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone.prefix
     ? input.applicantInfo.eveningPhone.prefix
     : null;
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
-  output.applicantInfoFaxExtension = input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
-  output.applicantInfoFaxNumber = input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
+  output.applicantInfoFaxAreaCode =
+    input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension =
+    input.applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber =
+    input.applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix =
+    input.applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
