@@ -1,0 +1,56 @@
+# Use node 8.9.4 as the base image
+FROM circleci/node:8.9.4-browsers
+
+# Install Google Chrome
+#RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+#    && apt-get update && apt-get install -y google-chrome-stable \
+#    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#ENV CHROME_BIN /usr/bin/google-chrome
+# create a top level node directory and copy the frontend package.json
+# into it
+# set the work dir to /node
+RUN sudo mkdir -p /node
+COPY ./frontend/package.json /node
+WORKDIR /node
+
+# install the latest version of yarn
+RUN sudo npm install yarn -g
+RUN sudo npm install http-server -g
+
+# run yarn to get all dependencies
+RUN sudo yarn
+
+# change the node path env var to the new node_modules directory
+# and add the new node .bin to the path
+ENV NODE_PATH=/node/node_modules
+ENV PATH=/node/node_modules/.bin:$PATH
+
+# set the workdir as the /app directory
+# this dir is mapped to the frontend directory in the cloned repo
+WORKDIR /app
+
+# Make port 4200 available to the world outside this container
+EXPOSE 4200
+
+ARG SNYK_TOKEN
+ARG VCAP_SERVICES
+ARG VCAP_APPLICATION
+ARG PLATFORM
+
+ENV SNYK_TOKEN=$SNYK_TOKEN
+ENV VCAP_SERVICES=$VCAP_SERVICES
+ENV VCAP_APPLICATION=$VCAP_APPLICATION
+ENV PLATFORM=$PLATFORM
+
+# create a symlink to the new node_modules in the app dir
+# so that angular can find the node modules
+# angular-cli won't use the NODE_PATH for node package lookup
+# https://github.com/angular/angular-cli/issues/3864
+RUN sudo ln -s /node /app
+
+# startup the angular server when the container launches
+# ensure a host of 0.0.0.0 so that port forwarding works correctly
+#CMD ["/node/node_modules/.bin/ng", "build", "-op", "/node/dist"]
+RUN sudo http-server /app/dist -p 4200

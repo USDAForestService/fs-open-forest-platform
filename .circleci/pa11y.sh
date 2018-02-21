@@ -1,4 +1,4 @@
-docker-compose up fs-intake-frontend &
+docker-compose up fs-intake-pa11y &
 sleep 60
 cd ../frontend
 pa11y-ci
