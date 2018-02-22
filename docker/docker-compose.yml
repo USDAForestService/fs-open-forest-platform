@@ -55,7 +55,6 @@ services:
     ports:
       - "4200:4200"
     volumes:
-      - ../frontend:/app
       - /app/node_modules
       - /dev/shm:/dev/shm
     depends_on:
