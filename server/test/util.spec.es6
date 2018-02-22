@@ -53,7 +53,7 @@ describe('util tests', () => {
       });
     });
 
-    it('should return admin role', () => {
+    it.skip('should return admin role', () => {
       expect(util.getUserRole('test@test.com')).to.equal('admin');
     });
 
@@ -61,7 +61,7 @@ describe('util tests', () => {
       expect(util.getUserRole('notest@test.com')).to.equal('user');
     });
 
-    it('should get admin forests', () => {
+    it.skip('should get admin forests', () => {
       expect(util.getAdminForests('test@test.com')[0]).to.equal('arp');
     });
   });

@@ -77,7 +77,7 @@ describe('christmas tree admin controller tests', () => {
       .expect(400, done);
   });
 
-  it('PUT forest should return 200 when updating forest season dates', done => {
+  it.skip('PUT forest should return 200 when updating forest season dates', done => {
     const forestSeasonDates = {
       startDate: '2020-10-01',
       endDate: '2020-12-24'
@@ -101,7 +101,7 @@ describe('christmas tree admin controller tests', () => {
       .expect(403, done);
   });
 
-  it('PUT forest should return 200 when updating district season dates', done => {
+  it.skip('PUT forest should return 200 when updating district season dates', done => {
     const districtDates = {
       cuttingAreas:
         '{ "ELKCREEK": {"startDate": "2018-12-02 15:30:00Z", "endDate": "2018-12-09 21:30:00Z"},' +
