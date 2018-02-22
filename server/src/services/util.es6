@@ -9,7 +9,6 @@ const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise');
 const Sequelize = require('sequelize');
-const url = require('url');
 
 const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
