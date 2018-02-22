@@ -7,6 +7,7 @@
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
+const Revision = require('../models/revision.es6');
 const util = require('../services/util.es6');
 
 const commonControllers = {};
@@ -134,6 +135,18 @@ commonControllers.getPermitApplications = (req, res) => {
     .catch(() => {
       return res.status(500).send();
     });
+};
+
+/**
+ * Create a new permit application revision entry in the DB.
+ */
+commonControllers.createRevision = (user, applicationModel) => {
+  Revision.create({
+    applicationId: applicationModel.applicationId,
+    applicationType: applicationModel.type,
+    status: applicationModel.status,
+    email: user.email
+  });
 };
 
 /**

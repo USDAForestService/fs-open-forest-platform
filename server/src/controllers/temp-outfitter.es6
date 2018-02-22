@@ -16,6 +16,7 @@ const email = require('../email/email-util.es6');
 const Revision = require('../models/revision.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const util = require('../services/util.es6');
+const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
@@ -702,7 +703,7 @@ tempOutfitter.update = (req, res) => {
             app
               .save()
               .then(() => {
-                util.createRevision(util.getUser(req), app);
+                commonControllers.createRevision(util.getUser(req), app);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
@@ -717,7 +718,7 @@ tempOutfitter.update = (req, res) => {
         app
           .save()
           .then(() => {
-            util.createRevision(util.getUser(req), app);
+            commonControllers.createRevision(util.getUser(req), app);
             if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
               email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
             } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
