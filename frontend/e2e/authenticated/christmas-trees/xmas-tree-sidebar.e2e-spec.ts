@@ -22,7 +22,7 @@ describe('Xmas sidebar page', () => {
   });
 
   it('should have a locations link', () => {
-    expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
+    expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
   });
 
   it('should have a plan your trip link', () => {

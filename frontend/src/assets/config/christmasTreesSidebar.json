@@ -3,30 +3,8 @@
   "type": "anchor",
   "title": "When to cut your tree"
 }, {
-  "id": "cutting-instructions",
-  "type": "anchor",
-  "title": "How to cut your tree",
-  "sections": [{
-    "id": "cutting-instructions-before-you-cut",
-    "title": "Before you cut"
-  }, {
-    "id": "cutting-instructions-when-you-cut",
-    "title": "When you cut"
-  }, {
-    "id": "cutting-instructions-tree-selection",
-    "title": "Identifying tree species"
-  }]
-}, {
-  "id": "rules-to-know",
-  "type": "anchor",
-  "title": "Rules to know"
-}, {
-  "id": "trip-planning",
-  "type": "anchor",
-  "title": "How to plan your trip"
-}, {
   "id": "tree-locations",
-  "title": "Where to find your tree",
+  "title": "Where to cut your tree",
   "type": "anchor",
   "sections": [{
     "id": "tree-locations-prohibited",
@@ -36,6 +14,24 @@
     "title": "Cutting area maps"
   }]
 }, {
+  "id": "cutting-instructions",
+  "type": "anchor",
+  "title": "How to cut your tree",
+  "sections": [{
+    "id": "cutting-instructions-when-you-cut",
+    "title": "Measuring your tree"
+  }, {
+    "id": "cutting-instructions-before-you-cut",
+    "title": "Helpful cutting tips"
+  }, {
+    "id": "cutting-instructions-tree-selection",
+    "title": "Identifying tree species"
+  }]
+}, {
+  "id": "trip-planning",
+  "type": "anchor",
+  "title": "How to plan your trip"
+},  {
   "id": "contact-information",
   "type": "anchor",
   "title": "Contact us"
