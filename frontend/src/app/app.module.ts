@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AlertService } from './_services/alert.service';
@@ -72,6 +73,7 @@ import { UserResolver } from './user-resolver.service';
     UtilService,
     UserResolver,
     WindowRef,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
