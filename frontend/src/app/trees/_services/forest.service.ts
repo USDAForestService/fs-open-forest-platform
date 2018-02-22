@@ -73,9 +73,6 @@ export class ForestService {
 
   /**
    * configure each markdown file that will be added to the forest.content
-   *
-   * @param forest
-   * @returns {{contactUs: string; beforeYouCut: string; whenYouCut: string; cuttingYourTree: string; prohibitedRules: string; seasonDatesAdditionalInformation: string; treeLocationsAllowed: string; treeLocationsProhibited: string; howToPlanYourTrip: string; rules: string}}
    */
   getMdUrls(forest) {
     return {

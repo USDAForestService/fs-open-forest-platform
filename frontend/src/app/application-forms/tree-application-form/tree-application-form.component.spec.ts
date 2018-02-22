@@ -37,8 +37,6 @@ describe('TreeApplicationFormComponent', () => {
 
 
   describe('should check the season start date', () => {
-    let location: Location;
-
     beforeEach(
       async(() => {
         forest.startDate = moment('2100-01-02').toDate();
@@ -69,8 +67,6 @@ describe('TreeApplicationFormComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(TreeApplicationFormComponent);
       component = fixture.componentInstance;
-      location = TestBed.get(Location);
-
     });
 
     it('and redirect', async(inject([Router, Location], (router: Router, location: Location) => {

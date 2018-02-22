@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Location } from "@angular/common";
+import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -142,7 +142,7 @@ export class TreeApplicationFormComponent implements OnInit {
     if (this.applicationForm.valid) {
       this.showRules = true;
       window.scroll(0, 200);
-      let routeOptions = { fragment: 'rules' };
+      const routeOptions = { fragment: 'rules' };
       if (this.permit) {
         this.router.navigate([
           `/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId], routeOptions);
