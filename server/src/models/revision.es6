@@ -6,16 +6,9 @@
  */
 
 const Sequelize = require('sequelize');
-const url = require('url');
+const util = require('../services/util.es6');
 
-const sequelizeOptions = {
-  dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
-  logging: false
-};
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
-
-module.exports = sequelize.define('revisions', {
+module.exports = util.getSequelizeConnection().define('revisions', {
   revisionId: {
     type: Sequelize.INTEGER,
     primaryKey: true,
