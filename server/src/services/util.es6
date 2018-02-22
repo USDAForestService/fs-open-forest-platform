@@ -11,7 +11,7 @@ const request = require('request-promise');
 const Sequelize = require('sequelize');
 const url = require('url');
 
-const Revision = require('../models/revision.es6');
+const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 
 let util = {};
@@ -96,19 +96,7 @@ util.validateDateTime = input => {
  * Get a sequelize connection.
  */
 util.getSequelizeConnection = () => {
-  const sequelizeOptions = {
-    dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
-    logging: false
-  };
-  if (
-    url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
-    url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
-  ) {
-    sequelizeOptions.dialectOptions = {
-      ssl: true
-    };
-  }
-  return new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+  return new Sequelize(dbConfig);
 };
 
 /**
@@ -209,18 +197,6 @@ util.hasPermissions = (user, applicationModel) => {
 };
 
 /**
- * Create a new permit application revision entry in the DB.
- */
-util.createRevision = (user, applicationModel) => {
-  Revision.create({
-    applicationId: applicationModel.applicationId,
-    applicationType: applicationModel.type,
-    status: applicationModel.status,
-    email: user.email
-  });
-};
-
-/**
  * Convert a camel case string to regular form.
  */
 util.camelCaseToRegularForm = string => {
@@ -260,8 +236,9 @@ util.getAdminForests = emailAddress => {
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? util.ADMIN_ROLE :
-    util.USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
 };
 
 util.request = request;
