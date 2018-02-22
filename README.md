@@ -48,7 +48,7 @@ The ChristmasTreesForests database and its related seeders are used to provide d
 | org_structure_code:	| The USDA organization structure code, e.g. '11-02-10T.’ |.
 | description:			| A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt | Colorado | Fort Collins, CO. This information is used in the search bar.|
 | forest_abbr:			| The forest abbreviation as determined by the USDA, e.g., arp. |
-| tree_cost:			| Cost per harvested tree in dollars, e.g. 10. | 
+| tree_cost:			| Cost per harvested tree in dollars, e.g. 10. |
 | max_num_trees:		| Maximum number of trees that can be harvested on a single permit, e.g. 5. |
 | timezone:			| The forest’s timezone as determined by a major city, e.g. America/Denver. (Uses moment.js.)  |
 | cutting_areas: | A JSON blob representing the cutting areas/special areas for each forest. |
@@ -58,11 +58,11 @@ The ChristmasTreesForests database and its related seeders are used to provide d
 
 To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under frontend/src/assets/content and then adding the forest_abbr to the url. (For example, *frontend/src/assets/content/mthood*.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, */christmas-trees/forests/flathead*.)
 
-In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}. 
+In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}.
 
-Below is a list of content sections, their location and the files that can be modified with markdown to update the content. 
+Below is a list of content sections, their location and the files that can be modified with markdown to update the content.
 
-Content section | Directory | File name | Description 
+Content section | Directory | File name | Description
 ---- | -------- | ----------- | -----------
 | Season dates               | frontend/src/assets/content/forestAbbr/season-dates          |   additional-information.md | Start dates for various districts within the forest if they differ from the overall start date and end dates.
 | Cutting instructions       | frontend/src/assets/content/forestAbbr/cutting-instructions |  before-you-cut.md <br> when-you-cut.md  | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
@@ -72,7 +72,7 @@ Content section | Directory | File name | Description
 | Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | prohibited.md | Information on where harvesting is not allowed in the forest.
 | Contact information | frontend/src/assets/content/forestAbbr/contact-information | contact-us.md | Contact information for the forest.
 
- 
+
 ### JSON forest content
 JSON files for forest content are in */assets/config*
 
@@ -103,7 +103,7 @@ To change the status of a tree species simply update the status to one of the fo
 
 ```
   prohibited
-  recommended 
+  recommended
   not recommended
 
 ```
@@ -195,9 +195,9 @@ VCAP_APPLICATION
 
 VCAP_SERVICES
 
-[Local or CI configuration](vcap-services/local-or-ci.json)
+[Local or CI configuration](server/vcap-services/local-or-ci.json)
 
-[Staging configuration](vcap-services/staging.json)
+[Staging configuration](server/vcap-services/staging.json)
 
 ##### Install dependencies
 
@@ -367,7 +367,7 @@ As an alternative to installing all the development tools necessary to run the e
 1. Now use Docker Compose to build and start the containers.
 
    ```
-   $ docker-compose up --build --force-recreate
+   $ docker-compose up fs-intake-frontend ---build --force-recreate
    ```
 
 1. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
