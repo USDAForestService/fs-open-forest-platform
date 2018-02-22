@@ -5,7 +5,7 @@
     <span class="hidden-text">to upload for {{name}}</span>
   </button>
   <input name="{{type}}" type="file" id="{{type}}" ng2FileSelect [uploader]="uploader" [attr.aria-required]="required ? 'true' : null" tabindex="5000"
-    [attr.aria-labelledby]="errorMessage ? type + '-error' : type"
+    [attr.aria-labelledby]="errorMessage ? type + '-error' : type + '-label'"
     [attr.aria-invalid]="errorMessage ? 'true' : 'false'"
   />
   <div *ngIf="!uploader.queue[0] && !field.value">No file selected.</div>

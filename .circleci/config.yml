@@ -12,13 +12,13 @@ jobs:
           command: cd server; npm i -g eslint && npm i snyk
       - run:
           name: frontend linting
-          command: cd frontend; npm run lint 
+          command: cd frontend; npm run lint
       - run:
           name: frontend snyk
           command: cd frontend; npm run snyk-test
       - run:
           name: server linting
-          command: cd server; npm run lint 
+          command: cd server; npm run lint
       - run:
           name: server snyk
           command: cd server; npm run snyk-test
@@ -29,12 +29,9 @@ jobs:
           name: install dependencies
           command: cd docker; ../.circleci/install-dependencies-docker.sh
       - run:
-          name: run dist on frontend
-          command: cd docker; docker-compose run fs-intake-frontend sudo yarn dist-trees
-## Run tests
-      - run:
           name: pa11y test
           command: cd docker; ../.circleci/pa11y.sh
+## Run tests
       - run:
           name: frontend unit tests
           command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci

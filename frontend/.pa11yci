@@ -1,20 +1,18 @@
 {
   "defaults": {
-    "concurrency": 2,
     "timeout": 20000,
-    "wait": 400,
-    "page": {
-      "viewport": {
-          "width": 320,
-          "height": 480
-      }
+    "wait": 1000,
+    "standard": "WCAG2AA",
+    "viewport": {
+        "width": 1000,
+        "height": 1000 
     }
-},
+  },
   "urls": [
     "http://localhost:4200/",
     "http://localhost:4200/admin/applications",
     "http://localhost:4200/applications/noncommercial-group-use/new",
-    "http://localhost:4200/applications/temp-outfitters/new'",
+    "http://localhost:4200/applications/temp-outfitters/new",
     "http://localhost:4200/applications/submitted",
     "http://localhost:4200/applications/noncommercial-group-use/learn-more",
     "http://localhost:4200/applications/temp-outfitters/learn-more",
