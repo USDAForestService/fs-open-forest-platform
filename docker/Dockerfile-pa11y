@@ -10,7 +10,8 @@ WORKDIR /node
 RUN sudo npm install yarn -g
 
 # install http server to serve the static files
-RUN sudo npm install -g http-server
+RUN sudo npm install -g superstatic
+
 
 # change the node path env var to the new node_modules directory
 # and add the new node .bin to the path
@@ -47,4 +48,4 @@ ENV PLATFORM=$PLATFORM
 RUN sudo yarn run build
 
 # start server to serve static files at port 4200
-CMD ["http-server", "/app/dist", "-p", "4200"]
+CMD ["superstatic", "dist/", "-c", "superstatic.json", "--port", "4200", "--host", "0.0.0.0"]

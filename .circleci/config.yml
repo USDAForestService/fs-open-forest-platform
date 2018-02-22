@@ -29,9 +29,6 @@ jobs:
           name: install dependencies
           command: cd docker; ../.circleci/install-dependencies-docker.sh
       - run:
-          name: run dist on frontend
-          command: cd docker; docker-compose run fs-intake-frontend sudo yarn build
-      - run:
           name: pa11y test
           command: cd docker; ../.circleci/pa11y.sh
 ## Run tests
@@ -136,19 +133,19 @@ workflows:
     jobs:
       - run-all-other-tests:
           requires:
-      # - run-e2e:
-      #     requires:
+      - run-e2e:
+          requires:
       - staging-deploy:
           requires:
             - run-all-other-tests
-            # - run-e2e
+            - run-e2e
           filters:
             branches:
               only: sprint-9-development
       - prod-deploy:
           requires:
             - run-all-other-tests
-            # - run-e2e
+            - run-e2e
           filters:
             branches:
               only: master

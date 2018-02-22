@@ -4,8 +4,8 @@
     "wait": 1000,
     "standard": "WCAG2AA",
     "viewport": {
-        "width": 320,
-        "height": 480
+        "width": 1000,
+        "height": 1000 
     }
   },
   "urls": [
