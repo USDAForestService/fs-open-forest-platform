@@ -8,8 +8,10 @@
       </div>
     </div>
 
-    <h1 [hidden]="showRules" id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
-    <h1 [hidden]="!showRules" id="skip-nav-target" tabindex="-1">Christmas tree cutting rules</h1>
+    <h1 id="skip-nav-target" tabindex="-1">
+      <span [hidden]="showRules">Buy a Christmas tree permit</span>
+      <span [hidden]="!showRules">Christmas tree cutting rules</span>
+    </h1>
 
     <h2 *ngIf="forest">{{forest.forestName}}</h2>
 
