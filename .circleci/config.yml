@@ -28,9 +28,6 @@ jobs:
       - run:
           name: install dependencies
           command: cd docker; ../.circleci/install-dependencies-docker.sh
-#      - run:
-#          name: pa11y test
-#          command: cd docker; ../.circleci/pa11y.sh
 ## Run tests
       - run:
           name: frontend unit tests
@@ -38,6 +35,9 @@ jobs:
       - run:
           name: server unit tests
           command: cd docker; docker-compose run fs-intake-server yarn coverage
+      - run:
+          name: pa11y test
+          command: cd docker; ../.circleci/pa11y.sh
       - run:
           name: generate typedocs
           command: cd docker; docker-compose run fs-intake-frontend bash -c "sudo yarn global add typedoc && sudo yarn run docs"
