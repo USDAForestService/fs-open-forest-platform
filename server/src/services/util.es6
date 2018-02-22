@@ -151,8 +151,7 @@ util.getContentType = filename => {
  * Check for testing environment.
  */
 util.isLocalOrCI = () => {
-  const environments = ['CI', 'local'];
-  return environments.indexOf(process.env.PLATFORM) !== -1;
+  return vcapConstants.isLocalOrCI;
 };
 
 /**
@@ -235,9 +234,8 @@ util.getAdminForests = emailAddress => {
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
-    ? util.ADMIN_ROLE
-    : util.USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? util.ADMIN_ROLE :
+    util.USER_ROLE;
 };
 
 util.request = request;
