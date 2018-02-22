@@ -56,15 +56,17 @@
         </p>
         <div class="trees-application-rules">
           <h2>{{forest.startDate | date:'yyyy'}}</h2>
-          <app-tree-rules [forest]="forest"></app-tree-rules>
-          <app-tree-permit-rules></app-tree-permit-rules>
-
+          <div id="permit-rules-container usa-grid">
+            <hr class="header-divider">
+            <!--<app-tree-rules [forest]="forest"></app-tree-rules>-->
+            <app-tree-permit-rules [forest]="forest"></app-tree-permit-rules>
+          </div>
           <div class="trees-applications-rules-checkbox-container">
             <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
             <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit rules.</label>
             <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
           </div>
-        </div>
+       </div>
 
         <p class="usa-form-hint">
           We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.

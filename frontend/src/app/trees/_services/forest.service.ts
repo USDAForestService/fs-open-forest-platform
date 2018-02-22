@@ -71,6 +71,12 @@ export class ForestService {
     return forkJoin(requests);
   }
 
+  /**
+   * configure each markdown file that will be added to the forest.content
+   *
+   * @param forest
+   * @returns {{contactUs: string; beforeYouCut: string; whenYouCut: string; cuttingYourTree: string; prohibitedRules: string; seasonDatesAdditionalInformation: string; treeLocationsAllowed: string; treeLocationsProhibited: string; howToPlanYourTrip: string; rules: string}}
+   */
   getMdUrls(forest) {
     return {
       contactUs: `/assets/content/${forest.forestAbbr}/contact-information/contact-us.md`,
@@ -81,7 +87,8 @@ export class ForestService {
       seasonDatesAdditionalInformation: `/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`,
       treeLocationsAllowed: `/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`,
       treeLocationsProhibited: `/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`,
-      howToPlanYourTrip: `/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`
+      howToPlanYourTrip: `/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`,
+      rules: `/assets/content/${forest.forestAbbr}/rules-to-know/rules.md`
     };
   }
 
