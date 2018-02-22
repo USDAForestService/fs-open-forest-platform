@@ -9,7 +9,7 @@ const router = express.Router();
 /* get list of forests for christmas tree permits */
 router.get('/', christmasTreeController.getForests);
 
-/* get regualtions for a single forest */
+/* get regulations for a single forest */
 router.get('/:id', christmasTreeController.getForest);
 
 /*POST a new christmas tree application*/

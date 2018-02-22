@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { TreeApplicationFormComponent } from './tree-application-form.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -11,13 +11,12 @@ import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import * as sinon from 'sinon';
 
 import * as moment from 'moment-timezone';
-import { MockRouter } from '../../_mocks/routes.mock';
 import { forest } from '../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
 import { MockMarkdownService } from '../../_mocks/markdownService.mock';
+import { Location } from '@angular/common';
 
 
 class MockApplicationService {
@@ -29,6 +28,8 @@ class MockApplicationService {
   }
 }
 
+class DummyComponent {}
+
 describe('TreeApplicationFormComponent', () => {
   let component: TreeApplicationFormComponent;
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
@@ -36,11 +37,10 @@ describe('TreeApplicationFormComponent', () => {
 
 
   describe('should check the season start date', () => {
-    let mockRouter: MockRouter;
+    let location: Location;
 
     beforeEach(
       async(() => {
-        mockRouter = new MockRouter();
         forest.startDate = moment('2100-01-02').toDate();
         forest.endDate = moment('2001-01-01').toDate();
         TestBed.configureTestingModule({
@@ -58,10 +58,9 @@ describe('TreeApplicationFormComponent', () => {
               useValue: {
                 data: Observable.of({forest: forest})
               }
-            },
-            { provide: Router, useValue: mockRouter }
+            }
           ],
-          imports: [HttpClientTestingModule],
+          imports: [RouterTestingModule.withRoutes([{ path: 'christmas-trees/forests/:forest', component: DummyComponent}]), HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
       })
@@ -70,12 +69,17 @@ describe('TreeApplicationFormComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(TreeApplicationFormComponent);
       component = fixture.componentInstance;
+      location = TestBed.get(Location);
+
     });
 
-    it('and redirect', () => {
+    it('and redirect', async(inject([Router, Location], (router: Router, location: Location) => {
       fixture.detectChanges();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/christmas-trees/forests/', 'mthood']);
-    });
+
+      fixture.whenStable().then(() => {
+        expect(location.path()).toBe('/christmas-trees/forests/mthood');
+      });
+    })));
   });
 
   describe('', () => {
@@ -140,12 +144,6 @@ describe('TreeApplicationFormComponent', () => {
       expect(component.applicationForm.get('totalCost').value).toEqual(0);
       component.applicationForm.get('quantity').setValue('3');
       expect(component.applicationForm.get('totalCost').value).toEqual(30);
-    });
-
-    it('should go to rules', () => {
-      const spy = sinon.spy(component, 'goToRules');
-      component.goToRules(new Event('click'));
-      expect(spy.called).toBeTruthy();
     });
 
     it('should repopulate form fields', () => {
