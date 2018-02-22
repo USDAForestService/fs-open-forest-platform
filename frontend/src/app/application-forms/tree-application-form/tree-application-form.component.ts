@@ -172,6 +172,8 @@ export class TreeApplicationFormComponent implements OnInit {
         window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {
+        this.showRules = false;
+        window.location.hash = '';
         this.apiErrors = error;
         this.submitted = false;
         this.applicationRulesForm.get('acceptRules').setValue(false);
