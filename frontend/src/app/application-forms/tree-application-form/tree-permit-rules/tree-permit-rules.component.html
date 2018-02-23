@@ -1,12 +1,4 @@
 <div class="usa-grid">
-  <h3 id="permit-rules">ePermit Rules:</h3>
-  <p>
-    It is unlawful to reuse or duplicate this permit for the purpose of removing more products than the permit holder has purchased.
-  </p>
-  <p>
-    The permit holder's name is on the permit. Permit holder must be present at time of tree cutting and transport.
-  </p>
-  <p>Your permit must be printed to be valid and cannot be stored on a mobile device.</p>
-
+  <markdown *ngIf="forest && forest.content" [data]="forest.content.permitRules"></markdown>
   <markdown *ngIf="forest && forest.content" [data]="forest.content.rules"></markdown>
 </div>
