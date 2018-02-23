@@ -31,7 +31,6 @@ middleware.setCorsHeaders = (req, res, next) => {
  */
 middleware.checkPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
-    console.log('isLOCALORCI', util.isLocalOrCI());
     next();
   } else {
     if (!req.user) {
