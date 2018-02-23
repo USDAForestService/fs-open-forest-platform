@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install pa11y
+          command: cd frontend; npm i
+      - run:
           name: install eslint
           command: cd server; npm i -g eslint && npm i snyk
       - run:
