@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   @Input() items: any;
   @Input() mobileMenu = false;
-  currentSection: any;
   bottom: string;
   top: string;
   position: string;

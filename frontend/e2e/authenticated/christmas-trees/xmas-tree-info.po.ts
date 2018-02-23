@@ -46,11 +46,11 @@ export class TreesSidebarPage {
   }
 
   cuttingDatesSectionLink() {
-    return element(by.id('cutting-dates-link'));
+    return element(by.id('season-dates-link'));
   }
 
   cuttingDatesSection() {
-    return element(by.id('cutting-dates'));
+    return element(by.id('season-dates'));
   }
 
   cuttingDatesSeasonStartAndEnd() {
@@ -62,15 +62,15 @@ export class TreesSidebarPage {
   }
 
   whenToCutDatesSection() {
-    return element(by.id('cutting-dates'));
+    return element(by.id('season-dates'));
   }
 
   whenToCutDatesSectionLink() {
-    return element(by.id('cutting-dates-link'));
+    return element(by.id('season-dates-link'));
   }
 
   rulesToKnowSectionLink() {
-    return element(by.id('need-to-know-link'));
+    return element(by.id('rules-to-know-link'));
   }
 
   buyPermitLink() {
@@ -87,4 +87,3 @@ export class TreesForestFinderPage {
     return browser.get('/christmas-trees/forests');
   }
 }
-

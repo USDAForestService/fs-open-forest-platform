@@ -58,6 +58,6 @@ describe('TreePermitViewComponent', () => {
 
   it('should display error', () => {
     expect(component.error).toBeTruthy();
-    expect(component.error.status).toEqual(400);
+    expect(component.error.errors[0].status).toEqual(400);
   });
 });

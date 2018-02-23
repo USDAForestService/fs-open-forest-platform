@@ -184,13 +184,5 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
 
-    it('should display cutting area dates', () => {
-      expect<any>(element(by.id(`tree-cutting-areas-dates-0`)).isDisplayed()).toBeTruthy();
-    });
-
-    it('should display cutting area hours', () => {
-      expect<any>(element(by.id(`tree-cutting-areas-hours-0`)).isPresent()).toBeTruthy();
-    });
-
   });
 });

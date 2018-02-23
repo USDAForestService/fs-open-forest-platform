@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { TreesService } from '../../trees/_services/trees.service';
+import { ForestService } from '../../trees/_services/forest.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
@@ -13,8 +13,12 @@ import { UtilService } from '../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 
-import * as moment from 'moment/moment';
+import * as moment from 'moment-timezone';
 import { MockRouter } from '../../_mocks/routes.mock';
+import { forest } from '../../_mocks/forest.mock';
+import { MarkdownService } from 'ngx-md';
+import { MockMarkdownService } from '../../_mocks/markdownService.mock';
+
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -30,36 +34,29 @@ describe('TreeApplicationFormComponent', () => {
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
   let userService: Title;
 
+
   describe('should check the season start date', () => {
     let mockRouter: MockRouter;
 
     beforeEach(
       async(() => {
         mockRouter = new MockRouter();
+        forest.startDate = moment('2100-01-02').toDate();
+        forest.endDate = moment('2001-01-01').toDate();
         TestBed.configureTestingModule({
           declarations: [TreeApplicationFormComponent],
           providers: [
             UtilService,
+            { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            { provide: TreesService, useClass: TreesService },
+            ForestService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({
-                  forest: {
-                    id: '1',
-                    forestName: 'Mt Hood',
-                    orgStructureCode: '123',
-                    forestAbbr: 'mthood',
-                    treeCost: 10,
-                    maxNumTrees: 5,
-                    startDate: moment('2100-01-02').toDate(),
-                    endDate: moment('2001-01-01').toDate()
-                  }
-                })
+                data: Observable.of({forest: forest})
               }
             },
             { provide: Router, useValue: mockRouter }
@@ -82,32 +79,26 @@ describe('TreeApplicationFormComponent', () => {
   });
 
   describe('', () => {
+
     beforeEach(
       async(() => {
+        forest.startDate = moment('2000-01-02').toDate();
+        forest.endDate = moment('2100-12-31').toDate();
+
         TestBed.configureTestingModule({
           declarations: [TreeApplicationFormComponent],
           providers: [
             UtilService,
+            { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            { provide: TreesService, useClass: TreesService },
+            ForestService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({
-                  forest: {
-                    id: '1',
-                    forestName: 'Mt Hood',
-                    orgStructureCode: '123',
-                    forestAbbr: 'mthood',
-                    treeCost: 10,
-                    maxNumTrees: 5,
-                    startDate: moment('2000-01-02').toDate(),
-                    endDate: moment('2100-12-31').toDate()
-                  }
-                })
+                data: Observable.of({ forest: forest })
               }
             }
           ],
@@ -131,7 +122,7 @@ describe('TreeApplicationFormComponent', () => {
 
     it('should set the title', () => {
       userService = TestBed.get(Title);
-      expect(userService.getTitle()).toBe('Buy a permit | Mt Hood | U.S. Forest Service Christmas Tree Permitting');
+      expect(userService.getTitle()).toBe('Buy a permit | Mt. Hood | U.S. Forest Service Christmas Tree Permitting');
     });
 
     it('should submit application', () => {
@@ -167,18 +158,16 @@ describe('TreeApplicationFormComponent', () => {
       };
       component.createForm(
         {
-          forest: {
-            id: '1',
-            forestName: 'Mt Hood',
-            orgStructureCode: '123',
-            forestAbbr: 'mthood',
-            treeCost: 10,
-            maxNumTrees: 5
-          }
+          forest: { forest }
         },
         component.formBuilder
       );
       expect(component.applicationForm.get('firstName').value).toEqual('test');
     });
+  });
+
+  it('should render markdown', () => {
+    expect(component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}'))
+      .toEqual('Test 12 and 6 and 6');
   });
 });

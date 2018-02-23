@@ -7,11 +7,13 @@ import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
+import * as moment from 'moment-timezone';
+
 
 @Injectable()
 export class ChristmasTreesApplicationService {
-  private endpoint = environment.apiUrl + 'forests/christmas-trees/permits';
-  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees/permits';
+  private endpoint = environment.apiUrl + 'forests/christmas-trees';
+  private adminEndpoint = environment.apiUrl + 'admin/christmas-trees';
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
@@ -26,43 +28,61 @@ export class ChristmasTreesApplicationService {
       headers: headers
     };
 
-    return this.http
-      .post(this.endpoint, body, options)
-      .catch(this.util.handleError);
+    return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
   }
 
   cancelOldApp(id) {
     const body = { permitId: id, status: 'Cancelled' };
-    return this.http
-      .put(`${environment.apiUrl}forests/christmas-trees/permits`, body)
-      .catch(this.util.handleError);
+    return this.http.put(`${this.endpoint}/permits`, body).catch(this.util.handleError);
   }
 
   getOne(id, token) {
-    return this.http.get(`${this.endpoint}/${id}`, { params: new HttpParams().set('t', token) });
+    return this.http
+      .get(`${this.endpoint}/permits/${id}`, { params: new HttpParams().set('t', token) })
+      .catch(this.util.handleError);
   }
 
   getDetails(id) {
-    return this.http
-      .get(`${this.endpoint}/${id}/details`)
-      .catch(this.util.handleError);
+    return this.http.get(`${this.endpoint}/permits/${id}/details`).catch(this.util.handleError);
   }
 
   getAllByDateRange(forestId, startDate, endDate) {
     return this.http
-      .get(`${this.adminEndpoint}/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
   getReportByPermitNumber(permitNumber) {
-    return this.http.get(`${this.adminEndpoint}/${permitNumber}`, { withCredentials: true })
+    return this.http
+      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
-  handleStatusCode(status) {
-    if (status === 403) {
-      this.router.navigate(['access-denied']);
-    }
+  updateSeasonDates(forestId, startDate, endDate) {
+    const body = { startDate: startDate, endDate: endDate };
+    return this.http
+      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true })
+      .catch(this.util.handleError);
+  }
+
+  updateDistrictDates(forest, districtName, startDate, endDate) {
+    const cuttingAreas = Object.assign({}, forest.cuttingAreas);
+    const format = 'YYYY-MM-DDTHH:mm:ss';
+
+    const tzStartDate = moment.tz(startDate, format, forest.timezone);
+    tzStartDate.utc();
+
+    const tzEndDate = moment.tz(endDate, format, forest.timezone);
+    tzEndDate.utc();
+
+    cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
+    cuttingAreas[districtName].endDate = tzEndDate.format(format) + 'Z';
+
+    const body = { cuttingAreas: cuttingAreas };
+
+    return this.http
+      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true })
+      .catch(this.util.handleError);
   }
 
   resolverError(errors, route) {

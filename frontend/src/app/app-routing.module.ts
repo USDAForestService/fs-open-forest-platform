@@ -27,6 +27,8 @@ import { TreeApplicationFormComponent } from './application-forms/tree-applicati
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
+import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
+import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
 
 const appRoutes: Routes = [
   {
@@ -44,7 +46,7 @@ const appRoutes: Routes = [
         path: '',
         component: HomeComponent,
         data: {
-          title: 'US Forest Service ePermit',
+          title: 'US Forest Service ePermit'
         }
       },
       {
@@ -54,7 +56,7 @@ const appRoutes: Routes = [
           title: 'Help me find a permit',
           breadcrumbs: 'Help me find a permit'
         }
-      },
+      }
     ]
   },
   {
@@ -84,23 +86,48 @@ const appRoutes: Routes = [
           title: 'View application',
           breadcrumbs: 'View application'
         }
-      },
-
+      }
     ]
   },
   {
-    path: 'admin/christmas-trees/reports',
-    component: ReportComponent,
+    path: 'admin/christmas-trees',
     canActivate: [AuthGuardService],
+    data: {
+      admin: true
+    },
     resolve: {
       forests: ForestFinderResolver,
       user: UserResolver
     },
-    data: {
-      title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
-      breadcrumbs: 'Christmas trees permits report',
-      admin: true
-    }
+    children: [
+      {
+        path: 'reports',
+        component: ReportComponent,
+        data: {
+          title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits report',
+          admin: true
+        }
+      },
+      {
+        path: 'season-dates',
+        component: AdminSeasonDatesComponent,
+        data: {
+          title: 'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits season dates',
+          admin: true
+        }
+      },
+      {
+        path: 'district-dates',
+        component: AdminDistrictDatesComponent,
+        data: {
+          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Christmas Tree Permitting',
+          breadcrumbs: 'Christmas trees permits Ranger District dates',
+          admin: true
+        }
+      }
+    ]
   },
   {
     path: 'user/applications',
@@ -211,7 +238,7 @@ const appRoutes: Routes = [
         children: [
           {
             path: '',
-            component: TreeGuidelinesComponent,
+            component: TreeGuidelinesComponent
           },
           {
             path: 'applications',
@@ -219,7 +246,7 @@ const appRoutes: Routes = [
             children: [
               {
                 path: '',
-                component: TreeApplicationFormComponent,
+                component: TreeApplicationFormComponent
               },
               {
                 path: 'permits/:permitId',
@@ -228,7 +255,7 @@ const appRoutes: Routes = [
                   permit: ChristmasTreePermitResolver
                 },
                 data: { breadcrumbs: 'Permit confirmation' }
-              },
+              }
             ]
           },
           {
@@ -238,13 +265,12 @@ const appRoutes: Routes = [
             resolve: {
               permit: ChristmasTreePermitDetailResolver
             },
-            data: { breadcrumbs: 'Buy a permit'} ,
-          },
+            data: { breadcrumbs: 'Buy a permit' }
+          }
         ]
       }
     ]
-  }
-  ,
+  },
   {
     path: 'mock-pay-gov',
     component: LandingPageComponent,

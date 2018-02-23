@@ -1,8 +1,8 @@
 {
   "defaults": {
-    "concurrency": 1,
+    "concurrency": 2,
     "timeout": 20000,
-    "wait": 1200,
+    "wait": 400,
     "page": {
       "viewport": {
           "width": 320,
@@ -37,6 +37,7 @@
     "http://localhost:4200/christmas-trees/forests/flathead/applications",
     "http://localhost:4200/christmas-trees/forests/shoshone/applications",
     "http://localhost:4200/christmas-trees/forests",
-    "http://localhost:4200/admin/christmas-trees/reports"
+    "http://localhost:4200/admin/christmas-trees/reports",
+    "http://localhost:4200/admin/christmas-trees/season-dates"
   ]
 }

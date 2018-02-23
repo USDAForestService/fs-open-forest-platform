@@ -3,7 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const middleware = require('../src/middleware.es6');
+const middleware = require('../src/services/middleware.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 describe('middleware', () => {
@@ -86,7 +86,7 @@ describe('middleware', () => {
   it('should not pass admin auth', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';
-    const req = { user: { role: 'shmuck', email: '123' } };
+    const req = { user: { role: 'foo', email: '123' } };
     let send = sinon.stub();
     const res = {
       status: sinon.stub().returns({ send })

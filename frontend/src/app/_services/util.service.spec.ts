@@ -72,4 +72,12 @@ describe('UtilService', () => {
     const response = new HttpErrorResponse({ status: 405, error: { errors: ['error'] } });
     expect(service.handleError(response)).toEqual(Observable.throw([{ status: 405 }]));
   });
+
+  it('should set login redirect message', () => {
+    service.setLoginRedirectMessage();
+    expect(service.progress).toEqual({
+      display: true,
+      message: 'Redirecting to login page, please wait.'
+    });
+  });
 });

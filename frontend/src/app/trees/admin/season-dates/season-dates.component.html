@@ -1,0 +1,40 @@
+<section class="usa-section">
+  <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <h1 id="skip-nav-target" tabindex="-1">Update Forest Season Dates</h1>
+
+    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">{{ updateStatus }}</p>
+      </div>
+    </div>
+
+    <form [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="updateSeasonDates()">
+      <div>
+        <fieldset class="usa-form-group">
+          <legend class="fs-datetime-legend">
+            To update season dates, please select a forest.
+          </legend>
+          <ng-container *ngFor="let forest of forests; let i = index">
+            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+          </ng-container>
+        </fieldset>
+
+        <div>
+          <p>If your forest is not listed, please <a href="#">request access</a>.</p>
+          <p>The time on the season start date and end date will be set to midnight.</p>
+          <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="false"
+                           (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+        </div>
+      </div>
+
+      <button id="update-dates" class="usa-button-primary-alt usa-button-big" type="submit">Update season dates</button>
+
+    </form>
+
+  </div>
+</section>
