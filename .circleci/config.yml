@@ -36,9 +36,6 @@ jobs:
       - run:
           name: server unit tests
           command: cd docker; docker-compose run fs-intake-server yarn coverage
-      - run:
-          name: generate typedocs
-          command: cd frontend; sudo npm run docs
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
@@ -103,6 +100,9 @@ jobs:
           name: Run update script
           command: cd frontend; yarn run update-version;
       - run:
+          name: generate typedocs
+          command: cd frontend; yarn run docs
+      - run:
           name: Create dist
           command: cd frontend; yarn dist-trees;
       - run:
@@ -129,6 +129,9 @@ jobs:
       - run:
           name: Run update script
           command: cd frontend; yarn run update-version;
+      - run:
+          name: generate typedocs
+          command: cd frontend; yarn run docs
       - run:
           name: Create dist
           command: cd frontend; yarn dist-prod;
