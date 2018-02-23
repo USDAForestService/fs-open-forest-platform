@@ -1,6 +1,6 @@
 ### Christmas tree cutting
 
-The below applies to all available Christmas tree cutting areas in the Arapaho and Roosevelt National Forests. 
+The below applies to all available Christmas tree cutting areas in the {{forestName}}. 
 
 * The tree stump must be less than {{stumpDiameter}} inches in diameter.
 * You must leave a stump of {{stumpHeight}} inches or less.
