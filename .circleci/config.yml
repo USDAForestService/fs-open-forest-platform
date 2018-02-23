@@ -152,11 +152,13 @@ workflows:
           requires:
       - run-pa11y:
           requires:
+          filters:
+            branches:
+              only: master
       - staging-deploy:
           requires:
             - run-all-other-tests
             - run-e2e
-            - run-pa11y
           filters:
             branches:
               only: sprint-10-development
