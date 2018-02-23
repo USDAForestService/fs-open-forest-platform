@@ -62,16 +62,15 @@ In the markdown files, database variables are indicated by curly brackets, such 
 
 Below is a list of content sections, their location and the files that can be modified with markdown to update the content.
 
-Content section | Directory | File name | Description
----- | -------- | ----------- | -----------
-| Season dates               | frontend/src/assets/content/forestAbbr/season-dates          |   additional-information.md | Start dates for various districts within the forest if they differ from the overall start date and end dates.
-| Cutting instructions       | frontend/src/assets/content/forestAbbr/cutting-instructions |  before-you-cut.md <br> when-you-cut.md  | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
-| Rules to know | frontend/src/assets/content/forestAbbr/rules-to-know | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.
-| Trip planning | frontend/src/assets/content/forestAbbr/trip-planning | how-to-plan-your-trip.md | Helpful information before leaving home to visit the forest.
-| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | allowed.md | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.
-| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | prohibited.md | Information on where harvesting is not allowed in the forest.
-| Contact information | frontend/src/assets/content/forestAbbr/contact-information | contact-us.md | Contact information for the forest.
-
+| Content section      | Directory                                                     | File name                                     | Description                                                                                                                                       |
+| -------------------- | ------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Season dates         | frontend/src/assets/content/{forestAbbr}/season-dates         | additional-information.md                     | Start dates for various districts within the forest if they differ from the overall start date and end dates.                                     |
+| Cutting instructions | frontend/src/assets/content/{forestAbbr}/cutting-instructions | before-you-cut.md <br> when-you-cut.md        | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
+| Rules to know        | frontend/src/assets/content/{forestAbbr}/rules-to-know        | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.                                           |
+| Trip planning        | frontend/src/assets/content/{forestAbbr}/trip-planning        | how-to-plan-your-trip.md                      | Helpful information before leaving home to visit the forest.                                                                                      |
+| Tree locations       | frontend/src/assets/content/{forestAbbr}/tree-locations       | allowed.md                                    | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.                                        |
+| Tree locations       | frontend/src/assets/content/{forestAbbr}/tree-locations       | prohibited.md                                 | Information on where harvesting is not allowed in the forest.                                                                                     |
+| Contact information  | frontend/src/assets/content/{forestAbbr}/contact-information  | contact-us.md                                 | Contact information for the forest.                                                                                                               |
 
 ### JSON forest content
 
