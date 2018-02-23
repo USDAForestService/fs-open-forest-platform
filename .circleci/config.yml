@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  
+
   run-all-other-tests:
     machine: true
     steps:
@@ -143,6 +143,8 @@ workflows:
       - run-all-other-tests:
           requires:
       - run-e2e:
+          requires:
+      - run-pa11y:
           requires:
       - staging-deploy:
           requires:
