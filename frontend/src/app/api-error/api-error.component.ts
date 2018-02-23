@@ -6,6 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ApiErrorComponent implements OnInit {
   @Input() errors: any;
+  @Input() showContact = true;
   constructor() {}
 
   ngOnInit() {}

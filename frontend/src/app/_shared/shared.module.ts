@@ -10,6 +10,7 @@ import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
 import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
+import { MarkdownModule } from 'ngx-md';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { ApiErrorComponent } from '../api-error/api-error.component';
@@ -19,7 +20,7 @@ import { SpinnerModule } from 'angular2-spinner/dist';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 
 @NgModule({
-  imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot()],
+  imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot(), MarkdownModule.forRoot()],
   declarations: [
     ApiErrorComponent,
     BreadcrumbsComponent,
@@ -54,7 +55,8 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     TrackScrollDirective,
     TreeRulesComponent,
     UrlPipe,
-    ProgressComponent
+    ProgressComponent,
+    MarkdownModule
   ],
   providers: [SidebarConfigService]
 })

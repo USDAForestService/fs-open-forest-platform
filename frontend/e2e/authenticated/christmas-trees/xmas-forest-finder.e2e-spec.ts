@@ -28,7 +28,7 @@ describe('Xmas tree  - Find a forest', () => {
       browser.sleep(960);
       element(by.id('forest-finder-submit')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/shoshone');
+      expect(browser.getCurrentUrl()).toContain('http://localhost:4200/christmas-trees/forests/shoshone');
     });
   });
 
@@ -46,7 +46,7 @@ describe('Xmas tree  - Find a forest', () => {
     it('should let the user click a forest map and navigate to that forest', () => {
       element(by.id('arp-map-img')).click();
       browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/arp');
+      expect(browser.getCurrentUrl()).toContain('http://localhost:4200/christmas-trees/forests/arp');
     });
   });
 });

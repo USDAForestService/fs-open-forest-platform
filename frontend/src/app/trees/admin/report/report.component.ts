@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
+import { WindowRef } from '../../../_services/native-window.service';
+import { TreesAdminService } from '../trees-admin.service';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html'
 })
-export class ReportComponent implements OnInit {
+export class ReportComponent implements OnInit, AfterViewInit {
   forests: any;
   forest: any;
   form: any;
@@ -32,42 +34,51 @@ export class ReportComponent implements OnInit {
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    public afs: ApplicationFieldsService
+    public afs: ApplicationFieldsService,
+    private treesAdminService: TreesAdminService,
+    private winRef: WindowRef
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
     });
 
     this.permitNumberSearchForm = formBuilder.group({
-      permitNumber: ['', [Validators.required]]
+      permitNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]]
     });
 
-    this.form.get('forestId').valueChanges.subscribe(forest => {
-      this.setStartEndDate(forest);
+    this.form.get('forestId').valueChanges.subscribe(forestId => {
+      if (forestId) {
+        this.forest = this.getForestById(forestId);
+        this.setStartEndDate(this.forest, this.form);
+      }
     });
   }
 
   resetForms() {
     this.result = null;
     this.forest = null;
+    this.isDateSearch = !this.isDateSearch;
+    this.apiErrors = null;
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+      this.forest = this.forests[0];
+      if (this.forest) {
+        this.form.get('forestId').setValue(this.forest.id);
+      }
     });
   }
 
-  setStartEndDate(forest) {
-    this.forest = this.getForestById(forest);
-    if (this.forest && this.form.get('dateTimeRange')) {
-      this.form.get('dateTimeRange.startMonth').setValue(moment(this.forest.startDate).format('MM'));
-      this.form.get('dateTimeRange.startDay').setValue(moment(this.forest.startDate).format('DD'));
-      this.form.get('dateTimeRange.startYear').setValue(moment(this.forest.startDate).format('YYYY'));
-      this.form.get('dateTimeRange.endMonth').setValue(moment(this.forest.endDate).format('MM'));
-      this.form.get('dateTimeRange.endDay').setValue(moment(this.forest.endDate).format('DD'));
-      this.form.get('dateTimeRange.endYear').setValue(moment(this.forest.endDate).format('YYYY'));
-    }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.setStartEndDate(this.forest, this.form);
+    }, 0);
+  }
+
+  setStartEndDate(forest, form) {
+    this.treesAdminService.setStartEndDate(forest, form);
   }
 
   updateDateStatus(dateStatus: any): void {
@@ -75,11 +86,7 @@ export class ReportComponent implements OnInit {
   }
 
   getForestById(id) {
-    for (const forest of this.forests) {
-      if (forest.id === parseInt(id, 10)) {
-        return forest;
-      }
-    }
+    return this.forests.find(forest => forest.id === parseInt(id, 10)) ;
   }
 
   getForestDate(dateField) {
@@ -88,14 +95,8 @@ export class ReportComponent implements OnInit {
 
   getReport() {
     this.afs.touchAllFields(this.form);
-    this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
-
-    if (this.isDateSearch) {
-      this.getPermitsByDate();
-    } else {
-      this.getPermitByNumber();
-    }
+    this.getPermitsByDate();
   }
 
   private setReportParameters() {
@@ -107,11 +108,9 @@ export class ReportComponent implements OnInit {
   }
 
   private getPermitsByDate() {
-    this.permitNumberSearchForm.reset();
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
-      this.service
-        .getAllByDateRange(
+      this.service.getAllByDateRange(
           this.forest.id,
           moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
           moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
@@ -128,26 +127,33 @@ export class ReportComponent implements OnInit {
           },
           err => {
             this.apiErrors = err;
+            this.winRef.getNativeWindow().scroll(0, 200);
           }
         );
+    } else {
+      this.afs.scrollToFirstError();
     }
   }
 
-  private getPermitByNumber() {
-    this.form.reset();
-    this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
-      results => {
-        this.result = {
-          numberOfPermits: 1,
-          sumOfTrees: results.permits[0].quantity,
-          sumOfCost: results.permits[0].totalCost,
-          permits: results.permits,
-          parameters: null
-        };
-      },
-      err => {
-        this.apiErrors = err;
-      }
-    );
+  getPermitByNumber() {
+    this.afs.touchAllFields(this.permitNumberSearchForm);
+    this.result = null;
+    if (this.permitNumberSearchForm.valid) {
+      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
+        results => {
+          this.result = {
+            numberOfPermits: 1,
+            sumOfTrees: results.permits[0].quantity,
+            sumOfCost: results.permits[0].totalCost,
+            permits: results.permits,
+            parameters: null
+          };
+        },  err => {
+          this.apiErrors = err;
+          this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
+          this.winRef.getNativeWindow().scroll(0, 200);
+        }
+      );
+    }
   }
 }

@@ -29,4 +29,5 @@ describe('SectionHeadingComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

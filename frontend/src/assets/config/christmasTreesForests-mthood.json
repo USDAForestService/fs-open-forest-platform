@@ -1,0 +1,25 @@
+{
+  "forest": "mthood",
+  "treeSpecies": [
+    {
+      "id": "noble-fir",
+      "name": "Noble Fir",
+      "status": "recommended"
+    },
+    {
+      "id": "pacific-silver-fir",
+      "name": "Pacific Silver Fir",
+      "status": "recommended"
+    },
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "status": "not recommended"
+    },
+    {
+      "id": "pacific-yew",
+      "name": "Pacific Yew",
+      "status": "prohibited"
+    }
+  ]
+}
