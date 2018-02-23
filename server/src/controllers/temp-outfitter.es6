@@ -22,11 +22,19 @@ const vcapConstants = require('../vcap-constants.es6');
 const tempOutfitter = {};
 
 /** Initialize our S3 bucket connection for file attachments */
-const s3 = new AWS.S3({
-  accessKeyId: vcapConstants.accessKeyId,
-  secretAccessKey: vcapConstants.secretAccessKey,
-  region: vcapConstants.region
-});
+/** if local or CI use aws credentials */
+let s3 = {};
+if (util.isLocalOrCI) {
+  s3 = new AWS.S3({
+    region: vcapConstants.region
+  });
+} else {
+  s3 = new AWS.S3({
+    accessKeyId: vcapConstants.accessKeyId,
+    secretAccessKey: vcapConstants.secretAccessKey,
+    region: vcapConstants.region
+  });
+}
 
 /**
  * Translate permit application object from client format to database format.
