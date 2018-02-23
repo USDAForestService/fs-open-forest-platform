@@ -151,8 +151,6 @@ util.getContentType = filename => {
  * Check for testing environment.
  */
 util.isLocalOrCI = () => {
-  console.log('ISLOCALORCI', vcapConstants.isLocalOrCI);
-  console.log('PLATFORM', process.env.PLATFORM);
   return vcapConstants.isLocalOrCI;
 };
 
