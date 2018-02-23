@@ -5,6 +5,11 @@ import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pip
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../_services/util.service';
 import { forest } from '../../../_mocks/forest.mock';
+import { MarkdownService } from 'ngx-md';
+import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ForestService } from '../../../trees/_services/forest.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TreePermitRulesComponent', () => {
   let component: TreePermitRulesComponent;
@@ -14,7 +19,13 @@ describe('TreePermitRulesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreePermitRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe],
-        providers: [UtilService]
+        providers: [
+          UtilService,
+          ForestService,
+          { provide: MarkdownService, useClass: MockMarkdownService },
+        ],
+        imports: [HttpClientTestingModule],
+        schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
