@@ -1,5 +1,5 @@
 <ng-container [formGroup]="parentGroup">
-  <label class="usa-input" id="quantity-label">{{ label }}</label>
+  <label class="usa-input" for="quantity" id="quantity-label">{{ label }}</label>
   <span id="quantity-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
   <input id="quantity" class="usa-input-tiny" type="number" formControlName="quantity" aria-required="true"
     [attr.aria-labelledby]="afs.labelledBy(parentGroup.controls.quantity, 'quantity-label quantity-hint-text', 'quantity-error')"

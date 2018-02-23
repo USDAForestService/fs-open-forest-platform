@@ -1,5 +1,6 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,11 +23,14 @@ export class TreeApplicationFormComponent implements OnInit {
   submitted = false;
   application: any;
   applicationForm: FormGroup;
+  applicationRulesForm: FormGroup;
   maxNumberOfTrees: number;
   costPerTree: number;
   apiErrors: any;
+  showRules = false;
 
   constructor(
+    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private titleService: Title,
@@ -59,8 +63,7 @@ export class TreeApplicationFormComponent implements OnInit {
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
       quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
-      totalCost: [0, [Validators.required, currencyValidator()]],
-      acceptRules: [false, [Validators.required]]
+      totalCost: [0, [Validators.required, currencyValidator()]]
     });
   }
 
@@ -73,9 +76,11 @@ export class TreeApplicationFormComponent implements OnInit {
     this.costPerTree = data.forest.treeCost;
     this.applicationForm.get('treeCost').setValue(this.costPerTree);
     this.maxNumberOfTrees = data.forest.maxNumTrees;
+    this.applicationRulesForm = formBuilder.group({ acceptRules: [false, [Validators.required]] });
+
     if (this.permit) {
       this.rePopulateForm();
-      if (this.permit.status !== 'Cancelled' || this.permit.status !== 'Error') {
+      if (this.permit.status !== 'Cancelled' && this.permit.status !== 'Error') {
         this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
           this.permit.status = 'Cancelled';
         });
@@ -93,8 +98,15 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
-
   ngOnInit() {
+    window.location.hash = ''; // clear out the hash on reload
+
+    this.location.subscribe(locationChange => {
+      if (locationChange.type === 'hashchange') { // back button press from #rules
+        this.showRules = false;
+      }
+    });
+
     this.route.data.subscribe(data => {
       if (data.forest) {
         this.forest = data.forest;
@@ -115,14 +127,33 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.apiErrors = null;
-    this.applicationFieldsService.touchAllFields(this.applicationForm);
-    if (this.applicationForm.valid) {
+    this.applicationFieldsService.touchAllFields(this.applicationRulesForm);
+    if (this.applicationRulesForm.valid) {
       this.createApplication();
     } else {
       this.applicationFieldsService.scrollToFirstError();
     }
+  }
+
+  showRulesForm() {
+    this.submitted = true;
+    this.apiErrors = null;
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
+    if (this.applicationForm.valid) {
+      this.showRules = true;
+      window.scroll(0, 200);
+      const routeOptions = { fragment: 'rules' };
+      if (this.permit) {
+        this.router.navigate([
+          `/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId], routeOptions);
+      } else {
+        this.router.navigate([
+          `/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
+      }
+    } else {
+      this.applicationFieldsService.scrollToFirstError();
+    }
+
   }
 
   rePopulateForm() {
@@ -130,8 +161,9 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationForm.get('lastName').setValue(this.permit.lastName);
     this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
     this.applicationForm.get('quantity').setValue(this.permit.quantity);
-    this.applicationForm.get('acceptRules').setValue(false);
+    this.applicationRulesForm.get('acceptRules').setValue(false);
     this.quantityChange(this.permit.quantity);
+    this.showRules = false;
   }
 
   createApplication() {
@@ -140,16 +172,14 @@ export class TreeApplicationFormComponent implements OnInit {
         window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {
+        this.showRules = false;
+        window.location.hash = '';
         this.apiErrors = error;
         this.submitted = false;
-        this.applicationForm.get('acceptRules').setValue(false);
+        this.applicationRulesForm.get('acceptRules').setValue(false);
         window.scroll(0, 0);
       }
     );
-  }
-
-  goToRules(event) {
-    this.util.gotoHashtag('rules', event);
   }
 
   updateTotalCost() {

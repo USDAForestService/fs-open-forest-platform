@@ -15,3 +15,25 @@
     margin-bottom: auto;
   }
 }
+
+.trees-application-rules {
+  border: 1px solid #000000;
+  background-color: white;
+  div {
+    padding: 1rem;
+  }
+  h2 {
+    font-size: 9rem;
+    color: $fs-green-dark;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: .5rem;
+  }
+  .trees-applications-rules-checkbox-container {
+    border: 1px solid #000000;
+    background-color: $color-gray-warm-light;
+    label {
+      margin: 1px;
+    }
+  }
+}
