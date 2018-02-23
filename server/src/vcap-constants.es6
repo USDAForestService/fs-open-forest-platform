@@ -16,10 +16,12 @@ vcapConstants.isLocalOrCI = (['CI', 'local'].indexOf(process.env.PLATFORM) !== -
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
-if (vcapConstants.isLocalOrCI) {
+if (vcapConstants.isLocalOrCI || ['ci-unauthenticated'].indexOf(process.env.PLATFORM) !== -1) {
   vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
-} else {
+} else if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+} else {
+  console.error('You need to define VCAP_SERVICES');
 }
 
 
