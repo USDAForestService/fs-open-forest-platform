@@ -1,15 +1,27 @@
 'use strict';
 
+const fs = require('fs-extra');
+
 /**
  * Module for VCAP Constants
  * @module vcap-constants
  */
 
-/** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
-const vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+
 const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
 
 const vcapConstants = {};
+
+vcapConstants.isLocalOrCI = (['CI', 'local'].indexOf(process.env.PLATFORM) !== -1) ? true : false;
+
+/** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
+let vcapServices;
+if (vcapConstants.isLocalOrCI) {
+  vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
+} else {
+  vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+}
+
 
 const getUserProvided = function(name) {
   return vcapServices['user-provided'].find(element => {
