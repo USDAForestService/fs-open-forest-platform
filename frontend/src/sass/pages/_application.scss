@@ -20,20 +20,15 @@
   border: 1px solid #000000;
   background-color: white;
   div {
-    padding: 1rem;
-  }
-  h2 {
-    font-size: 9rem;
-    color: $fs-green-dark;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .trees-applications-rules-checkbox-container {
-    border: 1px solid #000000;
+    border-top: 1px solid #000000;
     background-color: $color-gray-warm-light;
     label {
-      margin: 1px;
+      margin: 0px;
+      padding-top: 4px;
     }
   }
 }
