@@ -1,5 +1,5 @@
 docker-compose up fs-intake-pa11y &
-sleep 60
+sleep 120
 cd ../frontend
 pa11y-ci
 pa11yreturncode=$?

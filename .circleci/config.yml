@@ -38,7 +38,7 @@ jobs:
           command: cd docker; docker-compose run fs-intake-server yarn coverage
       - run:
           name: generate typedocs
-          command: cd frontend; sudo yarn run docs
+          command: cd frontend; sudo npm run docs
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
