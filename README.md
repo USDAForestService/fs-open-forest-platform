@@ -32,26 +32,27 @@ The database is used to provide data for a minimal set of variables that are sha
 
 #### ChristmasTreesForests database table
 
-The ChristmasTreesForests database and its related seeders are used to provide data for a minimal set of variables that are shared by all National Forest Christmas tree sites (for example, on the permit svg file and the permit information webpages). The database contains the following:
+The ChristmasTreesForests database and its related seeders are used to provide data for a minimal set of variables that are shared by all National Forest Christmas tree sites (for example, on the permit svg file and the permit information webpages). The database contains the following:  
 
-| Database Fields     | Description                                                                                                             |
-| ------------------- | :---------------------------------------------------------------------------------------------------------------------- |
-| ID                  | A number that represents each forest; the number is set automatically to start at 1.                                    |
-| forest_name         | The complete forest name, e.g. Arapaho and Roosevelt National Forests. The name should include "National Forest.”       |
-| forest_name_short:  | The forest name in shortened format, e.g., Arapaho and Roosevelt.                                                       |
-| forest_url          | A hyperlink to the main USDA Forest Service national forest website, e.g.,https://www.fs.usda.gov/main/arp.             |
-| tree_height:        | Maximum tree height in feet, e.g. 12. If the forest does not have a maximum tree height, this value is set to 0.        |
-| stump_height:       | Maximum stump height in inches, e.g. 6. If the forest does not have a maximum stump height, this value is set to 0.     |
-| stump_diameter:     | Maximum stump diameter in inches, e.g. 4. If the forest does not have a maximum stump diameter, this value is set to 0. |
-| start_date:         | The season start date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage.                           |
-| end_date:           | The season end date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage.                             |
-| org_structure_code: | The USDA organization structure code, e.g. '11-02-10T.’                                                                 | . |
-| description:        | A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt                              | Colorado | Fort Collins, CO. This information is used in the search bar. |
-| forest_abbr:        | The forest abbreviation as determined by the USDA, e.g., arp.                                                           |
-| tree_cost:          | Cost per harvested tree in dollars, e.g. 10.                                                                            |
-| max_num_trees:      | Maximum number of trees that can be harvested on a single permit, e.g. 5.                                               |
-| timezone:           | The forest’s timezone as determined by a major city, e.g. America/Denver. (Uses moment.js.)                             |
-| cutting_areas:      | A JSON blob representing the cutting areas/special areas for each forest.                                               |
+| Database Fields | Description |
+| ----- | :----- |
+| ID |  A number that represents each forest; the number is set automatically to start at 1.|
+| forest_name 			| The complete forest name, e.g. Arapaho and Roosevelt National Forests. The name should include "National Forest.” |
+| forest_name_short:	| The forest name in shortened format, e.g., Arapaho and Roosevelt. |
+| forest_url			| A hyperlink to the main USDA Forest Service national forest website, e.g.,https://www.fs.usda.gov/main/arp. |
+| tree_height: 		        | Maximum tree height in feet, e.g. 12. If the forest does not have a maximum tree height, this value is set to 0. |
+| stump_height:		| Maximum stump height in inches, e.g. 6. If the forest does not have a maximum stump height, this value is set to 0.  |
+| stump_diameter:	        | Maximum stump diameter in inches, e.g. 4. If the forest does not have a maximum stump diameter, this value is set to 0.|
+| start_date:			| The season start date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage. |
+| end_date:			| The season end date, e.g. '2018-11-01T06:00:00Z.’ This can be changed on the Admin webpage. |
+| org_structure_code:	| The USDA organization structure code, e.g. '11-02-10T.’ |.
+| description:			| A description containing the state and nearby city of the forest, e.g. Arapaho & Roosevelt | Colorado | Fort Collins, CO. This information is used in the search bar.|
+| forest_abbr:			| The forest abbreviation as determined by the USDA, e.g., arp. |
+| tree_cost:			| Cost per harvested tree in dollars, e.g. 10. |
+| max_num_trees:		| Maximum number of trees that can be harvested on a single permit, e.g. 5. |
+| timezone:			| The forest’s timezone as determined by a major city, e.g. America/Denver. (Uses moment.js.)  |
+| cutting_areas: | A JSON blob representing the cutting areas/special areas for each forest. |
+
 
 ### Markdown and forest content
 
@@ -61,15 +62,16 @@ In the markdown files, database variables are indicated by curly brackets, such 
 
 Below is a list of content sections, their location and the files that can be modified with markdown to update the content.
 
-| Content section      | Directory                                                   | File name                                     | Description                                                                                                                                       |
-| -------------------- | ----------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Season dates         | frontend/src/assets/content/forestAbbr/season-dates         | additional-information.md                     | Start dates for various districts within the forest if they differ from the overall start date and end dates.                                     |
-| Cutting instructions | frontend/src/assets/content/forestAbbr/cutting-instructions | before-you-cut.md <br> when-you-cut.md        | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
-| Rules to know        | frontend/src/assets/content/forestAbbr/rules-to-know        | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.                                           |
-| Trip planning        | frontend/src/assets/content/forestAbbr/trip-planning        | how-to-plan-your-trip.md                      | Helpful information before leaving home to visit the forest.                                                                                      |
-| Tree locations       | frontend/src/assets/content/forestAbbr/tree-locations       | allowed.md                                    | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.                                        |
-| Tree locations       | frontend/src/assets/content/forestAbbr/tree-locations       | prohibited.md                                 | Information on where harvesting is not allowed in the forest.                                                                                     |
-| Contact information  | frontend/src/assets/content/forestAbbr/contact-information  | contact-us.md                                 | Contact information for the forest.                                                                                                               |
+Content section | Directory | File name | Description
+---- | -------- | ----------- | -----------
+| Season dates               | frontend/src/assets/content/forestAbbr/season-dates          |   additional-information.md | Start dates for various districts within the forest if they differ from the overall start date and end dates.
+| Cutting instructions       | frontend/src/assets/content/forestAbbr/cutting-instructions |  before-you-cut.md <br> when-you-cut.md  | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
+| Rules to know | frontend/src/assets/content/forestAbbr/rules-to-know | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.
+| Trip planning | frontend/src/assets/content/forestAbbr/trip-planning | how-to-plan-your-trip.md | Helpful information before leaving home to visit the forest.
+| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | allowed.md | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.
+| Tree locations | frontend/src/assets/content/forestAbbr/tree-locations | prohibited.md | Information on where harvesting is not allowed in the forest.
+| Contact information | frontend/src/assets/content/forestAbbr/contact-information | contact-us.md | Contact information for the forest.
+
 
 ### JSON forest content
 
@@ -195,9 +197,9 @@ VCAP_APPLICATION
 
 VCAP_SERVICES
 
-[Local or CI configuration](vcap-services/local-or-ci.json)
+[Local or CI configuration](server/vcap-services/local-or-ci.json)
 
-[Staging configuration](vcap-services/staging.json)
+[Staging configuration](server/vcap-services/staging.json)
 
 ##### Install dependencies
 
@@ -367,7 +369,7 @@ As an alternative to installing all the development tools necessary to run the e
 1. Now use Docker Compose to build and start the containers.
 
    ```
-   $ docker-compose up --build --force-recreate
+   $ docker-compose up fs-intake-frontend ---build --force-recreate
    ```
 
 1. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
