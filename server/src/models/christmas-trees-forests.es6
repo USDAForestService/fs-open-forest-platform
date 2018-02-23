@@ -103,16 +103,16 @@ module.exports = function(sequelize, DataTypes) {
       if (forest) {
         // forest is closed and configured for testing uncomment this block and update
         //the forest id
-       // if (forest.id === 1) {
-       //   forest.startDate = moment()
-       //     .tz(forest.timezone)
-       //     .add(6, 'months')
-       //     .format('YYYY-MM-DD HH:mm:ss');
-       //   forest.endDate = moment()
-       //     .tz(forest.timezone)
-       //     .add(8, 'months')
-       //     .format('YYYY-MM-DD HH:mm:ss');
-       // }
+        // if (forest.id === 1) {
+        //   forest.startDate = moment()
+        //     .tz(forest.timezone)
+        //     .add(6, 'months')
+        //     .format('YYYY-MM-DD HH:mm:ss');
+        //   forest.endDate = moment()
+        //     .tz(forest.timezone)
+        //     .add(8, 'months')
+        //     .format('YYYY-MM-DD HH:mm:ss');
+        // }
         // open forest
         if (forest.id === 3 || forest.id === 1) {
           forest.startDate = moment()

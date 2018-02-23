@@ -14,11 +14,11 @@ forestService.parseCuttingAreas = cuttingAreas => {
       cuttingAreas = JSON.parse(cuttingAreas);
     }
   } catch (e) {
-    console.error('problem parsing cutting areas', input.cuttingAreas);
+    console.error('problem parsing cutting areas', cuttingAreas);
   }
 
   return cuttingAreas;
-}
+};
 
 forestService.translateForestFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);
