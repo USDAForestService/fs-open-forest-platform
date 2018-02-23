@@ -1,5 +1,5 @@
-import { NoncommercialGroupForm } from './app.po';
-import { FieldValidation } from './field-validation.po';
+import { NoncommercialGroupForm } from '../app.po';
+import { FieldValidation } from '../field-validation.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 const checkForPrimaryPermitHolderAddress = function(state) {
