@@ -1,1 +1,1 @@
-aws s3 ls s3://$($S3 | jq '.[bucke_name]')
+aws s3 ls s3://$($S3 | jq '.[bucket_name]')
