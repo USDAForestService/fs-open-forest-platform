@@ -1,8 +1,9 @@
 version: 2
 jobs:
-
   run-all-other-tests:
     machine: true
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:
@@ -17,7 +18,7 @@ jobs:
       - run:
           name: frontend snyk
           command: cd frontend; npm run snyk-test
-      - run:
+      - run:  
           name: server linting
           command: cd server; npm run lint
       - run:
@@ -46,6 +47,8 @@ jobs:
   run-e2e:
     machine: true
     parallelism: 4
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:
