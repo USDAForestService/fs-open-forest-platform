@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          command:
+            echo 'export DATABASE_URL=postgres://ubuntu@localhost/circle_test' >> $BASH_ENV
+      - run:
           name: install pa11y
           command: cd frontend; npm i
       - run:
@@ -51,6 +54,9 @@ jobs:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
+      - run:
+          command:
+            echo 'export DATABASE_URL=postgres://ubuntu@localhost/circle_test' >> $BASH_ENV
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
