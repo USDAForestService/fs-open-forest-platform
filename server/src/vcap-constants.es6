@@ -22,7 +22,7 @@ if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } else {
   vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
-  if (process.env.S3) {
+  if (process.env.AWS_CONFIG) {
     vcapServices.s3 = JSON.parse(process.env.AWS_CONFIG).s3;
   } else {
     vcapServices.s3 = JSON.parse(fs.readFileSync('vcap-services/aws-config.json', 'utf8')).s3;
