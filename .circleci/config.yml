@@ -55,7 +55,7 @@ jobs:
           name: install aws cli
           command: sudo apt-get update && sudo apt-get install -y awscli
       - run:
-          name: set AWS environment variables
+          name: set AWS environment variables 
           command: ./.circleci/set-aws-variables.sh
       - run:
           name: build docker compose images
