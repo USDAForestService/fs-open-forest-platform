@@ -6,9 +6,6 @@ jobs:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
-      # - run:
-      #     command:
-      #       echo 'export DATABASE_URL=postgres://ubuntu@localhost/circle_test' >> $BASH_ENV
       - run:
           name: check envs
           command: printenv
@@ -57,9 +54,6 @@ jobs:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
-      - run:
-          command:
-            echo 'export DATABASE_URL=postgres://ubuntu@localhost/circle_test' >> $BASH_ENV
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
