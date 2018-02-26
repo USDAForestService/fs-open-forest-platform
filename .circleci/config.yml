@@ -7,9 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: check envs
-          command: printenv
-      - run:
           name: install pa11y
           command: cd frontend; npm i
       - run:
