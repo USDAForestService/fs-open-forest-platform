@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: run npm install 
+          command: cd frontend; npm i
+      - run:
           name: set AWS environment variables
           command: ./.circleci/set-aws-variables.sh
       - run:

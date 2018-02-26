@@ -9,7 +9,6 @@ const fs = require('fs-extra');
 
 
 const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
-const s3 = JSON.parse(process.env.S3);
 
 const vcapConstants = {};
 
