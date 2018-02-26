@@ -18,11 +18,15 @@ vcapConstants.isLocalOrCI = (['CI', 'local'].indexOf(process.env.PLATFORM) !== -
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
-let s3;
 if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } else {
   vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
+  if (process.env.S3) {
+    vcapServices.s3 = JSON.parse(process.env.AWS_CONFIG).s3;
+  } else {
+    vcapServices.s3 = JSON.parse(fs.readFileSync('vcap-services/aws-config.json', 'utf8')).s3;
+  }
 }
 
 const getUserProvided = function(name) {
@@ -39,10 +43,15 @@ const jwt = getUserProvided('jwt');
 vcapConstants.permitSecret = jwt.credentials.permit_secret;
 
 /** S3 bucket settings */
-vcapConstants.accessKeyId = s3.access_key_id;
-vcapConstants.secretAccessKey = s3.secret_access_key;
-vcapConstants.region = s3.region;
-vcapConstants.bucket = s3.bucket;
+const intakeS3 = vcapServices['s3'].find(element => {
+  return element.name === 'intake-s3';
+});
+if (intakeS3.credentials.access_key_id && intakeS3.credentials.secret_access_key) {
+  vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
+  vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
+}
+vcapConstants.region = intakeS3.credentials.region;
+vcapConstants.bucket = intakeS3.credentials.bucket;
 
 /** Middle layer settings */
 const middlelayerService = getUserProvided('middlelayer-service');

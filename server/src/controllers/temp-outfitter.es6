@@ -5,7 +5,6 @@
  * @module controllers/temp-outfitter
  */
 
-const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
@@ -21,13 +20,8 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
 
-/** Initialize our S3 bucket connection for file attachments */
-/** if local or CI use aws credentials */
-const s3 = new AWS.S3({
-  accessKeyId: vcapConstants.accessKeyId,
-  secretAccessKey: vcapConstants.secretAccessKey,
-  region: vcapConstants.region
-});
+
+const s3 = util.getS3();
 
 /**
  * Translate permit application object from client format to database format.
