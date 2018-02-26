@@ -10,6 +10,9 @@ jobs:
           command:
             echo 'export DATABASE_URL=postgres://ubuntu@localhost/circle_test' >> $BASH_ENV
       - run:
+          name: check envs
+          command: printenv
+      - run:
           name: install pa11y
           command: cd frontend; npm i
       - run:
