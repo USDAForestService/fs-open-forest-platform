@@ -40,16 +40,16 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode =
     input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode ? input.applicantInfo.eveningPhone.areaCode :
-    null;
+      null;
   output.applicantInfoEveningPhoneExtension =
     input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension ? input.applicantInfo.eveningPhone
-    .extension : null;
+      .extension : null;
   output.applicantInfoEveningPhoneNumber =
     input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number ? input.applicantInfo.eveningPhone.number :
-    null;
+      null;
   output.applicantInfoEveningPhonePrefix =
     input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix ? input.applicantInfo.eveningPhone.prefix :
-    null;
+      null;
   output.applicantInfoFaxAreaCode =
     input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
   output.applicantInfoFaxExtension =
@@ -67,7 +67,7 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
   output.applicantInfoPrimaryMailingState =
     input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState ? input.applicantInfo.primaryAddress
-    .mailingState : null;
+      .mailingState : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -357,10 +357,10 @@ const getFile = (key, documentType) => {
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
     ApplicationFile.findAll({
-        where: {
-          applicationId: applicationId
-        }
-      })
+      where: {
+        applicationId: applicationId
+      }
+    })
       .then(results => {
         let filePromises = [];
         for (let item of results) {
@@ -554,20 +554,20 @@ tempOutfitter.streamToS3 = multer({
  */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
-      where: {
-        applicationId: req.body.applicationId,
-        applicationType: 'tempoutfitters',
-        documentType: req.body.documentType
-      }
-    })
+    where: {
+      applicationId: req.body.applicationId,
+      applicationType: 'tempoutfitters',
+      documentType: req.body.documentType
+    }
+  })
     .then(() => {
       ApplicationFile.create({
-          applicationId: req.body.applicationId,
-          applicationType: 'tempoutfitters',
-          documentType: req.body.documentType,
-          s3FileName: req.files[0].key,
-          originalFileName: req.files[0].key
-        })
+        applicationId: req.body.applicationId,
+        applicationType: 'tempoutfitters',
+        documentType: req.body.documentType,
+        s3FileName: req.files[0].key,
+        originalFileName: req.files[0].key
+      })
         .then(appfile => {
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
@@ -586,10 +586,10 @@ tempOutfitter.attachFile = (req, res) => {
  */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
-      where: {
-        fileId: req.params.id
-      }
-    })
+    where: {
+      fileId: req.params.id
+    }
+  })
     .then(() => {
       return res.status(204);
     })
@@ -632,10 +632,10 @@ tempOutfitter.create = (req, res) => {
  */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
-      where: {
-        app_control_number: req.params.id
-      }
-    })
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (!app) {
         return res.status(404).send();
@@ -644,11 +644,11 @@ tempOutfitter.getOne = (req, res) => {
         return res.status(403).send();
       }
       Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
         .then(revisions => {
           const formattedApp = translateFromDatabaseToClient(app);
           formattedApp.revisions = revisions;
@@ -668,10 +668,10 @@ tempOutfitter.getOne = (req, res) => {
  */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
-      where: {
-        app_control_number: req.params.id
-      }
-    })
+    where: {
+      app_control_number: req.params.id
+    }
+  })
     .then(app => {
       if (!app) {
         return res.status(404).send();
