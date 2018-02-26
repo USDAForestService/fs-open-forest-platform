@@ -76,9 +76,10 @@ export class ForestService {
    */
   getMdUrls(forest) {
     return {
+      introduction: `/assets/content/${forest.forestAbbr}/introduction.md`,
       contactUs: `/assets/content/${forest.forestAbbr}/contact-information/contact-us.md`,
-      beforeYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/before-you-cut.md`,
-      whenYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/when-you-cut.md`,
+      beforeYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
+      whenYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/measuring.md`,
       cuttingYourTree: `/assets/content/${forest.forestAbbr}/rules-to-know/cutting-your-tree.md`,
       prohibitedRules: `/assets/content/${forest.forestAbbr}/rules-to-know/prohibited-rules.md`,
       seasonDatesAdditionalInformation: `/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`,

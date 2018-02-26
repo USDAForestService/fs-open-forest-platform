@@ -95,16 +95,17 @@ describe('ForestService', () => {
         expect(res.forestAbbr).toEqual('arp');
         expect(res.cuttingAreas).toEqual(forest.cuttingAreas);
         expect(res.content.contactUs).toEqual('blah');
-        expect(Object.keys(res.content).length).toEqual(11);
+        expect(Object.keys(res.content).length).toEqual(12);
       });
 
       const forestRequest = httpMock.expectOne('http://localhost:8080/forests/arp');
       forestRequest.flush(forest);
 
       const mdRequestUrls = [
+        '/assets/content/arp/introduction.md',
         '/assets/content/arp/contact-information/contact-us.md',
-        '/assets/content/arp/cutting-instructions/before-you-cut.md',
-        '/assets/content/arp/cutting-instructions/when-you-cut.md',
+        '/assets/content/arp/cutting-instructions/measuring.md',
+        '/assets/content/arp/cutting-instructions/helpful-information.md',
         '/assets/content/arp/rules-to-know/cutting-your-tree.md',
         '/assets/content/arp/rules-to-know/prohibited-rules.md',
         '/assets/content/arp/season-dates/additional-information.md',
@@ -128,8 +129,9 @@ describe('ForestService', () => {
 
   it('return named markdown array',
     inject([ForestService], service => {
-      const content = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+      const content = ['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
       const namedContent = {
+        introduction: 'test0',
         contactUs: 'test1',
         beforeYouCut: 'test2',
         whenYouCut: 'test3',
