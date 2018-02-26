@@ -58,11 +58,13 @@ jobs:
           name: install jq
           command: sudo apt-get install jq
       - run:
-          name: set AWS environment variables
-          command: source ./.circleci/set-aws-variables.sh
-      - run:
           name: check that bucket is set
-          command: echo ${BUCKET}
+          command: echo $BUCKET
+          environment:
+            BUCKET: `echo "${AWS_CONFIG}" | jq -r .s3[0].credentials.bucket`
+            AWS_ACCESS_KEY_ID: `echo "${AWS_CONFIG}" | jq -r .s3[0].credentials.access_key_id`
+            AWS_SECRET_ACCESS_KEY: `echo "${AWS_CONFIG}" | jq -r .s3[0].credentials.secret_access_key`
+            AWS_DEFAULT_REGION: `echo "${AWS_CONFIG}" | jq -r .s3[0].credentials.region`
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
