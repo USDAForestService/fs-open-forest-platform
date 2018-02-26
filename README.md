@@ -299,6 +299,14 @@ Add `--code-coverage` flag to print out code coverage statistics.
 
 Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+##### Testing WCAG2AA compliance with pa11y
+
+To run pa11y-ci with the single page angular app with pushstate enabled, you need to first build the static application, and then run the app from a server that supports pushstate. We are using superstatic as our server.
+
+Run pa11y-ci via docker: `cd docker; docker-compose up pa11y`
+
+Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
+
 #### Typedoc
 
 ##### Build typedoc
