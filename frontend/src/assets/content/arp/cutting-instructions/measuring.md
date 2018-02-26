@@ -6,4 +6,4 @@ to help you measure and choose a tree that meets your permit restrictions.
 
 ![alt text](/assets/img/tree-stump-height-icon.svg "stump height")  **Stump height:** {{stumpHeight}} inches maximum
 
-![alt text](/assets/img/tree-top-icon.svg "no tree-topping")  **Don't forest!** Take the whole tree. Cutting the top off a tree is prohibited.
+![alt text](/assets/img/tree-top-icon.svg "no tree-topping")  **Don't forget!** Take the whole tree. Cutting the top off a tree is prohibited.
