@@ -94,13 +94,5 @@
     },
     "label": "user-provided",
     "name": "pay-gov"
-  }],
-  "s3": [{
-    "credentials": {
-      "bucket": "flexion-test",
-      "region": "us-east-1"
-    },
-    "label": "s3",
-    "name": "intake-s3"
   }]
 }

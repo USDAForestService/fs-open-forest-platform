@@ -10,6 +10,9 @@ jobs:
           name: install aws cli
           command: sudo apt-get update && sudo apt-get install -y awscli
       - run:
+          name: install jq
+          command: sudo apt-get install jq
+      - run:
           name: test s3 connection
           command: ./.circleci/clean-s3-bucket.sh
       - run:

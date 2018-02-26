@@ -9,21 +9,21 @@ const fs = require('fs-extra');
 
 
 const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
+const s3 = JSON.parse(process.env.S3);
 
 const vcapConstants = {};
+
 
 vcapConstants.isLocalOrCI = (['CI', 'local'].indexOf(process.env.PLATFORM) !== -1) ? true : false;
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
-if (vcapConstants.isLocalOrCI || ['ci-unauthenticated'].indexOf(process.env.PLATFORM) !== -1) {
-  vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
-} else if (process.env.VCAP_SERVICES) {
+let s3;
+if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } else {
-  console.error('You need to define VCAP_SERVICES');
+  vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
 }
-
 
 const getUserProvided = function(name) {
   return vcapServices['user-provided'].find(element => {
@@ -38,14 +38,11 @@ vcapConstants.baseUrl = 'https://' + vcapApplication.uris[0];
 const jwt = getUserProvided('jwt');
 vcapConstants.permitSecret = jwt.credentials.permit_secret;
 
-/** Intake S3 bucket settings */
-const intakeS3 = vcapServices['s3'].find(element => {
-  return element.name === 'intake-s3';
-});
-vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
-vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
-vcapConstants.region = intakeS3.credentials.region;
-vcapConstants.bucket = intakeS3.credentials.bucket;
+/** S3 bucket settings */
+vcapConstants.accessKeyId = s3.access_key_id;
+vcapConstants.secretAccessKey = s3.secret_access_key;
+vcapConstants.region = s3.region;
+vcapConstants.bucket = s3.bucket;
 
 /** Middle layer settings */
 const middlelayerService = getUserProvided('middlelayer-service');

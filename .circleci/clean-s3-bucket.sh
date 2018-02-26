@@ -1,1 +1,1 @@
-aws s3 ls s3://flexion-test
+aws s3 ls s3://$($S3 | jq '.[bucke_name]')
