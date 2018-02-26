@@ -71,6 +71,9 @@ export class ForestService {
     return forkJoin(requests);
   }
 
+  /**
+   * configure each markdown file that will be added to the forest.content
+   */
   getMdUrls(forest) {
     return {
       contactUs: `/assets/content/${forest.forestAbbr}/contact-information/contact-us.md`,
@@ -81,7 +84,9 @@ export class ForestService {
       seasonDatesAdditionalInformation: `/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`,
       treeLocationsAllowed: `/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`,
       treeLocationsProhibited: `/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`,
-      howToPlanYourTrip: `/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`
+      howToPlanYourTrip: `/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`,
+      rules: `/assets/content/${forest.forestAbbr}/rules-to-know/rules.md`,
+      permitRules: `/assets/content/common/permit-rules.md`
     };
   }
 
@@ -101,9 +106,12 @@ export class ForestService {
     for (const key of this.CUTTING_AREA_KEYS) {
       if (text.indexOf(key) > -1) {
         const jsonKey = key.toUpperCase();
-        text = text
-          .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(forest, forest.cuttingAreas[jsonKey].startDate, forest.cuttingAreas[jsonKey].endDate))
-          .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(forest, forest.cuttingAreas[jsonKey].startDate, forest.cuttingAreas[jsonKey].endDate));
+        const cuttingAreas = forest.cuttingAreas;
+        if (cuttingAreas[jsonKey] && cuttingAreas[jsonKey].startDate) {
+          text = text
+            .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate))
+            .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate));
+        }
       }
     }
 
@@ -130,10 +138,12 @@ export class ForestService {
   updateMarkdownText(markdownService, forest) {
     markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(forest);
-      if (text.indexOf('{{') > -1) {
+      if (forest && text.indexOf('{{') > -1) {
         for (let i = 0; i < replaceArray.length; i++) {
           text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), forest[replaceArray[i]]);
-          text = this.parseCuttingAreaMarkdown(text, forest); // cutting areas are handled special from other variables
+          if (forest.cuttingAreas) {
+            text = this.parseCuttingAreaMarkdown(text, forest); // cutting areas are handled special from other variables
+          }
         }
       }
       return text;

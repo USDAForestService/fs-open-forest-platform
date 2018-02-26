@@ -1,4 +1,4 @@
-import { FrontendPage, HelpMePick } from './app.po';
+import { FrontendPage, HelpMePick } from '../app.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('frontend App', () => {
