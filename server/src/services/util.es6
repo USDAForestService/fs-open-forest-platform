@@ -5,6 +5,7 @@
  * @module util
  */
 
+const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise');
@@ -252,6 +253,17 @@ util.handleErrorResponse = (error, res) => {
 };
 
 util.request = request;
+
+util.getS3 = () => {
+  /** Initialize our S3 bucket connection for file attachments */
+  /** if local or CI use aws credentials */
+  let s3 = new AWS.S3({
+    region: vcapConstants.region,
+    accessKeyId: vcapConstants.accessKeyId,
+    secretAccessKey: vcapConstants.secretAccessKey
+  });
+  return s3;
+};
 
 /**
  * Various utility functions and constants
