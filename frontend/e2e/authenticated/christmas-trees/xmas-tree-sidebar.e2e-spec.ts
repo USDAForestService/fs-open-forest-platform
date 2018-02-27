@@ -44,6 +44,7 @@ describe('Xmas sidebar page', () => {
       .manage()
       .window()
       .setSize(800, 1280);
+    browser.sleep(900);
     expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
     expect<any>(element(by.id('sidebar-nav')).isDisplayed()).toBeFalsy();
   });
@@ -53,6 +54,7 @@ describe('Xmas sidebar page', () => {
       .manage()
       .window()
       .setSize(800, 1280);
+    browser.sleep(900);
     expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
     element(by.id('mobile-menu-btn')).click();
     browser.sleep(500);
