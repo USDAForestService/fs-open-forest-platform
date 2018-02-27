@@ -6,7 +6,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { ForestService } from '../../trees/_services/forest.service';
+import { ChristmasTreesService } from '../../trees/_services/christmas-trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
@@ -38,7 +38,7 @@ export class TreeApplicationFormComponent implements OnInit {
     public markdownService: MarkdownService,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private forestService: ForestService,
+    private christmasTreesService: ChristmasTreesService,
     public util: UtilService
   ) {}
 
@@ -102,7 +102,8 @@ export class TreeApplicationFormComponent implements OnInit {
     window.location.hash = ''; // clear out the hash on reload
 
     this.location.subscribe(locationChange => {
-      if (locationChange.type === 'hashchange') { // back button press from #rules
+      if (locationChange.type === 'hashchange') {
+        // back button press from #rules
         this.showRules = false;
       }
     });
@@ -112,7 +113,7 @@ export class TreeApplicationFormComponent implements OnInit {
         this.forest = data.forest;
 
         if (this.forest) {
-          this.forestService.updateMarkdownText(this.markdownService, this.forest);
+          this.christmasTreesService.updateMarkdownText(this.markdownService, this.forest);
         }
 
         this.checkSeasonStartDate(this.forest);
@@ -121,7 +122,6 @@ export class TreeApplicationFormComponent implements OnInit {
           'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );
         this.createForm(data, this.formBuilder);
-
       }
     });
   }
@@ -144,16 +144,16 @@ export class TreeApplicationFormComponent implements OnInit {
       window.scroll(0, 200);
       const routeOptions = { fragment: 'rules' };
       if (this.permit) {
-        this.router.navigate([
-          `/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId], routeOptions);
+        this.router.navigate(
+          [`/christmas-trees/forests/${this.forest.forestAbbr}/applications`, this.permit.permitId],
+          routeOptions
+        );
       } else {
-        this.router.navigate([
-          `/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
+        this.router.navigate([`/christmas-trees/forests/${this.forest.forestAbbr}/applications`], routeOptions);
       }
     } else {
       this.applicationFieldsService.scrollToFirstError();
     }
-
   }
 
   rePopulateForm() {

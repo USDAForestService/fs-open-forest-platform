@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { MarkdownService } from 'ngx-md';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 
 describe('TreeGuidelinesComponent', () => {
@@ -31,10 +31,10 @@ describe('TreeGuidelinesComponent', () => {
         endDate: moment('2101-01-01').toDate(),
         timezone: 'America/Denver',
         cuttingAreas: {
-          ELKCREEK: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-          REDFEATHERLAKES: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-          SULPHUR: {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-          CANYONLAKES: {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+          ELKCREEK: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z' },
+          REDFEATHERLAKES: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-10 21:30:00Z' },
+          SULPHUR: { startDate: '2017-11-01 12:00:00Z', endDate: '2018-01-06 21:30:00Z' },
+          CANYONLAKES: { startDate: '2017-11-27 15:30:00Z', endDate: '2017-12-10 21:30:00Z' }
         }
       }
     })
@@ -46,7 +46,7 @@ describe('TreeGuidelinesComponent', () => {
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          ForestService,
+          ChristmasTreesService,
           { provide: MarkdownService, useClass: MockMarkdownService },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
@@ -56,7 +56,7 @@ describe('TreeGuidelinesComponent', () => {
     })
   );
 
-  describe ('', () => {
+  describe('', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockRoute });
       fixture = TestBed.createComponent(TreeGuidelinesComponent);
@@ -73,22 +73,24 @@ describe('TreeGuidelinesComponent', () => {
       expect(forest.forestName).toEqual('forest name');
     });
 
-    it ('should set the forest isSeasonOpen to true', () => {
+    it('should set the forest isSeasonOpen to true', () => {
       const forest: any = component.forest;
       expect(forest.isSeasonOpen).toBeTruthy();
     });
 
     it('should render markdown', () => {
       expect(
-        component.markdownService.renderer
-          .text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'))
-      .toEqual('Test 12 and 4 and 12 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1 - Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017');
+        component.markdownService.renderer.text(
+          'Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'
+        )
+      ).toEqual(
+        'Test 12 and 4 and 12 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1 - Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017'
+      );
     });
-
   });
 
-  describe ('season closed', () => {
-    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
+  describe('season closed', () => {
+    it('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
       const mockSeasonNotOpenRoute = {
         params: Observable.of({ id: 1 }),
         data: Observable.of({
@@ -113,7 +115,7 @@ describe('TreeGuidelinesComponent', () => {
       expect(forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
     });
 
-    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
+    it('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
       const mockSeasonNotOpenRoute = {
         params: Observable.of({ id: 1 }),
         data: Observable.of({
@@ -138,5 +140,4 @@ describe('TreeGuidelinesComponent', () => {
       expect(forest.seasonOpenAlert).toEqual(component.seasonOpenAlert);
     });
   });
-
 });
