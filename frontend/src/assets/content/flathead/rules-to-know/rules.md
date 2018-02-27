@@ -1,18 +1,10 @@
-### General rules:
+* The tree stump must be less than {{stumpDiameter}} inches in diameter.
+* You must leave a stump of {{stumpHeight}} inches in height or less.
+* Remove all limbs from the unused portion of the tree - including live limbs - from the stump.
+* Only cut trees within a National Forest boundary.
+* Tree-topping is prohibited. Cut down the whole tree. 
+* Motorized travel off designated roads and trails is prohibited. Motor Vehicle Use Maps for designated motorized roads and seasonal closures are available at all Flathead National Forest offices. 
+* Cutting is prohibited in plantations, previously thinned stands of trees, timber sale areas, or areas posted as closed to Christmas tree cutting.
+* You must choose a tree at least 200 feet away from main roads, recreation sites and campgrounds, and 300 feet away from streams, rivers or lakes.
+* Do not remove Whitebark Pine trees.
 
-* Another tree must be within 8 feet of the one you cut.
-* You must be on national forest land.
-* You must leave a stump of {{stumpHeight}} inches or less.
-* The tree you cut must be less than {{stumpDiameter}} inches in diameter at the stump.
-* Take the whole tree – do not cut only the top of a standing tree.
-* Scatter excess limbs when you’re finished cutting, moving, and securing your tree.
-* Leave no trace – pack it in pack it out.
-* Safety is your responsibility.
-
-
-#### It is prohibited to gather a tree:
-
-* from within 100 feet of a trail, 200 feet of a campground or recreation site, or within 300 feet of a stream or lake
-* from wilderness areas or areas posted as or gated closed
-* from areas where trees are marked with blue paint
-* using a chainsaw or motorized saw

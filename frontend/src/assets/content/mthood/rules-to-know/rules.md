@@ -1,20 +1,36 @@
-### General rules:
+#### Christmas tree cutting
 
-* You must be on national forest land.
-* You must leave a stump of {{stumpHeight}} inches or less.
-* The tree you cut must be less than {{stumpDiameter}} inches in diameter at the stump.
-* The tree must be {{treeHeight}}-feet tall or less if permit was purchased online.
-* Take the whole tree – do not cut only the top of a standing tree.
-* Another tree must be within 8 feet of the one you cut.
-* Scatter excess limbs when you’re finished cutting, moving, and securing your tree.
-* Leave no trace – pack it in pack it out.
-* Safety is your responsibility.
+* The tree must be less than {{treeHeight}} feet in height if the permit was purchased online.
+* You must leave a stump of {{stumpHeight}} inches in height or less.
+* Only cut trees within a National Forest boundary.
+* Tree-topping is prohibited. Cut down the whole tree. 
+* Another tree of similar size free must grow within 8 feet of the one you cut.
+* Chainsaws are prohibited.
+* Do not remove Pacific Yew trees.
 
+Do not cut trees 
 
-#### It is prohibited to gather a tree:
+* In Wilderness and Research areas.
+* In Areas posted “No Christmas tree cutting.”
+* Within 100 feet of a trail, 200 feet of campgrounds, recreation sites or 300 feet of a stream or lake.
+* On the Warm Springs Indian Reservation.
 
-* from within 100 feet of a trail, 200 feet of a campground or recreation site, or within 300 feet of a stream or lake
-* from wilderness areas or areas posted as or gated closed
-* from areas where trees are marked with blue paint
-* using a chainsaw or motorized saw
+##### Clackamas River and Zigzag Ranger Districts
 
+The below additional restrictions apply to tree cutting in the Clackamas River and Zigzag Ranger Districts:
+
+No cutting along the following roads:
+
+* Highway 26 and 224
+* Road 42 (Timothy Lake Road)
+* Road 50 (Timberline Road)
+* Road 2645 (Westleg Road)
+* Road 2618 (Salmon River Road)
+* Road 2627, 2627-207
+
+##### Hood River and Barlow Ranger Districts
+
+The below additional restrictions apply to tree cutting in the Hood River and Barlow Ranger Districts:
+
+* No cutting in the Dalles Watershed area or Camp Baldwin.
+* No cutting along Hwy 216, Hwy 35 and Hwy 26. 
