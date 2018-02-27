@@ -245,13 +245,10 @@ util.getS3 = () => {
   /** Initialize our S3 bucket connection for file attachments */
   /** if local or CI use aws credentials */
   let s3 = new AWS.S3({
-    region: vcapConstants.region
+    region: vcapConstants.region,
+    accessKeyId: vcapConstants.accessKeyId,
+    secretAccessKey: vcapConstants.secretAccessKey
   });
-
-  if (vcapConstants.accessKeyId && vcapConstants.secretAccessKey) {
-    s3.accessKeyId = vcapConstants.accessKeyId;
-    s3.secretAccessKey = vcapConstants.secretAccessKey;
-  }
   return s3;
 };
 

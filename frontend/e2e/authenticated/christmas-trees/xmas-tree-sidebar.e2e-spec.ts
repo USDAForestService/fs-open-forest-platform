@@ -57,9 +57,9 @@ describe('Xmas sidebar page', () => {
     browser.sleep(900);
     expect<any>(element(by.id('mobile-menu-btn')).isDisplayed()).toBeTruthy();
     element(by.id('mobile-menu-btn')).click();
-    browser.sleep(500);
+    browser.sleep(1500);
     expect<any>(element(by.id('sidenav-mobile')).isDisplayed()).toBeTruthy();
-    browser.sleep(500);
+    browser.sleep(1500);
     element(by.id('mobile-trip-planning-link')).click();
     expect<any>(
       browser.driver
