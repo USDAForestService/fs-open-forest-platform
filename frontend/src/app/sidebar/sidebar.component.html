@@ -39,10 +39,19 @@
     <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
 
       <li *ngFor="let item of items | filter:'type':'anchor'">
-        <a href="#" id="{{item.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith(item.id)}" [routerLink]="[route]" [fragment]="item.id" (click)="util.gotoHashtag(item.id, $event)">{{item.title}}</a>
-        <ul class="usa-sidenav-sub_list" *ngIf="item.sections && util.currentSection && util.currentSubSection && util.currentSection.startsWith(item.id) && util.currentSubSection.startsWith(item.id)">
+        <a href="#" id="{{item.id}}-link" 
+          [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith(item.id)}" 
+          [routerLink]="[route]" 
+          [fragment]="item.id" 
+          (click)="util.gotoHashtag(item.id, $event)">{{item.title}}</a>
+        <ul class="usa-sidenav-sub_list" 
+          *ngIf="item.sections && util.currentSection && util.currentSubSection && util.currentSection.startsWith(item.id) && util.currentSubSection.startsWith(item.id)">
           <li *ngFor="let section of item.sections">
-            <a href="#" id="{{section.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === section.id}" [routerLink]="[route]" [fragment]="section.id" (click)="util.gotoHashtag(item.id, $event)">{{section.title}}</a>
+            <a href="#" id="{{section.id}}-link" 
+              [ngClass]="{'usa-current': util.currentSection && util.currentSection  === section.id}" 
+              [routerLink]="[route]" 
+              [fragment]="section.id" 
+              (click)="util.gotoHashtag(item.id, $event)">{{section.title}}</a>
           </li>
         </ul>
       </li>

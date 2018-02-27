@@ -78,10 +78,9 @@ export class AdminDistrictDatesComponent implements OnInit {
         if (this.district && this.form.get('districtId').value !== this.district.id) {
           this.form.get('districtId').setValue(this.district.id);
         }
-      } else {
-        this.district = null;
-        this.districts = null;
       }
+      this.district = null;
+      this.districts = null;
     });
   }
 
