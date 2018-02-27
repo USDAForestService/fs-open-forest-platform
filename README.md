@@ -168,8 +168,6 @@ and on the command line as part of a command:
 
 ###### The following environment variables are required to run the application locally or with CircleCI:
 
-In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the VCAP_SERVICES variable.
-
 DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
@@ -195,7 +193,7 @@ VCAP_APPLICATION
     {"uris":["http://localhost:8080"]}
 
 AWS_CONFIG
-  To set aws credentials for the purpose of connecting an s3 bucket
+  To set aws credentials for the purpose of connecting an s3 bucket. In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the AWS_CONFIG variable.
 
   {"s3":[{"credentials":{"bucket":"","access_key_id":"","region":"us-east-1","secret_access_key":""},"label":"s3","name":"intake-s3"}]}
 
@@ -306,6 +304,14 @@ Add `--code-coverage` flag to print out code coverage statistics.
 ##### Running end-to-end tests
 
 Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+##### Testing WCAG2AA compliance with pa11y
+
+To run pa11y-ci with the single page angular app with pushstate enabled, you need to first build the static application, and then run the app from a server that supports pushstate. We are using superstatic as our server.
+
+Run pa11y-ci via docker: `cd docker; docker-compose up pa11y`
+
+Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
 
 #### Typedoc
 

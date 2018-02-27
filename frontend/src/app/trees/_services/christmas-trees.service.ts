@@ -7,11 +7,10 @@ import { environment } from '../../../environments/environment';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import * as moment from 'moment-timezone';
 
-
 @Injectable()
-export class ForestService {
+export class ChristmasTreesService {
   private endpoint = environment.apiUrl + 'forests/';
-  private CUTTING_AREA_KEYS =  ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  private CUTTING_AREA_KEYS = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
 
   constructor(private http: HttpClient) {}
 
@@ -20,27 +19,23 @@ export class ForestService {
   }
 
   getOne(id) {
-    return this.http.get<any>(this.endpoint + id)
-      .flatMap(forest =>
-        this.getJSON(forest.forestAbbr)
-      .map(forestJSON => {
+    return this.http.get<any>(this.endpoint + id).flatMap(forest =>
+      this.getJSON(forest.forestAbbr).map(forestJSON => {
         forest.species = forestJSON.treeSpecies;
         return forest;
-      }));
+      })
+    );
   }
 
   getForestWithContent(id) {
     let content;
-    return this.http.get<any>(this.endpoint + id)
-      .flatMap(forest =>
-        this.joinMdRequests(forest)
-      .flatMap(content =>
-        this.getJSON(forest.forestAbbr)
-          .map((forestJSON) => {
-            forest.species = forestJSON.treeSpecies;
-            forest.content = this.nameMdArray(content, forest);
-            return forest;
-          })
+    return this.http.get<any>(this.endpoint + id).flatMap(forest =>
+      this.joinMdRequests(forest).flatMap(content =>
+        this.getJSON(forest.forestAbbr).map(forestJSON => {
+          forest.species = forestJSON.treeSpecies;
+          forest.content = this.nameMdArray(content, forest);
+          return forest;
+        })
       )
     );
   }
@@ -110,8 +105,14 @@ export class ForestService {
         const cuttingAreas = forest.cuttingAreas;
         if (cuttingAreas[jsonKey] && cuttingAreas[jsonKey].startDate) {
           text = text
-            .replace('{{' + key + 'Date}}', this.formatCuttingAreaDate(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate))
-            .replace('{{' + key + 'Time}}', this.formatCuttingAreaTime(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate));
+            .replace(
+              '{{' + key + 'Date}}',
+              this.formatCuttingAreaDate(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
+            )
+            .replace(
+              '{{' + key + 'Time}}',
+              this.formatCuttingAreaTime(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
+            );
         }
       }
     }
@@ -132,8 +133,15 @@ export class ForestService {
   }
 
   formatCuttingAreaTime(forest, startDate, endDate) {
-    const start = moment(startDate).tz(forest.timezone).format('h:mm a - ');
-    return start + moment(endDate).tz(forest.timezone).format('h:mm a.');
+    const start = moment(startDate)
+      .tz(forest.timezone)
+      .format('h:mm a - ');
+    return (
+      start +
+      moment(endDate)
+        .tz(forest.timezone)
+        .format('h:mm a.')
+    );
   }
 
   updateMarkdownText(markdownService, forest) {

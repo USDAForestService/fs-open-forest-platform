@@ -1,6 +1,6 @@
-### Rules and Guidelines
+### ![rules icon](/assets/img/bullet-points-icon.svg "rules icon")Rules and Guidelines
 
-#### Your permit:
+#### Your permit
 
 * Must be printed to be valid and cannot be stored on a mobile device.
 * Is non-transferrable.

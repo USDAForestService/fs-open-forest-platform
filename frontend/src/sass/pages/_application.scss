@@ -19,6 +19,13 @@
 .trees-application-rules {
   border: 1px solid #000000;
   background-color: white;
+  h3 {
+    img {
+      width: 75px;
+      vertical-align: middle;
+      padding-right: 1rem;
+    }
+  }
   div {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -28,7 +35,7 @@
     background-color: $color-gray-warm-light;
     label {
       margin: 0px;
-      padding-top: 4px;
+      padding: 1rem .75rem;
     }
   }
 }

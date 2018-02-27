@@ -1,11 +1,10 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ForestService } from './forest.service';
+import { ChristmasTreesService } from './christmas-trees.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Rx';
 import * as sinon from 'sinon';
 
-
-describe('ForestService', () => {
+describe('ChristmasTreesService', () => {
   let httpMock: HttpTestingController;
 
   const forest = {
@@ -16,10 +15,10 @@ describe('ForestService', () => {
     startDate: '10/30/2018',
     endDate: '9/30/2019',
     cuttingAreas: {
-      'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-      'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-      'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-      'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+      ELKCREEK: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z' },
+      REDFEATHERLAKES: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-10 21:30:00Z' },
+      SULPHUR: { startDate: '2017-11-01 12:00:00Z', endDate: '2018-01-06 21:30:00Z' },
+      CANYONLAKES: { startDate: '2017-11-27 15:30:00Z', endDate: '2017-12-10 21:30:00Z' }
     },
     timezone: 'America/Denver'
   };
@@ -27,7 +26,7 @@ describe('ForestService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ForestService]
+      providers: [ChristmasTreesService]
     });
 
     httpMock = TestBed.get(HttpTestingController);
@@ -35,7 +34,7 @@ describe('ForestService', () => {
 
   it(
     'should get all forests',
-    inject([ForestService], service => {
+    inject([ChristmasTreesService], service => {
       const spy = sinon.spy(service, 'getAll');
       service.getAll();
       expect(spy.called).toBeTruthy();
@@ -44,52 +43,51 @@ describe('ForestService', () => {
 
   it(
     'should get JSON',
-    inject([ForestService], service => {
+    inject([ChristmasTreesService], service => {
       expect(service.getJSON('arp')).toEqual(jasmine.any(Observable));
     })
   );
 
   it(
     'should get text',
-    inject([ForestService], service => {
+    inject([ChristmasTreesService], service => {
       expect(service.getText('/assets/content/apr/contact-information/contact-us.md')).toEqual(jasmine.any(Observable));
     })
   );
 
   it(
     'should call get forest with content',
-    inject([ForestService], service => {
+    inject([ChristmasTreesService], service => {
       const forestJSON = {
-        'name': 'arp',
-        'treeSpecies': [
+        name: 'arp',
+        treeSpecies: [
           {
-            'id': 'engelmann-spruce',
-            'name': 'Engelmann Spruce',
-            'status': 'recommended'
+            id: 'engelmann-spruce',
+            name: 'Engelmann Spruce',
+            status: 'recommended'
           },
           {
-            'id': 'douglas-fir',
-            'name': 'Douglas-fir',
-            'status': 'recommended'
+            id: 'douglas-fir',
+            name: 'Douglas-fir',
+            status: 'recommended'
           },
           {
-            'id': 'subalpine-fir',
-            'name': 'Subalpine Fir',
-            'status': 'recommended'
+            id: 'subalpine-fir',
+            name: 'Subalpine Fir',
+            status: 'recommended'
           },
           {
-            'id': 'ponderosa-pine',
-            'name': 'Ponderosa Pine',
-            'status': 'not recommended'
+            id: 'ponderosa-pine',
+            name: 'Ponderosa Pine',
+            status: 'not recommended'
           },
           {
-            'id': 'lodgepole-pine',
-            'name': 'Lodgepole Pine',
-            'status': 'not recommended'
+            id: 'lodgepole-pine',
+            name: 'Lodgepole Pine',
+            status: 'not recommended'
           }
         ]
       };
-
 
       service.getForestWithContent('arp').subscribe(res => {
         expect(res.forestAbbr).toEqual('arp');
@@ -127,9 +125,22 @@ describe('ForestService', () => {
     })
   );
 
-  it('return named markdown array',
-    inject([ForestService], service => {
-      const content = ['test0', 'test1', 'test2', 'test3', 'test4', 'test5', 'test6', 'test7', 'test8', 'test9', 'test10', 'test11'];
+  it(
+    'return named markdown array',
+    inject([ChristmasTreesService], service => {
+      const content = [
+        'test0', 'test1',
+        'test2',
+        'test3',
+        'test4',
+        'test5',
+        'test6',
+        'test7',
+        'test8',
+        'test9',
+        'test10',
+        'test11'
+      ];
       const namedContent = {
         introduction: 'test0',
         contactUs: 'test1',
@@ -148,20 +159,29 @@ describe('ForestService', () => {
     })
   );
 
-  it('should return formatted start and end dates', inject([ForestService], service => {
-    expect(service.formatCuttingAreaDate(forest, '2017-12-02 10:00:00Z', '2017-12-12 10:00:00Z'))
-    .toEqual('Dec. 2 - 12, 2017');
+  it(
+    'should return formatted start and end dates',
+    inject([ChristmasTreesService], service => {
+      expect(service.formatCuttingAreaDate(forest, '2017-12-02 10:00:00Z', '2017-12-12 10:00:00Z')).toEqual(
+        'Dec. 2 - 12, 2017'
+      );
 
-    expect(service.formatCuttingAreaDate(forest, '2017-12-02 01:00:00Z', '2017-12-12 01:00:00Z'))
-    .toEqual('Dec. 1 - 11, 2017');
+      expect(service.formatCuttingAreaDate(forest, '2017-12-02 01:00:00Z', '2017-12-12 01:00:00Z')).toEqual(
+        'Dec. 1 - 11, 2017'
+      );
 
-    expect(service.formatCuttingAreaDate(forest, '2017-11-02 10:00:00Z', '2017-12-09 10:00:00Z'))
-    .toEqual('Nov. 2 - Dec. 9, 2017');
-  }));
+      expect(service.formatCuttingAreaDate(forest, '2017-11-02 10:00:00Z', '2017-12-09 10:00:00Z')).toEqual(
+        'Nov. 2 - Dec. 9, 2017'
+      );
+    })
+  );
 
-  it('should return formatted cutting hours', inject([ForestService], service => {
-      expect(service.formatCuttingAreaTime(forest, '2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z'))
-      .toEqual('4:00 am - 1:00 pm.');
-  }));
-
+  it(
+    'should return formatted cutting hours',
+    inject([ChristmasTreesService], service => {
+      expect(service.formatCuttingAreaTime(forest, '2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z')).toEqual(
+        '4:00 am - 1:00 pm.'
+      );
+    })
+  );
 });
