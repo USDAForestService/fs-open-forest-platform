@@ -114,7 +114,7 @@ module.exports = function(sequelize, DataTypes) {
         //     .format('YYYY-MM-DD HH:mm:ss');
         // }
         // open forest
-        if (forest.id === 3 || forest.id === 1) {
+        if (forest.id > 0 && forest.id < 5) {
           forest.startDate = moment()
             .tz(forest.timezone)
             .subtract(2, 'months')
@@ -124,17 +124,17 @@ module.exports = function(sequelize, DataTypes) {
             .add(1, 'months')
             .format('YYYY-MM-DD HH:mm:ss');
         }
-        // closed forest with nothing configured yet is Shoshone
-        if (forest.id === 4) {
-          forest.startDate = moment()
-            .tz(forest.timezone)
-            .subtract(2, 'years')
-            .format('YYYY-MM-DD HH:mm:ss');
-          forest.endDate = moment()
-            .tz(forest.timezone)
-            .subtract(1, 'years')
-            .format('YYYY-MM-DD HH:mm:ss');
-        }
+        // closed forest with nothing configured yet
+        // if (forest.id === 4) {
+        //   forest.startDate = moment()
+        //     .tz(forest.timezone)
+        //     .subtract(2, 'years')
+        //     .format('YYYY-MM-DD HH:mm:ss');
+        //   forest.endDate = moment()
+        //     .tz(forest.timezone)
+        //     .subtract(1, 'years')
+        //     .format('YYYY-MM-DD HH:mm:ss');
+        // }
       }
     }
   });

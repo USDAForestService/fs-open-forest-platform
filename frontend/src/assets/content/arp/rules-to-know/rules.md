@@ -1,4 +1,4 @@
-### Christmas tree cutting
+#### Christmas tree cutting
 
 The below applies to all available Christmas tree cutting areas in the {{forestName}}. 
 
@@ -10,7 +10,7 @@ The below applies to all available Christmas tree cutting areas in the {{forestN
 * After cutting your tree, take or scatter any unused portion of your tree.
 * You cannot cut trees in the Boulder or Clear Creek Ranger Districts.
 
-#### Sulphur Ranger District
+##### Sulphur Ranger District
 
 The below rules are specific to the Sulphur Ranger District:
 
@@ -29,7 +29,7 @@ The Elk Creek cutting area, located in the Sulphur Ranger District, is only open
 * Roads are one-way and narrow. Please use caution and drive slowly.
 * When parking, do not obstruct traffic.
 
-#### Canyon Lakes Ranger District
+##### Canyon Lakes Ranger District
 
 The Canyon Lakes Ranger District only allows Christmas tree cutting in the Red Feather Lakes cutting area from {{redFeatherLakesDate}}. Christmas tree cutting is prohibited in the district during all other dates and times.
 
@@ -37,7 +37,7 @@ The Canyon Lakes Ranger District only allows Christmas tree cutting in the Red F
 
 Below are the rules specific to this cutting area:
 
-* The entrance opens at 2:30 p.m. You must leave the cutting area by 4 p.m. 
+* The entrance opens at 9 a.m. You must leave the cutting area by 4 p.m. 
 * Chains or 4WD vehicles are required. (No AWD vehicles.)
 * Snowmobiles, motorcycles and ATVs are prohibited.
 * Chainsaws are prohibited.
