@@ -57,10 +57,6 @@ jobs:
       - run:
           name: install jq
           command: sudo apt-get install jq
-      - run: echo export BUCKET=`echo $AWS_CONFIG | jq -r .s3[0].credentials.bucket` >> $BASH_ENV
-      - run: echo export AWS_ACCESS_KEY_ID=`echo $AWS_CONFIG | jq -r .s3[0].credentials.access_key_id` >> $BASH_ENV
-      - run: echo export AWS_SECRET_ACCESS_KEY=`$AWS_CONFIG | jq -r .s3[0].credentials.secret_access_key` >> $BASH_ENV
-      - run: echo export AWS_DEFAULT_REGION=`$AWS_CONFIG | jq -r .s3[0].credentials.region` >> $BASH_ENV
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
@@ -74,7 +70,6 @@ jobs:
       - run:
           name: run unauthenticated e2e
           command: cd docker; ../.circleci/run-unauthenticated-e2e.sh
-      - run: echo $BUCKET
       - run:
           name: clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
