@@ -194,6 +194,14 @@ VCAP_APPLICATION
 
     {"uris":["http://localhost:8080"]}
 
+AWS_CONFIG
+  To set aws credentials for the purpose of connecting an s3 bucket
+
+  {"s3":[{"credentials":{"bucket":"","access_key_id":"","region":"us-east-1","secret_access_key":""},"label":"s3","name":"intake-s3"}]}
+
+  If AWS_CONFIG is not set, system will use the json file [here](server/vcap-services/aws-config.json)
+
+
 VCAP_SERVICES
 
 [Local or CI configuration](server/vcap-services/local-or-ci.json)

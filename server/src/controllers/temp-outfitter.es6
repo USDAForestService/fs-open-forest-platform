@@ -5,7 +5,6 @@
  * @module controllers/temp-outfitter
  */
 
-const AWS = require('aws-sdk');
 const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
@@ -21,20 +20,8 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
 
-/** Initialize our S3 bucket connection for file attachments */
-/** if local or CI use aws credentials */
-let s3 = {};
-if (util.isLocalOrCI) {
-  s3 = new AWS.S3({
-    region: vcapConstants.region
-  });
-} else {
-  s3 = new AWS.S3({
-    accessKeyId: vcapConstants.accessKeyId,
-    secretAccessKey: vcapConstants.secretAccessKey,
-    region: vcapConstants.region
-  });
-}
+
+const s3 = util.getS3();
 
 /**
  * Translate permit application object from client format to database format.
@@ -46,21 +33,17 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
-      ? input.applicantInfo.eveningPhone.areaCode
-      : null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode ? input.applicantInfo.eveningPhone.areaCode :
+      null;
   output.applicantInfoEveningPhoneExtension =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
-      ? input.applicantInfo.eveningPhone.extension
-      : null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension ? input.applicantInfo.eveningPhone
+      .extension : null;
   output.applicantInfoEveningPhoneNumber =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
-      ? input.applicantInfo.eveningPhone.number
-      : null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number ? input.applicantInfo.eveningPhone.number :
+      null;
   output.applicantInfoEveningPhonePrefix =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
-      ? input.applicantInfo.eveningPhone.prefix
-      : null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix ? input.applicantInfo.eveningPhone.prefix :
+      null;
   output.applicantInfoFaxAreaCode =
     input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
   output.applicantInfoFaxExtension =
@@ -77,9 +60,8 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
   output.applicantInfoPrimaryMailingState =
-    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
-      ? input.applicantInfo.primaryAddress.mailingState
-      : null;
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState ? input.applicantInfo.primaryAddress
+      .mailingState : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -141,16 +123,14 @@ const translateFromDatabaseToClient = input => {
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
         extension: input.applicantInfoDayPhoneExtension || '',
-        tenDigit:
-          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
+        tenDigit: input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
         areaCode: input.applicantInfoEveningPhoneAreaCode || '',
         prefix: input.applicantInfoEveningPhonePrefix || '',
         number: input.applicantInfoEveningPhoneNumber || '',
         extension: input.applicantInfoEveningPhoneExtension || '',
-        tenDigit:
-          input.applicantInfoEveningPhoneAreaCode +
+        tenDigit: input.applicantInfoEveningPhoneAreaCode +
           input.applicantInfoEveningPhonePrefix +
           input.applicantInfoEveningPhoneNumber
       },
@@ -220,7 +200,8 @@ const translateFromDatabaseToClient = input => {
           startDay: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('D'),
           startYear: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
           startHour: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('hh'),
-          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('mm'),
+          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
+            'mm'),
           startPeriod: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('A'),
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
           endMonth: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('M'),
@@ -232,19 +213,12 @@ const translateFromDatabaseToClient = input => {
         }
       },
       experienceFields: {
-        haveCitations:
-          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
-            ? true
-            : false,
-        haveNationalForestPermits:
-          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
-          input.tempOutfitterFieldsExpNatForestPermits.length > 0
-            ? true
-            : false,
-        haveOtherPermits:
-          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
-            ? true
-            : false,
+        haveCitations: input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations
+          .length > 0 ? true : false,
+        haveNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0 ? true : false,
+        haveOtherPermits: input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits
+          .length > 0 ? true : false,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
         listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
         listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
@@ -279,11 +253,10 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       },
       eveningPhone: {
         areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
-        number:
-          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
+        number: application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
           application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
-        extension:
-          application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
+        extension: application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension ||
+          undefined,
         phoneType: 'evening'
       },
       emailAddress: application.applicantInfoEmailAddress,
@@ -301,8 +274,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       // Start date
-      activityDescription:
-        application.tempOutfitterFieldsActDescFieldsStartDateTime +
+      activityDescription: application.tempOutfitterFieldsActDescFieldsStartDateTime +
         '\n' +
         // End date
         application.tempOutfitterFieldsActDescFieldsEndDateTime +
@@ -356,23 +328,20 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
  */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
-    s3.getObject(
-      {
-        Bucket: vcapConstants.bucket,
-        Key: key
-      },
-      (error, data) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve({
-            fileBuffer: data.Body,
-            documentType: documentType,
-            key: key
-          });
-        }
+    s3.getObject({
+      Bucket: vcapConstants.bucket,
+      Key: key
+    }, (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({
+          fileBuffer: data.Body,
+          documentType: documentType,
+          key: key
+        });
       }
-    );
+    });
   });
 };
 
@@ -460,7 +429,8 @@ const acceptApplication = application => {
       .then(files => {
         const requestOptions = {
           method: 'POST',
-          url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+          url: vcapConstants.middleLayerBaseUrl +
+            'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
           simple: true,
           formData: {
