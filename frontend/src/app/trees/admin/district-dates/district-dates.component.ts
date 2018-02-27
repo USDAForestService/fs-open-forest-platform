@@ -6,7 +6,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
 @Component({
   selector: 'app-district-dates',
@@ -34,7 +34,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   constructor(
     private treesAdminService: TreesAdminService,
     private service: ChristmasTreesApplicationService,
-    private forestService: ForestService,
+    private christmasTreesService: ChristmasTreesService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -60,11 +60,10 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.setStartEndDate(this.forest, this.district, this.form);
       }
     });
-
   }
 
   setForest(forestAbbr) {
-    this.forestService.getOne(forestAbbr).subscribe(forest => {
+    this.christmasTreesService.getOne(forestAbbr).subscribe(forest => {
       this.forest = forest;
       if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
         this.districts = Object.keys(forest.cuttingAreas).map(cuttingArea => {
@@ -79,10 +78,9 @@ export class AdminDistrictDatesComponent implements OnInit {
         if (this.district && this.form.get('districtId').value !== this.district.id) {
           this.form.get('districtId').setValue(this.district.id);
         }
-      } else {
-        this.district = null;
-        this.districts = null;
       }
+      this.district = null;
+      this.districts = null;
     });
   }
 
@@ -101,10 +99,10 @@ export class AdminDistrictDatesComponent implements OnInit {
           );
         }
 
-        if (this.forests[0]) { // set default forest to first one
+        if (this.forests[0]) {
+          // set default forest to first one
           this.setForest(this.forests[0].forestAbbr);
         }
-
       }
     });
   }
@@ -131,18 +129,16 @@ export class AdminDistrictDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
-      this.service
-        .updateDistrictDates(this.forest, this.district.id, newStart, newEnd)
-        .subscribe(
-          () => {
-            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-            this.winRef.getNativeWindow().scroll(0, 200);
-          },
-          err => {
-            this.apiErrors = err;
-            this.winRef.getNativeWindow().scroll(0, 200);
-          }
-        );
+      this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
+        () => {
+          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+          this.winRef.getNativeWindow().scroll(0, 200);
+        },
+        err => {
+          this.apiErrors = err;
+          this.winRef.getNativeWindow().scroll(0, 200);
+        }
+      );
     }
   }
 }

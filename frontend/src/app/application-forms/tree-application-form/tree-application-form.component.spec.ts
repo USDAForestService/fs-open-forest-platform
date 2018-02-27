@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { ForestService } from '../../trees/_services/forest.service';
+import { ChristmasTreesService } from '../../trees/_services/christmas-trees.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
@@ -17,7 +17,6 @@ import { forest } from '../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
 import { MockMarkdownService } from '../../_mocks/markdownService.mock';
 import { Location } from '@angular/common';
-
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -35,7 +34,6 @@ describe('TreeApplicationFormComponent', () => {
   let fixture: ComponentFixture<TreeApplicationFormComponent>;
   let userService: Title;
 
-
   describe('should check the season start date', () => {
     beforeEach(
       async(() => {
@@ -48,17 +46,20 @@ describe('TreeApplicationFormComponent', () => {
             { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            ForestService,
+            ChristmasTreesService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({forest: forest})
+                data: Observable.of({ forest: forest })
               }
             }
           ],
-          imports: [RouterTestingModule.withRoutes([{ path: 'christmas-trees/forests/:forest', component: DummyComponent}]), HttpClientTestingModule],
+          imports: [
+            RouterTestingModule.withRoutes([{ path: 'christmas-trees/forests/:forest', component: DummyComponent }]),
+            HttpClientTestingModule
+          ],
           schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
       })
@@ -69,17 +70,21 @@ describe('TreeApplicationFormComponent', () => {
       component = fixture.componentInstance;
     });
 
-    it('and redirect', async(inject([Router, Location], (router: Router, location: Location) => {
-      fixture.detectChanges();
+    it(
+      'and redirect',
+      async(
+        inject([Router, Location], (router: Router, location: Location) => {
+          fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        expect(location.path()).toBe('/christmas-trees/forests/mthood');
-      });
-    })));
+          fixture.whenStable().then(() => {
+            expect(location.path()).toBe('/christmas-trees/forests/mthood');
+          });
+        })
+      )
+    );
   });
 
   describe('', () => {
-
     beforeEach(
       async(() => {
         forest.startDate = moment('2000-01-02').toDate();
@@ -92,7 +97,7 @@ describe('TreeApplicationFormComponent', () => {
             { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            ForestService,
+            ChristmasTreesService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
@@ -161,7 +166,8 @@ describe('TreeApplicationFormComponent', () => {
   });
 
   it('should render markdown', () => {
-    expect(component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}'))
-      .toEqual('Test 12 and 6 and 6');
+    expect(
+      component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}')
+    ).toEqual('Test 12 and 6 and 6');
   });
 });

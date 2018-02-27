@@ -235,8 +235,21 @@ util.getAdminForests = emailAddress => {
 };
 
 util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? util.ADMIN_ROLE :
-    util.USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
+};
+
+util.handleErrorResponse = (error, res) => {
+  if (error.name === 'SequelizeValidationError') {
+    return res.status(400).json({
+      errors: error.errors
+    });
+  } else if (error.name === 'SequelizeDatabaseError') {
+    return res.status(404).send();
+  } else {
+    return res.status(500).send();
+  }
 };
 
 util.request = request;
