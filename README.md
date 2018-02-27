@@ -168,8 +168,6 @@ and on the command line as part of a command:
 
 ###### The following environment variables are required to run the application locally or with CircleCI:
 
-In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the VCAP_SERVICES variable.
-
 DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
@@ -195,7 +193,7 @@ VCAP_APPLICATION
     {"uris":["http://localhost:8080"]}
 
 AWS_CONFIG
-  To set aws credentials for the purpose of connecting an s3 bucket
+  To set aws credentials for the purpose of connecting an s3 bucket. In order to pass end to end tests locally or on CircleCI, you must include valid s3 credentials in the AWS_CONFIG variable.
 
   {"s3":[{"credentials":{"bucket":"","access_key_id":"","region":"us-east-1","secret_access_key":""},"label":"s3","name":"intake-s3"}]}
 
