@@ -179,10 +179,10 @@ describe('Apply for a Christmas tree permit', () => {
     it('should show error page if credit card error', () => {
       christmasTreeForm.navigateTo(forestId);
       christmasTreeForm.fillOutFormAndSubmit();
-      browser.sleep(1500);
+      browser.sleep(2500);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       christmasTreeForm.mockPayGovSubmit().click();
-      browser.sleep(2500);
+      browser.sleep(3500);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
       christmasTreeForm.navigateTo(forestId);
     });

@@ -163,6 +163,13 @@ util.isProduction = () => {
 };
 
 /**
+ * is staging flag
+ */
+util.isStaging = () => {
+  return vcapConstants.nodeEnv === 'staging';
+};
+
+/**
  * Set the request body's authenticated email based on the passport user.
  */
 util.setAuthEmail = req => {
