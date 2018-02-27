@@ -3,8 +3,8 @@
 The below applies to all available Christmas tree cutting areas in the {{forestName}}. 
 
 * The tree stump must be less than {{stumpDiameter}} inches in diameter.
-* You must leave a stump of {{stumpHeight}} inches or less.
-* Only cut trees within a National Forest boundary.
+* You must leave a stump height of {{stumpHeight}} inches or less.
+* Only cut trees within the National Forest boundary.
 * Do not cut any tree designated with paint. 
 * Tree-topping is prohibited. Cut down the whole tree. 
 * After cutting your tree, take or scatter any unused portion of your tree.
@@ -43,4 +43,4 @@ Below are the rules specific to this cutting area:
 * Chainsaws are prohibited.
 * Roads are one-way, narrow and slick with limited sight distance. Please use caution and
 drive slowly.
-* Park off roads in plowed areas or pull-offs; do not obstruct traffic.
+* When parking, do not obstruct traffic.
