@@ -261,6 +261,19 @@ describe('christmas tree controller tests', () => {
     });
   });
 
+  describe('submit permit application for closed forest', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 4;
+      permitApplication.forestAbbr = 'shoshone';
+      permitApplication.orgStructureCode = '11-02-02';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect(404, done);
+    });
+  });
+
   describe('submit permit application already cancelled on pay.gov', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
