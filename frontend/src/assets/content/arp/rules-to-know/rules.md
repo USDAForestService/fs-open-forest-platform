@@ -3,8 +3,8 @@
 The below applies to all available Christmas tree cutting areas in the {{forestName}}. 
 
 * The tree stump must be less than {{stumpDiameter}} inches in diameter.
-* You must leave a stump of {{stumpHeight}} inches or less.
-* Only cut trees within a National Forest boundary.
+* You must leave a stump height of {{stumpHeight}} inches or less.
+* Only cut trees within the National Forest boundary.
 * Do not cut any tree designated with paint. 
 * Tree-topping is prohibited. Cut down the whole tree. 
 * After cutting your tree, take or scatter any unused portion of your tree.
@@ -37,7 +37,7 @@ The Canyon Lakes Ranger District only allows Christmas tree cutting in the Red F
 
 Below are the rules specific to this cutting area:
 
-* The entrance opens at 2:30 p.m. You must leave the cutting area by 4 p.m. 
+* The entrance opens at 9 a.m. You must leave the cutting area by 4 p.m. 
 * Chains or 4WD vehicles are required. (No AWD vehicles.)
 * Snowmobiles, motorcycles and ATVs are prohibited.
 * Chainsaws are prohibited.

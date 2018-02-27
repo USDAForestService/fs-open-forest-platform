@@ -1,7 +1,9 @@
+#### Christmas tree cutting
+
 * The tree stump must be less than {{stumpDiameter}} inches in diameter.
 * You must leave a stump of {{stumpHeight}} inches in height or less.
 * Remove all limbs from the unused portion of the tree - including live limbs - from the stump.
-* Only cut trees within a National Forest boundary.
+* Only cut trees within the National Forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree. 
 * Motorized travel off designated roads and trails is prohibited. Motor Vehicle Use Maps for designated motorized roads and seasonal closures are available at all Flathead National Forest offices. 
 * Cutting is prohibited in plantations, previously thinned stands of trees, timber sale areas, or areas posted as closed to Christmas tree cutting.
