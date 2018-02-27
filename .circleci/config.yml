@@ -77,7 +77,7 @@ jobs:
       - run: echo $BUCKET
       - run:
           name: clean s3 bucket
-          command: aws s3 rm s3://"${BUCKET}" --recursive
+          command: ./.circleci/clean-s3-bucket.sh
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
