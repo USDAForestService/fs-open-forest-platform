@@ -67,9 +67,9 @@ jobs:
       - run:
           name: run e2e
           command: cd docker; ../.circleci/run-e2e.sh $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
-      # - run:
-      #     name: run unauthenticated e2e
-      #     command: cd docker; ../.circleci/run-unauthenticated-e2e.sh
+      - run:
+          name: run unauthenticated e2e
+          command: cd docker; ../.circleci/run-unauthenticated-e2e.sh
       - run:
           name: clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
