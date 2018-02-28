@@ -364,6 +364,10 @@ Authentication is set up to support whitelisted IP addresses that are allowed to
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
+##### Logging STMP errors
+
+SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_SMTP_ERROR`. A monitoring service, such as New Relic, can be configured to create alerts when an error with `NODE_MAILER_SMTP_ERROR` is logged. 
+
 #### Docker Environment
 
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
