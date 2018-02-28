@@ -1,12 +1,12 @@
 The Arapaho and Roosevelt National Forests is broken into five different geographical ranger districts. Be sure to carefully review the Christmas tree rules and guidelines before using your permit. The rules and guidelines may vary between ranger districts and their cutting areas.
 
-#### Canyon Lakes
+#### Canyon Lakes Ranger District
 
 [Christmas tree map of **Red Feather Lakes Cutting Area** - Canyon Lakes Ranger District] (Click to view larger map)](/assets/img/red-feather-map.png)
 
 [![Christmas tree map of Red Feather Cutting Area - Canyon Lakes Ranger District](/assets/img/red-feather-map-thumb.png)](/assets/img/red-feather-map.png)
 
-#### Sulphur 
+#### Sulphur Ranger District
 
 The map below shows access routes to parking areas near designated tree cutting areas.
 
