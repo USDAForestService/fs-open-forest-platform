@@ -25,6 +25,7 @@ passport.use(
     privateCert: vcapConstants.eAuthPrivateKey,
     cert: vcapConstants.eAuthCert
   }, (profile, done) => {
+    console.log('EAUTH PROFILE', profile);
     return done(null, {
       email: profile.usdaemail,
       role: util.getUserRole(profile.usdaemail),
