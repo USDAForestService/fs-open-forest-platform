@@ -73,6 +73,21 @@ describe('UtilService', () => {
     expect(service.handleError(response)).toEqual(Observable.throw([{ status: 405 }]));
   });
 
+  it('should display an eauth username if user role is admin', () => {
+    expect(service.formatUserIdentifier({ role: 'admin', email: 'test@test.com', adminUsername: 'TEST_USER'}))
+      .toEqual('Test User');
+  });
+
+  it('should display an eauth username if user role is admin with spaces and dashes in the name', () => {
+    expect(service.formatUserIdentifier({ role: 'admin', email: 'test@test.com', adminUsername: 'TEST_USER-FANCY_LASTNAME'}))
+      .toEqual('Test User-Fancy Lastname');
+  });
+
+  it('should display an email if user role is user', () => {
+    expect(service.formatUserIdentifier({ role: 'user', email: 'test@test.com', adminUsername: 'TEST_USER'}))
+      .toEqual('test@test.com');
+  });
+
   it('should set login redirect message', () => {
     service.setLoginRedirectMessage();
     expect(service.progress).toEqual({

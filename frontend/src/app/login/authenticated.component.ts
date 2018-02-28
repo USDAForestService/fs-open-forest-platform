@@ -41,15 +41,7 @@ export class AuthenticatedComponent implements OnInit {
     this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
   }
 
-  formatUserIdentifier(user) {
-    if (user) {
-      if (user.role === 'admin') {
-        return user.adminUsername.toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, first => first.toLocaleUpperCase());
-      } else {
-        return user.email;
-      }
-    }
-  }
+
 
   ngOnInit() {
     this.router.events
@@ -72,7 +64,7 @@ export class AuthenticatedComponent implements OnInit {
       .mergeMap(route => route.data)
       .subscribe(data => {
         this.user = data.user ? data.user : null;
-        this.userIdentifier = this.formatUserIdentifier(this.user);
+        this.userIdentifier = this.util.formatUserIdentifier(this.user);
         this.displayLogin = data.displayLogin;
       });
   }

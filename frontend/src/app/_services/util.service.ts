@@ -58,6 +58,16 @@ export class UtilService {
     return id;
   }
 
+  formatUserIdentifier(user) {
+    if (user) {
+      if (user.role === 'admin') {
+        return user.adminUsername.toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, first => first.toLocaleUpperCase());
+      } else {
+        return user.email;
+      }
+    }
+  }
+
   handleError(error: HttpErrorResponse | any) {
     let errors: any = [];
     if (error instanceof HttpErrorResponse) {
