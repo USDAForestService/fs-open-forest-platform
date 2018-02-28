@@ -51,13 +51,11 @@ describe('TreeGuidelinesComponent', () => {
     });
 
     it('should set forest on init', () => {
-      const forest: any = component.forest;
-      expect(forest.forestName).toEqual('Mt. Hood');
+      expect(component.forest.forestName).toEqual('Mt. Hood');
     });
 
     it('should set the forest isSeasonOpen to true', () => {
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeTruthy();
+      expect(component.forest.isSeasonOpen).toBeTruthy();
     });
 
     it('should render markdown', () => {
@@ -92,9 +90,8 @@ describe('TreeGuidelinesComponent', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
 
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeFalsy();
-      expect(forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
+      expect(component.forest.isSeasonOpen).toBeFalsy();
+      expect(component.forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
     });
 
     it('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
@@ -117,9 +114,8 @@ describe('TreeGuidelinesComponent', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
 
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeFalsy();
-      expect(forest.seasonOpenAlert).toEqual(component.seasonOpenAlert);
+      expect(component.forest.isSeasonOpen).toBeFalsy();
+      expect(component.forest.seasonOpenAlert).toEqual(component.seasonOpenAlert);
     });
   });
 });

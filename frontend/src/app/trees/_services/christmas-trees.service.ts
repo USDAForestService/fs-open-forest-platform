@@ -75,8 +75,6 @@ export class ChristmasTreesService {
       contactUs: `/assets/content/${forest.forestAbbr}/contact-information/contact-us.md`,
       beforeYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
       whenYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/measuring.md`,
-      cuttingYourTree: `/assets/content/${forest.forestAbbr}/rules-to-know/cutting-your-tree.md`,
-      prohibitedRules: `/assets/content/${forest.forestAbbr}/rules-to-know/prohibited-rules.md`,
       seasonDatesAdditionalInformation: `/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`,
       treeLocationsAllowed: `/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`,
       treeLocationsProhibited: `/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`,
