@@ -159,14 +159,14 @@ util.isLocalOrCI = () => {
  * is production flag
  */
 util.isProduction = () => {
-  return vcapConstants.nodeEnv === 'production';
+  return process.env.NODE_ENV === 'production';
 };
 
 /**
  * is staging flag
  */
 util.isStaging = () => {
-  return vcapConstants.nodeEnv === 'staging';
+  return process.env.NODE_ENV === 'staging';
 };
 
 /**
