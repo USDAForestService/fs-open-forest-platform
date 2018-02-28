@@ -25,11 +25,12 @@ passport.use(
     privateCert: vcapConstants.eAuthPrivateKey,
     cert: vcapConstants.eAuthCert
   }, (profile, done) => {
-    console.log('EAUTH PROFILE', profile);
+    // profile.usdaemail does not return for every users, so we create an ID from first and last names
+    const eauthId = `${toUpperCase(profile.usdafirstname)}_${toUpperCase(profile.usdalastname)}`;
     return done(null, {
-      email: profile.usdaemail,
-      role: util.getUserRole(profile.usdaemail),
-      forests: util.getAdminForests(profile.usdaemail)
+      email: eauthId,
+      role: util.getUserRole(eauthId),
+      forests: util.getAdminForests(eauthId)
     });
   })
 );
