@@ -76,13 +76,18 @@ describe('AuthenticatedComponent', () => {
     })
   );
 
-  it('should display an eauth id if user role is admin', () => {
-    expect(component.formatUserIdentifier({ role: 'admin', email: 'test@test.com', eauthId: 'TEST_USER'}))
+  it('should display an eauth username if user role is admin', () => {
+    expect(component.formatUserIdentifier({ role: 'admin', email: 'test@test.com', adminUsername: 'TEST_USER'}))
       .toEqual('Test User');
   });
 
+  it('should display an eauth username if user role is admin with spaces and dashes in the name', () => {
+    expect(component.formatUserIdentifier({ role: 'admin', email: 'test@test.com', adminUsername: 'TEST_USER-FANCY_LASTNAME'}))
+      .toEqual('Test User-Fancy Lastname');
+  });
+
   it('should display an email if user role is user', () => {
-    expect(component.formatUserIdentifier({ role: 'user', email: 'test@test.com', eauthId: 'TEST_USER'}))
+    expect(component.formatUserIdentifier({ role: 'user', email: 'test@test.com', adminUsername: 'TEST_USER'}))
       .toEqual('test@test.com');
   });
 

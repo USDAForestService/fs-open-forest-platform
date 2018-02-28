@@ -42,10 +42,12 @@ export class AuthenticatedComponent implements OnInit {
   }
 
   formatUserIdentifier(user) {
-    if (user.role === 'admin') {
-      return this.user.eauthId.toLowerCase().replace('_', ' ').replace(/\b\w/g, first => first.toLocaleUpperCase());
-    } else {
-      return this.user.email;
+    if (user) {
+      if (user.role === 'admin') {
+        return user.adminUsername.toLowerCase().replace(/_/g, ' ').replace(/\b\w/g, first => first.toLocaleUpperCase());
+      } else {
+        return user.email;
+      }
     }
   }
 

@@ -48,7 +48,7 @@
   }, {
     "credentials": {
       "whitelist": [{
-        "eauth_id": "TEST_USER",
+        "admin_username": "TEST_USER",
         "forests": ["arp", "mthood"]
       }],
       "issuer": "",

@@ -186,7 +186,7 @@ util.setAuthEmail = req => {
 util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
-      eauthId: 'TEST_USER',
+      adminUsername: 'TEST_USER',
       email: 'test@test.com',
       role: util.ADMIN_ROLE,
       forests: util.getAdminForests('test@test.com')
