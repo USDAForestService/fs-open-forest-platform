@@ -11,6 +11,7 @@ import { UtilService } from '../_services/util.service';
 })
 export class AuthenticatedComponent implements OnInit {
   displayLogin = true;
+  userIdentifier;
   user;
 
   constructor(
@@ -40,6 +41,14 @@ export class AuthenticatedComponent implements OnInit {
     this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
   }
 
+  formatUserIdentifier(user) {
+    if(user.role === 'admin') {
+      return this.user.eauthId.toLowerCase().replace("_", " ").replace(/\b\w/g, first => first.toLocaleUpperCase());
+    } else {
+      return this.user.email;
+    }
+  }
+
   ngOnInit() {
     this.router.events
       .filter(e => e instanceof NavigationEnd)
@@ -61,6 +70,7 @@ export class AuthenticatedComponent implements OnInit {
       .mergeMap(route => route.data)
       .subscribe(data => {
         this.user = data.user ? data.user : null;
+        this.userIdentifier = this.formatUserIdentifier(this.user);
         this.displayLogin = data.displayLogin;
       });
   }

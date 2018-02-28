@@ -76,6 +76,16 @@ describe('AuthenticatedComponent', () => {
     })
   );
 
+  it('should display an eauth id if user role is admin', () => {
+    expect(component.formatUserIdentifier({ role: 'admin', email: 'test@test.com', eauthId: 'TEST_USER'}))
+      .toEqual('Test User');
+  });
+
+  it('should display an email if user role is user', () => {
+    expect(component.formatUserIdentifier({ role: 'user', email: 'test@test.com', eauthId: 'TEST_USER'}))
+      .toEqual('test@test.com');
+  });
+
   afterEach(() => {
     localStorage.clear();
   });
