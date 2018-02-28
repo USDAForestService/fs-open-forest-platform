@@ -1,6 +1,11 @@
 #### Please remember:
 
-*   Four-wheel drive (not all-wheel drive) or appropriate traction devices (chains or similar, not tire socks) are required on all vehicles in the cutting area.
-*   Vehicles with proper traction devices capable of handling the winter conditions in the cutting area are required. Improperly equipped vehicles can get stuck, blocking the road and creating a safety hazard for everyone
-*   You must arrive at the cutting area AFTER 8:30 am and BEFORE 2:30 pm each day and be out of the cutting area by 4:00 pm.
+*   You cannot cut trees in the Boulder or Clear Creek Ranger Districts.
+*   Cut trees only within the National Forest boundary and respect surrounding private property. 
+* Snowmobiles and ATVs are prohibited in Elk Creek and Red Feather Lakes cutting areas. Additionally, Red Feather Lakes also prohibits motorcycles.
+*   Four-wheel drive (not all-wheel drive) or appropriate traction devices (chains or similar, not tire socks) are required on all vehicles.
+* Roads are one-way and narrow in Elk Creek and Red Feather Lakes cutting areas. Use caution and drive slowly.
+
+
+
 

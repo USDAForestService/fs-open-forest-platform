@@ -1,0 +1,1 @@
+Christmas trees can be cut anywhere on the {{forestName}} subject to the rules and regulations on your permit and as noted below.

@@ -1,0 +1,1 @@
+For generations, families have made a tradition out of Christmas tree hunting in the {{forestName}}. Combined with any combination local activities, visitors can make a full-day or even a full-weekend event out of holiday tree shopping.
