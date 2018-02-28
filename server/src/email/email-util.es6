@@ -66,8 +66,8 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
     if (template.html) {
       html =
         `${htmlTemplate.forestService}<div class="body">${
-        template.html
-      }<p>Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
+          template.html
+        }<p>Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
     }
     if (template.attachments) {
       templateAttachments = template.attachments;
