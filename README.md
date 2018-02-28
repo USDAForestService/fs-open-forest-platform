@@ -65,8 +65,8 @@ Below is a list of content sections, their location and the files that can be mo
 | Content section      | Directory                                                     | File name                                     | Description                                                                                                                                       |
 | -------------------- | ------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Season dates         | frontend/src/assets/content/{forestAbbr}/season-dates         | additional-information.md                     | Start dates for various districts within the forest if they differ from the overall start date and end dates.                                     |
-| Cutting instructions | frontend/src/assets/content/{forestAbbr}/cutting-instructions | before-you-cut.md <br> when-you-cut.md        | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
-| Rules to know        | frontend/src/assets/content/{forestAbbr}/rules-to-know        | cutting-your-tree.md <br> prohibited-rules.md | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.                                           |
+| Cutting instructions | frontend/src/assets/content/{forestAbbr}/cutting-instructions | helpful-information.md <br> measuring.md      | Information to help the user locate trees they can harvest and avoid those they cannot harvest. <br> Information to help the user harvest a tree. |
+| Rules to know        | frontend/src/assets/content/{forestAbbr}/rules-to-know        | rules.md                                      | Rules people must follow when cutting down a tree. <br> Rules people must follow when selecting a tree.                                           |
 | Trip planning        | frontend/src/assets/content/{forestAbbr}/trip-planning        | how-to-plan-your-trip.md                      | Helpful information before leaving home to visit the forest.                                                                                      |
 | Tree locations       | frontend/src/assets/content/{forestAbbr}/tree-locations       | allowed.md                                    | Information on where harvesting is allowed in the forest along with links to maps found in /assets/images.                                        |
 | Tree locations       | frontend/src/assets/content/{forestAbbr}/tree-locations       | prohibited.md                                 | Information on where harvesting is not allowed in the forest.                                                                                     |
@@ -363,6 +363,10 @@ The current configuration implements email via google smtp relay. Follow the doc
 Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
+
+##### Logging STMP errors
+
+SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_SMTP_ERROR`. A monitoring service, such as New Relic, can be configured to create alerts when an error with `NODE_MAILER_SMTP_ERROR` is logged. 
 
 #### Docker Environment
 

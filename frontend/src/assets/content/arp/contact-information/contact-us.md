@@ -1,9 +1,9 @@
 
-### Arapaho and Roosevelt National Forests
+### Arapaho and Roosevelt National Forests 
 
-(970) 295-6600  
+(970) 295-6600
 
-Forest Supervisor's Office  
+Forest Supervisor's Office
 2150 Centre Avenue, Building E  
 Fort Collins, CO 80526
 
@@ -18,27 +18,6 @@ All offices are closed on federal holidays.
 * * *
 
 ### Ranger Districts
-
-#### Boulder
-
-(303) 541-2500  
-
-2140 Yarmouth Avenue  
-Boulder, CO 80301  
-
-Christmas tree permits are not available for purchase from this district office.
-
-
-#### Clear Creek
-
-(303) 567-4382  
-
-Idaho Springs Visitors Center  
-2060 Miner Street  
-Idaho Springs, CO 80452  
-
-Christmas tree permits are not available for purchase from this district office.
-
 
 #### Canyon Lakes
 
@@ -59,3 +38,7 @@ P.O. Box 10
 Granby, CO 80446  
 
 Permits must be purchased in advance to cut down trees in the Elk Creek cutting area.
+
+
+** The Boulder and Clear Creek Ranger District Offices do not allow Christmas tree cutting within their boundaries nor do they sell permits. **
+
