@@ -24,7 +24,7 @@ Zigzag, OR 97049
 
 (503) 622-3191
 
-Christmas tree permits are also available for purchase at local [vendors]().
+Christmas tree permits are also available for purchase at local [vendors](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd566027.pdf).
 
 All offices are closed on federal holidays.
 
