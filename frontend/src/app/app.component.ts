@@ -53,10 +53,9 @@ export class AppComponent implements OnInit {
   }
 
   setLoggedInMessage() {
-    const authType = this.authentication.user.role === 'user' ? 'login.gov' : 'eAuthentication';
     this.status = {
       heading: '',
-      message: `You have successfully logged in using ${authType} as ${this.authentication.user.email}.`
+      message: `You have successfully logged in as ${this.authentication.user.email}.`
     };
     localStorage.removeItem('showLoggedIn');
   }
