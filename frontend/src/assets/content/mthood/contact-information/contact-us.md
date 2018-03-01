@@ -1,5 +1,11 @@
 You can buy Christmas tree permits in person at all Mt. Hood ranger district offices. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits.
 
+### Headquarters
+16400 Champion Way  
+Sandy, OR 97055
+
+(503) 668-1700
+
 ### Barlow Ranger District
 780 NE Court Street  
 Dufur, OR 97021
