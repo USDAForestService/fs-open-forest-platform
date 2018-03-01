@@ -1,44 +1,31 @@
+You can buy Christmas tree permits in person at the following ranger district offices. Call first to make sure someone is available to sell permits.
 
-### Arapaho and Roosevelt National Forests 
-
-(970) 295-6600
-
-Forest Supervisor's Office
+### Forest Supervisor’s Office
 2150 Centre Avenue, Building E  
 Fort Collins, CO 80526
 
-Call 970-295-6700 first to ensure someone who can sell permits is available.
+970-295-6700
 
-[Contact us](https://www.fs.usda.gov/contactus/arp/about-forest/contactus/) feedback form
+### Canyon Lakes Ranger District
+2150 Centre Avenue, Building E  
+Fort Collins, CO 80526
 
-Visit [Arapaho and Roosevelt National Forests](https://www.fs.usda.gov/main/arp) for more information.
+
+(970) 295-6700
+
+Permits are only available for purchase at the Canyon Lakes office in person Dec. 1 - Dec. 9, 2018.
+
+Christmas tree permits are also available for purchase at local [vendors](https://www.fs.usda.gov/detail/arp/passes-permits/?cid=fsm91_058252).
 
 All offices are closed on federal holidays.
 
 * * *
 
-### Ranger Districts
-
-#### Canyon Lakes
-
-(970) 295-6700  
-
-2150 Centre Avenue, Building E  
-Fort Collins, CO 80526  
-
-Call 970-295-6700 first to ensure someone who can sell permits is available.
-
-
-#### Sulphur
-
-(970) 887-4100  
-
-9 Ten Mile Drive  
-P.O. Box 10  
-Granby, CO 80446  
+Other Arapaho and Roosevelt National Forest ranger district offices do not sell permits in person. See below for more information.
 
 Permits must be purchased in advance to cut down trees in the Elk Creek cutting area.
 
+* The Sulphur Ranger District only has permits available at local [vendors](https://www.fs.usda.gov/detail/arp/passes-permits/?cid=fsm91_058252) and online.
+* The Boulder and Clear Creek Ranger District offices do not allow Christmas tree cutting within their boundaries nor do they sell permits.
 
-** The Boulder and Clear Creek Ranger District Offices do not allow Christmas tree cutting within their boundaries nor do they sell permits. **
-
+Visit [Arapaho and Roosevelt National Forests](https://www.fs.usda.gov/main/arp) for more information.
