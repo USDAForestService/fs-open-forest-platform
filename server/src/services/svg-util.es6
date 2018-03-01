@@ -161,7 +161,7 @@ svgUtil.createRulesHtmlPage = (rules, permit) => {
 
   let rulesHtml =
     '<html><body style="font-family:Arial; margin: 20px;"> <h1 style="background-color:#000; text-align:center; padding:8px;">' +
-    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
+    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
 
   rulesHtml =
     rulesHtml +
@@ -169,13 +169,13 @@ svgUtil.createRulesHtmlPage = (rules, permit) => {
     vcapConstants.intakeClientBaseUrl +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
-    '</h2>';
+    '</h2><br/>';
 
   rulesHtml =
     rulesHtml +
     'Christmas trees may be taken from the ' +
     forest.forestName +
-    ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine';
+    ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
   var regex = new RegExp('"/assets/', 'g');
   rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
 

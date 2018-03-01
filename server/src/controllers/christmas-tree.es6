@@ -5,6 +5,7 @@ const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
+const htmlToText = require('html-to-text');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -219,7 +220,7 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const sendEmail = (savedPermit, permitPng, rulesHtml) => {
+const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
   const attachments = [
     {
       filename: 'permit.png',
@@ -233,6 +234,10 @@ const sendEmail = (savedPermit, permitPng, rulesHtml) => {
     {
       filename: 'permit-rules.html',
       content: new Buffer(rulesHtml, 'utf-8')
+    },
+    {
+      filename: 'permit-rules.txt',
+      content: new Buffer(rulesText, 'utf-8')
     }
   ];
   email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
@@ -293,7 +298,11 @@ const generateRulesAndEmail = (permitSvg, permit) => {
         .generateRulesHtml(permit)
         .then(rulesHtml => {
           permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
-          sendEmail(permit, permitPng, rulesHtml);
+          let rulesText = htmlToText.fromString(rulesHtml, {
+            wordwrap: 130,
+            ignoreImage: true
+          });
+          sendEmail(permit, permitPng, rulesHtml, rulesText);
         })
         .catch(error => {
           console.error(error);
