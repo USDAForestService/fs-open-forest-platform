@@ -108,7 +108,7 @@ svgUtil.generatePng = svgBuffer => {
 };
 
 svgUtil.generateRulesHtml = permit => {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     async.parallel(
       {
         permitRules: function(callback) {
