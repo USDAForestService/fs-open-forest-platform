@@ -64,7 +64,6 @@ export class AuthenticatedComponent implements OnInit {
       .mergeMap(route => route.data)
       .subscribe(data => {
         this.user = data.user ? data.user : null;
-        this.userIdentifier = this.util.formatUserIdentifier(this.user);
         this.displayLogin = data.displayLogin;
       });
   }

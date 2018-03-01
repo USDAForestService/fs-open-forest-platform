@@ -5,7 +5,7 @@ const eAuth = require('../src/auth/usda-eauth.es6');
 const sinon = require('sinon');
 const util = require('../src/services/util.es6');
 
-describe.only('Usda eauth', () => {
+describe('Usda eauth', () => {
   it('should populate blank user admin user object', () => {
     const profile = {}
     const userObject = eAuth.setUserObject(profile);

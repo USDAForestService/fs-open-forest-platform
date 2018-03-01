@@ -26,7 +26,7 @@
         </span>
       </td>
       <td>{{ revision.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
-      <td><span class="revision-actor">{{revision.email}}</span></td>
+      <td><span class="revision-actor">{{ revision.email | AdminUserFormatterPipe }}</span></td>
     </tr>
   </tbody>
 </table>
