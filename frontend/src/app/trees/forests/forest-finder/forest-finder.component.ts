@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import 'rxjs/add/observable/of';
 
@@ -9,14 +9,13 @@ import 'rxjs/add/observable/of';
   templateUrl: './forest-finder.component.html',
   providers: [RemovePuncPipe]
 })
-
 export class ForestFinderComponent implements OnInit {
   forests = [];
   selectedForest = null;
   itemsPerRow = 2;
   rows: any;
 
-  constructor(private route: ActivatedRoute, private service: ForestService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private service: ChristmasTreesService, private router: Router) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -31,5 +30,4 @@ export class ForestFinderComponent implements OnInit {
     const navTo = '/christmas-trees/forests/' + forestAbbr;
     this.router.navigate([navTo]);
   }
-
 }

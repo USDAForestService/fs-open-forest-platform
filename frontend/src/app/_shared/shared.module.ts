@@ -8,6 +8,7 @@ import { ErrorMessageComponent } from '../application-forms/validators/error-mes
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';
 import { SectionHeadingComponent } from './../sidebar/section-heading.component';
+import { AdminUserFormatterPipe } from './../_pipes/admin-user-formatter.pipe';
 import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { MarkdownModule } from 'ngx-md';
@@ -22,6 +23,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 @NgModule({
   imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot(), MarkdownModule.forRoot()],
   declarations: [
+    AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
     ErrorMessageComponent,
@@ -37,6 +39,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     TreeRulesComponent
   ],
   exports: [
+    AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
     ErrorMessageComponent,

@@ -30,19 +30,26 @@ export class AppComponent implements OnInit {
         } else {
           window.scrollTo(0, 0);
         }
+
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
           this.setLoggedInMessage();
-        } else if (localStorage.getItem('status')) {
-          this.status = JSON.parse(localStorage.getItem('status'));
-          localStorage.removeItem('status');
         } else {
-          this.status = {
-            heading: '',
-            message: ''
-          };
+          this.setStatus();
         }
       }
     });
+  }
+
+  setStatus() {
+    if (localStorage.getItem('status')) {
+      this.status = JSON.parse(localStorage.getItem('status'));
+      localStorage.removeItem('status');
+    } else {
+      this.status = {
+        heading: '',
+        message: ''
+      };
+    }
   }
 
   setLoggedInMessage() {

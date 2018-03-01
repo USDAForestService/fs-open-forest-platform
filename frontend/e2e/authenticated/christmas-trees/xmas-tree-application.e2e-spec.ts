@@ -1,136 +1,161 @@
-import {
-  ChristmasTreeForm,
-  ChristmasTreeOrderConfirmation,
-  ChristmasTreeFormAfterCancel
-} from './xmas-tree-application.po';
 import { browser, element, by, Key } from 'protractor';
 
+import { ChristmasTreeOrderConfirmation } from './christmas-tree-form-confirmation.po';
+import { ChristmasTreeForm } from './christmas-tree-form.po';
+
 describe('Apply for a Christmas tree permit', () => {
-  let page: ChristmasTreeForm;
+  let christmasTreeForm: ChristmasTreeForm;
   let confirmPage: ChristmasTreeOrderConfirmation;
-  let prefilledPage: ChristmasTreeFormAfterCancel;
   const forestId = 'mthood';
 
-  beforeEach(() => {
-    page = new ChristmasTreeForm();
-    confirmPage = new ChristmasTreeOrderConfirmation();
-    prefilledPage = new ChristmasTreeFormAfterCancel();
+  describe('fill out basic user info', () => {
+    beforeEach(() => {
+      christmasTreeForm = new ChristmasTreeForm();
+    });
+
+    it('should display the permit name in the header', () => {
+      christmasTreeForm.navigateTo(forestId);
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
+    });
+
+    it('should show the breadcrumb', () => {
+      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
+    });
+
+
+    it('should show all fields as invalid if submitted without input', () => {
+      christmasTreeForm.submit().click();
+      browser.sleep(500);
+    });
+
+    it('should require a first name', () => {
+      christmasTreeForm.navigateTo(forestId);
+      expect<any>(christmasTreeForm.firstName().isDisplayed()).toBeTruthy();
+      christmasTreeForm.submit().click();
+      browser.sleep(1000);
+      expect<any>(christmasTreeForm.firstName().isDisplayed()).toBeTruthy();
+      expect<any>(christmasTreeForm.firstNameError().isDisplayed()).toBeTruthy();
+    });
+
+    it('should let the user enter a first name', () => {
+      christmasTreeForm.firstName().sendKeys('Melvin');
+      christmasTreeForm.submit().click();
+      expect<any>(christmasTreeForm.firstNameError().isPresent()).toBeFalsy();
+    });
+
+    it('should require a last name', () => {
+      expect<any>(christmasTreeForm.lastName().isDisplayed()).toBeTruthy();
+      christmasTreeForm.submit().click();
+      browser.sleep(1000);
+      expect<any>(christmasTreeForm.lastName().isDisplayed()).toBeTruthy();
+      expect<any>(christmasTreeForm.lastNameError().isDisplayed()).toBeTruthy();
+    });
+
+    it('should let the user enter a last name', () => {
+      christmasTreeForm.lastName().sendKeys('Apharce');
+      christmasTreeForm.submit().click();
+      expect<any>(christmasTreeForm.lastNameError().isPresent()).toBeFalsy();
+    });
+
+    it('should display an error for an invalid email address', () => {
+      expect<any>(christmasTreeForm.email().isDisplayed()).toBeTruthy();
+      christmasTreeForm.email().sendKeys('aaaaaa');
+      expect<any>(christmasTreeForm.emailError().isDisplayed()).toBeTruthy();
+      christmasTreeForm.email().sendKeys('@aaa');
+      expect<any>(christmasTreeForm.emailError().isPresent()).toBeFalsy();
+    });
+
+    it('should display an error for an invalid tree amount', () => {
+      expect<any>(christmasTreeForm.treeAmount().isDisplayed()).toBeTruthy();
+      christmasTreeForm.treeAmount().clear();
+      christmasTreeForm.treeAmount().sendKeys('-');
+      expect<any>(christmasTreeForm.treeAmountError().isDisplayed()).toBeTruthy();
+    });
+
+    it('should display an error for an 0 tree amount', () => {
+      expect<any>(christmasTreeForm.treeAmountError().isDisplayed()).toBeTruthy();
+      christmasTreeForm.treeAmount().clear();
+      christmasTreeForm.treeAmount().sendKeys('0');
+      expect<any>(christmasTreeForm.treeAmountError().isDisplayed()).toBeTruthy();
+    });
+
+    it('should display an error for a tree amount great than max', () => {
+      christmasTreeForm.treeAmount().clear();
+      christmasTreeForm.treeAmount().sendKeys('9');
+      expect<any>(christmasTreeForm.treeAmountError().isDisplayed()).toBeTruthy();
+    });
+
+    it('should let the user enter a valid tree amount', () => {
+      christmasTreeForm.treeAmount().clear();
+      christmasTreeForm.treeAmount().sendKeys('1');
+      expect<any>(christmasTreeForm.treeAmountError().isPresent()).toBeFalsy();
+    });
+
+    it('should calculate total cost', () => {
+      christmasTreeForm.navigateTo(forestId);
+      christmasTreeForm.fillOutForm();
+      browser.sleep(500);
+      expect<any>(element(by.id('total-cost')).getText()).toEqual('$10');
+    });
   });
 
-  it('should display the permit name in the header', () => {
-    page.navigateTo(forestId);
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
-  });
+  describe('application rules', () => {
+    beforeAll(() => {
+      christmasTreeForm = new ChristmasTreeForm();
+      christmasTreeForm.navigateTo(forestId);
+      browser.sleep(500);
+      christmasTreeForm.fillOutForm();
+      browser.sleep(500);
+    });
 
-  it ('should show the breadcrumb', () => {
-    expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
-  });
+    it('should have a Next button', () => {
+      expect(christmasTreeForm.submit().isPresent()).toBeTruthy();
+      christmasTreeForm.submit().click();
+    });
 
-  it ('should show the rules to know section',  () => {
-    expect<any>(page.rulesToKnow().getText()).toEqual('Rules to know');
-  });
+    it('should show the rules section after next is clicked', () => {
+     expect<any>(christmasTreeForm.treeApplicationRulesContainer().getText()).toContain('Christmas trees may be taken from the Mt. Hood National Forest');
+    });
 
-  it ('should show the permit rules section',  () => {
-    expect<any>(page.permitRules().getText()).toEqual('Rules for your permit:');
-  });
 
-  it('should show all fields as invalid if submitted without input', () => {
-    page.submit().click();
-    browser.sleep(500);
-  });
+    it('should make the user accept the rules before they can submit', () => {
+      christmasTreeForm.submitRules().click();
+      expect<any>(christmasTreeForm.rulesAcceptedError().isDisplayed()).toBeTruthy();
+    });
 
-  it('should require a first name', () => {
-    page.navigateTo(forestId);
-    expect<any>(page.firstName().isDisplayed()).toBeTruthy();
-    page.submit().click();
-    browser.sleep(1000);
-    expect<any>(page.firstName().isDisplayed()).toBeTruthy();
-    expect<any>(page.firstNameError().isDisplayed()).toBeTruthy();
-  });
+    it('should redirect to mock pay.gov on application submit', () => {
+      christmasTreeForm.navigateTo(forestId);
+      christmasTreeForm.fillOutFormAndSubmit();
+      browser.sleep(1500);
+      expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
+    });
 
-  it('should let the user enter a first name', () => {
-    page.firstName().sendKeys('Melvin');
-    page.submit().click();
-    expect<any>(page.firstNameError().isPresent()).toBeFalsy();
-  });
-
-  it('should require a last name', () => {
-    expect<any>(page.lastName().isDisplayed()).toBeTruthy();
-    page.submit().click();
-    browser.sleep(1000);
-    expect<any>(page.lastName().isDisplayed()).toBeTruthy();
-    expect<any>(page.lastNameError().isDisplayed()).toBeTruthy();
-  });
-
-  it('should let the user enter a last name', () => {
-    page.lastName().sendKeys('Apharce');
-    page.submit().click();
-    expect<any>(page.lastNameError().isPresent()).toBeFalsy();
-  });
-
-  it('should display an error for an invalid email address', () => {
-    expect<any>(page.email().isDisplayed()).toBeTruthy();
-    page.email().sendKeys('aaaaaa');
-    expect<any>(page.emailError().isDisplayed()).toBeTruthy();
-    page.email().sendKeys('@aaa');
-    expect<any>(page.emailError().isPresent()).toBeFalsy();
-  });
-
-  it('should display an error for an invalid tree amount', () => {
-    expect<any>(page.treeAmount().isDisplayed()).toBeTruthy();
-    page.treeAmount().clear();
-    page.treeAmount().sendKeys('-');
-    expect<any>(page.treeAmountError().isDisplayed()).toBeTruthy();
-  });
-
-  it('should display an error for an 0 tree amount', () => {
-    expect<any>(page.treeAmountError().isDisplayed()).toBeTruthy();
-    page.treeAmount().clear();
-    page.treeAmount().sendKeys('0');
-    expect<any>(page.treeAmountError().isDisplayed()).toBeTruthy();
-  });
-
-  it('should display an error for a tree amount great than max', () => {
-    page.treeAmount().clear();
-    page.treeAmount().sendKeys('9');
-    expect<any>(page.treeAmountError().isDisplayed()).toBeTruthy();
-  });
-
-  it('should let the user enter a valid tree amount', () => {
-    page.treeAmount().clear();
-    page.treeAmount().sendKeys('1');
-    expect<any>(page.treeAmountError().isPresent()).toBeFalsy();
-  });
-
-  it('should calculate total cost', () => {
-    page.navigateTo(forestId);
-    page.fillOutForm();
-    browser.sleep(500);
-    expect<any>(element(by.id('total-cost')).getText()).toEqual('$10');
-  });
-
-  it('should make the user accept the rules before they can submit', () => {
-    page.submit().click();
-    expect<any>(page.rulesAcceptedError().isDisplayed()).toBeTruthy();
-  });
-
-  it('should redirect to mock pay.gov on application submit', () => {
-    page.navigateTo(forestId);
-    page.fillOutFormAndSubmit();
-    browser.sleep(1500);
-    expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
-  });
-
-  it('should redirect to confirmation page from mock pay.gov on success', () => {
-    element(by.id('credit-card-number')).sendKeys('1100000000000123');
-    page.mockPayGovSubmit().click();
-    browser.sleep(1500);
-    expect(browser.getCurrentUrl()).toContain(
-      `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
-    );
+    it('should redirect to confirmation page from mock pay.gov on success', () => {
+      element(by.id('credit-card-number')).sendKeys('1100000000000123');
+      christmasTreeForm.mockPayGovSubmit().click();
+      browser.sleep(1500);
+      expect(browser.getCurrentUrl()).toContain(
+        `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
+      );
+    });
   });
 
   describe('confirmation page', () => {
+    beforeAll(() => {
+      confirmPage = new ChristmasTreeOrderConfirmation();
+      christmasTreeForm = new ChristmasTreeForm();
+      christmasTreeForm.navigateTo(forestId);
+      christmasTreeForm.fillOutFormAndSubmit();
+      browser.sleep(1500);
+      expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
+      element(by.id('credit-card-number')).sendKeys('1100000000000123');
+      christmasTreeForm.mockPayGovSubmit().click();
+      browser.sleep(1500);
+      expect(browser.getCurrentUrl()).toContain(
+        `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
+      );
+    });
+
     it('should show confirmation details', () => {
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
     });
@@ -152,30 +177,34 @@ describe('Apply for a Christmas tree permit', () => {
     });
 
     it('should show error page if credit card error', () => {
-      page.navigateTo(forestId);
-      page.fillOutFormAndSubmit();
-      browser.sleep(1500);
-      element(by.id('credit-card-number')).sendKeys('0000000000000123');
-      page.mockPayGovSubmit().click();
+      christmasTreeForm.navigateTo(forestId);
+      christmasTreeForm.fillOutFormAndSubmit();
       browser.sleep(2500);
+      element(by.id('credit-card-number')).sendKeys('0000000000000123');
+      christmasTreeForm.mockPayGovSubmit().click();
+      browser.sleep(3500);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
-      page.navigateTo(forestId);
+      christmasTreeForm.navigateTo(forestId);
     });
   });
 
   describe('pay gov token errors', () => {
+    beforeEach(() => {
+      confirmPage = new ChristmasTreeOrderConfirmation();
+      christmasTreeForm = new ChristmasTreeForm();
+      christmasTreeForm.navigateTo(forestId);
+
+    });
     it('should show 500 error if first name is 1 and last name is 2', () => {
-      page.fillOutFormAndSubmit('1', '2');
+      christmasTreeForm.fillOutFormAndSubmit('1', '2');
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'
       );
     });
 
     it('should show 500 error if first name is 1 and last name is 1', () => {
-      element(by.css('.primary-permit-holder-last-name')).clear();
-      element(by.css('.primary-permit-holder-last-name')).sendKeys('1');
-      page.rulesAccepted().click(); // unclicked on previous submit with error
-      page.submit().click();
+      christmasTreeForm.fillOutFormAndSubmit('1', '1');
+      browser.sleep(500);
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'
       );
@@ -183,42 +212,47 @@ describe('Apply for a Christmas tree permit', () => {
   });
 
   describe('repopulating fields after cancel', () => {
+    beforeAll(() => {
+      confirmPage = new ChristmasTreeOrderConfirmation();
+      christmasTreeForm = new ChristmasTreeForm();
+      christmasTreeForm.navigateTo(forestId);
+      christmasTreeForm.fillOutFormAndSubmit();
+      browser.sleep(1500);
+    });
+
     let permitId = '';
     it('should redirect to application on cancel and display a message telling the user what to do', () => {
-      page.navigateTo(forestId);
-      page.fillOutFormAndSubmit();
-      browser.sleep(1500);
       element(by.css('.usa-button-grey')).click();
       browser.sleep(1500);
-      expect(prefilledPage.cancelInfo().isDisplayed()).toBeTruthy();
+      expect(christmasTreeForm.cancelInfo().isDisplayed()).toBeTruthy();
       browser.getCurrentUrl().then(url => {
         permitId = url.split('/')[8];
       });
     });
 
     it('should have the first name prefilled', () => {
-      expect(prefilledPage.firstName().getAttribute('value')).toBe('Sarah');
+      expect(christmasTreeForm.firstName().getAttribute('value')).toBe('Sarah');
     });
 
     it('should have the last name prefilled', () => {
-      expect(prefilledPage.lastName().getAttribute('value')).toBe('Bell');
+      expect(christmasTreeForm.lastName().getAttribute('value')).toBe('Bell');
     });
 
     it('should have the email address prefilled', () => {
-      expect(prefilledPage.email().getAttribute('value')).toBe('msdf@noemail.com');
+      expect(christmasTreeForm.email().getAttribute('value')).toBe('msdf@noemail.com');
     });
 
     it('should have the quantity prefilled', () => {
-      expect(prefilledPage.treeAmount().getAttribute('value')).toBe('2');
+      expect(christmasTreeForm.treeAmount().getAttribute('value')).toBe('2');
     });
 
     it('should have the cost calculated', () => {
-      expect(prefilledPage.permitCost().getText()).not.toEqual('$0');
+      expect(christmasTreeForm.permitCost().getText()).not.toEqual('$0');
     });
 
     it('should be hide message telling the user what to do next if they resubmit with errors', () => {
-      prefilledPage.submit().click();
-      expect(prefilledPage.cancelInfo().isPresent()).toBeFalsy();
+      christmasTreeForm.submit().click();
+      expect(christmasTreeForm.cancelInfo().isPresent()).toBeFalsy();
     });
   });
 });

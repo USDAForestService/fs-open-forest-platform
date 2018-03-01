@@ -25,11 +25,6 @@
       "id": "blue-spruce",
       "name": "Blue Spruce",
       "status": "recommended"
-    },
-    {
-      "id": "whitebark-pine",
-      "name": "Whitebark Pine",
-      "status": "prohibited"
     }
   ]
 }

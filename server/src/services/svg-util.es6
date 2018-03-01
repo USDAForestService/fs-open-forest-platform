@@ -1,12 +1,19 @@
-const util = require('./util.es6');
+'use strict';
+
+const request = require('request-promise');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
+const async = require('async');
+const markdown = require('markdown').markdown;
 
-const createPermit = {};
+const util = require('./util.es6');
+const vcapConstants = require('../vcap-constants.es6');
+
+const svgUtil = {};
 
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
@@ -65,11 +72,11 @@ const addForestSpecificInfo = (permit, frag) => {
   }
 };
 
-createPermit.generatePermitSvg = permit => {
+svgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
       try {
@@ -78,14 +85,14 @@ createPermit.generatePermitSvg = permit => {
         addForestSpecificInfo(permit, frag);
         resolve(frag.firstChild.outerHTML);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
   });
 };
 
-createPermit.generatePermitPng = svgBuffer => {
+svgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
     svg2png(svgBuffer, {
       width: 740,
@@ -95,9 +102,150 @@ createPermit.generatePermitPng = svgBuffer => {
         resolve(data);
       })
       .catch(err => {
-        console.error('ERROR', err);
+        console.error(err);
       });
   });
 };
 
-module.exports = createPermit;
+svgUtil.generateRulesHtml = permit => {
+  return new Promise(resolve => {
+    async.parallel(
+      {
+        permitRules: function(callback) {
+          request(
+            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md',
+            { json: false },
+            (err, res, permitRules) => {
+              if (err) {
+                console.error(err);
+                callback(err, null);
+              }
+              callback(null, permitRules);
+            }
+          );
+        },
+        forestRules: function(callback) {
+          request(
+            vcapConstants.intakeClientBaseUrl +
+              '/assets/content/' +
+              permit.christmasTreesForest.forestAbbr +
+              '/rules-to-know/rules.md',
+            { json: false },
+            (err, res, forestRules) => {
+              if (err) {
+                console.error(err);
+                callback(err, null);
+              }
+              callback(null, forestRules);
+            }
+          );
+        }
+      },
+      function(err, results) {
+        if (err) {
+          console.error(err);
+          reject(err);
+        }
+        let allRules = results.permitRules + '\n' + results.forestRules;
+        let rulesHtml = markdown.toHTML(allRules);
+        svgUtil.processRulesText(rulesHtml, permit).then(rules => {
+          resolve(svgUtil.createRulesHtmlPage(rules, permit));
+        });
+      }
+    );
+  });
+};
+
+svgUtil.createRulesHtmlPage = (rules, permit) => {
+  let forest = permit.christmasTreesForest.dataValues;
+
+  let rulesHtml =
+    '<html><body style="font-family:Arial; margin: 20px;"> <h1 style="background-color:#000; text-align:center; padding:8px;">' +
+    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
+
+  rulesHtml =
+    rulesHtml +
+    '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
+    vcapConstants.intakeClientBaseUrl +
+    '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
+    forest.forestName.toUpperCase() +
+    '</h2><br/>';
+
+  rulesHtml =
+    rulesHtml +
+    'Christmas trees may be taken from the ' +
+    forest.forestName +
+    ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
+  var regex = new RegExp('"/assets/', 'g');
+  rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
+
+  rules = rules.replace(
+    'alt="rules icon"',
+    'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
+  );
+
+  rulesHtml = rulesHtml + rules + '</body></html>';
+  return rulesHtml;
+};
+
+svgUtil.processRulesText = (rulesHtml, permit) => {
+  return new Promise(resolve => {
+    let forest = permit.christmasTreesForest.dataValues;
+    let rules = rulesHtml;
+    for (var key in forest) {
+      if (forest.hasOwnProperty(key)) {
+        let textToReplace = '{{' + key + '}}';
+        rules = rules.replace(textToReplace, forest[key]);
+        if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
+          rules = svgUtil.parseCuttingAreaDates(rules, forest);
+        }
+      }
+    }
+    resolve(rules);
+  });
+};
+
+svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
+  let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  for (const key of cuttingAreaKeys) {
+    const areaKey = key.toUpperCase();
+    const cuttingAreas = JSON.parse(forest.cuttingAreas);
+    if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
+      rulesText = rulesText.replace(
+        '{{' + key + 'Date}}',
+        svgUtil.formatCuttingAreaDate(forest, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
+      );
+      rulesText = rulesText.replace(
+        '{{' + key + 'Time}}',
+        svgUtil.formatCuttingAreaTime(forest, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
+      );
+    }
+  }
+  return rulesText;
+};
+
+svgUtil.formatCuttingAreaDate = (forest, startDate, endDate) => {
+  const start = moment(startDate).tz(forest.timezone);
+  const end = moment(endDate).tz(forest.timezone);
+  const startFormat = 'MMM. D -';
+  let endFormat = ' D, YYYY';
+
+  if (start.month() !== end.month()) {
+    endFormat = ' MMM. D, YYYY';
+  }
+  return start.format(startFormat) + end.format(endFormat);
+};
+
+svgUtil.formatCuttingAreaTime = (forest, startDate, endDate) => {
+  const start = moment(startDate)
+    .tz(forest.timezone)
+    .format('h:mm a - ');
+  return (
+    start +
+    moment(endDate)
+      .tz(forest.timezone)
+      .format('h:mm a.')
+  );
+};
+
+module.exports = svgUtil;

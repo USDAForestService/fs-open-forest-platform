@@ -12,7 +12,7 @@ import { AdminDistrictDatesComponent } from './district-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
 import { MockRouter } from '../../../_mocks/routes.mock';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
 describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
@@ -35,10 +35,10 @@ describe('District Dates Admin Component', () => {
       startDate: '10/30/2018',
       endDate: '9/30/2019',
       cuttingAreas: {
-        'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-        'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-        'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-        'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
+        ELKCREEK: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z' },
+        REDFEATHERLAKES: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-10 21:30:00Z' },
+        SULPHUR: { startDate: '2017-11-01 12:00:00Z', endDate: '2018-01-06 21:30:00Z' },
+        CANYONLAKES: { startDate: '2017-11-27 15:30:00Z', endDate: '2017-12-10 21:30:00Z' }
       },
       timezone: 'America/Denver'
     },
@@ -64,7 +64,7 @@ describe('District Dates Admin Component', () => {
     }
   ];
 
-  class MockForestService {
+  class MockChristmasTreesService {
     getOne(): Observable<{}> {
       return Observable.of(forests[0]);
     }
@@ -100,8 +100,6 @@ describe('District Dates Admin Component', () => {
     }
   }
 
-
-
   describe('', () => {
     beforeEach(
       async(() => {
@@ -109,13 +107,13 @@ describe('District Dates Admin Component', () => {
           declarations: [AdminDistrictDatesComponent],
           providers: [
             ApplicationFieldsService,
-            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            {provide: ForestService, useClass: MockForestService },
+            { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+            { provide: ChristmasTreesService, useClass: MockChristmasTreesService },
             FormBuilder,
             RouterTestingModule,
             TreesAdminService,
             UtilService,
-            {provide: WindowRef, useClass: MockWindowRef}
+            { provide: WindowRef, useClass: MockWindowRef }
           ],
           imports: [RouterTestingModule, HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
@@ -124,7 +122,7 @@ describe('District Dates Admin Component', () => {
     );
 
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, {useValue: mockActivatedRoute});
+      TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
       fixture = TestBed.createComponent(AdminDistrictDatesComponent);
       component = fixture.debugElement.componentInstance;
       formBuilder = new FormBuilder();
@@ -157,11 +155,9 @@ describe('District Dates Admin Component', () => {
       expect(component).toBeTruthy();
     });
 
-
     it('should update district dates', () => {
       component.updateStatus = '';
       component.forest = component.forests.find(forest => forest.id === 1);
-
 
       component.dateStatus.hasErrors = false;
       component.form.get('forestAbbr').setValue('1');
@@ -218,8 +214,6 @@ describe('District Dates Admin Component', () => {
       expect(component.form.get('dateTimeRange.endHour').value).toEqual('02');
       expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
       expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
-
-
     });
   });
 
@@ -227,15 +221,11 @@ describe('District Dates Admin Component', () => {
     let mockRouter: MockRouter;
 
     const mockNoForestsActivatedRoute = {
-      params: Observable.of(
-        {id: 1}
-      ),
-      data: Observable.of(
-        {
-          user: {email: 'test@test.com', role: 'admin', forests: []},
-          forests: []
-        }
-      )
+      params: Observable.of({ id: 1 }),
+      data: Observable.of({
+        user: { email: 'test@test.com', role: 'admin', forests: [] },
+        forests: []
+      })
     };
 
     beforeEach(
@@ -245,14 +235,14 @@ describe('District Dates Admin Component', () => {
           declarations: [AdminDistrictDatesComponent],
           providers: [
             ApplicationFieldsService,
-            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            ForestService,
+            { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+            ChristmasTreesService,
             FormBuilder,
-            {provide: Router, useValue: mockRouter},
-            {provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute},
+            { provide: Router, useValue: mockRouter },
+            { provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute },
             TreesAdminService,
             UtilService,
-            {provide: WindowRef, useClass: MockWindowRef}
+            { provide: WindowRef, useClass: MockWindowRef }
           ],
           imports: [HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
@@ -284,7 +274,6 @@ describe('District Dates Admin Component', () => {
           startPeriod: ['']
         })
       });
-
     });
 
     it('should send a user with no forests to access denied', () => {
@@ -297,15 +286,11 @@ describe('District Dates Admin Component', () => {
     let mockRouter: MockRouter;
 
     const mockNoForestsActivatedRoute = {
-      params: Observable.of(
-        {id: 1}
-      ),
-      data: Observable.of(
-        {
-          user: {email: 'test@test.com', role: 'admin'},
-          forests: []
-        }
-      )
+      params: Observable.of({ id: 1 }),
+      data: Observable.of({
+        user: { email: 'test@test.com', role: 'admin' },
+        forests: []
+      })
     };
 
     beforeEach(
@@ -315,14 +300,14 @@ describe('District Dates Admin Component', () => {
           declarations: [AdminDistrictDatesComponent],
           providers: [
             ApplicationFieldsService,
-            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            ForestService,
+            { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+            ChristmasTreesService,
             FormBuilder,
-            {provide: Router, useValue: mockRouter},
-            {provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute},
+            { provide: Router, useValue: mockRouter },
+            { provide: ActivatedRoute, useValue: mockNoForestsActivatedRoute },
             TreesAdminService,
             UtilService,
-            {provide: WindowRef, useClass: MockWindowRef}
+            { provide: WindowRef, useClass: MockWindowRef }
           ],
           imports: [HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
@@ -354,46 +339,39 @@ describe('District Dates Admin Component', () => {
           startPeriod: ['']
         })
       });
-
     });
-
 
     it('should send a user with null forests to access denied', () => {
       fixture.detectChanges();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['access-denied']);
     });
-
   });
 
   describe('user check', () => {
     let mockRouter: MockRouter;
 
     const mockForestsActivatedRoute = {
-      params: Observable.of(
-        { id: 1 }
-      ),
-      data: Observable.of(
-        {
-          user: { email: 'test@test.com', role: 'admin', forests: ['all'] },
-          forests: [
-            {
-              id: 1,
-              forestName: 'Arapaho and Roosevelt National Forests',
-              description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-              forestAbbr: 'arp',
-              startDate: '10/30/2018',
-              endDate: '9/30/2019',
-              cuttingAreas: {
-                'ELKCREEK': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-                'REDFEATHERLAKES': {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-                'SULPHUR': {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-                'CANYONLAKES': {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
-              },
-              timezone: 'America/Denver'
-            }
-          ]
-        }
-      )
+      params: Observable.of({ id: 1 }),
+      data: Observable.of({
+        user: { email: 'test@test.com', role: 'admin', forests: ['all'] },
+        forests: [
+          {
+            id: 1,
+            forestName: 'Arapaho and Roosevelt National Forests',
+            description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
+            forestAbbr: 'arp',
+            startDate: '10/30/2018',
+            endDate: '9/30/2019',
+            cuttingAreas: {
+              ELKCREEK: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z' },
+              REDFEATHERLAKES: { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-10 21:30:00Z' },
+              SULPHUR: { startDate: '2017-11-01 12:00:00Z', endDate: '2018-01-06 21:30:00Z' },
+              CANYONLAKES: { startDate: '2017-11-27 15:30:00Z', endDate: '2017-12-10 21:30:00Z' }
+            },
+            timezone: 'America/Denver'
+          }
+        ]
+      })
     };
 
     beforeEach(
@@ -403,14 +381,14 @@ describe('District Dates Admin Component', () => {
           declarations: [AdminDistrictDatesComponent],
           providers: [
             ApplicationFieldsService,
-            {provide: ChristmasTreesApplicationService, useClass: MockApplicationService},
-            ForestService,
+            { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
+            ChristmasTreesService,
             FormBuilder,
-            {provide: Router, useValue: mockRouter},
-            {provide: ActivatedRoute, useValue: mockForestsActivatedRoute},
+            { provide: Router, useValue: mockRouter },
+            { provide: ActivatedRoute, useValue: mockForestsActivatedRoute },
             TreesAdminService,
             UtilService,
-            {provide: WindowRef, useClass: MockWindowRef}
+            { provide: WindowRef, useClass: MockWindowRef }
           ],
           imports: [HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
@@ -442,14 +420,12 @@ describe('District Dates Admin Component', () => {
           startPeriod: ['']
         })
       });
-
     });
 
-    it ('should work for a user with all forests', () => {
+    it('should work for a user with all forests', () => {
       fixture.detectChanges();
 
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
-
   });
 });
