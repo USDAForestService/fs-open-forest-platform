@@ -233,8 +233,8 @@ util.getRandomString = length => {
 /**
  * Get the assigned forests to the christmas trees forest admins by email address
  */
-util.getAdminForests = eauthId => {
-  const user = vcapConstants.eAuthUserWhiteList.find(element => element.eauth_id === eauthId);
+util.getAdminForests = adminUsername => {
+  const user = vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername);
   if (user && user.forests) {
     return user.forests;
   } else {
@@ -242,8 +242,8 @@ util.getAdminForests = eauthId => {
   }
 };
 
-util.getUserRole = eauthId => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.eauth_id === eauthId) ? util.ADMIN_ROLE :
+util.getUserRole = adminUsername => {
+  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
     util.USER_ROLE;
 };
 
