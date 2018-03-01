@@ -8,7 +8,6 @@ const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
 const async = require('async');
-const os = require('os');
 const markdown = require('markdown').markdown;
 
 const util = require('./util.es6');
@@ -177,13 +176,14 @@ svgUtil.createRulesHtmlPage = (rules, permit) => {
     'Christmas trees may be taken from the ' +
     forest.forestName +
     ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine';
+  var regex = new RegExp('"/assets/', 'g');
+  rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
 
   rules = rules.replace(
-    '<img alt="rules icon" title="rules icon" src="/assets/img/bullet-points-icon.svg"/>',
-    '<img alt="rules icon" title="rules icon" src="' +
-      vcapConstants.intakeClientBaseUrl +
-      '/assets/img/bullet-points-icon.svg" style="width: 50px; vertical-align: middle; padding-right: 1rem;"/>'
+    'alt="rules icon"',
+    'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
+
   rulesHtml = rulesHtml + rules + '</body></html>';
   return rulesHtml;
 };
