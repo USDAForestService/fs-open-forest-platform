@@ -69,7 +69,7 @@ describe('AppComponent', () => {
       component.setLoggedInMessage();
       expect(component.status).toEqual({
         heading: '',
-        message: 'You have successfully logged in using eAuthentication as test@test.com.'
+        message: 'You have successfully logged in as test@test.com.'
       });
     });
   });
