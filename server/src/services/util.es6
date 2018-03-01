@@ -186,9 +186,10 @@ util.setAuthEmail = req => {
 util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
+      adminUsername: 'TEST_USER',
       email: 'test@test.com',
       role: util.ADMIN_ROLE,
-      forests: util.getAdminForests('test@test.com')
+      forests: util.getAdminForests('TEST_USER')
     };
   } else {
     return req.user;
@@ -232,8 +233,8 @@ util.getRandomString = length => {
 /**
  * Get the assigned forests to the christmas trees forest admins by email address
  */
-util.getAdminForests = emailAddress => {
-  const user = vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
+util.getAdminForests = adminUsername => {
+  const user = vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername);
   if (user && user.forests) {
     return user.forests;
   } else {
@@ -241,10 +242,9 @@ util.getAdminForests = emailAddress => {
   }
 };
 
-util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress)
-    ? util.ADMIN_ROLE
-    : util.USER_ROLE;
+util.getUserRole = adminUsername => {
+  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
+    util.USER_ROLE;
 };
 
 util.handleErrorResponse = (error, res) => {

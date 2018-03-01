@@ -20,45 +20,33 @@ const findOrCondition = req => {
   let orCondition = [];
   switch (statusGroup) {
   case 'pending':
-    orCondition = [
-      {
-        status: 'Submitted'
-      },
-      {
-        status: 'Hold'
-      },
-      {
-        status: 'Review'
-      }
-    ];
+    orCondition = [{
+      status: 'Submitted'
+    }, {
+      status: 'Hold'
+    }, {
+      status: 'Review'
+    }];
     break;
   case 'accepted':
-    orCondition = [
-      {
-        status: 'Accepted'
-      }
-    ];
+    orCondition = [{
+      status: 'Accepted'
+    }];
     break;
   case 'rejected':
-    orCondition = [
-      {
-        status: 'Rejected'
-      }
-    ];
+    orCondition = [{
+      status: 'Rejected'
+    }];
     break;
   case 'cancelled':
-    orCondition = [
-      {
-        status: 'Cancelled'
-      }
-    ];
+    orCondition = [{
+      status: 'Cancelled'
+    }];
     break;
   case 'expired':
-    orCondition = [
-      {
-        status: 'Expired'
-      }
-    ];
+    orCondition = [{
+      status: 'Expired'
+    }];
     break;
   }
   return orCondition;
@@ -98,7 +86,9 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [['createdAt', 'DESC']]
+    order: [
+      ['createdAt', 'DESC']
+    ]
   });
   const tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
     attributes: [
@@ -120,7 +110,9 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [['createdAt', 'DESC']]
+    order: [
+      ['createdAt', 'DESC']
+    ]
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
     .then(results => {
@@ -145,7 +137,7 @@ commonControllers.createRevision = (user, applicationModel) => {
     applicationId: applicationModel.applicationId,
     applicationType: applicationModel.type,
     status: applicationModel.status,
-    email: user.email
+    email: (user.email) ? user.email : user.adminUsername
   });
 };
 

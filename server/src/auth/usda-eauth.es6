@@ -25,17 +25,30 @@ passport.use(
     privateCert: vcapConstants.eAuthPrivateKey,
     cert: vcapConstants.eAuthCert
   }, (profile, done) => {
-    console.log('EAUTH PROFILE', profile);
-    return done(null, {
-      email: profile.usdaemail,
-      role: util.getUserRole(profile.usdaemail),
-      forests: util.getAdminForests(profile.usdaemail)
-    });
+    return done(null, eAuth.setUserObject(profile));
   })
 );
 
 /** router for eAuth specific endpoints */
 eAuth.router = express.Router();
+
+eAuth.setUserObject = (profile) => {
+  // profile.usdaemail does not return for every users, so we create an ID from first and last names
+  let adminUsername = '';
+  let role = 'user';
+  let email = '';
+  if (profile.usdafirstname && profile.usdalastname) {
+    adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
+  }
+  role = util.getUserRole(adminUsername);
+  email = (profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov') ? profile.usdaemail : '';
+  return {
+    adminUsername: (role === 'admin') ? adminUsername : '',
+    email: email,
+    role: role,
+    forests: util.getAdminForests(adminUsername)
+  };
+};
 
 /**
  * Initiate authentication via eAuth.

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
 import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
+import { AdminUserFormatterPipe } from '../_pipes/admin-user-formatter.pipe';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
@@ -34,7 +35,7 @@ describe('AuthenticatedComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [AuthenticatedComponent],
+        declarations: [AuthenticatedComponent, AdminUserFormatterPipe],
         imports: [RouterTestingModule],
         providers: [
           {
