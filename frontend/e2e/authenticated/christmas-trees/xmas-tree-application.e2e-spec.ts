@@ -146,18 +146,18 @@ describe('Apply for a Christmas tree permit', () => {
       christmasTreeForm = new ChristmasTreeForm();
       christmasTreeForm.navigateTo(forestId);
       christmasTreeForm.fillOutFormAndSubmit();
-      browser.sleep(3000);
+      browser.sleep(1000);
       expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
       element(by.id('credit-card-number')).sendKeys('1100000000000123');
       christmasTreeForm.mockPayGovSubmit().click();
-      browser.sleep(3000);
+      browser.sleep(1000);
       expect(browser.getCurrentUrl()).toContain(
         `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
       );
+      browser.sleep(1000);
     });
 
     it('should show confirmation details', () => {
-      browser.sleep(1500);
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
     });
 
