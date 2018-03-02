@@ -157,7 +157,7 @@ describe('Apply for a Christmas tree permit', () => {
     });
 
     it('should show confirmation details', () => {
-      browser.sleep(1500);
+      browser.sleep(3000);
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
     });
 
