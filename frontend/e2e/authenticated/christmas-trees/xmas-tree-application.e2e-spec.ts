@@ -145,6 +145,8 @@ describe('Apply for a Christmas tree permit', () => {
       confirmPage = new ChristmasTreeOrderConfirmation();
       christmasTreeForm = new ChristmasTreeForm();
       christmasTreeForm.navigateTo(forestId);
+      browser.sleep(1000);
+      expect(browser.getCurrentUrl()).toContain(`http://localhost:4200/christmas-trees/forests/${forestId}/applications`);
       christmasTreeForm.fillOutFormAndSubmit();
       browser.sleep(1000);
       expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
