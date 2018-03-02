@@ -109,6 +109,17 @@ svgUtil.generatePng = svgBuffer => {
 
 svgUtil.generateRulesHtml = permit => {
   return new Promise((resolve, reject) => {
+    svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
+      let rulesHtml = markdown.toHTML(rulesMarkdown);
+      svgUtil.processRulesText(rulesHtml, permit).then(rules => {
+        resolve(svgUtil.createRulesHtmlPage(rules, permit));
+      });
+    });
+  });
+};
+
+svgUtil.getRulesMarkdown = forestAbbr => {
+  return new Promise((resolve, reject) => {
     async.parallel(
       {
         permitRules: function(callback) {
@@ -126,10 +137,7 @@ svgUtil.generateRulesHtml = permit => {
         },
         forestRules: function(callback) {
           request(
-            vcapConstants.intakeClientBaseUrl +
-              '/assets/content/' +
-              permit.christmasTreesForest.forestAbbr +
-              '/rules-to-know/rules.md',
+            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md',
             { json: false },
             (err, res, forestRules) => {
               if (err) {
@@ -146,11 +154,7 @@ svgUtil.generateRulesHtml = permit => {
           console.error(err);
           reject(err);
         }
-        let allRules = results.permitRules + '\n' + results.forestRules;
-        let rulesHtml = markdown.toHTML(allRules);
-        svgUtil.processRulesText(rulesHtml, permit).then(rules => {
-          resolve(svgUtil.createRulesHtmlPage(rules, permit));
-        });
+        resolve(results.permitRules + '\n' + results.forestRules);
       }
     );
   });
@@ -213,20 +217,16 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
     if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
-        svgUtil.formatCuttingAreaDate(forest, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
-      );
-      rulesText = rulesText.replace(
-        '{{' + key + 'Time}}',
-        svgUtil.formatCuttingAreaTime(forest, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
+        svgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
       );
     }
   }
   return rulesText;
 };
 
-svgUtil.formatCuttingAreaDate = (forest, startDate, endDate) => {
-  const start = moment(startDate).tz(forest.timezone);
-  const end = moment(endDate).tz(forest.timezone);
+svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
+  const start = moment(startDate).tz(forestTimezone);
+  const end = moment(endDate).tz(forestTimezone);
   const startFormat = 'MMM. D -';
   let endFormat = ' D, YYYY';
 
@@ -234,18 +234,6 @@ svgUtil.formatCuttingAreaDate = (forest, startDate, endDate) => {
     endFormat = ' MMM. D, YYYY';
   }
   return start.format(startFormat) + end.format(endFormat);
-};
-
-svgUtil.formatCuttingAreaTime = (forest, startDate, endDate) => {
-  const start = moment(startDate)
-    .tz(forest.timezone)
-    .format('h:mm a - ');
-  return (
-    start +
-    moment(endDate)
-      .tz(forest.timezone)
-      .format('h:mm a.')
-  );
 };
 
 module.exports = svgUtil;

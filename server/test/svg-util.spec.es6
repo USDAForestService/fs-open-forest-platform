@@ -5,6 +5,7 @@ const expect = chai.expect;
 
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
+const markdown = require('markdown').markdown;
 const permitSvgService = require('../src/services/svg-util.es6');
 const christmasTreesPermitFactory = require('./data/christmas-trees-permit-factory.es6');
 
@@ -85,6 +86,16 @@ describe('svg creation tests', () => {
     });
     it('should set #national-forest_1_ to NATIONAL FOREST', () => {
       expect(frag.querySelector('#national-forest_1_').textContent).to.equal('NATIONAL FOREST');
+    });
+  });
+  describe('permit rules generation functions ', () => {
+    it('cutting area dates should be formatted', () => {
+      const dateFormatted = permitSvgService.formatCuttingAreaDate(
+        'America/Denver',
+        '2018-12-02 15:30:00Z',
+        '2018-12-09 21:30:00Z'
+      );
+      expect(dateFormatted).to.equal('Dec. 2 - 9, 2018');
     });
   });
 });
