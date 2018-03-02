@@ -8,6 +8,7 @@ const { JSDOM } = jsdom;
 const markdown = require('markdown').markdown;
 const permitSvgService = require('../src/services/svg-util.es6');
 const christmasTreesPermitFactory = require('./data/christmas-trees-permit-factory.es6');
+const christmasTreesForestFactory = require('./data/christmas-trees-forest-factory.es6');
 
 describe('svg creation tests', () => {
   describe('no stump height', () => {
@@ -89,13 +90,20 @@ describe('svg creation tests', () => {
     });
   });
   describe('permit rules generation functions ', () => {
+    const arpForest = christmasTreesForestFactory.create();
     it('cutting area dates should be formatted', () => {
       const dateFormatted = permitSvgService.formatCuttingAreaDate(
-        'America/Denver',
-        '2018-12-02 15:30:00Z',
-        '2018-12-09 21:30:00Z'
+        arpForest.timezone,
+        arpForest.cuttingAreas.ELKCREEK.startDate,
+        arpForest.cuttingAreas.ELKCREEK.endDate
       );
       expect(dateFormatted).to.equal('Dec. 2 - 9, 2018');
+    });
+    it('rules html used to generate html page', () => {
+      const rules =
+        ' <h3><img alt="rules icon" title="rules icon" src="/assets/img/bullet-points-icon.svg"/>Rules and Guidelines</h3>';
+      const rulesHtml = permitSvgService.createRulesHtmlPage(rules, arpForest);
+      expect(rulesHtml).to.have.string('<html>');
     });
   });
 });
