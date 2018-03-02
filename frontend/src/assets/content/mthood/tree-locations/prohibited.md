@@ -1,3 +1,5 @@
+Make sure you are on National Forest Land before cutting your tree. 
+
 #### No cutting or removing trees within:
 
 *   100 feet of a trail, 200 feet of campgrounds or recreation sites, or 300 feet of a stream or lake.
