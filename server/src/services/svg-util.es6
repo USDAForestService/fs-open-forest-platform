@@ -26,8 +26,8 @@ const addApplicantInfo = (permit, frag) => {
 
   frag.querySelector('#full-name_1_').textContent =
     `${permit.firstName
-    .substring(0, 18)
-    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+      .substring(0, 18)
+      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -51,9 +51,9 @@ const addForestSpecificInfo = (permit, frag) => {
 
   frag.querySelector('#permit-expiration_1_').textContent =
     moment
-    .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
-    .format('MMM D, YYYY')
-    .toUpperCase() + ' MIDNIGHT';
+      .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
+      .format('MMM D, YYYY')
+      .toUpperCase() + ' MIDNIGHT';
   if (permit.christmasTreesForest.treeHeight > 0) {
     frag.querySelector('#tree-height_1_').textContent = permit.christmasTreesForest.treeHeight;
   } else {
@@ -98,9 +98,9 @@ svgUtil.generatePermitSvg = permit => {
 svgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
     svg2png(svgBuffer, {
-        width: 740,
-        height: 958
-      })
+      width: 740,
+      height: 958
+    })
       .then(data => {
         resolve(data);
       })
@@ -111,7 +111,7 @@ svgUtil.generatePng = svgBuffer => {
 };
 
 svgUtil.generateRulesHtml = permit => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
@@ -125,42 +125,42 @@ svgUtil.generateRulesHtml = permit => {
 svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
     async.parallel({
-        permitRules: function(callback) {
-          request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md', {
-              json: false
-            }, (err, res, permitRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, permitRules);
-              }
+      permitRules: function(callback) {
+        request(
+          vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md', {
+            json: false
+          }, (err, res, permitRules) => {
+            if (err) {
+              console.error(err);
+              callback(err, null);
+            } else {
+              callback(null, permitRules);
             }
-          );
-        },
-        forestRules: function(callback) {
-          request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md', {
-              json: false
-            }, (err, res, forestRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, forestRules);
-              }
-            }
-          );
-        }
+          }
+        );
       },
-      function(err, results) {
-        if (err) {
-          console.error(err);
-          reject(err);
-        }
-        resolve(results.permitRules + '\n' + results.forestRules);
+      forestRules: function(callback) {
+        request(
+          vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md', {
+            json: false
+          }, (err, res, forestRules) => {
+            if (err) {
+              console.error(err);
+              callback(err, null);
+            } else {
+              callback(null, forestRules);
+            }
+          }
+        );
       }
+    },
+    function(err, results) {
+      if (err) {
+        console.error(err);
+        reject(err);
+      }
+      resolve(results.permitRules + '\n' + results.forestRules);
+    }
     );
   });
 };
