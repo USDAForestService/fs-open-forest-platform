@@ -1,5 +1,5 @@
 Below are Christmas tree cutting maps as well as some suggested roads or highways to travel while searching for your tree. The roads and associated spur roads listed below reach elevations of 3,500 feet to 4,500 feet. Because of their higher
-elevations, it is highly likey that you will run into snow on these roads early in the season.
+elevations, it is highly likely that you will run into snow on these roads early in the season.
 
 [Christmas tree map of **Clackamas River Ranger District**. (Click to view larger map)](/assets/img/clackamas-map.png)
 
