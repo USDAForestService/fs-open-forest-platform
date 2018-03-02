@@ -112,7 +112,8 @@ svgUtil.generateRulesHtml = permit => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
-        resolve(svgUtil.createRulesHtmlPage(rules, permit));
+        const forest = permit.christmasTreesForest.dataValues;
+        resolve(svgUtil.createRulesHtmlPage(rules, forest));
       });
     });
   });
@@ -160,9 +161,7 @@ svgUtil.getRulesMarkdown = forestAbbr => {
   });
 };
 
-svgUtil.createRulesHtmlPage = (rules, permit) => {
-  let forest = permit.christmasTreesForest.dataValues;
-
+svgUtil.createRulesHtmlPage = (rules, forest) => {
   let rulesHtml =
     '<html><body style="font-family:Arial; margin: 20px;"> <h1 style="background-color:#000; text-align:center; padding:8px;">' +
     '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
@@ -227,11 +226,14 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
 svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
   const start = moment(startDate).tz(forestTimezone);
   const end = moment(endDate).tz(forestTimezone);
-  const startFormat = 'MMM. D -';
+  let startFormat = 'MMM. D -';
   let endFormat = ' D, YYYY';
 
   if (start.month() !== end.month()) {
     endFormat = ' MMM. D, YYYY';
+  }
+  if (start.year() !== end.year()) {
+    startFormat = 'MMM. D, YYYY - ';
   }
   return start.format(startFormat) + end.format(endFormat);
 };
