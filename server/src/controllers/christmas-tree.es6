@@ -401,6 +401,47 @@ christmasTree.getOnePermitDetail = (req, res) => {
     });
 };
 
+christmasTree.printPermit = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.params.id
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
+    })
+    .then(permit => {
+      if (permit.status === 'Completed') {
+        let rulesInd = false;
+        if (req.query.rules && req.query.rules === 'true') {
+          rulesInd = true;
+        }
+        permitSvgService.generatePermitSvg(permit).then(permitSvg => {
+          if (rulesInd) {
+            permitSvgService.generateRulesHtml(permit).then(rulesHtml => {
+              res.status(200).json({
+                permitImage: permitSvg + rulesHtml
+              });
+            });
+          } else {
+            res.status(200).json({
+              permitImage: permitSvg
+            });
+          }
+        });
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(404).send();
+    });
+};
+
 christmasTree.update = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({

@@ -24,4 +24,6 @@ router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit)
 /* get details of one permit which has not been completed*/
 router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
 
+router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);
+
 module.exports = router;
