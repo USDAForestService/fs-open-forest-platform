@@ -4,7 +4,6 @@
 *   300 feet of streams or lakes
 *   Areas posted "No Christmas Tree Cutting”
 *   Dalles Watershed, Camp Baldwin or Warm Springs Reservation
-*   East of Little Crater Lake Campground on Road 58, because of Warms Springs Indian Reservation
 *   Wilderness & research natural areas
 
 #### No cutting along the following:
@@ -19,7 +18,6 @@
 *   Road 2645 (Westleg Road)
 *   Road 2656 and spurs
 *   Road 4210
-
 *   Road 42 (Timothy Lake Road)
 *   Road 45, 4540, 4545
 *   Road 4660, 4661, 4670, 4671
