@@ -1,5 +1,6 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
@@ -15,9 +16,11 @@ export class TreePermitViewComponent implements OnInit {
   error: any = null;
   nativeWindow: any;
   isPermitExpired = false;
+  includeRules = false;
 
   constructor(
     private route: ActivatedRoute,
+    private christmasTreesApplicationService: ChristmasTreesApplicationService,
     private titleService: Title,
     private sanitizer: DomSanitizer,
     private router: Router,
@@ -45,9 +48,6 @@ export class TreePermitViewComponent implements OnInit {
     if (data.permit && data.permit.forest) {
       this.forest = data.permit.forest;
       this.permit = data.permit;
-      if (this.permit.permitImage) {
-        this.image = this.sanitizer.bypassSecurityTrustHtml(this.permit.permitImage);
-      }
       this.isPermitExpired = new Date(data.permit.expirationDate) < new Date();
       this.titleService.setTitle(
         `Permit order confirmation | ${data.permit.forest.forestName} | U.S. Forest Service Christmas Tree Permitting`
@@ -56,6 +56,15 @@ export class TreePermitViewComponent implements OnInit {
   }
 
   printPermit() {
+    const includeRules = (this.includeRules) ? "true" : "false";
+    this.christmasTreesApplicationService
+      .getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
+        this.image = this.sanitizer.bypassSecurityTrustHtml(response.permitImage);
+        this.permitPopup();
+    });
+  }
+
+  permitPopup() {
     let printContents, popupWin;
     printContents = document.getElementById('toPrint').innerHTML;
     popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');

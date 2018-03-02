@@ -46,6 +46,10 @@ export class ChristmasTreesApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}/details`).catch(this.util.handleError);
   }
 
+  getPrintablePermit(id, rules = 'false') {
+    return this.http.get(`${this.endpoint}/permits/${id}/print?rules=${rules}`).catch(this.util.handleError);
+  }
+
   getAllByDateRange(forestId, startDate, endDate) {
     return this.http
       .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
