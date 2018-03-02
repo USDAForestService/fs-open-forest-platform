@@ -2,7 +2,9 @@
 
 const request = require('request-promise');
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {
+  JSDOM
+} = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -22,7 +24,8 @@ const addApplicantInfo = (permit, frag) => {
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
+  frag.querySelector('#full-name_1_').textContent =
+    `${permit.firstName
     .substring(0, 18)
     .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
@@ -48,9 +51,9 @@ const addForestSpecificInfo = (permit, frag) => {
 
   frag.querySelector('#permit-expiration_1_').textContent =
     moment
-      .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
-      .format('MMM D, YYYY')
-      .toUpperCase() + ' MIDNIGHT';
+    .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
+    .format('MMM D, YYYY')
+    .toUpperCase() + ' MIDNIGHT';
   if (permit.christmasTreesForest.treeHeight > 0) {
     frag.querySelector('#tree-height_1_').textContent = permit.christmasTreesForest.treeHeight;
   } else {
@@ -95,9 +98,9 @@ svgUtil.generatePermitSvg = permit => {
 svgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
     svg2png(svgBuffer, {
-      width: 740,
-      height: 958
-    })
+        width: 740,
+        height: 958
+      })
       .then(data => {
         resolve(data);
       })
@@ -120,26 +123,26 @@ svgUtil.generateRulesHtml = permit => {
 
 svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
-    async.parallel(
-      {
+    async.parallel({
         permitRules: function(callback) {
           request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md',
-            { json: false },
-            (err, res, permitRules) => {
+            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md', {
+              json: false
+            }, (err, res, permitRules) => {
               if (err) {
                 console.error(err);
                 callback(err, null);
+              } else {
+                callback(null, permitRules);
               }
-              callback(null, permitRules);
             }
           );
         },
         forestRules: function(callback) {
           request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md',
-            { json: false },
-            (err, res, forestRules) => {
+            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md', {
+              json: false
+            }, (err, res, forestRules) => {
               if (err) {
                 console.error(err);
                 callback(err, null);
