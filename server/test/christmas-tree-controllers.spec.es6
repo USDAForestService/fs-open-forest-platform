@@ -12,7 +12,7 @@ const server = require('./mock-aws.spec.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
-let invalidPermitId = 'xxxxxxxx-189d-43ba-xxxx-c233ef94f02f';
+let invalidPermitId = '1111a111-2222-11a1-aaa1-123456789012';
 let paygovToken;
 let tcsAppID;
 let today = moment(new Date()).format('YYYY-MM-DD');
@@ -75,7 +75,7 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(function(res) {
           expect(res.body).to.include.all.keys('cuttingAreas');
-          expect(res.body.cuttingAreas !== null && typeof res.body.cuttingAreas === 'object')
+          expect(res.body.cuttingAreas !== null && typeof res.body.cuttingAreas === 'object');
         })
         .expect(200, done);
     });
