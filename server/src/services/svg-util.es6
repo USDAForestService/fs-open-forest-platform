@@ -147,8 +147,9 @@ svgUtil.getRulesMarkdown = forestAbbr => {
               if (err) {
                 console.error(err);
                 callback(err, null);
+              } else {
+                callback(null, forestRules);
               }
-              callback(null, forestRules);
             }
           );
         }
