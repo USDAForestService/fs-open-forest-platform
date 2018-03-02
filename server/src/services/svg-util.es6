@@ -2,9 +2,7 @@
 
 const request = require('request-promise');
 const jsdom = require('jsdom');
-const {
-  JSDOM
-} = jsdom;
+const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -24,10 +22,9 @@ const addApplicantInfo = (permit, frag) => {
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent =
-    `${permit.firstName
-      .substring(0, 18)
-      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
+    .substring(0, 18)
+    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -110,13 +107,13 @@ svgUtil.generatePng = svgBuffer => {
   });
 };
 
-svgUtil.generateRulesHtml = permit => {
-  return new Promise((resolve) => {
+svgUtil.generateRulesHtml = (htmlBody, permit) => {
+  return new Promise(resolve => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
         const forest = permit.christmasTreesForest.dataValues;
-        resolve(svgUtil.createRulesHtmlPage(rules, forest));
+        resolve(svgUtil.createRulesHtmlPage(htmlBody, rules, forest));
       });
     });
   });
@@ -124,50 +121,61 @@ svgUtil.generateRulesHtml = permit => {
 
 svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
-    async.parallel({
-      permitRules: function(callback) {
-        request(
-          vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md', {
-            json: false
-          }, (err, res, permitRules) => {
-            if (err) {
-              console.error(err);
-              callback(err, null);
-            } else {
-              callback(null, permitRules);
+    async.parallel(
+      {
+        permitRules: function(callback) {
+          request(
+            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md',
+            {
+              json: false
+            },
+            (err, res, permitRules) => {
+              if (err) {
+                console.error(err);
+                callback(err, null);
+              } else {
+                callback(null, permitRules);
+              }
             }
-          }
-        );
+          );
+        },
+        forestRules: function(callback) {
+          request(
+            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md',
+            {
+              json: false
+            },
+            (err, res, forestRules) => {
+              if (err) {
+                console.error(err);
+                callback(err, null);
+              } else {
+                callback(null, forestRules);
+              }
+            }
+          );
+        }
       },
-      forestRules: function(callback) {
-        request(
-          vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md', {
-            json: false
-          }, (err, res, forestRules) => {
-            if (err) {
-              console.error(err);
-              callback(err, null);
-            } else {
-              callback(null, forestRules);
-            }
-          }
-        );
+      function(err, results) {
+        if (err) {
+          console.error(err);
+          reject(err);
+        }
+        resolve(results.permitRules + '\n' + results.forestRules);
       }
-    },
-    function(err, results) {
-      if (err) {
-        console.error(err);
-        reject(err);
-      }
-      resolve(results.permitRules + '\n' + results.forestRules);
-    }
     );
   });
 };
 
-svgUtil.createRulesHtmlPage = (rules, forest) => {
-  let rulesHtml =
-    '<html><body style="font-family:Arial; margin: 20px;"> <h1 style="background-color:#000; text-align:center; padding:8px;">' +
+svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
+  let rulesHtml = '';
+  if (htmlBody) {
+    rulesHtml = '<html><body style="font-family:Arial; style="margin: 20px;">';
+  }
+  rulesHtml =
+    rulesHtml +
+    '<div>' +
+    '<h1 style="background-color:#000; text-align:center; padding:8px;">' +
     '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
 
   rulesHtml =
@@ -190,8 +198,10 @@ svgUtil.createRulesHtmlPage = (rules, forest) => {
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
-
-  rulesHtml = rulesHtml + rules + '</body></html>';
+  rulesHtml = rulesHtml + rules + '</div>';
+  if (htmlBody) {
+    rulesHtml = rulesHtml + rules + '</body></html>';
+  }
   return rulesHtml;
 };
 

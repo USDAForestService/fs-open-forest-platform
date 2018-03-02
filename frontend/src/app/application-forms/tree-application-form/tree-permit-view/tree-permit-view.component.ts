@@ -56,11 +56,17 @@ export class TreePermitViewComponent implements OnInit {
   }
 
   printPermit() {
-    const includeRules = (this.includeRules) ? "true" : "false";
-    this.christmasTreesApplicationService
-      .getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
-        this.image = this.sanitizer.bypassSecurityTrustHtml(response.permitImage);
+    const includeRules = this.includeRules ? true : false;
+
+    this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
+      let content = response[0]['result'];
+      if (includeRules) {
+        content += response[1]['result'];
+      }
+      this.image = this.sanitizer.bypassSecurityTrustHtml(content);
+      setTimeout(() => {
         this.permitPopup();
+      }, 2000);
     });
   }
 
@@ -82,6 +88,5 @@ export class TreePermitViewComponent implements OnInit {
       `);
 
     popupWin.document.close();
-
   }
 }

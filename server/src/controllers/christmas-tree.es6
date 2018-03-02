@@ -295,7 +295,7 @@ const generateRulesAndEmail = (permitSvg, permit) => {
     .generatePng(permitSvg)
     .then(permitPng => {
       permitSvgService
-        .generateRulesHtml(permit)
+        .generateRulesHtml(true, permit)
         .then(rulesHtml => {
           permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
           let rulesText = htmlToText.fromString(rulesHtml, {
@@ -415,23 +415,21 @@ christmasTree.printPermit = (req, res) => {
     })
     .then(permit => {
       if (permit.status === 'Completed') {
-        let rulesInd = false;
-        if (req.query.rules && req.query.rules === 'true') {
-          rulesInd = true;
-        }
-        permitSvgService.generatePermitSvg(permit).then(permitSvg => {
-          if (rulesInd) {
-            permitSvgService.generateRulesHtml(permit).then(rulesHtml => {
-              res.status(200).json({
-                permitImage: permitSvg + rulesHtml
-              });
-            });
-          } else {
+        if (!req.query.rules || req.query.permit === 'true') {
+          permitSvgService.generatePermitSvg(permit).then(permitSvg => {
             res.status(200).json({
-              permitImage: permitSvg
+              result: permitSvg
             });
-          }
-        });
+          });
+        } else if (req.query.rules === 'true') {
+          permitSvgService.generateRulesHtml(false, permit).then(rulesHtml => {
+            res.status(200).json({
+              result: rulesHtml
+            });
+          });
+        } else {
+          res.status(404).send();
+        }
       } else {
         res.status(404).send();
       }

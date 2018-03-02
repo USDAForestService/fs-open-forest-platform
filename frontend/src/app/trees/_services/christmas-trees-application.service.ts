@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
-
 
 @Injectable()
 export class ChristmasTreesApplicationService {
@@ -46,8 +46,21 @@ export class ChristmasTreesApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}/details`).catch(this.util.handleError);
   }
 
-  getPrintablePermit(id, rules = 'false') {
-    return this.http.get(`${this.endpoint}/permits/${id}/print?rules=${rules}`).catch(this.util.handleError);
+  getPrintablePermit(id, includeRules = false) {
+    let requests = [];
+    requests.push(this.getPermitRequest(id, false));
+    if (includeRules) {
+      requests.push(this.getPermitRequest(id, true));
+    }
+    return forkJoin(requests);
+  }
+
+  getPermitRequest(id, rules = false) {
+    let queryParam = 'permit=true';
+    if (rules) {
+      queryParam = 'rules=true';
+    }
+    return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`).catch(this.util.handleError);
   }
 
   getAllByDateRange(forestId, startDate, endDate) {
