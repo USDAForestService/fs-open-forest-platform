@@ -1,4 +1,4 @@
-* Be sure someone knows where you are and when to expect you back. Cell service is spotty, or non-existent, in many National Forests.
+* Be sure someone knows where you are and when to expect you back. Cell service is spotty, or nonexistent, in many National Forests.
 * Check the latest weather conditions and road hazards before you leave on your trip as conditions may have changed since you purchased your permit.
 * Don’t rely on GPS because it may not be up-to-date with forest service roads. Bring a [forest or district map](/christmas-trees/forests/mthood/#tree-locations) with you.
 * Expect winter conditions, including below-freezing temperatures and cold winds. Dress warmly and take extra dry clothes.
