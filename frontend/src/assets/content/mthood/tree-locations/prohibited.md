@@ -7,12 +7,10 @@
 
 #### No cutting along the following:
 
-*   Highway 26 and 224
+*   Highways 26 and 224
 *   Road 42 (Timothy Lake Road)
 *   Road 50 (Timberline Road)
 *   Road 2645 (Westleg Road)
 *   Road 2618 (Salmon River Road)
 *   Road 2627, 2627-207
-*   Highway 216
-*   Highway 35
-*   Highway 26
+*   Highways 216, 35 and 26.
