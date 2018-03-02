@@ -81,7 +81,6 @@ export class ChristmasTreeForm {
     this.submit().click();
     this.rulesAccepted().click();
     this.submitRules().click();
-
   }
 
   cancelInfo() {
