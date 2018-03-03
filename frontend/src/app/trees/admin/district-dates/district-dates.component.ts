@@ -78,9 +78,10 @@ export class AdminDistrictDatesComponent implements OnInit {
         if (this.district && this.form.get('districtId').value !== this.district.id) {
           this.form.get('districtId').setValue(this.district.id);
         }
+      } else {
+        this.district = null;
+        this.districts = null;
       }
-      this.district = null;
-      this.districts = null;
     });
   }
 
@@ -129,16 +130,18 @@ export class AdminDistrictDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
-      this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
-        () => {
-          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-          this.winRef.getNativeWindow().scroll(0, 200);
-        },
-        err => {
-          this.apiErrors = err;
-          this.winRef.getNativeWindow().scroll(0, 200);
-        }
-      );
+      this.service
+        .updateDistrictDates(this.forest, this.district.id, newStart, newEnd)
+        .subscribe(
+          () => {
+            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          },
+          err => {
+            this.apiErrors = err;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          }
+        );
     }
   }
 }
