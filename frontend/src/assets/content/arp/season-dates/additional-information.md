@@ -21,5 +21,5 @@ Cutting dates | Cutting hours
 {{redFeatherLakesDate}} | {{redFeatherLakesTime}}
 
 ### Cost
-Christmas trees cost ${{treeCost}} each and a household is allowed to cut 
+Christmas trees cost ${{treeCost}} each, and a household is allowed to cut 
 up to {{maxNumTrees}} trees per permit.  All permits are non-refundable.
