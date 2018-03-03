@@ -6,7 +6,7 @@ export class TreesAdminDistrictDatesPage {
   }
 
   districtUpdatedAlert() {
-    return element(by.id('district-update-alert'));
+    return element(by.id('district-updated-alert'));
   }
 
   forestSelect() {
