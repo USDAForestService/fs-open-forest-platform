@@ -47,7 +47,7 @@ export class ChristmasTreesApplicationService {
   }
 
   getPrintablePermit(id, includeRules = false) {
-    let requests = [];
+    const requests = [];
     requests.push(this.getPermitRequest(id, false));
     if (includeRules) {
       requests.push(this.getPermitRequest(id, true));
