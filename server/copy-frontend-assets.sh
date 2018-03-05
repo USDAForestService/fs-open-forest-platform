@@ -3,7 +3,7 @@ DST_DIR='frontend-assets'
 CONTENT='/content'
 IMG='/img'
 
-rm -r $DST_DIR
+if [ -d "$DST_DIR" ]; then rm -Rf $DST_DIR; fi
 mkdir -p $DST_DIR
-cp -r $SRC_DIR$CONTENT $DST_DIR$CONTENT
-cp -r $SRC_DIR$IMG $DST_DIR$IMG
+cp -rf $SRC_DIR$CONTENT $DST_DIR$CONTENT
+cp -rf $SRC_DIR$IMG $DST_DIR$IMG

@@ -14,11 +14,7 @@
     },
     {
       "credentials": {
-        "intake_client_base_url": "https://forest-service-trees-staging.app.cloud.gov/",
-        "basic_auth": {
-          "username": "",
-          "password": ""
-        }
+        "intake_client_base_url": "https://forest-service-trees-staging.app.cloud.gov/"
       },
       "label": "user-provided",
       "name": "intake-client-service",
