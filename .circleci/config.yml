@@ -124,6 +124,9 @@ jobs:
           name: Create dist
           command: cd frontend; yarn dist-trees;
       - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
           name: deploy
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "nciinc" ];
@@ -153,6 +156,9 @@ jobs:
       - run:
           name: Create dist
           command: cd frontend; yarn dist-prod;
+      - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
       - run:
           name: deploy
           command: |
