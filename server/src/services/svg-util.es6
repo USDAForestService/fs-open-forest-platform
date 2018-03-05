@@ -170,13 +170,13 @@ svgUtil.getRulesMarkdown = forestAbbr => {
 svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
-    rulesHtml = '<html><body style="font-family:Arial; style="margin: 20px;">';
+    rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
   }
   rulesHtml =
     rulesHtml +
     '<div>' +
     '<h1 style="background-color:#000; text-align:center; padding:8px;">' +
-    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
+    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
   rulesHtml =
     rulesHtml +
