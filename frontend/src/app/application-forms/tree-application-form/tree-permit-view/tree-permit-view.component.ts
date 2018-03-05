@@ -64,14 +64,14 @@ export class TreePermitViewComponent implements OnInit {
         content += response[1]['result'];
       }
       this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => {
-        this.permitPopup();
-      }, 2000);
+      setTimeout(() => this.permitPopup(includeRules), 2000);
     });
   }
 
-  permitPopup() {
+  permitPopup(includeRules) {
     let printContents, popupWin;
+
+    const cssFile = (includeRules) ? 'print-permit-with-rules.css' : 'print-permit.css';
     printContents = document.getElementById('toPrint').innerHTML;
     popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
@@ -80,8 +80,8 @@ export class TreePermitViewComponent implements OnInit {
     popupWin.document.write(`
       <html>
         <head>
-          <title>Print permit</title>
-          <link href="/assets/css/print-permit.css" rel="stylesheet" type="text/css">
+          <title></title>
+          <link href="/assets/css/${cssFile}" rel="stylesheet" type="text/css">
         </head>
         <body onload="window.focus(); setTimeout(window.print(),0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
       </html>
