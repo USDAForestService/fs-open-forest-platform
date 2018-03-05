@@ -170,24 +170,21 @@ svgUtil.getRulesMarkdown = forestAbbr => {
 svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
-    rulesHtml = '<html><body style="font-family:Arial; style="margin: 20px;">';
+    rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
   }
-  rulesHtml =
-    rulesHtml +
+  rulesHtml +=
     '<div>' +
     '<h1 style="background-color:#000; text-align:center; padding:8px;">' +
-    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
+    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
-  rulesHtml =
-    rulesHtml +
+  rulesHtml +=
     '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.intakeClientBaseUrl +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
 
-  rulesHtml =
-    rulesHtml +
+  rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
     ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
@@ -198,9 +195,9 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
-  rulesHtml = rulesHtml + rules + '</div>';
+  rulesHtml += rules + '</div>';
   if (htmlBody) {
-    rulesHtml = rulesHtml + rules + '</body></html>';
+    rulesHtml += '</body></html>';
   }
   return rulesHtml;
 };
