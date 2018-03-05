@@ -1,4 +1,5 @@
-You can buy Christmas tree permits in person at all Mt. Hood ranger district offices. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits.
+You can buy Christmas tree permits in person at all Mt. Hood ranger district offices or at [local vendors](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd566027.pdf). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+
 
 ### Headquarters
 16400 Champion Way  
@@ -29,10 +30,6 @@ Parkdale, OR 97041
 Zigzag, OR 97049
 
 (503) 622-3191
-
-Christmas tree permits are also available for purchase at local [vendors](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd566027.pdf).
-
-All offices are closed on federal holidays.
 
 * * *
 
