@@ -71,8 +71,8 @@
     {
       "credentials": {
         "smtp_server": "smtp.gmail.com",
-        "username": "mailpendem@gmail.com",
-        "password": "Mydarling12"
+        "username": "",
+        "password": ""
       },
       "label": "user-provided",
       "name": "smtp-service",
