@@ -105,13 +105,13 @@ svgUtil.generatePng = svgBuffer => {
   });
 };
 
-svgUtil.generateRulesHtml = permit => {
+svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise(resolve => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
         const forest = permit.christmasTreesForest.dataValues;
-        resolve(svgUtil.createRulesHtmlPage(htmlBody, rules, forest));
+        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rules, forest));
       });
     });
   });
