@@ -1,4 +1,4 @@
-You can buy Christmas tree permits in person at the following ranger district offices. Call first to make sure someone is available to sell permits.
+You can buy Christmas tree permits in person at the following ranger district offices or at [local vendors](https://www.fs.usda.gov/detail/arp/passes-permits/?cid=fsm91_058252). Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Forest Supervisor’s Office
 2150 Centre Avenue, Building E  
@@ -14,10 +14,6 @@ Fort Collins, CO 80526
 (970) 295-6700
 
 Permits are only available for purchase at the Canyon Lakes office in person Dec. 1 - Dec. 9, 2018.
-
-Christmas tree permits are also available for purchase at local [vendors](https://www.fs.usda.gov/detail/arp/passes-permits/?cid=fsm91_058252).
-
-All offices are closed on federal holidays.
 
 * * *
 

@@ -1,4 +1,4 @@
-You can buy Christmas tree permits in person all year long at all Shoshone ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits.
+You can buy Christmas tree permits in person all year long at all Shoshone ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Supervisor's Office
 808 Meadowlane Ave.  
@@ -23,8 +23,6 @@ Dubois, WY 82513-0186
 Cody, WY 82414-9313
 
 (307) 527-6921
-
-All offices are closed on federal holidays.
 
 * * *
 
