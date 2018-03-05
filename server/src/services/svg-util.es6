@@ -1,13 +1,11 @@
 'use strict';
 
-const request = require('request-promise');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
-const async = require('async');
 const markdown = require('markdown').markdown;
 
 const util = require('./util.es6');
@@ -121,49 +119,17 @@ svgUtil.generateRulesHtml = (htmlBody, permit) => {
 
 svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
-    async.parallel(
-      {
-        permitRules: function(callback) {
-          request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md',
-            {
-              json: false
-            },
-            (err, res, permitRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, permitRules);
-              }
-            }
-          );
-        },
-        forestRules: function(callback) {
-          request(
-            vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md',
-            {
-              json: false
-            },
-            (err, res, forestRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, forestRules);
-              }
-            }
-          );
-        }
-      },
-      function(err, results) {
+    fs.readFile('frontend-assets/content/common/permit-rules.md', function read(err, permitRules) {
+      if (err) {
+        reject(err);
+      }
+      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err, forestRules) {
         if (err) {
-          console.error(err);
           reject(err);
         }
-        resolve(results.permitRules + '\n' + results.forestRules);
-      }
-    );
+        resolve(`${permitRules}\n${forestRules}`);
+      });
+    });
   });
 };
 

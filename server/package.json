@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "description": "fs-permit-platform",
   "dependencies": {
-    "async": "^2.6.0",
     "aws-sdk": "^2.62.0",
     "basic-auth": "^1.1.0",
     "body-parser": "1.18.2",
@@ -70,7 +69,8 @@
   },
   "scripts": {
     "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
-    "dev": "yarn; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
+    "dev": "yarn; yarn copy-frontend-assets; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
+    "copy-frontend-assets": "./copy-frontend-assets.sh",
     "lint": "eslint **/**/*.es6",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",

@@ -25,6 +25,9 @@ jobs:
           name: server snyk
           command: cd server; npm run snyk-test
       - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
       - run:
@@ -57,6 +60,9 @@ jobs:
       - run:
           name: install jq
           command: sudo apt-get install jq
+      - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
