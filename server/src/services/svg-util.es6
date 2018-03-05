@@ -74,7 +74,7 @@ svgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
-        console.error(err);
+        console.error('problem creating permit svg=', err);
         reject(err);
       }
       try {
@@ -83,7 +83,7 @@ svgUtil.generatePermitSvg = permit => {
         addForestSpecificInfo(permit, frag);
         resolve(frag.firstChild.outerHTML);
       } catch (err) {
-        console.error(err);
+        console.error('problem creating permit svg=', err);
         reject(err);
       }
     });
@@ -108,10 +108,12 @@ svgUtil.generatePng = svgBuffer => {
 svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise(resolve => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
+      console.log('result of rulesMarkdown!');
       let rulesHtml = markdown.toHTML(rulesMarkdown);
+      console.log('result of rulesHtml!');
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
-        const forest = permit.christmasTreesForest.dataValues;
-        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rules, forest));
+        console.log('result of processRulesText');
+        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rules, permit.christmasTreesForest));
       });
     });
   });
@@ -121,10 +123,12 @@ svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
     fs.readFile('frontend-assets/content/common/permit-rules.md', function read(err, permitRules) {
       if (err) {
+        console.error('problem reading permit-rules markdown=', err);
         reject(err);
       }
       fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err, forestRules) {
         if (err) {
+          console.error('problem reading rules markdown=', err);
           reject(err);
         }
         resolve(`${permitRules}\n${forestRules}`);
@@ -149,7 +153,7 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
-
+  console.log('rulesHtml after usfslogo');
   rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
@@ -157,22 +161,27 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   var regex = new RegExp('"/assets/', 'g');
   rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
 
+  console.log('rulesHtml after assets');
   rules = rules.replace(
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
+  console.log('createRulesHtmlPage rules!');
   rulesHtml += rules + '</div>';
   if (htmlBody) {
     rulesHtml += '</body></html>';
   }
+  console.log('createRulesHtmlPage rulesHtml');
   return rulesHtml;
 };
 
 svgUtil.processRulesText = (rulesHtml, permit) => {
+  console.log('inside processRulesText');
   return new Promise(resolve => {
     let forest = permit.christmasTreesForest.dataValues;
     let rules = rulesHtml;
     for (var key in forest) {
+      console.log('inside processRulesText key=', key);
       if (forest.hasOwnProperty(key)) {
         let textToReplace = '{{' + key + '}}';
         rules = rules.replace(textToReplace, forest[key]);
@@ -186,6 +195,7 @@ svgUtil.processRulesText = (rulesHtml, permit) => {
 };
 
 svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
+  console.log('inside parseCuttingAreaDates');
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
@@ -201,6 +211,7 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
 };
 
 svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
+  console.log('inside formatCuttingAreaDate');
   const start = moment(startDate).tz(forestTimezone);
   const end = moment(endDate).tz(forestTimezone);
   let startFormat = 'MMM. D -';
