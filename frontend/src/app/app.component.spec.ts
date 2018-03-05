@@ -143,7 +143,7 @@ describe('AppComponent', () => {
 
     it ('should clear the showLoggedIn from local storage', () => {
       component.setLoggedInMessage();
-      expect(localStorage.getItem('showLoggedIn')).toBeNull()
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
     });
 
   });
