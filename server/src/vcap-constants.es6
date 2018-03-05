@@ -7,13 +7,11 @@ const fs = require('fs-extra');
  * @module vcap-constants
  */
 
-
 const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
 
 const vcapConstants = {};
 
-
-vcapConstants.isLocalOrCI = (['CI', 'local'].indexOf(process.env.PLATFORM) !== -1) ? true : false;
+vcapConstants.isLocalOrCI = ['CI', 'local'].indexOf(process.env.PLATFORM) !== -1 ? true : false;
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
@@ -61,6 +59,7 @@ vcapConstants.middleLayerPassword = middlelayerService.credentials.middlelayer_p
 /** Intake module settings */
 const intakeService = getUserProvided('intake-client-service');
 vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
+vcapConstants.basicAuth = intakeService.credentials.basic_auth;
 
 /** Login.gov settings */
 const loginGovService = getUserProvided('login-service-provider');

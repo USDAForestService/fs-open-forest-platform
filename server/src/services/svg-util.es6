@@ -105,7 +105,7 @@ svgUtil.generatePng = svgBuffer => {
   });
 };
 
-svgUtil.generateRulesHtml = (htmlBody, permit) => {
+svgUtil.generateRulesHtml = permit => {
   return new Promise(resolve => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);

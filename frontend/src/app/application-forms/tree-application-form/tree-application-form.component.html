@@ -20,7 +20,7 @@
     <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
       <div [hidden]="showRules">
         <p>
-          Christmas trees cost ${{costPerTree}} each and a household is allowed to cut up to {{maxNumberOfTrees}} trees per permit.
+          Christmas trees cost ${{costPerTree}} each, and a household is allowed to cut up to {{maxNumberOfTrees}} trees per permit.
           All permits are non-refundable.
         </p>
         <p><b>Your permit must be printed to be valid and cannot be stored on a mobile device.</b></p>
@@ -66,6 +66,7 @@
             <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
           </div>
        </div>
+        <p class="usa-form-hint">A copy of these rules will be sent with your permit to the email address you have provided. You can print these rules and your permit after you make your purchase.</p>
 
         <p class="usa-form-hint">
           We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
