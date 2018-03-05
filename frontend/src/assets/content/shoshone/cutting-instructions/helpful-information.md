@@ -1,4 +1,4 @@
-* Select a tree growing close to other trees. Cutting from dense clumps will thin areas with too many trees, thereby reducing competition and promoting growth of the remaining trees.
+* Choose a tree out of an over-crowded area, which will give the remaining trees more space to grow.
 * Tools you might want to consider bringing with you include a hacksaw or axe to cut your tree; gloves to protect your hands; a tarp to sit on and/or to move your tree once its cut; and rope or straps to secure your tree to your vehicle.
 * Be aware of where the tree will fall and ensure all members of your party (and your car) are out of the path of the tree.
 * Branches must be removed from sections of trees left behind. The branches must then be scattered.

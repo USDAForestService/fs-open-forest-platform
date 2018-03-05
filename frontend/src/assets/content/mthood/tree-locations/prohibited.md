@@ -1,4 +1,4 @@
-Make sure you are on National Forest Land before cutting your tree. 
+Cut trees only within the National Forest boundary and respect surrounding private property.
 
 #### No cutting or removing trees within:
 
