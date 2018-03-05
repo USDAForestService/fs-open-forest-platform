@@ -99,11 +99,19 @@ describe('svg creation tests', () => {
       );
       expect(dateFormatted).to.equal('Dec. 2 - 9, 2018');
     });
+
     it('rules html used to generate html page', () => {
       const rules =
         ' <h3><img alt="rules icon" title="rules icon" src="/assets/img/bullet-points-icon.svg"/>Rules and Guidelines</h3>';
-      const rulesHtml = permitSvgService.createRulesHtmlPage(rules, arpForest);
+      const rulesHtml = permitSvgService.createRulesHtmlPage(true, rules, arpForest);
       expect(rulesHtml).to.have.string('<html>');
+    });
+
+    it('should not create a body when called online with createHtmlBody false', () => {
+      const rules =
+        ' <h3><img alt="rules icon" title="rules icon" src="/assets/img/bullet-points-icon.svg"/>Rules and Guidelines</h3>';
+      const rulesHtml = permitSvgService.createRulesHtmlPage(false, rules, arpForest);
+      expect(rulesHtml).not.to.have.string('<html>');
     });
   });
 });

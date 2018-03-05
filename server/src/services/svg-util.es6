@@ -1,21 +1,17 @@
 'use strict';
 
-const request = require('request-promise');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
-const async = require('async');
 const markdown = require('markdown').markdown;
 
 const util = require('./util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const svgUtil = {};
-
-// const auth = "Basic " + new Buffer(username + ":" + password).toString("base64");
 
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
@@ -109,13 +105,13 @@ svgUtil.generatePng = svgBuffer => {
   });
 };
 
-svgUtil.generateRulesHtml = permit => {
+svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise(resolve => {
     svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
       let rulesHtml = markdown.toHTML(rulesMarkdown);
       svgUtil.processRulesText(rulesHtml, permit).then(rules => {
         const forest = permit.christmasTreesForest.dataValues;
-        resolve(svgUtil.createRulesHtmlPage(rules, forest));
+        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rules, forest));
       });
     });
   });
@@ -123,79 +119,38 @@ svgUtil.generateRulesHtml = permit => {
 
 svgUtil.getRulesMarkdown = forestAbbr => {
   return new Promise((resolve, reject) => {
-    let basicAuth = '';
-    if (vcapConstants.basicAuth && vcapConstants.basicAuth.username && vcapConstants.basicAuth.password) {
-      basicAuth =
-        'Basic ' +
-        new Buffer(vcapConstants.basicAuth.username + ':' + vcapConstants.basicAuth.password).toString('base64');
-    }
-    async.parallel(
-      {
-        permitRules: function(callback) {
-          request(
-            {
-              url: vcapConstants.intakeClientBaseUrl + '/assets/content/common/permit-rules.md',
-              json: false,
-              headers: {
-                Authorization: basicAuth
-              }
-            },
-            (err, res, permitRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, permitRules);
-              }
-            }
-          );
-        },
-        forestRules: function(callback) {
-          request(
-            {
-              url: vcapConstants.intakeClientBaseUrl + '/assets/content/' + forestAbbr + '/rules-to-know/rules.md',
-              json: false,
-              headers: {
-                Authorization: basicAuth
-              }
-            },
-            (err, res, forestRules) => {
-              if (err) {
-                console.error(err);
-                callback(err, null);
-              } else {
-                callback(null, forestRules);
-              }
-            }
-          );
-        }
-      },
-      function(err, results) {
+    fs.readFile('frontend-assets/content/common/permit-rules.md', function read(err, permitRules) {
+      if (err) {
+        reject(err);
+      }
+      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err, forestRules) {
         if (err) {
-          console.error(err);
           reject(err);
         }
-        resolve(results.permitRules + '\n' + results.forestRules);
-      }
-    );
+        resolve(`${permitRules}\n${forestRules}`);
+      });
+    });
   });
 };
 
-svgUtil.createRulesHtmlPage = (rules, forest) => {
-  let rulesHtml =
-    '<html><body style="font-family:Arial; margin: 20px;"> <h1 style="background-color:#000; text-align:center; padding:8px;">' +
-    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1><br/>';
+svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
+  let rulesHtml = '';
+  if (htmlBody) {
+    rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
+  }
+  rulesHtml +=
+    '<div>' +
+    '<h1 style="background-color:#000; text-align:center; padding:8px;">' +
+    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
-  rulesHtml =
-    rulesHtml +
+  rulesHtml +=
     '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.intakeClientBaseUrl +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
 
-  rulesHtml =
-    rulesHtml +
+  rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
     ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
@@ -206,8 +161,10 @@ svgUtil.createRulesHtmlPage = (rules, forest) => {
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
-
-  rulesHtml = rulesHtml + rules + '</body></html>';
+  rulesHtml += rules + '</div>';
+  if (htmlBody) {
+    rulesHtml += '</body></html>';
+  }
   return rulesHtml;
 };
 

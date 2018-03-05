@@ -35,22 +35,27 @@
 
     <div *ngIf="!isPermitExpired" id="toPrint" hidden="true" [innerHTML]="image"></div>
 
-    <div class="confirmation-details-container clear">
+    <div class="confirmation-details-container clear usa-width-one-whole margin-top-2">
+      <h2 class="usa-heading">Print permit</h2>
+      <hr class="header-divider">
       <div id="printing-instructions">
         You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
       </div>
+      <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
+      <label for="includeRules">Include a copy of the Christmas tree cutting rules?</label>
       <button
        id="tree-print-permit"
        class="usa-button-primary-alt usa-button-big"
        type="button"
        [disabled]="isPermitExpired"
        (click)="printPermit()">
-        Print permit
+        Print
       </button>
     </div>
 
-    <div id='tree-confirmation-details-container'>
+    <div id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
       <h2 class="usa-heading">Order details</h2>
+      <hr class="header-divider">
       <table class="tree-confirmation-table">
         <tr>
           <td>Permit number</td>
@@ -75,7 +80,7 @@
       </table>
     </div>
 
-    <div id="tree-additional-info-container" class="confirmation-details-container margin-top-2 margin-bottom-2">
+    <div id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
       <h3>Your permit and the Christmas tree cutting rules were emailed to you at {{permit.emailAddress}}.</h3>

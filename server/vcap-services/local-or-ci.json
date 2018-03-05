@@ -14,11 +14,7 @@
     },
     {
       "credentials": {
-        "intake_client_base_url": "http://localhost:4200",
-        "basic_auth": {
-          "username": "",
-          "password": ""
-        }
+        "intake_client_base_url": "http://localhost:4200"
       },
       "label": "user-provided",
       "name": "intake-client-service",

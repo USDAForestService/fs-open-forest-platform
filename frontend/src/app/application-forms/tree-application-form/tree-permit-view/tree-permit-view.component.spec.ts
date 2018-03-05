@@ -4,7 +4,10 @@ import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
+import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
 import {
   McBreadcrumbsService, McBreadcrumbsModule,
@@ -31,12 +34,15 @@ describe('TreePermitViewComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        imports: [RouterTestingModule, McBreadcrumbsModule],
-        declarations: [TreePermitViewComponent, BreadcrumbsComponent],
+        imports: [RouterTestingModule, McBreadcrumbsModule, HttpClientTestingModule],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent ],
         providers: [
           McBreadcrumbsService,
           McBreadcrumbsConfig,
-          { provide: WindowRef, useClass: WindowRef }
+          UtilService,
+          { provide: ChristmasTreesApplicationService },
+          { provide: WindowRef, useClass: WindowRef },
+
         ]
       }).compileComponents();
     })
@@ -59,6 +65,11 @@ describe('TreePermitViewComponent', () => {
 
   it('should set permit on init', () => {
     expect(component.permit.permitId).toEqual('123');
+  });
+
+  it('should process error', () => {
+    component.processError([{error: 'test'}]);
+    expect(component.error).toEqual([{error: 'test'}]);
   });
 
 });

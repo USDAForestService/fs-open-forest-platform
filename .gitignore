@@ -7,6 +7,7 @@ server/.nyc_output
 server/coverage.lcov
 server/coverage
 server/*.orig
+server/frontend-assets
 
 # compiled output
 frontend/dist
