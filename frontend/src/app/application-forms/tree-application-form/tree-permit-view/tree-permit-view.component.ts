@@ -83,7 +83,7 @@ export class TreePermitViewComponent implements OnInit {
           <title></title>
           <link href="/assets/css/${cssFile}" rel="stylesheet" type="text/css">
         </head>
-        <body onload="window.focus(); setTimeout(window.print(),0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
+        <body onload="window.focus(); setTimeout(window.print(), 0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
       </html>
       `);
 
