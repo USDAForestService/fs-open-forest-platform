@@ -108,13 +108,10 @@ svgUtil.generatePng = svgBuffer => {
 svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise((resolve, reject) => {
     try {
-      console.log('forest ', permit.christmasTreesForest.forestAbbr);
       let rulesMarkdown = svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
       if (rulesMarkdown) {
         let rulesHtml = markdown.toHTML(rulesMarkdown);
-        console.log('result of rulesHtml!');
         rulesHtml = svgUtil.processRulesText(rulesHtml, permit);
-        console.log('after processing variable interpolation', rulesHtml)
         resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest));
       } else {
         reject('problem reading rules markdown files', permit.permitId);
@@ -153,7 +150,6 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
-  console.log('rulesHtml after usfslogo');
   rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
@@ -161,25 +157,21 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   var regex = new RegExp('"/assets/', 'g');
   rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
 
-  console.log('rulesHtml after assets');
   rules = rules.replace(
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
-  console.log('createRulesHtmlPage rules!');
   rulesHtml += rules + '</div>';
   if (htmlBody) {
     rulesHtml += '</body></html>';
   }
-  console.log('createRulesHtmlPage rulesHtml');
+
   return rulesHtml;
 };
 
 svgUtil.processRulesText = (rulesHtml, permit) => {
-  console.log('inside processRulesText');
   let forest = permit.christmasTreesForest.dataValues;
   for (var key in forest) {
-    console.log('inside processRulesText key=', key);
     if (forest.hasOwnProperty(key)) {
       let textToReplace = '{{' + key + '}}';
       rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
@@ -193,13 +185,11 @@ svgUtil.processRulesText = (rulesHtml, permit) => {
 };
 
 svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
-  console.log('inside parseCuttingAreaDates');
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
     const cuttingAreas = JSON.parse(forest.cuttingAreas);
     if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
-      console.log('in cutting area dates', cuttingAreas[areaKey].startDate);
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
         svgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
@@ -210,7 +200,6 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
 };
 
 svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
-  console.log('inside formatCuttingAreaDate');
   const start = moment(startDate).tz(forestTimezone);
   const end = moment(endDate).tz(forestTimezone);
   let startFormat = 'MMM. D -';
