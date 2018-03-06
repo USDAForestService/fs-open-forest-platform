@@ -1,9 +1,7 @@
 'use strict';
 
 const jsdom = require('jsdom');
-const {
-  JSDOM
-} = jsdom;
+const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -16,14 +14,14 @@ const svgUtil = {};
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
 
-  frag.querySelector('#issue-date_1_').textContent = moment.tz(permit.createdAt, permit.christmasTreesForest.timezone)
+  frag.querySelector('#issue-date_1_').textContent = moment
+    .tz(permit.createdAt, permit.christmasTreesForest.timezone)
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent =
-    `${permit.firstName
-      .substring(0, 18)
-      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
+    .substring(0, 18)
+    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -121,7 +119,6 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
       console.error('problen creating rules html for permit ' + permit.permitId, err);
       reject(err);
     }
-
   });
 };
 
@@ -166,7 +163,6 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   if (htmlBody) {
     rulesHtml += '</body></html>';
   }
-
   return rulesHtml;
 };
 

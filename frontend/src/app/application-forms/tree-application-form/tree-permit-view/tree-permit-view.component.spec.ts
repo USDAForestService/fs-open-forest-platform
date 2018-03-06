@@ -9,10 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-import {
-  McBreadcrumbsService, McBreadcrumbsModule,
-  McBreadcrumbsConfig
-} from 'ngx-breadcrumbs';
+import { McBreadcrumbsService, McBreadcrumbsModule, McBreadcrumbsConfig } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 
 describe('TreePermitViewComponent', () => {
@@ -25,7 +22,6 @@ describe('TreePermitViewComponent', () => {
         totalCost: 0,
         quantity: 0,
         emailAddress: '',
-        permitImage: 'test',
         forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
       }
     })
@@ -35,14 +31,13 @@ describe('TreePermitViewComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         imports: [RouterTestingModule, McBreadcrumbsModule, HttpClientTestingModule],
-        declarations: [TreePermitViewComponent, BreadcrumbsComponent ],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent],
         providers: [
           McBreadcrumbsService,
           McBreadcrumbsConfig,
           UtilService,
           { provide: ChristmasTreesApplicationService },
-          { provide: WindowRef, useClass: WindowRef },
-
+          { provide: WindowRef, useClass: WindowRef }
         ]
       }).compileComponents();
     })
@@ -68,8 +63,7 @@ describe('TreePermitViewComponent', () => {
   });
 
   it('should process error', () => {
-    component.processError([{error: 'test'}]);
-    expect(component.error).toEqual([{error: 'test'}]);
+    component.processError([{ error: 'test' }]);
+    expect(component.error).toEqual([{ error: 'test' }]);
   });
-
 });
