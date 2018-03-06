@@ -118,15 +118,15 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
       }
     } catch (err) {
       console.error('problen creating rules html for permit ' + permit.permitId , err);
-      reject(err)
+      reject(err);
     }
 
-    });
+  });
 };
 
 svgUtil.getRulesMarkdown = forestAbbr => {
-  let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');//, function read(err, permitRules) {
-  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');//, function read(err, forestRules) {
+  let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
+  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');
   if (permitRules && forestRules) {
     return `${permitRules}\n${forestRules}`;
   } else {
