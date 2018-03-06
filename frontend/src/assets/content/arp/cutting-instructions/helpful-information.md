@@ -3,4 +3,3 @@
 * Have your tarp and rope/straps ready to transport your tree once it’s cut.
 * Be aware of where the tree will fall and ensure all members of your party (and your car) are out of its path.
 * Branches must be removed from sections of trees left behind. The branches must then be scattered.
-* Remember: your safety is your responsibility.
