@@ -64,7 +64,7 @@ export class TreePermitViewComponent implements OnInit {
         content += response[1]['result'];
       }
       this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => this.permitPopup(includeRules), 2000);
+      setTimeout(() => this.permitPopup(includeRules), 0);
     });
   }
 
@@ -83,7 +83,7 @@ export class TreePermitViewComponent implements OnInit {
           <title></title>
           <link href="/assets/css/${cssFile}" rel="stylesheet" type="text/css">
         </head>
-        <body onload="window.focus(); setTimeout(window.print(),0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
+        <body onload="window.focus(); setTimeout(window.print(), 0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
       </html>
       `);
 
