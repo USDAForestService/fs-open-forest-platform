@@ -1,11 +1,5 @@
-You can buy Christmas tree permits in person at all Mt. Hood ranger district offices or at [local vendors](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd566027.pdf). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
-
-
-### Headquarters
-16400 Champion Way  
-Sandy, OR 97055
-
-(503) 668-1700
+You can buy Christmas tree permits in person at the following Mt. Hood ranger district offices 
+or at [local vendors](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd566027.pdf). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Barlow Ranger District
 780 NE Court Street  
