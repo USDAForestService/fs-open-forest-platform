@@ -7,6 +7,7 @@ const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
 const markdown = require('markdown').markdown;
+const forestService = require('./forest.service.es6');
 
 const util = require('./util.es6');
 const vcapConstants = require('../vcap-constants.es6');
@@ -188,9 +189,8 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
-    console.log('cutting areas', forest.cuttingAreas);
-    const cuttingAreas = JSON.parse(forest.cuttingAreas);
-    if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
+    const cuttingAreas = forestService.parseCuttingAreas(forest.cuttingAreas);
+    if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
         svgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
