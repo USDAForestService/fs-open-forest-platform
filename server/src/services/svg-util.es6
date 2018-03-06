@@ -188,7 +188,7 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
-    console.log('cutting areas', forest.cuttingAreas)
+    console.log('cutting areas', forest.cuttingAreas);
     const cuttingAreas = JSON.parse(forest.cuttingAreas);
     if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
