@@ -1,4 +1,4 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { Title } from '@angular/platform-browser';
@@ -72,7 +72,11 @@ export class TreePermitViewComponent implements OnInit {
     let printContents, popupWin;
 
     const cssFile = (includeRules) ? 'print-permit-with-rules.css' : 'print-permit.css';
-    printContents = document.getElementById('toPrint').innerHTML;
+
+    if (document.getElementById('toPrint')) {
+      printContents = document.getElementById('toPrint').innerHTML;
+    }
+
     popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
     popupWin.document.open();

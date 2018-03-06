@@ -14,6 +14,34 @@ import {
   McBreadcrumbsConfig
 } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';
+
+class MockWindowRef {
+  location = { hash: 'WAOW-MOCK-HASH' };
+  getNativeWindow() {
+    return {
+      open() { return { document: { open() {}, write() {}, close() {} } } }
+
+    };
+  }
+}
+
+class MockDocument {
+  '<div id="toPrint">test</div>'
+}
+
+class MockChristmasTreesApplicationService {
+  create(): Observable<{}> {
+    return Observable.throw('error');
+  }
+  cancelOldApp(permitId): Observable<{}> {
+    return Observable.of({ success: 'success' });
+  }
+  getPrintablePermit(permitId, includeRules):Observable<{}> {
+    return Observable.of([{'result': '<h1>test</h1>'}, {'result': '<h2>test</h2>'}]);
+  }
+}
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -40,8 +68,9 @@ describe('TreePermitViewComponent', () => {
           McBreadcrumbsService,
           McBreadcrumbsConfig,
           UtilService,
-          { provide: ChristmasTreesApplicationService },
-          { provide: WindowRef, useClass: WindowRef },
+          { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
+          { provide: WindowRef, useClass: MockWindowRef },
+          { provide: DomSanitizer, useClass: MockSanitizer }
 
         ]
       }).compileComponents();
@@ -70,6 +99,20 @@ describe('TreePermitViewComponent', () => {
   it('should process error', () => {
     component.processError([{error: 'test'}]);
     expect(component.error).toEqual([{error: 'test'}]);
+  });
+
+  it ('should open a popup window when print permit is clicked', () => {
+    component.includeRules = false;
+    component.printPermit();
+    expect(component.image).not.toBeNull();
+    expect(component.image).toEqual("<h1>test</h1>");
+  });
+
+  it ('should include the rules if checkbox is selected', () => {
+    component.includeRules = true;
+    component.printPermit();
+    expect(component.image).not.toBeNull();
+    expect(component.image).toEqual("<h1>test</h1><h2>test</h2>");
   });
 
 });
