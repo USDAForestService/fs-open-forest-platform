@@ -9,14 +9,8 @@ const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
 const markdown = require('markdown').markdown;
-<<<<<<< HEAD
-=======
-const forestService = require('./forest.service.es6');
-
-const util = require('./util.es6');
->>>>>>> 2e6e20ba1b58002e6745fdaf9b3005b129c0d46a
 const vcapConstants = require('../vcap-constants.es6');
-
+const forestService = require('./forest.service.es6');
 const svgUtil = {};
 
 const addApplicantInfo = (permit, frag) => {
@@ -124,7 +118,7 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
         reject('problem reading rules markdown files', permit.permitId);
       }
     } catch (err) {
-      console.error('problen creating rules html for permit ' + permit.permitId , err);
+      console.error('problen creating rules html for permit ' + permit.permitId, err);
       reject(err);
     }
 
@@ -132,22 +126,6 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
 };
 
 svgUtil.getRulesMarkdown = forestAbbr => {
-<<<<<<< HEAD
-  return new Promise((resolve, reject) => {
-    fs.readFile('frontend-assets/content/common/permit-rules.md', function read(err, permitRules) {
-      if (err) {
-        reject(err);
-      }
-      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err,
-        forestRules) {
-        if (err) {
-          reject(err);
-        }
-        resolve(`${permitRules}\n${forestRules}`);
-      });
-    });
-  });
-=======
   let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
   let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');
   if (permitRules && forestRules) {
@@ -155,7 +133,6 @@ svgUtil.getRulesMarkdown = forestAbbr => {
   } else {
     return null;
   }
->>>>>>> 2e6e20ba1b58002e6745fdaf9b3005b129c0d46a
 };
 
 svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
