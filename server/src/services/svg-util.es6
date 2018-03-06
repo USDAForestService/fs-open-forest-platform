@@ -106,35 +106,35 @@ svgUtil.generatePng = svgBuffer => {
 };
 
 svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
-  return new Promise(resolve => {
-    svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr).then(rulesMarkdown => {
-      console.log('result of rulesMarkdown!');
-      let rulesHtml = markdown.toHTML(rulesMarkdown);
-      console.log('result of rulesHtml!');
-      svgUtil.processRulesText(rulesHtml, permit).then(rules => {
-        console.log('result of processRulesText');
-        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rules, permit.christmasTreesForest));
-      });
+  return new Promise((resolve, reject) => {
+    try {
+      console.log('forest ', permit.christmasTreesForest.forestAbbr);
+      let rulesMarkdown = svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
+      if (rulesMarkdown) {
+        let rulesHtml = markdown.toHTML(rulesMarkdown);
+        console.log('result of rulesHtml!');
+        rulesHtml = svgUtil.processRulesText(rulesHtml, permit);
+        console.log('after processing variable interpolation', rulesHtml)
+        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest));
+      } else {
+        reject('problem reading rules markdown files', permit.permitId);
+      }
+    } catch (err) {
+      console.error('problen creating rules html for permit ' + permit.permitId , err);
+      reject(err)
+    }
+
     });
-  });
 };
 
 svgUtil.getRulesMarkdown = forestAbbr => {
-  return new Promise((resolve, reject) => {
-    fs.readFile('frontend-assets/content/common/permit-rules.md', function read(err, permitRules) {
-      if (err) {
-        console.error('problem reading permit-rules markdown=', err);
-        reject(err);
-      }
-      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err, forestRules) {
-        if (err) {
-          console.error('problem reading rules markdown=', err);
-          reject(err);
-        }
-        resolve(`${permitRules}\n${forestRules}`);
-      });
-    });
-  });
+  let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');//, function read(err, permitRules) {
+  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');//, function read(err, forestRules) {
+  if (permitRules && forestRules) {
+    return `${permitRules}\n${forestRules}`;
+  } else {
+    return null;
+  }
 };
 
 svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
@@ -177,21 +177,19 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
 
 svgUtil.processRulesText = (rulesHtml, permit) => {
   console.log('inside processRulesText');
-  return new Promise(resolve => {
-    let forest = permit.christmasTreesForest.dataValues;
-    let rules = rulesHtml;
-    for (var key in forest) {
-      console.log('inside processRulesText key=', key);
-      if (forest.hasOwnProperty(key)) {
-        let textToReplace = '{{' + key + '}}';
-        rules = rules.replace(textToReplace, forest[key]);
-        if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
-          rules = svgUtil.parseCuttingAreaDates(rules, forest);
-        }
+  let forest = permit.christmasTreesForest.dataValues;
+  for (var key in forest) {
+    console.log('inside processRulesText key=', key);
+    if (forest.hasOwnProperty(key)) {
+      let textToReplace = '{{' + key + '}}';
+      rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
+      if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
+        rulesHtml = svgUtil.parseCuttingAreaDates(rulesHtml, forest);
       }
     }
-    resolve(rules);
-  });
+  }
+
+  return rulesHtml;
 };
 
 svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
@@ -201,6 +199,7 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
     const areaKey = key.toUpperCase();
     const cuttingAreas = JSON.parse(forest.cuttingAreas);
     if (cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
+      console.log('in cutting area dates', cuttingAreas[areaKey].startDate);
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
         svgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
