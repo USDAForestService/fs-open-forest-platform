@@ -382,4 +382,45 @@ describe('christmas tree controller tests', () => {
         .expect(404, done);
     });
   });
+
+  describe('print permit and rules after application submission', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when getting permit printable svg', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/print?permit=true`)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('result');
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when getting permit rules printable html', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/print?rules=true`)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('result');
+        })
+        .expect(200, done);
+    });
+  });
 });
