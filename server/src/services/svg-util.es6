@@ -1,14 +1,14 @@
 'use strict';
 
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {
+  JSDOM
+} = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
 const markdown = require('markdown').markdown;
-
-const util = require('./util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const svgUtil = {};
@@ -16,13 +16,14 @@ const svgUtil = {};
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
 
-  frag.querySelector('#issue-date_1_').textContent = moment(permit.createdAt, util.datetimeFormat)
+  frag.querySelector('#issue-date_1_').textContent = moment.tz(permit.createdAt, permit.christmasTreesForest.timezone)
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
-    .substring(0, 18)
-    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent =
+    `${permit.firstName
+      .substring(0, 18)
+      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -123,7 +124,8 @@ svgUtil.getRulesMarkdown = forestAbbr => {
       if (err) {
         reject(err);
       }
-      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err, forestRules) {
+      fs.readFile('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md', function read(err,
+        forestRules) {
         if (err) {
           reject(err);
         }

@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 const zpad = require('zpad');
 const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
@@ -19,7 +19,7 @@ Forest: ${application.christmasTreesForest.forestName}
 Number of trees: ${application.quantity}
 Name: ${application.firstName} ${application.lastName}
 Payment: $${application.totalCost}
-Transaction date: ${moment(application.createdAt, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+Transaction date: ${moment.tz(application.createdAt, application.christmasTreesForest.timezone).format('MM/DD/YYYY')}
 
 
 Permit Printing Guidelines
@@ -66,7 +66,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       </tr>
       <tr>
         <td class="border-right">Transaction date</td>
-        <td>${moment(application.createdAt, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}</td>
+        <td>${moment.tz(application.createdAt, application.christmasTreesForest.timezone).format('MM/DD/YYYY')}</td>
       </tr>
     </table>
 
