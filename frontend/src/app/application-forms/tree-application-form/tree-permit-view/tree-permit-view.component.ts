@@ -71,7 +71,7 @@ export class TreePermitViewComponent implements OnInit {
   permitPopup(includeRules) {
     let printContents, popupWin;
 
-    const cssFile = (includeRules) ? 'print-permit-with-rules.css' : 'print-permit.css';
+    const cssFile = includeRules ? 'print-permit-with-rules.css' : 'print-permit.css';
     printContents = document.getElementById('toPrint').innerHTML;
     popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
@@ -83,7 +83,7 @@ export class TreePermitViewComponent implements OnInit {
           <title></title>
           <link href="/assets/css/${cssFile}" rel="stylesheet" type="text/css">
         </head>
-        <body onload="window.focus(); setTimeout(window.print(), 0);  window.onmousemove=function(){ window.close()}">${printContents}</body>
+        <body onload="window.focus(); setTimeout(window.print(), 1000);  window.onmousemove=function(){ window.close()}">${printContents}</body>
       </html>
       `);
 
