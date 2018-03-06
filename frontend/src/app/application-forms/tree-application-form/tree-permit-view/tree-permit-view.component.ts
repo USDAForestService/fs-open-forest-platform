@@ -64,7 +64,7 @@ export class TreePermitViewComponent implements OnInit {
         content += response[1]['result'];
       }
       this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => this.permitPopup(includeRules), 2000);
+      setTimeout(() => this.permitPopup(includeRules), 0);
     });
   }
 
