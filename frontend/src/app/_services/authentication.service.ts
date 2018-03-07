@@ -12,24 +12,30 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
-  getAuthenticatedUser(doLogin = true, checkUser = false) {
+  getAuthenticatedUser(doLogin = true) {
     const user = this.getUser();
 
-    if (doLogin || user) {
-      return this.isAuthenticated().map(
-        (result: any) => {
-          if (result) {
-            this.setUser(result);
-            return this.getUser();
-          } else {
+    if (doLogin) {
+      if (user) {
+        return Observable.of(user);
+      } else {
+        return this.isAuthenticated().map(
+          (result: any) => {
+            if (result) {
+              this.setUser(result);
+              return this.getUser();
+            } else {
+              this.removeUser();
+            }
+          },
+          (e: any) => {
             this.removeUser();
+            console.error(e);
           }
-        },
-        (e: any) => {
-          this.removeUser();
-          console.error(e);
-        }
-      );
+        );
+      }
+    } else if (user) {
+        return Observable.of(user);
     } else {
       return Observable.of(null); // no user but don't login
     }
@@ -64,6 +70,13 @@ export class AuthenticationService {
 
   removeUser() {
     this.user = null;
-    localStorage.removeItem('user');
+    return this.isAuthenticated().map(user => {
+      if (user) {
+        localStorage.removeItem('user');
+      }
+      return user;
+    });
+
+
   }
 }

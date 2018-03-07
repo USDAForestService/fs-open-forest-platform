@@ -1,6 +1,4 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
@@ -24,7 +22,7 @@ describe('Christmas Trees Application Service', () => {
     'should call create',
     inject([ChristmasTreesApplicationService], service => {
       const spy = sinon.spy(service, 'create');
-      service.create({}, 'noncommercial', true);
+      service.create({}, 'body', true);
       expect(spy.called).toBeTruthy();
     })
   );
