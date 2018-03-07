@@ -9,10 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-import {
-  McBreadcrumbsService, McBreadcrumbsModule,
-  McBreadcrumbsConfig
-} from 'ngx-breadcrumbs';
+import { McBreadcrumbsService, McBreadcrumbsModule, McBreadcrumbsConfig } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';
@@ -53,33 +50,28 @@ describe('TreePermitViewComponent', () => {
         totalCost: 0,
         quantity: 0,
         emailAddress: '',
-        permitImage: 'test',
         forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
       }
     })
   };
 
-
-
-  describe ('', () => {
-
-    beforeEach(
-      async(() => {
-        TestBed.configureTestingModule({
-          imports: [RouterTestingModule, McBreadcrumbsModule, HttpClientTestingModule],
-          declarations: [TreePermitViewComponent, BreadcrumbsComponent ],
-          providers: [
-            McBreadcrumbsService,
-            McBreadcrumbsConfig,
-            UtilService,
-            { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
-            { provide: WindowRef, useClass: MockWindowRef },
+describe ('', () => {  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        imports: [RouterTestingModule, McBreadcrumbsModule, HttpClientTestingModule],
+        declarations: [TreePermitViewComponent, BreadcrumbsComponent ],
+        providers: [
+          McBreadcrumbsService,
+          McBreadcrumbsConfig,
+          UtilService,
+          { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
+          { provide: WindowRef, useClass: MockWindowRef },
             { provide: DomSanitizer, useClass: MockSanitizer }
+]
 
-          ]
-        }).compileComponents();
-      })
-    );
+      }).compileComponents();
+    })
+  );
 
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
@@ -101,8 +93,8 @@ describe('TreePermitViewComponent', () => {
     });
 
     it('should process error', () => {
-      component.processError([{error: 'test'}]);
-      expect(component.error).toEqual([{error: 'test'}]);
+      component.processError([{ error: 'test' }]);
+      expect(component.error).toEqual([{ error: 'test' }]);
     });
   });
 
