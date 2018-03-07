@@ -7,6 +7,7 @@ import { UtilService } from '../../_services/util.service';
 import { RevisionHistoryComponent } from './revision-history.component';
 import { Observable } from 'rxjs/Observable';
 import { SortArray } from '../../_pipes/sort-array.pipe';
+import { AdminUserFormatterPipe } from '../../_pipes/admin-user-formatter.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';
 
@@ -24,7 +25,7 @@ describe('RevisionHistoryComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [RevisionHistoryComponent, MockPipe],
+        declarations: [RevisionHistoryComponent, MockPipe, AdminUserFormatterPipe],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 

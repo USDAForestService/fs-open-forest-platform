@@ -12,7 +12,7 @@ const server = require('./mock-aws.spec.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
-let invalidPermitId = 'xxxxxxxx-189d-43ba-xxxx-c233ef94f02f';
+let invalidPermitId = '1111a111-2222-11a1-aaa1-123456789012';
 let paygovToken;
 let tcsAppID;
 let today = moment(new Date()).format('YYYY-MM-DD');
@@ -64,6 +64,18 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(function(res) {
           expect(res.body).to.include.all.keys('startDate', 'endDate', 'treeCost', 'timezone');
+        })
+        .expect(200, done);
+    });
+
+    it('should include cutting areas as a json object', done => {
+      request(server)
+        .get('/forests/arp')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('cuttingAreas');
+          expect(res.body.cuttingAreas !== null && typeof res.body.cuttingAreas === 'object');
         })
         .expect(200, done);
     });
@@ -368,6 +380,47 @@ describe('christmas tree controller tests', () => {
         .get(`/mock-pay-gov?token=${invalidPermitId}&tcsAppID=${tcsAppID}`)
         .set('Accept', 'application/json')
         .expect(404, done);
+    });
+  });
+
+  describe('print permit and rules after application submission', () => {
+    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+      const permitApplication = christmasTreePermitApplicationFactory.create();
+      permitApplication.forestId = 3;
+      permitApplication.forestAbbr = 'mthood';
+      permitApplication.orgStructureCode = '11-06-06';
+      request(server)
+        .post('/forests/christmas-trees/permits')
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.permitId;
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when getting permit printable svg', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/print?permit=true`)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('result');
+        })
+        .expect(200, done);
+    });
+    it('GET should return a 200 response when getting permit rules printable html', done => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${permitId}/print?rules=true`)
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          expect(res.body).to.include.all.keys('result');
+        })
+        .expect(200, done);
     });
   });
 });

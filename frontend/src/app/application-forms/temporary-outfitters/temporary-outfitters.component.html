@@ -46,7 +46,7 @@
           </div>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3>{{ goodStandingEvidenceMessage }}</h3>
+            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }}</h3>
             <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
             <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
               [applicationId]="applicationId"
@@ -83,7 +83,7 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Guide identification (optional)</legend>
+          <legend id="guide-document-label">Guide identification (optional)</legend>
           <ul>
             <li>Include a list of all guides who will be working under the permit.</li>
             <li>Include relevant licensing information if applicable.</li>
@@ -110,7 +110,7 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Operating plan (optional)</legend>
+          <legend id="operating-plan-label">Operating plan (optional)</legend>
 
           <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
           <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
@@ -127,7 +127,7 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Liability insurance</legend>
+          <legend id="insurance-certificate-label">Liability insurance</legend>
 
           <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
@@ -143,7 +143,7 @@
           in-viewport
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">
-          <legend>Client's acknowledgement of risk form (optional)</legend>
+          <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form (optional)</legend>
 
           <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>

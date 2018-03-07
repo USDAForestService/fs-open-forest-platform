@@ -7,7 +7,7 @@ import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.
 import { SpacesToDashesPipe } from '../../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ForestService } from '../../../_services/forest.service';
+import { ChristmasTreesService } from '../../../_services/christmas-trees.service';
 
 describe('TreeRulesComponent', () => {
   let component: TreeRulesComponent;
@@ -17,7 +17,7 @@ describe('TreeRulesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe],
-        providers: [UtilService, ForestService],
+        providers: [UtilService, ChristmasTreesService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
       }).compileComponents();

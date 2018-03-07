@@ -69,12 +69,12 @@ describe('AppComponent', () => {
       component.setLoggedInMessage();
       expect(component.status).toEqual({
         heading: '',
-        message: 'You have successfully logged in using eAuthentication as test@test.com.'
+        message: 'You have successfully logged in as test@test.com.'
       });
     });
   });
 
-  describe('status alert', () => {
+  describe('set status alert', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
 
@@ -95,5 +95,56 @@ describe('AppComponent', () => {
       localStorage.setItem('status', JSON.stringify({ message: 'test', heading: 'test' }));
       fixture.detectChanges();
     });
+
+    it ('should set the status message', () => {
+      component.setStatus();
+      expect(component.status.message).toEqual('test');
+
+    });
+
+    it ('should set the status heading', () => {
+      component.setStatus();
+      expect(component.status.heading).toEqual('test');
+    });
+
+    it ('should clear status from local storage', () => {
+      component.setStatus();
+      expect(localStorage.getItem('status')).toBeNull();
+    });
+  });
+
+  describe('set loggedIn message', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+
+    beforeEach(
+      async(() => {
+        TestBed.configureTestingModule({
+          imports: [RouterTestingModule, HttpClientTestingModule],
+          declarations: [AppComponent, UsaBannerComponent],
+          providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
+          schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        }).compileComponents();
+      })
+    );
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      localStorage.setItem('showLoggedIn', 'true');
+      fixture.detectChanges();
+    });
+
+    it ('should set the logged in message', () => {
+      component.setLoggedInMessage();
+      expect(component.status.message).toEqual(`You have successfully logged in as test@test.com.`);
+
+    });
+
+    it ('should clear the showLoggedIn from local storage', () => {
+      component.setLoggedInMessage();
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+    });
+
   });
 });

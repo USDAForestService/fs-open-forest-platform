@@ -4,7 +4,7 @@ import { browser, element, by, Key, protractor } from 'protractor';
 describe('Xmas tree - Update Season Dates', () => {
   let page: TreesAdminDatesPage;
 
-  describe('Permit report page', () => {
+  describe('Season dates admin page', () => {
     beforeAll(() => {
       page = new TreesAdminDatesPage();
       browser.driver

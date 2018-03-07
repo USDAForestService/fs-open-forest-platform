@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
 @Injectable()
 export class ForestFinderResolver implements Resolve<any> {
-  constructor(private service: ForestService, private router: Router) {}
+  constructor(private service: ChristmasTreesService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const trees = this.service.getAll().catch(err => {
