@@ -15,7 +15,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     this.util.addRequest();
-    let requests = this.util.requests;
 
     const handleObs: Observable<HttpEvent<any>> = next.handle(req);
 
@@ -30,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       if (err.status === 404) {
         this.router.navigate(['/404']);
       }
-      return Observable.throw(err)
+      return Observable.throw(err);
     });
   }
 

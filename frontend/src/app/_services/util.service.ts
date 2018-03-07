@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UtilService {
   currentSection: any;
   currentSubSection: any;
-  requests:number = 0;
+  requests = 0;
   progress = {
     display: false,
     message: 'Loading, please wait.'
@@ -40,7 +40,7 @@ export class UtilService {
       */
       setTimeout(() => {
         if (this.requests > 0 ) {
-          this.setProgress(true)
+          this.setProgress(true);
         }
       }, 100);
     } else {
@@ -59,7 +59,7 @@ export class UtilService {
   }
 
   removeRequest() {
-    if(this.requests > 0) {
+    if (this.requests > 0) {
       this.requests--;
     }
     this.checkProgress();

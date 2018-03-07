@@ -105,5 +105,5 @@ describe('UtilService', () => {
     setTimeout(() => {
       expect(service.progress.display).toEqual(true);
     }, 200);
-  })
+  });
 });
