@@ -4,6 +4,7 @@ import { ChristmasTreesApplicationService } from '../../../trees/_services/chris
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-tree-permit-view',
@@ -24,7 +25,8 @@ export class TreePermitViewComponent implements OnInit {
     private titleService: Title,
     private sanitizer: DomSanitizer,
     private router: Router,
-    private winRef: WindowRef
+    private winRef: WindowRef,
+    @Inject(DOCUMENT) private document: any
   ) {
     this.nativeWindow = winRef.getNativeWindow();
   }
@@ -72,11 +74,10 @@ export class TreePermitViewComponent implements OnInit {
     let printContents, popupWin;
 
     const cssFile = (includeRules) ? 'print-permit-with-rules.css' : 'print-permit.css';
-
-    if (document.getElementById('toPrint')) {
-      printContents = document.getElementById('toPrint').innerHTML;
+    const toPrintEl = this.document.getElementById('toPrint');
+    if (toPrintEl) {
+      printContents = toPrintEl.innerHTML;
     }
-
     popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
     popupWin.document.open();
