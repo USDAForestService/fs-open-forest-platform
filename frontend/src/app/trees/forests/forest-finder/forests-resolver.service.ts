@@ -7,7 +7,7 @@ import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@a
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
 @Injectable()
-export class ForestFinderResolver implements Resolve<any> {
+export class ForestsResolver implements Resolve<any> {
   constructor(private service: ChristmasTreesService, private router: Router) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {

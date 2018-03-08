@@ -56,14 +56,6 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       if (data && data.user) {
         this.user = data.user;
         this.forests = data.forests;
-        if (!this.user.forests || !this.user.forests.length) {
-          // route to access denied if the user doesn't have any forests
-          this.router.navigate(['access-denied']);
-        } else if (this.user.forests.find(forest => forest !== 'all')) {
-          this.forests = this.forests.filter(forest =>
-            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-          );
-        }
         this.forest = this.forests[0];
         if (this.forest) {
           this.form.get('forestId').setValue(this.forest.id);

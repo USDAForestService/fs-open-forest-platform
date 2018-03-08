@@ -25,7 +25,7 @@ export class AuthenticatedComponent implements OnInit {
   login() {
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
-      window.location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+      this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/login-gov/openid/login';
     }, 1000);
   }
 
@@ -36,9 +36,16 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('requestingUrl');
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    this.authentication.removeUser();
     this.user = null;
-    this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
+
+    this.authentication.removeUser().subscribe(user => {
+      if (user != null) {
+        this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
+
   }
 
 

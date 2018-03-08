@@ -91,15 +91,6 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.user = data.user;
         this.forests = data.forests;
 
-        if (!this.user.forests || !this.user.forests.length) {
-          // route to access denied if the user doesn't have any forests
-          this.router.navigate(['access-denied']);
-        } else if (this.user.forests.find(forest => forest !== 'all')) {
-          this.forests = this.forests.filter(forest =>
-            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-          );
-        }
-
         if (this.forests[0]) {
           // set default forest to first one on form
           this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
