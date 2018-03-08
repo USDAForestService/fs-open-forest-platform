@@ -18,7 +18,7 @@ export class ForestsAdminResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     let result;
     const forests = this.service.getAll();
-    const users = this.authenticationService.getAuthenticatedUser(true);
+    const users = this.authenticationService.getAuthenticatedUser();
 
     return forkJoin([forests, users]).map(results => {
       const user = results[1];

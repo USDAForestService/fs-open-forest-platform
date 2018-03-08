@@ -67,6 +67,7 @@ const appRoutes: Routes = [
       text: 'Permit applications',
       admin: true
     },
+    canActivate: [AuthGuardService],
     resolve: {
       user: UserResolver
     },
@@ -74,7 +75,6 @@ const appRoutes: Routes = [
       {
         path: '',
         component: PermitApplicationListComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'Application administration listing'
         }
@@ -82,7 +82,6 @@ const appRoutes: Routes = [
       {
         path: ':type/:id',
         component: PermitApplicationViewComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'View application',
           breadcrumbs: 'View application'

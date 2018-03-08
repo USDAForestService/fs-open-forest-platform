@@ -12,28 +12,24 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
-  getAuthenticatedUser(doLogin = true) {
+  getAuthenticatedUser(doLogin = false) {
     const user = this.getUser();
 
     if (doLogin) {
-      if (user) {
-        return Observable.of(user);
-      } else {
-        return this.isAuthenticated().map(
-          (result: any) => {
-            if (result) {
-              this.setUser(result);
-              return this.getUser();
-            } else {
-              this.removeUser();
-            }
-          },
-          (e: any) => {
+      return this.isAuthenticated().map(
+        (result: any) => {
+          if (result) {
+            this.setUser(result);
+            return this.getUser();
+          } else {
             this.removeUser();
-            console.error(e);
           }
-        );
-      }
+        },
+        (e: any) => {
+          this.removeUser();
+          console.error(e);
+        }
+      );
     } else if (user) {
         return Observable.of(user);
     } else {
