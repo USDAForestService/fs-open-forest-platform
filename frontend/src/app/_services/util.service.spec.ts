@@ -86,7 +86,7 @@ describe('UtilService', () => {
     expect(service.requests).toEqual(1);
     setTimeout(() => {
       expect(service.progress.display).toEqual(true);
-    }, 200);
+    }, 260);
   });
 
   it('should remove request if requests are greator than 0', () => {
@@ -104,6 +104,6 @@ describe('UtilService', () => {
     expect(service.requests).toEqual(4);
     setTimeout(() => {
       expect(service.progress.display).toEqual(true);
-    }, 200);
+    }, 260);
   });
 });

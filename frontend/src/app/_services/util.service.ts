@@ -42,7 +42,7 @@ export class UtilService {
         if (this.requests > 0 ) {
           this.setProgress(true);
         }
-      }, 100);
+      }, 250);
     } else {
       this.setProgress(false);
     }
