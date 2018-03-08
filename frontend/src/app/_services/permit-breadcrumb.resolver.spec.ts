@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { MockRouter } from '../_mocks/routes.mock';
 import { PermitBreadcrumbsResolver } from './permit-breadcrumbs.resolver';
 import { McBreadcrumbsResolver } from 'ngx-breadcrumbs';
-import * as sinon from 'sinon'
+import * as sinon from 'sinon';
 
 class MockMcBreadcrumbsResolver {
   getFullPath() {
