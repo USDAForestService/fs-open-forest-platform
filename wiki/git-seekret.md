@@ -10,6 +10,7 @@ only:
   match: .*(describe|it)\.only.*$
 passwords:
   match: \s*(secret|password)("|')\s*(=|:)\s*('|").+('|").*$
+  unmatch: \s*permit_secret":\s*"secret"$
 printenv:
   match: .*printenv.*$
   ```
