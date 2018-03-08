@@ -82,7 +82,7 @@
     },
     {
       "credentials": {
-        "permit_secret": ""
+        "permit_secret": "secret"
       },
       "label": "user-provided",
       "name": "jwt"
