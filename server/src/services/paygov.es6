@@ -34,7 +34,7 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
 /**
  * Generate XML from the template to use for getting pay.gov transaction token.
  */
-paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
+paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.payGovAppId;
   let url_success = '';
   try {
@@ -93,7 +93,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                     {
                       custom_fields: [
                         {
-                          custom_field_1: orgStructureCode
+                          custom_field_1: possFinancialId
                         }
                       ]
                     }
