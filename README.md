@@ -143,7 +143,7 @@ Install [Git](https://git-scm.com/)
 All contributors should use git-seekret 
 (https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
 
-Project specific rules are defined on the [This repository](/wiki/git-seekret.md).
+Project specific rules are defined on the [wiki](/wiki/git-seekret.md).
 
 #### Clone the repository
 
