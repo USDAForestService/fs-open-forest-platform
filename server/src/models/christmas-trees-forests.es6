@@ -90,6 +90,10 @@ module.exports = function(sequelize, DataTypes) {
       cuttingAreas: {
         type: DataTypes.JSONB,
         field: 'cutting_areas'
+      },
+      possFinancialId: {
+        type: DataTypes.STRING(50),
+        field: 'poss_financial_id'
       }
     },
     {
@@ -148,7 +152,6 @@ module.exports = function(sequelize, DataTypes) {
           .format('YYYY-MM-DD HH:mm:ss');
       }
     }
-
   });
 
   return christmasTreesForests;
