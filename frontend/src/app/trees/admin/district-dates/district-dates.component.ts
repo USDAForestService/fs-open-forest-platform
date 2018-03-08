@@ -92,8 +92,8 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.forests = data.forests;
 
         if (this.forests[0]) {
-          // set default forest to first one
-          this.setForest(this.forests[0].forestAbbr);
+          // set default forest to first one on form
+          this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
       }
     });
