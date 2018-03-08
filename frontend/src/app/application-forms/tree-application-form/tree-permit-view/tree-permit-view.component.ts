@@ -56,6 +56,8 @@ export class TreePermitViewComponent implements OnInit {
   }
 
   printPermit() {
+    const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+
     const includeRules = this.includeRules ? true : false;
 
     this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
@@ -64,16 +66,13 @@ export class TreePermitViewComponent implements OnInit {
         content += response[1]['result'];
       }
       this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => this.permitPopup(includeRules), 0);
+      setTimeout(() => this.permitPopup(includeRules, popupWin), 0);
     });
   }
 
-  permitPopup(includeRules) {
-    let printContents, popupWin;
-
+  permitPopup(includeRules, popupWin) {
     const cssFile = includeRules ? 'print-permit-with-rules.css' : 'print-permit.css';
-    printContents = document.getElementById('toPrint').innerHTML;
-    popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+    const printContents = document.getElementById('toPrint').innerHTML;
 
     popupWin.document.open();
 

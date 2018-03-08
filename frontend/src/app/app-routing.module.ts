@@ -29,6 +29,7 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
+import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 
 const appRoutes: Routes = [
   {
@@ -247,14 +248,6 @@ const appRoutes: Routes = [
               {
                 path: '',
                 component: TreeApplicationFormComponent
-              },
-              {
-                path: 'permits/:permitId',
-                component: TreePermitViewComponent,
-                resolve: {
-                  permit: ChristmasTreePermitResolver
-                },
-                data: { breadcrumbs: 'Permit confirmation' }
               }
             ]
           },
@@ -270,6 +263,14 @@ const appRoutes: Routes = [
         ]
       }
     ]
+  },
+  {
+    path: 'christmas-trees/forests/:id/applications/permits/:permitId',
+    component: TreePermitViewComponent,
+    resolve: {
+      permit: ChristmasTreePermitResolver
+    },
+    data: { breadcrumbs: PermitBreadcrumbsResolver }
   },
   {
     path: 'mock-pay-gov',
