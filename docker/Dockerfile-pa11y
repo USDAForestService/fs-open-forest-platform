@@ -33,16 +33,6 @@ RUN sudo yarn add node-sass
 # Make port 4200 available to the world outside this container
 EXPOSE 4200
 
-ARG SNYK_TOKEN
-ARG VCAP_SERVICES
-ARG VCAP_APPLICATION
-ARG PLATFORM
-
-ENV SNYK_TOKEN=$SNYK_TOKEN
-ENV VCAP_SERVICES=$VCAP_SERVICES
-ENV VCAP_APPLICATION=$VCAP_APPLICATION
-ENV PLATFORM=$PLATFORM
-
 # startup the angular server when the container launches
 # build static files
 RUN sudo yarn run build
