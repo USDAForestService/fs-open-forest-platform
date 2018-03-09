@@ -139,6 +139,12 @@ Install [Node ^6.10.3](https://nodejs.org/en/)
 
 Install [Git](https://git-scm.com/)
 
+##### Git Seekret
+All contributors should use git-seekret 
+(https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
+
+Project specific rules are defined on the [wiki](/wiki/git-seekret.md).
+
 #### Clone the repository
 
 `git clone [repository url] fs-permit-platform`
