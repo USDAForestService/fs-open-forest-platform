@@ -14,19 +14,19 @@ export class AuthenticationService {
 
   getAuthenticatedUser(doLogin = true, checkUser = false) {
     const user = this.getUser();
-    if (user && !checkUser) {
-      return Observable.of(user);
-    }
 
-    if (doLogin) {
+    if (doLogin || user) {
       return this.isAuthenticated().map(
         (result: any) => {
           if (result) {
             this.setUser(result);
             return this.getUser();
+          } else {
+            this.removeUser();
           }
         },
         (e: any) => {
+          this.removeUser();
           console.error(e);
         }
       );
@@ -64,5 +64,6 @@ export class AuthenticationService {
 
   removeUser() {
     this.user = null;
+    localStorage.removeItem('user');
   }
 }

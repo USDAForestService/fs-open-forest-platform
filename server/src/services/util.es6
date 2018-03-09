@@ -5,13 +5,13 @@
  * @module util
  */
 
+const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise');
 const Sequelize = require('sequelize');
-const url = require('url');
 
-const Revision = require('../models/revision.es6');
+const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 
 let util = {};
@@ -96,19 +96,7 @@ util.validateDateTime = input => {
  * Get a sequelize connection.
  */
 util.getSequelizeConnection = () => {
-  const sequelizeOptions = {
-    dialect: url.parse(process.env.DATABASE_URL, true).protocol.split(':')[0],
-    logging: false
-  };
-  if (
-    url.parse(process.env.DATABASE_URL, true).hostname !== 'localhost' &&
-    url.parse(process.env.DATABASE_URL, true).hostname !== 'fs-intake-postgres'
-  ) {
-    sequelizeOptions.dialectOptions = {
-      ssl: true
-    };
-  }
-  return new Sequelize(process.env.DATABASE_URL, sequelizeOptions);
+  return new Sequelize(dbConfig);
 };
 
 /**
@@ -164,15 +152,21 @@ util.getContentType = filename => {
  * Check for testing environment.
  */
 util.isLocalOrCI = () => {
-  const environments = ['CI', 'local'];
-  return environments.indexOf(process.env.PLATFORM) !== -1;
+  return vcapConstants.isLocalOrCI;
 };
 
 /**
  * is production flag
  */
 util.isProduction = () => {
-  return vcapConstants.nodeEnv === 'production';
+  return process.env.NODE_ENV === 'production';
+};
+
+/**
+ * is staging flag
+ */
+util.isStaging = () => {
+  return process.env.NODE_ENV === 'staging';
 };
 
 /**
@@ -192,9 +186,10 @@ util.setAuthEmail = req => {
 util.getUser = req => {
   if (util.isLocalOrCI()) {
     return {
+      adminUsername: 'TEST_USER',
       email: 'test@test.com',
       role: util.ADMIN_ROLE,
-      forests: util.getAdminForests('test@test.com')
+      forests: util.getAdminForests('TEST_USER')
     };
   } else {
     return req.user;
@@ -206,18 +201,6 @@ util.getUser = req => {
  */
 util.hasPermissions = (user, applicationModel) => {
   return user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
-};
-
-/**
- * Create a new permit application revision entry in the DB.
- */
-util.createRevision = (user, applicationModel) => {
-  Revision.create({
-    applicationId: applicationModel.applicationId,
-    applicationType: applicationModel.type,
-    status: applicationModel.status,
-    email: user.email
-  });
 };
 
 /**
@@ -250,8 +233,8 @@ util.getRandomString = length => {
 /**
  * Get the assigned forests to the christmas trees forest admins by email address
  */
-util.getAdminForests = emailAddress => {
-  const user = vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress);
+util.getAdminForests = adminUsername => {
+  const user = vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername);
   if (user && user.forests) {
     return user.forests;
   } else {
@@ -259,12 +242,35 @@ util.getAdminForests = emailAddress => {
   }
 };
 
-util.getUserRole = emailAddress => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.user_email === emailAddress) ? util.ADMIN_ROLE :
+util.getUserRole = adminUsername => {
+  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
     util.USER_ROLE;
 };
 
+util.handleErrorResponse = (error, res) => {
+  if (error.name === 'SequelizeValidationError') {
+    return res.status(400).json({
+      errors: error.errors
+    });
+  } else if (error.name === 'SequelizeDatabaseError') {
+    return res.status(404).send();
+  } else {
+    return res.status(500).send();
+  }
+};
+
 util.request = request;
+
+util.getS3 = () => {
+  /** Initialize our S3 bucket connection for file attachments */
+  /** if local or CI use aws credentials */
+  let s3 = new AWS.S3({
+    region: vcapConstants.region,
+    accessKeyId: vcapConstants.accessKeyId,
+    secretAccessKey: vcapConstants.secretAccessKey
+  });
+  return s3;
+};
 
 /**
  * Various utility functions and constants

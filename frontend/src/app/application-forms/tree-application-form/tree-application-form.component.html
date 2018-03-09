@@ -8,54 +8,76 @@
       </div>
     </div>
 
-    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
+    <h1 id="skip-nav-target" tabindex="-1">
+      <span [hidden]="showRules">Buy a Christmas tree permit</span>
+      <span [hidden]="!showRules">Christmas tree cutting rules</span>
+    </h1>
+
     <h2 *ngIf="forest">{{forest.forestName}}</h2>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
-    <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
-      <p>Christmas trees cost ${{costPerTree}} each and a household is allowed to cut up to {{maxNumberOfTrees}} trees per permit.</p>
-      <p><b>Your permit must be printed to be valid and cannot be stored on a mobile device.</b></p>
-
-      <div id="form-errors"
-        *ngIf="(submitted && !applicationForm.valid)"
-        class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
-        <div class="usa-alert-body">
-          <h3 class="usa-alert-heading">There are errors with processing your permit.</h3>
-          <p class="usa-alert-text">Please correct the errors before you checkout.</p>
+    <form [formGroup]="applicationForm" class="usa-form-large" novalidate (ngSubmit)="showRulesForm()">
+      <div [hidden]="showRules">
+        <p>
+          Christmas trees cost ${{costPerTree}} each, and a household is allowed to cut up to {{maxNumberOfTrees}} trees per permit.
+          All permits are non-refundable.
+        </p>
+        <p><b>Your permit must be printed to be valid and cannot be stored on a mobile device.</b></p>
+        <div id="form-errors"
+          *ngIf="(submitted && !applicationForm.valid)"
+          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+          <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">There are errors with processing your permit.</h3>
+            <p class="usa-alert-text">Please correct the errors before you checkout.</p>
+          </div>
         </div>
-      </div>
 
       <fieldset>
+        <p class="form-directions">All form fields are required unless otherwise noted.</p>
         <legend>Permit holder information</legend>
-          <p>The permit holder’s name is on the permit. Permit holder must be present at time of tree cutting and transport.</p>
-
-          <div>
-            <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
-            <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
-            <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
-            <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
-        </div>
+        <p>The permit holder’s name is on the permit. Permit holder must be present at time of tree cutting and transport.</p>
+        <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
+        <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
+        <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
+        <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
       </fieldset>
 
-      <div>
-        <app-section-heading heading="Rules to know" elementId="rules"></app-section-heading>
-        <app-tree-rules [forest]="forest"></app-tree-rules>
-        <app-tree-permit-rules></app-tree-permit-rules>
+        <button id="application-next" class="usa-button-primary-alt usa-button-big" type="submit">Next</button>
+
+        <p class="usa-form-hint">
+          You can also buy a permit offline by visiting a Ranger District office.
+        </p>
+      </div>
+    </form>
+    <form [formGroup]="applicationRulesForm" class="usa-form-large" novalidate (ngSubmit)="onSubmit()">
+      <div id='tree-application-rules-container' [hidden]="!showRules">
+        <p>
+          Christmas trees may be taken from the {{forest.forestName}} under the below rules and conditions. Failure to follow these
+          rules and conditions may result in a fine.
+        </p>
+        <div class="trees-application-rules">
+          <div id="permit-rules-container usa-grid">
+            <app-tree-permit-rules [forest]="forest"></app-tree-permit-rules>
+          </div>
+          <div class="trees-applications-rules-checkbox-container">
+            <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
+            <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules.</label>
+            <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
+          </div>
+       </div>
+        <p class="usa-form-hint">A copy of these rules will be sent with your permit to the email address you have provided. You can print these rules and your permit after you make your purchase.</p>
+
+        <p class="usa-form-hint">
+          We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
+        </p>
+        <p class="usa-form-hint">
+          All permits are non-refundable.
+        </p>
+
+        <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Continue to Checkout</button>
 
       </div>
-      <span>
-        <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-        <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree permit <a href='#' (click)="goToRules($event)">rules</a>.</label>
-        <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationForm.controls.acceptRules"></app-error-message>
-      </span>
-      <p class="usa-form-hint">
-        We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
-      </p>
-      <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Checkout</button>
-      <p class="usa-form-hint">
-        You can also buy a permit offline by visiting a Ranger District office.
-      </p>
 
 
     </form>

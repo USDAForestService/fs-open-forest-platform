@@ -102,7 +102,14 @@ markdown#season-dates-markdown {
   }
 }
 
+#cutting-season-dates-heading, #cutting-season-daily-hours-heading {
+  color: white;
+  svg {
+    margin-right: 1rem;
+    margin-bottom: 2rem;
+  }
 
+}
 
 app-tree-cutting-dates {
   div#forest-cutting-hours, div#forest-cutting-dates {
@@ -114,3 +121,11 @@ app-tree-cutting-dates {
 }
 
 div#forest-cutting-hours-dates h3 { margin: 0px; }
+
+#tree-measuring-container {
+  img {
+    vertical-align: middle;
+    width: 125px;
+    padding-right: 2rem;
+  }
+}

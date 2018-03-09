@@ -1,6 +1,6 @@
 <ng-container *ngIf="!mobileMenu">
   &nbsp;
-  <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+  <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li class="usa-current" *ngFor="let item of items | filter:'type':'anchor'">
       <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
         href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
@@ -8,17 +8,15 @@
     <li *ngFor="let item of items | filter:'type':'button'">
       <button type="button" class="usa-button-primary-alt" [routerLink]="[item.routerLink]">{{item.title}}</button>
     </li>
-
   </ul>
-
 </ng-container>
 
 <ng-container *ngIf="mobileMenu">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
   <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
-  <nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" class="usa-nav sidenav-mobile">
+  <nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
     <button class="usa-nav-close" (click)="toggleMobileNav()">
-      <img src="/assets/img/close.svg" alt="close">
+      <img src="/assets/img/close.svg" alt="Close navigation menu">
     </button>
     <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
       <li *ngFor="let item of items | filter:'type':'anchor'">
@@ -37,12 +35,20 @@
   <aside>
     &nbsp;
     <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
-
       <li *ngFor="let item of items | filter:'type':'anchor'">
-        <a href="#" id="{{item.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith(item.id)}" [routerLink]="[route]" [fragment]="item.id" (click)="util.gotoHashtag(item.id, $event)">{{item.title}}</a>
-        <ul class="usa-sidenav-sub_list" *ngIf="item.sections && util.currentSection && util.currentSubSection && util.currentSection.startsWith(item.id) && util.currentSubSection.startsWith(item.id)">
+        <a href="#" id="{{item.id}}-link"
+          [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith(item.id)}"
+          [routerLink]="[route]"
+          [fragment]="item.id"
+          (click)="util.gotoHashtag(item.id, $event)">{{item.title}}</a>
+        <ul class="usa-sidenav-sub_list"
+          *ngIf="item.sections && util.currentSection && util.currentSubSection && util.currentSection.startsWith(item.id) && util.currentSubSection.startsWith(item.id)">
           <li *ngFor="let section of item.sections">
-            <a href="#" id="{{section.id}}-link" [ngClass]="{'usa-current': util.currentSection && util.currentSection  === section.id}" [routerLink]="[route]" [fragment]="section.id" (click)="util.gotoHashtag(item.id, $event)">{{section.title}}</a>
+            <a href="#" id="{{section.id}}-link"
+              [ngClass]="{'usa-current': util.currentSection && util.currentSection  === section.id}"
+              [routerLink]="[route]"
+              [fragment]="section.id"
+              (click)="util.gotoHashtag(item.id, $event)">{{section.title}}</a>
           </li>
         </ul>
       </li>

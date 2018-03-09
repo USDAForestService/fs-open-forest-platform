@@ -6,8 +6,10 @@
   </ng-container>
 
   <ng-container *ngIf="user">
-    Welcome <span *ngIf="user.role === 'admin'">admin</span> {{ user.email }}
-    <div class="user-link">
+    Welcome
+    <span *ngIf="user.role === 'admin'">admin {{ user.adminUsername | AdminUserFormatterPipe }}</span>
+    <span *ngIf="user.role ==='user'">{{ user.email }}</span>
+    <div class="user-link" role="navigation">
       <a id="view-applications" href="#" *ngIf="user.role !== 'admin'" routerLink="/user/applications"> View applications. | </a>
       <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="user.role === 'admin'"> Log in to SUDS. | </a>
       <a id="log-out" class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>

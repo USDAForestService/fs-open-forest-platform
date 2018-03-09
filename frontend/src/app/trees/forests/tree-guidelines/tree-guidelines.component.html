@@ -16,37 +16,16 @@
           <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
         </div>
       </div>
-      <p *ngIf="forest">Christmas trees can be cut anywhere on the {{forest.forestName}} subject to the rules and regulations on your permit and as noted below.</p>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.introduction"></markdown>
 
+      <!--when to cut-->
       <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
       <br>
       <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link" tabIndex="-1">Buy permit</button>
-
+      <!--where to cut-->
       <hr class="thick" />
-      <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
-      <app-section-heading heading="Before you cut" id="cutting-instructions-before-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></markdown>
-      <app-section-heading heading="When you cut" id="cutting-instructions-when-you-cut" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <app-tree-cutting-rules [forest]="forest"></app-tree-cutting-rules>
-      <app-section-heading heading="Identifying tree species" id="cutting-instructions-tree-selection" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <app-tree-species [forest]="forest"></app-tree-species>
-
-
-      <hr class="thick" />
-      <app-section-heading heading="Rules to know" id="rules-to-know" tabIndex="-1"></app-section-heading>
-      <app-tree-rules [forest]="forest"></app-tree-rules>
-
-      <hr class="thick" />
-      <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></markdown>
-
-      <hr class="thick" />
-      <app-section-heading heading="Where to find your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
+      <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
       <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsProhibited"></markdown>
@@ -55,6 +34,28 @@
 
       <hr class="trees-section-divider">
       <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsAllowed"></markdown>
+
+      <!--how to cut-->
+      <hr class="thick" />
+      <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
+
+      <app-section-heading heading="Measuring your tree" id="cutting-instructions-measuring" tabIndex="-1" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
+      <markdown id="tree-measuring-container" *ngIf="forest && forest.content" [data]="forest.content.whenYouCut"></markdown>
+
+      <app-section-heading heading="Helpful cutting tips" id="cutting-instructions-helpful" tabIndex="-1" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></markdown>
+
+      <app-section-heading heading="Identifying tree species" id="cutting-instructions-tree-selection" tabIndex="-1" selector="h3"></app-section-heading>
+      <hr class="trees-section-divider">
+      <app-tree-species [forest]="forest"></app-tree-species>
+
+
+      <hr class="thick" />
+      <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></markdown>
+
 
       <hr class="thick" />
 
