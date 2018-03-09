@@ -22,6 +22,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
+import { TreeMapDetailsComponent } from './trees/forests/tree-map-details/tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
@@ -259,6 +260,10 @@ const appRoutes: Routes = [
               permit: ChristmasTreePermitDetailResolver
             },
             data: { breadcrumbs: 'Buy a permit' }
+          },
+          {
+            path: 'maps/:mapId',
+            component: TreeMapDetailsComponent
           }
         ]
       }
