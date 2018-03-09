@@ -121,11 +121,14 @@ export class ChristmasTreesService {
   formatCuttingAreaDate(forest, startDate, endDate) {
     const start = moment(startDate).tz(forest.timezone);
     const end = moment(endDate).tz(forest.timezone);
-    const startFormat = 'MMM. D -';
+    let startFormat = 'MMM. D -';
     let endFormat = ' D, YYYY';
 
     if (start.month() !== end.month()) {
       endFormat = ' MMM. D, YYYY';
+    }
+    if (start.year() !== end.year()) {
+      startFormat = 'MMM. D, YYYY - ';
     }
     return start.format(startFormat) + end.format(endFormat);
   }

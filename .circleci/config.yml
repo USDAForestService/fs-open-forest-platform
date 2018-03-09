@@ -25,6 +25,9 @@ jobs:
           name: server snyk
           command: cd server; npm run snyk-test
       - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
       - run:
@@ -57,6 +60,9 @@ jobs:
       - run:
           name: install jq
           command: sudo apt-get install jq
+      - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
@@ -118,6 +124,9 @@ jobs:
           name: Create dist
           command: cd frontend; yarn dist-trees;
       - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
           name: deploy
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "nciinc" ];
@@ -148,6 +157,9 @@ jobs:
           name: Create dist
           command: cd frontend; yarn dist-prod;
       - run:
+          name: copy frontend assets into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
           name: deploy
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
@@ -173,7 +185,7 @@ workflows:
             - run-e2e
           filters:
             branches:
-              only: sprint-10-development
+              only: sprint-11-development
       - prod-deploy:
           requires:
             - run-all-other-tests

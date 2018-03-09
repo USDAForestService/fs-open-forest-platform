@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UtilService {
   currentSection: any;
   currentSubSection: any;
+  requests = 0;
   progress = {
     display: false,
     message: 'Loading, please wait.'
@@ -20,10 +21,48 @@ export class UtilService {
 
   setLoginRedirectMessage() {
     localStorage.setItem('showLoggedIn', 'logged in');
+    this.setProgress(true, 'Redirecting to login page, please wait.');
+  }
+
+  setProgress(display = true,  message: string = '') {
     this.progress = {
-      display: true,
-      message: 'Redirecting to login page, please wait.'
+      display: display,
+      message: message
     };
+  }
+
+  checkProgress() {
+    if (this.requests > 0) {
+      /*
+      * Wait to prevent flashing spinner on quick responses.
+      * Then check to make sure the request hasn't already been reset to 0
+      * before setting the progress indicator to true.
+      */
+      setTimeout(() => {
+        if (this.requests > 0 ) {
+          this.setProgress(true);
+        }
+      }, 250);
+    } else {
+      this.setProgress(false);
+    }
+  }
+
+  setRequests(num: number) {
+    this.requests = num;
+    this.checkProgress();
+  }
+
+  addRequest() {
+    this.requests++;
+    this.checkProgress();
+  }
+
+  removeRequest() {
+    if (this.requests > 0) {
+      this.requests--;
+    }
+    this.checkProgress();
   }
 
   convertCamelToHyphenCase(string) {

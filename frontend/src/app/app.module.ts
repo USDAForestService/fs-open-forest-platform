@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { AlertService } from './_services/alert.service';
@@ -37,6 +37,7 @@ import { WindowRef } from './_services/native-window.service';
 import { PageHeaderComponent } from './home/header.component';
 import { PageFooterComponent } from './home/footer.component';
 import { UserResolver } from './user-resolver.service';
+import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { UserResolver } from './user-resolver.service';
     ApplicationService,
     AuthGuardService,
     AuthenticationService,
+    PermitBreadcrumbsResolver,
     UtilService,
     UserResolver,
     WindowRef,

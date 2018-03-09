@@ -8,7 +8,7 @@ import { AuthGuardService } from './_services/auth-guard.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { ChristmasTreePermitDetailResolver } from './application-forms/tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
-import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
+import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
@@ -29,6 +29,8 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
+import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
+import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 
 const appRoutes: Routes = [
   {
@@ -66,6 +68,7 @@ const appRoutes: Routes = [
       text: 'Permit applications',
       admin: true
     },
+    canActivate: [AuthGuardService],
     resolve: {
       user: UserResolver
     },
@@ -73,7 +76,6 @@ const appRoutes: Routes = [
       {
         path: '',
         component: PermitApplicationListComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'Application administration listing'
         }
@@ -81,7 +83,6 @@ const appRoutes: Routes = [
       {
         path: ':type/:id',
         component: PermitApplicationViewComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'View application',
           breadcrumbs: 'View application'
@@ -96,8 +97,8 @@ const appRoutes: Routes = [
       admin: true
     },
     resolve: {
-      forests: ForestFinderResolver,
-      user: UserResolver
+      user: UserResolver,
+      forests: ForestsAdminResolver,
     },
     children: [
       {
@@ -223,7 +224,7 @@ const appRoutes: Routes = [
         path: '',
         component: ForestFinderComponent,
         resolve: {
-          forests: ForestFinderResolver
+          forests: ForestsResolver
         }
       },
       {
@@ -247,14 +248,6 @@ const appRoutes: Routes = [
               {
                 path: '',
                 component: TreeApplicationFormComponent
-              },
-              {
-                path: 'permits/:permitId',
-                component: TreePermitViewComponent,
-                resolve: {
-                  permit: ChristmasTreePermitResolver
-                },
-                data: { breadcrumbs: 'Permit confirmation' }
               }
             ]
           },
@@ -272,6 +265,14 @@ const appRoutes: Routes = [
     ]
   },
   {
+    path: 'christmas-trees/forests/:id/applications/permits/:permitId',
+    component: TreePermitViewComponent,
+    resolve: {
+      permit: ChristmasTreePermitResolver
+    },
+    data: { breadcrumbs: PermitBreadcrumbsResolver }
+  },
+  {
     path: 'mock-pay-gov',
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
@@ -287,6 +288,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [ForestResolver, ForestFinderResolver]
+  providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}

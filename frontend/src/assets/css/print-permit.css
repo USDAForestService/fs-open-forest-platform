@@ -1,20 +1,20 @@
 @page {
-  margin: 0mm;
+  margin: 0;
   size: auto;
 }
 @media print {
   html,
   body {
     height: 100%;
-    width: 100%;
-    max-height: 810px;
     margin: 0;
+    max-height: 810px;
     padding: 0;
+    width: 100%;
   }
   svg {
     display: block;
-    width: 100%;
     margin-top: -2px;
     padding: 0;
+    width: 100%;
   }
 }

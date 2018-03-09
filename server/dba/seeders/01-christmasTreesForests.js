@@ -25,7 +25,8 @@ module.exports = {
           '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z", "name": "Elk Creek"},' +
           '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Red Feather Lakes"},' +
           '"SULPHUR": {"startDate": "2017-11-01 15:00:00Z", "endDate": "2018-01-06 22:30:00Z", "name": "Sulphur"},' +
-          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }'
+          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }',
+        poss_financial_id: '999900004'
       },
       {
         id: 2,
@@ -45,7 +46,8 @@ module.exports = {
         max_num_trees: 3,
         forest_name_short: 'Flathead',
         timezone: 'America/Denver',
-        cutting_areas: '{}'
+        cutting_areas: '{}',
+        poss_financial_id: '999900005'
       },
       {
         id: 3,
@@ -65,7 +67,8 @@ module.exports = {
         max_num_trees: 5,
         forest_name_short: 'Mt. Hood',
         timezone: 'America/Los_Angeles',
-        cutting_areas: '{}'
+        cutting_areas: '{}',
+        poss_financial_id: '999900007'
       },
       {
         id: 4,
@@ -86,7 +89,8 @@ module.exports = {
         allow_additional_height: true,
         forest_name_short: 'Shoshone',
         timezone: 'America/Denver',
-        cutting_areas: '{}'
+        cutting_areas: '{}',
+        poss_financial_id: '999900006'
       }
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);

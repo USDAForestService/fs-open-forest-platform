@@ -78,9 +78,10 @@ export class AdminDistrictDatesComponent implements OnInit {
         if (this.district && this.form.get('districtId').value !== this.district.id) {
           this.form.get('districtId').setValue(this.district.id);
         }
+      } else {
+        this.district = null;
+        this.districts = null;
       }
-      this.district = null;
-      this.districts = null;
     });
   }
 
@@ -90,18 +91,9 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.user = data.user;
         this.forests = data.forests;
 
-        if (!this.user.forests || !this.user.forests.length) {
-          // route to access denied if the user doesn't have any forests
-          this.router.navigate(['access-denied']);
-        } else if (this.user.forests.find(forest => forest !== 'all')) {
-          this.forests = this.forests.filter(forest =>
-            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-          );
-        }
-
         if (this.forests[0]) {
-          // set default forest to first one
-          this.setForest(this.forests[0].forestAbbr);
+          // set default forest to first one on form
+          this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
       }
     });
@@ -129,16 +121,18 @@ export class AdminDistrictDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
-      this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
-        () => {
-          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-          this.winRef.getNativeWindow().scroll(0, 200);
-        },
-        err => {
-          this.apiErrors = err;
-          this.winRef.getNativeWindow().scroll(0, 200);
-        }
-      );
+      this.service
+        .updateDistrictDates(this.forest, this.district.id, newStart, newEnd)
+        .subscribe(
+          () => {
+            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          },
+          err => {
+            this.apiErrors = err;
+            this.winRef.getNativeWindow().scroll(0, 200);
+          }
+        );
     }
   }
 }

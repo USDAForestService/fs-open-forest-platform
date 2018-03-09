@@ -22,7 +22,6 @@ describe('Apply for a Christmas tree permit', () => {
       expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
     });
 
-
     it('should show all fields as invalid if submitted without input', () => {
       christmasTreeForm.submit().click();
       browser.sleep(500);
@@ -114,9 +113,10 @@ describe('Apply for a Christmas tree permit', () => {
     });
 
     it('should show the rules section after next is clicked', () => {
-     expect<any>(christmasTreeForm.treeApplicationRulesContainer().getText()).toContain('Christmas trees may be taken from the Mt. Hood National Forest');
+      expect<any>(christmasTreeForm.treeApplicationRulesContainer().getText()).toContain(
+        'Christmas trees may be taken from the Mt. Hood National Forest'
+      );
     });
-
 
     it('should make the user accept the rules before they can submit', () => {
       christmasTreeForm.submitRules().click();
@@ -145,22 +145,25 @@ describe('Apply for a Christmas tree permit', () => {
       confirmPage = new ChristmasTreeOrderConfirmation();
       christmasTreeForm = new ChristmasTreeForm();
       christmasTreeForm.navigateTo(forestId);
+      browser.sleep(1000);
+      expect(browser.getCurrentUrl()).toContain(`http://localhost:4200/christmas-trees/forests/${forestId}/applications`);
       christmasTreeForm.fillOutFormAndSubmit();
-      browser.sleep(1500);
+      browser.sleep(1000);
       expect(browser.getCurrentUrl()).toContain('http://localhost:4200/mock-pay-gov');
       element(by.id('credit-card-number')).sendKeys('1100000000000123');
       christmasTreeForm.mockPayGovSubmit().click();
-      browser.sleep(1500);
+      browser.sleep(1000);
       expect(browser.getCurrentUrl()).toContain(
         `http://localhost:4200/christmas-trees/forests/${forestId}/applications/permits`
       );
+      browser.sleep(1000);
     });
 
     it('should show confirmation details', () => {
       expect<any>(confirmPage.confirmationDetails().isDisplayed()).toBeTruthy();
     });
 
-    it ('should show the breadcrumb', () => {
+    it('should show the breadcrumb', () => {
       expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
     });
 
@@ -179,10 +182,10 @@ describe('Apply for a Christmas tree permit', () => {
     it('should show error page if credit card error', () => {
       christmasTreeForm.navigateTo(forestId);
       christmasTreeForm.fillOutFormAndSubmit();
-      browser.sleep(2500);
+      browser.sleep(900);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       christmasTreeForm.mockPayGovSubmit().click();
-      browser.sleep(3500);
+      browser.sleep(900);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
       christmasTreeForm.navigateTo(forestId);
     });
@@ -193,7 +196,6 @@ describe('Apply for a Christmas tree permit', () => {
       confirmPage = new ChristmasTreeOrderConfirmation();
       christmasTreeForm = new ChristmasTreeForm();
       christmasTreeForm.navigateTo(forestId);
-
     });
     it('should show 500 error if first name is 1 and last name is 2', () => {
       christmasTreeForm.fillOutFormAndSubmit('1', '2');
