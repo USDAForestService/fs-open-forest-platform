@@ -7,6 +7,7 @@ import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-district-dates',
@@ -21,6 +22,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   form: any;
   updateStatus: any;
   apiErrors: any;
+  changeRequestFormUrl = environment.changeRequestForm;
 
   dateStatus = {
     startDateTimeValid: true,

@@ -6,6 +6,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
 import { TreesAdminService } from '../trees-admin.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-season-dates',
@@ -18,6 +19,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   form: any;
   updateStatus: any;
   apiErrors: any;
+  changeRequestFormUrl = environment.changeRequestForm;
 
   dateStatus = {
     startDateTimeValid: true,

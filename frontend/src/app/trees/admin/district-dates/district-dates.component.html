@@ -27,10 +27,10 @@
 
 
         <div>
-          <p>If your forest is not listed, please <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">request access</a>.</p>
+          <p>If your forest is not listed, please <a href="{{changeRequestFormUrl}}">request access</a>.</p>
         </div>
         <div *ngIf="!districts && forest">{{forest.forestName}} season dates apply to the entire forest and it has special cutting areas with different dates or times. Please
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">submit a request</a> to have special areas configured if needed.
+          <a href="{{changeRequestFormUrl}}">submit a request</a> to have special areas configured if needed.
         </div>
 
         <div [hidden]="!districts">
@@ -47,7 +47,7 @@
           </fieldset>
           <div>
             <p>To update, remove, or create a new area please
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeBC23LA0KK0VTeKvqBtdRaxWfujvV_B_nzYRmvUsYYWW2VZw/viewform?c=0&w=1">submit a request</a>.
+              <a href="{{changeRequestFormUrl}}">submit a request</a>.
             </p>
           </div>
           <div>
