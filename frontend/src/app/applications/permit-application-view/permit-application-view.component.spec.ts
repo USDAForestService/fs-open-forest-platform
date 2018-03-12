@@ -110,7 +110,7 @@ describe('PermitApplicationViewComponent', () => {
 
   it('provideReasonOrCancel should set button text on Rejected', () => {
     component.provideReasonOrCancel('Rejected');
-    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-secondary');
+    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-primary');
   });
 
   it('provideReasonOrCancel should set button text on Review', () => {

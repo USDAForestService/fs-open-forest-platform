@@ -10,7 +10,7 @@
         <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
           <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
         </select>
-        <input id='forest-finder-submit' class='usa-button' type='submit' value='Go to selected forest' />
+        <input id='forest-finder-submit' class='usa-button-primary' type='submit' value='Go to selected forest' />
       </form>
     </div>
     <hr>
