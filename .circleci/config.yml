@@ -178,7 +178,9 @@ workflows:
           requires:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - sprint-10-development
       - staging-deploy:
           requires:
             - run-all-other-tests
