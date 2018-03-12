@@ -40,7 +40,7 @@ describe('Admin applications page', () => {
     expect(element(by.css('#reason-for-action label')).getText()).toEqual('Why is this application on hold?');
 
     element(by.id('reason-for-return')).sendKeys('test');
-    element(by.css('.reason-for-action-buttons .usa-button')).click();
+    element(by.css('.reason-for-action-buttons .usa-button-primary')).click();
     expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
       'Permit application successfully put on hold and an email with your message has been sent to the applicant.'
     );
