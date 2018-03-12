@@ -51,7 +51,6 @@ describe('TreeGuidelinesFooterComponent', () => {
     scrollEvent.initCustomEvent( 'scroll', false, false, null );
 
     window.dispatchEvent(scrollEvent);
-    expect(component.lastScrollHeight).toEqual(68);
     expect(component.fixed).toBeFalsy();
   });
 });
