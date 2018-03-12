@@ -19,7 +19,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
+      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
   });
@@ -39,7 +39,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
+      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
   });
@@ -59,7 +59,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
+      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
    });
@@ -79,7 +79,7 @@ describe('Xmas tree  - Where to Find Your Tree page', () => {
 
 
     it('should have a where to find a tree section link', () => {
-      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to find your tree');
+      expect<any>(element(by.id('tree-locations-link')).getText()).toEqual('Where to cut your tree');
     });
 
   });

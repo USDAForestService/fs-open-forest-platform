@@ -11,6 +11,7 @@ import { UtilService } from '../_services/util.service';
 })
 export class AuthenticatedComponent implements OnInit {
   displayLogin = true;
+  userIdentifier;
   user;
 
   constructor(
@@ -39,6 +40,8 @@ export class AuthenticatedComponent implements OnInit {
     this.user = null;
     this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
   }
+
+
 
   ngOnInit() {
     this.router.events

@@ -8,6 +8,18 @@ const moment = require('moment-timezone');
 
 const forestService = {};
 
+forestService.parseCuttingAreas = cuttingAreas => {
+  try {
+    if (cuttingAreas !== null && typeof cuttingAreas === 'string') {
+      cuttingAreas = JSON.parse(cuttingAreas);
+    }
+  } catch (e) {
+    console.error('problem parsing cutting areas', cuttingAreas);
+  }
+
+  return cuttingAreas;
+};
+
 forestService.translateForestFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);
   let endDate = moment(input.endDate);
@@ -15,7 +27,7 @@ forestService.translateForestFromDatabaseToClient = input => {
   return {
     id: input.id,
     forestName: input.forestName,
-    cuttingAreas: input.cuttingAreas,
+    cuttingAreas: forestService.parseCuttingAreas(input.cuttingAreas),
     description: input.description,
     forestAbbr: input.forestAbbr,
     forestNameShort: input.forestNameShort,

@@ -5,7 +5,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
 @Component({
   selector: 'app-tree-info',
@@ -19,11 +19,10 @@ export class TreeGuidelinesComponent implements OnInit {
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
 
-
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private forestService: ForestService,
+    private christmasTreesService: ChristmasTreesService,
     private configService: SidebarConfigService,
     public markdownService: MarkdownService
   ) {}
@@ -57,7 +56,8 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   private checkSeasonStartDate(forest) {
-    if (moment(forest.startDate)
+    if (
+      moment(forest.startDate)
         .tz(forest.timezone)
         .isAfter(moment().tz(forest.timezone))
     ) {
@@ -80,7 +80,7 @@ export class TreeGuidelinesComponent implements OnInit {
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
         if (this.forest) {
-          this.forestService.updateMarkdownText(this.markdownService, this.forest);
+          this.christmasTreesService.updateMarkdownText(this.markdownService, this.forest);
         }
 
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');

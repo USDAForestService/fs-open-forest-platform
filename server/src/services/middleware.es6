@@ -48,7 +48,7 @@ middleware.checkAdminPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
     next();
   } else {
-    if (req.user && util.getUserRole(req.user.email) === util.ADMIN_ROLE) {
+    if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
       next();
     } else {
       res.status(403).send();

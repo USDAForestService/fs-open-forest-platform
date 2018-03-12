@@ -52,7 +52,9 @@ describe('middleware', () => {
   it('should pass user auth when env.PLATFORM is not LOCAL or CI', () => {
     const PLATFORM = process.env.PLATFORM;
     process.env.PLATFORM = 'not-ci or local';
-    const req = { user: 'someone' };
+    const req = {
+      user: 'someone'
+    };
     const res = {};
     const next = () => {
       expect(true).to.be.true;
@@ -62,16 +64,18 @@ describe('middleware', () => {
   });
 
   it('should fail user auth when env.PLATFORM is not LOCAL or CI and no user is present', () => {
-    const PLATFORM = process.env.PLATFORM;
-    process.env.PLATFORM = 'not-ci or local';
+    const isLocalOrCI = vcapConstants.isLocalOrCI;
+    vcapConstants.isLocalOrCI = false;
     const req = {};
     let send = sinon.stub();
     const res = {
-      status: sinon.stub().returns({ send })
+      status: sinon.stub().returns({
+        send
+      })
     };
     middleware.checkPermissions(req, res);
     expect(res.status.called).to.be.true;
-    process.env.PLATFORM = PLATFORM;
+    vcapConstants.isLocalOrCI = isLocalOrCI;
   });
 
   it('should pass admin auth', () => {
@@ -84,15 +88,24 @@ describe('middleware', () => {
   });
 
   it('should not pass admin auth', () => {
-    const PLATFORM = process.env.PLATFORM;
-    process.env.PLATFORM = 'not-ci or local';
-    const req = { user: { role: 'foo', email: '123' } };
+    const isLocalOrCI = vcapConstants.isLocalOrCI;
+    vcapConstants.isLocalOrCI = false;
+    const req = {
+      user: {
+        role: 'foo',
+        email: '123'
+      }
+    };
     let send = sinon.stub();
     const res = {
-      status: sinon.stub().returns({ send })
+      status: sinon.stub().returns({
+        send
+      })
     };
+
     middleware.checkAdminPermissions(req, res);
     expect(res.status.called).to.be.true;
-    process.env.PLATFORM = PLATFORM;
+    vcapConstants.isLocalOrCI = isLocalOrCI;
   });
+
 });

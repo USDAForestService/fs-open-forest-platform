@@ -5,6 +5,7 @@ const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
+const htmlToText = require('html-to-text');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -94,7 +95,7 @@ const postPayGov = xmlData => {
   );
 };
 
-const permitResult = (permit, svgData) => {
+const permitResult = permit => {
   const result = {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
@@ -106,7 +107,6 @@ const permitResult = (permit, svgData) => {
     status: permit.status,
     transactionDate: permit.updatedAt,
     paygovTrackingId: permit.paygovTrackingId,
-    permitImage: svgData ? svgData : null,
     expirationDate: permit.permitExpireDate,
     permitNumber: zpad(permit.permitNumber, 8),
     forest: {
@@ -155,7 +155,7 @@ const getPermitError = (res, permit) => {
         status: 400,
         errorCode: permitErrors.errorCode[0],
         message: permitErrors.errorMessage[0],
-        permit: permitResult(permit, null)
+        permit: permitResult(permit)
       }
     ]
   });
@@ -219,23 +219,31 @@ christmasTree.create = (req, res) => {
     });
 };
 
-const sendEmail = (res, savedPermit, pngBuffer) => {
+const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
   const attachments = [
     {
       filename: 'permit.png',
-      content: new Buffer(pngBuffer, 'utf-8'),
+      content: new Buffer(permitPng, 'utf-8'),
       cid: 'christmas-tree-permit-image'
     },
     {
       filename: 'permit-attachment.png',
-      content: new Buffer(pngBuffer, 'utf-8')
+      content: new Buffer(permitPng, 'utf-8')
+    },
+    {
+      filename: 'permit-rules.html',
+      content: new Buffer(rulesHtml, 'utf-8')
+    },
+    {
+      filename: 'permit-rules.txt',
+      content: new Buffer(rulesText, 'utf-8')
     }
   ];
   email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
 
-const returnSavedPermit = (res, savedPermit, svgBuffer) => {
-  return res.status(200).send(permitResult(savedPermit, svgBuffer));
+const returnSavedPermit = (res, savedPermit) => {
+  return res.status(200).send(permitResult(savedPermit));
 };
 
 const updatePermit = (permit, updateObject) => {
@@ -281,6 +289,31 @@ const checkPermitValid = permitExpireDate => {
   return moment(permitExpireDate).isAfter(moment());
 };
 
+const generateRulesAndEmail = permit => {
+  permitSvgService
+    .generatePermitSvg(permit)
+    .then(permitSvg => {
+      permitSvgService.generatePng(permitSvg).then(permitPng => {
+        permitSvgService
+          .generateRulesHtml(true, permit)
+          .then(rulesHtml => {
+            permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
+            let rulesText = htmlToText.fromString(rulesHtml, {
+              wordwrap: 130,
+              ignoreImage: true
+            });
+            sendEmail(permit, permitPng, rulesHtml, rulesText);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
 christmasTree.getOnePermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -307,16 +340,8 @@ christmasTree.getOnePermit = (req, res) => {
               });
             })
             .then(updatedPermit => {
-              permitSvgService.generatePermitSvg(updatedPermit).then(permitSvgBuffer => {
-                permitSvgService.generatePermitPng(permitSvgBuffer).then(permitPngBuffer => {
-                  updatedPermit.permitUrl = paygov.createSuccessUrl(
-                    permit.christmasTreesForest.forestAbbr,
-                    permit.permitId
-                  );
-                  sendEmail(res, updatedPermit, permitPngBuffer);
-                });
-                returnSavedPermit(res, updatedPermit, permitSvgBuffer);
-              });
+              returnSavedPermit(res, permit);
+              generateRulesAndEmail(updatedPermit);
             })
             .catch(error => {
               throwError(error);
@@ -326,13 +351,7 @@ christmasTree.getOnePermit = (req, res) => {
         const token = req.query.t;
         jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
           if (decoded) {
-            if (checkPermitValid(permit.permitExpireDate)) {
-              permitSvgService.generatePermitSvg(permit).then(permitSvgBuffer => {
-                returnSavedPermit(res, permit, permitSvgBuffer);
-              });
-            } else {
-              returnSavedPermit(res, permit, null);
-            }
+            returnSavedPermit(res, permit);
           } else {
             return res.status(404).send();
           }
@@ -342,6 +361,7 @@ christmasTree.getOnePermit = (req, res) => {
       }
     })
     .catch(error => {
+      console.error(error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
@@ -366,6 +386,47 @@ christmasTree.getOnePermitDetail = (req, res) => {
         res.status(404).send();
       } else {
         res.status(200).json(permit);
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(404).send();
+    });
+};
+
+christmasTree.printPermit = (req, res) => {
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.params.id
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
+    })
+    .then(permit => {
+      if (permit.status === 'Completed') {
+        if (!checkPermitValid(permit.permitExpireDate)) {
+          res.status(404).send();
+        } else if (!req.query.rules || req.query.permit === 'true') {
+          permitSvgService.generatePermitSvg(permit).then(permitSvg => {
+            res.status(200).json({
+              result: permitSvg
+            });
+          });
+        } else if (req.query.rules === 'true') {
+          permitSvgService.generateRulesHtml(false, permit).then(rulesHtml => {
+            res.status(200).json({
+              result: rulesHtml
+            });
+          });
+        } else {
+          res.status(404).send();
+        }
+      } else {
+        res.status(404).send();
       }
     })
     .catch(error => {

@@ -10,34 +10,16 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { MarkdownService } from 'ngx-md';
-import { ForestService } from '../../_services/forest.service';
+import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
+import { forest } from '../../../_mocks/forest.mock';
 
 describe('TreeGuidelinesComponent', () => {
   let component: TreeGuidelinesComponent;
   let fixture: ComponentFixture<TreeGuidelinesComponent>;
   const mockRoute = {
     params: Observable.of({ id: 1 }),
-    data: Observable.of({
-      forest: {
-        forestName: 'forest name',
-        species: {
-          status: 'test'
-        },
-        treeHeight: '12',
-        stumpHeight: '4',
-        stumpDiameter: '12',
-        startDate: moment('2000-01-02').toDate(),
-        endDate: moment('2101-01-01').toDate(),
-        timezone: 'America/Denver',
-        cuttingAreas: {
-          ELKCREEK: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-09 21:30:00Z'},
-          REDFEATHERLAKES: {'startDate': '2017-12-02 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'},
-          SULPHUR: {'startDate': '2017-11-01 12:00:00Z', 'endDate': '2018-01-06 21:30:00Z'},
-          CANYONLAKES: {'startDate': '2017-11-27 15:30:00Z', 'endDate': '2017-12-10 21:30:00Z'}
-        }
-      }
-    })
+    data: Observable.of({forest: forest})
   };
 
   beforeEach(
@@ -46,7 +28,7 @@ describe('TreeGuidelinesComponent', () => {
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          ForestService,
+          ChristmasTreesService,
           { provide: MarkdownService, useClass: MockMarkdownService },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
@@ -56,7 +38,7 @@ describe('TreeGuidelinesComponent', () => {
     })
   );
 
-  describe ('', () => {
+  describe('', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: mockRoute });
       fixture = TestBed.createComponent(TreeGuidelinesComponent);
@@ -69,26 +51,26 @@ describe('TreeGuidelinesComponent', () => {
     });
 
     it('should set forest on init', () => {
-      const forest: any = component.forest;
-      expect(forest.forestName).toEqual('forest name');
+      expect(component.forest.forestName).toEqual('Mt. Hood');
     });
 
-    it ('should set the forest isSeasonOpen to true', () => {
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeTruthy();
+    it('should set the forest isSeasonOpen to true', () => {
+      expect(component.forest.isSeasonOpen).toBeTruthy();
     });
 
     it('should render markdown', () => {
       expect(
-        component.markdownService.renderer
-          .text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'))
-      .toEqual('Test 12 and 4 and 12 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1 - Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017');
+        component.markdownService.renderer.text(
+          'Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'
+        )
+      ).toEqual(
+        'Test 12 and 6 and 6 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1, 2017 -  Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017'
+      );
     });
-
   });
 
-  describe ('season closed', () => {
-    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
+  describe('season closed', () => {
+    it('should set the forest isSeasonOpen and seasonOpenAlert when season not started.', () => {
       const mockSeasonNotOpenRoute = {
         params: Observable.of({ id: 1 }),
         data: Observable.of({
@@ -108,12 +90,11 @@ describe('TreeGuidelinesComponent', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
 
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeFalsy();
-      expect(forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
+      expect(component.forest.isSeasonOpen).toBeFalsy();
+      expect(component.forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
     });
 
-    it ('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
+    it('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {
       const mockSeasonNotOpenRoute = {
         params: Observable.of({ id: 1 }),
         data: Observable.of({
@@ -133,10 +114,8 @@ describe('TreeGuidelinesComponent', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
 
-      const forest: any = component.forest;
-      expect(forest.isSeasonOpen).toBeFalsy();
-      expect(forest.seasonOpenAlert).toEqual(component.seasonOpenAlert);
+      expect(component.forest.isSeasonOpen).toBeFalsy();
+      expect(component.forest.seasonOpenAlert).toEqual(component.seasonOpenAlert);
     });
   });
-
 });

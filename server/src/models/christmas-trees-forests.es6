@@ -99,9 +99,10 @@ module.exports = function(sequelize, DataTypes) {
   );
 
   christmasTreesForests.addHook('afterFind', forest => {
-    if (!util.isProduction()) {
-      if (forest) {
-        // forest is closed and configured
+    if (util.isLocalOrCI()) {
+      if (forest && forest.startDate) {
+        // forest is closed and configured for testing uncomment this block and update
+        //the forest id
         if (forest.id === 1) {
           forest.startDate = moment()
             .tz(forest.timezone)
@@ -112,7 +113,7 @@ module.exports = function(sequelize, DataTypes) {
             .add(8, 'months')
             .format('YYYY-MM-DD HH:mm:ss');
         }
-        // open forest is Mt Hood
+        // open forest
         if (forest.id === 3) {
           forest.startDate = moment()
             .tz(forest.timezone)
@@ -123,7 +124,7 @@ module.exports = function(sequelize, DataTypes) {
             .add(1, 'months')
             .format('YYYY-MM-DD HH:mm:ss');
         }
-        // closed forest with nothing configured yet is Shoshone
+        // closed forest with nothing configured yet
         if (forest.id === 4) {
           forest.startDate = moment()
             .tz(forest.timezone)
@@ -135,7 +136,19 @@ module.exports = function(sequelize, DataTypes) {
             .format('YYYY-MM-DD HH:mm:ss');
         }
       }
+    } else if (util.isStaging()) {
+      if (forest && forest.startDate) {
+        forest.startDate = moment()
+          .tz(forest.timezone)
+          .subtract(2, 'months')
+          .format('YYYY-MM-DD HH:mm:ss');
+        forest.endDate = moment()
+          .tz(forest.timezone)
+          .add(1, 'months')
+          .format('YYYY-MM-DD HH:mm:ss');
+      }
     }
+
   });
 
   return christmasTreesForests;

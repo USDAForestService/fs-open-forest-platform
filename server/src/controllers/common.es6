@@ -7,6 +7,7 @@
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
+const Revision = require('../models/revision.es6');
 const util = require('../services/util.es6');
 
 const commonControllers = {};
@@ -19,45 +20,33 @@ const findOrCondition = req => {
   let orCondition = [];
   switch (statusGroup) {
   case 'pending':
-    orCondition = [
-      {
-        status: 'Submitted'
-      },
-      {
-        status: 'Hold'
-      },
-      {
-        status: 'Review'
-      }
-    ];
+    orCondition = [{
+      status: 'Submitted'
+    }, {
+      status: 'Hold'
+    }, {
+      status: 'Review'
+    }];
     break;
   case 'accepted':
-    orCondition = [
-      {
-        status: 'Accepted'
-      }
-    ];
+    orCondition = [{
+      status: 'Accepted'
+    }];
     break;
   case 'rejected':
-    orCondition = [
-      {
-        status: 'Rejected'
-      }
-    ];
+    orCondition = [{
+      status: 'Rejected'
+    }];
     break;
   case 'cancelled':
-    orCondition = [
-      {
-        status: 'Cancelled'
-      }
-    ];
+    orCondition = [{
+      status: 'Cancelled'
+    }];
     break;
   case 'expired':
-    orCondition = [
-      {
-        status: 'Expired'
-      }
-    ];
+    orCondition = [{
+      status: 'Expired'
+    }];
     break;
   }
   return orCondition;
@@ -97,7 +86,9 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [['createdAt', 'DESC']]
+    order: [
+      ['createdAt', 'DESC']
+    ]
   });
   const tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
     attributes: [
@@ -119,7 +110,9 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [['createdAt', 'DESC']]
+    order: [
+      ['createdAt', 'DESC']
+    ]
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
     .then(results => {
@@ -134,6 +127,18 @@ commonControllers.getPermitApplications = (req, res) => {
     .catch(() => {
       return res.status(500).send();
     });
+};
+
+/**
+ * Create a new permit application revision entry in the DB.
+ */
+commonControllers.createRevision = (user, applicationModel) => {
+  Revision.create({
+    applicationId: applicationModel.applicationId,
+    applicationType: applicationModel.type,
+    status: applicationModel.status,
+    email: (user.email) ? user.email : user.adminUsername
+  });
 };
 
 /**

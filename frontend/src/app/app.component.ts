@@ -30,26 +30,32 @@ export class AppComponent implements OnInit {
         } else {
           window.scrollTo(0, 0);
         }
+
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
           this.setLoggedInMessage();
-        } else if (localStorage.getItem('status')) {
-          this.status = JSON.parse(localStorage.getItem('status'));
-          localStorage.removeItem('status');
         } else {
-          this.status = {
-            heading: '',
-            message: ''
-          };
+          this.setStatus();
         }
       }
     });
   }
 
+  setStatus() {
+    if (localStorage.getItem('status')) {
+      this.status = JSON.parse(localStorage.getItem('status'));
+      localStorage.removeItem('status');
+    } else {
+      this.status = {
+        heading: '',
+        message: ''
+      };
+    }
+  }
+
   setLoggedInMessage() {
-    const authType = this.authentication.user.role === 'user' ? 'login.gov' : 'eAuthentication';
     this.status = {
       heading: '',
-      message: `You have successfully logged in using ${authType} as ${this.authentication.user.email}.`
+      message: `You have successfully logged in as ${this.authentication.user.email}.`
     };
     localStorage.removeItem('showLoggedIn');
   }
