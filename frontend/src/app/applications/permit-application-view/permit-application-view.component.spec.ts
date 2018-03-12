@@ -105,12 +105,12 @@ describe('PermitApplicationViewComponent', () => {
 
   it('provideReasonOrCancel should set button text on hold', () => {
     component.provideReasonOrCancel('Hold');
-    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button');
+    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-primary');
   });
 
   it('provideReasonOrCancel should set button text on Rejected', () => {
     component.provideReasonOrCancel('Rejected');
-    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-primary');
+    expect(component.reasonOrCancel.buttonClass).toEqual('usa-button-red');
   });
 
   it('provideReasonOrCancel should set button text on Review', () => {
