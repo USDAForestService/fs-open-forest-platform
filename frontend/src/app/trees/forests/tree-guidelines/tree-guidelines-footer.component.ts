@@ -1,4 +1,4 @@
-import { Inject, HostListener, Component, Input, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Inject, HostListener, Component, Input, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { WindowRef } from '../../../_services/native-window.service';
 
@@ -11,7 +11,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 export class TreeGuidelinesFooterComponent implements AfterViewInit {
   @Input() forest: any;
 
-  public fixed: boolean = false;
+  public fixed = false;
   lastScrollHeight;
 
   constructor(
@@ -19,12 +19,12 @@ export class TreeGuidelinesFooterComponent implements AfterViewInit {
       private winRef: WindowRef
     ) {}
 
-  @HostListener("window:scroll", [])
+  @HostListener('window:scroll', [])
   onWindowScroll() {
-    let footerHeight = 233;
+    const footerHeight = 233;
     const nativeWindow = this.winRef.getNativeWindow();
 
-    let windowHeight = nativeWindow.innerHeight + nativeWindow.scrollY + footerHeight;
+    const windowHeight = nativeWindow.innerHeight + nativeWindow.scrollY + footerHeight;
     let scrollHeight = this.doc.body.scrollHeight;
 
     if (!this.fixed) {

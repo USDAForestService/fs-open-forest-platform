@@ -47,11 +47,11 @@ describe('TreeGuidelinesFooterComponent', () => {
   });
 
   it('should set the footer to fixed', () => {
-    var scrollEvent = document.createEvent('CustomEvent');
+    const scrollEvent = document.createEvent('CustomEvent');
     scrollEvent.initCustomEvent( 'scroll', false, false, null );
 
     window.dispatchEvent(scrollEvent);
-    expect(component.lastScrollHeight).toEqual(21);
+    expect(component.lastScrollHeight).toEqual(68);
     expect(component.fixed).toBeFalsy();
   });
 });
