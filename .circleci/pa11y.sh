@@ -1,3 +1,5 @@
+docker-compose up fs-intake-pa11y &
+sleep 240
 cd ../frontend
 yarn run pa11y
 pa11yreturncode=$?
