@@ -15,6 +15,7 @@ import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
+import { ServerErrorComponent } from './error-pages/server-error.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { ReportComponent } from './trees/admin/report/report.component';
@@ -98,7 +99,7 @@ const appRoutes: Routes = [
     },
     resolve: {
       user: UserResolver,
-      forests: ForestsAdminResolver,
+      forests: ForestsAdminResolver
     },
     children: [
       {
@@ -281,6 +282,7 @@ const appRoutes: Routes = [
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
+  { path: '500', component: ServerErrorComponent, data: { title: '500 server error' } },
   { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
   { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];
