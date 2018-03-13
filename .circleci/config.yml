@@ -87,7 +87,8 @@ jobs:
           prefix: unauth-e2e-results
 
   run-pa11y:
-    machine: true
+    docker:
+      - image: circleci/node:8.9.4
     environment:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
@@ -96,11 +97,24 @@ jobs:
           name: install pa11y
           command: cd frontend; npm i -g pa11y-ci && npm i
       - run:
-          name: build pa11y compose images
-          command: cd docker; ../.circleci/build-pa11y-image.sh
-      - run:
           name: pa11y test
-          command: cd docker; ../.circleci/pa11y.sh
+          command: ./.circleci/pa11y.sh
+
+#  run-pa11y:
+#    machine: true
+#    environment:
+#      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+#    steps:
+#      - checkout
+#      - run:
+#          name: install pa11y
+#          command: cd frontend; npm i -g pa11y-ci && npm i
+#      - run:
+#          name: build pa11y compose images
+#          command: cd docker; ../.circleci/build-pa11y-image.sh
+#      - run:
+#          name: pa11y test
+#          command: cd docker; ../.circleci/pa11y.sh
 
   staging-deploy:
     docker:
