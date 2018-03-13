@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'server-error',
+  selector: 'app-server-error',
   templateUrl: './server-error.component.html'
 })
 export class ServerErrorComponent implements OnInit {
