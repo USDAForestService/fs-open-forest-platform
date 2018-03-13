@@ -87,7 +87,11 @@ jobs:
           prefix: unauth-e2e-results
 
   run-pa11y:
+    docker:
+      - image: circleci/node:8.9.4
     machine: true
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:

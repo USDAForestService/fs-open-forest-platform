@@ -1,8 +1,7 @@
 docker-compose up fs-intake-pa11y &
 sleep 240
 cd ../frontend
-pwd
-sudo npm run pa11y
+npm run pa11y
 pa11yreturncode=$?
 if [[ $pa11yreturncode = 0 ]]
 then
