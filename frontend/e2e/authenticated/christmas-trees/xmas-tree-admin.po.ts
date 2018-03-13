@@ -5,6 +5,58 @@ export class TreesReportPage {
     return browser.get('/admin/christmas-trees/reports');
   }
 
+  forestAdminNav() {
+    return element(by.id('forest-admin-nav'));
+  }
+
+  forestAdminMobileNav() {
+    return element(by.id('forest-admin-mobile-nav'));
+  }
+
+  forestAdminMobileMenuButton() {
+    return element(by.id('mobile-forest-admin-menu-btn'));
+  }
+
+  adminPermits() {
+    return element(by.id('forest-admin-permits'));
+  }
+
+  adminReports() {
+    return element(by.id('forest-admin-reports'));
+  }
+
+  adminSeasons() {
+    return element(by.id('forest-admin-seasons'));
+  }
+
+  adminAreas() {
+    return element(by.id('forest-admin-areas'));
+  }
+
+  adminForm() {
+    return element(by.id('forest-admin-form'));
+  }
+
+  adminPermitsMobile() {
+    return element(by.id('forest-admin-mobile-permits'));
+  }
+
+  adminReportsMobile() {
+    return element(by.id('forest-admin-mobile-reports'));
+  }
+
+  adminSeasonsMobile() {
+    return element(by.id('forest-admin-mobile-seasons'));
+  }
+
+  adminAreasMobile() {
+    return element(by.id('forest-admin-mobile-areas'));
+  }
+
+  adminFormMobile() {
+    return element(by.id('forest-admin-mobile-form'));
+  }
+
   forestSelect() {
     return element(by.id('forest-select'));
   }
