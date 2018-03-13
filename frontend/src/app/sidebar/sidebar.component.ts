@@ -11,6 +11,8 @@ import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin
 export class SidebarComponent implements OnInit {
   @Input() items: any;
   @Input() mobileMenu = false;
+  @Input() user;
+
   bottom: string;
   top: string;
   position: string;
@@ -19,6 +21,7 @@ export class SidebarComponent implements OnInit {
   menuBtnPosition: string;
   route: string;
   forestAdminNavItems = [];
+  showAdminNav = false;
 
   constructor(
     public util: UtilService,

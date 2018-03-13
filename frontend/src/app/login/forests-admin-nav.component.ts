@@ -10,6 +10,8 @@ import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin
 export class ForestAdminNavComponent implements OnInit {
   user;
   forestAdminNavItems = [];
+  showAdminNav = true;
+  showMobileNav = false;
 
   constructor(
     private authenticationService: AuthenticationService,

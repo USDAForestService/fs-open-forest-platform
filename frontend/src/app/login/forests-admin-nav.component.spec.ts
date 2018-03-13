@@ -5,6 +5,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AuthenticationService } from '../_services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../_services/util.service';
+import { Observable } from 'rxjs/Observable';
+
+class MockAuthenticationService {
+  getAuthenticatedUser(): Observable<{}> {
+    return Observable.of({ role: 'admin', forests: ['mthood'] });
+  }
+  setUser(obj) {
+    return '';
+  }
+}
 
 describe('ForestAdminNavComponent', () => {
   let component: ForestAdminNavComponent;
@@ -13,7 +23,11 @@ describe('ForestAdminNavComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        providers: [AuthenticationService, UtilService, ChristmasTreesAdminService],
+        providers: [
+          { provide: AuthenticationService, useClass: MockAuthenticationService },
+          UtilService,
+          ChristmasTreesAdminService
+        ],
         declarations: [ForestAdminNavComponent],
         imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
