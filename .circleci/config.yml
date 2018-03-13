@@ -95,7 +95,7 @@ jobs:
       - checkout
       - run:
           name: install pa11y
-          command: cd frontend; sudo npm i -g pa11y-ci && sudo npm i
+          command: cd frontend; npm i
       - run:
           name: pa11y test
           command: ./.circleci/pa11y.sh
