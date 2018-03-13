@@ -32,6 +32,6 @@ export class ChristmasTreesAdminService {
       { id: 'forest-admin-seasons', routerLink: '/admin/christmas-trees/season-dates', title: 'Change season dates'},
       { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'},
       { id: 'forest-admin-form', href: 'https://docs.google.com/forms/d/e/1FAIpQLSca7taTXY7xUTDvcnyR7rf7jkfvinBPtGqbNWgLBd3Dy6kH4Q/viewform', title: 'Request a content change' }
-    ]
+    ];
   }
 }

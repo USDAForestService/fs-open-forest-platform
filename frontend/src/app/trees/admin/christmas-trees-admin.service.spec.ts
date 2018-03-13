@@ -22,8 +22,8 @@ describe('ChristmasTreesAdminService', () => {
 
   it ('should return admin nav items', () => {
     expect(service.getAdminNavItems().length).toEqual(5);
-    expect(service.getAdminNavItems()[0].title).toEqual('Christmas tree permits')
-  })
+    expect(service.getAdminNavItems()[0].title).toEqual('Christmas tree permits');
+  });
 
 
 });

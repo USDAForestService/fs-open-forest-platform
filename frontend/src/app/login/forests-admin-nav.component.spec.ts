@@ -15,7 +15,7 @@ describe('ForestAdminNavComponent', () => {
       TestBed.configureTestingModule({
         providers: [AuthenticationService, UtilService, ChristmasTreesAdminService],
         declarations: [ForestAdminNavComponent],
-        imports:[RouterTestingModule, HttpClientTestingModule]
+        imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
     })
   );
@@ -34,3 +34,4 @@ describe('ForestAdminNavComponent', () => {
     expect(component.forestAdminNavItems).not.toBeNull();
   });
 });
+
