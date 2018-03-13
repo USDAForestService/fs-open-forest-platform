@@ -103,11 +103,12 @@
 }
 
 .fs-official {
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  background-color: black;
   color: $white;
   .usa-accordion-button.usa-banner-button {
     color: $white;
-    width: 180px;
-    height: 20px;
   }
 
   .usa-accordion-button.usa-banner-button[aria-expanded='false']::after {
