@@ -16,6 +16,7 @@ import { ChristmasTreesApplicationService } from './_services/christmas-trees-ap
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
+import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-guidelines-footer.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AdminDistrictDatesComponent } from './admin/district-dates/district-dat
     AdminSeasonDatesComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
+    TreeGuidelinesFooterComponent,
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     ForestFinderComponent,
@@ -37,6 +39,7 @@ import { AdminDistrictDatesComponent } from './admin/district-dates/district-dat
     ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
+    TreeGuidelinesFooterComponent,
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     LineBreakFormatterPipe,
