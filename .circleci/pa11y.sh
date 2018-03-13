@@ -1,6 +1,7 @@
-cd frontend
-pwd
-npm run build-test-pa11y;
+docker-compose up fs-intake-pa11y &
+sleep 240
+cd ../frontend
+sudo npm run pa11y
 pa11yreturncode=$?
 if [[ $pa11yreturncode = 0 ]]
 then
@@ -8,5 +9,6 @@ then
 else
   echo 'FAIL'
 fi
-
+cd ../docker
+docker-compose down
 exit $pa11yreturncode
