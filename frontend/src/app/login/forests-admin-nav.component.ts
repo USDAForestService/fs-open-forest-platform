@@ -12,6 +12,6 @@ export class ForestAdminNavComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
-    this.authenticationService.getAuthenticatedUser().subscribe((user) => { this.user = user});
+    this.authenticationService.getAuthenticatedUser().subscribe((user) => { this.user = user; });
   }
 }
