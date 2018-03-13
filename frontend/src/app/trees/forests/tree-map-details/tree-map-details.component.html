@@ -1,3 +1,8 @@
-<div>
-  <p>INSERT DESCRIPTION HERE</p>
+<div class="usa-grid">
+  <a href="{{mapLocation}}">
+    <img src={{mapLocation}} id="map-image" alt="{{mapId}} map">
+  </a>
+  <div *ngIf="mapDescriptionPieces" id="map-description">
+    <p *ngFor="let description of mapDescriptionPieces">{{description}}</p>
+  </div>
 </div>

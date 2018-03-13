@@ -17,6 +17,7 @@ import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.com
 import { TreesAdminService } from './admin/trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { TreeMapDetailsComponent } from './forests/tree-map-details/tree-map-details.component'
+import { MapDetailsService } from './forests/tree-map-details/map-detials.service'
 
 @NgModule({
   declarations: [
@@ -46,6 +47,6 @@ import { TreeMapDetailsComponent } from './forests/tree-map-details/tree-map-det
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ChristmasTreesService, TreesAdminService, ChristmasTreesApplicationService]
+  providers: [ChristmasTreesService, TreesAdminService, ChristmasTreesApplicationService, MapDetailsService]
 })
 export class TreesModule {}

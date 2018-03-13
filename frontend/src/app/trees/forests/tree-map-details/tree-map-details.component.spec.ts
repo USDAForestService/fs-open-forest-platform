@@ -1,7 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TreeMapDetailsComponent } from './tree-map-details.component';
-import { forest } from '../../..//_mocks/forest.mock';
+import { MapDetailsService } from './map-detials.service';
 
 describe('TreeMapDetailsComponent', () => {
   let component: TreeMapDetailsComponent;
@@ -11,7 +13,11 @@ describe('TreeMapDetailsComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeMapDetailsComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
+        providers: [
+          { provide: MapDetailsService, useClass: MapDetailsService }
+        ],
+        imports: [HttpClientTestingModule, RouterTestingModule]
       }).compileComponents();
     })
   );
@@ -19,7 +25,6 @@ describe('TreeMapDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TreeMapDetailsComponent);
     component = fixture.componentInstance;
-    component.forest = forest;
     fixture.detectChanges();
   });
 
