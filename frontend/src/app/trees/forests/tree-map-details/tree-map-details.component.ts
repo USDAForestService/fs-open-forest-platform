@@ -6,7 +6,7 @@ import { MapDetailsService } from './map-detials.service';
   selector: 'app-tree-map-details',
   templateUrl: './tree-map-details.component.html'
 })
-export class TreeMapDetailsComponent implements OnInit{
+export class TreeMapDetailsComponent implements OnInit {
   mapLocation: any;
   mapDescriptionPieces: any[];
   mapId: any;

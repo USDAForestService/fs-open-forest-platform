@@ -1,8 +1,5 @@
 <div class="usa-grid">
-  <a href="{{mapLocation}}">
-    <img src={{mapLocation}} id="map-image" alt="{{mapId}} map">
-  </a>
-  <div *ngIf="mapDescriptionPieces" id="map-description">
+  <div class="screen-reader-only" *ngIf="mapDescriptionPieces">
     <p *ngFor="let description of mapDescriptionPieces">{{description}}</p>
   </div>
 </div>

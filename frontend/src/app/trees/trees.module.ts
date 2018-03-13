@@ -16,8 +16,8 @@ import { ChristmasTreesApplicationService } from './_services/christmas-trees-ap
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { TreesAdminService } from './admin/trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
-import { TreeMapDetailsComponent } from './forests/tree-map-details/tree-map-details.component'
-import { MapDetailsService } from './forests/tree-map-details/map-detials.service'
+import { TreeMapDetailsComponent } from './forests/tree-map-details/tree-map-details.component';
+import { MapDetailsService } from './forests/tree-map-details/map-detials.service';
 
 @NgModule({
   declarations: [
