@@ -5346,9 +5346,9 @@ p-try@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
 
-"pa11y-ci@https://github.com/pa11y/pa11y-ci/tarball/master/5bb60661a9d7c6004ee520878e26b10238ec98ab":
+pa11y-ci@^2.0.0:
   version "2.0.0"
-  resolved "https://github.com/pa11y/pa11y-ci/tarball/master/5bb60661a9d7c6004ee520878e26b10238ec98ab#6872c0640a2f3bd3c43093c1b8f9b6fcc0f304e7"
+  resolved "https://registry.yarnpkg.com/pa11y-ci/-/pa11y-ci-2.0.0.tgz#c26106ed94e6b608657cf9e7dab5d007fbb56b52"
   dependencies:
     async "^2.4.1"
     chalk "^1.1.3"

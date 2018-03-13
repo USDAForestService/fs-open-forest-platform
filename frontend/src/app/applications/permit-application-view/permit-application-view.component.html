@@ -26,9 +26,9 @@
   <div class="fs-footer-sticky app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || ['Submitted', 'Review'].indexOf(application.status) !== -1)">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
       <button id="accept-application-btn" class="usa-button-primary-alt app-cta" name="Accept" (click)="provideReasonOrCancel('Accepted')">Accept<span class="sub-button">Send to SUDS</span></button>
-      <button *ngIf="application.status !== 'Hold'" id="hold-application-btn" class="usa-button app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
+      <button *ngIf="application.status !== 'Hold'" id="hold-application-btn" class="usa-button-primary app-cta" name="Hold" (click)="provideReasonOrCancel('Hold')">Hold<span class="sub-button">Request clarification</span></button>
       <button *ngIf="application.status === 'Hold'" id="hold-application-btn" class="usa-button-grey app-cta" name="Hold" (click)="provideReasonOrCancel('Review')">Remove hold<span class="sub-button">Submitted clarification</span></button>
-      <button id="return-application-btn" class="usa-button-secondary app-cta" name="Return"(click)="provideReasonOrCancel('Rejected')">Reject<span class="sub-button">Notify applicant</span></button>
+      <button id="return-application-btn" class="usa-button-red app-cta" name="Return"(click)="provideReasonOrCancel('Rejected')">Reject<span class="sub-button">Notify applicant</span></button>
     </div>
     <div id="reason-for-action" class="usa-grid" *ngIf="reasonOrCancel.open">
       <div class="usa-width-one-whole">
@@ -36,7 +36,7 @@
         <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
         <textarea id="reason-for-return" [(ngModel)]="reasonOrCancel.message"></textarea>
         <div class="reason-for-action-buttons">
-          <button class="usa-button-outline" (click)="reasonOrCancel.open = false;">Cancel</button>
+          <button class="usa-button-secondary-alt" (click)="reasonOrCancel.open = false;">Cancel</button>
           <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>
         </div>
       </div>
