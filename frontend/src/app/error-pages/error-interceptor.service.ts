@@ -25,7 +25,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return handleObs
       .do(event => {
-        console.log('event=', event);
         if (event instanceof HttpResponse) {
           this.util.removeRequest();
         }
