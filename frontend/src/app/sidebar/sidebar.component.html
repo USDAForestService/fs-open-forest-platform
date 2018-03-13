@@ -19,6 +19,10 @@
       <img src="/assets/img/close.svg" alt="Close navigation menu">
     </button>
     <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
+      <li *ngFor="let navItem of forestAdminNavItems">
+        <a *ngIf="navItem.routerLink" id="{{navItem.id}}-mobile" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"><span>{{navItem.title}}</span></a>
+        <a *ngIf="navItem.href" id="{{navItem.id}}-mobile-link" href="{{navItem.href}}"><span>{{navItem.title}}</span></a>
+      </li>
       <li *ngFor="let item of items | filter:'type':'anchor'">
         <a href="#" id="mobile-{{item.id}}-link" (click)="toggleMobileNav();" [routerLink]="[route]" [fragment]="item.id">{{item.title}}</a>
         <ul class="usa-sidenav-sub_list" *ngIf="item.sections">

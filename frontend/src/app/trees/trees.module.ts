@@ -14,7 +14,7 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
-import { TreesAdminService } from './admin/trees-admin.service';
+import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-guidelines-footer.component';
 
@@ -46,6 +46,6 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ChristmasTreesService, TreesAdminService, ChristmasTreesApplicationService]
+  providers: [ChristmasTreesService, ChristmasTreesAdminService, ChristmasTreesApplicationService]
 })
 export class TreesModule {}

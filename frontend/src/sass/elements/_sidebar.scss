@@ -139,23 +139,13 @@
 
 .site-nav-secondary li {
   a {
-
     color: $fs-green;
     cursor: pointer;
-    padding-right: 24px;
+    padding-right: 4px;
+    padding-left: 4px;
     position: relative;
     &:hover {
-      background-color: $color-gray-lightest;
       color: $fs-green;
     }
-    //.status-icon {
-    //  background-repeat: no-repeat;
-    //  background-size: contain;
-    //  height: 22px;
-    //  position: absolute;
-    //  width: 22px;
-    //  right: 0;
-    //  top: 22%;
-    //}
   }
 }

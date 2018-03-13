@@ -10,7 +10,7 @@ import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminDistrictDatesComponent } from './district-dates.component';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { MockRouter } from '../../../_mocks/routes.mock';
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 
@@ -111,7 +111,7 @@ describe('District Dates Admin Component', () => {
             { provide: ChristmasTreesService, useClass: MockChristmasTreesService },
             FormBuilder,
             RouterTestingModule,
-            TreesAdminService,
+            ChristmasTreesAdminService,
             UtilService,
             { provide: WindowRef, useClass: MockWindowRef }
           ],
