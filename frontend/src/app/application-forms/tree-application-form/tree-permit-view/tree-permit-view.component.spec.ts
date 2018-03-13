@@ -66,7 +66,7 @@ describe ('', () => {  beforeEach(
           UtilService,
           { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
           { provide: WindowRef, useClass: MockWindowRef },
-            { provide: DomSanitizer, useClass: MockSanitizer }
+          { provide: DomSanitizer, useClass: MockSanitizer }
 ]
 
       }).compileComponents();

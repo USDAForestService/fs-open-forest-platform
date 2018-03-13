@@ -43,15 +43,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
     });
 
-    it('should display a link for users to purchase a permit', () => {
-      expect<any>(page.buyPermitLink().isPresent()).toBeTruthy();
-    });
-
-    it('should route users to page where they can buy a permit', () => {
-      page.buyPermitLink().click();
-      browser.sleep(900);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/christmas-trees/forests/mthood/applications');
-    });
   });
 
   describe('Shoshone', () => {
@@ -92,10 +83,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display default daily hours for the overall forest', () => {
       expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
       expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
-    });
-
-    it('should not display a link for users to purchase a permit', () => {
-      expect<any>(page.buyPermitLink().isDisplayed()).toBeFalsy();
     });
 
     it ('should show the season not open info alert', () => {
