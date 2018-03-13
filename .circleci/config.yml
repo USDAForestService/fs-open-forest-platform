@@ -88,6 +88,8 @@ jobs:
 
   run-pa11y:
     machine: true
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:
