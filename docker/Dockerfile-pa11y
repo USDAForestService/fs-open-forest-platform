@@ -48,4 +48,4 @@ ENV PLATFORM=$PLATFORM
 RUN sudo yarn run build
 
 # start server to serve static files at port 4200
-CMD ["superstatic", "dist/", "-c", "superstatic.json", "--port", "4200", "--host", "0.0.0.0"]
+#CMD ["superstatic", "dist/", "-c", "superstatic.json", "--port", "4200", "--host", "0.0.0.0"]
