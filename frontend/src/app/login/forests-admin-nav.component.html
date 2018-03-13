@@ -19,7 +19,7 @@
 </nav>
 <ng-container>
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
-  <button id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
+  <button id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="fixed" [style.top]="menuBtnTop">Menu</button>
   <nav id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
     <button class="usa-nav-close" (click)="showMobileNav = !showMobileNav" >
       <img src="/assets/img/close.svg" alt="Close forest admin navigation menu">
