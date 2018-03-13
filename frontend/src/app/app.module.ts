@@ -38,6 +38,7 @@ import { PageHeaderComponent } from './home/header.component';
 import { PageFooterComponent } from './home/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
+import { ForestAdminNavComponent } from './login/forests-admin-nav.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolv
     Base64,
     CancelApplicationComponent,
     DaysToOrDate,
+    ForestAdminNavComponent,
     HelpMePickComponent,
     HomeComponent,
     HoursFromOrDate,
