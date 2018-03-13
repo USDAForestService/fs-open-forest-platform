@@ -88,6 +88,8 @@ jobs:
 
   run-pa11y:
     machine: true
+    environment:
+      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:
@@ -174,11 +176,6 @@ workflows:
           requires:
       - run-e2e:
           requires:
-      - run-pa11y:
-          requires:
-          filters:
-            branches:
-              only: master
       - staging-deploy:
           requires:
             - run-all-other-tests
@@ -190,7 +187,6 @@ workflows:
           requires:
             - run-all-other-tests
             - run-e2e
-            - run-pa11y
           filters:
             branches:
               only: master
