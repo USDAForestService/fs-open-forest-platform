@@ -1,5 +1,5 @@
 <div class="usa-grid">
-  <div class="screen-reader-only" *ngIf="mapDescriptionPieces">
+  <div *ngIf="mapDescriptionPieces" class="screen-reader-only" id="map-description">
     <p *ngFor="let description of mapDescriptionPieces">{{description}}</p>
   </div>
 </div>

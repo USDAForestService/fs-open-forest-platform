@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MapDetailsService } from './map-detials.service';
+import { MapDetailsService } from './christmas-tree-map-details.service';
 
 @Component({
   selector: 'app-tree-map-details',
-  templateUrl: './tree-map-details.component.html'
+  templateUrl: './christmas-tree-map-details.component.html'
 })
-export class TreeMapDetailsComponent implements OnInit {
+export class TreeMapDetailsComponent implements OnInit{
   mapLocation: any;
   mapDescriptionPieces: any[];
   mapId: any;

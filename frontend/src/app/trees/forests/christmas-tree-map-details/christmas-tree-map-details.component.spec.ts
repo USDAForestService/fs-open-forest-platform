@@ -2,8 +2,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TreeMapDetailsComponent } from './tree-map-details.component';
-import { MapDetailsService } from './map-detials.service';
+import { TreeMapDetailsComponent } from './christmas-tree-map-details.component';
+import { MapDetailsService } from './christmas-tree-map-details.service';
 
 describe('TreeMapDetailsComponent', () => {
   let component: TreeMapDetailsComponent;
