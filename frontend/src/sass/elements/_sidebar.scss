@@ -24,7 +24,6 @@
     clear: both;
     display: block;
     height: 5rem;
-    padding-left: 1.5rem;
     z-index: 10;
   }
 }
@@ -38,6 +37,7 @@
 
 .site-nav-secondary ul > li {
   margin-bottom: 0;
+  margin-right: 1rem;
 }
 
 .site-nav-secondary ul li {
@@ -47,7 +47,7 @@
 .site-nav-secondary a {
   color: $fs-green;
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 5rem;
   padding: 1.5rem;
   text-decoration: none;
