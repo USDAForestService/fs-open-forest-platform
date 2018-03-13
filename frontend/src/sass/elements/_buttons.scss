@@ -6,15 +6,74 @@
 }
 
 .forest-service {
-  .usa-button {
+  .usa-button, .usa-button-primary {
     background-color: $fs-brown;
     color: $white;
     box-shadow: none;
     &:hover {
+      color: $white;
       background-color: $fs-brown-dark;
     }
     &:active {
+      color: $white;
       background-color: $black;
+    }
+  }
+
+  .usa-button-primary-alt {
+    background-color: $fs-green;
+    color: $white;
+    box-shadow: none;
+    &:hover {
+      color: $white;
+      background-color: $fs-green-dark;
+    }
+    &:active {
+      color: $white;
+      background-color: $fs-green-darker;
+    }
+  }
+
+  .usa-button.usa-button-secondary, .usa-button-secondary {
+    background-color: $fs-tan;
+    color: $black !important;
+    border: solid 1px $black;
+    &:hover,
+    &:hover:visited {
+      box-shadow: none !important;
+      background-color: $fs-tan-dark;
+      color: $black;
+      border: solid 1px $black;
+    }
+    &:active,
+    &:active:visited,
+    &:focus {
+      box-shadow: none !important;
+      background-color: $fs-tan-darker;
+      border: solid 1px $black;
+    }
+  }
+
+
+  .usa-button-outline, .usa-button-secondary-alt {
+    background-color: $transparent;
+    box-shadow: inset 0 0 0 2px $fs-green;
+    color: $fs-green;
+    &:hover,
+    &:hover:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green-dark;
+      color: $fs-green-dark;
+    }
+    &:active, &:focus {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green-darker !important;
+      color: $fs-green-darker;
+    }
+    &:visited {
+      background-color: $transparent;
+      box-shadow: inset 0 0 0 2px $fs-green;
+      color: $fs-green;
     }
   }
 
@@ -44,19 +103,8 @@
     }
   }
 
-  .usa-button-primary-alt {
-    background-color: $fs-green;
-    color: $white;
-    box-shadow: none;
-    &:hover {
-      background-color: $fs-green-dark;
-    }
-    &:active {
-      background-color: $fs-green-darker;
-    }
-  }
 
-  .usa-button-secondary {
+  .usa-button-red {
     background-color: $fs-red;
     color: $white;
     box-shadow: none;
@@ -72,27 +120,6 @@
     }
   }
 
-  .usa-button-outline {
-    background-color: $transparent;
-    box-shadow: inset 0 0 0 2px $fs-green;
-    color: $fs-green;
-    &:hover,
-    &:hover:visited {
-      background-color: $transparent;
-      box-shadow: inset 0 0 0 2px $fs-green-dark;
-      color: $fs-green-dark;
-    }
-    &:active {
-      background-color: $transparent;
-      box-shadow: inset 0 0 0 2px $fs-green-darker;
-      color: $fs-green-darker;
-    }
-    &:visited {
-      background-color: $transparent;
-      box-shadow: inset 0 0 0 2px $fs-green;
-      color: $fs-green;
-    }
-  }
 }
 
 .button-hint {

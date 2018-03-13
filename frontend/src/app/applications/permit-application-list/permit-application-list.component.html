@@ -78,7 +78,7 @@
         <label>Permit holder</label>
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div class="application-details">
-          <a class="usa-button usa-button-outline" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
+          <a class="usa-button usa-button-secondary-alt" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>
           <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
