@@ -6,7 +6,7 @@ import { ChristmasTreeMapDetailsService } from './christmas-tree-map-details.ser
   selector: 'app-tree-map-details',
   templateUrl: './christmas-tree-map-details.component.html'
 })
-export class ChristmasTreeMapDetailsComponent implements OnInit{
+export class ChristmasTreeMapDetailsComponent implements OnInit {
   mapLocation: any;
   mapDescriptionPieces: any[];
   mapId: any;
