@@ -13,8 +13,8 @@ export class SidebarComponent implements OnInit {
   @Input() mobileMenu = false;
   @Input() user;
 
-  bottom: string;
   top: string;
+  bottom: string;
   position: string;
   showMobileNav = false;
   menuBtnTop: string;
@@ -87,7 +87,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
-    this.top = '270px';
+    this.top = '325px';
     this.route = this.router.url.split('#')[0];
   }
 }

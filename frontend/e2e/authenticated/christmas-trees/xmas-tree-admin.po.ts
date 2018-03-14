@@ -54,7 +54,7 @@ export class TreesReportPage {
   }
 
   adminFormMobile() {
-    return element(by.id('forest-admin-form-link-mobile'));
+    return element(by.id('forest-admin-form-mobile-link'));
   }
 
   forestSelect() {

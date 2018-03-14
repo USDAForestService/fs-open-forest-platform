@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
@@ -8,18 +8,17 @@ import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin
   templateUrl: './forests-admin-nav.component.html'
 })
 export class ForestAdminNavComponent implements OnInit {
-  user;
+  @Input() user: any;
+
   forestAdminNavItems = [];
   showAdminNav = true;
   showMobileNav = false;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private adminService: ChristmasTreesAdminService
   ) {}
 
   ngOnInit() {
-    this.authenticationService.getAuthenticatedUser().subscribe((user) => { this.user = user; });
     this.forestAdminNavItems = this.adminService.getAdminNavItems();
   }
 }

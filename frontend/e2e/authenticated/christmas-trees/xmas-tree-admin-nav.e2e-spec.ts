@@ -1,4 +1,3 @@
-import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 import { TreesReportPage } from './xmas-tree-admin.po';
 
@@ -6,8 +5,6 @@ describe('Xmas admin navbar', () => {
   let page: TreesReportPage;
 
   beforeAll(() => {
-    browser.get('/admin/christmas-trees/season-dates');
-    browser.sleep(900);
     page = new TreesReportPage();
     browser.driver
       .manage()

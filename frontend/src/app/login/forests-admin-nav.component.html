@@ -1,4 +1,9 @@
-<nav id="forest-admin-nav" role="nav" [ngClass]="{'is-visible' : !showMobileNav}" class="site-nav-secondary sticky" *ngIf="user && user.role === 'admin' && user.forests.length">
+<nav
+ *ngIf="user && user.role === 'admin' && user.forests && user.forests.length"
+ id="forest-admin-nav" role="nav"
+ [ngClass]="{'is-visible' : !showMobileNav}"
+ class="site-nav-secondary sticky"
+>
   <ul *ngIf="forestAdminNavItems.length">
     <li *ngFor="let navItem of forestAdminNavItems">
       <a *ngIf="navItem.routerLink" id="{{navItem.id}}" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"><span>{{navItem.title}}</span></a>
@@ -14,8 +19,8 @@
       <button class="usa-nav-close" (click)="showMobileNav = false; showAdminNav=true;">
         <img src="/assets/img/close.svg" alt="Close navigation menu">
       </button>
-      <ul id="sidenav-mobile" class="usa-nav-primary usa-accordion">
-        <li *ngIf="user.role === 'admin'">
+      <ul class="usa-nav-primary usa-accordion">
+        <li *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
           <button class="usa-accordion-button usa-nav-link" (click)="showAdminNav = !showAdminNav" [attr.aria-expanded]="showAdminNav" aria-controls="forest-admin-nav-item-container">
             <span>Forest admin</span>
           </button>

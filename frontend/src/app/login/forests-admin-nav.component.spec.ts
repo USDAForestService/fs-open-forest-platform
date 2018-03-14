@@ -24,7 +24,6 @@ describe('ForestAdminNavComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         providers: [
-          { provide: AuthenticationService, useClass: MockAuthenticationService },
           UtilService,
           ChristmasTreesAdminService
         ],

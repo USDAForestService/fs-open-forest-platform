@@ -59,13 +59,5 @@ describe('Xmas sidebar page', () => {
     element(by.id('mobile-menu-btn')).click();
     browser.sleep(1500);
     expect<any>(element(by.id('sidenav-mobile')).isDisplayed()).toBeTruthy();
-    browser.sleep(1500);
-    // element(by.id('mobile-trip-planning-link')).click();
-    // expect<any>(
-    //   browser.driver
-    //     .switchTo()
-    //     .activeElement()
-    //     .getAttribute('id')
-    // ).toEqual('trip-planning');
   });
 });
