@@ -96,41 +96,63 @@ module.exports = factory.factory({
       partySize: '4-10',
       // required string
       locationDescription:
-        'such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location such a great location ',
+        'such a great location such a great location such a great location such a great location such a great location ' +
+        ' such a great location such a great location such a great location such a great location such a great location ' +
+        'such a great location such a great location such a great location such a great location such a great location ',
       // required string
       servicesProvided:
-        'excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services excellent services ',
+        'excellent services excellent services excellent services excellent services excellent services excellent ' +
+        'services excellent services excellent services excellent services excellent services excellent services ' +
+        'excellent services excellent services excellent services excellent services excellent services excellent ' +
+        'services excellent services ',
       // required string
       audienceDescription:
-        'what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience what a great audience ',
+        'what a great audience what a great audience what a great audience what a great audience what a great audience ' +
+        'what a great audience what a great audience what a great audience what a great audience what a great audience ' +
+        'what a great audience what a great audience what a great audience what a great audience what a great audience ',
       // required boolean
       needGovernmentFacilities: true,
       // optional string
       listOfGovernmentFacilities:
-        'so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities so many government facilities ',
+        'so many government facilities so many government facilities so many government facilities so many government ' +
+        'facilities so many government facilities so many government facilities so many government facilities so many ' +
+        'government facilities so many government facilities so many government facilities so many government ' +
+        'facilities so many government facilities ',
       // required boolean
       needTemporaryImprovements: true,
       // optional string
       listOfTemporaryImprovements:
-        'all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements all the great improvements ',
+        'all the great improvements all the great improvements all the great improvements all the great improvements ' +
+        'all the great improvements all the great improvements all the great improvements all the great improvements ' +
+        'all the great improvements all the great improvements all the great improvements all the great improvements ' +
+        'all the great improvements ',
       // required boolean
       haveMotorizedEquipment: true,
       // optional string
       statementOfMotorizedEquipment:
-        'all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment all the great motorized equipment ',
+        'all the great motorized equipment all the great motorized equipment all the great motorized equipment all the ' +
+        'great motorized equipment all the great motorized equipment all the great motorized equipment all the great ' +
+        'motorized equipment all the great motorized equipment all the great motorized equipment all ' +
+        'the great motorized equipment ',
       // required boolean
       haveLivestock: true,
       // optional string
       statementOfTransportationOfLivestock:
-        'all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock all the great livestock ',
+        'all the great livestock all the great livestock all the great livestock all the great livestock all the great ' +
+        'livestock all the great livestock all the great livestock all the great livestock all the great livestock all the' +
+        ' great livestock all the great livestock all the great livestock all the great livestock ',
       // required boolean
       needAssignedSite: true,
       // optional string
       statementOfAssignedSite:
-        'all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites all the great sites ',
+        'all the great sites all the great sites all the great sites all the great sites all the great sites all the ' +
+        'great sites all the great sites all the great sites all the great sites all the great sites all the great ' +
+        'sites all the great sites all the great sites all the great sites all the great sites all the great sites ',
       // required string
       descriptionOfCleanupAndRestoration:
-        'all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup ',
+        'all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup' +
+        ' all the great cleanup all the great cleanup all the great cleanup all the great cleanup all the great cleanup ' +
+        'all the great cleanup all the great cleanup all the great cleanup all the great cleanup ',
       // required
       dateTimeRange: {
         // required string UTC datetime

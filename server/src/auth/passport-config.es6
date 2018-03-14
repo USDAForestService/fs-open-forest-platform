@@ -42,7 +42,7 @@ passportConfig.getPassportUser = (req, res) => {
  * Log out of eAuth or login.gov.
  */
 passportConfig.logout = (req, res) => {
-  /** login.gov requires the user to visit the idp to logout */
+  // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(

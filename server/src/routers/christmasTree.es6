@@ -6,25 +6,25 @@ const christmasTreeController = require('../controllers/christmas-tree.es6');
 
 const router = express.Router();
 
-/* get list of forests for christmas tree permits */
+/** get list of forests for christmas tree permits */
 router.get('/', christmasTreeController.getForests);
 
-/* get regulations for a single forest */
+/** get regulations for a single forest */
 router.get('/:id', christmasTreeController.getForest);
 
-/*POST a new christmas tree application*/
+/** POST a new christmas tree application*/
 router.post('/christmas-trees/permits', christmasTreeController.create);
 
-/*Cancel permit*/
+/** Cancel permit*/
 router.put('/christmas-trees/permits', christmasTreeController.update);
 
-/* get one permit */
+/** get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
 
-/* get details of one permit which has not been completed*/
+/** get details of one permit which has not been completed*/
 router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
 
-/* get printable copy of the permit*/
+/** get printable copy of the permit*/
 router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);
 
 module.exports = router;
