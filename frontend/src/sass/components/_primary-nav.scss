@@ -1,67 +1,120 @@
 .usa-nav {
   background-color: $fs-tan;
-  .usa-nav-primary {
-    margin-top: 1.5em;
-    @media(min-width: $nav-width) {
-      margin-top: 0;
-    }
-    li {
-      border-top: none;
-      a,
-      span,
-      button {
-        color: $white;
-        font-size: 18px;
-        @media(min-width: $nav-width) {
-          font-size: 16px;
-        }
-        &:hover {
-          background-color: transparent;
-          @media(min-width: $nav-width) {
-            background-color: $fs-green-darker;
-          }
-        }
-      }
-      .usa-nav-link {
-        &:hover {
-          span, a {
-            border-bottom: none;
-          }
-        }
-      }
-      button {
-        &[aria-expanded=false]{
-          background-image: url(/img/plus-white.png) !important;
-          background-image: url(/img/plus-white.svg) !important;
-          @media(min-width: $nav-width) {
-            background-image: url(/img/angle-arrow-down-hover.png) !important;
-            background-image: url(/img/angle-arrow-down-hover.svg) !important;
-          }
-        }
-        &[aria-expanded=true]{
-          background-image: url(/img/minus-white.png) !important;
-          background-image: url(/img/minus-white.svg) !important;
-          @media(min-width: $nav-width) {
-            background-color: $fs-green-darker;
-          }
-          span {
-            border-bottom: none;
-          }
-        }
-      }
-      ul.usa-nav-submenu {
-        @media(min-width: $nav-width) {
-          background-color: $fs-green-darker;
-        }
-        li {
-          a,
-          span,
-          button {
-            font-size: 14px;
-            font-weight: normal;
-          }
-        }
-      }
-    }
+}
+
+.usa-nav .usa-nav-primary {
+  margin-top: 1.5em;
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary.usa-accordion li button[aria-expanded='true'] span {
+    color: #ffffff;
+  }
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary.usa-accordion li .usa-nav-submenu li a {
+    color: #ffffff;
+  }
+}
+
+.usa-nav .usa-nav-primary li {
+  border-top: none;
+}
+
+.usa-nav .usa-nav-primary li a,
+.usa-nav .usa-nav-primary li span,
+.usa-nav .usa-nav-primary li button {
+  color: #076727;
+  font-size: 18px;
+}
+
+.usa-nav .usa-nav-primary li button {
+  font-style: normal;
+  padding-left: 1.5rem;
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li a,
+  .usa-nav .usa-nav-primary li span,
+  .usa-nav .usa-nav-primary li button {
+    font-size: 18px;
+  }
+}
+
+.usa-nav .usa-nav-primary li .usa-nav-link:hover span,
+.usa-nav .usa-nav-primary li .usa-nav-link:hover a {
+  border-bottom: none;
+}
+
+.usa-nav .usa-nav-primary li button[aria-expanded='false'] {
+  background-image: url(/assets/img/plus-green.svg);
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li button[aria-expanded='false'] {
+    background-image: url(/assets/img/angle-arrow-down-green.svg);
+  }
+}
+
+.usa-nav .usa-nav-primary li button[aria-expanded='true'] {
+  background-image: url(/assets/img/minus-green.svg);
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li button[aria-expanded='true'] {
+    background-image: url(/assets/img/angle-arrow-down-primary-white.svg);
+    color: #ffffff;
+    background-color: #073d11;
+  }
+}
+
+.usa-nav .usa-nav-primary li button[aria-expanded='true'] span {
+  border-bottom: none;
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li ul.usa-nav-submenu {
+    background-color: #073d11;
+    color: #ffffff;
+  }
+}
+
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li a,
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li span,
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li button {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li a:hover,
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li span:hover,
+.usa-nav .usa-nav-primary li ul.usa-nav-submenu li button:hover {
+  background-color: transparent;
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li:hover {
+    background-color: #073d11;
+  }
+  .usa-nav .usa-nav-primary li:hover span,
+  .usa-nav .usa-nav-primary li:hover a {
+    color: #ffffff;
+  }
+}
+
+.usa-nav .usa-nav-primary li:hover button {
+  background-color: transparent;
+}
+
+@media (min-width: $nav-width) {
+  .usa-nav .usa-nav-primary li:hover button {
+    background-image: url(/assets/img/angle-arrow-down-primary-white.svg) !important;
   }
 }

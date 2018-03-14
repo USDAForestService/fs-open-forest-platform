@@ -5,7 +5,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -31,7 +31,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   };
 
   constructor(
-    private treesAdminService: TreesAdminService,
+    private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
     private router: Router,
