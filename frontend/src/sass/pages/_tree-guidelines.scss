@@ -132,11 +132,30 @@ app-tree-cutting-dates {
   }
 }
 
+
 #tree-measuring-container {
+  p {
+    img {
+      vertical-align: middle;
+      width: 125px;
+      padding-right: 2rem;
+    }
+  }
+}
+
+#how-to-plan-container {
   img {
-    vertical-align: middle;
+    float: left;
+    position: relative;
+    top: -10px;
     width: 125px;
     padding-right: 2rem;
+    margin-right: 10px;
+    clear:both;
+  }
+  p {
+
+    min-height: 125px;
   }
 }
 
