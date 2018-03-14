@@ -155,4 +155,16 @@ app-tree-cutting-dates {
   #trees-footer-sticky-forestname {
     font-size: 2rem;
   }
+
+  #trees-footer-sticky-desc-container {
+    span {
+      padding: 2rem;
+    }
+  }
+
+  @media (max-width: $medium-screen) {
+    #trees-footer-sticky-desc-container {
+      display: none;
+    }
+  }
 }

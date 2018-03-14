@@ -11,7 +11,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 export class TreeGuidelinesFooterComponent implements AfterViewInit {
   @Input() forest: any;
 
-  public fixed = false;
+  public fixed = true;
   lastScrollHeight;
 
   constructor(
