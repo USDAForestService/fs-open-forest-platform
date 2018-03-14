@@ -7,6 +7,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080/',
   buildDate: new Date(),
-  version: 'DEV'
+  version: 'DEV',
+  changeRequestForm: 'https://docs.google.com/forms/d/e/1FAIpQLSca7taTXY7xUTDvcnyR7rf7jkfvinBPtGqbNWgLBd3Dy6kH4Q/viewform'
 
 };

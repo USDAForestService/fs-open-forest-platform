@@ -4,22 +4,26 @@
     {
       "id": "noble-fir",
       "name": "Noble Fir",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by Susan McDougal"
     },
     {
       "id": "pacific-silver-fir",
       "name": "Pacific Silver Fir",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by Susan McDougal"
     },
     {
       "id": "douglas-fir",
       "name": "Douglas-fir",
-      "status": "not recommended"
+      "status": "not recommended",
+      "photoCredits": "Photo by J.S. Peterson"
     },
     {
       "id": "pacific-yew",
       "name": "Pacific Yew",
-      "status": "prohibited"
+      "status": "prohibited",
+      "photoCredits": "Photo by Susan McDougal"
     }
   ]
 }

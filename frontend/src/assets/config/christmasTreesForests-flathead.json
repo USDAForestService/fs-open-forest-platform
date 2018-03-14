@@ -4,37 +4,44 @@
     {
       "id": "engelmann-spruce",
       "name": "Engelmann Spruce",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by Al Schneider"
     },
     {
       "id": "douglas-fir",
       "name": "Douglas-fir",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by J.S. Peterson"
     },
     {
       "id": "grand-fir",
       "name": "Grand Fir",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by Susan McDougal"
     },
     {
       "id": "lodgepole-pine",
       "name": "Lodgepole Pine",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by J.S. Peterson"
     },
     {
       "id": "subalpine-fir",
       "name": "Subalpine Fir",
-      "status": "recommended"
+      "status": "recommended",
+      "photoCredits": "Photo by J.S. Peterson"
     },
     {
       "id": "ponderosa-pine",
       "name": "Ponderosa Pine",
-      "status": "not recommended"
+      "status": "not recommended",
+      "photoCredits": "Photo by J.S. Peterson"
     },
     {
       "id": "whitebark-pine",
       "name": "Whitebark Pine",
-      "status": "prohibited"
+      "status": "prohibited",
+      "photoCredits": "Photo by Susan McDougal"
     }
   ]
 }

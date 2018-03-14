@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 import { Router } from '@angular/router';
+import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -9,15 +11,23 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   @Input() items: any;
   @Input() mobileMenu = false;
-  bottom: string;
+  @Input() user;
+
   top: string;
+  bottom: string;
   position: string;
   showMobileNav = false;
   menuBtnTop: string;
   menuBtnPosition: string;
   route: string;
+  forestAdminNavItems = [];
+  showAdminNav = false;
 
-  constructor(public util: UtilService, private router: Router) {}
+  constructor(
+    public util: UtilService,
+    private router: Router,
+    private adminService: ChristmasTreesAdminService
+  ) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
@@ -75,8 +85,9 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
-    this.top = '270px';
+    this.top = '325px';
     this.route = this.router.url.split('#')[0];
   }
 }
