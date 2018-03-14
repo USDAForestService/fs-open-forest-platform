@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Inject } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 import { Router } from '@angular/router';
 import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+import { WindowRef } from '../_services/native-window.service';
+import { DOCUMENT } from '@angular/common';
 
 
 @Component({
@@ -24,17 +26,19 @@ export class SidebarComponent implements OnInit {
   showAdminNav = false;
 
   constructor(
+    @Inject(DOCUMENT) private doc: Document,
     public util: UtilService,
     private router: Router,
-    private adminService: ChristmasTreesAdminService
+    private adminService: ChristmasTreesAdminService,
+    private winRef: WindowRef
   ) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    const nav = document.getElementById('sidebar-nav');
-    const container = document.getElementById('sidebar-page');
-    const footer = document.getElementById('footer');
-    const header = document.getElementById('header');
+    const nav = this.doc.getElementById('sidebar-nav');
+    const container = this.doc.getElementById('sidebar-page');
+    const footer = this.doc.getElementById('footer');
+    const header = this.doc.getElementById('header');
 
     if (nav && this.items && this.items.length > 0) {
       this.sidebarHeaderIntersection(container, header);
@@ -64,7 +68,7 @@ export class SidebarComponent implements OnInit {
   }
 
   private pageYOffset() {
-    if (window.pageYOffset > this.items.length * 16) {
+    if (this.winRef.getNativeWindow().pageYOffset > this.items.length * 16) {
       this.menuBtnPosition = 'fixed';
       this.menuBtnTop = '0px';
     } else {

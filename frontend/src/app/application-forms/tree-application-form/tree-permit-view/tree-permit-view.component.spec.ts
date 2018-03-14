@@ -13,7 +13,6 @@ import { McBreadcrumbsService, McBreadcrumbsModule, McBreadcrumbsConfig } from '
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';
-import { DOCUMENT } from '@angular/common';
 
 class MockWindowRef {
   location = { hash: 'WAOW-MOCK-HASH' };
@@ -25,8 +24,6 @@ class MockWindowRef {
     };
   }
 }
-
-
 
 class MockChristmasTreesApplicationService {
   create(): Observable<{}> {

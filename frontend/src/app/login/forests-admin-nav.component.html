@@ -11,9 +11,9 @@
     </li>
   </ul>
 </nav>
-<ng-container>
+<ng-container *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
-  <button id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="fixed" [style.top]="menuBtnTop">Menu</button>
+  <button *ngIf="!sideNavPresent" id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
   <nav id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showAdminNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
       <button class="usa-nav-close" (click)="showMobileNav = false; showAdminNav=true;">

@@ -2,6 +2,7 @@
   position: absolute;
   top: 162px;
   right: 0;
+  z-index: 999;
   @media (min-width: $small-screen) {
     top: 140px;
   }
@@ -51,7 +52,6 @@
   line-height: 5rem;
   padding: 1.5rem;
   text-decoration: none;
-  -webkit-font-smoothing: antialiased;
 }
 
 .site-nav-secondary a:hover span {

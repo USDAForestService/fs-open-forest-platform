@@ -6,6 +6,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { WindowRef } from '../_services/native-window.service';
 
 class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {
@@ -24,6 +25,7 @@ describe('ForestAdminNavComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         providers: [
+          WindowRef,
           UtilService,
           ChristmasTreesAdminService
         ],
@@ -36,6 +38,8 @@ describe('ForestAdminNavComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ForestAdminNavComponent);
     component = fixture.componentInstance;
+    component.menuBtnTop = '20px';
+    component.menuBtnPosition = 'absolute';
     fixture.detectChanges();
   });
 
@@ -45,6 +49,23 @@ describe('ForestAdminNavComponent', () => {
 
   it('should have the forest admin nav items', () => {
     expect(component.forestAdminNavItems).not.toBeNull();
+  });
+
+  it('should set absolute position if top of the container is greater than items times offset', () => {
+    spyOn(document, 'getElementById').and.callFake(function() {
+      return {
+        value: 'test',
+        getBoundingClientRect() {
+          return { top: 0 };
+        }
+      };
+    });
+    spyOn(window, 'innerHeight').and.callFake(function() {
+      return 0;
+    });
+    component.track(new Event('scroll'));
+    expect(component.menuBtnTop).toEqual('');
+    expect(component.menuBtnPosition).toEqual('absolute');
   });
 });
 
