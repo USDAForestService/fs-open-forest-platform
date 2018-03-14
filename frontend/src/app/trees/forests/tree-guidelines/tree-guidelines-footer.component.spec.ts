@@ -4,7 +4,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { forest } from '../../../_mocks/forest.mock';
 import { WindowRef } from '../../../_services/native-window.service';
-import { DOCUMENT } from '@angular/common';
 
 class MockWindowRef {
   location = { hash: 'WAOW-MOCK-HASH' };

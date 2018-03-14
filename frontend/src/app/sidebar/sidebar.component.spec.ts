@@ -5,6 +5,7 @@ import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
 import { FilterPipe } from '../_pipes/filter.pipe';
 import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+import { WindowRef } from '../_services/native-window.service';
 
 class MockUtilService {
   currentSection: string;
@@ -38,6 +39,7 @@ describe('SidebarComponent', () => {
       TestBed.configureTestingModule({
         declarations: [SidebarComponent, FilterPipe],
         providers: [
+          WindowRef,
           { provide: UtilService, useClass: MockUtilService },
           ChristmasTreesAdminService
         ],
