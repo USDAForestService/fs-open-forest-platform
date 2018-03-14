@@ -1,4 +1,4 @@
-<div class="usa-grid" id="forest-cutting-hours-dates-container">
+<div class="usa-grid" id="forest-cutting-dates-container">
   <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-dates">
     <h3 id="cutting-season-dates-heading">
       <svg class="float-left icon" width="48" height="48" viewBox="0 0 66 66" aria-hidden="true">
@@ -8,16 +8,6 @@
     </h3>
     <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
     <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
-  </div>
-
-  <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-hours">
-    <h3 id="cutting-season-daily-hours-heading">
-      <svg class="float-left icon" width="48" height="48" viewBox="0 0 2304 2304" aria-hidden="true">
-        <use xlink:href="/assets/img/cutting-time-icon.svg#cutting-time-icon" fill="white" />
-      </svg>
-      Cutting hours
-    </h3>
-    <div id="cutting-season-daily-hours-default">Daylight hours only</div>
   </div>
 </div>
 

@@ -33,16 +33,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
-
-    it('should display a daily hours heading for the overall forest', () => {
-      expect<any>(element(by.id('cutting-season-daily-hours-heading')).isPresent()).toBeTruthy();
-    });
-
-    it('should display default daily hours for the overall forest', () => {
-      expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
-    });
-
   });
 
   describe('Shoshone', () => {
@@ -76,20 +66,10 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().getText()).toEqual('Dates not yet available.');
     });
 
-    it('should display a daily hours heading for the overall forest', () => {
-      expect<any>(element(by.id('cutting-season-daily-hours-heading')).isPresent()).toBeTruthy();
-    });
-
-    it('should display default daily hours for the overall forest', () => {
-      expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
-    });
-
-    it ('should show the season not open info alert', () => {
+    it('should show the season not open info alert', () => {
       expect<any>(page.seasonOpenAlert().isDisplayed()).toBeTruthy();
     });
-
-   });
+  });
 
   describe('Flathead', () => {
     beforeEach(() => {
@@ -120,16 +100,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
-
-    it('should display a daily hours heading for the overall forest', () => {
-      expect<any>(element(by.id('cutting-season-daily-hours-heading')).isPresent()).toBeTruthy();
-    });
-
-    it('should display default daily hours for the overall forest', () => {
-      expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
-    });
-
   });
 
   describe('Arapaho/Roosevelt', () => {
@@ -161,15 +131,5 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
-
-    it('should display a daily hours heading for the overall forest', () => {
-      expect<any>(element(by.id('cutting-season-daily-hours-heading')).isPresent()).toBeTruthy();
-    });
-
-    it('should display default daily hours for the overall forest', () => {
-      expect<any>(page.cuttingDatesHoursDefault().isPresent()).toBeTruthy();
-      expect<any>(page.cuttingDatesHoursDefault().getText()).toEqual('Daylight hours only');
-    });
-
   });
 });
