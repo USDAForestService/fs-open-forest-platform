@@ -10,9 +10,9 @@ _Staging:_
 [![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-permit-platform.svg)](https://github.com/nciinc/fs-permit-platform/issues)
 [![Code Climate](https://codeclimate.com/github/nciinc/fs-permit-platform/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-permit-platform)
 
-# U.S. Forest Service Intake Module
+# U.S. Forest Service Permit Platform
 
-** Module for intake of special use applications for Forest Service Application Permits. **
+** Platform for sale of Christmas tree permits and intake of special use applications for the Forest Service **
 
 ## Welcome
 
@@ -30,33 +30,29 @@ We had the opportunity to modernize the ability to apply for special use permits
 - [Welcome](#welcome)
 - [Opportunity Statement](#opportunity-statement)
 - [Table of contents](#table-of-contents)
-- [Content administration](#content-administration)
-	- [Christmas Trees Database and seeders](#christmas-trees-database-and-seeders)
-	- [Markdown and Christmas trees forest content](#markdown-and-christmas-trees-forest-content)
-	- [Christmas trees forest JSON content](#christmas-trees-forest-json-content)
 - [Development](#development)
-	- [Contributing](#contributing)
-	- [Public domain](#public-domain)
+		- [Docker Environment](#docker-environment)
 	- [Requirements:](#requirements)
-		- [Package Manager](#package-manager)
-		- [Node](#node)
-		- [Git](#git)
-		- [Git Seekret](#git-seekret)
+		- [Local development requirements](#local-development-requirements)
+			- [Package Manager](#package-manager)
+			- [Git](#git)
+			- [Git Seekret](#git-seekret)
+		- [Local development and deployment requirements](#local-development-and-deployment-requirements)
+			- [Node](#node)
+			- [PostgreSQL](#postgresql)
 	- [Clone the repository](#clone-the-repository)
 	- [Server development](#server-development)
 		- [Database](#database)
 		- [Environment Variables](#environment-variables)
 		- [Install dependencies](#install-dependencies)
 		- [Available commands](#available-commands)
-			- [Setup database](#setup-database)
-			- [Start the server](#start-the-server)
-			- [Other commands](#other-commands)
 		- [Server API Documentation](#server-api-documentation)
 		- [Authentication](#authentication)
 		- [Mock Data](#mock-data)
 		- [Forest start and end dates](#forest-start-and-end-dates)
 		- [JWT Usage](#jwt-usage)
 		- [Pay.Gov integration](#paygov-integration)
+		- [SMTP relay configuration for sending emails](#smtp-relay-configuration-for-sending-emails)
 	- [Frontend Development](#frontend-development)
 		- [Install angular cli](#install-angular-cli)
 		- [Navigate to frontend directory](#navigate-to-frontend-directory)
@@ -72,73 +68,62 @@ We had the opportunity to modernize the ability to apply for special use permits
 		- [Pay.gov error mocking in local environment](#paygov-error-mocking-in-local-environment)
 		- [Pay.gov in QA environment](#paygov-in-qa-environment)
 		- [Christmas trees sidebar template](#christmas-trees-sidebar-template)
+- [Deployment](#deployment)
+	- [Continuous Integration, Continuous Deployment](#continuous-integration-continuous-deployment)
+	- [Cloud.gov](#cloudgov)
+- [Content administration](#content-administration)
+	- [Christmas Trees Database and seeders](#christmas-trees-database-and-seeders)
+	- [Markdown and Christmas trees forest content](#markdown-and-christmas-trees-forest-content)
+	- [Christmas trees forest JSON content](#christmas-trees-forest-json-content)
 	- [Enable html5 pushstate on cloud.gov](#enable-html5-pushstate-on-cloudgov)
-	- [SMTP relay configuration for sending emails](#smtp-relay-configuration-for-sending-emails)
 		- [Logging STMP errors](#logging-stmp-errors)
 	- [Docker Environment](#docker-environment)
 - [Usability testing](#usability-testing)
 - [Known technical Debt](#known-technical-debt)
+- [Contributing](#contributing)
+- [Public domain](#public-domain)
 
 <!-- /TOC -->
 
-## Content administration
+## Development
 
-### Christmas Trees Database and seeders
+** The following instructions outline tools and procedures required for local development **
 
-The database is used to provide data for a minimal set of variables that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The database contains the following fields:
+#### Docker Environment
 
-[View ChristmasTreesForest database structure](/wiki/christmas-trees/content/christmas-trees-forests-db-table.md)
+As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
 
-
-### Markdown and Christmas trees forest content
-
-To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under frontend/src/assets/content and then adding the forest_abbr to the url. (For example, _frontend/src/assets/content/mthood_.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, _/christmas-trees/forests/flathead_.)
-
-In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}.
-
-[View a list of markdown files and their locations](/wiki/christmas-trees/content/markdown-files.md)
-
-### Christmas trees forest JSON content
-
-JSON files for forest content are in _/assets/config_
-
-Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., sharedtree species information. The shared tree species are located in _frontend/src/assets/content/common/species_.
+[View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
 
 [View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
 
-## Development
-
-### Contributing
-
-See [CONTRIBUTING](CONTRIBUTING.md) for additional information.
-
-### Public domain
-
-This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
-
-> This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
->
-> All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
-
 ### Requirements:
 
-#### Package Manager
+#### Local development requirements
+
+##### Package Manager
 
 Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 
-#### Node
-
-Install [Node ^6.10.3](https://nodejs.org/en/)
-
-#### Git
+##### Git
 
 Install [Git](https://git-scm.com/)
 
-#### Git Seekret
+##### Git Seekret
 All contributors should use git-seekret
 (https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
 
 Project specific rules are defined on the [wiki](/wiki/git-seekret.md).
+
+#### Local development and deployment requirements
+
+##### Node
+
+Install [Node ^8.9.4](https://nodejs.org/en/)
+
+##### PostgreSQL
+
+Install [PostgreSQL](https://www.postgresql.org/)
 
 ### Clone the repository
 
@@ -169,37 +154,15 @@ run `cd server` then run `yarn` to install dependencies.
 
 To run any of the server commands, either the environment variables above must be available in your shell or on the command line, and you must be in the server directory.
 
-##### Setup database
-
-To setup the database run `yarn migrate`
-
-##### Start the server
-
-Run `yarn dev` to start the server, and visit http://localhost:8080.
-
-##### Other commands
-
-To revert the last database migration run
-
-`yarn undoLastMigrate`
-
-To revert all of the database migrations and start with a blank database run
-
-`yarn undoAllMigrate`
-
-To run eslint for linting:
-
-`yarn lint`
-
-The linting results will be put into `server/lint-results.html`.
-
-To run all of the tests locally, be sure your Postgresql server is running and then run: `yarn test`
-
-To run code coverage locally, be sure your Postgresql server is running then run:
-
-`yarn coverage`
-
-The coverage results can be found in `server/coverage/index.html`
+| Function | Command | Additional information |
+| ------------- |:-------------:| -------------:|
+| Setup Database | `yarn migrate` | |
+| Start the server | `yarn dev` | Server is accessible at http://localhost:8080 |
+| Revert the last database migration | `yarn undoLastMigrate` | |
+| Revert all of the database migrations and start with a blank database | `yarn undoAllMigrate` | |
+| Run eslint for linting | `yarn lint` | The linting results will be put into `server/lint-results.html`. |
+| To run all of the tests locally | `yarn test` | Be sure your Postgresql server is running |
+| To run code coverage locally | `yarn coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
 
 #### Server API Documentation
 
@@ -236,6 +199,14 @@ VCAP service value for jwt token is used for appending a token to permit URL to 
 
 VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
 To mock Pay.Gov integration use the values in the VCAP example.
+
+#### SMTP relay configuration for sending emails
+
+The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
+
+Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
+
+The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
 ### Frontend Development
 
@@ -310,6 +281,43 @@ Navigate to `/assets/typedoc/index.html`
 #### Christmas trees sidebar template
 [View instructions to use the Christmas trees sidebar template.](/wiki/development/christmas-trees-sidebar-template.md)
 
+## Deployment
+
+### Continuous Integration, Continuous Deployment
+[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml).
+
+The circleci configuration separates e2e tests from all other tests in two different jobs that run simultaneously to decrease build time.
+
+Deployment to a staging server is configured to run on the sprint branch only.
+
+### Cloud.gov
+
+Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
+
+## Content administration
+
+### Christmas Trees Database and seeders
+
+The database is used to provide data for a minimal set of variables that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The database contains the following fields:
+
+[View ChristmasTreesForest database structure](/wiki/christmas-trees/content/christmas-trees-forests-db-table.md)
+
+
+### Markdown and Christmas trees forest content
+
+To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under frontend/src/assets/content and then adding the forest_abbr to the url. (For example, _frontend/src/assets/content/mthood_.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, _/christmas-trees/forests/flathead_.)
+
+In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}.
+
+[View a list of markdown files and their locations](/wiki/christmas-trees/content/markdown-files.md)
+
+### Christmas trees forest JSON content
+
+JSON files for forest content are in _/assets/config_
+
+Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., sharedtree species information. The shared tree species are located in _frontend/src/assets/content/common/species_.
+
+
 ### Enable html5 pushstate on cloud.gov
 
 In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
@@ -317,14 +325,6 @@ In order to enable pushstate for single page apps on cloud.gov using the static 
 This allows you to use urls like `/some/path` instead of `/#/some/path`
 
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
-
-### SMTP relay configuration for sending emails
-
-The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
-
-Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
-
-The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
 #### Logging STMP errors
 
@@ -335,6 +335,8 @@ SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
 
 [View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
+
+[View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
 
 ## Usability testing
 
@@ -349,3 +351,15 @@ The file frontend/src/sass/\_focus-fix.scss implements a style fix in the upstre
 Due to performance issues, Pa11y testing is handled by an unreleased version of pa11y-ci 2.x that uses pa11y 5. Once pa11y-ci 2 is released, pa11y-ci dependency should be updated in `/frontend/package.json`.
 
 The server dependency is JSDOM is currently a fork to pass security vulnerability tests. This should be replaced with the original package once the security vulnerability is fixed.
+
+## Contributing
+
+See [CONTRIBUTING](CONTRIBUTING.md) for additional information.
+
+## Public domain
+
+This project is in the worldwide [public domain](LICENSE.md). As stated in [CONTRIBUTING](CONTRIBUTING.md):
+
+> This project is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+>
+> All contributions to this project will be released under the CC0 dedication. By submitting a pull request, you are agreeing to comply with this waiver of copyright interest.
