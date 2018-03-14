@@ -56,7 +56,8 @@ templates.completeOnlineCollectionRequest.cardError = returnCode => {
           <detail>
             <TCSServiceFault xmlns="http://fms.treas.gov/services/tcsonline">
               <return_code>${returnCode}</return_code>
-              <return_detail>The application does not accept credit cards or the transaction exceeds the maximum daily limit for credit card transactions. The transaction will not be processed.</return_detail>
+              <return_detail>The application does not accept credit cards or the transaction exceeds the maximum 
+              daily limit for credit card transactions. The transaction will not be processed.</return_detail>
             </TCSServiceFault>
           </detail>
         </soapenv:Fault>

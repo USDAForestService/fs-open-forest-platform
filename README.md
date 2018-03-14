@@ -25,6 +25,7 @@ The opportunity statement = the problem we are trying to solve with the ePermitt
 We had the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
 
 ## Table of contents
+
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [Welcome](#welcome)
@@ -110,6 +111,7 @@ Install [yarn](https://yarnpkg.com/en/docs/install) package manager
 Install [Git](https://git-scm.com/)
 
 ##### Git Seekret
+
 All contributors should use git-seekret
 (https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
 
@@ -178,12 +180,10 @@ Due to security restrictions testing can't be done locally, you must use a serve
 
 Note: if running in a clustered environment Session Affinity (sticky sessions) should be configured.
 
-=======
-
 #### Mock Data
 
 Some models (e.g. christmasTreesForests) use a sequelize hook to change the data as configured in the seed commands
-at run-time for purposes of testing. An alert is also displayed in the frontend. Mock data application uses the NODE_ENV and environment values in the server and frontend code respectively.
+at run-time for purposes of testing. An alert is also displayed in the frontend. Mock data application uses the `NODE_ENV` and environment values in the server and frontend code respectively.
 
 #### Forest start and end dates
 
@@ -197,7 +197,7 @@ VCAP service value for jwt token is used for appending a token to permit URL to 
 
 #### Pay.Gov integration
 
-VCAP service values for Pay.Gov need to be updated for production deploy. {token_url} and {client_url} need to be supplied by Pay.Gov.
+VCAP service values for Pay.Gov need to be updated for production deploy. `{token_url}` and `{client_url}` need to be supplied by Pay.Gov.
 To mock Pay.Gov integration use the values in the VCAP example.
 
 #### SMTP relay configuration for sending emails
@@ -279,11 +279,13 @@ Navigate to `/assets/typedoc/index.html`
 * A valid credit card number in staging environment is `4111111111111111`.
 
 #### Christmas trees sidebar template
+
 [View instructions to use the Christmas trees sidebar template.](/wiki/development/christmas-trees-sidebar-template.md)
 
 ## Deployment
 
 ### Continuous Integration, Continuous Deployment
+
 [Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml).
 
 The circleci configuration separates e2e tests from all other tests in two different jobs that run simultaneously to decrease build time.
@@ -298,14 +300,13 @@ Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory
 
 ### Christmas Trees Database and seeders
 
-The database is used to provide data for a minimal set of variables that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The database contains the following fields:
+The database is used to store Christmas Trees permit applications for transaction purposes, and a minimal set of variables for each forest that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The Christmas Trees Forests database contains the following fields:
 
 [View ChristmasTreesForest database structure](/wiki/christmas-trees/content/christmas-trees-forests-db-table.md)
 
-
 ### Markdown and Christmas trees forest content
 
-To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under frontend/src/assets/content and then adding the forest_abbr to the url. (For example, _frontend/src/assets/content/mthood_.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, _/christmas-trees/forests/flathead_.)
+To update a forest’s informational content, you’ll need to find and modify markdown files specific to the forest. The content is structured so that each national forest has its own directory, which can be found under `frontend/src/assets/content` and then adding the `forest_abbr` to the url. (For example, `frontend/src/assets/content/mthood`.) Each forest’s directory contains several markdown files and folders that comprise the bulk of the content for each forest. (For example, `/christmas-trees/forests/flathead`.)
 
 In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}.
 
@@ -313,14 +314,13 @@ In the markdown files, database variables are indicated by curly brackets, such 
 
 ### Christmas trees forest JSON content
 
-JSON files for forest content are in _/assets/config_
+JSON files for forest content are in `/assets/config`
 
-Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., sharedtree species information. The shared tree species are located in _frontend/src/assets/content/common/species_.
-
+Each forest has a JSON file that contains any data needed by the forest that does not come from the database or markdown, e.g., shared tree species information. The shared tree species are located in `frontend/src/assets/content/common/species`.
 
 ### Enable html5 pushstate on cloud.gov
 
-In order to enable pushstate for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
+In order to enable `pushstate` for single page apps on cloud.gov using the static build pack, you must add a file called `Staticfile` to the root directory with a single line `pushstate: enabled`
 
 This allows you to use urls like `/some/path` instead of `/#/some/path`
 
@@ -346,7 +346,7 @@ While developing we spent time usability testing features with the correct users
 
 ## Known technical Debt
 
-The file frontend/src/sass/\_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
+The file `frontend/src/sass/_focus-fix.scss` implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
 
 The server dependency is JSDOM is currently a fork to pass security vulnerability tests. This should be replaced with the original package once the security vulnerability is fixed.
 

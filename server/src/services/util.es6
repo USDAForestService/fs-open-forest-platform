@@ -243,8 +243,9 @@ util.getAdminForests = adminUsername => {
 };
 
 util.getUserRole = adminUsername => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
-    util.USER_ROLE;
+  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
 };
 
 util.handleErrorResponse = (error, res) => {
@@ -261,9 +262,12 @@ util.handleErrorResponse = (error, res) => {
 
 util.request = request;
 
+/**
+ * get S3 credentials
+ */
 util.getS3 = () => {
-  /** Initialize our S3 bucket connection for file attachments */
-  /** if local or CI use aws credentials */
+  // Initialize our S3 bucket connection for file attachments
+  // if local or CI use aws credentials
   let s3 = new AWS.S3({
     region: vcapConstants.region,
     accessKeyId: vcapConstants.accessKeyId,

@@ -14,7 +14,7 @@ const middleware = {};
  * Set the http headers.
  */
 middleware.setCorsHeaders = (req, res, next) => {
-  /** Don't cache the API calls. */
+  // Don't cache the API calls.
   res.set('Cache-Control', 'no-cache');
   if (process.env.PLATFORM === 'local' || process.env.PLATFORM === 'CI') {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
