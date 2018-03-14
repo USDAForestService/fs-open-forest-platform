@@ -12,7 +12,7 @@ _Staging:_
 
 # U.S. Forest Service Permit Platform
 
-** Platform for sale of Christmas tree permits and intake of special use applications for the Forest Service **
+** Platform for sale of Christmas tree permits and intake of special use applications for the U.S. Forest Service **
 
 ## Welcome
 
@@ -347,8 +347,6 @@ While developing we spent time usability testing features with the correct users
 ## Known technical Debt
 
 The file frontend/src/sass/\_focus-fix.scss implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
-
-Due to performance issues, Pa11y testing is handled by an unreleased version of pa11y-ci 2.x that uses pa11y 5. Once pa11y-ci 2 is released, pa11y-ci dependency should be updated in `/frontend/package.json`.
 
 The server dependency is JSDOM is currently a fork to pass security vulnerability tests. This should be replaced with the original package once the security vulnerability is fixed.
 
