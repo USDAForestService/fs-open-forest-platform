@@ -55,11 +55,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install aws cli
-          command: sudo apt-get update && sudo apt-get install -y awscli
-      - run:
           name: install jq
-          command: sudo apt-get install jq
+          command: sudo apt-get update && sudo apt-get install jq
       - run:
           name: copy frontend assets into server
           command: cd server; ./copy-frontend-assets.sh
@@ -77,6 +74,9 @@ jobs:
           name: run unauthenticated e2e
           command: cd docker; ../.circleci/run-unauthenticated-e2e.sh
       - run:
+          name: install aws cli
+          command: sudo apt-get install -y awscli
+      - run:
           name: clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
       - store_artifacts:
@@ -91,11 +91,21 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install node@8.9.4
+          command: |
+            set +e
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v8.9.4
+            nvm alias default v8.9.4
+            
+            # Each step uses the same `$BASH_ENV`, so need to modify it
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
+      - run:
           name: install pa11y
           command: cd frontend; npm i -g pa11y-ci && npm i
-      - run:
-          name: build pa11y compose images
-          command: cd docker; ../.circleci/build-pa11y-image.sh
       - run:
           name: pa11y test
           command: cd docker; ../.circleci/pa11y.sh

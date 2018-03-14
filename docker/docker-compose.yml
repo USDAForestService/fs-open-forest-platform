@@ -48,5 +48,20 @@ services:
       - fs-intake
     links:
       - fs-intake-postgres
+  fs-intake-pa11y:
+      build:
+        context: ..
+        dockerfile: docker/Dockerfile-pa11y
+      ports:
+        - "4200:4200"
+      volumes:
+        - ../frontend:/app
+        - /app/node_modules
+        - /dev/shm:/dev/shm
+      depends_on:
+        - fs-intake-server
+      networks:
+        - fs-intake
+      user: root
 networks:
   fs-intake:
