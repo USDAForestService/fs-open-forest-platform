@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialDetailsComponent } from './applications/permit-application-view/noncommercial-details.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
+import { ServerErrorComponent } from './error-pages/server-error.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { PayGovMocksModule } from './pay-gov-mocks/pay-gov-mocks.module';
@@ -38,6 +39,7 @@ import { PageHeaderComponent } from './home/header.component';
 import { PageFooterComponent } from './home/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
+import { ForestAdminNavComponent } from './login/forests-admin-nav.component';
 
 @NgModule({
   declarations: [
@@ -47,12 +49,14 @@ import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolv
     Base64,
     CancelApplicationComponent,
     DaysToOrDate,
+    ForestAdminNavComponent,
     HelpMePickComponent,
     HomeComponent,
     HoursFromOrDate,
     LoggedInComponent,
     NoncommercialDetailsComponent,
     NotFoundComponent,
+    ServerErrorComponent,
     PageFooterComponent,
     PageHeaderComponent,
     PermitApplicationListComponent,

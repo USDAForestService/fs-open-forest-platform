@@ -14,10 +14,11 @@ import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
 import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
-import { TreesAdminService } from './admin/trees-admin.service';
+import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
-import { TreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component'
-import { MapDetailsService } from './forests/christmas-tree-map-details/christmas-tree-map-details.service'
+import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component'
+import { ChristmasTreeMapDetailsService } from './forests/christmas-tree-map-details/christmas-tree-map-details.service'
+import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-guidelines-footer.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MapDetailsService } from './forests/christmas-tree-map-details/christma
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     ForestFinderComponent,
-    TreeMapDetailsComponent,
+    ChristmasTreeMapDetailsComponent,
+    TreeGuidelinesFooterComponent,
     RemovePuncPipe,
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
@@ -40,13 +42,14 @@ import { MapDetailsService } from './forests/christmas-tree-map-details/christma
     ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
+    TreeGuidelinesFooterComponent,
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
-    TreeMapDetailsComponent,
+    ChristmasTreeMapDetailsComponent,
     LineBreakFormatterPipe,
     ColumnizeArrayPipe
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ChristmasTreesService, TreesAdminService, ChristmasTreesApplicationService, MapDetailsService]
+  providers: [ChristmasTreesService, ChristmasTreesAdminService, ChristmasTreesApplicationService, ChristmasTreeMapDetailsService]
 })
 export class TreesModule {}

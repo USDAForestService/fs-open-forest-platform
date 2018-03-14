@@ -5,7 +5,8 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-report',
@@ -20,6 +21,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   apiErrors: any;
   reportParameters: any;
   isDateSearch = true;
+  changeRequestFormUrl = environment.changeRequestForm;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -35,7 +37,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
-    private treesAdminService: TreesAdminService,
+    private treesAdminService: ChristmasTreesAdminService,
     private winRef: WindowRef
   ) {
     this.form = formBuilder.group({

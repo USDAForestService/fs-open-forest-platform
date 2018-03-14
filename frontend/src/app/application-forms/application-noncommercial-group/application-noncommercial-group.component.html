@@ -112,7 +112,7 @@
       </fieldset>
 
       <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-      <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-outline usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
+      <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
       <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
 
     </form>

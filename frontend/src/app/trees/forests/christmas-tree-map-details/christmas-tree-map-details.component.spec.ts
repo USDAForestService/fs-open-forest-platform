@@ -2,20 +2,20 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TreeMapDetailsComponent } from './christmas-tree-map-details.component';
-import { MapDetailsService } from './christmas-tree-map-details.service';
+import { ChristmasTreeMapDetailsComponent } from './christmas-tree-map-details.component';
+import { ChristmasTreeMapDetailsService } from './christmas-tree-map-details.service';
 
-describe('TreeMapDetailsComponent', () => {
-  let component: TreeMapDetailsComponent;
-  let fixture: ComponentFixture<TreeMapDetailsComponent>;
+describe('ChristmasTreeMapDetailsComponent', () => {
+  let component: ChristmasTreeMapDetailsComponent;
+  let fixture: ComponentFixture<ChristmasTreeMapDetailsComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeMapDetailsComponent],
+        declarations: [ChristmasTreeMapDetailsComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
-          { provide: MapDetailsService, useClass: MapDetailsService }
+          { provide: ChristmasTreeMapDetailsService, useClass: ChristmasTreeMapDetailsService }
         ],
         imports: [HttpClientTestingModule, RouterTestingModule]
       }).compileComponents();
@@ -23,7 +23,7 @@ describe('TreeMapDetailsComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreeMapDetailsComponent);
+    fixture = TestBed.createComponent(ChristmasTreeMapDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

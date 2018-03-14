@@ -1,0 +1,8 @@
+<div class="fs-footer-sticky trees-footer-sticky" [class.fixed]="fixed">
+  <span id="trees-footer-sticky-forestname"><b>{{forest.forestName}}</b></span>
+  <span> - Christmas trees are ${{forest.treeCost}} each. Maximum of {{forest.maxNumTrees}} per permit.</span>
+  <span>
+    <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button-primary-alt" id="fs-footer-sticky-buy-permit-link" tabIndex="-1">Buy permit</button>
+  </span>
+
+</div>

@@ -2,7 +2,7 @@
   <div class="usa-grid">
     <app-breadcrumbs></app-breadcrumbs>
 
-    <app-sidebar mobileMenu="true" [items]="sidebarItems"  class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
+    <app-sidebar mobileMenu="true" [items]="sidebarItems" [user]="user" class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
     <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
       <h1 *ngIf="forest">{{forest.forestName}} Christmas Tree Permit Information</h1>
@@ -21,8 +21,7 @@
       <!--when to cut-->
       <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
       <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
-      <br>
-      <button [hidden]="!forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr,'applications']" class="usa-button-primary-alt" id="buy-permit-link" tabIndex="-1">Buy permit</button>
+
       <!--where to cut-->
       <hr class="thick" />
       <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
@@ -65,3 +64,4 @@
     </div>
   </div>
 </section>
+<app-trees-sticky-footer [forest]="forest"></app-trees-sticky-footer>

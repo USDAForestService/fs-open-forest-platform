@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
-export class MapDetailsService {
+export class ChristmasTreeMapDetailsService {
   MAP_DETAILS_FILE_URL = 'assets/config/map-details.json';
 
   constructor(private http: HttpClient) {
