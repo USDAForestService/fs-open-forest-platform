@@ -59,10 +59,9 @@ export class SidebarComponent implements OnInit {
   }
 
   private sidebarFooterIntersection(footer) {
-    if (footer.getBoundingClientRect().top < this.items.length * 60) {
+    if (footer.getBoundingClientRect().top < this.items.length * 80) {
       // sidebar bottom hits top of footer
-      const bottom = -Math.abs(footer.getBoundingClientRect().top) + this.items.length * 2.5;
-      this.top = this.items.length * -9 + 'px';
+      this.top = this.items.length * -1 + 'px';
       this.position = 'fixed';
     }
   }
@@ -93,5 +92,6 @@ export class SidebarComponent implements OnInit {
     this.util.setCurrentSection('');
     this.top = '325px';
     this.route = this.router.url.split('#')[0];
+    this.track(new Event('scroll'));
   }
 }
