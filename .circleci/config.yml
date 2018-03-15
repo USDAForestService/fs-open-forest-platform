@@ -188,7 +188,7 @@ workflows:
           requires:
           filters:
             branches:
-              only: master
+              only: sprint-11-development
       - staging-deploy:
           requires:
             - run-all-other-tests
