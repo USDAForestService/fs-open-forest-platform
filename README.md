@@ -298,6 +298,8 @@ Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory
 
 ## Content administration
 
+[Christmas trees README](/wiki/christmas-trees/README.md)
+
 ### Christmas Trees Database and seeders
 
 The database is used to store Christmas Trees permit applications for transaction purposes, and a minimal set of variables for each forest that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The Christmas Trees Forests database contains the following fields:
