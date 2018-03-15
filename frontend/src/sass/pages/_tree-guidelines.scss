@@ -64,6 +64,9 @@
   background-color: $fs-green;
   color: $white;
 }
+.tree-img {
+  max-width: 215px;
+}
 
 markdown#season-dates-markdown {
   table {
@@ -132,7 +135,6 @@ app-tree-cutting-dates {
   }
 }
 
-
 #tree-measuring-container {
   p {
     img {
@@ -151,10 +153,9 @@ app-tree-cutting-dates {
     width: 125px;
     padding-right: 2rem;
     margin-right: 10px;
-    clear:both;
+    clear: both;
   }
   p {
-
     min-height: 125px;
   }
 }
@@ -164,7 +165,7 @@ app-tree-cutting-dates {
   height: 1px;
   width: 1px;
   clip: rect(1px 1px 1px 1px); // IE 6 and 7
-  clip: rect(1px,1px,1px,1px);
+  clip: rect(1px, 1px, 1px, 1px);
   clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
   -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
   overflow: hidden !important;
