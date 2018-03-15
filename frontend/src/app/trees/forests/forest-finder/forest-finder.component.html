@@ -1,29 +1,48 @@
-<section class="usa-section">
+<section id="forest-finder-intro" class="usa-hero forest-finder-intro">
   <div class="usa-grid">
-    <app-breadcrumbs></app-breadcrumbs>
-    <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit online</h1>
-    <p>National forests have their own rules, season dates and permit prices for cutting down Christmas trees. During this Christmas tree cutting season,
-      the forests below are offering the option to buy a Christmas tree permit online. For national forests that do not offer the online permit option, you can buy a permit at the local Ranger District office.</p>
-    <div id="forest-finder-form">
-      <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-        <label for="forest-finder-select">Choose a forest that sells online Christmas tree permits:</label>
-        <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
-          <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
-        </select>
-        <input id='forest-finder-submit' class='usa-button-primary' type='submit' value='Go to selected forest' />
-      </form>
-    </div>
-    <hr>
-    <h2>Christmas tree permit forests</h2>
-    <div *ngFor='let i of rows' class='usa-grid'>
-      <div *ngFor='let forest of forests | slice:(i*itemsPerRow):(i+1)*itemsPerRow'>
-        <div class='usa-width-one-half forest-image-container'>
-          <h3>{{forest.forestName}}</h3>
-          <a [routerLink]="['/christmas-trees/forests/', forest.forestAbbr]">
-            <img id="{{forest.forestAbbr}}-map-img" src="/assets/img/{{ forest.forestNameShort | RemovePunc:['.'] | SpacesToDashes }}-forest-map.png" alt='{{forest.forestName}} Map'>
-          </a>
-        </div>
+    <div class="usa-hero-callout usa-section-dark">
+      <app-breadcrumbs></app-breadcrumbs>
+      <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit online</h1>
+      <p>National forests have their own rules, season dates and permit prices for cutting down Christmas trees. During this Christmas tree cutting season,
+        the forests below are offering the option to buy a Christmas tree permit online. For national forests that do not offer the online permit option, you can buy a permit at the local Ranger District office.</p>
+      <div id="forest-finder-form">
+        <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
+          <label for="forest-finder-select">Choose a forest that sells online Christmas tree permits:</label>
+          <select role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
+            <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
+          </select>
+          <input id='forest-finder-submit' class='usa-button-primary' type='submit' value='Go to selected forest' />
+        </form>
       </div>
     </div>
+  </div>
+</section>
+<section id="what-to-expect" class="usa-section what-to-expect">
+  <div class="usa-grid">
+    <h2>What to expect</h2>
+    <div class="usa-width-one-third">
+      <h3>Get the know-how.</h3>
+      <p>Whether it's your first time, or a long-standing family tradition, learn more about Christmas tree cutting on the National Forest you select above.</p>
+    </div>
+    <div class="usa-width-one-third">
+      <h3>Buy a permit.</h3>
+      <p>Help us ensure national forest resources into the future by carefully reading and following the rules and guidelines for your Christmas tree permit.</p>
+    </div>
+    <div class="usa-width-one-third">
+      <h3>Enjoy your trip!</h3>
+      <p>Before you leave, check the weather and bring the tools and supplies you need to cut down your Christmas tree.</p>
+    </div>
+  </div>
+</section>
+<section id="every-kid-in-a-park" class="usa-section every-kid-in-a-park">
+  <div class="usa-grid">
+    <div class="usa-width-one-fourth">Kid in park logo</div>
+    <div class="usa-width-three-fourths">The <a href="#">every kid in the park</a> initiative offers free access to national parks for children and their families. Fourth graders may also be eligible to receive a free Christmas tree permit. Contact your <a href="#">local forest</a> for details.</div>
+  </div>
+</section>
+<section id="multi-faceted-agency" class="multi-faceted-agency">
+  <div class="usa-grid">
+    <div class="usa-width-three-fourths">We are a multi-faceted agency and protects 154 national forests and 20 grasslands in 43 states and Puerto Rico. Our mission is to sustain the health, diversity, and productivity of the nation's forests and grasslands to meet the needs of present and future generations.</div>
+    <div class="usa-width-one-fourth">Forest service logo</div>
   </div>
 </section>
