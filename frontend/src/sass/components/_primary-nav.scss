@@ -96,7 +96,7 @@
 .usa-nav .usa-nav-primary li ul.usa-nav-submenu li a:hover,
 .usa-nav .usa-nav-primary li ul.usa-nav-submenu li span:hover,
 .usa-nav .usa-nav-primary li ul.usa-nav-submenu li button:hover {
-  background-color: transparent;
+  background-color: $transparent;
 }
 
 @media (min-width: $nav-width) {
@@ -110,7 +110,7 @@
 }
 
 .usa-nav .usa-nav-primary li:hover button {
-  background-color: transparent;
+  background-color: $transparent;
 }
 
 @media (min-width: $nav-width) {
