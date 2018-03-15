@@ -1,0 +1,22 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+    <metadata>
+        <rdf:RDF
+                xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+                xmlns:dc = "http://purl.org/dc/elements/1.1/" >
+            <rdf:Description about="tree-height-icon"
+                             dc:title="tree-height-icon"
+                             dc:description="tree with ruler"
+                             dc:publisher="U.S. National Forest Service"
+                             dc:date="2018-02-28"
+                             dc:format="image/svg+xml"
+                             dc:language="en" >
+                <dc:creator>
+                    <rdf:Bag>
+                        <rdf:li>https://fontawesome.com/license</rdf:li>
+                    </rdf:Bag>
+                </dc:creator>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+    <defs><style>.cls-1{fill:#d6d2c1;}.cls-2{fill:#fff;}.cls-3{fill:#0f662b;}</style></defs><title>permit-icon</title><circle class="cls-1" cx="62.5" cy="62.5" r="62.5"/><rect class="cls-2" x="28.41" y="41.45" width="70.67" height="46"/><path class="cls-3" d="M702.59,562a7.6,7.6,0,0,1-7.63,7.63H628.87a7.6,7.6,0,0,1-7.63-7.63V516.24a7.6,7.6,0,0,1,7.63-7.63H695a7.6,7.6,0,0,1,7.63,7.63ZM695,521.32H628.87V561a1.12,1.12,0,0,0,1,1H694a1.12,1.12,0,0,0,1-1ZM668.9,539.12a1.9,1.9,0,0,1-1.91-1.91v-2.54a1.9,1.9,0,0,1,1.91-1.91h16.52a1.9,1.9,0,0,1,1.91,1.91v2.54a1.9,1.9,0,0,1-1.91,1.91Zm18.43,7a1.9,1.9,0,0,0-1.91-1.91H668.9a1.9,1.9,0,0,0-1.91,1.91v2.54a1.9,1.9,0,0,0,1.91,1.91h16.52a1.9,1.9,0,0,0,1.91-1.91Z" transform="translate(-598.3 -475.6)"/><path class="cls-3" d="M659.69,548.74a1.51,1.51,0,0,1,.41,1,1.31,1.31,0,0,1-.41,1,1.34,1.34,0,0,1-1,.41h-6.45c0,1,.19.87.58,1.49a5.56,5.56,0,0,0,1.39,1.57.81.81,0,0,1,.29,1,.86.86,0,0,1-.87.61h-9.45a.86.86,0,0,1-.87-.61.81.81,0,0,1,.29-1,6.26,6.26,0,0,0,1.51-1.71c.31-.56.46-.42.46-1.35H639.2a1.34,1.34,0,0,1-1-.41,1.31,1.31,0,0,1-.41-1,1.51,1.51,0,0,1,.41-1l4.83-5h-2a1.37,1.37,0,0,1-1-2.29l0,0,4.76-5.11h-1.92a1.34,1.34,0,0,1-1-.41,1.31,1.31,0,0,1-.41-1,1.42,1.42,0,0,1,.35-1l6-6.5a1.41,1.41,0,0,1,2-.1l.1.1,6,6.5a1.42,1.42,0,0,1,.35,1,1.31,1.31,0,0,1-.41,1,1.34,1.34,0,0,1-1,.41h-1.92l4.76,5.11a1.33,1.33,0,0,1,0,1.88l0,0a1.34,1.34,0,0,1-1,.41h-2Z" transform="translate(-598.3 -475.6)"/></svg>

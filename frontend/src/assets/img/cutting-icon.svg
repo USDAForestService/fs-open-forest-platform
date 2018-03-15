@@ -1,0 +1,22 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
+    <metadata>
+        <rdf:RDF
+                xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+                xmlns:dc = "http://purl.org/dc/elements/1.1/" >
+            <rdf:Description about="tree-height-icon"
+                             dc:title="tree-height-icon"
+                             dc:description="tree with ruler"
+                             dc:publisher="U.S. National Forest Service"
+                             dc:date="2018-02-28"
+                             dc:format="image/svg+xml"
+                             dc:language="en" >
+                <dc:creator>
+                    <rdf:Bag>
+                        <rdf:li>https://fontawesome.com/license</rdf:li>
+                    </rdf:Bag>
+                </dc:creator>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+    <defs><style>.cls-1{fill:#d6d2c1;}.cls-2{fill:#0f662b;}.cls-3{fill:#fff;stroke:#0f662b;stroke-miterlimit:10;stroke-width:1.5px;}</style></defs><title>cutting-icon</title><circle class="cls-1" cx="62.5" cy="62.5" r="62.5"/><path class="cls-2" d="M675,542.34c.49,6.67,1.19,9.37,2.06,10.8a27.37,27.37,0,0,0,6.93,7.8,4,4,0,0,1,1.39,5,4.33,4.33,0,0,1-4.33,2.95H634.29A4.33,4.33,0,0,1,630,566a4,4,0,0,1,1.39-5,31,31,0,0,0,7.45-8.49c.7-1.25,1.23-3.64,1.6-10.06C640.84,534.58,674.44,534.51,675,542.34Z" transform="translate(-598.72 -475.54)"/><ellipse class="cls-1" cx="58.97" cy="67.49" rx="14.3" ry="5.22"/><ellipse class="cls-2" cx="58.97" cy="67.49" rx="10.1" ry="3.69"/><ellipse class="cls-1" cx="58.97" cy="67.49" rx="7.34" ry="2.68"/><path class="cls-3" d="M710.3,528.85a2.82,2.82,0,0,0-1.25-3.74c-.12-.06-68.38-26.13-68.38-26.13l-4.24,8.53,1.47,4.35,3.25-1.09,1.09,3.25,3.36-1.13,1.13,3.36,3.09-1,1,3.09,3.64-.77.92,3.45,4-.95,1.25,4,4.29-1.38,1.42,3.72,4.21-.81,1.42,4,4.25-1.13,1.13,3.36L681,531l1.25,3.56,3.68-1,.43,1.83a5.45,5.45,0,0,0,2.85,3.42l10.15,5.05.13.05.12.08a2.75,2.75,0,0,0,3.68-1.24Zm-11.42,10.53-6.58-3.27,5.79-11.64L705,527Z" transform="translate(-598.72 -475.54)"/></svg>
