@@ -28,7 +28,7 @@ export class TreeGuidelinesFooterComponent implements AfterViewInit {
     let scrollHeight = this.doc.body.scrollHeight;
 
     if (!this.fixed) {
-      scrollHeight = scrollHeight - 54;
+      scrollHeight = scrollHeight - 85;
     }
     this.lastScrollHeight = scrollHeight;
 
