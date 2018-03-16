@@ -8,7 +8,16 @@
         h1, span {
           color: $white !important;
         }
+        .usa-button {
+          margin-top: 2rem;
+          margin-bottom: 0;
+        }
      }
+    }
+    @media screen and (min-width: $small-screen) {
+      .usa-hero-callout {
+        max-width: 44rem;
+      }
     }
   }
 }
