@@ -73,11 +73,6 @@ describe('ForestFinderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have 2 rows', () => {
-    expect(component.rows.length).toEqual(2);
-    component.forests = null;
-  });
-
   it(
     'should redirect to forest page on click',
     fakeAsync(() => {
