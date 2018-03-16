@@ -23,7 +23,10 @@ const tempOutfitter = {};
 const s3 = util.getS3();
 
 /**
- * Translate permit application object from client format to database format.
+ * @function translateFromClientToDatabase - private function to translate permit application
+ * object from client format to database format.
+ * @param {Object} input
+ * @param {Object} output
  */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
@@ -117,7 +120,9 @@ const translateFromClientToDatabase = (input, output) => {
 };
 
 /**
- * Translate permit application object from database format to client format.
+ * @function translateFromDatabaseToClient - private function to translate permit application
+ * object from database format to client format.
+ * @param {Object} input
  */
 const translateFromDatabaseToClient = input => {
   const result = {
@@ -244,7 +249,9 @@ const translateFromDatabaseToClient = input => {
 };
 
 /**
- * Translate permit application object from database format to middle layer format.
+ * @function translateFromIntakeToMiddleLayer - API function to translate permit application object
+ * from database format to middle layer format..
+ * @param {Object} application
  */
 tempOutfitter.translateFromIntakeToMiddleLayer = application => {
   const result = {
@@ -338,7 +345,9 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
 };
 
 /**
- * Get a file from the S3 bucket.
+ * @function getFile - private function to get a file from the S3 bucket.
+ * @param {string} key
+ * @param {string} documentType
  */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
@@ -363,7 +372,8 @@ const getFile = (key, documentType) => {
 };
 
 /**
- * Get all file attachments for a permit application.
+ * @function getAllFiles - private function to get all file attachments for a permit application.
+ * @param {string} applicationId
  */
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {

@@ -54,3 +54,4 @@ frontend/e2e/*.map
 .DS_Store
 Thumbs.db
 server/lint-results.html
+server/docs/code
