@@ -6,7 +6,7 @@
 ![use a map](/assets/img/map-icon.svg "use a map") 
 **Bring a [forest or district map](/christmas-trees/forests/arp/#tree-locations) with you.** Don’t rely on GPS because it may not be up-to-date with forest service roads. 
 
-![dress for the weather](/assets/img/winter-warm-icon.svg "dress for the weather") **In winter, dress warmly and take extra dry clothes.**
+![dress for the weather](/assets/img/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
 
 
