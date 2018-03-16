@@ -4,7 +4,7 @@ docker-compose down
 #Rebuild server with PLATFORM set to something other than local to enable test to pass
 docker-compose build --build-arg PLATFORM='ci-unauthenticated' --build-arg AWS_CONFIG="$AWS_CONFIG" fs-intake-server
 
-docker-compose run fs-intake-frontend sudo yarn run e2e:ci --environment docker --config unauth-protractor.conf.js;
+docker-compose run fs-intake-frontend sudo yarn run e2e:ci --environment docker --config ./development-configurations/unauth-protractor.conf.js;
 
 e2ereturncode=$?
 

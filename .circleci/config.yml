@@ -125,7 +125,7 @@ jobs:
           name: install dependencies
           command: .circleci/install-dependencies.sh
       - run:
-          name: Run update script
+          name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: cd frontend; yarn run update-version;
       - run:
           name: generate typedocs
@@ -158,7 +158,7 @@ jobs:
           name: install dependencies
           command: .circleci/install-dependencies.sh
       - run:
-          name: Run update script
+          name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: cd frontend; yarn run update-version;
       - run:
           name: generate typedocs
