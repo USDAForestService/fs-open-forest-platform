@@ -193,6 +193,7 @@ workflows:
           requires:
             - run-all-other-tests
             - run-e2e
+            - run-pa11y
           filters:
             branches:
               only: sprint-11-development
