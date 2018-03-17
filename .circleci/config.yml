@@ -136,7 +136,7 @@ jobs:
           command: sudo npm i -g yarn
       - run:
           name: install dependencies
-          command: .circleci/install-dependencies.sh
+          command: .circleci/install-deployment-dependencies.sh
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: cd frontend; yarn run update-version;
@@ -172,7 +172,7 @@ jobs:
           command: sudo npm i -g yarn
       - run:
           name: install dependencies
-          command: .circleci/install-dependencies.sh
+          command: .circleci/install-deployment-dependencies.sh
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: cd frontend; yarn run update-version;
