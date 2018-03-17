@@ -11,7 +11,7 @@ jobs:
           command: cd frontend; npm i
       - run:
           name: install eslint
-          command: cd server; npm i -g eslint && npm i snyk
+          command: cd server; npm i -g eslint
       - run:
           name: frontend linting
           command: cd frontend; npm run lint
