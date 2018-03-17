@@ -23,7 +23,7 @@ jobs:
           command: cd server; npm run lint
       - run:
           name: server snyk
-          command: cd server; npm run snyk auth $AUTH_TOKEN; npm run snyk-test
+          command: cd server; npm run snyk-test
       - run:
           name: copy frontend assets into server
           command: cd server; ./copy-frontend-assets.sh

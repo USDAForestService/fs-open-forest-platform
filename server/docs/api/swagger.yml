@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "An API for the Forest Service Intake Module"
+  description: "U.S. Forest Service Permit Platform"
   version: "0.1.0"
-  title: "Forest Service Intake Module"
+  title: "U.S. Forest Service Permit Platform"
   license:
     name: "Open Source"
     url: "https://github.com/18F/fs-permit-platform/LICENSE.md"
@@ -193,23 +193,23 @@ paths:
       tags:
       - "christmas-tree"
       summary: "Retrieve existing christmas tree guidelines"
-      description: "Retrieve existing christmas tree guidelines using the forest id number"
+      description: "Retrieve existing christmas tree forest information using the forest abbreviation"
       operationId: ""
       produces:
       - "application/json"
       parameters:
       - in: "path"
         name: "id"
-        description: "Forest ID number: 1 - Arapaho and Roosevelt, 2 - Flathead, 3 - Mt. Hood, 4 - Shoshone"
+        description: "Forest abbreviations: arp - Arapaho and Roosevelt, flathead - Flathead, mthood - Mt. Hood, shoshone - Shoshone"
         required: true
-        type: "integer"
+        type: "string"
       responses:
         200:
           description: "Successful"
         400:
           description: "Invalid input or other error"
         404:
-          description: "Forest guideline not found"
+          description: "Forest not found"
   /forests/christmas-trees/permits:
     post:
       tags:
@@ -238,9 +238,9 @@ paths:
     put:
       tags:
       - "christmas-tree"
-      summary: "Cancels an initiated christmas-tree application"
-      description: "Cancels an initiated christmas-tree application"
-      operationId: "cancelChristmasTreeApp"
+      summary: "Updates a christmas-tree permit application"
+      description: "Updates christmas-tree permit application"
+      operationId: "update"
       consumes:
       - "application/json"
       produces:
@@ -248,7 +248,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "A non-christmas-tree application object"
+        description: "A Christmas tree permit application object"
         required: true
         schema:
           properties:
@@ -261,8 +261,8 @@ paths:
           description: "Validation error"
         500:
           description: "General server error"
-        201:
-          description: "Successful Creation"
+        200:
+          description: "Successful Update"
   /forests/christmas-trees/permits/{id}:
     get:
       tags:
