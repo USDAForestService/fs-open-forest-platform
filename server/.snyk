@@ -10,14 +10,13 @@ ignore:
     - jsdom > content-type-parser:
         reason: usage of jsdom does not expose app to the redos vulnerability
         expires: '2018-04-16T20:24:29.937Z'
-  'npm:lodash@3.10.1':
-        - nodemailer-juice > juice > cheerio > lodash:
-            reason: vulnerability not applicable through our usage of juice
-            expires: 2018-04-16T19:48:27.689Z
-  'npm:lodash@3.10.1-2':
-    - nodemailer-juice > juice > web-resource-inliner > lodash:
-        reason: vulnerability not applicable through our usage of juice
-        expires: 2018-04-16T19:48:27.689Z
+  'npm:lodash:20180130':
+      - nodemailer-juice > juice > cheerio > lodash:
+          reason: app not vulnerable since user input not possible
+          expires: '2018-04-16T20:54:32.618Z'
+      - nodemailer-juice > juice > web-resource-inliner > lodash:
+          reason: app not vulnerable since user input not possible
+          expires: '2018-04-16T20:54:32.618Z'
   'npm:clean-css:20180306':
     - nodemailer-juice > juice > web-resource-inliner > clean-css:
         reason: app not vulnerable since no user input
