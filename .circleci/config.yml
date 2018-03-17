@@ -22,6 +22,9 @@ jobs:
           name: server linting
           command: cd server; npm run lint
       - run:
+          name: install snyk on server
+          command: cd server; npm i -g snyk
+      - run:
           name: server snyk
           command: cd server; npm run snyk-test
       - run:
