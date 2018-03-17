@@ -50,7 +50,7 @@
     "juice": "^4.2.2",
     "node-forge": "^0.7.4",
     "braces": "^2.3.1",
-    "nwmatcher": "https://github.com/dperini/nwmatcher/tarball/master/9dcc2b039beeabd18327a5ebaa537625872e16f0"
+    "nwmatcher": "1.4.4"
   },
   "devDependencies": {
     "blob": "^0.0.4",

@@ -3933,9 +3933,9 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nwmatcher@^1.4.3, "nwmatcher@https://github.com/dperini/nwmatcher/tarball/master/9dcc2b039beeabd18327a5ebaa537625872e16f0":
-  version "1.4.3"
-  resolved "https://github.com/dperini/nwmatcher/tarball/master/9dcc2b039beeabd18327a5ebaa537625872e16f0#7292a45ab55a18dc6b7b56a94ad14bb50d8732a7"
+nwmatcher@1.4.4, nwmatcher@^1.4.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.4.4.tgz#2285631f34a95f0d0395cd900c96ed39b58f346e"
 
 nyc@^11.2.1:
   version "11.4.1"

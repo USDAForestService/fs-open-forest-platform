@@ -72,7 +72,7 @@
     "pa11y-ci": "^2.0.0",
     "protractor": "^5.2.2",
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
-    "sinon": "^3.2.1",
+    "sinon": "^4.4.6",
     "snyk": "1.42.4",
     "superstatic": "^5.0.1",
     "ts-node": "^3.1.0",
