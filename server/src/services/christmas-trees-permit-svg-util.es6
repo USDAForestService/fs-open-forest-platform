@@ -1,7 +1,7 @@
 'use strict';
 
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {JSDOM} = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -189,7 +189,10 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
     if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
-        christmasTreesPermitSvgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
+        christmasTreesPermitSvgUtil.formatCuttingAreaDate(
+          forest.timezone, cuttingAreas[areaKey].startDate,
+          cuttingAreas[areaKey].endDate
+        )
       );
     }
   }
