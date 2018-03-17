@@ -5,7 +5,7 @@ const util = require('../../../services/util.es6');
 
 module.exports = application => {
   return {
-    to: vcapConstants.specialUseAdminEmailAddresses,
+    to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
     subject: `The ${application.eventName} permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
     body: `
 Application details
@@ -20,7 +20,7 @@ Number of participants: ${application.noncommercialFieldsNumberParticipants}
 Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 
-Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
+Go to ${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications to log in.
 `
   };
 };

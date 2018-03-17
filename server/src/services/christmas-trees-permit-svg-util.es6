@@ -144,7 +144,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
 
   rulesHtml +=
     '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
-    vcapConstants.intakeClientBaseUrl +
+    vcapConstants.INTAKE_CLIENT_BASE_URL +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
@@ -153,7 +153,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     forest.forestName +
     ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
   var regex = new RegExp('"/assets/', 'g');
-  rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
+  rules = rules.replace(regex, '"' + vcapConstants.INTAKE_CLIENT_BASE_URL + '/assets/');
 
   rules = rules.replace(
     'alt="rules icon"',

@@ -19,11 +19,11 @@ eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 /** Instantiate the passport SamlStrategy */
 passport.use(
   new SamlStrategy({
-    path: vcapConstants.baseUrl + eAuth.callbackPath,
-    entryPoint: `${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`,
-    issuer: vcapConstants.eAuthIssuer,
-    privateCert: vcapConstants.eAuthPrivateKey,
-    cert: vcapConstants.eAuthCert
+    path: vcapConstants.BASE_URL + eAuth.callbackPath,
+    entryPoint: `${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`,
+    issuer: vcapConstants.EAUTH_ISSUER,
+    privateCert: vcapConstants.EAUTH_PRIVATE_KEY,
+    cert: vcapConstants.EAUTH_CERT
   }, (profile, done) => {
     return done(null, eAuth.setUserObject(profile));
   })
@@ -54,14 +54,14 @@ eAuth.setUserObject = (profile) => {
  * Initiate authentication via eAuth.
  */
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  return res.redirect(`${vcapConstants.eAuthEntryPoint}?SPID=${vcapConstants.eAuthIssuer}`);
+  return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
 });
 
 /**
  * Callback from eAuth.
  */
 eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  return res.redirect(`${vcapConstants.intakeClientBaseUrl}/logged-in`);
+  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
 });
 
 /**

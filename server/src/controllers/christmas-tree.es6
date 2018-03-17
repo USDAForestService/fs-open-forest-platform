@@ -71,12 +71,12 @@ christmasTree.getForest = (req, res) => {
 };
 
 const postPayGov = xmlData => {
-  const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
-  const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
+  const payGovPrivateKey = Buffer.from(vcapConstants.PAY_GOV_PRIVATE_KEY, 'utf8');
+  const payGovCert = Buffer.from(vcapConstants.PAY_GOV_CERT[0], 'utf8');
 
   return request.post(
     {
-      url: vcapConstants.payGovUrl,
+      url: vcapConstants.PAY_GOV_URL,
       method: 'POST',
       headers: {
         'Content-Type': 'application/xml'
@@ -119,7 +119,7 @@ const permitResult = permit => {
 };
 
 const updatePermitWithToken = (res, permit, token) => {
-  const tcsAppID = vcapConstants.payGovAppId;
+  const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
   permit
     .update({
       paygovToken: token
@@ -128,7 +128,7 @@ const updatePermitWithToken = (res, permit, token) => {
       return res.status(200).json({
         token: token,
         permitId: savedPermit.permitId,
-        payGovUrl: vcapConstants.payGovClientUrl,
+        payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
         tcsAppID: tcsAppID
       });
     })
@@ -349,7 +349,7 @@ christmasTree.getOnePermit = (req, res) => {
         });
       } else if (permit && permit.status === 'Completed') {
         const token = req.query.t;
-        jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
+        jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
           if (decoded) {
             returnSavedPermit(res, permit);
           } else {

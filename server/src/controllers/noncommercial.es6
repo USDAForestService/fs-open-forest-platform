@@ -321,7 +321,7 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
 noncommercial.acceptApplication = application => {
   const requestOptions = {
     method: 'POST',
-    url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+    url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
     simple: true,

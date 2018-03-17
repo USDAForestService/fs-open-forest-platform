@@ -14,7 +14,7 @@ module.exports = application => {
 
     ${application.applicantMessage}
 
-    Login at ${vcapConstants.intakeClientBaseUrl}/applications/temp-outfitters/${application.appControlNumber}/edit
+    Login at ${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/temp-outfitters/${application.appControlNumber}/edit
 
 
     Application details

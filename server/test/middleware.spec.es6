@@ -34,7 +34,7 @@ describe('middleware', () => {
     };
     const next = () => {
       expect(res.headers['Cache-Control'], 'no-cache');
-      expect(res.headers['Access-Control-Allow-Origin'], vcapConstants.intakeClientBaseUrl);
+      expect(res.headers['Access-Control-Allow-Origin'], vcapConstants.INTAKE_CLIENT_BASE_URL);
       process.env.PLATFORM = PLATFORM;
     };
     middleware.setCorsHeaders(req, res, next);

@@ -43,7 +43,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: vcapConstants.baseUrl,
+      domain: vcapConstants.BASE_URL,
       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
