@@ -5,7 +5,11 @@ ignore:
   'npm:nwmatcher:20180305':
     - jsdom > nwmatcher:
         reason: 'jsdom redos vulnerabilities do not apply due to out means of usage '
-        expires: '2018-04-16T19:24:48.993Z'
+        expires: '2018-04-16T19:48:27.689Z'
+  'npm:content-type-parser:20170905':
+    - jsdom > content-type-parser:
+        reason: usage of jsdom does not expose app to the redos vulnerability
+        expires: '2018-04-16T19:48:27.689Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
