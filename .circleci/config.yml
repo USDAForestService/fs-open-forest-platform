@@ -132,7 +132,7 @@ jobs:
           name: remove yarn dependencies
           command: rm -rf ~/.yarn
       - run:
-          name: instal yarn
+          name: install yarn
           command: sudo npm i -g yarn
       - run:
           name: install dependencies
@@ -143,6 +143,9 @@ jobs:
       - run:
           name: generate typedocs
           command: cd frontend; yarn run docs
+      - run:
+          name: server snyk protect
+          command: cd server; yarn run snyk-protect
       - run:
           name: Create dist
           command: cd frontend; yarn dist-trees;
