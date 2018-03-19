@@ -17,6 +17,7 @@ import { forest } from '../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
 import { MockMarkdownService } from '../../_mocks/markdownService.mock';
 import { Location } from '@angular/common';
+import { WindowRef } from '../../_services/native-window.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -54,7 +55,8 @@ describe('TreeApplicationFormComponent', () => {
               useValue: {
                 data: Observable.of({ forest: forest })
               }
-            }
+            },
+            WindowRef
           ],
           imports: [
             RouterTestingModule.withRoutes([{ path: 'christmas-trees/forests/:forest', component: DummyComponent }]),

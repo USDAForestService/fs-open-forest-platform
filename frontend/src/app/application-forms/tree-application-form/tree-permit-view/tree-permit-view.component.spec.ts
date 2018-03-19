@@ -90,7 +90,7 @@ describe ('', () => {  beforeEach(
     });
 
     it('should process error', () => {
-      component.processError([{ error: 'test' }]);
+      component.processError([{ error: 'test' }], {});
       expect(component.error).toEqual([{ error: 'test' }]);
     });
   });

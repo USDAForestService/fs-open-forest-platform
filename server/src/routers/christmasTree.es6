@@ -17,17 +17,17 @@ router.get('/', christmasTreeController.getForests);
 /** get regulations for a single forest */
 router.get('/:id', christmasTreeController.getForest);
 
-/** POST a new christmas tree application*/
+/** POST a new christmas tree application */
 router.post('/christmas-trees/permits', christmasTreeController.create);
 
-/** Cancel permit*/
-router.put('/christmas-trees/permits', christmasTreeController.update);
+/** Cancel or Complete permit application */
+router.put('/christmas-trees/permits', christmasTreeController.updatePermitApplication);
 
 /** get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
 
 /** get details of one permit which has not been completed*/
-router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
+//router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOnePermitDetail);
 
 /** get printable copy of the permit*/
 router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);
