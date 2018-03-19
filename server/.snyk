@@ -1,6 +1,26 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.7.1
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:nwmatcher:20180305':
+    - jsdom > nwmatcher:
+        reason: 'jsdom redos vulnerabilities do not apply due to out means of usage '
+        expires: '2018-04-16T20:24:29.937Z'
+  'npm:content-type-parser:20170905':
+    - jsdom > content-type-parser:
+        reason: usage of jsdom does not expose app to the redos vulnerability
+        expires: '2018-04-16T20:24:29.937Z'
+  'npm:lodash:20180130':
+      - nodemailer-juice > juice > cheerio > lodash:
+          reason: app not vulnerable since user input not possible
+          expires: '2018-04-16T20:54:32.618Z'
+      - nodemailer-juice > juice > web-resource-inliner > lodash:
+          reason: app not vulnerable since user input not possible
+          expires: '2018-04-16T20:54:32.618Z'
+  'npm:clean-css:20180306':
+    - nodemailer-juice > juice > web-resource-inliner > clean-css:
+        reason: app not vulnerable since no user input
+        expires: '2018-04-16T20:24:29.937Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':

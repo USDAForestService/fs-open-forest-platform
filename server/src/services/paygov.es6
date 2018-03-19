@@ -25,11 +25,11 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
     {
       data: permitId
     },
-    vcapConstants.permitSecret,
+    vcapConstants.PERMIT_SECRET,
     claims
   );
   return `${
-    vcapConstants.intakeClientBaseUrl
+    vcapConstants.INTAKE_CLIENT_BASE_URL
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 };
 
@@ -40,7 +40,7 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
  * @param {Object} permit
  */
 paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
-  const tcsAppID = vcapConstants.payGovAppId;
+  const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
   let url_success = '';
   try {
     url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
@@ -48,7 +48,7 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
     console.error('problem creating success url for permit ' + permit.id, e);
   }
 
-  const url_cancel = `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/${
+  const url_cancel = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${forestAbbr}/applications/${
     permit.permitId
   }`;
 
@@ -143,7 +143,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
                 {
                   completeOnlineCollectionRequest: [
                     {
-                      tcs_app_id: vcapConstants.payGovAppId
+                      tcs_app_id: vcapConstants.PAY_GOV_APP_ID
                     },
                     {
                       token: paygovToken

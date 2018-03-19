@@ -353,7 +353,7 @@ const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
     s3.getObject(
       {
-        Bucket: vcapConstants.bucket,
+        Bucket: vcapConstants.BUCKET,
         Key: key
       },
       (error, data) => {
@@ -413,7 +413,7 @@ const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
     .getObject({
-      Bucket: vcapConstants.bucket,
+      Bucket: vcapConstants.BUCKET,
       Key: fileName
     })
     .createReadStream()
@@ -463,7 +463,7 @@ const acceptApplication = application => {
       .then(files => {
         const requestOptions = {
           method: 'POST',
-          url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/commercial/temp-outfitters/',
+          url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
           simple: true,
           formData: {
@@ -570,7 +570,7 @@ tempOutfitter.streamFile = (req, res) => {
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: vcapConstants.bucket,
+    bucket: vcapConstants.BUCKET,
     metadata: function(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },

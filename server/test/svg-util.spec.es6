@@ -6,7 +6,7 @@ const expect = chai.expect;
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const markdown = require('markdown').markdown;
-const permitSvgService = require('../src/services/svg-util.es6');
+const permitSvgService = require('../src/services/christmas-trees-permit-svg-util.es6');
 const christmasTreesPermitFactory = require('./data/christmas-trees-permit-factory.es6');
 const christmasTreesForestFactory = require('./data/christmas-trees-forest-factory.es6');
 

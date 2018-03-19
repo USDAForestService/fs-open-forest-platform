@@ -13,7 +13,7 @@ var screenshotReporter = new HtmlScreenshotReporter({
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['./e2e/unauthenticated/**/*.e2e-spec.ts'],
+  specs: ['../e2e/unauthenticated/**/*.e2e-spec.ts'],
   capabilities: {
     browserName: 'chrome',
     chromeOptions: isDocker

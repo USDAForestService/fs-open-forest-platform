@@ -198,12 +198,12 @@ describe('tempoutfitter controllers', () => {
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/auth')
       .reply(200, {
         token: 'auth-token'
       });
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/permits/applications/special-uses/commercial/temp-outfitters/')
       .reply(200, {
         controlNumber: '1999'

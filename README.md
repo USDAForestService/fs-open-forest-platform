@@ -204,7 +204,7 @@ To mock Pay.Gov integration use the values in the VCAP example.
 
 The current configuration implements email via google smtp relay. Follow the documentation at https://support.google.com/a/answer/2956491?hl=en to set up your google SMTP relay.
 
-Authentication is set up to support whitelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
+Authentication is set up to support safelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 

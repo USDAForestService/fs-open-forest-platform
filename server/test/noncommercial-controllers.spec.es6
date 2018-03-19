@@ -501,12 +501,12 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and middlelayer authentication fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/auth')
       .reply(401, {
         token: 'auth-token'
       });
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, {
         status: 'success'
@@ -535,12 +535,12 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 500 status code when status is Accepted and the middlelayer POST fails', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/auth')
       .reply(201, {
         token: 'auth-token'
       });
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(500, {
         status: 'fail'
@@ -568,12 +568,12 @@ describe('noncommercial controllers', () => {
 
   it('PUT should return a 200 status code when status is Accepted and a successful middle layer POST', done => {
     nock.cleanAll();
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/auth')
       .reply(200, {
         token: 'auth-token'
       });
-    nock(vcapConstants.middleLayerBaseUrl)
+    nock(vcapConstants.MIDDLE_LAYER_BASE_URL)
       .post('/permits/applications/special-uses/noncommercial/')
       .reply(200, {
         controlNumber: '1999'

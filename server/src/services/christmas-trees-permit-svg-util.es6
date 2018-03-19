@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * svg utility service
- * @module services/svg-util
+ * svg utility service for christmas trees
+ * @module services/christmas-trees-permit-svg-util
  */
 
 const jsdom = require('jsdom');
@@ -14,7 +14,7 @@ const zpad = require('zpad');
 const markdown = require('markdown').markdown;
 const vcapConstants = require('../vcap-constants.es6');
 const forestService = require('./forest.service.es6');
-const svgUtil = {};
+const christmasTreesPermitSvgUtil = {};
 
 /**
  * @function addApplicantInfo - Add applicatnt information to the SVG fragment
@@ -88,7 +88,7 @@ const addForestSpecificInfo = (permit, frag) => {
  * @function generatePermitSvg - Generate Permit SVG from the permit data object
  * @param {Object} permit
  */
-svgUtil.generatePermitSvg = permit => {
+christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
@@ -112,7 +112,7 @@ svgUtil.generatePermitSvg = permit => {
  * @function generatePng - Generate Permit PNG from the permit SVG buffer
  * @param {Object} svgBuffer
  */
-svgUtil.generatePng = svgBuffer => {
+christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
     svg2png(svgBuffer, {
       width: 740,
@@ -132,14 +132,16 @@ svgUtil.generatePng = svgBuffer => {
  * @param {Object} createHtmlBody
  * @param {Object} permit
  */
-svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
+christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise((resolve, reject) => {
     try {
-      let rulesMarkdown = svgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
+      let rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
       if (rulesMarkdown) {
         let rulesHtml = markdown.toHTML(rulesMarkdown);
-        rulesHtml = svgUtil.processRulesText(rulesHtml, permit);
-        resolve(svgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest));
+        rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
+        resolve(
+          christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
+        );
       } else {
         reject('problem reading rules markdown files', permit.permitId);
       }
@@ -154,7 +156,7 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
  * @function getRulesMarkdown - Get the rules markdown files for the given forest
  * @param {string} forestAbbr
  */
-svgUtil.getRulesMarkdown = forestAbbr => {
+christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
   let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
   let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');
   if (permitRules && forestRules) {
@@ -170,7 +172,7 @@ svgUtil.getRulesMarkdown = forestAbbr => {
  * @param {string} rules
  * @param {string} forest
  */
-svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
+christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
     rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
@@ -182,7 +184,7 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
 
   rulesHtml +=
     '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
-    vcapConstants.intakeClientBaseUrl +
+    vcapConstants.INTAKE_CLIENT_BASE_URL +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
@@ -191,7 +193,7 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     forest.forestName +
     ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
   var regex = new RegExp('"/assets/', 'g');
-  rules = rules.replace(regex, '"' + vcapConstants.intakeClientBaseUrl + '/assets/');
+  rules = rules.replace(regex, '"' + vcapConstants.INTAKE_CLIENT_BASE_URL + '/assets/');
 
   rules = rules.replace(
     'alt="rules icon"',
@@ -209,14 +211,14 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
  * @param {string} rulesHtml
  * @param {Object} permit
  */
-svgUtil.processRulesText = (rulesHtml, permit) => {
+christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   let forest = permit.christmasTreesForest.dataValues;
   for (var key in forest) {
     if (forest.hasOwnProperty(key)) {
       let textToReplace = '{{' + key + '}}';
       rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
       if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
-        rulesHtml = svgUtil.parseCuttingAreaDates(rulesHtml, forest);
+        rulesHtml = christmasTreesPermitSvgUtil.parseCuttingAreaDates(rulesHtml, forest);
       }
     }
   }
@@ -229,7 +231,7 @@ svgUtil.processRulesText = (rulesHtml, permit) => {
  * @param {string} rulesHtml
  * @param {string} forest
  */
-svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
+christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
@@ -237,7 +239,11 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
     if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
-        svgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[areaKey].startDate, cuttingAreas[areaKey].endDate)
+        christmasTreesPermitSvgUtil.formatCuttingAreaDate(
+          forest.timezone,
+          cuttingAreas[areaKey].startDate,
+          cuttingAreas[areaKey].endDate
+        )
       );
     }
   }
@@ -250,7 +256,7 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
  * @param {string} startDate
  * @param {string} endDate
  */
-svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
+christmasTreesPermitSvgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
   const start = moment(startDate).tz(forestTimezone);
   const end = moment(endDate).tz(forestTimezone);
   let startFormat = 'MMM. D -';
@@ -267,6 +273,6 @@ svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
 
 /**
  * svg utility service
- * @exports services/svg-util
+ * @exports services/christmas-trees-permit-svg-util
  */
-module.exports = svgUtil;
+module.exports = christmasTreesPermitSvgUtil;

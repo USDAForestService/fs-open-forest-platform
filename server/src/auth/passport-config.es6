@@ -51,12 +51,12 @@ passportConfig.logout = (req, res) => {
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        vcapConstants.baseUrl + '/auth/login-gov/openid/logout'
+        vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
     req.logout();
-    return res.redirect(vcapConstants.intakeClientBaseUrl);
+    return res.redirect(vcapConstants.INTAKE_CLIENT_BASE_URL);
   }
 };
 

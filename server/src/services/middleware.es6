@@ -22,7 +22,7 @@ middleware.setCorsHeaders = (req, res, next) => {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
-    res.set('Access-Control-Allow-Origin', vcapConstants.intakeClientBaseUrl);
+    res.set('Access-Control-Allow-Origin', vcapConstants.INTAKE_CLIENT_BASE_URL);
     res.set('Access-Control-Allow-Credentials', true);
   }
   next();

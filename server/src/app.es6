@@ -17,6 +17,9 @@ const vcapConstants = require('./vcap-constants.es6');
 const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./docs/swagger.json');
+
 
 // Create the express application.
 const app = express();
@@ -43,7 +46,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: vcapConstants.baseUrl,
+      domain: vcapConstants.BASE_URL,
       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
@@ -55,6 +58,9 @@ passportConfig.setup(app);
 /** Pay.gov mock route */
 app.use(payGovMocks.router);
 app.use(loginGovMocks.router);
+
+/** serve up docs api */
+app.use('/docs/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /** Add the routes. */
 app.use(router);

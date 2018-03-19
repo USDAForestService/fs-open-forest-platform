@@ -113,7 +113,7 @@ describe('christmas tree controller tests', () => {
         {
           data: permitId
         },
-        vcapConstants.permitSecret
+        vcapConstants.PERMIT_SECRET
       );
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)

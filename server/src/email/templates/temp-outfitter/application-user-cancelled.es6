@@ -6,7 +6,7 @@ module.exports = application => {
   const businessName = util.businessNameElsePersonalName(application);
 
   return {
-    to: vcapConstants.specialUseAdminEmailAddresses,
+    to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
     subject: `The following permit application from ${businessName} to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
     body: `
 Application details
@@ -25,7 +25,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-Go to ${vcapConstants.intakeClientBaseUrl}/admin/applications to log in.
+Go to ${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications to log in.
 `
   };
 };
