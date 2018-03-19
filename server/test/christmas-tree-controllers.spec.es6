@@ -208,9 +208,20 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
