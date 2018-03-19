@@ -93,6 +93,6 @@ vcapConstants.payGovPrivateKey = payGov.credentials.private_key;
 
 /**
  * VCAP Constants
- * @exports vcapConstants
+ * @exports vcap-constants
  */
 module.exports = vcapConstants;

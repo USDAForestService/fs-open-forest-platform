@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for christmas trees routes
+ * @module routers/christmasTree
+ */
+
 const express = require('express');
 
 const christmasTreeController = require('../controllers/christmas-tree.es6');
@@ -27,4 +32,8 @@ router.get('/christmas-trees/permits/:id/details', christmasTreeController.getOn
 /** get printable copy of the permit*/
 router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);
 
+/**
+ * ChristmasTrees module routes
+ * @exports routers/christmasTree
+ */
 module.exports = router;

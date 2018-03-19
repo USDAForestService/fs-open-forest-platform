@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for christmas tree forests model
+ * @module models/christmas-trees-forests
+ */
+
 const moment = require('moment-timezone');
 const util = require('../services/util.es6');
 

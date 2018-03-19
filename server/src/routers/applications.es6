@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module for permit application routes
+ * Module for intake permit application routes
  * @module routers/applications
  */
 
@@ -50,7 +50,7 @@ router.delete('/special-uses/temp-outfitter/file/:id', tempOutfitterController.d
 router.get('/:statusGroup', commonController.getPermitApplications);
 
 /**
- * Permit application routes
- * @exports router
+ * Intake permit application routes
+ * @exports routers/router
  */
 module.exports = router;

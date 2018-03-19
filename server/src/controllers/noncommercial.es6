@@ -494,6 +494,6 @@ noncommercial.update = (req, res) => {
 
 /**
  * Noncommercial permit application controllers
- * @exports noncommercial
+ * @exports controllers/noncommercial
  */
 module.exports = noncommercial;

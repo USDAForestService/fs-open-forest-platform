@@ -18,6 +18,6 @@ router.get('/logout', passportConfig.logout);
 
 /**
  * Authentication routes
- * @exports router
+ * @exports routers/router
  */
 module.exports = router;

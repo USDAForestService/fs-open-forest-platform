@@ -405,7 +405,9 @@ const getAllFiles = applicationId => {
 };
 
 /**
- * Stream a file from the S3 bucket.
+ * @function streamFile - private function Stream a file from the S3 bucket.
+ * @param {string} fileName
+ * @param {Object} response
  */
 const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
@@ -419,7 +421,8 @@ const streamFile = (fileName, res) => {
 };
 
 /**
- * Get all file attachment names for a permit application,
+ * @function getAllFileNames - Private function to get all file attachment names for a permit application
+ * @param {string} applicationId
  */
 const getAllFileNames = applicationId => {
   return ApplicationFile.findAll({
@@ -430,7 +433,10 @@ const getAllFileNames = applicationId => {
 };
 
 /**
- * Update the permit application model based on permissions.
+ * @function updateApplicationModel - API function to update the permit application model based on permissions.
+ * @param {Object} model
+ * @param {Object} submitted
+ * @param {Object} user
  */
 tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
@@ -448,7 +454,8 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
 };
 
 /**
- * Send an application to the middle layer.
+ * @function acceptApplication - Private function to send an application to the middle layer.
+ * @param {Object} application
  */
 const acceptApplication = application => {
   return new Promise((resolve, reject) => {
@@ -530,7 +537,9 @@ const acceptApplication = application => {
 };
 
 /**
- * Get file attachment names for a permit application.
+ * @function getApplicationFileNames - API function to get file attachment names for a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
@@ -547,14 +556,16 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
 };
 
 /**
- * Stream a file attachment from S3.
+ * @function streamFile - API function to stream a file attachment from S3.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.streamFile = (req, res) => {
   streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 /**
- * Stream a file attachment to S3.
+ * @function streamToS3 - API function to stream a file attachment to S3.
  */
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
@@ -570,7 +581,9 @@ tempOutfitter.streamToS3 = multer({
 });
 
 /**
- * Add a file attachment to a permit application.
+ * @function attachFile - API function to add a file attachment to a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
@@ -602,7 +615,9 @@ tempOutfitter.attachFile = (req, res) => {
 };
 
 /**
- * Delete a permit application attachment.
+ * @function deleteFile - API function to delete a permit application attachment.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
@@ -619,7 +634,9 @@ tempOutfitter.deleteFile = (req, res) => {
 };
 
 /**
- * Create a permit application.
+ * @function create - API function to create a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
@@ -648,7 +665,9 @@ tempOutfitter.create = (req, res) => {
 };
 
 /**
- * Get one permit application.
+ * @function getOne - API function to get one permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
@@ -684,7 +703,9 @@ tempOutfitter.getOne = (req, res) => {
 };
 
 /**
- * Update a permit application.
+ * @function update - API function to update a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
@@ -750,6 +771,6 @@ tempOutfitter.update = (req, res) => {
 
 /**
  * Temp outfitter permit application controllers
- * @exports tempOutfitter
+ * @exports controllers/tempOutfitter
  */
 module.exports = tempOutfitter;

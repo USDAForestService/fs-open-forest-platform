@@ -2,7 +2,7 @@
 
 /**
  * Module for Express middleware
- * @module middleware
+ * @module services/middleware
  */
 
 const vcapConstants = require('../vcap-constants.es6');
@@ -11,7 +11,9 @@ const util = require('./util.es6');
 const middleware = {};
 
 /**
- * Set the http headers.
+ * @function setCorsHeaders - Set the http CORS headers.
+ * @param {Object} request
+ * @param {Object} response
  */
 middleware.setCorsHeaders = (req, res, next) => {
   // Don't cache the API calls.
@@ -27,7 +29,9 @@ middleware.setCorsHeaders = (req, res, next) => {
 };
 
 /**
- * Check for a valid user.
+ * @function checkPermissions - Check for a valid user.
+ * @param {Object} request
+ * @param {Object} response
  */
 middleware.checkPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
@@ -42,7 +46,9 @@ middleware.checkPermissions = (req, res, next) => {
 };
 
 /**
- * Check for admin permsissions.
+ * @function checkAdminPermissions - Check for admin permsissions.
+ * @param {Object} request
+ * @param {Object} response
  */
 middleware.checkAdminPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
@@ -58,6 +64,6 @@ middleware.checkAdminPermissions = (req, res, next) => {
 
 /**
  * Express middleware functions
- * @exports middleware
+ * @exports services/middleware
  */
 module.exports = middleware;
