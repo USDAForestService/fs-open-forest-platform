@@ -34,7 +34,7 @@ export class TreePermitViewComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.forEach((params: Params) => {
       if (params.t) {
-        this.jwtToken = params.t
+        this.jwtToken = params.t;
       }
     });
     this.route.data.subscribe(data => {

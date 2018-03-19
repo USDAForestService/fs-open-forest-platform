@@ -113,7 +113,7 @@ export class TreeApplicationFormComponent implements OnInit {
       }
 
       if (params.t) {
-        this.jwtToken = params.t
+        this.jwtToken = params.t;
       }
     });
 
@@ -127,7 +127,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
         this.checkSeasonStartDate(this.forest);
         this.permit = data.permit;
-        //cancel any permits coming here that are still initiated and not yet completed
+        // cancel any permits coming here that are still initiated and not yet completed
         if (this.permit && isCancel && this.permit.status === 'Initiated') {
           this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
             this.permit = updated;
