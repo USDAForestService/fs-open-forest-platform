@@ -5,8 +5,9 @@
   "source": {
     "includePattern": ".+\\.es6(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_",
-    "include": ["src"]
+    "exclude": ["src/mocks", "src/templates"]
   },
+  "sourceType": "module",
   "plugins": ["plugins/markdown"],
   "templates": {
     "cleverLinks": false,

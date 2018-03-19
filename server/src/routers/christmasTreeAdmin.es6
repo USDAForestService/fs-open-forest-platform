@@ -21,8 +21,4 @@ router.get('/christmas-trees/permits/:permitNumber', christmasTreeAdminControlle
 
 router.put('/christmas-trees/forests/:forestId', christmasTreeAdminController.updateForestDetails);
 
-/**
- * ChristmasTrees admin module routes
- * @exports routers/christmasTreeAdmin
- */
 module.exports = router;

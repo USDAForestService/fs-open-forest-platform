@@ -53,8 +53,4 @@ forestService.translateForestFromDatabaseToClient = input => {
   };
 };
 
-/**
- * forest service
- * @exports services/forest-service
- */
 module.exports = forestService;

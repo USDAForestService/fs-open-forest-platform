@@ -206,8 +206,5 @@ paygov.getTrackingId = result => {
     result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
 };
-/**
- * pay.gov utility
- * @exports services/paygov
- */
+
 module.exports = paygov;
