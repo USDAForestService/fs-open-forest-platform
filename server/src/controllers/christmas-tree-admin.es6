@@ -16,7 +16,8 @@ const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
 
 /**
- * @function getPermitResult - Private function to get the updated permit object with formatted dates and permit number padded with zeros
+ * @function getPermitResult - Private function to get the updated permit object with formatted dates
+ * and permit number padded with zeros
  * @param {Object} permit
  */
 const getPermitResult = permit => {
