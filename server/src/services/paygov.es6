@@ -2,7 +2,7 @@
 
 /**
  * pay.gov utility
- * @module paygov
+ * @module services/paygov
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
@@ -11,7 +11,9 @@ const vcapConstants = require('../vcap-constants.es6');
 const paygov = {};
 
 /**
- * create success url
+ * @function createSuccessUrl - create success url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
  */
 paygov.createSuccessUrl = (forestAbbr, permitId) => {
   const claims = {
@@ -32,7 +34,10 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
 };
 
 /**
- * Generate XML from the template to use for getting pay.gov transaction token.
+ * @function getXmlForToken - Generate XML from the template to use for getting pay.gov transaction token.
+ * @param {string} forestAbbr
+ * @param {string} possFinancialId
+ * @param {Object} permit
  */
 paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.payGovAppId;
@@ -111,7 +116,8 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
 };
 
 /**
- * Generate XML from the template to use for completing pay.gov transaction.
+ * @function getXmlToCompleteTransaction - Generate XML from the template to use for completing pay.gov transaction.
+ * @param {string} paygovToken
  */
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
@@ -154,12 +160,21 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
   return xml(xmlTemplate);
 };
 
+/**
+ * @function getToken - Get token out of the paygov response XML
+ * @param {Object} result
+ */
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
   return startOnlineCollectionResponse.token[0];
 };
 
+/**
+ * @function getResponseError - Get error out of the paygov response XML
+ * @param {string} requestType
+ * @param {Object} result
+ */
 paygov.getResponseError = (requestType, result) => {
   let resultMesssage = { faultcode: '9999', faultstring: requestType };
   try {
@@ -182,6 +197,10 @@ paygov.getResponseError = (requestType, result) => {
   }
 };
 
+/**
+ * @function getTrackingId - Get paygov tracking id out of the paygov response XML
+ * @param {Object} result
+ */
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
@@ -189,6 +208,6 @@ paygov.getTrackingId = result => {
 };
 /**
  * pay.gov utility
- * @exports paygov
+ * @exports services/paygov
  */
 module.exports = paygov;

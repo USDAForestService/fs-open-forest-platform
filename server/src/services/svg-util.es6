@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * svg utility service
+ * @module services/svg-util
+ */
+
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
@@ -11,6 +16,11 @@ const vcapConstants = require('../vcap-constants.es6');
 const forestService = require('./forest.service.es6');
 const svgUtil = {};
 
+/**
+ * @function addApplicantInfo - Add applicatnt information to the SVG fragment
+ * @param {Object} permit
+ * @param {Object} fragment
+ */
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
 
@@ -34,6 +44,11 @@ const addApplicantInfo = (permit, frag) => {
   }
 };
 
+/**
+ * @function addForestSpecificInfo - Add forest specific information to the SVG fragment
+ * @param {Object} permit
+ * @param {Object} fragment
+ */
 const addForestSpecificInfo = (permit, frag) => {
   frag.querySelector('#forest-name_1_').textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
   if (permit.christmasTreesForest.forestNameShort.indexOf(' and ') > 0) {
@@ -69,6 +84,10 @@ const addForestSpecificInfo = (permit, frag) => {
   }
 };
 
+/**
+ * @function generatePermitSvg - Generate Permit SVG from the permit data object
+ * @param {Object} permit
+ */
 svgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
@@ -89,6 +108,10 @@ svgUtil.generatePermitSvg = permit => {
   });
 };
 
+/**
+ * @function generatePng - Generate Permit PNG from the permit SVG buffer
+ * @param {Object} svgBuffer
+ */
 svgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
     svg2png(svgBuffer, {
@@ -104,6 +127,11 @@ svgUtil.generatePng = svgBuffer => {
   });
 };
 
+/**
+ * @function generateRulesHtml - Generate permit rules HTML from permit object
+ * @param {Object} createHtmlBody
+ * @param {Object} permit
+ */
 svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise((resolve, reject) => {
     try {
@@ -122,6 +150,10 @@ svgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   });
 };
 
+/**
+ * @function getRulesMarkdown - Get the rules markdown files for the given forest
+ * @param {string} forestAbbr
+ */
 svgUtil.getRulesMarkdown = forestAbbr => {
   let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
   let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules-to-know/rules.md');
@@ -132,6 +164,12 @@ svgUtil.getRulesMarkdown = forestAbbr => {
   }
 };
 
+/**
+ * @function createRulesHtmlPage - Generate HTML wrapper aroung the permit rules HTML content
+ * @param {string} htmlBody
+ * @param {string} rules
+ * @param {string} forest
+ */
 svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
@@ -166,6 +204,11 @@ svgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   return rulesHtml;
 };
 
+/**
+ * @function processRulesText - Parse and update rules HTML with forest specific keys
+ * @param {string} rulesHtml
+ * @param {Object} permit
+ */
 svgUtil.processRulesText = (rulesHtml, permit) => {
   let forest = permit.christmasTreesForest.dataValues;
   for (var key in forest) {
@@ -181,6 +224,11 @@ svgUtil.processRulesText = (rulesHtml, permit) => {
   return rulesHtml;
 };
 
+/**
+ * @function parseCuttingAreaDates - Parse and update rules HTML with forest cutting area keys
+ * @param {string} rulesHtml
+ * @param {string} forest
+ */
 svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
@@ -196,6 +244,12 @@ svgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   return rulesText;
 };
 
+/**
+ * @function formatCuttingAreaDate - Format cutting area start and end dates in the rules HTML
+ * @param {string} forestTimezone
+ * @param {string} startDate
+ * @param {string} endDate
+ */
 svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
   const start = moment(startDate).tz(forestTimezone);
   const end = moment(endDate).tz(forestTimezone);
@@ -211,4 +265,8 @@ svgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
   return start.format(startFormat) + end.format(endFormat);
 };
 
+/**
+ * svg utility service
+ * @exports services/svg-util
+ */
 module.exports = svgUtil;

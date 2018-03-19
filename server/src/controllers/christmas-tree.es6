@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for chrismtmas tree public API
+ * @module controllers/chrismtmas-tree
+ */
+
 const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
@@ -17,6 +22,11 @@ const forestService = require('../services/forest.service.es6');
 
 const christmasTree = {};
 
+/**
+ * @function translatePermitFromClientToDatabase - Private function to translate request data to the database json object
+ * @param {Object} input
+ * @return {Object}
+ */
 const translatePermitFromClientToDatabase = input => {
   return {
     permitId: uuid(),
@@ -32,6 +42,11 @@ const translatePermitFromClientToDatabase = input => {
   };
 };
 
+/**
+ * @function getForests - API function to get all forests
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
@@ -50,6 +65,11 @@ christmasTree.getForests = (req, res) => {
     });
 };
 
+/**
+ * @function getForest - API function to get one forest by the forest abbreviation
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.getForest = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
@@ -70,6 +90,10 @@ christmasTree.getForest = (req, res) => {
     });
 };
 
+/**
+ * @function postPayGov - Private function to make a post request to pay.gov/mock pay.gov
+ * @param {String} xmlData
+ */
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.payGovPrivateKey, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.payGovCert[0], 'utf8');
@@ -95,6 +119,10 @@ const postPayGov = xmlData => {
   );
 };
 
+/**
+ * @function permitResult - Private function to return formatted permit result
+ * @param {Object} permit
+ */
 const permitResult = permit => {
   const result = {
     permitId: permit.permitId,
@@ -118,6 +146,12 @@ const permitResult = permit => {
   return result;
 };
 
+/**
+ * @function updatePermitWithToken - Private function to update permit with paygov token
+ * @param {Object} response
+ * @param {Object} permit
+ * @param {string} token
+ */
 const updatePermitWithToken = (res, permit, token) => {
   const tcsAppID = vcapConstants.payGovAppId;
   permit
@@ -138,6 +172,12 @@ const updatePermitWithToken = (res, permit, token) => {
     });
 };
 
+/**
+ * @function updatePermitWithError - Private function to update permit's status to error
+ * @param {Object} response
+ * @param {Object} permit
+ * @param {string} paygovError
+ */
 const updatePermitWithError = (res, permit, paygovError) => {
   updatePermit(permit, {
     status: 'Error',
@@ -147,6 +187,11 @@ const updatePermitWithError = (res, permit, paygovError) => {
   });
 };
 
+/**
+ * @function getPermitError - Private function to error objects from the permit's errors
+ * @param {Object} response
+ * @param {Object} permit
+ */
 const getPermitError = (res, permit) => {
   let permitErrors = JSON.parse(permit.paygovError);
   return res.status(400).json({
@@ -161,6 +206,11 @@ const getPermitError = (res, permit) => {
   });
 };
 
+/**
+ * @function create - API function to create permit application
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.create = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
@@ -219,6 +269,13 @@ christmasTree.create = (req, res) => {
     });
 };
 
+/**
+ * @function sendEmail - Private function to send email with the input data
+ * @param {Object} savedPermit
+ * @param {string} permitPng
+ * @param {string} rulesHtml
+ * @param {string} rulesText
+ */
 const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
   const attachments = [
     {
@@ -242,10 +299,20 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
   email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
 
+/**
+ * @function returnSavedPermit - Private function to return permit
+ * @param {Object} response
+ * @param {Object} savedPermit
+ */
 const returnSavedPermit = (res, savedPermit) => {
   return res.status(200).send(permitResult(savedPermit));
 };
 
+/**
+ * @function updatePermit - Private function to update permit in database
+ * @param {Object} permit
+ * @param {Object} updateObject
+ */
 const updatePermit = (permit, updateObject) => {
   return new Promise((resolve, reject) => {
     permit
@@ -259,6 +326,12 @@ const updatePermit = (permit, updateObject) => {
   });
 };
 
+/**
+ * @function parseXMLFromPayGov - Private function to parse the returned XML from payGov
+ * @param {Object} response
+ * @param {string} xmlResponse
+ * @param {Object} permit
+ */
 const parseXMLFromPayGov = (res, xmlResponse, permit) => {
   return new Promise((resolve, reject) => {
     xml2jsParse(xmlResponse, (err, result) => {
@@ -281,14 +354,26 @@ const parseXMLFromPayGov = (res, xmlResponse, permit) => {
   });
 };
 
+/**
+ * @function throwError - Private function to return Error
+ * @param {Object} error
+ */
 const throwError = err => {
   throw new Error(err);
 };
 
+/**
+ * @function permitExpireDate - Private function to check if permit expire date is in future
+ * @param {date} permitExpireDate
+ */
 const checkPermitValid = permitExpireDate => {
   return moment(permitExpireDate).isAfter(moment());
 };
 
+/**
+ * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
+ * @param {Object} permit
+ */
 const generateRulesAndEmail = permit => {
   permitSvgService
     .generatePermitSvg(permit)
@@ -314,6 +399,11 @@ const generateRulesAndEmail = permit => {
     });
 };
 
+/**
+ * @function generateRulesAndEmail - API function to get a Completed permit
+ * or complete transaction with  pay.gov if it's Initiated permit.
+ * @param {Object} permit
+ */
 christmasTree.getOnePermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -374,6 +464,11 @@ christmasTree.getOnePermit = (req, res) => {
     });
 };
 
+/**
+ * @function getOnePermitDetail - API function to get an incomplete permit.
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.getOnePermitDetail = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -394,6 +489,11 @@ christmasTree.getOnePermitDetail = (req, res) => {
     });
 };
 
+/**
+ * @function printPermit - API function to get permit svg or rules html
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.printPermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -435,6 +535,11 @@ christmasTree.printPermit = (req, res) => {
     });
 };
 
+/**
+ * @function update - API function to update permit
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTree.update = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({

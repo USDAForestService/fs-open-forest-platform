@@ -18,7 +18,7 @@ const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
 
-/**  Create the express application. */
+// Create the express application.
 const app = express();
 
 vcapConstants.nodeEnv = process.env.NODE_ENV;

@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for christmas tree permits model
+ * @module models/christmas-trees-permits
+ */
+
 module.exports = function(sequelize, DataTypes) {
   const christmasTreesPermits = sequelize.define(
     'christmasTreesPermits',

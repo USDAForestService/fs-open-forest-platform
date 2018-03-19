@@ -15,7 +15,8 @@ const vcapConstants = require('../vcap-constants.es6');
 const passportConfig = {};
 
 /**
- * Setup passport to integrate with login.gov and eAuth/
+ * @function setup - Setup passport to integrate with login.gov and eAuth/
+ * @param {Object} application
  */
 passportConfig.setup = app => {
   loginGov.setup();
@@ -32,14 +33,18 @@ passportConfig.setup = app => {
 };
 
 /**
- * Get the authetication user.
+ * @function getPassportUser - Get the authetication user.
+ * @param {Object} request
+ * @param {Object} response
  */
 passportConfig.getPassportUser = (req, res) => {
   return res.send(util.getUser(req));
 };
 
 /**
- * Log out of eAuth or login.gov.
+ * @function logout - Log out of eAuth or login.gov.
+ * @param {Object} request
+ * @param {Object} response
  */
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
@@ -57,6 +62,6 @@ passportConfig.logout = (req, res) => {
 
 /**
  * Passport configuration
- * @exports auth/passportConfig
+ * @exports auth/passport-config
  */
 module.exports = passportConfig;

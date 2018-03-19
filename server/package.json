@@ -14,6 +14,8 @@
     "fs-extra": "^5.0.0",
     "helmet": "^3.6.1",
     "html-to-text": "^3.3.0",
+    "ink-docstrap": "^1.3.2",
+    "jsdoc": "^3.5.5",
     "jsdom": "https://github.com/nciinc/jsdom/tarball/master/9c957d7b0d60787502979b7566a3c2c91a82aead",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.5",
@@ -68,7 +70,8 @@
     "unionized": "^4.12.0"
   },
   "scripts": {
-    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
+    "coverage":
+      "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6",
     "dev": "yarn; yarn copy-frontend-assets; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
     "copy-frontend-assets": "./copy-frontend-assets.sh",
     "lint": "eslint **/**/*.es6",
@@ -77,19 +80,17 @@
     "snyk-test": "snyk test",
     "start": "node ./src/app.es6",
     "test": "mocha ./test/**/*.es6 ./test/*.es6",
+    "docs": "yarn run jsdoc",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
-    "undoLastMigrate": "sequelize db:migrate:undo"
+    "undoLastMigrate": "sequelize db:migrate:undo",
+    "jsdoc": "./node_modules/.bin/jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r ."
   },
   "engines": {
     "node": "^8.9.4"
   },
   "nyc": {
-    "extension": [
-      ".es6"
-    ],
-    "exclude": [
-      "src/pay-gov-mocks/*.*"
-    ]
+    "extension": [".es6"],
+    "exclude": ["src/pay-gov-mocks/*.*"]
   }
 }
