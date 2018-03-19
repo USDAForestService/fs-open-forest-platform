@@ -1,12 +1,12 @@
 'use strict';
 
 /**
- * svg utility service
- * @module services/svg-util
+ * svg utility service for christmas trees
+ * @module services/christmas-trees-permit-svg-util
  */
 
 const jsdom = require('jsdom');
-const {JSDOM} = jsdom;
+const { JSDOM } = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -139,7 +139,9 @@ christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
       if (rulesMarkdown) {
         let rulesHtml = markdown.toHTML(rulesMarkdown);
         rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
-        resolve(christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest));
+        resolve(
+          christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
+        );
       } else {
         reject('problem reading rules markdown files', permit.permitId);
       }
@@ -238,7 +240,8 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
       rulesText = rulesText.replace(
         '{{' + key + 'Date}}',
         christmasTreesPermitSvgUtil.formatCuttingAreaDate(
-          forest.timezone, cuttingAreas[areaKey].startDate,
+          forest.timezone,
+          cuttingAreas[areaKey].startDate,
           cuttingAreas[areaKey].endDate
         )
       );
@@ -270,6 +273,6 @@ christmasTreesPermitSvgUtil.formatCuttingAreaDate = (forestTimezone, startDate, 
 
 /**
  * svg utility service
- * @exports services/svg-util
+ * @exports services/christmas-trees-permit-svg-util
  */
 module.exports = christmasTreesPermitSvgUtil;
