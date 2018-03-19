@@ -365,8 +365,14 @@ describe('christmas tree controller tests', () => {
         permitId: permitId,
         status: 'Cancelled'
       };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .put('/forests/christmas-trees/permits')
+        .put(`/forests/christmas-trees/permits?t=${token}`)
         .send(cancelApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);

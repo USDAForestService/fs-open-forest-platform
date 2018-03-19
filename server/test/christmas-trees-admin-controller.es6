@@ -43,9 +43,20 @@ describe('christmas tree admin controller tests', () => {
       })
       .expect(200, done);
   });
-  it('GET created permit to complete transaction', done => {
+  it('PUT permit to complete transaction', done => {
+    const completeApplication = {
+      permitId: submittedPermit.permitId,
+      status: 'Completed'
+    };
+    const token = jwt.sign(
+      {
+        data: permitId
+      },
+      vcapConstants.PERMIT_SECRET
+    );
     request(server)
-      .get(`/forests/christmas-trees/permits/${submittedPermit.permitId}`)
+      .put(`/forests/christmas-trees/permits?t=${token}`)
+      .send(completeApplication)
       .expect('Content-Type', /json/)
       .expect(permitRes => {
         completedPermit = permitRes.body;
