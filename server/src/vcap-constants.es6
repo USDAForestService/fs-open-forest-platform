@@ -67,7 +67,8 @@ vcapConstants.LOGIN_GOV_JWK = loginGovService.credentials.jwk;
 vcapConstants.LOGIN_GOV_IDP_USERNAME = loginGovService.credentials.idp_username;
 vcapConstants.LOGIN_GOV_IDP_PASSWORD = loginGovService.credentials.idp_password;
 vcapConstants.LOGIN_GOV_DISCOVERY_URL = loginGovService.credentials.discovery_url;
-vcapConstants.LOGIN_GOV_HOST = (typeof process.env.LOGIN_GOV_HOST === undefined ? 'idp.int.login.gov' : process.env.LOGIN_GOV_HOST);
+vcapConstants.LOGIN_GOV_HOST =
+  typeof process.env.LOGIN_GOV_HOST === undefined ? 'idp.int.login.gov' : process.env.LOGIN_GOV_HOST;
 
 /** USDA eAuth settings */
 const eAuthService = getUserProvided('eauth-service-provider');
@@ -92,8 +93,4 @@ vcapConstants.PAY_GOV_APP_ID = payGov.credentials.tcs_app_id;
 vcapConstants.PAY_GOV_CERT = payGov.credentials.certificate;
 vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.credentials.private_key;
 
-/**
- * VCAP Constants
- * @exports vcap-constants
- */
 module.exports = vcapConstants;

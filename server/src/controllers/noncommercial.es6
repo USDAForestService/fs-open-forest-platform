@@ -492,8 +492,4 @@ noncommercial.update = (req, res) => {
     });
 };
 
-/**
- * Noncommercial permit application controllers
- * @exports controllers/noncommercial
- */
 module.exports = noncommercial;

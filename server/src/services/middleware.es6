@@ -62,8 +62,4 @@ middleware.checkAdminPermissions = (req, res, next) => {
   }
 };
 
-/**
- * Express middleware functions
- * @exports services/middleware
- */
 module.exports = middleware;

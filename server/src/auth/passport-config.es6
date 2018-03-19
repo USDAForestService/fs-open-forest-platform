@@ -60,8 +60,4 @@ passportConfig.logout = (req, res) => {
   }
 };
 
-/**
- * Passport configuration
- * @exports auth/passport-config
- */
 module.exports = passportConfig;

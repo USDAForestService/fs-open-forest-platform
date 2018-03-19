@@ -111,8 +111,4 @@ loginGov.router.get(
   }
 );
 
-/**
- * login.gov integration
- * @exports auth/loginGov
- */
 module.exports = loginGov;

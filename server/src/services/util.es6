@@ -276,8 +276,4 @@ util.getS3 = () => {
   return s3;
 };
 
-/**
- * Various utility functions and constants
- * @exports services/util
- */
 module.exports = util;
