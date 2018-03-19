@@ -84,15 +84,6 @@ export class TreeApplicationFormComponent implements OnInit {
 
     if (this.permit) {
       this.rePopulateForm();
-      //let status;
-      // if (this.permit.status === 'Initiated') {
-      //   status = 'Completed';
-      // } else if (this.permit.status !== 'Cancelled' && this.permit.status !== 'Error') {
-      //   status = 'Cancelled';
-      // }
-      // this.applicationService.updatePermit(this.permit.permitId, 'Completed').subscribe(response => {
-      //   this.permit = response.permit;
-      // });
     }
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
@@ -122,7 +113,7 @@ export class TreeApplicationFormComponent implements OnInit {
       }
 
       if (params.t) {
-        this.jwtToken = params.t
+        this.jwtToken = params.t;
       }
     });
 
@@ -136,7 +127,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
         this.checkSeasonStartDate(this.forest);
         this.permit = data.permit;
-        //cancel any permits coming here that are still initiated and not yet completed
+        // cancel any permits coming here that are still initiated and not yet completed
         if (this.permit && isCancel && this.permit.status === 'Initiated') {
           this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
             this.permit = updated;
@@ -163,6 +154,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
   showRulesForm() {
     this.submitted = true;
+    this.showCancelAlert = false;
     this.apiErrors = null;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {

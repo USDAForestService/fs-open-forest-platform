@@ -34,16 +34,19 @@ export class TreePermitViewComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.forEach((params: Params) => {
       if (params.t) {
-        this.jwtToken = params.t
+        this.jwtToken = params.t;
       }
     });
     this.route.data.subscribe(data => {
       if (data.permit && data.permit.error) {
-        this.processError(data.permit.error, data.permit);
+        this.processError(data.permit.error, data.permit.error.permit);
       } else {
         if (data.permit.status === 'Initiated') {
           this.christmasTreesApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe(updated => {
             this.setPageData(updated);
+          },
+          error => {
+            this.processError(error[0], error[0].permit);
           });
         } else {
           this.setPageData(data.permit);
