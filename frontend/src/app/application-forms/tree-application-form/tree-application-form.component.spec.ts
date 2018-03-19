@@ -53,7 +53,8 @@ describe('TreeApplicationFormComponent', () => {
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({ forest: forest })
+                queryParams: [{t: '123'}],
+                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
               }
             },
             WindowRef
@@ -105,9 +106,11 @@ describe('TreeApplicationFormComponent', () => {
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({ forest: forest })
+                queryParams: [{t: '123'}],
+                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
               }
-            }
+            },
+            WindowRef
           ],
           imports: [RouterTestingModule, HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]

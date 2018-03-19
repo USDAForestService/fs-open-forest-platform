@@ -185,7 +185,7 @@ describe('Apply for a Christmas tree permit', () => {
       browser.sleep(900);
       element(by.id('credit-card-number')).sendKeys('0000000000000123');
       christmasTreeForm.mockPayGovSubmit().click();
-      browser.sleep(900);
+      browser.sleep(10900);
       expect<any>(element(by.id('pay-gov-errors')).isDisplayed()).toBeTruthy();
       christmasTreeForm.navigateTo(forestId);
     });

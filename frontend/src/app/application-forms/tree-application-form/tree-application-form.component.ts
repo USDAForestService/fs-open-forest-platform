@@ -163,6 +163,7 @@ export class TreeApplicationFormComponent implements OnInit {
 
   showRulesForm() {
     this.submitted = true;
+    this.showCancelAlert = false;
     this.apiErrors = null;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {

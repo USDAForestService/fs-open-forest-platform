@@ -31,11 +31,6 @@ export class ChristmasTreesApplicationService {
     return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
   }
 
-  // cancelOldApp(id) {
-  //   const body = { permitId: id, status: 'Cancelled' };
-  //   return this.http.put(`${this.endpoint}/permits`, body).catch(this.util.handleError);
-  // }
-
   updatePermit(id, status, token) {
     let params = {};
     if (token) {
@@ -44,12 +39,6 @@ export class ChristmasTreesApplicationService {
     const body = { permitId: id, status: status };
     return this.http.put(`${this.endpoint}/permits`, body, params).catch(this.util.handleError);
   }
-
-  // getOne(id, token) {
-  //   return this.http
-  //     .get(`${this.endpoint}/permits/${id}`, { params: new HttpParams().set('t', token) })
-  //     .catch(this.util.handleError);
-  // }
 
   getPermit(id, token) {
     let params = {};
