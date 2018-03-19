@@ -25,6 +25,6 @@ Zigzag, OR 97049
 
 (503) 622-3191
 
-* * *
+***
 
 Visit [Mt. Hood National Forest](https://www.fs.usda.gov/main/mthood) for more information.

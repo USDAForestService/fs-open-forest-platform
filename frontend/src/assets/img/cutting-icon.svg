@@ -1,22 +1,22 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125">
-    <metadata>
-        <rdf:RDF
-                xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
-                xmlns:dc = "http://purl.org/dc/elements/1.1/" >
-            <rdf:Description about="tree-height-icon"
-                             dc:title="tree-height-icon"
-                             dc:description="tree with ruler"
-                             dc:publisher="U.S. National Forest Service"
-                             dc:date="2018-02-28"
-                             dc:format="image/svg+xml"
-                             dc:language="en" >
-                <dc:creator>
-                    <rdf:Bag>
-                        <rdf:li>https://fontawesome.com/license</rdf:li>
-                    </rdf:Bag>
-                </dc:creator>
-            </rdf:Description>
-        </rdf:RDF>
-    </metadata>
-    <defs><style>.cls-1{fill:#d6d2c1;}.cls-2{fill:#0f662b;}.cls-3{fill:#fff;stroke:#0f662b;stroke-miterlimit:10;stroke-width:1.5px;}</style></defs><title>cutting-icon</title><circle class="cls-1" cx="62.5" cy="62.5" r="62.5"/><path class="cls-2" d="M675,542.34c.49,6.67,1.19,9.37,2.06,10.8a27.37,27.37,0,0,0,6.93,7.8,4,4,0,0,1,1.39,5,4.33,4.33,0,0,1-4.33,2.95H634.29A4.33,4.33,0,0,1,630,566a4,4,0,0,1,1.39-5,31,31,0,0,0,7.45-8.49c.7-1.25,1.23-3.64,1.6-10.06C640.84,534.58,674.44,534.51,675,542.34Z" transform="translate(-598.72 -475.54)"/><ellipse class="cls-1" cx="58.97" cy="67.49" rx="14.3" ry="5.22"/><ellipse class="cls-2" cx="58.97" cy="67.49" rx="10.1" ry="3.69"/><ellipse class="cls-1" cx="58.97" cy="67.49" rx="7.34" ry="2.68"/><path class="cls-3" d="M710.3,528.85a2.82,2.82,0,0,0-1.25-3.74c-.12-.06-68.38-26.13-68.38-26.13l-4.24,8.53,1.47,4.35,3.25-1.09,1.09,3.25,3.36-1.13,1.13,3.36,3.09-1,1,3.09,3.64-.77.92,3.45,4-.95,1.25,4,4.29-1.38,1.42,3.72,4.21-.81,1.42,4,4.25-1.13,1.13,3.36L681,531l1.25,3.56,3.68-1,.43,1.83a5.45,5.45,0,0,0,2.85,3.42l10.15,5.05.13.05.12.08a2.75,2.75,0,0,0,3.68-1.24Zm-11.42,10.53-6.58-3.27,5.79-11.64L705,527Z" transform="translate(-598.72 -475.54)"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 125 125" style="enable-background:new 0 0 125 125;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#EEECE6;}
+	.st1{fill:#0F662B;}
+	.st2{fill:#FFFFFF;stroke:#0F662B;stroke-width:1.5;stroke-miterlimit:10;}
+</style>
+<rect x="-3.2" y="-1.3" class="st0" width="131.1" height="126.5"/>
+<title>cutting-icon</title>
+<g>
+	<path class="st1" d="M46.1,66.8c0.5,6.7,1.2,9.4,2.1,10.8c1.8,3,4.1,5.7,6.9,7.8c1.6,1.1,2.2,3.2,1.4,5c-0.6,1.8-2.4,3.1-4.3,3H5.4
+		c-1.9,0.1-3.7-1.1-4.3-2.9c-0.8-1.8-0.2-3.9,1.4-5c3-2.3,5.5-5.2,7.5-8.5c0.7-1.2,1.2-3.6,1.6-10.1C11.9,59,45.5,59,46.1,66.8z"/>
+	<ellipse class="st0" cx="28.8" cy="67.5" rx="14.3" ry="5.2"/>
+	<ellipse class="st1" cx="28.8" cy="67.5" rx="10.1" ry="3.7"/>
+	<ellipse class="st0" cx="28.8" cy="67.5" rx="7.3" ry="2.7"/>
+	<path class="st2" d="M81.4,53.3c0.7-1.4,0.1-3-1.2-3.7C80,49.5,11.7,23.4,11.7,23.4L7.5,32L9,36.3l3.2-1.1l1.1,3.3l3.4-1.1l1.1,3.4
+		l3.1-1l1,3.1l3.6-0.8l0.9,3.5l4-1l1.2,4l4.3-1.4l1.4,3.7l4.2-0.8l1.4,4l4.2-1.1l1.1,3.4l3.7-0.8l1.2,3.6l3.7-1l0.4,1.8
+		c0.4,1.5,1.5,2.7,2.8,3.4l10.2,5l0.1,0l0.1,0.1c1.4,0.7,3,0.1,3.7-1.2L81.4,53.3z M70,63.8l-6.6-3.3l5.8-11.6l6.9,2.5L70,63.8z"/>
+</g>
+</svg>

@@ -2,8 +2,8 @@
 </p>
 <div [attr.id]="'tree-species-'+ i" class="tree-speci usa-grid" *ngFor="let tree of forest.species; let i=index">
   <h3 class="margin-top-1">{{ tree.name }}</h3>
-  <span *ngIf="tree.status == 'prohibited'" class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
-  <div *ngIf="tree.status == 'prohibited'" class="tree-description">
+  <div *ngIf="tree.status == 'prohibited'" class="usa-width-one-whole tree-description">
+    <span class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
   </div>
   <div class="usa-width-two-thirds">
     <markdown *ngIf="forest" path="/assets/content/common/species/{{tree.id}}.md"></markdown>

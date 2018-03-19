@@ -32,8 +32,11 @@ router.get('/uptime', (req, res) => {
   res.send('Uptime: ' + process.uptime() + ' seconds');
 });
 
+/** Serve static code documentation pages. */
+router.use('/docs/code', express.static('docs/code'));
+
 /**
  * Misc routes
- * @exports router
+ * @exports routers/router
  */
 module.exports = router;

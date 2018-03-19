@@ -64,8 +64,9 @@
   background-color: $fs-green;
   color: $white;
 }
+
 .tree-img {
-  max-width: 215px;
+  max-width: 186px;
 }
 
 markdown#season-dates-markdown {
@@ -192,5 +193,11 @@ app-tree-cutting-dates {
     #trees-footer-sticky-desc-container {
       display: none;
     }
+  }
+}
+
+#what-to-expect {
+  h3 {
+    margin-top: 1rem;
   }
 }

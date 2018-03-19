@@ -23,7 +23,7 @@ email: [srdvis@fs.fed.us](mailto: srdvis@fs.fed.us)
 
 Permits are only available for purchase in person on weekdays during the Christmas tree cutting season.
 
-* * *
+***
 
 Other Arapaho and Roosevelt National Forest ranger district offices do not sell permits in person.
 

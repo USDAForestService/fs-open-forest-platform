@@ -2,7 +2,7 @@
 
 /**
  * Module for various utility functions and constants
- * @module util
+ * @module services/util
  */
 
 const AWS = require('aws-sdk');
@@ -278,6 +278,6 @@ util.getS3 = () => {
 
 /**
  * Various utility functions and constants
- * @exports util
+ * @exports services/util
  */
 module.exports = util;

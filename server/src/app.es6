@@ -21,7 +21,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 
 
-/**  Create the express application. */
+// Create the express application.
 const app = express();
 
 vcapConstants.nodeEnv = process.env.NODE_ENV;

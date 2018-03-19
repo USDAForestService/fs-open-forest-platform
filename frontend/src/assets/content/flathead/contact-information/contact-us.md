@@ -31,6 +31,6 @@ Bigfork, MT 59911
 
 (406) 837-7500  
 
-* * *
+***
 
 Visit [Flathead National Forest](https://www.fs.usda.gov/main/flathead) for more information.

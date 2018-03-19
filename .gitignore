@@ -8,6 +8,8 @@ server/coverage.lcov
 server/coverage
 server/*.orig
 server/frontend-assets
+server/lint-results.html
+server/docs/code
 
 # compiled output
 frontend/dist
@@ -53,4 +55,3 @@ frontend/e2e/*.map
 # System Files
 .DS_Store
 Thumbs.db
-server/lint-results.html
