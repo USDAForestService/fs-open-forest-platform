@@ -84,15 +84,6 @@ export class TreeApplicationFormComponent implements OnInit {
 
     if (this.permit) {
       this.rePopulateForm();
-      //let status;
-      // if (this.permit.status === 'Initiated') {
-      //   status = 'Completed';
-      // } else if (this.permit.status !== 'Cancelled' && this.permit.status !== 'Error') {
-      //   status = 'Cancelled';
-      // }
-      // this.applicationService.updatePermit(this.permit.permitId, 'Completed').subscribe(response => {
-      //   this.permit = response.permit;
-      // });
     }
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
