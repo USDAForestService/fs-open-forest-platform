@@ -236,6 +236,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
+                        console.log('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -502,16 +503,23 @@ christmasTree.updatePermitApplication = (req, res) => {
     .findOne({
       where: {
         permitId: req.body.permitId
-      }
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
     })
     .then(permit => {
       const token = req.query.t;
-      jwt.verify(token, vcapConstants.permitSecret, function(err, decoded) {
+      jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
         if (decoded && permit) {
           if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
-            return permit.update({
-              status: req.body.status
-            }).then(res.status(200).json(permit));
+            return permit
+              .update({
+                status: req.body.status
+              })
+              .then(res.status(200).json(permit));
           } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
             const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
             postPayGov(xmlData).then(xmlResponse => {
