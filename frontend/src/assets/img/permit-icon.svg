@@ -2,7 +2,27 @@
 <!-- Generator: Adobe Illustrator 21.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 125 125" style="enable-background:new 0 0 125 125;" xml:space="preserve">
-<style type="text/css">
+<metadata>
+        <rdf:RDF
+                xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
+                xmlns:dc = "http://purl.org/dc/elements/1.1/" >
+            <rdf:Description about="tree-permit-icon"
+                             dc:title="tree-permit-icon"
+                             dc:description="tree permit"
+                             dc:publisher="U.S. National Forest Service"
+                             dc:date="2018-02-28"
+                             dc:format="image/svg+xml"
+                             dc:language="en" >
+                <dc:creator>
+                    <rdf:Bag>
+                        <rdf:li>https://fontawesome.com/license</rdf:li>
+                    </rdf:Bag>
+                </dc:creator>
+            </rdf:Description>
+        </rdf:RDF>
+    </metadata>
+	<style type="text/css">
 	.st0{fill:#EEECE6;}
 	.st1{fill:#FFFFFF;}
 	.st2{fill:#0F662B;}
