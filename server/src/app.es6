@@ -20,7 +20,6 @@ require('body-parser-xml')(bodyParser);
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 
-
 // Create the express application.
 const app = express();
 
@@ -70,8 +69,4 @@ app.use(router);
 /** Listen on port 8080. */
 app.listen(8080);
 
-/**
- * FS Intake API Server
- * @exports app
- */
 module.exports = app;

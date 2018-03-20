@@ -4,9 +4,9 @@
                 xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
                 xmlns:dc = "http://purl.org/dc/elements/1.1/" >
-            <rdf:Description about="tree-height-icon"
-                             dc:title="tree-height-icon"
-                             dc:description="tree with ruler"
+            <rdf:Description about="tree-top-icon"
+                             dc:title="tree-top-icon"
+                             dc:description="tree cut in middle with ban indicator"
                              dc:publisher="U.S. National Forest Service"
                              dc:date="2018-02-28"
                              dc:format="image/svg+xml"

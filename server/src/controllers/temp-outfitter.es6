@@ -769,8 +769,4 @@ tempOutfitter.update = (req, res) => {
     });
 };
 
-/**
- * Temp outfitter permit application controllers
- * @exports controllers/tempOutfitter
- */
 module.exports = tempOutfitter;

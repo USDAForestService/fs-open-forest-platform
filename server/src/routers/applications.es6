@@ -49,8 +49,4 @@ router.delete('/special-uses/temp-outfitter/file/:id', tempOutfitterController.d
 /** GET all applications with specified status */
 router.get('/:statusGroup', commonController.getPermitApplications);
 
-/**
- * Intake permit application routes
- * @exports routers/router
- */
 module.exports = router;

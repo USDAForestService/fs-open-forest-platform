@@ -271,8 +271,4 @@ christmasTreesPermitSvgUtil.formatCuttingAreaDate = (forestTimezone, startDate, 
   return start.format(startFormat) + end.format(endFormat);
 };
 
-/**
- * svg utility service
- * @exports services/christmas-trees-permit-svg-util
- */
 module.exports = christmasTreesPermitSvgUtil;

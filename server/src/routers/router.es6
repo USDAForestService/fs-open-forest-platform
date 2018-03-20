@@ -35,8 +35,4 @@ router.get('/uptime', (req, res) => {
 /** Serve static code documentation pages. */
 router.use('/docs/code', express.static('docs/code'));
 
-/**
- * Misc routes
- * @exports routers/router
- */
 module.exports = router;
