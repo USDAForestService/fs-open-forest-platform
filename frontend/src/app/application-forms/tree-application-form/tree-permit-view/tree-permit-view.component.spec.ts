@@ -6,13 +6,23 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import * as sinon from 'sinon';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
 import { McBreadcrumbsService, McBreadcrumbsModule, McBreadcrumbsConfig } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';
+import { forest } from '../../../_mocks/forest.mock';
+
+const mockPermit = {
+  permitId: '123',
+  status: 'Initiated',
+  permitNumber: '123',
+  totalCost: 0,
+  quantity: 0,
+  emailAddress: '',
+  forest: forest
+};
 
 class MockWindowRef {
   location = { hash: 'WAOW-MOCK-HASH' };
@@ -29,8 +39,8 @@ class MockChristmasTreesApplicationService {
   create(): Observable<{}> {
     return Observable.throw('error');
   }
-  cancelOldApp(permitId): Observable<{}> {
-    return Observable.of({ success: 'success' });
+  updatePermit(permitId, status, token): Observable<{}> {
+    return Observable.of(mockPermit);
   }
   getPrintablePermit(permitId, includeRules): Observable<{}> {
     return Observable.of([{'result': '<h1>test</h1>'}, {'result': '<h2>test</h2>'}]);
@@ -40,14 +50,18 @@ class MockChristmasTreesApplicationService {
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
   let fixture: ComponentFixture<TreePermitViewComponent>;
+
   const mockActivatedRoute = {
+    queryParams: [ {t: '123'}],
     data: Observable.of({
       permit: {
         permitId: '123',
+        status: 'Initiated',
+        permitNumber: '123',
         totalCost: 0,
         quantity: 0,
         emailAddress: '',
-        forest: { forestName: 'Mt Hood', forestAbbr: 'mthood' }
+        forest: forest
       }
     })
   };
@@ -63,15 +77,17 @@ describe ('', () => {  beforeEach(
           UtilService,
           { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
           { provide: WindowRef, useClass: MockWindowRef },
-          { provide: DomSanitizer, useClass: MockSanitizer }
-]
-
+          { provide: DomSanitizer, useClass: MockSanitizer },
+          {
+            provide: ActivatedRoute,
+            useValue: mockActivatedRoute
+          }
+        ]
       }).compileComponents();
     })
   );
 
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
       fixture = TestBed.createComponent(TreePermitViewComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -82,7 +98,7 @@ describe ('', () => {  beforeEach(
     });
 
     it('should set forest on init', () => {
-      expect(component.forest.forestName).toEqual('Mt Hood');
+      expect(component.forest.forestName).toEqual('Mt. Hood');
     });
 
     it('should set permit on init', () => {
@@ -90,7 +106,7 @@ describe ('', () => {  beforeEach(
     });
 
     it('should process error', () => {
-      component.processError([{ error: 'test' }]);
+      component.processError([{ error: 'test' }], {});
       expect(component.error).toEqual([{ error: 'test' }]);
     });
   });
@@ -107,14 +123,18 @@ describe ('', () => {  beforeEach(
             UtilService,
             { provide: ChristmasTreesApplicationService, useClass: MockChristmasTreesApplicationService },
             { provide: WindowRef, useClass: MockWindowRef },
-            { provide: DomSanitizer, useClass: MockSanitizer }
+            { provide: DomSanitizer, useClass: MockSanitizer },
+            {
+              provide: ActivatedRoute,
+              useValue: mockActivatedRoute
+            }
 
           ]
         }).compileComponents();
       })
     );
+
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, {useValue: mockActivatedRoute});
       fixture = TestBed.createComponent(TreePermitViewComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();

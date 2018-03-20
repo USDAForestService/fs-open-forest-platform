@@ -15,22 +15,42 @@ const paygov = {};
  * @param {string} forestAbbr
  * @param {string} permitId
  */
-paygov.createSuccessUrl = (forestAbbr, permitId) => {
+paygov.createToken = (permitId) => {
   const claims = {
     issuer: 'trees-permit-api',
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  const token = jwt.sign(
+  return jwt.sign(
     {
       data: permitId
     },
     vcapConstants.PERMIT_SECRET,
     claims
   );
+};
+
+/**
+ * @function createSuccessUrl - create success url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
+ */
+paygov.createSuccessUrl = (forestAbbr, permitId) => {
+  const token = paygov.createToken(permitId);
   return `${
     vcapConstants.INTAKE_CLIENT_BASE_URL
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
+};
+
+/**
+ * @function createCancelUrl - create cancel url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
+ */
+paygov.createCancelUrl = (forestAbbr, permitId) => {
+  const token = paygov.createToken(permitId);
+  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${forestAbbr}/applications/
+    ${permitId}?cancel=true&t=${token}`;
 };
 
 /**
@@ -48,9 +68,12 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
     console.error('problem creating success url for permit ' + permit.id, e);
   }
 
-  const url_cancel = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${forestAbbr}/applications/${
-    permit.permitId
-  }`;
+  let url_cancel;
+  try {
+    url_cancel = paygov.createCancelUrl(forestAbbr, permit.permitId);
+  } catch (e) {
+    console.error('problem creating success url for permit ' + permit.id, e);
+  }
 
   const xmlTemplate = [
     {

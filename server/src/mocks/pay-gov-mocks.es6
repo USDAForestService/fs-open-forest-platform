@@ -4,7 +4,6 @@ const express = require('express');
 const uuid = require('uuid/v4');
 
 const util = require('../services/util.es6');
-const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../services/middleware.es6');
 
@@ -45,7 +44,7 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     } else {
       xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
     }
-    tokens[token] = { successUrl: startCollectionRequest.url_success[0] };
+    tokens[token] = { successUrl: startCollectionRequest.url_success[0], cancelUrl: startCollectionRequest.url_cancel[0] };
   } else if (
     requestBody['ns2:completeOnlineCollection'] &&
     requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
@@ -104,12 +103,7 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
     .then(permit => {
       if (permit) {
         const successUrl = tokens[req.query.token].successUrl;
-        const cancelUrl =
-          vcapConstants.INTAKE_CLIENT_BASE_URL +
-          '/christmas-trees/forests/' +
-          permit.christmasTreesForest.forestAbbr +
-          '/applications/' +
-          permit.permitId;
+        const cancelUrl = tokens[req.query.token].cancelUrl;
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,

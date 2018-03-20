@@ -9,7 +9,7 @@ export class PermitBreadcrumbsResolver extends McBreadcrumbsResolver {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const forestAbbr = route.params['id'];
-    const forestName = route.data.permit.forest.forestName;
+    const forestName = route.data.permit.forest ? route.data.permit.forest.forestName : route.data.permit.error.permit.forest.forestName;
 
     const paths = [
       { title: 'Christmas tree permits', id: 'christmas-trees/forests' },
