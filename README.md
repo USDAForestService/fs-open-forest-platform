@@ -292,6 +292,11 @@ The circleci configuration separates e2e tests from all other tests in two diffe
 
 Deployment to a staging server is configured to run on the sprint branch only.
 
+#### Snyk
+
+Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This 
+file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at server start-up.
+
 ### Cloud.gov
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
