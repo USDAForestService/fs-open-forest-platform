@@ -41,6 +41,7 @@ frontend/.idea
 frontend/.sass-cache
 frontend/connect.lock
 frontend/coverage
+frontend/.eslintrc.json
 frontend/libpeerconnection.log
 frontend/npm-debug.log
 frontend/testem.log
