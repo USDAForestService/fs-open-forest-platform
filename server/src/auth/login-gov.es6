@@ -19,7 +19,7 @@ const loginGov = {};
 const basicAuthOptions = {};
 if (vcapConstants.LOGIN_GOV_IDP_USERNAME && vcapConstants.LOGIN_GOV_IDP_PASSWORD) {
   basicAuthOptions.headers = {
-    Host: vcapConstants.LOGIN_GOV_HOST,
+    Host: vcapConstants.INTAKE_CLIENT_BASE_URL,
     Authorization:
       'Basic ' +
       new Buffer(vcapConstants.LOGIN_GOV_IDP_USERNAME + ':' + vcapConstants.LOGIN_GOV_IDP_PASSWORD).toString('base64')
