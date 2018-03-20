@@ -1,6 +1,6 @@
-**Deliverables for the development of the online ePermitting project application for the U.S. Forest Service**
-
 ## Overview
+
+Deliverables for the development of the online ePermitting project application for the U.S. Forest Service.
 
 The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify their permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial,  temporary use and Christmas tree permits.
 
@@ -47,7 +47,6 @@ Initial deliverables that were created during the beginning ideation phase of th
 - [Login Mockups](https://github.com/nciinc/fs-permit-platform/tree/sprint-11-development/design-deliverables/components/login-mockups) 
 
 #### Page Designs
-Mockups supporting designs and ideation during the development process. 
 - [Landing](https://github.com/nciinc/fs-permit-platform/tree/sprint-11-development/design-deliverables/special-use/landing-page-mockups) 
 - [Non-Commercial](https://github.com/nciinc/fs-permit-platform/tree/sprint-11-development/design-deliverables/special-use/noncommercial-mockups)  
 - [Temp Outfitter](https://github.com/nciinc/fs-permit-platform/tree/sprint-11-development/design-deliverables/special-use/temp-outfitter-mockups) 
