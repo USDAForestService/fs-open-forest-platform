@@ -1,4 +1,4 @@
-** Deliverables for the development of the online ePermitting project application for the U.S. Forest Service **
+**Deliverables for the development of the online ePermitting project application for the U.S. Forest Service**
 
 ## Overview
 
