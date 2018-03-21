@@ -66,11 +66,9 @@ vcapConstants.LOGIN_GOV_ISSUER = loginGovService.credentials.issuer;
 vcapConstants.LOGIN_GOV_JWK = loginGovService.credentials.jwk;
 vcapConstants.LOGIN_GOV_IDP_USERNAME = loginGovService.credentials.idp_username;
 vcapConstants.LOGIN_GOV_IDP_PASSWORD = loginGovService.credentials.idp_password;
-vcapConstants.LOGIN_GOV_ENV = loginGovService.credentials.login_env;
-vcapConstants.LOGIN_GOV_ENDPOINT = '/.well-known/openid-configuration';
-if (vcapConstants.isLocalOrCI) {
-  vcapConstants.LOGIN_GOV_ENDPOINT = '/mocks/login-gov/discovery-url';
-}
+vcapConstants.LOGIN_GOV_DISCOVERY_URL = loginGovService.credentials.discovery_url;
+vcapConstants.LOGIN_GOV_HOST =
+  typeof process.env.LOGIN_GOV_HOST === undefined ? 'idp.int.login.gov' : process.env.LOGIN_GOV_HOST;
 
 /** USDA eAuth settings */
 const eAuthService = getUserProvided('eauth-service-provider');

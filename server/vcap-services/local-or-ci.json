@@ -27,7 +27,7 @@
         "entrypoint": "https://login.gov",
         "issuer": "",
         "private_key": "",
-        "login_env": "http://localhost:8080",
+        "discovery_url": "http://localhost:8080/mocks/login-gov/discovery-url/",
         "idp_username": "",
         "idp_password": "",
         "jwk": {
