@@ -27,7 +27,7 @@
         "entrypoint": "",
         "issuer": "",
         "private_key": "",
-        "login_env": "https://idp.int.login.gov",
+        "discovery_url": "https://secure.login.gov/.well-known/openid-configuration",
         "idp_username": "",
         "idp_password": "",
         "jwk": {
