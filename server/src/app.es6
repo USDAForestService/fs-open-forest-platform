@@ -55,7 +55,9 @@ app.use(
 passportConfig.setup(app);
 
 /** Pay.gov mock route */
-app.use(payGovMocks.router);
+if (util.isLocalOrCI()) {
+  app.use(payGovMocks.router);
+}
 app.use(loginGovMocks.router);
 
 /** serve up docs api */

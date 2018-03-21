@@ -236,6 +236,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
+                        console.log('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -400,9 +401,9 @@ const generateRulesAndEmail = permit => {
 };
 
 /**
- * @function generateRulesAndEmail - API function to get a Completed permit
- * or complete transaction with  pay.gov if it's Initiated permit.
- * @param {Object} permit
+ * @function getOnePermit - API function to get a permit.
+ * @param {Object} req
+ * @param {Object} res
  */
 christmasTree.getOnePermit = (req, res) => {
   treesDb.christmasTreesPermits
@@ -419,25 +420,7 @@ christmasTree.getOnePermit = (req, res) => {
     .then(permit => {
       if (permit && permit.status === 'Error') {
         return getPermitError(res, permit);
-      } else if (permit && permit.status === 'Initiated') {
-        const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-        postPayGov(xmlData).then(xmlResponse => {
-          parseXMLFromPayGov(res, xmlResponse, permit)
-            .then(paygovTrackingId => {
-              return updatePermit(permit, {
-                paygovTrackingId: paygovTrackingId,
-                status: 'Completed'
-              });
-            })
-            .then(updatedPermit => {
-              returnSavedPermit(res, permit);
-              generateRulesAndEmail(updatedPermit);
-            })
-            .catch(error => {
-              throwError(error);
-            });
-        });
-      } else if (permit && permit.status === 'Completed') {
+      } else if (permit) {
         const token = req.query.t;
         jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
           if (decoded) {
@@ -461,31 +444,6 @@ christmasTree.getOnePermit = (req, res) => {
       } else {
         return res.status(500).send();
       }
-    });
-};
-
-/**
- * @function getOnePermitDetail - API function to get an incomplete permit.
- * @param {Object} request
- * @param {Object} response
- */
-christmasTree.getOnePermitDetail = (req, res) => {
-  treesDb.christmasTreesPermits
-    .findOne({
-      where: {
-        permitId: req.params.id
-      }
-    })
-    .then(permit => {
-      if (permit.status === 'Completed') {
-        res.status(404).send();
-      } else {
-        res.status(200).json(permit);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(404).send();
     });
 };
 
@@ -536,27 +494,57 @@ christmasTree.printPermit = (req, res) => {
 };
 
 /**
- * @function update - API function to update permit
+ * @function updatePermitApplication - API function to update permit
  * @param {Object} request
  * @param {Object} response
  */
-christmasTree.update = (req, res) => {
+christmasTree.updatePermitApplication = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
         permitId: req.body.permitId
-      }
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ]
     })
     .then(permit => {
-      if (permit.status !== 'Initiated' && permit.status !== 'Completed') {
-        res.status(404).send();
-      } else {
-        permit
-          .update({
-            status: req.body.status
-          })
-          .then(res.status(200).json(permit));
-      }
+      const token = req.query.t;
+      jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
+        if (decoded && permit) {
+          if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
+            return permit
+              .update({
+                status: req.body.status
+              })
+              .then(res.status(200).json(permit));
+          } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
+            const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+            postPayGov(xmlData).then(xmlResponse => {
+              parseXMLFromPayGov(res, xmlResponse, permit)
+                .then(paygovTrackingId => {
+                  return updatePermit(permit, {
+                    paygovTrackingId: paygovTrackingId,
+                    status: req.body.status
+                  });
+                })
+                .then(updatedPermit => {
+                  returnSavedPermit(res, permit);
+                  generateRulesAndEmail(updatedPermit);
+                })
+                .catch(error => {
+                  throwError(error);
+                });
+            });
+          } else {
+            return res.status(404).send();
+          }
+        } else {
+          return res.status(404).send();
+        }
+      });
     })
     .catch(() => {
       res.status(404).send();

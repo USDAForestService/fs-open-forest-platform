@@ -258,7 +258,7 @@ const appRoutes: Routes = [
             path: 'applications/:permitId',
             component: TreeApplicationFormComponent,
             resolve: {
-              permit: ChristmasTreePermitDetailResolver
+              permit: ChristmasTreePermitResolver
             },
             data: { breadcrumbs: 'Buy a permit' }
           },

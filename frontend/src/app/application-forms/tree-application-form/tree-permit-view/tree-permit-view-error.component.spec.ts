@@ -13,6 +13,7 @@ describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
   let fixture: ComponentFixture<TreePermitViewComponent>;
   const mockActivatedRoute = {
+    queryParams: [{t: '123'}],
     data: Observable.of({
       permit: {
         error: {
@@ -45,14 +46,14 @@ describe('TreePermitViewComponent', () => {
           McBreadcrumbsConfig,
           McBreadcrumbsService,
           { provide: ChristmasTreesApplicationService },
-          { provide: WindowRef, useClass: WindowRef }
+          { provide: WindowRef, useClass: WindowRef },
+          { provide: ActivatedRoute, useValue: mockActivatedRoute }
           ]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    TestBed.overrideProvider(ActivatedRoute, { useValue: mockActivatedRoute });
     fixture = TestBed.createComponent(TreePermitViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
