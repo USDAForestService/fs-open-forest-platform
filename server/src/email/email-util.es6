@@ -10,7 +10,7 @@ const inlineCss = require('nodemailer-juice');
 const emailUtil = {};
 
 const smtpConfig = {
-  host: vcapConstants.smtpHost,
+  host: vcapConstants.SMTP_HOST,
   port: 587,
   secure: false,
   requireTLS: true
@@ -20,23 +20,23 @@ const smtpConfig = {
  * If smtp username and password are set in VCAP_SERVICES,
  * we assume that smtp host is configured to authenticate with username and password.
  */
-if (vcapConstants.smtpUsername && vcapConstants.smtpPassword) {
+if (vcapConstants.SMTP_USERNAME && vcapConstants.SMTP_PASSWORD) {
   smtpConfig.auth = {
-    user: vcapConstants.smtpUsername,
-    pass: vcapConstants.smtpPassword
+    user: vcapConstants.SMTP_USERNAME,
+    pass: vcapConstants.SMTP_PASSWORD
   };
 }
 
 const transporter = nodemailer.createTransport(smtpConfig);
 
 emailUtil.send = (to, subject, body, html = false, attachments = false) => {
-  const bodyAndNoReply =
-    `${body}
+  const bodyAndNoReply = `${body}
 
-Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email`;
+    Please do not reply to this message. 
+    This email message was sent from a notification-only address that cannot accept incoming email`;
 
   let mailOptions = {
-    from: `"Forest Service online permits" <${vcapConstants.smtpUsername}>`,
+    from: `"Forest Service online permits" <${vcapConstants.SMTP_USERNAME}>`,
     to: to,
     subject: subject,
     text: bodyAndNoReply // plain text
@@ -47,9 +47,9 @@ Please do not reply to this message. This email message was sent from a notifica
   if (attachments) {
     mailOptions.attachments = attachments;
   }
-  if (vcapConstants.smtpHost) {
+  if (vcapConstants.SMTP_HOST) {
     transporter.use('compile', inlineCss());
-    transporter.sendMail(mailOptions, (error) => {
+    transporter.sendMail(mailOptions, error => {
       if (error) {
         console.error('NODE_MAILER_SMTP_ERROR', error);
       }
@@ -64,10 +64,8 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
     let html;
     let templateAttachments;
     if (template.html) {
-      html =
-        `${htmlTemplate.forestService}<div class="body">${
-          template.html
-        }<p>Please do not reply to this message. This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
+      html = `${htmlTemplate.forestService}<div class="body">${template.html}<p>Please do not reply to this message. 
+      This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
     }
     if (template.attachments) {
       templateAttachments = template.attachments;

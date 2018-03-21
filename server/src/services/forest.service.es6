@@ -1,13 +1,17 @@
 'use strict';
 
 /**
- * Module for Forest service
- *
+ * Module for Forest service service functions
+ * @module services/forest-service
  */
 const moment = require('moment-timezone');
 
 const forestService = {};
 
+/**
+ * @function parseCuttingAreas - function to parse cutting areas JSON object.
+ * @param {string} cuttingAreas
+ */
 forestService.parseCuttingAreas = cuttingAreas => {
   try {
     if (cuttingAreas !== null && typeof cuttingAreas === 'string') {
@@ -20,6 +24,10 @@ forestService.parseCuttingAreas = cuttingAreas => {
   return cuttingAreas;
 };
 
+/**
+ * @function translateForestFromDatabaseToClient - function to translate database model to JSON object
+ * @param {Object} input
+ */
 forestService.translateForestFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);
   let endDate = moment(input.endDate);
@@ -45,8 +53,4 @@ forestService.translateForestFromDatabaseToClient = input => {
   };
 };
 
-/**
- * forest service
- * @exports forestService
- */
 module.exports = forestService;

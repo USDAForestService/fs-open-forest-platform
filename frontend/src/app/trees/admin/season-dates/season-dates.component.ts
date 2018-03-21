@@ -5,7 +5,8 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-season-dates',
@@ -18,6 +19,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   form: any;
   updateStatus: any;
   apiErrors: any;
+  changeRequestFormUrl = environment.changeRequestForm;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -29,7 +31,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   };
 
   constructor(
-    private treesAdminService: TreesAdminService,
+    private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -56,14 +58,6 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       if (data && data.user) {
         this.user = data.user;
         this.forests = data.forests;
-        if (!this.user.forests || !this.user.forests.length) {
-          // route to access denied if the user doesn't have any forests
-          this.router.navigate(['access-denied']);
-        } else if (this.user.forests.find(forest => forest !== 'all')) {
-          this.forests = this.forests.filter(forest =>
-            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-          );
-        }
         this.forest = this.forests[0];
         if (this.forest) {
           this.form.get('forestId').setValue(this.forest.id);

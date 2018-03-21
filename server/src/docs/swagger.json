@@ -1,0 +1,953 @@
+{
+  "info": {
+    "version": "0.1.0", 
+    "description": "U.S. Forest Service Permit Platform", 
+    "license": {
+      "url": "https://github.com/18F/fs-permit-platform/LICENSE.md", 
+      "name": "Open Source"
+    }, 
+    "title": "U.S. Forest Service Permit Platform"
+  }, 
+  "paths": {
+    "/forests/christmas-trees/permits/{id}/details": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Permit not found or permit is completed/cancelled"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Id number of permit", 
+            "in": "path", 
+            "name": "id"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Retrieve existing, non-completed christmas tree permit without SVG", 
+        "description": "Retrieve existing, non-completed christmas tree permit using the permit id"
+      }
+    }, 
+    "/permits/applications/special-uses/temp-outfitter/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Application not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Control Number", 
+            "in": "path", 
+            "name": "id"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "getTempOutfitterApp", 
+        "tags": [
+          "temp-outfitter"
+        ], 
+        "summary": "Retrieve an existing temp outfitter application", 
+        "description": "Retrieve an existing temp outfitter application using the application control number"
+      }
+    }, 
+    "/forests": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Forests not found"
+          }
+        }, 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Retrieve forests for christmas tree harvesting", 
+        "description": "Retrieve forests for christmas tree harvesting"
+      }
+    }, 
+    "/permits/applications/special-uses/noncommercial/{id}": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Application not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Control Number", 
+            "in": "path", 
+            "name": "id"
+          }, 
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non-commercial application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/noncommercialApplication"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "noncommercial"
+        ], 
+        "summary": "Update an existing noncommercial application", 
+        "operationId": "updateNoncommApp", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Update an existing noncommercial application"
+      }, 
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Application not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Control Number", 
+            "in": "path", 
+            "name": "id"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "getNoncommApp", 
+        "tags": [
+          "noncommercial"
+        ], 
+        "summary": "Retrieve an existing noncommercial application", 
+        "description": "Retrieve an existing noncommercial application using the application control number"
+      }
+    }, 
+    "/uptime": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }
+        }, 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "uptime", 
+        "tags": [
+          "general"
+        ], 
+        "summary": "displays the uptime of the server", 
+        "description": "displays the uptime of the server"
+      }
+    }, 
+    "/forests/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Forest not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "string", 
+            "description": "Forest abbreviations: arp - Arapaho and Roosevelt, flathead - Flathead, mthood - Mt. Hood, shoshone - Shoshone", 
+            "in": "path", 
+            "name": "id"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Retrieve existing christmas tree guidelines", 
+        "description": "Retrieve existing christmas tree forest information using the forest abbreviation"
+      }
+    }, 
+    "/permits/applications/special-uses/noncommercial": {
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non-commercial application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/noncommercialApplication"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "noncommercial"
+        ], 
+        "summary": "Creates a new non-commercial application", 
+        "operationId": "createNoncommercialTempApp", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Creates a new non-commercial application"
+      }, 
+      "get": {
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }, 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "getAllNoncommApp", 
+        "tags": [
+          "noncommercial"
+        ], 
+        "summary": "Retrieve all existing non-commercial applications", 
+        "description": "Retrieves all existing non-commerical applications."
+      }
+    }, 
+    "/forests/christmas-trees/permits/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Permit not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Id number of permit", 
+            "in": "path", 
+            "name": "id"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Retrieve existing christmas tree permit and SVG of permit", 
+        "description": "Retrieve existing christmas tree permit using the permit id"
+      }
+    }, 
+    "/admin/christmas-trees/forests/{forestId}": {
+      "put": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Permit not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "integer", 
+            "description": "Id number of the forest (1 - Arapaho and Roosevelt, 2 - Flathead, 3 - Mt. Hood, 4 - Shoshone)", 
+            "in": "path", 
+            "name": "forestId"
+          }, 
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non-commercial application object", 
+            "name": "body", 
+            "schema": {
+              "properties": {
+                "startDate": {
+                  "type": "string", 
+                  "example": "2020-10-25"
+                }, 
+                "endDate": {
+                  "type": "string", 
+                  "example": "2020-12-24"
+                }
+              }
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree-admin"
+        ], 
+        "summary": "Update forest christmas tree season dates", 
+        "description": "Update christmas tree harvesting season dates for the given forest"
+      }
+    }, 
+    "/permits/applications/special-uses/temp-outfitter/file": {
+      "post": {
+        "responses": {
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General Error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "File Association object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/File"
+            }
+          }, 
+          {
+            "required": true, 
+            "type": "file", 
+            "description": "Binary file sent in as a multi-part form field called 'file'", 
+            "in": "formData", 
+            "name": "file"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "temp-outfitter"
+        ], 
+        "summary": "Uploads an associated file for an application", 
+        "operationId": "createAppFile", 
+        "consumes": [
+          "multipart/form-data"
+        ], 
+        "description": "Uploads an associated file for an application"
+      }
+    }, 
+    "/permits/applications/special-uses/temp-outfitter": {
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A temp outfitter application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/tempOutfitterApp"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "temp-outfitter"
+        ], 
+        "summary": "Creates a new temp outfitter application", 
+        "operationId": "createTempOutfitterApp", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Creates a new temp outfitter application"
+      }
+    }, 
+    "/forests/christmas-trees/permits": {
+      "put": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "200": {
+            "description": "Successful Update"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A Christmas tree permit application object", 
+            "name": "body", 
+            "schema": {
+              "properties": {
+                "status": {
+                  "type": "string"
+                }, 
+                "permitId": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Updates a christmas-tree permit application", 
+        "operationId": "update", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Updates christmas-tree permit application"
+      }, 
+      "post": {
+        "responses": {
+          "400": {
+            "description": "Validation error"
+          }, 
+          "201": {
+            "description": "Successful Creation"
+          }, 
+          "500": {
+            "description": "General server error"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "in": "body", 
+            "description": "A non-christmas-tree application object", 
+            "name": "body", 
+            "schema": {
+              "$ref": "#/definitions/christmasTreeApplication"
+            }
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "tags": [
+          "christmas-tree"
+        ], 
+        "summary": "Creates a new christmas-tree application", 
+        "operationId": "createChristmasTreeApp", 
+        "consumes": [
+          "application/json"
+        ], 
+        "description": "Creates a new christmas-tree application"
+      }
+    }, 
+    "/admin/christmas-trees/permits/{permitId}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "Permit not found"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "uuid", 
+            "description": "Id number of permit to get details on", 
+            "in": "path", 
+            "name": "permitId"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree-admin"
+        ], 
+        "summary": "Retrieve details of a completed christmas tree permit", 
+        "description": "Retrieve details of a completed christmas tree permit"
+      }
+    }, 
+    "/admin/christmas-trees/permits/{forestId}/{startDate}/{endDate}": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }, 
+          "400": {
+            "description": "Invalid input or other error"
+          }, 
+          "404": {
+            "description": "No permits not found in the date range provided"
+          }
+        }, 
+        "parameters": [
+          {
+            "required": true, 
+            "type": "integer", 
+            "description": "Id number of forest to query for", 
+            "in": "path", 
+            "name": "forestId"
+          }, 
+          {
+            "in": "path", 
+            "description": "Beginning of date range to search for permits", 
+            "format": "date-time", 
+            "required": true, 
+            "type": "string", 
+            "name": "startDate"
+          }, 
+          {
+            "in": "path", 
+            "description": "End of date range to search for permits", 
+            "format": "date-time", 
+            "required": true, 
+            "type": "string", 
+            "name": "endDate"
+          }
+        ], 
+        "produces": [
+          "application/json"
+        ], 
+        "operationId": "", 
+        "tags": [
+          "christmas-tree-admin"
+        ], 
+        "summary": "Retrieve list of completed christmas tree permits within provided date range", 
+        "description": "Retrieve list of completed christmas tree permits within provided date range"
+      }
+    }
+  }, 
+  "schemes": [
+    "http"
+  ], 
+  "definitions": {
+    "tempOutfitterFields": {
+      "type": "object", 
+      "properties": {
+        "activityDescriptionFields": {
+          "$ref": "#/definitions/activityDescriptionFields"
+        }, 
+        "advertisingDescription": {
+          "type": "string"
+        }, 
+        "smallBusiness": {
+          "type": "boolean"
+        }, 
+        "clientCharges": {
+          "type": "string"
+        }, 
+        "individualIsCitizen": {
+          "type": "boolean"
+        }, 
+        "experienceList": {
+          "type": "string"
+        }, 
+        "advertisingURL": {
+          "type": "string"
+        }
+      }
+    }, 
+    "activityDescriptionFields": {
+      "type": "object", 
+      "properties": {
+        "audienceDescription": {
+          "type": "string"
+        }, 
+        "servicesProvided": {
+          "type": "string"
+        }, 
+        "statementOfMotorizedEquipment": {
+          "type": "string"
+        }, 
+        "numberOfTrips": {
+          "type": "string"
+        }, 
+        "locationDescription": {
+          "type": "string"
+        }, 
+        "listOfTemporaryImprovements": {
+          "type": "string"
+        }, 
+        "statementOfTransportationOfLivestock": {
+          "type": "string"
+        }, 
+        "statementOfAssignedSite": {
+          "type": "string"
+        }, 
+        "listOfGovernmentFacilities": {
+          "type": "string"
+        }, 
+        "dateTimeRange": {
+          "$ref": "#/definitions/dateTimeRange"
+        }, 
+        "descriptionOfCleanupAndRestoration": {
+          "type": "string"
+        }, 
+        "numberServiceDaysRequested": {
+          "type": "string"
+        }
+      }
+    }, 
+    "dateTimeRange": {
+      "type": "object", 
+      "properties": {
+        "endDateTime": {
+          "type": "string"
+        }, 
+        "startDateTime": {
+          "type": "string"
+        }
+      }
+    }, 
+    "tempOutfitterApplicantInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonApplicantInfo"
+        }, 
+        {
+          "type": "object", 
+          "properties": {
+            "faxNumber": {
+              "$ref": "#/definitions/phone"
+            }
+          }
+        }
+      ]
+    }, 
+    "noncommApplicantInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonApplicantInfo"
+        }, 
+        {
+          "type": "object", 
+          "properties": {
+            "secondaryFirstName": {
+              "type": "string"
+            }, 
+            "organizationAddress": {
+              "$ref": "#/definitions/address"
+            }, 
+            "secondaryAddress": {
+              "$ref": "#/definitions/address"
+            }, 
+            "secondaryLastName": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }, 
+    "noncommFields": {
+      "type": "object", 
+      "properties": {
+        "activityDescription": {
+          "type": "string", 
+          "maxLength": 512
+        }, 
+        "locationDescription": {
+          "type": "string"
+        }, 
+        "dateTimeRange": {
+          "$ref": "#/definitions/dateTimeRange"
+        }, 
+        "spectators": {
+          "type": "integer"
+        }, 
+        "numberParticipants": {
+          "type": "integer"
+        }
+      }
+    }, 
+    "christmasTreeApplication": {
+      "properties": {
+        "totalCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "emailAddress": {
+          "type": "string"
+        }, 
+        "firstName": {
+          "type": "string"
+        }, 
+        "treeCost": {
+          "type": "number", 
+          "format": "double"
+        }, 
+        "lastName": {
+          "type": "string"
+        }, 
+        "forestId": {
+          "type": "integer"
+        }, 
+        "quantity": {
+          "type": "integer"
+        }
+      }
+    }, 
+    "phone": {
+      "type": "object", 
+      "properties": {
+        "areaCode": {
+          "type": "string", 
+          "maxLength": 3
+        }, 
+        "prefix": {
+          "type": "string", 
+          "maxLength": 3
+        }, 
+        "number": {
+          "type": "string", 
+          "maxLength": 4
+        }, 
+        "extension": {
+          "type": "string", 
+          "maxLength": 10
+        }
+      }
+    }, 
+    "commonApplicantInfo": {
+      "type": "object", 
+      "properties": {
+        "website": {
+          "type": "string"
+        }, 
+        "organizationName": {
+          "type": "string"
+        }, 
+        "primaryLastName": {
+          "type": "string"
+        }, 
+        "primaryAddress": {
+          "$ref": "#/definitions/address"
+        }, 
+        "primaryFirstName": {
+          "type": "string"
+        }, 
+        "emailAddress": {
+          "type": "string"
+        }, 
+        "dayPhone": {
+          "$ref": "#/definitions/phone"
+        }, 
+        "eveningPhone": {
+          "$ref": "#/definitions/phone"
+        }, 
+        "orgType": {
+          "type": "string"
+        }
+      }
+    }, 
+    "common": {
+      "type": "object", 
+      "properties": {
+        "district": {
+          "type": "string", 
+          "maxLength": 2
+        }, 
+        "applicantMessage": {
+          "type": "string"
+        }, 
+        "region": {
+          "type": "string", 
+          "maxLength": 2
+        }, 
+        "authorizingOfficerName": {
+          "type": "string"
+        }, 
+        "authorizingOfficerTitle": {
+          "type": "string"
+        }, 
+        "forest": {
+          "type": "string", 
+          "maxLength": 2
+        }, 
+        "signature": {
+          "type": "string", 
+          "maxLength": 3
+        }, 
+        "type": {
+          "type": "string"
+        }
+      }
+    }, 
+    "File": {
+      "required": [
+        "originalFileName"
+      ], 
+      "type": "object", 
+      "properties": {
+        "s3FileName": {
+          "type": "string"
+        }, 
+        "applicationId": {
+          "type": "integer", 
+          "format": "int64"
+        }, 
+        "applicationType": {
+          "type": "string"
+        }, 
+        "originalFileName": {
+          "type": "string", 
+          "example": "example.jpg"
+        }
+      }
+    }, 
+    "address": {
+      "type": "object", 
+      "properties": {
+        "mailingCity": {
+          "type": "string"
+        }, 
+        "mailingAddress2": {
+          "type": "string"
+        }, 
+        "mailingAddress": {
+          "type": "string"
+        }, 
+        "mailingZIP": {
+          "type": "string", 
+          "maxLength": 5
+        }, 
+        "mailingState": {
+          "type": "string", 
+          "maxLength": 2
+        }
+      }
+    }, 
+    "noncommercialApplication": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common"
+        }, 
+        {
+          "type": "object", 
+          "properties": {
+            "noncommercialFields": {
+              "$ref": "#/definitions/noncommFields"
+            }, 
+            "applicantInfo": {
+              "$ref": "#/definitions/noncommApplicantInfo"
+            }
+          }
+        }
+      ]
+    }, 
+    "tempOutfitterApp": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/common"
+        }, 
+        {
+          "type": "object", 
+          "properties": {
+            "tempOutfitterFields": {
+              "$ref": "#/definitions/tempOutfitterFields"
+            }, 
+            "applicantInfo": {
+              "$ref": "#/definitions/tempOutfitterApplicantInfo"
+            }
+          }
+        }
+      ]
+    }
+  }, 
+  "basePath": "/", 
+  "swagger": "2.0", 
+  "externalDocs": {
+    "url": "https://www.fs.fed.us/", 
+    "description": "Find out more about Forest Service"
+  }
+}

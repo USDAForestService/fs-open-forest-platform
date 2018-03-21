@@ -1,6 +1,4 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockBackend } from '@angular/http/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
@@ -24,18 +22,18 @@ describe('Christmas Trees Application Service', () => {
     'should call create',
     inject([ChristmasTreesApplicationService], service => {
       const spy = sinon.spy(service, 'create');
-      service.create({}, 'noncommercial', true);
+      service.create({}, 'body', true);
       expect(spy.called).toBeTruthy();
     })
   );
 
   it(
-    'should call getOne',
+    'should call getPermit',
     inject([ChristmasTreesApplicationService], service => {
-      const spy = sinon.spy(service, 'getOne');
-      service.getOne('id');
+      const spy = sinon.spy(service, 'getPermit');
+      service.getPermit('id');
       expect(spy.called).toBeTruthy();
-      service.getOne('id', 'test');
+      service.getPermit('id', 'test');
       expect(spy.called).toBeTruthy();
     })
   );
@@ -51,19 +49,10 @@ describe('Christmas Trees Application Service', () => {
   );
 
   it(
-    'should cancel old app',
+    'should update permit for cancel',
     inject([ChristmasTreesApplicationService], service => {
-      const spy = sinon.spy(service, 'cancelOldApp');
-      service.cancelOldApp(1);
-      expect(spy.called).toBeTruthy();
-    })
-  );
-
-  it(
-    'should get details',
-    inject([ChristmasTreesApplicationService], service => {
-      const spy = sinon.spy(service, 'getDetails');
-      service.getDetails(1);
+      const spy = sinon.spy(service, 'updatePermit');
+      service.updatePermit(1, 'Cancelled', '123');
       expect(spy.called).toBeTruthy();
     })
   );

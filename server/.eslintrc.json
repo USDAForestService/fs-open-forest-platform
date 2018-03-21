@@ -14,6 +14,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": ["off"],
-    "no-unsafe-finally": ["off"]
+    "no-unsafe-finally": ["off"],
+    "max-len": [2, { "code": 125, "tabWidth": 2, "ignoreUrls": true }]
   }
 }

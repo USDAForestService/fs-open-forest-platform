@@ -18,6 +18,7 @@ export class TreeGuidelinesComponent implements OnInit {
   sidebarItems;
   isSeasonOpen = true;
   seasonOpenAlert = 'Christmas tree season is closed and online permits are not available.';
+  user;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,6 +77,7 @@ export class TreeGuidelinesComponent implements OnInit {
     });
 
     this.route.data.subscribe(data => {
+      this.user = data.user;
       this.forest = data.forest;
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);

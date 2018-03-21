@@ -5,8 +5,9 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-district-dates',
@@ -21,6 +22,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   form: any;
   updateStatus: any;
   apiErrors: any;
+  changeRequestFormUrl = environment.changeRequestForm;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -32,7 +34,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   };
 
   constructor(
-    private treesAdminService: TreesAdminService,
+    private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
     private christmasTreesService: ChristmasTreesService,
     private formBuilder: FormBuilder,
@@ -91,18 +93,9 @@ export class AdminDistrictDatesComponent implements OnInit {
         this.user = data.user;
         this.forests = data.forests;
 
-        if (!this.user.forests || !this.user.forests.length) {
-          // route to access denied if the user doesn't have any forests
-          this.router.navigate(['access-denied']);
-        } else if (this.user.forests.find(forest => forest !== 'all')) {
-          this.forests = this.forests.filter(forest =>
-            this.user.forests.find(forestAbbr => forestAbbr === forest.forestAbbr)
-          );
-        }
-
         if (this.forests[0]) {
-          // set default forest to first one
-          this.setForest(this.forests[0].forestAbbr);
+          // set default forest to first one on form
+          this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
       }
     });

@@ -15,7 +15,8 @@ const vcapConstants = require('../vcap-constants.es6');
 const passportConfig = {};
 
 /**
- * Setup passport to integrate with login.gov and eAuth/
+ * @function setup - Setup passport to integrate with login.gov and eAuth/
+ * @param {Object} application
  */
 passportConfig.setup = app => {
   loginGov.setup();
@@ -32,31 +33,31 @@ passportConfig.setup = app => {
 };
 
 /**
- * Get the authetication user.
+ * @function getPassportUser - Get the authetication user.
+ * @param {Object} request
+ * @param {Object} response
  */
 passportConfig.getPassportUser = (req, res) => {
   return res.send(util.getUser(req));
 };
 
 /**
- * Log out of eAuth or login.gov.
+ * @function logout - Log out of eAuth or login.gov.
+ * @param {Object} request
+ * @param {Object} response
  */
 passportConfig.logout = (req, res) => {
-  /** login.gov requires the user to visit the idp to logout */
+  // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        vcapConstants.baseUrl + '/auth/login-gov/openid/logout'
+        vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
     req.logout();
-    return res.redirect(vcapConstants.intakeClientBaseUrl);
+    return res.redirect(vcapConstants.INTAKE_CLIENT_BASE_URL);
   }
 };
 
-/**
- * Passport configuration
- * @exports auth/passportConfig
- */
 module.exports = passportConfig;

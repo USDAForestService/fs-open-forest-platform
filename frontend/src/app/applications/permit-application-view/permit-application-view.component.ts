@@ -67,7 +67,7 @@ export class PermitApplicationViewComponent implements OnInit {
     if (status === 'Accepted') {
       this.alertService.addSuccessMessage(
         'Application has been sent to SUDS for further processing and an email with your message has been sent to the applicant. ' +
-          '<div><a class="usa-button" href="https://iweb.fs.usda.gov/login/common.jsp?option=7">Log in to SUDS.</a></div>'
+          '<div><a class="usa-button-primary-alt" href="https://iweb.fs.usda.gov/login/common.jsp?option=7">Log in to SUDS.</a></div>'
       );
     } else if (status === 'Hold') {
       this.alertService.addSuccessMessage(
@@ -89,12 +89,12 @@ export class PermitApplicationViewComponent implements OnInit {
         this.reasonOrCancel.label = 'Additional message for the permit holder.';
         break;
       case 'Hold':
-        this.reasonOrCancel.buttonClass = 'usa-button';
+        this.reasonOrCancel.buttonClass = 'usa-button-primary';
         this.reasonOrCancel.confirmButtonText = 'Hold and notify applicant';
         this.reasonOrCancel.label = 'Why is this application on hold?';
         break;
       case 'Rejected':
-        this.reasonOrCancel.buttonClass = 'usa-button-secondary';
+        this.reasonOrCancel.buttonClass = 'usa-button-red';
         this.reasonOrCancel.confirmButtonText = 'Reject and notify applicant';
         this.reasonOrCancel.label = 'Why is this application being rejected?';
         break;

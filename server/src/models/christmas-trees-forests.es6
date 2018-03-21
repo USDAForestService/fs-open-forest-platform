@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for christmas tree forests model
+ * @module models/christmas-trees-forests
+ */
+
 const moment = require('moment-timezone');
 const util = require('../services/util.es6');
 
@@ -90,6 +95,10 @@ module.exports = function(sequelize, DataTypes) {
       cuttingAreas: {
         type: DataTypes.JSONB,
         field: 'cutting_areas'
+      },
+      possFinancialId: {
+        type: DataTypes.STRING(50),
+        field: 'poss_financial_id'
       }
     },
     {
@@ -148,7 +157,6 @@ module.exports = function(sequelize, DataTypes) {
           .format('YYYY-MM-DD HH:mm:ss');
       }
     }
-
   });
 
   return christmasTreesForests;
