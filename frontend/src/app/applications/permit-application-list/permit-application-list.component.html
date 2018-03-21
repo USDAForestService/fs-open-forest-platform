@@ -15,13 +15,13 @@
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
-    <div *ngIf="successMessage" class="usa-alert usa-alert-success application-deadline-warning">
+    <div *ngIf="successMessage" aria-role="dialog" aria-label="success" class="usa-alert usa-alert-success application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Success</h3>
         <p class="usa-alert-text" [innerHTML]="successMessage"></p>
       </div>
     </div>
-    <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning">
+    <div *ngIf="showAttentionAlert()" class="usa-alert usa-alert-warning application-deadline-warning" aria-role="dialog" aria-label="warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Warning</h3>
         <p class="usa-alert-text">{{warningMessage}}</p>
