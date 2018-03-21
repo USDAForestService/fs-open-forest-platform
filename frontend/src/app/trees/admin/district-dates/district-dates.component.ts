@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
-import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
 import { environment } from '../../../../environments/environment';
+import { DOCUMENT } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-district-dates',
@@ -38,10 +39,10 @@ export class AdminDistrictDatesComponent implements OnInit {
     private service: ChristmasTreesApplicationService,
     private christmasTreesService: ChristmasTreesService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private titleService: Title,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
-    private winRef: WindowRef
+    @Inject(DOCUMENT) private doc: Document
   ) {
     this.form = formBuilder.group({
       forestAbbr: ['', [Validators.required]],
@@ -88,6 +89,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting');
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
@@ -128,11 +130,11 @@ export class AdminDistrictDatesComponent implements OnInit {
         .subscribe(
           () => {
             this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('district-updated-alert-container').focus();
           },
           err => {
             this.apiErrors = err;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('district-updated-alert-container').focus();
           }
         );
     }

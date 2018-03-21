@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ChristmasTreesApplicationService } from '../../../_services/christmas-trees-application.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({

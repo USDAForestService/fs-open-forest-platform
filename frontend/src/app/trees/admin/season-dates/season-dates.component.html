@@ -4,11 +4,14 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Update Forest Season Dates</h1>
 
-    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+    <div id="season-updated-alert-container" tabindex="-1">
 
-    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
-      <div class="usa-alert-body">
-        <p class="usa-alert-text">{{ updateStatus }}</p>
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+      <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ updateStatus }}</p>
+        </div>
       </div>
     </div>
 

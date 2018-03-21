@@ -1,4 +1,4 @@
-<nav
+<nav aria-label="Forests admin navigation"
  *ngIf="user && user.role === 'admin' && user.forests && user.forests.length"
  id="forest-admin-nav" role="nav"
  [ngClass]="{'is-visible' : !showMobileNav}"
@@ -14,7 +14,7 @@
 <ng-container *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
   <button *ngIf="!sideNavPresent" id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
-  <nav id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showAdminNav" class="usa-nav sidenav-mobile">
+  <nav aria-label="Forests admin navigation" id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showAdminNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
       <button class="usa-nav-close" (click)="showMobileNav = false; showAdminNav=true;">
         <img src="/assets/img/close.svg" alt="Close navigation menu">

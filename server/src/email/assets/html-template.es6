@@ -88,10 +88,10 @@ template.forestService = `
       
     </style>
     <div class="header">
-      <table class="borderless">
+      <table role="presentation" class="borderless">
         <tr>
-          <td><a href="https://www.usda.gov/"><img alt="USDA logo" class="logo" src="cid:usdalogopng" /></a></td>
-          <td><a href="https://www.fs.fed.us/"><img alt="US Forest Service Logo" class="logo" src="cid:forestservicelogopng" /></a></td>
+          <td><a href="https://www.usda.gov/"><img alt="USDA" class="logo" src="cid:usdalogopng" /></a></td>
+          <td><a href="https://www.fs.fed.us/"><img alt="Department of Agriculture - US Forest Service" class="logo" src="cid:forestservicelogopng" /></a></td>
         </tr>
       </table>
     </div>
