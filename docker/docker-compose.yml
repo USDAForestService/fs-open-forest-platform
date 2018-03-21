@@ -17,6 +17,8 @@ services:
     volumes:
       - ../server:/app
       - /app/node_modules
+      - ../frontend/src/assets/img:/app/frontend-assets/img
+      - ../frontend/src/assets/content:/app/frontend-assets/content
     depends_on:
       - fs-intake-postgres
     networks:
