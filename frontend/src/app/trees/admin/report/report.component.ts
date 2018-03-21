@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -7,12 +7,16 @@ import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
+import { DOCUMENT } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html'
 })
 export class ReportComponent implements OnInit, AfterViewInit {
+  @ViewChild('reportResults') reportResults: ElementRef;
+
   forests: any;
   forest: any;
   form: any;
@@ -38,7 +42,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
     private treesAdminService: ChristmasTreesAdminService,
-    private winRef: WindowRef
+    private titleService: Title,
+    @Inject(DOCUMENT) private doc: Document
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
@@ -64,6 +69,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Christmas trees permits admin reports | U.S. Forest Service Christmas Tree Permitting');
+
     this.route.data.subscribe(data => {
       this.forests = data.forests;
       this.forest = this.forests[0];
@@ -126,10 +133,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
               permits: results.permits,
               parameters: this.reportParameters
             };
+            this.doc.getElementById('report-results').focus();
           },
           err => {
             this.apiErrors = err;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('report-alerts-container').focus();
           }
         );
     } else {
@@ -150,10 +158,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
             permits: results.permits,
             parameters: null
           };
+          this.doc.getElementById('report-results').focus();
         },  err => {
           this.apiErrors = err;
           this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
-          this.winRef.getNativeWindow().scroll(0, 200);
+          this.doc.getElementById('report-alerts-container').focus();
         }
       );
     }
