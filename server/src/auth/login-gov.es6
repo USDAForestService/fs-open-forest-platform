@@ -19,7 +19,7 @@ const loginGov = {};
 const basicAuthOptions = {};
 if (vcapConstants.LOGIN_GOV_IDP_USERNAME && vcapConstants.LOGIN_GOV_IDP_PASSWORD) {
   basicAuthOptions.headers = {
-    Host: vcapConstants.INTAKE_CLIENT_BASE_URL,
+    Host: vcapConstants.LOGIN_GOV_ENV,
     Authorization:
       'Basic ' +
       new Buffer(vcapConstants.LOGIN_GOV_IDP_USERNAME + ':' + vcapConstants.LOGIN_GOV_IDP_PASSWORD).toString('base64')
@@ -43,7 +43,9 @@ loginGov.params = {
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
-  Issuer.discover(vcapConstants.LOGIN_GOV_DISCOVERY_URL)
+  let discoveryUrl = `${vcapConstants.LOGIN_GOV_ENV}${vcapConstants.LOGIN_GOV_ENDPOINT}`;
+  console.log('!!!!!!!!', discoveryUrl)
+  Issuer.discover(discoveryUrl)
     .then(loginGovIssuer => {
       loginGov.issuer = loginGovIssuer;
       let keys = {
