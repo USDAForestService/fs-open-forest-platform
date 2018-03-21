@@ -1,1 +1,3 @@
-Additional information can be found on the forest’s [website](https://www.fs.usda.gov/main/shoshone/maps-pubs) or at [Ranger district offices](#).
+[Maps and travel publications](https://www.fs.usda.gov/main/shoshone/maps-pubs "Shoshone 
+    maps and publications")
+    are available online and at ranger district offices.
