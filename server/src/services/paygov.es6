@@ -49,8 +49,9 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
  */
 paygov.createCancelUrl = (forestAbbr, permitId) => {
   const token = paygov.createToken(permitId);
-  return `${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${forestAbbr}/applications/
-    ${permitId}?cancel=true&t=${token}`;
+  return `${
+    vcapConstants.INTAKE_CLIENT_BASE_URL
+  }/christmas-trees/forests/${forestAbbr}/applications/${permitId}?cancel=true&t=${token}`;
 };
 
 /**
