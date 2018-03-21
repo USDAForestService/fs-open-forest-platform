@@ -44,7 +44,6 @@ loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
   let discoveryUrl = `${vcapConstants.LOGIN_GOV_ENV}${vcapConstants.LOGIN_GOV_ENDPOINT}`;
-  console.log('!!!!!!!!', discoveryUrl)
   Issuer.discover(discoveryUrl)
     .then(loginGovIssuer => {
       loginGov.issuer = loginGovIssuer;
