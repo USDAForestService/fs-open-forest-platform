@@ -184,7 +184,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
   rulesHtml +=
-    '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
+    '<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.INTAKE_CLIENT_BASE_URL +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
