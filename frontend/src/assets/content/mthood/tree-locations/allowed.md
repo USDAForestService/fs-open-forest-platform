@@ -24,4 +24,6 @@ elevations, it is highly likely that you will run into snow on these roads early
 
 [Zigzag Ranger District map description](christmas-trees/forests/mthood/maps/zigzag)
 
-Additional maps and travel information can be found on the forest’s [website](https://www.fs.usda.gov/main/mthood/maps-pubs) or at [ranger district offices](#).
+[Maps and travel publications](https://www.fs.usda.gov/main/mthood/maps-pubs "Mt. Hood 
+    maps and publications")
+    are available online and at ranger district offices.

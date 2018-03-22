@@ -3,7 +3,9 @@
 
 ![inclement weather](/assets/img/weather-icon.svg "inclement weather") **Check the latest weather conditions, forest warnings and road closures** before you leave on your trip.
 
-![use a map](/assets/img/map-icon.svg "use a map") **Bring a [forest or district map](/christmas-trees/forests/arp/#tree-locations) with you.** Don’t rely on GPS because it may not be up-to-date with forest service roads. 
+![use a map](/assets/img/map-icon.svg "use a map") 
+**Bring a [map](https://www.fs.usda.gov/main/mthood/maps-pubs) with you.** Don’t 
+  rely on GPS because it may not be up-to-date with forest service roads. 
 
 ![dress for the weather](/assets/img/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
