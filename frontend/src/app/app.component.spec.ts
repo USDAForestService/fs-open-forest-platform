@@ -66,7 +66,7 @@ describe('AppComponent', () => {
       expect(localStorage.getItem('status')).toBe(null);
     });
     it('should set logged in message', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({email: 'test@test.com'});
       expect(component.status).toEqual({
         heading: '',
         message: 'You have successfully logged in as test@test.com.'
@@ -136,14 +136,39 @@ describe('AppComponent', () => {
     });
 
     it ('should set the logged in message', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({ email: 'test@test.com'});
       expect(component.status.message).toEqual(`You have successfully logged in as test@test.com.`);
 
     });
 
     it ('should clear the showLoggedIn from local storage', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({ email: 'test@test.com'});
       expect(localStorage.getItem('showLoggedIn')).toBeNull();
+    });
+
+    it ('should not set the logged in message if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(component.status.message).toEqual('');
+
+    });
+
+    it ('should clear the local storage if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+      expect(localStorage.getItem('requestingUrl')).toBeNull();
+    });
+
+    it ('should clear the local storage if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+      expect(localStorage.getItem('requestingUrl')).toBeNull();
+    });
+
+    it ('should clear the local storage and remove showLoggedIn if no email on the user', () => {
+      component.setLoggedInMessage({});
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+      expect(localStorage.getItem('requestingUrl')).toBeNull();
+      expect(component.status.message).toEqual('');
     });
 
   });

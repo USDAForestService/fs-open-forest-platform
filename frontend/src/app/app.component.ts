@@ -32,8 +32,10 @@ export class AppComponent implements OnInit {
         }
 
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
-          this.setLoggedInMessage();
+          this.setLoggedInMessage(this.authentication.user);
         } else {
+          localStorage.removeItem('showLoggedIn');
+          localStorage.removeItem('requestingUrl');
           this.setStatus();
         }
       }
@@ -52,12 +54,15 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setLoggedInMessage() {
-    this.status = {
-      heading: '',
-      message: `You have successfully logged in as ${this.authentication.user.email}.`
-    };
+  setLoggedInMessage(user) {
+    if (user && user.email) {
+      this.status = {
+        heading: '',
+        message: `You have successfully logged in as ${user.email}.`
+      };
+    }
     localStorage.removeItem('showLoggedIn');
+    localStorage.removeItem('requestingUrl');
   }
 
   ngOnInit() {

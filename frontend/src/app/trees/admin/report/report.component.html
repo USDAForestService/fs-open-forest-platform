@@ -45,11 +45,12 @@
         </legend>
         <div *ngIf="!form.value.isDateSearch">
           <input
-            class="small-input"
+           class="small-input"
            type="text"
            id="permit-number-input"
            formControlName="permitNumber"
            name="permit-number"
+           [attr.aria-invalid]="afs.hasError(permitNumberSearchForm.controls.permitNumber)"
           />
         </div>
         <div>
@@ -71,7 +72,13 @@
             To generate a report, please select a forest.
           </legend>
           <ng-container *ngFor="let forest of forests; let i = index">
-            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <input
+             id="{{forest.id}}-button"
+             type="radio" [value]="forest.id"
+             formControlName="forestId"
+             [checked]="i === 0"
+             [attr.aria-labelled-by]="forest.id + '-button-label'"
+            >
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
           </ng-container>
         </fieldset>

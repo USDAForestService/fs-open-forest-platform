@@ -104,7 +104,7 @@ describe('svg creation tests', () => {
       const rules =
         ' <h3><img alt="rules icon" title="rules icon" src="/assets/img/bullet-points-icon.svg"/>Rules and Guidelines</h3>';
       const rulesHtml = permitSvgService.createRulesHtmlPage(true, rules, arpForest);
-      expect(rulesHtml).to.have.string('<html>');
+      expect(rulesHtml).to.have.string('<html lang="en">');
     });
 
     it('should not create a body when called online with createHtmlBody false', () => {

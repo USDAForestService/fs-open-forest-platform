@@ -175,7 +175,8 @@ christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
 christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
-    rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
+    rulesHtml = '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
+      '<body style="font-family:Arial; margin:20px;">';
   }
   rulesHtml +=
     '<div>' +
@@ -183,7 +184,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
   rulesHtml +=
-    '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
+    '<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.INTAKE_CLIENT_BASE_URL +
     '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
@@ -222,6 +223,7 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
       }
     }
   }
+
 
   return rulesHtml;
 };
