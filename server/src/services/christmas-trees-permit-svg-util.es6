@@ -175,7 +175,8 @@ christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
 christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
   let rulesHtml = '';
   if (htmlBody) {
-    rulesHtml = '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head><body style="font-family:Arial; margin:20px;">';
+    rulesHtml = '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
+      '<body style="font-family:Arial; margin:20px;">';
   }
   rulesHtml +=
     '<div>' +
