@@ -9,22 +9,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminDistrictDatesComponent } from './district-dates.component';
-import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
-import { MockRouter } from '../../../_mocks/routes.mock';
 import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { Title } from '@angular/platform-browser';
 
 describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;
-
-  class MockWindowRef {
-    location = { hash: 'WAOW-MOCK-HASH' };
-    getNativeWindow() {
-      return { scroll() {} };
-    }
-  }
 
   const forests = [
     {
@@ -112,8 +104,8 @@ describe('District Dates Admin Component', () => {
             FormBuilder,
             RouterTestingModule,
             ChristmasTreesAdminService,
-            UtilService,
-            { provide: WindowRef, useClass: MockWindowRef }
+            Title,
+            UtilService
           ],
           imports: [RouterTestingModule, HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]

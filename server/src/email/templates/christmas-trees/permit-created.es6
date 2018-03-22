@@ -38,12 +38,22 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     }, for more information about cutting down your tree.
 `,
     html: `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <title>U.S. Forest Service Christmas Tree Permit</title>
+    </head>
+    <body>
     <div class="body">
     <p>Hello, ${
       application.firstName
     }. Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
-    <h2 class="border-bottom">Order Details</h2>
+    <h1 class="border-bottom">Order Details</h1>
     <table class="bordered" cellpadding="0" cellspacing="0">
+      <tr>
+        <th>description</th>
+        <th>value</th>
+      </tr>
       <tr>
         <td style="width: 150px;" class="border-bottom border-right">Permit number</td>
         <td class="border-bottom">${zpad(application.permitNumber, 8)}</td>
@@ -76,7 +86,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       <li>Printed permit must be placed and clearly visible on your vehicle's dashboard with the permit side facing up.</li>
       <li>Your permit is available for printing from <a href="${
         application.permitUrl
-      }">this link</a> or in an attachment to this email.</li>
+      }">${application.permitUrl}</a> or in an attachment to this email.</li>
     </ul>
     <p>Return to the <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
@@ -86,6 +96,8 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
 
     <p><img src="cid:christmas-tree-permit-image"/></p>
     </div>
+    </body>
+    </html>
     `,
     attachments: application.attachments
   };

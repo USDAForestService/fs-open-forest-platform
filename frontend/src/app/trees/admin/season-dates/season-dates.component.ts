@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
-import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
+import { DOCUMENT } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-season-dates',
@@ -34,10 +35,10 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
     private formBuilder: FormBuilder,
-    private router: Router,
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
-    private winRef: WindowRef
+    private titleService: Title,
+    @Inject(DOCUMENT) private doc: Document
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
@@ -54,6 +55,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting');
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
@@ -96,11 +98,11 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
             this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
               'MMM DD, YYYY'
             )} to  ${newEnd.format('MMM DD, YYYY')}`;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('season-updated-alert-container').focus();
           },
           err => {
             this.apiErrors = err;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('season-updated-alert-container').focus();
           }
         );
     }
