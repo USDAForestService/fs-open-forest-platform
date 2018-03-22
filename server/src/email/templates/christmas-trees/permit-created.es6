@@ -50,7 +50,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
     }. Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
     <h1 class="border-bottom">Order Details</h1>
     <table role="presentation" class="bordered" cellpadding="0" cellspacing="0">
-      <tr>
+      <tr style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
         <th>description</th>
         <th>value</th>
       </tr>
