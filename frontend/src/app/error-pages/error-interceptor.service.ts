@@ -33,9 +33,16 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.util.setRequests(0);
         this.util.setProgress(false);
         if (err.status === 404) {
+          localStorage.removeItem('showLoggedIn');
+          localStorage.removeItem('requestingUrl');
           this.router.navigate(['/404']);
+        } else if (err.status === 403) {
+          localStorage.removeItem('showLoggedIn');
+          localStorage.removeItem('requestingUrl');
+          this.router.navigate(['/access-denied']);
         } else if (err.status === 0) {
           localStorage.setItem('requestingUrl', window.location.pathname);
+          localStorage.removeItem('showLoggedIn');
           this.router.navigate(['/500']);
         }
         return Observable.throw(err);
