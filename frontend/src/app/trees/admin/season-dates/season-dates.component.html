@@ -8,7 +8,7 @@
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
-      <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info" aria-role="dialog" aria-label="info">
+      <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info" role="alert" aria-label="info">
         <div class="usa-alert-body">
           <p class="usa-alert-text">{{ updateStatus }}</p>
         </div>
