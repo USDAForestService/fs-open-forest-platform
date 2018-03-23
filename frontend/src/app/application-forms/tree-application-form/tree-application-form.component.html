@@ -1,7 +1,7 @@
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <app-breadcrumbs></app-breadcrumbs>
-    <div *ngIf="(permit && permit.status === 'Cancelled' && !submitted)" class="usa-alert usa-alert-info margin-bottom-2">
+    <div *ngIf="showCancelAlert" class="usa-alert usa-alert-info margin-bottom-2">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Your permit purchase has been cancelled.</h3>
         <p class="usa-alert-text">Your credit card has not been charged. To create a permit you must complete the purchase transaction.</p>
@@ -43,7 +43,7 @@
         <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
       </fieldset>
 
-        <button id="application-next" class="usa-button-primary-alt usa-button-big" type="submit">Next</button>
+        <button id="application-next" class="usa-button-primary usa-button-big" type="submit">Next</button>
 
         <p class="usa-form-hint">
           You can also buy a permit offline by visiting a Ranger District office.
@@ -75,7 +75,7 @@
           All permits are non-refundable.
         </p>
 
-        <button id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Continue to Checkout</button>
+        <button id="submit-application" class="usa-button-primary usa-button-big" type="submit">Continue to Checkout</button>
 
       </div>
 

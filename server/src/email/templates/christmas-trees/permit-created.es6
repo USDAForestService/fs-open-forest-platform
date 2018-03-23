@@ -32,7 +32,7 @@ Permit Printing Guidelines
 ${application.permitUrl}
 
 Return to the ${application.christmasTreesForest.forestName} Christmas tree permit website, ${
-      vcapConstants.intakeClientBaseUrl
+      vcapConstants.INTAKE_CLIENT_BASE_URL
     }/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
     }, for more information about cutting down your tree.
@@ -78,7 +78,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
         application.permitUrl
       }">this link</a> or in an attachment to this email.</li>
     </ul>
-    <p>Return to the <a href="${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${
+    <p>Return to the <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/christmas-trees/forests/${
       application.christmasTreesForest.forestAbbr
     }">${
       application.christmasTreesForest.forestName

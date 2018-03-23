@@ -33,13 +33,13 @@ const getUserProvided = function(name) {
 };
 
 /** Base URL of this instance */
-vcapConstants.baseUrl = 'https://' + vcapApplication.uris[0];
+vcapConstants.BASE_URL = 'https://' + vcapApplication.uris[0];
 
 /** jwt token used to generate permit confirmation URL **/
 const jwt = getUserProvided('jwt');
-vcapConstants.permitSecret = jwt.credentials.permit_secret;
+vcapConstants.PERMIT_SECRET = jwt.credentials.permit_secret;
 
-/** S3 bucket settings */
+/** S3 BUCKET settings */
 const intakeS3 = vcapServices['s3'].find(element => {
   return element.name === 'intake-s3';
 });
@@ -47,52 +47,50 @@ if (intakeS3.credentials.access_key_id && intakeS3.credentials.secret_access_key
   vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
   vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
 }
-vcapConstants.region = intakeS3.credentials.region;
-vcapConstants.bucket = intakeS3.credentials.bucket;
+vcapConstants.REGION = intakeS3.credentials.region;
+vcapConstants.BUCKET = intakeS3.credentials.bucket;
 
 /** Middle layer settings */
 const middlelayerService = getUserProvided('middlelayer-service');
-vcapConstants.middleLayerBaseUrl = middlelayerService.credentials.middlelayer_base_url;
-vcapConstants.middleLayerUsername = middlelayerService.credentials.middlelayer_username;
-vcapConstants.middleLayerPassword = middlelayerService.credentials.middlelayer_password;
+vcapConstants.MIDDLE_LAYER_BASE_URL = middlelayerService.credentials.middlelayer_base_url;
+vcapConstants.MIDDLE_LAYER_USERNAME = middlelayerService.credentials.middlelayer_username;
+vcapConstants.MIDDLE_LAYER_PASSWORD = middlelayerService.credentials.middlelayer_password;
 
 /** Intake module settings */
 const intakeService = getUserProvided('intake-client-service');
-vcapConstants.intakeClientBaseUrl = intakeService.credentials.intake_client_base_url;
+vcapConstants.INTAKE_CLIENT_BASE_URL = intakeService.credentials.intake_client_base_url;
 
 /** Login.gov settings */
 const loginGovService = getUserProvided('login-service-provider');
-vcapConstants.loginGovIssuer = loginGovService.credentials.issuer;
-vcapConstants.loginGovJwk = loginGovService.credentials.jwk;
-vcapConstants.loginGovIdpUsername = loginGovService.credentials.idp_username;
-vcapConstants.loginGovIdpPassword = loginGovService.credentials.idp_password;
-vcapConstants.loginGovDiscoveryUrl = loginGovService.credentials.discovery_url;
+vcapConstants.LOGIN_GOV_ISSUER = loginGovService.credentials.issuer;
+vcapConstants.LOGIN_GOV_JWK = loginGovService.credentials.jwk;
+vcapConstants.LOGIN_GOV_IDP_USERNAME = loginGovService.credentials.idp_username;
+vcapConstants.LOGIN_GOV_IDP_PASSWORD = loginGovService.credentials.idp_password;
+vcapConstants.LOGIN_GOV_DISCOVERY_URL = loginGovService.credentials.discovery_url;
+vcapConstants.LOGIN_GOV_HOST =
+  typeof process.env.LOGIN_GOV_HOST === undefined ? 'idp.int.login.gov' : process.env.LOGIN_GOV_HOST;
 
 /** USDA eAuth settings */
 const eAuthService = getUserProvided('eauth-service-provider');
-vcapConstants.eAuthUserWhiteList = eAuthService.credentials.whitelist;
-vcapConstants.eAuthIssuer = eAuthService.credentials.issuer;
-vcapConstants.eAuthEntryPoint = eAuthService.credentials.entrypoint;
-vcapConstants.eAuthCert = eAuthService.credentials.cert;
-vcapConstants.eAuthPrivateKey = eAuthService.credentials.private_key;
+vcapConstants.EAUTH_USER_SAFELIST = eAuthService.credentials.whitelist;
+vcapConstants.EAUTH_ISSUER = eAuthService.credentials.issuer;
+vcapConstants.EAUTH_ENTRY_POINT = eAuthService.credentials.entrypoint;
+vcapConstants.EAUTH_CERT = eAuthService.credentials.cert;
+vcapConstants.EAUTH_PRIVATE_KEY = eAuthService.credentials.private_key;
 
 /** SMTP settings */
 const smtp = getUserProvided('smtp-service');
-vcapConstants.smtpHost = smtp.credentials.smtp_server;
-vcapConstants.smtpUsername = smtp.credentials.username;
-vcapConstants.smtpPassword = smtp.credentials.password;
-vcapConstants.specialUseAdminEmailAddresses = smtp.credentials.admins;
+vcapConstants.SMTP_HOST = smtp.credentials.smtp_server;
+vcapConstants.SMTP_USERNAME = smtp.credentials.username;
+vcapConstants.SMTP_PASSWORD = smtp.credentials.password;
+vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES = smtp.credentials.admins;
 
 /** Pay.gov */
 const payGov = getUserProvided('pay-gov');
-vcapConstants.payGovUrl = payGov.credentials.url;
-vcapConstants.payGovClientUrl = payGov.credentials.client_url;
-vcapConstants.payGovAppId = payGov.credentials.tcs_app_id;
-vcapConstants.payGovCert = payGov.credentials.certificate;
-vcapConstants.payGovPrivateKey = payGov.credentials.private_key;
+vcapConstants.PAY_GOV_URL = payGov.credentials.url;
+vcapConstants.PAY_GOV_CLIENT_URL = payGov.credentials.client_url;
+vcapConstants.PAY_GOV_APP_ID = payGov.credentials.tcs_app_id;
+vcapConstants.PAY_GOV_CERT = payGov.credentials.certificate;
+vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.credentials.private_key;
 
-/**
- * VCAP Constants
- * @exports vcapConstants
- */
 module.exports = vcapConstants;

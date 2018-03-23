@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { ChristmasTreesService } from '../../trees/_services/christmas-trees.service';
@@ -12,6 +12,7 @@ import { ChristmasTreesApplicationService } from '../../trees/_services/christma
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
 import { MarkdownService } from 'ngx-md';
+import { WindowRef } from '../../_services/native-window.service';
 
 @Component({
   selector: 'app-tree-application-form',
@@ -28,6 +29,8 @@ export class TreeApplicationFormComponent implements OnInit {
   costPerTree: number;
   apiErrors: any;
   showRules = false;
+  jwtToken: string;
+  showCancelAlert = false;
 
   constructor(
     private location: Location,
@@ -39,7 +42,8 @@ export class TreeApplicationFormComponent implements OnInit {
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private christmasTreesService: ChristmasTreesService,
-    public util: UtilService
+    public util: UtilService,
+    private winRef: WindowRef
   ) {}
 
   quantityChange(value) {
@@ -80,11 +84,6 @@ export class TreeApplicationFormComponent implements OnInit {
 
     if (this.permit) {
       this.rePopulateForm();
-      if (this.permit.status !== 'Cancelled' && this.permit.status !== 'Error') {
-        this.applicationService.cancelOldApp(this.permit.permitId).subscribe(cancelResponse => {
-          this.permit.status = 'Cancelled';
-        });
-      }
     }
 
     this.applicationForm.get('quantity').valueChanges.subscribe(value => {
@@ -99,12 +98,22 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.location.hash = ''; // clear out the hash on reload
+    this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
 
     this.location.subscribe(locationChange => {
       if (locationChange.type === 'hashchange') {
         // back button press from #rules
         this.showRules = false;
+      }
+    });
+    let isCancel = false;
+    this.route.queryParams.forEach((params: Params) => {
+      if (params.cancel)  {
+        isCancel = true;
+      }
+
+      if (params.t) {
+        this.jwtToken = params.t;
       }
     });
 
@@ -118,6 +127,14 @@ export class TreeApplicationFormComponent implements OnInit {
 
         this.checkSeasonStartDate(this.forest);
         this.permit = data.permit;
+        // cancel any permits coming here that are still initiated and not yet completed
+        if (this.permit && isCancel && this.permit.status === 'Initiated') {
+          this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
+            this.permit = updated;
+            this.showCancelAlert = true;
+          });
+        }
+
         this.titleService.setTitle(
           'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
         );
@@ -137,11 +154,12 @@ export class TreeApplicationFormComponent implements OnInit {
 
   showRulesForm() {
     this.submitted = true;
+    this.showCancelAlert = false;
     this.apiErrors = null;
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (this.applicationForm.valid) {
       this.showRules = true;
-      window.scroll(0, 200);
+      this.winRef.getNativeWindow().scroll(0, 200);
       const routeOptions = { fragment: 'rules' };
       if (this.permit) {
         this.router.navigate(
@@ -169,7 +187,7 @@ export class TreeApplicationFormComponent implements OnInit {
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
-        window.location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {
         this.showRules = false;
@@ -177,7 +195,7 @@ export class TreeApplicationFormComponent implements OnInit {
         this.apiErrors = error;
         this.submitted = false;
         this.applicationRulesForm.get('acceptRules').setValue(false);
-        window.scroll(0, 0);
+        this.winRef.getNativeWindow().scroll(0, 0);
       }
     );
   }

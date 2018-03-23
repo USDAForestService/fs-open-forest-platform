@@ -57,10 +57,6 @@ export class TreesSidebarPage {
     return element(by.id('cutting-season-start-end-date'));
   }
 
-  cuttingDatesHoursDefault() {
-    return element(by.id('cutting-season-daily-hours-default'));
-  }
-
   whenToCutDatesSection() {
     return element(by.id('season-dates'));
   }

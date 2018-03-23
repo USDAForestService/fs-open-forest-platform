@@ -1,6 +1,10 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, Inject } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 import { Router } from '@angular/router';
+import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+import { WindowRef } from '../_services/native-window.service';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -9,22 +13,32 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
   @Input() items: any;
   @Input() mobileMenu = false;
-  bottom: string;
+  @Input() user;
+
   top: string;
+  bottom: string;
   position: string;
   showMobileNav = false;
   menuBtnTop: string;
   menuBtnPosition: string;
   route: string;
+  forestAdminNavItems = [];
+  showAdminNav = false;
 
-  constructor(public util: UtilService, private router: Router) {}
+  constructor(
+    @Inject(DOCUMENT) private doc: Document,
+    public util: UtilService,
+    private router: Router,
+    private adminService: ChristmasTreesAdminService,
+    private winRef: WindowRef
+  ) {}
 
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
-    const nav = document.getElementById('sidebar-nav');
-    const container = document.getElementById('sidebar-page');
-    const footer = document.getElementById('footer');
-    const header = document.getElementById('header');
+    const nav = this.doc.getElementById('sidebar-nav');
+    const container = this.doc.getElementById('sidebar-page');
+    const footer = this.doc.getElementById('footer');
+    const header = this.doc.getElementById('header');
 
     if (nav && this.items && this.items.length > 0) {
       this.sidebarHeaderIntersection(container, header);
@@ -45,16 +59,15 @@ export class SidebarComponent implements OnInit {
   }
 
   private sidebarFooterIntersection(footer) {
-    if (footer.getBoundingClientRect().top < this.items.length * 60) {
+    if (footer.getBoundingClientRect().top < this.items.length * 80) {
       // sidebar bottom hits top of footer
-      const bottom = -Math.abs(footer.getBoundingClientRect().top) + this.items.length * 2.5;
-      this.top = this.items.length * -9 + 'px';
+      this.top = this.items.length * -1 + 'px';
       this.position = 'fixed';
     }
   }
 
   private pageYOffset() {
-    if (window.pageYOffset > this.items.length * 16) {
+    if (this.winRef.getNativeWindow().pageYOffset > this.items.length * 16) {
       this.menuBtnPosition = 'fixed';
       this.menuBtnTop = '0px';
     } else {
@@ -75,8 +88,10 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
-    this.top = '270px';
+    this.top = '325px';
     this.route = this.router.url.split('#')[0];
+    this.track(new Event('scroll'));
   }
 }

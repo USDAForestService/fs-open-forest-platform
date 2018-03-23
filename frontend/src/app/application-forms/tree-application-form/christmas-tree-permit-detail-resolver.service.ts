@@ -14,7 +14,7 @@ export class ChristmasTreePermitDetailResolver implements Resolve<any> {
     const forest = route.paramMap.get('id');
 
     return this.service
-      .getDetails(id)
+      .getPermit(id, null)
       .map(data => {
         if (data) {
           return data;

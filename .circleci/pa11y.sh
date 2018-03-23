@@ -1,5 +1,6 @@
+docker-compose build fs-intake-pa11y
 docker-compose up fs-intake-pa11y &
-sleep 240
+sleep 300
 cd ../frontend
 sudo npm run pa11y
 pa11yreturncode=$?

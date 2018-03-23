@@ -1,9 +1,10 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { Title } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-tree-permit-view',
@@ -17,45 +18,62 @@ export class TreePermitViewComponent implements OnInit {
   nativeWindow: any;
   isPermitExpired = false;
   includeRules = false;
+  jwtToken: string;
 
   constructor(
     private route: ActivatedRoute,
     private christmasTreesApplicationService: ChristmasTreesApplicationService,
     private titleService: Title,
     private sanitizer: DomSanitizer,
-    private router: Router,
-    private winRef: WindowRef
+    private winRef: WindowRef,
+    @Inject(DOCUMENT) private document: any
   ) {
     this.nativeWindow = winRef.getNativeWindow();
   }
 
   ngOnInit() {
+    this.route.queryParams.forEach((params: Params) => {
+      if (params.t) {
+        this.jwtToken = params.t;
+      }
+    });
     this.route.data.subscribe(data => {
       if (data.permit && data.permit.error) {
-        this.processError(data.permit.error);
+        this.processError(data.permit.error, data.permit.error.permit);
       } else {
-        this.setPageData(data);
+        if (data.permit.status === 'Initiated') {
+          this.christmasTreesApplicationService.updatePermit(data.permit.permitId, 'Completed', this.jwtToken).subscribe(updated => {
+            this.setPageData(updated);
+          },
+          error => {
+            this.processError(error[0], error[0].permit);
+          });
+        } else {
+          this.setPageData(data.permit);
+        }
       }
     });
   }
 
-  processError(data) {
-    this.error = data;
-    this.setPageData(data);
+  processError(error, permit) {
+    this.error = error;
+    this.setPageData(permit);
   }
 
-  setPageData(data) {
-    if (data.permit && data.permit.forest) {
-      this.forest = data.permit.forest;
-      this.permit = data.permit;
-      this.isPermitExpired = new Date(data.permit.expirationDate) < new Date();
+  setPageData(permit) {
+    if (permit && permit.forest) {
+      this.forest = permit.forest;
+      this.permit = permit;
+      this.isPermitExpired = new Date(permit.expirationDate) < new Date();
       this.titleService.setTitle(
-        `Permit order confirmation | ${data.permit.forest.forestName} | U.S. Forest Service Christmas Tree Permitting`
+        `Permit order confirmation | ${permit.forest.forestName} | U.S. Forest Service Christmas Tree Permitting`
       );
     }
   }
 
   printPermit() {
+    const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+
     const includeRules = this.includeRules ? true : false;
 
     this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
@@ -64,16 +82,18 @@ export class TreePermitViewComponent implements OnInit {
         content += response[1]['result'];
       }
       this.image = this.sanitizer.bypassSecurityTrustHtml(content);
-      setTimeout(() => this.permitPopup(includeRules), 0);
+      setTimeout(() => this.permitPopup(includeRules, popupWin), 0);
     });
   }
 
-  permitPopup(includeRules) {
-    let printContents, popupWin;
-
+  permitPopup(includeRules, popupWin) {
+    let printContents;
     const cssFile = includeRules ? 'print-permit-with-rules.css' : 'print-permit.css';
-    printContents = document.getElementById('toPrint').innerHTML;
-    popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+    const toPrintEl = this.document.getElementById('toPrint');
+
+    if (toPrintEl) {
+      printContents = toPrintEl.innerHTML;
+    }
 
     popupWin.document.open();
 

@@ -17,6 +17,7 @@ import { forest } from '../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
 import { MockMarkdownService } from '../../_mocks/markdownService.mock';
 import { Location } from '@angular/common';
+import { WindowRef } from '../../_services/native-window.service';
 
 class MockApplicationService {
   create(): Observable<{}> {
@@ -52,9 +53,11 @@ describe('TreeApplicationFormComponent', () => {
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({ forest: forest })
+                queryParams: [{t: '123'}],
+                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
               }
-            }
+            },
+            WindowRef
           ],
           imports: [
             RouterTestingModule.withRoutes([{ path: 'christmas-trees/forests/:forest', component: DummyComponent }]),
@@ -103,9 +106,11 @@ describe('TreeApplicationFormComponent', () => {
             {
               provide: ActivatedRoute,
               useValue: {
-                data: Observable.of({ forest: forest })
+                queryParams: [{t: '123'}],
+                data: Observable.of({ forest: forest, permit: {status: 'Cancelled'} })
               }
-            }
+            },
+            WindowRef
           ],
           imports: [RouterTestingModule, HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]

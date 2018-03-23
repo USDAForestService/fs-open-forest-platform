@@ -16,8 +16,4 @@ router.get('/user', passportConfig.getPassportUser);
 /* Universal passport logout. */
 router.get('/logout', passportConfig.logout);
 
-/**
- * Authentication routes
- * @exports router
- */
 module.exports = router;

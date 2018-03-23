@@ -13,47 +13,62 @@ const util = require('../services/util.es6');
 const commonControllers = {};
 
 /**
- * Generate a sequelize status condition based on the status group.
+ * @function findOrCondition - Generate a sequelize status condition based on the status group.
+ * @param {Object} request
  */
 const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
   switch (statusGroup) {
   case 'pending':
-    orCondition = [{
-      status: 'Submitted'
-    }, {
-      status: 'Hold'
-    }, {
-      status: 'Review'
-    }];
+    orCondition = [
+      {
+        status: 'Submitted'
+      },
+      {
+        status: 'Hold'
+      },
+      {
+        status: 'Review'
+      }
+    ];
     break;
   case 'accepted':
-    orCondition = [{
-      status: 'Accepted'
-    }];
+    orCondition = [
+      {
+        status: 'Accepted'
+      }
+    ];
     break;
   case 'rejected':
-    orCondition = [{
-      status: 'Rejected'
-    }];
+    orCondition = [
+      {
+        status: 'Rejected'
+      }
+    ];
     break;
   case 'cancelled':
-    orCondition = [{
-      status: 'Cancelled'
-    }];
+    orCondition = [
+      {
+        status: 'Cancelled'
+      }
+    ];
     break;
   case 'expired':
-    orCondition = [{
-      status: 'Expired'
-    }];
+    orCondition = [
+      {
+        status: 'Expired'
+      }
+    ];
     break;
   }
   return orCondition;
 };
 
 /**
- * Get permit applications of every type.
+ * @function getPermitApplications() - Get permit applications of every type.
+ * @param {Object} request
+ * @param {Object} response
  */
 commonControllers.getPermitApplications = (req, res) => {
   const orCondition = findOrCondition(req);
@@ -86,9 +101,7 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [
-      ['createdAt', 'DESC']
-    ]
+    order: [['createdAt', 'DESC']]
   });
   const tempOutfitterApplicationPromise = TempOutfitterApplication.findAll({
     attributes: [
@@ -110,9 +123,7 @@ commonControllers.getPermitApplications = (req, res) => {
         $gt: new Date()
       }
     },
-    order: [
-      ['createdAt', 'DESC']
-    ]
+    order: [['createdAt', 'DESC']]
   });
   Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
     .then(results => {
@@ -130,19 +141,17 @@ commonControllers.getPermitApplications = (req, res) => {
 };
 
 /**
- * Create a new permit application revision entry in the DB.
+ * @function createRevision() Create a new permit application revision entry in the DB.
+ * @param {Object} user
+ * @param {Object} applicationModel
  */
 commonControllers.createRevision = (user, applicationModel) => {
   Revision.create({
     applicationId: applicationModel.applicationId,
     applicationType: applicationModel.type,
     status: applicationModel.status,
-    email: (user.email) ? user.email : user.adminUsername
+    email: user.email ? user.email : user.adminUsername
   });
 };
 
-/**
- * Misc controllers
- * @exports commonControllers
- */
 module.exports = commonControllers;

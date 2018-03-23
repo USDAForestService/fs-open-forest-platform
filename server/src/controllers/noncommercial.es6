@@ -17,7 +17,10 @@ const vcapConstants = require('../vcap-constants.es6');
 const noncommercial = {};
 
 /**
- * Translate permit application object from client format to database format.
+ * @function translateFromClientToDatabase - private function to translate permit application
+ * object from client format to database format.
+ * @param {Object} input
+ * @param {Object} output
  */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
@@ -125,7 +128,9 @@ const translateFromClientToDatabase = (input, output) => {
 };
 
 /**
- * Translate permit application object from database format to client format.
+ * @function translateFromDatabaseToClient - private function to translate permit application
+ * object from database format to client format..
+ * @param {Object} input
  */
 const translateFromDatabaseToClient = input => {
   const result = {
@@ -236,8 +241,11 @@ const translateFromDatabaseToClient = input => {
 };
 
 /**
- * Translate permit application object from database format to middle layer format.
+ * @function translateFromIntakeToMiddleLayer - API function to translate permit application object
+ * from database format to middle layer format.
+ * @param {Object} input
  */
+
 noncommercial.translateFromIntakeToMiddleLayer = input => {
   let result = {
     intakeId: input.applicationId,
@@ -298,7 +306,11 @@ noncommercial.translateFromIntakeToMiddleLayer = input => {
 };
 
 /**
- * Update the permit application model values based on permissions.
+ * @function updateApplicationModel - API function to update the permit application
+ * model values based on permissions.
+ * @param {Object} model
+ * @param {Object} submitted
+ * @param {Object} user
  */
 noncommercial.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
@@ -316,12 +328,13 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
 };
 
 /**
- * Send the permit application to the middle layer.
+ * @function acceptApplication - API function to send the permit application to the middle layer.
+ * @param {Object} application
  */
 noncommercial.acceptApplication = application => {
   const requestOptions = {
     method: 'POST',
-    url: vcapConstants.middleLayerBaseUrl + 'permits/applications/special-uses/noncommercial/',
+    url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'permits/applications/special-uses/noncommercial/',
     headers: {},
     json: true,
     simple: true,
@@ -344,7 +357,9 @@ noncommercial.acceptApplication = application => {
 };
 
 /**
- * Get one permit application.
+ * @function getOne - API function to get one permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 noncommercial.getOne = (req, res) => {
   NoncommercialApplication.findOne({
@@ -380,7 +395,9 @@ noncommercial.getOne = (req, res) => {
 };
 
 /**
- * Create a new permit application.
+ * @function create - API function to create a new permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 noncommercial.create = (req, res) => {
   util.setAuthEmail(req);
@@ -408,7 +425,9 @@ noncommercial.create = (req, res) => {
 };
 
 /**
- * Update a permit application.
+ * @function update - API function to update a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 noncommercial.update = (req, res) => {
   NoncommercialApplication.findOne({
@@ -473,8 +492,4 @@ noncommercial.update = (req, res) => {
     });
 };
 
-/**
- * Noncommercial permit application controllers
- * @exports noncommercial
- */
 module.exports = noncommercial;

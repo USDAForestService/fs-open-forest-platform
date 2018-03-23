@@ -1,4 +1,3 @@
-
 .tree-location-description {
   font-size: 2rem;
 }
@@ -11,6 +10,12 @@
     max-width: 100%;
   }
 }
+
+.tree-species-credit {
+  float: left;
+  font-size: 12px;
+}
+
 .tree-speci {
   .tree-description {
     padding-top: 2em;
@@ -19,7 +24,7 @@
   .tree-cutting-container {
     padding-top: 0;
     img {
-      padding: .3em;
+      padding: 0.3em;
     }
   }
 }
@@ -60,25 +65,29 @@
   color: $white;
 }
 
+.tree-img {
+  max-width: 186px;
+}
+
 markdown#season-dates-markdown {
   table {
     width: 75%;
     margin-top: 0px;
     margin-bottom: 10px;
-      th {
-        background-color: $fs-tan;
-        border: 0;
-        padding-bottom: 5px;
-        padding-left: 0px;
-      }
-      td {
-        width: 50%;
-        background-color: $fs-tan;
-        border: 0;
-        padding-top: 0px;
-        padding-bottom: 15px;
-        padding-left: 0px;
-      }
+    th {
+      background-color: $fs-tan;
+      border: 0;
+      padding-bottom: 5px;
+      padding-left: 0px;
+    }
+    td {
+      width: 50%;
+      background-color: $fs-tan;
+      border: 0;
+      padding-top: 0px;
+      padding-bottom: 15px;
+      padding-left: 0px;
+    }
   }
   h4 {
     background-color: $fs-green;
@@ -92,9 +101,15 @@ markdown#season-dates-markdown {
     border-radius: 2px;
     font-size: 1.5rem;
   }
-  div { text-align:center }
-  p { margin: 0px; }
-  h3 { margin-bottom: 0px; }
+  div {
+    text-align: center;
+  }
+  p {
+    margin: 0px;
+  }
+  h3 {
+    margin-bottom: 0px;
+  }
   hr {
     background-color: #aeb0b5;
     margin-top: 16px;
@@ -102,30 +117,87 @@ markdown#season-dates-markdown {
   }
 }
 
-#cutting-season-dates-heading, #cutting-season-daily-hours-heading {
+#cutting-season-dates-heading {
   color: white;
   svg {
-    margin-right: 1rem;
-    margin-bottom: 2rem;
+    margin: 10px 10px 10px 0;
   }
-
 }
 
 app-tree-cutting-dates {
-  div#forest-cutting-hours, div#forest-cutting-dates {
-    padding: 20px;
-    margin: 1px;
+  div#forest-cutting-dates {
+    padding: 10px 20px;
   }
-  div#forest-cutting-hours-dates-container { padding: 0px; }
-  div.usa-width-five-sixths { padding-left: 20px; }
+  div#forest-cutting-dates-container {
+    padding: 0px;
+  }
+  div.usa-width-five-sixths {
+    padding-left: 20px;
+  }
 }
 
-div#forest-cutting-hours-dates h3 { margin: 0px; }
-
 #tree-measuring-container {
+  p {
+    img {
+      vertical-align: middle;
+      width: 125px;
+      padding-right: 2rem;
+    }
+  }
+}
+
+#how-to-plan-container {
   img {
-    vertical-align: middle;
+    float: left;
+    position: relative;
+    top: -10px;
     width: 125px;
     padding-right: 2rem;
+    margin-right: 10px;
+    clear: both;
+  }
+  p {
+    min-height: 125px;
+  }
+}
+
+.screen-reader-only {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  clip: rect(1px 1px 1px 1px); // IE 6 and 7
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+  overflow: hidden !important;
+}
+
+.trees-footer-sticky {
+  @media (min-width: $medium-screen) {
+    button {
+      margin-left: 2rem;
+    }
+  }
+
+  #trees-footer-sticky-forestname {
+    font-size: 2rem;
+  }
+
+  #trees-footer-sticky-desc-container {
+    span {
+      padding: 2rem;
+    }
+  }
+
+  @media (max-width: $medium-screen) {
+    #trees-footer-sticky-desc-container {
+      display: none;
+    }
+  }
+}
+
+#what-to-expect {
+  h3 {
+    margin-top: 1rem;
   }
 }

@@ -1,9 +1,18 @@
-* Be sure someone knows where you are and when to expect you back. Cell service is spotty or non-existent.
-* Check the latest weather conditions and road hazards before you leave on your trip as conditions may have changed since you purchased your permit.
-* Don’t rely on GPS because it may not be up-to-date with forest service roads.
-* Expect winter conditions, including below-freezing temperatures and cold winds. Dress warmly and take extra dry clothes.
-* Roads may not be plowed. Carry tire chains, shovel(s) and a tow chain. Bring an overnight survival kit in case you become stranded.
+![no cellular service](/assets/img/cell-service-icon.svg "no cellular service") 
+**Cell service is spotty or unavailable.** Be sure someone knows where you are and when to expect you back.
+
+![inclement weather](/assets/img/weather-icon.svg "inclement weather") **Check the latest weather conditions, forest warnings and road closures** before you leave on your trip.
+
+![use a map](/assets/img/map-icon.svg "use a map") 
+**Bring a [forest or district map](/christmas-trees/forests/arp/#tree-locations) with you.** Don’t rely on GPS because it may not be up-to-date with forest service roads. 
+
+![dress for the weather](/assets/img/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
+Expect winter weather, including cold temperatures, snow and winds.
+
+
+* **Roads may not be plowed.** Carry tire chains, shovel(s) and a tow chain. 
+* Bring plenty of food and water with you as well as an overnight survival kit in case you become stranded.
 * Be sure your vehicle has a full tank of gas.
 * Bring a spare key and give it to someone else in your party. Don’t get locked out of your car!
-* When you park, be sure other vehicles can get by safely. Do not block gates.
+* Park in areas so that traffic can get by safely, and **do not block gates**.
 * Start your day early. Be sure to find your tree and leave the woods before dark.

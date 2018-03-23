@@ -6,7 +6,7 @@
         href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
     </li>
     <li *ngFor="let item of items | filter:'type':'button'">
-      <button type="button" class="usa-button-primary-alt" [routerLink]="[item.routerLink]">{{item.title}}</button>
+      <button type="button" class="usa-button-primary" [routerLink]="[item.routerLink]">{{item.title}}</button>
     </li>
   </ul>
 </ng-container>
@@ -15,22 +15,33 @@
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
   <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
   <nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
-    <button class="usa-nav-close" (click)="toggleMobileNav()">
-      <img src="/assets/img/close.svg" alt="Close navigation menu">
-    </button>
-    <ul id="sidenav-mobile" class="usa-sidenav-list usa-accordion">
-      <li *ngFor="let item of items | filter:'type':'anchor'">
-        <a href="#" id="mobile-{{item.id}}-link" (click)="toggleMobileNav();" [routerLink]="[route]" [fragment]="item.id">{{item.title}}</a>
-        <ul class="usa-sidenav-sub_list" *ngIf="item.sections">
-          <li *ngFor="let section of item.sections">
-            <a href="#" id="mobile-{{section.id}}-link" (click)="toggleMobileNav()" [routerLink]="[route]" [fragment]="section.id">{{section.title}}</a>
-          </li>
-        </ul>
-      </li>
-      <li *ngFor="let item of items | filter:'type':'button'">
-        <button type="button" class="usa-button-primary-alt" [routerLink]="[item.routerLink]">{{item.title}}</button>
-      </li>
-    </ul>
+    <div class="usa-nav-inner">
+      <button class="usa-nav-close" (click)="toggleMobileNav()">
+        <img src="/assets/img/close.svg" alt="Close navigation menu">
+      </button>
+
+      <ul id="sidenav-mobile" class="usa-nav-primary usa-accordion">
+        <li *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
+          <button class="usa-accordion-button usa-nav-link" (click)="showAdminNav = !showAdminNav" [attr.aria-expanded]="showAdminNav" aria-controls="forest-admin-nav-item-container">
+            <span>Forest admin</span>
+          </button>
+          <ul id="forest-admin-nav-item-container" *ngIf="showAdminNav" class="usa-nav-submenu">
+            <li *ngFor="let navItem of forestAdminNavItems">
+              <a *ngIf="navItem.routerLink" id="{{navItem.id}}-mobile" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"><span>{{navItem.title}}</span></a>
+              <a *ngIf="navItem.href" id="{{navItem.id}}-mobile-link" href="{{navItem.href}}"><span>{{navItem.title}}</span></a>
+            </li>
+          </ul>
+        </li>
+        <li *ngFor="let item of items | filter:'type':'anchor'">
+          <a href="#" id="mobile-{{item.id}}-link" (click)="toggleMobileNav();" [routerLink]="[route]" [fragment]="item.id">{{item.title}}</a>
+          <ul class="usa-sidenav-sub_list" *ngIf="item.sections">
+            <li *ngFor="let section of item.sections">
+              <a href="#" id="mobile-{{section.id}}-link" (click)="toggleMobileNav()" [routerLink]="[route]" [fragment]="section.id">{{section.title}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nav>
   <aside>
     &nbsp;
@@ -51,9 +62,6 @@
               (click)="util.gotoHashtag(item.id, $event)">{{section.title}}</a>
           </li>
         </ul>
-      </li>
-      <li *ngFor="let item of items | filter:'type':'button'">
-        <button id="item.id" class="usa-button-primary-alt" type="button" [routerLink]="[item.routerLink]">{{item.title}}</button>
       </li>
     </ul>
   </aside>

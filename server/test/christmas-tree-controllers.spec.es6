@@ -102,9 +102,20 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+    it('PUT should return a 200 response when completing permit transaction with pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
@@ -113,7 +124,7 @@ describe('christmas tree controller tests', () => {
         {
           data: permitId
         },
-        vcapConstants.permitSecret
+        vcapConstants.PERMIT_SECRET
       );
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
@@ -197,9 +208,20 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
@@ -222,15 +244,32 @@ describe('christmas tree controller tests', () => {
     });
 
     it('GET should return a 200 response when getting details of "initiated" permit', done => {
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}/details`)
-        .expect('Content-Type', /json/)
+        .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
+        .set('Accept', 'application/json')
         .expect(200, done);
     });
 
-    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+    it('PUT should return a 200 response when completing permit transaction with pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
@@ -289,9 +328,20 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+    it('PUT should return a 200 response when completing permit transaction with pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
@@ -326,8 +376,14 @@ describe('christmas tree controller tests', () => {
         permitId: permitId,
         status: 'Cancelled'
       };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .put('/forests/christmas-trees/permits')
+        .put(`/forests/christmas-trees/permits?t=${token}`)
         .send(cancelApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
@@ -399,8 +455,19 @@ describe('christmas tree controller tests', () => {
         .expect(200, done);
     });
     it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${permitId}`)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });

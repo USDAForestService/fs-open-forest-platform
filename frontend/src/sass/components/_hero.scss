@@ -1,0 +1,23 @@
+.forest-service {
+  .usa-hero {
+    background-image: url(/assets/img/homepage_bg.jpg);
+    .usa-hero-callout {
+      &.usa-section-dark {
+        background: $fs-brown;
+        color: $white;
+        h1, span {
+          color: $white !important;
+        }
+        .usa-button {
+          margin-top: 2rem;
+          margin-bottom: 0;
+        }
+     }
+    }
+    @media screen and (min-width: $small-screen) {
+      .usa-hero-callout {
+        max-width: 44rem;
+      }
+    }
+  }
+}

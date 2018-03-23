@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { UtilService } from '../_services/util.service';
 import { FilterPipe } from '../_pipes/filter.pipe';
+import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
+import { WindowRef } from '../_services/native-window.service';
 
 class MockUtilService {
   currentSection: string;
@@ -36,7 +38,11 @@ describe('SidebarComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [SidebarComponent, FilterPipe],
-        providers: [{ provide: UtilService, useClass: MockUtilService }],
+        providers: [
+          WindowRef,
+          { provide: UtilService, useClass: MockUtilService },
+          ChristmasTreesAdminService
+        ],
         imports: [RouterTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -67,7 +73,7 @@ describe('SidebarComponent', () => {
       };
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('-45px');
+    expect(component.top).toEqual('-5px');
     expect(component.position).toEqual('fixed');
   });
 
@@ -84,7 +90,7 @@ describe('SidebarComponent', () => {
       return 50;
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('-45px');
+    expect(component.top).toEqual('-5px');
     expect(component.position).toEqual('fixed');
   });
 
