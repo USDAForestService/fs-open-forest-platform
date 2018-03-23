@@ -24,6 +24,6 @@ Cody, WY 82414-9313
 
 (307) 527-6921
 
-* * *
+***
 
 Visit [Shoshone National Forest](https://www.fs.usda.gov/main/shoshone) for more information.

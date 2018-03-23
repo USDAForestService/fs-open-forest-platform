@@ -7,15 +7,7 @@ import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { ApplicationService } from '../../_services/application.service';
-import { AuthenticationService } from '../../_services/authentication.service';
-import { AlertService } from '../../_services/alert.service';
-import { UtilService } from '../../_services/util.service';
 import { ErrorMessageComponent } from './error-message.component';
-import { Observable } from 'rxjs/Observable';
-import { Pipe, PipeTransform } from '@angular/core';
-import { Base64 } from '../../_pipes/base64.pipe';
-import { environment } from '../../../environments/environment';
 import { FormBuilder, Validators } from '@angular/forms';
 
 describe('ErrorMessageComponent', () => {

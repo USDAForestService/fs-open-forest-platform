@@ -19,10 +19,6 @@ describe('Xmas tree  - Find a forest', () => {
       expect<any>(element(by.id('forest-finder-select')).isPresent()).toBeTruthy();
     });
 
-    it ('should show the breadcrumb', () => {
-      expect<any>(element(by.css('nav')).isPresent()).toBeTruthy();
-    });
-
     it('should let the user enter a forest name and navigate to that forest', () => {
       element(by.id('forest-finder-select')).sendKeys('shoshone');
       browser.sleep(960);
@@ -32,21 +28,4 @@ describe('Xmas tree  - Find a forest', () => {
     });
   });
 
-  describe('forest map image link', () => {
-    beforeEach(() => {
-      page = new TreesForestFinderPage();
-      browser.driver
-        .manage()
-        .window()
-        .setSize(1400, 900);
-      page.navigateTo();
-      browser.sleep(900);
-    });
-
-    it('should let the user click a forest map and navigate to that forest', () => {
-      element(by.id('arp-map-img')).click();
-      browser.sleep(900);
-      expect(browser.getCurrentUrl()).toContain('http://localhost:4200/christmas-trees/forests/arp');
-    });
-  });
 });

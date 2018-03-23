@@ -8,13 +8,14 @@ import { AuthGuardService } from './_services/auth-guard.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { ChristmasTreePermitDetailResolver } from './application-forms/tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
-import { ForestFinderResolver } from './trees/forests/forest-finder/forest-finder-resolver.service';
+import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './login/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
+import { ServerErrorComponent } from './error-pages/server-error.component';
 import { PermitApplicationListComponent } from './applications/permit-application-list/permit-application-list.component';
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { ReportComponent } from './trees/admin/report/report.component';
@@ -22,6 +23,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TemporaryOutfittersComponent } from './application-forms/temporary-outfitters/temporary-outfitters.component';
 import { TemporaryOutfittersLearnMoreComponent } from './application-forms/temporary-outfitters/temporary-outfitters-learn-more.component';
 import { TreeGuidelinesComponent } from './trees/forests/tree-guidelines/tree-guidelines.component';
+import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
@@ -29,6 +31,8 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
+import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
+import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 
 const appRoutes: Routes = [
   {
@@ -66,6 +70,7 @@ const appRoutes: Routes = [
       text: 'Permit applications',
       admin: true
     },
+    canActivate: [AuthGuardService],
     resolve: {
       user: UserResolver
     },
@@ -73,7 +78,6 @@ const appRoutes: Routes = [
       {
         path: '',
         component: PermitApplicationListComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'Application administration listing'
         }
@@ -81,7 +85,6 @@ const appRoutes: Routes = [
       {
         path: ':type/:id',
         component: PermitApplicationViewComponent,
-        canActivate: [AuthGuardService],
         data: {
           title: 'View application',
           breadcrumbs: 'View application'
@@ -96,8 +99,8 @@ const appRoutes: Routes = [
       admin: true
     },
     resolve: {
-      forests: ForestFinderResolver,
-      user: UserResolver
+      user: UserResolver,
+      forests: ForestsAdminResolver
     },
     children: [
       {
@@ -223,7 +226,7 @@ const appRoutes: Routes = [
         path: '',
         component: ForestFinderComponent,
         resolve: {
-          forests: ForestFinderResolver
+          forests: ForestsResolver
         }
       },
       {
@@ -247,14 +250,6 @@ const appRoutes: Routes = [
               {
                 path: '',
                 component: TreeApplicationFormComponent
-              },
-              {
-                path: 'permits/:permitId',
-                component: TreePermitViewComponent,
-                resolve: {
-                  permit: ChristmasTreePermitResolver
-                },
-                data: { breadcrumbs: 'Permit confirmation' }
               }
             ]
           },
@@ -263,13 +258,25 @@ const appRoutes: Routes = [
             path: 'applications/:permitId',
             component: TreeApplicationFormComponent,
             resolve: {
-              permit: ChristmasTreePermitDetailResolver
+              permit: ChristmasTreePermitResolver
             },
             data: { breadcrumbs: 'Buy a permit' }
+          },
+          {
+            path: 'maps/:mapId',
+            component: ChristmasTreeMapDetailsComponent
           }
         ]
       }
     ]
+  },
+  {
+    path: 'christmas-trees/forests/:id/applications/permits/:permitId',
+    component: TreePermitViewComponent,
+    resolve: {
+      permit: ChristmasTreePermitResolver
+    },
+    data: { breadcrumbs: PermitBreadcrumbsResolver }
   },
   {
     path: 'mock-pay-gov',
@@ -280,6 +287,7 @@ const appRoutes: Routes = [
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
   { path: 'style-guide', component: StyleGuideComponent, data: { title: 'Style guide' } },
   { path: 'access-denied', component: AccessDeniedComponent, data: { title: 'Access Denied' } },
+  { path: '500', component: ServerErrorComponent, data: { title: '500 server error' } },
   { path: '404', component: NotFoundComponent, data: { title: '404 not found' } },
   { path: '**', component: NotFoundComponent, data: { title: '404 not found' } }
 ];
@@ -287,6 +295,6 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: false }), McBreadcrumbsModule.forRoot()],
   exports: [RouterModule, McBreadcrumbsModule],
-  providers: [ForestResolver, ForestFinderResolver]
+  providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}

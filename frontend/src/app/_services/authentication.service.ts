@@ -12,10 +12,10 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
-  getAuthenticatedUser(doLogin = true, checkUser = false) {
+  getAuthenticatedUser(doLogin = false) {
     const user = this.getUser();
 
-    if (doLogin || user) {
+    if (doLogin) {
       return this.isAuthenticated().map(
         (result: any) => {
           if (result) {
@@ -30,6 +30,8 @@ export class AuthenticationService {
           console.error(e);
         }
       );
+    } else if (user) {
+        return Observable.of(user);
     } else {
       return Observable.of(null); // no user but don't login
     }
@@ -64,6 +66,13 @@ export class AuthenticationService {
 
   removeUser() {
     this.user = null;
-    localStorage.removeItem('user');
+    return this.isAuthenticated().map(user => {
+      if (user) {
+        localStorage.removeItem('user');
+      }
+      return user;
+    });
+
+
   }
 }

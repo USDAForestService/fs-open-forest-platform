@@ -145,6 +145,13 @@ export class ChristmasTreesService {
     );
   }
 
+  updateMapDescriptionLinks(text) {
+    if (text.indexOf('map description') > -1) {
+      text = `<span class='screen-reader-only'>${text}</span>`;
+    }
+    return text;
+  }
+
   updateMarkdownText(markdownService, forest) {
     markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(forest);
@@ -156,6 +163,7 @@ export class ChristmasTreesService {
           }
         }
       }
+      text = this.updateMapDescriptionLinks(text);
       return text;
     };
 

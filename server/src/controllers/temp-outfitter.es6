@@ -20,11 +20,13 @@ const vcapConstants = require('../vcap-constants.es6');
 
 const tempOutfitter = {};
 
-
 const s3 = util.getS3();
 
 /**
- * Translate permit application object from client format to database format.
+ * @function translateFromClientToDatabase - private function to translate permit application
+ * object from client format to database format.
+ * @param {Object} input
+ * @param {Object} output
  */
 const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
@@ -33,17 +35,21 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
   output.applicantInfoEveningPhoneAreaCode =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode ? input.applicantInfo.eveningPhone.areaCode :
-      null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
+      ? input.applicantInfo.eveningPhone.areaCode
+      : null;
   output.applicantInfoEveningPhoneExtension =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension ? input.applicantInfo.eveningPhone
-      .extension : null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
+      ? input.applicantInfo.eveningPhone.extension
+      : null;
   output.applicantInfoEveningPhoneNumber =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number ? input.applicantInfo.eveningPhone.number :
-      null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
+      ? input.applicantInfo.eveningPhone.number
+      : null;
   output.applicantInfoEveningPhonePrefix =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix ? input.applicantInfo.eveningPhone.prefix :
-      null;
+    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
+      ? input.applicantInfo.eveningPhone.prefix
+      : null;
   output.applicantInfoFaxAreaCode =
     input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
   output.applicantInfoFaxExtension =
@@ -60,8 +66,9 @@ const translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
   output.applicantInfoPrimaryMailingState =
-    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState ? input.applicantInfo.primaryAddress
-      .mailingState : null;
+    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+      ? input.applicantInfo.primaryAddress.mailingState
+      : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -113,7 +120,9 @@ const translateFromClientToDatabase = (input, output) => {
 };
 
 /**
- * Translate permit application object from database format to client format.
+ * @function translateFromDatabaseToClient - private function to translate permit application
+ * object from database format to client format.
+ * @param {Object} input
  */
 const translateFromDatabaseToClient = input => {
   const result = {
@@ -123,14 +132,16 @@ const translateFromDatabaseToClient = input => {
         prefix: input.applicantInfoDayPhonePrefix,
         number: input.applicantInfoDayPhoneNumber,
         extension: input.applicantInfoDayPhoneExtension || '',
-        tenDigit: input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
+        tenDigit:
+          input.applicantInfoDayPhoneAreaCode + input.applicantInfoDayPhonePrefix + input.applicantInfoDayPhoneNumber
       },
       eveningPhone: {
         areaCode: input.applicantInfoEveningPhoneAreaCode || '',
         prefix: input.applicantInfoEveningPhonePrefix || '',
         number: input.applicantInfoEveningPhoneNumber || '',
         extension: input.applicantInfoEveningPhoneExtension || '',
-        tenDigit: input.applicantInfoEveningPhoneAreaCode +
+        tenDigit:
+          input.applicantInfoEveningPhoneAreaCode +
           input.applicantInfoEveningPhonePrefix +
           input.applicantInfoEveningPhoneNumber
       },
@@ -200,8 +211,7 @@ const translateFromDatabaseToClient = input => {
           startDay: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('D'),
           startYear: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
           startHour: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('hh'),
-          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
-            'mm'),
+          startMinutes: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('mm'),
           startPeriod: moment(input.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('A'),
           endDateTime: input.tempOutfitterFieldsActDescFieldsEndDateTime,
           endMonth: moment(input.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('M'),
@@ -213,12 +223,19 @@ const translateFromDatabaseToClient = input => {
         }
       },
       experienceFields: {
-        haveCitations: input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations
-          .length > 0 ? true : false,
-        haveNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
-          input.tempOutfitterFieldsExpNatForestPermits.length > 0 ? true : false,
-        haveOtherPermits: input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits
-          .length > 0 ? true : false,
+        haveCitations:
+          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
+            ? true
+            : false,
+        haveNationalForestPermits:
+          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0
+            ? true
+            : false,
+        haveOtherPermits:
+          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
+            ? true
+            : false,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
         listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
         listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits
@@ -232,7 +249,9 @@ const translateFromDatabaseToClient = input => {
 };
 
 /**
- * Translate permit application object from database format to middle layer format.
+ * @function translateFromIntakeToMiddleLayer - API function to translate permit application object
+ * from database format to middle layer format..
+ * @param {Object} application
  */
 tempOutfitter.translateFromIntakeToMiddleLayer = application => {
   const result = {
@@ -253,10 +272,11 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       },
       eveningPhone: {
         areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
-        number: application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
+        number:
+          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
           application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
-        extension: application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension ||
-          undefined,
+        extension:
+          application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'evening'
       },
       emailAddress: application.applicantInfoEmailAddress,
@@ -274,7 +294,8 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       // Start date
-      activityDescription: application.tempOutfitterFieldsActDescFieldsStartDateTime +
+      activityDescription:
+        application.tempOutfitterFieldsActDescFieldsStartDateTime +
         '\n' +
         // End date
         application.tempOutfitterFieldsActDescFieldsEndDateTime +
@@ -324,29 +345,35 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
 };
 
 /**
- * Get a file from the S3 bucket.
+ * @function getFile - private function to get a file from the S3 bucket.
+ * @param {string} key
+ * @param {string} documentType
  */
 const getFile = (key, documentType) => {
   return new Promise((resolve, reject) => {
-    s3.getObject({
-      Bucket: vcapConstants.bucket,
-      Key: key
-    }, (error, data) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({
-          fileBuffer: data.Body,
-          documentType: documentType,
-          key: key
-        });
+    s3.getObject(
+      {
+        Bucket: vcapConstants.BUCKET,
+        Key: key
+      },
+      (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({
+            fileBuffer: data.Body,
+            documentType: documentType,
+            key: key
+          });
+        }
       }
-    });
+    );
   });
 };
 
 /**
- * Get all file attachments for a permit application.
+ * @function getAllFiles - private function to get all file attachments for a permit application.
+ * @param {string} applicationId
  */
 const getAllFiles = applicationId => {
   return new Promise((resolve, reject) => {
@@ -378,13 +405,15 @@ const getAllFiles = applicationId => {
 };
 
 /**
- * Stream a file from the S3 bucket.
+ * @function streamFile - private function Stream a file from the S3 bucket.
+ * @param {string} fileName
+ * @param {Object} response
  */
 const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
   s3
     .getObject({
-      Bucket: vcapConstants.bucket,
+      Bucket: vcapConstants.BUCKET,
       Key: fileName
     })
     .createReadStream()
@@ -392,7 +421,8 @@ const streamFile = (fileName, res) => {
 };
 
 /**
- * Get all file attachment names for a permit application,
+ * @function getAllFileNames - Private function to get all file attachment names for a permit application
+ * @param {string} applicationId
  */
 const getAllFileNames = applicationId => {
   return ApplicationFile.findAll({
@@ -403,7 +433,10 @@ const getAllFileNames = applicationId => {
 };
 
 /**
- * Update the permit application model based on permissions.
+ * @function updateApplicationModel - API function to update the permit application model based on permissions.
+ * @param {Object} model
+ * @param {Object} submitted
+ * @param {Object} user
  */
 tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
@@ -421,7 +454,8 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
 };
 
 /**
- * Send an application to the middle layer.
+ * @function acceptApplication - Private function to send an application to the middle layer.
+ * @param {Object} application
  */
 const acceptApplication = application => {
   return new Promise((resolve, reject) => {
@@ -429,8 +463,7 @@ const acceptApplication = application => {
       .then(files => {
         const requestOptions = {
           method: 'POST',
-          url: vcapConstants.middleLayerBaseUrl +
-            'permits/applications/special-uses/commercial/temp-outfitters/',
+          url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'permits/applications/special-uses/commercial/temp-outfitters/',
           headers: {},
           simple: true,
           formData: {
@@ -504,7 +537,9 @@ const acceptApplication = application => {
 };
 
 /**
- * Get file attachment names for a permit application.
+ * @function getApplicationFileNames - API function to get file attachment names for a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
@@ -521,19 +556,21 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
 };
 
 /**
- * Stream a file attachment from S3.
+ * @function streamFile - API function to stream a file attachment from S3.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.streamFile = (req, res) => {
   streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
 };
 
 /**
- * Stream a file attachment to S3.
+ * @function streamToS3 - API function to stream a file attachment to S3.
  */
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
     s3: s3,
-    bucket: vcapConstants.bucket,
+    bucket: vcapConstants.BUCKET,
     metadata: function(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },
@@ -544,7 +581,9 @@ tempOutfitter.streamToS3 = multer({
 });
 
 /**
- * Add a file attachment to a permit application.
+ * @function attachFile - API function to add a file attachment to a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
@@ -576,7 +615,9 @@ tempOutfitter.attachFile = (req, res) => {
 };
 
 /**
- * Delete a permit application attachment.
+ * @function deleteFile - API function to delete a permit application attachment.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
@@ -593,7 +634,9 @@ tempOutfitter.deleteFile = (req, res) => {
 };
 
 /**
- * Create a permit application.
+ * @function create - API function to create a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
@@ -622,7 +665,9 @@ tempOutfitter.create = (req, res) => {
 };
 
 /**
- * Get one permit application.
+ * @function getOne - API function to get one permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
@@ -658,7 +703,9 @@ tempOutfitter.getOne = (req, res) => {
 };
 
 /**
- * Update a permit application.
+ * @function update - API function to update a permit application.
+ * @param {Object} request
+ * @param {Object} response
  */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
@@ -722,8 +769,4 @@ tempOutfitter.update = (req, res) => {
     });
 };
 
-/**
- * Temp outfitter permit application controllers
- * @exports tempOutfitter
- */
 module.exports = tempOutfitter;

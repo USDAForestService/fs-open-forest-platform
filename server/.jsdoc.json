@@ -1,0 +1,33 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "includePattern": ".+\\.es6(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_",
+    "exclude": ["src/mocks", "src/templates"]
+  },
+  "sourceType": "module",
+  "plugins": ["plugins/markdown"],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "dateFormat": "MMMM D, YYYY",
+    "outputSourceFiles": true,
+    "outputSourcePath": true,
+    "systemName": "US Forest Service Permit Platform",
+    "footer": "",
+    "copyright": "",
+    "navType": "vertical",
+    "theme": "flatly",
+    "linenums": true,
+    "collapseSymbols": false,
+    "inverseNav": true,
+    "protocol": "html://",
+    "methodHeadingReturns": false
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  }
+}

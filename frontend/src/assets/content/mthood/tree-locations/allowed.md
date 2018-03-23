@@ -16,8 +16,12 @@ elevations, it is highly likely that you will run into snow on these roads early
 
 [![Christmas tree map of Clackamas River](/assets/img/clackamas-map-thumb.png)](/assets/img/clackamas-map.png)
 
+[Clackamas River Ranger District map description](christmas-trees/forests/mthood/maps/clackamas)
+
 [Christmas tree map of **Zigzag Ranger District**. (Click to view larger map)](/assets/img/zigzag-map.png)
 
 [![Christmas tree map of Zigzag](/assets/img/zigzag-map-thumb.png)](/assets/img/zigzag-map.png)
+
+[Zigzag Ranger District map description](christmas-trees/forests/mthood/maps/zigzag)
 
 Additional maps and travel information can be found on the forest’s [website](https://www.fs.usda.gov/main/mthood/maps-pubs) or at [ranger district offices](#).

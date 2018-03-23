@@ -2,7 +2,7 @@
 
 /**
  * pay.gov utility
- * @module paygov
+ * @module services/paygov
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
@@ -11,31 +11,57 @@ const vcapConstants = require('../vcap-constants.es6');
 const paygov = {};
 
 /**
- * create success url
+ * @function createSuccessUrl - create success url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
  */
-paygov.createSuccessUrl = (forestAbbr, permitId) => {
+paygov.createToken = (permitId) => {
   const claims = {
     issuer: 'trees-permit-api',
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  const token = jwt.sign(
+  return jwt.sign(
     {
       data: permitId
     },
-    vcapConstants.permitSecret,
+    vcapConstants.PERMIT_SECRET,
     claims
   );
+};
+
+/**
+ * @function createSuccessUrl - create success url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
+ */
+paygov.createSuccessUrl = (forestAbbr, permitId) => {
+  const token = paygov.createToken(permitId);
   return `${
-    vcapConstants.intakeClientBaseUrl
+    vcapConstants.INTAKE_CLIENT_BASE_URL
   }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
 };
 
 /**
- * Generate XML from the template to use for getting pay.gov transaction token.
+ * @function createCancelUrl - create cancel url for paygov request
+ * @param {string} forestAbbr
+ * @param {string} permitId
  */
-paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
-  const tcsAppID = vcapConstants.payGovAppId;
+paygov.createCancelUrl = (forestAbbr, permitId) => {
+  const token = paygov.createToken(permitId);
+  return `${
+    vcapConstants.INTAKE_CLIENT_BASE_URL
+  }/christmas-trees/forests/${forestAbbr}/applications/${permitId}?cancel=true&t=${token}`;
+};
+
+/**
+ * @function getXmlForToken - Generate XML from the template to use for getting pay.gov transaction token.
+ * @param {string} forestAbbr
+ * @param {string} possFinancialId
+ * @param {Object} permit
+ */
+paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
+  const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
   let url_success = '';
   try {
     url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
@@ -43,9 +69,12 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
     console.error('problem creating success url for permit ' + permit.id, e);
   }
 
-  const url_cancel = `${vcapConstants.intakeClientBaseUrl}/christmas-trees/forests/${forestAbbr}/applications/${
-    permit.permitId
-  }`;
+  let url_cancel;
+  try {
+    url_cancel = paygov.createCancelUrl(forestAbbr, permit.permitId);
+  } catch (e) {
+    console.error('problem creating success url for permit ' + permit.id, e);
+  }
 
   const xmlTemplate = [
     {
@@ -93,7 +122,7 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
                     {
                       custom_fields: [
                         {
-                          custom_field_1: orgStructureCode
+                          custom_field_1: possFinancialId
                         }
                       ]
                     }
@@ -111,7 +140,8 @@ paygov.getXmlForToken = (forestAbbr, orgStructureCode, permit) => {
 };
 
 /**
- * Generate XML from the template to use for completing pay.gov transaction.
+ * @function getXmlToCompleteTransaction - Generate XML from the template to use for completing pay.gov transaction.
+ * @param {string} paygovToken
  */
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
@@ -137,7 +167,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
                 {
                   completeOnlineCollectionRequest: [
                     {
-                      tcs_app_id: vcapConstants.payGovAppId
+                      tcs_app_id: vcapConstants.PAY_GOV_APP_ID
                     },
                     {
                       token: paygovToken
@@ -154,12 +184,21 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
   return xml(xmlTemplate);
 };
 
+/**
+ * @function getToken - Get token out of the paygov response XML
+ * @param {Object} result
+ */
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
   return startOnlineCollectionResponse.token[0];
 };
 
+/**
+ * @function getResponseError - Get error out of the paygov response XML
+ * @param {string} requestType
+ * @param {Object} result
+ */
 paygov.getResponseError = (requestType, result) => {
   let resultMesssage = { faultcode: '9999', faultstring: requestType };
   try {
@@ -182,13 +221,14 @@ paygov.getResponseError = (requestType, result) => {
   }
 };
 
+/**
+ * @function getTrackingId - Get paygov tracking id out of the paygov response XML
+ * @param {Object} result
+ */
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
   return completeOnlineCollectionResponse.paygov_tracking_id[0];
 };
-/**
- * pay.gov utility
- * @exports paygov
- */
+
 module.exports = paygov;

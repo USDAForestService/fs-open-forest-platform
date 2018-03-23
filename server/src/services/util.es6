@@ -2,7 +2,7 @@
 
 /**
  * Module for various utility functions and constants
- * @module util
+ * @module services/util
  */
 
 const AWS = require('aws-sdk');
@@ -105,12 +105,12 @@ util.getSequelizeConnection = () => {
 util.middleLayerAuth = () => {
   const requestOptions = {
     method: 'POST',
-    url: vcapConstants.middleLayerBaseUrl + 'auth',
+    url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'auth',
     json: true,
     simple: true,
     body: {
-      username: vcapConstants.middleLayerUsername,
-      password: vcapConstants.middleLayerPassword
+      username: vcapConstants.MIDDLE_LAYER_USERNAME,
+      password: vcapConstants.MIDDLE_LAYER_PASSWORD
     },
     transform: body => body.token
   };
@@ -234,7 +234,7 @@ util.getRandomString = length => {
  * Get the assigned forests to the christmas trees forest admins by email address
  */
 util.getAdminForests = adminUsername => {
-  const user = vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername);
+  const user = vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername);
   if (user && user.forests) {
     return user.forests;
   } else {
@@ -243,8 +243,9 @@ util.getAdminForests = adminUsername => {
 };
 
 util.getUserRole = adminUsername => {
-  return vcapConstants.eAuthUserWhiteList.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
-    util.USER_ROLE;
+  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername)
+    ? util.ADMIN_ROLE
+    : util.USER_ROLE;
 };
 
 util.handleErrorResponse = (error, res) => {
@@ -261,19 +262,18 @@ util.handleErrorResponse = (error, res) => {
 
 util.request = request;
 
+/**
+ * get S3 credentials
+ */
 util.getS3 = () => {
-  /** Initialize our S3 bucket connection for file attachments */
-  /** if local or CI use aws credentials */
+  // Initialize our S3 BUCKET connection for file attachments
+  // if local or CI use aws credentials
   let s3 = new AWS.S3({
-    region: vcapConstants.region,
+    region: vcapConstants.REGION,
     accessKeyId: vcapConstants.accessKeyId,
     secretAccessKey: vcapConstants.secretAccessKey
   });
   return s3;
 };
 
-/**
- * Various utility functions and constants
- * @exports util
- */
 module.exports = util;

@@ -26,7 +26,7 @@
         </fieldset>
 
         <div>
-          <p>If your forest is not listed, please <a href="#">request access</a>.</p>
+          <p>If your forest is not listed, please <a href="{{changeRequestFormUrl}}">request access</a>.</p>
           <p>The time on the season start date and end date will be set to midnight.</p>
           <app-date-time-range [parentForm]="form" dateOnly="true" includePastDates="false"
                            (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>

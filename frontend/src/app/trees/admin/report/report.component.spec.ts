@@ -10,7 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { WindowRef } from '../../../_services/native-window.service';
-import { TreesAdminService } from '../trees-admin.service';
+import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
@@ -87,7 +87,7 @@ describe('ReportComponent', () => {
           ApplicationFieldsService,
           { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
           FormBuilder,
-          TreesAdminService,
+          ChristmasTreesAdminService,
           UtilService,
           { provide: WindowRef, useValue: mockWindow }
         ],

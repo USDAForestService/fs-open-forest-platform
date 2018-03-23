@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Module for chrismtmas tree admin API
+ * @module controllers/chrismtmas-tree-admin
+ */
+
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 const zpad = require('zpad');
@@ -10,6 +15,11 @@ const util = require('../services/util.es6');
 const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
 
+/**
+ * @function getPermitResult - Private function to get the updated permit object with formatted dates
+ * and permit number padded with zeros
+ * @param {Object} permit
+ */
 const getPermitResult = permit => {
   let eachPermit = {};
   eachPermit.permitNumber = zpad(permit.permitNumber, 8);
@@ -28,6 +38,11 @@ const getPermitResult = permit => {
   return eachPermit;
 };
 
+/**
+ * @function returnPermitsReport - Private function to return permits with number of trees and cost
+ * @param {Object} results - database results
+ * @param {Object} response
+ */
 const returnPermitsReport = (results, res) => {
   if (results) {
     let permits = [];
@@ -49,6 +64,11 @@ const returnPermitsReport = (results, res) => {
   }
 };
 
+/**
+ * @function getPermitSummaryReport - permit summary report for the selected forest and given data range
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
@@ -102,6 +122,12 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
     });
 };
 
+/**
+ * @function getPermitReport - permit report for the given permit number
+ * @param {Object} request
+ * @param {Object} response
+ */
+
 christmasTreeAdmin.getPermitReport = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
@@ -131,6 +157,14 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
     });
 };
 
+/**
+ * @function updateForest - Private function to update the forest in datababse
+ * @param {string} forest
+ * @param {string} startDate
+ * @param {string} endDate
+ * @param {string} cuttingAreas
+ * @param {Object} response
+ */
 const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
   forest
     .update({
@@ -143,6 +177,11 @@ const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
     });
 };
 
+/**
+ * @function updateForestDetails - Updage forest
+ * @param {Object} request
+ * @param {Object} response
+ */
 christmasTreeAdmin.updateForestDetails = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({

@@ -10,7 +10,7 @@ export class LoggedInComponent implements OnInit {
   constructor(private router: Router, private authentication: AuthenticationService) {}
 
   ngOnInit() {
-    this.authentication.getAuthenticatedUser().subscribe((user: any) => {
+    this.authentication.getAuthenticatedUser(true).subscribe((user: any) => {
       const requestingUrl = localStorage.getItem('requestingUrl');
       if (requestingUrl) {
         localStorage.removeItem('requestingUrl');

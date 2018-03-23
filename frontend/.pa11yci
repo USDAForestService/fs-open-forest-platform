@@ -36,6 +36,7 @@
     "http://localhost:4200/christmas-trees/forests/shoshone/applications",
     "http://localhost:4200/christmas-trees/forests",
     "http://localhost:4200/admin/christmas-trees/reports",
-    "http://localhost:4200/admin/christmas-trees/season-dates"
+    "http://localhost:4200/admin/christmas-trees/season-dates",
+    "http://localhost:4200/admin/christmas-trees/district-dates"
   ]
 }
