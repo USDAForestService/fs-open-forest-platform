@@ -10,7 +10,10 @@
 
       <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info" role="alert" aria-label="info">
         <div class="usa-alert-body">
-          <p class="usa-alert-text">{{ updateStatus }}</p>
+          <p class="usa-alert-text">{{ updateStatus }}
+            <br/>
+            <a routerLink="/christmas-trees/forests/{{forest.forestAbbr}}" aria-label="Click here to verify the updated information.">Click here to verify the updated information.</a>
+          </p>
         </div>
       </div>
     </div>

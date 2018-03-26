@@ -55,7 +55,9 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting');
+    this.titleService.setTitle(
+      'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting'
+    );
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
@@ -92,12 +94,13 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
       const newEnd = moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone);
-      this.service.updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
+      this.service
+        .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
         .subscribe(
           () => {
             this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
               'MMM DD, YYYY'
-            )} to  ${newEnd.format('MMM DD, YYYY')}`;
+            )} to  ${newEnd.format('MMM DD, YYYY')}.`;
             this.doc.getElementById('season-updated-alert-container').focus();
           },
           err => {
