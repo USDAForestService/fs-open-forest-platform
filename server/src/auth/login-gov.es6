@@ -12,6 +12,7 @@ const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const url = require('url');
 
 const loginGov = {};
 
@@ -19,8 +20,7 @@ const loginGov = {};
 const basicAuthOptions = {};
 if (vcapConstants.LOGIN_GOV_IDP_USERNAME && vcapConstants.LOGIN_GOV_IDP_PASSWORD) {
   basicAuthOptions.headers = {
-    // Host: vcapConstants.LOGIN_GOV_BASE_URL,
-    Host: 'idp.int.login.gov',
+    Host: url.parse(vcapConstants.LOGIN_GOV_BASE_URL).hostname,
     Authorization: 'Basic ' +
       new Buffer(vcapConstants.LOGIN_GOV_IDP_USERNAME + ':' + vcapConstants.LOGIN_GOV_IDP_PASSWORD).toString('base64')
   };
@@ -52,11 +52,11 @@ loginGov.setup = () => {
       // a joseKeystore is required by openid-client
       jose.JWK.asKeyStore(keys).then(joseKeystore => {
         let client = new loginGovIssuer.Client({
-          client_id: vcapConstants.LOGIN_GOV_ISSUER,
-          token_endpoint_auth_method: 'private_key_jwt',
-          id_token_signed_response_alg: 'RS256'
-        },
-        joseKeystore
+            client_id: vcapConstants.LOGIN_GOV_ISSUER,
+            token_endpoint_auth_method: 'private_key_jwt',
+            id_token_signed_response_alg: 'RS256'
+          },
+          joseKeystore
         );
         // instantiate the passport strategy
         passport.use(
