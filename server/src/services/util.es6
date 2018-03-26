@@ -243,9 +243,8 @@ util.getAdminForests = adminUsername => {
 };
 
 util.getUserRole = adminUsername => {
-  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername)
-    ? util.ADMIN_ROLE
-    : util.USER_ROLE;
+  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
+    util.USER_ROLE;
 };
 
 util.handleErrorResponse = (error, res) => {
