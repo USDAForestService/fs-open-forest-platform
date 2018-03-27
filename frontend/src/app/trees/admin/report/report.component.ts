@@ -147,7 +147,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
   focusAndScroll(id) {
     this.doc.getElementById(id).focus();
-    const element = document.querySelector('#'+id);
+    const element = document.querySelector('#' + id);
     element.scrollIntoView();
   }
 
