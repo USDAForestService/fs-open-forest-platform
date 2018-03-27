@@ -72,6 +72,8 @@
 }
 
 .usa-sidenav-list {
+  border-bottom: none;
+  border-top: none;
   display: none;
   margin-right: 14px;
   position: absolute;
@@ -140,4 +142,8 @@
       color: $fs-green;
     }
   }
+}
+
+.sidebar-container {
+  position: relative;
 }
