@@ -163,10 +163,10 @@ export class DateTimeRangeComponent implements OnInit {
   }
 
   validateStartEndDates(group: FormGroup) {
-    if (!group.controls.startDateTime.valid) {
+    if (group.controls.startDateTime.value && group.controls.startDateTime.invalid) {
       group.controls.startYear.setErrors({invalidDate: true});
     }
-    if (!group.controls.endDateTime.valid) {
+    if (group.controls.endDateTime.value && group.controls.endDateTime.invalid) {
       group.controls.endYear.setErrors({invalidDate: true});
     }
   }
