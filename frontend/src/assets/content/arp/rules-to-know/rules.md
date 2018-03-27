@@ -4,9 +4,9 @@ The below applies to all available Christmas tree cutting areas in the {{forestN
 
 * The tree stump must be less than {{stumpDiameter}} inches in diameter.
 * You must leave a stump height of {{stumpHeight}} inches or less.
-* Only cut trees within the National Forest boundary.
-* Do not cut any tree designated with paint. 
+* Only cut trees within the national forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree. 
+* Do not cut any tree designated with paint. 
 * After cutting your tree, take or scatter any unused portion of your tree.
 * You cannot cut trees in the Boulder or Clear Creek Ranger Districts.
 
