@@ -155,19 +155,16 @@ describe('AppComponent', () => {
     it ('should clear the local storage if no user', () => {
       component.setLoggedInMessage(null);
       expect(localStorage.getItem('showLoggedIn')).toBeNull();
-      expect(localStorage.getItem('requestingUrl')).toBeNull();
     });
 
     it ('should clear the local storage if no user', () => {
       component.setLoggedInMessage(null);
       expect(localStorage.getItem('showLoggedIn')).toBeNull();
-      expect(localStorage.getItem('requestingUrl')).toBeNull();
     });
 
     it ('should clear the local storage and remove showLoggedIn if no email on the user', () => {
       component.setLoggedInMessage({});
       expect(localStorage.getItem('showLoggedIn')).toBeNull();
-      expect(localStorage.getItem('requestingUrl')).toBeNull();
       expect(component.status.message).toEqual('');
     });
 
