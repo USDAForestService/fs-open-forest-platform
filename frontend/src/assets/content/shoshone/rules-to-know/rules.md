@@ -2,6 +2,8 @@
 
 * The tree must be less than {{treeHeight}} feet in height if the permit was purchased online.
 * You must leave a stump of {{stumpHeight}} inches in height or less. 
+* Only cut trees within the national forest boundary.
+* Tree-topping is prohibited. Cut down the whole tree. 
 * No live branches should be left on the stump.
 * After cutting your tree, take or scatter any unused portion of your tree.
 * Select trees that are growing close to other trees. Cutting from dense clumps will thin areas with too many trees, thereby reducing competition and promoting growth of remaining trees.
