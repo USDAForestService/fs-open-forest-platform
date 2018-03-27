@@ -62,11 +62,13 @@
           </div>
           <div class="trees-applications-rules-checkbox-container">
             <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-            <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules.</label>
+            <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
             <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
           </div>
        </div>
-        <p class="usa-form-hint">A copy of these rules will be sent with your permit to the email address you have provided. You can print these rules and your permit after you make your purchase.</p>
+        <p class="usa-form-hint">
+          A copy of these rules and guidelines will be sent with your permit to the email address you have provided. You can print these rules and guidelines and your permit after you make your purchase.
+        </p>
 
         <p class="usa-form-hint">
           We use Pay.gov as our trusted secure payment processor. When you click checkout, we’ll redirect you to Pay.gov to buy your permit(s) and bring you back when you finish.
