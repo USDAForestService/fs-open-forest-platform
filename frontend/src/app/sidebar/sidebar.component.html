@@ -1,14 +1,16 @@
 <ng-container *ngIf="!mobileMenu">
-  &nbsp;
-  <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
-    <li class="usa-current" *ngFor="let item of items | filter:'type':'anchor'">
-      <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
-        href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
-    </li>
-    <li *ngFor="let item of items | filter:'type':'button'">
-      <button type="button" class="usa-button-primary" [routerLink]="[item.routerLink]">{{item.title}}</button>
-    </li>
-  </ul>
+  <aside class="sidebar-container">
+    &nbsp;
+    <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+      <li class="usa-current" *ngFor="let item of items | filter:'type':'anchor'">
+        <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
+          href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
+      </li>
+      <li *ngFor="let item of items | filter:'type':'button'">
+        <button type="button" class="usa-button-primary" [routerLink]="[item.routerLink]">{{item.title}}</button>
+      </li>
+    </ul>
+  </aside>
 </ng-container>
 
 <ng-container *ngIf="mobileMenu">
@@ -43,7 +45,7 @@
       </ul>
     </div>
   </nav>
-  <aside>
+  <aside class="sidebar-container">
     &nbsp;
     <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
       <li *ngFor="let item of items | filter:'type':'anchor'">
