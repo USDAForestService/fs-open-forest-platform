@@ -2,6 +2,7 @@ import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Hours, Minutes } from '../../_models/constants';
 import { numberValidator } from '../validators/number-validation';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -33,7 +34,7 @@ export class DateTimeRangeComponent implements OnInit {
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
   ngOnInit() {
     if (this.dateOnly) {
@@ -111,6 +112,8 @@ export class DateTimeRangeComponent implements OnInit {
       startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
+    }, {
+      validator: this.validateStartEndDates
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
@@ -157,6 +160,15 @@ export class DateTimeRangeComponent implements OnInit {
       !values.endDay &&
       !values.endYear
     );
+  }
+
+  validateStartEndDates(group: FormGroup) {
+    if (!group.controls.startDateTime.valid) {
+      group.controls.startYear.setErrors({invalidDate: true});
+    }
+    if (!group.controls.endDateTime.valid) {
+      group.controls.endYear.setErrors({invalidDate: true});
+    }
   }
 
   startDateChangeHandler(values) {
