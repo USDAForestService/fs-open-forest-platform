@@ -53,7 +53,6 @@ export class SidebarComponent implements OnInit {
       this.bottom = 'auto';
       this.position = 'fixed';
     } else {
-      // this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
       this.top = '0px';
       this.position = 'absolute';
     }
