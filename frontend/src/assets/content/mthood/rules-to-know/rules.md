@@ -2,11 +2,10 @@
 
 * The tree must be less than {{treeHeight}} feet in height if the permit was purchased online.
 * You must leave a stump height of {{stumpHeight}} inches or less.
-* Remove all live branches from the stump.
-* Only cut trees within the National Forest boundary.
+* Only cut trees within the national forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree. 
+* Remove all live branches from the stump.
 * Another tree of similar size must grow within 8 feet of the one you cut.
-* Chainsaws are prohibited.
 * Do not remove Pacific Yew trees.
 
 Do not cut trees 
@@ -22,6 +21,8 @@ Do not cut trees
 
 The below additional restrictions apply to tree cutting in the Clackamas River and Zigzag Ranger Districts:
 
+* No cutting in the Bull Run Watershed.
+
 No cutting along the following roads:
 
 * Highway 26 and Highway 224
@@ -35,5 +36,5 @@ No cutting along the following roads:
 
 The below additional restrictions apply to tree cutting in the Hood River and Barlow Ranger Districts:
 
-* No cutting in the Dalles Watershed area or Camp Baldwin.
+* No cutting in The Dalles Watershed area or Camp Baldwin.
 * No cutting along Highway 216, Highway 35 and Highway 26. 
