@@ -89,7 +89,9 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting');
+    this.titleService.setTitle(
+      'Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting'
+    );
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
@@ -97,6 +99,7 @@ export class AdminDistrictDatesComponent implements OnInit {
 
         if (this.forests[0]) {
           // set default forest to first one on form
+          this.forest = this.forests[0];
           this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
       }
@@ -125,18 +128,17 @@ export class AdminDistrictDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
-      this.service
-        .updateDistrictDates(this.forest, this.district.id, newStart, newEnd)
-        .subscribe(
-          () => {
-            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-            this.doc.getElementById('district-updated-alert-container').focus();
-          },
-          err => {
-            this.apiErrors = err;
-            this.doc.getElementById('district-updated-alert-container').focus();
-          }
-        );
+      this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
+        () => {
+          console.log('abbr=', this.forest.forestAbbr);
+          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+          this.doc.getElementById('district-updated-alert-container').focus();
+        },
+        err => {
+          this.apiErrors = err;
+          this.doc.getElementById('district-updated-alert-container').focus();
+        }
+      );
     }
   }
 }
