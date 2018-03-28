@@ -13,6 +13,7 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startMonth'), 'start-month-label twoDigitHint', 'start-month-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startMonth'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.startDateTime').value && parentForm.get(formName + '.startDateTime').invalid}"
         />
       </div>
       <div class="usa-form-group usa-form-group-day">
@@ -22,6 +23,7 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startDay'), 'start-day-label twoDigitHint', 'start-day-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startDay'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.startDateTime').value && parentForm.get(formName + '.startDateTime').invalid}"
         />
       </div>
       <div class="usa-form-group usa-form-group-year">
@@ -31,13 +33,18 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startYear'), 'start-year-label fourDigitHint', 'start-year-error start-date-time-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startYear'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.startDateTime').value && parentForm.get(formName + '.startDateTime').invalid}"
         />
       </div>
     </fieldset>
 
     <app-error-message fieldId="start-month-error" name="Start month" [control]="parentForm.get('dateTimeRange.startMonth')"></app-error-message>
-    <app-error-message fieldId="start-day-error" name="Start day" [control]="parentForm.get('dateTimeRange.startDay')"></app-error-message>
-    <app-error-message fieldId="start-year-error" name="Start year" [control]="parentForm.get('dateTimeRange.startYear')"></app-error-message>
+    <app-error-message fieldId="start-day-error" name="Start day" [control]="parentForm.get('dateTimeRange.startDay')"
+      *ngIf="parentForm.get('dateTimeRange.startMonth').valid"
+    ></app-error-message>
+    <app-error-message fieldId="start-year-error" name="Start year" [control]="parentForm.get('dateTimeRange.startYear')"
+      *ngIf="parentForm.get('dateTimeRange.startMonth').valid && parentForm.get('dateTimeRange.startDay').valid"
+    ></app-error-message>
 
     <fieldset *ngIf="!dateOnly">
       <legend class="fs-datetime-legend">Start time</legend>
@@ -67,7 +74,9 @@
     <app-error-message fieldId="start-hour-error" name="Start hour" [control]="parentForm.get('dateTimeRange.startHour')"></app-error-message>
     <app-error-message fieldId="start-minutes-error" name="Start minutes" [control]="parentForm.get('dateTimeRange.startMinutes')"></app-error-message>
     <app-error-message fieldId="start-period-error" name="Start period" [control]="parentForm.get('dateTimeRange.startPeriod')"></app-error-message>
-    <app-error-message fieldId="start-date-time-error" name="Start date" [control]="parentForm.get('dateTimeRange.startDateTime')"></app-error-message>
+    <app-error-message fieldId="start-date-time-error" name="Start date" [control]="parentForm.get('dateTimeRange.startDateTime')"
+      *ngIf="parentForm.get('dateTimeRange.startMonth').valid && parentForm.get('dateTimeRange.startDay').valid && parentForm.get('dateTimeRange.startYear').valid"
+    ></app-error-message>
 
     <fieldset>
       <legend class="fs-datetime-legend">End date</legend>
@@ -80,6 +89,7 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endMonth'), 'end-month-label twoDigitHint', 'end-month-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endMonth'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.endDateTime').value && parentForm.get(formName + '.endDateTime').invalid}"
         />
       </div>
       <div class="usa-form-group usa-form-group-day">
@@ -89,6 +99,7 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endDay'), 'end-day-label twoDigitHint', 'end-day-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endDay'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.endDateTime').value && parentForm.get(formName + '.endDateTime').invalid}"
         />
       </div>
       <div class="usa-form-group usa-form-group-year">
@@ -98,13 +109,18 @@
         aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endYear'), 'end-year-label fourDigitHint', 'end-year-error end-date-time-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endYear'))"
+        [ngClass]="{'invalid-override': parentForm.get(formName + '.endDateTime').value && parentForm.get(formName + '.endDateTime').invalid}"
         />
       </div>
     </fieldset>
 
     <app-error-message fieldId="end-month-error" name="End month" [control]="parentForm.get('dateTimeRange.endMonth')"></app-error-message>
-    <app-error-message fieldId="end-day-error" name="End day" [control]="parentForm.get('dateTimeRange.endDay')"></app-error-message>
-    <app-error-message fieldId="end-year-error" name="End year" [control]="parentForm.get('dateTimeRange.endYear')"></app-error-message>
+    <app-error-message fieldId="end-day-error" name="End day" [control]="parentForm.get('dateTimeRange.endDay')"
+      *ngIf="parentForm.get('dateTimeRange.endMonth').valid"
+    ></app-error-message>
+    <app-error-message fieldId="end-year-error" name="End year" [control]="parentForm.get('dateTimeRange.endYear')"
+      *ngIf="parentForm.get('dateTimeRange.endMonth').valid && parentForm.get('dateTimeRange.endDay').valid"
+    ></app-error-message>
 
 
     <fieldset *ngIf="!dateOnly">
@@ -135,7 +151,9 @@
     <app-error-message fieldId="end-hour-error" name="End hour" [control]="parentForm.get('dateTimeRange.endHour')"></app-error-message>
     <app-error-message fieldId="end-minutes-error" name="End minutes" [control]="parentForm.get('dateTimeRange.endMinutes')"></app-error-message>
     <app-error-message fieldId="end-period-error" name="End period" [control]="parentForm.get('dateTimeRange.endPeriod')"></app-error-message>
-    <app-error-message fieldId="end-date-time-error" name="End date" [control]="parentForm.get('dateTimeRange.endDateTime')"></app-error-message>
+    <app-error-message fieldId="end-date-time-error" name="End date" [control]="parentForm.get('dateTimeRange.endDateTime')"
+      *ngIf="parentForm.get('dateTimeRange.endMonth').valid && parentForm.get('dateTimeRange.endDay').valid && parentForm.get('dateTimeRange.endYear').valid"
+    ></app-error-message>
 
   </ng-container>
 </ng-container>
