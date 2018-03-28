@@ -10,8 +10,6 @@ import { ChristmasTreesService } from './_services/christmas-trees.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
-import { LineBreakFormatterPipe } from '../_pipes/line-break-formatter.pipe';
-import { ColumnizeArrayPipe } from '../_pipes/columnize-array.pipe';
 import { ChristmasTreesApplicationService } from './_services/christmas-trees-application.service';
 import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.component';
 import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
@@ -33,9 +31,7 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
     ForestFinderComponent,
     ChristmasTreeMapDetailsComponent,
     TreeGuidelinesFooterComponent,
-    RemovePuncPipe,
-    LineBreakFormatterPipe,
-    ColumnizeArrayPipe
+    RemovePuncPipe
   ],
   exports: [
     ReportComponent,
@@ -45,11 +41,14 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
     TreeGuidelinesFooterComponent,
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
-    ChristmasTreeMapDetailsComponent,
-    LineBreakFormatterPipe,
-    ColumnizeArrayPipe
+    ChristmasTreeMapDetailsComponent
   ],
   imports: [SharedModule, ApplicationsModule],
-  providers: [ChristmasTreesService, ChristmasTreesAdminService, ChristmasTreesApplicationService, ChristmasTreeMapDetailsService]
+  providers: [
+    ChristmasTreesService,
+    ChristmasTreesAdminService,
+    ChristmasTreesApplicationService,
+    ChristmasTreeMapDetailsService
+  ]
 })
 export class TreesModule {}

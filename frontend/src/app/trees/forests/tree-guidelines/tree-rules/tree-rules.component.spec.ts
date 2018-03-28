@@ -3,7 +3,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
 import { TreeRulesComponent } from './tree-rules.component';
-import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import { SpacesToDashesPipe } from '../../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -16,7 +15,7 @@ describe('TreeRulesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreeRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe],
+        declarations: [TreeRulesComponent, FilterPipe, SpacesToDashesPipe],
         providers: [UtilService, ChristmasTreesService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]

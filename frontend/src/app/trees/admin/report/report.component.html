@@ -54,7 +54,8 @@
           />
         </div>
         <div>
-          <span id="permit-not-found-error" class="usa-input-error-message" *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
+          <span id="permit-not-found-error" class="usa-input-error-message" 
+            *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
             && permitNumberSearchForm.controls.permitNumber.errors && permitNumberSearchForm.controls.permitNumber.errors.notFound">
             Please check that you've entered the correct permit number and try again.
           </span>

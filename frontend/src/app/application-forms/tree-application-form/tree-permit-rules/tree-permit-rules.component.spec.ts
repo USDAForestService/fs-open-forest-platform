@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FilterPipe } from '../../../_pipes/filter.pipe';
 import { TreePermitRulesComponent } from './tree-permit-rules.component';
-import { LineBreakFormatterPipe } from '../../../_pipes/line-break-formatter.pipe';
 import { SpacesToDashesPipe } from '../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../_services/util.service';
 import { forest } from '../../../_mocks/forest.mock';
@@ -18,7 +17,7 @@ describe('TreePermitRulesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [TreePermitRulesComponent, FilterPipe, LineBreakFormatterPipe, SpacesToDashesPipe],
+        declarations: [TreePermitRulesComponent, FilterPipe, SpacesToDashesPipe],
         providers: [UtilService, ChristmasTreesService, { provide: MarkdownService, useClass: MockMarkdownService }],
         imports: [HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
