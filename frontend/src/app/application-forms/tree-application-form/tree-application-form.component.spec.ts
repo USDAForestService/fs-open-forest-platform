@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { ChristmasTreesService } from '../../trees/_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Title } from '@angular/platform-browser';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
@@ -47,7 +47,7 @@ describe('TreeApplicationFormComponent', () => {
             { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            ChristmasTreesService,
+            ChristmasTreesInfoService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {
@@ -100,7 +100,7 @@ describe('TreeApplicationFormComponent', () => {
             { provide: MarkdownService, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
-            ChristmasTreesService,
+            ChristmasTreesInfoService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
             { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
             {

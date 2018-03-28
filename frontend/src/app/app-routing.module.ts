@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
-import { AuthGuardService } from './_services/auth-guard.service';
+import { AccessControlService } from './_services/access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { ChristmasTreePermitDetailResolver } from './application-forms/tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
@@ -70,7 +70,7 @@ const appRoutes: Routes = [
       text: 'Permit applications',
       admin: true
     },
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     resolve: {
       user: UserResolver
     },
@@ -94,7 +94,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin/christmas-trees',
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: {
       admin: true
     },
@@ -135,7 +135,7 @@ const appRoutes: Routes = [
   {
     path: 'user/applications',
     component: PermitApplicationListComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'Submitted applications' },
     resolve: {
       user: UserResolver
@@ -144,7 +144,7 @@ const appRoutes: Routes = [
   {
     path: 'user/applications/:type/:id',
     component: PermitApplicationViewComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'View Submitted Application' },
     resolve: {
       user: UserResolver
@@ -153,7 +153,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'Apply for a noncommercial group use permit' },
     resolve: {
       user: UserResolver
@@ -162,7 +162,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/noncommercial-group-use/:id/edit',
     component: ApplicationNoncommercialGroupComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'Edit your noncommercial group use permit' },
     resolve: {
       user: UserResolver
@@ -187,7 +187,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'Apply for a temporary outfitters permit' },
     resolve: {
       user: UserResolver
@@ -196,7 +196,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/temp-outfitters/:id/edit',
     component: TemporaryOutfittersComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AccessControlService],
     data: { title: 'Edit your temporary outfitters permit' },
     resolve: {
       user: UserResolver

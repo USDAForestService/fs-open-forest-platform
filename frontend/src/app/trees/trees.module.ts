@@ -6,7 +6,7 @@ import { SharedModule } from '../_shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
-import { ChristmasTreesService } from './_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from './_services/christmas-trees-info.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
@@ -45,7 +45,7 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
   ],
   imports: [SharedModule, ApplicationsModule],
   providers: [
-    ChristmasTreesService,
+    ChristmasTreesInfoService,
     ChristmasTreesAdminService,
     ChristmasTreesApplicationService,
     ChristmasTreeMapDetailsService

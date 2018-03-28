@@ -7,7 +7,7 @@ import { forest } from '../../../_mocks/forest.mock';
 import { MarkdownService } from 'ngx-md';
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChristmasTreesService } from '../../../trees/_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../../trees/_services/christmas-trees-info.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TreePermitRulesComponent', () => {
@@ -18,7 +18,7 @@ describe('TreePermitRulesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreePermitRulesComponent, FilterPipe, SpacesToDashesPipe],
-        providers: [UtilService, ChristmasTreesService, { provide: MarkdownService, useClass: MockMarkdownService }],
+        providers: [UtilService, ChristmasTreesInfoService, { provide: MarkdownService, useClass: MockMarkdownService }],
         imports: [HttpClientTestingModule],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();

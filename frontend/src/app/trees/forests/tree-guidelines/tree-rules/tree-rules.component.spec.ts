@@ -6,7 +6,7 @@ import { TreeRulesComponent } from './tree-rules.component';
 import { SpacesToDashesPipe } from '../../../../_pipes/spaces-to-dashes.pipe';
 import { UtilService } from '../../../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ChristmasTreesService } from '../../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../../_services/christmas-trees-info.service';
 
 describe('TreeRulesComponent', () => {
   let component: TreeRulesComponent;
@@ -16,7 +16,7 @@ describe('TreeRulesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeRulesComponent, FilterPipe, SpacesToDashesPipe],
-        providers: [UtilService, ChristmasTreesService],
+        providers: [UtilService, ChristmasTreesInfoService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
       }).compileComponents();

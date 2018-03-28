@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angu
 import { ForestFinderComponent } from './forest-finder.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,7 +45,7 @@ describe('ForestFinderComponent', () => {
       TestBed.configureTestingModule({
         declarations: [ForestFinderComponent, RemovePuncPipe, SpacesToDashesPipe],
         schemas: [NO_ERRORS_SCHEMA],
-        providers: [UtilService, { provide: ChristmasTreesService, useClass: ChristmasTreesService }],
+        providers: [UtilService, { provide: ChristmasTreesInfoService, useClass: ChristmasTreesInfoService }],
         imports: [
           HttpClientModule,
           HttpClientTestingModule,
