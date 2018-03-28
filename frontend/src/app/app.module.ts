@@ -7,7 +7,7 @@ import { AlertService } from './_services/alert.service';
 import { AppComponent } from './app.component';
 import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './application-forms/applications.module';
-import { AuthenticatedComponent } from './login/authenticated.component';
+import { AuthenticatedComponent } from './authentication/authenticated.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
@@ -17,7 +17,7 @@ import { ErrorInterceptor } from './error-pages/error-interceptor.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
 import { HomeComponent } from './home/home.component';
-import { LoggedInComponent } from './login/logged-in.component';
+import { LoggedInComponent } from './authentication/logged-in.component';
 import { NoncommercialDetailsComponent } from './applications/permit-application-view/noncommercial-details.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
 import { ServerErrorComponent } from './error-pages/server-error.component';
@@ -39,7 +39,7 @@ import { PageHeaderComponent } from './home/header.component';
 import { PageFooterComponent } from './home/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
-import { ForestAdminNavComponent } from './login/forests-admin-nav.component';
+import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
 
 @NgModule({
   declarations: [

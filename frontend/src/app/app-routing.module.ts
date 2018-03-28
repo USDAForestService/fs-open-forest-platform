@@ -12,7 +12,7 @@ import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HomeComponent } from './home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
-import { LoggedInComponent } from './login/logged-in.component';
+import { LoggedInComponent } from './authentication/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
 import { ServerErrorComponent } from './error-pages/server-error.component';
