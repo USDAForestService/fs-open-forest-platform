@@ -75,6 +75,7 @@ export class AdminDistrictDatesComponent implements OnInit {
           return district;
         });
         this.district = this.districts[0];
+        console.log('DISTRICT', this.district);
         if (this.forest && this.form.get('forestAbbr').value !== this.forests[0].forestAbbr) {
           this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
@@ -130,7 +131,6 @@ export class AdminDistrictDatesComponent implements OnInit {
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
       this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
         () => {
-          console.log('abbr=', this.forest.forestAbbr);
           this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
           this.doc.getElementById('district-updated-alert-container').focus();
         },

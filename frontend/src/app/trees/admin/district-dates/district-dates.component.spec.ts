@@ -207,5 +207,10 @@ describe('District Dates Admin Component', () => {
       expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
       expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
     });
+
+    it('should call set forest', () => {
+      component.setForest('arp');
+      expect(component.district.name).toEqual("Elk Creek");
+    })
   });
 });
