@@ -44,9 +44,8 @@ describe('Xmas tree - Admin Reports', () => {
         page.startMonthInput().clear();
         expect<any>(page.reportSubmit().click());
         page.startMonthInput().sendKeys('13');
-        expect<any>(page.startMonthError().getText()).toEqual(
-          'Start month requires a 1 or 2 digit number that is less than 13.'
-        );
+        page.startMonthInput().sendKeys(protractor.Key.TAB);
+        expect<any>(page.startMonthError().getText()).toEqual('Start month requires a 1 or 2 digit number that is less than 13.');
         expect<any>(page.startDateTimeError().getText()).toEqual('Start date is invalid.');
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('10');
@@ -54,7 +53,8 @@ describe('Xmas tree - Admin Reports', () => {
 
         page.startDayInput().clear();
         page.startDayInput().sendKeys('33');
-        expect<any>(page.startDateTimeError().getText()).toEqual('Start date is invalid.');
+        page.startDayInput().sendKeys(protractor.Key.TAB);
+        expect<any>(page.startDayError().getText()).toEqual('Start day requires a 1 or 2 digit number.');
         page.startDayInput().clear();
         page.startDayInput().sendKeys('10');
         expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
