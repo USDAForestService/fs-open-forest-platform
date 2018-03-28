@@ -7,16 +7,31 @@
       <span class="usa-form-hint" id="startDateHint">For example: 01 31 2020</span>
 
       <div class="usa-form-group usa-form-group-month">
-        <label for="start-month">Month</label>
-        <input class="usa-input-inline" id="start-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="startMonth" aria-required="true" aria-describedby="twoDigitHint" />
+        <label id="start-month-label" for="start-month">Month</label>
+        <input class="usa-input-inline" id="start-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])"
+        formControlName="startMonth"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startMonth'), 'start-month-label twoDigitHint', 'start-month-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startMonth'))"
+        />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="start-day">Day</label>
-        <input class="usa-input-inline" id="start-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="startDay" aria-required="true" aria-describedby="twoDigitHint" />
+        <label id="start-day-label" for="start-day">Day</label>
+        <input class="usa-input-inline" id="start-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])"
+        formControlName="startDay"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startDay'), 'start-day-label twoDigitHint', 'start-day-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startDay'))"
+        />
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="start-year">Year</label>
-        <input class="usa-input-inline" id="start-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="startYear" aria-required="true" aria-describedby="fourDigitHint" />
+        <label id="start-year-label" for="start-year">Year</label>
+        <input class="usa-input-inline" id="start-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})"
+        formControlName="startYear"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.startYear'), 'start-year-label fourDigitHint', 'start-year-error start-date-time-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.startYear'))"
+        />
       </div>
     </fieldset>
 
@@ -59,16 +74,31 @@
       <span class="usa-form-hint" id="endDateHint">For example: 01 31 2020</span>
 
       <div class="usa-form-group usa-form-group-month">
-        <label for="end-month">Month</label>
-        <input class="usa-input-inline" id="end-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])" formControlName="endMonth" aria-required="true" aria-describedby="twoDigitHint" />
+        <label id="end-month-label" for="end-month">Month</label>
+        <input class="usa-input-inline" id="end-month" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[012])"
+        formControlName="endMonth"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endMonth'), 'end-month-label twoDigitHint', 'end-month-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endMonth'))"
+        />
       </div>
       <div class="usa-form-group usa-form-group-day">
-        <label for="end-day">Day</label>
-        <input class="usa-input-inline" id="end-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])" formControlName="endDay" aria-required="true" aria-describedby="twoDigitHint" />
+        <label id="end-day-label" dropzone=""for="end-day">Day</label>
+        <input class="usa-input-inline" id="end-day" type="number" minlength="1" maxlength="2" pattern="(0?[1-9]|1[0-9]|2[0-9]|3[01])"
+        formControlName="endDay"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endDay'), 'end-day-label twoDigitHint', 'end-day-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endDay'))"
+        />
       </div>
       <div class="usa-form-group usa-form-group-year">
-        <label for="end-year">Year</label>
-        <input class="usa-input-inline" id="end-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})" formControlName="endYear" aria-required="true" aria-describedby="fourDigitHint" />
+        <label id="end-year-label" for="end-year">Year</label>
+        <input class="usa-input-inline" id="end-year" type="number" minlength="4" maxlength="4" pattern="([0-9]{4})"
+        formControlName="endYear"
+        aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get(formName + '.endYear'), 'end-year-label fourDigitHint', 'end-year-error end-date-time-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get(formName + '.endYear'))"
+        />
       </div>
     </fieldset>
 
