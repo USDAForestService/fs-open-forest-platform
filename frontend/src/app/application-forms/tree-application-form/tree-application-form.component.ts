@@ -6,7 +6,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
-import { ChristmasTreesService } from '../../trees/_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
@@ -41,7 +41,7 @@ export class TreeApplicationFormComponent implements OnInit {
     public markdownService: MarkdownService,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
-    private christmasTreesService: ChristmasTreesService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
     public util: UtilService,
     private winRef: WindowRef
   ) {}
@@ -122,7 +122,7 @@ export class TreeApplicationFormComponent implements OnInit {
         this.forest = data.forest;
 
         if (this.forest) {
-          this.christmasTreesService.updateMarkdownText(this.markdownService, this.forest);
+          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
         this.checkSeasonStartDate(this.forest);

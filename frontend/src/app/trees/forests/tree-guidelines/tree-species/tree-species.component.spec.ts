@@ -5,7 +5,7 @@ import { SpacesToDashesPipe } from '../../../../_pipes/spaces-to-dashes.pipe';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { forest } from '../../../../_mocks/forest.mock';
 
-import { ChristmasTreesService } from '../../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../../_services/christmas-trees-info.service';
 import { TreeSpeciesComponent } from './tree-species.component';
 
 @Component({
@@ -43,7 +43,7 @@ describe('TreeSpeciesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        providers: [ChristmasTreesService],
+        providers: [ChristmasTreesInfoService],
         declarations: [TreeSpeciesComponent, TestComponentWrapperComponent, FilterPipe, SpacesToDashesPipe],
         schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
         imports: [HttpClientTestingModule]

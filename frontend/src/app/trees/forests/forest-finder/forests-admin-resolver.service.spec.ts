@@ -3,7 +3,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { UtilService } from '../../../_services/util.service';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { ForestsAdminResolver } from './forests-admin-resolver.service';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
 import { Observable } from 'rxjs/Rx';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -20,7 +20,7 @@ class MockAuthenticationService {
   }
 }
 
-class MockChristmasTreesService {
+class MockChristmasTreesInfoService {
   getAll(): Observable<{}> {
     return Observable.create(obs => {
       obs.next([ {abbr: 'arp'}, { forestAbbr: 'mthood' }, { forestAbbr: 'shoshone' } ]);
@@ -38,7 +38,7 @@ describe('Forest Admin Resolver Service', () => {
 
     let mockRouter;
     const mockAuthenticationService = new MockAuthenticationService();
-    const mockChristmasTreesService = new MockChristmasTreesService();
+    const mockChristmasTreesInfoService = new MockChristmasTreesInfoService();
 
     beforeEach(async(() => {
       mockRouter = new MockRouter();
@@ -46,7 +46,7 @@ describe('Forest Admin Resolver Service', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           ForestsAdminResolver,
-          { provide: ChristmasTreesService, useValue: mockChristmasTreesService },
+          { provide: ChristmasTreesInfoService, useValue: mockChristmasTreesInfoService },
           UtilService,
           { provide: AuthenticationService, useValue: mockAuthenticationService },
           { provide: Router, useValue: mockRouter },

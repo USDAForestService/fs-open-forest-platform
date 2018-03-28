@@ -71,11 +71,11 @@ export class FileUploadComponent implements DoCheck, OnInit {
     }
   }
 
-  onWhenAddingFileFailed(item: FileLikeObject, filter: any, options: any) {
+  onWhenAddingFileFailed(item: FileLikeObject, Filter: any, options: any) {
     if (this.uploader.queue.length > 0) {
       this.uploader.removeFromQueue(this.uploader.queue[0]);
     }
-    switch (filter.name) {
+    switch (Filter.name) {
       case 'fileSize':
         this.errorMessage = `Maximum upload size exceeded (${item.size} of ${this.maxFileSize} allowed)`;
         break;
@@ -84,7 +84,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
         this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, ${xls}or .rtf`;
         break;
       default:
-        this.errorMessage = `Unknown error (filter is ${filter.name})`;
+        this.errorMessage = `Unknown error (filter is ${Filter.name})`;
     }
 
     this.field.markAsTouched();

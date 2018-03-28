@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { UtilService } from './util.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AccessControlService implements CanActivate {
   constructor(private router: Router, private authentication: AuthenticationService, public util: UtilService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {

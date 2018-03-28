@@ -5,7 +5,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { environment } from '../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -37,7 +37,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   constructor(
     private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
-    private christmasTreesService: ChristmasTreesService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
     private formBuilder: FormBuilder,
     private titleService: Title,
     private route: ActivatedRoute,
@@ -66,7 +66,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   setForest(forestAbbr) {
-    this.christmasTreesService.getOne(forestAbbr).subscribe(forest => {
+    this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
       this.forest = forest;
       if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
         this.districts = Object.keys(forest.cuttingAreas).map(cuttingArea => {

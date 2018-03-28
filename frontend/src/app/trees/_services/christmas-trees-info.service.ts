@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import * as moment from 'moment-timezone';
 
 @Injectable()
-export class ChristmasTreesService {
+export class ChristmasTreesInfoService {
   private endpoint = environment.apiUrl + 'forests/';
   private CUTTING_AREA_KEYS = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
 

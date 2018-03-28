@@ -1,10 +1,10 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ChristmasTreesService } from './christmas-trees.service';
+import { ChristmasTreesInfoService } from './christmas-trees-info.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Rx';
 import * as sinon from 'sinon';
 
-describe('ChristmasTreesService', () => {
+describe('ChristmasTreesInfoService', () => {
   let httpMock: HttpTestingController;
 
   const forest = {
@@ -26,7 +26,7 @@ describe('ChristmasTreesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ChristmasTreesService]
+      providers: [ChristmasTreesInfoService]
     });
 
     httpMock = TestBed.get(HttpTestingController);
@@ -34,7 +34,7 @@ describe('ChristmasTreesService', () => {
 
   it(
     'should get all forests',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       const spy = sinon.spy(service, 'getAll');
       service.getAll();
       expect(spy.called).toBeTruthy();
@@ -43,21 +43,21 @@ describe('ChristmasTreesService', () => {
 
   it(
     'should get JSON',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       expect(service.getJSON('arp')).toEqual(jasmine.any(Observable));
     })
   );
 
   it(
     'should get text',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       expect(service.getText('/assets/content/apr/contact-information/contact-us.md')).toEqual(jasmine.any(Observable));
     })
   );
 
   it(
     'should call get forest with content',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       const forestJSON = {
         name: 'arp',
         treeSpecies: [
@@ -125,7 +125,7 @@ describe('ChristmasTreesService', () => {
 
   it(
     'return named markdown array',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       const content = [
         'test0',
         'test1',
@@ -156,7 +156,7 @@ describe('ChristmasTreesService', () => {
 
   it(
     'should return formatted start and end dates',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       expect(service.formatCuttingAreaDate(forest, '2017-12-02 10:00:00Z', '2017-12-12 10:00:00Z')).toEqual(
         'Dec. 2 - 12, 2017'
       );
@@ -173,7 +173,7 @@ describe('ChristmasTreesService', () => {
 
   it(
     'should return formatted cutting hours',
-    inject([ChristmasTreesService], service => {
+    inject([ChristmasTreesInfoService], service => {
       expect(service.formatCuttingAreaTime(forest, '2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z')).toEqual(
         '4:00 am - 1:00 pm.'
       );

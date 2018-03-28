@@ -6,7 +6,9 @@
       </svg>
       Season dates
     </h3>
-    <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
+    <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">
+      {{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}
+    </div>
     <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
   </div>
 </div>

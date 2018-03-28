@@ -4,7 +4,6 @@ import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
 import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
 import { Pipe, PipeTransform } from '@angular/core';
-import { LineBreakFormatterPipe } from '../../../../_pipes/line-break-formatter.pipe';
 import * as sinon from 'sinon';
 import { WindowRef } from '../../../../_services/native-window.service';
 import { MarkdownService } from 'ngx-md';
@@ -17,11 +16,7 @@ describe('TreeCuttingDatesComponent', () => {
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [
-          TreeCuttingDatesComponent,
-          FilterPipe,
-          LineBreakFormatterPipe
-        ],
+        declarations: [TreeCuttingDatesComponent, FilterPipe],
         providers: [WindowRef, MarkdownService],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
@@ -39,7 +34,4 @@ describe('TreeCuttingDatesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-
-
 });
