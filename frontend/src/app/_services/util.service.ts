@@ -15,15 +15,24 @@ export class UtilService {
     message: 'Loading, please wait.'
   };
 
+  /**
+   *  Set current section on page. Typically used on pages with sidebar navigation.
+   */
   setCurrentSection(section) {
     this.currentSection = section;
   }
 
+  /**
+   * Set message when user is being redirected to login.gov or eauth.
+   */
   setLoginRedirectMessage() {
     localStorage.setItem('showLoggedIn', 'logged in');
     this.setProgress(true, 'Redirecting to login page, please wait.');
   }
 
+  /**
+   * Set progress message. Used when uploading a files or waiting for assets to load
+   */
   setProgress(display = true, message: string = '') {
     this.progress = {
       display: display,
@@ -31,6 +40,9 @@ export class UtilService {
     };
   }
 
+  /**
+   * Check file upload progress
+   */
   checkProgress() {
     if (this.requests > 0) {
       /*
@@ -48,16 +60,25 @@ export class UtilService {
     }
   }
 
+  /**
+   * Set number of file upload requests
+   */
   setRequests(num: number) {
     this.requests = num;
     this.checkProgress();
   }
 
+  /**
+   * Add file upload requests
+   */
   addRequest() {
     this.requests++;
     this.checkProgress();
   }
 
+  /**
+   * Remove file upload requests
+   */
   removeRequest() {
     if (this.requests > 0) {
       this.requests--;
@@ -65,6 +86,11 @@ export class UtilService {
     this.checkProgress();
   }
 
+  /**
+   * Go to requested hashtag
+   * @param fragment  element ID
+   * @param event event initating function call
+   */
   gotoHashtag(fragment: string, event = null) {
     if (event) {
       event.preventDefault();
@@ -81,6 +107,9 @@ export class UtilService {
     }
   }
 
+  /**
+   * Format string for use as ID (spaces to dashes, lowercase)
+   */
   createId(value: string) {
     const id = value
       .replace(/[^A-Z0-9]+/gi, '-')
@@ -89,6 +118,9 @@ export class UtilService {
     return id;
   }
 
+  /**
+   * Handle error response for HTTP requets  
+   */
   handleError(error: HttpErrorResponse | any) {
     let errors: any = [];
     if (error instanceof HttpErrorResponse) {

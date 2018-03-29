@@ -36,6 +36,9 @@ export class DateTimeRangeComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
+  /**
+   *  Intitialize date time form
+   */
   ngOnInit() {
     if (this.dateOnly) {
       this.defaultStartHour = '01';
