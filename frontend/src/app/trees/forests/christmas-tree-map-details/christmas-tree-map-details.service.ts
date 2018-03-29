@@ -13,6 +13,9 @@ export class ChristmasTreeMapDetailsService {
     this.getJSON().subscribe(data => (obj = data));
   }
 
+  /**
+   * @returns map details json
+   */
   public getJSON(): Observable<any> {
     return this.http.get(this.MAP_DETAILS_FILE_URL);
   }

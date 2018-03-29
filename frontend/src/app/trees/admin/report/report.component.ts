@@ -61,6 +61,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * reset form
+   */
   resetForms() {
     this.result = null;
     this.forest = null;
@@ -68,6 +71,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.apiErrors = null;
   }
 
+  /**
+   * Set data from route resolver
+   */
   ngOnInit() {
     this.titleService.setTitle('Christmas trees permits admin reports | U.S. Forest Service Christmas Tree Permitting');
 
@@ -80,34 +86,55 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * setStartEndDate
+   */
   ngAfterViewInit() {
     setTimeout(() => {
       this.setStartEndDate(this.forest, this.form);
     }, 0);
   }
 
+  /**
+   * setStartEndDate
+   */
   setStartEndDate(forest, form) {
     this.treesAdminService.setStartEndDate(forest, form);
   }
 
+  /**
+   * update dateStatus
+   */
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
   }
 
+  /**
+   * @returns forest by id
+   */
   getForestById(id) {
     return this.forests.find(forest => forest.id === parseInt(id, 10)) ;
   }
 
+  /**
+   * @returns forest by date
+   */
   getForestDate(dateField) {
     return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
   }
 
+  /**
+   * touch all fields and init getPermitsByDate()
+   */
   getReport() {
     this.afs.touchAllFields(this.form);
     this.result = null;
     this.getPermitsByDate();
   }
 
+  /**
+   * set forest name, start and end dates.
+   */
   private setReportParameters() {
     this.reportParameters = {
       forestName: this.forest.forestName,
@@ -116,6 +143,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     };
   }
 
+  /**
+   * get permit by date and set to this.result
+   */
   private getPermitsByDate() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
@@ -145,12 +175,18 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Set focus and scroll results into view
+   */
   focusAndScroll(id) {
     this.doc.getElementById(id).focus();
     const element = document.querySelector('#' + id);
     element.scrollIntoView();
   }
 
+  /**
+   * Get permit by permit number and set to this.result
+   */
   getPermitByNumber() {
     this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;

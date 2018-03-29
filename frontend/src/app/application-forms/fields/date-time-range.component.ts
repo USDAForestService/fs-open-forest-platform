@@ -36,6 +36,9 @@ export class DateTimeRangeComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
+  /**
+   *  Intitialize date time form
+   */
   ngOnInit() {
     if (this.dateOnly) {
       this.defaultStartHour = '01';
@@ -112,9 +115,8 @@ export class DateTimeRangeComponent implements OnInit {
       startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
-    }, {
-      validator: this.validateStartEndDates
     });
+
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
 
@@ -143,7 +145,6 @@ export class DateTimeRangeComponent implements OnInit {
     ];
     for (const field of dateFieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
-        // this.getFieldErrors(this.parentForm.get('dateTimeRange.' + field));
         const values = this.parentForm.get('dateTimeRange').value;
         values[field] = value;
         this.dateTimeRangeValidator(values);
@@ -151,6 +152,9 @@ export class DateTimeRangeComponent implements OnInit {
     }
   }
 
+  /**
+   *  Return true if has start dates but no end dates
+   */
   private checkHasStartAndNoEnd(values) {
     return (
       values.startMonth &&
@@ -162,15 +166,9 @@ export class DateTimeRangeComponent implements OnInit {
     );
   }
 
-  validateStartEndDates(group: FormGroup) {
-    if (group.controls.startDateTime.value && group.controls.startDateTime.invalid) {
-      group.controls.startYear.setErrors({invalidDate: true});
-    }
-    if (group.controls.endDateTime.value && group.controls.endDateTime.invalid) {
-      group.controls.endYear.setErrors({invalidDate: true});
-    }
-  }
-
+  /**
+   *  If all start dates are filled in, copy values to end dates
+   */
   startDateChangeHandler(values) {
     if (this.checkHasStartAndNoEnd(values)) {
       const today = moment();
@@ -184,27 +182,39 @@ export class DateTimeRangeComponent implements OnInit {
     }
   }
 
+  /**
+   * Combine individual date fields to one moment date/time object
+   * @returns      moment object
+   */
   parseDateTime(year, month, day, hour, minutes, period) {
     return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm A');
   }
 
+  /**
+   *  Return true if all date time fields are filled in
+   */
   private checkHasAllDateValues(values) {
     return (
       values.startMonth &&
       values.startDay &&
       values.startYear &&
+      values.startYear.toString().length === 4 &&
       values.startHour &&
       values.startMinutes &&
       values.startPeriod &&
       values.endMonth &&
       values.endDay &&
       values.endYear &&
+      values.endYear.toString().length === 4 &&
       values.endHour &&
       values.endMinutes &&
       values.endPeriod
     );
   }
 
+  /**
+   *  If all date time fields have values, create moment objects for startDateTime and endDateTime
+   */
   dateTimeRangeValidator(values) {
     if (this.checkHasAllDateValues(values)) {
       const startDateTime = this.parseDateTime(
@@ -223,11 +233,33 @@ export class DateTimeRangeComponent implements OnInit {
         values.endMinutes,
         values.endPeriod
       );
-
       this.processDateStatus(startDateTime, endDateTime);
+    } else {
+      this.resetDateTimeRangeValidation();
     }
   }
 
+  /**
+   *  Reset date status and remove validation errors on startDateTime and endDateTime
+   */
+  private resetDateTimeRangeValidation() {
+    this.dateStatus = {
+      startDateTimeValid: true,
+      endDateTimeValid: true,
+      startBeforeEnd: true,
+      startAfterToday: true,
+      hasErrors: false,
+      dateTimeSpan: 0
+    };
+    this.dateTimeRange.controls.startDateTime.setErrors(null);
+    this.dateTimeRange.controls.endDateTime.setErrors(null);
+
+  }
+
+  /**
+   *  Set startDateTime and endDate time with moment objects
+   *  Set dateStatus
+   */
   private processDateStatus(startDateTime, endDateTime) {
     const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
     this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' } });
@@ -245,7 +277,11 @@ export class DateTimeRangeComponent implements OnInit {
     this.updateDateStatus.emit(this.dateStatus);
   }
 
+  /**
+   * Validate startDateTime against endDateTime
+   */
   private setValidity(startDateTime, endDateTime) {
+    this.resetDateTimeRangeValidation();
     const today = moment();
     this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
       invalidDate: true
@@ -265,12 +301,15 @@ export class DateTimeRangeComponent implements OnInit {
         this.includePastDates
       );
 
-      this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
+       this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
         startDateAfterEndDate: true
       });
     }
   }
 
+  /**
+   * Mark as touched and set errors for form control
+   */
   private setError(requiredCondition, control, errors, exclude = false) {
     if (!requiredCondition && !exclude) {
       this.dateTimeRange.controls[control].markAsTouched();
@@ -280,4 +319,5 @@ export class DateTimeRangeComponent implements OnInit {
       return true;
     }
   }
+
 }

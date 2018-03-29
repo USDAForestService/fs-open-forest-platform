@@ -13,6 +13,9 @@ export class SectionHeadingComponent {
 
   constructor(private renderer: Renderer2, private util: UtilService) {}
 
+  /**
+   * If element is in view add or remove in-view class
+   */
   elementInView(event) {
     if (event && event.value) {
       this.renderer.addClass(event.target, 'in-view');
@@ -22,6 +25,9 @@ export class SectionHeadingComponent {
     this.setCurrentSection();
   }
 
+  /**
+   * Set current section as element that is in viewport
+   */
   private setCurrentSection() {
     const viewableElements = document.getElementsByClassName('in-view');
     if (viewableElements[0]) {

@@ -16,11 +16,17 @@ export class ReportResultsComponent implements OnChanges {
     expireDate: 'Expiration date'
   };
 
+  /**
+   * Set this.permits on changes, and insert titles
+   */
   ngOnChanges() {
     this.permits = this.result.permits;
     this.permits.unshift(this.titles);
   }
 
+  /**
+   * Download csv report of permits
+   */
   downloadReport() {
     const options = {
       fieldSeparator: ',',

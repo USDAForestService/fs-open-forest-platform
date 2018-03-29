@@ -13,6 +13,9 @@ export class SidebarConfigService {
     this.getJSON().subscribe(data => (obj = data));
   }
 
+  /**
+   * @returns sidebar config json
+   */
   public getJSON(): Observable<any> {
     return this.http.get(this.SIDEBAR_CONFIG_FILE_URL);
   }

@@ -10,6 +10,9 @@ import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.
 export class ForestsResolver implements Resolve<any> {
   constructor(private service: ChristmasTreesInfoService, private router: Router) {}
 
+  /**
+   * @returns all forests
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const trees = this.service.getAll().catch(err => {
       return Observable.of(null);

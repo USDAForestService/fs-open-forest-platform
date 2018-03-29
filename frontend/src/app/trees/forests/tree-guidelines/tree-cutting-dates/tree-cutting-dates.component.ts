@@ -13,6 +13,9 @@ export class TreeCuttingDatesComponent implements OnInit {
 
   constructor(public markdown: MarkdownService) {}
 
+  /**
+   *  Sets value isSeasonConfigured if forest start date is after today.
+   */
   ngOnInit() {
     if (this.forest) {
       this.forest.isSeasonConfigured = moment(this.forest.startDate)
