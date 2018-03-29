@@ -1,5 +1,5 @@
-import { TempOutfittersForm } from '../app.po';
-import { FieldValidation } from '../field-validation.po';
+import { TempOutfittersForm } from './app.po';
+import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('Apply for a temp outfitters permit', () => {
