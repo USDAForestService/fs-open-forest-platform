@@ -1,4 +1,4 @@
-import { TempOutfittersLearnMorePage } from '../app.po';
+import { TempOutfittersLearnMorePage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('Temp Outfitters Learn More', () => {
