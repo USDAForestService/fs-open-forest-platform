@@ -12,7 +12,7 @@ describe('DaysToOrDate', () => {
     const daysAgo = moment().add({ days: 1, hours: 1 });
     const theshold = 24;
     expect(pipe.transform(daysAgo, theshold)).toEqual(
-      `In 2 days ${moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm a')}`
+      `In 2 days ${moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm A')}`
     );
   });
 
@@ -20,7 +20,7 @@ describe('DaysToOrDate', () => {
     const daysAgo = moment().add({ days: 1 });
     const theshold = 24;
     expect(pipe.transform(daysAgo, theshold)).toEqual(
-      `In 1 day ${moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm a')}`
+      `In 1 day ${moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm A')}`
     );
   });
 
@@ -28,7 +28,7 @@ describe('DaysToOrDate', () => {
     const daysAgo = moment().add({ days: 25 });
     const theshold = 24;
     expect(pipe.transform(daysAgo, theshold)).toEqual(
-      moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a')
+      moment(daysAgo, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm A')
     );
   });
 });

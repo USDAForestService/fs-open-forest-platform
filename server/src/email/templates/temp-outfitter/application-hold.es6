@@ -23,10 +23,10 @@ module.exports = application => {
     Application identification number: ${application.applicationId}
     Business name: ${application.applicantInfoOrganizationName}
     Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
-      'MM/DD/YYYY hh:mm a'
+      'MM/DD/YYYY hh:mm A'
     )}
     End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format(
-      'MM/DD/YYYY hh:mm a'
+      'MM/DD/YYYY hh:mm A'
     )}
     Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
     Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}

@@ -11,9 +11,9 @@ export class DaysToOrDate implements PipeTransform {
 
     if (days <= daysTo && days > 0) {
       const dayOrDays = days > 1 ? 'days' : 'day';
-      return `In ${days} ${dayOrDays} ${moment(value, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm a')}`;
+      return `In ${days} ${dayOrDays} ${moment(value, 'YYYY-MM-DDTHH:mm:ss').format(' hh:mm A')}`;
     } else {
-      return moment(value, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm a');
+      return moment(value, 'YYYY-MM-DDTHH:mm:ss').format('MM/DD/YYYY hh:mm A');
     }
   }
 }

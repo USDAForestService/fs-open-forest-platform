@@ -6,4 +6,6 @@ At {{forestName}} we have limitations on the size of the tree you can cut. See b
 
 ![No cutting tops of trees off](/assets/img/tree-top-icon.svg "no tree-topping")  **Take the whole tree.** Cutting the tree top off is prohibited.
 
+If snow is on the ground, remove it from around the stump so you can accurately measure the stump and tree height.
+
 To cut a tree over 20 feet tall, a permit must be purchased in person at a forest ranger district office.
