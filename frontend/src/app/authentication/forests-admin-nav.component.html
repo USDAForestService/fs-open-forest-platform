@@ -17,7 +17,7 @@
   <nav aria-label="Forests admin navigation" id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showAdminNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
       <button class="usa-nav-close" (click)="showMobileNav = false; showAdminNav=true;">
-        <img src="/assets/img/close.svg" alt="Close navigation menu">
+        <img src="/assets/img/site-wide/close.svg" alt="Close navigation menu">
       </button>
       <ul class="usa-nav-primary usa-accordion">
         <li *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
