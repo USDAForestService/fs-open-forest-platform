@@ -46,6 +46,9 @@ export class TreeApplicationFormComponent implements OnInit {
     private winRef: WindowRef
   ) {}
 
+  /**
+   * Update total cost when quantity changes
+   */
   quantityChange(value) {
     this.applicationForm
       .get('quantity')
@@ -57,6 +60,9 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  /**
+   * @returns application form
+   */
   getApplicationForm(formBuilder, maxNumTrees) {
     return formBuilder.group({
       forestId: ['', [Validators.required]],
@@ -71,6 +77,9 @@ export class TreeApplicationFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Get application form and set default values
+   */
   createForm(data, formBuilder) {
     this.applicationForm = this.getApplicationForm(formBuilder, data.forest.maxNumTrees);
 
@@ -91,12 +100,18 @@ export class TreeApplicationFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Redirect to tree guidelines if forest start date is after today
+   */
   checkSeasonStartDate(forest) {
     if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
       this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
   }
 
+  /**
+   * Get data from route resolver
+   */
   ngOnInit() {
     this.winRef.getNativeWindow().location.hash = ''; // clear out the hash on reload
 
@@ -143,6 +158,9 @@ export class TreeApplicationFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Submit application if valid, if not valid, scroll to first error
+   */
   onSubmit() {
     this.applicationFieldsService.touchAllFields(this.applicationRulesForm);
     if (this.applicationRulesForm.valid) {
@@ -152,6 +170,11 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  /**
+   * If form is submitted, show rules
+   * If permit already exists, redirect to permit view page
+   * If errors, scroll to error
+   */
   showRulesForm() {
     this.submitted = true;
     this.showCancelAlert = false;
@@ -174,6 +197,9 @@ export class TreeApplicationFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Repopulate form if returning due to error after form has been completed.
+   */
   rePopulateForm() {
     this.applicationForm.get('firstName').setValue(this.permit.firstName);
     this.applicationForm.get('lastName').setValue(this.permit.lastName);
@@ -184,6 +210,10 @@ export class TreeApplicationFormComponent implements OnInit {
     this.showRules = false;
   }
 
+  /**
+   * Create application and redirect to pay.gov.
+   * If errors, return to application form.
+   */
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
@@ -200,6 +230,9 @@ export class TreeApplicationFormComponent implements OnInit {
     );
   }
 
+  /**
+   * Calculate total cost based on quantity
+   */
   updateTotalCost() {
     const quantity = this.applicationForm.get('quantity').value;
     if (!isNaN(parseInt(quantity, 10))) {

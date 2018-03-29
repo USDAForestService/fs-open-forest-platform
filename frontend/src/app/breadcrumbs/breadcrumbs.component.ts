@@ -12,14 +12,19 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
   constructor(public service: McBreadcrumbsService) {}
 
+  /**
+   * Subscribe to breadcrumb service and set breadcrumbs
+   */
   public ngOnInit(): void {
     this.subscriptions.push(this.service.crumbs$.subscribe((x) => {
       this.crumbs = x;
     }));
   }
 
+  /**
+   * Unsubscribe from breadcrumb service OnDestroy
+   */
   ngOnDestroy(): void {
     this.subscriptions.forEach((x) => x.unsubscribe());
   }
-
 }

@@ -31,6 +31,9 @@ export class TreePermitViewComponent implements OnInit {
     this.nativeWindow = winRef.getNativeWindow();
   }
 
+  /**
+   * Get data from route resolver
+   */
   ngOnInit() {
     this.route.queryParams.forEach((params: Params) => {
       if (params.t) {
@@ -55,11 +58,17 @@ export class TreePermitViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Set error
+   */
   processError(error, permit) {
     this.error = error;
     this.setPageData(permit);
   }
 
+  /**
+   * Set forest, permit, isPermitExpired, and page title
+   */
   setPageData(permit) {
     if (permit && permit.forest) {
       this.forest = permit.forest;
@@ -71,6 +80,9 @@ export class TreePermitViewComponent implements OnInit {
     }
   }
 
+  /**
+   * Create popup containing printable permit
+   */
   printPermit() {
     const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
@@ -86,6 +98,9 @@ export class TreePermitViewComponent implements OnInit {
     });
   }
 
+  /**
+   * Open popup window and print dialog
+   */
   permitPopup(includeRules, popupWin) {
     let printContents;
     const cssFile = includeRules ? 'print-permit-with-rules.css' : 'print-permit.css';

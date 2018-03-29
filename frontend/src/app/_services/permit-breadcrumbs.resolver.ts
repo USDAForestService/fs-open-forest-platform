@@ -7,6 +7,10 @@ export class PermitBreadcrumbsResolver extends McBreadcrumbsResolver {
 
   constructor() { super(); }
 
+  /**
+   * Resolve breadcrumbs for the route.
+   * @returns     breadcrumbs
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const forestAbbr = route.params['id'];
     const forestName = route.data.permit.forest ? route.data.permit.forest.forestName : route.data.permit.error.permit.forest.forestName;
