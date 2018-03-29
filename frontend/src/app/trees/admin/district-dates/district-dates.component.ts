@@ -78,7 +78,6 @@ export class AdminDistrictDatesComponent implements OnInit {
           return district;
         });
         this.district = this.districts[0];
-        console.log('DISTRICT', this.district);
         if (this.forest && this.form.get('forestAbbr').value !== this.forests[0].forestAbbr) {
           this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
