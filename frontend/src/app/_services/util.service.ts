@@ -119,7 +119,7 @@ export class UtilService {
   }
 
   /**
-   * Handle error response for HTTP requets  
+   * Handle error response for HTTP requets
    */
   handleError(error: HttpErrorResponse | any) {
     let errors: any = [];

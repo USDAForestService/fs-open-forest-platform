@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'RemovePunc'
 })
 export class RemovePuncPipe implements PipeTransform {
-  
+
   /**
    * @returns Remove from string all matched items in array
    */
