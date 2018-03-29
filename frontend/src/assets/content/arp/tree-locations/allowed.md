@@ -24,5 +24,6 @@ The map below shows access routes to parking areas near designated tree cutting 
 
 [Elk Creek Cutting Area map description](/christmas-trees/forests/arp/maps/elk-creek)
 
-[Maps and travel publications](https://www.fs.usda.gov/main/arp/maps-pubs "Arapaho and Roosevelt 
-    maps and publications" are available online and at ranger district offices.
+Additional [maps and travel publications](https://www.fs.usda.gov/main/arp/maps-pubs "Arapaho and Roosevelt 
+    maps and publications") are available online and at ranger district offices.
+    
