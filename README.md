@@ -302,6 +302,11 @@ file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at s
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
 
+### Build versioning 
+
+The app/frontend/replace.build.js script is run from circle-ci via config.yml to update the version and date in the transpiled javascript
+frontend code for each build.  This date and version will display in the application footer.
+
 ## Content administration
 
 [Christmas trees README](/wiki/christmas-trees/README.md)
