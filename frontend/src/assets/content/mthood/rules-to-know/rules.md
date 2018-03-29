@@ -4,7 +4,7 @@
 * You must leave a stump height of {{stumpHeight}} inches or less.
 * Only cut trees within the national forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree. 
-* Remove all live branches from the stump.
+* Cut the left over branches from the stump and scatter them.
 * Another tree of similar size must grow within 8 feet of the one you cut.
 * Do not remove Pacific Yew trees.
 
