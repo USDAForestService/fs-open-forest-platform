@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
           this.setLoggedInMessage(this.authentication.user);
         } else {
           localStorage.removeItem('showLoggedIn');
-          localStorage.removeItem('requestingUrl');
           this.setStatus();
         }
       }
@@ -62,7 +61,6 @@ export class AppComponent implements OnInit {
       };
     }
     localStorage.removeItem('showLoggedIn');
-    localStorage.removeItem('requestingUrl');
   }
 
   ngOnInit() {

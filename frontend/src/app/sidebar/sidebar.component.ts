@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
       this.bottom = 'auto';
       this.position = 'fixed';
     } else {
-      this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
+      this.top = '0px';
       this.position = 'absolute';
     }
   }
@@ -90,7 +90,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
-    this.top = '325px';
+    this.top = '0px';
     this.route = this.router.url.split('#')[0];
     this.track(new Event('scroll'));
   }

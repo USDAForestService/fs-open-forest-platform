@@ -1,14 +1,14 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthGuardService } from './auth-guard.service';
+import { AccessControlService } from './access-control.service';
 import { UtilService } from './util.service';
 
-describe('AuthGuardService', () => {
-  let service: AuthGuardService;
+describe('AccessControlService', () => {
+  let service: AccessControlService;
   let util: UtilService;
 
   beforeEach(() => {
-    service = new AuthGuardService(null, null, null);
+    service = new AccessControlService(null, null, null);
     service.redirect = () => {
       return false;
     };
@@ -16,7 +16,7 @@ describe('AuthGuardService', () => {
       return true;
     };
     TestBed.configureTestingModule({
-      providers: [AuthGuardService, UtilService],
+      providers: [AccessControlService, UtilService],
       imports: [RouterTestingModule]
     });
     util = new UtilService();

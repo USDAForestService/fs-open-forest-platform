@@ -11,6 +11,7 @@ import { SectionHeadingComponent } from './../sidebar/section-heading.component'
 import { AdminUserFormatterPipe } from './../_pipes/admin-user-formatter.pipe';
 import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
+import { CamelToHyphensPipe } from './../_pipes/camel-to-hyphens.pipe';
 import { MarkdownModule } from 'ngx-md';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
@@ -34,6 +35,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     SectionHeadingComponent,
     SidebarComponent,
     SpacesToDashesPipe,
+    CamelToHyphensPipe,
     UrlPipe,
     TrackScrollDirective,
     TreeRulesComponent
@@ -55,6 +57,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     SectionHeadingComponent,
     SidebarComponent,
     SpacesToDashesPipe,
+    CamelToHyphensPipe,
     TrackScrollDirective,
     TreeRulesComponent,
     UrlPipe,

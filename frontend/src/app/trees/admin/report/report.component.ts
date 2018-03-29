@@ -133,7 +133,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
               permits: results.permits,
               parameters: this.reportParameters
             };
-            this.doc.getElementById('report-results').focus();
+            this.focusAndScroll('report-results');
           },
           err => {
             this.apiErrors = err;
@@ -143,6 +143,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
     } else {
       this.afs.scrollToFirstError();
     }
+  }
+
+  focusAndScroll(id) {
+    this.doc.getElementById(id).focus();
+    const element = document.querySelector('#' + id);
+    element.scrollIntoView();
   }
 
   getPermitByNumber() {
@@ -158,7 +164,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
             permits: results.permits,
             parameters: null
           };
-          this.doc.getElementById('report-results').focus();
+          this.focusAndScroll('report-results');
         },  err => {
           this.apiErrors = err;
           this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});

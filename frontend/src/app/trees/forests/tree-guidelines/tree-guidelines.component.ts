@@ -5,7 +5,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 
 @Component({
   selector: 'app-tree-info',
@@ -23,7 +23,7 @@ export class TreeGuidelinesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private christmasTreesService: ChristmasTreesService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
     public markdownService: MarkdownService
   ) {}
@@ -82,7 +82,7 @@ export class TreeGuidelinesComponent implements OnInit {
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
         if (this.forest) {
-          this.christmasTreesService.updateMarkdownText(this.markdownService, this.forest);
+          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');

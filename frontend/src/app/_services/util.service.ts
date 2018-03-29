@@ -24,7 +24,7 @@ export class UtilService {
     this.setProgress(true, 'Redirecting to login page, please wait.');
   }
 
-  setProgress(display = true,  message: string = '') {
+  setProgress(display = true, message: string = '') {
     this.progress = {
       display: display,
       message: message
@@ -39,7 +39,7 @@ export class UtilService {
       * before setting the progress indicator to true.
       */
       setTimeout(() => {
-        if (this.requests > 0 ) {
+        if (this.requests > 0) {
           this.setProgress(true);
         }
       }, 250);
@@ -63,14 +63,6 @@ export class UtilService {
       this.requests--;
     }
     this.checkProgress();
-  }
-
-  convertCamelToHyphenCase(string) {
-    return string
-      .replace(/\s+/g, '-')
-      .replace(/([a-z])([A-Z])/g, '$1-$2')
-      .replace(/s+$/, '')
-      .toLowerCase();
   }
 
   gotoHashtag(fragment: string, event = null) {

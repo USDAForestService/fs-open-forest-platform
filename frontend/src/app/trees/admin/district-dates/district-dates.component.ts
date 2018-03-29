@@ -5,7 +5,7 @@ import { ChristmasTreesApplicationService } from '../../_services/christmas-tree
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { environment } from '../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -37,7 +37,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   constructor(
     private treesAdminService: ChristmasTreesAdminService,
     private service: ChristmasTreesApplicationService,
-    private christmasTreesService: ChristmasTreesService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
     private formBuilder: FormBuilder,
     private titleService: Title,
     private route: ActivatedRoute,
@@ -66,7 +66,7 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   setForest(forestAbbr) {
-    this.christmasTreesService.getOne(forestAbbr).subscribe(forest => {
+    this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
       this.forest = forest;
       if (forest.cuttingAreas && Object.keys(forest.cuttingAreas).length) {
         this.districts = Object.keys(forest.cuttingAreas).map(cuttingArea => {
@@ -89,7 +89,9 @@ export class AdminDistrictDatesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting');
+    this.titleService.setTitle(
+      'Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting'
+    );
     this.route.data.subscribe(data => {
       if (data && data.user) {
         this.user = data.user;
@@ -97,6 +99,7 @@ export class AdminDistrictDatesComponent implements OnInit {
 
         if (this.forests[0]) {
           // set default forest to first one on form
+          this.forest = this.forests[0];
           this.form.get('forestAbbr').setValue(this.forests[0].forestAbbr);
         }
       }
@@ -125,18 +128,17 @@ export class AdminDistrictDatesComponent implements OnInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
-      this.service
-        .updateDistrictDates(this.forest, this.district.id, newStart, newEnd)
-        .subscribe(
-          () => {
-            this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
-            this.doc.getElementById('district-updated-alert-container').focus();
-          },
-          err => {
-            this.apiErrors = err;
-            this.doc.getElementById('district-updated-alert-container').focus();
-          }
-        );
+      this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
+        () => {
+          console.log('abbr=', this.forest.forestAbbr);
+          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+          this.doc.getElementById('district-updated-alert-container').focus();
+        },
+        err => {
+          this.apiErrors = err;
+          this.doc.getElementById('district-updated-alert-container').focus();
+        }
+      );
     }
   }
 }

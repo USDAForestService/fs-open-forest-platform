@@ -3,13 +3,15 @@ import { ApplicationService } from '../../_services/application.service';
 import { AlertService } from '../../_services/alert.service';
 import { UtilService } from '../../_services/util.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { CamelToHyphensPipe } from '../../_pipes/camel-to-hyphens.pipe';
 
 @Component({
   selector: 'app-cancel-application',
   template: `<button *ngIf="
       application.status !== 'Accepted'
       && application.status !== 'Cancelled'"
-      class="usa-button cancel-button-{{authentication.user.role}}" (click)="cancelApplication()">{{ text }}</button>`
+      class="usa-button cancel-button-{{authentication.user.role}}" (click)="cancelApplication()">{{ text }}</button>`,
+  providers: [CamelToHyphensPipe]
 })
 export class CancelApplicationComponent {
   @Input() application: any;
@@ -20,7 +22,8 @@ export class CancelApplicationComponent {
     private applicationService: ApplicationService,
     private alertService: AlertService,
     public authentication: AuthenticationService,
-    public util: UtilService
+    public util: UtilService,
+    public camelToHyphensPipe: CamelToHyphensPipe
   ) {}
 
   cancelApplication() {
@@ -32,7 +35,7 @@ export class CancelApplicationComponent {
 
   updateApplication() {
     this.application.status = 'Cancelled';
-    const type = this.util.convertCamelToHyphenCase(this.application.type);
+    const type = this.camelToHyphensPipe.transform(this.application.type);
     this.applicationService.update(this.application, type).subscribe(
       (data: any) => {
         this.alertService.addSuccessMessage('Permit application was successfully cancelled.');

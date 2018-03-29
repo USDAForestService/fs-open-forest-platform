@@ -10,7 +10,7 @@ import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminDistrictDatesComponent } from './district-dates.component';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { Title } from '@angular/platform-browser';
 
 describe('District Dates Admin Component', () => {
@@ -56,7 +56,7 @@ describe('District Dates Admin Component', () => {
     }
   ];
 
-  class MockChristmasTreesService {
+  class MockChristmasTreesInfoService {
     getOne(): Observable<{}> {
       return Observable.of(forests[0]);
     }
@@ -100,7 +100,7 @@ describe('District Dates Admin Component', () => {
           providers: [
             ApplicationFieldsService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
-            { provide: ChristmasTreesService, useClass: MockChristmasTreesService },
+            { provide: ChristmasTreesInfoService, useClass: MockChristmasTreesInfoService },
             FormBuilder,
             RouterTestingModule,
             ChristmasTreesAdminService,
