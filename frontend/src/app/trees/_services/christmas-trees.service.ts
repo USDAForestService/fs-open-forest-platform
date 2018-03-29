@@ -136,12 +136,12 @@ export class ChristmasTreesService {
   formatCuttingAreaTime(forest, startDate, endDate) {
     const start = moment(startDate)
       .tz(forest.timezone)
-      .format('h:mm a - ');
+      .format('h:mm A - ');
     return (
       start +
       moment(endDate)
         .tz(forest.timezone)
-        .format('h:mm a.')
+        .format('h:mm A')
     );
   }
 

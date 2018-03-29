@@ -12,7 +12,7 @@
       <td>
         <span class="usa-label tan">Submitted</span>
       </td>
-      <td>{{application.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
+      <td>{{application.createdAt | date: 'MM/dd/yyyy hh:mm A' }}</td>
       <td>{{application.authEmail}}</td>
     </tr>
     <tr *ngFor="let revision of application.revisions | SortArray: 'createdAt'">
@@ -25,7 +25,7 @@
         }">{{ revision.status }}
         </span>
       </td>
-      <td>{{ revision.createdAt | date: 'MM/dd/yyyy hh:mm a' }}</td>
+      <td>{{ revision.createdAt | date: 'MM/dd/yyyy hh:mm A' }}</td>
       <td><span class="revision-actor">{{ revision.email | AdminUserFormatterPipe }}</span></td>
     </tr>
   </tbody>
