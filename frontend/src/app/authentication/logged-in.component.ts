@@ -9,6 +9,11 @@ import { Router } from '@angular/router';
 export class LoggedInComponent implements OnInit {
   constructor(private router: Router, private authentication: AuthenticationService) {}
 
+  /**
+   * Redirect to the requesting url after login.
+   * Redirect to /admin/applications if admin user and no requesting url
+   * Redirect to homepage if no requesting url and are typical user
+   */
   ngOnInit() {
     this.authentication.getAuthenticatedUser(true).subscribe((user: any) => {
       const requestingUrl = localStorage.getItem('requestingUrl');

@@ -9,6 +9,10 @@ export class TreeSpeciesComponent {
   @Input() forest: any;
 
   constructor(public christmasTreesInfoService: ChristmasTreesInfoService) {}
+
+  /**
+   *  @returns css class based on tree status.
+   */
   statusClass(status) {
     let css_class = '';
     switch (status) {

@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /**
+   *  Set status message
+   */
   setStatus() {
     if (localStorage.getItem('status')) {
       this.status = JSON.parse(localStorage.getItem('status'));
@@ -53,6 +56,9 @@ export class AppComponent implements OnInit {
     }
   }
 
+  /**
+   *  Set logged in message
+   */
   setLoggedInMessage(user) {
     if (user && user.email) {
       this.status = {
@@ -63,6 +69,9 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('showLoggedIn');
   }
 
+  /**
+   *  Set this.currentUrl, and scroll to top of page
+   */
   ngOnInit() {
     this.currentUrl = this.router.url;
     window.scrollTo(0, 0);

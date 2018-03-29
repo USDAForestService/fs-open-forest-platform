@@ -16,6 +16,10 @@ export class ChristmasTreeMapDetailsComponent implements OnInit {
     ) {
 
   }
+
+  /**
+   * Set data from route resolver
+   */
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['id'] && params['mapId']) {

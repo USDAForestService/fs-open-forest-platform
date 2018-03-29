@@ -13,6 +13,9 @@ export class TreePermitRulesComponent implements OnInit {
 
   constructor(private christmasTreesInfoService: ChristmasTreesInfoService, public markdownService: MarkdownService) {}
 
+  /**
+   * Update markdown text with forest specific variables
+   */
   ngOnInit() {
     if (this.forest) {
       this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
