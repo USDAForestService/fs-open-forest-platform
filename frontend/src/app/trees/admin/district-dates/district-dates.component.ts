@@ -65,6 +65,9 @@ export class AdminDistrictDatesComponent implements OnInit {
     });
   }
 
+  /**
+   * set forestAbbr and districtId on form.
+   */
   setForest(forestAbbr) {
     this.christmasTreesInfoService.getOne(forestAbbr).subscribe(forest => {
       this.forest = forest;
@@ -89,6 +92,9 @@ export class AdminDistrictDatesComponent implements OnInit {
     });
   }
 
+  /**
+   * Set data from route resolver
+   */
   ngOnInit() {
     this.titleService.setTitle(
       'Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting'
@@ -107,6 +113,9 @@ export class AdminDistrictDatesComponent implements OnInit {
     });
   }
 
+  /**
+   * Set start and end date
+   */
   setStartEndDate(forest, area, form) {
     const formGroup = { startDate: null, endDate: null };
     formGroup.startDate = moment(area.startDate).tz(forest.timezone);
@@ -115,16 +124,25 @@ export class AdminDistrictDatesComponent implements OnInit {
     this.treesAdminService.setStartEndTimes(formGroup, form);
   }
 
+  /**
+   * update dateStatus
+   */
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
   }
 
+  /**
+   * Touch all fields and init updateDates()
+   */
   updateSeasonDates() {
     this.afs.touchAllFields(this.form);
     this.updateStatus = null;
     this.updateDates();
   }
 
+  /**
+   * If form is valid, update district dates
+   */
   private updateDates() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.district) {
       const newStart = this.form.get('dateTimeRange.startDateTime').value;

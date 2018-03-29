@@ -19,6 +19,9 @@ export class TreeGuidelinesFooterComponent implements AfterViewInit {
       private winRef: WindowRef
     ) {}
 
+  /**
+   *  Set styles based on scroll position
+   */
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const footerHeight = 233;
@@ -41,6 +44,9 @@ export class TreeGuidelinesFooterComponent implements AfterViewInit {
     }
   }
 
+  /**
+   *  Set lastScrollHeight
+   */
   ngAfterViewInit() {
     this.lastScrollHeight = this.doc.body.scrollHeight;
   }

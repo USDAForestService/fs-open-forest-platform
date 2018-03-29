@@ -28,6 +28,9 @@ export class TreeGuidelinesComponent implements OnInit {
     public markdownService: MarkdownService
   ) {}
 
+  /**
+   *  @returns forest with season status and open alert
+   */
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
     forest.seasonOpenAlert = this.seasonOpenAlert;
@@ -47,6 +50,9 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  /**
+   *  @returns forest with mock alert for testing
+   */
   private setMockAlert(forest) {
     // set mock data info warning if on test environment
     if (!environment.production) {
@@ -56,6 +62,9 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  /**
+   *  @returns forest with isSeasonOpen and seasonOpenAlert set.
+   */
   private checkSeasonStartDate(forest) {
     if (
       moment(forest.startDate)
@@ -70,6 +79,9 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  /**
+   *  @returns set forest data from route resolver
+   */
   ngOnInit() {
     this.template = 'sidebar';
     this.route.params.subscribe(params => {

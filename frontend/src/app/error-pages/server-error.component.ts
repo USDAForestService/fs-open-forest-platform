@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServerErrorComponent implements OnInit {
   requestingUrl;
+
+  /**
+   * Set requesting url from local storage
+   */
   ngOnInit() {
     this.requestingUrl = localStorage.getItem('requestingUrl');
   }

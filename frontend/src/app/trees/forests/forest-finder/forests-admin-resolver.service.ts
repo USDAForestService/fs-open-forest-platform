@@ -15,6 +15,9 @@ export class ForestsAdminResolver implements Resolve<any> {
     private authenticationService: AuthenticationService,
     private router: Router) {}
 
+  /**
+   * @returns Forests associated with user
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     let result;
     const forests = this.service.getAll();

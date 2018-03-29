@@ -6,7 +6,6 @@ import { ApplicationNoncommercialGroupComponent } from './application-forms/appl
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
-import { ChristmasTreePermitDetailResolver } from './application-forms/tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';

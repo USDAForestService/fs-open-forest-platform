@@ -28,6 +28,9 @@ export class ForestAdminNavComponent implements OnInit, DoCheck {
     private winRef: WindowRef
   ) {}
 
+  /**
+   * If mobile view, set nav button to fixed if scrolled, and absolute is scroll position is at the top.
+   */
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     const header = this.doc.getElementById('header');
@@ -42,11 +45,17 @@ export class ForestAdminNavComponent implements OnInit, DoCheck {
     }
   }
 
+  /**
+   * Get admin navigation links
+   */
   ngOnInit() {
     this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.track(new Event('scroll'));
   }
 
+  /**
+   * Set sideNavPresent if mobile menu button is not present
+   */
   ngDoCheck() {
     this.sideNavPresent = this.doc.getElementById('mobile-menu-btn') !== null;
   }

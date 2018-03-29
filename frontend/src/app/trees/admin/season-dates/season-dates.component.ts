@@ -54,6 +54,10 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Set data from route resolver.
+   * Set title
+   */
   ngOnInit() {
     this.titleService.setTitle(
       'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting'
@@ -70,26 +74,41 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * setStartEndDate
+   */
   ngAfterViewInit() {
     setTimeout(() => {
       this.setStartEndDate(this.forest, this.form);
     }, 0);
   }
 
+  /**
+   * Set start and end date on form
+   */
   setStartEndDate(forest, form) {
     this.treesAdminService.setStartEndDate(forest, form);
   }
 
+  /**
+   * update dateStatus
+   */
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
   }
 
+  /**
+   * Touch all fields and updateDates()
+   */
   updateSeasonDates() {
     this.afs.touchAllFields(this.form);
     this.updateStatus = null;
     this.updateDates();
   }
 
+  /**
+   * If form is valid, update season dates
+   */
   private updateDates() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       const newStart = moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone);
