@@ -3,6 +3,9 @@ import * as moment from 'moment-timezone';
 
 @Injectable()
 export class ChristmasTreesAdminService {
+  /**
+   * Set start and end date on supplied form, if form has dateTimeRange
+   */
   setStartEndDate(formGroup, form) {
     if (formGroup && form.get('dateTimeRange')) {
       form.get('dateTimeRange.startMonth').setValue(moment(formGroup.startDate).format('MM'));
@@ -14,6 +17,9 @@ export class ChristmasTreesAdminService {
     }
   }
 
+  /**
+   * Set start and end times on supplied form, if form has dateTimeRange
+   */
   setStartEndTimes(formGroup, form) {
     if (formGroup && form.get('dateTimeRange')) {
       form.get('dateTimeRange.startHour').setValue(moment(formGroup.startDate).format('hh'));
@@ -25,6 +31,9 @@ export class ChristmasTreesAdminService {
     }
   }
 
+  /**
+   * @returns admin navigation links
+   */
   getAdminNavItems() {
     return [
       { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},

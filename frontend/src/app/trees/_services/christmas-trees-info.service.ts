@@ -14,10 +14,16 @@ export class ChristmasTreesInfoService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * @returns all forests
+   */
   getAll() {
     return this.http.get(this.endpoint);
   }
 
+  /**
+   * @returns forest by id
+   */
   getOne(id) {
     return this.http.get<any>(this.endpoint + id).flatMap(forest =>
       this.getJSON(forest.forestAbbr).map(forestJSON => {
@@ -27,6 +33,9 @@ export class ChristmasTreesInfoService {
     );
   }
 
+  /**
+   * @returns forest by id with markdown content
+   */
   getForestWithContent(id) {
     let content;
     return this.http.get<any>(this.endpoint + id).flatMap(forest =>
@@ -40,14 +49,16 @@ export class ChristmasTreesInfoService {
     );
   }
 
+  /**
+   * @returns forest specific json
+   */
   getJSON(forest): Observable<any> {
     return this.http.get('assets/config/christmasTreesForests-' + forest + '.json');
   }
 
-  getText(url) {
-    return this.http.get(url, { responseType: 'text' });
-  }
-
+  /**
+   * @returns array of markdown file paths
+   */
   nameMdArray(content, forest) {
     const files = {};
     let i = 0;
@@ -60,6 +71,9 @@ export class ChristmasTreesInfoService {
     return files;
   }
 
+  /**
+   * @returns fork join of markdown requests
+   */
   joinMdRequests(forest) {
     const mdFiles = this.getMdFiles(forest);
     const requests = Object.keys(mdFiles).map(val => mdFiles[val]);
@@ -67,7 +81,7 @@ export class ChristmasTreesInfoService {
   }
 
   /**
-   * configure each markdown file that will be added to the forest.content
+   * @returns configure each markdown file that will be added to the forest.content
    */
   getMdUrls(forest) {
     return {
@@ -84,6 +98,16 @@ export class ChristmasTreesInfoService {
     };
   }
 
+  /**
+   * @returns Markdown request
+   */
+  getText(url) {
+    return this.http.get(url, { responseType: 'text' });
+  }
+
+  /**
+   * @returns array of markdown requests
+   */
   getMdFiles(forest) {
     let result = {};
     const urls = this.getMdUrls(forest);
@@ -96,6 +120,9 @@ export class ChristmasTreesInfoService {
     return result;
   }
 
+  /**
+   * @returns cutting area text with variables replaced with forest specific text
+   */
   parseCuttingAreaMarkdown(text, forest) {
     for (const key of this.CUTTING_AREA_KEYS) {
       if (text.indexOf(key) > -1) {
@@ -118,6 +145,9 @@ export class ChristmasTreesInfoService {
     return text;
   }
 
+  /**
+   * @returns cutting area dates text with variables replaced with forest specific text
+   */
   formatCuttingAreaDate(forest, startDate, endDate) {
     const start = moment(startDate).tz(forest.timezone);
     const end = moment(endDate).tz(forest.timezone);
@@ -133,6 +163,9 @@ export class ChristmasTreesInfoService {
     return start.format(startFormat) + end.format(endFormat);
   }
 
+  /**
+   * @returns cutting area time text with variables replaced with forest specific text
+   */
   formatCuttingAreaTime(forest, startDate, endDate) {
     const start = moment(startDate)
       .tz(forest.timezone)
@@ -145,6 +178,9 @@ export class ChristmasTreesInfoService {
     );
   }
 
+  /**
+   * @returns formatted map description text
+   */
   updateMapDescriptionLinks(text) {
     if (text.indexOf('map description') > -1) {
       text = `<span class='screen-reader-only'>${text}</span>`;
@@ -152,6 +188,9 @@ export class ChristmasTreesInfoService {
     return text;
   }
 
+  /**
+   * @returns Replace variables in markdown files with forest specific text.
+   */
   updateMarkdownText(markdownService, forest) {
     markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(forest);

@@ -22,6 +22,10 @@ export class AuthenticatedComponent implements OnInit {
     private winRef: WindowRef
   ) {}
 
+  /**
+   * Set message indicating user is being redirect to login.gov.
+   * Redirect user to login.gov
+   */
   login() {
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
@@ -29,6 +33,10 @@ export class AuthenticatedComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * Logout user and redirect to homepage.
+   * Remove local storage items.
+   */
   logout(e: Event) {
     e.preventDefault();
     const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
@@ -48,8 +56,9 @@ export class AuthenticatedComponent implements OnInit {
 
   }
 
-
-
+  /**
+   * Add user to route for display login on every NavigationEnd
+   */
   ngOnInit() {
     this.router.events
       .filter(e => e instanceof NavigationEnd)

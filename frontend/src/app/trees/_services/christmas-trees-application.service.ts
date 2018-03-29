@@ -17,6 +17,9 @@ export class ChristmasTreesApplicationService {
 
   constructor(private http: HttpClient, public router: Router, public util: UtilService) {}
 
+  /**
+   * @returns Post Christmas tree application
+   */
   create(body, multipart = false) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     if (multipart) {
@@ -31,6 +34,9 @@ export class ChristmasTreesApplicationService {
     return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
   }
 
+  /**
+   * @returns Update Christmas tree application
+   */
   updatePermit(id, status, token) {
     let params = {};
     if (token) {
@@ -40,6 +46,9 @@ export class ChristmasTreesApplicationService {
     return this.http.put(`${this.endpoint}/permits`, body, params).catch(this.util.handleError);
   }
 
+  /**
+   * @returns Get permit
+   */
   getPermit(id, token) {
     let params = {};
     if (token) {
@@ -48,6 +57,9 @@ export class ChristmasTreesApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}`, params).catch(this.util.handleError);
   }
 
+  /**
+   * @returns Printable permit, with or without the rules
+   */
   getPrintablePermit(id, includeRules = false) {
     const requests = [];
     requests.push(this.getPermitRequest(id, false));
@@ -57,6 +69,9 @@ export class ChristmasTreesApplicationService {
     return forkJoin(requests);
   }
 
+  /**
+   * @returns Get printable permit, with or without the rules
+   */
   getPermitRequest(id, rules = false) {
     let queryParam = 'permit=true';
     if (rules) {
@@ -65,18 +80,27 @@ export class ChristmasTreesApplicationService {
     return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`).catch(this.util.handleError);
   }
 
+  /**
+   * @returns Permits by date range and specific to forest
+   */
   getAllByDateRange(forestId, startDate, endDate) {
     return this.http
       .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
+  /**
+   * @returns Permit by permit number
+   */
   getReportByPermitNumber(permitNumber) {
     return this.http
       .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true })
       .catch(this.util.handleError);
   }
 
+  /**
+   * @returns Update season dates for forest
+   */
   updateSeasonDates(forestId, startDate, endDate) {
     const body = { startDate: startDate, endDate: endDate };
     return this.http
@@ -84,6 +108,9 @@ export class ChristmasTreesApplicationService {
       .catch(this.util.handleError);
   }
 
+  /**
+   * @returns Update distrct dates for forest district
+   */
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
     const format = 'YYYY-MM-DDTHH:mm:ss';
@@ -104,6 +131,9 @@ export class ChristmasTreesApplicationService {
       .catch(this.util.handleError);
   }
 
+  /**
+   * @returns Error Observable
+   */
   resolverError(errors, route) {
     for (const error of errors) {
       if (error && error.status === 404) {
