@@ -16,7 +16,7 @@ import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
 import { ErrorInterceptor } from './error-pages/error-interceptor.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './intake-home/home.component';
 import { LoggedInComponent } from './authentication/logged-in.component';
 import { NoncommercialDetailsComponent } from './applications/permit-application-view/noncommercial-details.component';
 import { NotFoundComponent } from './error-pages/not-found.component';
@@ -25,9 +25,9 @@ import { PermitApplicationListComponent } from './applications/permit-applicatio
 import { PermitApplicationViewComponent } from './applications/permit-application-view/permit-application-view.component';
 import { PayGovMocksModule } from './pay-gov-mocks/pay-gov-mocks.module';
 import { RevisionHistoryComponent } from './applications/revision/revision-history.component';
-import { SharedModule } from './_shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { SortArray } from './_pipes/sort-array.pipe';
-import { StatusComponent } from './status/status.component';
+import { AlertComponent } from './alert/alert.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
@@ -35,8 +35,8 @@ import { TreesModule } from './trees/trees.module';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
 import { WindowRef } from './_services/native-window.service';
-import { PageHeaderComponent } from './home/header.component';
-import { PageFooterComponent } from './home/footer.component';
+import { PageHeaderComponent } from './shared/header/header.component';
+import { PageFooterComponent } from './shared/footer/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
@@ -63,7 +63,7 @@ import { ForestAdminNavComponent } from './authentication/forests-admin-nav.comp
     PermitApplicationViewComponent,
     RevisionHistoryComponent,
     SortArray,
-    StatusComponent,
+    AlertComponent,
     StyleGuideComponent,
     TempOutfitterDetailsComponent,
     TitleDirective,

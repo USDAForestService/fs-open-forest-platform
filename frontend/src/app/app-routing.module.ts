@@ -9,7 +9,7 @@ import { ChristmasTreePermitResolver } from './application-forms/tree-applicatio
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './intake-home/home.component';
 import { LandingPageComponent } from './pay-gov-mocks/landing-page/landing-page.component';
 import { LoggedInComponent } from './authentication/logged-in.component';
 import { NoncommercialLearnMoreComponent } from './application-forms/application-noncommercial-group/noncommercial-learn-more.component';

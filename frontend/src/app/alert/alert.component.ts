@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-status',
-  templateUrl: './status.component.html'
+  selector: 'app-alert',
+  templateUrl: './alert.component.html'
 })
-export class StatusComponent {
+export class AlertComponent {
   @Input() heading: string;
   @Input() message: string;
 }

@@ -10,7 +10,6 @@ import { Component, DoCheck, ElementRef, HostListener, Renderer2, OnInit } from 
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SpecialUseApplication } from '../../_models/special-use-application';
 
 @Component({
   selector: 'app-temporary-outfitters',

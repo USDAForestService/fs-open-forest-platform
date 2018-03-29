@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterPipe } from '../_pipes/filter.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppButtonComponent } from '../home/app-button.component';
+import { AppButtonComponent } from './button/app-button.component';
 import { ErrorMessageComponent } from '../application-forms/validators/error-message.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { SidebarComponent } from './../sidebar/sidebar.component';

@@ -11,11 +11,17 @@ export class TrackScrollDirective implements OnInit {
 
   constructor(private element: ElementRef) {}
 
+  /**
+   * Track scroll event
+   */
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     this.getPositions();
   }
 
+  /**
+   * Emit event when element is scrolled into view, and again when scrolled out of view.
+   */
   public getPositions() {
     const offsetTop = this.element.nativeElement.offsetTop;
     const offsetHeight = this.element.nativeElement.offsetHeight;

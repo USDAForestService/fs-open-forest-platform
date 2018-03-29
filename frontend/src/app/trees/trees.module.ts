@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ApplicationsModule } from '../application-forms/applications.module';
 import { ReportComponent } from './admin/report/report.component';
 import { ReportResultsComponent } from './admin/report/results/report-results.component';
-import { SharedModule } from '../_shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelines.component';
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
