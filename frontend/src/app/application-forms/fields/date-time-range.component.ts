@@ -115,9 +115,8 @@ export class DateTimeRangeComponent implements OnInit {
       startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
-    }, {
-      validator: this.validateStartEndDates
     });
+
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
 
@@ -146,7 +145,6 @@ export class DateTimeRangeComponent implements OnInit {
     ];
     for (const field of dateFieldsToWatch) {
       this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
-        // this.getFieldErrors(this.parentForm.get('dateTimeRange.' + field));
         const values = this.parentForm.get('dateTimeRange').value;
         values[field] = value;
         this.dateTimeRangeValidator(values);
@@ -163,15 +161,6 @@ export class DateTimeRangeComponent implements OnInit {
       !values.endDay &&
       !values.endYear
     );
-  }
-
-  validateStartEndDates(group: FormGroup) {
-    if (group.controls.startDateTime.value && group.controls.startDateTime.invalid) {
-      group.controls.startYear.setErrors({invalidDate: true});
-    }
-    if (group.controls.endDateTime.value && group.controls.endDateTime.invalid) {
-      group.controls.endYear.setErrors({invalidDate: true});
-    }
   }
 
   startDateChangeHandler(values) {
@@ -196,12 +185,14 @@ export class DateTimeRangeComponent implements OnInit {
       values.startMonth &&
       values.startDay &&
       values.startYear &&
+      values.startYear.toString().length === 4 &&
       values.startHour &&
       values.startMinutes &&
       values.startPeriod &&
       values.endMonth &&
       values.endDay &&
       values.endYear &&
+      values.endYear.toString().length === 4 &&
       values.endHour &&
       values.endMinutes &&
       values.endPeriod
@@ -226,9 +217,24 @@ export class DateTimeRangeComponent implements OnInit {
         values.endMinutes,
         values.endPeriod
       );
-
       this.processDateStatus(startDateTime, endDateTime);
+    } else {
+      this.resetDateTimeRangeValidation();
     }
+  }
+
+  private resetDateTimeRangeValidation() {
+    this.dateStatus = {
+      startDateTimeValid: true,
+      endDateTimeValid: true,
+      startBeforeEnd: true,
+      startAfterToday: true,
+      hasErrors: false,
+      dateTimeSpan: 0
+    };
+    this.dateTimeRange.controls.startDateTime.setErrors(null);
+    this.dateTimeRange.controls.endDateTime.setErrors(null);
+
   }
 
   private processDateStatus(startDateTime, endDateTime) {
@@ -249,6 +255,7 @@ export class DateTimeRangeComponent implements OnInit {
   }
 
   private setValidity(startDateTime, endDateTime) {
+    this.resetDateTimeRangeValidation();
     const today = moment();
     this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
       invalidDate: true
@@ -268,7 +275,7 @@ export class DateTimeRangeComponent implements OnInit {
         this.includePastDates
       );
 
-      this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
+       this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
         startDateAfterEndDate: true
       });
     }
@@ -283,4 +290,5 @@ export class DateTimeRangeComponent implements OnInit {
       return true;
     }
   }
+
 }

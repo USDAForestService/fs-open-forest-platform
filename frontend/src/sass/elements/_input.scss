@@ -137,3 +137,7 @@ input.ng-touched.invaliddate,
 input[disabled] {
   background-color: $light-grey;
 }
+
+.invalid-override {
+  border: 3px solid $fs-red-dark !important;
+}
