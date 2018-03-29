@@ -29,4 +29,5 @@ describe('Directive: TrackScrollDirective', () => {
     fixture.detectChanges();
     expect(inputEl).toBeTruthy();
   });
+
 });

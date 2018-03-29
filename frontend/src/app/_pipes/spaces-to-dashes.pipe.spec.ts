@@ -11,4 +11,7 @@ describe('SpacesToDashesPipe', () => {
     const value: any = 'test value';
     expect(pipe.transform(value)).toEqual('test-value');
   });
+  it('should return null if null is passed in', () => {
+    expect(pipe.transform(null)).toBeFalsy();
+  });
 });
