@@ -16,3 +16,76 @@
     width: 80%;
   }
 }
+
+.trees-progress-bar {
+  padding-bottom: 50px;
+  padding-right: 1px;
+  margin-right: 1px !important;
+  height: 80px;
+  @media (max-width: $medium-screen) {
+    display: none;
+  }
+
+  .arrow {
+
+    background-image: url(/assets/img/site-wide/green-arrow.svg);
+    background-repeat: no-repeat;
+    position: relative;
+    right: -20px;
+    top: -13px;
+    width: 80%;
+    font-size: 1rem;
+
+
+    &.current {
+      background-image: url(/assets/img/site-wide/dark-tan-arrow.svg);
+    }
+
+    &.next {
+      background-image: url(/assets/img/site-wide/dark-tan-arrow.svg);
+    }
+
+    @media (max-width: $medium-screen) {
+      display: none;
+    }
+    @media (max-width: $large-screen) {
+      width: 75%;
+    }
+  }
+
+}
+
+.trees-progress-bar-img {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  color: white;
+  background-color: $fs-green;
+
+  .site-subheading {
+    color: #212121;
+    width: 200px;
+    font-size: 1.2rem;
+    padding-top: 24px;
+  }
+
+  &.done {
+    background-image: url(/assets/img/site-wide/checkmark.svg);
+    background-color: $fs-tan;
+  }
+
+  &.current {
+    background-color: $fs-green;
+    background-image: url(/assets/img/site-wide/current-step-icon.svg);
+  }
+
+  &.next {
+    background-color: $fs-tan-darker;
+  }
+}
+
+
+
+
+
+
