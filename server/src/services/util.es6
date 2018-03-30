@@ -243,7 +243,8 @@ util.camelCaseToRegularForm = string => {
 };
 
 /**
- * @function businessNameElsePersonalName - Get the business name or personal name based on the data in the permit application.
+ * @function businessNameElsePersonalName - Get the business name or personal name
+ * based on the data in the permit application.
  * @param {Object} application - application object
  * @return {string} - business name out of application
  */
