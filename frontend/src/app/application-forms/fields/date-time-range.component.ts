@@ -187,7 +187,7 @@ export class DateTimeRangeComponent implements OnInit {
    * @returns      moment object
    */
   parseDateTime(year, month, day, hour, minutes, period) {
-    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm A');
+    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm a');
   }
 
   /**
