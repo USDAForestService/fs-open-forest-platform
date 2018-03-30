@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { AppButtonComponent } from './app-button.component';
-import { AuthenticationService } from '../_services/authentication.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { PageHeaderComponent } from './header.component';
 
 class MockAuthenticationService {
   user = true;
 }
 
-describe('AppButtonComponent', () => {
-  let component: AppButtonComponent;
-  let fixture: ComponentFixture<AppButtonComponent>;
+describe('PageHeader Component', () => {
+  let component: PageHeaderComponent;
+  let fixture: ComponentFixture<PageHeaderComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [AppButtonComponent],
+        declarations: [PageHeaderComponent],
         providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
@@ -22,9 +22,8 @@ describe('AppButtonComponent', () => {
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AppButtonComponent);
+    fixture = TestBed.createComponent(PageHeaderComponent);
     component = fixture.debugElement.componentInstance;
-    component.buttonText = 'Test button';
     fixture.detectChanges();
   });
 

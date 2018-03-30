@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 import { PageFooterComponent } from './footer.component';
 
 class MockAuthenticationService {

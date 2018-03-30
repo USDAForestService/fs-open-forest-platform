@@ -1,4 +1,3 @@
-import { SpecialUseApplication } from '../../_models/special-use-application';
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';

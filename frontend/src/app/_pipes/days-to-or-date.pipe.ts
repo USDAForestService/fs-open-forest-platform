@@ -3,6 +3,7 @@ import * as moment from 'moment/moment';
 
 @Pipe({ name: 'DaysToOrDate' })
 export class DaysToOrDate implements PipeTransform {
+
   transform(value: any, daysTo: number): any {
     const today = moment();
     const futureDate = moment(value, 'YYYY-MM-DDTHH:mm:ss');

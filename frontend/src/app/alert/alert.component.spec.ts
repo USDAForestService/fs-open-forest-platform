@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventEmitter } from '@angular/core';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { StatusComponent } from './status.component';
+import { AlertComponent } from './alert.component';
 
 describe('AccessDeniedComponent', () => {
-  let component: StatusComponent;
-  let fixture: ComponentFixture<StatusComponent>;
+  let component: AlertComponent;
+  let fixture: ComponentFixture<AlertComponent>;
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
-        declarations: [StatusComponent],
+        declarations: [AlertComponent],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatusComponent);
+    fixture = TestBed.createComponent(AlertComponent);
     component = fixture.debugElement.componentInstance;
     component.heading = 'test';
     component.message = 'test';

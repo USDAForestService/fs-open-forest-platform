@@ -24,7 +24,7 @@ import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
 import { PhoneNumberComponent } from './fields/phone-number.component';
 import { SmallBusinessComponent } from './fields/small-business.component';
-import { SharedModule } from './../_shared/shared.module';
+import { SharedModule } from './../shared/shared.module';
 import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-outfitters.component';
 import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
 import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/temporary-outfitters-learn-more.component';
