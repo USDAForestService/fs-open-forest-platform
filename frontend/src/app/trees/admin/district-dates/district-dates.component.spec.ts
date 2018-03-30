@@ -197,7 +197,7 @@ describe('District Dates Admin Component', () => {
 
       expect(component.form.get('dateTimeRange.startHour').value).toEqual('08');
       expect(component.form.get('dateTimeRange.startMinutes').value).toEqual('30');
-      expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('AM');
+      expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('a.m.');
 
       expect(component.form.get('dateTimeRange.endMonth').value).toEqual('12');
       expect(component.form.get('dateTimeRange.endDay').value).toEqual('09');
@@ -205,7 +205,7 @@ describe('District Dates Admin Component', () => {
 
       expect(component.form.get('dateTimeRange.endHour').value).toEqual('02');
       expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
-      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
+      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('p.m.');
     });
 
     it('should call set forest', () => {

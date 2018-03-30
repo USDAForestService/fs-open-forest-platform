@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthenticationService } from '../_services/authentication.service';
-import { environment } from '../../environments/environment';
-import * as sinon from 'sinon';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import {
+  ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Params, Route, Router,
+  UrlSegment
+} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { By } from '@angular/platform-browser';
 import { WindowRef } from '../_services/native-window.service';
@@ -24,34 +25,61 @@ export class MockAuthenticationService {
   }
 }
 
+class MockServices {
+  // Router
+  public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
+  parseUrl(): String { return ''};
+}
+
+class MockActivatedRoute implements ActivatedRoute {
+  snapshot : ActivatedRouteSnapshot;
+  url : Observable<UrlSegment[]>;
+  params : Observable<Params>;
+  queryParams : Observable<Params>;
+  fragment : Observable<string>;
+  data : Observable<Data>;
+  outlet : string;
+  component : Type<any>|string;
+  routeConfig : Route;
+  root : ActivatedRoute;
+  parent : ActivatedRoute;
+  firstChild : ActivatedRoute;
+  children : ActivatedRoute[];
+  pathFromRoot : ActivatedRoute[];
+  paramMap: any;
+  queryParamMap: any;
+  toString() : string{
+    return "";
+  };
+}
+
+
 describe('AuthenticatedComponent', () => {
   let component: AuthenticatedComponent;
   let fixture: ComponentFixture<AuthenticatedComponent>;
   let mockWindow: WindowRef;
   mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
-  const routeStub = {
-    data: null
-  };
+  let mockRoute = new MockActivatedRoute();
+  mockRoute.parent = new MockActivatedRoute();
+  mockRoute.firstChild = new MockActivatedRoute();
+  mockRoute.firstChild.data = Observable.of({
+    user: { role: 'admin', email: 'test@test.com' },
+    displayLogin: true
+  });
+
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         declarations: [AuthenticatedComponent, AdminUserFormatterPipe],
         imports: [RouterTestingModule],
         providers: [
-          {
-            provide: ActivatedRoute,
-            useValue: {
-              data: Observable.of({
-                user: { role: 'admin', email: 'test@test.com' },
-                displayLogin: true
-              })
-            }
-          },
+          { provide: ActivatedRoute, useValue: mockRoute },
           { provide: AuthenticationService, useClass: MockAuthenticationService },
           { provide: WindowRef, useValue: mockWindow },
-          UtilService
+          UtilService,
+          { provide: Router, useClass: MockServices }
         ],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
