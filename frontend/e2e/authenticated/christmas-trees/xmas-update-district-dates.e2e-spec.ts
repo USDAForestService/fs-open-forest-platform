@@ -84,7 +84,7 @@ describe('Xmas tree - Update District Dates', () => {
 
       });
 
-      it ('should let the user update the district dates', () => {
+      it('should let the user update the district dates', () => {
         element(by.id('3-button-label')).click();
         element(by.id('1-button-label')).click();
         page.updateDatesSubmit().click();
