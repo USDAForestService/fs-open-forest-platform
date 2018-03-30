@@ -85,16 +85,16 @@ export class ChristmasTreesInfoService {
    */
   getMdUrls(forest) {
     return {
-      introduction: `/assets/content/${forest.forestAbbr}/introduction.md`,
-      contactUs: `/assets/content/${forest.forestAbbr}/contact-information/contact-us.md`,
-      beforeYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
-      whenYouCut: `/assets/content/${forest.forestAbbr}/cutting-instructions/measuring.md`,
-      seasonDatesAdditionalInformation: `/assets/content/${forest.forestAbbr}/season-dates/additional-information.md`,
-      treeLocationsAllowed: `/assets/content/${forest.forestAbbr}/tree-locations/allowed.md`,
-      treeLocationsProhibited: `/assets/content/${forest.forestAbbr}/tree-locations/prohibited.md`,
-      howToPlanYourTrip: `/assets/content/${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`,
-      rules: `/assets/content/${forest.forestAbbr}/rules-to-know/rules.md`,
-      permitRules: `/assets/content/common/permit-rules.md`
+      introduction: `${forest.forestAbbr}/introduction.md`,
+      contactUs: `${forest.forestAbbr}/contact-information/contact-us.md`,
+      beforeYouCut: `${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
+      whenYouCut: `${forest.forestAbbr}/cutting-instructions/measuring.md`,
+      seasonDatesAdditionalInformation: `${forest.forestAbbr}/season-dates/additional-information.md`,
+      treeLocationsAllowed: `${forest.forestAbbr}/tree-locations/allowed.md`,
+      treeLocationsProhibited: `${forest.forestAbbr}/tree-locations/prohibited.md`,
+      howToPlanYourTrip: `${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`,
+      rules: `${forest.forestAbbr}/rules-to-know/rules.md`,
+      permitRules: `common/permit-rules.md`
     };
   }
 
@@ -113,7 +113,7 @@ export class ChristmasTreesInfoService {
     const urls = this.getMdUrls(forest);
     for (let url in urls) {
       if (url) {
-        result[url] = this.getText(urls[url]);
+        result[url] = this.getText(`/assets/content/${urls[url]}`);
       }
     }
 
