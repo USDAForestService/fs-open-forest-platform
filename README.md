@@ -287,7 +287,7 @@ Navigate to `/assets/typedoc/index.html`
 
 ### Continuous Integration, Continuous Deployment
 
-[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml).
+[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/wiki/christmas-trees/process/circle-checks.md](/wiki/christmas-trees/process/circle-checks.md)
 
 The circleci configuration separates e2e tests from all other tests in two different jobs that run simultaneously to decrease build time.
 
