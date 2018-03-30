@@ -33,7 +33,6 @@ We have the opportunity to modernize the public's ability to apply for special u
 - [Opportunity Statement](#opportunity-statement)
 - [Table of contents](#table-of-contents)
 - [Development](#development)
-		- [Docker Environment](#docker-environment)
 	- [Requirements:](#requirements)
 		- [Local development requirements](#local-development-requirements)
 			- [Package Manager](#package-manager)
@@ -70,16 +69,17 @@ We have the opportunity to modernize the public's ability to apply for special u
 		- [Pay.gov error mocking in local environment](#paygov-error-mocking-in-local-environment)
 		- [Pay.gov in QA environment](#paygov-in-qa-environment)
 		- [Christmas trees sidebar template](#christmas-trees-sidebar-template)
+	- [Docker Environment](#docker-environment)
 - [Deployment](#deployment)
 	- [Continuous Integration, Continuous Deployment](#continuous-integration-continuous-deployment)
 	- [Cloud.gov](#cloudgov)
+- [Docs](#docs)
 - [Content administration](#content-administration)
 	- [Christmas Trees Database and seeders](#christmas-trees-database-and-seeders)
 	- [Markdown and Christmas trees forest content](#markdown-and-christmas-trees-forest-content)
 	- [Christmas trees forest JSON content](#christmas-trees-forest-json-content)
 	- [Enable html5 pushstate on cloud.gov](#enable-html5-pushstate-on-cloudgov)
 		- [Logging STMP errors](#logging-stmp-errors)
-	- [Docker Environment](#docker-environment)
 - [Usability testing](#usability-testing)
 - [Known technical Debt](#known-technical-debt)
 - [Contributing](#contributing)
@@ -90,14 +90,6 @@ We have the opportunity to modernize the public's ability to apply for special u
 ## Development
 
 ** The following instructions outline tools and procedures required for local development **
-
-#### Docker Environment
-
-As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
-
-[View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
-
-[View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
 
 ### Requirements:
 
@@ -283,6 +275,14 @@ Navigate to `/assets/typedoc/index.html`
 
 [View instructions to use the Christmas trees sidebar template.](/wiki/development/christmas-trees-sidebar-template.md)
 
+### Docker Environment
+
+As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
+
+[View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
+
+[View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
+
 ## Deployment
 
 ### Continuous Integration, Continuous Deployment
@@ -306,6 +306,11 @@ Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory
 
 The app/frontend/replace.build.js script is run from circle-ci via config.yml to update the version and date in the transpiled javascript
 frontend code for each build.  This date and version will display in the application footer.
+
+## Docs
+* [Server jsDocs](https://forest-service-epermits.app.cloud.gov/docs/code)
+* [Server api endpoints](https://forest-service-epermits.app.cloud.gov/docs/api)
+* [Frontend Typedocs](https://github.com/18F/fs-permit-platform/pull/130?)
 
 ## Content administration
 
@@ -342,14 +347,6 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 #### Logging STMP errors
 
 SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_SMTP_ERROR`. A monitoring service, such as New Relic, can be configured to create alerts when an error with `NODE_MAILER_SMTP_ERROR` is logged.
-
-### Docker Environment
-
-As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
-
-[View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
-
-[View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
 
 ## Usability testing
 
