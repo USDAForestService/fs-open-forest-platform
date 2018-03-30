@@ -61,12 +61,12 @@
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
-      <div class="usa-form-group usa-form-group-year">
+      <div class="usa-form-group usa-form-group-period">
         <label for="start-period">AM / PM</label>
         <select class="usa-input-inline" id="start-period" formControlName="startPeriod" aria-required="true">
           <option value="" selected="selected"></option>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
+          <option value="a.m.">a.m.</option>
+          <option value="p.m.">p.m.</option>
         </select>
       </div>
     </fieldset>
@@ -138,12 +138,12 @@
           <option *ngFor="let minute of minutes" [value]="minute">{{minute}}</option>
         </select>
       </div>
-      <div class="usa-form-group usa-form-group-year">
+      <div class="usa-form-group usa-form-group-period">
         <label for="end-period">AM / PM</label>
         <select class="usa-input-inline" id="end-period" formControlName="endPeriod" aria-required="true">
           <option value="" selected="selected"></option>
-          <option value="AM">AM</option>
-          <option value="PM">PM</option>
+          <option value="a.m.">a.m.</option>
+          <option value="p.m.">p.m.</option>
         </select>
       </div>
     </fieldset>

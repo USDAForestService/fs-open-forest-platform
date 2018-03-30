@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
 const session = require('cookie-session');
+const moment = require('moment');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
@@ -51,6 +52,12 @@ app.use(
   })
 );
 
+/** set meridiem format to a.m. and p.m. */
+moment.updateLocale('en', {
+  meridiem(hour, minute, isLowerCase) {
+    return hour < 12 ? 'a.m.' : 'p.m.';
+  }
+});
 /** Configure passport for login.gov and eAuth. */
 passportConfig.setup(app);
 

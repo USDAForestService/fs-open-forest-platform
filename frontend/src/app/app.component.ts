@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-root',
@@ -75,5 +76,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUrl = this.router.url;
     window.scrollTo(0, 0);
+    moment.updateLocale('en', {
+      meridiem(hour, minute, isLowerCase) {
+        return hour < 12 ? 'a.m.' : 'p.m.';
+      }
+    });
   }
 }
