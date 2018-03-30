@@ -12,8 +12,9 @@ const paygov = {};
 
 /**
  * @function createSuccessUrl - create success url for paygov request
- * @param {string} forestAbbr
- * @param {string} permitId
+ * @param {string} forestAbbr - forest abbreviation
+ * @param {string} permitId - permit id
+ * @return {string} - jwt signed token
  */
 paygov.createToken = (permitId) => {
   const claims = {
@@ -32,8 +33,9 @@ paygov.createToken = (permitId) => {
 
 /**
  * @function createSuccessUrl - create success url for paygov request
- * @param {string} forestAbbr
- * @param {string} permitId
+ * @param {string} forestAbbr - forest abbreviation
+ * @param {string} permitId - permit id
+ * @return {string} - success URL for payGov
  */
 paygov.createSuccessUrl = (forestAbbr, permitId) => {
   const token = paygov.createToken(permitId);
@@ -44,8 +46,9 @@ paygov.createSuccessUrl = (forestAbbr, permitId) => {
 
 /**
  * @function createCancelUrl - create cancel url for paygov request
- * @param {string} forestAbbr
- * @param {string} permitId
+ * @param {string} forestAbbr - forest abbreviation
+ * @param {string} permitId - permit id
+ * @return {string} - cancel URL for payGov
  */
 paygov.createCancelUrl = (forestAbbr, permitId) => {
   const token = paygov.createToken(permitId);
@@ -56,9 +59,10 @@ paygov.createCancelUrl = (forestAbbr, permitId) => {
 
 /**
  * @function getXmlForToken - Generate XML from the template to use for getting pay.gov transaction token.
- * @param {string} forestAbbr
- * @param {string} possFinancialId
- * @param {Object} permit
+ * @param {string} forestAbbr - forest abbreviation
+ * @param {string} possFinancialId - forest's financial id
+ * @param {Object} permit - permit object from database
+ * @return {string} - XML for payGov startOnlineCollection request
  */
 paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
@@ -141,7 +145,8 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
 
 /**
  * @function getXmlToCompleteTransaction - Generate XML from the template to use for completing pay.gov transaction.
- * @param {string} paygovToken
+ * @param {string} paygovToken - payGov token
+ * @return {string} - XML for payGov completeOnlineCollection request
  */
 paygov.getXmlToCompleteTransaction = paygovToken => {
   const xmlTemplate = [
@@ -186,7 +191,8 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 
 /**
  * @function getToken - Get token out of the paygov response XML
- * @param {Object} result
+ * @param {Object} result - payGov result for startOnlineCollection
+ * @return {string} - paygov token
  */
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
@@ -196,8 +202,8 @@ paygov.getToken = result => {
 
 /**
  * @function getResponseError - Get error out of the paygov response XML
- * @param {string} requestType
- * @param {Object} result
+ * @param {string} requestType - type of paygov request: startOnlineCollection/completeOnlineCollection
+ * @param {Object} result - response error object
  */
 paygov.getResponseError = (requestType, result) => {
   let resultMesssage = { faultcode: '9999', faultstring: requestType };
@@ -223,7 +229,8 @@ paygov.getResponseError = (requestType, result) => {
 
 /**
  * @function getTrackingId - Get paygov tracking id out of the paygov response XML
- * @param {Object} result
+ * @param {Object} result - result from paygov request for completeOnlineCollection
+ * @return {string} - paygov tracking id 
  */
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =

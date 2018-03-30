@@ -34,8 +34,8 @@ passportConfig.setup = app => {
 
 /**
  * @function getPassportUser - Get the authetication user.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 passportConfig.getPassportUser = (req, res) => {
   return res.send(util.getUser(req));
@@ -43,8 +43,8 @@ passportConfig.getPassportUser = (req, res) => {
 
 /**
  * @function logout - Log out of eAuth or login.gov.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
