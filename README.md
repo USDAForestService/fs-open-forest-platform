@@ -21,9 +21,11 @@ The U.S. Forest Service is engaged in an ongoing effort to modernize and simplif
 
 ## Opportunity Statement
 
-The opportunity statement = the problem we are trying to solve with the ePermitting project
+The opportunity statement = the problem we are trying to solve with the ePermitting and Christmas trees projects
 
-We had the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
+We have the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
+
+We have the opportunity to modernize the ability to purchase permits to harvest Christmas trees within our pilot national forests (Mt. Hood, Flathead, Arapaho and Roosevelt, Shoshone). Our belief is that this online permit purchasing system will be a more convenient method of purchasing and obtaining permits needed to harvest Christmas trees.
 
 ## Table of contents
 
@@ -295,14 +297,14 @@ Deployment to a staging server is configured to run on the sprint branch only.
 
 #### Snyk
 
-Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This 
+Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This
 file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at server start-up.
 
 ### Cloud.gov
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
 
-### Build versioning 
+### Build versioning
 
 The app/frontend/replace.build.js script is run from circle-ci via config.yml to update the version and date in the transpiled javascript
 frontend code for each build.  This date and version will display in the application footer.
