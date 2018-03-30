@@ -308,9 +308,9 @@ The app/frontend/replace.build.js script is run from circle-ci via config.yml to
 frontend code for each build.  This date and version will display in the application footer.
 
 ## Docs
-* [Server jsDocs](https://forest-service-epermits.app.cloud.gov/docs/code)
-* [Server api endpoints](https://forest-service-epermits.app.cloud.gov/docs/api)
-* [Frontend Typedocs](https://github.com/18F/fs-permit-platform/pull/130?)
+* [Server jsDocs](https://fs-intake-api.app.cloud.gov/docs/code/)
+* [Server api endpoints](https://fs-intake-api.app.cloud.gov/docs/api)
+* [Frontend Typedocs](https://forest-service-epermit.app.cloud.gov/assets/typedoc/)
 
 ## Content administration
 
