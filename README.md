@@ -17,15 +17,13 @@ _Staging:_
 
 ## Welcome
 
-The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify their permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
+The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
 
 ## Opportunity Statement
 
-The opportunity statement = the problem we are trying to solve with the ePermitting and Christmas trees projects
+The opportunity statement = the problem we are trying to solve with the ePermitting project.
 
-We have the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
-
-We have the opportunity to modernize the ability to purchase permits to harvest Christmas trees within our pilot national forests (Mt. Hood, Flathead, Arapaho and Roosevelt, Shoshone). Our belief is that this online permit purchasing system will be a more convenient method of purchasing and obtaining permits needed to harvest Christmas trees.
+We have the opportunity to modernize the public's ability to apply for special use permits and to purchase permits to harvest Christmas trees. For special use permits, Mt. Baker-Snoqualime is the pilot forest. For Christmas tree permits, Arapaho and Roosevelt, Flathead, Mt. Hood, and Shoshone are the pilot forests. Our belief is that these applications will simplify and speed up the ability to apply for and purchase permits.
 
 ## Table of contents
 
