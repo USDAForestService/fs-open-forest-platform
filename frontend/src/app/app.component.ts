@@ -3,7 +3,7 @@ import { environment } from '../environments/environment';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
-import * as moment from 'moment-timezone'
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-root',

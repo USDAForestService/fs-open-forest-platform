@@ -20,7 +20,7 @@ export class MockAuthenticationService {
 class MockServices {
   // Router
   public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
-  parseUrl(): String { return ''};
+  parseUrl(): String { return ''; }
 }
 
 const testRoutes: Routes = [

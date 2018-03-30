@@ -28,29 +28,29 @@ export class MockAuthenticationService {
 class MockServices {
   // Router
   public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
-  parseUrl(): String { return ''};
+  parseUrl(): String { return ''; }
 }
 
 class MockActivatedRoute implements ActivatedRoute {
-  snapshot : ActivatedRouteSnapshot;
-  url : Observable<UrlSegment[]>;
-  params : Observable<Params>;
-  queryParams : Observable<Params>;
-  fragment : Observable<string>;
-  data : Observable<Data>;
-  outlet : string;
-  component : Type<any>|string;
-  routeConfig : Route;
-  root : ActivatedRoute;
-  parent : ActivatedRoute;
-  firstChild : ActivatedRoute;
-  children : ActivatedRoute[];
-  pathFromRoot : ActivatedRoute[];
+  snapshot: ActivatedRouteSnapshot;
+  url: Observable<UrlSegment[]>;
+  params: Observable<Params>;
+  queryParams: Observable<Params>;
+  fragment: Observable<string>;
+  data: Observable<Data>;
+  outlet: string;
+  component: Type<any>|string;
+  routeConfig: Route;
+  root: ActivatedRoute;
+  parent: ActivatedRoute;
+  firstChild: ActivatedRoute;
+  children: ActivatedRoute[];
+  pathFromRoot: ActivatedRoute[];
   paramMap: any;
   queryParamMap: any;
-  toString() : string{
-    return "";
-  };
+  toString(): string {
+    return '';
+  }
 }
 
 
@@ -59,7 +59,7 @@ describe('AuthenticatedComponent', () => {
   let fixture: ComponentFixture<AuthenticatedComponent>;
   let mockWindow: WindowRef;
   mockWindow = <any>{ location: <any>{ hash: 'WAOW-MOCK-HASH' } };
-  let mockRoute = new MockActivatedRoute();
+  const mockRoute = new MockActivatedRoute();
   mockRoute.parent = new MockActivatedRoute();
   mockRoute.firstChild = new MockActivatedRoute();
   mockRoute.firstChild.data = Observable.of({
