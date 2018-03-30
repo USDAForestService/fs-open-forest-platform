@@ -15,7 +15,7 @@ The below applies to all available Christmas tree cutting areas in the {{forestN
 The below rules are specific to the Sulphur Ranger District:
 
 * Tree cutting is permitted from {{sulphurDate}}.
-* You can only cut trees from areas that are specifically designated for Christmas tree cutting. Be sure to reference the [map](/assets/img/sulphur-map.png) to ensure you are in a permitted cutting area. 
+* You can only cut trees from areas that are specifically designated for Christmas tree cutting. Be sure to reference the [map](/assets/img/site-wide/sulphur-map.png) to ensure you are in a permitted cutting area. 
 * Most roads are closed to motor vehicles after Nov. 20. Snowmobiles or skis may be used to access the district’s designated Christmas tree cutting areas.
 
 ##### Elk Creek cutting area 
