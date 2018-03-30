@@ -6,7 +6,9 @@
  */
 
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {
+  JSDOM
+} = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -29,9 +31,10 @@ const addApplicantInfo = (permit, frag) => {
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
-    .substring(0, 18)
-    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent =
+    `${permit.firstName
+      .substring(0, 18)
+      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -180,7 +183,8 @@ christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
 christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest) => {
   let rulesHtml = '';
   if (createHtmlBody) {
-    rulesHtml = '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
+    rulesHtml =
+      '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
       '<body style="font-family:Arial; margin:20px;">';
   }
   rulesHtml +=
@@ -197,7 +201,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
   rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
-    ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
+    ' under the below rules and guidelines. Failure to follow these rules and guidelines may result in a fine<br/><br/>';
   var regex = new RegExp('"/assets/', 'g');
   rules = rules.replace(regex, '"' + vcapConstants.INTAKE_CLIENT_BASE_URL + '/assets/');
 

@@ -1,6 +1,10 @@
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid">
-    <app-breadcrumbs></app-breadcrumbs>
+    <div class="usa-width-one-whole">
+      <app-breadcrumbs></app-breadcrumbs>
+      <app-tree-progress-bar step="details"></app-tree-progress-bar>
+    </div>
+
 
     <app-sidebar mobileMenu="true" [items]="sidebarItems" [user]="user" class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 

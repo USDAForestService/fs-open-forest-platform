@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +7,7 @@ import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
 import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('TreePermitViewComponent', () => {
   let component: TreePermitViewComponent;
@@ -48,7 +48,8 @@ describe('TreePermitViewComponent', () => {
           { provide: ChristmasTreesApplicationService },
           { provide: WindowRef, useClass: WindowRef },
           { provide: ActivatedRoute, useValue: mockActivatedRoute }
-          ]
+          ],
+        schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
