@@ -87,9 +87,11 @@ We have the opportunity to modernize the public's ability to apply for special u
 
 <!-- /TOC -->
 
-## Development
+## Local Development
 
-** The following instructions outline tools and procedures required for local development **
+There are two options for local development - Docker or installing the dependencies independently.
+
+** The following instructions outline tools and procedures required for local development without docker **
 
 #### Docker Environment
 
@@ -287,9 +289,9 @@ Navigate to `/assets/typedoc/index.html`
 
 ### Continuous Integration, Continuous Deployment
 
-[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml).
+[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/wiki/christmas-trees/process/circle-checks.md](/wiki/christmas-trees/process/circle-checks.md)
 
-The circleci configuration separates e2e tests from all other tests in two different jobs that run simultaneously to decrease build time.
+The circleci configuration separates the tests into three different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
 Deployment to a staging server is configured to run on the sprint branch only.
 
