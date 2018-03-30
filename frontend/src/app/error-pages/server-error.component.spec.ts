@@ -24,4 +24,9 @@ describe('ServerErrorComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should include requesting url', () => {
+    component.requestingUrl = '/test';
+    expect(component.requestingUrl).toEqual('/test');
+  });
 });
