@@ -17,13 +17,13 @@ _Staging:_
 
 ## Welcome
 
-The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify their permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
+The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
 
 ## Opportunity Statement
 
-The opportunity statement = the problem we are trying to solve with the ePermitting project
+The opportunity statement = the problem we are trying to solve with the ePermitting project.
 
-We had the opportunity to modernize the ability to apply for special use permits within a pilot forest (Mt. Baker-Snoqualime) of the Forest Service. Our belief is that this will simplify and speed up the ability to apply for and act on special use permits.
+We have the opportunity to modernize the public's ability to apply for special use permits and to purchase permits to harvest Christmas trees. For special use permits, Mt. Baker-Snoqualime is the pilot forest. For Christmas tree permits, Arapaho and Roosevelt, Flathead, Mt. Hood, and Shoshone are the pilot forests. Our belief is that these applications will simplify and speed up the ability to apply for and purchase permits.
 
 ## Table of contents
 
@@ -295,14 +295,14 @@ Deployment to a staging server is configured to run on the sprint branch only.
 
 #### Snyk
 
-Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This 
+Check the .snyk file under frontend and server for packages ignored by [snyk](https://snyk.io/). This
 file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at server start-up.
 
 ### Cloud.gov
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
 
-### Build versioning 
+### Build versioning
 
 The app/frontend/replace.build.js script is run from circle-ci via config.yml to update the version and date in the transpiled javascript
 frontend code for each build.  This date and version will display in the application footer.
