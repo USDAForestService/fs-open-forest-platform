@@ -210,7 +210,7 @@ describe('District Dates Admin Component', () => {
 
     it('should call set forest', () => {
       component.setForest('arp');
-      expect(component.district.name).toEqual("Elk Creek");
-    })
+      expect(component.district.name).toEqual('Elk Creek');
+    });
   });
 });
