@@ -43,7 +43,7 @@ export class DateTimeRangeComponent implements OnInit {
     if (this.dateOnly) {
       this.defaultStartHour = '01';
       this.defaultEndHour = '02';
-      this.defaultPeriod = 'AM';
+      this.defaultPeriod = 'a.m.';
     }
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group({
@@ -80,7 +80,7 @@ export class DateTimeRangeComponent implements OnInit {
       ],
       endHour: [this.defaultEndHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       endMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      endPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]],
+      endPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(4)]],
       startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
       startDay: [
         '',
@@ -114,7 +114,7 @@ export class DateTimeRangeComponent implements OnInit {
       ],
       startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(2)]]
+      startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(4)]]
     });
 
     this.parentForm.addControl(this.formName, this[this.formName]);
