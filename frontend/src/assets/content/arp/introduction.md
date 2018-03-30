@@ -1,2 +1,1 @@
-For generations, families have made a tradition out of Christmas tree hunting in the {{forestName}}. Combined with any local activities, 
-visitors can make a full-day or even a full-weekend event out of holiday tree shopping.
+Christmas trees may be taken from the {{forestName}} following the rules and guidelines below. Failure to follow these rules and guidelines may result in a fine.

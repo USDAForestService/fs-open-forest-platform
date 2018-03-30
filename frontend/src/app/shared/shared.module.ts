@@ -17,7 +17,6 @@ import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
-import { TreeRulesComponent } from '../trees/forests/tree-guidelines/tree-rules/tree-rules.component';
 import { SpinnerModule } from 'angular2-spinner/dist';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 
@@ -37,8 +36,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     SpacesToDashesPipe,
     CamelToHyphensPipe,
     UrlPipe,
-    TrackScrollDirective,
-    TreeRulesComponent
+    TrackScrollDirective
   ],
   exports: [
     AdminUserFormatterPipe,
@@ -59,7 +57,6 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     SpacesToDashesPipe,
     CamelToHyphensPipe,
     TrackScrollDirective,
-    TreeRulesComponent,
     UrlPipe,
     ProgressComponent,
     MarkdownModule
