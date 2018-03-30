@@ -1,10 +1,10 @@
-Cut trees only within the National Forest boundary and respect surrounding private property.
+Cut trees only within the national forest boundary and respect surrounding private property.
 
 #### No cutting or removing trees within:
 
 *   100 feet of a trail, 200 feet of campgrounds or recreation sites, or 300 feet of a stream or lake.
 *   Areas posted "No Christmas Tree Cutting.”
-*   Dalles Watershed, Camp Baldwin or Warm Springs Reservation.
+*   The Dalles Watershed, the Bull Run Watershed, Camp Baldwin or Warm Springs Reservation.
 *   Wilderness and research natural areas.
 
 #### No cutting along the following:

@@ -1,4 +1,4 @@
-The Arapaho and Roosevelt National Forests is broken into five different geographical ranger districts. Be sure to carefully review the Christmas tree rules and guidelines before using your permit. The rules and guidelines may vary between ranger districts and their cutting areas.
+The Arapaho and Roosevelt National Forests are broken into five different geographical ranger districts. Be sure to carefully review the Christmas tree rules and guidelines before using your permit as the rules and guidelines may vary between ranger districts and their cutting areas.
 
 #### Canyon Lakes Ranger District
 
@@ -24,6 +24,5 @@ The map below shows access routes to parking areas near designated tree cutting 
 
 [Elk Creek Cutting Area map description](/christmas-trees/forests/arp/maps/elk-creek)
 
-[Maps and travel publications](https://www.fs.usda.gov/main/arp/maps-pubs "Arapaho and Roosevelt
-    maps and publications")
-    are available online and at ranger district offices.
+Additional [maps and travel publications](https://www.fs.usda.gov/main/arp/maps-pubs "Arapaho and Roosevelt 
+    maps and publications") are available online and at ranger district offices.
