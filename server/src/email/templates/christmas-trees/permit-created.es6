@@ -94,7 +94,7 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       application.christmasTreesForest.forestName
     } Christmas tree permit website</a> for more information about cutting down your tree.</p>
 
-    <p><img src="cid:christmas-tree-permit-image" alt="Christmas tree permit 2018 for ${application.christmasTreesForest.forestName}. Permit must be printed and filled out with bold black ink on the date that you cut your tree. Permit must be placed and clearly visible on dashboard with printed side facing up."/></p>
+    <p><img src="cid:christmas-tree-permit-image" alt="Christmas tree permit 2018 for ${application.christmasTreesForest.forestName}. Permit must be printed and filled out with bold black ink on the date that you cut your tree. It is unlawful to reuse or duplicate this permit for the purpose of removing more products than the permit holder has purchased. Complete permit before transporting tree. Have permit holder present at time of tree cutting."/></p>
     </div>
     </body>
     </html>

@@ -148,7 +148,6 @@ export class AdminDistrictDatesComponent implements OnInit {
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
       this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
         () => {
-          console.log('abbr=', this.forest.forestAbbr);
           this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
           this.doc.getElementById('district-updated-alert-container').focus();
         },

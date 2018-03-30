@@ -46,7 +46,4 @@ export class ForestsAdminResolver implements Resolve<any> {
       return Observable.of(null);
     });
   }
-
-
-
 }
