@@ -18,7 +18,8 @@ const operator = Sequelize.Op;
 /**
  * @function getPermitResult - Private function to get the updated permit object with formatted dates
  * and permit number padded with zeros
- * @param {Object} permit
+ * @param {Object} permit - input permit object
+ * @return {Object} updated permit object
  */
 const getPermitResult = permit => {
   let eachPermit = {};
@@ -40,8 +41,8 @@ const getPermitResult = permit => {
 
 /**
  * @function returnPermitsReport - Private function to return permits with number of trees and cost
- * @param {Object} results - database results
- * @param {Object} response
+ * @param {Object} results - permits results from database
+ * @param {Object} res - http response
  */
 const returnPermitsReport = (results, res) => {
   if (results) {
@@ -66,8 +67,8 @@ const returnPermitsReport = (results, res) => {
 
 /**
  * @function getPermitSummaryReport - permit summary report for the selected forest and given data range
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
   treesDb.christmasTreesForests
@@ -124,8 +125,8 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
 
 /**
  * @function getPermitReport - permit report for the given permit number
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 
 christmasTreeAdmin.getPermitReport = (req, res) => {
@@ -158,12 +159,13 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
 };
 
 /**
- * @function updateForest - Private function to update the forest in datababse
- * @param {string} forest
- * @param {string} startDate
- * @param {string} endDate
- * @param {string} cuttingAreas
- * @param {Object} response
+ * @function updateForest - Private function to update the forest in database
+ * @param {Object} forest - forest database object
+ * @param {string} startDate - new start date
+ * @param {string} endDate - new end date
+ * @param {string} cuttingAreas - new cutting areas
+ * @param {Object} res - http response
+ * @return {Object} http response
  */
 const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
   forest
@@ -179,8 +181,8 @@ const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
 
 /**
  * @function updateForestDetails - Updage forest
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 christmasTreeAdmin.updateForestDetails = (req, res) => {
   treesDb.christmasTreesForests

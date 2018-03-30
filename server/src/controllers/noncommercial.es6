@@ -358,8 +358,8 @@ noncommercial.acceptApplication = application => {
 
 /**
  * @function getOne - API function to get one permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.getOne = (req, res) => {
   NoncommercialApplication.findOne({
@@ -396,8 +396,8 @@ noncommercial.getOne = (req, res) => {
 
 /**
  * @function create - API function to create a new permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.create = (req, res) => {
   util.setAuthEmail(req);
@@ -426,8 +426,8 @@ noncommercial.create = (req, res) => {
 
 /**
  * @function update - API function to update a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.update = (req, res) => {
   NoncommercialApplication.findOne({

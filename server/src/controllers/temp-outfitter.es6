@@ -407,7 +407,7 @@ const getAllFiles = applicationId => {
 /**
  * @function streamFile - private function Stream a file from the S3 bucket.
  * @param {string} fileName
- * @param {Object} response
+ * @param {Object} res - http response
  */
 const streamFile = (fileName, res) => {
   res.set('Content-Type', util.getContentType(fileName));
@@ -538,8 +538,8 @@ const acceptApplication = application => {
 
 /**
  * @function getApplicationFileNames - API function to get file attachment names for a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
@@ -557,8 +557,8 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
 
 /**
  * @function streamFile - API function to stream a file attachment from S3.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.streamFile = (req, res) => {
   streamFile(Buffer.from(req.params.file, 'base64').toString(), res);
@@ -582,8 +582,8 @@ tempOutfitter.streamToS3 = multer({
 
 /**
  * @function attachFile - API function to add a file attachment to a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.attachFile = (req, res) => {
   ApplicationFile.destroy({
@@ -616,8 +616,8 @@ tempOutfitter.attachFile = (req, res) => {
 
 /**
  * @function deleteFile - API function to delete a permit application attachment.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.deleteFile = (req, res) => {
   ApplicationFile.destroy({
@@ -635,8 +635,8 @@ tempOutfitter.deleteFile = (req, res) => {
 
 /**
  * @function create - API function to create a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
@@ -666,8 +666,8 @@ tempOutfitter.create = (req, res) => {
 
 /**
  * @function getOne - API function to get one permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.getOne = (req, res) => {
   TempOutfitterApplication.findOne({
@@ -704,8 +704,8 @@ tempOutfitter.getOne = (req, res) => {
 
 /**
  * @function update - API function to update a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 tempOutfitter.update = (req, res) => {
   TempOutfitterApplication.findOne({
