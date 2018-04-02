@@ -2,9 +2,8 @@
   <div class="usa-grid">
     <div class="usa-width-one-whole">
       <app-breadcrumbs></app-breadcrumbs>
-      <app-tree-progress-bar step="details"></app-tree-progress-bar>
+      <app-tree-progress-bar *ngIf='forest.isSeasonOpen' step="details"></app-tree-progress-bar>
     </div>
-
 
     <app-sidebar mobileMenu="true" [items]="sidebarItems" [user]="user" class="usa-width-one-third usa-layout-docs-sidenav"></app-sidebar>
 
