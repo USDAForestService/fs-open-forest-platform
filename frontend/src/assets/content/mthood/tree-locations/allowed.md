@@ -23,7 +23,7 @@ Below are Christmas tree cutting maps for the Clackamas and Zigzag Ranger Distri
 
 [Zigzag Ranger District map description](christmas-trees/forests/mthood/maps/zigzag)
 
-The Hood River and Barlow Ranger Districts also allow Christmas tree cutting. Use designated motorized roads and to be aware of seasonal road closures. 
+The Hood River and Barlow Ranger Districts also allow Christmas tree cutting. Use designated motorized roads and be aware of seasonal road closures. 
 
 Additional [Maps and travel publications](https://www.fs.usda.gov/main/mthood/maps-pubs "Mt. Hood 
     maps and publications") are available online and at ranger district offices.
