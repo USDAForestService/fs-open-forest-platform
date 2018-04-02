@@ -24,12 +24,29 @@ passportConfig.setup = app => {
   app.use(passport.session());
   app.use(loginGov.router);
   app.use(eAuth.router);
+  app.use(passportConfig.authErrorHandler);
   passport.serializeUser((user, done) => {
     done(null, user);
   });
   passport.deserializeUser((user, done) => {
     done(null, user);
   });
+};
+
+/**
+ * @function authErrorHandler - Throw error if authentication failure and redirect to frontend 500 page.
+ * @param {Object} err - http error
+ * @param {Object} req - http request
+ * @param {Object} res - http response
+ * @param {Object} next - next function 
+ */
+passportConfig.authErrorHandler = (err, req, res, next) => {
+  if (err) {
+    console.error('Authentication error:', err);
+    res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
+  } else {
+    next();
+  }
 };
 
 /**
