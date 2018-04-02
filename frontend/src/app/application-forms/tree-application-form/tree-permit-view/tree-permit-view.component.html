@@ -54,7 +54,7 @@
       </button>
     </div>
 
-    <div id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
+    <div *ngIf="permit" id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
       <h2 class="usa-heading">Order details</h2>
       <hr class="header-divider">
       <table class="tree-confirmation-table">
@@ -81,7 +81,7 @@
       </table>
     </div>
 
-    <div id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
+    <div *ngIf="permit" id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
       <h3>Your permit and the Christmas tree cutting rules and guidelines were emailed to you at {{permit.emailAddress}}.</h3>
