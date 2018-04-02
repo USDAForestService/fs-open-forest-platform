@@ -1,5 +1,5 @@
 <div tabindex="-1" id="skip-nav-target" class="usa-grid">
-  <div *ngIf="mapDescriptionPieces" class="screen-reader-only" id="map-description">
-    <p  *ngFor="let description of mapDescriptionPieces">{{description}}</p>
+  <div class="screen-reader-only" id="map-description">
+    <markdown path="assets/content/{{forestId}}/map-alt-text/{{mapId}}.md"></markdown>
   </div>
 </div>
