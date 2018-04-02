@@ -195,7 +195,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
   rulesHtml +=
     '<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.INTAKE_CLIENT_BASE_URL +
-    '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
+    '/assets/img/site-wide/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
   rulesHtml +=
