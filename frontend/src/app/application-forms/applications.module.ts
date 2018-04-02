@@ -29,7 +29,6 @@ import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-o
 import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
 import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/temporary-outfitters-learn-more.component';
 import { WebsiteComponent } from './fields/website.component';
-import 'intersection-observer';
 import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './tree-application-form/tree-permit-view/tree-permit-view.component';
 import { TreePermitRulesComponent } from './tree-application-form/tree-permit-rules/tree-permit-rules.component';
