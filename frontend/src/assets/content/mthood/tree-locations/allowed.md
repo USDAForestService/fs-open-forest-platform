@@ -1,4 +1,4 @@
-Below are Christmas tree cutting maps for the Clackamas and Zigzag Ranger districts as well as a list of suggested roads to travel while searching for your tree. Some roads reach elevations of 3,500 feet to 4,500 feet; you are likely to see snow on these roads early in the season.
+Below are Christmas tree cutting maps for the Clackamas and Zigzag Ranger Districts as well as a list of suggested roads to travel while searching for your tree. Some roads reach elevations of 3,500 feet to 4,500 feet; you are likely to see snow on these roads early in the season.
 
 *   Road 4210
 *   Road 45, 4540, 4545
