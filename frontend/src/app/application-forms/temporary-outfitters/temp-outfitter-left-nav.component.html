@@ -1,5 +1,5 @@
 &nbsp;
-  <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+  <ul id="sidebar-nav" role="navigation" aria-label="Temp outfitter" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
       <a id="nav-applicant-info" href="#" (click)="gotoHashtag('section-applicant-info', $event)"
         [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}"

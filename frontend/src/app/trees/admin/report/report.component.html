@@ -54,7 +54,7 @@
           />
         </div>
         <div>
-          <span id="permit-not-found-error" class="usa-input-error-message" 
+          <span id="permit-not-found-error" class="usa-input-error-message"
             *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
             && permitNumberSearchForm.controls.permitNumber.errors && permitNumberSearchForm.controls.permitNumber.errors.notFound">
             Please check that you've entered the correct permit number and try again.
@@ -78,7 +78,7 @@
              type="radio" [value]="forest.id"
              formControlName="forestId"
              [checked]="i === 0"
-             [attr.aria-labelled-by]="forest.id + '-button-label'"
+             [attr.aria-labelledby]="forest.id + '-button-label'"
             >
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
           </ng-container>
