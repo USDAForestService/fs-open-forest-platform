@@ -19,11 +19,11 @@
   <div class="usa-grid">
     <h2>What to expect</h2>
     <div class="usa-width-one-third">
-      <div class="vertical-center">
+      <div id="what-to-expect-image-container" class="vertical-center">
         <a class="cursor-text" href='#' (click)="scrollToForestFinder($event)">
           <img alt="stump with saw" role="img" width="150" src="/assets/img/site-wide/forests-icon.svg" class="padding-right-1">
         </a>
-        <img alt="choose your forest then explore" role="img" width="150" src="/assets/img/site-wide/arrow-next-step.svg" class="padding-right-1">
+        <img alt="choose your forest then explore" role="img" width="150" src="/assets/img/site-wide/arrow-next-step.svg" class="padding-right-1 next-arrow">
       </div>
       <h3>Choose your forest</h3>
       <p>
@@ -36,7 +36,7 @@
         <a class="cursor-text" href='#' (click)="scrollToForestFinder($event)">
           <img alt="stump with saw" role="img" width="150" src="/assets/img/site-wide/cutting-icon.svg" class="padding-right-1">
         </a>
-        <img alt="explore then buy your permit" role="img" width="150" src="/assets/img/site-wide/arrow-next-step.svg" class="padding-right-1">
+        <img alt="explore then buy your permit" role="img" width="150" src="/assets/img/site-wide/arrow-next-step.svg" class="padding-right-1 next-arrow">
       </div>
       <h3>Get the details</h3>
       <p>Whether it's your first time, or a long-standing family tradition, learn more about Christmas tree cutting on the
@@ -57,9 +57,10 @@
 </section>
 <section id="every-kid-in-a-park" class="usa-section usa-section-tan-dark">
   <div class="usa-grid">
-    <div class="usa-width-one-whole vertical-center">
-      <img alt="Every kid in a park" role="img" width="150" src="/assets/img/site-wide/kid-in-a-park.png" class="padding-right-1">
-      <div>The <a href="https://everykidinapark.gov/">Every Kid in a Park</a> initiative offers free access to national parks for children and their families. Fourth graders may also be eligible to receive a free Christmas tree permit. Contact your <a href="https://www.fs.fed.us/ivm/">local forest</a> for details.</div>
+    <div class="usa-width-one-whole">
+      <div>
+        <img class="every-kid-img" alt="Every kid in a park" role="img" src="/assets/img/site-wide/kid-in-a-park.png">
+        The <a href="https://everykidinapark.gov/">Every Kid in a Park</a> initiative offers free access to national parks for children and their families. Fourth graders may also be eligible to receive a free Christmas tree permit. Contact your <a href="https://www.fs.fed.us/ivm/">local forest</a> for details.</div>
     </div>
   </div>
 </section>

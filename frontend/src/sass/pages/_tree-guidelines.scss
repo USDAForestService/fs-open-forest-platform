@@ -210,4 +210,24 @@ app-tree-cutting-dates {
   h3 {
     margin-top: 1rem;
   }
+
+  .next-arrow {
+    @media (max-width: $large-screen) {
+      display: none;
+    }
+  }
+
 }
+
+#every-kid-in-a-park {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  .every-kid-img {
+    height: 133px;
+    float: left;
+    margin-top: -26px;
+    margin-right: 50px;
+
+  }
+}
+
