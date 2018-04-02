@@ -15,7 +15,6 @@ import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.com
 import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component';
-import { ChristmasTreeMapDetailsService } from './forests/christmas-tree-map-details/christmas-tree-map-details.service';
 import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-guidelines-footer.component';
 
 @NgModule({
@@ -47,8 +46,7 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
   providers: [
     ChristmasTreesInfoService,
     ChristmasTreesAdminService,
-    ChristmasTreesApplicationService,
-    ChristmasTreeMapDetailsService
+    ChristmasTreesApplicationService
   ]
 })
 export class TreesModule {}
