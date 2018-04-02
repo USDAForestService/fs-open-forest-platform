@@ -49,33 +49,29 @@ Return to the ${application.christmasTreesForest.forestName} Christmas tree perm
       application.firstName
     }. Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.</p>
     <h1 class="border-bottom">Order Details</h1>
-    <table role="presentation" class="bordered" cellpadding="0" cellspacing="0">
-      <tr style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
-        <th>description</th>
-        <th>value</th>
-      </tr>
+    <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
-        <td style="width: 150px;" class="border-bottom border-right">Permit number</td>
+        <th scope="row" style="width: 150px;" class="border-bottom border-right">Permit number</th>
         <td class="border-bottom">${zpad(application.permitNumber, 8)}</td>
       </tr>
       <tr>
-        <td class="border-bottom border-right">Forest</td>
+        <th scope="row" class="border-bottom border-right">Forest</th>
         <td class="border-bottom">${application.christmasTreesForest.forestName}</td>
       </tr>
       <tr>
-        <td class="border-bottom border-right">Number of trees</td>
+        <th scope="row" class="border-bottom border-right">Number of trees</th>
         <td class="border-bottom">${application.quantity}</td>
       </tr>
       <tr>
-        <td class="border-bottom border-right">Name</td>
+        <th scope="row" class="border-bottom border-right">Name</th>
         <td class="border-bottom">${application.firstName} ${application.lastName}</td>
       </tr>
       <tr>
-        <td class="border-bottom border-right">Payment</td>
+        <th scope="row" class="border-bottom border-right">Payment</th>
         <td class="border-bottom">$${application.totalCost}</td>
       </tr>
       <tr>
-        <td class="border-right">Transaction date</td>
+        <th scope="row" class="border-right">Transaction date</th>
         <td>${moment.tz(application.createdAt, application.christmasTreesForest.timezone).format('MM/DD/YYYY')}</td>
       </tr>
     </table>
