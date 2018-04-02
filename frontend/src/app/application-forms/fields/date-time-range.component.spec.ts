@@ -192,6 +192,6 @@ describe('DateTimeRange', () => {
     component.ngOnInit();
     expect(component.defaultStartHour).toBe('01');
     expect(component.defaultEndHour).toBe('02');
-    expect(component.defaultPeriod).toBe('AM');
+    expect(component.defaultPeriod).toBe('a.m.');
   });
 });

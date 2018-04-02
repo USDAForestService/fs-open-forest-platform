@@ -19,7 +19,8 @@
     "snyk-test": "snyk test",
     "start": "ng serve",
     "test:ci": "ng test --sourcemaps=false --config ./development-configurations/karma.conf --single-run=true --watch=false --progress=false --code-coverage",
-    "test": "ng test --config ./development-configurations/karma.conf --sourcemaps=false --code-coverage",
+    "test": "ng test --config ./development-configurations/karma.conf --sourcemaps=true",
+    "test:coverage": "ng test --config ./development-configurations/karma.conf --single-run=true --sourcemaps=true --code-coverage",
     "typedoc": "typedoc",
     "update-version": "node ./replace.build.js"
   },

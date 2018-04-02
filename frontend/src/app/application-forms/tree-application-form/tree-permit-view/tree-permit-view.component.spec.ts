@@ -13,6 +13,7 @@ import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';
 import { forest } from '../../../_mocks/forest.mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 const mockPermit = {
   permitId: '123',
@@ -82,7 +83,8 @@ describe ('', () => {  beforeEach(
             provide: ActivatedRoute,
             useValue: mockActivatedRoute
           }
-        ]
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
   );
@@ -129,7 +131,8 @@ describe ('', () => {  beforeEach(
               useValue: mockActivatedRoute
             }
 
-          ]
+          ],
+          schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents();
       })
     );

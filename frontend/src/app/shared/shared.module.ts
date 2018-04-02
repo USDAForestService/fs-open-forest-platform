@@ -19,6 +19,7 @@ import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { SpinnerModule } from 'angular2-spinner/dist';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
+import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tree-progress-bar/christmas-tree-progress-bar.component';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot(), MarkdownModule.forRoot()],
@@ -26,6 +27,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
+    ChristmasTreeProgressBarComponent,
     ErrorMessageComponent,
     TrackScrollDirective,
     AppButtonComponent,
@@ -42,6 +44,7 @@ import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
     AdminUserFormatterPipe,
     ApiErrorComponent,
     BreadcrumbsComponent,
+    ChristmasTreeProgressBarComponent,
     ErrorMessageComponent,
     FilterPipe,
     AppRoutingModule,
