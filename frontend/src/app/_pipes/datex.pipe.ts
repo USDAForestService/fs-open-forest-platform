@@ -6,10 +6,10 @@ import * as moment from 'moment';
 })
 
 export class DatexPipe implements PipeTransform {
-  transform(value: any, format: string = ""): string {
-    var momentDate = moment(value);
+  transform(value: any, format: string = ''): string {
+    const momentDate = moment(value);
 
-    if (!momentDate.isValid()) return value;
+    if (!momentDate.isValid()) { return value; }
 
     return momentDate.format(format);
   }
