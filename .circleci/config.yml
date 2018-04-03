@@ -210,7 +210,7 @@ workflows:
           requires:
           filters:
             branches:
-              only: sprint-12-development
+              only: sprint-13-development
       - staging-deploy:
           requires:
             - run-all-other-tests
@@ -218,7 +218,7 @@ workflows:
             - run-pa11y
           filters:
             branches:
-              only: sprint-12-development
+              only: sprint-13-development
       - prod-deploy:
           requires:
             - run-all-other-tests

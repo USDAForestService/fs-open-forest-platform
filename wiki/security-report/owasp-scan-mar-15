@@ -1,0 +1,12 @@
+On March 15th, an OWASP ZAP scan was run against a local development environment to identify any security vunerabilities. Upon completion of the scan, three alerts were found:
+
+X-Frame-Options Header Not Set
+Risk: Medium
+
+Web Browser XSS Protection Not Enabled
+Risk: Low
+
+X-Content-Type-Options Header Missing
+Risk: Low
+
+After finding these results, the production site was checked to ensure that these alerts were not present. It was found that each of the headers mentioned above are set properly to prevent the alerts raised in the scan.
