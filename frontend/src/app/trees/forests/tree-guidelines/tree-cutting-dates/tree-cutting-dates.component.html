@@ -5,7 +5,7 @@
       Season dates
     </h3>
     <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">
-      {{forest.startDate | datex: 'MMM d, YYYY' }} - {{forest.endDate | datex: 'MMM d, YYYY'}}
+      {{forest.startDate | datex: 'MMM D, YYYY' }} - {{forest.endDate | datex: 'MMM D, YYYY'}}
     </div>
     <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
   </div>
