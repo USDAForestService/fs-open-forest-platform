@@ -149,7 +149,7 @@ describe('District Dates Admin Component', () => {
 
     it('should update district dates', () => {
       component.updateStatus = '';
-      component.district = { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z', name: 'Elk Creek' }
+      component.district = { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z', name: 'Elk Creek' };
       component.forest = component.forests.find(forest => forest.id === 1);
 
       component.dateStatus.hasErrors = false;
