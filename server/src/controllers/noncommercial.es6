@@ -196,14 +196,14 @@ const translateFromDatabaseToClient = input => {
       startYear: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
       startHour: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('hh'),
       startMinutes: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('mm'),
-      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('A'),
+      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('a'),
       endDateTime: input.noncommercialFieldsEndDateTime,
       endMonth: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('M'),
       endDay: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('D'),
       endYear: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('YYYY'),
       endHour: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('hh'),
       endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
-      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
+      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('a')
     },
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -358,8 +358,8 @@ noncommercial.acceptApplication = application => {
 
 /**
  * @function getOne - API function to get one permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.getOne = (req, res) => {
   NoncommercialApplication.findOne({
@@ -396,8 +396,8 @@ noncommercial.getOne = (req, res) => {
 
 /**
  * @function create - API function to create a new permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.create = (req, res) => {
   util.setAuthEmail(req);
@@ -426,8 +426,8 @@ noncommercial.create = (req, res) => {
 
 /**
  * @function update - API function to update a permit application.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 noncommercial.update = (req, res) => {
   NoncommercialApplication.findOne({

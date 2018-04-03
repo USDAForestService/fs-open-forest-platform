@@ -1,12 +1,13 @@
-![no cellular service](/assets/img/cell-service-icon.svg "no cellular service") 
+![no cellular service](/assets/img/site-wide/cell-service-icon.svg "no cellular service") 
 **Cell service is spotty or unavailable.** Be sure someone knows where you are and when to expect you back.
 
-![inclement weather](/assets/img/weather-icon.svg "inclement weather") **Check the latest weather conditions, forest warnings and road closures** before you leave on your trip.
+![inclement weather](/assets/img/site-wide/weather-icon.svg "inclement weather") **Check the latest weather conditions, forest warnings and road closures** before you leave on your trip.
 
-![use a map](/assets/img/map-icon.svg "use a map") 
-**Bring a [forest or district map](/christmas-trees/forests/arp/#tree-locations) with you.** Don’t rely on GPS because it may not be up-to-date with forest service roads. 
-
-![dress for the weather](/assets/img/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
+![use a map](/assets/img/site-wide/map-icon.svg "use a map") 
+**Bring a [map](https://www.fs.usda.gov/main/flathead/maps-pubs) with you.** Don’t 
+  rely on GPS because it may not be up-to-date with forest service roads. 
+  
+![dress for the weather](/assets/img/site-wide/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
 
 

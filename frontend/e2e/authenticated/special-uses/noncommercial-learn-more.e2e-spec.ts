@@ -1,4 +1,4 @@
-import { NonCommercialLearnMorePage } from '../app.po';
+import { NonCommercialLearnMorePage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
 describe('NonCommercial Learn More', () => {

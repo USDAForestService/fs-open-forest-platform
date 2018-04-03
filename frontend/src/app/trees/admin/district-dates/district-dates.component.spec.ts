@@ -9,22 +9,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { AdminDistrictDatesComponent } from './district-dates.component';
-import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
-import { MockRouter } from '../../../_mocks/routes.mock';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
+import { Title } from '@angular/platform-browser';
 
 describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;
-
-  class MockWindowRef {
-    location = { hash: 'WAOW-MOCK-HASH' };
-    getNativeWindow() {
-      return { scroll() {} };
-    }
-  }
 
   const forests = [
     {
@@ -64,7 +56,7 @@ describe('District Dates Admin Component', () => {
     }
   ];
 
-  class MockChristmasTreesService {
+  class MockChristmasTreesInfoService {
     getOne(): Observable<{}> {
       return Observable.of(forests[0]);
     }
@@ -108,12 +100,12 @@ describe('District Dates Admin Component', () => {
           providers: [
             ApplicationFieldsService,
             { provide: ChristmasTreesApplicationService, useClass: MockApplicationService },
-            { provide: ChristmasTreesService, useClass: MockChristmasTreesService },
+            { provide: ChristmasTreesInfoService, useClass: MockChristmasTreesInfoService },
             FormBuilder,
             RouterTestingModule,
             ChristmasTreesAdminService,
-            UtilService,
-            { provide: WindowRef, useClass: MockWindowRef }
+            Title,
+            UtilService
           ],
           imports: [RouterTestingModule, HttpClientTestingModule],
           schemas: [NO_ERRORS_SCHEMA]
@@ -157,6 +149,7 @@ describe('District Dates Admin Component', () => {
 
     it('should update district dates', () => {
       component.updateStatus = '';
+      component.district = { startDate: '2017-12-02 15:30:00Z', endDate: '2017-12-09 21:30:00Z', name: 'Elk Creek' };
       component.forest = component.forests.find(forest => forest.id === 1);
 
       component.dateStatus.hasErrors = false;
@@ -205,7 +198,7 @@ describe('District Dates Admin Component', () => {
 
       expect(component.form.get('dateTimeRange.startHour').value).toEqual('08');
       expect(component.form.get('dateTimeRange.startMinutes').value).toEqual('30');
-      expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('AM');
+      expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('a.m.');
 
       expect(component.form.get('dateTimeRange.endMonth').value).toEqual('12');
       expect(component.form.get('dateTimeRange.endDay').value).toEqual('09');
@@ -213,7 +206,12 @@ describe('District Dates Admin Component', () => {
 
       expect(component.form.get('dateTimeRange.endHour').value).toEqual('02');
       expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
-      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
+      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('p.m.');
+    });
+
+    it('should call set forest', () => {
+      component.setForest('arp');
+      expect(component.district.name).toEqual('Elk Creek');
     });
   });
 });

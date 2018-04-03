@@ -9,7 +9,6 @@ import { ApplicationNoncommercialGroupComponent } from './application-noncommerc
 import { ApplicationSubmittedComponent } from './application-submitted/application-submitted.component';
 import { ClientChargesComponent } from './fields/client-charges.component';
 import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
-import { ChristmasTreePermitDetailResolver } from './tree-application-form/christmas-tree-permit-detail-resolver.service';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
 import { EmailComponent } from './fields/email.component';
@@ -25,12 +24,11 @@ import { OrgTypeComponent } from './fields/org-type.component';
 import { PermitHolderNameComponent } from './fields/permit-holder-name.component';
 import { PhoneNumberComponent } from './fields/phone-number.component';
 import { SmallBusinessComponent } from './fields/small-business.component';
-import { SharedModule } from './../_shared/shared.module';
+import { SharedModule } from './../shared/shared.module';
 import { TemporaryOutfittersComponent } from './temporary-outfitters/temporary-outfitters.component';
 import { TempOutfitterLeftNavComponent } from './temporary-outfitters/temp-outfitter-left-nav.component';
 import { TemporaryOutfittersLearnMoreComponent } from './temporary-outfitters/temporary-outfitters-learn-more.component';
 import { WebsiteComponent } from './fields/website.component';
-import 'intersection-observer';
 import { TreeApplicationFormComponent } from './tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './tree-application-form/tree-permit-view/tree-permit-view.component';
 import { TreePermitRulesComponent } from './tree-application-form/tree-permit-rules/tree-permit-rules.component';
@@ -97,7 +95,6 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ApplicationFieldsService,
     FileUploadService,
     ChristmasTreePermitResolver,
-    ChristmasTreePermitDetailResolver
   ]
 })
 export class ApplicationsModule {}

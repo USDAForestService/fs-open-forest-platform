@@ -54,22 +54,22 @@
 }
 
 .usa-nav .usa-nav-primary li button[aria-expanded='false'] {
-  background-image: url(/assets/img/plus-green.svg);
+  background-image: url(/assets/img/site-wide/plus-green.svg);
 }
 
 @media (min-width: $nav-width) {
   .usa-nav .usa-nav-primary li button[aria-expanded='false'] {
-    background-image: url(/assets/img/angle-arrow-down-green.svg);
+    background-image: url(/assets/img/site-wide/angle-arrow-down-green.svg);
   }
 }
 
 .usa-nav .usa-nav-primary li button[aria-expanded='true'] {
-  background-image: url(/assets/img/minus-green.svg);
+  background-image: url(/assets/img/site-wide/minus-green.svg);
 }
 
 @media (min-width: $nav-width) {
   .usa-nav .usa-nav-primary li button[aria-expanded='true'] {
-    background-image: url(/assets/img/angle-arrow-down-primary-white.svg);
+    background-image: url(/assets/img/site-wide/angle-arrow-down-primary-white.svg);
     color: #ffffff;
     background-color: #073d11;
   }
@@ -115,6 +115,6 @@
 
 @media (min-width: $nav-width) {
   .usa-nav .usa-nav-primary li:hover button {
-    background-image: url(/assets/img/angle-arrow-down-primary-white.svg) !important;
+    background-image: url(/assets/img/site-wide/angle-arrow-down-primary-white.svg) !important;
   }
 }

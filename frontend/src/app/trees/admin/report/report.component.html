@@ -4,8 +4,9 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Generate a Christmas tree permits report</h1>
 
-    <app-api-error *ngIf="apiErrors" [errors]="apiErrors" [showContact]=false></app-api-error>
-
+    <div id="report-alerts-container">
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors" [showContact]=false></app-api-error>
+    </div>
     <p class="form-directions">All form fields are required unless otherwise noted.</p>
 
     <fieldset class="usa-fieldset-inputs">
@@ -19,7 +20,7 @@
              [value]="true"
              [ngModel]="isDateSearch"
              [checked]="isDateSearch"
-             [attr.aria-labelledby]="date-search-button-label"
+             aria-labelledby="date-search-button-label"
       >
       <label for="date-search-button" id="date-search-button-label">Date range</label>
 
@@ -29,7 +30,7 @@
              [value]="false"
              [ngModel]="isDateSearch"
              [checked]="!isDateSearch"
-             [attr.aria-labelledby]="permit-id-search-button-label"
+             aria-labelledby="permit-id-search-button-label"
       >
       <label for="permit-id-search-button" id="permit-id-search-button-label">Permit number</label>
 
@@ -40,19 +41,21 @@
 
       <fieldset class="usa-form-group">
         <legend class="fs-datetime-legend">
-          To generate a report, please enter a permit number.
+          To generate a report, please enter an 8 digit permit number, e.g. 00000001.
         </legend>
         <div *ngIf="!form.value.isDateSearch">
           <input
-            class="small-input"
+           class="small-input"
            type="text"
            id="permit-number-input"
            formControlName="permitNumber"
            name="permit-number"
+           [attr.aria-invalid]="afs.hasError(permitNumberSearchForm.controls.permitNumber)"
           />
         </div>
         <div>
-          <span id="permit-not-found-error" class="usa-input-error-message" *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
+          <span id="permit-not-found-error" class="usa-input-error-message"
+            *ngIf="permitNumberSearchForm.controls.permitNumber && permitNumberSearchForm.controls.permitNumber.touched
             && permitNumberSearchForm.controls.permitNumber.errors && permitNumberSearchForm.controls.permitNumber.errors.notFound">
             Please check that you've entered the correct permit number and try again.
           </span>
@@ -60,7 +63,7 @@
         <app-error-message fieldId="permit-number-error" name="permit number" [control]="permitNumberSearchForm.controls.permitNumber"></app-error-message>
       </fieldset>
 
-      <button id="get-report-permitnumber" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
+      <button id="get-report-permitnumber" class="usa-button-primary usa-button-big" type="submit">Get report</button>
     </form>
 
     <form *ngIf="isDateSearch" [formGroup]="form" class="usa-form-large" novalidate (ngSubmit)="getReport()">
@@ -70,7 +73,13 @@
             To generate a report, please select a forest.
           </legend>
           <ng-container *ngFor="let forest of forests; let i = index">
-            <input id="{{forest.id}}-button" type="radio" [value]="forest.id" formControlName="forestId" [checked]="i === 0">
+            <input
+             id="{{forest.id}}-button"
+             type="radio" [value]="forest.id"
+             formControlName="forestId"
+             [checked]="i === 0"
+             [attr.aria-labelledby]="forest.id + '-button-label'"
+            >
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
           </ng-container>
         </fieldset>
@@ -88,13 +97,15 @@
         </div>
       </div>
 
-      <button id="get-report" class="usa-button-primary-alt usa-button-big" type="submit">Get report</button>
+      <button id="get-report" class="usa-button-primary usa-button-big" type="submit">Get report</button>
 
     </form>
 
     <hr>
 
-    <app-report-results *ngIf="result" [result]="result"></app-report-results>
+    <div tabindex="-1" id="report-results">
+      <app-report-results *ngIf="result" [result]="result"></app-report-results>
+    </div>
 
   </div>
 </section>

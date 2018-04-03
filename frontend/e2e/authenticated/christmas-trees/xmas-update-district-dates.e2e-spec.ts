@@ -46,15 +46,16 @@ describe('Xmas tree - Update District Dates', () => {
       it('should show date invalid errors if dates are invalid', () => {
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('13');
-
-        expect<any>(page.startDateTimeError().getText()).toEqual('Start date is invalid.');
+        page.startMonthInput().sendKeys(protractor.Key.TAB);
+        expect<any>(page.startMonthError().getText()).toEqual('Start month requires a 1 or 2 digit number that is less than 13.');
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('10');
         expect<any>(page.startMonthError().isPresent()).toBeFalsy();
 
         page.startDayInput().clear();
         page.startDayInput().sendKeys('33');
-        expect<any>(page.startDateTimeError().getText()).toEqual('Start date is invalid.');
+        page.startDayInput().sendKeys(protractor.Key.TAB);
+        expect<any>(page.startDayError().getText()).toEqual('Start day requires a 1 or 2 digit number.');
         page.startDayInput().clear();
         page.startDayInput().sendKeys('10');
         expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
@@ -83,7 +84,7 @@ describe('Xmas tree - Update District Dates', () => {
 
       });
 
-      it ('should let the user update the district dates', () => {
+      it('should let the user update the district dates', () => {
         element(by.id('3-button-label')).click();
         element(by.id('1-button-label')).click();
         page.updateDatesSubmit().click();

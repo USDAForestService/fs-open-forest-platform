@@ -1,5 +1,5 @@
 &nbsp;
-  <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+  <ul id="sidebar-nav" role="navigation" aria-label="Temp outfitter" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
       <a id="nav-applicant-info" href="#" (click)="gotoHashtag('section-applicant-info', $event)"
         [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-info'}"
@@ -7,10 +7,10 @@
         >
         STEP 1: Applicant information
         <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Section applicant info is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section applicant info is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Section applicant info is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section applicant info is invalid" />
         </span>
       </a>
     </li>
@@ -21,10 +21,10 @@
         >
         STEP 2: Description of proposed activity
         <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Section description of proposed activity is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section description of proposed activity is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields, activityDescriptionErrors) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Section description of proposed activity is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section description of proposed activity is invalid" />
         </span>
       </a>
     </li>
@@ -38,13 +38,13 @@
           getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid' &&
           getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingDescription) === 'ng-valid'
         ">
-          <img src="/assets/img/checkmark.svg" alt="Section advertising is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section advertising is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="
           getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-invalid' ||
           getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingDescription) === 'ng-invalid'
         ">
-          <img src="/assets/img/error-icon.svg" alt="Section advertising is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section advertising is invalid" />
         </span>
       </a>
 
@@ -56,10 +56,10 @@
         >
         STEP 4: Client charges
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Client charges is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Client charges is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.tempOutfitterFields.controls.clientCharges) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Client charges is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Client charges is invalid" />
         </span>
       </a>
 
@@ -71,10 +71,10 @@
         >
         STEP 5: Guide identification
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.guideIdentification) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Guide identification is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Guide identification is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.guideIdentification) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Guide identification is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Guide identification is invalid" />
         </span>
       </a>
 
@@ -86,10 +86,10 @@
         >
         STEP 6: Operating plan
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.operatingPlan) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Operating plan is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Operating plan is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.operatingPlan) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Operating plan is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Operating plan is invalid" />
         </span>
       </a>
 
@@ -101,10 +101,10 @@
         >
         STEP 7: Liability insurance
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.liabilityInsurance) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Liability insurance is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Liability insurance is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.liabilityInsurance) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Liability insurance  is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Liability insurance  is invalid" />
         </span>
       </a>
 
@@ -116,10 +116,10 @@
         >
         STEP 8: Acknowledgement of risk form
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.acknowledgementOfRisk) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Acknowledgement of risk form is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Acknowledgement of risk form is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.acknowledgementOfRisk) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Acknowledgement of risk form is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Acknowledgement of risk form is invalid" />
         </span>
       </a>
 
@@ -131,10 +131,10 @@
         >
         STEP 9: Experience
         <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Section experience is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section experience is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.controls.tempOutfitterFields.controls.experienceFields, experienceErrors) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Section experience is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section experience is invalid" />
         </span>
       </a>
 
@@ -146,10 +146,10 @@
         >
         STEP 10: Signature
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-valid'">
-          <img src="/assets/img/checkmark.svg" alt="Signature is valid" />
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Signature is valid" />
         </span>
         <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-invalid'">
-          <img src="/assets/img/error-icon.svg" alt="Signature is invalid" />
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Signature is invalid" />
         </span>
       </a>
 
