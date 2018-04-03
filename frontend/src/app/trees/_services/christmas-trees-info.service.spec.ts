@@ -158,15 +158,15 @@ describe('ChristmasTreesInfoService', () => {
     'should return formatted start and end dates',
     inject([ChristmasTreesInfoService], service => {
       expect(service.formatCuttingAreaDate(forest, '2017-12-02 10:00:00Z', '2017-12-12 10:00:00Z')).toEqual(
-        'Dec. 2 - 12, 2017'
+        'Dec 2 - 12, 2017'
       );
 
       expect(service.formatCuttingAreaDate(forest, '2017-12-02 01:00:00Z', '2017-12-12 01:00:00Z')).toEqual(
-        'Dec. 1 - 11, 2017'
+        'Dec 1 - 11, 2017'
       );
 
       expect(service.formatCuttingAreaDate(forest, '2017-11-02 10:00:00Z', '2017-12-09 10:00:00Z')).toEqual(
-        'Nov. 2 - Dec. 9, 2017'
+        'Nov 2 - Dec 9, 2017'
       );
     })
   );
