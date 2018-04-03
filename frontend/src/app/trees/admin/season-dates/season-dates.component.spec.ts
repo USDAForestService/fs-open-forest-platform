@@ -180,6 +180,13 @@ describe('Season Dates Admin Component', () => {
       component.setStartEndDate(component.forest, component.form);
       expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
     });
+
+    it('should change the forest when the forestId changes', async(() => {
+      component.form.get('forestId').setValue(2);
+      fixture.whenStable().then(() => {
+        expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
+      });
+    }));
   });
 
 });

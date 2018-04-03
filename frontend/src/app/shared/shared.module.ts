@@ -20,6 +20,7 @@ import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { SpinnerModule } from 'angular2-spinner/dist';
 import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
 import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tree-progress-bar/christmas-tree-progress-bar.component';
+import { DatexPipe } from '../_pipes/datex.pipe';
 
 @NgModule({
   imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot(), MarkdownModule.forRoot()],
@@ -28,6 +29,7 @@ import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tr
     ApiErrorComponent,
     BreadcrumbsComponent,
     ChristmasTreeProgressBarComponent,
+    DatexPipe,
     ErrorMessageComponent,
     TrackScrollDirective,
     AppButtonComponent,
@@ -45,6 +47,7 @@ import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tr
     ApiErrorComponent,
     BreadcrumbsComponent,
     ChristmasTreeProgressBarComponent,
+    DatexPipe,
     ErrorMessageComponent,
     FilterPipe,
     AppRoutingModule,

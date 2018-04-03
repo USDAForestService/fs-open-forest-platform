@@ -66,7 +66,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   resetForms() {
     this.result = null;
-    this.forest = null;
+    this.forest = this.forests[0];
     this.isDateSearch = !this.isDateSearch;
     this.apiErrors = null;
   }

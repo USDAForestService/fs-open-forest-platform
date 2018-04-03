@@ -127,7 +127,6 @@ describe('TreeApplicationFormComponent', () => {
 
     it('should create', () => {
       expect(component).toBeTruthy();
-      component.ngOnInit();
     });
 
     it('should set the title', () => {
@@ -174,5 +173,15 @@ describe('TreeApplicationFormComponent', () => {
     expect(
       component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}')
     ).toEqual('Test 12 and 6 and 6');
+  });
+
+  it('should submit application rules form', () => {
+    component.applicationForm.get('forestId').setValue('arp');
+    component.applicationForm.get('firstName').setValue('test');
+    component.applicationForm.get('lastName').setValue('test');
+    component.applicationForm.get('emailAddress').setValue('test@test.com');
+    component.applicationForm.get('quantity').setValue(2);
+    component.showRulesForm();
+    expect(component.submitted).toBeTruthy();
   });
 });
