@@ -182,30 +182,6 @@ app-tree-cutting-dates {
   overflow: hidden !important;
 }
 
-.trees-footer-sticky {
-  @media (min-width: $medium-screen) {
-    button {
-      margin-left: 2rem;
-    }
-  }
-
-  #trees-footer-sticky-forestname {
-    font-size: 2rem;
-  }
-
-  #trees-footer-sticky-desc-container {
-    span {
-      padding: 2rem;
-    }
-  }
-
-  @media (max-width: $medium-screen) {
-    #trees-footer-sticky-desc-container {
-      display: none;
-    }
-  }
-}
-
 .season-dates-icon {
   width: 48px;
   margin-right: 10px;
@@ -237,4 +213,3 @@ app-tree-cutting-dates {
 
   }
 }
-
