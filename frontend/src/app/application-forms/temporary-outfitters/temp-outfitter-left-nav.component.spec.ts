@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TempOutfitterLeftNavComponent } from './temp-outfitter-left-nav.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { UtilService } from '../../_services/util.service';

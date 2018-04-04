@@ -105,6 +105,55 @@ describe('AuthenticatedComponent', () => {
     })
   );
 
+  it ('should set showAdminNav to false if the user has no forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin' };
+      fixture.detectChanges();
+      expect(component.showAdminNav).toBeFalsy();
+    });
+  });
+
+  it ('should set showAdminNav to true if the user has forests and is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showAdminNav).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to true if the user has no forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin' };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to true if the user has empty forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: [] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to false if the user has forests and is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeFalsy();
+    });
+  });
+
+  it ('should set showSUDS to false and showAdminNav to false if the user is not an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'notanadmin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeFalsy();
+      expect(component.showAdminNav).toBeFalsy();
+    });
+  });
+
   afterEach(() => {
     localStorage.clear();
   });
