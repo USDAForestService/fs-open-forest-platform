@@ -1,0 +1,11 @@
+<div id="sticky-bar-container" *ngIf="forest.isSeasonOpen" class="sticky-bar top fixed" [style.top]="top">
+  <h3>
+    <span id="sticky-bar-desc-container">
+      <span id="sticky-bar-forestname"><b>{{forest.forestName}}</b></span>
+      <span class="sticky-bar-label">Christmas trees are ${{forest.treeCost}} each.</span>
+    </span>
+    <span>
+      <button [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button" id="fs-footer-sticky-buy-permit-link" tabIndex="-1">Buy permit</button>
+    </span>
+  </h3>
+</div>

@@ -10,29 +10,6 @@
   padding: 0 0 15px 0;
 }
 
-.fs-footer-sticky {
-  background: white;
-  bottom: 0;
-  box-shadow: 0px -10px 20px $dark-grey;
-  margin-bottom: 0;
-  position: relative;
-  text-align: center;
-  width: 100%;
-  z-index: 1000;
-  @media (max-width: $medium-screen) {
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-  &.fixed {
-    position: fixed;
-  }
-}
-
-.fs-footer-sticky-label {
-  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  font-weight: normal;
-}
-
 .fs-footer-item {
   display: inline-block;
   padding: 5px 25px 0px 5px;
