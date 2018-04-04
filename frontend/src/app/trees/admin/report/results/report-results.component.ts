@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ChristmasTreesApplicationService } from '../../../_services/christmas-trees-application.service';
 import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
@@ -17,11 +16,17 @@ export class ReportResultsComponent implements OnChanges {
     expireDate: 'Expiration date'
   };
 
+  /**
+   * Set this.permits on changes, and insert titles
+   */
   ngOnChanges() {
     this.permits = this.result.permits;
     this.permits.unshift(this.titles);
   }
 
+  /**
+   * Download csv report of permits
+   */
   downloadReport() {
     const options = {
       fieldSeparator: ',',

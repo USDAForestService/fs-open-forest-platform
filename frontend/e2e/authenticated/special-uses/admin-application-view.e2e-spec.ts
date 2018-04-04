@@ -1,6 +1,6 @@
-import { AdminApplicationList, NoncommercialGroupForm } from '../app.po';
+import { AdminApplicationList, NoncommercialGroupForm } from './app.po';
 import { NoncommercialApplicationForm } from './noncommercial-application-form.po';
-import { FieldValidation } from '../field-validation.po';
+import { FieldValidation } from './field-validation.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('Admin applications page', () => {

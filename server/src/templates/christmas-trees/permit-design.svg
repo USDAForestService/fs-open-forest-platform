@@ -62,16 +62,16 @@
 
 			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 586.5629 317.6143)" fill="#010101" font-family="'Arial'" font-size="9.054px">X</text>
 		<g>
-			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 491.1704 305.835)" enable-background="new"><tspan x="0" y="0" fill="#010101" font-family="'Arial'" font-size="8px">Fill in the month and day using bold black ink only (</tspan><tspan x="181" y="0" fill="#010101" font-family="'Arial-ItalicMT'" font-size="8px">i.e. Sharpie, marker,</tspan></text>
+			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 491.1704 305.835)" enable-background="new"><tspan x="0" y="0" fill="#010101" font-family="'Arial'" font-size="8px">Fill in the month and day using bold black ink only (</tspan><tspan x="187" y="0" fill="#010101" font-family="'Arial'" font-size="8px" font-style="italic">i.e. Sharpie, marker,</tspan></text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 436.1704 195.9346)" fill="#010101" font-family="'Arial'" font-size="8px"> </text>
-			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 501.1704 305.835)" enable-background="new"><tspan x="0" y="0" fill="#010101" font-family="'Arial'" font-size="8px" font-style="italic">felt-tip pen</tspan><tspan x="37.4" y="0" fill="#010101" font-family="'Arial'" font-size="8px">) on the date you cut your tree.</tspan></text>
+			<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 501.1704 305.835)" enable-background="new"><tspan x="0" y="0" fill="#010101" font-family="'Arial'" font-size="8px" font-style="italic">felt-tip pen</tspan><tspan x="38.4" y="0" fill="#010101" font-family="'Arial'" font-size="8px">) on the date you cut your tree.</tspan></text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 516.1704 305.835)" fill="#010101" font-family="'Arial'" font-size="8px">Complete permit before transporting tree.</text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 530.1704 305.835)" fill="#010101" font-family="'Arial'" font-size="8px">Have permit holder present at time of tree cutting.</text>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 545.1704 305.835)" fill="#010101" font-family="'Arial'" font-size="8px">Print this permit. Permists stored on mobile devices are not valid.</text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 545.1704 305.835)" fill="#010101" font-family="'Arial'" font-size="8px">Print this permit. Permits stored on mobile devices are not valid.</text>
 			<rect x="418.9" y="33.5" fill="#f1f1f1" width="30" height="282" style="stroke-width:1;stroke:#cccccc;"/>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 440.6357 304.0615)" fill="#010101" font-family="'Arial'" font-size="8px">more products than the permit holder has purchased.</text>
@@ -83,9 +83,9 @@
 			<circle fill="#010101" cx="528.1" cy="314.5" r="2"/>
 			<circle fill="#010101" cx="542.1" cy="314.5" r="2"/>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 471.962 314.6133)" fill="#010101" font-family="'Arial'" font-size="8px">To validate your permit, you</text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 471.962 316.6133)" fill="#010101" font-family="'Arial'" font-size="8px">To validate your permit, you</text>
 
-				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 471.9625 215.9785)" fill="#010101" font-family="'Arial'" font-size="8px" font-weight="bold" text-decoration=" underline">must</text>
+				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 471.9625 213.4785)" fill="#010101" font-family="'Arial'" font-size="8px" font-weight="bold" text-decoration="underline">must</text>
 
 				<text transform="matrix(6.123234e-17 -1 1 6.123234e-17 471.962 196.1299)" fill="#010101" font-family="'Arial'" font-size="8px">:</text>
 		</g>

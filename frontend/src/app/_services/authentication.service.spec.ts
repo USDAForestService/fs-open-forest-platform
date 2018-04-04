@@ -6,6 +6,7 @@ import { ApplicationService } from '../_services/application.service';
 import { UtilService } from './util.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import * as sinon from 'sinon';
 
 class MockApplicationService {
   get(): Observable<{}> {
@@ -46,6 +47,46 @@ describe('Authentication Service', () => {
     service.user = { email: 'test@test.com', role: 'admin' };
     const user = service.getUser();
     expect(user.email).toBe('test@test.com');
+
+    service.user = false;
+    expect(service.getUser()).toBeFalsy();
+  });
+
+  it('set user should set user', () => {
+    service.setUser({ email: 'test@test.com', role: 'admin' });
+    expect(service.user.email).toEqual('test@test.com');
+  });
+
+  it('remove user should removeUser user', () => {
+    const stub = sinon.stub(service, 'isAuthenticated');
+    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    service.removeUser();
+    expect(service.user).toBeFalsy();
+    stub.restore();
+  });
+
+  it('should get authenticated user', () => {
+    const stub = sinon.stub(service, 'isAuthenticated');
+    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    service.getAuthenticatedUser();
+    expect(service.user.email).toEqual('test@test.com');
+    stub.restore();
+  });
+
+  it('should set user if user is authenticated', () => {
+    const stub = sinon.stub(service, 'isAuthenticated');
+    stub.returns(Observable.of({ email: 'test@test.com', role: 'admin' }));
+    service.getAuthenticatedUser(true);
+    expect(service.user.email).toEqual('test@test.com');
+    stub.restore();
+  });
+
+  it('should return null if no authenticated user', () => {
+    const stub = sinon.stub(service, 'getUser');
+    stub.returns(null);
+    service.getAuthenticatedUser();
+    expect(service.user).toBeFalsy();
+    stub.restore();
   });
 
   it('removeUser should remove the user', () => {
@@ -74,4 +115,5 @@ describe('Authentication Service', () => {
     service.user = { email: 'test@test.com', role: 'admin' };
     expect(service.isAdmin()).toBeTruthy();
   });
+
 });

@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 import { DateTimeRangeComponent } from '../fields/date-time-range.component';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SpecialUseApplication } from '../../_models/special-use-application';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import * as moment from 'moment/moment';

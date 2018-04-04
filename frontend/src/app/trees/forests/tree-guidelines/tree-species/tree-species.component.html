@@ -2,18 +2,18 @@
 </p>
 <div [attr.id]="'tree-species-'+ i" class="tree-speci usa-grid" *ngFor="let tree of forest.species; let i=index">
   <h3 class="margin-top-1">{{ tree.name }}</h3>
-  <div *ngIf="tree.status == 'prohibited'" class="usa-width-one-whole tree-description">
-    <span class="tree-status float-right usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
+  <div *ngIf="tree.status == 'prohibited'" class="tree-status">
+    <span class="tree-status usa-label {{ statusClass(tree.status) }}">{{ tree.status }}</span>
   </div>
   <div class="usa-width-two-thirds">
     <markdown *ngIf="forest" path="/assets/content/common/species/{{tree.id}}.md"></markdown>
   </div>
   <div class="usa-width-one-third">
     <figure>
-      <a href="/assets/img/{{tree.id}}.jpg">
-        <img class="tree-img" src="/assets/img/{{tree.id}}.jpg" alt="{{ tree.name }}"/>
+      <a href="/assets/img/species/{{tree.id}}.jpg">
+        <img class="tree-img" src="/assets/img/species/{{tree.id}}-thumb.jpg" alt="{{ tree.name }}"/>
       </a>
-      <figcaption>{{tree.name}} <span class="tree-species-credit">{{tree.photoCredits}}</span></figcaption>
+      <figcaption>{{tree.name}} <span class="tree-species-credit">Photo by {{tree.photoCredits}}</span></figcaption>
     </figure>
   </div>
 </div>

@@ -24,6 +24,7 @@ passportConfig.setup = app => {
   app.use(passport.session());
   app.use(loginGov.router);
   app.use(eAuth.router);
+  app.use(passportConfig.authErrorHandler);
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -33,9 +34,25 @@ passportConfig.setup = app => {
 };
 
 /**
+ * @function authErrorHandler - Throw error if authentication failure and redirect to frontend 500 page.
+ * @param {Object} err - http error
+ * @param {Object} req - http request
+ * @param {Object} res - http response
+ * @param {Object} next - next function 
+ */
+passportConfig.authErrorHandler = (err, req, res, next) => {
+  if (err) {
+    console.error('Authentication error:', err);
+    res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
+  } else {
+    next();
+  }
+};
+
+/**
  * @function getPassportUser - Get the authetication user.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 passportConfig.getPassportUser = (req, res) => {
   return res.send(util.getUser(req));
@@ -43,8 +60,8 @@ passportConfig.getPassportUser = (req, res) => {
 
 /**
  * @function logout - Log out of eAuth or login.gov.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout

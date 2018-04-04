@@ -12,6 +12,10 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
+  /**
+   * Get the authenticated user.
+   * @returns      User, if user exists
+   */
   getAuthenticatedUser(doLogin = false) {
     const user = this.getUser();
 
@@ -37,14 +41,23 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * Check if user is admin.
+   */
   isAdmin() {
     return this.user.role === 'admin';
   }
 
+  /**
+   * Check if user is authenticated
+   */
   isAuthenticated() {
     return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
   }
 
+  /**
+   * Return user if user is set, or try to get user from local storage
+   */
   getUser() {
     if (this.user) {
       return this.user;
@@ -59,11 +72,17 @@ export class AuthenticationService {
     }
   }
 
+  /**
+   * Set the user to current scope and local storage.
+   */
   setUser(user) {
     this.user = user;
     localStorage.setItem('user', JSON.stringify(user));
   }
 
+  /**
+   * Remove user from scope and local storage.
+   */
   removeUser() {
     this.user = null;
     return this.isAuthenticated().map(user => {

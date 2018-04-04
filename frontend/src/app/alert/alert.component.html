@@ -1,0 +1,10 @@
+<section class="usa-section padding-bottom-0" *ngIf="heading || message">
+  <div class="usa-grid">
+    <div role="alert" aria-label="info" class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <h3 *ngIf="heading" class="usa-alert-heading">{{ heading }}</h3>
+        <p class="usa-alert-text">{{ message }}</p>
+      </div>
+    </div>
+  </div>
+</section>

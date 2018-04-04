@@ -12,7 +12,7 @@
 }
 
 .tree-species-credit {
-  float: left;
+  display: block;
   font-size: 12px;
 }
 
@@ -66,7 +66,17 @@
 }
 
 .tree-img {
-  max-width: 186px;
+  width: 100%;
+  @media (max-width: $medium-screen) {
+    max-width: 200px;
+  }
+
+}
+
+.tree-status {
+  @media (min-width: $medium-screen) {
+    float: right;
+  }
 }
 
 markdown#season-dates-markdown {
@@ -196,8 +206,35 @@ app-tree-cutting-dates {
   }
 }
 
+.season-dates-icon {
+  width: 48px;
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+}
+
 #what-to-expect {
   h3 {
     margin-top: 1rem;
   }
+
+  .next-arrow {
+    @media (max-width: $large-screen) {
+      display: none;
+    }
+  }
+
 }
+
+#every-kid-in-a-park {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  .every-kid-img {
+    height: 133px;
+    float: left;
+    margin-top: -26px;
+    margin-right: 50px;
+
+  }
+}
+

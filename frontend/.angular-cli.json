@@ -3,46 +3,44 @@
   "project": {
     "name": "frontend"
   },
-  "apps": [
-    {
-      "root": "src",
-      "outDir": "dist",
-      "assets": ["assets", "assets/img/*.*", "Staticfile", "Staticfile.auth"],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
-      "styles": ["../node_modules/uswds/src/stylesheets/_all.scss", "forest-service.scss"],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "docker": "environments/environment-docker.ts",
-        "prod": "environments/environment.prod.ts",
-        "trees": "environments/environment.trees.ts",
-        "staging": "environments/environment.staging.ts"
-      }
+  "apps": [{
+    "root": "src",
+    "outDir": "dist",
+    "assets": ["assets", "assets/img/*.*", "Staticfile", "Staticfile.auth",
+    { "glob": "close.svg", "input": "../node_modules/uswds/dist/img/", "output": "./assets/img/site-wide" },
+    { "glob": "favicon-57.png", "input": "../node_modules/uswds/dist/img/favicons", "output": "./assets/favicons" },
+    { "glob": "search-alt.svg", "input": "../node_modules/uswds/dist/img/", "output": "./assets/img/site-wide" }
+    ],
+    "index": "index.html",
+    "main": "main.ts",
+    "polyfills": "polyfills.ts",
+    "test": "test.ts",
+    "tsconfig": "tsconfig.app.json",
+    "testTsconfig": "tsconfig.spec.json",
+    "prefix": "app",
+    "styles": ["../node_modules/uswds/src/stylesheets/_all.scss", "forest-service.scss"],
+    "scripts": [],
+    "environmentSource": "environments/environment.ts",
+    "environments": {
+      "dev": "environments/environment.ts",
+      "docker": "environments/environment-docker.ts",
+      "prod": "environments/environment.prod.ts",
+      "trees": "environments/environment.trees.ts",
+      "staging": "environments/environment.staging.ts"
     }
-  ],
+  }],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
     }
   },
-  "lint": [
-    {
-      "project": "src/tsconfig.app.json"
-    },
-    {
-      "project": "src/tsconfig.spec.json"
-    },
-    {
-      "project": "e2e/tsconfig.e2e.json"
-    }
-  ],
+  "lint": [{
+    "project": "src/tsconfig.app.json"
+  }, {
+    "project": "src/tsconfig.spec.json"
+  }, {
+    "project": "e2e/tsconfig.e2e.json"
+  }],
   "test": {
     "karma": {
       "config": "./karma.conf.js"
@@ -52,7 +50,7 @@
         "src/app/pay-gov-mocks/**/*",
         "src/app/_mocks/**/*",
         "src/app/_models/**/*",
-        "src/app/_shared/**/*"
+        "src/app/shared/shared.module.ts"
       ]
     }
   },

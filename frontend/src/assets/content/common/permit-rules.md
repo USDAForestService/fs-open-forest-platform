@@ -1,4 +1,4 @@
-### ![rules icon](/assets/img/bullet-points-icon.svg "rules icon")Rules and Guidelines
+### ![rules icon](/assets/img/site-wide/bullet-points-icon.svg "rules icon")Rules and Guidelines
 
 #### Your permit
 

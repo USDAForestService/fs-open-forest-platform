@@ -46,6 +46,13 @@ label {
   margin-top: 8px;
 }
 
+.usa-form-group-period {
+  width: 8rem;
+  clear: none;
+  float: left;
+  margin-right: 1.5rem;
+}
+
 input.ng-valid.ng-touched,
 select.ng-valid.ng-touched,
 textarea.ng-valid.ng-touched {
@@ -87,7 +94,7 @@ input.ng-touched.invaliddate,
   }
 
   &.file-selected {
-    background-image: url(/assets/img/checkmark.svg);
+    background-image: url(/assets/img/site-wide/checkmark.svg);
     background-position-x: 94%;
     background-position-y: 4%;
     background-repeat: no-repeat;
@@ -136,4 +143,8 @@ input.ng-touched.invaliddate,
 
 input[disabled] {
   background-color: $light-grey;
+}
+
+.invalid-override {
+  border: 3px solid $fs-red-dark !important;
 }

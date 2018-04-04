@@ -6,7 +6,9 @@
  */
 
 const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+const {
+  JSDOM
+} = jsdom;
 const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
@@ -18,8 +20,8 @@ const christmasTreesPermitSvgUtil = {};
 
 /**
  * @function addApplicantInfo - Add applicatnt information to the SVG fragment
- * @param {Object} permit
- * @param {Object} fragment
+ * @param {Object} permit - permit object from database
+ * @param {Object} fragment - jsdom fragment
  */
 const addApplicantInfo = (permit, frag) => {
   frag.querySelector('#permit-id_1_').textContent = zpad(permit.permitNumber, 8);
@@ -29,9 +31,10 @@ const addApplicantInfo = (permit, frag) => {
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
-    .substring(0, 18)
-    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent =
+    `${permit.firstName
+      .substring(0, 18)
+      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
@@ -46,8 +49,8 @@ const addApplicantInfo = (permit, frag) => {
 
 /**
  * @function addForestSpecificInfo - Add forest specific information to the SVG fragment
- * @param {Object} permit
- * @param {Object} fragment
+ * @param {Object} permit - permit object from database
+ * @param {Object} fragment - jsdom fragment
  */
 const addForestSpecificInfo = (permit, frag) => {
   frag.querySelector('#forest-name_1_').textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
@@ -86,7 +89,8 @@ const addForestSpecificInfo = (permit, frag) => {
 
 /**
  * @function generatePermitSvg - Generate Permit SVG from the permit data object
- * @param {Object} permit
+ * @param {Object} permit - permit object from database
+ * @return {Object} jsdom fragment with svg buffer
  */
 christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
@@ -110,7 +114,8 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
 
 /**
  * @function generatePng - Generate Permit PNG from the permit SVG buffer
- * @param {Object} svgBuffer
+ * @param {Object} svgBuffer - permi svg Buffer
+ * @return {Object} - png buffer for the svg
  */
 christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
@@ -129,8 +134,9 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
 
 /**
  * @function generateRulesHtml - Generate permit rules HTML from permit object
- * @param {Object} createHtmlBody
- * @param {Object} permit
+ * @param {boolean} createHtmlBody - wrap rules into html body
+ * @param {Object} permit - permit object
+ * @return {string} - permit rules in html format
  */
 christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise((resolve, reject) => {
@@ -154,7 +160,8 @@ christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
 
 /**
  * @function getRulesMarkdown - Get the rules markdown files for the given forest
- * @param {string} forestAbbr
+ * @param {string} forestAbbr - forest abbreviation
+ * @return {string} - rules from markdown files
  */
 christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
   let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
@@ -168,14 +175,17 @@ christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
 
 /**
  * @function createRulesHtmlPage - Generate HTML wrapper aroung the permit rules HTML content
- * @param {string} htmlBody
- * @param {string} rules
- * @param {string} forest
+ * @param {string} createHtmlBody - wrap rules into html body
+ * @param {string} rules - permit rules text
+ * @param {string} forest - forest object from database
+ * @return {string} - formatted rules html
  */
-christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
+christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest) => {
   let rulesHtml = '';
-  if (htmlBody) {
-    rulesHtml = '<html><body style="font-family:Arial; margin:20px;">';
+  if (createHtmlBody) {
+    rulesHtml =
+      '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
+      '<body style="font-family:Arial; margin:20px;">';
   }
   rulesHtml +=
     '<div>' +
@@ -183,15 +193,15 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
   rulesHtml +=
-    '<h2><img alt="US Forest Service" class="fs-logo" role="img" src="' +
+    '<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="' +
     vcapConstants.INTAKE_CLIENT_BASE_URL +
-    '/assets/img/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
+    '/assets/img/site-wide/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
     forest.forestName.toUpperCase() +
     '</h2><br/>';
   rulesHtml +=
     'Christmas trees may be taken from the ' +
     forest.forestName +
-    ' under the below rules and conditions. Failure to follow these rules and conditions may result in a fine<br/><br/>';
+    ' under the below rules and guidelines. Failure to follow these rules and guidelines may result in a fine<br/><br/>';
   var regex = new RegExp('"/assets/', 'g');
   rules = rules.replace(regex, '"' + vcapConstants.INTAKE_CLIENT_BASE_URL + '/assets/');
 
@@ -200,7 +210,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
   rulesHtml += rules + '</div>';
-  if (htmlBody) {
+  if (createHtmlBody) {
     rulesHtml += '</body></html>';
   }
   return rulesHtml;
@@ -208,8 +218,9 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (htmlBody, rules, forest) => {
 
 /**
  * @function processRulesText - Parse and update rules HTML with forest specific keys
- * @param {string} rulesHtml
- * @param {Object} permit
+ * @param {string} rulesHtml - permit rules in html format
+ * @param {Object} permit - permit object from database
+ * @return {string} - processed rules html
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   let forest = permit.christmasTreesForest.dataValues;
@@ -222,14 +233,14 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
       }
     }
   }
-
   return rulesHtml;
 };
 
 /**
  * @function parseCuttingAreaDates - Parse and update rules HTML with forest cutting area keys
- * @param {string} rulesHtml
- * @param {string} forest
+ * @param {string} rulesText - rules text
+ * @param {string} forest - forest object from database
+ * @return {string} - processed rules
  */
 christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
@@ -252,9 +263,10 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
 
 /**
  * @function formatCuttingAreaDate - Format cutting area start and end dates in the rules HTML
- * @param {string} forestTimezone
- * @param {string} startDate
- * @param {string} endDate
+ * @param {string} forestTimezone - forest's timezone
+ * @param {string} startDate - forest season start date
+ * @param {string} endDate - forest season end date
+ * @return {string} - formatted date with start and end dates
  */
 christmasTreesPermitSvgUtil.formatCuttingAreaDate = (forestTimezone, startDate, endDate) => {
   const start = moment(startDate).tz(forestTimezone);

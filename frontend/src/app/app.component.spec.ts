@@ -1,20 +1,26 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './_services/authentication.service';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UtilService } from './_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Routes } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
   getAuthenticatedUser(): Observable<{}> {
     return Observable.of({ email: 'test@test.com', role: 'admin' });
   }
+}
+
+class MockServices {
+  // Router
+  public events = Observable.of( new NavigationEnd(0, 'http://localhost:4200/', 'http://localhost:4200/'));
+  parseUrl(): String { return ''; }
 }
 
 const testRoutes: Routes = [
@@ -43,8 +49,12 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
           imports: [RouterTestingModule.withRoutes(testRoutes), HttpClientTestingModule],
           declarations: [AppComponent, UsaBannerComponent],
-          providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
-          schemas: [CUSTOM_ELEMENTS_SCHEMA]
+          providers: [
+            { provide: AuthenticationService, useClass: MockAuthenticationService },
+            UtilService,
+            { provide: Router, useClass: MockServices }
+          ],
+          schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
         }).compileComponents();
       })
     );
@@ -66,7 +76,7 @@ describe('AppComponent', () => {
       expect(localStorage.getItem('status')).toBe(null);
     });
     it('should set logged in message', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({email: 'test@test.com'});
       expect(component.status).toEqual({
         heading: '',
         message: 'You have successfully logged in as test@test.com.'
@@ -136,14 +146,36 @@ describe('AppComponent', () => {
     });
 
     it ('should set the logged in message', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({ email: 'test@test.com'});
       expect(component.status.message).toEqual(`You have successfully logged in as test@test.com.`);
 
     });
 
     it ('should clear the showLoggedIn from local storage', () => {
-      component.setLoggedInMessage();
+      component.setLoggedInMessage({ email: 'test@test.com'});
       expect(localStorage.getItem('showLoggedIn')).toBeNull();
+    });
+
+    it ('should not set the logged in message if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(component.status.message).toEqual('');
+
+    });
+
+    it ('should clear the local storage if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+    });
+
+    it ('should clear the local storage if no user', () => {
+      component.setLoggedInMessage(null);
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+    });
+
+    it ('should clear the local storage and remove showLoggedIn if no email on the user', () => {
+      component.setLoggedInMessage({});
+      expect(localStorage.getItem('showLoggedIn')).toBeNull();
+      expect(component.status.message).toEqual('');
     });
 
   });

@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
   selector: 'app-test-component-wrapper',
@@ -23,7 +24,7 @@ describe('DateTimeRange', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [DateTimeRangeComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ApplicationFieldsService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
@@ -191,6 +192,6 @@ describe('DateTimeRange', () => {
     component.ngOnInit();
     expect(component.defaultStartHour).toBe('01');
     expect(component.defaultEndHour).toBe('02');
-    expect(component.defaultPeriod).toBe('AM');
+    expect(component.defaultPeriod).toBe('a.m.');
   });
 });

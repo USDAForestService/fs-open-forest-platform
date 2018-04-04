@@ -1,5 +1,6 @@
 <section id="application-view" class="usa-section usa-grid">
   <app-breadcrumbs></app-breadcrumbs>
+  <app-tree-progress-bar step="print"></app-tree-progress-bar>
   <div *ngIf="!error">
     <div *ngIf="permit" >
       <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
@@ -42,7 +43,7 @@
         You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
       </div>
       <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
-      <label for="includeRules">Include a copy of the Christmas tree cutting rules?</label>
+      <label for="includeRules">Include a copy of the Christmas tree cutting rules and guidelines</label>
       <button
        id="tree-print-permit"
        class="usa-button-primary usa-button-big"
@@ -53,7 +54,7 @@
       </button>
     </div>
 
-    <div id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
+    <div *ngIf="permit" id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">
       <h2 class="usa-heading">Order details</h2>
       <hr class="header-divider">
       <table class="tree-confirmation-table">
@@ -80,10 +81,10 @@
       </table>
     </div>
 
-    <div id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
+    <div *ngIf="permit" id="tree-additional-info-container" class="confirmation-details-container usa-width-one-whole margin-top-2 margin-bottom-2">
       <h2 class="usa-heading">Additional information</h2>
       <hr class="header-divider">
-      <h3>Your permit and the Christmas tree cutting rules were emailed to you at {{permit.emailAddress}}.</h3>
+      <h3>Your permit and the Christmas tree cutting rules and guidelines were emailed to you at {{permit.emailAddress}}.</h3>
       <p *ngIf="forest">Return to the <a [routerLink]="'/christmas-trees/forests/' + forest.forestAbbr">{{forest.forestName}} Christmas tree permit website.</a></p>
     </div>
   </div>

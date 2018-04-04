@@ -5,7 +5,7 @@ import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 
 @Component({
   selector: 'app-tree-info',
@@ -23,11 +23,14 @@ export class TreeGuidelinesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private christmasTreesService: ChristmasTreesService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
     public markdownService: MarkdownService
   ) {}
 
+  /**
+   *  @returns forest with season status and open alert
+   */
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
     forest.seasonOpenAlert = this.seasonOpenAlert;
@@ -47,6 +50,9 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  /**
+   *  @returns forest with mock alert for testing
+   */
   private setMockAlert(forest) {
     // set mock data info warning if on test environment
     if (!environment.production) {
@@ -56,6 +62,9 @@ export class TreeGuidelinesComponent implements OnInit {
     return forest;
   }
 
+  /**
+   *  @returns forest with isSeasonOpen and seasonOpenAlert set.
+   */
   private checkSeasonStartDate(forest) {
     if (
       moment(forest.startDate)
@@ -64,12 +73,15 @@ export class TreeGuidelinesComponent implements OnInit {
     ) {
       forest.isSeasonOpen = false;
       forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(
-        'MMM. D, YYYY'
+        'MMM D, YYYY'
       )}.`;
     }
     return forest;
   }
 
+  /**
+   *  @returns set forest data from route resolver
+   */
   ngOnInit() {
     this.template = 'sidebar';
     this.route.params.subscribe(params => {
@@ -82,7 +94,7 @@ export class TreeGuidelinesComponent implements OnInit {
       if (this.forest) {
         this.forest = this.setSeasonStatus(this.forest);
         if (this.forest) {
-          this.christmasTreesService.updateMarkdownText(this.markdownService, this.forest);
+          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
         this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
