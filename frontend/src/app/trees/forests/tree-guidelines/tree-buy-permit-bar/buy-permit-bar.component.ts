@@ -21,7 +21,10 @@ export class BuyPermitBarComponent {
    */
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const buyPermitLinkPosition = this.doc.getElementById('static-buy-permit-link').getBoundingClientRect().top;
-    this.top = (buyPermitLinkPosition < -20) ? '0px' : '-100px';
+    if (this.forest.isSeasonOpen) {
+      const buyPermitLinkPosition = this.doc.getElementById('static-buy-permit-link').getBoundingClientRect().top;
+      //use -20 instead of 0 so user scrolls slightly past this button before the pay button bar appears
+      this.top = (buyPermitLinkPosition < -20) ? '0px' : '-100px';
+    }
   }
 }

@@ -15,7 +15,7 @@ import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.com
 import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component';
-import { BuyPermitBarComponent } from './forests/tree-guidelines/buy-permit-bar.component';
+import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit-bar/buy-permit-bar.component';
 
 @NgModule({
   declarations: [
