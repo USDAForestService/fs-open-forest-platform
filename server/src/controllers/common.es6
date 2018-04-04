@@ -14,7 +14,8 @@ const commonControllers = {};
 
 /**
  * @function findOrCondition - Generate a sequelize status condition based on the status group.
- * @param {Object} request
+ * @param {Object} req - http request
+ * @return {Object} - set of statuses
  */
 const findOrCondition = req => {
   const statusGroup = req.params.statusGroup;
@@ -67,8 +68,9 @@ const findOrCondition = req => {
 
 /**
  * @function getPermitApplications() - Get permit applications of every type.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
+ * @return {Object} - http response
  */
 commonControllers.getPermitApplications = (req, res) => {
   const orCondition = findOrCondition(req);
@@ -142,8 +144,8 @@ commonControllers.getPermitApplications = (req, res) => {
 
 /**
  * @function createRevision() Create a new permit application revision entry in the DB.
- * @param {Object} user
- * @param {Object} applicationModel
+ * @param {Object} user - user object
+ * @param {Object} applicationModel - application model object
  */
 commonControllers.createRevision = (user, applicationModel) => {
   Revision.create({

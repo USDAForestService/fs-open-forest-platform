@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -7,12 +7,16 @@ import * as moment from 'moment-timezone';
 import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
+import { DOCUMENT } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html'
 })
 export class ReportComponent implements OnInit, AfterViewInit {
+  @ViewChild('reportResults') reportResults: ElementRef;
+
   forests: any;
   forest: any;
   form: any;
@@ -38,7 +42,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     public afs: ApplicationFieldsService,
     private treesAdminService: ChristmasTreesAdminService,
-    private winRef: WindowRef
+    private titleService: Title,
+    @Inject(DOCUMENT) private doc: Document
   ) {
     this.form = formBuilder.group({
       forestId: ['', [Validators.required]]
@@ -56,14 +61,22 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * reset form
+   */
   resetForms() {
     this.result = null;
-    this.forest = null;
+    this.forest = this.forests[0];
     this.isDateSearch = !this.isDateSearch;
     this.apiErrors = null;
   }
 
+  /**
+   * Set data from route resolver
+   */
   ngOnInit() {
+    this.titleService.setTitle('Christmas trees permits admin reports | U.S. Forest Service Christmas Tree Permitting');
+
     this.route.data.subscribe(data => {
       this.forests = data.forests;
       this.forest = this.forests[0];
@@ -73,34 +86,55 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * setStartEndDate
+   */
   ngAfterViewInit() {
     setTimeout(() => {
       this.setStartEndDate(this.forest, this.form);
     }, 0);
   }
 
+  /**
+   * setStartEndDate
+   */
   setStartEndDate(forest, form) {
     this.treesAdminService.setStartEndDate(forest, form);
   }
 
+  /**
+   * update dateStatus
+   */
   updateDateStatus(dateStatus: any): void {
     this.dateStatus = dateStatus;
   }
 
+  /**
+   * @returns forest by id
+   */
   getForestById(id) {
     return this.forests.find(forest => forest.id === parseInt(id, 10)) ;
   }
 
+  /**
+   * @returns forest by date
+   */
   getForestDate(dateField) {
     return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
   }
 
+  /**
+   * touch all fields and init getPermitsByDate()
+   */
   getReport() {
     this.afs.touchAllFields(this.form);
     this.result = null;
     this.getPermitsByDate();
   }
 
+  /**
+   * set forest name, start and end dates.
+   */
   private setReportParameters() {
     this.reportParameters = {
       forestName: this.forest.forestName,
@@ -109,6 +143,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     };
   }
 
+  /**
+   * get permit by date and set to this.result
+   */
   private getPermitsByDate() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
@@ -126,10 +163,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
               permits: results.permits,
               parameters: this.reportParameters
             };
+            this.focusAndScroll('report-results');
           },
           err => {
             this.apiErrors = err;
-            this.winRef.getNativeWindow().scroll(0, 200);
+            this.doc.getElementById('report-alerts-container').focus();
           }
         );
     } else {
@@ -137,6 +175,18 @@ export class ReportComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /**
+   * Set focus and scroll results into view
+   */
+  focusAndScroll(id) {
+    this.doc.getElementById(id).focus();
+    const element = document.querySelector('#' + id);
+    element.scrollIntoView();
+  }
+
+  /**
+   * Get permit by permit number and set to this.result
+   */
   getPermitByNumber() {
     this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
@@ -150,10 +200,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
             permits: results.permits,
             parameters: null
           };
+          this.focusAndScroll('report-results');
         },  err => {
           this.apiErrors = err;
           this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
-          this.winRef.getNativeWindow().scroll(0, 200);
+          this.doc.getElementById('report-alerts-container').focus();
         }
       );
     }

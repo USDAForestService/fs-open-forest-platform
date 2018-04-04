@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ChristmasTreesService } from '../../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../../_services/christmas-trees-info.service';
 
 @Component({
   selector: 'app-tree-species',
@@ -8,7 +8,11 @@ import { ChristmasTreesService } from '../../../_services/christmas-trees.servic
 export class TreeSpeciesComponent {
   @Input() forest: any;
 
-  constructor(public christmasTreesService: ChristmasTreesService) {}
+  constructor(public christmasTreesInfoService: ChristmasTreesInfoService) {}
+
+  /**
+   *  @returns css class based on tree status.
+   */
   statusClass(status) {
     let css_class = '';
     switch (status) {

@@ -1,23 +1,25 @@
 <ng-container *ngIf="!mobileMenu">
-  &nbsp;
-  <ul id="sidebar-nav" role="navigation" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
-    <li class="usa-current" *ngFor="let item of items | filter:'type':'anchor'">
-      <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
-        href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
-    </li>
-    <li *ngFor="let item of items | filter:'type':'button'">
-      <button type="button" class="usa-button-primary" [routerLink]="[item.routerLink]">{{item.title}}</button>
-    </li>
-  </ul>
+  <aside role="navigation" aria-label="left" class="sidebar-container">
+    &nbsp;
+    <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+      <li class="usa-current" *ngFor="let item of items | Filter:'type':'anchor'">
+        <a [ngClass]="{'usa-current': util.currentSection && util.currentSection === util.createId(item.sectionName) }"
+          href="#" [routerLink]="[route]" [fragment]="util.createId(item.sectionName)">{{item.sectionName}}</a>
+      </li>
+      <li *ngFor="let item of items | Filter:'type':'button'">
+        <button type="button" class="usa-button-primary" [routerLink]="[item.routerLink]">{{item.title}}</button>
+      </li>
+    </ul>
+  </aside>
 </ng-container>
 
 <ng-container *ngIf="mobileMenu">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
   <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
-  <nav role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
+  <nav aria-label="left" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
-      <button class="usa-nav-close" (click)="toggleMobileNav()">
-        <img src="/assets/img/close.svg" alt="Close navigation menu">
+      <button class="usa-nav-close" (click)="toggleMobileNav()" aria-label="close navigation menu">
+        <img src="/assets/img/site-wide/close.svg" alt="x">
       </button>
 
       <ul id="sidenav-mobile" class="usa-nav-primary usa-accordion">
@@ -32,7 +34,7 @@
             </li>
           </ul>
         </li>
-        <li *ngFor="let item of items | filter:'type':'anchor'">
+        <li *ngFor="let item of items | Filter:'type':'anchor'">
           <a href="#" id="mobile-{{item.id}}-link" (click)="toggleMobileNav();" [routerLink]="[route]" [fragment]="item.id">{{item.title}}</a>
           <ul class="usa-sidenav-sub_list" *ngIf="item.sections">
             <li *ngFor="let section of item.sections">
@@ -43,10 +45,10 @@
       </ul>
     </div>
   </nav>
-  <aside>
+  <aside class="sidebar-container" role="navigation" aria-label="left">
     &nbsp;
     <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
-      <li *ngFor="let item of items | filter:'type':'anchor'">
+      <li *ngFor="let item of items | Filter:'type':'anchor'">
         <a href="#" id="{{item.id}}-link"
           [ngClass]="{'usa-current': util.currentSection && util.currentSection.startsWith(item.id)}"
           [routerLink]="[route]"

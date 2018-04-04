@@ -12,8 +12,8 @@ const middleware = {};
 
 /**
  * @function setCorsHeaders - Set the http CORS headers.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 middleware.setCorsHeaders = (req, res, next) => {
   // Don't cache the API calls.
@@ -30,8 +30,8 @@ middleware.setCorsHeaders = (req, res, next) => {
 
 /**
  * @function checkPermissions - Check for a valid user.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 middleware.checkPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {
@@ -47,8 +47,8 @@ middleware.checkPermissions = (req, res, next) => {
 
 /**
  * @function checkAdminPermissions - Check for admin permsissions.
- * @param {Object} request
- * @param {Object} response
+ * @param {Object} req - http request
+ * @param {Object} res - http response
  */
 middleware.checkAdminPermissions = (req, res, next) => {
   if (util.isLocalOrCI()) {

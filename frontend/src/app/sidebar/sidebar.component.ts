@@ -33,6 +33,9 @@ export class SidebarComponent implements OnInit {
     private winRef: WindowRef
   ) {}
 
+  /**
+   * Track scroll position
+   */
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     const nav = this.doc.getElementById('sidebar-nav');
@@ -47,17 +50,23 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Set top, botton, and position styles based on sidebar's relation to the header
+   */
   private sidebarHeaderIntersection(container, header) {
     if (container.getBoundingClientRect().top < this.items.length * 4.3) {
       this.top = header.getBoundingClientRect().height - 40 + 'px'; // distance from top of page to start of sidebar without header
       this.bottom = 'auto';
       this.position = 'fixed';
     } else {
-      this.top = header.getBoundingClientRect().height + 100 + 'px'; // distance from top of page to start of sidebar with header
+      this.top = '0px';
       this.position = 'absolute';
     }
   }
 
+  /**
+   * Set top and position styles based on sidebar's relation to the footer
+   */
   private sidebarFooterIntersection(footer) {
     if (footer.getBoundingClientRect().top < this.items.length * 80) {
       // sidebar bottom hits top of footer
@@ -66,6 +75,9 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Set Menu position and top styles based on page scroll position.
+   */
   private pageYOffset() {
     if (this.winRef.getNativeWindow().pageYOffset > this.items.length * 16) {
       this.menuBtnPosition = 'fixed';
@@ -76,10 +88,16 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Hide/show mobile nav
+   */
   toggleMobileNav() {
     this.showMobileNav = !this.showMobileNav;
   }
 
+  /**
+   * Listen to window resize event and hide mobile nav is window is wider than 950px
+   */
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (event.target.innerWidth >= 951) {
@@ -87,10 +105,15 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  /**
+   * Get admin nav items
+   * Set default currentSection
+   * Set default styles
+   */
   ngOnInit() {
     this.forestAdminNavItems = this.adminService.getAdminNavItems();
     this.util.setCurrentSection('');
-    this.top = '325px';
+    this.top = '0px';
     this.route = this.router.url.split('#')[0];
     this.track(new Event('scroll'));
   }

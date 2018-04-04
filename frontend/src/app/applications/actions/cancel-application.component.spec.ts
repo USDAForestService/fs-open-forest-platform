@@ -6,6 +6,7 @@ import { AlertService } from '../../_services/alert.service';
 import { UtilService } from '../../_services/util.service';
 import { CancelApplicationComponent } from './cancel-application.component';
 import { Observable } from 'rxjs/Observable';
+import { CamelToHyphensPipe } from '../../_pipes/camel-to-hyphens.pipe';
 
 @Component({
   selector: 'app-test-component-wrapper',
@@ -37,6 +38,7 @@ describe('Cancel application', () => {
         providers: [
           { provide: ApplicationService, useClass: MockApplicationService },
           { provide: AuthenticationService, useClass: MockApplicationService },
+          CamelToHyphensPipe,
           AlertService,
           UtilService
         ],

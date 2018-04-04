@@ -10,7 +10,8 @@ const forestService = {};
 
 /**
  * @function parseCuttingAreas - function to parse cutting areas JSON object.
- * @param {string} cuttingAreas
+ * @param {Object} cuttingAreas - forest cutting areas from database
+ * @return {Object} - parsed cutting areas
  */
 forestService.parseCuttingAreas = cuttingAreas => {
   try {
@@ -26,7 +27,8 @@ forestService.parseCuttingAreas = cuttingAreas => {
 
 /**
  * @function translateForestFromDatabaseToClient - function to translate database model to JSON object
- * @param {Object} input
+ * @param {Object} input -forest data from database
+ * @return {Object} - formatted data object
  */
 forestService.translateForestFromDatabaseToClient = input => {
   let startDate = moment(input.startDate);

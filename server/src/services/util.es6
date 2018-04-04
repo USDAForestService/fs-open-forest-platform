@@ -19,13 +19,22 @@ let util = {};
 util.ADMIN_ROLE = 'admin';
 util.USER_ROLE = 'user';
 
-/**  Enum for noncommercial application permit organization types. */
+/**
+* @function noncommercialOrgTypes - Enum for noncommercial application permit organization types.
+* @return {array} - organization types array
+*/
 util.noncommercialOrgTypes = ['Person', 'Corporation'];
 
-/**  UTC date format required by the middle layer API */
+/**
+* @function datetimeFormat - UTC date format required by the middle layer API
+* @return {string} - UTC date format
+*/
 util.datetimeFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
-/**  Enum for state codes. */
+/**
+* @function stateCodes - Enum for state codes.
+* @return {array} - US states array
+*/
 util.stateCodes = [
   'AK',
   'AL',
@@ -79,11 +88,15 @@ util.stateCodes = [
   'WY'
 ];
 
-/**  Enum for permit application status. */
+/**
+* @function statusOptions - Enum for permit application status.
+* @return {array} - array of application statuses
+*/
 util.statusOptions = ['Submitted', 'Incomplete', 'Hold', 'Review', 'Cancelled', 'Accepted', 'Rejected', 'Expired'];
 
 /**
- * Validate a UTC datetime string.
+ * @function validateDateTime - Validate a UTC datetime string.
+ * @return {boolean} - datetime string validity
  */
 util.validateDateTime = input => {
   return (
@@ -93,14 +106,16 @@ util.validateDateTime = input => {
 };
 
 /**
- * Get a sequelize connection.
+ * @function getSequelizeConnection - Get a sequelize connection.
+ * @return {Object} - Sequelize database connection object
  */
 util.getSequelizeConnection = () => {
   return new Sequelize(dbConfig);
 };
 
 /**
- * Authenticate to the middle layer.
+ * @function middleLayerAuth - Authenticate to the middle layer.
+ * @return {Object} - http request
  */
 util.middleLayerAuth = () => {
   const requestOptions = {
@@ -118,14 +133,18 @@ util.middleLayerAuth = () => {
 };
 
 /**
- * Get the extension from a file name.
+ * @function getExtension - Get the extension from a file name.
+ * @param {string} filename - filename
+ * @return {string} - extension from the filename
  */
 const getExtension = filename => {
   return filename.split('.').reverse()[0];
 };
 
 /**
- * Get the content type based on a file name.
+ * @function getContentType - Get the content type based on a file name.
+ * @param {string} filename - filename
+ * @return {string} - content type for the given file
  */
 util.getContentType = filename => {
   if (getExtension(filename) === 'pdf') {
@@ -149,28 +168,32 @@ util.getContentType = filename => {
 };
 
 /**
- * Check for testing environment.
+ * @function isLocalOrCI - Check for testing environment.
+ * @return {boolean} - environment is local or CI or not
  */
 util.isLocalOrCI = () => {
   return vcapConstants.isLocalOrCI;
 };
 
 /**
- * is production flag
+ * @function isProduction - is production flag
+ * @return {boolean} - NODE_ENV is production
  */
 util.isProduction = () => {
   return process.env.NODE_ENV === 'production';
 };
 
 /**
- * is staging flag
+ * @function isStaging - is staging flag
+ * @return {boolean} - NODE_ENV is staging
  */
 util.isStaging = () => {
   return process.env.NODE_ENV === 'staging';
 };
 
 /**
- * Set the request body's authenticated email based on the passport user.
+ * @function setAuthEmail - Set the request body's authenticated email based on the passport user.
+ * @param {Object} req - http request
  */
 util.setAuthEmail = req => {
   if (util.isLocalOrCI()) {
@@ -181,7 +204,9 @@ util.setAuthEmail = req => {
 };
 
 /**
- * Get the passport user from the request object.
+ * @function getUser - Get the passport user from the request object.
+ * @param {Object} req - http request
+ * @return {Object} - user object
  */
 util.getUser = req => {
   if (util.isLocalOrCI()) {
@@ -197,14 +222,19 @@ util.getUser = req => {
 };
 
 /**
- * Check that a user has permissions to view a permit application.
+ * @function hasPermissions - Check that a user has permissions to view a permit application.
+ * @param {Object} user - user Object
+ * @param {Object} applicationModel - application object
+ * @return {boolean} - is user admin or application created user
  */
 util.hasPermissions = (user, applicationModel) => {
   return user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
 };
 
 /**
- * Convert a camel case string to regular form.
+ * @function camelCaseToRegularForm - Convert a camel case string to regular form.
+ * @param {string} string - string input
+ * @return {string} - converted string
  */
 util.camelCaseToRegularForm = string => {
   const spaced = string.replace(/([A-Z])/g, ' $1');
@@ -213,7 +243,10 @@ util.camelCaseToRegularForm = string => {
 };
 
 /**
- * Get the business name or personal name based on the data in the permit application.
+ * @function businessNameElsePersonalName - Get the business name or personal name
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - business name out of application
  */
 util.businessNameElsePersonalName = application => {
   let businessName = application.applicantInfoOrganizationName;
@@ -224,14 +257,18 @@ util.businessNameElsePersonalName = application => {
 };
 
 /**
- * Create a random hex string.
+ * @function getRandomString - Create a random hex string.
+ * @param {integer} length - random string to be length
+ * @return {string} - random string
  */
 util.getRandomString = length => {
   return crypto.randomBytes(length).toString('hex');
 };
 
 /**
- * Get the assigned forests to the christmas trees forest admins by email address
+ * @function getAdminForests - Get the assigned forests to the christmas trees forest admins by email address
+ * @param {string} adminUsername - admin username
+ * @return {array} - assigned forests for the given user
  */
 util.getAdminForests = adminUsername => {
   const user = vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername);
@@ -242,12 +279,22 @@ util.getAdminForests = adminUsername => {
   }
 };
 
+/**
+* @function getUserRole - Check if the given user is admin, return user role if not find
+* @param {string} adminUsername - admin user name
+* @return {string} - user role ADMIN or USER
+*/
 util.getUserRole = adminUsername => {
-  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername)
-    ? util.ADMIN_ROLE
-    : util.USER_ROLE;
+  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
+    util.USER_ROLE;
 };
 
+/**
+* @function handleErrorResponse - Handle database errors with http response
+* @param {Object} error - error object from sequelize error
+* @param {Object} res - http response
+* @return {Object} - http response
+*/
 util.handleErrorResponse = (error, res) => {
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({
@@ -263,7 +310,8 @@ util.handleErrorResponse = (error, res) => {
 util.request = request;
 
 /**
- * get S3 credentials
+ * @function getS3 - get S3 credentials
+ * @return {Object} - AWS S3 object with credentials
  */
 util.getS3 = () => {
   // Initialize our S3 BUCKET connection for file attachments

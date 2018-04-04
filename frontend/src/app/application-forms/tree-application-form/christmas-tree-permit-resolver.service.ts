@@ -9,6 +9,10 @@ import { ChristmasTreesApplicationService } from '../../trees/_services/christma
 export class ChristmasTreePermitResolver implements Resolve<any> {
   constructor(private service: ChristmasTreesApplicationService, private router: Router) {}
 
+  /**
+   * Resolve data required for christmas tree permit ahead of page load.
+   * @returns  Christmas tree permit
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const permitId = route.paramMap.get('permitId');
     const forest = route.paramMap.get('id');

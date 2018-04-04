@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
 import { MarkdownService } from 'ngx-md';
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 import { forest } from '../../../_mocks/forest.mock';
 
@@ -28,7 +28,7 @@ describe('TreeGuidelinesComponent', () => {
         declarations: [TreeGuidelinesComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
-          ChristmasTreesService,
+          ChristmasTreesInfoService,
           { provide: MarkdownService, useClass: MockMarkdownService },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
@@ -64,7 +64,7 @@ describe('TreeGuidelinesComponent', () => {
           'Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'
         )
       ).toEqual(
-        'Test 12 and 6 and 6 and Dec. 2 - 9, 2017 and Dec. 2 - 10, 2017 and Nov. 1, 2017 -  Jan. 6, 2018 and Nov. 27 - Dec. 10, 2017'
+        'Test 12 and 6 and 6 and Dec 2 - 9, 2017 and Dec 2 - 10, 2017 and Nov 1, 2017 -  Jan 6, 2018 and Nov 27 - Dec 10, 2017'
       );
     });
   });
@@ -91,7 +91,7 @@ describe('TreeGuidelinesComponent', () => {
       fixture.detectChanges();
 
       expect(component.forest.isSeasonOpen).toBeFalsy();
-      expect(component.forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan. 2, 2100.');
+      expect(component.forest.seasonOpenAlert).toEqual('Online permits become available for purchase on Jan 2, 2100.');
     });
 
     it('should set the forest isSeasonOpen and seasonOpenAlert when season not configured', () => {

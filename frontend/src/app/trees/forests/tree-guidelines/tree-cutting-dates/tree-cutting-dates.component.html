@@ -1,12 +1,12 @@
 <div class="usa-grid" id="forest-cutting-dates-container">
   <div class="usa-width-one-half tree-primary-alt" id="forest-cutting-dates">
     <h3 id="cutting-season-dates-heading">
-      <svg class="float-left icon" width="48" height="48" viewBox="0 0 66 66" aria-hidden="true">
-        <use xlink:href="/assets/img/season-dates-icon.svg#season-date-icon" fill="white"/>
-      </svg>
+      <img class="float-left icon season-dates-icon" alt="season-dates" src="/assets/img/site-wide/season-dates-icon.svg">
       Season dates
     </h3>
-    <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">{{forest.startDate | date: 'MMM. d, yyyy' }} - {{forest.endDate | date: 'MMM. d, yyyy'}}</div>
+    <div *ngIf="forest.isSeasonOpen || forest.isSeasonConfigured" id="cutting-season-start-end-date">
+      {{forest.startDate | datex: 'MMM D, YYYY' }} - {{forest.endDate | datex: 'MMM D, YYYY'}}
+    </div>
     <div *ngIf="!forest.isSeasonOpen && !forest.isSeasonConfigured" id="cutting-season-start-end-date">Dates not yet available.</div>
   </div>
 </div>

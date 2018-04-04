@@ -4,17 +4,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class ForestsAdminResolver implements Resolve<any> {
   constructor(
-    private service: ChristmasTreesService,
+    private service: ChristmasTreesInfoService,
     private authenticationService: AuthenticationService,
     private router: Router) {}
 
+  /**
+   * @returns Forests associated with user
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     let result;
     const forests = this.service.getAll();
@@ -43,7 +46,4 @@ export class ForestsAdminResolver implements Resolve<any> {
       return Observable.of(null);
     });
   }
-
-
-
 }

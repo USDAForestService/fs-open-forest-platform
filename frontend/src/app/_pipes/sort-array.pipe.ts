@@ -4,6 +4,10 @@ import * as moment from 'moment/moment';
 @Pipe({ name: 'SortArray' })
 @Injectable()
 export class SortArray implements PipeTransform {
+
+  /**
+   * @returns Sorted array
+   */
   transform(array: Array<any>, args: string): Array<any> {
     if (typeof args[0] === 'undefined') {
       return array;

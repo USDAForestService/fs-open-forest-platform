@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-root',
@@ -32,14 +33,18 @@ export class AppComponent implements OnInit {
         }
 
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
-          this.setLoggedInMessage();
+          this.setLoggedInMessage(this.authentication.user);
         } else {
+          localStorage.removeItem('showLoggedIn');
           this.setStatus();
         }
       }
     });
   }
 
+  /**
+   *  Set status message
+   */
   setStatus() {
     if (localStorage.getItem('status')) {
       this.status = JSON.parse(localStorage.getItem('status'));
@@ -52,16 +57,29 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setLoggedInMessage() {
-    this.status = {
-      heading: '',
-      message: `You have successfully logged in as ${this.authentication.user.email}.`
-    };
+  /**
+   *  Set logged in message
+   */
+  setLoggedInMessage(user) {
+    if (user && user.email) {
+      this.status = {
+        heading: '',
+        message: `You have successfully logged in as ${user.email}.`
+      };
+    }
     localStorage.removeItem('showLoggedIn');
   }
 
+  /**
+   *  Set this.currentUrl, and scroll to top of page
+   */
   ngOnInit() {
     this.currentUrl = this.router.url;
     window.scrollTo(0, 0);
+    moment.updateLocale('en', {
+      meridiem(hour, minute, isLowerCase) {
+        return hour < 12 ? 'a.m.' : 'p.m.';
+      }
+    });
   }
 }

@@ -4,11 +4,17 @@
 
     <h1 id="skip-nav-target" tabindex="-1">Update Forest Season Dates</h1>
 
-    <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+    <div id="season-updated-alert-container" tabindex="-1">
 
-    <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info">
-      <div class="usa-alert-body">
-        <p class="usa-alert-text">{{ updateStatus }}</p>
+      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+
+      <div id="season-updated-alert" [hidden]="!updateStatus" class="usa-alert usa-alert-info" role="alert" aria-label="info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">{{ updateStatus }}
+            <br/>
+            <a routerLink="/christmas-trees/forests/{{forest.forestAbbr}}">Click here to view the updated information.</a>
+          </p>
+        </div>
       </div>
     </div>
 
@@ -33,7 +39,7 @@
         </div>
       </div>
 
-      <button id="update-dates" class="usa-button-primary-alt usa-button-big" type="submit">Update season dates</button>
+      <button id="update-dates" class="usa-button-primary usa-button-big" type="submit">Update season dates</button>
 
     </form>
 

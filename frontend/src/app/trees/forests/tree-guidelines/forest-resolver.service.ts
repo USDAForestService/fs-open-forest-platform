@@ -4,12 +4,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 
-import { ChristmasTreesService } from '../../_services/christmas-trees.service';
+import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 
 @Injectable()
 export class ForestResolver implements Resolve<any> {
-  constructor(private service: ChristmasTreesService) {}
+  constructor(private service: ChristmasTreesInfoService) {}
 
+  /**
+   *  @returns forest with markdown content
+   */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.paramMap.get('id');
 

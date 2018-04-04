@@ -12,6 +12,7 @@ const passport = require('passport');
 const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const url = require('url');
 
 const loginGov = {};
 
@@ -19,9 +20,8 @@ const loginGov = {};
 const basicAuthOptions = {};
 if (vcapConstants.LOGIN_GOV_IDP_USERNAME && vcapConstants.LOGIN_GOV_IDP_PASSWORD) {
   basicAuthOptions.headers = {
-    Host: vcapConstants.LOGIN_GOV_HOST,
-    Authorization:
-      'Basic ' +
+    Host: url.parse(vcapConstants.LOGIN_GOV_BASE_URL).hostname,
+    Authorization: 'Basic ' +
       new Buffer(vcapConstants.LOGIN_GOV_IDP_USERNAME + ':' + vcapConstants.LOGIN_GOV_IDP_PASSWORD).toString('base64')
   };
 }
@@ -43,7 +43,7 @@ loginGov.params = {
 loginGov.setup = () => {
   Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
-  Issuer.discover(vcapConstants.LOGIN_GOV_DISCOVERY_URL)
+  Issuer.discover(`${vcapConstants.LOGIN_GOV_BASE_URL}.well-known/openid-configuration`)
     .then(loginGovIssuer => {
       loginGov.issuer = loginGovIssuer;
       let keys = {
@@ -51,31 +51,27 @@ loginGov.setup = () => {
       };
       // a joseKeystore is required by openid-client
       jose.JWK.asKeyStore(keys).then(joseKeystore => {
-        let client = new loginGovIssuer.Client(
-          {
-            client_id: vcapConstants.LOGIN_GOV_ISSUER,
-            token_endpoint_auth_method: 'private_key_jwt',
-            id_token_signed_response_alg: 'RS256'
-          },
-          joseKeystore
+        let client = new loginGovIssuer.Client({
+          client_id: vcapConstants.LOGIN_GOV_ISSUER,
+          token_endpoint_auth_method: 'private_key_jwt',
+          id_token_signed_response_alg: 'RS256'
+        },
+        joseKeystore
         );
         // instantiate the passport strategy
         passport.use(
           'oidc',
-          new OpenIDConnectStrategy(
-            {
-              client: client,
-              params: loginGov.params
-            },
-            (tokenset, done) => {
-              return done(null, {
-                email: tokenset.claims.email,
-                role: 'user',
-                // the token is required to logout of login.gov
-                token: tokenset.id_token
-              });
-            }
-          )
+          new OpenIDConnectStrategy({
+            client: client,
+            params: loginGov.params
+          }, (tokenset, done) => {
+            return done(null, {
+              email: tokenset.claims.email,
+              role: 'user',
+              // the token is required to logout of login.gov
+              token: tokenset.id_token
+            });
+          })
         );
       });
     })
@@ -104,8 +100,7 @@ loginGov.router.get(
   // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
   passport.authenticate('oidc', {
     failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
-  }),
-  (req, res) => {
+  }), (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
     return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`);
   }

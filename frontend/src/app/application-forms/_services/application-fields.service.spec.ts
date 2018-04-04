@@ -6,6 +6,7 @@ import { ApplicationFieldsService } from './application-fields.service';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import * as sinon from 'sinon';
 
 describe('ApplicationFieldsService', () => {
   let service: ApplicationFieldsService;
@@ -184,4 +185,11 @@ describe('ApplicationFieldsService', () => {
     expect(form.get('data1').valid).toBeFalsy();
     expect(form.get('data2').valid).toBeTruthy();
   });
+
+  it('should be able to access setTemporaryIdToNull function', () => {
+    const spy = sinon.spy(service, 'setTemporaryIdToNull');
+    service.setTemporaryIdToNull(null);
+    expect(spy.called).toBeTruthy();
+  });
+
 });
