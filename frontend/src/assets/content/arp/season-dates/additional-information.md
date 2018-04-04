@@ -2,11 +2,11 @@
 
 ### You can cut your tree at:
 
-Cutting Area | Cutting Dates | Cutting Times | Permit Sales
--------------|-------------|-------------
-Sulphur Ranger District | {{sulphurDate}} |  | {{sulphurDate}}
-Elk Creek special cutting area | {{elkCreekDate}} | {{elkCreekTime}} | {{sulphurDate}}
-Red Feather special cutting area | {{redFeatherLakesDate}} | {{redFeatherLakesTime}} | {{canyonLakesDate}}
+Cutting Areas | Cutting Dates
+-------------|-------------
+Sulphur Ranger District | {{sulphurDate}}
+Elk Creek special cutting area | {{elkCreekDate}} {{elkCreekTime}}
+Red Feather special cutting area | {{redFeatherLakesDate}} {{redFeatherLakesTime}}
 
 * Boulder and Clear Creek Ranger Districts prohibit tree cutting; Canyon Lakes Ranger District prohibits tree cutting outside of the Red Feather Lakes cutting area.
 
