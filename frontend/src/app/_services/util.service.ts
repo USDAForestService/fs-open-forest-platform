@@ -102,7 +102,7 @@ export class UtilService {
       if (element) {
         element.scrollIntoView(true);
         const scrolledY = window.scrollY;
-        window.scroll(0, scrolledY - 80)
+        window.scroll(0, scrolledY - 80);
         document.getElementById(fragment).focus();
         return fragment;
       }
