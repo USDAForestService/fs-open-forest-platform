@@ -50,7 +50,7 @@ const translatePermitFromClientToDatabase = input => {
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate'],
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone'],
       order: [['id', 'ASC']]
     })
     .then(results => {
