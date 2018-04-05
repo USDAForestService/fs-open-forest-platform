@@ -7,14 +7,16 @@ export class ChristmasTreesAdminService {
   /**
    * Set start and end date on supplied form, if form has dateTimeRange
    */
-  setStartEndDate(formGroup, form) {
-    if (formGroup && form.get('dateTimeRange')) {
-      form.get('dateTimeRange.startMonth').setValue(moment(formGroup.startDate).format('MM'));
-      form.get('dateTimeRange.startDay').setValue(moment(formGroup.startDate).format('DD'));
-      form.get('dateTimeRange.startYear').setValue(moment(formGroup.startDate).format('YYYY'));
-      form.get('dateTimeRange.endMonth').setValue(moment(formGroup.endDate).format('MM'));
-      form.get('dateTimeRange.endDay').setValue(moment(formGroup.endDate).format('DD'));
-      form.get('dateTimeRange.endYear').setValue(moment(formGroup.endDate).format('YYYY'));
+  setStartEndDate(forest, form) {
+    if (forest && form.get('dateTimeRange')) {
+      const startDate = moment.tz(forest.startDate, forest.timezone);
+      const endDate = moment.tz(forest.endDate, forest.timezone);
+      form.get('dateTimeRange.startMonth').setValue(startDate.format('MM'));
+      form.get('dateTimeRange.startDay').setValue(startDate.format('DD'));
+      form.get('dateTimeRange.startYear').setValue(startDate.format('YYYY'));
+      form.get('dateTimeRange.endMonth').setValue(endDate.format('MM'));
+      form.get('dateTimeRange.endDay').setValue(endDate.format('DD'));
+      form.get('dateTimeRange.endYear').setValue(endDate.format('YYYY'));
     }
   }
 
