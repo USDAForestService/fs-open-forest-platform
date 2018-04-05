@@ -35,19 +35,18 @@
     margin-top: 0;
   }
 
+  button {
+    margin-left: 2rem;
+    @media (max-width: $medium-screen) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
   #sticky-bar-forestname {
     display: none;
     @media (min-width: $nav-width) {
         display: inline-block;
-    }
-  }
-
-  @media (max-width: $medium-screen) {
-    button {
-      width: 100%;
-    }
-    #sticky-bar-desc-container {
-      display: none;
     }
   }
 
@@ -58,6 +57,9 @@
   #sticky-bar-desc-container {
     span {
       padding: 2rem;
+    }
+    @media (max-width: $medium-screen) {
+      display: none;
     }
   }
 
