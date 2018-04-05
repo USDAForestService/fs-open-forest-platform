@@ -21,15 +21,13 @@
   }
   &.top {
     top: 0;
-    @media (min-width: $nav-width) {
-      box-shadow: 0px 10px 20px $dark-grey;
-    }
+    box-shadow: 0px 4px 20px $dark-grey;
   }
   &.bottom {
     left: 0;
     padding: 0;
     bottom: 0;
-    box-shadow: 0px -10px 20px $dark-grey;
+    box-shadow: 0px -4px 20px $dark-grey;
   }
 
   h3 {
