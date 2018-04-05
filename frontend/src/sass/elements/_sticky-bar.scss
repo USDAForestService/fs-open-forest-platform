@@ -21,15 +21,13 @@
   }
   &.top {
     top: 0;
-    @media (min-width: $nav-width) {
-      box-shadow: 0px 10px 20px $dark-grey;
-    }
+    box-shadow: 0px 4px 20px $dark-grey;
   }
   &.bottom {
     left: 0;
     padding: 0;
     bottom: 0;
-    box-shadow: 0px -10px 20px $dark-grey;
+    box-shadow: 0px -4px 20px $dark-grey;
   }
 
   h3 {
@@ -37,19 +35,18 @@
     margin-top: 0;
   }
 
+  button {
+    margin-left: 2rem;
+    @media (max-width: $medium-screen) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
   #sticky-bar-forestname {
     display: none;
     @media (min-width: $nav-width) {
         display: inline-block;
-    }
-  }
-
-  @media (max-width: $medium-screen) {
-    button {
-      width: 100%;
-    }
-    #sticky-bar-desc-container {
-      display: none;
     }
   }
 
@@ -61,9 +58,10 @@
     span {
       padding: 2rem;
     }
+    @media (max-width: $medium-screen) {
+      display: none;
+    }
   }
-
-
 }
 
 .sticky-bar-label {

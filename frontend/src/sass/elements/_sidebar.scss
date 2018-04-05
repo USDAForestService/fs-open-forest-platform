@@ -3,6 +3,9 @@
   top: 162px;
   right: 0;
   z-index: 999;
+  &.shadow {
+    box-shadow: 0px 4px 20px $dark-grey;
+  }
   @media (min-width: $small-screen) {
     top: 140px;
   }
