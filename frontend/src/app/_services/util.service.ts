@@ -100,7 +100,9 @@ export class UtilService {
       const element = document.querySelector('#' + fragment);
       this.currentSubSection = fragment;
       if (element) {
-        element.scrollIntoView();
+        element.scrollIntoView(true);
+        const scrolledY = window.scrollY;
+        window.scroll(0, scrolledY - 80);
         document.getElementById(fragment).focus();
         return fragment;
       }
