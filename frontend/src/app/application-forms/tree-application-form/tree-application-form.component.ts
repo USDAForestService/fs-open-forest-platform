@@ -110,6 +110,34 @@ export class TreeApplicationFormComponent implements OnInit {
   }
 
   /**
+  * handle the data of an existing application
+  */
+  handleData(data, isCancel) {
+    if (data.forest) {
+      this.forest = data.forest;
+
+      if (this.forest) {
+        this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
+      }
+
+      this.checkSeasonStartDate(this.forest);
+      this.permit = data.permit;
+      // cancel any permits coming here that are still initiated and not yet completed
+      if (this.permit && isCancel && this.permit.status === 'Initiated') {
+        this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
+          this.permit = updated;
+          this.showCancelAlert = true;
+        });
+      }
+
+      this.titleService.setTitle(
+        'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
+      );
+      this.createForm(data, this.formBuilder);
+    }
+  }
+
+  /**
    * Get data from route resolver
    */
   ngOnInit() {
@@ -133,28 +161,7 @@ export class TreeApplicationFormComponent implements OnInit {
     });
 
     this.route.data.subscribe(data => {
-      if (data.forest) {
-        this.forest = data.forest;
-
-        if (this.forest) {
-          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
-        }
-
-        this.checkSeasonStartDate(this.forest);
-        this.permit = data.permit;
-        // cancel any permits coming here that are still initiated and not yet completed
-        if (this.permit && isCancel && this.permit.status === 'Initiated') {
-          this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
-            this.permit = updated;
-            this.showCancelAlert = true;
-          });
-        }
-
-        this.titleService.setTitle(
-          'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
-        );
-        this.createForm(data, this.formBuilder);
-      }
+      this.handleData(data, isCancel);
     });
   }
 

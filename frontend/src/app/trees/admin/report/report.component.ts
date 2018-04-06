@@ -154,8 +154,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
           moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
           moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
         )
-        .subscribe(
-          results => {
+        .subscribe(results => {
             this.result = {
               numberOfPermits: results.numberOfPermits,
               sumOfTrees: results.sumOfTrees,

@@ -32,20 +32,22 @@ export class ErrorInterceptor implements HttpInterceptor {
       .catch((err: HttpErrorResponse) => {
         this.util.setRequests(0);
         this.util.setProgress(false);
-        if (err.status === 404) {
-          localStorage.removeItem('showLoggedIn');
-          localStorage.removeItem('requestingUrl');
-          this.router.navigate(['/404']);
-        } else if (err.status === 403) {
-          localStorage.removeItem('showLoggedIn');
-          localStorage.removeItem('requestingUrl');
-          this.router.navigate(['/access-denied']);
-        } else if (err.status === 0) {
-          localStorage.setItem('requestingUrl', window.location.pathname);
-          localStorage.removeItem('showLoggedIn');
-          this.router.navigate(['/500']);
-        }
+        this.handleRoute(err.status);
         return Observable.throw(err);
       });
+  }
+  /*
+  * handle route for the error codes 404, 403, and 500
+  */
+  handleRoute(status) {
+    if (status === 404 || status === 403 ) {
+      localStorage.removeItem('showLoggedIn');
+      localStorage.removeItem('requestingUrl');
+      this.router.navigate(['/' + status]);
+    } else if (status === 0) {
+      localStorage.setItem('requestingUrl', window.location.pathname);
+      localStorage.removeItem('showLoggedIn');
+      this.router.navigate(['/500']);
+    }
   }
 }
