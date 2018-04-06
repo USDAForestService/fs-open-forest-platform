@@ -8,6 +8,7 @@ export const environment = {
   apiUrl: 'http://localhost:8080/',
   buildDate: new Date(),
   version: 'DEV',
+  envName: 'dev',
   changeRequestForm: 'https://docs.google.com/forms/d/e/1FAIpQLSca7taTXY7xUTDvcnyR7rf7jkfvinBPtGqbNWgLBd3Dy6kH4Q/viewform'
 
 };
