@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
@@ -114,22 +114,22 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       const newStart = moment.utc(this.form.get('dateTimeRange.startDateTime').value).subtract(1, 'hour');
       const newEnd = moment.utc(this.form.get('dateTimeRange.endDateTime').value).subtract(2, 'hour');
       this.service
-        .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
-        .subscribe(
-          (updatedForest) => {
-            this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
-              'MMM DD, YYYY'
-            )} to  ${newEnd.format('MMM DD, YYYY')}.`;
-            this.doc.getElementById('season-updated-alert-container').focus();
+      .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
+      .subscribe(
+        (updatedForest) => {
+          this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
+            'MMM DD, YYYY'
+          )} to  ${newEnd.format('MMM DD, YYYY')}.`;
+          this.doc.getElementById('season-updated-alert-container').focus();
 
-            const index = this.forests.indexOf(this.forests.find(forest => forest.id === updatedForest.id));
-            this.forests[index] = updatedForest;
-          },
-          err => {
-            this.apiErrors = err;
-            this.doc.getElementById('season-updated-alert-container').focus();
-          }
-        );
+          const index = this.forests.indexOf(this.forests.find(forest => forest.id === updatedForest.id));
+          this.forests[index] = updatedForest;
+        },
+        err => {
+          this.apiErrors = err;
+          this.doc.getElementById('season-updated-alert-container').focus();
+        }
+      );
     }
   }
 }

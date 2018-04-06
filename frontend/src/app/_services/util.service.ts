@@ -113,11 +113,10 @@ export class UtilService {
    * Format string for use as ID (spaces to dashes, lowercase)
    */
   createId(value: string) {
-    const id = value
+    return value
       .replace(/[^A-Z0-9]+/gi, '-')
       .toLowerCase()
       .substring(0, 20);
-    return id;
   }
 
   /**

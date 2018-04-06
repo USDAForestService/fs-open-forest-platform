@@ -1,5 +1,5 @@
-import { FrontendPage, HelpMePick } from '../authenticated/special-uses/app.po';
-import { browser, element, by, Key } from 'protractor';
+import { FrontendPage } from '../authenticated/special-uses/app.po';
+import { browser, by, element, Key } from 'protractor';
 
 describe('frontend App', () => {
   let page: FrontendPage;

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';

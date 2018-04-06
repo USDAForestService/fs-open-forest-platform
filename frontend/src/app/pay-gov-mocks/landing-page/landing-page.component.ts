@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { alphanumericValidator } from '../../application-forms/validators/alphanumeric-validation';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';

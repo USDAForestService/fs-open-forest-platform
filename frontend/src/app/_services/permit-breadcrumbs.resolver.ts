@@ -22,11 +22,9 @@ export class PermitBreadcrumbsResolver extends McBreadcrumbsResolver {
       { title: 'Permit confirmation', id: `christmas-trees/forests/${forestAbbr}/applications/permits/${route.params['permitId']}` }
     ];
 
-    const crumbs = paths.map((path) => ({
+    return paths.map((path) => ({
       text: path.title,
       path: super.getFullPath(route.parent) + '/' + path.id
     }));
-
-    return crumbs;
   }
 }
