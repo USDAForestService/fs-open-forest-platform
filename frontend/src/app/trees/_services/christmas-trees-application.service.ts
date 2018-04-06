@@ -134,7 +134,7 @@ export class ChristmasTreesApplicationService {
   /**
    * @returns Error Observable
    */
-  resolverError(errors, route) {
+  resolverError(errors: any[], route) {
     for (const error of errors) {
       if (error && error.status === 404) {
         this.router.navigate([route]);

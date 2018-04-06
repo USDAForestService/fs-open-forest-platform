@@ -15,6 +15,7 @@ export class ForestFinderComponent implements OnInit {
   forests = [];
   selectedForest = null;
   itemsPerRow = 2;
+  showForestSelectError = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,8 +48,11 @@ export class ForestFinderComponent implements OnInit {
    */
   goToForest(forest) {
     if (forest) {
+      this.showForestSelectError = false;
       const navTo = '/christmas-trees/forests/' + forest.forestAbbr;
       this.router.navigate([navTo]);
+    } else {
+      this.showForestSelectError = true;
     }
   }
 }
