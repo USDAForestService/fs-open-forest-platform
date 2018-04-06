@@ -1,6 +1,6 @@
 import { ApplicationService } from '../../_services/application.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-application-submitted',

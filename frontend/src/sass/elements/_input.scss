@@ -94,10 +94,9 @@ input.ng-touched.invaliddate,
   }
 
   &.file-selected {
-    background-image: url(/assets/img/site-wide/checkmark.svg);
     background-position-x: 94%;
     background-position-y: 4%;
-    background-repeat: no-repeat;
+    background: url(/assets/img/site-wide/checkmark.svg) no-repeat;
     background-size: 5%;
     @media (min-width: $medium-screen) {
       background-position-x: 94%;

@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 
 

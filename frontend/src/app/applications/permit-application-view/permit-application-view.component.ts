@@ -2,7 +2,7 @@ import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({

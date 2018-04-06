@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -7,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
 import { UtilService } from './util.service';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ApplicationService {

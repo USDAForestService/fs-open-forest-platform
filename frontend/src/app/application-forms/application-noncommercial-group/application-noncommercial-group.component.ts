@@ -5,12 +5,10 @@ import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
-import { DateTimeRangeComponent } from '../fields/date-time-range.component';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-application-noncommercial-group',

@@ -1,14 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthenticationService } from '../_services/authentication.service';
 import { LoggedInComponent } from './logged-in.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MockRouter } from '../_mocks/routes.mock';
-import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { Type } from '@angular/core';
+import { Router } from '@angular/router';
 
 class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {

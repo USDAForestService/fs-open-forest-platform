@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ForestFinderComponent } from './forest-finder.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';

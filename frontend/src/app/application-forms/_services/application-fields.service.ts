@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
@@ -199,7 +199,7 @@ export class ApplicationFieldsService {
 
   loopChildControlsForErrors(formGroup: FormGroup) {
     if (formGroup.controls) {
-      const errors = (<any>Object).keys(formGroup.controls).some(control => {
+      return (<any>Object).keys(formGroup.controls).some(control => {
         if (formGroup.controls[control].errors && formGroup.controls[control].touched) {
           return true;
         }
@@ -207,7 +207,6 @@ export class ApplicationFieldsService {
           this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]);
         }
       });
-      return errors;
     }
     return;
   }

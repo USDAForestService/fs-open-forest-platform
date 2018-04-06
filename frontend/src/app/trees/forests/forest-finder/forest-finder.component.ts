@@ -1,6 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import 'rxjs/add/observable/of';
 

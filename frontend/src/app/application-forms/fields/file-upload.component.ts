@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, DoCheck, OnInit, Output } from '@angular/core';
-import { FileUploader, FileLikeObject, FileItem } from 'ng2-file-upload';
+import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { FileLikeObject, FileUploader } from 'ng2-file-upload';
 import { FormControl } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
