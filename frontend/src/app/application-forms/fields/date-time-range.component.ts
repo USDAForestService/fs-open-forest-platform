@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Hours, Minutes } from '../../_models/constants';
 import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { DateTimeRangeService } from '../_services/date-time-range.service';
 import * as moment from 'moment/moment';
 
 @Component({
@@ -34,7 +35,11 @@ export class DateTimeRangeComponent implements OnInit {
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
+  constructor(
+    private dateTimeRangeService: DateTimeRangeService,
+    private formBuilder: FormBuilder,
+    public afs: ApplicationFieldsService
+  ) {}
 
   /**
    *  Intitialize date time form
@@ -153,26 +158,12 @@ export class DateTimeRangeComponent implements OnInit {
   }
 
   /**
-   *  Return true if has start dates but no end dates
-   */
-  private checkHasStartAndNoEnd(values) {
-    return (
-      values.startMonth &&
-      values.startDay &&
-      (values.startYear && values.startYear.toString().length === 4) &&
-      !values.endMonth &&
-      !values.endDay &&
-      !values.endYear
-    );
-  }
-
-  /**
    *  If all start dates are filled in, copy values to end dates
    */
   startDateChangeHandler(values) {
-    if (this.checkHasStartAndNoEnd(values)) {
+    if (this.dateTimeRangeService.checkHasStartAndNoEnd(values)) {
       const today = moment();
-      const startDateTime = this.parseDateTime(values.startYear, values.startMonth, values.startDay, 0, 0, 'AM');
+      const startDateTime = this.dateTimeRangeService.parseDateTime(values.startYear, values.startMonth, values.startDay, 0, 0, 'AM');
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
       if (this.dateStatus.startAfterToday) {
         this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth } });
@@ -183,41 +174,11 @@ export class DateTimeRangeComponent implements OnInit {
   }
 
   /**
-   * Combine individual date fields to one moment date/time object
-   * @returns      moment object
-   */
-  parseDateTime(year, month, day, hour, minutes, period) {
-    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm a');
-  }
-
-  /**
-   *  Return true if all date time fields are filled in
-   */
-  private checkHasAllDateValues(values) {
-    return (
-      values.startMonth &&
-      values.startDay &&
-      values.startYear &&
-      values.startYear.toString().length === 4 &&
-      values.startHour &&
-      values.startMinutes &&
-      values.startPeriod &&
-      values.endMonth &&
-      values.endDay &&
-      values.endYear &&
-      values.endYear.toString().length === 4 &&
-      values.endHour &&
-      values.endMinutes &&
-      values.endPeriod
-    );
-  }
-
-  /**
    *  If all date time fields have values, create moment objects for startDateTime and endDateTime
    */
   dateTimeRangeValidator(values) {
-    if (this.checkHasAllDateValues(values)) {
-      const startDateTime = this.parseDateTime(
+    if (this.dateTimeRangeService.checkHasAllDateValues(values)) {
+      const startDateTime = this.dateTimeRangeService.parseDateTime(
         values.startYear,
         values.startMonth,
         values.startDay,
@@ -225,7 +186,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.startMinutes,
         values.startPeriod
       );
-      const endDateTime = this.parseDateTime(
+      const endDateTime = this.dateTimeRangeService.parseDateTime(
         values.endYear,
         values.endMonth,
         values.endDay,
@@ -253,7 +214,6 @@ export class DateTimeRangeComponent implements OnInit {
     };
     this.dateTimeRange.controls.startDateTime.setErrors(null);
     this.dateTimeRange.controls.endDateTime.setErrors(null);
-
   }
 
   /**
@@ -310,7 +270,7 @@ export class DateTimeRangeComponent implements OnInit {
   /**
    * Mark as touched and set errors for form control
    */
-  private setError(requiredCondition, control, errors, exclude = false) {
+  setError(requiredCondition, control, errors, exclude = false) {
     if (!requiredCondition && !exclude) {
       this.dateTimeRange.controls[control].markAsTouched();
       this.dateTimeRange.controls[control].setErrors(errors);
@@ -319,5 +279,4 @@ export class DateTimeRangeComponent implements OnInit {
       return true;
     }
   }
-
 }
