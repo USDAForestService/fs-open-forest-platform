@@ -7,20 +7,54 @@ import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import * as sinon from 'sinon';
+import { DOCUMENT } from '@angular/common';
+
+class MockDocument {
+  getElementById() {
+    return true;
+  }
+}
 
 describe('ApplicationFieldsService', () => {
+
   let service: ApplicationFieldsService;
-  let formBuilder: FormBuilder;
 
   beforeEach(() => {
-    service = new ApplicationFieldsService(formBuilder);
-    formBuilder = new FormBuilder();
     TestBed.configureTestingModule({
-      providers: [ApplicationFieldsService],
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [RouterTestingModule]
+      providers: [
+        ApplicationFieldsService,
+        FormBuilder
+      ]
     });
   });
+
+  beforeEach(inject([ApplicationFieldsService], (svc) => {
+    service = svc;
+  }));
+
+  it('should return true if error', () => {
+    const dataField = new FormControl('');
+    dataField.markAsTouched();
+    dataField.setErrors(['error']);
+
+    expect(service.hasError(dataField)).toBeTruthy();
+  });
+
+  it('should return error id error', () => {
+    const dataField = new FormControl('');
+    dataField.markAsTouched();
+    dataField.setErrors(['error']);
+
+    expect(service.labelledBy(dataField, 'label-id', 'error-id')).toEqual('error-id');
+  });
+
+  it('should return label id if no error', () => {
+    const dataField = new FormControl('');
+    dataField.markAsTouched();
+
+    expect(service.labelledBy(dataField, 'label-id', 'error-id')).toEqual('label-id');
+  });
+
 
   it('change validation when toggle field is checked', () => {
     const dataField = new FormControl('');
@@ -51,7 +85,8 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should add address and remove address control', () => {
-    const parentForm = formBuilder.group({
+
+    const parentForm = service.formBuilder.group({
       name: ['']
     });
 
@@ -63,6 +98,7 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should touch a field and update validity', () => {
+
     const dataField = new FormControl('', [Validators.required]);
 
     service.touchField(dataField);
@@ -71,7 +107,8 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should touch all fields and update their validity', () => {
-    const form = formBuilder.group({
+
+    const form = service.formBuilder.group({
       name: ['', [Validators.required]],
       name2: ['', [Validators.required]]
     });
@@ -82,7 +119,7 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should check if control has errors', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       name: ['', [Validators.required]],
       name2: ['', [Validators.required]]
     });
@@ -95,11 +132,11 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should check child for errors', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       name: [''],
-      child: formBuilder.group({
+      child: service.formBuilder.group({
         childName: ['', [Validators.required, Validators.email, alphanumericValidator()]],
-        secondChild: formBuilder.group({
+        secondChild: service.formBuilder.group({
           childName: ['', [Validators.required, Validators.email, alphanumericValidator()]]
         })
       })
@@ -118,7 +155,7 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should add and remove evening phone', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       name: ['']
     });
     service.addAdditionalPhone(form);
@@ -131,9 +168,9 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should add or remove address validation', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       name: [''],
-      address: formBuilder.group({
+      address: service.formBuilder.group({
         mailingAddress: [''],
         mailingAddress2: [''],
         mailingCity: [''],
@@ -151,7 +188,7 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should update validation when toggle is clicked', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       data: [''],
       toggle: [false]
     });
@@ -163,7 +200,7 @@ describe('ApplicationFieldsService', () => {
   });
 
   it('should switch validation when toggle is clicked', () => {
-    const form = formBuilder.group({
+    const form = service.formBuilder.group({
       data1: ['', [Validators.required]],
       data2: [''],
       toggle: [false]
@@ -190,6 +227,68 @@ describe('ApplicationFieldsService', () => {
     const spy = sinon.spy(service, 'setTemporaryIdToNull');
     service.setTemporaryIdToNull(null);
     expect(spy.called).toBeTruthy();
+  });
+
+  describe('get invalid element', () => {
+    let sandbox;
+    beforeEach(() => {
+      sandbox = sinon.sandbox.create();
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('should get invalid element by id', () => {
+
+      const element = service.doc.createElement('input');
+      element.setAttribute('id', 'test');
+      element.setAttribute('class', 'ng-invalid');
+
+      const idStub = sandbox.stub(service.doc, 'getElementById');
+      idStub.returns(element);
+
+      expect(service.getInvalidElement(element).getAttribute('id')).toEqual('test');
+    });
+
+    it('should get invalid element by class', () => {
+
+      const element = service.doc.createElement('input');
+      element.setAttribute('id', 'test');
+      element.setAttribute('class', 'ng-invalid');
+
+      const idStub = sandbox.stub(service.doc, 'getElementById');
+      idStub.onFirstCall().returns(null);
+      idStub.onSecondCall().returns(element);
+
+      const classStub = sandbox.stub(service.doc, 'getElementsByClassName');
+      classStub.returns([element]);
+
+      expect(service.getInvalidElement(element).getAttribute('id')).toEqual('temporaryId');
+    });
+
+    it('should set temporaryId to null', () => {
+      const element = service.doc.createElement('input');
+      element.setAttribute('id', 'temporaryId');
+      element.setAttribute('class', 'ng-invalid');
+
+      service.setTemporaryIdToNull(element);
+      expect(element.getAttribute('id')).toBe('null');
+    });
+
+    it('should scroll to first error', () => {
+      const element = service.doc.createElement('input');
+      element.setAttribute('id', 'temporaryId');
+      element.setAttribute('class', 'ng-invalid');
+
+      const stub = sandbox.stub(service.doc, 'querySelectorAll');
+      stub.returns([element]);
+
+      const invalidElementStub = sandbox.stub(service, 'getInvalidElement');
+      invalidElementStub.returns(element);
+      service.scrollToFirstError();
+      expect(element.getAttribute('id')).toBe('null');
+    });
   });
 
 });
