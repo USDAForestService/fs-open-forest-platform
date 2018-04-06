@@ -45,8 +45,10 @@ export class ForestFinderComponent implements OnInit {
   /**
    * Redirect to forest guidelines page
    */
-  goToForest(forestAbbr: string): void {
-    const navTo = '/christmas-trees/forests/' + forestAbbr;
-    this.router.navigate([navTo]);
+  goToForest(forest) {
+    if (forest) {
+      const navTo = '/christmas-trees/forests/' + forest.forestAbbr;
+      this.router.navigate([navTo]);
+    }
   }
 }

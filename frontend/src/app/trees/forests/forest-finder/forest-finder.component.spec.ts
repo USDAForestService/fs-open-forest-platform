@@ -76,7 +76,7 @@ describe('ForestFinderComponent', () => {
   it(
     'should redirect to forest page on click',
     fakeAsync(() => {
-      component.goToForest('arp');
+      component.goToForest({forestAbbr:'arp'});
       tick();
       expect(location.path()).toBe('/christmas-trees/forests/arp');
     })
