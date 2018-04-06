@@ -128,21 +128,27 @@ export class ChristmasTreesInfoService {
       if (text.indexOf(key) > -1) {
         const jsonKey = key.toUpperCase();
         const cuttingAreas = forest.cuttingAreas;
-        if (cuttingAreas[jsonKey] && cuttingAreas[jsonKey].startDate) {
-          text = text
-            .replace(
-              '{{' + key + 'Date}}',
-              this.formatCuttingAreaDate(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
-            )
-            .replace(
-              '{{' + key + 'Time}}',
-              this.formatCuttingAreaTime(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
-            );
-        }
+        text = this.replaceCuttingAreaText(text, key, forest, cuttingAreas, jsonKey);
       }
     }
 
     return text;
+  }
+  /**
+  * @returns find and replace cutting area date and time
+  */
+  replaceCuttingAreaText (text, key, forest, cuttingAreas, jsonKey) {
+    if (cuttingAreas[jsonKey] && cuttingAreas[jsonKey].startDate) {
+      return text
+        .replace(
+          '{{' + key + 'Date}}',
+          this.formatCuttingAreaDate(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
+        )
+        .replace(
+          '{{' + key + 'Time}}',
+          this.formatCuttingAreaTime(forest, cuttingAreas[jsonKey].startDate, cuttingAreas[jsonKey].endDate)
+        );
+    }
   }
 
   /**
@@ -195,12 +201,7 @@ export class ChristmasTreesInfoService {
     markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(forest);
       if (forest && text.indexOf('{{') > -1) {
-        for (let i = 0; i < replaceArray.length; i++) {
-          text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), forest[replaceArray[i]]);
-          if (forest.cuttingAreas) {
-            text = this.parseCuttingAreaMarkdown(text, forest); // cutting areas are handled special from other variables
-          }
-        }
+        text = this.replaceText(forest, text, replaceArray);
       }
       text = this.updateMapDescriptionLinks(text);
       return text;
@@ -209,5 +210,18 @@ export class ChristmasTreesInfoService {
     markdownService.renderer.heading = (text, level) => {
       return `<h${level}>${text}</h${level}>`;
     };
+  }
+
+  /**
+   * iterate and replace text for the cutting areas
+   */
+  replaceText(forest, text, replaceArray) {
+    for (let i = 0; i < replaceArray.length; i++) {
+      text = text.replace(new RegExp('{{' + replaceArray[i] + '}}', 'gi'), forest[replaceArray[i]]);
+      if (forest.cuttingAreas) {
+        text = this.parseCuttingAreaMarkdown(text, forest); // cutting areas are handled special from other variables
+      }
+    }
+    return text;
   }
 }

@@ -80,15 +80,15 @@ export class TreeApplicationFormComponent implements OnInit {
   /**
    * Get application form and set default values
    */
-  createForm(data, formBuilder) {
-    this.applicationForm = this.getApplicationForm(formBuilder, data.forest.maxNumTrees);
+  createForm(forest, formBuilder) {
+    this.applicationForm = this.getApplicationForm(formBuilder, forest.maxNumTrees);
 
-    this.applicationForm.get('forestId').setValue(data.forest.id);
-    this.applicationForm.get('forestAbbr').setValue(data.forest.forestAbbr);
-    this.applicationForm.get('orgStructureCode').setValue(data.forest.orgStructureCode);
-    this.costPerTree = data.forest.treeCost;
+    this.applicationForm.get('forestId').setValue(forest.id);
+    this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
+    this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
+    this.costPerTree = forest.treeCost;
     this.applicationForm.get('treeCost').setValue(this.costPerTree);
-    this.maxNumberOfTrees = data.forest.maxNumTrees;
+    this.maxNumberOfTrees = forest.maxNumTrees;
     this.applicationRulesForm = formBuilder.group({ acceptRules: [false, [Validators.required]] });
 
     if (this.permit) {
@@ -107,6 +107,30 @@ export class TreeApplicationFormComponent implements OnInit {
     if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
       this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
+  }
+
+  /**
+  * handle the data of an existing application
+  */
+  handleData(isCancel) {
+
+    this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
+
+    this.checkSeasonStartDate(this.forest);
+
+    // cancel any permits coming here that are still initiated and not yet completed
+    if (this.permit && isCancel && this.permit.status === 'Initiated') {
+      this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
+        this.permit = updated;
+        this.showCancelAlert = true;
+      });
+    }
+
+    this.titleService.setTitle(
+      'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
+    );
+    this.createForm(this.forest, this.formBuilder);
+
   }
 
   /**
@@ -135,25 +159,8 @@ export class TreeApplicationFormComponent implements OnInit {
     this.route.data.subscribe(data => {
       if (data.forest) {
         this.forest = data.forest;
-
-        if (this.forest) {
-          this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
-        }
-
-        this.checkSeasonStartDate(this.forest);
         this.permit = data.permit;
-        // cancel any permits coming here that are still initiated and not yet completed
-        if (this.permit && isCancel && this.permit.status === 'Initiated') {
-          this.applicationService.updatePermit(this.permit.permitId, 'Cancelled', this.jwtToken).subscribe(updated => {
-            this.permit = updated;
-            this.showCancelAlert = true;
-          });
-        }
-
-        this.titleService.setTitle(
-          'Buy a permit | ' + this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting'
-        );
-        this.createForm(data, this.formBuilder);
+        this.handleData(isCancel);
       }
     });
   }
