@@ -15,7 +15,7 @@
 
 <ng-container *ngIf="mobileMenu">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
-  <button id="mobile-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
+  <button id="mobile-menu-btn" [attr.aria-expanded]="showMobileNav" class="usa-menu-btn mobile-menu-btn" (click)='toggleMobileNav()' [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
   <nav aria-label="left" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showMobileNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
       <button class="usa-nav-close" (click)="toggleMobileNav()" aria-label="close navigation menu">

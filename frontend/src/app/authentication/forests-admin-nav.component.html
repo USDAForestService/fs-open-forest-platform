@@ -1,19 +1,19 @@
 <nav aria-label="Forests admin navigation"
  *ngIf="user && user.role === 'admin' && user.forests && user.forests.length"
- id="forest-admin-nav" role="nav"
+ id="forest-admin-nav"
  [ngClass]="{'is-visible' : !showMobileNav}"
  class="site-nav-secondary sticky"
 >
   <ul *ngIf="forestAdminNavItems.length">
     <li *ngFor="let navItem of forestAdminNavItems">
-      <a *ngIf="navItem.routerLink" id="{{navItem.id}}" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"><span>{{navItem.title}}</span></a>
+      <a *ngIf="navItem.routerLink" id="{{navItem.id}}" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"  #rla="routerLinkActive" [attr.aria-current]="rla.isActive"><span>{{navItem.title}}</span></a>
       <a *ngIf="navItem.href" id="{{navItem.id}}-link" href="{{navItem.href}}"><span>{{navItem.title}}</span></a>
     </li>
   </ul>
 </nav>
 <ng-container *ngIf="user && user.role === 'admin' && user.forests && user.forests.length">
   <div class="usa-overlay" [ngClass]="{'is-visible' : showMobileNav}"></div>
-  <button *ngIf="!sideNavPresent" id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
+  <button *ngIf="!sideNavPresent" [attr.aria-expanded]="showMobileNav" id="mobile-forest-admin-menu-btn" class="usa-menu-btn mobile-menu-btn" (click)="showMobileNav = !showMobileNav"  [style.position]="menuBtnPosition" [style.top]="menuBtnTop">Menu</button>
   <nav aria-label="Forests admin navigation" id="forest-admin-mobile-nav" role="navigation" [ngClass]="{'is-visible' : showMobileNav}" [attr.aria-expanded]="showAdminNav" class="usa-nav sidenav-mobile">
     <div class="usa-nav-inner">
       <button class="usa-nav-close" (click)="showMobileNav = false; showAdminNav=true;">
@@ -26,7 +26,7 @@
           </button>
           <ul id="forest-admin-nav-item-container" *ngIf="showAdminNav" class="usa-nav-submenu">
             <li *ngFor="let navItem of forestAdminNavItems">
-              <a *ngIf="navItem.routerLink" id="{{navItem.id}}-mobile" (click)="showMobileNav = false" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'"><span>{{navItem.title}}</span></a>
+              <a *ngIf="navItem.routerLink" id="{{navItem.id}}-mobile" (click)="showMobileNav = false" routerLink="{{navItem.routerLink}}" [routerLinkActive]="'usa-current'" #rla="routerLinkActive" [attr.aria-current]="rla.isActive"><span>{{navItem.title}}</span></a>
               <a *ngIf="navItem.href" id="{{navItem.id}}-mobile-link" href="{{navItem.href}}"><span>{{navItem.title}}</span></a>
             </li>
           </ul>
