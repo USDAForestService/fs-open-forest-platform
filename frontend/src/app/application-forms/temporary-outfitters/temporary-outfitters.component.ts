@@ -185,11 +185,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   checkFileUploadValidity() {
     const untouchedRequired = document.querySelectorAll('.usa-file-input.ng-untouched.required');
     const invalid = document.querySelectorAll('.usa-file-input.ng-invalid');
-    if (untouchedRequired.length || invalid.length) {
-      this.invalidFileUpload = true;
-    } else {
-      this.invalidFileUpload = false;
-    }
+    this.invalidFileUpload = !!(untouchedRequired.length || invalid.length);
   }
 
   numberOfFilesToUpload() {
@@ -203,10 +199,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
   removeUnusedData() {
     const form = this.applicationForm;
-    const service = this.applicationFieldsService;
     if (form.get('applicantInfo')) {
       if (!form.get('applicantInfo.addAdditionalPhone').value) {
-        service.removeAdditionalPhone(form.get('applicantInfo'));
+        this.applicationFieldsService.removeAdditionalPhone(form.get('applicantInfo'));
       }
     }
     this.removeDataWrapper(form, 'activityDescriptionFields');
