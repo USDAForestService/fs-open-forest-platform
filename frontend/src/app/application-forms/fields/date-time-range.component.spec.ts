@@ -2,6 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/co
 import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
+import { DateTimeRangeService } from '../_services/date-time-range.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
 @Component({
@@ -24,7 +25,7 @@ describe('DateTimeRange', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [DateTimeRangeComponent, TestComponentWrapperComponent],
-        providers: [FormBuilder, ApplicationFieldsService],
+        providers: [FormBuilder, ApplicationFieldsService, DateTimeRangeService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
 
