@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TempOutfitterLeftNavComponent } from './temp-outfitter-left-nav.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { UtilService } from '../../_services/util.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 describe('TempOutfitterLeftNavComponent', () => {
   let component: TempOutfitterLeftNavComponent;

@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
-import { Title } from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
 

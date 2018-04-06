@@ -1,4 +1,4 @@
-import { Inject, HostListener, Component, Input, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

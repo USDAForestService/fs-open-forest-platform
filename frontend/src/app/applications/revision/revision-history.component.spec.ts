@@ -1,14 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
-import { ApplicationService } from '../../_services/application.service';
-import { AuthenticationService } from '../../_services/authentication.service';
-import { AlertService } from '../../_services/alert.service';
-import { UtilService } from '../../_services/util.service';
+import { NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RevisionHistoryComponent } from './revision-history.component';
-import { Observable } from 'rxjs/Observable';
 import { SortArray } from '../../_pipes/sort-array.pipe';
 import { AdminUserFormatterPipe } from '../../_pipes/admin-user-formatter.pipe';
-import { Pipe, PipeTransform } from '@angular/core';
 import { tempOutfitterMock } from '../../application-forms/temporary-outfitters/temp-outfitter.mock';
 
 @Pipe({ name: 'SortArray' })

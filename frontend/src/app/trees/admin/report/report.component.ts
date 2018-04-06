@@ -2,9 +2,8 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from 
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment-timezone';
-import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
