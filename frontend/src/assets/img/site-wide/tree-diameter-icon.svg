@@ -1,9 +1,8 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 177.24 176">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.24 176">
     <metadata>
         <rdf:RDF
-                xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:rdfs = "http://www.w3.org/2000/01/rdf-schema#"
-                xmlns:dc = "http://purl.org/dc/elements/1.1/" >
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/">
             <rdf:Description about="tree-height-icon"
                              dc:title="tree-height-icon"
                              dc:description="tree with ruler"

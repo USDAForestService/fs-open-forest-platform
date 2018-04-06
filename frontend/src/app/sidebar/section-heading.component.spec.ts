@@ -1,9 +1,7 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { Component, Renderer2, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA, Renderer2 } from '@angular/core';
 import { SectionHeadingComponent } from './section-heading.component';
 import { UtilService } from '../_services/util.service';
-import { environment } from '../../environments/environment';
-import * as sinon from 'sinon';
 
 describe('SectionHeadingComponent', () => {
   let component: SectionHeadingComponent;

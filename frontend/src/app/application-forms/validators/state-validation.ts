@@ -1,4 +1,4 @@
-import { AbstractControl, NG_VALIDATORS, Validator, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { States } from '../../_models/constants';
 
 export function stateValidator(): ValidatorFn {

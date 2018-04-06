@@ -1,4 +1,4 @@
-import { Directive, OnInit, Input, Output, HostListener, EventEmitter, ElementRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 
 @Directive({
   selector: '[appTrackScroll]'

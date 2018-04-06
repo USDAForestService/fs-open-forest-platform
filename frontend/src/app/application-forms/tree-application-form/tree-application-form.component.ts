@@ -1,8 +1,8 @@
 import { Title } from '@angular/platform-browser';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';

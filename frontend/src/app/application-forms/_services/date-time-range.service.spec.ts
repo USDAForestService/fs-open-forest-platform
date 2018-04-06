@@ -1,8 +1,7 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DateTimeRangeService } from './date-time-range.service';
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 describe('DateTimeRangeService', () => {
   let service: DateTimeRangeService;

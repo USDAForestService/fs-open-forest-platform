@@ -1,5 +1,5 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { inject, TestBed, getTestBed, async, fakeAsync, ComponentFixture } from '@angular/core/testing';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DateTimeRangeComponent } from './date-time-range.component';
 import { DateTimeRangeService } from '../_services/date-time-range.service';

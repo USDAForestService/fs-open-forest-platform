@@ -1,10 +1,8 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 import { ApplicationFieldsService } from './application-fields.service';
-import { Observable } from 'rxjs/Observable';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import * as sinon from 'sinon';
 

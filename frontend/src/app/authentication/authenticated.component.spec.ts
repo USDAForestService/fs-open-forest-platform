@@ -1,10 +1,16 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthenticationService } from '../_services/authentication.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
-  ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Params, Route, Router,
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Data,
+  NavigationEnd,
+  Params,
+  Route,
+  Router,
   UrlSegment
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';

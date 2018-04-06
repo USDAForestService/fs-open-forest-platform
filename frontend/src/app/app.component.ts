@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
-import { Router, NavigationEnd } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
 import * as moment from 'moment-timezone';

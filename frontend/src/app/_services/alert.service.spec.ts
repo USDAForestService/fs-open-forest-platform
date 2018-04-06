@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { AlertService } from '../_services/alert.service';
 
 describe('AlertService', () => {
