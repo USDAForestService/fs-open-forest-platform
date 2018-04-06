@@ -126,7 +126,7 @@ const postPayGov = xmlData => {
  * @return {Object} - formatted permit object
  */
 const permitResult = permit => {
-  const result = {
+  return {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
     firstName: permit.firstName,
@@ -145,7 +145,6 @@ const permitResult = permit => {
       forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
     }
   };
-  return result;
 };
 
 /**

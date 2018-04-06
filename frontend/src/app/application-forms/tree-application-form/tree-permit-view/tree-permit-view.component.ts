@@ -86,7 +86,7 @@ export class TreePermitViewComponent implements OnInit {
   printPermit() {
     const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
-    const includeRules = this.includeRules ? true : false;
+    const includeRules = this.includeRules;
 
     this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
       let content = response[0]['result'];

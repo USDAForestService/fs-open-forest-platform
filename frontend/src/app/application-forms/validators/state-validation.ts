@@ -5,8 +5,7 @@ export function stateValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
     const val = control.value;
     if (val && val.length) {
-      const states = States;
-      for (const state of states) {
+      for (const state of States) {
         if (state.short === val) {
           return null;
         }

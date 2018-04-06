@@ -14,9 +14,8 @@ export class ForestsResolver implements Resolve<any> {
    * @returns all forests
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const trees = this.service.getAll().catch(err => {
+    return this.service.getAll().catch(err => {
       return Observable.of(null);
     });
-    return trees;
   }
 }
