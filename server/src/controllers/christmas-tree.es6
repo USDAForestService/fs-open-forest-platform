@@ -241,7 +241,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        console.log('error=', error);
+                        console.error('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -394,7 +394,6 @@ const generateRulesAndEmail = permit => {
         permitSvgService
           .generateRulesHtml(true, permit)
           .then(rulesHtml => {
-            console.log(rulesHtml)
             permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
             let rulesText = htmlToText.fromString(rulesHtml, {
               wordwrap: 130,
