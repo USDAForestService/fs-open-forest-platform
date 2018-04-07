@@ -31,7 +31,5 @@ export class ChristmasTreeMapDetailsComponent implements OnInit {
       }
     });
 
-
-
   }
 }
