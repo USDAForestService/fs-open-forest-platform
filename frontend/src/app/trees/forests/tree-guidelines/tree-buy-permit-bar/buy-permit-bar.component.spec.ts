@@ -6,7 +6,7 @@ import { WindowRef } from '../../../../_services/native-window.service';
 import * as sinon from 'sinon';
 
 
-fdescribe('BuyPermitBarComponent', () => {
+describe('BuyPermitBarComponent', () => {
   let component: BuyPermitBarComponent;
   let fixture: ComponentFixture<BuyPermitBarComponent>;
 
