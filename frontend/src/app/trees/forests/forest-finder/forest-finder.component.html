@@ -17,7 +17,7 @@
           >
             <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
           </select>
-          <div id='forest-finder-error' [ngClass]="{ 'hidden': !showForestSelectError }">A forest is required.</div>
+          <div id='forest-finder-error' [ngClass]="{ 'hidden': !showForestSelectError }">You are required to choose a forest.</div>
           <input id='forest-finder-submit' class='usa-button usa-button-inverse' type='submit' value='Get started now' />
         </form>
       </div>
