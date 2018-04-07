@@ -19,7 +19,7 @@ The map below shows access routes to parking areas near designated tree cutting 
 
 #### Canyon Lakes Ranger District
 
-[Christmas tree map of **Red Feather Lakes Cutting Area** - Canyon Lakes Ranger District] (Click to view larger map)](/assets/img/maps/red-feather-map.png)
+[Christmas tree map of **Red Feather Lakes Cutting Area** - Canyon Lakes Ranger District (Click to view larger map)](/assets/img/maps/red-feather-map.png)
 
 [![Christmas tree map of Red Feather Cutting Area - Canyon Lakes Ranger District](/assets/img/maps/red-feather-map-thumb.png)](/assets/img/maps/red-feather-map.png)
 
