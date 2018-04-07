@@ -50,7 +50,7 @@ describe('BuyPermitBarComponent', () => {
     const stub = sinon.stub(component.doc, 'getElementById');
     stub.returns(element);
 
-    const scrollEvent = document.createEvent('CustomEvent');
+    const scrollEvent = component.doc.createEvent('CustomEvent');
     scrollEvent.initCustomEvent( 'scroll', false, false, null );
     windowRef.getNativeWindow().dispatchEvent(scrollEvent);
     expect(component.top).toEqual('-100px');
