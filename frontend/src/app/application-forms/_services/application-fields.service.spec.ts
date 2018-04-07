@@ -1,17 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { ApplicationFieldsService } from './application-fields.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import * as sinon from 'sinon';
-import { DOCUMENT } from '@angular/common';
-
-class MockDocument {
-  getElementById() {
-    return true;
-  }
-}
 
 describe('ApplicationFieldsService', () => {
 
