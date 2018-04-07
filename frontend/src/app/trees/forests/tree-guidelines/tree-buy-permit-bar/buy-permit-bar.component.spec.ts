@@ -2,8 +2,11 @@ import { BuyPermitBarComponent } from './buy-permit-bar.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { forest } from '../../../../_mocks/forest.mock';
+import { WindowRef } from '../../../../_services/native-window.service';
+import * as sinon from 'sinon';
 
-describe('BuyPermitBarComponent', () => {
+
+fdescribe('BuyPermitBarComponent', () => {
   let component: BuyPermitBarComponent;
   let fixture: ComponentFixture<BuyPermitBarComponent>;
 
@@ -11,6 +14,9 @@ describe('BuyPermitBarComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [BuyPermitBarComponent],
+        providers: [
+          WindowRef
+        ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })
@@ -37,9 +43,18 @@ describe('BuyPermitBarComponent', () => {
   });
 
   it('should have an onScroll watcher', () => {
+    const windowRef = TestBed.get(WindowRef);
+    const element = component.doc.createElement('div');
+    element.setAttribute('id', 'static-buy-permit-link');
+
+    const stub = sinon.stub(component.doc, 'getElementById');
+    stub.returns(element);
+
     const scrollEvent = document.createEvent('CustomEvent');
     scrollEvent.initCustomEvent( 'scroll', false, false, null );
-    window.dispatchEvent(scrollEvent);
+    windowRef.getNativeWindow().dispatchEvent(scrollEvent);
     expect(component.top).toEqual('-100px');
+    stub.restore();
   });
+
 });

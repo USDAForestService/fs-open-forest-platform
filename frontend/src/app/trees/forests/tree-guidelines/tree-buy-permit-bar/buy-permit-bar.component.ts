@@ -13,7 +13,7 @@ export class BuyPermitBarComponent {
 
 
   constructor(
-      @Inject(DOCUMENT) private doc: Document,
+      @Inject(DOCUMENT) public doc: Document,
     ) {}
 
   /**
