@@ -47,18 +47,6 @@ export class TreeGuidelinesComponent implements OnInit {
   }
 
   /**
-   *  @returns forest with mock alert for testing
-   */
-  private setMockAlert(forest) {
-    // set mock data info warning if on test environment
-    if (!environment.production) {
-      forest.isMockData = true;
-      forest.mockDataAlert = ' Note: Forest season dates are mocked for testing purposes.';
-    }
-    return forest;
-  }
-
-  /**
    *  @returns forest with isSeasonOpen and seasonOpenAlert set.
    */
   private checkSeasonStartDate(forest) {
