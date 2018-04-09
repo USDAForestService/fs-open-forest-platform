@@ -37,7 +37,6 @@
         />
       </div>
     </fieldset>
-
     <app-error-message fieldId="start-month-error" name="Start month" [control]="parentForm.get('dateTimeRange.startMonth')"></app-error-message>
     <app-error-message fieldId="start-day-error" name="Start day" [control]="parentForm.get('dateTimeRange.startDay')"
       *ngIf="parentForm.get('dateTimeRange.startMonth').valid"

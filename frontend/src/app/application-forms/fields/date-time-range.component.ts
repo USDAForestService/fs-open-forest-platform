@@ -120,7 +120,11 @@ export class DateTimeRangeComponent implements OnInit {
       startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
       startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
       startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(4)]]
-    });
+    },
+    {
+      validator: this.validateDateTimeRange.bind(this)
+    }
+  );
 
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
@@ -156,6 +160,8 @@ export class DateTimeRangeComponent implements OnInit {
       });
     }
   }
+
+
 
   /**
    *  If all start dates are filled in, copy values to end dates
@@ -240,7 +246,7 @@ export class DateTimeRangeComponent implements OnInit {
   /**
    * Validate startDateTime against endDateTime
    */
-  private setValidity(startDateTime, endDateTime) {
+  setValidity(startDateTime, endDateTime) {
     this.resetDateTimeRangeValidation();
     const today = moment();
     this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
@@ -277,6 +283,18 @@ export class DateTimeRangeComponent implements OnInit {
       return false;
     } else {
       return true;
+    }
+  }
+
+  /**
+   * Validate date time range errors as part of the core form validation
+   */
+  validateDateTimeRange(group: FormGroup) {
+    if (group.controls.startDateTime.value && group.controls.endDateTime.value) {
+     this.setValidity(
+       moment(group.controls.startDateTime.value, 'YYYY-MM-DD HH:mm a'),
+       moment(group.controls.endDateTime.value, 'YYYY-MM-DD HH:mm a')
+     );
     }
   }
 }
