@@ -33,20 +33,16 @@ export class TreeGuidelinesComponent implements OnInit {
    */
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
-    if (environment.envName !== 'staging') {
-      forest.seasonOpenAlert = this.seasonOpenAlert;
-
-      if (forest.endDate && forest.startDate) {
-        forest.isSeasonOpen = moment(forest.endDate)
-          .tz(forest.timezone)
-          .isAfter(moment().tz(forest.timezone));
-        if (forest.isSeasonOpen) {
-          forest.seasonOpenAlert = '';
-          forest = this.checkSeasonStartDate(forest);
-        }
+    forest.seasonOpenAlert = this.seasonOpenAlert;
+    if (forest.endDate && forest.startDate) {
+      forest.isSeasonOpen = moment(forest.endDate)
+        .tz(forest.timezone)
+        .isAfter(moment().tz(forest.timezone));
+      if (forest.isSeasonOpen) {
+        forest.seasonOpenAlert = '';
+        forest = this.checkSeasonStartDate(forest);
       }
     }
-
     return forest;
   }
 
