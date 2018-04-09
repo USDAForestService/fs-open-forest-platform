@@ -13,7 +13,7 @@ export class BuyPermitBarComponent {
 
 
   constructor(
-      @Inject(DOCUMENT) private doc: Document,
+      @Inject(DOCUMENT) public doc: Document,
     ) {}
 
   /**
@@ -26,10 +26,10 @@ export class BuyPermitBarComponent {
       // use -20 instead of 0 so user scrolls slightly past this button before the pay button bar appears
       if (buyPermitLinkPosition < -20) {
         this.top = '0px';
-        document.getElementById('mobile-menu-btn').classList.add('shadow');
+        this.doc.getElementById('mobile-menu-btn').classList.add('shadow');
       } else {
         this.top = '-100px';
-        document.getElementById('mobile-menu-btn').classList.remove('shadow');
+        this.doc.getElementById('mobile-menu-btn').classList.remove('shadow');
       }
     }
   }

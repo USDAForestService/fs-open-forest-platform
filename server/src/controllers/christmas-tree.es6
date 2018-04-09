@@ -241,7 +241,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        console.log('error=', error);
+                        console.error('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -295,7 +295,8 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
     },
     {
       filename: 'permit-rules.html',
-      content: new Buffer(rulesHtml, 'utf-8')
+      content: new Buffer(rulesHtml, 'utf-8'),
+      contentType: 'text/html'
     },
     {
       filename: 'permit-rules.txt',
