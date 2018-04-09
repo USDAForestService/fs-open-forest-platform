@@ -26,6 +26,15 @@ describe('Apply for a ', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });
 
+  it('should display header links for authenticated user', () => {
+    list.navigateTo();
+    expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
+    expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
+    expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
+    expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
+    expect<any>(element(by.id('login-to-suds')).isPresent()).toBeFalsy();
+  });
+
   it('should display have a heading that says pending permit applications', () => {
     list.navigateTo();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications');

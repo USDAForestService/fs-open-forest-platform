@@ -27,15 +27,6 @@ describe('frontend App', () => {
       expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
     });
 
-    it('should display header links for authenticated user', () => {
-      page.navigateTo();
-      expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
-      expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
-      expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
-      expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
-      expect<any>(element(by.id('login-to-suds')).isPresent()).toBeTruthy();
-    });
-
     it('should have ctas to apply for different permits', () => {
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();

@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';

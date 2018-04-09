@@ -454,7 +454,7 @@ describe('christmas tree controller tests', () => {
         })
         .expect(200, done);
     });
-    it('GET should return a 200 response when completing permit transaction with pay.gov', done => {
+    it('PUT should return a 200 response when completing permit transaction with pay.gov', done => {
       const completeApplication = {
         permitId: permitId,
         status: 'Completed'

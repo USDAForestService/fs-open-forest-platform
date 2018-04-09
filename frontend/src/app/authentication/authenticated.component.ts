@@ -13,6 +13,8 @@ export class AuthenticatedComponent implements OnInit {
   displayLogin = true;
   userIdentifier;
   user;
+  showAdminNav = false;
+  showSUDS = false;
 
   constructor(
     public authentication: AuthenticationService,
@@ -57,6 +59,12 @@ export class AuthenticatedComponent implements OnInit {
   }
 
   /**
+   * determine if SUDS login displays in header
+   */
+  setShowSUDS(user) {
+    this.showSUDS = user && user.role === 'admin' && (!user.forests || user.forests.length === 0);
+  }
+  /**
    * Add user to route for display login on every NavigationEnd
    */
   ngOnInit() {
@@ -80,7 +88,9 @@ export class AuthenticatedComponent implements OnInit {
       .mergeMap(route => route.data)
       .subscribe(data => {
         this.user = data.user ? data.user : null;
+        this.setShowSUDS(this.user);
         this.displayLogin = data.displayLogin;
+        this.showAdminNav = data.showAdmin;
       });
   }
 }

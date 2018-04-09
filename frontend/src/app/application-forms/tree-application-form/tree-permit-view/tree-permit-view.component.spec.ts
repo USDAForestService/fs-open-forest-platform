@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreePermitViewComponent } from './tree-permit-view.component';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { ChristmasTreesApplicationService } from '../../../trees/_services/chris
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-import { McBreadcrumbsService, McBreadcrumbsModule, McBreadcrumbsConfig } from 'ngx-breadcrumbs';
+import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';

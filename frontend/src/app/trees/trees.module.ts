@@ -15,7 +15,7 @@ import { AdminSeasonDatesComponent } from './admin/season-dates/season-dates.com
 import { ChristmasTreesAdminService } from './admin/christmas-trees-admin.service';
 import { AdminDistrictDatesComponent } from './admin/district-dates/district-dates.component';
 import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component';
-import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-guidelines-footer.component';
+import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit-bar/buy-permit-bar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
     TreeSpeciesComponent,
     ForestFinderComponent,
     ChristmasTreeMapDetailsComponent,
-    TreeGuidelinesFooterComponent,
+    BuyPermitBarComponent,
     RemovePuncPipe
   ],
   exports: [
@@ -37,7 +37,7 @@ import { TreeGuidelinesFooterComponent } from './forests/tree-guidelines/tree-gu
     ReportResultsComponent,
     TreeCuttingRulesComponent,
     TreeGuidelinesComponent,
-    TreeGuidelinesFooterComponent,
+    BuyPermitBarComponent,
     TreeCuttingDatesComponent,
     TreeSpeciesComponent,
     ChristmasTreeMapDetailsComponent

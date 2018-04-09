@@ -12,9 +12,6 @@ const server = require('./mock-aws.spec.es6');
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
-let invalidPermitId = 'xxxxxxxx-189d-43ba-xxxx-c233ef94f02f';
-let paygovToken;
-let tcsAppID;
 let today = moment(new Date()).format('YYYY-MM-DD');
 
 describe('christmas tree admin controller tests', () => {

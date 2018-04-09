@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { async, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';

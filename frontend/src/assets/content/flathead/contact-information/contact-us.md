@@ -1,4 +1,8 @@
-You can buy Christmas tree permits in person all year long at all Flathead ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+You can buy Christmas tree permits in person at the following 
+Flathead National Forest ranger district offices.
+Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. 
+Call first to make sure someone is available to sell permits. 
+All offices are closed on federal holidays.
 
 ### Flathead National Forest Supervisor’s Office/Tally Lake Ranger District
 650 Wolfpack Way  

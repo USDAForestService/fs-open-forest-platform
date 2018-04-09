@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Injectable, Inject} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class ApplicationFieldsService {
   editApplication = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    @Inject(DOCUMENT) public doc: Document,
+    public formBuilder: FormBuilder
+  ) {}
 
   hasError(control: FormControl) {
     if (control && control.touched && control.errors) {
@@ -133,16 +137,15 @@ export class ApplicationFieldsService {
   /*
   ** Gets first invalid element and assigns id if id isn't set.
   */
-  private getInvalidElement(firstInvalidElement) {
-    let element = document.getElementById(firstInvalidElement.getAttribute('id'));
+  getInvalidElement(firstInvalidElement) {
+    let element = this.doc.getElementById(firstInvalidElement.getAttribute('id'));
     if (!element) {
-      const invalidClass = document.getElementsByClassName(firstInvalidElement.getAttribute('class'));
+      const invalidClass = this.doc.getElementsByClassName(firstInvalidElement.getAttribute('class'));
       if (invalidClass) {
         invalidClass[0].setAttribute('id', 'temporaryId');
-        element = document.getElementById('temporaryId');
+        element = this.doc.getElementById('temporaryId');
       }
     }
-
     return element;
   }
 
@@ -199,7 +202,7 @@ export class ApplicationFieldsService {
 
   loopChildControlsForErrors(formGroup: FormGroup) {
     if (formGroup.controls) {
-      const errors = (<any>Object).keys(formGroup.controls).some(control => {
+      return (<any>Object).keys(formGroup.controls).some(control => {
         if (formGroup.controls[control].errors && formGroup.controls[control].touched) {
           return true;
         }
@@ -207,7 +210,6 @@ export class ApplicationFieldsService {
           this.loopChildControlsForErrors(<FormGroup>formGroup.controls[control]);
         }
       });
-      return errors;
     }
     return;
   }

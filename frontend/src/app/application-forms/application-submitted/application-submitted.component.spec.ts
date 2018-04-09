@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApplicationSubmittedComponent } from './application-submitted.component';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MockActivatedRoute, MockRouter } from '../../_mocks/routes.mock';
 import { Observable } from 'rxjs/Observable';
 import { noncommercialMock } from '../application-noncommercial-group/noncommercial.mock';

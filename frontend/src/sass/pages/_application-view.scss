@@ -93,7 +93,7 @@
     }
 
     dd {
-      -webkit-margin-start: 0px;
+      margin-left: 0;
     }
     button#tree-print-permit {
       margin-bottom: 2rem;
@@ -111,12 +111,10 @@
   }
 
   .tree-confirmation-table {
-    margin: 0;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
     td {
       background-color: $fs-tan;
       border: 0;
-      padding-left: 1px;
       padding: 0.5rem 1rem;
     }
   }

@@ -1,8 +1,17 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder } from 'protractor';
+import { ElementRef } from '@angular/core';
 
 export class TreesSidebarPage {
   navigateTo(forestId) {
     return browser.get('/christmas-trees/forests/' + forestId);
+  }
+
+  buyButton() {
+    return element(by.id('static-buy-permit-link'));
+  }
+
+  buyButtonHeader() {
+    return element(by.id('sticky-bar-container'));
   }
 
   getTreeSelectionLink() {
