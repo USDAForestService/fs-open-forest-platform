@@ -145,17 +145,6 @@ module.exports = function(sequelize, DataTypes) {
             .format('YYYY-MM-DD HH:mm:ss');
         }
       }
-    } else if (util.isStaging()) {
-      if (forest && forest.startDate) {
-        forest.startDate = moment()
-          .tz(forest.timezone)
-          .subtract(2, 'months')
-          .format('YYYY-MM-DD HH:mm:ss');
-        forest.endDate = moment()
-          .tz(forest.timezone)
-          .add(1, 'months')
-          .format('YYYY-MM-DD HH:mm:ss');
-      }
     }
   });
 
