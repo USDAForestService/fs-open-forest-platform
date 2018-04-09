@@ -24,7 +24,10 @@
 }
 
 #forest-finder-error {
-  color: #DD9C92;
+  height: 2rem;
+  span {
+    color: #DD9C92 !important;
+  }
   &.hidden {
     visibility: hidden;
   }
