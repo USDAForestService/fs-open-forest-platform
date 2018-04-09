@@ -4,11 +4,22 @@
       <h1 id="skip-nav-target" tabindex="-1">Buy a Christmas tree permit</h1>
       <p>The U.S. Forest Service invites you to purchase permits to cut down Christmas trees in some national forests, following certain rules and guidelines.</p>
       <div id="forest-finder-form">
-        <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest.forestAbbr)" autocomplete="off">
-          <label for="forest-finder-select">Choose your forest.</label>
-          <select #forestFinder role="listbox" [(ngModel)]="selectedForest" id="forest-finder-select" name="forestFinderSelect">
+        <form name='forestPickerForm' class="usa-forms" (submit)="goToForest(selectedForest)" autocomplete="off">
+          <label for="forest-finder-select">Choose your forest <span>(required)</span></label>
+          <select
+           required
+           #forestFinder
+           role="listbox"
+           (click)="showForestSelectError = false"
+           [(ngModel)]="selectedForest"
+           id="forest-finder-select"
+           name="forestFinderSelect"
+          >
             <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
           </select>
+          <div id='forest-finder-error' aria-live="assertive" [ngClass]="{ 'hidden': !showForestSelectError }">
+            <span tabindex="0" *ngIf="showForestSelectError">You are required to choose a forest.</span>
+          </div>
           <input id='forest-finder-submit' class='usa-button usa-button-inverse' type='submit' value='Get started now' />
         </form>
       </div>
