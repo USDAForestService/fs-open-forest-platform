@@ -356,11 +356,31 @@ While developing we spent time usability testing features with the correct users
 
 [The wiki](/wiki) includes usability testing summaries conducted by Flexion and NCI
 
-## Known technical Debt
+## Known technical debt
 
 The file `frontend/src/sass/_focus-fix.scss` implements a style fix in the upstream repository: https://github.com/18F/web-design-standards/pull/2112/files Eventually once these changes are released we can remove this file.
 
 The server dependency is JSDOM is currently a fork to pass security vulnerability tests. This should be replaced with the original package once the security vulnerability is fixed.
+
+## Known UX debt
+
+#### Scaling to include more permit types: Architecture to support purchasing or applying for multiple products per transaction
+The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting. 
+
+#### Scaling to include more Forests: Form controls to help users choose from a greater number of options
+The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
+
+- [Landing page](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/forests)
+- [Generate a report*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/reports)
+- [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/district-dates)
+- [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/season-dates)
+
+**This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.* 
+
+The details of how these pages and form controls should be designed in order to support users selecting from a large number of Forests will require additional user research.
+
+
+
 
 ## Contributing
 
