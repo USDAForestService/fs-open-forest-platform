@@ -20,38 +20,31 @@ jobs:
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - run:
-          name: run npm install
-          command: cd frontend; npm i
+          name: Frontend - lint
+          command: cd frontend; yarn run lint
       - run:
-          name: frontend linting
-          command: cd frontend; npm run lint
-      - run:
-          name: frontend snyk
+          name: Frontend - snyk dependency scan
           command: cd frontend; npm run snyk-test
       - run:
-          name: install server deps
-          command: cd server; npm i
+          name: Server - lint
+          command: cd server; yarn run lint
       - run:
-          name: server linting
-          command: cd server; npm run lint
+          name: Server - snyk dependency scan
+          command: cd server; yarn run snyk-protect; yarn run snyk-test
       - run:
-          name: server snyk
-          command: cd server; npm run snyk-protect; npm run snyk-test
-      - run:
-          name: copy frontend assets into server
+          name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
       - run:
           name: build docker compose images
           command: cd docker; ../.circleci/build-docker-images.sh
       - run:
-          name: install dependencies
+          name: Docker - Install dependencies in docker image
           command: cd docker; ../.circleci/install-dependencies-docker.sh
-## Run tests
       - run:
-          name: frontend unit tests
+          name: Frontend - unit tests
           command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
       - run:
-          name: server unit tests
+          name: Server - unit tests
           command: cd docker; docker-compose run fs-intake-server yarn coverage
       - store_artifacts:
           path: frontend/coverage
@@ -68,10 +61,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install jq
-          command: sudo apt-get update && sudo apt-get install jq
-      - run:
-          name: copy frontend assets into server
+          name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
       - run:
           name: build docker compose images
@@ -79,18 +69,14 @@ jobs:
       - run:
           name: install dependencies
           command: cd docker; ../.circleci/install-dependencies-docker.sh
-## Run tests
       - run:
           name: run e2e
           command: cd docker; ../.circleci/run-e2e.sh -a $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
       - run:
           name: run unauthenticated e2e
-          command: cd docker; ../.circleci/run-e2e.sh -u 
+          command: cd docker; ../.circleci/run-e2e.sh -u  
       - run:
-          name: install aws cli
-          command: sudo apt-get install -y awscli
-      - run:
-          name: clean s3 bucket
+          name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
       - store_artifacts:
           path: frontend/e2e-test-results
