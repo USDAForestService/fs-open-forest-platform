@@ -21,16 +21,16 @@ jobs:
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - run:
           name: Frontend - lint
-          command: cd frontend; yarn run lint
+          command: cd frontend; npm run lint
       - run:
           name: Frontend - snyk dependency scan
           command: cd frontend; npm run snyk-test
       - run:
           name: Server - lint
-          command: cd server; yarn run lint
+          command: cd server; npm run lint
       - run:
           name: Server - snyk dependency scan
-          command: cd server; yarn run snyk-protect; yarn run snyk-test
+          command: cd server; npm run snyk-protect; npm run snyk-test
       - run:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
@@ -120,7 +120,7 @@ jobs:
           name: remove yarn dependencies
           command: rm -rf ~/.yarn
       - run:
-          name: install yarn
+          name: Install yarn
           command: sudo npm i -g yarn
       - run:
           name: install dependencies
@@ -159,7 +159,7 @@ jobs:
           name: remove yarn dependencies
           command: rm -rf ~/.yarn
       - run:
-          name: instal yarn
+          name: Install yarn
           command: sudo npm i -g yarn
       - run:
           name: install dependencies
