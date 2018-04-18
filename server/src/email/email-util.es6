@@ -5,11 +5,12 @@
  * @module email/email-util
  */
 const nodemailer = require('nodemailer');
+const juice = require('juice');
 
 const vcapConstants = require('../vcap-constants.es6');
 const emailTemplates = require('./email-templates.es6');
 const htmlTemplate = require('./assets/html-template.es6');
-const inlineCss = require('nodemailer-juice');
+
 
 const emailUtil = {};
 
@@ -59,7 +60,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
     mailOptions.attachments = attachments;
   }
   if (vcapConstants.SMTP_HOST) {
-    transporter.use('compile', inlineCss());
+    // transporter.use('compile', inlineCss());
     transporter.sendMail(mailOptions, error => {
       if (error) {
         console.error('NODE_MAILER_SMTP_ERROR', error);
@@ -83,6 +84,7 @@ emailUtil.sendEmail = (templateName, data, attachments = []) => {
     if (template.html) {
       html = `${htmlTemplate.forestService}<div class="body">${template.html}<p>Please do not reply to this message.
       This email message was sent from a notification-only address that cannot accept incoming email.</p></div>`;
+      html = juice(html);
     }
     if (template.attachments) {
       templateAttachments = template.attachments;
