@@ -20,32 +20,59 @@ jobs:
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - run:
+          name: Frontend - Install dependencies
+          command: |
+            cd frontend
+            npm i
+      - run:
           name: Frontend - lint
-          command: cd frontend; npm run lint
+          command: |
+            cd frontend
+            npm run lint
       - run:
           name: Frontend - snyk dependency scan
-          command: cd frontend; npm run snyk-test
+          command: |
+            cd frontend
+            npm run snyk-test
+      - run:
+          name: Server - install Dependencies
+          command: |
+            cd server
+            npm i
       - run:
           name: Server - lint
-          command: cd server; npm run lint
+          command: |
+            cd server
+            npm run lint
       - run:
           name: Server - snyk dependency scan
-          command: cd server; npm run snyk-protect; npm run snyk-test
+          command: |
+            cd server
+            npm run snyk-protect
+            npm run snyk-test
       - run:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
       - run:
-          name: build docker compose images
-          command: cd docker; ../.circleci/build-docker-images.sh
+          name: Docker - build docker compose images
+          command: |
+            cd docker
+            ../.circleci/build-docker-images.sh
       - run:
           name: Docker - Install dependencies in docker image
-          command: cd docker; ../.circleci/install-dependencies-docker.sh
+          command: |
+            cd docker
+            ../.circleci/install-dependencies-docker.sh
       - run:
           name: Frontend - unit tests
-          command: cd docker; docker-compose run fs-intake-frontend yarn run test:ci
+          command: |
+            cd docker
+            docker-compose run fs-intake-frontend yarn run test:ci
       - run:
           name: Server - unit tests
-          command: cd docker; docker-compose run fs-intake-server yarn coverage
+          command:  |
+            cd docker
+            docker-compose run fs-intake-server yarn coverage
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
@@ -68,13 +95,19 @@ jobs:
           command: cd docker; ../.circleci/build-docker-images.sh
       - run:
           name: install dependencies
-          command: cd docker; ../.circleci/install-dependencies-docker.sh
+          command: |
+            cd docker
+            ../.circleci/install-dependencies-docker.sh
       - run:
-          name: run e2e
-          command: cd docker; ../.circleci/run-e2e.sh -a $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
+          name: Run authenicated e2e tests
+          command: |
+            cd docker
+            ../.circleci/run-e2e.sh -a $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
       - run:
-          name: run unauthenticated e2e
-          command: cd docker; ../.circleci/run-e2e.sh -u  
+          name: Run unauthenticated e2e tests
+          command: |
+            cd docker
+            ../.circleci/run-e2e.sh -u  
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
@@ -106,10 +139,14 @@ jobs:
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - run:
           name: install pa11y
-          command: cd frontend; npm i -g pa11y-ci && npm i
+          command:  |
+            cd frontend
+            npm i -g pa11y-ci && npm i
       - run:
           name: pa11y test
-          command: cd docker; ../.circleci/pa11y.sh
+          command: |
+            cd docker
+            ../.circleci/pa11y.sh
 
   staging-deploy:
     docker:
@@ -127,22 +164,34 @@ jobs:
           command: .circleci/install-deployment-dependencies.sh
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
-          command: cd frontend; yarn run update-version;
+          command: |
+            cd frontend
+            yarn run update-version;
       - run:
           name: generate typedocs
-          command: cd frontend; yarn run docs
+          command: |
+            cd frontend
+            yarn run docs
       - run:
           name: server snyk protect
-          command: cd server; yarn run snyk-protect
+          command: | 
+            cd server
+            yarn run snyk-protect
       - run:
           name: Create dist
-          command: cd frontend; yarn dist-trees;
+          command: |
+            cd frontend
+            yarn dist-trees
       - run:
           name: copy frontend assets into server
-          command: cd server; ./copy-frontend-assets.sh
+          command: |
+            cd server
+            ./copy-frontend-assets.sh
       - run:
           name: generate jsdocs
-          command: cd server; yarn run docs
+          command: |
+            cd server
+            yarn run docs
       - run:
           name: deploy
           command: |
@@ -166,19 +215,29 @@ jobs:
           command: .circleci/install-deployment-dependencies.sh
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
-          command: cd frontend; yarn run update-version;
+          command: |
+            cd frontend
+            yarn run update-version
       - run:
           name: generate typedocs
-          command: cd frontend; yarn run docs
+          command: |
+            cd frontend
+            yarn run docs
       - run:
           name: Create dist
-          command: cd frontend; yarn dist-prod;
+          command: |
+            cd frontend
+            yarn dist-prod
       - run:
           name: copy frontend assets into server
-          command: cd server; ./copy-frontend-assets.sh
+          command: |
+            cd server
+            ./copy-frontend-assets.sh
       - run:
           name: generate jsdocs
-          command: cd server; yarn run docs
+          command: |
+            cd server
+            yarn run docs
       - run:
           name: deploy
           command: |
