@@ -11,6 +11,7 @@ import { ClientChargesComponent } from './fields/client-charges.component';
 import { ChristmasTreePermitResolver } from './tree-application-form/christmas-tree-permit-resolver.service';
 import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
+import { DateTimeRangeService } from './_services/date-time-range.service';
 import { EmailComponent } from './fields/email.component';
 import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -93,6 +94,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
   imports: [FileUploadModule, SharedModule],
   providers: [
     ApplicationFieldsService,
+    DateTimeRangeService,
     FileUploadService,
     ChristmasTreePermitResolver,
   ]

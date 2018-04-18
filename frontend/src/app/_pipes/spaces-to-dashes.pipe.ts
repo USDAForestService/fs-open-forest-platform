@@ -8,8 +8,7 @@ export class SpacesToDashesPipe implements PipeTransform {
    */
   transform(value: string): string {
     if (value) {
-      const nospaces = value.replace(/\s+/g, '-').toLowerCase();
-      return nospaces;
+      return value.replace(/\s+/g, '-').toLowerCase();
     }
     return value;
   }

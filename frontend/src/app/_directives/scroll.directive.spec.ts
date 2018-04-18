@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TrackScrollDirective } from './scroll.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';

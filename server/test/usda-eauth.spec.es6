@@ -7,7 +7,7 @@ const util = require('../src/services/util.es6');
 
 describe('Usda eauth', () => {
   it('should populate blank user admin user object', () => {
-    const profile = {}
+    const profile = {};
     const userObject = eAuth.setUserObject(profile);
     expect(userObject.adminUsername).to.equal('');
     expect(userObject.email).to.equal('');
@@ -19,7 +19,7 @@ describe('Usda eauth', () => {
     const profile = {
       usdafirstname: 'first',
       usdalastname: 'last'
-    }
+    };
     const userObject = eAuth.setUserObject(profile);
     expect(userObject.adminUsername).to.equal('');
     expect(userObject.email).to.equal('');
@@ -40,7 +40,7 @@ describe('Usda eauth', () => {
     afterEach(() => {
       userRoleStub.restore();
       forestsStub.restore();
-    })
+    });
 
     it(
       'with first and last name and no email', () => {

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tree-map-details',
@@ -8,7 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ChristmasTreeMapDetailsComponent implements OnInit {
   forestId: any;
   mapId: any;
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private titleService: Title,
+  ) {}
 
   /**
    * Set data from route resolver
@@ -20,5 +24,12 @@ export class ChristmasTreeMapDetailsComponent implements OnInit {
         this.mapId = params['mapId'];
       }
     });
+
+    this.route.data.subscribe(data => {
+      if (data.forest && this.mapId) {
+        this.titleService.setTitle('Map details for ' + data.forest.forestName + ' ' + this.mapId + ' cutting area or ranger district | U.S. Forest Service Christmas Tree Permitting');
+      }
+    });
+
   }
 }

@@ -316,12 +316,11 @@ util.request = request;
 util.getS3 = () => {
   // Initialize our S3 BUCKET connection for file attachments
   // if local or CI use aws credentials
-  let s3 = new AWS.S3({
+  return new AWS.S3({
     region: vcapConstants.REGION,
     accessKeyId: vcapConstants.accessKeyId,
     secretAccessKey: vcapConstants.secretAccessKey
   });
-  return s3;
 };
 
 module.exports = util;

@@ -50,7 +50,7 @@ const translatePermitFromClientToDatabase = input => {
 christmasTree.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate'],
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone'],
       order: [['id', 'ASC']]
     })
     .then(results => {
@@ -126,7 +126,7 @@ const postPayGov = xmlData => {
  * @return {Object} - formatted permit object
  */
 const permitResult = permit => {
-  const result = {
+  return {
     permitId: permit.permitId,
     orgStructureCode: permit.orgStructureCode,
     firstName: permit.firstName,
@@ -145,7 +145,6 @@ const permitResult = permit => {
       forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
     }
   };
-  return result;
 };
 
 /**
@@ -242,7 +241,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        console.log('error=', error);
+                        console.error('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -296,7 +295,8 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
     },
     {
       filename: 'permit-rules.html',
-      content: new Buffer(rulesHtml, 'utf-8')
+      content: new Buffer(rulesHtml, 'utf-8'),
+      contentType: 'text/html'
     },
     {
       filename: 'permit-rules.txt',

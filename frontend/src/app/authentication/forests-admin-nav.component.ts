@@ -1,9 +1,4 @@
-import {
-  AfterViewInit, Component, DoCheck, ElementRef, HostListener, Inject, Input, OnInit,
-  ViewChild
-} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../_services/authentication.service';
+import { Component, DoCheck, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
 import { WindowRef } from '../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';

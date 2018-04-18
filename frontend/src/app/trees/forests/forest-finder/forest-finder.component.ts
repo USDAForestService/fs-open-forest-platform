@@ -1,6 +1,5 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import 'rxjs/add/observable/of';
 
@@ -15,6 +14,7 @@ export class ForestFinderComponent implements OnInit {
   forests = [];
   selectedForest = null;
   itemsPerRow = 2;
+  showForestSelectError = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,8 +45,13 @@ export class ForestFinderComponent implements OnInit {
   /**
    * Redirect to forest guidelines page
    */
-  goToForest(forestAbbr: string): void {
-    const navTo = '/christmas-trees/forests/' + forestAbbr;
-    this.router.navigate([navTo]);
+  goToForest(forest) {
+    if (forest) {
+      this.showForestSelectError = false;
+      const navTo = '/christmas-trees/forests/' + forest.forestAbbr;
+      this.router.navigate([navTo]);
+    } else {
+      this.showForestSelectError = true;
+    }
   }
 }

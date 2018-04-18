@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ForestAdminNavComponent } from './forests-admin-nav.component';
 import { ChristmasTreesAdminService } from '../trees/admin/christmas-trees-admin.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AuthenticationService } from '../_services/authentication.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../_services/util.service';
 import { Observable } from 'rxjs/Observable';

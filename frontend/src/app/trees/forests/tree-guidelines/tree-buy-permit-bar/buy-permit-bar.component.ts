@@ -1,4 +1,4 @@
-import { Inject, HostListener, Component, Input, AfterViewInit } from '@angular/core';
+import { Component, HostListener, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
@@ -13,7 +13,7 @@ export class BuyPermitBarComponent {
 
 
   constructor(
-      @Inject(DOCUMENT) private doc: Document,
+      @Inject(DOCUMENT) public doc: Document,
     ) {}
 
   /**
@@ -24,7 +24,13 @@ export class BuyPermitBarComponent {
     if (this.forest.isSeasonOpen) {
       const buyPermitLinkPosition = this.doc.getElementById('static-buy-permit-link').getBoundingClientRect().top;
       // use -20 instead of 0 so user scrolls slightly past this button before the pay button bar appears
-      this.top = (buyPermitLinkPosition < -20) ? '0px' : '-100px';
+      if (buyPermitLinkPosition < -20) {
+        this.top = '0px';
+        this.doc.getElementById('mobile-menu-btn').classList.add('shadow');
+      } else {
+        this.top = '-100px';
+        this.doc.getElementById('mobile-menu-btn').classList.remove('shadow');
+      }
     }
   }
 }

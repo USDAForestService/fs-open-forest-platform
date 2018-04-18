@@ -7,3 +7,4 @@
 * Cannot be reused or duplicated.
 * Cannot be used to remove more products than the permit holder has purchased.
 * Requires the permit holder to be present at time of tree cutting and transport.
+* Is for personal use only and not for commercial purposes.

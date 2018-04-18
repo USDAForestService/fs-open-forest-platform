@@ -6,7 +6,7 @@
  */
 
 module.exports = function(sequelize, DataTypes) {
-  const christmasTreesPermits = sequelize.define(
+  return sequelize.define(
     'christmasTreesPermits',
     {
       permitId: {
@@ -94,5 +94,4 @@ module.exports = function(sequelize, DataTypes) {
       freezeTableName: true
     }
   );
-  return christmasTreesPermits;
 };

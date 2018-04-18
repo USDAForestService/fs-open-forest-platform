@@ -224,18 +224,12 @@ const translateFromDatabaseToClient = input => {
       },
       experienceFields: {
         haveCitations:
-          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0
-            ? true
-            : false,
+          input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0,
         haveNationalForestPermits:
           input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
-          input.tempOutfitterFieldsExpNatForestPermits.length > 0
-            ? true
-            : false,
+          input.tempOutfitterFieldsExpNatForestPermits.length > 0,
         haveOtherPermits:
-          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0
-            ? true
-            : false,
+          input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
         listAllNationalForestPermits: input.tempOutfitterFieldsExpNatForestPermits,
         listAllOtherPermits: input.tempOutfitterFieldsExpOtherPermits

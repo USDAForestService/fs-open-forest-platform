@@ -1,13 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { FileUploadComponent } from './file-upload.component';
-import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
 
-import { FileItem, FileUploaderOptions, FileLikeObject, FileUploadModule } from 'ng2-file-upload';
-import * as sinon from 'sinon';
+import { FileLikeObject, FileUploadModule } from 'ng2-file-upload';
 
 describe('FileUploadComponent', () => {
   let component: FileUploadComponent;

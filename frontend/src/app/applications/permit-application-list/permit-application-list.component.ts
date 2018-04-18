@@ -1,8 +1,7 @@
 import { AlertService } from '../../_services/alert.service';
 import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { Component, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import * as moment from 'moment/moment';
 
 @Component({

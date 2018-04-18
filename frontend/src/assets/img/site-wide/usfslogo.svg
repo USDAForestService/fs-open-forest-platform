@@ -12,7 +12,7 @@
 	<!ENTITY ns_svg "http://www.w3.org/2000/svg">
 	<!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
 ]>
-<svg  version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+<svg  version="1.1" id="Layer_1"  xmlns:i="&ns_ai;"
 	 xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="100" height="110" viewBox="0 0 300 332.834"
 	 overflow="visible" enable-background="new 0 0 300 332.834" xml:space="preserve">
 <switch>

@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment-timezone';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';

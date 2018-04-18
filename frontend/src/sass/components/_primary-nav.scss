@@ -69,9 +69,8 @@
 
 @media (min-width: $nav-width) {
   .usa-nav .usa-nav-primary li button[aria-expanded='true'] {
-    background-image: url(/assets/img/site-wide/angle-arrow-down-primary-white.svg);
     color: #ffffff;
-    background-color: #073d11;
+    background: #073d11 url(/assets/img/site-wide/angle-arrow-down-primary-white.svg);
   }
 }
 

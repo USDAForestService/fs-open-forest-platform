@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './_services/authentication.service';
@@ -7,8 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { UtilService } from './_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Observable';
-import { Routes } from '@angular/router';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, Routes } from '@angular/router';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };

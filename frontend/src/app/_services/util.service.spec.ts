@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { UtilService } from './util.service';
 import { Observable } from 'rxjs/Observable';
 import * as sinon from 'sinon';

@@ -6,10 +6,9 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { FileUploadService } from '../_services/file-upload.service';
 import { ApplicationService } from '../../_services/application.service';
-import { Component, DoCheck, ElementRef, HostListener, Renderer2, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -185,11 +184,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   checkFileUploadValidity() {
     const untouchedRequired = document.querySelectorAll('.usa-file-input.ng-untouched.required');
     const invalid = document.querySelectorAll('.usa-file-input.ng-invalid');
-    if (untouchedRequired.length || invalid.length) {
-      this.invalidFileUpload = true;
-    } else {
-      this.invalidFileUpload = false;
-    }
+    this.invalidFileUpload = !!(untouchedRequired.length || invalid.length);
   }
 
   numberOfFilesToUpload() {
@@ -203,10 +198,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
   removeUnusedData() {
     const form = this.applicationForm;
-    const service = this.applicationFieldsService;
     if (form.get('applicantInfo')) {
       if (!form.get('applicantInfo.addAdditionalPhone').value) {
-        service.removeAdditionalPhone(form.get('applicantInfo'));
+        this.applicationFieldsService.removeAdditionalPhone(form.get('applicantInfo'));
       }
     }
     this.removeDataWrapper(form, 'activityDescriptionFields');
