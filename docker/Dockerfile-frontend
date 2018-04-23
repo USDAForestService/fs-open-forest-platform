@@ -7,7 +7,7 @@ RUN sudo apt-get update \
     && sudo dpkg -i google-chrome.deb \
     && sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome \
     && rm google-chrome.deb \
-    google-chrome --version
+    && google-chrome --version
 
 #RUN sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
 #    && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
