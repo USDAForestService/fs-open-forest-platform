@@ -3,11 +3,15 @@ jobs:
   run-all-other-tests:
     docker:
       - image: circleci/node:8.9.4-browsers
-    environment:
-      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
-      - VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
-      - PLATFORM: local
-
+        environment:
+          DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+          VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
+          PLATFORM: local
+      - image: postgres:9.6.3
+        environment:
+           POSTGRES_USER: "ubuntu"
+           POSTGRES_DB: "circle_test"
+           
     steps:
       - checkout
       - restore_cache:
