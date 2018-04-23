@@ -5,6 +5,9 @@ jobs:
       - image: circleci/node:8.9.4-browsers
     environment:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+      - VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
+      - PLATFORM: local
+      
     steps:
       - checkout
       - restore_cache:
