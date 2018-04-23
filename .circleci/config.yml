@@ -19,7 +19,7 @@ jobs:
           name: Frontend - Install dependencies
           command: |
             cd frontend
-            npm i
+            yarn install
       - run:
           name: Frontend - lint
           command: |
@@ -35,6 +35,8 @@ jobs:
           command: |
             cd server
             npm i
+            npm -g add sequelize-cli
+
       - save_cache:
           paths:
             - ./frontend/node_modules
