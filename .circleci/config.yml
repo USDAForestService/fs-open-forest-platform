@@ -62,6 +62,7 @@ jobs:
       - run:
           name: populate db for server
           command: |
+            cd server
             npm run migrate
             npm run undoAllSeed
             npm run seed
