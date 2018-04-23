@@ -7,7 +7,7 @@ jobs:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
       - VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
       - PLATFORM: local
-      
+
     steps:
       - checkout
       - restore_cache:
@@ -60,8 +60,14 @@ jobs:
             cd frontend
             yarn run test:ci
       - run:
+          name: populate db for server
+          command: |
+            npm run migrate
+            npm run undoAllSeed
+            npm run seed
+      - run:
           name: Server - unit tests
-          command:  |
+          command: |
             cd server
             yarn coverage
       - store_artifacts:
