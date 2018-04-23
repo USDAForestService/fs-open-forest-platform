@@ -48,7 +48,7 @@ jobs:
           paths:
             - ./frontend/node_modules
             - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "requirements.txt" }}-{{ checksum "package.json" }}
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
       - run:
           name: Server - lint
           command: |
