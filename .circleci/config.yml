@@ -3,7 +3,6 @@ jobs:
   run-all-other-tests:
     docker:
       - image: circleci/node:8.9.4-browsers
-    machine: true
     environment:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
