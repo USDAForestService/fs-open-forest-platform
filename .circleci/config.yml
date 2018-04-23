@@ -1,24 +1,13 @@
 version: 2
 jobs:
   run-all-other-tests:
+    docker:
+      - image: circleci/node:8.9.4-browsers
     machine: true
     environment:
       - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
-      - run:
-          name: Install node@8.9.4
-          command: |
-            set +e
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v8.9.4
-            nvm alias default v8.9.4
-
-            # Each step uses the same `$BASH_ENV`, so need to modify it
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - restore_cache:
           keys:
           - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
@@ -64,25 +53,15 @@ jobs:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
       - run:
-          name: Docker - build docker compose images
-          command: |
-            cd docker
-            ../.circleci/build-docker-images.sh
-      - run:
-          name: Docker - Install dependencies in docker image
-          command: |
-            cd docker
-            ../.circleci/install-dependencies-docker.sh
-      - run:
           name: Frontend - unit tests
           command: |
-            cd docker
-            docker-compose run fs-intake-frontend yarn run test:ci
+            cd frontend
+            yarn run test:ci
       - run:
           name: Server - unit tests
           command:  |
-            cd docker
-            docker-compose run fs-intake-server yarn coverage
+            cd server
+            yarn coverage
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
@@ -107,7 +86,18 @@ jobs:
           name: install dependencies
           command: |
             cd docker
-            ../.circleci/install-dependencies-docker.sh  
+            ../.circleci/install-dependencies-docker.sh
+      - run: 
+          name: Install latest chrome
+          command: |
+            sudo apt-get update
+            sudo apt-get install lsb-release libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+            google-chrome --version
+            
       - run:
           name: Run authenicated e2e tests
           command: |
