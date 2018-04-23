@@ -11,7 +11,7 @@ jobs:
         environment:
            POSTGRES_USER: "ubuntu"
            POSTGRES_DB: "circle_test"
-           
+
     steps:
       - checkout
       - restore_cache:
@@ -102,17 +102,6 @@ jobs:
           command: |
             cd docker
             ../.circleci/install-dependencies-docker.sh
-      - run: 
-          name: Install latest chrome
-          command: |
-            sudo apt-get update
-            sudo apt-get install lsb-release libappindicator3-1
-            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome.deb
-            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
-            rm google-chrome.deb
-            google-chrome --version
-            
       - run:
           name: Run authenicated e2e tests
           command: |
