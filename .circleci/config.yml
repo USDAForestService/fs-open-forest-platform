@@ -98,7 +98,6 @@ jobs:
     parallelism: 4
     steps:
       - checkout
-      - checkout
       - restore_cache:
           keys:
           - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
@@ -221,6 +220,11 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - fs-epermit-deps-
       - run:
           name: remove yarn dependencies
           command: rm -rf ~/.yarn
@@ -230,6 +234,11 @@ jobs:
       - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
@@ -270,8 +279,13 @@ jobs:
   prod-deploy:
     docker:
       - image: circleci/node:8.9.4
-    steps:
+        steps:
       - checkout
+      - restore_cache:
+          keys:
+          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - fs-epermit-deps-
       - run:
           name: remove yarn dependencies
           command: rm -rf ~/.yarn
@@ -281,6 +295,11 @@ jobs:
       - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
@@ -323,9 +342,9 @@ workflows:
           requires:
       - build-docker:
           requires:
-          # filters:
-          #   branches:
-          #     only: dev
+          filters:
+            branches:
+              only: dev
       - run-pa11y:
           requires:
           filters:
