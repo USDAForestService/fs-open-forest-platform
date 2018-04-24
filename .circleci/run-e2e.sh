@@ -41,7 +41,8 @@ else
       exit 1
       ;;
   esac
-  sudo yarn e2e:ci --environment docker $ARGUMENTS;
+  echo $ARGUMENTS;
+  sudo yarn e2e:ci $ARGUMENTS;
 
   e2ereturncode=$?
 

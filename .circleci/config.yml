@@ -211,6 +211,12 @@ jobs:
           command: |
             cd docker 
             docker-compose run fs-intake-frontend sudo yarn e2e:cidkr --environment docker
+            e2ereturncode=$?
+            if [[ $e2ereturncode = 0 ]]
+              then echo 'SUCCESS'
+            else echo 'FAIL'
+            fi
+            exit $e2ereturncode
 
   staging-deploy:
     docker:
