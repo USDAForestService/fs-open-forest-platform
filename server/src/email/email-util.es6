@@ -60,7 +60,6 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
     mailOptions.attachments = attachments;
   }
   if (vcapConstants.SMTP_HOST) {
-    // transporter.use('compile', inlineCss());
     transporter.sendMail(mailOptions, error => {
       if (error) {
         console.error('NODE_MAILER_SMTP_ERROR', error);
