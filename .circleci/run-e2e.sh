@@ -42,6 +42,11 @@ else
       ;;
   esac
   echo $ARGUMENTS;
+  cd server;
+  yarn start &
+  serverid=$!
+  sleep 1
+  cd ../frontend;
   sudo yarn e2e:ci $ARGUMENTS;
 
   e2ereturncode=$?
@@ -52,6 +57,7 @@ else
   else
     echo 'FAIL'
   fi
+  kill -int $serverid
   exit $e2ereturncode
 fi
 
