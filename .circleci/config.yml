@@ -85,23 +85,62 @@ jobs:
           prefix: server-coverage
 
   run-e2e:
-    machine: true
+    docker:
+      - image: circleci/node:8.9.4
+        environment:
+          DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+          VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
+          PLATFORM: local
+      - image: postgres:9.6.3
+        environment:
+           POSTGRES_USER: "ubuntu"
+           POSTGRES_DB: "circle_test"
     parallelism: 4
-    environment:
-      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
+      - checkout
+      - restore_cache:
+          keys:
+          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - fs-epermit-deps-
+      - run:
+          name: Frontend - Install dependencies
+          command: |
+            cd frontend
+            yarn install
+      - run:
+          name: Server - install Dependencies
+          command: |
+            cd server
+            yarn install
+            yarn global add sequelize-cli
+      - run:
+          name: Install latest chrome
+          command: |
+            sudo apt-get update
+            sudo apt-get install lsb-release libappindicator3-1 libasound2 libnspr4 libnss3 libxss1 xdg-utils fonts-liberation \
+            sudo curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+            sudo dpkg -i google-chrome.deb \
+            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome \
+            sudo rm google-chrome.deb
+            google-chrome --version
+
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
       - run:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
       - run:
-          name: build docker compose images
-          command: cd docker; ../.circleci/build-docker-images.sh
-      - run:
-          name: install dependencies
+          name: populate db for server
           command: |
-            cd docker
-            ../.circleci/install-dependencies-docker.sh
+            cd server
+            npm run migrate
+            npm run undoAllSeed
+            npm run seed
       - run:
           name: Run authenicated e2e tests
           command: |
@@ -111,7 +150,7 @@ jobs:
           name: Run unauthenticated e2e tests
           command: |
             cd docker
-            ../.circleci/run-e2e.sh -u  
+            ../.circleci/run-e2e.sh -u
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
@@ -151,6 +190,27 @@ jobs:
           command: |
             cd docker
             ../.circleci/pa11y.sh
+
+  build-docker:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Copy shared assets from frontend into server
+          command: cd server; ./copy-frontend-assets.sh
+      - run:
+          name: build docker compose images
+          command: cd docker; ../.circleci/build-docker-images.sh
+      - run:
+          name: install dependencies
+          command: |
+            cd docker
+            ../.circleci/install-dependencies-docker.sh
+      - run:
+          name: docker e2e smoke screen test
+          command: |
+            cd docker 
+            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr --environment docker
 
   staging-deploy:
     docker:
@@ -199,7 +259,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            if [ "${CIRCLE_PROJECT_USERNAME}" == "nciinc" ];
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
               then ./.cg-deploy/deploy.sh public-trees-staging;
             fi
 
@@ -257,19 +317,25 @@ workflows:
           requires:
       - run-e2e:
           requires:
+      - build-docker:
+          requires:
+          filters:
+            branches:
+              only: dev
       - run-pa11y:
           requires:
           filters:
             branches:
-              only: sprint-13-development
+              only: dev
       - staging-deploy:
           requires:
             - run-all-other-tests
             - run-e2e
             - run-pa11y
+            - build-docker
           filters:
             branches:
-              only: sprint-13-development
+              only: dev
       - prod-deploy:
           requires:
             - run-all-other-tests
