@@ -319,9 +319,9 @@ workflows:
           requires:
       - build-docker:
           requires:
-          filters:
-            branches:
-              only: dev
+          # filters:
+          #   branches:
+          #     only: dev
       - run-pa11y:
           requires:
           filters:
