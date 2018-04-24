@@ -1,13 +1,22 @@
 # Use node 8.9.4 as the base image
-FROM circleci/node:8.9.4-browsers
+FROM circleci/node:8.9.4
 
-# Install Google Chrome
-#RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-#    && apt-get update && apt-get install -y google-chrome-stable \
-#    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN sudo apt-get update \
+    && sudo apt-get install lsb-release libappindicator3-1 curl libasound2 libnspr4 libnss3 libxss1 xdg-utils fonts-liberation \
+    && sudo curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && sudo dpkg -i google-chrome.deb \
+    && sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome \
+    && sudo rm google-chrome.deb
 
+RUN google-chrome --version 
+
+#RUN sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#    && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+#    && sudo apt-get update && apt-get install -y google-chrome-stable \
+#    && sudo apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+#
 #ENV CHROME_BIN /usr/bin/google-chrome
+
 # create a top level node directory and copy the frontend package.json
 # into it
 # set the work dir to /node
