@@ -100,7 +100,9 @@ export class UtilService {
       const element = document.querySelector('#' + fragment);
       this.currentSubSection = fragment;
       if (element) {
-        element.scrollIntoView();
+        element.scrollIntoView(true);
+        const scrolledY = window.scrollY;
+        window.scroll(0, scrolledY - 80);
         document.getElementById(fragment).focus();
         return fragment;
       }
@@ -111,11 +113,10 @@ export class UtilService {
    * Format string for use as ID (spaces to dashes, lowercase)
    */
   createId(value: string) {
-    const id = value
+    return value
       .replace(/[^A-Z0-9]+/gi, '-')
       .toLowerCase()
       .substring(0, 20);
-    return id;
   }
 
   /**

@@ -1,10 +1,16 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Type } from '@angular/core';
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthenticationService } from '../_services/authentication.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
-  ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Params, Route, Router,
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Data,
+  NavigationEnd,
+  Params,
+  Route,
+  Router,
   UrlSegment
 } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -104,6 +110,55 @@ describe('AuthenticatedComponent', () => {
       expect(component.user).toBeNull();
     })
   );
+
+  it ('should set showAdminNav to false if the user has no forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin' };
+      fixture.detectChanges();
+      expect(component.showAdminNav).toBeFalsy();
+    });
+  });
+
+  it ('should set showAdminNav to true if the user has forests and is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showAdminNav).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to true if the user has no forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin' };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to true if the user has empty forests but is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: [] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeTruthy();
+    });
+  });
+
+  it ('should set showSUDS to false if the user has forests and is an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'admin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeFalsy();
+    });
+  });
+
+  it ('should set showSUDS to false and showAdminNav to false if the user is not an admin', () => {
+    async(() => {
+      component.user = { email: 'test@test.com', role: 'notanadmin', forests: ['arp'] };
+      fixture.detectChanges();
+      expect(component.showSUDS).toBeFalsy();
+      expect(component.showAdminNav).toBeFalsy();
+    });
+  });
 
   afterEach(() => {
     localStorage.clear();

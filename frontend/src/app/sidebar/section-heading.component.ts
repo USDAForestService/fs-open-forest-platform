@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output, Renderer2 } from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 
 @Component({

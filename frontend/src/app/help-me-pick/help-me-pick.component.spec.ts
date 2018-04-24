@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HelpMePickComponent } from './help-me-pick.component';
-import { MockRouter, MockActivatedRoute } from '../_mocks/routes.mock';
+import { MockActivatedRoute, MockRouter } from '../_mocks/routes.mock';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 

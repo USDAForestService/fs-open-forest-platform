@@ -28,8 +28,7 @@
 
   .arrow {
 
-    background-image: url(/assets/img/site-wide/green-arrow.svg);
-    background-repeat: no-repeat;
+    background: url(/assets/img/site-wide/green-arrow.svg) no-repeat;
     position: relative;
     right: -20px;
     top: -13px;
@@ -70,13 +69,11 @@
   }
 
   &.done {
-    background-image: url(/assets/img/site-wide/checkmark.svg);
-    background-color: $fs-tan;
+    background: $fs-tan url(/assets/img/site-wide/checkmark.svg);
   }
 
   &.current {
-    background-color: $fs-green;
-    background-image: url(/assets/img/site-wide/current-step-icon.svg);
+    background: $fs-green url(/assets/img/site-wide/current-step-icon.svg);
   }
 
   &.next {

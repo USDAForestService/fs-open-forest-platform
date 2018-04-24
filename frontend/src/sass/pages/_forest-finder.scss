@@ -1,0 +1,48 @@
+#what-to-expect {
+  h3 {
+    margin-top: 1rem;
+  }
+
+  .next-arrow {
+    @media (max-width: $large-screen) {
+      display: none;
+    }
+  }
+
+}
+
+#every-kid-in-a-park {
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  .every-kid-img {
+    height: 133px;
+    float: left;
+    margin-top: -26px;
+    margin-right: 50px;
+
+  }
+}
+
+#forest-finder-error {
+  height: 2rem;
+  span {
+    color: #DD9C92 !important;
+  }
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+#forest-finder-submit {
+  margin-top: 4px;
+}
+
+#forest-finder-form {
+
+
+  label {
+    span {
+      font-weight: normal;
+    }
+  }
+}

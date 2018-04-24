@@ -34,7 +34,6 @@ export class TreeGuidelinesComponent implements OnInit {
   setSeasonStatus(forest) {
     forest.isSeasonOpen = this.isSeasonOpen;
     forest.seasonOpenAlert = this.seasonOpenAlert;
-
     if (forest.endDate && forest.startDate) {
       forest.isSeasonOpen = moment(forest.endDate)
         .tz(forest.timezone)
@@ -43,21 +42,6 @@ export class TreeGuidelinesComponent implements OnInit {
         forest.seasonOpenAlert = '';
         forest = this.checkSeasonStartDate(forest);
       }
-    }
-
-    forest = this.setMockAlert(forest);
-
-    return forest;
-  }
-
-  /**
-   *  @returns forest with mock alert for testing
-   */
-  private setMockAlert(forest) {
-    // set mock data info warning if on test environment
-    if (!environment.production) {
-      forest.isMockData = true;
-      forest.mockDataAlert = ' Note: Forest season dates are mocked for testing purposes.';
     }
     return forest;
   }

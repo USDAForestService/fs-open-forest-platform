@@ -2,8 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TitleDirective } from './title.directive';
 import { Component, DebugElement } from '@angular/core';
 import { By, Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({

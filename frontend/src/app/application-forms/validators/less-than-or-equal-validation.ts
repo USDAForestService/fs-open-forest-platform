@@ -1,5 +1,4 @@
-import { AbstractControl, NG_VALIDATORS, Validator, ValidatorFn, Validators } from '@angular/forms';
-import { States } from '../../_models/constants';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export function lessThanOrEqualValidator(num, minNum = -99999): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {

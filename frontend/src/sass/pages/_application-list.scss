@@ -78,8 +78,7 @@ app-permit-application-list {
 }
 
 div.warning-icon {
-  background-image: url('../node_modules/uswds/dist/img/alerts/warning.svg');
-  background-repeat: no-repeat;
+  background: url('../node_modules/uswds/dist/img/alerts/warning.svg') no-repeat;
   background-size: 40px 50px;
   height: 40px;
   padding: 0;

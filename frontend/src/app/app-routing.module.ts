@@ -95,7 +95,8 @@ const appRoutes: Routes = [
     path: 'admin/christmas-trees',
     canActivate: [AccessControlService],
     data: {
-      admin: true
+      admin: true,
+      showAdmin: true
     },
     resolve: {
       user: UserResolver,
@@ -215,7 +216,8 @@ const appRoutes: Routes = [
       breadcrumbs: true,
       text: 'Christmas tree permits',
       title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting',
-      requireLogin: false
+      requireLogin: false,
+      showAdmin: true
     },
     resolve: {
       user: UserResolver
@@ -275,7 +277,10 @@ const appRoutes: Routes = [
     resolve: {
       permit: ChristmasTreePermitResolver
     },
-    data: { breadcrumbs: PermitBreadcrumbsResolver }
+    data: {
+      breadcrumbs: PermitBreadcrumbsResolver,
+      showAdmin: true
+    }
   },
   {
     path: 'mock-pay-gov',

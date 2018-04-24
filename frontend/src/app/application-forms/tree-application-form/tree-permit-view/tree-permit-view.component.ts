@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
-import { Title } from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { WindowRef } from '../../../_services/native-window.service';
 import { DOCUMENT } from '@angular/common';
 
@@ -86,7 +85,7 @@ export class TreePermitViewComponent implements OnInit {
   printPermit() {
     const popupWin = this.nativeWindow.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 
-    const includeRules = this.includeRules ? true : false;
+    const includeRules = this.includeRules;
 
     this.christmasTreesApplicationService.getPrintablePermit(this.permit.permitId, includeRules).subscribe(response => {
       let content = response[0]['result'];

@@ -1,4 +1,4 @@
-import { AbstractControl, NG_VALIDATORS, Validator, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export function urlValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {

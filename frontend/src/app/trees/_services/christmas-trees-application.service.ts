@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpParams, HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -134,7 +134,7 @@ export class ChristmasTreesApplicationService {
   /**
    * @returns Error Observable
    */
-  resolverError(errors, route) {
+  resolverError(errors: any[], route) {
     for (const error of errors) {
       if (error && error.status === 404) {
         this.router.navigate([route]);

@@ -4,10 +4,10 @@ The U.S. Forest Service Christmas tree epermit project follows the [18F Content 
 
 Below is a listing and description of the content sections for each pilot forest and any general guidelines for content within the section.
 
-| Section                          | Description   | 
-| -------------                    |:-------------| 
-| When to cut your tree              | This section provides the dates and times for when you can cut your permit. Administrators can update the dates and times by signing in as an Admin and using the available forms. | 
-| Where to cut your tree            | This section provides information about where someone can and cannot cut down a tree. Maps are included here, if available.     | 
+| Section                          | Description   |
+| -------------                    |:-------------|
+| When to cut your tree              | This section provides the dates and times for when you can cut your permit. Administrators can update the dates and times by signing in as an Admin and using the available forms. |
+| Where to cut your tree            | This section provides information about where someone can and cannot cut down a tree. Maps are included here, if available.     |
 | Prohibited areas and restrictions | Any prohibitions on cutting are listed in this section. The first bullet point is the same for every forest; it is *Cut trees only within the national forest boundary and respect surrounding private property.* <br>The remaining bullet points will vary depending on the individual forest’s rules and guidelines.
 | Cutting Area Maps             | This section offers maps specific to Christmas tree cutting, if available, along with language unique to the forest providing the maps. Additionally, detailed alt-text must be provided to meet accessibility requirements; follow current example ([Sulphur Ranger District map description](/christmas-trees/forests/arp/maps/sulphur)  ) <p>If maps are not available, standard language is used. That language is:_When searching for your Christmas tree at the {{NationalForest}}, be sure to use designated motorized roads and to be aware of seasonal road closures. Maps and travel publications are available online and at ranger district offices._ Link the terms map and travel publications to the webpage that contains the national forest’s maps. For example: https://www.fs.usda.gov/main/flathead/maps-pubs
 | How to cut your tree          | This section covers permit size requirements as well as tips for cutting your tree.      |
@@ -23,7 +23,7 @@ Below is a listing and description of the content sections for each pilot forest
 
 * all-wheel drive or AWD
 
-* four-wheel drive or 4WD 
+* four-wheel drive or 4WD
 
 * non-refundable
 
@@ -33,4 +33,4 @@ Below is a listing and description of the content sections for each pilot forest
 
 **Content Maintenance**
 
-Forest administrators can request changes to the content at https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/reports .
+Forest administrators can request changes to the content at https://docs.google.com/forms/d/e/1FAIpQLSca7taTXY7xUTDvcnyR7rf7jkfvinBPtGqbNWgLBd3Dy6kH4Q/viewform .

@@ -5,7 +5,7 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
   let page: TreesSidebarPage;
 
   describe('Mt Hood', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       page = new TreesSidebarPage();
       browser.driver
         .manage()
@@ -32,6 +32,15 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
 
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
+    });
+
+    it ('should display a buy button', () => {
+      expect<any>(page.buyButton().isDisplayed()).toBeTruthy();
+    });
+
+    it ('should not display the buy button header', () => {
+      expect<any>(page.buyButtonHeader().isPresent()).toBeTruthy();
+      expect(page.buyButtonHeader().getCssValue('top')).toEqual('-100px');
     });
   });
 

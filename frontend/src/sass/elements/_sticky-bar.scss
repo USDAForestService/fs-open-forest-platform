@@ -1,0 +1,70 @@
+.sticky-bar {
+  background: white;
+  margin-bottom: 0;
+  position: relative;
+  text-align: center;
+  -webkit-transition: -webkit-all .5s;
+  -moz-transition: -moz-all .5s;
+  -ms-transition: -ms-all .5s;
+  -o-transition: -o-all .5s;
+  transition: all .5s;
+  width: 100%;
+  z-index: 1000;
+  left: -58px;
+  padding: 12px 1em 11px 68px;
+  @media (min-width: $nav-width) {
+    left: 0;
+    padding: 0;
+  }
+  &.fixed {
+    position: fixed;
+  }
+  &.top {
+    top: 0;
+    box-shadow: 0 4px 20px $dark-grey;
+  }
+  &.bottom {
+    left: 0;
+    padding: 0;
+    bottom: 0;
+    box-shadow: 0px -4px 20px $dark-grey;
+  }
+
+  h3 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  button {
+    margin-left: 2rem;
+    @media (max-width: $medium-screen) {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  #sticky-bar-forestname {
+    display: none;
+    @media (min-width: $nav-width) {
+        display: inline-block;
+    }
+  }
+
+  #sticky-bar-forestname {
+    font-size: 2rem;
+  }
+
+  #sticky-bar-desc-container {
+    span {
+      padding: 2rem;
+    }
+    @media (max-width: $medium-screen) {
+      display: none;
+    }
+  }
+}
+
+.sticky-bar-label {
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-weight: normal;
+}
