@@ -279,7 +279,7 @@ jobs:
   prod-deploy:
     docker:
       - image: circleci/node:8.9.4
-        steps:
+    steps:
       - checkout
       - restore_cache:
           keys:
