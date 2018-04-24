@@ -28,11 +28,9 @@ else
       then
         echo 'No spec arguments accepted with -u flag. Ignoring all other arguments provided.'
       fi
-      #Remove running server image so one with an updated platform env var can be created
-      docker-compose down
 
       #Rebuild server with PLATFORM set to something other than local to enable test to pass
-      docker-compose build --build-arg PLATFORM='ci-unauthenticated' --build-arg AWS_CONFIG="$AWS_CONFIG" fs-intake-server
+      export PLATFORM='ci-unauthenticated'
 
       ARGUMENTS=$ARGUMENTS"--config ./development-configurations/unauth-protractor.conf.js"
       ;;
@@ -43,7 +41,13 @@ else
       exit 1
       ;;
   esac
-  docker-compose run fs-intake-frontend sudo yarn e2e:ci --environment docker $ARGUMENTS;
+  echo $ARGUMENTS;
+  cd server;
+  yarn start &
+  serverid=$!
+  sleep 1
+  cd ../frontend;
+  sudo yarn e2e:ci $ARGUMENTS;
 
   e2ereturncode=$?
 
@@ -53,6 +57,7 @@ else
   else
     echo 'FAIL'
   fi
+  kill -int $serverid
   exit $e2ereturncode
 fi
 
