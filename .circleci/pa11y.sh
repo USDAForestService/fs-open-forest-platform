@@ -3,7 +3,6 @@ docker-compose build fs-intake-pa11y
 docker-compose up fs-intake-pa11y &
 sleep 300
 
-cd ../frontend
 echo 'STARTING Pa11y TESTS'
 
 cd ../frontend
