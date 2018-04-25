@@ -593,21 +593,23 @@ describe('noncommercial controllers', () => {
 
 describe('noncommercial controllers revisions', () => {
   it('GET should return a 200 status code, a status of Accepted, a middle layer control number, and a revision history', done => {
-    request(server)
-      .get(`${noncommercialUrl}/${intakeControlNumber}`)
-      .expect('Content-Type', /json/)
-      .expect(res => {
-        assert.equal(res.body.controlNumber, '1999');
-        assert.equal(res.body.status, 'Accepted');
-        assert.equal(res.body.revisions.length, 6);
-        assert.equal(res.body.revisions[0].status, 'Submitted');
-        assert.equal(res.body.revisions[1].status, 'Cancelled');
-        assert.equal(res.body.revisions[2].status, 'Rejected');
-        assert.equal(res.body.revisions[3].status, 'Hold');
-        assert.equal(res.body.revisions[4].status, 'Review');
-        assert.equal(res.body.revisions[5].status, 'Accepted');
-      })
-      .expect(200, done);
+    setTimeout(function(){
+      request(server)
+        .get(`${noncommercialUrl}/${intakeControlNumber}`)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          assert.equal(res.body.controlNumber, '1999');
+          assert.equal(res.body.status, 'Accepted');
+          assert.equal(res.body.revisions.length, 6);
+          assert.equal(res.body.revisions[0].status, 'Submitted');
+          assert.equal(res.body.revisions[1].status, 'Cancelled');
+          assert.equal(res.body.revisions[2].status, 'Rejected');
+          assert.equal(res.body.revisions[3].status, 'Hold');
+          assert.equal(res.body.revisions[4].status, 'Review');
+          assert.equal(res.body.revisions[5].status, 'Accepted');
+        })
+        .expect(200, done);
+    },250);
   });
 
   it('DELETE should return a 404 status code', done => {
