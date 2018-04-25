@@ -223,21 +223,24 @@ describe('tempoutfitter controllers', () => {
 
 describe('tempoutfitter controllers revisions', () => {
   it('GET should return a 200 status code, a status of Accepted, a middle layer control number, and a revision history', done => {
-    request(server)
-      .get(`${tempoutfitterUrl}/${intakeControlNumber}`)
-      .expect('Content-Type', /json/)
-      .expect(res => {
-        assert.equal(res.body.controlNumber, '1999');
-        assert.equal(res.body.status, 'Accepted');
-        assert.equal(res.body.revisions.length, 5);
-        assert.equal(res.body.revisions[0].status, 'Submitted');
-        assert.equal(res.body.revisions[1].status, 'Cancelled');
-        assert.equal(res.body.revisions[2].status, 'Hold');
-        assert.equal(res.body.revisions[3].status, 'Review');
-        assert.equal(res.body.revisions[4].status, 'Accepted');
-      })
-      .expect(200, done);
+    setTimeout(function () {
+      request(server)
+        .get(`${tempoutfitterUrl}/${intakeControlNumber}`)
+        .expect('Content-Type', /json/)
+        .expect(res => {
+          assert.equal(res.body.controlNumber, '1999');
+          assert.equal(res.body.status, 'Accepted');
+          assert.equal(res.body.revisions.length, 5);
+          assert.equal(res.body.revisions[0].status, 'Submitted');
+          assert.equal(res.body.revisions[1].status, 'Cancelled');
+          assert.equal(res.body.revisions[2].status, 'Hold');
+          assert.equal(res.body.revisions[3].status, 'Review');
+          assert.equal(res.body.revisions[4].status, 'Accepted');
+        })
+        .expect(200, done);
+    }, 250);
   }).timeout(5000);
+
   it('DELETE should return a 404 status code', done => {
     request(server)
       .delete(`${tempoutfitterUrl}/${intakeControlNumber}`)
