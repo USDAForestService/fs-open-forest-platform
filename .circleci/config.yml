@@ -160,8 +160,6 @@ jobs:
 
   run-pa11y:
     machine: true
-    environment:
-      - DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
     steps:
       - checkout
       - run:
@@ -177,11 +175,21 @@ jobs:
             # Each step uses the same `$BASH_ENV`, so need to modify it
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
+      - restore_cache:
+          keys:
+          - fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - fs-epermit-pa11y-deps-
       - run:
           name: install pa11y
           command:  |
             cd frontend
-            npm i -g pa11y-ci && npm i
+            npm i -g pa11y-ci
+            npm i
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./opt/circleci/.nvm/versions/node/v8.9.4/bin/
       - run:
           name: pa11y test
           command: |
