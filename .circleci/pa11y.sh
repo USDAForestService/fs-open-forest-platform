@@ -5,7 +5,9 @@ sleep 300
 
 cd ../frontend
 echo 'STARTING Pa11y TESTS'
-sudo npm run pa11y
+
+cd ../frontend
+pa11y-ci
 pa11yreturncode=$?
 if [[ $pa11yreturncode = 0 ]]
 then
