@@ -190,6 +190,7 @@ jobs:
           paths:
             - ./frontend/node_modules
             - ./opt/circleci/.nvm/versions/node/v8.9.4/bin/
+          key: fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
       - run:
           name: pa11y test
           command: |
