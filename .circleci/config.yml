@@ -33,6 +33,7 @@ jobs:
           name: Frontend - snyk dependency scan
           command: |
             mkdir -p a=rw snyk
+            sudo npm install -g snyk
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
             cd frontend
