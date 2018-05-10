@@ -1,3 +1,4 @@
+sudo apt-get install -y awscli
 export DATE_STRING=`date +"%m-%d-%Y-%H"`
 export SNYK_REPORT_SERVER=snyk-${CIRCLE_PR_REPONAME}-server-${DATE_STRING}.csv
 export SNYK_REPORT_FRONTEND=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
