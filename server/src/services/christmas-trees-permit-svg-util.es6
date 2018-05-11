@@ -17,6 +17,7 @@ const markdown = require('markdown').markdown;
 const vcapConstants = require('../vcap-constants.es6');
 const forestService = require('./forest.service.es6');
 const christmasTreesPermitSvgUtil = {};
+const logger = require('winston');
 
 /**
  * @function addApplicantInfo - Add applicatnt information to the SVG fragment

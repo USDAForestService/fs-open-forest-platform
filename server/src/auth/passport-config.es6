@@ -6,11 +6,13 @@
  */
 
 const passport = require('passport');
+const logger = require('winston');
 
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
+
 
 const passportConfig = {};
 
@@ -42,7 +44,7 @@ passportConfig.setup = app => {
  */
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
-    console.error('Authentication error:', err);
+    logger.warn('Authentication error:', err);
     res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();

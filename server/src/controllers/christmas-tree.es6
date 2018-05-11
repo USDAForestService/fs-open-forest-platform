@@ -11,6 +11,7 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
+const logger = require('winston');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
@@ -19,6 +20,7 @@ const permitSvgService = require('../services/christmas-trees-permit-svg-util.es
 const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 const forestService = require('../services/forest.service.es6');
+
 
 const christmasTree = {};
 
@@ -85,7 +87,7 @@ christmasTree.getForest = (req, res) => {
       }
     })
     .catch(error => {
-      console.error('christmasTree controller getForest error for forest abbr ' + req.params.id, error);
+      logger.error('christmasTree controller getForest error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
@@ -169,7 +171,7 @@ const updatePermitWithToken = (res, permit, token) => {
       });
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       return res.status(500).send();
     });
 };
@@ -241,7 +243,7 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        console.error('error=', error);
+                        logger.error('error=', error);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
@@ -252,12 +254,12 @@ christmasTree.create = (req, res) => {
                 });
               })
               .catch(error => {
-                console.error('postPayGov error=', error);
+                logger.error('postPayGov error=', error);
                 return res.status(500).send();
               });
           })
           .catch(error => {
-            console.error('permit create error=', error);
+            logger.error('permit create error=', error);
             if (error.name === 'SequelizeValidationError') {
               return res.status(400).json({
                 errors: error.errors
@@ -402,12 +404,12 @@ const generateRulesAndEmail = permit => {
             sendEmail(permit, permitPng, rulesHtml, rulesText);
           })
           .catch(error => {
-            console.error(error);
+            logger.error(error);
           });
       });
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
     });
 };
 
@@ -446,7 +448,7 @@ christmasTree.getOnePermit = (req, res) => {
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
@@ -501,7 +503,7 @@ christmasTree.printPermit = (req, res) => {
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       res.status(404).send();
     });
 };

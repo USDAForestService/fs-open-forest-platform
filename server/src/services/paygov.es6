@@ -6,6 +6,7 @@
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
+const logger = require('winston');
 const vcapConstants = require('../vcap-constants.es6');
 
 const paygov = {};
@@ -70,14 +71,14 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
   try {
     url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
   } catch (e) {
-    console.error('problem creating success url for permit ' + permit.id, e);
+    logger.error('problem creating success url for permit ' + permit.id, e);
   }
 
   let url_cancel;
   try {
     url_cancel = paygov.createCancelUrl(forestAbbr, permit.permitId);
   } catch (e) {
-    console.error('problem creating success url for permit ' + permit.id, e);
+    logger.error('problem creating success url for permit ' + permit.id, e);
   }
 
   const xmlTemplate = [
@@ -217,7 +218,7 @@ paygov.getResponseError = (requestType, result) => {
       resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
     }
   } catch (e) {
-    console.error('paygov error while parsing error response=', e);
+    logger.error('paygov error while parsing error response=', e);
     // return the default error messages
   } finally {
     return {

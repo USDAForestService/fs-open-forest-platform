@@ -8,6 +8,7 @@
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 const zpad = require('zpad');
+const logger = require('winston');
 
 const treesDb = require('../models/trees-db.es6');
 const util = require('../services/util.es6');
@@ -153,7 +154,7 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       return util.handleErrorResponse(error, res);
     });
 };
@@ -218,7 +219,7 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       res.status(500).json(error);
     });
 };
