@@ -32,8 +32,16 @@ jobs:
       - run:
           name: Frontend - snyk dependency scan
           command: |
+            mkdir -p a=rw snyk
+            sudo npm install -g snyk
+            export DATE_STRING=`date +"%m-%d-%Y-%H"`
+            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
             cd frontend
-            yarn run snyk-test
+            yarn run snyk-test # For Human
+            snyk test --json > ../snyk/snyk-frontend.json
+            sudo cat ../snyk/snyk-frontend.json  \
+            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
+            "../snyk/${SNYK_REPORT}"
       - run:
           name: Server - install Dependencies
           command: |
@@ -54,9 +62,15 @@ jobs:
       - run:
           name: Server - snyk dependency scan
           command: |
+            export DATE_STRING=`date +"%m-%d-%Y-%H"`
+            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-server-${DATE_STRING}.csv
             cd server
             yarn run snyk-protect
             yarn run snyk-test
+            snyk test --json > ../snyk/snyk-server.json
+            sudo cat ../snyk/snyk-server.json  \
+            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
+            "../snyk/${SNYK_REPORT}"
       - run:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
@@ -77,6 +91,9 @@ jobs:
           command: |
             cd server
             yarn coverage
+      - run:
+          name: Store snyk reports in S3
+          command: ./.circleci/store-snyk.sh
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
@@ -376,3 +393,14 @@ workflows:
           filters:
             branches:
               only: master
+  nightly:
+    jobs:
+      - run-tests
+    triggers:
+      - schedule:
+          # every night at 2:11 AM UTC (10:11 PM ET)
+          cron: "11 02 * * *"
+          filters:
+            branches:
+              only:
+                - master
