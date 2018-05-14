@@ -212,10 +212,14 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
           }
           return updateForest(forest, startDate, endDate, cuttingAreas, res);
         } else {
-          return res.status(403).json({ errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] });
+          const errorMessage = { errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] };
+          logger.warn(errorMessage);
+          return res.status(403).json(errorMessage);
         }
       } else {
-        return res.status(400).json({ errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] });
+        const errorMessage = { errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] };
+        logger.warn(errorMessage);
+        return res.status(400).json(errorMessage);
       }
     })
     .catch(error => {
