@@ -4,6 +4,8 @@ _Master_
 [![CircleCI](https://circleci.com/gh/18F/fs-permit-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-permit-platform/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-permit-platform/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-permit-platform/test_coverage)
+Frontend Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-permit-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-permit-platform?targetFile=frontend%2Fpackage.json)
+Server Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-permit-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-permit-platform?targetFile=server%2Fpackage.json)
 
 _Staging:_
 [![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-permit-platform.svg?style=shield)](https://circleci.com/gh/nciinc/fs-permit-platform)
