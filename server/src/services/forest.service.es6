@@ -5,8 +5,7 @@
  * @module services/forest-service
  */
 const moment = require('moment-timezone');
-const logger = require('winston')
-
+const logger = require('winston');
 const forestService = {};
 
 /**
