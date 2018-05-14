@@ -93,7 +93,7 @@ loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'
 // Initiate logging out of login.gov
 loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
   // destroy the session
-  logger.log(`${req.user} logging out.`)
+  logger.log(`${req.user} logging out.`);
   req.logout();
   // res.redirect doesn't pass the Blink's Content Security Policy directive
   return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}'</script>`);
