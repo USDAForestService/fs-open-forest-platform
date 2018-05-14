@@ -10,7 +10,7 @@ const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
-
+const logger = require('winston');
 const eAuth = {};
 
 eAuth.loginPath = '/auth/usda-eauth/saml/login';
@@ -49,16 +49,19 @@ eAuth.setUserObject = profile => {
   }
   role = util.getUserRole(adminUsername);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
-  return {
+  const adminUserObject = {
     adminUsername: role === 'admin' ? adminUsername : '',
     email: email,
     role: role,
     forests: util.getAdminForests(adminUsername)
   };
+  logger.log(`${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`)
+  return adminUserObject;
 };
 
 //Initiate authentication via eAuth.
 eAuth.router.get(eAuth.loginPath, (req, res) => {
+  logger.loggers(`Inititating eAuth Admin authenication request for ${req.user}`)
   return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
 });
 
