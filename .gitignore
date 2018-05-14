@@ -10,6 +10,7 @@ server/*.orig
 server/frontend-assets
 server/lint-results.html
 server/docs/code
+server/npm-debug.log
 
 # compiled output
 frontend/dist
@@ -47,6 +48,7 @@ frontend/npm-debug.log
 frontend/testem.log
 frontend/typings
 frontend/src/assets/typedoc
+frontend/npm-debug.log
 localfiles
 
 # e2e
