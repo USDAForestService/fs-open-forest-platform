@@ -4,11 +4,13 @@ _Master_
 [![CircleCI](https://circleci.com/gh/18F/fs-permit-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-permit-platform/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-permit-platform/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-permit-platform/test_coverage)
+[![Known Vulnerabilities](https://snyk.io/test/github/18F/fs-permit-platform/badge.svg)](https://snyk.io/test/github/18F/fs-permit-platform)
 
 _Staging:_
 [![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-permit-platform.svg?style=shield)](https://circleci.com/gh/nciinc/fs-permit-platform)
 [![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-permit-platform.svg)](https://github.com/nciinc/fs-permit-platform/issues)
 [![Code Climate](https://codeclimate.com/github/nciinc/fs-permit-platform/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-permit-platform)
+[![Known Vulnerabilities](https://snyk.io/test/github/nciinc/fs-permit-platform/badge.svg)](https://snyk.io/test/github/nciinc/fs-permit-platform)
 
 # U.S. Forest Service Permit Platform
 
