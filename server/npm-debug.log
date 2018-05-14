@@ -2,20 +2,21 @@
 1 verbose cli [ '/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/node',
 1 verbose cli   '/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/npm',
 1 verbose cli   'run',
-1 verbose cli   'test' ]
+1 verbose cli   'coverage' ]
 2 info using npm@3.10.10
 3 info using node@v6.10.2
-4 verbose run-script [ 'pretest', 'test', 'posttest' ]
-5 info lifecycle fs-permit-platform@0.0.1~pretest: fs-permit-platform@0.0.1
-6 silly lifecycle fs-permit-platform@0.0.1~pretest: no script for pretest, continuing
-7 info lifecycle fs-permit-platform@0.0.1~test: fs-permit-platform@0.0.1
-8 verbose lifecycle fs-permit-platform@0.0.1~test: unsafe-perm in lifecycle true
-9 verbose lifecycle fs-permit-platform@0.0.1~test: PATH: /Users/lauragerhardt/.nvm/versions/node/v6.10.2/lib/node_modules/npm/bin/node-gyp-bin:/Users/lauragerhardt/repos/fs-permit-platform/server/node_modules/.bin:/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin:/Users/lauragerhardt/.yarn/bin:/usr/local/Cellar/pyenv-virtualenv/1.1.1/shims:/Users/lauragerhardt/.pyenv/shims:/Users/lauragerhardt/.bin:/Users/lauragerhardt/.rvm/gems/ruby-2.2.1/bin:/Users/lauragerhardt/.rvm/gems/ruby-2.2.1@global/bin:/Users/lauragerhardt/.rvm/rubies/ruby-2.2.1/bin:/usr/local/Cellar/pyenv-virtualenv/20151229/shims:/usr/local/Cellar/pyenv/20151222/libexec:/Users/lauragerhardt/.pyenv/shims:/Users/lauragerhardt/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lauragerhardt/n/bin:/Users/lauragerhardt/.rvm/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/lauragerhardt/.rvm/bin:/usr/local/go/bin:/Users/lauragerhardt/.rvm/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin
-10 verbose lifecycle fs-permit-platform@0.0.1~test: CWD: /Users/lauragerhardt/repos/fs-permit-platform/server
-11 silly lifecycle fs-permit-platform@0.0.1~test: Args: [ '-c', 'mocha ./test/**/*.es6 ./test/*.es6' ]
-12 silly lifecycle fs-permit-platform@0.0.1~test: Returned: code: 1  signal: null
-13 info lifecycle fs-permit-platform@0.0.1~test: Failed to exec test script
-14 verbose stack Error: fs-permit-platform@0.0.1 test: `mocha ./test/**/*.es6 ./test/*.es6`
+4 verbose run-script [ 'precoverage', 'coverage', 'postcoverage' ]
+5 info lifecycle fs-permit-platform@0.0.1~precoverage: fs-permit-platform@0.0.1
+6 silly lifecycle fs-permit-platform@0.0.1~precoverage: no script for precoverage, continuing
+7 info lifecycle fs-permit-platform@0.0.1~coverage: fs-permit-platform@0.0.1
+8 verbose lifecycle fs-permit-platform@0.0.1~coverage: unsafe-perm in lifecycle true
+9 verbose lifecycle fs-permit-platform@0.0.1~coverage: PATH: /Users/lauragerhardt/.nvm/versions/node/v6.10.2/lib/node_modules/npm/bin/node-gyp-bin:/Users/lauragerhardt/repos/fs-permit-platform/server/node_modules/.bin:/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin:/Users/lauragerhardt/.yarn/bin:/usr/local/Cellar/pyenv-virtualenv/1.1.1/shims:/Users/lauragerhardt/.pyenv/shims:/Users/lauragerhardt/.bin:/Users/lauragerhardt/.rvm/gems/ruby-2.2.1/bin:/Users/lauragerhardt/.rvm/gems/ruby-2.2.1@global/bin:/Users/lauragerhardt/.rvm/rubies/ruby-2.2.1/bin:/usr/local/Cellar/pyenv-virtualenv/20151229/shims:/usr/local/Cellar/pyenv/20151222/libexec:/Users/lauragerhardt/.pyenv/shims:/Users/lauragerhardt/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/lauragerhardt/n/bin:/Users/lauragerhardt/.rvm/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/lauragerhardt/.rvm/bin:/usr/local/go/bin:/Users/lauragerhardt/.rvm/bin:/Applications/Sublime Text.app/Contents/SharedSupport/bin
+10 verbose lifecycle fs-permit-platform@0.0.1~coverage: CWD: /Users/lauragerhardt/repos/fs-permit-platform/server
+11 silly lifecycle fs-permit-platform@0.0.1~coverage: Args: [ '-c',
+11 silly lifecycle   'nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6' ]
+12 silly lifecycle fs-permit-platform@0.0.1~coverage: Returned: code: 1  signal: null
+13 info lifecycle fs-permit-platform@0.0.1~coverage: Failed to exec coverage script
+14 verbose stack Error: fs-permit-platform@0.0.1 coverage: `nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6`
 14 verbose stack Exit status 1
 14 verbose stack     at EventEmitter.<anonymous> (/Users/lauragerhardt/.nvm/versions/node/v6.10.2/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
@@ -28,18 +29,18 @@
 15 verbose pkgid fs-permit-platform@0.0.1
 16 verbose cwd /Users/lauragerhardt/repos/fs-permit-platform/server
 17 error Darwin 16.7.0
-18 error argv "/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/node" "/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/npm" "run" "test"
+18 error argv "/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/node" "/Users/lauragerhardt/.nvm/versions/node/v6.10.2/bin/npm" "run" "coverage"
 19 error node v6.10.2
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
-22 error fs-permit-platform@0.0.1 test: `mocha ./test/**/*.es6 ./test/*.es6`
+22 error fs-permit-platform@0.0.1 coverage: `nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6`
 22 error Exit status 1
-23 error Failed at the fs-permit-platform@0.0.1 test script 'mocha ./test/**/*.es6 ./test/*.es6'.
+23 error Failed at the fs-permit-platform@0.0.1 coverage script 'nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6'.
 23 error Make sure you have the latest version of node.js and npm installed.
 23 error If you do, this is most likely a problem with the fs-permit-platform package,
 23 error not with npm itself.
 23 error Tell the author that this fails on your system:
-23 error     mocha ./test/**/*.es6 ./test/*.es6
+23 error     nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6
 23 error You can get information on how to open an issue for this project with:
 23 error     npm bugs fs-permit-platform
 23 error Or if that isn't available, you can get their info via:
