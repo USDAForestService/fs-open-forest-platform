@@ -40,7 +40,7 @@ jobs:
             yarn run snyk-test # For Human
             snyk test --json > ../snyk/snyk-frontend.json
             sudo cat ../snyk/snyk-frontend.json  \
-            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Paths"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
+            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
             "../snyk/${SNYK_REPORT}"
       - run:
           name: Server - install Dependencies
@@ -69,7 +69,7 @@ jobs:
             yarn run snyk-test
             snyk test --json > ../snyk/snyk-server.json
             sudo cat ../snyk/snyk-server.json  \
-            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Paths"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
+            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
             "../snyk/${SNYK_REPORT}"
       - run:
           name: Copy shared assets from frontend into serverr
