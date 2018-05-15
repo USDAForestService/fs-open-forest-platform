@@ -67,7 +67,7 @@ loginGov.setup = () => {
             client: client,
             params: loginGov.params
           }, (tokenset, done) => {
-            logger.loggers(`${tokenset.claims.email} logged in via login.gov`);
+            logger.loggers(`${tokenset.claims.uuid} logged in via login.gov`);
             return done(null, {
               email: tokenset.claims.email,
               role: 'user',
