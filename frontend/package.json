@@ -43,7 +43,7 @@
     "intl": "^1.2.5",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.14",
-    "ng-in-viewport": "^1.2.0",
+    "ng-in-viewport": "1.2.3",
     "ng2-file-upload": "^1.2.1",
     "ngx-breadcrumbs": "^0.0.3",
     "ngx-md": "^3.1.1",
