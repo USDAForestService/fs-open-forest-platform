@@ -61,7 +61,7 @@ eAuth.setUserObject = profile => {
 
 //Initiate authentication via eAuth.
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  logger.loggers(`Inititating eAuth Admin authenication request for ${req.user}`);
+  logger.log(`Inititating eAuth Admin authenication request for ${req.user}`);
   return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
 });
 
