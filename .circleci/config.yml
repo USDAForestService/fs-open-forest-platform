@@ -1,5 +1,3 @@
-version: 2
-# Anchors used in build
 _defaults:
   docker_image_browser: &docker_image_browser
     docker:
@@ -25,12 +23,12 @@ _run:
   install_dependencies: &install_dependencies
     name: Install frontend and server dependencies
     command: |
-    cd frontend
-    yarn install
-    cd server
-    yarn install
+      cd frontend
+      yarn install
+      cd server
+      yarn install
 
-# Build
+version: 2
 jobs:
   run-all-other-tests:
     <<: *docker_image_browser
@@ -341,27 +339,28 @@ jobs:
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
               then ./.cg-deploy/deploy.sh public-production;
             fi
+  
   recycle-production:
     docker:
       - image: circleci/node:8.9.4
     steps:
-    - run:
+      - run:
           name: Install cf-recycle-plugin 1.0.0 release
           command: |
             curl -L -o cf-recycle-plugin https://github.com/rogeruiz/cf-recycle-plugin/releases/download/v1.0.0/cf-recycle-plugin.linux64
             chmod +x cf-recycle-plugin
             cf install-plugin cf-recycle-plugin -f
-    - run:
+      - run:
           name: Login to cloud.gov Production
           command: |
-          CF_API=API="https://api.fr.cloud.gov"
-          cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
+            CF_API=API="https://api.fr.cloud.gov"
+            cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
       - run:
           name: Recycle Tock Production instances
           command: |
-          cf t -o usda-forest-service -s public-production
-          cf recycle forest-service-epermit
-          cf recycle fs-intake-api
+            cf t -o usda-forest-service -s public-production
+            cf recycle forest-service-epermit
+            cf recycle fs-intake-api
 
 workflows:
   version: 2
@@ -401,7 +400,7 @@ workflows:
   nightly:
     jobs:
       - run-all-other-tests #Check snyk
-      - recycle_production:
+      - recycle-production:
           requires:
             - run-all-other-tests
     triggers:
