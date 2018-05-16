@@ -25,7 +25,7 @@ _run:
     command: |
       cd frontend
       yarn install
-      cd server
+      cd ../server
       yarn install
 
 version: 2
