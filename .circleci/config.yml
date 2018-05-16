@@ -1,34 +1,36 @@
+version: 2
 # Anchors used in build
-docker_image_browser: &docker_image_browser
-  docker:
-  - image: circleci/node:8.9.4-browsers
-    environment:
-      DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
-      VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
-      PLATFORM: local
-  - image: postgres:9.6.3
-    environment:
-        POSTGRES_USER: "ubuntu"
-        POSTGRES_DB: "circle_test"
+_defaults:
+  docker_image_browser: &docker_image_browser
+    docker:
+    - image: circleci/node:8.9.4-browsers
+      environment:
+        DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
+        VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
+        PLATFORM: local
+    - image: postgres:9.6.3
+      environment:
+          POSTGRES_USER: "ubuntu"
+          POSTGRES_DB: "circle_test"
 
-populate_server: &populate_server
-  name: populate db for server
-  command: |
+_run:
+  populate_server: &populate_server
+    name: populate db for server
+    command: |
+      cd server
+      npm run migrate
+      npm run undoAllSeed
+      npm run seed
+
+  install_dependencies: &install_dependencies
+    name: Install frontend and server dependencies
+    command: |
+    cd frontend
+    yarn install
     cd server
-    npm run migrate
-    npm run undoAllSeed
-    npm run seed
-
-install_dependencies: &install_dependencies
-  name: Install frontend and server dependencies
-  command: |
-  cd frontend
-  yarn install
-  cd server
-  yarn install
+    yarn install
 
 # Build
-version: 2
 jobs:
   run-all-other-tests:
     <<: *docker_image_browser
