@@ -395,7 +395,10 @@ workflows:
               only: master
   nightly:
     jobs:
-      - run-tests
+      - run-all-other-tests #Check snyk
+      - prod-deploy:
+          requires:
+            - run-all-other-tests
     triggers:
       - schedule:
           # every night at 2:11 AM UTC (10:11 PM ET)
