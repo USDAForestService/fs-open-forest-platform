@@ -2,6 +2,7 @@
 
 const url = require('url');
 const Sequelize = require('sequelize');
+const winston = require('winston');
 
 const dbParams = url.parse(process.env.DATABASE_URL, true);
 const dbAuth = dbParams.auth.split(':');
@@ -53,7 +54,7 @@ const dbConfig = {
   ssl: false,
   dialect: dbParams.protocol.split(':')[0],
   seederStorage: 'sequelize',
-  logging: console.log,
+  logging: winston.info,
   operatorsAliases: operatorsAliases
 };
 
