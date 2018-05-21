@@ -64,6 +64,8 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
     transporter.sendMail(mailOptions, error => {
       if (error) {
         logger.error('NODE_MAILER_SMTP_ERROR', error);
+      } else {
+        logger.log(`Email successfully sent`);
       }
     });
   }

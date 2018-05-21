@@ -11,13 +11,13 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
+const jwt = require('jsonwebtoken');
 const logger = require('winston');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const paygov = require('../services/paygov.es6');
 const permitSvgService = require('../services/christmas-trees-permit-svg-util.es6');
-const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 const forestService = require('../services/forest.service.es6');
 
@@ -113,11 +113,10 @@ const postPayGov = xmlData => {
       cert: payGovCert
     },
     function(error, response, body) {
-      if (!error) {
-        return body;
-      } else {
+      if (error) {
         return error;
       }
+      return body;
     }
   );
 };
@@ -163,6 +162,9 @@ const updatePermitWithToken = (res, permit, token) => {
       paygovToken: token
     })
     .then(savedPermit => {
+      logger.info(
+        `${savedPermit.emailAddress} modified ${savedPermit.permitId} with pay.gov token at ${savedPermit.updatedAt}`
+      );
       return res.status(200).json({
         token: token,
         permitId: savedPermit.permitId,
@@ -188,6 +190,12 @@ const updatePermitWithError = (res, permit, paygovError) => {
     status: 'Error',
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
+    logger.error(
+      `${updatedPermit.emailAddress} 
+      modified ${updatedPermit.permitId} 
+      encountered an error at pay.gov 
+      ${updatedPermit.paygovError}`
+    );
     return getPermitError(res, updatedPermit);
   });
 };
@@ -233,6 +241,9 @@ christmasTree.create = (req, res) => {
         treesDb.christmasTreesPermits
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
+            logger.info(
+              `PermitID ${permit.permitId} created at ${permit.createdAt} by ${permit.emailAddress} `
+            );
             const xmlData = paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit);
             postPayGov(xmlData)
               .then(xmlResponse => {
@@ -329,6 +340,9 @@ const updatePermit = (permit, updateObject) => {
     permit
       .update(updateObject)
       .then(permit => {
+        logger.info(
+          `PermitID ${permit.permitId} created at ${permit.modifiedAt} by ${permit.emailAddress} `
+        );
         resolve(permit);
       })
       .catch(error => {
@@ -438,6 +452,9 @@ christmasTree.getOnePermit = (req, res) => {
         const token = req.query.t;
         jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
           if (decoded) {
+            logger.info(
+              `PermitID ${permit.permitId} accessed via decoded JWT Token`
+            );
             returnSavedPermit(res, permit);
           } else {
             return res.status(404).send();
