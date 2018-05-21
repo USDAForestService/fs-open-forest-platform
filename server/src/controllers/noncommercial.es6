@@ -6,6 +6,7 @@
  */
 
 const moment = require('moment');
+const logger = require('winston');
 
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
@@ -374,6 +375,7 @@ noncommercial.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
+      logger.log(`${util.getUser(req)} retrieved the noncommericial application`);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -407,6 +409,10 @@ noncommercial.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   NoncommercialApplication.create(model)
     .then(noncommApp => {
+      const user = util.getUser(req);
+      logger.loggers(
+        `${noncommApp.appControlNumber} was created at ${noncommApp.createdAt} by ${user.email}`
+      );
       email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
       email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
       req.body['applicationId'] = noncommApp.applicationId;
@@ -415,10 +421,12 @@ noncommercial.create = (req, res) => {
     })
     .catch(error => {
       if (error.name === 'SequelizeValidationError') {
+        logger.error(error);
         return res.status(400).json({
           errors: error.errors
         });
       } else {
+        logger.error(error);
         return res.status(500).send();
       }
     });

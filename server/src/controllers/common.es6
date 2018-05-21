@@ -5,6 +5,8 @@
  * @module controllers/common
  */
 
+const logger = require('winston');
+
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const Revision = require('../models/revision.es6');
@@ -148,11 +150,14 @@ commonControllers.getPermitApplications = (req, res) => {
  * @param {Object} applicationModel - application model object
  */
 commonControllers.createRevision = (user, applicationModel) => {
+  const revisionCreator = user.email ? user.email : user.adminUsername;
   Revision.create({
     applicationId: applicationModel.applicationId,
     applicationType: applicationModel.type,
     status: applicationModel.status,
-    email: user.email ? user.email : user.adminUsername
+    email: revisionCreator
+  }).then(app =>{
+    logger.info(`${app.applicationId} was modified at ${app.modifiedAt} by ${revisionCreator}`);
   });
 };
 
