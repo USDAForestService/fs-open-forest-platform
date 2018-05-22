@@ -9,6 +9,7 @@ const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const logger = require('winston');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
@@ -340,7 +341,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
 
 /**
  * @function getFile - private function to get a file from the S3 bucket.
- * @param {string} key
+ * @param {string} key           - filename 
  * @param {string} documentType
  */
 const getFile = (key, documentType) => {
@@ -352,8 +353,10 @@ const getFile = (key, documentType) => {
       },
       (error, data) => {
         if (error) {
+          logger.log(`Error: ${error}`);
           reject(error);
         } else {
+          logger.log(`File ${key} retrieved from s3`);
           resolve({
             fileBuffer: data.Body,
             documentType: documentType,
@@ -393,6 +396,7 @@ const getAllFiles = applicationId => {
         });
       })
       .catch(error => {
+        logger.log(`Error: ${error}`);
         reject(error);
       });
   });
@@ -620,9 +624,11 @@ tempOutfitter.deleteFile = (req, res) => {
     }
   })
     .then(() => {
+      logger.loggers(`File ${req.params.id} deleted`);
       return res.status(204);
     })
     .catch(() => {
+      logger.log(`Failure to delete file ${req.params.id}`);
       return res.status(500).send();
     });
 };
@@ -641,6 +647,10 @@ tempOutfitter.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(tempOutfitterApp => {
+      const user = util.getUser(req);
+      logger.loggers(
+        `${tempOutfitterApp.appControlNumber} was created at ${tempOutfitterApp.createdAt} by ${user.email}`
+      );
       email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
       email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
       req.body['applicationId'] = tempOutfitterApp.applicationId;
@@ -648,6 +658,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
+      logger.log(`Error: ${error}`);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
@@ -748,6 +759,7 @@ tempOutfitter.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
+            logger.log(`error: ${error}`);
             if (error.name === 'SequelizeValidationError') {
               return res.status(400).json({
                 errors: error.errors

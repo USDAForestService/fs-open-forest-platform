@@ -65,7 +65,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
       if (error) {
         logger.error('NODE_MAILER_SMTP_ERROR', error);
       } else {
-        logger.log(`Email successfully sent`);
+        logger.log('Email successfully sent');
       }
     });
   }
