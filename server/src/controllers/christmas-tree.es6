@@ -11,7 +11,7 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');

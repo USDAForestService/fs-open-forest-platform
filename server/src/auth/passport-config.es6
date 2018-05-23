@@ -6,7 +6,7 @@
  */
 
 const passport = require('passport');
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
