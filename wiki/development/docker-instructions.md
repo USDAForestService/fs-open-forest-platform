@@ -14,7 +14,7 @@
 1. Now use Docker Compose to build and start the containers.
 
    ```
-   $ docker-compose up --force-recreate fs-intake-frontend
+   $ docker-compose up --force-recreate fs-intake-frontend adminer
    ```
 
 1. The first time the containers are created it will take a few minutes. There will be a whole lot of output to the screen, but eventually the output will stop and something like the following should be displayed:
