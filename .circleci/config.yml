@@ -17,7 +17,6 @@ _run:
     command: |
       cd server
       npm run migrate
-      npm run undoAllSeed
       npm run seed
 
   install_dependencies: &install_dependencies
