@@ -355,7 +355,7 @@ jobs:
             CF_API=API="https://api.fr.cloud.gov"
             cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
       - run:
-          name: Recycle Tock Production instances
+          name: Recycle Production instances
           command: |
             cf t -o usda-forest-service -s public-production
             cf recycle forest-service-epermit
