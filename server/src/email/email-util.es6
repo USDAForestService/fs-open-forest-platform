@@ -6,7 +6,7 @@
  */
 const nodemailer = require('nodemailer');
 const juice = require('juice');
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const vcapConstants = require('../vcap-constants.es6');
 const emailTemplates = require('./email-templates.es6');

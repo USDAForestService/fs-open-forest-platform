@@ -6,7 +6,7 @@
 
 'use strict';
 
-const logger = require('winston');
+const logger = require('../../../src/services/logger.es6');
 
 Promise.each = function(arr, fn) {
   if (!Array.isArray(arr)) return Promise.reject(new Error('Non array passed to each'));
@@ -88,7 +88,7 @@ let addPreparations = (tableName, operations) => {
           }
         }
       } catch (e) {
-        logger.log(operation);
+        logger.error(operation);
         throw e;
       }
       break;
@@ -116,7 +116,7 @@ let addPreparations = (tableName, operations) => {
             moreOperations.push(newOperation);
           }
         } catch (e) {
-          logger.log(operation);
+          logger.error(operation);
           throw e;
         }
         moreOperations.push({
