@@ -27,13 +27,6 @@ _run:
       cd ../server
       yarn install
 
-  install_cf_cli: &install_cf_cli
-    name: Install cf cli
-    command: |
-      export PATH=$HOME:$PATH
-      curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.36.2"
-      tar xzvf $HOME/cf.tgz -C $HOME
-
 version: 2
 jobs:
   run-all-other-tests:
@@ -352,7 +345,10 @@ jobs:
     docker:
       - image: circleci/node:8.9.4
     steps:
-      - run: *install_cf_cli
+      - run: |
+        export PATH=$HOME:$PATH
+        curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.36.2"
+        tar xzvf $HOME/cf.tgz -C $HOME
       - run:
           name: Install cf-recycle-plugin 1.0.0 release
           command: |
