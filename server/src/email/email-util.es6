@@ -6,6 +6,7 @@
  */
 const nodemailer = require('nodemailer');
 const juice = require('juice');
+const logger = require('../services/logger.es6');
 
 const vcapConstants = require('../vcap-constants.es6');
 const emailTemplates = require('./email-templates.es6');
@@ -62,7 +63,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
   if (vcapConstants.SMTP_HOST) {
     transporter.sendMail(mailOptions, error => {
       if (error) {
-        console.error('NODE_MAILER_SMTP_ERROR', error);
+        logger.error('NODE_MAILER_SMTP_ERROR', error);
       }
     });
   }

@@ -5,7 +5,7 @@
  * @module services/forest-service
  */
 const moment = require('moment-timezone');
-
+const logger = require('./logger.es6');
 const forestService = {};
 
 /**
@@ -19,7 +19,7 @@ forestService.parseCuttingAreas = cuttingAreas => {
       cuttingAreas = JSON.parse(cuttingAreas);
     }
   } catch (e) {
-    console.error('problem parsing cutting areas', cuttingAreas);
+    logger.error('problem parsing cutting areas', cuttingAreas);
   }
 
   return cuttingAreas;

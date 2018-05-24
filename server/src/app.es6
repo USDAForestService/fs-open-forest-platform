@@ -20,6 +20,8 @@ const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
+const logger = require('./services/logger.es6');
+const expressWinston = require('express-winston');
 
 // Create the express application.
 const app = express();
@@ -37,6 +39,22 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.xml());
+
+/** Logging middlelayer */
+if (logger.levels[logger.level] >= 2) {
+  app.use(expressWinston.logger({
+    transports: [
+      new logger.transports.Console({json:true, colorize: true })
+    ],
+    requestWhitelist: expressWinston.requestWhitelist.concat('body')
+  }));
+}
+
+app.use(expressWinston.errorLogger({
+  transports: [
+    new logger.transports.Console({json: true, colorize: true })
+  ]
+}));
 
 /**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
 app.use(
@@ -73,7 +91,9 @@ app.use('/docs/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 /** Add the routes. */
 app.use(router);
 
-/** Listen on port 8080. */
-app.listen(8080);
+/** Listen on port. */
+app.listen(process.env.PORT || 8080, () => {
+  logger.info('Express server initiated');
+});
 
 module.exports = app;

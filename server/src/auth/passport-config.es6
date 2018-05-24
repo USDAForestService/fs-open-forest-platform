@@ -6,11 +6,13 @@
  */
 
 const passport = require('passport');
+const logger = require('../services/logger.es6');
 
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
+
 
 const passportConfig = {};
 
@@ -42,7 +44,7 @@ passportConfig.setup = app => {
  */
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
-    console.error('Authentication error:', err);
+    logger.warn('Authentication error:', err);
     res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();
@@ -66,6 +68,7 @@ passportConfig.getPassportUser = (req, res) => {
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
+    logger.log(`${req.user} logging out.`);
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
         vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
