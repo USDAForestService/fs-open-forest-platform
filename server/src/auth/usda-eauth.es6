@@ -55,13 +55,13 @@ eAuth.setUserObject = profile => {
     role: role,
     forests: util.getAdminForests(adminUsername)
   };
-  logger.log(`${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
+  logger.info(`${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
 };
 
 //Initiate authentication via eAuth.
 eAuth.router.get(eAuth.loginPath, (req, res) => {
-  logger.log(`Inititating eAuth Admin authenication request for ${req.user}`);
+  logger.info('Inititating eAuth Admin authenication request.');
   return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
 });
 
