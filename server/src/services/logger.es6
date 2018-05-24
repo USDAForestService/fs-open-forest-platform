@@ -8,7 +8,11 @@
 const winston = require('winston');
 
 winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, { json: true, colorize: true} );
+winston.add(winston.transports.Console, { 
+  json: true, 
+  colorize: true,
+  timestamp: true
+} );
 
 const logger = winston;
 

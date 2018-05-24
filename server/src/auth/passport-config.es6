@@ -68,13 +68,14 @@ passportConfig.getPassportUser = (req, res) => {
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
-    logger.log(`${req.user} logging out.`);
+    logger.info(`${req.user.email} logging out.`);
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
         vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
+    logger.info(`${req.user.email} logging out.`);
     req.logout();
     return res.redirect(vcapConstants.INTAKE_CLIENT_BASE_URL);
   }
