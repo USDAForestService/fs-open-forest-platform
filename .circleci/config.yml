@@ -30,9 +30,9 @@ _run:
   install_cf_cli: &install_cf_cli
     name: Install cf cli
     command: |
-    export PATH=$HOME:$PATH
-    curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.36.2"
-    tar xzvf $HOME/cf.tgz -C $HOME
+      export PATH=$HOME:$PATH
+      curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.36.2"
+      tar xzvf $HOME/cf.tgz -C $HOME
 
 version: 2
 jobs:
