@@ -276,7 +276,6 @@ jobs:
           command: |
             cd server
             yarn run docs
-      - run: *install_cf_cli
       - run:
           name: deploy
           command: |
@@ -333,7 +332,6 @@ jobs:
           command: |
             cd server
             yarn run docs
-      - run: *install_cf_cli
       - run:
           name: deploy
           command: |
