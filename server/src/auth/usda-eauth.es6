@@ -27,7 +27,6 @@ passport.use(
       cert: vcapConstants.EAUTH_CERT
     },
     (profile, done) => {
-      logger.info('USDA eAuth passport.js middlelayer SAMLStrategy initiated.');
       return done(null, eAuth.setUserObject(profile));
     }
   )
