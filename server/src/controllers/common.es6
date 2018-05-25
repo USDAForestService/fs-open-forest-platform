@@ -5,7 +5,7 @@
  * @module controllers/common
  */
 
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');

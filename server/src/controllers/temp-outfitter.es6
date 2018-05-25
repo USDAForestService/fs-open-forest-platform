@@ -9,7 +9,7 @@ const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
@@ -353,10 +353,10 @@ const getFile = (key, documentType) => {
       },
       (error, data) => {
         if (error) {
-          logger.log(`Error: ${error}`);
+          logger.error(`Error: ${error}`);
           reject(error);
         } else {
-          logger.log(`File ${key} retrieved from s3`);
+          logger.info(`File ${key} retrieved from s3`);
           resolve({
             fileBuffer: data.Body,
             documentType: documentType,
@@ -396,7 +396,7 @@ const getAllFiles = applicationId => {
         });
       })
       .catch(error => {
-        logger.log(`Error: ${error}`);
+        logger.error(`Error: ${error}`);
         reject(error);
       });
   });
@@ -624,11 +624,11 @@ tempOutfitter.deleteFile = (req, res) => {
     }
   })
     .then(() => {
-      logger.loggers(`File ${req.params.id} deleted`);
+      logger.info(`File ${req.params.id} deleted`);
       return res.status(204);
     })
     .catch(() => {
-      logger.log(`Failure to delete file ${req.params.id}`);
+      logger.error(`Failure to delete file ${req.params.id}`);
       return res.status(500).send();
     });
 };
@@ -648,7 +648,7 @@ tempOutfitter.create = (req, res) => {
   TempOutfitterApplication.create(model)
     .then(tempOutfitterApp => {
       const user = util.getUser(req);
-      logger.loggers(
+      logger.info(
         `${tempOutfitterApp.appControlNumber} was created at ${tempOutfitterApp.createdAt} by ${user.email}`
       );
       email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
@@ -658,7 +658,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      logger.log(`Error: ${error}`);
+      logger.error(`Error: ${error}`);
       if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({
           errors: error.errors
@@ -759,7 +759,7 @@ tempOutfitter.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            logger.log(`error: ${error}`);
+            logger.error(`error: ${error}`);
             if (error.name === 'SequelizeValidationError') {
               return res.status(400).json({
                 errors: error.errors

@@ -6,7 +6,7 @@
  */
 
 const moment = require('moment');
-const logger = require('winston');
+const logger = require('../services/logger.es6');
 
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
@@ -375,7 +375,7 @@ noncommercial.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      logger.log(`${util.getUser(req)} retrieved the noncommericial application`);
+      logger.info(`${util.getUser(req)} retrieved the noncommericial application`);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -410,7 +410,7 @@ noncommercial.create = (req, res) => {
   NoncommercialApplication.create(model)
     .then(noncommApp => {
       const user = util.getUser(req);
-      logger.loggers(
+      logger.info(
         `${noncommApp.appControlNumber} was created at ${noncommApp.createdAt} by ${user.email}`
       );
       email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
