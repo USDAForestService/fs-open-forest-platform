@@ -11,8 +11,12 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 const logger = require('winston');
+=======
+const logger = require('../services/logger.es6');
+>>>>>>> 46c9af60c351aaa43ee32a865cf741b555918932
 
 const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
