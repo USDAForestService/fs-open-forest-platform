@@ -16,6 +16,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const treesDb = require('../models/trees-db.es6');
 const paygov = require('../services/paygov.es6');
 const permitSvgService = require('../services/christmas-trees-permit-svg-util.es6');
+const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 const forestService = require('../services/forest.service.es6');
 
@@ -233,6 +234,7 @@ christmasTree.create = (req, res) => {
     })
     .then(forest => {
       if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
+        logger.log('Permit attempted to be created outside of season date for ${req.body.forestId}');
         return res.status(404).send(); // season is closed or not yet started
       } else {
         req.body.expDate = forest.endDate;
@@ -252,10 +254,11 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        logger.error('error=', error);
+                        logger.error(`Pay.gov error: ${error}`);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
+                        logger.error(`FaultError: ${faultError}`);
                         throwError(faultError);
                       }
                     }
@@ -268,7 +271,7 @@ christmasTree.create = (req, res) => {
               });
           })
           .catch(error => {
-            logger.error('permit create error=', error);
+            logger.error(`permit create error= ${error}`);
             if (error.name === 'SequelizeValidationError') {
               return res.status(400).json({
                 errors: error.errors
@@ -566,13 +569,16 @@ christmasTree.updatePermitApplication = (req, res) => {
                   generateRulesAndEmail(updatedPermit);
                 })
                 .catch(error => {
+                  logger.error(error);
                   throwError(error);
                 });
             });
           } else {
+            logger.error('Permit state not verified. 404.');
             return res.status(404).send();
           }
         } else {
+          logger.error('Permit not loaded or JWT not decoded.');
           return res.status(404).send();
         }
       });
