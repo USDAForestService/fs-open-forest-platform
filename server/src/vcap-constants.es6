@@ -38,7 +38,7 @@ vcapConstants.BASE_URL = 'https://' + vcapApplication.uris[0];
 
 /** jwt token used to generate permit confirmation URL **/
 const jwt = getUserProvided('jwt');
-vcapConstants.PERMIT_SECRET = jwt.credentials.permit_secret;
+vcapConstants.PERMIT_SECRET = jwt.permit_secret;
 
 /** S3 BUCKET settings */
 const intakeS3 = vcapServices['s3'].find(element => {
@@ -79,7 +79,7 @@ vcapConstants.EAUTH_PRIVATE_KEY = eAuthService.private_key;
 
 /** SMTP settings */
 const smtp = getUserProvided('smtp-service');
-vcapConstants.SMTP_HOST = smtp.credentials.smtp_server;
+vcapConstants.SMTP_HOST = smtp.smtp_server;
 vcapConstants.SMTP_USERNAME = smtp.username;
 vcapConstants.SMTP_PASSWORD = smtp.password;
 vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES = smtp.admins;
