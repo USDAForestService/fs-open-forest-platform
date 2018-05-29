@@ -549,7 +549,7 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
       }
     })
     .catch(() => {
-      return res.status(500).send();
+      commonControllers.catchHandle({}, 500, res);
     });
 };
 
@@ -604,11 +604,11 @@ tempOutfitter.attachFile = (req, res) => {
           return res.status(201).json(req.body);
         })
         .catch(() => {
-          return res.status(500).send();
+          commonControllers.catchHandle({}, 500, res);
         });
     })
     .catch(() => {
-      return res.status(500).send();
+      commonControllers.catchHandle({}, 500, res);
     });
 };
 
@@ -629,7 +629,7 @@ tempOutfitter.deleteFile = (req, res) => {
     })
     .catch(() => {
       logger.error(`Failure to delete file ${req.params.id}`);
-      return res.status(500).send();
+      commonControllers.catchHandle({}, 500, res);
     });
 };
 
@@ -658,14 +658,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      logger.error(`Error: ${error}`);
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else {
-        return res.status(500).send();
-      }
+      commonControllers.sequelizeErrorHandle(error, res);
     });
 };
 
@@ -748,25 +741,11 @@ tempOutfitter.update = (req, res) => {
         app
           .save()
           .then(() => {
-            commonControllers.createRevision(util.getUser(req), app);
-            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-              email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
-            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail('tempOutfitterApplicationRemoveHold', app);
-            } else {
-              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-            }
+            commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            logger.error(`error: ${error}`);
-            if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({
-                errors: error.errors
-              });
-            } else {
-              return res.status(500).send();
-            }
+            commonControllers.sequelizeErrorHandle(error, res);
           });
       }
     })

@@ -24,7 +24,8 @@ const operator = Sequelize.Op;
  */
 const getPermitResult = permit => {
   let eachPermit = {};
-  eachPermit.permitNumber = zpad(permit.permitNumber, 8);
+  eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
+  
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
     eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -50,11 +51,13 @@ const returnPermitsReport = (results, res) => {
     let permits = [];
     let sumOfTrees = 0;
     let sumOfCost = 0;
+
     results.forEach(permit => {
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(getPermitResult(permit));
     });
+
     res.status(200).json({
       sumOfTrees: sumOfTrees,
       sumOfCost: sumOfCost.toFixed(2),
@@ -111,6 +114,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           return returnPermitsReport(results, res);
         })
         .catch(error => {
+          logger.log(`Error ${error}`);
           if (error.name === 'SequelizeValidationError') {
             return res.status(400).json({
               errors: error.errors

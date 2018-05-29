@@ -388,11 +388,11 @@ noncommercial.getOne = (req, res) => {
           return res.status(200).json(formattedApp);
         })
         .catch(error => {
-          return res.status(400).json(error);
+          commonControllers.catchHandle(error, 400, res);
         });
     })
     .catch(() => {
-      return res.status(500).send();
+      commonControllers.catchHandle({}, 500, res);
     });
 };
 
@@ -420,15 +420,7 @@ noncommercial.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        logger.error(error);
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else {
-        logger.error(error);
-        return res.status(500).send();
-      }
+      commonControllers.sequelizeErrorHandle(error, res);
     });
 };
 
@@ -464,34 +456,21 @@ noncommercial.update = (req, res) => {
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(() => {
-                return res.status(500).send();
+                commonControllers.catchHandle({}, 500, res);
               });
           })
           .catch(() => {
-            return res.status(500).send();
+            commonControllers.catchHandle({}, 500, res);
           });
       } else {
         app
           .save()
           .then(() => {
-            commonControllers.createRevision(util.getUser(req), app);
-            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
-            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail('noncommercialApplicationRemoveHold', app);
-            } else {
-              email.sendEmail(`noncommercialApplication${app.status}`, app);
-            }
+            commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({
-                errors: error.errors
-              });
-            } else {
-              return res.status(500).send();
-            }
+            commonControllers.sequelizeErrorHandle(error, res);
           });
       }
     })
@@ -499,5 +478,7 @@ noncommercial.update = (req, res) => {
       return res.status(500).send();
     });
 };
+
+
 
 module.exports = noncommercial;
