@@ -44,7 +44,7 @@ vcapConstants.PERMIT_SECRET = jwt.permit_secret;
 const intakeS3 = vcapServices['s3'].find(element => {
   return element.name === 'intake-s3';
 });
-if (intakeS3.access_key_id && intakeS3.secret_access_key) {
+if (intakeS3.credentials.access_key_id && intakeS3.credentials.secret_access_key) {
   vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
   vcapConstants.secretAccessKey = intakeS3.secret_access_key;
 }
