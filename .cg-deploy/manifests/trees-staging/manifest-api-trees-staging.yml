@@ -16,3 +16,4 @@ applications:
     - smtp-service
     - pay-gov
     - jwt
+    - new-relic
