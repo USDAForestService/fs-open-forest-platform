@@ -92,5 +92,16 @@
     },
     "label": "s3",
     "name": "intake-s3"
+  },
+  {
+    "credentials": {
+      "key": "NEW_RELIC_SUPPLIED_KEY",
+      "app_name": "Open Forest Server"
+    },
+    "label": "user-provided",
+    "name": "new-relic",
+    "syslog_drain_url": "",
+    "tags": [],
+    "volume_mounts": []
   }]
 }

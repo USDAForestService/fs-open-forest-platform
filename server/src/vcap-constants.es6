@@ -95,5 +95,6 @@ vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.private_key;
 /** New Relic */
 const newRelic = getUserProvided('new-relic');
 vcapConstants.NEW_RELIC_KEY = newRelic.key;
+vcapConstants.NEW_RELIC_APP_NAME = newRelic.app_name;
 
 module.exports = vcapConstants;

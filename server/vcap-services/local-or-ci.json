@@ -94,5 +94,16 @@
     },
     "label": "user-provided",
     "name": "pay-gov"
+  },
+  {
+    "credentials": {
+      "key": "",
+      "app_name": "Open Forest Server"
+    },
+    "label": "user-provided",
+    "name": "new-relic",
+    "syslog_drain_url": "",
+    "tags": [],
+    "volume_mounts": []
   }]
 }
