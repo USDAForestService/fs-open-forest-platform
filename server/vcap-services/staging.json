@@ -82,16 +82,6 @@
     },
     "label": "user-provided",
     "name": "jwt"
-  }],
-  "s3": [{
-    "credentials": {
-      "bucket": "",
-      "access_key_id": "",
-      "region": "us-east-1",
-      "secret_access_key": ""
-    },
-    "label": "s3",
-    "name": "intake-s3"
   },
   {
     "credentials": {
@@ -103,5 +93,16 @@
     "syslog_drain_url": "",
     "tags": [],
     "volume_mounts": []
+  }
+],
+  "s3": [{
+    "credentials": {
+      "bucket": "",
+      "access_key_id": "",
+      "region": "us-east-1",
+      "secret_access_key": ""
+    },
+    "label": "s3",
+    "name": "intake-s3"
   }]
 }
