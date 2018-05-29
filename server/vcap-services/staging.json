@@ -75,7 +75,10 @@
       "tcs_app_id": "FS-100"
     },
     "label": "user-provided",
-    "name": "pay-gov"
+    "name": "pay-gov",
+    "syslog_drain_url": "",
+    "tags": [],
+    "volume_mounts": []
   }, {
     "credentials": {
       "permit_secret": ""
