@@ -44,7 +44,7 @@ passportConfig.setup = app => {
  */
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
-    logger.warn('Authentication error:', err);
+    logger.warn('AUTHENTICATION: Error:', err);
     res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();
@@ -68,14 +68,14 @@ passportConfig.getPassportUser = (req, res) => {
 passportConfig.logout = (req, res) => {
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
-    logger.info(`AUTHENICATION: ${req.user.email} logged out via Login.gov.`);
+    logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
         vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   } else {
-    logger.info(`AUTHENICATION: ${req.user.email} logged out via eAuth.`);
+    logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
     req.logout();
     return res.redirect(vcapConstants.INTAKE_CLIENT_BASE_URL);
   }

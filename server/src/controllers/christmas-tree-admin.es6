@@ -75,6 +75,7 @@ const returnPermitsReport = (results, res) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
+  logger.info(`${util.getUser(req)} generated a report`);
   treesDb.christmasTreesForests
     .findOne({
       where: {
