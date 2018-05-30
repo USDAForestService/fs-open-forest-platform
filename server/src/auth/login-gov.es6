@@ -13,6 +13,7 @@ const OpenIDConnectStrategy = require('openid-client').Strategy;
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const url = require('url');
+const logger = require('../services/logger.es6');
 
 const loginGov = {};
 
@@ -41,6 +42,7 @@ loginGov.params = {
  * @function setup - Setup the passport OpenIDConnectStrategy.
  */
 loginGov.setup = () => {
+  logger.info('Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
   Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
   Issuer.discover(`${vcapConstants.LOGIN_GOV_BASE_URL}.well-known/openid-configuration`)
@@ -65,6 +67,7 @@ loginGov.setup = () => {
             client: client,
             params: loginGov.params
           }, (tokenset, done) => {
+            logger.info(`Login.gov user ${tokenset.claims.email} logged in.`);
             return done(null, {
               email: tokenset.claims.email,
               role: 'user',
@@ -76,6 +79,7 @@ loginGov.setup = () => {
       });
     })
     .catch(e => {
+      logger.error(e);
       throw new Error(e);
     });
 };

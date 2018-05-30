@@ -17,6 +17,7 @@ const markdown = require('markdown').markdown;
 const vcapConstants = require('../vcap-constants.es6');
 const forestService = require('./forest.service.es6');
 const christmasTreesPermitSvgUtil = {};
+const logger = require('./logger.es6');
 
 /**
  * @function addApplicantInfo - Add applicatnt information to the SVG fragment
@@ -96,7 +97,7 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
   return new Promise((resolve, reject) => {
     fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
       if (err) {
-        console.error('problem creating permit svg=', err);
+        logger.error('problem creating permit svg=', err);
         reject(err);
       }
       try {
@@ -105,7 +106,7 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
         addForestSpecificInfo(permit, frag);
         resolve(frag.firstChild.outerHTML);
       } catch (err) {
-        console.error('problem creating permit svg=', err);
+        logger.error('problem creating permit svg=', err);
         reject(err);
       }
     });
@@ -127,7 +128,7 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
         resolve(data);
       })
       .catch(err => {
-        console.error(err);
+        logger.error(err);
       });
   });
 };
@@ -152,7 +153,7 @@ christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
         reject('problem reading rules markdown files', permit.permitId);
       }
     } catch (err) {
-      console.error('problen creating rules html for permit ' + permit.permitId, err);
+      logger.error('problen creating rules html for permit ' + permit.permitId, err);
       reject(err);
     }
   });

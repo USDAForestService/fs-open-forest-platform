@@ -344,6 +344,12 @@ jobs:
       - image: circleci/node:8.9.4
     steps:
       - run:
+          name: Install cf cli
+          command: |
+            export PATH=$HOME:$PATH
+            curl -L -o $HOME/cf.tgz "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.36.2"
+            tar xzvf $HOME/cf.tgz -C $HOME
+      - run:
           name: Install cf-recycle-plugin 1.0.0 release
           command: |
             curl -L -o cf-recycle-plugin https://github.com/rogeruiz/cf-recycle-plugin/releases/download/v1.0.0/cf-recycle-plugin.linux64

@@ -8,6 +8,7 @@
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 const zpad = require('zpad');
+const logger = require('../services/logger.es6');
 
 const treesDb = require('../models/trees-db.es6');
 const util = require('../services/util.es6');
@@ -153,7 +154,7 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       return util.handleErrorResponse(error, res);
     });
 };
@@ -211,14 +212,18 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
           }
           return updateForest(forest, startDate, endDate, cuttingAreas, res);
         } else {
-          return res.status(403).json({ errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] });
+          const errorMessage = { errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] };
+          logger.warn(errorMessage);
+          return res.status(403).json(errorMessage);
         }
       } else {
-        return res.status(400).json({ errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] });
+        const errorMessage = { errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] };
+        logger.warn(errorMessage);
+        return res.status(400).json(errorMessage);
       }
     })
     .catch(error => {
-      console.error(error);
+      logger.error(error);
       res.status(500).json(error);
     });
 };
