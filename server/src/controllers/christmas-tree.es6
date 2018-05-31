@@ -533,7 +533,7 @@ christmasTree.updatePermitApplication = (req, res) => {
               .update({
                 status: req.body.status
               })
-              .then(()=>{
+              .then((permit)=>{
                 util.logControllerAction(req, 'christmasTree.updatePermitApplication', permit);
                 res.status(200).json(permit);
               });

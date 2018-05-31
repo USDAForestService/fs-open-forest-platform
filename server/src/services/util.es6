@@ -333,7 +333,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
   let role;
   let permitID;
   const subPath = controller.split('.');
-  if (subPath[0] === 'christmas-tree'){
+  if (subPath[0] === 'christmasTree'){
     userID = applicationOrPermit.emailAddress;
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
@@ -344,7 +344,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
     permitID = applicationOrPermit.applicationId;
   }
   
-  logger.info(`CONTROLLER: ${req.method}: ${userID}:${role} for ${permitID} at ${eventTime} by ${controller}`);
+  logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
 };
 
 util.request = request;
