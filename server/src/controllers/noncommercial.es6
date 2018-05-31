@@ -6,7 +6,6 @@
  */
 
 const moment = require('moment');
-const logger = require('../services/logger.es6');
 
 const email = require('../email/email-util.es6');
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
