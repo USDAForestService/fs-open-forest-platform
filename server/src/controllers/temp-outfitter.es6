@@ -548,8 +548,8 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
         return res.status(404).send();
       }
     })
-    .catch(() => {
-      commonControllers.catchHandle({}, 500, res);
+    .catch((error) => {
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -600,15 +600,16 @@ tempOutfitter.attachFile = (req, res) => {
         originalFileName: req.files[0].key
       })
         .then(appfile => {
+          util.logControllerAction(req, 'tempOutfitter.attachFile', appfile);
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(() => {
-          commonControllers.catchHandle({}, 500, res);
+        .catch(error => {
+          util.handleErrorResponse(error, res);
         });
     })
-    .catch(() => {
-      commonControllers.catchHandle({}, 500, res);
+    .catch(error => {
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -624,12 +625,15 @@ tempOutfitter.deleteFile = (req, res) => {
     }
   })
     .then(() => {
-      logger.info(`File ${req.params.id} deleted`);
+      util.logControllerAction(req,
+        'tempOutfitter.deleteFile',
+        {'updatedAt': new Date().toDateString()}
+      );
       return res.status(204);
     })
-    .catch(() => {
+    .catch((error) => {
       logger.error(`Failure to delete file ${req.params.id}`);
-      commonControllers.catchHandle({}, 500, res);
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -647,10 +651,7 @@ tempOutfitter.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(tempOutfitterApp => {
-      const user = util.getUser(req);
-      logger.info(
-        `${tempOutfitterApp.appControlNumber} was created at ${tempOutfitterApp.createdAt} by ${user.email}`
-      );
+      util.logControllerAction(req, 'tempOutfitter.Create', tempOutfitterApp);
       email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
       email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
       req.body['applicationId'] = tempOutfitterApp.applicationId;
@@ -658,7 +659,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      commonControllers.sequelizeErrorHandle(error, res);
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -680,6 +681,7 @@ tempOutfitter.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
+      util.logControllerAction(req, 'tempOutfitter.getOne', app);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -726,6 +728,7 @@ tempOutfitter.update = (req, res) => {
             app
               .save()
               .then(() => {
+                util.logControllerAction(req, 'tempOutfitter.update', app);
                 commonControllers.createRevision(util.getUser(req), app);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
@@ -745,7 +748,7 @@ tempOutfitter.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            commonControllers.sequelizeErrorHandle(error, res);
+            util.handleErrorResponse(error, res);
           });
       }
     })

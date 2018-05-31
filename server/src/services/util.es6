@@ -13,6 +13,7 @@ const Sequelize = require('sequelize');
 
 const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
+const logger = require('../services/logger.es6');
 
 let util = {};
 
@@ -296,6 +297,12 @@ util.getUserRole = adminUsername => {
 * @return {Object} - http response
 */
 util.handleErrorResponse = (error, res) => {
+  if(error !== {}){
+    logger.error(`ERROR: ${error}`);
+  }
+  else {
+    logger.error('ERROR: Unknown error 500');
+  }
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({
       errors: error.errors
@@ -305,6 +312,39 @@ util.handleErrorResponse = (error, res) => {
   } else {
     return res.status(500).send();
   }
+};
+
+/**
+* @function logControllerAction - logs a controller action
+* @param {Object} req - http request
+* @param {Object} file - what file called the logger
+* @param {Object} applicationOrPermit - what the permit object is
+*/
+util.logControllerAction = (req, controller, applicationOrPermit) => {
+  let eventTime;
+  if(req.method == 'PUT'){
+    eventTime = applicationOrPermit.updatedAt;
+  }
+  else{
+    eventTime = applicationOrPermit.createdAt;
+  }
+
+  let userID;
+  let role;
+  let permitID;
+  const subPath = controller.split('.');
+  if (subPath[0] === 'christmas-tree'){
+    userID = applicationOrPermit.emailAddress;
+    role = 'PUBLIC';
+    permitID = applicationOrPermit.permitId;
+  } else {
+    let user = util.getUser(req);
+    userID = user.email;
+    role = util.getUserRole(req);
+    permitID = applicationOrPermit.applicationId;
+  }
+  
+  logger.info(`CONTROLLER: ${req.method}: ${userID}:${role} for ${permitID} at ${eventTime} by ${controller}`);
 };
 
 util.request = request;

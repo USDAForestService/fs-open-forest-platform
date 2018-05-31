@@ -375,7 +375,7 @@ noncommercial.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
-      logger.info(`${util.getUser(req)} retrieved the noncommericial application`);
+      util.logControllerAction(req, 'noncommerical.getOne', app);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -388,11 +388,11 @@ noncommercial.getOne = (req, res) => {
           return res.status(200).json(formattedApp);
         })
         .catch(error => {
-          commonControllers.catchHandle(error, 400, res);
+          util.handleErrorResponse(error, res);
         });
     })
-    .catch(() => {
-      commonControllers.catchHandle({}, 500, res);
+    .catch((error) => {
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -409,10 +409,7 @@ noncommercial.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   NoncommercialApplication.create(model)
     .then(noncommApp => {
-      const user = util.getUser(req);
-      logger.info(
-        `${noncommApp.appControlNumber} was created at ${noncommApp.createdAt} by ${user.email}`
-      );
+      util.logControllerAction(req, 'noncommerical.create', noncommApp);
       email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
       email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
       req.body['applicationId'] = noncommApp.applicationId;
@@ -420,7 +417,7 @@ noncommercial.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      commonControllers.sequelizeErrorHandle(error, res);
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -447,6 +444,7 @@ noncommercial.update = (req, res) => {
         noncommercial
           .acceptApplication(app)
           .then(response => {
+            util.logControllerAction(req, 'noncommerical.update', app);
             app.controlNumber = response.controlNumber;
             app
               .save()
@@ -455,12 +453,12 @@ noncommercial.update = (req, res) => {
                 email.sendEmail(`noncommercialApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(() => {
-                commonControllers.catchHandle({}, 500, res);
+              .catch(error => {
+                util.handleErrorResponse(error, res);
               });
           })
-          .catch(() => {
-            commonControllers.catchHandle({}, 500, res);
+          .catch(error => {
+            util.handleErrorResponse(error, res);
           });
       } else {
         app
@@ -470,7 +468,7 @@ noncommercial.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            commonControllers.sequelizeErrorHandle(error, res);
+            util.handleErrorResponse(error, res);
           });
       }
     })
