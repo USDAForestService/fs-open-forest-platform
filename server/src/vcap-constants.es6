@@ -46,7 +46,7 @@ const intakeS3 = vcapServices['s3'].find(element => {
 });
 if (intakeS3.credentials.access_key_id && intakeS3.credentials.secret_access_key) {
   vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
-  vcapConstants.secretAccessKey = intakeS3.secret_access_key;
+  vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
 }
 vcapConstants.REGION = intakeS3.credentials.region;
 vcapConstants.BUCKET = intakeS3.credentials.bucket;
