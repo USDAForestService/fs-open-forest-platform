@@ -4,6 +4,7 @@ const noncommercialPermitApplicationFactory = require('./data/noncommercial-perm
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const emails = require('../src/email/email-templates.es6');
 const expect = require('chai').expect;
+require('./common.es6');
 
 describe('Email templates', () => {
   it('should send an email when noncommercial user cancels', () => {

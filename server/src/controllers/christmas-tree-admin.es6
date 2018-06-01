@@ -75,6 +75,7 @@ const returnPermitsReport = (results, res) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
+  logger.info(`${util.getUser(req)} generated a report`);
   treesDb.christmasTreesForests
     .findOne({
       where: {
@@ -114,16 +115,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           return returnPermitsReport(results, res);
         })
         .catch(error => {
-          logger.log(`Error ${error}`);
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else if (error.name === 'SequelizeDatabaseError') {
-            return res.status(404).send();
-          } else {
-            return res.status(500).send();
-          }
+          util.handleErrorResponse(error, res);
         });
     });
 };
@@ -158,7 +150,6 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      logger.error(error);
       return util.handleErrorResponse(error, res);
     });
 };

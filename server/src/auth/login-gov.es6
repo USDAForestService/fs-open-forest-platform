@@ -42,7 +42,7 @@ loginGov.params = {
  * @function setup - Setup the passport OpenIDConnectStrategy.
  */
 loginGov.setup = () => {
-  logger.info('AUTHENICATION: Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
+  logger.info('AUTHENTICATION: Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
   Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
   Issuer.discover(`${vcapConstants.LOGIN_GOV_BASE_URL}.well-known/openid-configuration`)
@@ -79,7 +79,7 @@ loginGov.setup = () => {
       });
     })
     .catch(e => {
-      logger.error(`AUTHENICATION: Error: ${e}`);
+      logger.error(`AUTHENTICATION: Error: ${e}`);
       throw new Error(e);
     });
 };

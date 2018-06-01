@@ -181,34 +181,4 @@ commonControllers.createRevision = (user, applicationModel) => {
   });
 };
 
-/**
- * @function catchHandle() logs and sends an error
- * @param {object} error - error object to log
- * @param {integer} statusCode - status code to return
- * @param {object} res - response
- */
-commonControllers.catchHandle = (error, statusCode, res) => {
-  if (error !== {}) {
-    logger.error(`Error: ${error}`);
-    return res.status(statusCode).json(error);
-  }
-  return res.status(500).send();
-};
-
-/**
- * @function catchHandle() logs and sends an error
- * @param {object} error - error object to log
- * @param {object} res - response
- */
-commonControllers.sequelizeErrorHandle = (error, res) => {
-  logger.error(`Error: ${error}`);
-  if (error.name === 'SequelizeValidationError') {
-    return res.status(400).json({
-      errors: error.errors
-    });
-  } else {
-    return res.status(500).send();
-  }
-};
-
 module.exports = commonControllers;
