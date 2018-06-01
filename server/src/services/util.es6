@@ -309,9 +309,8 @@ util.handleErrorResponse = (error, res) => {
     });
   } else if (error.name === 'SequelizeDatabaseError') {
     return res.status(404).send();
-  } else {
-    return res.status(500).send();
   }
+  return res.status(500).send();
 };
 
 /**

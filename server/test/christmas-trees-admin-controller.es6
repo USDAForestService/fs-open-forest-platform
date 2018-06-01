@@ -2,6 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const vcapConstants = require('../src/vcap-constants.es6');
+require('./common.es6');
 
 const request = require('supertest');
 const moment = require('moment');

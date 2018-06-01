@@ -13,6 +13,7 @@ const Revision = require('../models/revision.es6');
 const util = require('../services/util.es6');
 const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const logger = require('../services/logger.es6');
 
 const noncommercial = {};
 
@@ -387,11 +388,12 @@ noncommercial.getOne = (req, res) => {
           return res.status(200).json(formattedApp);
         })
         .catch(error => {
+          logger.info('U fired');
           util.handleErrorResponse(error, res);
         });
     })
-    .catch((error) => {
-      util.handleErrorResponse(error, res);
+    .catch(() => {
+      util.handleErrorResponse(new Error('Uncaught noncommericial error'), res);
     });
 };
 

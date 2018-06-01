@@ -2,6 +2,7 @@
 
 const assert = require('chai').assert;
 const request = require('supertest');
+require('./common.es6');
 
 const server = require('./mock-aws.spec.es6');
 

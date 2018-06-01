@@ -10,6 +10,7 @@ const noncommercialPermitFromDatabaseFactory = require('./data/noncommercial-per
 const server = require('./mock-aws.spec.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 const noncommercial = require('../src/controllers/noncommercial.es6');
+require('./common.es6');
 
 const noncommercialUrl = '/permits/applications/special-uses/noncommercial';
 
