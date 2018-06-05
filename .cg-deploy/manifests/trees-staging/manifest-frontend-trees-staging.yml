@@ -7,3 +7,5 @@ applications:
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
     FORCE_HTTPS: true
+  services:
+    new-relic
