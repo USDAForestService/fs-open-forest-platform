@@ -42,12 +42,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.xml());
 
 /** Logging middlelayer */
+expressWinston.requestWhitelist = ['url',
+  'headers.host',
+  'headers.user-agent',
+  'method',
+  'httpVersion',
+  'originalUrl',
+  'referer',
+  'responseTime'
+];
+
 if (logger.levels[logger.level] >= 2) {
   app.use(expressWinston.logger({
     transports: [
       new logger.transports.Console(loggerParams)
     ],
-    requestWhitelist: expressWinston.requestWhitelist.concat('body')
+    bodyWhitelist: ['forestID', 'region', 'forest', 'type']
   }));
 }
 
