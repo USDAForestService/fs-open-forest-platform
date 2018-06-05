@@ -348,6 +348,9 @@ This allows you to use urls like `/some/path` instead of `/#/some/path`
 
 [Reference](https://docs.cloudfoundry.org/buildpacks/staticfile/)
 
+### Logs
+This application uses Winston library to format logs as JSON to the [cloud.gov Kibana](https://logs.fr.cloud.gov/) instance. The centralized logger is within the `server/src/services/logger.es6` file. For route requests, the [expressWinston](https://www.npmjs.com/package/express-winston) library is used. For server controller actions the `server/src/services/util.es6:logControllerAction` should be used.
+
 #### Logging STMP errors
 
 SMTP errors are logged in the console and prefixed with the string `NODE_MAILER_SMTP_ERROR`. A monitoring service, such as New Relic, can be configured to create alerts when an error with `NODE_MAILER_SMTP_ERROR` is logged.
