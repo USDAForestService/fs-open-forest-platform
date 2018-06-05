@@ -24,6 +24,13 @@ const logger = require('./services/logger.es6');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
 
+if (!vcapConstants.isLocalOrCI) {
+  logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
+  require('newrelic'); // eslint-disable-line global-require
+} else {
+  logger.warn('Skipping New Relic Activation');
+}
+
 // Create the express application.
 const app = express();
 

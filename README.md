@@ -381,8 +381,8 @@ The site was built to accommodate four pilot Forests. Scaling the application to
 
 The details of how these pages and form controls should be designed in order to support users selecting from a large number of Forests will require additional user research.
 
-
-
+## Alert Monitoring
+This project uses New Relic Monitoring for performance and uptime alerts. The application name and license keys are provided as environment variables that are accessed through the VCAP constants. This application uses the `newrelic` npm module.
 
 ## Contributing
 
