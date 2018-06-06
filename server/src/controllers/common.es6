@@ -5,9 +5,12 @@
  * @module controllers/common
  */
 
+const logger = require('../services/logger.es6');
+
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const Revision = require('../models/revision.es6');
+const email = require('../email/email-util.es6');
 const util = require('../services/util.es6');
 
 const commonControllers = {};
@@ -143,16 +146,38 @@ commonControllers.getPermitApplications = (req, res) => {
 };
 
 /**
+ * @function updateEmailSwitch
+  * @param {Object} req - http request
+ * @param {Object} res - http response
+ * @param {Object} app - application to evaluate
+ * @param {String} type - what kind of application
+ */
+commonControllers.updateEmailSwitch = (req, res, app, type) => {
+  commonControllers.createRevision(util.getUser(req), app);
+  if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+    email.sendEmail(`${type}ApplicationUser${app.status}`, app);
+  } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+    email.sendEmail('${type}ApplicationRemoveHold', app);
+  } else {
+    email.sendEmail(`${type}Application${app.status}`, app);
+  }
+  return;
+};
+
+/**
  * @function createRevision() Create a new permit application revision entry in the DB.
  * @param {Object} user - user object
  * @param {Object} applicationModel - application model object
  */
 commonControllers.createRevision = (user, applicationModel) => {
+  const revisionCreator = user.email ? user.email : user.adminUsername;
   Revision.create({
     applicationId: applicationModel.applicationId,
     applicationType: applicationModel.type,
     status: applicationModel.status,
-    email: user.email ? user.email : user.adminUsername
+    email: revisionCreator
+  }).then(app =>{
+    logger.info(`${app.applicationId} was modified at ${app.modifiedAt} by ${revisionCreator}`);
   });
 };
 

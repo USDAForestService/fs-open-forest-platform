@@ -2,6 +2,7 @@
 
 const url = require('url');
 const Sequelize = require('sequelize');
+const logger = require('./src/services/logger.es6');
 
 const dbParams = url.parse(process.env.DATABASE_URL, true);
 const dbAuth = dbParams.auth.split(':');
@@ -53,7 +54,9 @@ const dbConfig = {
   ssl: false,
   dialect: dbParams.protocol.split(':')[0],
   seederStorage: 'sequelize',
-  logging: console.log,
+  logging: function(sql, sequelizeObject) {
+       logger.info(`SEQUELIZE: ${sql}`);
+  },
   operatorsAliases: operatorsAliases
 };
 

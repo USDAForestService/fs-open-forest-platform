@@ -9,6 +9,7 @@ const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const logger = require('../services/logger.es6');
 
 const ApplicationFile = require('../models/application-files.es6');
 const email = require('../email/email-util.es6');
@@ -340,7 +341,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
 
 /**
  * @function getFile - private function to get a file from the S3 bucket.
- * @param {string} key
+ * @param {string} key           - filename 
  * @param {string} documentType
  */
 const getFile = (key, documentType) => {
@@ -352,8 +353,10 @@ const getFile = (key, documentType) => {
       },
       (error, data) => {
         if (error) {
+          logger.error(`Error: ${error}`);
           reject(error);
         } else {
+          logger.info(`File ${key} retrieved from s3`);
           resolve({
             fileBuffer: data.Body,
             documentType: documentType,
@@ -393,6 +396,7 @@ const getAllFiles = applicationId => {
         });
       })
       .catch(error => {
+        logger.error(`Error: ${error}`);
         reject(error);
       });
   });
@@ -544,8 +548,8 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
         return res.status(404).send();
       }
     })
-    .catch(() => {
-      return res.status(500).send();
+    .catch((error) => {
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -596,15 +600,16 @@ tempOutfitter.attachFile = (req, res) => {
         originalFileName: req.files[0].key
       })
         .then(appfile => {
+          util.logControllerAction(req, 'tempOutfitter.attachFile', appfile);
           req.body['fileId'] = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(() => {
-          return res.status(500).send();
+        .catch(error => {
+          util.handleErrorResponse(error, res);
         });
     })
-    .catch(() => {
-      return res.status(500).send();
+    .catch(error => {
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -620,10 +625,15 @@ tempOutfitter.deleteFile = (req, res) => {
     }
   })
     .then(() => {
+      util.logControllerAction(req,
+        'tempOutfitter.deleteFile',
+        {'updatedAt': new Date().toDateString()}
+      );
       return res.status(204);
     })
-    .catch(() => {
-      return res.status(500).send();
+    .catch((error) => {
+      logger.error(`Failure to delete file ${req.params.id}`);
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -641,6 +651,7 @@ tempOutfitter.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(tempOutfitterApp => {
+      util.logControllerAction(req, 'tempOutfitter.Create', tempOutfitterApp);
       email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
       email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
       req.body['applicationId'] = tempOutfitterApp.applicationId;
@@ -648,13 +659,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else {
-        return res.status(500).send();
-      }
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -676,6 +681,7 @@ tempOutfitter.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
+      util.logControllerAction(req, 'tempOutfitter.getOne', app);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -722,6 +728,7 @@ tempOutfitter.update = (req, res) => {
             app
               .save()
               .then(() => {
+                util.logControllerAction(req, 'tempOutfitter.update', app);
                 commonControllers.createRevision(util.getUser(req), app);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
@@ -737,24 +744,11 @@ tempOutfitter.update = (req, res) => {
         app
           .save()
           .then(() => {
-            commonControllers.createRevision(util.getUser(req), app);
-            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-              email.sendEmail(`tempOutfitterApplicationUser${app.status}`, app);
-            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail('tempOutfitterApplicationRemoveHold', app);
-            } else {
-              email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-            }
+            commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({
-                errors: error.errors
-              });
-            } else {
-              return res.status(500).send();
-            }
+            util.handleErrorResponse(error, res);
           });
       }
     })

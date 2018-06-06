@@ -55,7 +55,7 @@ eAuth.setUserObject = profile => {
     role: role,
     forests: util.getAdminForests(adminUsername)
   };
-  logger.info(`${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
+  logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
 };
 

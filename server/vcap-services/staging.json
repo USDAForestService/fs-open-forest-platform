@@ -75,14 +75,29 @@
       "tcs_app_id": "FS-100"
     },
     "label": "user-provided",
-    "name": "pay-gov"
+    "name": "pay-gov",
+    "syslog_drain_url": "",
+    "tags": [],
+    "volume_mounts": []
   }, {
     "credentials": {
       "permit_secret": ""
     },
     "label": "user-provided",
     "name": "jwt"
-  }],
+  },
+  {
+    "credentials": {
+      "key": "NEW_RELIC_SUPPLIED_KEY",
+      "app_name": "Open Forest Server"
+    },
+    "label": "user-provided",
+    "name": "new-relic",
+    "syslog_drain_url": "",
+    "tags": [],
+    "volume_mounts": []
+  }
+],
   "s3": [{
     "credentials": {
       "bucket": "",
