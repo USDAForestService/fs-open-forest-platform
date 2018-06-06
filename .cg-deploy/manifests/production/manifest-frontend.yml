@@ -8,4 +8,4 @@ applications:
   env:
     FORCE_HTTPS: true
   services:
-    new-relic
+    - new-relic
