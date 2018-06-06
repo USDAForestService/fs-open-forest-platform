@@ -13,6 +13,7 @@ const Revision = require('../models/revision.es6');
 const util = require('../services/util.es6');
 const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const logger = require('../services/logger.es6');
 
 const noncommercial = {};
 
@@ -374,6 +375,7 @@ noncommercial.getOne = (req, res) => {
       if (!util.hasPermissions(util.getUser(req), app)) {
         return res.status(403).send();
       }
+      util.logControllerAction(req, 'noncommerical.getOne', app);
       Revision.findAll({
         where: {
           applicationId: app.applicationId,
@@ -386,11 +388,12 @@ noncommercial.getOne = (req, res) => {
           return res.status(200).json(formattedApp);
         })
         .catch(error => {
-          return res.status(400).json(error);
+          logger.info('U fired');
+          util.handleErrorResponse(error, res);
         });
     })
     .catch(() => {
-      return res.status(500).send();
+      util.handleErrorResponse(new Error('Uncaught noncommericial error'), res);
     });
 };
 
@@ -407,6 +410,7 @@ noncommercial.create = (req, res) => {
   translateFromClientToDatabase(req.body, model);
   NoncommercialApplication.create(model)
     .then(noncommApp => {
+      util.logControllerAction(req, 'noncommerical.create', noncommApp);
       email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
       email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
       req.body['applicationId'] = noncommApp.applicationId;
@@ -414,13 +418,7 @@ noncommercial.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      if (error.name === 'SequelizeValidationError') {
-        return res.status(400).json({
-          errors: error.errors
-        });
-      } else {
-        return res.status(500).send();
-      }
+      util.handleErrorResponse(error, res);
     });
 };
 
@@ -447,6 +445,7 @@ noncommercial.update = (req, res) => {
         noncommercial
           .acceptApplication(app)
           .then(response => {
+            util.logControllerAction(req, 'noncommerical.update', app);
             app.controlNumber = response.controlNumber;
             app
               .save()
@@ -455,35 +454,22 @@ noncommercial.update = (req, res) => {
                 email.sendEmail(`noncommercialApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(() => {
-                return res.status(500).send();
+              .catch(error => {
+                util.handleErrorResponse(error, res);
               });
           })
-          .catch(() => {
-            return res.status(500).send();
+          .catch(error => {
+            util.handleErrorResponse(error, res);
           });
       } else {
         app
           .save()
           .then(() => {
-            commonControllers.createRevision(util.getUser(req), app);
-            if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
-              email.sendEmail(`noncommercialApplicationUser${app.status}`, app);
-            } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
-              email.sendEmail('noncommercialApplicationRemoveHold', app);
-            } else {
-              email.sendEmail(`noncommercialApplication${app.status}`, app);
-            }
+            commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            if (error.name === 'SequelizeValidationError') {
-              return res.status(400).json({
-                errors: error.errors
-              });
-            } else {
-              return res.status(500).send();
-            }
+            util.handleErrorResponse(error, res);
           });
       }
     })
@@ -491,5 +477,7 @@ noncommercial.update = (req, res) => {
       return res.status(500).send();
     });
 };
+
+
 
 module.exports = noncommercial;

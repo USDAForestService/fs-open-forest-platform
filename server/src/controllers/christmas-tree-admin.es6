@@ -24,7 +24,8 @@ const operator = Sequelize.Op;
  */
 const getPermitResult = permit => {
   let eachPermit = {};
-  eachPermit.permitNumber = zpad(permit.permitNumber, 8);
+  eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
+  
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
     eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -50,11 +51,13 @@ const returnPermitsReport = (results, res) => {
     let permits = [];
     let sumOfTrees = 0;
     let sumOfCost = 0;
+
     results.forEach(permit => {
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(getPermitResult(permit));
     });
+
     res.status(200).json({
       sumOfTrees: sumOfTrees,
       sumOfCost: sumOfCost.toFixed(2),
@@ -72,6 +75,7 @@ const returnPermitsReport = (results, res) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
+  logger.info(`${util.getUser(req)} generated a report`);
   treesDb.christmasTreesForests
     .findOne({
       where: {
@@ -111,15 +115,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           return returnPermitsReport(results, res);
         })
         .catch(error => {
-          if (error.name === 'SequelizeValidationError') {
-            return res.status(400).json({
-              errors: error.errors
-            });
-          } else if (error.name === 'SequelizeDatabaseError') {
-            return res.status(404).send();
-          } else {
-            return res.status(500).send();
-          }
+          util.handleErrorResponse(error, res);
         });
     });
 };
@@ -154,7 +150,6 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      logger.error(error);
       return util.handleErrorResponse(error, res);
     });
 };

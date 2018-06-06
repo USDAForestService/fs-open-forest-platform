@@ -5,6 +5,7 @@ const vcapConstants = require('../src/vcap-constants.es6');
 
 const request = require('supertest');
 const moment = require('moment');
+require('./common.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws.spec.es6');

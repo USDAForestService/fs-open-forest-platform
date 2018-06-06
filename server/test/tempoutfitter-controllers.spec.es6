@@ -15,6 +15,7 @@ const tempOutfitter = require('../src/controllers/temp-outfitter.es6');
 
 const fileUploadUrl = '/permits/applications/special-uses/temp-outfitter/file';
 const tempoutfitterUrl = '/permits/applications/special-uses/temp-outfitter';
+require('./common.es6');
 
 const invalidIntakeControlNumber = 'ab69a474-aaaa-aaaa-aaaa-e9de93d92c10';
 let intakeControlNumber;

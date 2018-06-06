@@ -33,7 +33,7 @@ if (vcapConstants.SMTP_USERNAME && vcapConstants.SMTP_PASSWORD) {
   };
 }
 
-const transporter = nodemailer.createTransport(smtpConfig);
+emailUtil.transporter = nodemailer.createTransport(smtpConfig);
 /**
  * @function send - sends email using nodemailer
  * @param {string} to - email To address
@@ -61,9 +61,11 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
     mailOptions.attachments = attachments;
   }
   if (vcapConstants.SMTP_HOST) {
-    transporter.sendMail(mailOptions, error => {
+    emailUtil.transporter.sendMail(mailOptions, error => {
       if (error) {
         logger.error('NODE_MAILER_SMTP_ERROR', error);
+      } else {
+        logger.info('Email successfully sent');
       }
     });
   }

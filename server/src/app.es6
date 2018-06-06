@@ -24,6 +24,13 @@ const logger = require('./services/logger.es6');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
 
+if (!vcapConstants.isLocalOrCI) {
+  logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
+  require('newrelic'); // eslint-disable-line global-require
+} else {
+  logger.warn('Skipping New Relic Activation');
+}
+
 // Create the express application.
 const app = express();
 
@@ -42,12 +49,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.xml());
 
 /** Logging middlelayer */
+expressWinston.requestWhitelist = ['url',
+  'headers.host',
+  'headers.user-agent',
+  'method',
+  'httpVersion',
+  'originalUrl',
+  'referer',
+  'responseTime'
+];
+
 if (logger.levels[logger.level] >= 2) {
   app.use(expressWinston.logger({
     transports: [
       new logger.transports.Console(loggerParams)
     ],
-    requestWhitelist: expressWinston.requestWhitelist.concat('body')
+    bodyWhitelist: ['forestID', 'region', 'forest', 'type']
   }));
 }
 

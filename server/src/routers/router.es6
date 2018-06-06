@@ -8,7 +8,7 @@
 const express = require('express');
 const middleware = require('../services/middleware.es6');
 const authRouter = require('./auth.es6');
-const applicationsRouter = require('./applications.es6');
+const specialUseRouter = require('./specialuse.es6');
 const christmasTreeRouter = require('./christmasTree.es6');
 const christmasTreeAdminRouter = require('./christmasTreeAdmin.es6');
 
@@ -23,7 +23,7 @@ router.options('*', middleware.setCorsHeaders, (req, res) => {
 
 /** Plug in subroutes. */
 router.use('/auth', middleware.setCorsHeaders, middleware.checkPermissions, authRouter);
-router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, applicationsRouter);
+router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, specialUseRouter);
 router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
 router.use('/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
 
