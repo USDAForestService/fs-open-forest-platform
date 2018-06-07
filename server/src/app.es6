@@ -4,13 +4,14 @@
  * Module for FS Intake API Server
  * @module app
  */
+
 const vcapConstants = require('./vcap-constants.es6');
 if (!vcapConstants.isLocalOrCI) {
   logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
   require('newrelic'); // eslint-disable-line global-require
 } else {
   logger.warn('Skipping New Relic Activation');
-
+}
 
 const bodyParser = require('body-parser');
 const express = require('express');
