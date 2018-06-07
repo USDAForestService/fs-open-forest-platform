@@ -4,7 +4,7 @@
  * Module for FS Intake API Server
  * @module app
  */
-
+const logger = require('./services/logger.es6');
 const vcapConstants = require('./vcap-constants.es6');
 if (!vcapConstants.isLocalOrCI) {
   logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
@@ -27,7 +27,6 @@ const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
-const logger = require('./services/logger.es6');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
 
