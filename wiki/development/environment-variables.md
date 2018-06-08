@@ -34,6 +34,10 @@ VCAP_APPLICATION
 
     {"uris":["http://localhost:8080"]}
 
+Note that depending on your shell, you may need to escape the quotation marks when setting this variable at the command line:
+
+    export VCAP_APPLICATION={\"uris\":[\"http://localhost:8080\"]}
+
 ## To override the default VCAP_SERVICES that are configured for local development and CI.
 
 VCAP_SERVICES
