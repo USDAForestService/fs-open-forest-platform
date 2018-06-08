@@ -4,6 +4,14 @@
  * Module for FS Intake API Server
  * @module app
  */
+const logger = require('./services/logger.es6');
+const vcapConstants = require('./vcap-constants.es6');
+if (!vcapConstants.isLocalOrCI) {
+  logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
+  require('newrelic'); // eslint-disable-line global-require
+} else {
+  logger.warn('Skipping New Relic Activation');
+}
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -14,22 +22,13 @@ const moment = require('moment');
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
 const util = require('./services/util.es6');
-const vcapConstants = require('./vcap-constants.es6');
 const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
-const logger = require('./services/logger.es6');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
-
-if (!vcapConstants.isLocalOrCI) {
-  logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
-  require('newrelic'); // eslint-disable-line global-require
-} else {
-  logger.warn('Skipping New Relic Activation');
-}
 
 // Create the express application.
 const app = express();
