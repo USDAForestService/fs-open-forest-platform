@@ -256,7 +256,7 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoOrgMailingState: {
       type: Sequelize.STRING(2),
       field: 'applicant_info_org_mail_state',
-      validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoOrgMailingState is invalid' } }
+      validate: { isIn: { args: [util.stateAndPossessionCodes], msg: 'applicantInfoOrgMailingState is invalid' } }
     },
     applicantInfoOrgMailingZIP: {
       type: Sequelize.STRING(5),
@@ -298,7 +298,7 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoPrimaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_pri_mailing_state',
-      validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoPrimaryMailingState is invalid' } }
+      validate: { isIn: { args: [util.stateAndPossessionCodes], msg: 'applicantInfoPrimaryMailingState is invalid' } }
     },
     applicantInfoPrimaryMailingZIP: {
       type: Sequelize.STRING(5),
@@ -344,7 +344,7 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoSecondaryMailingState: {
       type: Sequelize.STRING(2),
       field: 'appl_info_sec_mailing_state',
-      validate: { isIn: { args: [util.stateCodes], msg: 'applicantInfoSecondaryMailingState is invalid' } }
+      validate: { isIn: { args: [util.stateAndPossessionCodes], msg: 'applicantInfoSecondaryMailingState is invalid' } }
     },
     applicantInfoSecondaryMailingZIP: {
       type: Sequelize.STRING(5),
