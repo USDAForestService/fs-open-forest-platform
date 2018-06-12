@@ -22,6 +22,10 @@ const smtpConfig = {
   requireTLS: true
 };
 
+if (vcapConstants.SMTP_PORT) {
+  smtpConfig.port = vcapConstants.SMTP_PORT;
+}
+
 /*
  * If smtp username and password are set in VCAP_SERVICES,
  * we assume that smtp host is configured to authenticate with username and password.
@@ -59,9 +63,6 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
   }
   if (attachments) {
     mailOptions.attachments = attachments;
-  }
-  if(vcapConstants.SMTP_PORT){
-    mailOptions.port = vcapConstants.SMTP_PORT;
   }
   if (vcapConstants.SMTP_HOST) {
     emailUtil.transporter.sendMail(mailOptions, error => {
