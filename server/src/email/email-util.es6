@@ -60,6 +60,9 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
   if (attachments) {
     mailOptions.attachments = attachments;
   }
+  if(vcapConstants.SMTP_PORT){
+    mailOptions.port = vcapConstants.SMTP_PORT;
+  }
   if (vcapConstants.SMTP_HOST) {
     emailUtil.transporter.sendMail(mailOptions, error => {
       if (error) {
