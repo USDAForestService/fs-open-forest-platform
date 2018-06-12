@@ -82,6 +82,7 @@ const smtp = getUserProvided('smtp-service');
 vcapConstants.SMTP_HOST = smtp.smtp_server;
 vcapConstants.SMTP_USERNAME = smtp.username;
 vcapConstants.SMTP_PASSWORD = smtp.password;
+vcapConstants.SMTP_PORT = smtp.port;
 vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES = smtp.admins;
 
 /** Pay.gov */
