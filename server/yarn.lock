@@ -8,9 +8,9 @@
   dependencies:
     methods "^1.1.2"
 
-"@newrelic/native-metrics@^2.1.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@newrelic/native-metrics/-/native-metrics-2.4.0.tgz#65503820f1fc6afc215cd9893077848a6c013cae"
+"@newrelic/native-metrics@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@newrelic/native-metrics/-/native-metrics-3.0.0.tgz#973096ea8d9e8088c3e1b15f406614d8ca59a713"
   dependencies:
     nan "^2.8.0"
 
@@ -282,9 +282,9 @@ atob@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-aws-sdk@^2.252.1:
-  version "2.257.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.257.1.tgz#caf0f498017021c4f26b3579d458b6a60e3d7a7d"
+aws-sdk@^2.258.1:
+  version "2.258.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.258.1.tgz#ddfb13dda0baf2748fa499f5f2c6ee1d84fd97bb"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -394,10 +394,6 @@ base64-js@0.0.2:
 base64-js@^1.0.2:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.3.0.tgz#cab1e6118f051095e58b5281aea8c1cd22bfc0e3"
-
-base64url@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/base64url/-/base64url-2.0.0.tgz#eac16e03ea1438eff9423d69baa36262ed1f70bb"
 
 base64url@^3.0.0:
   version "3.0.0"
@@ -3197,6 +3193,10 @@ long@^3.1.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/long/-/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
 
+long@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
+
 longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
@@ -3576,9 +3576,9 @@ netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-newrelic@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-4.1.2.tgz#84c16e8e4e9d763dba58bc5dfa25caa21c77bf72"
+newrelic@^4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/newrelic/-/newrelic-4.1.5.tgz#e7ac0852ba81977c9090c728fd3251e507f5ce45"
   dependencies:
     "@newrelic/koa" "^1.0.0"
     "@tyriar/fibonacci-heap" "^2.0.7"
@@ -3589,7 +3589,7 @@ newrelic@^4.1.2:
     readable-stream "^2.1.4"
     semver "^5.3.0"
   optionalDependencies:
-    "@newrelic/native-metrics" "^2.1.0"
+    "@newrelic/native-metrics" "^3.0.0"
 
 next-tick@1:
   version "1.0.0"
@@ -3627,26 +3627,6 @@ node-forge@^0.7.0, node-forge@^0.7.1, node-forge@^0.7.4:
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.5.tgz#6c152c345ce11c52f465c2abd957e8639cd674df"
 
-node-jose@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/node-jose/-/node-jose-0.11.0.tgz#5a737580bc3a39b01ff7938d2398335c458d8587"
-  dependencies:
-    base64url "^2.0.0"
-    es6-promise "^4.0.5"
-    lodash.assign "^4.0.8"
-    lodash.clone "^4.3.2"
-    lodash.fill "^3.2.2"
-    lodash.flatten "^4.2.0"
-    lodash.intersection "^4.1.2"
-    lodash.merge "^4.3.5"
-    lodash.omit "^4.2.1"
-    lodash.partialright "^4.1.3"
-    lodash.pick "^4.2.0"
-    lodash.uniq "^4.2.1"
-    long "^3.1.0"
-    node-forge "^0.7.1"
-    uuid "^3.0.1"
-
 node-jose@^0.11.1:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/node-jose/-/node-jose-0.11.1.tgz#e8fe4c2e6ac11b064dca4cdd3f7adcf22b4a74dd"
@@ -3667,6 +3647,26 @@ node-jose@^0.11.1:
     node-forge "^0.7.1"
     uuid "^3.0.1"
 
+node-jose@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/node-jose/-/node-jose-1.0.0.tgz#fe0c17244f5496aec973a7a274c542d18355ece5"
+  dependencies:
+    base64url "^3.0.0"
+    es6-promise "^4.0.5"
+    lodash.assign "^4.0.8"
+    lodash.clone "^4.3.2"
+    lodash.fill "^3.2.2"
+    lodash.flatten "^4.2.0"
+    lodash.intersection "^4.1.2"
+    lodash.merge "^4.3.5"
+    lodash.omit "^4.2.1"
+    lodash.partialright "^4.1.3"
+    lodash.pick "^4.2.0"
+    lodash.uniq "^4.2.1"
+    long "^4.0.0"
+    node-forge "^0.7.1"
+    uuid "^3.0.1"
+
 node-pre-gyp@^0.9.0:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.9.1.tgz#f11c07516dd92f87199dbc7e1838eab7cd56c9e0"
@@ -3682,9 +3682,9 @@ node-pre-gyp@^0.9.0:
     semver "^5.3.0"
     tar "^4"
 
-nodemailer@^4.6.5:
-  version "4.6.6"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.6.6.tgz#9ba4be51ffa5da2b2dbc392b87e30bff7166e139"
+nodemailer@^4.6.7:
+  version "4.6.7"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-4.6.7.tgz#b68de7f36d65618bdeeeb76234e3547d51266373"
 
 nodemon@^1.17.5:
   version "1.17.5"
@@ -3857,7 +3857,7 @@ object.pick@^1.3.0:
   dependencies:
     isobject "^3.0.1"
 
-oidc-token-hash@^3.0.0:
+oidc-token-hash@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/oidc-token-hash/-/oidc-token-hash-3.0.1.tgz#f9e2496a3eea5f755671be54a97f57170a74081d"
   dependencies:
@@ -3885,16 +3885,16 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-openid-client@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-2.0.4.tgz#5665066e360d0bd07e2711ae823da59eead7c723"
+openid-client@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-2.1.0.tgz#89ec7640333eef738f82a208a76f49fca42bdc84"
   dependencies:
     base64url "^3.0.0"
     got "^8.3.1"
     lodash "^4.17.10"
     lru-cache "^4.1.3"
-    node-jose "^0.11.0"
-    oidc-token-hash "^3.0.0"
+    node-jose "^1.0.0"
+    oidc-token-hash "^3.0.1"
     uuid "^3.2.1"
 
 opn@^5.2.0:
@@ -5161,7 +5161,16 @@ snyk-tree@^1.0.0:
   dependencies:
     archy "^1.0.0"
 
-snyk-try-require@1.3.0, snyk-try-require@^1.1.1:
+snyk-try-require@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/snyk-try-require/-/snyk-try-require-1.3.1.tgz#6e026f92e64af7fcccea1ee53d524841e418a212"
+  dependencies:
+    debug "^3.1.0"
+    lodash.clonedeep "^4.3.0"
+    lru-cache "^4.0.0"
+    then-fs "^2.0.0"
+
+snyk-try-require@^1.1.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/snyk-try-require/-/snyk-try-require-1.3.0.tgz#f35706acf91c8af788d58e1f1ad6bf0fcf6c5493"
   dependencies:
@@ -5170,9 +5179,9 @@ snyk-try-require@1.3.0, snyk-try-require@^1.1.1:
     lru-cache "^4.0.0"
     then-fs "^2.0.0"
 
-snyk@^1.82.0:
-  version "1.82.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.82.0.tgz#eeeb8187dbd79af59a5c608f1d1ce35deee27b9c"
+snyk@^1.83.0:
+  version "1.83.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.83.0.tgz#207fb2f47306719f62664d2d2e8e807b294baea0"
   dependencies:
     abbrev "^1.1.1"
     ansi-escapes "^3.1.0"
@@ -5202,7 +5211,7 @@ snyk@^1.82.0:
     snyk-resolve-deps "3.1.0"
     snyk-sbt-plugin "1.3.0"
     snyk-tree "^1.0.0"
-    snyk-try-require "1.3.0"
+    snyk-try-require "1.3.1"
     tempfile "^2.0.0"
     then-fs "^2.0.0"
     undefsafe "^2.0.0"
@@ -5976,9 +5985,9 @@ window-size@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
 
-winston@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.2.tgz#3ca01f763116fc48db61053b7544e750431f8db0"
+winston@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/winston/-/winston-2.4.3.tgz#7a9fdab371b6d3d9b63a592947846d856948c517"
   dependencies:
     async "~1.0.0"
     colors "1.0.x"
