@@ -2,6 +2,8 @@
 applications:
 - name: forest-service-epermit
   path: ../../../frontend/dist
+  routes:
+   - route: openforest.fs.usda.gov
   memory: 64M
   host: forest-service-epermit
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
