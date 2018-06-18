@@ -22,6 +22,10 @@ const smtpConfig = {
   requireTLS: true
 };
 
+if (vcapConstants.SMTP_PORT) {
+  smtpConfig.port = vcapConstants.SMTP_PORT;
+}
+
 /*
  * If smtp username and password are set in VCAP_SERVICES,
  * we assume that smtp host is configured to authenticate with username and password.

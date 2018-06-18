@@ -26,7 +26,8 @@ export class TrackScrollDirective implements OnInit {
     const offsetTop = this.element.nativeElement.offsetTop;
     const offsetHeight = this.element.nativeElement.offsetHeight;
     const offsetBottom = offsetTop + offsetHeight + Number(this.offset);
-    const scrollY: number = window.scrollY + window.innerHeight;
+    const pageYOffset = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollY: number = pageYOffset + window.innerHeight;
 
     if (this.position === 'bottom' && offsetBottom <= scrollY) {
       this.trackScrollEnter.emit(true);

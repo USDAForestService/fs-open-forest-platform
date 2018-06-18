@@ -101,7 +101,7 @@ export class UtilService {
       this.currentSubSection = fragment;
       if (element) {
         element.scrollIntoView(true);
-        const scrolledY = window.scrollY;
+        const scrolledY = window.pageYOffset || document.documentElement.scrollTop;
         window.scroll(0, scrolledY - 80);
         document.getElementById(fragment).focus();
         return fragment;

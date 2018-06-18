@@ -42,7 +42,7 @@
     "core-js": "^2.5.7",
     "intl": "^1.2.5",
     "moment": "^2.22.2",
-    "moment-timezone": "^0.5.17",
+    "moment-timezone": "0.5.17",
     "newrelic": "^4.1.4",
     "ng-in-viewport": "1.2.0",
     "ng2-file-upload": "^1.2.1",

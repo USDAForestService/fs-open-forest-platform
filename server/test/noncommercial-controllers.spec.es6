@@ -33,6 +33,22 @@ describe('noncommercial controllers', () => {
       .expect(201, done);
   }).timeout(6000);
 
+  ['AS', 'DC', 'FM', 'GU', 'MH', 'MP', 'PW', 'PR', 'VI'].forEach(function (value) {
+    it('POST should return a 201 status code and an intakeControlNumber even when a non-State code is entered', done => {
+      const permitApplication = noncommercialPermitApplicationFactory.create({'applicantInfo.primaryAddress.mailingState': value});
+      console.log(permitApplication['applicantInfo']['primaryAddress']);
+      request(server)
+        .post(noncommercialUrl)
+        .send(permitApplication)
+        .expect('Content-Type', /json/)
+        .expect(/"applicationId":[\d]+/)
+        .expect(res => {
+          intakeControlNumber = res.body.appControlNumber;
+        })
+        .expect(201, done);
+    }).timeout(6000);
+  });
+
   it('POST should not allow sql injection (little Bobby Tables) to succeed and drop a table. If it succeeds, subsequent tests will fail.', done => {
     const permitApplication = noncommercialPermitApplicationFactory.create();
     permitApplication.applicantInfo.primaryFirstName = 'Robert"); DROP TABLE noncommercialApplications; --';
