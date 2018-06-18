@@ -156,6 +156,7 @@ To run any of the server commands, either the environment variables above must b
 | Function | Command | Additional information |
 | ------------- |:-------------:| -------------:|
 | Setup Database | `yarn migrate` | |
+| Seed Database | `yarn seed` | Adds Christmas tree forest data |
 | Start the server | `yarn dev` | Server is accessible at http://localhost:8080 |
 | Revert the last database migration | `yarn undoLastMigrate` | |
 | Revert all of the database migrations and start with a blank database | `yarn undoAllMigrate` | |
@@ -229,7 +230,7 @@ Run `ng build --prod --env=prod --aot=false` to build the static files for the s
 
 #### Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `yarn test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Add `--code-coverage` flag to print out code coverage statistics.
 
