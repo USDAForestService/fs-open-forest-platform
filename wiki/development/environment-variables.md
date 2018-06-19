@@ -14,7 +14,7 @@ AWS_CONFIG
 
   {"s3":[{"credentials":{"bucket":"","access_key_id":"","region":"us-east-1","secret_access_key":""},"label":"s3","name":"intake-s3"}]}
 
-  If AWS_CONFIG is not set, system will use the json file [here](server/vcap-services/aws-config.json)
+  If AWS_CONFIG is not set, system will use the json file [here](/server/vcap-services/aws-config.json)
 
 SNYK_TOKEN
 
