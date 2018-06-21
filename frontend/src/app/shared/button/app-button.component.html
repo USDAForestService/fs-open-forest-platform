@@ -1,6 +1,14 @@
-<a class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
+<a *ngIf="!btnAlt" class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
   {{buttonText}}
   <span *ngIf="!authentication.user"  class="button-hint usa-form-hint">Log in to apply now with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />
   </span>
   <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Apply now</span>
 </a>
+
+<div *ngIf="btnAlt">
+  <a class="usa-button-primary-alt usa-button usa-button-big display-inline" [routerLink]="link">
+    {{buttonText}}
+    <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Apply now</span>
+  </a>
+  <span *ngIf="!authentication.user" class="button-hint usa-form-hint display-inline">Log in to apply now with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" /></span>
+</div>
