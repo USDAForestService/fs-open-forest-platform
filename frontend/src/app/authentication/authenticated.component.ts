@@ -48,6 +48,9 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('token');
     this.user = null;
 
+    console.log(this.authentication);
+    console.log(this.authentication.removeUser());
+
     this.authentication.removeUser().subscribe(user => {
       if (user != null) {
         this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
