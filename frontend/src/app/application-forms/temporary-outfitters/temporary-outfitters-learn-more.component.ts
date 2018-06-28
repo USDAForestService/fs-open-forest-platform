@@ -137,8 +137,8 @@ In this case, we will allocate the permits using a lottery based on due date. Du
 are granted a permit by means of our lottery will have plenty of time to advertise and prepare. In the event there are unallocated
 days left over after the lottery, additional permits may be issued on a first-come,
 first-served basis.</p>
-        <p><a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">For more information on Forest Service outfitter and guide policies and
-regulations, visit the national website.</a></p>
+        <p>For more information on Forest Service outfitter and guide policies and
+regulations, <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">visit the national website</a>.</p>
         `
       }
     ];

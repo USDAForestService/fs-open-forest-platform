@@ -45,9 +45,7 @@ export class NoncommercialLearnMoreComponent {
         primarily if it violates public safety or public health laws or regulations.
         If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
 
-        <p><a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">For more information about non-commercial group use and regulations, visit our FAQ page:
-        https://www.fs.fed.us/specialuses/special_non_com_uses.shtml</a>
-        </p>`
+        <p>For more information about non-commercial group use and regulations, <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">visit our FAQ page</a></p>`
       }
     ];
   }
