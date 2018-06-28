@@ -31,7 +31,7 @@ describe('frontend App', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
       element(by.id('us-forest-service-logo')).click();
-      expect<any>(browser.getTitle()).toEqual('US Forest Service ePermit');
+      expect<any>(browser.getTitle()).toEqual('US Forest Service Open Forest');
     });
 
     it('should have ctas to apply for different permits', () => {
