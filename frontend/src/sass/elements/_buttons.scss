@@ -20,6 +20,7 @@
     }
   }
 
+  .usa-button.usa-button-primary-alt,
   .usa-button-primary-alt {
     background-color: $fs-green;
     color: $white;
@@ -31,6 +32,10 @@
     &:active {
       color: $white;
       background-color: $fs-green-darker;
+    }
+
+    .usa-form-hint {
+      color: $white;
     }
   }
 
