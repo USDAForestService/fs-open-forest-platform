@@ -37,7 +37,7 @@ const appRoutes: Routes = [
   {
     path: '',
     data: {
-      title: 'US Forest Service ePermit',
+      title: 'US Forest Service Open Forest',
       breadcrumbs: true,
       text: 'Apply for a permit',
       displayLogin: true
