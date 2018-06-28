@@ -350,29 +350,6 @@ jobs:
       - run:
           name: Snyk and upload
           command: |
-            mkdir -p a=rw snyk
-            echo "running frontend snyk"
-            sudo npm install -g snyk
-            export DATE_STRING=`date +"%m-%d-%Y-%H"`
-            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
-            cd frontend
-            yarn run snyk-test # For Human
-            snyk test --json > ../snyk/snyk-frontend.json
-            sudo cat ../snyk/snyk-frontend.json  \
-            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
-            "../snyk/${SNYK_REPORT}"
-            echo "running server snyk"
-            cd ../server
-            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-server-${DATE_STRING}.csv
-            cd server
-            yarn run snyk-protect
-            yarn run snyk-test
-            snyk test --json > ../snyk/snyk-server.json
-            sudo cat ../snyk/snyk-server.json  \
-            | jq -r '["Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | [.packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
-            "../snyk/${SNYK_REPORT}"
-            cd ..
-            echo "uploading snyk"
             ./.circleci/store-snyk.sh
 
   recycle-production:
