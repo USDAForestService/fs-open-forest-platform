@@ -3,6 +3,10 @@ hr {
   border: none;
   height: 1px;
   margin: 30px 0;
+
+  &.light {
+    background-color: #d6d7d9;
+  }
 }
 
 hr.thick {
