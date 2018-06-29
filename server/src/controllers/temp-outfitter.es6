@@ -290,9 +290,9 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       activityDescription:
         'Start date: ' +
-        application.tempOutfitterFieldsActDescFieldsStartDateTime +
+        moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY') +
         '\nEnd date: ' +
-        application.tempOutfitterFieldsActDescFieldsEndDateTime +
+        moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY') +
         '\nNumber of Trips: ' +
         application.tempOutfitterFieldsActDescFieldsNumTrips +
         '\nParty size: ' +
