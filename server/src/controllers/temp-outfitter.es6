@@ -295,23 +295,23 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
         application.tempOutfitterFieldsActDescFieldsEndDateTime +
         '\nNumber of Trips: ' +
         application.tempOutfitterFieldsActDescFieldsNumTrips +
-        '\n Party size: ' +
+        '\nParty size: ' +
         application.tempOutfitterFieldsActDescFieldsPartySize +
-        '\n Location Description: ' +
+        '\nLocation Description: ' +
         application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        '\n Services Provided: ' +
+        '\nServices Provided: ' +
         application.tempOutfitterFieldsActDescFieldsServProvided +
-        '\n Audience Description: ' +
+        '\nAudience Description: ' +
         application.tempOutfitterFieldsActDescFieldsAudienceDesc +
-        '\n Facilities needed: ' +
+        '\nFacilities needed: ' +
         application.tempOutfitterFieldsActDescFieldsListGovFacilities +
-        '\n Temporary improvements: ' +
+        '\nTemporary improvements: ' +
         application.tempOutfitterFieldsActDescFieldsListTempImprovements +
-        '\n Motorized use: ' +
+        '\nMotorized use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
-        '\n Livestock use: ' +
+        '\nLivestock use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
-        '\n Cleanup activities: ' +
+        '\nCleanup activities: ' +
         application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
