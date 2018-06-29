@@ -288,41 +288,30 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
     tempOutfitterFields: {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
-      // Start date
       activityDescription:
+        'Start date: ' +
         application.tempOutfitterFieldsActDescFieldsStartDateTime +
-        '\n' +
-        // End date
+        '\nEnd date: ' +
         application.tempOutfitterFieldsActDescFieldsEndDateTime +
-        '\n' +
-        // Anticipated number of trips
+        '\nNumber of Trips: ' +
         application.tempOutfitterFieldsActDescFieldsNumTrips +
-        '\n' +
-        // Anticipated party size
+        '\n Party size: ' +
         application.tempOutfitterFieldsActDescFieldsPartySize +
-        '\n' +
-        // Location Description
+        '\n Location Description: ' +
         application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        '\n' +
-        // Services Provided
+        '\n Services Provided: ' +
         application.tempOutfitterFieldsActDescFieldsServProvided +
-        '\n' +
-        // Audience Description
+        '\n Audience Description: ' +
         application.tempOutfitterFieldsActDescFieldsAudienceDesc +
-        '\n' +
-        // List facilities needed
+        '\n Facilities needed: ' +
         application.tempOutfitterFieldsActDescFieldsListGovFacilities +
-        '\n' +
-        // List of temporary improvements or signs that you propose to use
+        '\n Temporary improvements: ' +
         application.tempOutfitterFieldsActDescFieldsListTempImprovements +
-        '\n' +
-        // Description of the proposed operations involving motorized equipment
+        '\n Motorized use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
-        '\n' +
-        // Description of the proposed operations involving the transportation of livestock, and whether grazing is requested
+        '\n Livestock use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
-        '\n' +
-        // Description of cleanup and restoration during and after the proposed operations
+        '\n Cleanup activities: ' +
         application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,

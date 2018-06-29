@@ -12,10 +12,9 @@
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>
       </ng-container>
-      <div>
-        <a routerLink="/" class="usa-button">Back to permits</a>
-        <a routerLink="/applications/temp-outfitters/new" class="usa-button-inverse usa-button">Temp outfitter's permit</a>
-      </div>
+      <app-button link="/applications/temp-outfitters/new" buttonText="Temp outfitter's permit" btnAlt="true"></app-button>
+      <hr class="light margin-top-1 margin-bottom-1">
+      <a routerLink="/" class="display-block">Return to Open Forest homepage</a>
     </div>
   </div>
 </section>
