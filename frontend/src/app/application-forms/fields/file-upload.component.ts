@@ -21,10 +21,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   @Input() allowImg: boolean;
 
   allowedMimeType = [
-    'application/msword',
-    'application/pdf',
-    'application/rtf',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    'application/pdf'
   ];
   errorMessage: string;
   maxFileSize = 25 * 1024 * 1024;
@@ -82,8 +79,8 @@ export class FileUploadComponent implements DoCheck, OnInit {
         break;
       case 'mimeType':
         const xls = this.allowXls ? '.xls, .xlsx, ' : '';
-        const img = this.allowImg ? '.jpg, .png, ' : '';
-        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, ${img}${xls}or .rtf`;
+        const img = this.allowImg ? '.jpg, .png, ' : '.doc, .docx, .rtf, ';
+        this.errorMessage = `The file type you selected is not allowed. The allowed file types are ${img}${xls}or .pdf`;
         break;
       default:
         this.errorMessage = `Unknown error (filter is ${Filter.name})`;
@@ -97,13 +94,17 @@ export class FileUploadComponent implements DoCheck, OnInit {
   }
 
   ngOnInit() {
-    if (this.allowXls) {
-      this.allowedMimeType.push('application/vnd.ms-excel');
-      this.allowedMimeType.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    }
     if (this.allowImg) {
       this.allowedMimeType.push('image/jpeg');
       this.allowedMimeType.push('image/png');
+    } else {
+      this.allowedMimeType.push('application/msword');
+      this.allowedMimeType.push('application/rtf');
+      this.allowedMimeType.push('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    }
+    if (this.allowXls) {
+      this.allowedMimeType.push('application/vnd.ms-excel');
+      this.allowedMimeType.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     }
   }
 

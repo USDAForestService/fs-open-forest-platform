@@ -63,19 +63,19 @@ describe('FileUploadComponent', () => {
     filter = { name: 'mimeType' };
     component.onWhenAddingFileFailed(file, filter, null);
     expect(component.errorMessage).toEqual(
-      `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, or .rtf`
-    );
-    component.allowXls = true;
-    component.onWhenAddingFileFailed(file, filter, null);
-    expect(component.errorMessage).toEqual(
-      `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, .xls, .xlsx, or .rtf`
+      `The file type you selected is not allowed. The allowed file types are .doc, .docx, .rtf, or .pdf`
     );
     component.allowImg = true;
     component.onWhenAddingFileFailed(file, filter, null);
     expect(component.errorMessage).toEqual(
-      `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, .jpg, .png, or .rtf`
+      `The file type you selected is not allowed. The allowed file types are .jpg, .png, or .pdf`
     );
-
+    component.allowImg = false;
+    component.allowXls = true;
+    component.onWhenAddingFileFailed(file, filter, null);
+    expect(component.errorMessage).toEqual(
+      `The file type you selected is not allowed. The allowed file types are .doc, .docx, .rtf, .xls, .xlsx, or .pdf`
+    );
     filter = { name: 'test filter' };
     component.onWhenAddingFileFailed(file, filter, null);
     expect(component.errorMessage).toEqual(`Unknown error (filter is test filter)`);
