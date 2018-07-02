@@ -27,6 +27,7 @@ export const tempOutfitterMock = {
   operatingPlan: '',
   liabilityInsurance: '',
   acknowledgementOfRisk: '',
+  locationMap: '',
   tempOutfitterFields: {
     individualIsCitizen: '',
     smallBusiness: '',

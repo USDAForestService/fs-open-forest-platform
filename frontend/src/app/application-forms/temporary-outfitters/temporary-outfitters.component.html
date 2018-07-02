@@ -67,6 +67,13 @@
           [inViewportOptions]="{ partial: true}"
           (inViewportAction)="elementInView($event)">></app-activity-description>
 
+        <app-file-upload-field name="Location map" type="location-map"
+          [uploadFiles]="uploadFiles"
+          [applicationId]="applicationId"
+          [checkFileUploadHasError]="submitted"
+          [field]="applicationForm.controls.locationMap"
+          ></app-file-upload-field>
+
         <app-advertising id="section-advertising" tabindex="-1"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           in-viewport
