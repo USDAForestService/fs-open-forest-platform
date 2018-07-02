@@ -17,10 +17,11 @@ cd ../server
 yarn run snyk-protect
 snyk test --json > ../snyk/snyk-server.json
 sudo cat ../snyk/snyk-server.json  \
-| jq -r '["App","Package", "CVE", "CWE", "Severity", "CVSSScore", "Title", "Disclosure Time", "Description", "Library Path Parent", "Library Path Child"], (.vulnerabilities[] | ["server", .packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
+| jq -r '(.vulnerabilities[] | ["server", .packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \
 "../snyk/${SNYK_REPORT_SERVER}"
 cd ..
-cat ./snyk/*.csv > snyk/"${SNYK_REPORT}"
+
+cat "./snyk/${SNYK_REPORT_FRONTEND}" "./snyk/${SNYK_REPORT_SERVER}" > snyk/"${SNYK_REPORT}"
 echo "uploading snyk"
 
 export STORE_BUCKET=`echo "${LOG_S3}" | jq -r .bucket`
