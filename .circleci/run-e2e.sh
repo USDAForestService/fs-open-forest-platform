@@ -21,7 +21,7 @@ else
           ARGUMENTS=$ARGUMENTS"--specs=../${i} "
         done
       fi
-      ARGUMENTS=$ARGUMENTS"--config ./development-configurations/protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"--protractor-config ./development-configurations/protractor.conf.js"
       ;;
     -u)
       if [ $# -ge 1 ]
