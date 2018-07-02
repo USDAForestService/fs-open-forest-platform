@@ -320,11 +320,6 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
     }
   };
 
-  // nonprofit isn't an option on the middle layer
-  if (result.applicantInfo.orgType === 'Nonprofit') {
-    result.applicantInfo.orgType = 'Corporation';
-  }
-
   return result;
 };
 
