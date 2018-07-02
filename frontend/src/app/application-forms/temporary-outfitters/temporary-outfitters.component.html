@@ -59,20 +59,28 @@
 
         </fieldset>
 
-        <app-activity-description id="section-activity-description" tabindex="-1"
-          [parentForm]="applicationForm.get('tempOutfitterFields')"
-          [pointOfView]="pointOfView"
-          (updateRootDateStatus)="updateDateStatus($event)"
+        <fieldset id="section-activity-description" tabindex="-1"
           in-viewport
           [inViewportOptions]="{ partial: true}"
-          (inViewportAction)="elementInView($event)">></app-activity-description>
+          (inViewportAction)="elementInView($event)">
+          <legend>Description of proposed activity</legend>
+          <p>Please fill out the following fields to the best of your knowledge at this point.</p>
+          <app-activity-description
+            [parentForm]="applicationForm.get('tempOutfitterFields')"
+            [pointOfView]="pointOfView"
+            (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
 
-        <app-file-upload-field name="Location map" type="location-map"
-          [uploadFiles]="uploadFiles"
-          [applicationId]="applicationId"
-          [checkFileUploadHasError]="submitted"
-          [field]="applicationForm.controls.locationMap"
-          ></app-file-upload-field>
+          <label id="location-map-label" class="usa-input">Map of proposed activity (optional)</label>
+          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest.</p>
+          <p class="help-text usa-form-hint">File must be in .jpg, .png, .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+          <app-file-upload-field name="Location map" type="location-map"
+            [uploadFiles]="uploadFiles"
+            [applicationId]="applicationId"
+            [checkFileUploadHasError]="submitted"
+            [field]="applicationForm.controls.locationMap"
+            allowImg="true"
+            ></app-file-upload-field>
+        </fieldset>
 
         <app-advertising id="section-advertising" tabindex="-1"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"

@@ -18,6 +18,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
   @Input() checkFileUploadHasError: boolean;
   @Input() field: FormControl;
   @Input() allowXls: boolean;
+  @Input() allowImg: boolean;
 
   allowedMimeType = [
     'application/msword',
@@ -81,7 +82,8 @@ export class FileUploadComponent implements DoCheck, OnInit {
         break;
       case 'mimeType':
         const xls = this.allowXls ? '.xls, .xlsx, ' : '';
-        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, ${xls}or .rtf`;
+        const img = this.allowImg ? '.jpg, .png, ' : '';
+        this.errorMessage = `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, ${img}${xls}or .rtf`;
         break;
       default:
         this.errorMessage = `Unknown error (filter is ${Filter.name})`;
@@ -98,6 +100,10 @@ export class FileUploadComponent implements DoCheck, OnInit {
     if (this.allowXls) {
       this.allowedMimeType.push('application/vnd.ms-excel');
       this.allowedMimeType.push('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    }
+    if (this.allowImg) {
+      this.allowedMimeType.push('image/jpeg');
+      this.allowedMimeType.push('image/png');
     }
   }
 

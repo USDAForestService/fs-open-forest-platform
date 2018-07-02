@@ -70,6 +70,11 @@ describe('FileUploadComponent', () => {
     expect(component.errorMessage).toEqual(
       `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, .xls, .xlsx, or .rtf`
     );
+    component.allowImg = true;
+    component.onWhenAddingFileFailed(file, filter, null);
+    expect(component.errorMessage).toEqual(
+      `The file type you selected is not allowed. The allowed file types are .pdf, .doc, .docx, .jpg, .png, or .rtf`
+    );
 
     filter = { name: 'test filter' };
     component.onWhenAddingFileFailed(file, filter, null);
