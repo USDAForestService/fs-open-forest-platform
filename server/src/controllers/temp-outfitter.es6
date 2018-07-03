@@ -424,14 +424,18 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
   if (user.role === 'admin') {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
-    translateFromClientToDatabase(submitted, model);
+    if (submitted.status !== 'Cancelled') {
+      translateFromClientToDatabase(submitted, model);
+    }
   } else if (user.role === 'user' && user.email === model.authEmail) {
     if (submitted.status === 'Hold') {
       model.status = 'Review';
     } else if (submitted.status !== 'Accepted') {
       model.status = submitted.status;
     }
-    translateFromClientToDatabase(submitted, model);
+    if (submitted.status !== 'Cancelled') {
+      translateFromClientToDatabase(submitted, model);
+    }
   }
 };
 
