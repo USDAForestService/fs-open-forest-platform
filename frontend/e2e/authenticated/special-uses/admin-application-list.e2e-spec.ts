@@ -44,7 +44,7 @@ describe('Apply for a ', () => {
     expect<any>(element(by.css('.application-list')).isPresent).toBeTruthy();
   });
 
-  it('should swich applications when changing filter', () => {
+  it('should switch applications when changing filter', () => {
     element(by.cssContainingText('option', 'Accepted')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Accepted permit applications');
 
@@ -59,5 +59,11 @@ describe('Apply for a ', () => {
 
     element(by.cssContainingText('option', 'Pending')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications');
+  });
+
+  it('should cancel an application when the cancellation button is clicked', () => {
+    element(by.cssContainingText('.cancel-button-user', 'Cancel')).first().click();
+    browser.sleep(100);
+    expect<any>(element(by.css('app-root usa-alert-text')).getText()).toEqual('Permit application was successfully cancelled.');
   });
 });
