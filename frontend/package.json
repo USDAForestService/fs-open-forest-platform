@@ -19,7 +19,7 @@
     "build-test-pa11y": "./development-configurations/build-test-pa11y.sh",
     "snyk-test": "snyk test",
     "start": "ng serve",
-    "test:ci": "ng test --karma-config ./development-configurations/karma.conf --code-coverage --watch=false --source-map=false",
+    "test:ci": "ng test --karma-config ./development-configurations/karma.conf --code-coverage --watch=false --source-map=false --progress=false",
     "test": "ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
     "typedoc": "typedoc",
