@@ -62,7 +62,8 @@ describe('Apply for a ', () => {
   });
 
   it('should cancel an application when the cancellation button is clicked', () => {
-    element(by.cssContainingText('.cancel-button-user', 'Cancel')).first().click();
+    const cancelButtons = element.all(by.cssContainingText('.cancel-button-user', 'Cancel'));
+    cancelButtons.first().click();
     browser.sleep(100);
     expect<any>(element(by.css('app-root usa-alert-text')).getText()).toEqual('Permit application was successfully cancelled.');
   });
