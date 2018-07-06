@@ -113,6 +113,17 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - fs-epermit-deps-
       - run: *install_dependencies
+      - run:
+          name: Install latest chrome
+          command: |
+            sudo apt-get update
+            sudo apt-get install lsb-release libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+            google-chrome --version
+
       - save_cache:
           paths:
             - ./frontend/node_modules
@@ -125,9 +136,7 @@ jobs:
       - run:
           name: Run authenicated e2e tests
           command: |
-            TEST_FILES=$(circleci tests glob ../frontend/e2e/authenticated/**/*.e2e-spec.ts | circleci tests split)
-            echo ${TESTFILES}
-            .circleci/run-e2e.sh -a ${TEST_FILES}
+            .circleci/run-e2e.sh -a $(circleci tests glob "../frontend/e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
       - run:
           name: Run unauthenticated e2e tests
           command: |
