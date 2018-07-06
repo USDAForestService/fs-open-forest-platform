@@ -42,7 +42,7 @@ export class AdminApplicationList {
 
 export class UserApplicationList {
   navigateTo() {
-    return browser.get('/applications');
+    return browser.get('/user/applications');
   }
 }
 
