@@ -284,8 +284,7 @@ util.getUser = req => {
     return {
       adminUsername: 'TEST_USER',
       email: 'test@test.com',
-      // role: util.ADMIN_ROLE,
-      role: 'user',
+      role: util.ADMIN_ROLE,
       forests: util.getAdminForests('TEST_USER')
     };
   } else {
