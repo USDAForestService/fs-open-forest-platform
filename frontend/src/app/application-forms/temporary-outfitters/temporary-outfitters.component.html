@@ -47,7 +47,7 @@
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
             <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }}</h3>
-            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
             <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
               [applicationId]="applicationId"
               [checkFileUploadHasError]="submitted"
@@ -72,7 +72,7 @@
 
           <label id="location-map-label" class="usa-input">Map of proposed activity (optional)</label>
           <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 25MB.</p>
+          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
           <app-file-upload-field name="Location map" type="location-map"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
@@ -110,7 +110,7 @@
           <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
           <p>If needed, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here to download a guide identification template</a>.</p>
 
-          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Guide document" type="guide-document"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
@@ -130,7 +130,7 @@
           <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
           <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
           <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Operating plan" type="operating-plan"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
@@ -145,7 +145,7 @@
           <legend id="insurance-certificate-label">Liability insurance</legend>
 
           <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Liability insurance" type="insurance-certificate"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
@@ -161,7 +161,7 @@
           <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form (optional)</legend>
 
           <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 25MB.</p>
+          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"

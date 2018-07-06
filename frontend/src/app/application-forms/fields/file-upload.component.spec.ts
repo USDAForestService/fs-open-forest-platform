@@ -59,7 +59,7 @@ describe('FileUploadComponent', () => {
     const file = new FileLikeObject(some);
     file.size = 2000;
     component.onWhenAddingFileFailed(file, filter, null);
-    expect(component.errorMessage).toEqual(`Maximum upload size exceeded (2000 of 26214400 allowed)`);
+    expect(component.errorMessage).toEqual(`Maximum upload size exceeded (2000 of 10485760 allowed)`);
     filter = { name: 'mimeType' };
     component.onWhenAddingFileFailed(file, filter, null);
     expect(component.errorMessage).toEqual(

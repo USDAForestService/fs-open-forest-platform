@@ -24,7 +24,7 @@ export class FileUploadComponent implements DoCheck, OnInit {
     'application/pdf'
   ];
   errorMessage: string;
-  maxFileSize = 25 * 1024 * 1024;
+  maxFileSize = 10 * 1024 * 1024;
   uploader: FileUploader;
 
   constructor(public fieldsService: ApplicationFieldsService, public fileUploadService: FileUploadService) {
