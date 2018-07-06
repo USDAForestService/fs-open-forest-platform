@@ -73,6 +73,7 @@ describe('Apply for a temp outfitters permit', () => {
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form', 'pdf');
   fieldValidation.validateFileUploadField('insurance-certificate', 'pdf');
   fieldValidation.validateFileUploadField('operating-plan', 'pdf');
+  fieldValidation.validateFileUploadField('location-map', 'pdf');
 
   it('should submit an application', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');

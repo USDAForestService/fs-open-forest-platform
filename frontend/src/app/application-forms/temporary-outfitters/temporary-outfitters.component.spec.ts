@@ -45,7 +45,8 @@ class MockApplicationService {
       { documentType: 'good-standing-evidence', originalFileName: 'test2' },
       { documentType: 'insurance-certificate', originalFileName: 'test3' },
       { documentType: 'guide-document', originalFileName: 'test4' },
-      { documentType: 'operating-plan', originalFileName: 'test5' }
+      { documentType: 'operating-plan', originalFileName: 'test5' },
+      { documentType: 'location-map', originalFileName: 'test6' }
     ];
     return Observable.of(array);
   }

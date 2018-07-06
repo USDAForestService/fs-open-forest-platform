@@ -369,6 +369,23 @@ describe(`POST ${fileUploadUrl} accepts a file`, () => {
         done(err);
       });
   });
+
+  it('should accept a location-map file and return 201 created', done => {
+    request(server)
+      .post(fileUploadUrl)
+      .type('multipart/form-data')
+      .field('applicationId', applicationId)
+      .field('documentType', 'location-map')
+      .set('Accept', 'text/html')
+      .attach('file', './test/data/test.docx')
+      .expect('Content-Type', /json/)
+      .expect(/"applicationId":"[\d]+"/)
+      .expect(201, err => {
+        expect(err).to.be.null;
+        done(err);
+      });
+  });
+
   it('should return a 500 error and an error message if an error occurs', done => {
     let error = 'nope';
     sinon.stub(ApplicationFile, 'create').rejects(new Error(error));

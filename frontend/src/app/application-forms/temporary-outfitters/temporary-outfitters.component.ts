@@ -87,6 +87,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       operatingPlan: ['', [Validators.maxLength(255)]],
       liabilityInsurance: ['', [Validators.maxLength(255)]],
       acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
+      locationMap: ['', [Validators.maxLength(255)]],
       tempOutfitterFields: this.formBuilder.group({
         individualIsCitizen: [false],
         smallBusiness: [false],
@@ -283,6 +284,9 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
             break;
           case 'operating-plan':
             type = 'operatingPlan';
+            break;
+          case 'location-map':
+            type = 'locationMap';
             break;
         }
         this.applicationForm.get(type).setValue(file.originalFileName);

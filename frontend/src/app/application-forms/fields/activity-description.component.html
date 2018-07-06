@@ -1,101 +1,97 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="activityDescriptionFields">
-    <fieldset>
-      <legend>Description of proposed activity</legend>
-      <p>Please fill out the following fields to the best of your knowledge at this point.</p>
-      <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
+    <app-date-time-range [parentForm]="parentForm.controls.activityDescriptionFields" (updateDateStatus)="updateDateStatus($event)" dateOnly="true"></app-date-time-range>
 
-      <label id="number-of-trips-label" class="usa-input">The anticipated number of trips.</label>
-      <input id="number-of-trips"  type="number" formControlName="numberOfTrips" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.numberOfTrips'), 'number-of-trips-label', 'number-of-trips-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.numberOfTrips'))"
-       />
-      <app-error-message fieldId="number-of-trips-error" name="Number of trips" [control]="parentForm.get('activityDescriptionFields.numberOfTrips')"></app-error-message>
+    <label id="number-of-trips-label" class="usa-input">The anticipated number of trips.</label>
+    <input id="number-of-trips"  type="number" formControlName="numberOfTrips" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.numberOfTrips'), 'number-of-trips-label', 'number-of-trips-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.numberOfTrips'))"
+     />
+    <app-error-message fieldId="number-of-trips-error" name="Number of trips" [control]="parentForm.get('activityDescriptionFields.numberOfTrips')"></app-error-message>
 
-      <label id="party-size-label" class="usa-input">The anticipated party size.</label>
-      <p id="party-size-hint-text" class="help-text usa-form-hint">If you are planning multiple trips or are unsure of the exact number of attendees, please provide a range that covers the smallest party size to largest party size. For example, for an operation that could have as little as 5 attendees but as many as 25 attendees, you could enter 5-25.</p>
-      <input id="party-size"  type="text" formControlName="partySize" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.partySize'), 'party-size-label party-size-hint-text', 'party-size-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.partySize'))"
-      />
-      <app-error-message fieldId="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
+    <label id="party-size-label" class="usa-input">The anticipated party size.</label>
+    <p id="party-size-hint-text" class="help-text usa-form-hint">If you are planning multiple trips or are unsure of the exact number of attendees, please provide a range that covers the smallest party size to largest party size. For example, for an operation that could have as little as 5 attendees but as many as 25 attendees, you could enter 5-25.</p>
+    <input id="party-size"  type="text" formControlName="partySize" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.partySize'), 'party-size-label party-size-hint-text', 'party-size-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.partySize'))"
+    />
+    <app-error-message fieldId="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
 
-      <label id="location-description-label" class="usa-input">Location of routes and starting and ending points for the proposed operations.</label>
-      <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest.</p>
-      <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.locationDescription'), 'location-description-label location-description-hint-text', 'location-description-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.locationDescription'))"></textarea>
-      <app-error-message fieldId="location-description-error" name="Location of routes" [control]="parentForm.get('activityDescriptionFields.locationDescription')"></app-error-message>
+    <label id="services-provided-label" class="usa-input">Services being offered.</label>
+    <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide a brief overview of the services you will be providing your attendees. Please make note of any services that will be provided by a party other than the permit holder.</p>
+    <textarea id="services-provided"  type="text" formControlName="servicesProvided" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.servicesProvided'), 'services-provided-label services-provided-hint-text', 'services-provided-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.servicesProvided'))"></textarea>
+    <app-error-message fieldId="services-provided-error" name="A list of services provided" [control]="parentForm.get('activityDescriptionFields.servicesProvided')"></app-error-message>
 
-      <label id="services-provided-label" class="usa-input">Services being offered.</label>
-      <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide a brief overview of the services you will be providing your attendees. Please make note of any services that will be provided by a party other than the permit holder.</p>
-      <textarea id="services-provided"  type="text" formControlName="servicesProvided" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.servicesProvided'), 'services-provided-label services-provided-hint-text', 'services-provided-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.servicesProvided'))"></textarea>
-      <app-error-message fieldId="services-provided-error" name="A list of services provided" [control]="parentForm.get('activityDescriptionFields.servicesProvided')"></app-error-message>
+    <label id="audience-description-label" class="usa-input" for="audience-description">Description of your client base or audience.</label>
+    <textarea id="audience-description" type="text" formControlName="audienceDescription" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.audienceDescription'), 'audience-description-label', 'audience-description-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.audienceDescription'))"></textarea>
+    <app-error-message fieldId="audience-description-error" name="A description of your audience" [control]="parentForm.get('activityDescriptionFields.audienceDescription')"></app-error-message>
 
-      <label id="audience-description-label" class="usa-input" for="audience-description">Description of your client base or audience.</label>
-      <textarea id="audience-description" type="text" formControlName="audienceDescription" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.audienceDescription'), 'audience-description-label', 'audience-description-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.audienceDescription'))"></textarea>
-      <app-error-message fieldId="audience-description-error" name="A description of your audience" [control]="parentForm.get('activityDescriptionFields.audienceDescription')"></app-error-message>
+    <input id="need-government-facilities" type="checkbox" formControlName="needGovernmentFacilities" />
+    <label id="need-government-facilities-label" class="usa-input" for="need-government-facilities">{{ pointOfView }} would like to use government facilities, e.g., a boat launch, parking lot, or trailhead.</label>
+    <ng-container *ngIf="parentForm.get('activityDescriptionFields.needGovernmentFacilities').value">
+      <label id="list-of-government-facilities-label" class="usa-input">List facilities needed.</label>
+      <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.listOfGovernmentFacilities'), 'list-of-government-facilities-label', 'list-of-government-facilities-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.listOfGovernmentFacilities'))"></textarea>
+      <app-error-message fieldId="list-of-government-facilities-error" name="A list of government facilities" [control]="parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')"></app-error-message>
+    </ng-container>
 
-      <input id="need-government-facilities" type="checkbox" formControlName="needGovernmentFacilities" />
-      <label id="need-government-facilities-label" class="usa-input" for="need-government-facilities">{{ pointOfView }} would like to use government facilities, e.g., a boat launch, parking lot, or trailhead.</label>
-      <ng-container *ngIf="parentForm.get('activityDescriptionFields.needGovernmentFacilities').value">
-        <label id="list-of-government-facilities-label" class="usa-input">List facilities needed.</label>
-        <textarea id="list-of-government-facilities" type="text" formControlName="listOfGovernmentFacilities" aria-required="true"
-          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.listOfGovernmentFacilities'), 'list-of-government-facilities-label', 'list-of-government-facilities-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.listOfGovernmentFacilities'))"></textarea>
-        <app-error-message fieldId="list-of-government-facilities-error" name="A list of government facilities" [control]="parentForm.get('activityDescriptionFields.listOfGovernmentFacilities')"></app-error-message>
-      </ng-container>
+    <input id="need-temporary-improvements" type="checkbox" formControlName="needTemporaryImprovements" />
+    <label id="need-temporary-improvements-label" class="usa-input" for="need-temporary-improvements">{{ pointOfView }} would like to use temporary directional signage.</label>
+    <ng-container *ngIf="parentForm.get('activityDescriptionFields.needTemporaryImprovements').value">
+      <label id="list-of-temporary-improvements-label" class="usa-input">List of temporary improvements or signs that you propose to use.</label>
+      <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.listOfTemporaryImprovements'), 'list-of-temporary-improvements-label', 'list-of-temporary-improvements-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.listOfTemporaryImprovements'))"></textarea>
+      <app-error-message fieldId="list-of-temporary-improvements-error" name="A list of temporary improvements" [control]="parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')"></app-error-message>
+    </ng-container>
 
-      <input id="need-temporary-improvements" type="checkbox" formControlName="needTemporaryImprovements" />
-      <label id="need-temporary-improvements-label" class="usa-input" for="need-temporary-improvements">{{ pointOfView }} would like to use temporary directional signage.</label>
-      <ng-container *ngIf="parentForm.get('activityDescriptionFields.needTemporaryImprovements').value">
-        <label id="list-of-temporary-improvements-label" class="usa-input">List of temporary improvements or signs that you propose to use.</label>
-        <textarea id="list-of-temporary-improvements" type="text" formControlName="listOfTemporaryImprovements" aria-required="true"
-          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.listOfTemporaryImprovements'), 'list-of-temporary-improvements-label', 'list-of-temporary-improvements-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.listOfTemporaryImprovements'))"></textarea>
-        <app-error-message fieldId="list-of-temporary-improvements-error" name="A list of temporary improvements" [control]="parentForm.get('activityDescriptionFields.listOfTemporaryImprovements')"></app-error-message>
-      </ng-container>
+    <input id="have-motorized-equipment" type="checkbox" formControlName="haveMotorizedEquipment" />
+    <label id="have-motorized-equipment-label" class="usa-input" for="have-motorized-equipment">The proposed operation involves motorized equipment.</label>
+    <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveMotorizedEquipment').value">
+      <label id="statement-of-motorized-equipment-label" class="usa-input">Description of the proposed operations involving motorized equipment.</label>
+      <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment'), 'statement-of-motorized-equipment-label', 'statement-of-motorized-equipment-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment'))"></textarea>
+      <app-error-message fieldId="statement-of-motorized-equipment-error" name="A description of motorized equipment" [control]="parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')"></app-error-message>
+    </ng-container>
 
-      <input id="have-motorized-equipment" type="checkbox" formControlName="haveMotorizedEquipment" />
-      <label id="have-motorized-equipment-label" class="usa-input" for="have-motorized-equipment">The proposed operation involves motorized equipment.</label>
-      <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveMotorizedEquipment').value">
-        <label id="statement-of-motorized-equipment-label" class="usa-input">Description of the proposed operations involving motorized equipment.</label>
-        <textarea id="statement-of-motorized-equipment" type="text" formControlName="statementOfMotorizedEquipment" aria-required="true"
-          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment'), 'statement-of-motorized-equipment-label', 'statement-of-motorized-equipment-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment'))"></textarea>
-        <app-error-message fieldId="statement-of-motorized-equipment-error" name="A description of motorized equipment" [control]="parentForm.get('activityDescriptionFields.statementOfMotorizedEquipment')"></app-error-message>
-      </ng-container>
+    <input id="have-livestock" type="checkbox" formControlName="haveLivestock" />
+    <label id="have-livestock-label" class="usa-input" for="have-livestock">The proposed operation involves the transportation of livestock.</label>
+    <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveLivestock').value">
+      <label id="statement-of-transportation-of-livestock-label" class="usa-input">Description of the proposed operations involving the transportation of livestock, and whether grazing is requested.</label>
+      <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock'), 'statement-of-transportation-of-livestock-label', 'statement-of-transportation-of-livestock-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock'))"></textarea>
+      <app-error-message fieldId="statement-of-transportation-of-livestock-error" name="A description of the transportation of livestock" [control]="parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')"></app-error-message>
+    </ng-container>
 
-      <input id="have-livestock" type="checkbox" formControlName="haveLivestock" />
-      <label id="have-livestock-label" class="usa-input" for="have-livestock">The proposed operation involves the transportation of livestock.</label>
-      <ng-container *ngIf="parentForm.get('activityDescriptionFields.haveLivestock').value">
-        <label id="statement-of-transportation-of-livestock-label" class="usa-input">Description of the proposed operations involving the transportation of livestock, and whether grazing is requested.</label>
-        <textarea id="statement-of-transportation-of-livestock" type="text" formControlName="statementOfTransportationOfLivestock" aria-required="true"
-          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock'), 'statement-of-transportation-of-livestock-label', 'statement-of-transportation-of-livestock-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock'))"></textarea>
-        <app-error-message fieldId="statement-of-transportation-of-livestock-error" name="A description of the transportation of livestock" [control]="parentForm.get('activityDescriptionFields.statementOfTransportationOfLivestock')"></app-error-message>
-      </ng-container>
+    <input id="need-assigned-site" type="checkbox" formControlName="needAssignedSite" />
+    <label id="need-assigned-site-label" class="usa-input" for="need-assigned-site">An assigned site is requested.</label>
+    <ng-container *ngIf="parentForm.get('activityDescriptionFields.needAssignedSite').value">
+      <label id="statement-of-assigned-site-label" class="usa-input">Description of requested assigned site.</label>
+      <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfAssignedSite'), 'statement-of-assigned-site-label', 'statement-of-assigned-site-error')"
+        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfAssignedSite'))"></textarea>
+      <app-error-message fieldId="statement-of-assigned-site-error" name="A description of assigned site" [control]="parentForm.get('activityDescriptionFields.statementOfAssignedSite')"></app-error-message>
+    </ng-container>
 
-      <input id="need-assigned-site" type="checkbox" formControlName="needAssignedSite" />
-      <label id="need-assigned-site-label" class="usa-input" for="need-assigned-site">An assigned site is requested.</label>
-      <ng-container *ngIf="parentForm.get('activityDescriptionFields.needAssignedSite').value">
-        <label id="statement-of-assigned-site-label" class="usa-input">Description of requested assigned site.</label>
-        <textarea id="statement-of-assigned-site" type="text" formControlName="statementOfAssignedSite" aria-required="true"
-          [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.statementOfAssignedSite'), 'statement-of-assigned-site-label', 'statement-of-assigned-site-error')"
-          [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.statementOfAssignedSite'))"></textarea>
-        <app-error-message fieldId="statement-of-assigned-site-error" name="A description of assigned site" [control]="parentForm.get('activityDescriptionFields.statementOfAssignedSite')"></app-error-message>
-      </ng-container>
+    <label id="description-of-cleanup-and-restoration-label" class="usa-input">Description of cleanup and restoration during and after the proposed operations.</label>
+    <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'), 'description-of-cleanup-and-restoration-label', 'description-of-cleanup-and-restoration-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'))"></textarea>
+    <app-error-message fieldId="description-of-cleanup-and-restoration-error" name="A description of cleanup and restoration" [control]="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration')"></app-error-message>
 
-      <label id="description-of-cleanup-and-restoration-label" class="usa-input">Description of cleanup and restoration during and after the proposed operations.</label>
-      <textarea id="description-of-cleanup-and-restoration" type="text" formControlName="descriptionOfCleanupAndRestoration" aria-required="true"
-        [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'), 'description-of-cleanup-and-restoration-label', 'description-of-cleanup-and-restoration-error')"
-        [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration'))"></textarea>
-      <app-error-message fieldId="description-of-cleanup-and-restoration-error" name="A description of cleanup and restoration" [control]="parentForm.get('activityDescriptionFields.descriptionOfCleanupAndRestoration')"></app-error-message>
+    <label id="location-description-label" class="usa-input">Location of routes and starting and ending points for the proposed operations.</label>
+    <p id="location-description-hint-text" class="help-text usa-form-hint">Please include trailheads, specific routes, latitude, longitude, and/or any landmarks that accurately describe the specific areas you will be using within the forest.</p>
+    <textarea id="location-description" type="text" formControlName="locationDescription" aria-required="true"
+      [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.locationDescription'), 'location-description-label location-description-hint-text', 'location-description-error')"
+      [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.locationDescription'))"></textarea>
+    <app-error-message fieldId="location-description-error" name="Location of routes" [control]="parentForm.get('activityDescriptionFields.locationDescription')"></app-error-message>
 
-    </fieldset>
   </ng-container>
 </ng-container>
