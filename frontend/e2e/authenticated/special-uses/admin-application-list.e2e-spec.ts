@@ -60,11 +60,4 @@ describe('Apply for a ', () => {
     element(by.cssContainingText('option', 'Pending')).click();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications');
   });
-
-  it('should cancel an application when the cancellation button is clicked', () => {
-    const cancelButtons = element.all(by.cssContainingText('.cancel-button-user', 'Cancel'));
-    cancelButtons.first().click();
-    browser.sleep(100);
-    expect<any>(element(by.css('app-root usa-alert-text')).getText()).toEqual('Permit application was successfully cancelled.');
-  });
 });
