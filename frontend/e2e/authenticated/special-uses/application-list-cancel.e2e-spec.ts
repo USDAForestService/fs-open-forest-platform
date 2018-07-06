@@ -9,11 +9,11 @@ describe('Viewing applications as an applicant', () => {
     let applicationForm: NoncommercialApplicationForm;
 
     beforeAll(() => {
-        browser.executeScript('localStorage.removeItem("user");');
-        browser.executeScript('localStorage.setItem("user",{"adminUsername": "TEST_USER", "email": "test@test.com","role": "user","forests": []});');
         noncommercial = new NoncommercialGroupForm;
         applicationForm = new NoncommercialApplicationForm;
         noncommercial.navigateTo();
+        browser.executeScript('localStorage.removeItem("user");');
+        browser.executeScript('localStorage.setItem("user",{"adminUsername": "TEST_USER", "email": "test@test.com","role": "user","forests": []});');
         browser.sleep(500);
         expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/noncommercial-group-use/new');
         applicationForm.createApplication();
@@ -24,10 +24,13 @@ describe('Viewing applications as an applicant', () => {
     });
 
   it('should cancel an application when the cancellation button is clicked', () => {
+    list.navigateTo();
     const cancelButtons = element.all(by.css('.cancel-button-user'));
     cancelButtons.first().click();
-    browser.sleep(100);
-    expect<any>(element(by.css('app-root usa-alert-text')).getText()).toEqual('Permit application was successfully cancelled.');
+      browser.switchTo().alert().accept();
+      expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
+          'Permit application was successfully cancelled.'
+      );
   });
 
   afterAll(() => {
