@@ -136,8 +136,8 @@ jobs:
       - run:
           name: Run authenicated e2e tests
           command: |
-            export TESTFILES=$(cd frontend;circleci tests glob "./frontend/e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
-            echo 'This container is running'
+            export TESTFILES=$(cd frontend;circleci tests glob "./e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
+            echo 'This container is running the following tests:'
             echo ${TESTFILES}
             .circleci/run-e2e.sh -a ${TESTFILES}
       - run:
