@@ -23,7 +23,7 @@ describe('Admin applications page', () => {
 
   it('should have three call to action buttons', () => {
     page.navigateTo();
-    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
+    element.all(by.css(`.application-field-list-values .application-details .usa-button`)).last().click();
     browser.sleep(500);
 
     expect(element(by.id('accept-application-btn')).isPresent()).toBeTruthy();
@@ -46,12 +46,6 @@ describe('Admin applications page', () => {
     );
   });
 
-  it('should cancel an application when the cancellation button is clicked', () => {
-    element(by.buttonText('Cancel application.')).click();
-    browser.sleep(100);
-    expect<any>(element(by.css('app-root usa-alert-text')).getText()).toEqual('Permit application was successfully cancelled.');
-  });
-
   it('should return to view application page to update status', () => {
     element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
 
@@ -71,6 +65,20 @@ describe('Admin applications page', () => {
     element(by.css('.reason-for-action-buttons .usa-button-red')).click();
     expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
       'Permit application successfully rejected and an email with your message has been sent to the applicant.'
+    );
+  });
+
+  it('should cancel an application when the cancellation button is clicked', () => {
+
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
+    browser.sleep(100);
+    const cancelButton = element(by.css('.cancel-button-admin'));
+    expect(cancelButton.isPresent()).toBeTruthy();
+    browser.executeScript('arguments[0].scrollIntoView();', cancelButton.getWebElement());
+    cancelButton.click();
+    browser.switchTo().alert().accept();
+    expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
+      'Permit application was successfully cancelled.'
     );
   });
 });
