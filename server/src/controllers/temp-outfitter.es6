@@ -325,7 +325,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
 
 /**
  * @function getFile - private function to get a file from the S3 bucket.
- * @param {string} key           - filename 
+ * @param {string} key           - filename
  * @param {string} documentType
  */
 const getFile = (key, documentType) => {
@@ -473,6 +473,16 @@ const acceptApplication = application => {
             options: {
               filename: files['operating-plan'].filename,
               contentType: util.getContentType(files['operating-plan'].filename)
+            }
+          };
+        }
+
+        if (files['location-map']) {
+          requestOptions.formData.locationMap = {
+            value: files['location-map'].buffer,
+            options: {
+              filename: files['location-map'].filename,
+              contentType: util.getContentType(files['location-map'].filename)
             }
           };
         }

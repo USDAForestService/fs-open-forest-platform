@@ -30,15 +30,10 @@ exports.config = {
     defaultTimeoutInterval: 60000,
     print: function() {}
   },
-  beforeLaunch: function() {
-    require('ts-node').register({
-      project: 'e2e/tsconfig.e2e.json'
-    });
-    return new Promise(function(resolve) {
-      screenshotReporter.beforeLaunch(resolve);
-    });
-  },
   onPrepare() {
+    require('ts-node').register({
+      project: require('path').join(__dirname, './tsconfig.e2e.json')
+    });
     jasmine.getEnv().addReporter(
       new SpecReporter({
         spec: {

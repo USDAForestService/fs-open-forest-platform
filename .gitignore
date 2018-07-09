@@ -11,6 +11,7 @@ server/frontend-assets
 server/lint-results.html
 server/docs/code
 server/npm-debug.log
+protractor-config
 
 # compiled output
 frontend/dist

@@ -21,7 +21,7 @@ else
           ARGUMENTS=$ARGUMENTS"--specs=../${i} "
         done
       fi
-      ARGUMENTS=$ARGUMENTS"--config ./development-configurations/protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"--protractor-config ./development-configurations/protractor.conf.js"
       ;;
     -u)
       if [ $# -ge 1 ]
@@ -32,7 +32,7 @@ else
       #Rebuild server with PLATFORM set to something other than local to enable test to pass
       export PLATFORM='ci-unauthenticated'
 
-      ARGUMENTS=$ARGUMENTS"--config ./development-configurations/unauth-protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"--protractor-config ./development-configurations/unauth-protractor.conf.js"
       ;;
     *)
       echo 'Valid flag indicating which mode to run this script in must be provided as the first argument.'
