@@ -23,7 +23,7 @@ describe('Admin applications page', () => {
 
   it('should have three call to action buttons', () => {
     page.navigateTo();
-    element.all(by.css(`.application-field-list-values .application-details .usa-button`)).last().click();
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
     browser.sleep(500);
 
     expect(element(by.id('accept-application-btn')).isPresent()).toBeTruthy();
@@ -69,7 +69,7 @@ describe('Admin applications page', () => {
   });
 
   it('should cancel an application when the cancellation button is clicked', () => {
-
+    element(by.cssContainingText('option', 'Rejected')).click();
     element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
     browser.sleep(100);
     const cancelButton = element(by.css('.cancel-button-admin'));
