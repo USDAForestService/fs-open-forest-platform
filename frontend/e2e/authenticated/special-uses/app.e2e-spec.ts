@@ -27,6 +27,13 @@ describe('frontend App', () => {
       expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
     });
 
+    it('should show correct page title when navigating by link', () => {
+      page.navigateTo();
+      element(by.id('help-find-permit')).click();
+      element(by.id('us-forest-service-logo')).click();
+      expect<any>(browser.getTitle()).toEqual('US Forest Service Open Forest');
+    });
+
     it('should have ctas to apply for different permits', () => {
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();

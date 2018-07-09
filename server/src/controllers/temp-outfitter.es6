@@ -288,41 +288,30 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
     tempOutfitterFields: {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
-      // Start date
       activityDescription:
-        application.tempOutfitterFieldsActDescFieldsStartDateTime +
-        '\n' +
-        // End date
-        application.tempOutfitterFieldsActDescFieldsEndDateTime +
-        '\n' +
-        // Anticipated number of trips
+        'Temporary Outfitter and Guides \nStart date: ' +
+        moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY') +
+        '\nEnd date: ' +
+        moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY') +
+        '\nNumber of Trips: ' +
         application.tempOutfitterFieldsActDescFieldsNumTrips +
-        '\n' +
-        // Anticipated party size
+        '\nParty size: ' +
         application.tempOutfitterFieldsActDescFieldsPartySize +
-        '\n' +
-        // Location Description
+        '\nLocation Description: ' +
         application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        '\n' +
-        // Services Provided
+        '\nServices Provided: ' +
         application.tempOutfitterFieldsActDescFieldsServProvided +
-        '\n' +
-        // Audience Description
+        '\nAudience Description: ' +
         application.tempOutfitterFieldsActDescFieldsAudienceDesc +
-        '\n' +
-        // List facilities needed
+        '\nFacilities needed: ' +
         application.tempOutfitterFieldsActDescFieldsListGovFacilities +
-        '\n' +
-        // List of temporary improvements or signs that you propose to use
+        '\nTemporary improvements: ' +
         application.tempOutfitterFieldsActDescFieldsListTempImprovements +
-        '\n' +
-        // Description of the proposed operations involving motorized equipment
+        '\nMotorized use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
-        '\n' +
-        // Description of the proposed operations involving the transportation of livestock, and whether grazing is requested
+        '\nLivestock use: ' +
         application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
-        '\n' +
-        // Description of cleanup and restoration during and after the proposed operations
+        '\nCleanup activities: ' +
         application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
@@ -331,17 +320,12 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
     }
   };
 
-  // nonprofit isn't an option on the middle layer
-  if (result.applicantInfo.orgType === 'Nonprofit') {
-    result.applicantInfo.orgType = 'Corporation';
-  }
-
   return result;
 };
 
 /**
  * @function getFile - private function to get a file from the S3 bucket.
- * @param {string} key           - filename 
+ * @param {string} key           - filename
  * @param {string} documentType
  */
 const getFile = (key, documentType) => {
@@ -485,6 +469,16 @@ const acceptApplication = application => {
             options: {
               filename: files['operating-plan'].filename,
               contentType: util.getContentType(files['operating-plan'].filename)
+            }
+          };
+        }
+
+        if (files['location-map']) {
+          requestOptions.formData.locationMap = {
+            value: files['location-map'].buffer,
+            options: {
+              filename: files['location-map'].filename,
+              contentType: util.getContentType(files['location-map'].filename)
             }
           };
         }
