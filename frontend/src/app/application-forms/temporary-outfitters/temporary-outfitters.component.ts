@@ -76,7 +76,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-        organizationName: [''],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
@@ -145,7 +145,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.pointOfView = 'I';
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
-        this.applicationFieldsService.updateValidators(orgName, false);
+        this.applicationFieldsService.updateValidators(orgName, false, 255);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
