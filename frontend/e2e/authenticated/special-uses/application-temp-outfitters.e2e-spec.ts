@@ -79,7 +79,6 @@ describe('Apply for a temp outfitters permit', () => {
   it('should submit an application', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
     element(by.css('.primary-permit-holder-last-name')).sendKeys('test');
-    element(by.id('organization-name')).sendKeys('test');
     element(by.css('.primary-permit-holder-address')).sendKeys('test');
     element(by.css('.primary-permit-holder-address-line-2')).sendKeys('test');
     element(by.css('.primary-permit-holder-city')).sendKeys('test');
