@@ -35,6 +35,10 @@ describe('Admin applications page', () => {
     expect<any>(element(by.css('.breadcrumbs')).isPresent()).toBeTruthy();
   });
 
+  it('should not show SUDS ID', () => {
+    expect<any>(element(by.id('suds-id')).isPresent()).toBeFalsy();
+  });
+
   it('should return to list page on hold click', () => {
     element(by.id('hold-application-btn')).click();
     expect(element(by.css('#reason-for-action label')).getText()).toEqual('Why is this application on hold?');
@@ -66,5 +70,17 @@ describe('Admin applications page', () => {
     expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
       'Permit application successfully rejected and an email with your message has been sent to the applicant.'
     );
+  });
+
+  it('should show SUDS ID after being accepted', () => {
+    noncommercial.navigateTo();
+    browser.sleep(500);
+    applicationForm.createApplication();
+    page.navigateTo();
+
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
+    element(by.id('accept-application-btn')).click();
+    element(by.css('.reason-for-action-buttons .usa-button-primary-alt')).click();
+    expect<any>(element(by.id('suds-id')).isPresent()).toBeTruthy();
   });
 });

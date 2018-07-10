@@ -10,7 +10,7 @@
     "docs": "yarn run typedoc --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
     "e2e:ci": "ng e2e --port=4200",
     "e2e:cidkr": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --specs=./e2e/authenticated/special-uses/application-noncommercial-group.e2e-spec.ts",
-    "e2e": "ng e2e --config ./development-configurations/protractor.conf --port=4200",
+    "e2e": "ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
     "lint": "ng lint",
     "ng": "ng",
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
