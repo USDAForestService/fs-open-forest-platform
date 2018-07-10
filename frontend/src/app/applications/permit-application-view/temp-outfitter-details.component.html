@@ -59,7 +59,7 @@
 
       <ul *ngFor="let file of files">
         <li *ngIf="file.documentType !== 'good-standing-evidence' ||
-        ['Person', 'State Government', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
+        ['Person', 'State Govt', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
         ><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
       </ul>
 

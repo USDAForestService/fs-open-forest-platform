@@ -147,13 +147,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         break;
-      case 'Limited Liability Company (LLC)':
+      case 'Limited Liability Company':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         break;
-      case 'Limited Liability Partnership (LLP)':
+      case 'Limited Partnership':
         this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
         break;
-      case 'State Government':
+      case 'State Govt':
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
@@ -161,7 +161,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
-      case 'Nonprofit':
+      case 'Non profit org':
         this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
         break;
     }

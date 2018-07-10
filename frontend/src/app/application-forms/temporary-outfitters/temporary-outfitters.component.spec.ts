@@ -103,17 +103,17 @@ describe('TemporaryOutfittersComponent', () => {
         orgTypeFileUpload: true,
         goodStandingEvidence: false
       },
-      'Limited Liability Company (LLC)': {
+      'Limited Liability Company': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
         goodStandingEvidence: false
       },
-      'Limited Liability Partnership (LLP)': {
+      'Limited Partnership': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
         goodStandingEvidence: false
       },
-      'State Government': {
+      'State Govt': {
         pointOfView: 'We',
         orgTypeFileUpload: false,
         goodStandingEvidence: true
@@ -123,7 +123,7 @@ describe('TemporaryOutfittersComponent', () => {
         orgTypeFileUpload: false,
         goodStandingEvidence: true
       },
-      Nonprofit: {
+      'Non profit org': {
         pointOfView: 'We',
         orgTypeFileUpload: true,
         goodStandingEvidence: false
