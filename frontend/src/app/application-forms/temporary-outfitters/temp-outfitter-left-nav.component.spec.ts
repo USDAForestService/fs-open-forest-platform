@@ -94,7 +94,7 @@ describe('TempOutfitterLeftNavComponent', () => {
       return 50;
     });
     component.track(new Event('scroll'));
-    expect(component.top).toEqual('250px');
+    expect(component.top).toEqual('0');
     expect(component.position).toEqual('absolute');
   });
 
