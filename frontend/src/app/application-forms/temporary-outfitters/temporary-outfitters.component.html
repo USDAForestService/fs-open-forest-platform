@@ -30,7 +30,6 @@
 
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
             type="primary" name="Applicant"></app-permit-holder-name>
-          <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name (optional)"></app-organization-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
           <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
           <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
@@ -44,6 +43,8 @@
             <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
             <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
           </div>
+
+          <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
             <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }}</h3>
