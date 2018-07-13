@@ -136,24 +136,27 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.goodStandingEvidenceMessage = '';
     this.orgTypeFileUpload = true;
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
+    const orgName = this.applicationForm.get('applicantInfo.organizationName');
     this.applicationFieldsService.updateValidators(gse, true, 255);
+    this.applicationFieldsService.updateValidators(orgName, true, 255);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
+        this.applicationFieldsService.updateValidators(orgName, false, 255);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         break;
-      case 'Limited Liability Company (LLC)':
+      case 'Limited Liability Company':
         this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
         break;
-      case 'Limited Liability Partnership (LLP)':
+      case 'Limited Partnership':
         this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
         break;
-      case 'State Government':
+      case 'State Govt':
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
@@ -161,7 +164,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.orgTypeFileUpload = false;
         this.applicationFieldsService.updateValidators(gse, false);
         break;
-      case 'Nonprofit':
+      case 'Non profit org':
         this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
         break;
     }

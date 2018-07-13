@@ -82,5 +82,19 @@ describe('Admin applications page', () => {
     element(by.id('accept-application-btn')).click();
     element(by.css('.reason-for-action-buttons .usa-button-primary-alt')).click();
     expect<any>(element(by.id('suds-id')).isPresent()).toBeTruthy();
+    });
+
+  it('should cancel an application when the cancellation button is clicked', () => {
+    element(by.cssContainingText('option', 'Rejected')).click();
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
+    browser.sleep(100);
+    const cancelButton = element(by.css('.cancel-button-admin'));
+    expect(cancelButton.isPresent()).toBeTruthy();
+    browser.executeScript('arguments[0].scrollIntoView();', cancelButton.getWebElement());
+    cancelButton.click();
+    browser.switchTo().alert().accept();
+    expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
+      'Permit application was successfully cancelled.'
+    );
   });
 });
