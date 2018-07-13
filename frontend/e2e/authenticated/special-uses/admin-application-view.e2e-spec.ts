@@ -72,18 +72,6 @@ describe('Admin applications page', () => {
     );
   });
 
-  it('should show SUDS ID after being accepted', () => {
-    noncommercial.navigateTo();
-    browser.sleep(500);
-    applicationForm.createApplication();
-    page.navigateTo();
-
-    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
-    element(by.id('accept-application-btn')).click();
-    element(by.css('.reason-for-action-buttons .usa-button-primary-alt')).click();
-    expect<any>(element(by.id('suds-id')).isPresent()).toBeTruthy();
-    });
-
   it('should cancel an application when the cancellation button is clicked', () => {
     element(by.cssContainingText('option', 'Rejected')).click();
     element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
@@ -96,5 +84,17 @@ describe('Admin applications page', () => {
     expect<any>(element(by.css('.usa-alert-body .usa-alert-text')).getText()).toEqual(
       'Permit application was successfully cancelled.'
     );
+  });
+
+  it('should show SUDS ID after being accepted', () => {
+    noncommercial.navigateTo();
+    browser.sleep(500);
+    applicationForm.createApplication();
+    page.navigateTo();
+
+    element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
+    element(by.id('accept-application-btn')).click();
+    element(by.css('.reason-for-action-buttons .usa-button-primary-alt')).click();
+    expect<any>(element(by.id('suds-id')).isPresent()).toBeTruthy();
   });
 });
