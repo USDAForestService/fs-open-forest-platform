@@ -161,6 +161,9 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
+        if (this.application.controlNumber) {
+          delete this.application.controlNumber;
+        }
         this.applicationForm.setValue(application);
       },
       (e: any) => {
