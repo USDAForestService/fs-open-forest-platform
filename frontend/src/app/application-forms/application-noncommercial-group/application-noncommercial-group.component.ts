@@ -101,17 +101,30 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo'),
         'organizationAddress'
       );
-      this.applicationFieldsService.updateValidators(this.applicationForm.get('applicantInfo.organizationName'), false);
-    } else if (type === 'Corporation' && !this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
-      this.applicationFieldsService.removeAddressValidation(
+      this.applicationFieldsService.addAddressValidation(
         this.applicationForm.get('applicantInfo'),
         'primaryAddress'
+      );
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.organizationName'),
+        false
+      );
+    } else if (type === 'Corporation') {
+      this.applicationFieldsService.addAddressValidation(
+        this.applicationForm.get('applicantInfo'),
+        'organizationAddress'
       );
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
         255
       );
+      if (this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
+        this.applicationFieldsService.removeAddressValidation(
+          this.applicationForm.get('applicantInfo'),
+          'primaryAddress'
+        );
+      }
     }
   }
 
