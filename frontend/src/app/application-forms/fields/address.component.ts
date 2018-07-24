@@ -13,7 +13,6 @@ export class AddressComponent implements OnInit {
   address: FormGroup;
   @Input() formName: string;
   @Input() type: string;
-  @Input() disableDefaultValidation: false;
   unique: string;
 
   states = States;
@@ -23,7 +22,7 @@ export class AddressComponent implements OnInit {
   ngOnInit() {
     this.unique = Math.random().toString(36).substring(7);
     this.afs.addAddress(this.parentForm, this.formName);
-    if (this.formName === 'primaryAddress' && !this.disableDefaultValidation) {
+    if (this.formName === 'primaryAddress') {
       this.afs.addAddressValidation(this.parentForm, this.formName);
     }
   }

@@ -56,7 +56,7 @@
         </ng-container>
 
         <div [hidden]="applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').value">
-          <app-address id="organization-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder" [disableDefaultValidation]="true"></app-address>
+          <app-address id="organization-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
         </div>
       </fieldset>
 
