@@ -30,6 +30,13 @@ export class ApplicationFieldsService {
     }
   }
 
+  copyValues(parentForm, input, output) {
+    const inputForm = parentForm.get(input);
+    const outputForm = parentForm.get(output);
+
+    outputForm.setValue(inputForm.value);
+  }
+
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
       mailingAddress: ['', [Validators.maxLength(255)]],
