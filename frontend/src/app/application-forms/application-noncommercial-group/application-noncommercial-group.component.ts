@@ -164,7 +164,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
-        this.applicationForm.setValue(application);
+        this.applicationForm.patchValue(application);
       },
       (e: any) => {
         this.apiErrors = e;
