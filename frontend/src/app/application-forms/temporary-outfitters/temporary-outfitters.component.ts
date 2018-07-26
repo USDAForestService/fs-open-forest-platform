@@ -258,7 +258,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       application => {
         this.application = application;
         this.applicationId = application.applicationId;
-        this.applicationForm.setValue(this.application);
+        this.applicationForm.patchValue(this.application);
         this.getFiles(this.application.applicationId);
       },
       (e: any) => {

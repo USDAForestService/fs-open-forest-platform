@@ -36,7 +36,7 @@
         >
         STEP 3: Advertising
         <span class="status-icon valid" *ngIf="
-          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid' &&
+          getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingURL) === 'ng-valid' ||
           getControlStatus(applicationForm.controls.tempOutfitterFields.controls.advertisingDescription) === 'ng-valid'
         ">
           <img src="/assets/img/site-wide/checkmark.svg" alt="Section advertising is valid" />
