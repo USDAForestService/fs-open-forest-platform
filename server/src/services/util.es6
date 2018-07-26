@@ -274,6 +274,11 @@ util.setAuthEmail = req => {
   }
 };
 
+if (util.isLocalOrCI()) {
+  util.LOCAL_ROLE_FLAG = process.argv[2];
+  logger.info('Operating as an', util.LOCAL_ROLE_FLAG);
+}
+
 /**
  * @function getUser - Get the passport user from the request object.
  * @param {Object} req - http request
@@ -284,7 +289,7 @@ util.getUser = req => {
     return {
       adminUsername: 'TEST_USER',
       email: 'test@test.com',
-      role: util.ADMIN_ROLE,
+      role: util.LOCAL_ROLE_FLAG,
       forests: util.getAdminForests('TEST_USER')
     };
   } else {
