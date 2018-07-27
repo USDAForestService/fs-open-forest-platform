@@ -1,5 +1,5 @@
 cd frontend
-yarn
-yarn global add typedoc
+npm
+npm install global add typedoc
 cd ../server
-yarn add snyk
+npm install -g snyk

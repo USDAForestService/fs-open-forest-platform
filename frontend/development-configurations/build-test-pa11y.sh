@@ -1,5 +1,5 @@
-yarn run build
-yarn run serve-static-files &
-yarn run pa11y &
+npm run build
+npm run serve-static-files &
+npm run pa11y &
 wait
 pkill -P $$
