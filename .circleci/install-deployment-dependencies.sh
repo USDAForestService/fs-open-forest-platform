@@ -1,5 +1,5 @@
 cd frontend
 npm install
-npm install -g typedoc
+sudo npm install -g typedoc
 cd ../server
-npm install -g snyk
+sudo npm install -g snyk
