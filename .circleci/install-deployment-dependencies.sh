@@ -1,5 +1,5 @@
 cd frontend
-npm
-npm install global add typedoc
+npm install
+npm install -g typedoc
 cd ../server
 npm install -g snyk

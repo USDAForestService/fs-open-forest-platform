@@ -67,6 +67,9 @@
     "supertest": "^3.1.0",
     "unionized": "^5.0.0"
   },
+  "resolutions": {
+    "extend": "^3.0.2"
+  },
   "scripts": {
     "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "dev": "npm; npm run copy-frontend-assets; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
