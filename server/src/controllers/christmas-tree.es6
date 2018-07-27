@@ -5,7 +5,7 @@
  * @module controllers/chrismtmas-tree
  */
 
-const request = require('request-promise');
+const request = require('request-promise-native');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');

@@ -8,7 +8,7 @@
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const moment = require('moment');
-const request = require('request-promise');
+const request = require('request-promise-native');
 const Sequelize = require('sequelize');
 
 const dbConfig = require('../../.sequelize.js');
@@ -200,7 +200,7 @@ util.middleLayerAuth = () => {
     },
     transform: body => body.token
   };
-  return util.request(requestOptions);
+  return request(requestOptions);
 };
 
 /**
@@ -415,8 +415,6 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
   
   logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
 };
-
-util.request = request;
 
 /**
  * @function getS3 - get S3 credentials
