@@ -26,7 +26,7 @@ _run:
       yarn install
       cd ../server
       yarn install
-  
+
   install_cf: &install_cf
     name: Install cf cli
     command: |
@@ -169,7 +169,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm install v8.9.4
             nvm alias default v8.9.4
-            
+
             # Each step uses the same `$BASH_ENV`, so need to modify it
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
@@ -213,8 +213,8 @@ jobs:
       - run:
           name: docker e2e smoke screen test
           command: |
-            cd docker 
-            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr --environment docker
+            cd docker
+            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr --configuration docker
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
@@ -258,7 +258,7 @@ jobs:
             yarn run docs
       - run:
           name: server snyk protect
-          command: | 
+          command: |
             cd server
             yarn run snyk-protect
       - run:
@@ -340,7 +340,7 @@ jobs:
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
               then ./.cg-deploy/deploy.sh public-production;
             fi
-  
+
   nightly-snyk:
     docker:
       - image: circleci/node:8.9.4
