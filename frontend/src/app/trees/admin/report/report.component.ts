@@ -155,11 +155,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
         )
         .subscribe(results => {
             this.result = {
-              numberOfPermits: results.numberOfPermits,
-              sumOfTrees: results.sumOfTrees,
-              sumOfCost: results.sumOfCost,
-              permits: results.permits,
-              parameters: this.reportParameters
+              numberOfPermits: results['numberOfPermits'],
+              sumOfTrees: results['sumOfTrees'],
+              sumOfCost: results['sumOfCost'],
+              permits: results['permits'],
+              parameters: this['reportParameters']
             };
             this.focusAndScroll('report-results');
           },
@@ -193,9 +193,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
         results => {
           this.result = {
             numberOfPermits: 1,
-            sumOfTrees: results.permits[0].quantity,
-            sumOfCost: results.permits[0].totalCost,
-            permits: results.permits,
+            sumOfTrees: results['permits'][0].quantity,
+            sumOfCost: results['permits'][0].totalCost,
+            permits: results['permits'],
             parameters: null
           };
           this.focusAndScroll('report-results');

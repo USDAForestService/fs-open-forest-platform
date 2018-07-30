@@ -177,8 +177,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.applicationService
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
       .subscribe(
-        (persistedApplication : any) => {
-          this.router.navigate([`applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
+        persistedApplication => {
+          this.router.navigate([`applications/noncommercial/submitted/${persistedApplication['appControlNumber']}`]);
         },
         (e: any) => {
           this.apiErrors = e;

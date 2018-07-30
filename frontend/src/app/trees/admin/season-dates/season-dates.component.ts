@@ -122,7 +122,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
           )} to  ${newEnd.format('MMM DD, YYYY')}.`;
           this.doc.getElementById('season-updated-alert-container').focus();
 
-          const index = this.forests.indexOf(this.forests.find(forest => forest.id === updatedForest.id));
+          const index = this.forests.indexOf(this.forests.find(forest => forest.id === updatedForest['id']));
           this.forests[index] = updatedForest;
         },
         err => {
