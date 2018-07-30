@@ -1,3 +1,7 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+
+import {catchError, tap} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
   HttpErrorResponse,
@@ -8,10 +12,9 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
+
+
+
 import { UtilService } from '../_services/util.service';
 
 @Injectable()
@@ -23,18 +26,18 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     const handleObs: Observable<HttpEvent<any>> = next.handle(req);
 
-    return handleObs
-      .do(event => {
+    return handleObs.pipe(
+      tap(event => {
         if (event instanceof HttpResponse) {
           this.util.removeRequest();
         }
-      })
-      .catch((err: HttpErrorResponse) => {
+      }),
+      catchError((err: HttpErrorResponse) => {
         this.util.setRequests(0);
         this.util.setProgress(false);
         this.handleRoute(err.status);
-        return Observable.throw(err);
-      });
+        return observableThrowError(err);
+      }),);
   }
   /*
   * handle route for the error codes 404, 403, and 500
