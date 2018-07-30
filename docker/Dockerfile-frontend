@@ -18,11 +18,8 @@ RUN sudo mkdir -p /node
 COPY ./frontend/package.json /node
 WORKDIR /node
 
-# install the latest version of yarn
-RUN sudo npm install yarn -g
-
-# run yarn to get all dependencies
-RUN sudo yarn
+# run npm to get all dependencies
+RUN sudo npm install
 
 # change the node path env var to the new node_modules directory
 # and add the new node .bin to the path
