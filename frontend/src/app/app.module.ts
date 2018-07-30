@@ -40,6 +40,7 @@ import { PageFooterComponent } from './shared/footer/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
+import { Angular2CsvModule } from 'angular2-csv';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,15 @@ import { ForestAdminNavComponent } from './authentication/forests-admin-nav.comp
     TitleDirective,
     UsaBannerComponent
   ],
-  imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
+  imports: [
+    ApplicationsModule,
+    BrowserModule,
+    HttpClientModule,
+    PayGovMocksModule,
+    SharedModule,
+    TreesModule,
+    Angular2CsvModule,
+  ],
   providers: [
     AlertService,
     ApplicationService,
