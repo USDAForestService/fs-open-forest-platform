@@ -386,10 +386,7 @@ workflows:
     jobs:
       - run-all-other-tests
       - run-e2e
-      - build-docker:
-          filters:
-            branches:
-              only: dev
+      - build-docker
       - run-pa11y:
           filters:
             branches:
