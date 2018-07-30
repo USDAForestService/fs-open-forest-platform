@@ -1,3 +1,5 @@
+
+import {mergeMap, map, filter} from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -68,9 +70,9 @@ export class AuthenticatedComponent implements OnInit {
    * Add user to route for display login on every NavigationEnd
    */
   ngOnInit() {
-    this.router.events
-      .filter(e => e instanceof NavigationEnd)
-      .map(() => {
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd),
+      map(() => {
         let route = this.activatedRoute.firstChild;
         let child = route;
 
@@ -84,8 +86,8 @@ export class AuthenticatedComponent implements OnInit {
         }
 
         return route;
-      })
-      .mergeMap(route => route.data)
+      }),
+      mergeMap(route => route.data), )
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);

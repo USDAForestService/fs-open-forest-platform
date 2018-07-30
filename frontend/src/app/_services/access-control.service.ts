@@ -1,3 +1,5 @@
+
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
@@ -15,9 +17,9 @@ export class AccessControlService implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot) {
     // force login and dont use cached user for authenticated routes
-    return this.authentication.getAuthenticatedUser(true).map((user: any) => {
+    return this.authentication.getAuthenticatedUser(true).pipe(map((user: any) => {
       return this.validateUser(user, route);
-    });
+    }));
   }
 
   /**

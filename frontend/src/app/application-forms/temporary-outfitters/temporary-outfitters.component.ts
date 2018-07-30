@@ -257,7 +257,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
       application => {
         this.application = application;
-        this.applicationId = application.applicationId;
+        this.applicationId = application['applicationId'];
         this.applicationForm.patchValue(this.application);
         this.getFiles(this.application.applicationId);
       },
@@ -303,7 +303,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       .subscribe(
         persistedApplication => {
           this.application = persistedApplication;
-          this.applicationId = persistedApplication.applicationId;
+          this.applicationId = persistedApplication['applicationId'];
           this.showFileUploadProgress = true;
           this.uploadFiles = true;
         },

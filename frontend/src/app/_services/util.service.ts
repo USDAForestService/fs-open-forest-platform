@@ -1,8 +1,9 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+
+
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -132,7 +133,7 @@ export class UtilService {
             break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
-            return Observable;
+            break;
           case 403:
             errors = [{ status: error.status, message: 'Access denied.' }];
             break;
@@ -147,14 +148,14 @@ export class UtilService {
           default:
             errors = [{ status: error.status }];
         }
-        return Observable.throw(errors);
+        return observableThrowError(errors);
       }
     }
     try {
       errors = error.error.errors;
-      return Observable.throw(errors);
+      return observableThrowError(errors);
     } catch (err) {
-      return Observable.throw([
+      return observableThrowError([
         { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
       ]);
     }

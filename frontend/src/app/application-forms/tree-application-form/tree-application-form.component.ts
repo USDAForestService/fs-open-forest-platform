@@ -224,7 +224,7 @@ export class TreeApplicationFormComponent implements OnInit {
   createApplication() {
     this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
       response => {
-        this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
+        this.winRef.getNativeWindow().location.href = `${response['payGovUrl']}?token=${response['token']}&tcsAppID=${response['tcsAppID']}`;
       },
       (error: any) => {
         this.showRules = false;
