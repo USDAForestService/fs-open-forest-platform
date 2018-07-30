@@ -87,7 +87,7 @@ export class AuthenticatedComponent implements OnInit {
 
         return route;
       }),
-      mergeMap(route => route.data),)
+      mergeMap(route => route.data), )
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);
