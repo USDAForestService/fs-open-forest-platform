@@ -49,6 +49,6 @@ exports.config = {
     });
   },
   suites: {
-    'docker-smoke-test': '../e2e/authenticated/special-uses/application-noncommercial-group.e2e-spec.ts'
+    'docker-smoke-test': '../e2e/authenticated/special-uses/noncommercial-learn-more.e2e-spec.ts'
   }
 };
