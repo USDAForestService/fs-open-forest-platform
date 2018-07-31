@@ -47,5 +47,8 @@ exports.config = {
     return new Promise(function(resolve) {
       screenshotReporter.afterLaunch(resolve.bind(this, exitCode));
     });
+  },
+  suites: {
+    'docker-smoke-test': '../e2e/authenticated/special-uses/noncommercial-learn-more.e2e-spec.ts'
   }
 };
