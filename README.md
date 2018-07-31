@@ -157,7 +157,8 @@ To run any of the server commands, either the environment variables above must b
 | ------------- |:-------------:| -------------:|
 | Setup Database | `yarn migrate` | |
 | Seed Database | `yarn seed` | Adds Christmas tree forest data |
-| Start the server | `yarn dev` | Server is accessible at http://localhost:8080 |
+| Start the server logged in as a full admin | `yarn dev` | Server is accessible at http://localhost:8080 |
+| Start the server logged in as an authenicated special use public member | `yarn dev:user` | Server is accessible at http://localhost:8080 |
 | Revert the last database migration | `yarn undoLastMigrate` | |
 | Revert all of the database migrations and start with a blank database | `yarn undoAllMigrate` | |
 | Run eslint for linting | `yarn lint` | The linting results will be put into `server/lint-results.html`. |

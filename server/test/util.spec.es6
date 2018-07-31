@@ -65,4 +65,16 @@ describe('util tests', () => {
       expect(util.getAdminForests('TEST_USER')[0]).to.equal('arp');
     });
   });
+
+  describe('localUser', () => {
+    it('set the local user as an admin', () => {
+      expect(util.localUser()).to.equal('admin');
+    });
+
+    it('set the local user as an admin', () => {
+      process.argv[2] = 'user'
+      expect(util.localUser()).to.equal('user');
+      process.argv.splice(2,1);
+    });
+  });
 });
