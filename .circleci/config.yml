@@ -386,7 +386,6 @@ workflows:
     jobs:
       - run-all-other-tests
       - run-e2e
-      - build-docker
       - build-docker:
           filters:
             branches:
