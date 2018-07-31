@@ -214,7 +214,7 @@ jobs:
           name: docker e2e smoke screen test
           command: |
             cd docker
-            docker-compose run fs-intake-server
+            docker-compose up fs-intake-server
             docker-compose run fs-intake-frontend sudo yarn e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
