@@ -25,7 +25,7 @@ else
 
         sed 's/\'circle-e2e-split\': []/\'circle-e2e-split\': "${SUITE_REPLACE}"/' 
       fi
-      ARGUMENTS=$ARGUMENTS"protractor.conf.js --suite=circle-e2e-split"
+      ARGUMENTS=$ARGUMENTS"circle-e2e-split"
       ;;
     -u)
       if [ $# -ge 1 ]
@@ -36,7 +36,7 @@ else
       #Rebuild server with PLATFORM set to something other than local to enable test to pass
       export PLATFORM='ci-unauthenticated'
 
-      ARGUMENTS=$ARGUMENTS"unauth-protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"unauthenticated"
       ;;
     *)
       echo 'Valid flag indicating which mode to run this script in must be provided as the first argument.'
