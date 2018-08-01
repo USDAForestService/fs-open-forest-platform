@@ -71,6 +71,7 @@ We have the opportunity to modernize the public's ability to apply for special u
 		- [Pay.gov error mocking in local environment](#paygov-error-mocking-in-local-environment)
 		- [Pay.gov in QA environment](#paygov-in-qa-environment)
 		- [Christmas trees sidebar template](#christmas-trees-sidebar-template)
+		- [Basic Auth](#basic-auth)
 	- [Docker Environment](#docker-environment)
 - [Deployment](#deployment)
 	- [Continuous Integration, Continuous Deployment](#continuous-integration-continuous-deployment)
@@ -280,6 +281,13 @@ Navigate to `/assets/typedoc/index.html`
 #### Christmas trees sidebar template
 
 [View instructions to use the Christmas trees sidebar template.](/wiki/development/christmas-trees-sidebar-template.md)
+
+#### Basic Auth
+The `staging-deploy` and the `prod-deploy` currently have a basic auth file generated from ENV vars in circle.
+`BASIC_AUTH_USER` and `BASIC_AUTH_PASS` which is an htpassword are copied into a frontend/src/Staticfile.auth which is used by the cloud.gov static buildpack.
+
+This task should be removed prior to launch.
+
 
 ### Docker Environment
 

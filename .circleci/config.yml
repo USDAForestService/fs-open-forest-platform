@@ -267,6 +267,9 @@ jobs:
             cd frontend
             yarn dist-trees
       - run:
+          name: Generate basic auth
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/src/Staticfile.auth
+      - run:
           name: copy frontend assets into server
           command: |
             cd server
@@ -323,6 +326,9 @@ jobs:
           command: |
             cd frontend
             yarn dist-prod
+      - run:
+          name: Generate basic auth - will remove as final launch task
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/src/Staticfile.auth
       - run:
           name: copy frontend assets into server
           command: |
