@@ -140,6 +140,18 @@ first-served basis.</p>
         <p>For more information on Forest Service outfitter and guide policies and
 regulations, <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">visit the national website</a>.</p>
         `
+      },
+      {
+        sectionName: 'Contact us',
+        type: 'anchor',
+        sectionCopy: `
+        <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
+        <div class="contact-details">
+          <h3>Temp outfitter contact</h3>
+          <p class="title-description">Interesting title description.</p>
+          <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
+          <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
+        </div>`
       }
     ];
   }
