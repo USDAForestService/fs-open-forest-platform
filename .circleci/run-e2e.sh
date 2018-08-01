@@ -9,19 +9,23 @@ else
   FLAG="$1"
   shift
 
-  ARGUMENTS=''
   case $FLAG in
     -a)
       if [ $# -lt 1 ]
       then
          echo 'No specs provided. Running all specs. To limit the specs to be run, include a space seperated list of specs to run.'
       else
+        SUTIE_REPLACE='['
         for i in "$@"
         do
-          ARGUMENTS=$ARGUMENTS"--specs=../${i} "
+          SUTIE_REPLACE=$SUTIE_REPLACE"'${i}',"
         done
+        SUTIE_REPLACE=$SUTIE_REPLACE"]"
+        SUTIE_REPLACE="${SUTIE_REPLACE/,]/]}"
+
+        sed 's/\'circle-e2e-split\': []/\'circle-e2e-split\': "${SUITE_REPLACE}"/' 
       fi
-      ARGUMENTS=$ARGUMENTS"--protractor-config ./development-configurations/protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"protractor.conf.js --suite=circle-e2e-split"
       ;;
     -u)
       if [ $# -ge 1 ]
@@ -32,7 +36,7 @@ else
       #Rebuild server with PLATFORM set to something other than local to enable test to pass
       export PLATFORM='ci-unauthenticated'
 
-      ARGUMENTS=$ARGUMENTS"--protractor-config ./development-configurations/unauth-protractor.conf.js"
+      ARGUMENTS=$ARGUMENTS"unauth-protractor.conf.js"
       ;;
     *)
       echo 'Valid flag indicating which mode to run this script in must be provided as the first argument.'
@@ -41,7 +45,6 @@ else
       exit 1
       ;;
   esac
-  echo $ARGUMENTS;
   cd server;
   yarn start &
   serverid=$!
