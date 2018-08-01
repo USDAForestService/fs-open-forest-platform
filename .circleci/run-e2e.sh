@@ -15,16 +15,16 @@ else
       then
          echo 'No specs provided. Running all specs. To limit the specs to be run, include a space seperated list of specs to run.'
       else
-        SUTIE_REPLACE='['
+        SUITE_REPLACE='\['
         for i in "$@"
         do
-          SUTIE_REPLACE=$SUTIE_REPLACE"'${i}',"
+          SUITE_REPLACE=$SUITE_REPLACE"'${i}',"
         done
-        SUTIE_REPLACE=$SUTIE_REPLACE"]"
-        SUTIE_REPLACE="${SUTIE_REPLACE/,]/]}"
+        SUITE_REPLACE=$SUITE_REPLACE"]"
+        SUITE_REPLACE="${SUITE_REPLACE/,]/]}"
 
-        echo "${SUTIE_REPLACE}"
-        sed 's/\'circle-e2e-split\': \[\]/circle-e2e-split\': "$SUTIE_REPLACE"/' "./frontend/development-configurations/protractor.conf.js"
+        echo "${SUITE_REPLACE}"
+        sed -i "" "s@'circle-e2e-split': \[\]@'circle-e2e-split': "$SUITE_REPLACE"@" "./frontend/development-configurations/protractor.conf.js"
       fi
       ARGUMENTS=$ARGUMENTS"circle-e2e-split"
       ;;
