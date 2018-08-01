@@ -24,7 +24,7 @@ else
         SUITE_REPLACE="${SUITE_REPLACE/,]/]}"
 
         echo "${SUITE_REPLACE}"
-        sed -i "s#'circle-e2e-split': []#'circle-e2e-split': $SUITE_REPLACE#" "./frontend/development-configurations/protractor.conf.js"
+        sed -i "s@'circle-e2e-split': \[\]@'circle-e2e-split': "$SUITE_REPLACE"@" "./frontend/development-configurations/protractor.conf.js"
       fi
       ARGUMENTS=$ARGUMENTS"circle-e2e-split"
       ;;
