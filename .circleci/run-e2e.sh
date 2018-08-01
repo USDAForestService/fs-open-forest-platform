@@ -23,7 +23,8 @@ else
         SUTIE_REPLACE=$SUTIE_REPLACE"]"
         SUTIE_REPLACE="${SUTIE_REPLACE/,]/]}"
 
-        sed 's/\'circle-e2e-split\': []/\'circle-e2e-split\': "${SUITE_REPLACE}"/' 
+        echo "${SUTIE_REPLACE}"
+        sed 's/\'circle-e2e-split\': []/\'circle-e2e-split\': "${SUITE_REPLACE}"/' "./frontend/development-configurations/protractor.conf.js"
       fi
       ARGUMENTS=$ARGUMENTS"circle-e2e-split"
       ;;
