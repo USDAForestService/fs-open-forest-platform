@@ -26,7 +26,7 @@ else
         echo "${SUITE_REPLACE}"
         sed -i "s@'circle-e2e-split': \[]@'circle-e2e-split': $SUITE_REPLACE@" "./frontend/development-configurations/protractor.conf.js"
       fi
-      ARGUMENTS="--suite=unauthenticated"
+      ARGUMENTS="--suite=circle-e2e-split"
       ;;
     -u)
       if [ $# -ge 1 ]
