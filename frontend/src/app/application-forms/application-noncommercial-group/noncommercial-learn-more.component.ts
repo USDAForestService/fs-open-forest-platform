@@ -54,9 +54,12 @@ export class NoncommercialLearnMoreComponent {
         <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
         <div class="contact-details">
           <h3>Noncommercial contact</h3>
-          <p class="title-description">Interesting title description.</p>
-          <p class="contact"><strong>Phone: </strong>(800) 333-5555</p>
-          <p class="contact"><strong>Email: </strong><a href="mailto:info@fs.usda.gov">info@fs.usda.gov</a></p>
+          <p class="title-description">
+            Sue Sherman-Biery<br>
+            <span class="italic">Special use administrator</span>
+          </p>
+          <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
+          <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
         </div>`
       }
     ];
