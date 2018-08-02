@@ -144,17 +144,12 @@ jobs:
           name: Run unauthenticated e2e tests
           command: |
             .circleci/run-e2e.sh -u
-      - store_test_results:
-          path: test-results
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
-      - store_artifacts:
-          path: frontend/e2e-unauth-test-results
-          prefix: unauth-e2e-results
 
   run-pa11y:
     machine: true
