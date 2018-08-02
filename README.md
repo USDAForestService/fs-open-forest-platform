@@ -139,6 +139,12 @@ Navigate to cloned repo
 
 A running Postgresql database is required in order to run the server locally. Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
 
+##### Transactions
+The database can support promisified transactions by leveraging the `server/dba/migrations/modules/transaction.js`
+
+## Special use shared ID sequence
+in order to have a shared ID across new permit types an `ALTER TABLE` query must be used. See migration `36` how to construct this.
+
 #### Environment Variables
 
 There are environment variables that are required to be set in order to run tests
