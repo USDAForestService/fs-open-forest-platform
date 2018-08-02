@@ -18,7 +18,7 @@ else
         SUITE_REPLACE='\['
         for i in "$@"
         do
-          SUITE_REPLACE=$SUITE_REPLACE"'${i}',"
+          SUITE_REPLACE=$SUITE_REPLACE"'../${i}',"
         done
         SUITE_REPLACE=$SUITE_REPLACE"]"
         SUITE_REPLACE="${SUITE_REPLACE/,]/]}"
@@ -27,8 +27,7 @@ else
         cat "./frontend/development-configurations/protractor.conf.js"
         sed "s@'circle-e2e-split': \[]@'circle-e2e-split': $SUITE_REPLACE@" "./frontend/development-configurations/protractor.conf.js" >> "./frontend/development-configurations/protractor-split.conf.js"
       fi
-      # ARGUMENTS="--suite=circle-e2e-split"
-      ARGUMENTS="--suite=docker-smoke-test"
+      ARGUMENTS="--suite=circle-e2e-split"
       ;;
     -u)
       if [ $# -ge 1 ]
