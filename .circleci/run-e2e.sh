@@ -23,9 +23,7 @@ else
         SUITE_REPLACE=$SUITE_REPLACE"]"
         SUITE_REPLACE="${SUITE_REPLACE/,]/]}"
 
-        echo "${SUITE_REPLACE}"
-        cat "./frontend/development-configurations/protractor.conf.js"
-        sed "s@'circle-e2e-split': \[]@'circle-e2e-split': $SUITE_REPLACE@" "./frontend/development-configurations/protractor.conf.js" >> "./frontend/development-configurations/protractor-split.conf.js"
+        sed -i "s@'circle-e2e-split': \[]@'circle-e2e-split': $SUITE_REPLACE@" "./frontend/development-configurations/protractor.conf.js"
       fi
       ARGUMENTS="--suite=circle-e2e-split"
       ;;
@@ -52,8 +50,6 @@ else
   serverid=$!
   sleep 1
   cd ../frontend;
-  echo 'running from split conf'
-  cat "./development-configurations/protractor-split.conf.js"
   sudo yarn e2e:ci $ARGUMENTS;
 
   e2ereturncode=$?
