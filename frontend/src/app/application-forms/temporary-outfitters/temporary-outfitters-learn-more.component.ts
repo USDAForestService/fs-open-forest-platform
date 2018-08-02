@@ -140,6 +140,21 @@ first-served basis.</p>
         <p>For more information on Forest Service outfitter and guide policies and
 regulations, <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">visit the national website</a>.</p>
         `
+      },
+      {
+        sectionName: 'Contact us',
+        type: 'anchor',
+        sectionCopy: `
+        <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
+        <div class="contact-details">
+          <h3>Temp outfitter contact</h3>
+          <p class="title-description">
+            Sue Sherman-Biery<br>
+            <span class="italic">Special use administrator</span>
+          </p>
+          <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
+          <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
+        </div>`
       }
     ];
   }
