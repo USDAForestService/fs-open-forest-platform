@@ -41,6 +41,9 @@ else
 
       ARGUMENTS="--suite=unauthenticated"
       ;;
+    t)
+      ARGUMENTS="--suite=docker-smoke-test"
+      ;;
     *)
       echo 'Valid flag indicating which mode to run this script in must be provided as the first argument.'
       echo '-a runs script with test user authenticated'
@@ -53,6 +56,8 @@ else
   serverid=$!
   sleep 1
   cd ../frontend;
+  echo 'running from split conf'
+  cat "./frontend/development-configurations/protractor-split.conf.js"
   sudo yarn e2e:ci $ARGUMENTS;
 
   e2ereturncode=$?
