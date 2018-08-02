@@ -51,15 +51,6 @@ jobs:
             cd frontend
             yarn run lint
       - run:
-          name: Frontend - snyk dependency scan
-          command: |
-            mkdir -p a=rw snyk
-            sudo npm install -g snyk
-            export DATE_STRING=`date +"%m-%d-%Y-%H"`
-            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
-            cd frontend
-            yarn run snyk-test # For Human
-      - run:
           name: Install sequelize
           command: yarn global add sequelize-cli
 
@@ -73,14 +64,6 @@ jobs:
           command: |
             cd server
             yarn run lint
-      - run:
-          name: Server - snyk dependency scan
-          command: |
-            export DATE_STRING=`date +"%m-%d-%Y-%H"`
-            export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-server-${DATE_STRING}.csv
-            cd server
-            yarn run snyk-protect
-            yarn run snyk-test
       - run:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
@@ -256,6 +239,8 @@ jobs:
           command: |
             cd server
             yarn run snyk-protect
+            cd ../frontend
+            snyk protect
       - run:
           name: Create frontend compiled distribution
           command: |
@@ -316,6 +301,13 @@ jobs:
           command: |
             cd frontend
             yarn run docs
+      - run:
+          name: server snyk protect
+          command: |
+            cd server
+            yarn run snyk-protect
+            cd ../frontend
+            snyk protect
       - run:
           name: Create frontend compiled distribution
           command: |
