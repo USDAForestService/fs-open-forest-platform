@@ -4,6 +4,8 @@ const util = require('../../../services/util.es6');
 const vcapConstants = require('../../../vcap-constants.es6');
 
 module.exports = application => {
+  const userApplicationUrl = util.userApplicationUrl(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -31,6 +33,8 @@ End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util
 Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
+
+You can view your application here: ${userApplicationUrl}
 
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 

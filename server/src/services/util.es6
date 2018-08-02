@@ -341,6 +341,21 @@ util.businessNameElsePersonalName = application => {
 };
 
 /**
+ * @function userApplicationUrl - Get the user's application URL
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - application url
+ */
+util.userApplicationUrl = application => {
+  const applicationType = application.type;
+  const applicationID = application.appControlNumber;
+
+  const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
+
+  return applicationUrl;
+};
+
+/**
  * @function getRandomString - Create a random hex string.
  * @param {integer} length - random string to be length
  * @return {string} - random string
