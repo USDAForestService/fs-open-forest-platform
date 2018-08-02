@@ -8,7 +8,6 @@
     "dist-trees": "ng build --configuration=trees",
     "dist-prod": "ng build --prod --configuration=prod",
     "docs": "yarn run typedoc --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
-    "e2e:ci": "ng e2e --port=4200 --protractor-config=./development-configurations/protractor.conf.js ",
     "e2e:cidkr": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e": "ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
     "lint": "ng lint",
