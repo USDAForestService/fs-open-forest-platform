@@ -27,7 +27,8 @@ else
         cat "./frontend/development-configurations/protractor.conf.js"
         sed "s@'circle-e2e-split': \[]@'circle-e2e-split': $SUITE_REPLACE@" "./frontend/development-configurations/protractor.conf.js" >> "./frontend/development-configurations/protractor-split.conf.js"
       fi
-      ARGUMENTS="--suite=circle-e2e-split"
+      # ARGUMENTS="--suite=circle-e2e-split"
+      ARGUMENTS="--suite=docker-smoke-test"
       ;;
     -u)
       if [ $# -ge 1 ]
@@ -39,9 +40,6 @@ else
       export PLATFORM='ci-unauthenticated'
 
       ARGUMENTS="--suite=unauthenticated"
-      ;;
-    t)
-      ARGUMENTS="--suite=docker-smoke-test"
       ;;
     *)
       echo 'Valid flag indicating which mode to run this script in must be provided as the first argument.'
