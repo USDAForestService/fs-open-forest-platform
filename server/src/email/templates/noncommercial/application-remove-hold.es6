@@ -2,6 +2,8 @@ const moment = require('moment');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+  const userApplicationLink = util.userApplicationLink(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -26,6 +28,7 @@ Number of participants: ${application.noncommercialFieldsNumberParticipants}
 Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 
+${userApplicationLink}
 
 What happens next?
 *********************************

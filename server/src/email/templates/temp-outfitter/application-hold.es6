@@ -3,6 +3,8 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+  const userApplicationLink = util.userApplicationLink(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: `An update on your recent permit application to the Forest Service.`,
@@ -33,6 +35,7 @@ module.exports = application => {
     Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
     Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
+    ${userApplicationLink}
 
     What happens next?
     **************************************

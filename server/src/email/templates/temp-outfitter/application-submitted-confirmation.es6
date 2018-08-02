@@ -3,6 +3,8 @@ const moment = require('moment');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+  const userApplicationLink = util.userApplicationLink(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'Your temporary outfitter permit application has been submitted for review.',
@@ -29,6 +31,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
+${userApplicationLink}
 
 What happens next?
 **************************************

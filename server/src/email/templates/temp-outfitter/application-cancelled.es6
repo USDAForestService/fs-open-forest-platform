@@ -3,6 +3,8 @@ const moment = require('moment');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+  const userApplicationLink = util.userApplicationLink(application);
+
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'Your following permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.',
@@ -23,6 +25,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
+${userApplicationLink}
 
 Contact us
 **************************************

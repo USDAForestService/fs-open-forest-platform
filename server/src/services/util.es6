@@ -341,6 +341,44 @@ util.businessNameElsePersonalName = application => {
 };
 
 /**
+ * @function userApplicationUrl - Get the user's application URL
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - application url
+ */
+util.userApplicationLink = application => {
+  const applicationType = application.type;
+  const applicationID = application.appControlNumber;
+  const applicationStatus = application.status;
+
+  let status;
+  switch (applicationStatus) {
+  case 'Accepted':
+    status = 'accepted application';
+    break;
+  case 'Hold':
+    status = 'application which needs additional information';
+    break;
+  case 'Rejected':
+    status = 'application';
+    break;
+  case 'Review':
+    status = 'application which is under review';
+    break;
+  case 'Cancelled':
+    status = 'cancelled application';
+    break;
+  case 'Submitted':
+    status = 'submitted application';
+  }
+
+  const text = `You can view your ${status} here:`;
+  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
+
+  return `${text} ${url}`;
+};
+
+/**
  * @function getRandomString - Create a random hex string.
  * @param {integer} length - random string to be length
  * @return {string} - random string
@@ -425,7 +463,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
     role = util.getUserRole(req);
     permitID = applicationOrPermit.applicationId;
   }
-  
+
   logger.info(`CONTROLLER: ${req.method}:${controller} by ${userID}:${role} for ${permitID} at ${eventTime}`);
 };
 
