@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -42,7 +42,25 @@ export class NoncommercialFieldsComponent implements OnInit {
         '',
         [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator()]
       ]
+    },
+    {
+      validator: this.validatePermitNeeded.bind(this)
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
+  }
+
+  /**
+   * Validate that there will be enough attendees to warrant needed a permit
+   */
+  validatePermitNeeded(): ValidatorFn {
+    return (group: FormGroup) => {
+      const numberSpectators = group.controls.numberSpectators.value;
+      const numberParticipants = group.controls.numberParticipants.value;
+
+      if (numberSpectators && numberParticipants && (numberSpectators && numberParticipants < 75) {
+        return { notEnoughAttendees: true };
+      }
+      return null;
+    };
   }
 }
