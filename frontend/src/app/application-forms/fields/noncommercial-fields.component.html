@@ -10,7 +10,7 @@
 
     <label id="participants-label" class="usa-input">Estimated number of participants</label>
     <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of event participants.</span>
-    <input id="participants" type="number" formControlName="numberParticipants" aria-required="true" min="1"
+    <input id="participants" type="number" (keypress)="numberOnly($event)" formControlName="numberParticipants" aria-required="true" min="1"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberParticipants, 'participants-label participants-hint-text', 'participants-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberParticipants)"
     />
@@ -18,7 +18,7 @@
 
     <label id="spectators-label" class="usa-input">Estimated number of spectators</label>
     <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as a sporting event), please provide the number of spectators.</span>
-    <input id="spectators" type="number" formControlName="numberSpectators" aria-required="true"
+    <input id="spectators" type="number" (keypress)="numberOnly($event)" formControlName="numberSpectators" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberSpectators, 'spectators-label spectators-hint-text', 'spectators-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberSpectators)"
     />

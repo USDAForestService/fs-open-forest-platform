@@ -11,8 +11,15 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 export class NoncommercialFieldsComponent implements OnInit {
   @Input() parentForm: FormGroup;
   formName: string;
-
   noncommercialFields: FormGroup;
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
 
   constructor(private formBuilder: FormBuilder, public afs: ApplicationFieldsService) {}
 
