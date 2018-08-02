@@ -14,6 +14,7 @@ Application details
 
 Application identification number: ${application.applicationId}
 Permit type: ${util.camelCaseToRegularForm(application.type)}
+Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
 Business name: ${application.applicantInfoOrganizationName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'

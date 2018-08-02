@@ -21,6 +21,7 @@ module.exports = application => {
     *********************************
 
     Application identification number: ${application.applicationId}
+    Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
     Business name: ${application.applicantInfoOrganizationName}
     Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
