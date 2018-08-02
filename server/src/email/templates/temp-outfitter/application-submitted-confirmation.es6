@@ -3,7 +3,7 @@ const moment = require('moment');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
-  const userApplicationUrl = util.userApplicationUrl(application);
+  const userApplicationLink = util.userApplicationLink(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -31,7 +31,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-You can view your application here: ${userApplicationUrl}
+${userApplicationLink}
 
 What happens next?
 **************************************

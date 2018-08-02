@@ -4,7 +4,7 @@ const util = require('../../../services/util.es6');
 const vcapConstants = require('../../../vcap-constants.es6');
 
 module.exports = application => {
-  const userApplicationUrl = util.userApplicationUrl(application);
+  const userApplicationLink = util.userApplicationLink(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -34,7 +34,7 @@ Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
 Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
 Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-You can view your application here: ${userApplicationUrl}
+${userApplicationLink}
 
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
