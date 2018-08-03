@@ -1,5 +1,5 @@
-# Use node 8.9.4 as the base image
-FROM circleci/node:8.9.4-browsers
+# Use node 8.11.3 as the base image
+FROM circleci/node:8.11.3-browsers
 
 # set the work dir to /node
 RUN sudo mkdir -p /node
