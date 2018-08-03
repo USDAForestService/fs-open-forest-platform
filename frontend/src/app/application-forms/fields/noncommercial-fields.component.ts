@@ -58,12 +58,8 @@ export class NoncommercialFieldsComponent implements OnInit {
     const totalAttendees = numberSpectators.value + numberParticipants.value;
 
     if (numberParticipants.value && numberSpectators.value && totalAttendees < 75) {
-      numberSpectators.setErrors({ 'invalid': true });
-      numberParticipants.setErrors({ 'invalid': true });
       return { notEnoughAttendees: true };
     }
-    numberSpectators.setErrors(null);
-    numberParticipants.setErrors(null);
     return null;
   }
 }
