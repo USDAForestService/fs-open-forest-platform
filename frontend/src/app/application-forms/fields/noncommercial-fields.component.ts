@@ -53,13 +53,17 @@ export class NoncommercialFieldsComponent implements OnInit {
    * Validate that there will be enough attendees to warrant needed a permit
    */
   validatePermitNeeded(group: FormGroup) {
-    const numberSpectators = group.controls.numberSpectators.value;
-    const numberParticipants = group.controls.numberParticipants.value;
-    const totalAttendees = +numberSpectators + +numberParticipants;
+    const numberSpectators = group.controls.numberSpectators;
+    const numberParticipants = group.controls.numberParticipants;
+    const totalAttendees = +numberSpectators.value + +numberParticipants.value;
 
-    if (numberSpectators && numberParticipants && (totalAttendees < 75)) {
+    if (numberSpectators.value && numberParticipants.value && (totalAttendees < 75)) {
+      numberSpectators.setErrors({ 'invalid': true });
+      numberParticipants.setErrors({ 'invalid': true });
       return { notEnoughAttendees: true };
     }
+    numberSpectators.setErrors(null);
+    numberParticipants.setErrors(null);
     return null;
   }
 }
