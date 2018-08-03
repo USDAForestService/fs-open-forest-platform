@@ -76,7 +76,7 @@ describe('noncommercial fields', () => {
     expect(component.noncommercialFields.valid).toBeTruthy();
   });
 
-  it('should be invalid if paticipants is greater than 0 and spectators is greater than 75', () => {
+  it('should be valid if paticipants is greater than 0 and spectators is greater than 75', () => {
     component.noncommercialFields.controls['numberParticipants'].setValue(1);
     component.noncommercialFields.controls['numberSpectators'].setValue(75);
     component.noncommercialFields.controls['activityDescription'].setValue('test');

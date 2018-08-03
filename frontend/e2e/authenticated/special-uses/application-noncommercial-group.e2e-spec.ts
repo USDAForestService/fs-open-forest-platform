@@ -57,8 +57,8 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('day-phone')).sendKeys('3333333333');
     element(by.id('name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
-    element(by.id('participants')).sendKeys('3');
-    element(by.id('spectators')).sendKeys('4');
+    element(by.id('participants')).sendKeys('50');
+    element(by.id('spectators')).sendKeys('100');
     element(by.id('activity-description')).sendKeys('Walking around');
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
@@ -108,8 +108,8 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.secondary-permit-holder-zip')).sendKeys('55555');
     element(by.id('name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
-    element(by.id('participants')).sendKeys('3');
-    element(by.id('spectators')).sendKeys('4');
+    element(by.id('participants')).sendKeys('50');
+    element(by.id('spectators')).sendKeys('100');
     element(by.id('activity-description')).sendKeys('Walking around');
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
@@ -142,8 +142,8 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('#organization-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
     element(by.id('name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
-    element(by.id('participants')).sendKeys('3');
-    element(by.id('spectators')).sendKeys('4');
+    element(by.id('participants')).sendKeys('50');
+    element(by.id('spectators')).sendKeys('100');
     element(by.id('activity-description')).sendKeys('Walking around');
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
