@@ -42,7 +42,24 @@ export class NoncommercialFieldsComponent implements OnInit {
         '',
         [Validators.required, alphanumericValidator(), Validators.maxLength(255), numberValidator()]
       ]
+    },
+    {
+      validator: this.validatePermitNeeded
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
+  }
+
+  /**
+   * Validate that there will be enough attendees to warrant needed a permit
+   */
+  validatePermitNeeded(group: FormGroup) {
+    const numberSpectators = group.controls.numberSpectators;
+    const numberParticipants = group.controls.numberParticipants;
+    const totalAttendees = numberSpectators.value + numberParticipants.value;
+
+    if (numberParticipants.value && numberSpectators.value && totalAttendees < 75) {
+      return { notEnoughAttendees: true };
+    }
+    return null;
   }
 }
