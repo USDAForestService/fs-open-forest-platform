@@ -1,5 +1,5 @@
-# Use node 8.9.4 as the base image
-FROM node:8.9.4
+# Use node 8.11.3 as the base image
+FROM node:8.11.3
 
 # Set the environment switch for scripts
 ENV FS_DOCKER=true

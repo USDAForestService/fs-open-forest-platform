@@ -1,7 +1,7 @@
 _defaults:
   docker_image_browser: &docker_image_browser
     docker:
-    - image: circleci/node:8.9.4-browsers
+    - image: circleci/node:8.11.3-browsers
       environment:
         DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
         VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
@@ -156,14 +156,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install node@8.9.4
+          name: Install node@8.11.3
           command: |
             set +e
             curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v8.9.4
-            nvm alias default v8.9.4
+            nvm install v8.11.3
+            nvm alias default v8.11.3
 
             # Each step uses the same `$BASH_ENV`, so need to modify it
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
@@ -182,7 +182,7 @@ jobs:
       - save_cache:
           paths:
             - ./frontend/node_modules
-            - ./opt/circleci/.nvm/versions/node/v8.9.4/bin/
+            - ./opt/circleci/.nvm/versions/node/v8.11.3/bin/
           key: fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
       - run:
           name: pa11y test
@@ -219,7 +219,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -284,7 +284,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -344,7 +344,7 @@ jobs:
 
   nightly-snyk:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -360,7 +360,7 @@ jobs:
 
   recycle-production:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - run: *install_cf
       - run:

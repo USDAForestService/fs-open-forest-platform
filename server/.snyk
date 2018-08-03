@@ -8,7 +8,7 @@ ignore:
         expires: '2018-05-18T19:25:40.676Z'
   'npm:content-type-parser:20170905':
     - jsdom > content-type-parser:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
   'npm:lodash:20180130':
     - nodemailer-juice > juice > cheerio > lodash:
@@ -26,22 +26,22 @@ ignore:
         reason: mostly affects node <4
         expires: '2018-06-13T19:06:26.052Z'
     - jsonwebtoken > jws > jwa > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.052Z'
     - jsonwebtoken > jws > jwa > ecdsa-sig-formatter > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
     - node-jose > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
     - openid-client > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
     - openid-client > oidc-token-hash > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
     - openid-client > node-jose > base64url:
-        reason: mostly affects node v <4.x our app runs on LTS 8.9.4
+        reason: mostly affects node v <4.x our app runs on LTS 8.11.3
         expires: '2018-06-13T19:06:26.053Z'
   'npm:stringstream:20180511':
     - juice > web-resource-inliner > request > stringstream:

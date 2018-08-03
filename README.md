@@ -119,7 +119,7 @@ Project specific rules are defined on the [wiki](/wiki/git-seekret.md).
 
 ##### Node
 
-Install [Node ^8.9.4](https://nodejs.org/en/)
+Install [Node ^8.11.3](https://nodejs.org/en/)
 
 ##### PostgreSQL
 
