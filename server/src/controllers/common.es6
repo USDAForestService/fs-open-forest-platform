@@ -12,6 +12,7 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
 const util = require('../services/util.es6');
+const forestInfoService = require('../../../services/forest.service.es6');
 
 const commonControllers = {};
 
@@ -154,6 +155,7 @@ commonControllers.getPermitApplications = (req, res) => {
  */
 commonControllers.updateEmailSwitch = (req, res, app, type) => {
   commonControllers.createRevision(util.getUser(req), app);
+  app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
   if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
     email.sendEmail(`${type}ApplicationUser${app.status}`, app);
   } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {

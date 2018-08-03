@@ -55,4 +55,16 @@ forestService.translateForestFromDatabaseToClient = input => {
   };
 };
 
+/**
+ * @function specialUseForestName
+ * @param {String} forestCode
+ * @returns {String} Name of the forest
+ */
+forestService.specialUseForestName = (forestCode) => {
+  if (forestCode === '0605') {
+    return 'Mt.Baker - Snoqualmie National Forest';
+  }
+  return '';
+};
+
 module.exports = forestService;

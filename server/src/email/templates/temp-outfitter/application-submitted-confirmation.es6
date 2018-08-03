@@ -4,7 +4,7 @@ const util = require('../../../services/util.es6');
 
 module.exports = application => {
   const userApplicationLink = util.userApplicationLink(application);
-
+  
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'Your temporary outfitter permit application has been submitted for review.',
@@ -21,6 +21,7 @@ Application details
 Application identification number: ${application.applicationId}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
 Business name: ${application.applicantInfoOrganizationName}
+Forest: ${application.forestName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY hh:mm a'
     )}

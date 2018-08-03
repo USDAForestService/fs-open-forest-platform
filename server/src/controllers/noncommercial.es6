@@ -14,6 +14,7 @@ const util = require('../services/util.es6');
 const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
+const forestInfoService = require('../../../services/forest.service.es6');
 
 const noncommercial = {};
 
@@ -413,12 +414,13 @@ noncommercial.create = (req, res) => {
   };
   translateFromClientToDatabase(req.body, model);
   NoncommercialApplication.create(model)
-    .then(noncommApp => {
-      util.logControllerAction(req, 'noncommerical.create', noncommApp);
-      email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', noncommApp);
-      email.sendEmail('noncommercialApplicationSubmittedConfirmation', noncommApp);
-      req.body['applicationId'] = noncommApp.applicationId;
-      req.body['appControlNumber'] = noncommApp.appControlNumber;
+    .then(app => {
+      util.logControllerAction(req, 'noncommerical.create', app);
+      app.forestName = forestInfoService.specialUseForestName(app.region+app.forest);
+      email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', app);
+      email.sendEmail('noncommercialApplicationSubmittedConfirmation', app);
+      req.body['applicationId'] = app.applicationId;
+      req.body['appControlNumber'] = app.appControlNumber;
       return res.status(201).json(req.body);
     })
     .catch(error => {
@@ -455,6 +457,7 @@ noncommercial.update = (req, res) => {
               .save()
               .then(() => {
                 commonControllers.createRevision(util.getUser(req), app);
+                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
                 email.sendEmail(`noncommercialApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })

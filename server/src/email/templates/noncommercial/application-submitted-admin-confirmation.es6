@@ -11,7 +11,7 @@ module.exports = application => {
     subject: `A new permit application with a start date of ${moment(
       application.noncommercialFieldsStartDateTime,
       util.datetimeFormat
-    ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
+    ).format('MM/DD/YYYY')} has been submitted to the ${application.forestName}.`,
     body: `
 Go to ${applicationUrl} to log in and view the application.
 **************************************

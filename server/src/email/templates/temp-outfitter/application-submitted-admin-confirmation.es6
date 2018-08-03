@@ -4,13 +4,13 @@ const util = require('../../../services/util.es6');
 
 module.exports = application => {
   const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/temp-outfitter/${application.appControlNumber}`;
-
+  
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
     subject: `A new permit application with a start date of ${moment(
       application.tempOutfitterFieldsActDescFieldsStartDateTime,
       util.datetimeFormat
-    ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
+    ).format('MM/DD/YYYY')} has been submitted to the ${application.forestName}.`,
     body: `
 Go to ${applicationUrl} to log in and view the application.
 **************************************
@@ -22,6 +22,7 @@ Application identification number: ${application.applicationId}
 Permit type: ${util.camelCaseToRegularForm(application.type)}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
 Business name: ${application.applicantInfoOrganizationName}
+Forest: ${application.forestName}
 Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
       'MM/DD/YYYY'
     )}
