@@ -57,7 +57,7 @@ export class NoncommercialFieldsComponent implements OnInit {
       const numberSpectators = group.controls.numberSpectators.value;
       const numberParticipants = group.controls.numberParticipants.value;
 
-      if (numberSpectators && numberParticipants && (numberSpectators && numberParticipants < 75) {
+      if (numberSpectators && numberParticipants && (numberSpectators && numberParticipants < 75)) {
         return { notEnoughAttendees: true };
       }
       return null;
