@@ -34,6 +34,24 @@ describe('noncommercial fields', () => {
     })
   );
 
+  it('should be valid if participants is greater than 0', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(1);
+    expect(component.noncommercialFields.controls['numberParticipants'].valid).toBeTruthy();
+  });
+
+  it('should be invalid if participants is less than 1', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(0);
+    expect(component.noncommercialFields.controls['numberParticipants'].valid).toBeFalsy();
+  });
+
+  it('should be invalid if paticipants is 0 and spectators is greater than 0', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(0);
+    component.noncommercialFields.controls['numberSpectators'].setValue(1);
+    component.noncommercialFields.controls['activityDescription'].setValue('test');
+    component.noncommercialFields.controls['locationDescription'].setValue('test');
+    expect(component.noncommercialFields.valid).toBeFalsy();
+  });
+
   it('should be invalid if paticipants is greater than 0 and spectators is greater than 0 but a sum of less than 75', () => {
     component.noncommercialFields.controls['numberParticipants'].setValue(1);
     component.noncommercialFields.controls['numberSpectators'].setValue(1);

@@ -33,6 +33,7 @@ export class NoncommercialFieldsComponent implements OnInit {
         [
           Validators.required,
           alphanumericValidator(),
+          Validators.minLength(1),
           Validators.maxLength(255),
           numberValidator()
         ]
