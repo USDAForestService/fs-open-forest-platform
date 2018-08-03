@@ -94,7 +94,7 @@ export class ErrorMessageComponent {
     return `${this.name} is invalid. `;
   }
 
-  numberParticipants(errors) {
+  notEnoughAttendees(errors) {
     return `It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.`;
   }
 

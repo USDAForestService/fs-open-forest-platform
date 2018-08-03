@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -44,7 +44,7 @@ export class NoncommercialFieldsComponent implements OnInit {
       ]
     },
     {
-      validator: this.validatePermitNeeded.bind(this)
+      validator: this.validatePermitNeeded
     });
     this.parentForm.addControl(this.formName, this[this.formName]);
   }
@@ -52,15 +52,14 @@ export class NoncommercialFieldsComponent implements OnInit {
   /**
    * Validate that there will be enough attendees to warrant needed a permit
    */
-  validatePermitNeeded(): ValidatorFn {
-    return (group: FormGroup) => {
-      const numberSpectators = group.controls.numberSpectators.value;
-      const numberParticipants = group.controls.numberParticipants.value;
+  validatePermitNeeded(group: FormGroup) {
+    const numberSpectators = group.controls.numberSpectators.value;
+    const numberParticipants = group.controls.numberParticipants.value;
+    const totalAttendees = +numberSpectators + +numberParticipants;
 
-      if (numberSpectators && numberParticipants && (numberSpectators && numberParticipants < 75)) {
-        return { notEnoughAttendees: true };
-      }
-      return null;
-    };
+    if (numberSpectators && numberParticipants && (totalAttendees < 75)) {
+      return { notEnoughAttendees: true };
+    }
+    return null;
   }
 }

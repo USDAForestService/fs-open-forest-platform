@@ -24,6 +24,8 @@
     />
     <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
 
+    <app-error-message fieldId="total-attendees-error" name="Total attendees" [control]="noncommercialFields"></app-error-message>
+
     <label id="activity-description-label" class="usa-input">Description of proposed activity</label>
     <textarea id="activity-description" formControlName="activityDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.activityDescription, 'activity-description-label', 'activity-description-error')"
