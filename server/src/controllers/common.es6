@@ -12,7 +12,7 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
 const util = require('../services/util.es6');
-const forestInfoService = require('../../../services/forest.service.es6');
+const forestInfoService = require('../services/forest.service.es6');
 
 const commonControllers = {};
 

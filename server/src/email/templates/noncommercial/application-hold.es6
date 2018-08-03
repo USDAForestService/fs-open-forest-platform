@@ -1,11 +1,8 @@
 const moment = require('moment');
 const util = require('../../../services/util.es6');
-const forestInfoService = require('../../../services/forest.service.es6');
 const vcapConstants = require('../../../vcap-constants.es6');
 
 module.exports = application => {
-
-  const forestName = forestInfoService.specialUseForestName('0605');
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -26,7 +23,7 @@ Application details
 
 Application identification number: ${application.applicationId}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
-Forest: ${forestName}
+Forest: ${application.forestName}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}

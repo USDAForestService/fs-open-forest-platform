@@ -18,7 +18,7 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const util = require('../services/util.es6');
 const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
-const forestInfoService = require('../../../services/forest.service.es6');
+const forestInfoService = require('../services/forest.service.es6');
 
 const tempOutfitter = {};
 
