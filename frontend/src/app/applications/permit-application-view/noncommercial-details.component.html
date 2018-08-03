@@ -16,6 +16,10 @@
     <h2>Application identification</h2>
     <h3>Identification number:</h3>
     <span>{{ application.applicationId }}</span>
+    <ng-container *ngIf="isAdmin && application.status === 'Accepted'">
+      <h3>SUDS identification number:</h3>
+      <span id="suds-id">EP-{{ application.region }}{{ application.forest }}-{{ application.applicationId }}</span>
+    </ng-container>
     <h3>Permit application type:</h3>
     <span id="permit-type">Noncommercial</span>
     <h2 class="app-item-label padding-right-1">Primary permit holder</h2>

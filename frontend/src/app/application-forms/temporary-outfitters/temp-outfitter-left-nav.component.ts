@@ -67,7 +67,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
         this.bottom = 'auto';
         this.position = 'fixed';
       } else {
-        this.top = '250px';
+        this.top = '0';
         this.position = 'absolute';
       }
 

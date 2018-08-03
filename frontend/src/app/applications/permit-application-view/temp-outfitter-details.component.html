@@ -16,6 +16,10 @@
     <h2>Application identification</h2>
     <h3>Identification number:</h3>
     <span>{{ application.applicationId }}</span>
+    <ng-container *ngIf="isAdmin && application.status === 'Accepted'">
+      <h3>SUDS identification number:</h3>
+      <span id="suds-id">EP-{{ application.region }}{{ application.forest }}-{{ application.applicationId }}</span>
+    </ng-container>
     <h3>Permit application type:</h3>
     <span>Temp outfitter</span>
     <h2 class="app-item-label padding-right-1">Applicant information</h2>
@@ -59,7 +63,7 @@
 
       <ul *ngFor="let file of files">
         <li *ngIf="file.documentType !== 'good-standing-evidence' ||
-        ['Person', 'State Government', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
+        ['Person', 'State Govt', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
         ><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
       </ul>
 

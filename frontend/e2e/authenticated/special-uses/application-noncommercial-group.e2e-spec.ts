@@ -124,4 +124,38 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('submit-application')).click();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
+
+  it('should submit an application as an organization with optional fields omitted', () => {
+    page.navigateTo();
+    const ec = protractor.ExpectedConditions;
+    browser.wait(ec.presenceOf(element(by.id('organization-label'))));
+    element(by.id('organization-label')).click();
+    element(by.id('organization-name')).sendKeys('Test organization');
+    element(by.css('.organization-address')).sendKeys('933 Easy St');
+    element(by.css('.organization-city')).sendKeys('Madison');
+    element(by.css('.organization-state')).sendKeys('WI');
+    element(by.css('.organization-zip')).sendKeys('55555');
+    element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('day-phone')).sendKeys('2222222222');
+    element(by.id('website')).sendKeys('http://test.com');
+    element(by.css('#organization-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
+    element(by.css('#organization-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
+    element(by.id('name')).sendKeys('Walk in the park');
+    element(by.id('location')).sendKeys('Forest');
+    element(by.id('participants')).sendKeys('3');
+    element(by.id('spectators')).sendKeys('4');
+    element(by.id('activity-description')).sendKeys('Walking around');
+    element(by.id('start-month')).sendKeys('10');
+    element(by.id('start-day')).sendKeys('10');
+    element(by.id('start-year')).sendKeys('2020');
+    element(by.id('start-hour')).sendKeys('10');
+    element(by.id('start-minutes')).sendKeys('10');
+    element(by.id('start-period')).sendKeys('AM');
+    element(by.id('end-hour')).sendKeys('10');
+    element(by.id('end-minutes')).sendKeys('10');
+    element(by.id('end-period')).sendKeys('PM');
+    element(by.id('signature')).sendKeys('SA');
+    element(by.id('submit-application')).click();
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+  });
 });

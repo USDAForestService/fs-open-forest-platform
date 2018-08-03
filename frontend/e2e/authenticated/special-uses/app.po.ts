@@ -40,6 +40,12 @@ export class AdminApplicationList {
   }
 }
 
+export class UserApplicationList {
+  navigateTo() {
+    return browser.get('/user/applications');
+  }
+}
+
 export class HelpMePick {
   questionStep(cta, question) {
     it('should have a question', () => {

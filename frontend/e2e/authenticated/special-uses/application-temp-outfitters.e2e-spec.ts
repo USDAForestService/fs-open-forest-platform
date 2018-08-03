@@ -23,9 +23,10 @@ describe('Apply for a temp outfitters permit', () => {
 
   fieldValidation.validateFileUploadField('insurance-certificate', 'pdf', true);
 
-  it('should display good standing evidence upload field if organization is clicked', () => {
+  it('should display good standing evidence upload field and business name if organization is clicked', () => {
     element(by.id('organization-label')).click();
     expect<any>(element(by.id('good-standing-evidence-wrapper')).isPresent()).toBeTruthy();
+    expect<any>(element(by.id('organization-name')).isPresent()).toBeTruthy();
   });
 
   fieldValidation.validateFileUploadField('good-standing-evidence');
@@ -78,7 +79,6 @@ describe('Apply for a temp outfitters permit', () => {
   it('should submit an application', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
     element(by.css('.primary-permit-holder-last-name')).sendKeys('test');
-    element(by.id('organization-name')).sendKeys('test');
     element(by.css('.primary-permit-holder-address')).sendKeys('test');
     element(by.css('.primary-permit-holder-address-line-2')).sendKeys('test');
     element(by.css('.primary-permit-holder-city')).sendKeys('test');

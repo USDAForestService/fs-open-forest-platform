@@ -26,7 +26,7 @@ _run:
       yarn install
       cd ../server
       yarn install
-  
+
   install_cf: &install_cf
     name: Install cf cli
     command: |
@@ -136,7 +136,10 @@ jobs:
       - run:
           name: Run authenicated e2e tests
           command: |
-            .circleci/run-e2e.sh -a $(circleci tests split <( cd ../frontend; circleci tests glob ./e2e/authenticated/**/*.e2e-spec.ts))
+            export TESTFILES=$(cd frontend;circleci tests glob "./e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
+            echo 'This container is running the following tests:'
+            echo ${TESTFILES}
+            .circleci/run-e2e.sh -a ${TESTFILES}
       - run:
           name: Run unauthenticated e2e tests
           command: |
@@ -147,9 +150,6 @@ jobs:
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
-      - store_artifacts:
-          path: frontend/e2e-unauth-test-results
-          prefix: unauth-e2e-results
 
   run-pa11y:
     machine: true
@@ -164,7 +164,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm install v8.9.4
             nvm alias default v8.9.4
-            
+
             # Each step uses the same `$BASH_ENV`, so need to modify it
             echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
             echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
@@ -208,8 +208,8 @@ jobs:
       - run:
           name: docker e2e smoke screen test
           command: |
-            cd docker 
-            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr --environment docker
+            cd docker
+            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
@@ -253,7 +253,7 @@ jobs:
             yarn run docs
       - run:
           name: server snyk protect
-          command: | 
+          command: |
             cd server
             yarn run snyk-protect
       - run:
@@ -261,6 +261,9 @@ jobs:
           command: |
             cd frontend
             yarn dist-trees
+      - run:
+          name: Generate basic auth
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
       - run:
           name: copy frontend assets into server
           command: |
@@ -319,6 +322,9 @@ jobs:
             cd frontend
             yarn dist-prod
       - run:
+          name: Generate basic auth - will remove as final launch task
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
+      - run:
           name: copy frontend assets into server
           command: |
             cd server
@@ -335,7 +341,7 @@ jobs:
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
               then ./.cg-deploy/deploy.sh public-production;
             fi
-  
+
   nightly-snyk:
     docker:
       - image: circleci/node:8.9.4

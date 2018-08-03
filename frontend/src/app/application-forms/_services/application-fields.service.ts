@@ -30,6 +30,13 @@ export class ApplicationFieldsService {
     }
   }
 
+  copyValues(parentForm, input, output) {
+    const inputForm = parentForm.get(input);
+    const outputForm = parentForm.get(output);
+
+    outputForm.setValue(inputForm.value);
+  }
+
   addAddress(parentForm, formName) {
     this[formName] = this.formBuilder.group({
       mailingAddress: ['', [Validators.maxLength(255)]],
@@ -92,9 +99,11 @@ export class ApplicationFieldsService {
 
   phoneChangeSubscribers(parentForm, type) {
     parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
-      parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
-      parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
-      parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
+      if (value) {
+        parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
+        parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
+        parentForm.patchValue({ [type]: { number: value.substring(6, 10) } });
+      }
     });
   }
 

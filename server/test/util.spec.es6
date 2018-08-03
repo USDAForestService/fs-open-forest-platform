@@ -3,6 +3,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
+const vcapConstants = require('../src/vcap-constants.es6');
 const util = require('../src/services/util.es6');
 
 describe('util tests', () => {
@@ -63,6 +64,45 @@ describe('util tests', () => {
 
     it('should get admin forests', () => {
       expect(util.getAdminForests('TEST_USER')[0]).to.equal('arp');
+    });
+  });
+
+  describe('localUser', () => {
+    it('set the local user as an admin', () => {
+      expect(util.localUser()).to.equal('admin');
+    });
+
+    it('set the local user as an admin', () => {
+      process.argv[2] = 'user'
+      expect(util.localUser()).to.equal('user');
+      process.argv.splice(2,1);
+    });
+  });
+
+  describe('userApplicationLink', () => {
+    it('should return the correct application url and accompanying link text', () => {
+      const statuses = [
+        { state: 'Accepted', text: 'accepted application'},
+        { state: 'Rejected', text: 'application'},
+        { state: 'Hold', text: 'application which needs additional information'},
+        { state: 'Review', text: 'application which is under review'},
+        { state: 'Cancelled', text: 'cancelled application'},
+        { state: 'Submitted', text: 'submitted application'}
+      ];
+      const testApp = {
+        type: 'noncommercial',
+        appControlNumber: '1d1ae92b-c1da-4933-9425-d64cad5561dd',
+      };
+      const url = vcapConstants.INTAKE_CLIENT_BASE_URL;
+
+      statuses.forEach((status) => {
+        testApp.status = status.state;
+
+        expect(util.userApplicationLink(testApp)).to.equal(
+          `You can view your ${status.text} here: ${url}/user/applications/noncommercial/1d1ae92b-c1da-4933-9425-d64cad5561dd`
+        );
+      });
+
     });
   });
 });

@@ -46,6 +46,21 @@ export class NoncommercialLearnMoreComponent {
         If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
 
         <p>For more information about non-commercial group use and regulations, <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">visit our FAQ page</a></p>`
+      },
+      {
+        sectionName: 'Contact us',
+        type: 'anchor',
+        sectionCopy: `
+        <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
+        <div class="contact-details">
+          <h3>Noncommercial contact</h3>
+          <p class="title-description">
+            Sue Sherman-Biery<br>
+            <span class="italic">Special use administrator</span>
+          </p>
+          <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
+          <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
+        </div>`
       }
     ];
   }

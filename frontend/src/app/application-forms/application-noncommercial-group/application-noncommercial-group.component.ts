@@ -101,11 +101,14 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         this.applicationForm.get('applicantInfo'),
         'organizationAddress'
       );
-      this.applicationFieldsService.updateValidators(this.applicationForm.get('applicantInfo.organizationName'), false);
-    } else if (type === 'Corporation' && !this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization')) {
-      this.applicationFieldsService.removeAddressValidation(
+      this.applicationFieldsService.updateValidators(
+        this.applicationForm.get('applicantInfo.organizationName'),
+        false
+      );
+    } else if (type === 'Corporation') {
+      this.applicationFieldsService.addAddressValidation(
         this.applicationForm.get('applicantInfo'),
-        'primaryAddress'
+        'organizationAddress'
       );
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
@@ -161,7 +164,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
       application => {
         this.application = application;
-        this.applicationForm.setValue(application);
+        this.applicationForm.patchValue(application);
       },
       (e: any) => {
         this.apiErrors = e;
@@ -209,11 +212,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       form.get('applicantInfo.website').setValue('');
       service.removeAddress(form.get('applicantInfo'), 'organizationAddress');
     }
-    if (form.get('applicantInfo.orgType').value === 'Corporation') {
-      if (form.get('applicantInfo.primaryAddressSameAsOrganization').value) {
-        service.removeAddress(form.get('applicantInfo'), 'primaryAddress');
-      }
-    }
     if (!form.get('applicantInfo.addSecondaryPermitHolder').value) {
       form.get('applicantInfo.secondaryFirstName').setValue('');
       form.get('applicantInfo.secondaryLastName').setValue('');
@@ -228,6 +226,13 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   onSubmit(form) {
     this.submitted = true;
+    if (form.get('applicantInfo.orgType').value === 'Corporation' && form.get('applicantInfo.primaryAddressSameAsOrganization').value) {
+      this.applicationFieldsService.copyValues(
+        form.get('applicantInfo'),
+        'organizationAddress',
+        'primaryAddress'
+      );
+    }
     this.applicationFieldsService.touchAllFields(this.applicationForm);
     if (!form.valid || this.dateStatus.hasErrors) {
       this.applicationFieldsService.scrollToFirstError();
