@@ -52,9 +52,33 @@ describe('noncommercial fields', () => {
     expect(component.noncommercialFields.valid).toBeFalsy();
   });
 
-  it('should be valid if paticipants is greater than 0 and spectators is greater than 0', () => {
+  it('should be invalid if paticipants is greater than 0 and spectators is greater than 0 but a sum of less than 75', () => {
     component.noncommercialFields.controls['numberParticipants'].setValue(1);
     component.noncommercialFields.controls['numberSpectators'].setValue(1);
+    component.noncommercialFields.controls['activityDescription'].setValue('test');
+    component.noncommercialFields.controls['locationDescription'].setValue('test');
+    expect(component.noncommercialFields.valid).toBeFalsy();
+  });
+
+  it('should be invalid if paticipants is greater than 0 and spectators is greater than 0 with a sum greater than 75', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(30);
+    component.noncommercialFields.controls['numberSpectators'].setValue(45);
+    component.noncommercialFields.controls['activityDescription'].setValue('test');
+    component.noncommercialFields.controls['locationDescription'].setValue('test');
+    expect(component.noncommercialFields.valid).toBeTruthy();
+  });
+
+  it('should be invalid if paticipants is greater than 75 and spectators is greater than 0', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(75);
+    component.noncommercialFields.controls['numberSpectators'].setValue(1);
+    component.noncommercialFields.controls['activityDescription'].setValue('test');
+    component.noncommercialFields.controls['locationDescription'].setValue('test');
+    expect(component.noncommercialFields.valid).toBeTruthy();
+  });
+
+  it('should be invalid if paticipants is greater than 0 and spectators is greater than 75', () => {
+    component.noncommercialFields.controls['numberParticipants'].setValue(1);
+    component.noncommercialFields.controls['numberSpectators'].setValue(75);
     component.noncommercialFields.controls['activityDescription'].setValue('test');
     component.noncommercialFields.controls['locationDescription'].setValue('test');
     expect(component.noncommercialFields.valid).toBeTruthy();
