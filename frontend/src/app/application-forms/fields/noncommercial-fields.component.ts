@@ -33,7 +33,6 @@ export class NoncommercialFieldsComponent implements OnInit {
         [
           Validators.required,
           alphanumericValidator(),
-          Validators.minLength(1),
           Validators.maxLength(255),
           numberValidator()
         ]
@@ -55,9 +54,9 @@ export class NoncommercialFieldsComponent implements OnInit {
   validatePermitNeeded(group: FormGroup) {
     const numberSpectators = group.controls.numberSpectators;
     const numberParticipants = group.controls.numberParticipants;
-    const totalAttendees = +numberSpectators.value + +numberParticipants.value;
+    const totalAttendees = numberSpectators.value + numberParticipants.value;
 
-    if (numberSpectators.value && numberParticipants.value && (totalAttendees < 75)) {
+    if (numberParticipants.value && numberSpectators.value && totalAttendees < 75) {
       numberSpectators.setErrors({ 'invalid': true });
       numberParticipants.setErrors({ 'invalid': true });
       return { notEnoughAttendees: true };
