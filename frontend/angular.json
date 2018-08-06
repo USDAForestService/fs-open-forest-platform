@@ -53,7 +53,7 @@
               ]
             },
             "production": {
-              "aot": false,
+              "aot": true,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
