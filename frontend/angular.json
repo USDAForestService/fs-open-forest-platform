@@ -53,7 +53,7 @@
               ]
             },
             "production": {
-              "aot": true,
+              "aot": false,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -61,7 +61,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
