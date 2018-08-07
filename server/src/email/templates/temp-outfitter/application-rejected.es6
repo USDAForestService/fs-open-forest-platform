@@ -17,12 +17,21 @@ Unfortunately the following permit application has not been accepted.
 
 ${application.applicantMessage}
 
-${defaultApplicationDetails(application)}
+${defaultApplicationDetails.text(application)}
 
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
 
-${defaultForestContact}
-`
+${defaultForestContact.text}
+`,
+    html: `
+    <h2>Permit application status update</h2>
+    <p>Unfortunately the following permit application has not been accepted.</p>
+    <p>${application.applicantMessage}</p>
+    <h2>Application details</h2>
+    ${defaultApplicationDetails.html(application)}
+    <p>If you would like to submit another permit application visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Open Forest</a>.</p>
+    ${defaultForestContact.html}
+    `
   };
 };

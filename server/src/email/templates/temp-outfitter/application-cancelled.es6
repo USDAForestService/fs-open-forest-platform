@@ -7,9 +7,14 @@ module.exports = application => {
     to: application.applicantInfoEmailAddress,
     subject: 'Your following permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.',
     body: `
-    ${defaultApplicationDetails(application)}
+    ${defaultApplicationDetails.text(application)}
 
-    ${defaultForestContact}
-`
+    ${defaultForestContact.text}
+`,
+    html: `
+    <h2>Application details</h2>
+    ${defaultApplicationDetails.html(application)}
+    ${defaultForestContact.html}
+    `
   };
 };

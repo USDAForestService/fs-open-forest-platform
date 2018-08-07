@@ -32,7 +32,7 @@ ${defaultForestContact.text}
     <p>${application.applicantMessage}</p>
     <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
-    <p>If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.</p>
+    <p>If you would like to submit another permit application visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Open Forest</a>.</p>
     ${defaultForestContact.html}
     `
   };

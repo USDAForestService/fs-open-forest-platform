@@ -42,7 +42,7 @@ ${defaultForestContact.text}
      due to insufficient information. Please log in, provide the
       requested information below, and save your application.</p>
     <p>${application.applicantMessage}</p>
-    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/noncommercial-group-use/${application.appControlNumber}/edit">Edit your permit by visiting</a></p>
+    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/noncommercial-group-use/${application.appControlNumber}/edit">Login and edit your application</a></p>
     <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
     <h2>What happens next?</h2>

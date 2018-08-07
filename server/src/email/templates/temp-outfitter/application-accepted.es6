@@ -21,9 +21,22 @@ ${application.applicantMessage}
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
 
-${defaultApplicationDetails(application)}
+${defaultApplicationDetails.text(application)}
 
-${defaultForestContact}
-`
+${defaultForestContact.text}
+`,
+    html: `
+    <h2>Permit application status update</h2>
+    <p>The permit application listed below has passed a preliminary review!
+     An administrator will now do a more in-depth review and may be contacting
+     you to get any additional details or documents needed.</p>
+    <p>Then, if your application is approved, you will receive your permit within
+     2 weeks of approval.</p>
+    <p>${application.applicantMessage}</p>
+    <p>If you would like to submit another permit application
+     visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Open Forest</a>.</p>
+    ${defaultApplicationDetails.html(application)}
+    ${defaultForestContact.html}
+    `
   };
 };

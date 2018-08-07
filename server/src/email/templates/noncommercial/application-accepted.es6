@@ -36,7 +36,7 @@ module.exports = application => {
      2 weeks of approval.</p>
     <p>${application.applicantMessage}</p>
     <p>If you would like to submit another permit application
-     visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.</p>
+     visit <a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}">Open Forest</a>.</p>
     <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
     ${defaultForestContact.html}
