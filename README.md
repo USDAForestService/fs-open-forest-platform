@@ -19,13 +19,11 @@ _Staging:_
 
 ## Welcome
 
-The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. Flexion worked with GSA's Technology Transformation Service's Office of Acquisitions and the Forest Service to build out this platform for noncommercial and temporary use permits.
+The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. The USForest Service and GSA's 18F acquisition this open source platform for noncommercial group use, temporary outfitter and guide, and Christmas tree permits.
 
 ## Opportunity Statement
 
-The opportunity statement = the problem we are trying to solve with the ePermitting project.
-
-We have the opportunity to modernize the public's ability to apply for special use permits and to purchase permits to harvest Christmas trees. For special use permits, Mt. Baker-Snoqualime is the pilot forest. For Christmas tree permits, Arapaho and Roosevelt, Flathead, Mt. Hood, and Shoshone are the pilot forests. Our belief is that these applications will simplify and speed up the ability to apply for and purchase permits.
+As the first two-way interaction-focused Forest Service online application, Open Forest will strengthen the connection between the public and the National Forests. The online permitting application will broaden and increase the public’s responsible access to public lands through online availability; a predictable, responsive and friendly experience; and reduced administrative burden. These enhancements will drive increased customer satisfaction and quality of public engagement.
 
 ## Table of contents
 
@@ -35,7 +33,8 @@ We have the opportunity to modernize the public's ability to apply for special u
 - [Opportunity Statement](#opportunity-statement)
 - [Table of contents](#table-of-contents)
 - [Development](#development)
-	- [Requirements:](#requirements)
+	- [Overview](#overview)
+	- [Requirements](#requirements)
 		- [Local development requirements](#local-development-requirements)
 			- [Package Manager](#package-manager)
 			- [Git](#git)
@@ -90,13 +89,16 @@ We have the opportunity to modernize the public's ability to apply for special u
 
 <!-- /TOC -->
 
+## Overview
+This repository comprises the application code for the platform. It includes a node.js server, and a Angular 2+ static frontend, currently deployed on [cloud.gov](https://cloud.gov/).
+
 ## Local Development
 
 There are two options for local development - Docker or installing the dependencies independently.
 
 ** The following instructions outline tools and procedures required for local development without docker **
 
-### Requirements:
+### Requirements
 
 #### Local development requirements
 
@@ -147,10 +149,9 @@ in order to have a shared ID across new permit types an `ALTER TABLE` query must
 
 #### Environment Variables
 
-There are environment variables that are required to be set in order to run tests
-and to run the server in general. Please set up these environment variables either in your shell or on the command line.
+There are environment variables that are required to be set in order to run tests and to run the server in general. Please set up these environment variables either in your shell or on the command line. We use a cloud foundry (the underlying framework for cloud.gov) specific manager of environment variables.
 
-[View list of required environment variables, and installation instructions](/wiki/development/environment-variables.md)
+[View list of required environment variables, installation instructions, and explanation of cloud.gov's VCAP-Services](/wiki/development/environment-variables.md)
 
 #### Install dependencies
 
