@@ -29,80 +29,80 @@ const tempOutfitterApplicationRemoveHold = require('./templates/temp-outfitter/a
 
 const christmasTreesPermitCreated = require('./templates/christmas-trees/permit-created.es6');
 
-const email = {};
+const emailTemplates = {};
 
-email.noncommercialApplicationSubmittedConfirmation = application => {
+emailTemplates.noncommercialApplicationSubmittedConfirmation = application => {
   return noncommercialSubmittedConfirm(application);
 };
-email.tempOutfitterApplicationSubmittedConfirmation = application => {
+emailTemplates.tempOutfitterApplicationSubmittedConfirmation = application => {
   return tempOutfitterSubmittedConfirm(application);
 };
 
-email.noncommercialApplicationSubmittedAdminConfirmation = application => {
+emailTemplates.noncommercialApplicationSubmittedAdminConfirmation = application => {
   return noncommercialSubmittedAdmConfirm(application);
 };
 
-email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
+emailTemplates.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
   return tempOutfitterSubmittedAdmConfirm(application);
 };
 
-email.noncommercialApplicationAccepted = application => {
+emailTemplates.noncommercialApplicationAccepted = application => {
   return noncommercialApplicationAccepted(application);
 };
-email.tempOutfitterApplicationAccepted = application => {
+emailTemplates.tempOutfitterApplicationAccepted = application => {
   return tempOutfitterApplicationAccepted(application);
 };
 
-email.noncommercialApplicationCancelled = application => {
+emailTemplates.noncommercialApplicationCancelled = application => {
   return noncommercialApplicationCancelled(application);
 };
 
-email.tempOutfitterApplicationCancelled = application => {
+emailTemplates.tempOutfitterApplicationCancelled = application => {
   return tempOutfitterApplicationCancelled(application);
 };
 
-email.noncommercialApplicationUserCancelled = application => {
+emailTemplates.noncommercialApplicationUserCancelled = application => {
   return noncommercialApplicationUserCancelled(application);
 };
 
-email.tempOutfitterApplicationUserCancelled = application => {
+emailTemplates.tempOutfitterApplicationUserCancelled = application => {
   return tempOutfitterApplicationUserCancelled(application);
 };
 
-email.noncommercialApplicationRejected = application => {
+emailTemplates.noncommercialApplicationRejected = application => {
   return noncommercialApplicationRejected(application);
 };
 
-email.tempOutfitterApplicationRejected = application => {
+emailTemplates.tempOutfitterApplicationRejected = application => {
   return tempOutfitterApplicationRejected(application);
 };
 
-email.noncommercialApplicationReview = application => {
+emailTemplates.noncommercialApplicationReview = application => {
   return noncommercialApplicationReview(application);
 };
 
-email.tempOutfitterApplicationReview = application => {
+emailTemplates.tempOutfitterApplicationReview = application => {
   return tempOutfitterApplicationReview(application);
 };
 
-email.noncommercialApplicationHold = application => {
+emailTemplates.noncommercialApplicationHold = application => {
   return noncommercialApplicationHold(application);
 };
 
-email.tempOutfitterApplicationHold = application => {
+emailTemplates.tempOutfitterApplicationHold = application => {
   return tempOutfitterApplicationHold(application);
 };
 
-email.noncommercialApplicationRemoveHold = application => {
+emailTemplates.noncommercialApplicationRemoveHold = application => {
   return noncommercialApplicationRemoveHold(application);
 };
 
-email.tempOutfitterApplicationRemoveHold = application => {
+emailTemplates.tempOutfitterApplicationRemoveHold = application => {
   return tempOutfitterApplicationRemoveHold(application);
 };
 
-email.christmasTreesPermitCreated = application => {
+emailTemplates.christmasTreesPermitCreated = application => {
   return christmasTreesPermitCreated(application);
 };
 
-module.exports = email;
+module.exports = emailTemplates;
