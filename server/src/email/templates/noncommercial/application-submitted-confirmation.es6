@@ -1,9 +1,6 @@
-const moment = require('moment');
-
-const util = require('../../../services/util.es6');
+const defaultApplicationDetails = require('./default-application-details.es6');
 
 module.exports = application => {
-  const userApplicationLink = util.userApplicationLink(application);
 
   return {
     to: application.applicantInfoEmailAddress,
@@ -18,16 +15,7 @@ Your permit application has been submitted for review, but is NOT APPROVED until
 Application details
 **************************************
 
-Application identification number: ${application.applicationId}
-Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
-Event name: ${application.eventName}
-Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-Number of participants: ${application.noncommercialFieldsNumberParticipants}
-Number of spectators: ${application.noncommercialFieldsSpectatorCount}
-Location: ${application.noncommercialFieldsLocationDescription}
-
-${userApplicationLink}
+${defaultApplicationDetails(application)}
 
 What happens next?
 **************************************
