@@ -60,6 +60,9 @@ export class PermitApplicationListComponent implements OnInit {
 
   showAttentionAlert() {
     let result = false;
+    if (this.applicationStatus !== 'pending'){
+      return false;
+    }
     this.applications.forEach(application => {
       if (this.isOverTwoDaysOld(application.createdAt)) {
         result = true;
