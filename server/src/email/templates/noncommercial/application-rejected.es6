@@ -1,6 +1,6 @@
 const vcapConstants = require('../../../vcap-constants.es6');
 const defaultApplicationDetails = require('./default-application-details.es6');
-const defaultForestContact = require('./default-contact-info.es6');
+const defaultForestContact = require('../default-special-use-contact-info.es6');
 
 module.exports = application => {
 
@@ -24,8 +24,6 @@ ${defaultApplicationDetails(application)}
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
 
-Contact us
-**************************************
 ${defaultForestContact}
 `
   };

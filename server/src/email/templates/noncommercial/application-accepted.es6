@@ -1,6 +1,6 @@
 const vcapConstants = require('../../../vcap-constants.es6');
 const defaultApplicationDetails = require('./default-application-details.es6');
-const defaultForestContact = require('./default-contact-info.es6');
+const defaultForestContact = require('../default-special-use-contact-info.es6');
 
 module.exports = application => {
 

@@ -1,6 +1,6 @@
 const vcapConstants = require('../../../vcap-constants.es6');
 const defaultApplicationDetails = require('./default-application-details.es6');
-const defaultForestContact = require('./default-contact-info.es6');
+const defaultForestContact = require('../default-special-use-contact-info.es6');
 
 
 module.exports = application => {
@@ -33,8 +33,6 @@ What happens next?
 4. If your application is approved, you will receive your permit within 2 weeks of approval.
 
 
-Contact us
-**************************************
 ${defaultForestContact}
 `
   };

@@ -2,6 +2,7 @@ const moment = require('moment');
 
 const util = require('../../../services/util.es6');
 const vcapConstants = require('../../../vcap-constants.es6');
+const defaultForestContact = require('../default-special-use-contact-info.es6');
 
 module.exports = application => {
   const userApplicationLink = util.userApplicationLink(application);
@@ -39,18 +40,7 @@ ${userApplicationLink}
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
 
-Contact us
-**************************************
-
-If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
-
-Temp outfitter contact
-Name: Sue Sherman-Biery
-Title: Special use administrator
-Phone: 360-854-2660
-Email: sshermanbiery@fs.fed.us
-
-Thank you for your interest in our National Forests.
+${defaultForestContact}
 `
   };
 };

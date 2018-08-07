@@ -1,6 +1,7 @@
 const moment = require('moment');
 
 const util = require('../../../services/util.es6');
+const defaultForestContact = require('../default-special-use-contact-info.es6');
 
 module.exports = application => {
   const userApplicationLink = util.userApplicationLink(application);
@@ -42,18 +43,7 @@ What happens next?
 4. If your application is approved, you will receive your permit within 2 weeks of approval.
 
 
-Contact us
-**************************************
-
-If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
-
-Temp outfitter contact
-Name: Sue Sherman-Biery
-Title: Special use administrator
-Phone: 360-854-2660
-Email: sshermanbiery@fs.fed.us
-
-Thank you for your interest in our National Forests.
+${defaultForestContact}
 `
   };
 };

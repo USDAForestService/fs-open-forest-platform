@@ -6,6 +6,8 @@ const contactInfo = {
 };
 
 module.exports = `
+    Contact us
+    *********************************
 
     If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
 
