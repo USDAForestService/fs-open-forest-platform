@@ -10,12 +10,15 @@ module.exports = application => {
 Application details
 *********************************
 
-${defaultApplicationDetails(application)}
+${defaultApplicationDetails.text(application)}
 
-Contact us
-**************************************
 
-${defaultForestContact}
-`
+${defaultForestContact.text}
+`,
+    html: `
+    <h2>Application details</h2>
+    ${defaultApplicationDetails.html(application)}
+    ${defaultForestContact.html}
+    `
   };
 };

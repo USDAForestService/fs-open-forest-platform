@@ -21,7 +21,7 @@ ${application.applicantMessage}
 If you would like to submit another permit application visit ${vcapConstants.INTAKE_CLIENT_BASE_URL}.
 
 
-${defaultApplicationDetails}
+${defaultApplicationDetails(application)}
 
 ${defaultForestContact}
 `

@@ -21,19 +21,39 @@ Login at ${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/noncommercial-grou
 Application details
 *********************************
 
-${defaultApplicationDetails(application)}
+${defaultApplicationDetails.text(application)}
 
 
 What happens next?
 **************************************
 
-1. Your application will be reviewed by our staff.
-2. If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.
-3. Once your application has been reviewed by our staff, you will be notified of the application status.
-4. If your application is approved, you will receive your permit within 2 weeks of approval.
+1. Log back in and submit additional information.
+2. Your application will be reviewed by our staff.
+3. If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.
+4. Once your application has been reviewed by our staff, you will be notified of the application status.
+5. If your application is approved, you will receive your permit within 2 weeks of approval.
 
 
-${defaultForestContact}
-`
+${defaultForestContact.text}
+`,
+    html: `
+    <h2>Permit application status update</h2>
+    <p>Your recently submitted application has been put on hold
+     due to insufficient information. Please log in, provide the
+      requested information below, and save your application.</p>
+    <p>${application.applicantMessage}</p>
+    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/noncommercial-group-use/${application.appControlNumber}/edit">Edit your permit by visiting</a></p>
+    <h2>Application details</h2>
+    ${defaultApplicationDetails.html(application)}
+    <h2>What happens next?</h2>
+    <ol>
+      <li>Log back in and submit additional information.</li>
+      <li>Your application will be reviewed by our staff.</li>
+      <li>If additional information is needed, a representative of the National Forest Service will contact you via email to resolve any issues.</li>
+      <li>Once your application has been reviewed by our staff, you will be notified of the application status.</li>
+      <li>If your application is approved, you will receive your permit within 2 weeks of approval.</li>
+    </ol>
+    ${defaultForestContact.html}
+    `
   };
 };
