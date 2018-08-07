@@ -1,5 +1,6 @@
 const vcapConstants = require('../../../vcap-constants.es6');
 const defaultApplicationDetails = require('./default-application-details.es6');
+const defaultForestContact = require('./default-contact-info.es6');
 
 module.exports = application => {
 
@@ -25,16 +26,7 @@ If you would like to submit another permit application visit ${vcapConstants.INT
 
 Contact us
 **************************************
-
-If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.
-
-Noncommercial contact
-Name: Sue Sherman-Biery
-Title: Special use administrator
-Phone: 360-854-2660
-Email: sshermanbiery@fs.fed.us
-
-Thank you for your interest in our National Forests.
+${defaultForestContact}
 `
   };
 };
