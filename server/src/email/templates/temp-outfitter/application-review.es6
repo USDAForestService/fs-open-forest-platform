@@ -26,7 +26,6 @@ What happens next?
 
 ${defaultForestContact.text}
 `,
-,
     html: `
     <h2>Permit application status update</h2>
     <p>We are reviewing the additional information you provided.</p>
