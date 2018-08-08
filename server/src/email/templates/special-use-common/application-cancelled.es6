@@ -1,16 +1,16 @@
-const defaultApplicationDetails = require('./default-application-details.es6');
 const defaultForestContact = require('../default-special-use-contact-info.es6');
 
-module.exports = application => {
+module.exports = (application, defaultApplicationDetails, subject) => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'Your following permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.',
+    subject: subject,
     body: `
     ${defaultApplicationDetails.text(application)}
 
+
     ${defaultForestContact.text}
-`,
+    `,
     html: `
     <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}

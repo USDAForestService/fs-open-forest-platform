@@ -1,9 +1,8 @@
 const vcapConstants = require('../../../vcap-constants.es6');
-const defaultApplicationDetails = require('./default-application-details.es6');
 const defaultForestContact = require('../default-special-use-contact-info.es6');
 
-module.exports = application => {
 
+module.exports = (application, defaultApplicationDetails, applicationType) => {
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -15,10 +14,11 @@ module.exports = application => {
 
     ${application.applicantMessage}
 
-    Login at ${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/temp-outfitters/${application.appControlNumber}/edit
+    Login at ${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${applicationType}/${application.appControlNumber}/edit
 
 
     ${defaultApplicationDetails.text(application)}
+
 
     What happens next?
     **************************************
@@ -30,14 +30,15 @@ module.exports = application => {
     5. If your application is approved, you will receive your permit within 2 weeks of approval.
 
 
-    ${defaultForestContact.text}`,
+    ${defaultForestContact.text}
+`,
     html: `
     <h2>Permit application status update</h2>
     <p>Your recently submitted application has been put on hold
      due to insufficient information. Please log in, provide the
       requested information below, and save your application.</p>
     <p>${application.applicantMessage}</p>
-    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/noncommercial-group-use/${application.appControlNumber}/edit">Login and edit your application</a></p>
+    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${applicationType}/${application.appControlNumber}/edit">Login and edit your application</a></p>
     <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
     <h2>What happens next?</h2>

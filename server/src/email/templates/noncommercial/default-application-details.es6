@@ -4,6 +4,9 @@ const util = require('../../../services/util.es6');
 module.exports = {
   text: application => {
     return `
+      Application details
+      *********************************
+
       Application identification number: ${application.applicationId}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Event name: ${application.eventName}
@@ -17,6 +20,7 @@ module.exports = {
   },
   html: application => {
     return `
+    <h2>Application details</h2>
     <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>

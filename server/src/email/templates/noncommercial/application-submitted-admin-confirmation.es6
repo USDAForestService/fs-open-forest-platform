@@ -29,7 +29,7 @@ Number of participants: ${application.noncommercialFieldsNumberParticipants}
 Number of spectators: ${application.noncommercialFieldsSpectatorCount}
 Location: ${application.noncommercialFieldsLocationDescription}
 `, 
-html: `
+    html: `
     <p><a href="${ applicationUrl }">Login and view the application.</a></p>
     <hr />
         <table class="bordered" cellpadding="0" cellspacing="0">
