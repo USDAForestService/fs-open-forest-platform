@@ -416,7 +416,7 @@ noncommercial.create = (req, res) => {
   NoncommercialApplication.create(model)
     .then(app => {
       util.logControllerAction(req, 'noncommerical.create', app);
-      app.forestName = forestInfoService.specialUseForestName(app.region+app.forest);
+      app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
       email.sendEmail('noncommercialApplicationSubmittedAdminConfirmation', app);
       email.sendEmail('noncommercialApplicationSubmittedConfirmation', app);
       req.body['applicationId'] = app.applicationId;
