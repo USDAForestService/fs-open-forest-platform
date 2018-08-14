@@ -9,7 +9,7 @@ const express = require('express');
 const Issuer = require('openid-client').Issuer;
 const jose = require('node-jose');
 const passport = require('passport');
-const OpenIDConnectStrategy = require('openid-client').Strategy;
+const { Strategy } = require('openid-client');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const url = require('url');
@@ -63,7 +63,7 @@ loginGov.setup = () => {
         // instantiate the passport strategy
         passport.use(
           'oidc',
-          new OpenIDConnectStrategy({
+          new Strategy({
             client: client,
             params: loginGov.params
           }, (tokenset, done) => {
