@@ -19,7 +19,7 @@ _Staging:_
 
 ## Welcome
 
-The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. The USForest Service and GSA's 18F acquisition this open source platform for noncommercial group use, temporary outfitter and guide, and Christmas tree permits.
+The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. The USForest Service and GSA's 18F acquisition built this open source platform for noncommercial group use, temporary outfitter and guide, and Christmas tree permits.
 
 ## Opportunity Statement
 
