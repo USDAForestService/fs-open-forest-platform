@@ -1,108 +1,128 @@
 'use strict';
 
-const noncommercialSubmittedConfirm = require('./templates/noncommercial/application-submitted-confirmation.es6');
-const tempOutfitterSubmittedConfirm = require('./templates/temp-outfitter/application-submitted-confirmation.es6');
+const defaultNoncommerialApplicationDetails = require('./templates/noncommercial/default-application-details.es6');
+const defaultTempApplicationDetails = require('./templates/temp-outfitter/default-application-details.es6');
 
-const noncommercialSubmittedAdmConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
-const tempOutfitterSubmittedAdmConfirm = require('./templates/temp-outfitter/application-submitted-admin-confirmation.es6');
+const specialUseSubmittedConfirm = require('./templates/special-use-common/application-submitted-confirmation.es6');
 
-const noncommercialApplicationAccepted = require('./templates/noncommercial/application-accepted.es6');
-const tempOutfitterApplicationAccepted = require('./templates/temp-outfitter/application-accepted.es6');
+const noncommercialSubmittedAdminConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
+const tempSubmittedAdminConfirm = require('./templates/temp-outfitter/application-submitted-admin-confirmation.es6');
 
-const noncommercialApplicationCancelled = require('./templates/noncommercial/application-cancelled.es6');
-const tempOutfitterApplicationCancelled = require('./templates/temp-outfitter/application-cancelled.es6');
+const specialUseApplicationAccepted = require('./templates/special-use-common/application-accepted.es6');
+const specialUseApplicationCancelled = require('./templates/special-use-common/application-cancelled.es6');
 
 const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');
 const tempOutfitterApplicationUserCancelled = require('./templates/temp-outfitter/application-user-cancelled.es6');
 
-const noncommercialApplicationRejected = require('./templates/noncommercial/application-rejected.es6');
-const tempOutfitterApplicationRejected = require('./templates/temp-outfitter/application-rejected.es6');
+const specialUseApplicationRejected = require('./templates/special-use-common/application-rejected.es6');
 
-const noncommercialApplicationReview = require('./templates/noncommercial/application-review.es6');
-const tempOutfitterApplicationReview = require('./templates/temp-outfitter/application-review.es6');
+const specialUseApplicationReview = require('./templates/special-use-common/application-review.es6');
+const specialUseApplicationRemoveHold = require('./templates/special-use-common/application-remove-hold.es6');
 
-const noncommercialApplicationHold = require('./templates/noncommercial/application-hold.es6');
-const tempOutfitterApplicationHold = require('./templates/temp-outfitter/application-hold.es6');
+const specialUseApplicationHold = require('./templates/special-use-common/application-hold.es6');
 
-const noncommercialApplicationRemoveHold = require('./templates/noncommercial/application-remove-hold.es6');
-const tempOutfitterApplicationRemoveHold = require('./templates/temp-outfitter/application-remove-hold.es6');
+
 
 const christmasTreesPermitCreated = require('./templates/christmas-trees/permit-created.es6');
 
-const email = {};
+const emailTemplates = {};
 
-email.noncommercialApplicationSubmittedConfirmation = application => {
-  return noncommercialSubmittedConfirm(application);
+emailTemplates.noncommercialApplicationSubmittedConfirmation = application => {
+  return specialUseSubmittedConfirm(
+    application,
+    defaultNoncommerialApplicationDetails,
+    ' within 48 hours'
+  );
 };
-email.tempOutfitterApplicationSubmittedConfirmation = application => {
-  return tempOutfitterSubmittedConfirm(application);
-};
-
-email.noncommercialApplicationSubmittedAdminConfirmation = application => {
-  return noncommercialSubmittedAdmConfirm(application);
-};
-
-email.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
-  return tempOutfitterSubmittedAdmConfirm(application);
-};
-
-email.noncommercialApplicationAccepted = application => {
-  return noncommercialApplicationAccepted(application);
-};
-email.tempOutfitterApplicationAccepted = application => {
-  return tempOutfitterApplicationAccepted(application);
+emailTemplates.tempOutfitterApplicationSubmittedConfirmation = application => {
+  return specialUseSubmittedConfirm(
+    application,
+    defaultTempApplicationDetails,''
+  );
 };
 
-email.noncommercialApplicationCancelled = application => {
-  return noncommercialApplicationCancelled(application);
+emailTemplates.noncommercialApplicationSubmittedAdminConfirmation = application => {
+  return noncommercialSubmittedAdminConfirm(application);
 };
 
-email.tempOutfitterApplicationCancelled = application => {
-  return tempOutfitterApplicationCancelled(application);
+emailTemplates.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
+  return tempSubmittedAdminConfirm(application);
 };
 
-email.noncommercialApplicationUserCancelled = application => {
+emailTemplates.noncommercialApplicationAccepted = application => {
+  return specialUseApplicationAccepted(application, defaultNoncommerialApplicationDetails);
+};
+emailTemplates.tempOutfitterApplicationAccepted = application => {
+  return specialUseApplicationAccepted(application, defaultTempApplicationDetails);
+};
+
+emailTemplates.noncommercialApplicationCancelled = application => {
+  const subject = `Your ${application.eventName} permit application to the\
+   ${application.forestName} has been cancelled.`;
+  return specialUseApplicationCancelled(
+    application,
+    defaultNoncommerialApplicationDetails,
+    subject
+  );
+};
+
+emailTemplates.tempOutfitterApplicationCancelled = application => {
+  const subject = `Your permit application to the ${application.forestName} has been cancelled.`;
+  return specialUseApplicationCancelled(application,
+    defaultTempApplicationDetails,
+    subject
+  );
+};
+
+emailTemplates.noncommercialApplicationUserCancelled = application => {
   return noncommercialApplicationUserCancelled(application);
 };
 
-email.tempOutfitterApplicationUserCancelled = application => {
+emailTemplates.tempOutfitterApplicationUserCancelled = application => {
   return tempOutfitterApplicationUserCancelled(application);
 };
 
-email.noncommercialApplicationRejected = application => {
-  return noncommercialApplicationRejected(application);
+emailTemplates.noncommercialApplicationRejected = application => {
+  return specialUseApplicationRejected(
+    application,
+    defaultNoncommerialApplicationDetails
+  );
 };
 
-email.tempOutfitterApplicationRejected = application => {
-  return tempOutfitterApplicationRejected(application);
+emailTemplates.tempOutfitterApplicationRejected = application => {
+  return specialUseApplicationRejected(
+    application,
+    defaultTempApplicationDetails
+  );
 };
 
-email.noncommercialApplicationReview = application => {
-  return noncommercialApplicationReview(application);
+emailTemplates.noncommercialApplicationReview = application => {
+  return specialUseApplicationReview(application, defaultNoncommerialApplicationDetails);
 };
 
-email.tempOutfitterApplicationReview = application => {
-  return tempOutfitterApplicationReview(application);
+emailTemplates.tempOutfitterApplicationReview = application => {
+  return specialUseApplicationReview(application, defaultTempApplicationDetails);
 };
 
-email.noncommercialApplicationHold = application => {
-  return noncommercialApplicationHold(application);
+emailTemplates.noncommercialApplicationRemoveHold = application => {
+  return specialUseApplicationRemoveHold(application, defaultNoncommerialApplicationDetails);
 };
 
-email.tempOutfitterApplicationHold = application => {
-  return tempOutfitterApplicationHold(application);
+emailTemplates.tempOutfitterApplicationRemoveHold = application => {
+  return specialUseApplicationRemoveHold(application, defaultTempApplicationDetails);
 };
 
-email.noncommercialApplicationRemoveHold = application => {
-  return noncommercialApplicationRemoveHold(application);
+emailTemplates.noncommercialApplicationHold = application => {
+  return specialUseApplicationHold(application, defaultNoncommerialApplicationDetails, 'noncommercial-group-use');
 };
 
-email.tempOutfitterApplicationRemoveHold = application => {
-  return tempOutfitterApplicationRemoveHold(application);
+emailTemplates.tempOutfitterApplicationHold = application => {
+  return specialUseApplicationHold(application, defaultTempApplicationDetails, 'temp-outfitters');
 };
 
-email.christmasTreesPermitCreated = application => {
+
+emailTemplates.christmasTreesPermitCreated = application => {
   return christmasTreesPermitCreated(application);
 };
 
-module.exports = email;
+module.exports = emailTemplates;

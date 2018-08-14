@@ -1,39 +1,30 @@
 const moment = require('moment');
-const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
-module.exports = application => {
-  const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/temp-outfitter/${application.appControlNumber}`;
-  
-  return {
-    to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `A new permit application with a start date of ${moment(
-      application.tempOutfitterFieldsActDescFieldsStartDateTime,
-      util.datetimeFormat
-    ).format('MM/DD/YYYY')} has been submitted to the ${application.forestName}.`,
-    body: `
-      Go to ${applicationUrl} to log in and view the application.
-      **************************************
+module.exports = {
+  text: application => {
+    return `
+  Application details
+  *********************************
 
-      Application details
-      **************************************
+  Application identification number: ${application.applicationId}
+  Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+  Business name: ${application.applicantInfoOrganizationName}
+  Forest: ${application.forestName}
+  Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
+        'MM/DD/YYYY hh:mm a'
+      )}
+  End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format(
+        'MM/DD/YYYY hh:mm a'
+      )}
+  Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
+  Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
+  Services provided: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-      Application identification number: ${application.applicationId}
-      Permit type: ${util.camelCaseToRegularForm(application.type)}
-      Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
-      Business name: ${application.applicantInfoOrganizationName}
-      Forest: ${application.forestName}
-      Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
-            'MM/DD/YYYY'
-          )}
-      End date: ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
-      Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
-      Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
-      Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
-    `,
-    html: `
-    <p><a href="${ applicationUrl}">Login and view the application.</a></p>
-    <hr />
+  ${util.userApplicationLink(application)}`;
+  },
+  html: application => {
+    return `
     <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>
@@ -77,7 +68,7 @@ module.exports = application => {
         <td class="border-bottom">${application.tempOutfitterFieldsActDescFieldsServProvided}</td>
       </tr> 
     </table>
-`
-
-  };
-};
+    <p><a href="${util.userApplicationLink(application)}">View your application</a></p>
+    `;
+  }
+}

@@ -1,19 +1,13 @@
 const moment = require('moment');
-
-const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
-module.exports = application => {
-
-  return {
-    to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `The ${application.eventName} permit application to the ${application.forestName} has been cancelled.`,
-    body: `
+module.exports = {
+  text: application => {
+    return `
       Application details
       *********************************
 
       Application identification number: ${application.applicationId}
-      Permit type: ${util.camelCaseToRegularForm(application.type)}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Forest: ${application.forestName}
       Event name: ${application.eventName}
@@ -22,12 +16,13 @@ module.exports = application => {
       Number of participants: ${application.noncommercialFieldsNumberParticipants}
       Number of spectators: ${application.noncommercialFieldsSpectatorCount}
       Location: ${application.noncommercialFieldsLocationDescription}
-
-      Go to ${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications to log in.
-    `,
-    html: `
-    <h2>Application Details</h2>
-        <table class="bordered" cellpadding="0" cellspacing="0">
+      
+      ${util.userApplicationLink(application)}`;
+  },
+  html: application => {
+    return `
+    <h2>Application details</h2>
+    <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>
         <td class="border-bottom">${application.applicationId}</td>
@@ -71,7 +66,7 @@ module.exports = application => {
         <td class="border-bottom">${application.noncommercialFieldsLocationDescription}</td>
       </tr>  
     </table>
-    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications">Log in to view pending applications</a></p>
-`
-  };
+    <p><a href="${util.userApplicationLink(application)}">View your application</a></p>
+    `;
+  }
 };

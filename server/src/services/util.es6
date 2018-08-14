@@ -419,7 +419,14 @@ util.getUserRole = adminUsername => {
 */
 util.handleErrorResponse = (error, res) => {
   if(error !== {}){
-    logger.error(`ERROR: ${error}`);
+    let inFile = '';
+    if(error.filename){
+      inFile = `in ${error.filename}`;
+      if(error.lineNumber){
+        inFile = `${inFile} at ${error.lineNumber}`;
+      }
+    }
+    logger.error(`ERROR: ${error}${inFile}`);
   }
   else {
     logger.error('ERROR: Unknown error 500');
