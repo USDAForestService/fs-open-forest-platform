@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UtilService } from '../../_services/util.service';
+import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 
 @Component({
   selector: 'app-noncommercial-learn-more',
@@ -7,7 +8,12 @@ import { UtilService } from '../../_services/util.service';
 })
 export class NoncommercialLearnMoreComponent {
   items: any;
-  constructor(public util: UtilService) {
+  forest: string;
+  constructor(
+    public util: UtilService,
+    private specialUseInfoService: SpecialUseInfoService
+  ) {
+    this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
       {
         sectionName: 'Who  has to get a permit under the regulation?',

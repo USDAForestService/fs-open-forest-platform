@@ -18,6 +18,7 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const util = require('../services/util.es6');
 const commonControllers = require('./common.es6');
 const vcapConstants = require('../vcap-constants.es6');
+const forestInfoService = require('../services/forest.service.es6');
 
 const tempOutfitter = {};
 
@@ -648,12 +649,13 @@ tempOutfitter.create = (req, res) => {
   };
   translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
-    .then(tempOutfitterApp => {
-      util.logControllerAction(req, 'tempOutfitter.Create', tempOutfitterApp);
-      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', tempOutfitterApp);
-      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', tempOutfitterApp);
-      req.body['applicationId'] = tempOutfitterApp.applicationId;
-      req.body['appControlNumber'] = tempOutfitterApp.appControlNumber;
+    .then(app => {
+      util.logControllerAction(req, 'tempOutfitter.Create', app);
+      app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', app);
+      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', app);
+      req.body['applicationId'] = app.applicationId;
+      req.body['appControlNumber'] = app.appControlNumber;
       return res.status(201).json(req.body);
     })
     .catch(error => {
@@ -728,6 +730,7 @@ tempOutfitter.update = (req, res) => {
               .then(() => {
                 util.logControllerAction(req, 'tempOutfitter.update', app);
                 commonControllers.createRevision(util.getUser(req), app);
+                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })

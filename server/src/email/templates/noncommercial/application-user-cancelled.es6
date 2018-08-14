@@ -4,9 +4,10 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `The ${application.eventName} permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    subject: `The ${application.eventName} permit application to the ${application.forestName} has been cancelled.`,
     body: `
       Application details
       *********************************
@@ -14,6 +15,7 @@ module.exports = application => {
       Application identification number: ${application.applicationId}
       Permit type: ${util.camelCaseToRegularForm(application.type)}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+      Forest: ${application.forestName}
       Event name: ${application.eventName}
       Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
       End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
@@ -35,6 +37,10 @@ module.exports = application => {
         <td class="border-bottom">
           ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
         </td>
+      </tr>
+      <tr>
+        <th scope="row" style="width: 150px;" class="border-bottom border-right">Forest</th>
+        <td class="border-bottom">${application.forestName}</td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Event name</th>

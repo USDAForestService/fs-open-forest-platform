@@ -58,7 +58,7 @@ emailTemplates.tempOutfitterApplicationAccepted = application => {
 
 emailTemplates.noncommercialApplicationCancelled = application => {
   const subject = `Your ${application.eventName} permit application to the\
-   Mt.Baker-Snoqualmie National Forest has been cancelled.`;
+   ${application.forestName} has been cancelled.`;
   return specialUseApplicationCancelled(
     application,
     defaultNoncommerialApplicationDetails,
@@ -67,7 +67,7 @@ emailTemplates.noncommercialApplicationCancelled = application => {
 };
 
 emailTemplates.tempOutfitterApplicationCancelled = application => {
-  const subject = 'Your following permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.';
+  const subject = `Your permit application to the ${application.forestName} has been cancelled.`;
   return specialUseApplicationCancelled(application,
     defaultTempApplicationDetails,
     subject

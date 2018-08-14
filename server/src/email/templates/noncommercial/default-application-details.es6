@@ -9,6 +9,7 @@ module.exports = {
 
       Application identification number: ${application.applicationId}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+      Forest: ${application.forestName}
       Event name: ${application.eventName}
       Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
       End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
@@ -31,6 +32,10 @@ module.exports = {
         <td class="border-bottom">
           ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
         </td>
+      </tr>
+      <tr>
+        <th scope="row" style="width: 150px;" class="border-bottom border-right">Forest</th>
+        <td class="border-bottom">${application.forestName}</td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Event name</th>

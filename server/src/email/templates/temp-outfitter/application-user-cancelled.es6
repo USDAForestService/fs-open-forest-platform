@@ -7,7 +7,7 @@ module.exports = application => {
 
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `The following permit application from ${businessName} to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    subject: `The following permit application from ${businessName} to the ${application.forestName} has been cancelled.`,
     body: `
       Application details
       *********************************
@@ -16,6 +16,7 @@ module.exports = application => {
       Permit type: ${util.camelCaseToRegularForm(application.type)}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Business name: ${application.applicantInfoOrganizationName}
+      Forest: ${application.forestName}
       Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
             'MM/DD/YYYY hh:mm a'
           )}
@@ -26,7 +27,7 @@ module.exports = application => {
       Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
       Services: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-      Go to ${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications to log in.
+            Go to ${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications to log in.
     `,
     html: `
       <h2>Application Details</h2>

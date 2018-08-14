@@ -10,6 +10,7 @@ module.exports = {
   Application identification number: ${application.applicationId}
   Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
   Business name: ${application.applicantInfoOrganizationName}
+  Forest: ${application.forestName}
   Start date: ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format(
         'MM/DD/YYYY hh:mm a'
       )}
@@ -37,6 +38,10 @@ module.exports = {
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Business name</th>
         <td class="border-bottom">${application.applicantInfoOrganizationName}</td>
+      </tr>
+      <tr>
+        <th scope="row" style="width: 150px;" class="border-bottom border-right">Forest</th>
+        <td class="border-bottom">${application.forestName}</td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Start date</th>

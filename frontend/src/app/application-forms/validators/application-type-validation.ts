@@ -1,7 +1,7 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 
 export function applicationTypeValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
+  return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val && val.length) {
       const types = ['tempOutfitters', 'noncommercial'];

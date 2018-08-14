@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 
 @Component({
   selector: 'app-application-noncommercial-group',
@@ -17,7 +18,7 @@ import { AuthenticationService } from '../../_services/authentication.service';
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
   application: any = {};
-  forest = 'Mt. Baker-Snoqualmie National Forest';
+  forest = this.specialUseInfoService.getOne('0605');
   mode = 'Observable';
   primaryPermitHolderSameAddress = true;
   secondaryPermitHolderSameAddress = true;
@@ -37,6 +38,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
 
   constructor(
     private alertService: AlertService,
+    private specialUseInfoService: SpecialUseInfoService,
     private applicationService: ApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private authentication: AuthenticationService,

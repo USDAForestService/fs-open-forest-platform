@@ -15,7 +15,6 @@ module.exports = (application, defaultApplicationDetails) => {
 
       ${defaultApplicationDetails.text(application)}
 
-
       What happens next?
       *********************************
 

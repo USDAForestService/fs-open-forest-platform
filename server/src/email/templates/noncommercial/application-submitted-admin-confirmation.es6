@@ -11,24 +11,25 @@ module.exports = application => {
     subject: `A new permit application with a start date of ${moment(
       application.noncommercialFieldsStartDateTime,
       util.datetimeFormat
-    ).format('MM/DD/YYYY')} has been submitted to the Mt. Baker-Snoqualmie National Forest.`,
+    ).format('MM/DD/YYYY')} has been submitted to the ${application.forestName}.`,
     body: `
-Go to ${applicationUrl} to log in and view the application.
-**************************************
+      Go to ${applicationUrl} to log in and view the application.
+      **************************************
 
-Application details
-**************************************
+      Application details
+      **************************************
 
-Application identification number: ${application.applicationId}
-Permit type:  ${util.camelCaseToRegularForm(application.type)}
-Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
-Event name: ${application.eventName}
-Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
-Number of participants: ${application.noncommercialFieldsNumberParticipants}
-Number of spectators: ${application.noncommercialFieldsSpectatorCount}
-Location: ${application.noncommercialFieldsLocationDescription}
-`, 
+      Application identification number: ${application.applicationId}
+      Permit type:  ${util.camelCaseToRegularForm(application.type)}
+      Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+      Forest: ${application.forestName}
+      Event name: ${application.eventName}
+      Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+      End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+      Number of participants: ${application.noncommercialFieldsNumberParticipants}
+      Number of spectators: ${application.noncommercialFieldsSpectatorCount}
+      Location: ${application.noncommercialFieldsLocationDescription}
+    `, 
     html: `
     <p><a href="${ applicationUrl }">Login and view the application.</a></p>
     <hr />
@@ -42,6 +43,10 @@ Location: ${application.noncommercialFieldsLocationDescription}
         <td class="border-bottom">
           ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
         </td>
+      </tr>
+      <tr>        
+        <th scope="row" style="width: 150px;" class="border-bottom border-right">Forest</th>
+        <td class="border-bottom">${application.forestName}</td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Event name</th>
