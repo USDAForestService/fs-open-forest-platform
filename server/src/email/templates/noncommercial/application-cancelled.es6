@@ -6,13 +6,14 @@ module.exports = application => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: `Your ${application.eventName} permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    subject: `Your ${application.eventName} permit application to the ${application.forestName} has been cancelled.`,
     body: `
 Application details
 *********************************
 
 Application identification number: ${application.applicationId}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+Forest: ${application.forestName}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}

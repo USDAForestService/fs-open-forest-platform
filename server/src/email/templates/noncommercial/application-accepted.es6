@@ -13,7 +13,7 @@ module.exports = application => {
 Permit application status update
 *********************************
 
-The permit application listed below has passed a preliminary review! An administrator will now do a more in-depth review and may be contacting you to get any additional details or documents needed.
+The permit application listed below has passed a preliminary review for the ${application.forestName}! An administrator will now do a more in-depth review and may be contacting you to get any additional details or documents needed.
 
 Then, if your application is approved, you will receive your permit within 2 weeks of approval.
 
@@ -25,6 +25,7 @@ Application details
 
 Application identification number: ${application.applicationId}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+Forest: ${application.forestName}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}

@@ -9,6 +9,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -19,7 +20,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   application: any;
   applicationId: number;
   currentSection: any;
-  forest = 'Mt. Baker-Snoqualmie National Forest';
+  forest = this.specialUseInfoService.getOne('0605');
   mode = 'Observable';
   submitted = false;
   uploadFiles = false;
@@ -53,7 +54,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
     public renderer: Renderer2,
-    public fileUploadService: FileUploadService
+    public fileUploadService: FileUploadService,
+    private specialUseInfoService: SpecialUseInfoService
   ) {
     this.applicationForm = this.formBuilder.group({
       appControlNumber: ['', [Validators.maxLength(255)]],

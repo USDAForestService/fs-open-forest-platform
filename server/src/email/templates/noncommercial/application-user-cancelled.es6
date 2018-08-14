@@ -4,9 +4,10 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
+
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `The ${application.eventName} permit application to the Mt. Baker-Snoqualmie National Forest has been cancelled.`,
+    subject: `The ${application.eventName} permit application to the ${application.forestName} has been cancelled.`,
     body: `
 Application details
 *********************************

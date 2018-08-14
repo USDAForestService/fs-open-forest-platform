@@ -3,9 +3,10 @@ const util = require('../../../services/util.es6');
 const vcapConstants = require('../../../vcap-constants.es6');
 
 module.exports = application => {
+
   return {
     to: application.applicantInfoEmailAddress,
-    subject: `An update on your recent permit application to the Forest Service.`,
+    subject: 'An update on your recent permit application to the Forest Service.',
     body: `
 Permit application status update
 *********************************
@@ -22,6 +23,7 @@ Application details
 
 Application identification number: ${application.applicationId}
 Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
+Forest: ${application.forestName}
 Event name: ${application.eventName}
 Start date: ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
 End date: ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}

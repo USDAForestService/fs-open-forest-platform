@@ -1,7 +1,7 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 
 export function urlValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
+  return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val && val.length) {
       const urlRegex = /^(https?:\/\/)?\S+(\.\S+)+/;
