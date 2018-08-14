@@ -6,7 +6,7 @@ const defaultTempApplicationDetails = require('./templates/temp-outfitter/defaul
 const specialUseSubmittedConfirm = require('./templates/special-use-common/application-submitted-confirmation.es6');
 
 const noncommercialSubmittedAdminConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
-const tempOutfitterSubmittedAdminConfirm = require('./templates/temp-outfitter/application-submitted-admin-confirmation.es6');
+const tempSubmittedAdminConfirm = require('./templates/temp-outfitter/application-submitted-admin-confirmation.es6');
 
 const specialUseApplicationAccepted = require('./templates/special-use-common/application-accepted.es6');
 const specialUseApplicationCancelled = require('./templates/special-use-common/application-cancelled.es6');
@@ -46,7 +46,7 @@ emailTemplates.noncommercialApplicationSubmittedAdminConfirmation = application 
 };
 
 emailTemplates.tempOutfitterApplicationSubmittedAdminConfirmation = application => {
-  return tempOutfitterSubmittedAdminConfirm(application);
+  return tempSubmittedAdminConfirm(application);
 };
 
 emailTemplates.noncommercialApplicationAccepted = application => {
