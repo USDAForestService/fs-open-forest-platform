@@ -83,18 +83,14 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
  */
 emailUtil.sendEmail = (templateName, data, attachments = []) => {
   if (emailTemplates[templateName]) {
-    data.attachments = attachments.concat(htmlTemplate.attachments);
+    const emailAttachments = attachments.concat(htmlTemplate.attachments);
     const template = emailTemplates[templateName](data);
     let html;
-    let templateAttachments;
     if (template.html) {
       html = htmlTemplate.forestService(template.html,template.subject);
       html = juice(html);
     }
-    if (template.attachments) {
-      templateAttachments = template.attachments;
-    }
-    emailUtil.send(template.to, template.subject, template.body, html, templateAttachments);
+    emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
   }
 };
 
