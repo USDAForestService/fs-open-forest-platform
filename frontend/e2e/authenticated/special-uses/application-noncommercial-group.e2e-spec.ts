@@ -158,4 +158,35 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('submit-application')).click();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
   });
+
+  it('should show a warning with less than 75 participants', () => {
+    page.navigateTo();
+    const ec = protractor.ExpectedConditions;
+    browser.wait(ec.presenceOf(element(by.id('organization-label'))));
+    element(by.id('organization-label')).click();
+    element(by.id('participants')).sendKeys('0');
+    element(by.id('spectators')).sendKeys('0');
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    element(by.id('participants')).clear().then(function() {
+      element(by.id('participants')).sendKeys('5');
+    });
+    element(by.id('spectators')).clear().then(function() {
+      element(by.id('spectators')).sendKeys('0');
+    });
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    element(by.id('participants')).clear().then(function() {
+      element(by.id('participants')).sendKeys('5');
+    });
+    element(by.id('spectators')).clear().then(function() {
+      element(by.id('spectators')).sendKeys('5');
+    });
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    element(by.id('participants')).clear().then(function() {
+      element(by.id('participants')).sendKeys('50');
+    });
+    element(by.id('spectators')).clear().then(function() {
+      element(by.id('spectators')).sendKeys('100');
+    });
+    expect<any>(element(by.id('total-attendees-error')).isPresent()).toBeFalsy();
+  });
 });

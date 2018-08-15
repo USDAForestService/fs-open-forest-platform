@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { isNumeric } from 'rxjs/util/isNumeric';
 
 @Component({
   selector: 'app-noncommercial-fields',
@@ -57,7 +58,7 @@ export class NoncommercialFieldsComponent implements OnInit {
     const numberParticipants = group.controls.numberParticipants;
     const totalAttendees = numberSpectators.value + numberParticipants.value;
 
-    if (numberParticipants.value && numberSpectators.value && totalAttendees < 75) {
+    if (isNumeric(numberParticipants.value) && isNumeric(numberSpectators.value) && totalAttendees < 75) {
       return { notEnoughAttendees: true };
     }
     return null;
