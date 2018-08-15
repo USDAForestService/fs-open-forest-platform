@@ -11,11 +11,8 @@ RUN mkdir -p /node
 COPY ./server/package.json /node
 WORKDIR /node
 
-# install the latest version of yarn
-RUN npm install yarn -g
-
-# run yarn to get all dependencies
-RUN yarn
+# install server dependencies
+RUN npm install
 
 # change the node path env var to the new node_modules directory
 # and add the new node .bin to the path

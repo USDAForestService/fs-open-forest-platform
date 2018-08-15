@@ -6,8 +6,6 @@ RUN sudo mkdir -p /node
 COPY ./frontend/package.json /node
 WORKDIR /node
 
-# install the latest version of yarn
-RUN sudo npm install yarn -g
 
 # install http server to serve the static files
 RUN sudo npm install -g superstatic
@@ -26,16 +24,16 @@ WORKDIR /app
 COPY ./frontend /app
 
 # install dependencies
-RUN sudo yarn
+RUN npm install
 # install node-sass to fix error
-RUN sudo yarn add node-sass
+RUN npm install node-sass
 
 # Make port 4200 available to the world outside this container
 EXPOSE 4200
 
 # startup the angular server when the container launches
 # build static files
-RUN sudo yarn run build
+RUN sudo npm run build
 
 # start server to serve static files at port 4200
 CMD ["superstatic", "dist/", "-c", "superstatic.json", "--port", "4200", "--host", "0.0.0.0"]
