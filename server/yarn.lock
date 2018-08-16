@@ -3853,9 +3853,9 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-openid-client@^2.1.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-2.2.1.tgz#8052a7616f1dc28bc72de5b67e51adfbdec34ec6"
+openid-client@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/openid-client/-/openid-client-2.3.0.tgz#7ca548beed82887096b781942f14417a0f5603bc"
   dependencies:
     base64url "^3.0.0"
     got "^8.3.1"

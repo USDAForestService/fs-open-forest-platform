@@ -16,6 +16,7 @@ RUN npm install
 
 # change the node path env var to the new node_modules directory
 # and add the new node .bin to the path
+USER node
 ENV NODE_PATH=/node/node_modules
 ENV PATH=/node/node_modules/.bin:$PATH
 

@@ -21,6 +21,7 @@ ENV PATH=/node/node_modules/.bin:$PATH
 WORKDIR /app
 
 # copy all files from frontend to app
+USER node
 COPY ./frontend /app
 
 # install dependencies

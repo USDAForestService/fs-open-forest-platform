@@ -14,6 +14,7 @@ RUN google-chrome --version
 # create a top level node directory and copy the frontend package.json
 # into it
 # set the work dir to /node
+USER node
 RUN sudo mkdir -p /node
 COPY ./frontend/package.json /node
 WORKDIR /node
