@@ -59,7 +59,10 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - ./*
+            - ./frontend/*
+            - ./server/*
+            - ./codeclimate.yml
+            - ./codecov.yml
           
   run-all-other-tests:
     <<: *docker_image_browser
@@ -70,7 +73,7 @@ jobs:
           name: Frontend - lint
           command: |
             cd frontend
-            yarn run lint
+            npm run lint
       - run:
           name: Frontend - snyk dependency scan
           command: |
@@ -79,7 +82,7 @@ jobs:
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
             cd frontend
-            yarn run snyk-test # For Human
+            npm run snyk-test # For Human
       - run:
           name: Server - lint
           command: |
@@ -153,9 +156,7 @@ jobs:
           at: .
       - run:
           name: install pa11y
-          command:  |
-            cd frontend
-            npm i -g pa11y-ci
+          command: sudo npm i -g pa11y-ci
       - run: *populate_server
       - run:
           name: pa11y test
@@ -349,13 +350,17 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      # - run-all-other-tests
-      # - run-e2e
       - build-for-tests
-      - build-docker
+      - run-all-other-tests:
+          requires:
+            - build-for-tests
+      - run-e2e:
+          requires:
+            - build-for-tests
       - run-pa11y:
           requires:
             - build-for-tests
+      - build-docker
       # - build-docker:
       #     filters:
       #       branches:
