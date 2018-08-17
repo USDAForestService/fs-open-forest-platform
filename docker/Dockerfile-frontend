@@ -17,7 +17,7 @@ WORKDIR /usr/src/app
 COPY ./frontend/package.json /usr/src/app/package.json
 USER root
 RUN npm install
-RUN sudo npm install -g @angular/cli@1.7.1
+RUN npm install -g @angular/cli@6.0.8
 
 # add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
