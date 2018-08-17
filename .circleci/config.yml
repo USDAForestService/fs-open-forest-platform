@@ -355,16 +355,11 @@ workflows:
     jobs:
       - run-all-other-tests
       - run-e2e
-      - build-docker
+      - build-docker:
+          filters:
+            branches:
+              only: dev
       - run-pa11y
-      # - build-docker:
-      #     filters:
-      #       branches:
-      #         only: dev
-      # - run-pa11y:
-      #     filters:
-      #       branches:
-      #         only: dev
       - staging-deploy:
           requires:
             - run-all-other-tests
