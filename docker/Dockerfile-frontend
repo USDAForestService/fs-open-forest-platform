@@ -1,6 +1,6 @@
 # Use node 8.11.3 as the base image
-USER root
 FROM circleci/node:8.11.3
+USER root
 
 RUN sudo apt-get update \
     && sudo apt-get install lsb-release libappindicator3-1 curl libasound2 libnspr4 libnss3 libxss1 xdg-utils fonts-liberation \
