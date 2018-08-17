@@ -59,7 +59,7 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   * @param advertControls  Form group to be validated
   * @returns      css class
   */
-  getAdvertStatus(advertControls, errors) {
+  getAdvertStatus(advertControls) {
     if (this.getControlStatus(advertControls.advertisingURL) === 'ng-valid') {
       return true;
     }
