@@ -55,6 +55,21 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+  * @param advertControls  Form group to be validated
+  * @returns      css class
+  */
+  getAdvertStatus(advertControls, errors) {
+    if (this.getControlStatus(advertControls.advertisingURL) === 'ng-valid') {
+      return true;
+    }
+    if (this.getControlStatus(advertControls.advertisingDescription) === 'ng-valid' &&
+      !(this.getControlStatus(advertControls.advertisingURL) === 'ng-invalid')) {  // as long as url is not bad
+        return true;
+      }
+    return false;
+  }
+
   @HostListener('document:scroll', ['$event'])
   public track(event: Event) {
     const nav = document.getElementById('sidebar-nav');
