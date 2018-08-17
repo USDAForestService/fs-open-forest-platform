@@ -119,8 +119,13 @@ jobs:
     <<: *docker_image_browser
     parallelism: 4
     steps:
-      - attach_workspace:
-          at: .
+      - checkout
+      - restore_cache:
+          keys:
+          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - fs-epermit-deps-
+      - run: *install_dependencies
       - run:
           name: Install latest chrome
           command: |
@@ -131,6 +136,14 @@ jobs:
             sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
             rm google-chrome.deb
             google-chrome --version
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - run:
+          name: Copy shared assets from frontend into server
+          command: cd server; ./copy-frontend-assets.sh
       - run: *populate_server
       - run:
           name: Run authenicated e2e tests
@@ -149,7 +162,7 @@ jobs:
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
-
+          
   run-pa11y:
     <<: *docker_image_browser
     steps:
@@ -159,7 +172,8 @@ jobs:
           name: install pa11y
           command: |
             cd frontend
-            npm install -g pa11y-ci
+            sudo npm install -g pa11y-ci
+            npm i
       - run: *populate_server
       - run:
           name: pa11y test
@@ -374,8 +388,8 @@ workflows:
       #         only: dev
       - staging-deploy:
           requires:
-            # - run-all-other-tests
-            # - run-e2e
+            - run-all-other-tests
+            - run-e2e
             - run-pa11y
             - build-docker
           filters:
@@ -383,8 +397,8 @@ workflows:
               only: dev
       - prod-deploy:
           requires:
-            # - run-all-other-tests
-            # - run-e2e
+            - run-all-other-tests
+            - run-e2e
             - run-pa11y
           filters:
             branches:
