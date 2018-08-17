@@ -399,8 +399,8 @@ workflows:
       #         only: dev
       - staging-deploy:
           requires:
-            - run-all-other-tests
-            - run-e2e
+            # - run-all-other-tests
+            # - run-e2e
             - run-pa11y
             - build-docker
           filters:
@@ -408,8 +408,8 @@ workflows:
               only: dev
       - prod-deploy:
           requires:
-            - run-all-other-tests
-            - run-e2e
+            # - run-all-other-tests
+            # - run-e2e
             - run-pa11y
           filters:
             branches:
