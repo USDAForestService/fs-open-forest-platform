@@ -2,19 +2,12 @@
 FROM circleci/node:8.11.3-browsers
 
 # set the work dir to /node
-RUN sudo mkdir -p /node
-COPY ./frontend/package.json /node
-WORKDIR /node
+WORKDIR /usr/src/app
+COPY ./frontend/package*.json /
 
 
 # install http server to serve the static files
 RUN sudo npm install -g superstatic
-
-
-# change the node path env var to the new node_modules directory
-# and add the new node .bin to the path
-ENV NODE_PATH=/node/node_modules
-ENV PATH=/node/node_modules/.bin:$PATH
 
 # set the workdir as the /app directory
 # this dir is mapped to the frontend directory in the cloned repo
@@ -33,7 +26,7 @@ EXPOSE 4200
 
 # startup the angular server when the container launches
 # build static files
-RUN sudo npm run build
+RUN npm run build
 
 # start server to serve static files at port 4200
 CMD ["superstatic", "dist/", "-c", "superstatic.json", "--port", "4200", "--host", "0.0.0.0"]

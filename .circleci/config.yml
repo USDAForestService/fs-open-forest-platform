@@ -35,7 +35,7 @@ _run:
 
 version: 2
 jobs:
-  run-all-other-tests:
+  build-for-tests:
     <<: *docker_image_browser
     steps:
       - checkout
@@ -46,10 +46,35 @@ jobs:
           - fs-epermit-deps-
       - run: *install_dependencies
       - run:
+          name: Install sequelize
+          command: sudo npm install -g sequelize-cli
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+            - ./server/node_modules
+          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - run:
+          name: Copy shared assets from frontend into server
+          command: cd server; ./copy-frontend-assets.sh
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./frontend/*
+            - ./server/*
+            - ./.circleci/*
+            - ./codeclimate.yml
+            - ./codecov.yml
+          
+  run-all-other-tests:
+    <<: *docker_image_browser
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
           name: Frontend - lint
           command: |
             cd frontend
-            yarn run lint
+            npm run lint
       - run:
           name: Frontend - snyk dependency scan
           command: |
@@ -58,16 +83,7 @@ jobs:
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
             cd frontend
-            yarn run snyk-test # For Human
-      - run:
-          name: Install sequelize
-          command: yarn global add sequelize-cli
-
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+            npm run snyk-test # For Human
       - run:
           name: Server - lint
           command: |
@@ -81,9 +97,6 @@ jobs:
             cd server
             yarn run snyk-protect
             yarn run snyk-test
-      - run:
-          name: Copy shared assets from frontend into serverr
-          command: cd server; ./copy-frontend-assets.sh
       - run:
           name: Frontend - unit tests
           command: |
@@ -123,7 +136,6 @@ jobs:
             sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
             rm google-chrome.deb
             google-chrome --version
-
       - save_cache:
           paths:
             - ./frontend/node_modules
@@ -150,44 +162,22 @@ jobs:
       - store_artifacts:
           path: frontend/e2e-test-results
           prefix: e2e-results
-
+          
   run-pa11y:
-    machine: true
+    <<: *docker_image_browser
     steps:
-      - checkout
-      - run:
-          name: Install node@8.11.3
-          command: |
-            set +e
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v8.11.3
-            nvm alias default v8.11.3
-
-            # Each step uses the same `$BASH_ENV`, so need to modify it
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
-      - restore_cache:
-          keys:
-          - fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-pa11y-deps-
+      - attach_workspace:
+          at: .
       - run:
           name: install pa11y
-          command:  |
+          command: |
             cd frontend
-            npm i -g pa11y-ci
+            sudo npm install -g pa11y-ci
             npm i
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./opt/circleci/.nvm/versions/node/v8.11.3/bin/
-          key: fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
+      - run: *populate_server
       - run:
           name: pa11y test
           command: |
-            cd docker
             ../.circleci/pa11y.sh
 
   build-docker:
@@ -198,18 +188,10 @@ jobs:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
       - run:
-          name: build docker compose images
-          command: cd docker; ../.circleci/build-docker-images.sh
-      - run:
-          name: install dependencies
-          command: |
-            cd docker
-            ../.circleci/install-dependencies-docker.sh
-      - run:
           name: docker e2e smoke screen test
           command: |
             cd docker
-            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr
+            docker-compose run fs-intake-frontend npm run e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
@@ -385,16 +367,23 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - run-all-other-tests
       - run-e2e
-      - build-docker:
-          filters:
-            branches:
-              only: dev
+      - build-for-tests
+      - run-all-other-tests:
+          requires:
+            - build-for-tests
       - run-pa11y:
-          filters:
-            branches:
-              only: dev
+          requires:
+            - build-for-tests
+      - build-docker
+      # - build-docker:
+      #     filters:
+      #       branches:
+      #         only: dev
+      # - run-pa11y:
+      #     filters:
+      #       branches:
+      #         only: dev
       - staging-deploy:
           requires:
             - run-all-other-tests
