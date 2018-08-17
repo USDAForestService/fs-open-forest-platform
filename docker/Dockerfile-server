@@ -39,9 +39,6 @@ ENV PLATFORM=$PLATFORM
 ENV DATABASE_URL=postgresql://postgres:postgres@fs-intake-postgres:5432/postgres
 ENV SNYK_TOKEN=$SNYK_TOKEN
 
-# symlink the node_modules directory into the app dir
-RUN ln -s /node/node_modules /app/node_modules
-
 # startup node with app.es6 when the container launches
 #CMD ["/node/node_modules/.bin/nodemon", "--harmony_default_parameters", "app.es6"]
 CMD ["./server-setup.sh"]
