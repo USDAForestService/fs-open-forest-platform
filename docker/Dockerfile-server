@@ -1,36 +1,26 @@
 # Use node 8.11.3 as the base image
 FROM node:8.11.3
 
-USER root
 # Set the environment switch for scripts
 ENV FS_DOCKER=true
 
-# create a top level node directory and copy the server package.json
-# into it
-# set the work dir to /node
-RUN mkdir -p /node
-COPY ./server/package.json /node
-WORKDIR /node
-
 # Add Arial for docker images
-
-RUN apt-get update && apt-get -y install cabextract xfonts-utils #Required for mscorefonts
+RUN sudo apt-get update && apt-get -y install cabextract xfonts-utils #Required for mscorefonts
 RUN wget http://ftp.us.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
 RUN dpkg -i ttf-mscorefonts-installer_3.6_all.deb
 RUN fc-cache
 
-# install server dependencies
-USER node
-RUN npm install
+# create a top level node directory and copy the server package.json
 
-# change the node path env var to the new node_modules directory
-# and add the new node .bin to the path
-ENV NODE_PATH=/node/node_modules
-ENV PATH=/node/node_modules/.bin:$PATH
+WORKDIR /usr/src/app
+COPY ./server/package*.json ./
+COPY ./server .
+
+# install server dependencies
+RUN npm install
 
 # set the workdir as the /app directory
 # this dir is mapped to the server directory in the cloned repo
-WORKDIR /app
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
