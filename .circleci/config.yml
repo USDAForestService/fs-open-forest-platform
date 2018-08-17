@@ -197,14 +197,14 @@ jobs:
       - run:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
-      - run:
-          name: build docker compose images
-          command: cd docker; ../.circleci/build-docker-images.sh
-      - run:
-          name: install dependencies
-          command: |
-            cd docker
-            ../.circleci/install-dependencies-docker.sh
+      # - run:
+      #     name: build docker compose images
+      #     command: cd docker; ../.circleci/build-docker-images.sh
+      # - run:
+      #     name: install dependencies
+      #     command: |
+      #       cd docker
+      #       ../.circleci/install-dependencies-docker.sh
       - run:
           name: docker e2e smoke screen test
           command: |
