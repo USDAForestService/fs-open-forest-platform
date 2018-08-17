@@ -5,7 +5,7 @@ FROM node:8.11.3
 ENV FS_DOCKER=true
 
 # Add Arial for docker images
-RUN sudo apt-get update && apt-get -y install cabextract xfonts-utils #Required for mscorefonts
+RUN apt-get update && apt-get -y install cabextract xfonts-utils #Required for mscorefonts
 RUN wget http://ftp.us.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
 RUN dpkg -i ttf-mscorefonts-installer_3.6_all.deb
 RUN fc-cache
