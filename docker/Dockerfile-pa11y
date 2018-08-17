@@ -7,7 +7,7 @@ COPY ./frontend/package*.json /
 
 
 # install http server to serve the static files
-RUN npm install -g superstatic
+RUN sudo npm install -g superstatic
 
 # set the workdir as the /app directory
 # this dir is mapped to the frontend directory in the cloned repo
