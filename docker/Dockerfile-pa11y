@@ -17,6 +17,7 @@ WORKDIR /app
 COPY ./frontend /app
 
 # install dependencies
+USER root
 RUN npm install
 # install node-sass to fix error
 RUN npm install node-sass
