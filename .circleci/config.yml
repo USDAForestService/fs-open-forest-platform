@@ -385,8 +385,8 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - run-all-other-tests
-      - run-e2e
+      # - run-all-other-tests
+      # - run-e2e
       - build-docker
       - run-pa11y
       # - build-docker:
