@@ -1,10 +1,12 @@
 # Use node 8.11.3 as the base image
 FROM circleci/node:8.11.3
 
-# install chrome for protractor tests
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-RUN apt-get update && apt-get install -yq google-chrome-stable
+RUN sudo apt-get update \
+    && sudo apt-get install lsb-release libappindicator3-1 curl libasound2 libnspr4 libnss3 libxss1 xdg-utils fonts-liberation \
+    && sudo curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && sudo dpkg -i google-chrome.deb \
+    && sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome \
+    && sudo rm google-chrome.deb
 
 RUN google-chrome --version 
 
