@@ -352,7 +352,9 @@ workflows:
       # - run-all-other-tests
       # - run-e2e
       - build-docker
-      - run-pa11y
+      - run-pa11y:
+          requires:
+            - build-for-tests
       # - build-docker:
       #     filters:
       #       branches:
