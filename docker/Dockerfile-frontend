@@ -15,19 +15,13 @@ RUN google-chrome --version
 # create a top level node directory and copy the frontend package.json
 # into it
 # set the work dir to /node
-USER node
-RUN sudo mkdir -p /node
-COPY ./frontend/package*.json /node
-WORKDIR /node
+WORKDIR /usr/src/app
+COPY ./frontend/package*.json ./
+COPY ./frontend .
 
 
 # run npm to get all dependencies
 RUN npm install
-
-# change the node path env var to the new node_modules directory
-# and add the new node .bin to the path
-ENV NODE_PATH=/node/node_modules
-ENV PATH=/node/node_modules/.bin:$PATH
 
 # set the workdir as the /app directory
 # this dir is mapped to the frontend directory in the cloned repo
@@ -36,11 +30,11 @@ WORKDIR /app
 # Make port 4200 available to the world outside this container
 EXPOSE 4200
 
-# create a symlink to the new node_modules in the app dir
-# so that angular can find the node modules
-# angular-cli won't use the NODE_PATH for node package lookup
-# https://github.com/angular/angular-cli/issues/3864
-RUN sudo ln -s /node/node_modules /app/node_modules
+# # create a symlink to the new node_modules in the app dir
+# # so that angular can find the node modules
+# # angular-cli won't use the NODE_PATH for node package lookup
+# # https://github.com/angular/angular-cli/issues/3864
+# RUN sudo ln -s /node/node_modules /app/node_modules
 
 # startup the angular server when the container launches
 # ensure a host of 0.0.0.0 so that port forwarding works correctly
