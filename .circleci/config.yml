@@ -47,7 +47,7 @@ jobs:
       - run: *install_dependencies
       - run:
           name: Install sequelize
-          command: npm install -g sequelize-cli
+          command: sudo npm install -g sequelize-cli
       - save_cache:
           paths:
             - ./frontend/node_modules
