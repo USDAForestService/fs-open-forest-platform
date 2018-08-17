@@ -13,13 +13,14 @@ RUN google-chrome --version
 # set working directory
 WORKDIR /usr/src/app
 
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
 # install and cache app dependencies
 COPY ./frontend/package.json /usr/src/app/package.json
+USER root
 RUN npm install
 RUN sudo npm install -g @angular/cli@1.7.1
+
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # add app
 COPY ./frontend /usr/src/app

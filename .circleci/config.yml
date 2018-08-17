@@ -61,6 +61,7 @@ jobs:
           paths:
             - ./frontend/*
             - ./server/*
+            - ./circleci/*
             - ./codeclimate.yml
             - ./codecov.yml
           
@@ -156,7 +157,9 @@ jobs:
           at: .
       - run:
           name: install pa11y
-          command: sudo npm i -g pa11y-ci
+          command: |
+            sudo npm install -g puppeteer --unsafe-perm=true
+            sudo npm install -g pa11y-ci
       - run: *populate_server
       - run:
           name: pa11y test
