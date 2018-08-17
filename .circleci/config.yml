@@ -209,7 +209,7 @@ jobs:
           name: docker e2e smoke screen test
           command: |
             cd docker
-            docker-compose up fs-intake-frontend --build-arg PLATFORM='local' --build-arg AWS_CONFIG="$AWS_CONFIG" sudo yarn e2e:cidkr
+            docker-compose up fs-intake-frontend sudo yarn e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
