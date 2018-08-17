@@ -387,7 +387,7 @@ workflows:
     jobs:
       - run-all-other-tests
       - run-e2e
-      - build-deploy
+      - build-docker
       - run-pa11y
       # - build-docker:
       #     filters:
