@@ -351,6 +351,7 @@ workflows:
     jobs:
       # - run-all-other-tests
       # - run-e2e
+      - build-for-tests
       - build-docker
       - run-pa11y:
           requires:
