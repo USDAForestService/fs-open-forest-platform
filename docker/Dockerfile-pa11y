@@ -1,6 +1,7 @@
 # Use node 8.11.3 as the base image
 FROM circleci/node:8.11.3-browsers
 
+USER root
 # set the work dir to /node
 RUN sudo mkdir -p /node
 COPY ./frontend/package.json /node

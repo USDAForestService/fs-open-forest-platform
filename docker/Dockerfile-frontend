@@ -1,4 +1,5 @@
 # Use node 8.11.3 as the base image
+USER root
 FROM circleci/node:8.11.3
 
 RUN sudo apt-get update \
