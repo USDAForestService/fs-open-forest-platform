@@ -23,6 +23,7 @@ COPY ./frontend .
 # run npm to get all dependencies
 RUN npm install
 
+
 # set the workdir as the /app directory
 # this dir is mapped to the frontend directory in the cloned repo
 WORKDIR /app
@@ -38,4 +39,4 @@ EXPOSE 4200
 
 # startup the angular server when the container launches
 # ensure a host of 0.0.0.0 so that port forwarding works correctly
-CMD ["/node/node_modules/.bin/ng", "serve", "--host", "0.0.0.0"]
+CMD ["/app/node_modules/.bin/ng", "serve", "--host", "0.0.0.0"]

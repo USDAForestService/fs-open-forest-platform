@@ -9,7 +9,7 @@ WORKDIR /node
 
 
 # install http server to serve the static files
-RUN sudo npm install -g superstatic
+RUN npm install -g superstatic
 
 
 # change the node path env var to the new node_modules directory
