@@ -10,36 +10,20 @@ RUN sudo apt-get update \
 
 RUN google-chrome --version 
 
+# set working directory
+WORKDIR /usr/src/app
 
-# create a top level node directory and copy the frontend package.json
-# into it
-# set the work dir to /node
-RUN sudo mkdir -p /node
-COPY ./frontend/package.json /node
-WORKDIR /node
-
-
-# run npm to get all dependencies
+# install and cache app dependencies
+COPY ./frontend/package.json /usr/src/app/package.json
+USER root
 RUN npm install
+RUN npm install -g @angular/cli@6.0.8
 
-# change the node path env var to the new node_modules directory
-# and add the new node .bin to the path
-ENV NODE_PATH=/node/node_modules
-ENV PATH=/node/node_modules/.bin:$PATH
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
-# set the workdir as the /app directory
-# this dir is mapped to the frontend directory in the cloned repo
-WORKDIR /app
+# add app
+COPY ./frontend /usr/src/app
 
-# Make port 4200 available to the world outside this container
-EXPOSE 4200
-
-# create a symlink to the new node_modules in the app dir
-# so that angular can find the node modules
-# angular-cli won't use the NODE_PATH for node package lookup
-# https://github.com/angular/angular-cli/issues/3864
-RUN sudo ln -s /node/node_modules /app/node_modules
-
-# startup the angular server when the container launches
-# ensure a host of 0.0.0.0 so that port forwarding works correctly
-CMD ["/node/node_modules/.bin/ng", "serve", "--host", "0.0.0.0"]
+# start app
+CMD ng serve --host 0.0.0.0
