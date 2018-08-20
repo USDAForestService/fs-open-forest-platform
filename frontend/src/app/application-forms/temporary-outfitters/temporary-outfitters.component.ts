@@ -145,8 +145,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
-        this.orgTypeFileUpload = false;
-        this.applicationFieldsService.updateValidators(gse, false);
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
         this.applicationFieldsService.updateValidators(orgName, false, 255);
         break;
       case 'Corporation':
