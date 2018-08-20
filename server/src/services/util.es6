@@ -346,7 +346,7 @@ util.businessNameElsePersonalName = application => {
  * @param {Object} application - application object
  * @return {string} - application url
  */
-util.userApplicationLink = (application, plainOrHTML) => {
+util.userApplicationLink = (application, plainText) => {
   const applicationType = application.type;
   const applicationID = application.appControlNumber;
   const applicationStatus = application.status;
@@ -371,13 +371,14 @@ util.userApplicationLink = (application, plainOrHTML) => {
   case 'Submitted':
     status = 'submitted application';
   }
-
-  const text = `You can view your ${status} here:`;
-  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
-  if (plainOrHTML == 'text'){
-    return `${text} ${url}`;
+  let text;
+  if (plainText === true) {
+    text = `You can view your ${status} here:`;
+  } else {
+    text = 'View you ${status} here:';
   }
-  return url;
+  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
+  return {text, url};
 };
 
 /**
