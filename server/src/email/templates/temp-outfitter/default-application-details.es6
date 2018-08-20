@@ -19,10 +19,11 @@ module.exports = {
   Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
   Services provided: ${application.tempOutfitterFieldsActDescFieldsServProvided}
 
-  ${util.userApplicationLink(application)}`;
+  ${util.userApplicationLink(application, '')}`;
   },
   html: application => {
     return `
+    <h2>Application details</h2>
     <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>
@@ -66,7 +67,7 @@ module.exports = {
         <td class="border-bottom">${application.tempOutfitterFieldsActDescFieldsServProvided}</td>
       </tr> 
     </table>
-    <p><a href="${util.userApplicationLink(application)}">View your application</a></p>
+    <p><a href="${util.userApplicationLink(application, '')}">View your application</a></p>
     `;
   }
 }

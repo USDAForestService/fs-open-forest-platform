@@ -17,9 +17,11 @@ module.exports = {
       Number of spectators: ${application.noncommercialFieldsSpectatorCount}
       Location: ${application.noncommercialFieldsLocationDescription}
       
-      ${util.userApplicationLink(application)}`;
+      ${util.userApplicationLink(application, 'text')}`;
   },
   html: application => {
+    const startDate = moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a');
+    const endDate = moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a');
     return `
     <h2>Application details</h2>
     <table class="bordered" cellpadding="0" cellspacing="0">
@@ -44,13 +46,13 @@ module.exports = {
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Start date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+          ${startDate}
         </td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">End date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+          ${endDate}
         </td>
       </tr>
       <tr>
@@ -66,7 +68,7 @@ module.exports = {
         <td class="border-bottom">${application.noncommercialFieldsLocationDescription}</td>
       </tr>  
     </table>
-    <p><a href="${util.userApplicationLink(application)}">View your application</a></p>
+    <p><a href="${util.userApplicationLink(application, '')}">View your application</a></p>
     `;
   }
 };

@@ -1,5 +1,6 @@
 const vcapConstants = require('../../../vcap-constants.es6');
 const defaultForestContact = require('../default-special-use-contact-info.es6');
+const util = require('../../../services/util.es6');
 
 
 module.exports = (application, defaultApplicationDetails, applicationType) => {
@@ -14,7 +15,7 @@ module.exports = (application, defaultApplicationDetails, applicationType) => {
 
     ${application.applicantMessage}
 
-    Login at ${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${applicationType}/${application.appControlNumber}/edit
+    Login at ${util.userApplicationLink(application, '')}/edit
 
 
     ${defaultApplicationDetails.text(application)}
@@ -38,8 +39,9 @@ module.exports = (application, defaultApplicationDetails, applicationType) => {
      due to insufficient information. Please log in, provide the
       requested information below, and save your application.</p>
     <p>${application.applicantMessage}</p>
-    <p><a href="${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${applicationType}/${application.appControlNumber}/edit">Login and edit your application</a></p>
-    <h2>Application details</h2>
+    <p><a href="${util.userApplicationLink(application, '')}/edit">
+    Login and edit your application
+    </a></p>
     ${defaultApplicationDetails.html(application)}
     <h2>What happens next?</h2>
     <ol>

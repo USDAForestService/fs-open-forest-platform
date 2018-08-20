@@ -1,5 +1,6 @@
 'use strict';
 
+//Special use
 const defaultNoncommerialApplicationDetails = require('./templates/noncommercial/default-application-details.es6');
 const defaultTempApplicationDetails = require('./templates/temp-outfitter/default-application-details.es6');
 
@@ -22,7 +23,7 @@ const specialUseApplicationRemoveHold = require('./templates/special-use-common/
 const specialUseApplicationHold = require('./templates/special-use-common/application-hold.es6');
 
 
-
+//Christmas tree permits
 const christmasTreesPermitCreated = require('./templates/christmas-trees/permit-created.es6');
 
 const emailTemplates = {};

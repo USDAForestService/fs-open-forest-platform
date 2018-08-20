@@ -346,7 +346,7 @@ util.businessNameElsePersonalName = application => {
  * @param {Object} application - application object
  * @return {string} - application url
  */
-util.userApplicationLink = application => {
+util.userApplicationLink = (application, plainOrHTML) => {
   const applicationType = application.type;
   const applicationID = application.appControlNumber;
   const applicationStatus = application.status;
@@ -374,8 +374,10 @@ util.userApplicationLink = application => {
 
   const text = `You can view your ${status} here:`;
   const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
-
-  return `${text} ${url}`;
+  if (plainOrHTML == 'text'){
+    return `${text} ${url}`;
+  }
+  return url;
 };
 
 /**

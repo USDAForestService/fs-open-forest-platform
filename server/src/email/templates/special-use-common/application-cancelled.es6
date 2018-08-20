@@ -12,7 +12,6 @@ module.exports = (application, defaultApplicationDetails, subject) => {
     ${defaultForestContact.text}
     `,
     html: `
-    <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
     ${defaultForestContact.html}
     `
