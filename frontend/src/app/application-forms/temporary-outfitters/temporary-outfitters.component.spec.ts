@@ -97,8 +97,8 @@ describe('TemporaryOutfittersComponent', () => {
     const orgTypes = {
       Person: {
         pointOfView: 'I',
-        orgTypeFileUpload: false,
-        goodStandingEvidence: true
+        orgTypeFileUpload: true,
+        goodStandingEvidence: false
       },
       Corporation: {
         pointOfView: 'We',

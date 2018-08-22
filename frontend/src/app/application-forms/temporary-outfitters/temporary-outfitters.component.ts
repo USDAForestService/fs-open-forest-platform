@@ -145,15 +145,14 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
-        this.orgTypeFileUpload = false;
-        this.applicationFieldsService.updateValidators(gse, false);
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
         this.applicationFieldsService.updateValidators(orgName, false, 255);
         break;
       case 'Corporation':
-        this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
         break;
       case 'Limited Liability Company':
-        this.goodStandingEvidenceMessage = 'Provide a copy of your state certificate of good standing.';
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
         break;
       case 'Limited Partnership':
         this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
