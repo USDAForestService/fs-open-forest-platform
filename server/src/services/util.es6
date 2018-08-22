@@ -373,9 +373,9 @@ util.userApplicationLink = (application, plainText) => {
   }
   let text;
   if (plainText === true) {
-    text = `You can view your ${status} here:`;
+    text = `You can view your ${status} here`;
   } else {
-    text = 'View you ${status} here:';
+    text = 'View you ${status} here';
   }
   const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
   return {text, url};
