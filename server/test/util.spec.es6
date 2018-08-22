@@ -103,7 +103,7 @@ describe('util tests', () => {
         );
 
         expect(userLink.url).to.equal(
-          `${url} /user/applications / noncommercial / 1d1ae92b - c1da - 4933 - 9425 - d64cad5561dd`
+          `${url}/user/applications/noncommercial/1d1ae92b-c1da-4933-9425-d64cad5561dd`
         );
 
       });
