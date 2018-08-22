@@ -70,7 +70,6 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
-  fieldValidation.validateFileUploadField('good-standing-evidence', 'pdf');
   fieldValidation.validateFileUploadField('guide-document', 'xls');
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form', 'pdf');
   fieldValidation.validateFileUploadField('insurance-certificate', 'pdf');
@@ -97,6 +96,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('llc-label')).click();
     element(by.id('individual-label')).click();
     element(by.id('individual-citizen-label')).click();
+    fieldValidation.validateFileUploadField('good-standing-evidence', 'pdf');
     element(by.id('small-business-label')).click();
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
