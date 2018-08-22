@@ -36,7 +36,6 @@ describe('noncommercial controllers', () => {
   ['AS', 'DC', 'FM', 'GU', 'MH', 'MP', 'PW', 'PR', 'VI'].forEach(function (value) {
     it('POST should return a 201 status code and an intakeControlNumber even when a non-State code is entered', done => {
       const permitApplication = noncommercialPermitApplicationFactory.create({'applicantInfo.primaryAddress.mailingState': value});
-      console.log(permitApplication['applicantInfo']['primaryAddress']);
       request(server)
         .post(noncommercialUrl)
         .send(permitApplication)
