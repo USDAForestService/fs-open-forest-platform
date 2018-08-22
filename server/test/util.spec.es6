@@ -95,12 +95,17 @@ describe('util tests', () => {
       };
       const url = vcapConstants.INTAKE_CLIENT_BASE_URL;
 
-      statuses.forEach((status) => {
+      statuses.forEach((status,) => {
         testApp.status = status.state;
-
-        expect(util.userApplicationLink(testApp)).to.equal(
-          `You can view your ${status.text} here: ${url}/user/applications/noncommercial/1d1ae92b-c1da-4933-9425-d64cad5561dd`
+        const userLink = util.userApplicationLink(testApp, true);
+        expect(userLink.text).to.equal(
+          `You can view your ${status.text} here`
         );
+
+        expect(userLink.url).to.equal(
+          `${url}/user/applications/noncommercial/1d1ae92b-c1da-4933-9425-d64cad5561dd`
+        );
+
       });
 
     });

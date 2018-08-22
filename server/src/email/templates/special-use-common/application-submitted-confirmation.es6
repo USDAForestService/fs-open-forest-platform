@@ -31,7 +31,6 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
     <p>Your permit application has been submitted for review, but is <strong>NOT APPROVED</strong> until
      you hear from a special use administrator. Submitting an application does not guarantee your permit
       will be approved.</p>
-    <h2>Application details</h2>
     ${defaultApplicationDetails.html(application)}
     <h2>What happens next?</h2>
     <ol>

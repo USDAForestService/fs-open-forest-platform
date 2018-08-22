@@ -27,7 +27,6 @@ module.exports = (application, defaultApplicationDetails) => {
     html: `
         <h2>Permit application status update</h2>
         <p>We are reviewing the additional information you provided.</p>
-        <h2>Application details</h2>
         ${defaultApplicationDetails.html(application)}
         <h2>What happens next?</h2>
         <ol>

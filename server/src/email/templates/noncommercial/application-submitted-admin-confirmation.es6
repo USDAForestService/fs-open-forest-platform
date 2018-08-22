@@ -4,7 +4,8 @@ const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
 module.exports = application => {
-  const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/noncommercial/${application.appControlNumber}`;
+  const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}\
+  /admin/applications/noncommercial/${application.appControlNumber}`;
 
   return {
     to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
@@ -33,6 +34,7 @@ module.exports = application => {
     html: `
     <p><a href="${ applicationUrl }">Login and view the application.</a></p>
     <hr />
+    <h2>Application Details</h2>
         <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>
