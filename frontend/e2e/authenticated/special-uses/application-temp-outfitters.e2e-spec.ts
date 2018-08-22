@@ -7,9 +7,6 @@ describe('Apply for a temp outfitters permit', () => {
   let fieldValidation: FieldValidation;
   fieldValidation = new FieldValidation();
 
-  const path = require('path');
-  const testGSESuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
-
   beforeEach(() => {
     page = new TempOutfittersForm();
     browser.driver.manage().window().setSize(1400, 900);
@@ -56,9 +53,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('start-month')).sendKeys('10');
     element(by.id('start-day')).sendKeys('10');
     element(by.id('start-year')).sendKeys('2020');
-    element(by.id('individual-label')).click();
-    element(by.id('individual-citizen-label')).click();
-    element(by.id('good-standing-evidence')).sendKeys(testGSESuccessFile);
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
@@ -76,12 +70,12 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
+  fieldValidation.validateFileUploadField('good-standing-evidence', 'pdf');
   fieldValidation.validateFileUploadField('guide-document', 'xls');
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form', 'pdf');
   fieldValidation.validateFileUploadField('insurance-certificate', 'pdf');
   fieldValidation.validateFileUploadField('operating-plan', 'pdf');
   fieldValidation.validateFileUploadField('location-map', 'pdf');
-
 
   it('should submit an application', () => {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
@@ -103,7 +97,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('llc-label')).click();
     element(by.id('individual-label')).click();
     element(by.id('individual-citizen-label')).click();
-    element(by.id('good-standing-evidence')).sendKeys(testGSESuccessFile);
     element(by.id('small-business-label')).click();
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
