@@ -70,6 +70,7 @@ describe('Apply for a temp outfitters permit', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
   });
 
+  fieldValidation.validateFileUploadField('good-standing-evidence', 'pdf');
   fieldValidation.validateFileUploadField('guide-document', 'xls');
   fieldValidation.validateFileUploadField('acknowledgement-of-risk-form', 'pdf');
   fieldValidation.validateFileUploadField('insurance-certificate', 'pdf');
