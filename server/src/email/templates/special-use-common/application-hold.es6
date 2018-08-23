@@ -1,8 +1,11 @@
 const defaultForestContact = require('../default-special-use-contact-info.es6');
-const util = require('../../../services/util.es6');
+const vcapConstants = require('../vcap-constants.es6');
 
 
 module.exports = (application, defaultApplicationDetails) => {
+  const editURLAppType = (application.type == 'noncommericial') ? 'noncommericial-group-use' : 'temp-outfitters';
+  const editLink = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/\
+  ${editURLAppType}/${application.appControlNumber}/edit`;
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
@@ -14,7 +17,7 @@ module.exports = (application, defaultApplicationDetails) => {
 
     ${application.applicantMessage}
 
-    Login at ${util.userApplicationLink(application, false).url}/edit
+    Login at ${editLink}
 
 
     ${defaultApplicationDetails.text(application)}
@@ -38,7 +41,7 @@ module.exports = (application, defaultApplicationDetails) => {
      due to insufficient information. Please log in, provide the
       requested information below, and save your application.</p>
     <p>${application.applicantMessage}</p>
-    <p><a href="${util.userApplicationLink(application, false).url}/edit">
+    <p><a href="${editLink}">
     Login and edit your application
     </a></p>
     ${defaultApplicationDetails.html(application)}
