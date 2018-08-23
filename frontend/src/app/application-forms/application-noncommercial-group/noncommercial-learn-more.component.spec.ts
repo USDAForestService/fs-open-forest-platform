@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { NoncommercialLearnMoreComponent } from './noncommercial-learn-more.component';
 import { UtilService } from '../../_services/util.service';
+import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
 describe('NoncommercialLearnMoreComponent', () => {
   let component: NoncommercialLearnMoreComponent;
@@ -11,7 +12,7 @@ describe('NoncommercialLearnMoreComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [NoncommercialLearnMoreComponent],
-        providers: [UtilService],
+        providers: [UtilService, SpecialUseInfoService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

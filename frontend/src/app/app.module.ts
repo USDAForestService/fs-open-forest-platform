@@ -26,6 +26,7 @@ import { PermitApplicationViewComponent } from './applications/permit-applicatio
 import { PayGovMocksModule } from './pay-gov-mocks/pay-gov-mocks.module';
 import { RevisionHistoryComponent } from './applications/revision/revision-history.component';
 import { SharedModule } from './shared/shared.module';
+import { SpecialUseInfoService } from './_services/special-use-info.service';
 import { SortArray } from './_pipes/sort-array.pipe';
 import { AlertComponent } from './alert/alert.component';
 import { StyleGuideComponent } from './style-guide/style-guide.component';
@@ -76,6 +77,7 @@ import { ForestAdminNavComponent } from './authentication/forests-admin-nav.comp
     AccessControlService,
     AuthenticationService,
     PermitBreadcrumbsResolver,
+    SpecialUseInfoService,
     UtilService,
     UserResolver,
     WindowRef,

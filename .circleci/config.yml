@@ -1,7 +1,7 @@
 _defaults:
   docker_image_browser: &docker_image_browser
     docker:
-    - image: circleci/node:8.9.4-browsers
+    - image: circleci/node:8.11.3-browsers
       environment:
         DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
         VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
@@ -152,43 +152,19 @@ jobs:
           prefix: e2e-results
 
   run-pa11y:
-    machine: true
+    <<: *docker_image_browser
     steps:
       - checkout
-      - run:
-          name: Install node@8.9.4
-          command: |
-            set +e
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v8.9.4
-            nvm alias default v8.9.4
-
-            # Each step uses the same `$BASH_ENV`, so need to modify it
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
       - restore_cache:
           keys:
-          - fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
+          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
           # fallback to using the latest cache if no exact match is found
-          - fs-epermit-pa11y-deps-
-      - run:
-          name: install pa11y
-          command:  |
-            cd frontend
-            npm i -g pa11y-ci
-            npm i
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./opt/circleci/.nvm/versions/node/v8.9.4/bin/
-          key: fs-epermit-pa11y-deps-{{ checksum "frontend/package.json" }}
+          - fs-epermit-deps-
+      - run: *install_dependencies
       - run:
           name: pa11y test
           command: |
-            cd docker
-            ../.circleci/pa11y.sh
+            cd frontend; yarn run build-test-pa11y
 
   build-docker:
     machine: true
@@ -197,14 +173,6 @@ jobs:
       - run:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
-      - run:
-          name: build docker compose images
-          command: cd docker; ../.circleci/build-docker-images.sh
-      - run:
-          name: install dependencies
-          command: |
-            cd docker
-            ../.circleci/install-dependencies-docker.sh
       - run:
           name: docker e2e smoke screen test
           command: |
@@ -219,7 +187,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -284,7 +252,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -344,7 +312,7 @@ jobs:
 
   nightly-snyk:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - checkout
       - restore_cache:
@@ -360,7 +328,7 @@ jobs:
 
   recycle-production:
     docker:
-      - image: circleci/node:8.9.4
+      - image: circleci/node:8.11.3
     steps:
       - run: *install_cf
       - run:
@@ -391,10 +359,7 @@ workflows:
           filters:
             branches:
               only: dev
-      - run-pa11y:
-          filters:
-            branches:
-              only: dev
+      - run-pa11y
       - staging-deploy:
           requires:
             - run-all-other-tests

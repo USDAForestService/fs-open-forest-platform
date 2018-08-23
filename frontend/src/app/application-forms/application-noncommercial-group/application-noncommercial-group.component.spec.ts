@@ -10,6 +10,7 @@ import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { UtilService } from '../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
   let component: ApplicationNoncommercialGroupComponent;
@@ -27,7 +28,8 @@ describe('ApplicationNoncommercialGroupComponent', () => {
           { provide: FormBuilder, useClass: FormBuilder },
           AlertService,
           AuthenticationService,
-          UtilService
+          UtilService,
+          SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();

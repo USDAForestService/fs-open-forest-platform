@@ -1,26 +1,14 @@
 const moment = require('moment');
-
-const vcapConstants = require('../../../vcap-constants.es6');
 const util = require('../../../services/util.es6');
 
-module.exports = application => {
-  const applicationUrl = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/noncommercial/${application.appControlNumber}`;
-
-  return {
-    to: vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES,
-    subject: `A new permit application with a start date of ${moment(
-      application.noncommercialFieldsStartDateTime,
-      util.datetimeFormat
-    ).format('MM/DD/YYYY')} has been submitted to the ${application.forestName}.`,
-    body: `
-      Go to ${applicationUrl} to log in and view the application.
-      **************************************
-
+module.exports = {
+  text: application => {
+    const linkDetails = util.userApplicationLink(application, true);
+    return `
       Application details
-      **************************************
+      *********************************
 
       Application identification number: ${application.applicationId}
-      Permit type:  ${util.camelCaseToRegularForm(application.type)}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Forest: ${application.forestName}
       Event name: ${application.eventName}
@@ -29,12 +17,16 @@ module.exports = application => {
       Number of participants: ${application.noncommercialFieldsNumberParticipants}
       Number of spectators: ${application.noncommercialFieldsSpectatorCount}
       Location: ${application.noncommercialFieldsLocationDescription}
-    `, 
-    html: `
-    <p><a href="${ applicationUrl }">Login and view the application.</a></p>
-    <hr />
-    <h2>Application Details</h2>
-        <table class="bordered" cellpadding="0" cellspacing="0">
+      
+      ${linkDetails.text}: ${linkDetails.url}`;
+  },
+  html: application => {
+    const linkDetails = util.userApplicationLink(application, false);
+    const startDate = moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a');
+    const endDate = moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a');
+    return `
+    <h2>Application details</h2>
+    <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Application identification number</th>
         <td class="border-bottom">${application.applicationId}</td>
@@ -45,7 +37,7 @@ module.exports = application => {
           ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
         </td>
       </tr>
-      <tr>        
+      <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Forest</th>
         <td class="border-bottom">${application.forestName}</td>
       </tr>
@@ -56,13 +48,13 @@ module.exports = application => {
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Start date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+          ${startDate}
         </td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">End date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY hh:mm a')}
+          ${endDate}
         </td>
       </tr>
       <tr>
@@ -76,8 +68,11 @@ module.exports = application => {
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Location</th>
         <td class="border-bottom">${application.noncommercialFieldsLocationDescription}</td>
-      </tr>  
+      </tr>
+      <tr>
+        <td class="border-bottom" colspan="2"><a href="${linkDetails.url}">${linkDetails.text}</a></td>
+      </tr>   
     </table>
-`
-  };
+    `;
+  }
 };

@@ -31,7 +31,7 @@
     "node-forge": "^0.7.4",
     "node-jose": "^0.11.1",
     "nodemailer": "^4.6.7",
-    "openid-client": "^2.1.0",
+    "openid-client": "^2.3.0",
     "passport": "^0.4.0",
     "passport-saml": "^0.33.0",
     "pg": "^6.0.0",
@@ -92,7 +92,7 @@
     "snyk-test": "snyk test --file=package.json",
     "snyk-protect": "snyk protect",
     "start": "node ./src/app.es6",
-    "test": "snyk test && mocha ./test/**/*.es6 ./test/*.es6 --exit",
+    "test": "mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "docs": "yarn run jsdoc",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
@@ -100,7 +100,7 @@
     "jsdoc": "./node_modules/.bin/jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r ."
   },
   "engines": {
-    "node": "^8.9.4"
+    "node": "^8.11.3"
   },
   "nyc": {
     "extension": [

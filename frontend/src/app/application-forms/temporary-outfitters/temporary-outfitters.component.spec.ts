@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';
 import { UtilService } from '../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
 class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -68,7 +69,8 @@ describe('TemporaryOutfittersComponent', () => {
           FormBuilder,
           AlertService,
           AuthenticationService,
-          UtilService
+          UtilService,
+          SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();
@@ -95,8 +97,8 @@ describe('TemporaryOutfittersComponent', () => {
     const orgTypes = {
       Person: {
         pointOfView: 'I',
-        orgTypeFileUpload: false,
-        goodStandingEvidence: true
+        orgTypeFileUpload: true,
+        goodStandingEvidence: false
       },
       Corporation: {
         pointOfView: 'We',

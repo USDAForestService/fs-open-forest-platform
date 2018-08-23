@@ -11,6 +11,7 @@ import { FormBuilder } from '@angular/forms';
 import { noncommercialMock } from './noncommercial.mock';
 import { UtilService } from '../../_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
 export class MockApplicationService {
   getOne(id): Observable<{}> {
@@ -49,7 +50,8 @@ describe('Noncommercial with mock application service', () => {
           { provide: FormBuilder, useClass: FormBuilder },
           AlertService,
           AuthenticationService,
-          UtilService
+          UtilService,
+          SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]
       }).compileComponents();

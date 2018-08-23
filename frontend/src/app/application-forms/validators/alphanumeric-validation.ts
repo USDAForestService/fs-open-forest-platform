@@ -1,7 +1,7 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormControl, ValidatorFn } from '@angular/forms';
 
 export function alphanumericValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } => {
+  return (control: FormControl): { [key: string]: any } => {
     const val = control.value;
     if (val && val.length) {
       const alphanumericRegex = /\w/;
