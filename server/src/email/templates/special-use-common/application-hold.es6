@@ -1,5 +1,5 @@
 const defaultForestContact = require('../default-special-use-contact-info.es6');
-const vcapConstants = require('../vcap-constants.es6');
+const vcapConstants = require('../../../vcap-constants.es6');
 
 
 module.exports = (application, defaultApplicationDetails) => {
