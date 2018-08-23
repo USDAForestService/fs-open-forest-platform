@@ -73,7 +73,7 @@ describe('util tests', () => {
     });
 
     it('set the local user as an admin', () => {
-      process.argv[2] = 'user'
+      process.argv[2] = 'user';
       expect(util.localUser()).to.equal('user');
       process.argv.splice(2,1);
     });
@@ -95,7 +95,7 @@ describe('util tests', () => {
       };
       const url = vcapConstants.INTAKE_CLIENT_BASE_URL;
 
-      statuses.forEach((status,) => {
+      statuses.forEach( status => {
         testApp.status = status.state;
         const userLink = util.userApplicationLink(testApp, true);
         expect(userLink.text).to.equal(
