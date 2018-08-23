@@ -4,8 +4,7 @@ const vcapConstants = require('../vcap-constants.es6');
 
 module.exports = (application, defaultApplicationDetails) => {
   const editURLAppType = (application.type == 'noncommericial') ? 'noncommericial-group-use' : 'temp-outfitters';
-  const editLink = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/\
-  ${editURLAppType}/${application.appControlNumber}/edit`;
+  const editLink = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/applications/${editURLAppType}/${application.appControlNumber}/edit`;
   return {
     to: application.applicantInfoEmailAddress,
     subject: 'An update on your recent permit application to the Forest Service.',
