@@ -66,8 +66,9 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
 });
 
 //Callback from eAuth.
-eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
-});
+eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml', { session: false }),
+  function (req, res) {
+    return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
+  });
 
 module.exports = eAuth;

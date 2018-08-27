@@ -16,7 +16,7 @@ if (!vcapConstants.isLocalOrCI) {
 const bodyParser = require('body-parser');
 const express = require('express');
 const helmet = require('helmet');
-const session = require('cookie-session');
+// const session = require('cookie-session');
 const moment = require('moment');
 
 const passportConfig = require('./auth/passport-config.es6');
@@ -73,19 +73,19 @@ app.use(expressWinston.errorLogger({
   ]
 }));
 
-/**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
-app.use(
-  session({
-    name: 'session',
-    keys: [util.getRandomString(32), util.getRandomString(32)],
-    cookie: {
-      secure: true,
-      httpOnly: true,
-      domain: vcapConstants.BASE_URL,
-      expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-    }
-  })
-);
+// /**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
+// app.use(
+//   session({
+//     name: 'session',
+//     keys: [util.getRandomString(32), util.getRandomString(32)],
+//     cookie: {
+//       secure: true,
+//       httpOnly: true,
+//       domain: vcapConstants.BASE_URL,
+//       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+//     }
+//   })
+// );
 
 /** set meridiem format to a.m. and p.m. */
 moment.updateLocale('en', {
