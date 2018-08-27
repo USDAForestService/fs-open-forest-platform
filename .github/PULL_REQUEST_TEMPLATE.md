@@ -1,5 +1,5 @@
 ## Summary
-Resolves Issue #[X](https://github.com/18F/fs-permit-platform/issues/Addnumber)
+Resolves Issue #[X](https://github.com/18F/fs-open-forest-platform/issues/Addnumber)
 
 *Describe the pull request here, including any supplemental information needed to understand it.*
 

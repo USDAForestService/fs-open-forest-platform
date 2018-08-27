@@ -1,8 +1,8 @@
 {
-  "name": "fs-permit-platform",
+  "name": "fs-open-forest-platform",
   "private": true,
   "version": "0.0.1",
-  "description": "fs-permit-platform",
+  "description": "fs-open-forest-platform",
   "dependencies": {
     "aws-sdk": "^2.258.1",
     "basic-auth": "^1.1.0",

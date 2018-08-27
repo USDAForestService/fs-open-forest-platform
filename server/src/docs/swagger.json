@@ -3,7 +3,7 @@
     "version": "0.1.0", 
     "description": "U.S. Forest Service Permit Platform", 
     "license": {
-      "url": "https://github.com/18F/fs-permit-platform/LICENSE.md", 
+      "url": "https://github.com/18F/fs-open-forest-platform/LICENSE.md", 
       "name": "Open Source"
     }, 
     "title": "U.S. Forest Service Permit Platform"
