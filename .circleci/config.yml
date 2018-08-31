@@ -23,9 +23,9 @@ _run:
     name: Install frontend and server dependencies
     command: |
       cd frontend
-      yarn install
+      npm install
       cd ../server
-      yarn install
+      npm install
 
   install_cf: &install_cf
     name: Install cf cli
