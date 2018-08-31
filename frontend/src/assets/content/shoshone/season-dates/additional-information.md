@@ -2,4 +2,4 @@
 
 ### Cost
 Christmas trees cost ${{treeCost}} each, and a household is allowed to cut 
-up to {{maxNumTrees}} trees per permit.  All permits are non-refundable.
+up to {{maxNumTrees}} trees.  All permits are non-refundable.
