@@ -14,6 +14,7 @@ const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const url = require('url');
 const logger = require('../services/logger.es6');
+const jwt = require('jsonwebtoken');
 
 const loginGov = {};
 
@@ -72,7 +73,8 @@ loginGov.setup = () => {
               email: tokenset.claims.email,
               role: 'user',
               // the token is required to logout of login.gov
-              token: tokenset.id_token
+              token: tokenset.id_token,
+              frontend_token: jwt.sign(tokenset.claims.email, vcapConstants.PERMIT_SECRET)
             });
           })
         );
@@ -93,7 +95,7 @@ loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'
 // Initiate logging out of login.gov
 loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
   // destroy the session
-  req.logout();
+  // req.logout();
   // res.redirect doesn't pass the Blink's Content Security Policy directive
   return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}'</script>`);
 });
@@ -103,7 +105,8 @@ loginGov.router.get(
   '/auth/login-gov/openid/callback',
   // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
   passport.authenticate('oidc', {
-    failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
+    failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL,
+    session: false
   }), (req, res) => {
     // res.redirect doesn't pass the Blink's Content Security Policy directive
     return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`);

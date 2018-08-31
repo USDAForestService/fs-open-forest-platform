@@ -105,5 +105,6 @@
     "syslog_drain_url": "",
     "tags": [],
     "volume_mounts": []
-  }]
+  }
+]
 }
