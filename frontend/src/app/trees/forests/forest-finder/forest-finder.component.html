@@ -15,6 +15,7 @@
            id="forest-finder-select"
            name="forestFinderSelect"
           >
+            <option value="" disabled selected>Select a forest</option>
             <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
           </select>
           <div id='forest-finder-error' aria-live="assertive" [ngClass]="{ 'hidden': !showForestSelectError }">
