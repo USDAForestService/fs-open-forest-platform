@@ -5,6 +5,7 @@ applications:
   routes:
    - route: openforest.fs.usda.gov
   memory: 64M
+  instances: 2
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
     FORCE_HTTPS: true
