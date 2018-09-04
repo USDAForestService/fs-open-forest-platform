@@ -5,7 +5,7 @@ applications:
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 256M
-  instances: 1
+  instances: 2
   services:
     - eauth-service-provider
     - intake-client-service
