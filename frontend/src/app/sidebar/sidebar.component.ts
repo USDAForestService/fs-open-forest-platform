@@ -55,7 +55,7 @@ export class SidebarComponent implements OnInit {
    */
   private sidebarHeaderIntersection(container, header) {
     if (container.getBoundingClientRect().top < this.items.length * 4.3) {
-      this.top = '100px';
+      this.top = '170px';
       this.bottom = 'auto';
       this.position = 'fixed';
     } else {
