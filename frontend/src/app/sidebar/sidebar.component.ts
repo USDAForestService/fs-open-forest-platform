@@ -54,8 +54,8 @@ export class SidebarComponent implements OnInit {
    * Set top, botton, and position styles based on sidebar's relation to the header
    */
   private sidebarHeaderIntersection(container, header) {
-    if (container.getBoundingClientRect().top < this.items.length * 4.3) {
-      this.top = '170px';
+    if (container.getBoundingClientRect().top < this.items.length - 120) {
+      this.top = '80px';
       this.bottom = 'auto';
       this.position = 'fixed';
     } else {
