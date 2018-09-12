@@ -190,7 +190,7 @@ const updatePermitWithError = (res, permit, paygovError) => {
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
     logger.error(
-      `${updatedPermit.emailAddress} 
+      `ERROR: ServerError: ${updatedPermit.emailAddress} 
       modified ${updatedPermit.permitId} 
       encountered an error at pay.gov 
       ${updatedPermit.paygovError}`
