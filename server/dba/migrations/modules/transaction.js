@@ -45,7 +45,7 @@ let doTransaction = (tableName, queryInterface, operations) => {
         });
       }
       default: {
-        return 'ERROR: missing operation type eg: add, change, rename, ...';
+          return 'ERROR: ServerError: database- missing operation type eg: add, change, rename, ...';
       }
       }
     });
@@ -97,7 +97,7 @@ let addPreparations = (tableName, operations) => {
       break;
     }
     default: {
-      return 'ERROR: missing operation type eg: add, change, rename, ...';
+        return 'ERROR: ServerError: database- missing operation type eg: add, change, rename, ...';
     }
     }
     moreOperations.push(operation);
@@ -143,7 +143,7 @@ let addPreparations = (tableName, operations) => {
       break;
     }
     default: {
-      return 'ERROR: missing operation type eg: add, change, rename, ...';
+        return 'ERROR: ServerError: database-missing operation type eg: add, change, rename, ...';
     }
     }
   }

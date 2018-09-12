@@ -252,11 +252,11 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        logger.error(`Pay.gov error: ${error}`);
+                        logger.error(`ERROR: ServerError: Pay.gov- ${error}`);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
-                        logger.error(`FaultError: ${faultError}`);
+                        logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${faultError}`);
                         throwError(faultError);
                       }
                     }
