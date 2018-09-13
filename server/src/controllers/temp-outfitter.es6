@@ -338,7 +338,7 @@ const getFile = (key, documentType) => {
       },
       (error, data) => {
         if (error) {
-          logger.error(`Error: ${error}`);
+          logger.error(`ERROR: ServerError: s3- ${error}`);
           reject(error);
         } else {
           logger.info(`File ${key} retrieved from s3`);
@@ -381,7 +381,7 @@ const getAllFiles = applicationId => {
         });
       })
       .catch(error => {
-        logger.error(`Error: ${error}`);
+        logger.error(`ERROR: ServerError: getAllFiles- ${error}`);
         reject(error);
       });
   });

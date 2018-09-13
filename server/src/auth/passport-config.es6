@@ -44,7 +44,7 @@ passportConfig.setup = app => {
  */
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
-    logger.warn('AUTHENTICATION: Error:', err);
+    logger.warn('ERROR: ServerError: AUTHENTICATION-', err);
     res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();
@@ -52,7 +52,7 @@ passportConfig.authErrorHandler = (err, req, res, next) => {
 };
 
 /**
- * @function getPassportUser - Get the authetication user.
+ * @function getPassportUser - Get the authenication user.
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
