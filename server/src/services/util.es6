@@ -429,10 +429,10 @@ util.handleErrorResponse = (error, res) => {
         inFile = `${inFile} at ${error.lineNumber}`;
       }
     }
-    logger.error(`ERROR: ${error}${inFile}`);
+    logger.error(`ERROR: ServerError: ${error}${inFile}`);
   }
   else {
-    logger.error('ERROR: Unknown error 500');
+    logger.error('ERROR: ServerError: Unknown error 500');
   }
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({
