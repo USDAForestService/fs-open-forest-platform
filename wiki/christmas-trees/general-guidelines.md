@@ -1,6 +1,6 @@
 # Introduction
 
-The U.S. Forest Service Christmas tree epermit project follows the [18F Content Guide](https://content-guide.18f.gov/ ). For the project’s four pilot forests - Arapaho and Roosevelt, Flathead, Mt. Hood, and Shoshone - we aimed for consistency in content across the forests while still making accommodations for individual forest differences, when needed. The tone is business professional.
+The U.S. Forest Service Christmas tree Open Forest project follows the [18F Content Guide](https://content-guide.18f.gov/ ). For the project’s four pilot forests - Arapaho and Roosevelt, Flathead, Mt. Hood, and Shoshone - we aimed for consistency in content across the forests while still making accommodations for individual forest differences, when needed. The tone is business professional.
 
 Below is a listing and description of the content sections for each pilot forest and any general guidelines for content within the section.
 
