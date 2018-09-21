@@ -98,7 +98,9 @@ export class ApplicationFieldsService {
   }
 
   phoneChangeSubscribers(parentForm, type) {
-    parentForm.get(`${type}.tenDigit`).valueChanges.subscribe(value => {
+    parentForm.get(`${type}.tenDigit`).valueChanges
+    .filter(data => parentForm.get(`${type}.tenDigit`).valid)
+    .subscribe(value => {
       if (value) {
         parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });
         parentForm.patchValue({ [type]: { prefix: value.substring(3, 6) } });
@@ -107,10 +109,12 @@ export class ApplicationFieldsService {
     });
   }
 
+
   removeAdditionalPhone(parentForm) {
     parentForm.removeControl('eveningPhone');
   }
 
+ 
   simpleRequireToggle(toggleField, dataField) {
     toggleField.valueChanges.subscribe(value => {
       this.updateValidators(dataField, value, 512);
