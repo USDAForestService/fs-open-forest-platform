@@ -27,7 +27,7 @@ export class ChristmasTreeMapDetailsComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       if (data.forest && this.mapId) {
-        this.titleService.setTitle('Map details for ' + data.forest.forestName + ' ' + this.mapId + ' cutting area or ranger district | U.S. Forest Service Christmas Tree Permitting');
+        this.titleService.setTitle('Map details for ' + data.forest.forestName + ' ' + this.mapId + ' cutting area or ranger district | U.S. Forest Service Open Forest');
       }
     });
 

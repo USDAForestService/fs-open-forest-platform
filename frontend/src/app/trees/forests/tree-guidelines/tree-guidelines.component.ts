@@ -81,7 +81,7 @@ export class TreeGuidelinesComponent implements OnInit {
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
-        this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
+        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
         this.configService.getJSON().subscribe(configData => {
           this.sidebarItems = configData;
           if (!this.forest.isSeasonOpen) {

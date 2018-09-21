@@ -16,7 +16,7 @@ export class HelpMePickComponent implements OnInit {
     this.router.navigate(['/help-me-pick', id]);
   }
 
-  setTitle(id) {
+  getTitle(id) {
     switch (id) {
       case '1':
         this.title = 'Are you charging a participation fee for your activity?';
@@ -49,8 +49,8 @@ export class HelpMePickComponent implements OnInit {
     if (this.route) {
       this.route.params.subscribe(params => {
         this.id = params['id'];
-        this.setTitle(this.id);
-        this.titleService.setTitle(this.title);
+        this.getTitle(this.id);
+        this.titleService.setTitle(`${this.title} | U.S. Forest Service Open Forest`);
       });
     }
   }
