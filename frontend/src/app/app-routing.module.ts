@@ -105,7 +105,7 @@ const appRoutes: Routes = [
         path: 'reports',
         component: ReportComponent,
         data: {
-          title: 'Christmas trees permits report | U.S. Forest Service Christmas Tree Permitting',
+          title: 'Christmas trees permits report | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits report',
           admin: true
         }
@@ -114,7 +114,7 @@ const appRoutes: Routes = [
         path: 'season-dates',
         component: AdminSeasonDatesComponent,
         data: {
-          title: 'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting',
+          title: 'Christmas trees permits season dates admin | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits season dates',
           admin: true
         }
@@ -123,7 +123,7 @@ const appRoutes: Routes = [
         path: 'district-dates',
         component: AdminDistrictDatesComponent,
         data: {
-          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Christmas Tree Permitting',
+          title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits Ranger District dates',
           admin: true
         }
@@ -213,7 +213,7 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Christmas tree permits',
-      title: 'Christmas tree permits | U.S. Forest Service Christmas Tree Permitting',
+      title: 'Christmas tree permits | U.S. Forest Service Open Forest',
       requireLogin: false,
       showAdmin: true
     },
