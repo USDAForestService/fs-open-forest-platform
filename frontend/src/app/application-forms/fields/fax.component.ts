@@ -45,7 +45,6 @@ export class FaxComponent implements OnInit {
     this.afs.phoneChangeSubscribers(this.parentForm, 'fax');
   }
 
- 
   ngOnInit() {
     this.createForm();
     this.changeSubscribers();
