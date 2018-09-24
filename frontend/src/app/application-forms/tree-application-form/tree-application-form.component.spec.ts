@@ -131,7 +131,7 @@ describe('TreeApplicationFormComponent', () => {
 
     it('should set the title', () => {
       userService = TestBed.get(Title);
-      expect(userService.getTitle()).toBe('Buy a permit | Mt. Hood | U.S. Forest Service Open Forest');
+      expect(userService.getTitle()).toBe('Buy a Christmas tree permit | Mt. Hood | U.S. Forest Service Open Forest');
     });
 
     it('should submit application', () => {
