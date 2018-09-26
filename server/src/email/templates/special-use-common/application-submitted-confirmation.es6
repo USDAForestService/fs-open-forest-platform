@@ -5,12 +5,12 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
 
   return {
     to: application.applicantInfoEmailAddress,
-    subject: `Your ${util.camelCaseToRegularForm(application.type)} permit application has been submitted for review!`,
+    subject: `Your ${util.camelCaseToRegularForm(application.type)} Open Forest permit application has been submitted for review!`,
     body: `
       Submitted for review!
       **************************************
 
-      Your permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
+      Your Open Forest permit application has been submitted for review, but is NOT APPROVED until you hear from a special use administrator. Submitting an application does not guarantee your permit will be approved.
 
 
     ${defaultApplicationDetails.text(application)}
@@ -28,7 +28,7 @@ module.exports = (application, defaultApplicationDetails, reviewTime) => {
     `,
     html: `
     <h2>Submitted for review!</h2>
-    <p>Your permit application has been submitted for review, but is <strong>NOT APPROVED</strong> until
+    <p>Your Open Forest permit application has been submitted for review, but is <strong>NOT APPROVED</strong> until
      you hear from a special use administrator. Submitting an application does not guarantee your permit
       will be approved.</p>
     ${defaultApplicationDetails.html(application)}
