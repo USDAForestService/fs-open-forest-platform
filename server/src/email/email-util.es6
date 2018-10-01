@@ -83,7 +83,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
  */
 emailUtil.sendEmail = (templateName, data, attachments = []) => {
   if (emailTemplates[templateName]) {
-    const emailAttachments = htmlTemplate.attachments.concat(attachments.concat);
+    const emailAttachments = htmlTemplate.attachments.concat(attachments);
     const template = emailTemplates[templateName](data);
     let html;
     if (template.html) {
