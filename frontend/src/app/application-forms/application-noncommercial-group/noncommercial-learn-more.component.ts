@@ -43,7 +43,7 @@ export class NoncommercialLearnMoreComponent {
         type: 'anchor',
         sectionCopy: `
         <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity
-        and will be evaluated by the Forest Service within 48 hours of receipt. Otherwise,
+        and will be evaluated by the Forest Service within two business days of receipt. Otherwise,
         they are deemed granted. All permit applications will be evaluated using the same criteria,
         regardless of the content of the event or gathering.</p>
 
