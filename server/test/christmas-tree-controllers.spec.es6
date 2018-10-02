@@ -4,11 +4,13 @@ const jwt = require('jsonwebtoken');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 const request = require('supertest');
-const moment = require('moment');
 require('./common.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws.spec.es6');
+const christmasTreeController = require('../src/controllers/christmas-tree.es6');
+const sinon = require('sinon');
+const emailUtil = require('../src/email/email-util.es6');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -16,7 +18,6 @@ let permitId;
 let invalidPermitId = '1111a111-2222-11a1-aaa1-123456789012';
 let paygovToken;
 let tcsAppID;
-let today = moment(new Date()).format('YYYY-MM-DD');
 
 describe('christmas tree controller tests', () => {
   describe('get forests', () => {
@@ -489,6 +490,22 @@ describe('christmas tree controller tests', () => {
           expect(res.body).to.include.all.keys('result');
         })
         .expect(200, done);
+    });
+  });
+
+  describe('unit tests for xmas tree controller', ()=>{
+    it('should send and email and generate rules', () => {
+      const permitApplication = christmasTreePermitApplicationFactory.create({
+        firstName: 'Bonny',
+        lastName: 'Clyde',
+        forestId: 3,
+        forestAbbr: 'mthood',
+        orgStructureCode: '11-06-06'
+      });
+      const emailSend = sinon.stub(emailUtil, 'send');
+      christmasTreeController.generateRulesAndEmail(permitApplication).then(()=>{
+        expect(emailSend.calledWith('', '', '', []));
+      });
     });
   });
 });

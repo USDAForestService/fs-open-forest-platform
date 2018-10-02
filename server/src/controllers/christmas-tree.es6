@@ -397,21 +397,22 @@ const generateRulesAndEmail = permit => {
   permitSvgService
     .generatePermitSvg(permit)
     .then(permitSvg => {
-      permitSvgService.generatePng(permitSvg).then(permitPng => {
-        permitSvgService
-          .generateRulesHtml(true, permit)
-          .then(rulesHtml => {
-            permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
-            let rulesText = htmlToText.fromString(rulesHtml, {
-              wordwrap: 130,
-              ignoreImage: true
+      permitSvgService.generatePng(permitSvg)
+        .then(permitPng => {
+          permitSvgService
+            .generateRulesHtml(true, permit)
+            .then(rulesHtml => {
+              permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
+              let rulesText = htmlToText.fromString(rulesHtml, {
+                wordwrap: 130,
+                ignoreImage: true
+              });
+              sendEmail(permit, permitPng, rulesHtml, rulesText);
+            })
+            .catch(error => {
+              logger.error(error);
             });
-            sendEmail(permit, permitPng, rulesHtml, rulesText);
-          })
-          .catch(error => {
-            logger.error(error);
-          });
-      });
+        });
     })
     .catch(error => {
       logger.error(error);
