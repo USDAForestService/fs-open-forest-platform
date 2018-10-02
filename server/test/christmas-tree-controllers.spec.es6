@@ -8,9 +8,6 @@ require('./common.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws.spec.es6');
-const christmasTreeController = require('../src/controllers/christmas-tree.es6');
-const sinon = require('sinon');
-const emailUtil = require('../src/email/email-util.es6');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -490,22 +487,6 @@ describe('christmas tree controller tests', () => {
           expect(res.body).to.include.all.keys('result');
         })
         .expect(200, done);
-    });
-  });
-
-  describe('unit tests for xmas tree controller', ()=>{
-    it('should send and email and generate rules', () => {
-      const permitApplication = christmasTreePermitApplicationFactory.create({
-        firstName: 'Bonny',
-        lastName: 'Clyde',
-        forestId: 3,
-        forestAbbr: 'mthood',
-        orgStructureCode: '11-06-06'
-      });
-      const emailSend = sinon.stub(emailUtil, 'send');
-      christmasTreeController.generateRulesAndEmail(permitApplication).then(()=>{
-        expect(emailSend.calledWith('', '', '', []));
-      });
     });
   });
 });
