@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Apply for a permit',
+      text: 'Apply for a permit with Open Forest',
       displayLogin: true
     },
     resolve: {
@@ -55,7 +55,7 @@ const appRoutes: Routes = [
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
-          breadcrumbs: 'Help me find a permit'
+          breadcrumbs: 'Help me find a permit available on Open Forest'
         }
       }
     ]
@@ -134,7 +134,7 @@ const appRoutes: Routes = [
     path: 'user/applications',
     component: PermitApplicationListComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Submitted applications' },
+    data: { title: 'Submitted Open Forest applications' },
     resolve: {
       user: UserResolver
     }
@@ -143,7 +143,7 @@ const appRoutes: Routes = [
     path: 'user/applications/:type/:id',
     component: PermitApplicationViewComponent,
     canActivate: [AccessControlService],
-    data: { title: 'View Submitted Application' },
+    data: { title: 'View submitted Open Forest application' },
     resolve: {
       user: UserResolver
     }
@@ -152,7 +152,7 @@ const appRoutes: Routes = [
     path: 'applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Apply for a noncommercial group use permit' },
+    data: { title: 'Apply for a noncommercial group use permit with Open Forest' },
     resolve: {
       user: UserResolver
     }
@@ -161,7 +161,7 @@ const appRoutes: Routes = [
     path: 'applications/noncommercial-group-use/:id/edit',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Edit your noncommercial group use permit' },
+    data: { title: 'Edit your noncommercial group use permit with Open Forest' },
     resolve: {
       user: UserResolver
     }
@@ -169,7 +169,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/noncommercial-group-use/learn-more',
     component: NoncommercialLearnMoreComponent,
-    data: { title: 'Noncommercial permit FAQs' },
+    data: { title: 'Learn more about a noncommercial group use permit' },
     resolve: {
       user: UserResolver
     }
@@ -177,7 +177,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/:type/submitted/:id',
     component: ApplicationSubmittedComponent,
-    data: { title: 'Application submitted for review' },
+    data: { title: 'Application submitted for review with Open Forest' },
     resolve: {
       user: UserResolver
     }
@@ -186,7 +186,7 @@ const appRoutes: Routes = [
     path: 'applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Apply for a temporary outfitters permit' },
+    data: { title: 'Apply for a temporary outfitters permit with Open Forest' },
     resolve: {
       user: UserResolver
     }
@@ -195,7 +195,7 @@ const appRoutes: Routes = [
     path: 'applications/temp-outfitters/:id/edit',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Edit your temporary outfitters permit' },
+    data: { title: 'Edit your temporary outfitters permit  with Open Forest' },
     resolve: {
       user: UserResolver
     }
@@ -203,7 +203,7 @@ const appRoutes: Routes = [
   {
     path: 'applications/temp-outfitters/learn-more',
     component: TemporaryOutfittersLearnMoreComponent,
-    data: { title: 'Temporary outfitters permit FAQs' },
+    data: { title: 'Learn more about a temporary outfitters permit' },
     resolve: {
       user: UserResolver
     }
