@@ -4,6 +4,6 @@ version: v1.12.0
 ignore:
   'npm:mem:20180117':
     - uswds > yargs > os-locale > mem:
-        reason: only used for dev
-        expires: '2018-10-31T18:40:53.893Z'
+        reason: 'False Positive: Only used in development'
+        expires: '2018-11-01T16:02:14.928Z'
 patch: {}

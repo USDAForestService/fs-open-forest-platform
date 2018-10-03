@@ -32,7 +32,7 @@ emailTemplates.noncommercialApplicationSubmittedConfirmation = application => {
   return specialUseSubmittedConfirm(
     application,
     defaultNoncommerialApplicationDetails,
-    ' within 48 hours'
+    ' within two business days'
   );
 };
 emailTemplates.tempOutfitterApplicationSubmittedConfirmation = application => {

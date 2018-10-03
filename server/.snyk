@@ -5,5 +5,5 @@ ignore:
   'npm:mem:20180117':
     - sequelize-cli > yargs > os-locale > mem:
         reason: User does not have access to env
-        expires: '2018-11-01T16:06:32.408Z'
+        expires: '2018-11-01T16:10:24.155Z'
 patch: {}
