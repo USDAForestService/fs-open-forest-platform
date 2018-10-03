@@ -3,6 +3,7 @@ import { environment } from '../environments/environment';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
+import { Meta } from '@angular/platform-browser';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -20,7 +21,14 @@ export class AppComponent implements OnInit {
     message: ''
   };
 
-  constructor(public router: Router, public authentication: AuthenticationService, public util: UtilService) {
+  constructor(public router: Router,
+    public authentication: AuthenticationService,
+    public util: UtilService,
+    private meta: Meta) {
+    this.meta.addTag(
+      { name: 'keywords',
+       content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
+      });
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);

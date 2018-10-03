@@ -6,6 +6,7 @@ import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tree-info',
@@ -25,8 +26,10 @@ export class TreeGuidelinesComponent implements OnInit {
     private titleService: Title,
     private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
-    public markdownService: MarkdownService
-  ) {}
+    public markdownService: MarkdownService,
+    private meta: Meta
+  ) {
+  }
 
   /**
    *  @returns forest with season status and open alert
@@ -87,6 +90,9 @@ export class TreeGuidelinesComponent implements OnInit {
           if (!this.forest.isSeasonOpen) {
             this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
           }
+          this.meta.addTag({
+            name: 'description', content: `Learn more about how to purchase a Christmas tree permit with the United States Forest Service on the this.forest.forest.forestName National Forest with Open Forest.`
+          });
         });
       }
     });

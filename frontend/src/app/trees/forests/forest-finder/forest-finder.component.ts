@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemovePuncPipe } from './remove-punc.pipe';
 import 'rxjs/add/observable/of';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forest-finder',
@@ -18,8 +19,14 @@ export class ForestFinderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private meta: Meta
+  ) {
+    this.meta.addTag({
+      name: 'description', content: 'Use Open Forest to purchase\
+ a Christmas tree permit with the United States Forest Service.'
+    });
+  }
 
   /**
    * Set forest from route resolver
