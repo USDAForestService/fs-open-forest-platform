@@ -1,4 +1,4 @@
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
@@ -43,8 +43,14 @@ export class TreeApplicationFormComponent implements OnInit {
     public applicationFieldsService: ApplicationFieldsService,
     private christmasTreesInfoService: ChristmasTreesInfoService,
     public util: UtilService,
-    private winRef: WindowRef
-  ) {}
+    private winRef: WindowRef,
+    private meta: Meta
+  ) {
+    this.meta.addTag({
+      name: 'description', content: `Purchase a Christmas tree permit with the\
+ United States Forest Service on your National Forest.`
+    });
+  }
 
   /**
    * Update total cost when quantity changes

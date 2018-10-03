@@ -1,4 +1,4 @@
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
@@ -6,7 +6,6 @@ import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
 import { MarkdownService } from 'ngx-md';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
-import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tree-info',
@@ -29,6 +28,10 @@ export class TreeGuidelinesComponent implements OnInit {
     public markdownService: MarkdownService,
     private meta: Meta
   ) {
+    this.meta.addTag({
+      name: 'description', content: `Learn more about how to purchase\
+a Christmas tree permit with the United States Forest Service on your National Forest with Open Forest.`
+    });
   }
 
   /**
@@ -90,9 +93,6 @@ export class TreeGuidelinesComponent implements OnInit {
           if (!this.forest.isSeasonOpen) {
             this.sidebarItems = this.sidebarItems.filter(item => item.type !== 'button');
           }
-          this.meta.addTag({
-            name: 'description', content: `Learn more about how to purchase a Christmas tree permit with the United States Forest Service on the this.forest.forest.forestName National Forest with Open Forest.`
-          });
         });
       }
     });
