@@ -47,7 +47,7 @@ emailUtil.transporter = nodemailer.createTransport(smtpConfig);
  * @param {boolean} attachments - email contains attachments
  */
 emailUtil.send = (to, subject, body, html = false, attachments = false) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const bodyAndNoReply = `${body}
 
       Please do not reply to this message.
@@ -72,7 +72,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
         } else {
           logger.info('Email successfully sent');
         }
-        resolve();
+        resolve('bop');
       });
     }
   });

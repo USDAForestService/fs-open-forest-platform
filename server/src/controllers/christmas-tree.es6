@@ -393,14 +393,14 @@ const checkPermitValid = permitExpireDate => {
  * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
  * @param {Object} permit - permit object
  */
-const generateRulesAndEmail = permit =>
+christmasTree.generateRulesAndEmail = permit =>
   permitSvgService
     .generatePermitSvg(permit)
     .then(() => Promise.all([
       permitSvgService.generatePng(permit),
       permitSvgService.generateRulesHtml(true, permit),
     ]))
-    .then((permitPng, rulesHtml) => {
+    .then(([permitPng, rulesHtml]) => {
       permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
       let rulesText = htmlToText.fromString(rulesHtml, {
         wordwrap: 130,

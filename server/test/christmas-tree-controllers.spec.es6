@@ -4,10 +4,12 @@ const jwt = require('jsonwebtoken');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 const request = require('supertest');
-require('./common.es6');
+const emailSendStub = require('./common.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const server = require('./mock-aws.spec.es6');
+
+const christmasTreeController = require('../src/controllers/christmas-tree.es6');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -487,6 +489,23 @@ describe('christmas tree controller tests', () => {
           expect(res.body).to.include.all.keys('result');
         })
         .expect(200, done);
+    });
+  });
+
+  describe('unit tests for xmas tree controller', () => {
+    it('should send and email and generate rules', () => {
+      const permitApplication = christmasTreePermitApplicationFactory.create({
+        firstName: 'Bonny',
+        lastName: 'Clyde',
+        forestId: 3,
+        forestAbbr: 'mthood',
+        orgStructureCode: '11-06-06'
+      });
+      const result = christmasTreeController.generateRulesAndEmail(permitApplication);
+      return result.then((data) => {
+        expect(emailSendStub.called).to.be.true;
+        // expect(data).to.equal('bop');
+      });
     });
   });
 });
