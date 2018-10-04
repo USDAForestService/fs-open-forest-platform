@@ -65,7 +65,7 @@ export class HelpMePick {
 
   landingPage(heading, message) {
     it('should have a heading', () => {
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(heading);
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(heading);
     });
     it('should have a message', () => {
       expect<any>(element(by.css('.message')).getText()).toEqual(message);
