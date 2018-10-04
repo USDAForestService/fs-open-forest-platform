@@ -43,7 +43,7 @@ describe('frontend App', () => {
     it('should go to help me pick wizard if help me find permit button is clicked', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'
       );
     });
