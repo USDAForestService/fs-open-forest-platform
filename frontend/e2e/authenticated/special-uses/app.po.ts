@@ -49,7 +49,7 @@ export class UserApplicationList {
 export class HelpMePick {
   questionStep(cta, question) {
     it('should have a question', () => {
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(question);
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(question);
     });
 
     it('should have yes and no buttons', () => {
@@ -74,7 +74,7 @@ export class HelpMePick {
     it('should go back to step one', () => {
       browser.get('/');
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'
       );
     });
