@@ -75,7 +75,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
         resolve();
       });
     }
-  }):
+  });
 };
 
 /**
