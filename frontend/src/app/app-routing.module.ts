@@ -56,7 +56,7 @@ const appRoutes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'mbs/help-me-pick/:id',
+        path: 'help-me-pick/:id',
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
@@ -66,7 +66,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'admin/mbs/applications',
+    path: 'admin/applications',
     data: {
       breadcrumbs: true,
       text: 'Permit applications',
