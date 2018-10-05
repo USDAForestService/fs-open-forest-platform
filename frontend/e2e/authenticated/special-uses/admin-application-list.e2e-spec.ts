@@ -13,7 +13,7 @@ describe('Apply for a ', () => {
     applicationForm = new NoncommercialApplicationForm;
     noncommercial.navigateTo();
     browser.sleep(500);
-    expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/noncommercial-group-use/new');
+    expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/mbs/applications/noncommercial-group-use/new');
     applicationForm.createApplication();
   });
 

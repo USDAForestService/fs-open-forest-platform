@@ -36,6 +36,11 @@ import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admi
 const appRoutes: Routes = [
   {
     path: '',
+    redirectTo: 'christmas-trees/forests',
+    pathMatch: 'full'
+  },
+  {
+    path: 'mbs',
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
@@ -51,7 +56,7 @@ const appRoutes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'help-me-pick/:id',
+        path: 'mbs/help-me-pick/:id',
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
@@ -61,7 +66,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'admin/applications',
+    path: 'admin/mbs/applications',
     data: {
       breadcrumbs: true,
       text: 'Permit applications',
@@ -149,7 +154,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/noncommercial-group-use/new',
+    path: 'mbs/applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AccessControlService],
     data: { title: 'Apply for a noncommercial group use permit' },
@@ -158,7 +163,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/noncommercial-group-use/:id/edit',
+    path: 'mbs/applications/noncommercial-group-use/:id/edit',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AccessControlService],
     data: { title: 'Edit your noncommercial group use permit' },
@@ -167,7 +172,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/noncommercial-group-use/learn-more',
+    path: 'mbs/applications/noncommercial-group-use/learn-more',
     component: NoncommercialLearnMoreComponent,
     data: { title: 'Noncommercial permit FAQs' },
     resolve: {
@@ -175,7 +180,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/:type/submitted/:id',
+    path: 'mbs/applications/:type/submitted/:id',
     component: ApplicationSubmittedComponent,
     data: { title: 'Application submitted for review' },
     resolve: {
@@ -183,7 +188,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/temp-outfitters/new',
+    path: 'mbs/applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
     data: { title: 'Apply for a temporary outfitters permit' },
@@ -192,7 +197,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/temp-outfitters/:id/edit',
+    path: 'mbs/applications/temp-outfitters/:id/edit',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
     data: { title: 'Edit your temporary outfitters permit' },
@@ -201,7 +206,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'applications/temp-outfitters/learn-more',
+    path: 'mbs/applications/temp-outfitters/learn-more',
     component: TemporaryOutfittersLearnMoreComponent,
     data: { title: 'Temporary outfitters permit FAQs' },
     resolve: {
