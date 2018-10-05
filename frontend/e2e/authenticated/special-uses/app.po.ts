@@ -1,8 +1,8 @@
 import { browser, element, by } from 'protractor';
 
-export class FrontendPage {
+export class SpecialUseHomepage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/mbs');
   }
 
   getParagraphText() {
