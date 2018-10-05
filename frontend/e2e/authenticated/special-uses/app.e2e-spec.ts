@@ -35,6 +35,7 @@ describe('frontend App', () => {
     });
 
     it('should have ctas to apply for different permits', () => {
+      page.navigateTo();
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
