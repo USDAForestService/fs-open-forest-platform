@@ -72,7 +72,7 @@ export class HelpMePick {
     });
 
     it('should go back to step one', () => {
-      browser.get('/');
+      browser.get('/mbs');
       element(by.id('help-find-permit')).click();
       expect<any>(element(by.css('app-root h1')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'
