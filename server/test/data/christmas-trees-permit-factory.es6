@@ -24,6 +24,7 @@ module.exports = factory.factory({
     id: 3,
     forestName: 'Mt. Hood National Forest',
     description: 'Mt. Hood | Oregon | Portland, OR',
+    timezone: 'America/Los_Angeles',
     forestAbbr: 'mthood',
     forestUrl: 'https://www.fs.usda.gov/main/mthood',
     treeHeight: 12,

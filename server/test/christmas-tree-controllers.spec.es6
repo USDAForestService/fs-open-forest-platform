@@ -5,8 +5,11 @@ const vcapConstants = require('../src/vcap-constants.es6');
 
 const request = require('supertest');
 const emailSendStub = require('./common.es6');
+const sinon = require('sinon');
+const permitSvgService = require('../src/services/christmas-trees-permit-svg-util.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
+const christmasTreePermitFactory = require('./data/christmas-trees-permit-factory.es6');
 const server = require('./mock-aws.spec.es6');
 
 const christmasTreeController = require('../src/controllers/christmas-tree.es6');
@@ -494,7 +497,7 @@ describe('christmas tree controller tests', () => {
 
   describe('unit tests for xmas tree controller', () => {
     it('should send and email and generate rules', () => {
-      const permitApplication = christmasTreePermitApplicationFactory.create({
+      const permitApplication = christmasTreePermitFactory.create({
         firstName: 'Bonny',
         lastName: 'Clyde',
         forestId: 3,
@@ -502,10 +505,13 @@ describe('christmas tree controller tests', () => {
         orgStructureCode: '11-06-06'
       });
       const result = christmasTreeController.generateRulesAndEmail(permitApplication);
+      const permitSpy = sinon.spy(permitSvgService, 'generatePng');
       return result.then((data) => {
+        expect(permitSpy.called).to.be.true;
         expect(emailSendStub.called).to.be.true;
-        // expect(data).to.equal('bop');
+        expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
+        expect(data).to.equal();
       });
-    });
+    }).timeout(10000);
   });
 });

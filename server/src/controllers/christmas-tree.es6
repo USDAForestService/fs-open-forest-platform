@@ -396,11 +396,12 @@ const checkPermitValid = permitExpireDate => {
 christmasTree.generateRulesAndEmail = permit =>
   permitSvgService
     .generatePermitSvg(permit)
-    .then(() => Promise.all([
-      permitSvgService.generatePng(permit),
+    .then((permitSvg) => Promise.all([
+      permitSvgService.generatePng(permitSvg),
       permitSvgService.generateRulesHtml(true, permit),
     ]))
     .then(([permitPng, rulesHtml]) => {
+      console.log('rules made');
       permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
       let rulesText = htmlToText.fromString(rulesHtml, {
         wordwrap: 130,
@@ -543,7 +544,7 @@ christmasTree.updatePermitApplication = (req, res) => {
                 })
                 .then(updatedPermit => {
                   returnSavedPermit(res, permit);
-                  generateRulesAndEmail(updatedPermit);
+                  christmasTree.generateRulesAndEmail(updatedPermit);
                 })
                 .catch(error => {
                   logger.error(error);
