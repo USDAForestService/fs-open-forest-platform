@@ -6,6 +6,7 @@ const emails = require('../src/email/email-templates.es6');
 const noncommController = require('../src/controllers/noncommercial.es6');
 const tempOutfitterController = require('../src/controllers/temp-outfitter.es6');
 const expect = require('chai').expect;
+const moment = require('moment');
 require('./common.es6');
 
 // to do convert to ${type}.translateFromClientToDatabase beforeall
@@ -31,15 +32,18 @@ describe('Special use email templates', () =>{
 
       const emailPlainText = emailContent.body.trim();
       const emailHTML = emailContent.html.trim();
+      const startTime = moment('2018-12-12T13:00:00Z', 'YYYY-MM-DDTHH:mm:ssZ').format('MM/DD/YYYY hh:mm a');
+      const endTime = moment('2018-12-12T21:00:00Z', 'YYYY-MM-DDTHH:mm:ssZ').format('MM/DD/YYYY hh:mm a');
       
       expect(emailPlainText).to.include('NOT APPROVED');
       expect(emailPlainText).to.include('Title: Special use administrator');
-      expect(emailPlainText).to.include('Start date: 12/12/2018 08:00 a.m.');
-      expect(emailPlainText).to.include('End date: 12/12/2018 04:00 p.m.');
+
+      expect(emailPlainText).to.include(`Start date: ${startTime}`);
+      expect(emailPlainText).to.include(`End date: ${endTime}`);
       expect(emailHTML).to.include('<strong>NOT APPROVED</strong>');
       expect(emailHTML).to.include('<td class="border-bottom">Special use administrator</td>');
-      expect(emailHTML).to.include('12/12/2018 08:00 a.m.');
-      expect(emailHTML).to.include('12/12/2018 04:00 p.m.');
+      expect(emailHTML).to.include(startTime);
+      expect(emailHTML).to.include(endTime);
     });
 
     it('should build an object of email content for noncommercial app submission to admin', () => {
