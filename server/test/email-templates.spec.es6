@@ -9,8 +9,8 @@ const expect = require('chai').expect;
 require('./common.es6');
 
 // to do convert to ${type}.translateFromClientToDatabase beforeall
-describe.only('Special use email templates', () =>{
-  const specialUseSubject = 'An update on your recent permit application to the Forest Service.';
+describe('Special use email templates', () =>{
+  const specialUseSubject = 'An update on your recent Open Forest permit application to the Forest Service.';
   const forestName = 'Mt.Baker - Snoqualmie National Forest';
   const adminSubject = `A new permit application with a start date of 12/12/2018 has been submitted to the ${forestName}.`;
 
@@ -25,7 +25,7 @@ describe.only('Special use email templates', () =>{
 
     it('should build an object of email content for noncommercial app submission to user', () => {
       const emailContent = emails.noncommercialApplicationSubmittedConfirmation(application);
-      const specialUseSubject = 'Your Noncommercial permit application has been submitted for review!';
+      const specialUseSubject = 'Your Noncommercial Open Forest permit application has been submitted for review!';
       expect(emailContent.subject).to.be.eq(specialUseSubject);
       expect(emailContent).to.have.all.keys('to','subject', 'body', 'html');
       
@@ -93,7 +93,7 @@ describe.only('Special use email templates', () =>{
     });
 
     it('should build an object of email content for temp outfitter app submission to user', () => {
-      const specialUseSubject = 'Your Temp outfitters permit application has been submitted for review!';
+      const specialUseSubject = 'Your Temp outfitters Open Forest permit application has been submitted for review!';
       application.tempOutfitterFieldsActDescFieldsEndDateTime = '2018-12-14T21:00:00Z';
       const emailContent = emails.tempOutfitterApplicationSubmittedConfirmation(application);
 
