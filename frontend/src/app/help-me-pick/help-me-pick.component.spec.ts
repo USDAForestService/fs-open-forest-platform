@@ -43,19 +43,19 @@ describe('HelpMePickComponent', () => {
   });
 
   it('should change title based on page id', () => {
-    component.setTitle('2');
+    component.getTitle('2');
     expect(component.title).toEqual('Is the purpose of your activity selling goods or services?');
-    component.setTitle('3');
+    component.getTitle('3');
     expect(component.title).toEqual('Does your activity involve more than 75 people (spectators and participants)?');
-    component.setTitle('4');
+    component.getTitle('4');
     expect(component.title).toEqual('Your activity does not require a permit.');
-    component.setTitle('5');
+    component.getTitle('5');
     expect(component.title).toEqual('Does your activity involve guiding or outfitting?');
-    component.setTitle('6');
+    component.getTitle('6');
     expect(component.title).toEqual('Your activity requires a permit, but not one available online.');
-    component.setTitle('7');
+    component.getTitle('7');
     expect(component.title).toEqual('The correct permit for you is the "noncommercial group use application."');
-    component.setTitle('8');
+    component.getTitle('8');
     expect(component.title).toEqual('The correct permit for you is the "temporary outfitter and guide permit."');
   });
 });

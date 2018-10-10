@@ -1,4 +1,4 @@
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
@@ -25,8 +25,14 @@ export class TreeGuidelinesComponent implements OnInit {
     private titleService: Title,
     private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
-    public markdownService: MarkdownService
-  ) {}
+    public markdownService: MarkdownService,
+    private meta: Meta
+  ) {
+    this.meta.addTag({
+      name: 'description', content: `Learn more about how to purchase\
+a Christmas tree permit with the United States Forest Service on your National Forest with Open Forest.`
+    });
+  }
 
   /**
    *  @returns forest with season status and open alert
@@ -81,7 +87,7 @@ export class TreeGuidelinesComponent implements OnInit {
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
         }
 
-        this.titleService.setTitle(this.forest.forestName + ' | U.S. Forest Service Christmas Tree Permitting');
+        this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
         this.configService.getJSON().subscribe(configData => {
           this.sidebarItems = configData;
           if (!this.forest.isSeasonOpen) {

@@ -74,7 +74,7 @@ export class TreePermitViewComponent implements OnInit {
       this.permit = permit;
       this.isPermitExpired = new Date(permit.expirationDate) < new Date();
       this.titleService.setTitle(
-        `Permit order confirmation | ${permit.forest.forestName} | U.S. Forest Service Christmas Tree Permitting`
+        `Christmas permit order confirmation | ${permit.forest.forestName} | U.S. Forest Service Open Forest`
       );
     }
   }

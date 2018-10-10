@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UtilService } from '../../_services/util.service';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-temporary-outfitters-learn-more',
@@ -11,9 +12,15 @@ export class TemporaryOutfittersLearnMoreComponent {
   forest: string;
   constructor(
     public util: UtilService,
-    private specialUseInfoService: SpecialUseInfoService
+    private specialUseInfoService: SpecialUseInfoService,
+    private meta: Meta
   ) {
     this.forest = this.specialUseInfoService.getOne('0605');
+    this.meta.addTag({
+        name: 'description', content: 'Learn more about how to use Open Forest\
+ to apply for temporary outffitter and guide permits on the Mount Baker\
+ Snoqualmie National Forest.'
+        });
     this.items = [
       {
         sectionName: 'A temporary use permit is',

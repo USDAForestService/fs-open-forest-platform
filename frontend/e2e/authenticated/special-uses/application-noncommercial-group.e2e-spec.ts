@@ -42,7 +42,7 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit.');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit with Open Forest.');
   });
 
   it('should submit an application as individual with only the required fields populated', () => {
@@ -71,7 +71,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('end-period')).sendKeys('PM');
     element(by.id('signature')).sendKeys('SA');
     element(by.id('submit-application')).click();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
   it('should submit an application as an organization with all fields populated', () => {
@@ -122,7 +122,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('end-period')).sendKeys('PM');
     element(by.id('signature')).sendKeys('SA');
     element(by.id('submit-application')).click();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
   it('should submit an application as an organization with optional fields omitted', () => {
@@ -156,7 +156,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('end-period')).sendKeys('PM');
     element(by.id('signature')).sendKeys('SA');
     element(by.id('submit-application')).click();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
   it('should show a warning with less than 75 participants', () => {
