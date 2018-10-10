@@ -1,6 +1,7 @@
 <section class="usa-section">
   <div class="usa-grid">
-    <h1 id="skip-nav-target" tabindex="-1">Submitted for review!</h1>
+    <h1 id="skip-nav-target" tabindex="-1">Open Forest</h1>
+    <h2>Submitted for review!</h2>
     <div *ngIf="errorMessage" class="usa-alert usa-alert-error application-deadline-warning">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Error</h3>
@@ -17,7 +18,7 @@
           <strong>Application identification number: {{application.applicationId}}</strong>
         </p>
       </div>
-      <h2>What happens next?</h2>
+      <h3>What happens next?</h3>
       <ol class="usa-grid-full">
         <li class="next-steps usa-width-one-fourth">
           <span class="step-number">1</span>
@@ -36,7 +37,7 @@
           <p><strong>If your application is approved, you will receive your permit within 2 weeks of approval.</strong></p>
         </li>
       </ol>
-      <h2>Contact us</h2>
+      <h3>Contact us</h3>
       <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
       <div class="contact-details" *ngIf="type === 'noncommercial'">
         <h3>Noncommercial contact</h3>
@@ -56,7 +57,7 @@
         <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
         <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
       </div>
-      <h2>Thank you for your interest in our National Forests.</h2>
+      <h3>Thank you for your interest in our National Forests.</h3>
     </ng-container>
   </div>
 </section>

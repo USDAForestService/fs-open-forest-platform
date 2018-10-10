@@ -5,6 +5,7 @@ import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
@@ -44,8 +45,15 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private authentication: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private meta: Meta
   ) {
+    this.meta.addTag({
+      name: 'description',
+      content: 'Apply for a noncommercial group\
+ use permit on the Mount Baker Snoqualmie\
+ National Forest with Open Forest.'
+    });
     this.applicationForm = this.formBuilder.group({
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
