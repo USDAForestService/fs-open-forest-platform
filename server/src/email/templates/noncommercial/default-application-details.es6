@@ -7,7 +7,9 @@ module.exports = {
     return `
       Application details
       *********************************
-
+      linkdets: ${Object.keys(linkDetails)}
+      linkdets: ${linkDetails.text}
+      app status: ${application.status}
       Application identification number: ${application.applicationId}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Forest: ${application.forestName}
