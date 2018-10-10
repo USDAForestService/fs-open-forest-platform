@@ -45,6 +45,6 @@ describe('ChristmasTreeMapDetailsComponent', () => {
 
   it('should set the title using forest and map id', () => {
     const titleService = TestBed.get(Title);
-    expect(titleService.getTitle()).toBe('Map details for forest name mapId cutting area or ranger district | U.S. Forest Service Christmas Tree Permitting');
+    expect(titleService.getTitle()).toBe('Map details for forest name mapId cutting area or ranger district | U.S. Forest Service Open Forest');
   });
 });
