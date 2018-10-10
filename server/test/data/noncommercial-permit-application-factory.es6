@@ -19,6 +19,7 @@ module.exports = factory.factory({
   signature: 'ABC',
   // required string(255)
   status: 'Submitted',
+  type: 'noncommercial',
   // required
   applicantInfo: {
     // required

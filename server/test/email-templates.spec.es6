@@ -3,47 +3,120 @@
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-permit-application-factory.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const emails = require('../src/email/email-templates.es6');
+const noncommController = require('../src/controllers/noncommercial.es6');
+const tempOutfitterController = require('../src/controllers/temp-outfitter.es6');
 const expect = require('chai').expect;
 require('./common.es6');
 
-describe('Email templates', () => {
-  it('should send an email when noncommercial user cancels', () => {
-    const application = noncommercialPermitApplicationFactory.create();
-    application.status = 'Cancelled';
-    application.type = 'noncommercial';
-    emails.noncommercialApplicationUserCancelled(application);
-    expect(true).to.be.true;
+// to do convert to ${type}.translateFromClientToDatabase beforeall
+describe('Special use email templates', () =>{
+  const specialUseSubject = 'An update on your recent permit application to the Forest Service.';
+  const forestName = 'Mt.Baker - Snoqualmie National Forest';
+  const adminSubject = `A new permit application with a start date of 12/12/2018 has been submitted to the ${forestName}.`;
+
+  describe('for noncommericial apps', () => {
+    let application = {};
+    beforeEach(function () {
+      // runs before each test in this block
+      let applicationFactory = noncommercialPermitApplicationFactory.create();
+      noncommController.translateFromClientToDatabase(applicationFactory, application);
+      application.forestName = forestName;
+    });
+
+    it('should build an object of email content for noncommercial app submission to user', () => {
+      const emailContent = emails.noncommercialApplicationSubmittedConfirmation(application);
+      const specialUseSubject = 'Your Noncommercial permit application has been submitted for review!';
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for noncommercial app submission to admin', () => {
+      const emailContent = emails.noncommercialApplicationSubmittedAdminConfirmation(application);
+      expect(emailContent.subject).to.be.eq(adminSubject);
+    });
+
+    it('should build an object of email content for noncommercial app acceptance to SUDS', () => {
+      const emailContent = emails.noncommercialApplicationAccepted(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for temp app acceptance to SUDS', () => {
+      const emailContent = emails.tempOutfitterApplicationAccepted(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for noncommercial cancellation', () => {
+      application.status = 'Cancelled';
+      const specialUseSubject = 'The Fun Party permit application to the Mt.Baker - Snoqualmie National Forest has been cancelled.';
+      const emailContent = emails.noncommercialApplicationUserCancelled(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for a noncommercial app that has been reviewed', () => {
+      application.status = 'Review';
+      const emailContent = emails.noncommercialApplicationReview(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for rejected noncommercial applications', () => {
+      application.status = 'Rejected';
+      const specialUseSubject = 'An update on your recent Open Forest permit application to the Forest Service.';
+      const emailContent = emails.noncommercialApplicationRejected(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for a noncommercial app that has been reviewed', () => {
+      application.status = 'Hold';
+      const emailContent = emails.noncommercialApplicationHold(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
   });
 
-  it('should send an email when noncommercial user cancels', () => {
-    const application = noncommercialPermitApplicationFactory.create();
-    application.status = 'Review';
-    application.type = 'noncommercial';
-    emails.noncommercialApplicationReview(application);
-    expect(true).to.be.true;
-  });
+  describe('for temp apps', () => {
+    let application = {};
+    beforeEach(function () {
+      // runs before each test in this block
+      let applicationFactory = tempOutfitterPermitApplicationFactory.create();
+      tempOutfitterController.translateFromClientToDatabase(applicationFactory, application);
+      application.forestName = forestName;
+    });
 
-  it('should send an email when temp outfitter application is rejected', () => {
-    const application = tempOutfitterPermitApplicationFactory.create();
-    application.status = 'Cancelled';
-    application.type = 'temp-outfitter';
-    emails.tempOutfitterApplicationRejected(application);
-    expect(true).to.be.true;
-  });
+    it('should build an object of email content for a temp-outfitter app that has been put on hold', () => {
+      application.status = 'Hold';
+      const emailContent = emails.tempOutfitterApplicationHold(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
 
-  it('should send an email when temp outfitter user cancels', () => {
-    const application = tempOutfitterPermitApplicationFactory.create();
-    application.status = 'Cancelled';
-    application.type = 'temp-outfitter';
-    emails.tempOutfitterApplicationUserCancelled(application);
-    expect(true).to.be.true;
-  });
+    it('should build an object of email content for a temp-outfitter app that has been reviewed', () => {
+      application.status = 'Review';
+      const emailContent = emails.tempOutfitterApplicationReview(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
 
-  it('should send an email when temp outfitter user cancels', () => {
-    const application = tempOutfitterPermitApplicationFactory.create();
-    application.status = 'Review';
-    application.type = 'temp-outfitter';
-    emails.tempOutfitterApplicationReview(application);
-    expect(true).to.be.true;
+    it('should build an object of email content for temp outfitter user cancellation', () => {
+      application.status = 'Cancelled';
+      const specialUseSubject = `The following permit application from Theodore Twombly to the ${forestName} has been cancelled.`;
+      const emailContent = emails.tempOutfitterApplicationUserCancelled(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for rejected temp outfitter applications', () => {
+      application.status = 'Rejected';
+      const specialUseSubject = 'An update on your recent Open Forest permit application to the Forest Service.';
+      const emailContent = emails.tempOutfitterApplicationRejected(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for temp outfitter app submission to user', () => {
+      const application = tempOutfitterPermitApplicationFactory.create();
+      const specialUseSubject = 'Your Temp outfitters permit application has been submitted for review!';
+      const emailContent = emails.tempOutfitterApplicationSubmittedConfirmation(application);
+      expect(emailContent.subject).to.be.eq(specialUseSubject);
+    });
+
+    it('should build an object of email content for temp outfitter app submission to admin', () => {
+      application.status = 'Cancelled';
+      const emailContent = emails.tempOutfitterApplicationSubmittedAdminConfirmation(application);
+      expect(emailContent.subject).to.be.eq(adminSubject);
+    });
   });
 });

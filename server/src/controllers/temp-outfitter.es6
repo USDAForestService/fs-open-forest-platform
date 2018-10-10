@@ -25,12 +25,13 @@ const tempOutfitter = {};
 const s3 = util.getS3();
 
 /**
- * @function translateFromClientToDatabase - private function to translate permit application
- * object from client format to database format.
+ * @function translateFromClientToDatabase - function to translate permit application
+ * object from client format to database format. It is not private so that it can be leveraged
+ * for tests
  * @param {Object} input
  * @param {Object} output
  */
-const translateFromClientToDatabase = (input, output) => {
+tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -426,7 +427,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
     if (submitted.status !== 'Cancelled') {
-      translateFromClientToDatabase(submitted, model);
+      tempOutfitter.translateFromClientToDatabase(submitted, model);
     }
   } else if (user.role === 'user' && user.email === model.authEmail) {
     if (submitted.status === 'Hold') {
@@ -435,7 +436,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
       model.status = submitted.status;
     }
     if (submitted.status !== 'Cancelled') {
-      translateFromClientToDatabase(submitted, model);
+      tempOutfitter.translateFromClientToDatabase(submitted, model);
     }
   }
 };
@@ -647,7 +648,7 @@ tempOutfitter.create = (req, res) => {
     authEmail: req.body.authEmail,
     status: 'Incomplete' // will be updated to Submitted when attachments are ready
   };
-  translateFromClientToDatabase(req.body, model);
+  tempOutfitter.translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(app => {
       util.logControllerAction(req, 'tempOutfitter.Create', app);
