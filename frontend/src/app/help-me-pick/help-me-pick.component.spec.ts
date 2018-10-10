@@ -39,7 +39,7 @@ describe('HelpMePickComponent', () => {
 
   it('should navigate', () => {
     component.goToStep('2');
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/mbs/help-me-pick', '2']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/help-me-pick', '2']);
   });
 
   it('should change title based on page id', () => {
