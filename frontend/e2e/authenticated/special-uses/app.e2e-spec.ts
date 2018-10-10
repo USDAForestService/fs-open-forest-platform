@@ -9,11 +9,11 @@ describe('frontend App', () => {
   describe('error handling', () => {
     it('should have a 404 page', () => {
       browser.get('/404');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
     });
     it('should redirect to 404 page for unknown urls', () => {
       browser.get('/smokeybear');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
     });
   });
 
@@ -24,7 +24,7 @@ describe('frontend App', () => {
 
     it('should display page title', () => {
       page.navigateTo();
-      expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
+      expect<any>(page.getParagraphText()).toEqual('Apply for a permit with Open Forest');
     });
 
     it('should show correct page title when navigating by link', () => {
@@ -44,7 +44,7 @@ describe('frontend App', () => {
     it('should go to help me pick wizard if help me find permit button is clicked', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'
       );
     });

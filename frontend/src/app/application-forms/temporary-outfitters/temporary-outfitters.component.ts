@@ -10,6 +10,7 @@ import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-temporary-outfitters',
@@ -55,8 +56,15 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     public formBuilder: FormBuilder,
     public renderer: Renderer2,
     public fileUploadService: FileUploadService,
-    private specialUseInfoService: SpecialUseInfoService
+    private specialUseInfoService: SpecialUseInfoService,
+    private meta: Meta
   ) {
+
+    this.meta.addTag({
+      name: 'description', content: 'Apply for a temporary outffitter\
+ and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
+    });
+
     this.applicationForm = this.formBuilder.group({
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
