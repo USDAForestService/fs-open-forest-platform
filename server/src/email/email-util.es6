@@ -72,7 +72,7 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
         } else {
           logger.info('Email successfully sent');
         }
-        resolve('bop');
+        resolve();
       });
     }
   });

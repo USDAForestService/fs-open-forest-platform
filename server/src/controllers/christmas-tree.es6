@@ -401,9 +401,8 @@ christmasTree.generateRulesAndEmail = permit =>
       permitSvgService.generateRulesHtml(true, permit),
     ]))
     .then(([permitPng, rulesHtml]) => {
-      console.log('rules made');
       permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
-      let rulesText = htmlToText.fromString(rulesHtml, {
+      const rulesText = htmlToText.fromString(rulesHtml, {
         wordwrap: 130,
         ignoreImage: true
       });
