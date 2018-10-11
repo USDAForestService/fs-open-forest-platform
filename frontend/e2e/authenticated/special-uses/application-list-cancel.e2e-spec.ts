@@ -15,7 +15,7 @@ xdescribe('Viewing applications as an applicant', () => {
         browser.executeScript('localStorage.removeItem("user");');
         browser.executeScript('localStorage.setItem("user",{"adminUsername": "TEST_USER", "email": "test@test.com","role": "user","forests": []});');
         browser.sleep(500);
-        expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/applications/noncommercial-group-use/new');
+        expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/mbs/applications/noncommercial-group-use/new');
         applicationForm.createApplication();
     });
 

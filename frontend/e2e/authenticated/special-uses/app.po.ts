@@ -1,8 +1,8 @@
 import { browser, element, by } from 'protractor';
 
-export class FrontendPage {
+export class SpecialUseHomepage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/mbs');
   }
 
   getParagraphText() {
@@ -12,25 +12,25 @@ export class FrontendPage {
 
 export class NoncommercialGroupForm {
   navigateTo() {
-    return browser.get('/applications/noncommercial-group-use/new');
+    return browser.get('/mbs/applications/noncommercial-group-use/new');
   }
 }
 
 export class NonCommercialLearnMorePage {
   navigateTo() {
-    return browser.get('/applications/noncommercial-group-use/learn-more');
+    return browser.get('/mbs/applications/noncommercial-group-use/learn-more');
   }
 }
 
 export class TempOutfittersLearnMorePage {
   navigateTo() {
-    return browser.get('/applications/temp-outfitters/learn-more');
+    return browser.get('/mbs/applications/temp-outfitters/learn-more');
   }
 }
 
 export class TempOutfittersForm {
   navigateTo() {
-    return browser.get('/applications/temp-outfitters/new');
+    return browser.get('/mbs/applications/temp-outfitters/new');
   }
 }
 
@@ -72,7 +72,7 @@ export class HelpMePick {
     });
 
     it('should go back to step one', () => {
-      browser.get('/');
+      browser.get('/mbs');
       element(by.id('help-find-permit')).click();
       expect<any>(element(by.css('app-root h2')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'

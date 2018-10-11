@@ -401,7 +401,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.application.status = 'Submitted';
         this.applicationService.update(this.application, 'temp-outfitter').subscribe(
           (data: any) => {
-            this.router.navigate([`applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+            this.router.navigate([`mbs/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
           },
           (e: any) => {
             this.apiErrors = e;

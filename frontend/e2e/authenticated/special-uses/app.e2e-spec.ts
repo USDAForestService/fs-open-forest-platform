@@ -1,8 +1,8 @@
-import { FrontendPage, HelpMePick } from './app.po';
+import { SpecialUseHomepage, HelpMePick } from './app.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('frontend App', () => {
-  let page: FrontendPage;
+  let page: SpecialUseHomepage;
   let helpMePick: HelpMePick;
   helpMePick = new HelpMePick();
 
@@ -19,7 +19,7 @@ describe('frontend App', () => {
 
   describe('permit application', () => {
     beforeEach(() => {
-      page = new FrontendPage();
+      page = new SpecialUseHomepage();
     });
 
     it('should display page title', () => {
@@ -31,10 +31,11 @@ describe('frontend App', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
       element(by.id('us-forest-service-logo')).click();
-      expect<any>(browser.getTitle()).toEqual('US Forest Service Open Forest');
+      expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Open Forest');
     });
 
     it('should have ctas to apply for different permits', () => {
+      page.navigateTo();
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
