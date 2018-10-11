@@ -207,6 +207,14 @@ describe('Special use email templates', () =>{
       const emailContent = emails.tempOutfitterApplicationSubmittedAdminConfirmation(application);
       expect(emailContent.subject).to.be.eq(adminSubject);
       expect(emailContent).to.have.all.keys('to', 'subject', 'body', 'html');
+
+      const emailPlainText = emailContent.body.trim();
+      const emailHTML = emailContent.html.trim();
+
+      expect(emailPlainText).to.include('Start date: 12/12/2018');
+      expect(emailPlainText).to.include('End date: 12/14/2018');
+      expect(emailHTML).to.include('12/12/2018');
+      expect(emailHTML).to.include('12/14/2018');
     });
   });
 });
