@@ -115,7 +115,7 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
 
 /**
  * @function generatePng - Generate Permit PNG from the permit SVG buffer
- * @param {Object} svgBuffer - permi svg Buffer
+ * @param {Object} svgBuffer - permit svg Buffer
  * @return {Object} - png buffer for the svg
  */
 christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
