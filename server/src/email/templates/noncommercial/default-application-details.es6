@@ -8,7 +8,6 @@ module.exports = {
       Application details
       *********************************
       
-      app status: ${application.status}
       Application identification number: ${application.applicationId}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Forest: ${application.forestName}
@@ -18,6 +17,7 @@ module.exports = {
       Number of participants: ${application.noncommercialFieldsNumberParticipants}
       Number of spectators: ${application.noncommercialFieldsSpectatorCount}
       Location: ${application.noncommercialFieldsLocationDescription}
+      Application status: ${application.status}
       
       ${linkDetails.text}: ${linkDetails.url}`;
   },
