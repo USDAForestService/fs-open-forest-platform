@@ -156,6 +156,10 @@ commonControllers.getPermitApplications = (req, res) => {
 commonControllers.updateEmailSwitch = (req, res, app, type) => {
   commonControllers.createRevision(util.getUser(req), app);
   app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+  if (app.status == 'Submitted'){
+    email.sendEmail(`${type}ApplicationSubmittedConfirmation`, app);
+    email.sendEmail(`${type}ApplicationSubmittedAdminConfirmation`, app);
+  }
   if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
     email.sendEmail(`${type}ApplicationUser${app.status}`, app);
   } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
