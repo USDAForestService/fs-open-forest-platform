@@ -646,15 +646,12 @@ tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
   let model = {
     authEmail: req.body.authEmail,
-    status: 'Incomplete' // will be updated to Submitted when attachments are ready
   };
   tempOutfitter.translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(app => {
       util.logControllerAction(req, 'tempOutfitter.Create', app);
       app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', app);
-      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', app);
       req.body['applicationId'] = app.applicationId;
       req.body['appControlNumber'] = app.appControlNumber;
       return res.status(201).json(req.body);

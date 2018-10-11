@@ -347,7 +347,10 @@ util.businessNameElsePersonalName = application => {
  * @return {string} - application url
  */
 util.userApplicationLink = (application, plainText) => {
-  const applicationType = application.type;
+  let applicationType = application.type;
+  if (application.type == 'tempOutfitters') {
+    applicationType = 'temp-outfitter'; //for resolving url
+  }
   const applicationID = application.appControlNumber;
   const applicationStatus = application.status;
 
@@ -359,9 +362,6 @@ util.userApplicationLink = (application, plainText) => {
   case 'Hold':
     status = 'application which needs additional information';
     break;
-  case 'Rejected':
-    status = 'application';
-    break;
   case 'Review':
     status = 'application which is under review';
     break;
@@ -370,6 +370,10 @@ util.userApplicationLink = (application, plainText) => {
     break;
   case 'Submitted':
     status = 'submitted application';
+    break;
+  default:
+    status = 'application';
+    break;
   }
   let text;
   if (plainText === true) {

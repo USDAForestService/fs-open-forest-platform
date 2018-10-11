@@ -80,7 +80,7 @@ describe('util tests', () => {
   });
 
   describe('userApplicationLink', () => {
-    it('should return the correct application url and accompanying link text', () => {
+    it('should return the correct noncommericial application url and accompanying link text', () => {
       const statuses = [
         { state: 'Accepted', text: 'accepted application'},
         { state: 'Rejected', text: 'application'},
@@ -104,6 +104,35 @@ describe('util tests', () => {
 
         expect(userLink.url).to.equal(
           `${url}/user/applications/noncommercial/1d1ae92b-c1da-4933-9425-d64cad5561dd`
+        );
+
+      });
+    });
+
+    it('should return the correct noncommericial application url and accompanying link text', () => {
+      const statuses = [
+        { state: 'Accepted', text: 'accepted application' },
+        { state: 'Rejected', text: 'application' },
+        { state: 'Hold', text: 'application which needs additional information' },
+        { state: 'Review', text: 'application which is under review' },
+        { state: 'Cancelled', text: 'cancelled application' },
+        { state: 'Submitted', text: 'submitted application' }
+      ];
+      const testApp = {
+        type: 'tempOutfitters',
+        appControlNumber: '1d1ae92b-c1da-4933-9425-d64cad5561dd',
+      };
+      const url = vcapConstants.INTAKE_CLIENT_BASE_URL;
+
+      statuses.forEach(status => {
+        testApp.status = status.state;
+        const userLink = util.userApplicationLink(testApp, true);
+        expect(userLink.text).to.equal(
+          `You can view your ${status.text} here`
+        );
+
+        expect(userLink.url).to.equal(
+          `${url}/user/applications/temp-outfitter/1d1ae92b-c1da-4933-9425-d64cad5561dd`
         );
 
       });
