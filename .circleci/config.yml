@@ -61,7 +61,7 @@ jobs:
             npm run snyk-test # For Human
       - run:
           name: Install sequelize
-          command: npm i -g sequelize-cli
+          command: sudo npm i -g sequelize-cli
 
       - save_cache:
           paths:
