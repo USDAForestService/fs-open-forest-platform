@@ -83,7 +83,7 @@
     "unionized": "^4.12.2"
   },
   "scripts": {
-    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 mocha ./test/**/*.es6 ./test/*.es6 --exit",
+    "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 yarn test",
     "dev": "yarn; yarn copy-frontend-assets; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6",
     "dev:user": "yarn; yarn copy-frontend-assets; sequelize db:migrate; NODE_ENV=local nodemon ./src/app.es6 user",
     "copy-frontend-assets": "./copy-frontend-assets.sh",
