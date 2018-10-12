@@ -94,7 +94,7 @@ jobs:
           name: Server - unit tests
           command: |
             cd server
-            npm coverage
+            npm run coverage
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
