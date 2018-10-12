@@ -1,5 +1,5 @@
 import { DaysToOrDate } from './days-to-or-date.pipe';
-import * as moment from 'moment/moment';
+import * as moment from 'moment-timezone';
 
 describe('DaysToOrDate', () => {
   let pipe: DaysToOrDate;
