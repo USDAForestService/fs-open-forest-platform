@@ -301,16 +301,7 @@ util.localUser = () => {
  * @return {Object} - user object
  */
 util.getUser = req => {
-  if (util.isLocalOrCI()) {
-    return {
-      adminUsername: 'TEST_USER',
-      email: 'test@test.com',
-      role: util.localUser(),
-      forests: util.getAdminForests('TEST_USER')
-    };
-  } else {
-    return req.user;
-  }
+  return req.user;
 };
 
 /**
