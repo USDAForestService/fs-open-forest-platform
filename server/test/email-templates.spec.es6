@@ -204,9 +204,18 @@ describe('Special use email templates', () =>{
 
     it('should build an object of email content for temp outfitter app submission to admin', () => {
       application.status = 'Submitted';
+      application.tempOutfitterFieldsActDescFieldsEndDateTime = '2018-12-14T21:00:00Z';
       const emailContent = emails.tempOutfitterApplicationSubmittedAdminConfirmation(application);
       expect(emailContent.subject).to.be.eq(adminSubject);
       expect(emailContent).to.have.all.keys('to', 'subject', 'body', 'html');
+
+      const emailPlainText = emailContent.body.trim();
+      const emailHTML = emailContent.html.trim();
+
+      expect(emailPlainText).to.include('Start date: 12/12/2018');
+      expect(emailPlainText).to.include('End date: 12/14/2018');
+      expect(emailHTML).to.include('12/12/2018');
+      expect(emailHTML).to.include('12/14/2018');
     });
   });
 });
