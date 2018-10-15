@@ -49,7 +49,7 @@ jobs:
           name: Frontend - lint
           command: |
             cd frontend
-            yarn run lint
+            npm run lint
       - run:
           name: Frontend - snyk dependency scan
           command: |
@@ -58,10 +58,10 @@ jobs:
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-frontend-${DATE_STRING}.csv
             cd frontend
-            yarn run snyk-test # For Human
+            npm run snyk-test # For Human
       - run:
           name: Install sequelize
-          command: yarn global add sequelize-cli
+          command: sudo npm i -g sequelize-cli
 
       - save_cache:
           paths:
@@ -72,15 +72,15 @@ jobs:
           name: Server - lint
           command: |
             cd server
-            yarn run lint
+            npm run lint
       - run:
           name: Server - snyk dependency scan
           command: |
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PR_REPONAME}-server-${DATE_STRING}.csv
             cd server
-            yarn run snyk-protect
-            yarn run snyk-test
+            npm run snyk-protect
+            npm run snyk-test
       - run:
           name: Copy shared assets from frontend into serverr
           command: cd server; ./copy-frontend-assets.sh
@@ -88,13 +88,13 @@ jobs:
           name: Frontend - unit tests
           command: |
             cd frontend
-            yarn run test:ci
+            npm run test:ci
       - run: *populate_server
       - run:
           name: Server - unit tests
           command: |
             cd server
-            yarn coverage
+            npm run coverage
       - store_artifacts:
           path: frontend/coverage
           prefix: frontend-coverage
@@ -164,7 +164,7 @@ jobs:
       - run:
           name: pa11y test
           command: |
-            cd frontend; yarn run build-test-pa11y
+            cd frontend; npm run build-test-pa11y
 
   build-docker:
     machine: true
@@ -177,7 +177,7 @@ jobs:
           name: docker e2e smoke screen test
           command: |
             cd docker
-            docker-compose run fs-intake-frontend sudo yarn e2e:cidkr
+            docker-compose run fs-intake-frontend sudo npm e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
@@ -196,12 +196,6 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - fs-epermit-deps-
       - run:
-          name: remove yarn dependencies
-          command: rm -rf ~/.yarn
-      - run:
-          name: Install yarn
-          command: sudo npm i -g yarn
-      - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
       - save_cache:
@@ -213,22 +207,22 @@ jobs:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
             cd frontend
-            yarn run update-version;
+            npm run update-version;
       - run:
           name: generate typedocs
           command: |
             cd frontend
-            yarn run docs
+            npm run docs
       - run:
           name: server snyk protect
           command: |
             cd server
-            yarn run snyk-protect
+            npm run snyk-protect
       - run:
           name: Create frontend compiled distribution
           command: |
             cd frontend
-            yarn dist-trees
+            npm run dist-trees
       - run:
           name: Generate basic auth
           command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
@@ -241,7 +235,7 @@ jobs:
           name: generate jsdocs
           command: |
             cd server
-            yarn run docs
+            npm run docs
       - run: *install_cf
       - run:
           name: deploy
@@ -261,12 +255,6 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - fs-epermit-deps-
       - run:
-          name: remove yarn dependencies
-          command: rm -rf ~/.yarn
-      - run:
-          name: Install yarn
-          command: sudo npm i -g yarn
-      - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
       - save_cache:
@@ -278,17 +266,17 @@ jobs:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
             cd frontend
-            yarn run update-version
+            npm run update-version
       - run:
           name: generate typedocs
           command: |
             cd frontend
-            yarn run docs
+            npm run docs
       - run:
           name: Create frontend compiled distribution
           command: |
             cd frontend
-            yarn dist-prod
+            npm run dist-prod
       - run:
           name: Generate basic auth - will remove as final launch task
           command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
@@ -301,7 +289,7 @@ jobs:
           name: generate jsdocs
           command: |
             cd server
-            yarn run docs
+            npm run docs
       - run: *install_cf
       - run:
           name: deploy
