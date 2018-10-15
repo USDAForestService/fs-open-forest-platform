@@ -177,7 +177,7 @@ jobs:
           name: docker e2e smoke screen test
           command: |
             cd docker
-            docker-compose run fs-intake-frontend sudo npm e2e:cidkr
+            docker-compose run fs-intake-frontend sudo npm run e2e:cidkr
             e2ereturncode=$?
             if [[ $e2ereturncode = 0 ]]
               then echo 'SUCCESS'
