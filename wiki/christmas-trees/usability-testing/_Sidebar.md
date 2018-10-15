@@ -1,11 +1,11 @@
 **Schedule**
 
-[Usability testing research schedule](https://github.com/nciinc/fs-permit-platform/wiki/Usability-testing-research-schedule)
+[Usability testing research schedule](https://github.com/18F/fs-open-forest-platform/blob/dev/wiki/christmas-trees/usability-testing/Research-Testing-Schedule.md)
 
 **Feedback**
 
-[Design feedback email summary October 27, 2017](https://github.com/nciinc/fs-permit-platform/wiki/Design-Feedback-Email-Summary---October-27,-2017)
+[Design feedback email summary October 27, 2017](https://github.com/18F/fs-open-forest-platform/blob/dev/wiki/christmas-trees/usability-testing/Sprint-01-Design-feedback-email-summary-October-27-2017.md)
 
 **Usability Testing**
 
-[Usability testing session 1 summary November 6, 2017](https://github.com/nciinc/fs-permit-platform/wiki/Usability-testing-session-1-summary-November-6,-2017)
+[Usability testing session 1 summary November 6, 2017](https://github.com/18F/fs-open-forest-platform/blob/dev/wiki/christmas-trees/usability-testing/Sprint-02-Christmas-tree-ePermit-Research-Results-Summary-November-6-2017.md)

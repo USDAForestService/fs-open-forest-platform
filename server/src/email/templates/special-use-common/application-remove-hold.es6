@@ -3,9 +3,9 @@ const defaultForestContact = require('../default-special-use-contact-info.es6');
 module.exports = (application, defaultApplicationDetails) => {
   return {
     to: application.applicantInfoEmailAddress,
-    subject: 'An update on your recent permit application to the Forest Service.',
+    subject: 'An update on your recent Open Forest permit application to the Forest Service.',
     body: `
-      Permit application status update
+      Open Forest permit application status update
       *********************************
 
       We are reviewing the additional information you provided.
@@ -27,7 +27,7 @@ module.exports = (application, defaultApplicationDetails) => {
       ${defaultForestContact.text}
     `,
     html: `
-    <h2>Permit application status update</h2>
+    <h2>Open Forest permit application status update</h2>
     <p>We are reviewing the additional information you provided.</p>
     <p>${application.applicantMessage}</p>
     ${defaultApplicationDetails.html(application)}

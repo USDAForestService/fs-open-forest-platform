@@ -118,7 +118,7 @@ export class PermitApplicationViewComponent implements OnInit {
       this.type = params['type'];
       this.id = params['id'];
       this.getApplication(this.type, this.id);
-      this.titleService.setTitle(`View ${this.type} application ${this.id}`);
+      this.titleService.setTitle(`View ${this.type} application ${this.id} | U.S. Forest Service Open Forest`);
     });
   }
 

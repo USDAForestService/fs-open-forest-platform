@@ -8,7 +8,7 @@ the API and web client.
 Results: [ZAP Scanning Report](api.pdf)
 
 The 3 potential format string errors apper to be false positives, as we are able
-to visit the URLs and receive a 404 response, as expected. The CORS headers are being set for the API in the middleware: https://github.com/18F/fs-permit-platform/blob/master/server/src/services/middleware.es6
+to visit the URLs and receive a 404 response, as expected. The CORS headers are being set for the API in the middleware: https://github.com/18F/fs-open-forest-platform/blob/master/server/src/services/middleware.es6
 
 ![](screenshot-1.png)
 

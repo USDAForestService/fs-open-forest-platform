@@ -16,7 +16,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
   });
 
   it('should not show errors by default', () => {
@@ -65,12 +65,12 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
     browser.sleep(3000);
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
   it('should navigate back to temp outfitter', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit.');
+    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
   });
 
   fieldValidation.validateFileUploadField('guide-document', 'xls');
@@ -132,6 +132,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
     browser.sleep(5000);
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Submitted for review!');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 });

@@ -1,40 +1,41 @@
-import { FrontendPage, HelpMePick } from './app.po';
+import { SpecialUseHomepage, HelpMePick } from './app.po';
 import { browser, element, by, Key } from 'protractor';
 
 describe('frontend App', () => {
-  let page: FrontendPage;
+  let page: SpecialUseHomepage;
   let helpMePick: HelpMePick;
   helpMePick = new HelpMePick();
 
   describe('error handling', () => {
     it('should have a 404 page', () => {
       browser.get('/404');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
     });
     it('should redirect to 404 page for unknown urls', () => {
       browser.get('/smokeybear');
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('404 Page not found');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Open Forest - 404 Page not found');
     });
   });
 
   describe('permit application', () => {
     beforeEach(() => {
-      page = new FrontendPage();
+      page = new SpecialUseHomepage();
     });
 
     it('should display page title', () => {
       page.navigateTo();
-      expect<any>(page.getParagraphText()).toEqual('Apply for a permit');
+      expect<any>(page.getParagraphText()).toEqual('Apply for a permit with Open Forest');
     });
 
     it('should show correct page title when navigating by link', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
       element(by.id('us-forest-service-logo')).click();
-      expect<any>(browser.getTitle()).toEqual('US Forest Service Open Forest');
+      expect<any>(browser.getTitle()).toEqual('Christmas tree permits | U.S. Forest Service Open Forest');
     });
 
     it('should have ctas to apply for different permits', () => {
+      page.navigateTo();
       expect<any>(element(by.id('noncommercial-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('tempoutfitter-background')).isDisplayed()).toBeTruthy();
       expect<any>(element(by.id('notsure-background')).isDisplayed()).toBeTruthy();
@@ -43,7 +44,7 @@ describe('frontend App', () => {
     it('should go to help me pick wizard if help me find permit button is clicked', () => {
       page.navigateTo();
       element(by.id('help-find-permit')).click();
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual(
+      expect<any>(element(by.css('app-root h2')).getText()).toEqual(
         'Are you charging a participation fee for your activity?'
       );
     });

@@ -1,16 +1,16 @@
-[![FS ePermit API](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
+[![FS Open Forest](https://img.shields.io/badge/-ePermit-006227.svg?colorA=FFC526&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAACFlBMVEUAAAD%2F%2FyXsvSW8qiXLsCXjuSXyvyX7wiX2wSXqvCXUsyXBrCXvviX%2F%2FyX8yCWUmyVliSV%2FkyV7kSWIlyV0jiWZnSX9yCXNsSXRsiXWtCVWgyVYhCXZtiX%2FyCV8kiV%2BkiX%2FyiX%2FzCWIliWElSX%2FzSX2wiVniSV3kCX2wiXUtCU5eCVujCXWtCW%2FqyXDrSWtpCWwpSWmoiWypiXeuCWJlyWPmSXiuiX%2F1CXsvSXFriW4qSWrpCWElCVdhiWSmiW3qCXCrSXQsiXyvyX%2F1CX%2F%2FyP%2F5yX%2F0iX%2FxCXrvCX%2FxiX%2F0iX%2F5yUcbCU6eCVAeiUfbiVEfCVEfCVZhCVEfCUzdSUtcyVAeyVNfyVZhCVGfSVEfCUqciUSaSUIZCUYayWPmSUUaiUCYiUVaiU1diVjiCUjcCVNfyVFfCXnuyU%2FeiUqciVliSVPgCWQmSUlcCVQgSV7kSX%2FxiWHliVPgCWPmSUtcyWLlyUibyVXgyWzpyX%2FxyXJryUXayVahCWIliWOmCU4eCV2jyXBrCXcuCXMsSVbhSUYaiV1jyU4eCVOgCVujCU6eCUudCWAkyUlcCVEfCVehiVYhCU%2FeiVvjSUSaSUAYiUAYiU1diWAlCUxdSUAYSUBYiUTaSVvjSVqiyVGfSUcbCUQaCUPaCUNZyULZiURaSUYayU6eCVehiVehiV1jyVmiSVOgCVRgSVSgSV2jyVxjSVvjSVMulUvAAAATHRSTlMAAGrao3NYUFdvndVtADfb%2Ffn2%2BP3cOMHAl%2F39lT7v7jsx6eozTPT2UoT%2B%2F4%2FGz%2FL46ut68%2FJ4B1Kau9Pu%2F%2BzQt5NMBgAKGUikQxYIJokgEwAAAFtJREFUCNdjZGBEBiwMvIy2jIcZGRkZrRiPMTIyiFsiJPcxMkgyOsJ4OxhZGFgYOeE6SeMyMuhGI0yew8LAxI3gMqFxGRmMGUthvBZGRgZzFEczMDC4QJlbGRgA3KAIv74V5FUAAAAASUVORK5CYII%3D)](README.md)
 
 _Master_
-[![CircleCI](https://circleci.com/gh/18F/fs-permit-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-permit-platform/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-permit-platform/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-permit-platform/test_coverage)
-Frontend Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-permit-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-permit-platform?targetFile=frontend%2Fpackage.json)
-Server Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-permit-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-permit-platform?targetFile=server%2Fpackage.json)
+[![CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-open-forest-platform/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-open-forest-platform/test_coverage)
+Frontend Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
+Server Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
 
 _Staging:_
-[![Trees-CircleCI](https://circleci.com/gh/nciinc/fs-permit-platform.svg?style=shield)](https://circleci.com/gh/nciinc/fs-permit-platform)
-[![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-permit-platform.svg)](https://github.com/nciinc/fs-permit-platform/issues)
-[![Code Climate](https://codeclimate.com/github/nciinc/fs-permit-platform/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-permit-platform)
+[![Trees-CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform)
+[![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-open-forest-platform.svg)](https://github.com/nciinc/fs-open-forest-platform/issues)
+[![Code Climate](https://codeclimate.com/github/nciinc/fs-open-forest-platform/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-open-forest-platform)
 
 # U.S. Forest Service Permit Platform
 
@@ -129,11 +129,11 @@ Install [PostgreSQL](https://www.postgresql.org/)
 
 ### Clone the repository
 
-`git clone [repository url] fs-permit-platform`
+`git clone [repository url] fs-open-forest-platform`
 
 Navigate to cloned repo
 
-`cd fs-permit-platform`
+`cd fs-open-forest-platform`
 
 ### Server development
 
@@ -185,7 +185,7 @@ Login.gov uses the openid-client passport plugin for the OpenID Connect protocol
 
 Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
 
-Note: if running in a clustered environment Session Affinity (sticky sessions) should be configured.
+Note: we use `cookie-sessions` to with keys bound to the environment to allow for running in a clustered environment.
 
 #### Mock Data
 

@@ -47,13 +47,13 @@ module.exports = {
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">Start date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
+          ${moment(application.tempOutfitterFieldsActDescFieldsStartDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
         </td>
       </tr>
       <tr>
         <th scope="row" style="width: 150px;" class="border-bottom border-right">End date</th>
         <td class="border-bottom">
-          ${moment(application.noncommercialFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
+          ${moment(application.tempOutfitterFieldsActDescFieldsEndDateTime, util.datetimeFormat).format('MM/DD/YYYY')}
         </td>
       </tr>
       <tr>
@@ -74,4 +74,4 @@ module.exports = {
     </table>
     `;
   }
-}
+};

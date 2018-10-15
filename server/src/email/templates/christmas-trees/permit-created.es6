@@ -5,7 +5,7 @@ const vcapConstants = require('../../../vcap-constants.es6');
 module.exports = application => {
   return {
     to: application.emailAddress,
-    subject: 'U.S. Forest Service: Your Christmas Tree Permit',
+    subject: 'U.S. Forest Service: Your Christmas Tree Permit from Open Forest',
     body: `
 Hello, ${application.firstName}. Thank you for purchasing your Christmas tree permit from the U.S. Forest Service.
 
@@ -30,7 +30,7 @@ Permit Printing Guidelines
 
 ${application.permitUrl}
 
-Return to the ${application.christmasTreesForest.forestName} Christmas tree permit website, ${
+Return to the ${application.christmasTreesForest.forestName} Open Forest Christmas tree permit website, ${
   vcapConstants.INTAKE_CLIENT_BASE_URL
 }/christmas-trees/forests/${
   application.christmasTreesForest.forestAbbr

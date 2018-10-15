@@ -47,32 +47,35 @@ emailUtil.transporter = nodemailer.createTransport(smtpConfig);
  * @param {boolean} attachments - email contains attachments
  */
 emailUtil.send = (to, subject, body, html = false, attachments = false) => {
-  const bodyAndNoReply = `${body}
+  return new Promise((resolve) => {
+    const bodyAndNoReply = `${body}
 
-    Please do not reply to this message.
-    This email message was sent from a notification-only address that cannot accept incoming email`;
+      Please do not reply to this message.
+      This email message was sent from a notification-only address that cannot accept incoming email`;
 
-  let mailOptions = {
-    from: `"Forest Service online permits" <${vcapConstants.SMTP_USERNAME}>`,
-    to: to,
-    subject: subject,
-    text: bodyAndNoReply // plain text
-  };
-  if (html) {
-    mailOptions.html = html;
-  }
-  if (attachments) {
-    mailOptions.attachments = attachments;
-  }
-  if (vcapConstants.SMTP_HOST) {
-    emailUtil.transporter.sendMail(mailOptions, error => {
-      if (error) {
-        logger.error('NODE_MAILER_SMTP_ERROR', error);
-      } else {
-        logger.info('Email successfully sent');
-      }
-    });
-  }
+    let mailOptions = {
+      from: `"Forest Service online permits" <${vcapConstants.SMTP_USERNAME}>`,
+      to: to,
+      subject: subject,
+      text: bodyAndNoReply // plain text
+    };
+    if (html) {
+      mailOptions.html = html;
+    }
+    if (attachments) {
+      mailOptions.attachments = attachments;
+    }
+    if (vcapConstants.SMTP_HOST) {
+      emailUtil.transporter.sendMail(mailOptions, error => {
+        if (error) {
+          logger.error('NODE_MAILER_SMTP_ERROR', error);
+        } else {
+          logger.info('Email successfully sent');
+        }
+        resolve();
+      });
+    }
+  });
 };
 
 /**
@@ -82,16 +85,21 @@ emailUtil.send = (to, subject, body, html = false, attachments = false) => {
  * @param {array} attachments - email attachments array
  */
 emailUtil.sendEmail = (templateName, data, attachments = []) => {
-  if (emailTemplates[templateName]) {
-    const emailAttachments = htmlTemplate.attachments.concat(attachments.concat);
-    const template = emailTemplates[templateName](data);
-    let html;
-    if (template.html) {
-      html = htmlTemplate.forestService(template.html,template.subject);
-      html = juice(html);
-    }
-    emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
+  if (!emailTemplates[templateName]) {
+    const err = new Error(`You must specify a valid template name. templateName=${templateName}`);
+    err.templateName = templateName;
+    return Promise.reject(err);
   }
+
+  const emailAttachments = htmlTemplate.attachments.concat(attachments);
+  const template = emailTemplates[templateName](data);
+  let html;
+  if (template.html) {
+    html = htmlTemplate.forestService(template.html,template.subject);
+    html = juice(html);
+  }
+
+  return emailUtil.send(template.to, template.subject, template.body, html, emailAttachments);
 };
 
 module.exports = emailUtil;

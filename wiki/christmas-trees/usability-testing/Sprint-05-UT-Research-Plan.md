@@ -19,7 +19,7 @@ We are in sprint 05 of application development and are continuing to work on the
 * Remote meeting (via zoom meeting)
 
 **Participants**
-Three people who are not familiar with the Christmas tree ePermit project and are participating in the testing sessions for the first time.
+Three people who are not familiar with the Christmas tree Open Forest project and are participating in the testing sessions for the first time.
 One person who is familiar with the project and has participated in previous testing sessions.
 
 **Test asset(s)**

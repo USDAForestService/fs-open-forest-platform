@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UtilService } from '../../_services/util.service';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-noncommercial-learn-more',
@@ -11,8 +12,15 @@ export class NoncommercialLearnMoreComponent {
   forest: string;
   constructor(
     public util: UtilService,
-    private specialUseInfoService: SpecialUseInfoService
+    private specialUseInfoService: SpecialUseInfoService,
+    private meta: Meta
   ) {
+    this.meta.addTag({
+      name: 'description',
+      content: 'Learn more about how to use Open Forest\
+ to apply for noncommercial group use permits on the\
+ Mount Baker Snoqualmie National Forest.'
+    });
     this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
       {
@@ -43,7 +51,7 @@ export class NoncommercialLearnMoreComponent {
         type: 'anchor',
         sectionCopy: `
         <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity
-        and will be evaluated by the Forest Service within 48 hours of receipt. Otherwise,
+        and will be evaluated by the Forest Service within two business days of receipt. Otherwise,
         they are deemed granted. All permit applications will be evaluated using the same criteria,
         regardless of the content of the event or gathering.</p>
 

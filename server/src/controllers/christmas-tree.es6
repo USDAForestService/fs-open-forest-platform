@@ -190,7 +190,7 @@ const updatePermitWithError = (res, permit, paygovError) => {
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
     logger.error(
-      `${updatedPermit.emailAddress} 
+      `ERROR: ServerError: ${updatedPermit.emailAddress} 
       modified ${updatedPermit.permitId} 
       encountered an error at pay.gov 
       ${updatedPermit.paygovError}`
@@ -252,11 +252,11 @@ christmasTree.create = (req, res) => {
                       return updatePermitWithToken(res, permit, token);
                     } catch (error) {
                       try {
-                        logger.error(`Pay.gov error: ${error}`);
+                        logger.error(`ERROR: ServerError: Pay.gov- ${error}`);
                         const paygovError = paygov.getResponseError('startOnlineCollection', result);
                         return updatePermitWithError(res, permit, paygovError);
                       } catch (faultError) {
-                        logger.error(`FaultError: ${faultError}`);
+                        logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${faultError}`);
                         throwError(faultError);
                       }
                     }
@@ -393,30 +393,24 @@ const checkPermitValid = permitExpireDate => {
  * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
  * @param {Object} permit - permit object
  */
-const generateRulesAndEmail = permit => {
+christmasTree.generateRulesAndEmail = permit =>
   permitSvgService
     .generatePermitSvg(permit)
-    .then(permitSvg => {
-      permitSvgService.generatePng(permitSvg).then(permitPng => {
-        permitSvgService
-          .generateRulesHtml(true, permit)
-          .then(rulesHtml => {
-            permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
-            let rulesText = htmlToText.fromString(rulesHtml, {
-              wordwrap: 130,
-              ignoreImage: true
-            });
-            sendEmail(permit, permitPng, rulesHtml, rulesText);
-          })
-          .catch(error => {
-            logger.error(error);
-          });
+    .then((permitSvg) => Promise.all([
+      permitSvgService.generatePng(permitSvg),
+      permitSvgService.generateRulesHtml(true, permit),
+    ]))
+    .then(([permitPng, rulesHtml]) => {
+      permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
+      const rulesText = htmlToText.fromString(rulesHtml, {
+        wordwrap: 130,
+        ignoreImage: true
       });
+      return sendEmail(permit, permitPng, rulesHtml, rulesText);
     })
     .catch(error => {
       logger.error(error);
     });
-};
 
 /**
  * @function getOnePermit - API function to get a permit.
@@ -549,7 +543,7 @@ christmasTree.updatePermitApplication = (req, res) => {
                 })
                 .then(updatedPermit => {
                   returnSavedPermit(res, permit);
-                  generateRulesAndEmail(updatedPermit);
+                  christmasTree.generateRulesAndEmail(updatedPermit);
                 })
                 .catch(error => {
                   logger.error(error);

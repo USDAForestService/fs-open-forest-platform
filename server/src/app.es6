@@ -29,6 +29,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
+var Keygrip = require('keygrip');
 
 // Create the express application.
 const app = express();
@@ -47,7 +48,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.xml());
 
-/** Logging middlelayer */
+/** Logging middleware */
 expressWinston.requestWhitelist = ['url',
   'headers.host',
   'headers.user-agent',
@@ -73,11 +74,11 @@ app.use(expressWinston.errorLogger({
   ]
 }));
 
-/**  Cookies for session management. Passport needs cookies, otherwise we'd be using JWTs. */
+/**  Cookies for session management. */
 app.use(
   session({
     name: 'session',
-    keys: [util.getRandomString(32), util.getRandomString(32)],
+    keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
     cookie: {
       secure: true,
       httpOnly: true,

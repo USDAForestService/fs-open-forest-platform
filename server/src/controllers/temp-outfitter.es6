@@ -25,12 +25,13 @@ const tempOutfitter = {};
 const s3 = util.getS3();
 
 /**
- * @function translateFromClientToDatabase - private function to translate permit application
- * object from client format to database format.
+ * @function translateFromClientToDatabase - function to translate permit application
+ * object from client format to database format. It is not private so that it can be leveraged
+ * for tests
  * @param {Object} input
  * @param {Object} output
  */
-const translateFromClientToDatabase = (input, output) => {
+tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -338,7 +339,7 @@ const getFile = (key, documentType) => {
       },
       (error, data) => {
         if (error) {
-          logger.error(`Error: ${error}`);
+          logger.error(`ERROR: ServerError: s3- ${error}`);
           reject(error);
         } else {
           logger.info(`File ${key} retrieved from s3`);
@@ -381,7 +382,7 @@ const getAllFiles = applicationId => {
         });
       })
       .catch(error => {
-        logger.error(`Error: ${error}`);
+        logger.error(`ERROR: ServerError: getAllFiles- ${error}`);
         reject(error);
       });
   });
@@ -426,7 +427,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
     if (submitted.status !== 'Cancelled') {
-      translateFromClientToDatabase(submitted, model);
+      tempOutfitter.translateFromClientToDatabase(submitted, model);
     }
   } else if (user.role === 'user' && user.email === model.authEmail) {
     if (submitted.status === 'Hold') {
@@ -435,7 +436,7 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
       model.status = submitted.status;
     }
     if (submitted.status !== 'Cancelled') {
-      translateFromClientToDatabase(submitted, model);
+      tempOutfitter.translateFromClientToDatabase(submitted, model);
     }
   }
 };
@@ -645,15 +646,12 @@ tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
   let model = {
     authEmail: req.body.authEmail,
-    status: 'Incomplete' // will be updated to Submitted when attachments are ready
   };
-  translateFromClientToDatabase(req.body, model);
+  tempOutfitter.translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
     .then(app => {
       util.logControllerAction(req, 'tempOutfitter.Create', app);
       app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-      email.sendEmail('tempOutfitterApplicationSubmittedConfirmation', app);
-      email.sendEmail('tempOutfitterApplicationSubmittedAdminConfirmation', app);
       req.body['applicationId'] = app.applicationId;
       req.body['appControlNumber'] = app.appControlNumber;
       return res.status(201).json(req.body);

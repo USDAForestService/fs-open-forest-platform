@@ -67,7 +67,7 @@ loginGov.setup = () => {
             client: client,
             params: loginGov.params
           }, (tokenset, done) => {
-            logger.info(`Login.gov user ${tokenset.claims.email} logged in.`);
+            logger.info(`AUTHENTICATION: Login.gov user ${tokenset.claims.email} logged in.`);
             return done(null, {
               email: tokenset.claims.email,
               role: 'user',
@@ -79,7 +79,7 @@ loginGov.setup = () => {
       });
     })
     .catch(e => {
-      logger.error(`AUTHENTICATION: Error: ${e}`);
+      logger.error(`ERROR: ServerError: AUTHENTICATION- ${e}`);
       throw new Error(e);
     });
 };
