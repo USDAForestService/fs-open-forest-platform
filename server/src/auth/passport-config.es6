@@ -77,7 +77,7 @@ passportConfig.logout = (req, res) => {
   } else {
     logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
     req.logout();
-    return res.redirect(vcapConstants.INTAKE_CLIENT_BASE_URL);
+    return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
   }
 };
 
