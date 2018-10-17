@@ -271,7 +271,7 @@ jobs:
           name: generate typedocs
           command: |
             cd frontend
-            npm run docs
+            mkdir typedoc && npm run docs
       - run:
           name: Create frontend compiled distribution
           command: |
