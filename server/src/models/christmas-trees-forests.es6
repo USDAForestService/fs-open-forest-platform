@@ -108,7 +108,7 @@ module.exports = function(sequelize, DataTypes) {
   );
 
   christmasTreesForests.addHook('afterFind', forest => {
-    if (util.isLocalOrCI()) {
+    if (util.isTest()) {
       if (forest && forest.startDate) {
         // forest is closed and configured for testing uncomment this block and update
         //the forest id

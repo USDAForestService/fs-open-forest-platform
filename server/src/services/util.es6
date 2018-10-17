@@ -247,6 +247,14 @@ util.isLocalOrCI = () => {
 };
 
 /**
+ * @function env - Return the current environment
+ * @return {bool} - True if we are in an automated test environment
+ */
+util.isTest = () => {
+  return process.env.NODE_ENV === 'test';
+};
+
+/**
  * @function isProduction - is production flag
  * @return {boolean} - NODE_ENV is production
  */
