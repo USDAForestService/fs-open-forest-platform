@@ -11,7 +11,7 @@ const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
 
 const vcapConstants = {};
 
-vcapConstants.isLocalOrCI = ['CI', 'local'].indexOf(process.env.PLATFORM) !== -1;
+vcapConstants.isLocalOrCI = process.env.NODE_ENV !== 'production';
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;

@@ -26,22 +26,27 @@ describe('middleware', () => {
     middleware.setCorsHeaders(req, res, next);
   });
 
-  it('should have CORS headers when env.PLATFORM is not LOCAL or CI', () => {
-    const PLATFORM = process.env.PLATFORM;
-    process.env.PLATFORM = 'not-ci or local';
-    const req = {};
-    const res = {
-      headers: {}
-    };
-    res.set = (key, value) => {
-      res.headers[key] = value;
-    };
-    const next = () => {
-      expect(res.headers['Cache-Control'], 'no-cache');
-      expect(res.headers['Access-Control-Allow-Origin'], vcapConstants.INTAKE_CLIENT_BASE_URL);
-      process.env.PLATFORM = PLATFORM;
-    };
-    middleware.setCorsHeaders(req, res, next);
+  describe('given production environment', () => {
+    beforeEach(() => {
+      sinon.stub(util, 'isProduction').returns(true);
+    });
+
+    afterEach(() => {
+      util.isProduction.restore();
+    });
+
+    it('should have CORS headers set', (done) => {
+      const req = {};
+      const res = {
+        set: sinon.spy()
+      };
+
+      middleware.setCorsHeaders(req, res, () => {
+        expect(res.set).to.have.been.calledWith('Cache-Control', 'no-cache');
+        expect(res.set).to.have.been.calledWith('Access-Control-Allow-Origin', vcapConstants.INTAKE_CLIENT_BASE_URL);
+        done();
+      });
+    });
   });
 
   describe('checkPermissions', () => {

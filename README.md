@@ -182,7 +182,7 @@ Public users must authenticate with login.gov, and Forest Service admins must au
 
 Login.gov uses the openid-client passport plugin for the OpenID Connect protocol, and USDA eAuth uses the passport-saml plugin for the SAML protocol.
 
-Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
+Due to security restrictions testing can't be done locally, you must use a server on cloud.gov.
 
 Note: we use `cookie-sessions` to with keys bound to the environment to allow for running in a clustered environment.
 

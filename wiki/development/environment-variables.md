@@ -29,10 +29,6 @@ The following environment variables are only required to run the application loc
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
 
-### PLATFORM
-
-    local
-
 ### VCAP_APPLICATION
 
     {"uris":["http://localhost:8080"]}
