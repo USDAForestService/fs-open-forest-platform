@@ -20,7 +20,6 @@
     "test:ci": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --code-coverage --watch=false --source-map=false --progress=false",
     "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
-    "typedoc": "typedoc",
     "update-version": "node ./replace.build.js"
   },
   "private": true,
