@@ -263,11 +263,13 @@ util.isProduction = () => {
 };
 
 /**
- * @function isStaging - is staging flag
- * @return {boolean} - NODE_ENV is staging
+ * @function isTestProductionAuthenticationEnabled - should production
+ * authentication be used in tests (used in CI for more realistic test
+ * conditions)
+ * @return {boolean} - true when test production authentication is enabled
  */
-util.isStaging = () => {
-  return process.env.NODE_ENV === 'staging';
+util.isTestProductionAuthenticationEnabled = () => {
+  return !!process.env.TEST_PRODUCTION_AUTH;
 };
 
 /**

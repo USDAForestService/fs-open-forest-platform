@@ -11,7 +11,7 @@ const util = require('../services/util.es6');
 function localAuth(req, res, next) {
   // Test authentication is enabled e.g do nothing and use production
   // authentication
-  if (!util.isLocalOrCI()) {
+  if (util.isTestProductionAuthenticationEnabled()) {
     return next();
   }
 
