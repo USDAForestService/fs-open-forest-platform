@@ -11,4 +11,10 @@ export class AppButtonComponent {
   @Input() btnAlt: false;
 
   constructor(public authentication: AuthenticationService) {}
+
+  setRequestingUrl() {
+    if (!this.authentication.user) {
+      localStorage.setItem('requestingUrl', this.link);
+    }
+  }
 }

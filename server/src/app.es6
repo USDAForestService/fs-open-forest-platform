@@ -29,7 +29,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
-var Keygrip = require('keygrip')
+var Keygrip = require('keygrip');
 
 // Create the express application.
 const app = express();
