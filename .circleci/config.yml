@@ -212,7 +212,7 @@ jobs:
           name: generate typedocs
           command: |
             cd frontend
-            mkdir typedoc && npm run docs
+            mkdir ./src/assets/typedoc && npm run docs
       - run:
           name: server snyk protect
           command: |
@@ -271,7 +271,7 @@ jobs:
           name: generate typedocs
           command: |
             cd frontend
-            mkdir typedoc && npm run docs
+            mkdir ./src/assets/typedoc && npm run docs
       - run:
           name: Create frontend compiled distribution
           command: |

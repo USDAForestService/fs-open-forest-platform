@@ -1,3 +1,5 @@
+export NODE_ENV=test
+
 if [ $# -lt 1 ]
 then
     echo 'Error: No arguments provided.'
