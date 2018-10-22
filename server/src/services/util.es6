@@ -277,11 +277,7 @@ util.isTestProductionAuthenticationEnabled = () => {
  * @param {Object} req - http request
  */
 util.setAuthEmail = req => {
-  if (util.isLocalOrCI()) {
-    req.body.authEmail = 'test@test.com';
-  } else {
-    req.body.authEmail = req.user.email;
-  }
+  req.body.authEmail = req.user.email;
 };
 
 /**
