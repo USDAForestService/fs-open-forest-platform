@@ -18,7 +18,12 @@ let vcapServices;
 if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } else {
-  vcapServices = JSON.parse(fs.readFileSync('environment-variables/local-or-ci.json', 'utf8'));
+  if (process.env.NODE_ENV === 'test') {
+    vcapServices = JSON.parse(fs.readFileSync('environment-variables/test.json', 'utf8'));
+  } else {
+    vcapServices = JSON.parse(fs.readFileSync('environment-variables/local.json', 'utf8'));
+  }
+
   if (process.env.AWS_CONFIG) {
     vcapServices.s3 = JSON.parse(process.env.AWS_CONFIG).s3;
   } else {
