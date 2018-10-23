@@ -7,7 +7,7 @@ const fs = require('fs-extra');
  * @module vcap-constants
  */
 
-const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
+const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["http://localhost:8080"]}');
 
 const vcapConstants = {};
 
@@ -97,6 +97,13 @@ vcapConstants.PAY_GOV_CLIENT_URL = payGov.client_url;
 vcapConstants.PAY_GOV_APP_ID = payGov.tcs_app_id;
 vcapConstants.PAY_GOV_CERT = payGov.certificate;
 vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.private_key;
+
+/** Database configuration */
+const database = getUserProvided('database') || {};
+vcapConstants.database = {
+  url: process.env.DATABASE_URL || database.url,
+  ssl: database.ssl !== undefined ? database.ssl : process.env.NODE_ENV === 'production'
+};
 
 /** New Relic */
 const newRelic = getUserProvided('new-relic');
