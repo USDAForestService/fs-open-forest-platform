@@ -13,6 +13,8 @@ const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
 const util = require('../services/util.es6');
 const forestInfoService = require('../services/forest.service.es6');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const commonControllers = {};
 
@@ -101,10 +103,10 @@ commonControllers.getPermitApplications = (req, res) => {
       'status'
     ],
     where: {
-      $or: orCondition,
-      $and: andCondition,
+      [Op.or]: orCondition,
+      [Op.and]: andCondition,
       noncommercialFieldsEndDateTime: {
-        $gt: new Date()
+        [Op.gt]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]
@@ -123,10 +125,10 @@ commonControllers.getPermitApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
     where: {
-      $or: orCondition,
-      $and: andCondition,
+      [Op.or]: orCondition,
+      [Op.and]: andCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
-        $gt: new Date()
+        [Op.gt]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]
