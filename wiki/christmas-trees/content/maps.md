@@ -1,6 +1,6 @@
-#Maps and other images
+# Maps and other images
 
-##Image size and resolution
+## Image size and resolution
 
 Map and other images that are provided by the forests to be included in the site 
 need to be created at a high enough resolution to be printable by the user. 
