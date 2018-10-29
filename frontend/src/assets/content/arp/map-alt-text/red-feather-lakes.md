@@ -24,7 +24,7 @@ Entrance Station is located 1.60 miles east of the Entrance on CR 69 and the int
 
 The cutting area is .50 Miles from the Entrance marked 171.A.
 
-Smokey Bear's Lane is the first cutting area road that is one way towards the west and is 1.4 miles long.
+Smokey Bear's Lane is the first cutting area road that is one way towards the west and is 1.4 miles long.The junction for Donner way is about half way down Smokey Bear lane, is a one-way road to the south and west and ties into Comet lane.
 
 The Smokey Bear* stop is at the end of the road at Dasher's Way intersection. It has First Aid and toilets available. 
 
