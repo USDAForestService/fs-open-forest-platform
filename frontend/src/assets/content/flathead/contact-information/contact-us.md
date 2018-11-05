@@ -10,7 +10,7 @@ Kalispell, MT 59901
 
 (406) 758-5204  
 
-### Glacier View, Hungry Horse Ranger Districts
+### Hungry Horse-Glacier View Ranger Districts
 10 Hungry Horse Drive  
 Hungry Horse, MT 59919  
 
@@ -20,7 +20,7 @@ Hungry Horse, MT 59919
 District office location changes seasonally.
 
 * **May 15 to Nov 15**  
-8975 Hwy 2 E  
+10 Hungry Horse Drive  
 Hungry Horse, MT 59919  
 (406) 758-5376
 
