@@ -1,4 +1,4 @@
-You can buy Christmas tree permits in person all year long at all Shoshone ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+You can buy Christmas tree permits in person all year long at all Shoshone National Forest ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Supervisor's Office
 808 Meadowlane Ave.  
