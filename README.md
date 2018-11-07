@@ -255,11 +255,9 @@ Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
 
 #### Build typedoc
 
-Install typedoc globally: `yarn global add typedoc`
-
 `cd frontend`
 
-build typedoc `yarn run docs`
+build typedoc `npm run docs`
 
 typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
 
