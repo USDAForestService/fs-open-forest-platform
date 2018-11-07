@@ -1,13 +1,13 @@
 You can buy Christmas tree permits in person all year long at all Shoshone National Forest ranger district offices. Each district office is open Monday - Friday, 8 a.m. - 4:30 p.m. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Supervisor's Office
-808 Meadowlane Ave.  
+808 Meadow Lane Ave.  
 Cody, WY 82414
 
 (307) 527-6241
 
 ### Washakie Ranger District
-333 Highway 789, South  
+333 E. Main St.  
 Lander, WY 82520
 
 (307) 332-5460
