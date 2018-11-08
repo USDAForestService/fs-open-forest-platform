@@ -54,13 +54,6 @@
             },
             "production": {
               "aot": false,
-              "optimization": true,
-              "outputHashing": "all",
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
