@@ -255,11 +255,9 @@ Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
 
 #### Build typedoc
 
-Install typedoc globally: `yarn global add typedoc`
-
 `cd frontend`
 
-build typedoc `yarn run docs`
+build typedoc `npm run docs`
 
 typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
 
@@ -327,7 +325,8 @@ frontend code for each build.  This date and version will display in the applica
 ## Docs
 * [Server jsDocs](https://fs-intake-api.app.cloud.gov/docs/code/)
 * [Server api endpoints](https://fs-intake-api.app.cloud.gov/docs/api)
-* [Frontend Typedocs](https://forest-service-epermit.app.cloud.gov/assets/typedoc/)
+* [Frontend Typedocs for Production](https://openforest.fs.usda.gov/assets/typedoc/)
+* [Frontend Typedocs for Staging](https://forest-service-trees-staging.app.cloud.gov/assets/typedoc/)
 
 ## Content administration
 

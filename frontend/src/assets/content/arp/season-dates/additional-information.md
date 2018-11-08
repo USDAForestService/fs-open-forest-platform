@@ -8,7 +8,7 @@ Sulphur Ranger District | {{sulphurDate}}
 Elk Creek special cutting area | {{elkCreekDate}} {{elkCreekTime}}
 Red Feather special cutting area | {{redFeatherLakesDate}} {{redFeatherLakesTime}}
 
-* Boulder and Clear Creek Ranger Districts prohibit tree cutting; Canyon Lakes Ranger District prohibits tree cutting outside of the Red Feather Lakes cutting area.
+* Christmas tree cutting is not available on the Boulder and Clear Creek Ranger Districts.
 
 ### Cost
 Christmas trees cost ${{treeCost}} each, and a household is allowed to cut
