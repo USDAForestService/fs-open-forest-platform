@@ -32,7 +32,7 @@ emailTemplates.noncommercialApplicationSubmittedConfirmation = application => {
   return specialUseSubmittedConfirm(
     application,
     defaultNoncommerialApplicationDetails,
-    ' within 48 hours'
+    ' within two business days'
   );
 };
 emailTemplates.tempOutfitterApplicationSubmittedConfirmation = application => {
@@ -59,7 +59,7 @@ emailTemplates.tempOutfitterApplicationAccepted = application => {
 
 emailTemplates.noncommercialApplicationCancelled = application => {
   const subject = `Your ${application.eventName} permit application to the\
-   ${application.forestName} has been cancelled.`;
+ ${application.forestName} has been cancelled.`;
   return specialUseApplicationCancelled(
     application,
     defaultNoncommerialApplicationDetails,

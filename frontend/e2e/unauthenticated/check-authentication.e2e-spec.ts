@@ -1,11 +1,11 @@
-import { FrontendPage } from '../authenticated/special-uses/app.po';
+import { SpecialUseHomepage } from '../authenticated/special-uses/app.po';
 import { browser, by, element, Key } from 'protractor';
 
 describe('frontend App', () => {
-  let page: FrontendPage;
+  let page: SpecialUseHomepage;
 
   beforeEach(() => {
-    page = new FrontendPage();
+    page = new SpecialUseHomepage();
   });
 
   it('should display login and create account links', () => {

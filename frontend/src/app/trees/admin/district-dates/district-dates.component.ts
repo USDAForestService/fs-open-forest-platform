@@ -96,7 +96,7 @@ export class AdminDistrictDatesComponent implements OnInit {
    */
   ngOnInit() {
     this.titleService.setTitle(
-      'Christmas trees permits cutting area dates admin | U.S. Forest Service Christmas Tree Permitting'
+      'Christmas trees permits cutting area dates admin | U.S. Forest Service Open Forest'
     );
     this.route.data.subscribe(data => {
       if (data && data.user) {

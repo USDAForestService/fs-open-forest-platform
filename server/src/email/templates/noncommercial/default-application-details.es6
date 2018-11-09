@@ -7,7 +7,7 @@ module.exports = {
     return `
       Application details
       *********************************
-
+      
       Application identification number: ${application.applicationId}
       Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
       Forest: ${application.forestName}

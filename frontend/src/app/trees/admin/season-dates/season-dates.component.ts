@@ -60,7 +60,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
    */
   ngOnInit() {
     this.titleService.setTitle(
-      'Christmas trees permits season dates admin | U.S. Forest Service Christmas Tree Permitting'
+      'Christmas trees permits season dates admin | U.S. Forest Service Open Forest'
     );
     this.route.data.subscribe(data => {
       if (data && data.user) {

@@ -11,7 +11,7 @@
         <option value="expired">Expired</option>
       </select>
     </div>
-    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications</h2>
+    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications for Open Forest</h2>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -87,7 +87,7 @@
     </div>
     <div *ngIf="!isAdmin"class="usa-width-one-whole">
       <div class="float-right">
-        <button class="usa-button margin-right-0" routerLink="/">Apply for another permit.</button>
+        <button class="usa-button margin-right-0" routerLink="/mbs">Apply for another permit.</button>
       </div>
     </div>
   </div>

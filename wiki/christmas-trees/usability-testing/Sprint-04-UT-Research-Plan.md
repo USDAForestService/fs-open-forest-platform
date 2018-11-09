@@ -17,8 +17,8 @@ We are in sprint 04 of application development, but don't have the entire permit
 * Remote meeting (via zoom meeting)
 
 **Participants**
-4 people unfamiliar with the Chtirstmas tree ePermit application.
-1 person who is familiar with the Christmas tree ePermit project and has participated in previous usability sessions.
+4 people unfamiliar with the Chtirstmas tree Open Forest application.
+1 person who is familiar with the Christmas tree Open Forest project and has participated in previous usability sessions.
 
 **Test asset(s)**
 

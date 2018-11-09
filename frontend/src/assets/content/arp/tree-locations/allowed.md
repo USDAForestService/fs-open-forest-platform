@@ -1,4 +1,4 @@
-The Arapaho and Roosevelt National Forests are broken into five different geographical ranger districts. Be sure to carefully review the Christmas tree rules and guidelines before using your permit as the rules and guidelines may vary between ranger districts and their cutting areas.
+The Arapaho and Roosevelt National Forests are broken into four different geographical ranger districts. Be sure to carefully review the Christmas tree rules and guidelines before using your permit as the rules and guidelines may vary between ranger districts and their cutting areas.
 
 
 #### Sulphur Ranger District

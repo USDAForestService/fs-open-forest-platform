@@ -406,10 +406,11 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoFaxAreaCode: {
       type: Sequelize.STRING(3),
       field: 'applicant_info_fax_areacd',
+      allowNull: true,
       validate: {
         len: {
-          args: [3, 3],
-          msg: 'applicantInfoFaxAreaCode must be 3 characters in length'
+          args: [0, 0|| 3, 3],
+          msg: 'applicantInfoFaxAreaCode must 3 characters in length'
         },
         is: /^$|[0-9]{3}/
       }
@@ -417,10 +418,11 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoFaxPrefix: {
       type: Sequelize.STRING(3),
       field: 'applicant_info_fax_prefix',
+      allowNull: true,
       validate: {
         len: {
-          args: [3, 3],
-          msg: 'applicantInfoFaxPrefix must be 3 characters in length'
+          args: [0, 0 || 3, 3],
+          msg: 'applicantInfoFaxPrefix must than 3 characters in length'
         },
         is: /^$|[0-9]{3}/
       }
@@ -428,9 +430,10 @@ module.exports = util.getSequelizeConnection().define(
     applicantInfoFaxNumber: {
       type: Sequelize.STRING(4),
       field: 'applicant_info_fax_number',
+      allowNull: true,
       validate: {
         len: {
-          args: [4, 4],
+          args: [0, 0 ||4, 4],
           msg: 'applicantInfoFaxNumber must be 4 characters in length'
         },
         is: /^$|[0-9]{4}/

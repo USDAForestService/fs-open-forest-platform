@@ -15,7 +15,7 @@ _Staging:_
 # U.S. Forest Service Permit Platform
 
 
-** Platform for sale of Christmas tree permits and intake of special use applications for the U.S. Forest Service **
+**Platform for sale of Christmas tree permits and intake of special use applications for the U.S. Forest Service**
 
 ## Welcome
 
@@ -50,7 +50,6 @@ As the first two-way interaction-focused Forest Service online application, Open
 		- [Available commands](#available-commands)
 		- [Server API Documentation](#server-api-documentation)
 		- [Authentication](#authentication)
-		- [Mock Data](#mock-data)
 		- [Forest start and end dates](#forest-start-and-end-dates)
 		- [JWT Usage](#jwt-usage)
 		- [Pay.Gov integration](#paygov-integration)
@@ -187,16 +186,13 @@ Due to security restrictions testing can't be done locally, you must use a serve
 
 Note: we use `cookie-sessions` to with keys bound to the environment to allow for running in a clustered environment.
 
-#### Mock Data
-
-Some models (e.g. christmasTreesForests) use a sequelize hook to change the data as configured in the seed commands
-at run-time for purposes of testing. An alert is also displayed in the frontend. Mock data application uses the `NODE_ENV` and environment values in the server and frontend code respectively.
-
 #### Forest start and end dates
 
 Forest tree cutting start and end dates are saved in the database as a UTC DateTime object. When updating the start and end dates for the forest in the database, you must consider daylight savings, the forest timezone and calculate the offset.
 
 Forest dates on the frontend use the forest's timezone to calculate the correct date and time.
+
+For local development, go to an [the changes season dates page to open a forest](http://localhost:4200/admin/christmas-trees/season-dates)
 
 #### JWT Usage
 
@@ -259,11 +255,9 @@ Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
 
 #### Build typedoc
 
-Install typedoc globally: `yarn global add typedoc`
-
 `cd frontend`
 
-build typedoc `yarn run docs`
+build typedoc `npm run docs`
 
 typedoc are added to `frontend/src/assets/typedoc` and are accessible via url at `/assets/typedoc/index.html`
 
@@ -331,7 +325,8 @@ frontend code for each build.  This date and version will display in the applica
 ## Docs
 * [Server jsDocs](https://fs-intake-api.app.cloud.gov/docs/code/)
 * [Server api endpoints](https://fs-intake-api.app.cloud.gov/docs/api)
-* [Frontend Typedocs](https://forest-service-epermit.app.cloud.gov/assets/typedoc/)
+* [Frontend Typedocs for Production](https://openforest.fs.usda.gov/assets/typedoc/)
+* [Frontend Typedocs for Staging](https://forest-service-trees-staging.app.cloud.gov/assets/typedoc/)
 
 ## Content administration
 

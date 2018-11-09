@@ -24,7 +24,7 @@ const noncommercial = {};
  * @param {Object} input
  * @param {Object} output
  */
-const translateFromClientToDatabase = (input, output) => {
+noncommercial.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -319,7 +319,7 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
     model.status = submitted.status;
     model.applicantMessage = submitted.applicantMessage;
     if (submitted.status !== 'Cancelled'){
-      translateFromClientToDatabase(submitted, model);
+      noncommercial.translateFromClientToDatabase(submitted, model);
     }
   } else if (user.role === 'user' && user.email === model.authEmail) {
     if (submitted.status === 'Hold') {
@@ -328,7 +328,7 @@ noncommercial.updateApplicationModel = (model, submitted, user) => {
       model.status = submitted.status;
     }
     if (submitted.status !== 'Cancelled') {
-      translateFromClientToDatabase(submitted, model);
+      noncommercial.translateFromClientToDatabase(submitted, model);
     }
   }
 };
@@ -412,7 +412,7 @@ noncommercial.create = (req, res) => {
   let model = {
     authEmail: req.body.authEmail
   };
-  translateFromClientToDatabase(req.body, model);
+  noncommercial.translateFromClientToDatabase(req.body, model);
   NoncommercialApplication.create(model)
     .then(app => {
       util.logControllerAction(req, 'noncommerical.create', app);

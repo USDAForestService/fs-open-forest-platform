@@ -4,6 +4,10 @@ version: v1.12.0
 ignore:
   'npm:mem:20180117':
     - sequelize-cli > yargs > os-locale > mem:
-        reason: dev dep only
-        expires: '2018-09-30T18:05:35.240Z'
+        reason: User does not have access to env
+        expires: '2018-11-01T16:10:24.155Z'
+  SNYK-JS-PASSPORTSAML-72411:
+    - passport-saml:
+        reason: Pinned to commit to fix
+        expires: '2018-11-21T15:40:12.851Z'
 patch: {}
