@@ -24,6 +24,10 @@ middleware.setCorsHeaders = (req, res, next) => {
   } else {
     res.set('Access-Control-Allow-Origin', vcapConstants.INTAKE_CLIENT_BASE_URL);
     res.set('Access-Control-Allow-Credentials', true);
+
+    // Include a P3P policy for IE11
+    // https://github.com/18F/fs-open-forest-platform/issues/405
+    res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
   }
   next();
 };
