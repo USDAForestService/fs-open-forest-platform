@@ -31,10 +31,13 @@ const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
 var Keygrip = require('keygrip');
 
+vcapConstants.nodeEnv = process.env.NODE_ENV;
+
 // Create the express application.
 const app = express();
 
-vcapConstants.nodeEnv = process.env.NODE_ENV;
+// Trust the cloud.gov X-Forwarded- headers
+app.set('trust proxy', 1);
 
 /** Use helmet for increased security. */
 app.use(helmet());

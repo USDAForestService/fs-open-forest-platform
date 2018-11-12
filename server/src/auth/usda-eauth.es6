@@ -67,6 +67,10 @@ eAuth.router.get(eAuth.loginPath, (req, res) => {
 
 //Callback from eAuth.
 eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
+  // Include a P3P policy for IE11
+  // https://github.com/18F/fs-open-forest-platform/issues/405
+  res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
+
   return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
 });
 
