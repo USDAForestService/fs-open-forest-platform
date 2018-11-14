@@ -64,7 +64,7 @@ passportConfig.authErrorHandler = (err, req, res, next) => {
  * @param {Object} res - http response
  */
 passportConfig.getPassportUser = (req, res) => {
-  return res.send(util.getUser(req));
+  return res.send(req.user);
 };
 
 /**
