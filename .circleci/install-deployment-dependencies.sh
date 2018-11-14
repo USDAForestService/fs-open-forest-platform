@@ -1,5 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
 cd frontend
-yarn
-npm i -g typedoc
+npm install
+
 cd ../server
-npm i snyk
+npm install
+npm install snyk

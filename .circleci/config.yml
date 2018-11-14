@@ -212,7 +212,7 @@ jobs:
           name: generate typedocs
           command: |
             cd frontend
-            mkdir ./src/assets/typedoc && npm run docs
+            mkdir -p ./src/assets/typedoc && npm run docs
       - run:
           name: server snyk protect
           command: |
@@ -223,9 +223,6 @@ jobs:
           command: |
             cd frontend
             npm run dist-trees
-      - run:
-          name: Generate basic auth
-          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
       - run:
           name: copy frontend assets into server
           command: |
@@ -271,7 +268,7 @@ jobs:
           name: generate typedocs
           command: |
             cd frontend
-            mkdir ./src/assets/typedoc && npm run docs
+            mkdir -p ./src/assets/typedoc && npm run docs
       - run:
           name: Create frontend compiled distribution
           command: |
