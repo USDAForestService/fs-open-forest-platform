@@ -75,7 +75,7 @@ const returnPermitsReport = (results, res) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
-  logger.info(`${util.getUser(req)} generated a report`);
+  logger.info(`${req.user} generated a report`);
   treesDb.christmasTreesForests
     .findOne({
       where: {
@@ -189,7 +189,7 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
     })
     .then(forest => {
       if (forest) {
-        if (util.getUser(req).forests.includes(forest.forestAbbr) || util.getUser(req).forests.includes('all')) {
+        if (req.user.forests.includes(forest.forestAbbr) || req.user.forests.includes('all')) {
           let startDate = forest.startDate;
           let endDate = forest.endDate;
           let cuttingAreas = forest.cuttingAreas;

@@ -38,14 +38,10 @@ middleware.setCorsHeaders = (req, res, next) => {
  * @param {Object} res - http response
  */
 middleware.checkPermissions = (req, res, next) => {
-  if (util.isLocalOrCI()) {
-    next();
+  if (!req.user) {
+    res.status(401).send();
   } else {
-    if (!req.user) {
-      res.status(401).send();
-    } else {
-      next();
-    }
+    next();
   }
 };
 
@@ -55,14 +51,10 @@ middleware.checkPermissions = (req, res, next) => {
  * @param {Object} res - http response
  */
 middleware.checkAdminPermissions = (req, res, next) => {
-  if (util.isLocalOrCI()) {
+  if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
     next();
   } else {
-    if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
-      next();
-    } else {
-      res.status(403).send();
-    }
+    res.status(403).send();
   }
 };
 

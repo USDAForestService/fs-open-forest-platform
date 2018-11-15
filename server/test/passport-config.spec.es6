@@ -4,51 +4,60 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 
 const passportConfig = require('../src/auth/passport-config.es6');
-const util = require('../src/services/util.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
+
 describe('getPassportUser', () => {
-  it('should send a test user if running local or in CI', () => {
-    const utilstub = sinon.stub(util, 'isLocalOrCI').returns(true);
-    const send = sinon.spy();
-    const user = {
-      email: 'awesome@sauce.com',
-      role: 'user'
+  let res;
+  let next;
+
+  beforeEach(() => {
+    res = {
+      send: sinon.spy()
     };
-    passportConfig.getPassportUser(
-      {
-        user
-      },
-      {
-        send
-      }
-    );
-    expect(send.callCount).to.equal(1);
-    expect(send.calledWith(user)).to.be.false;
-    expect(send.firstCall.args[0])
-      .to.be.an('object')
-      .and.have.property('email');
-    utilstub.restore();
+
+    next = sinon.spy();
   });
 
-  it('should send the req.user', () => {
-    const utilstub = sinon.stub(util, 'isLocalOrCI').returns(false);
-    const send = sinon.spy();
-    const user = {
-      email: 'awesome@sauce.com',
-      role: 'user'
-    };
-    passportConfig.getPassportUser(
-      {
-        user
-      },
-      {
-        send
-      }
-    );
-    expect(send.callCount).to.equal(1);
-    expect(send.calledWith(user)).to.be.true;
-    utilstub.restore();
+  describe('given no authenticated user', () => {
+    let req;
+
+    beforeEach(() => {
+      req = {};
+
+      passportConfig.getPassportUser(req, res, next);
+    });
+
+    it('calls send with no user', () => {
+      expect(res.send).to.be.calledWith(undefined);
+    });
+
+    it('does not call next', () => {
+      expect(next).not.to.have.been.called;
+    });
+  });
+
+  describe('given a user', () => {
+    let req;
+
+    beforeEach(() => {
+      req = {
+        user: {
+          email: 'awesome@sauce.com',
+          role: 'user'
+        }
+      };
+
+      passportConfig.getPassportUser(req, res, next);
+    });
+
+    it('does not call next', () => {
+      expect(next).not.to.be.called;
+    });
+
+    it('calls send with the user', () => {
+      expect(res.send).to.be.calledWith(req.user);
+    });
   });
 });
 
