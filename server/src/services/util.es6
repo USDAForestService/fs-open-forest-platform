@@ -296,24 +296,6 @@ util.localUser = () => {
 };
 
 /**
- * @function getUser - Get the passport user from the request object.
- * @param {Object} req - http request
- * @return {Object} - user object
- */
-util.getUser = req => {
-  if (util.isLocalOrCI()) {
-    return {
-      adminUsername: 'TEST_USER',
-      email: 'test@test.com',
-      role: util.localUser(),
-      forests: util.getAdminForests('TEST_USER')
-    };
-  } else {
-    return req.user;
-  }
-};
-
-/**
  * @function hasPermissions - Check that a user has permissions to view a permit application.
  * @param {Object} user - user Object
  * @param {Object} applicationModel - application object
@@ -480,7 +462,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
   } else {
-    let user = util.getUser(req);
+    let user = req.user;
     userID = user.email;
     role = util.getUserRole(req);
     permitID = applicationOrPermit.applicationId;

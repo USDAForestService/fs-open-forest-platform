@@ -676,7 +676,7 @@ tempOutfitter.getOne = (req, res) => {
       if (!app) {
         return res.status(404).send();
       }
-      if (!util.hasPermissions(util.getUser(req), app)) {
+      if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
       util.logControllerAction(req, 'tempOutfitter.getOne', app);
@@ -715,10 +715,10 @@ tempOutfitter.update = (req, res) => {
       if (!app) {
         return res.status(404).send();
       }
-      if (!util.hasPermissions(util.getUser(req), app)) {
+      if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      tempOutfitter.updateApplicationModel(app, req.body, util.getUser(req));
+      tempOutfitter.updateApplicationModel(app, req.body, req.user);
       if (app.status === 'Accepted') {
         acceptApplication(app)
           .then(response => {
@@ -727,7 +727,7 @@ tempOutfitter.update = (req, res) => {
               .save()
               .then(() => {
                 util.logControllerAction(req, 'tempOutfitter.update', app);
-                commonControllers.createRevision(util.getUser(req), app);
+                commonControllers.createRevision(req.user, app);
                 app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));

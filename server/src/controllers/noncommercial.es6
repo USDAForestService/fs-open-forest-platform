@@ -377,7 +377,7 @@ noncommercial.getOne = (req, res) => {
       if (!app) {
         return res.status(404).send();
       }
-      if (!util.hasPermissions(util.getUser(req), app)) {
+      if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
       util.logControllerAction(req, 'noncommerical.getOne', app);
@@ -443,10 +443,10 @@ noncommercial.update = (req, res) => {
       if (!app) {
         return res.status(404).send();
       }
-      if (!util.hasPermissions(util.getUser(req), app)) {
+      if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      noncommercial.updateApplicationModel(app, req.body, util.getUser(req));
+      noncommercial.updateApplicationModel(app, req.body, req.user);
       if (app.status === 'Accepted') {
         noncommercial
           .acceptApplication(app)
@@ -456,7 +456,7 @@ noncommercial.update = (req, res) => {
             app
               .save()
               .then(() => {
-                commonControllers.createRevision(util.getUser(req), app);
+                commonControllers.createRevision(req.user, app);
                 app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
                 email.sendEmail(`noncommercialApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
