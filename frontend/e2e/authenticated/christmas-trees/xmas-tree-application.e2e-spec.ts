@@ -109,10 +109,10 @@ describe('Apply for a Christmas tree permit', () => {
 
     it('should have a Next button', () => {
       expect(christmasTreeForm.submit().isPresent()).toBeTruthy();
-      christmasTreeForm.submit().click();
     });
 
     it('should show the rules section after next is clicked', () => {
+      christmasTreeForm.submit().click();
       expect<any>(christmasTreeForm.treeApplicationRulesContainer().getText()).toContain(
         'Christmas trees may be taken from the Mt. Hood National Forest'
       );

@@ -40,7 +40,7 @@ export class ChristmasTreeForm {
   }
 
   infoConsentAccepted() {
-    return element(by.id('accept-pii-label'));
+    return element(by.id('accept-pii'));
   }
 
   rulesAccepted() {
@@ -63,6 +63,7 @@ export class ChristmasTreeForm {
   }
 
   fillOutForm() {
+    this.infoConsentAccepted().click();
     element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
     element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
     element(by.id('email')).sendKeys('msdf@noemail.com');
