@@ -239,7 +239,6 @@ export class TreeApplicationFormComponent implements OnInit {
         window.location.hash = '';
         this.apiErrors = error;
         this.submitted = false;
-        this.applicationForm.get('acceptPII').setValue(false);
         this.applicationRulesForm.get('acceptRules').setValue(false);
         this.winRef.getNativeWindow().scroll(0, 0);
       }
