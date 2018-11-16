@@ -181,6 +181,7 @@ describe('TreeApplicationFormComponent', () => {
     component.applicationForm.get('lastName').setValue('test');
     component.applicationForm.get('emailAddress').setValue('test@test.com');
     component.applicationForm.get('quantity').setValue(2);
+    component.applicationForm.get('acceptPII').setValue(true);
     component.showRulesForm();
     expect(component.submitted).toBeTruthy();
   });
