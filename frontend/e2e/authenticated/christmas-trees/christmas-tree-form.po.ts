@@ -40,7 +40,7 @@ export class ChristmasTreeForm {
   }
 
   infoConsentAccepted() {
-    return element(by.id('accept-pii'));
+    return element(by.id('accept-pii-label'));
   }
 
   rulesAccepted() {
