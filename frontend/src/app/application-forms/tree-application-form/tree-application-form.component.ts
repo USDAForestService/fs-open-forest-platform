@@ -230,7 +230,13 @@ export class TreeApplicationFormComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
-    this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
+    const formValuesToSend = Object.keys(this.applicationForm.value)
+    .filter((key) => key !== 'acceptPII')
+    .reduce((aggregator, key) => {
+      aggregator[key] = this.applicationForm.value[key];
+      return aggregator;
+    }, {});
+    this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
       response => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
