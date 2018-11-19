@@ -87,7 +87,7 @@ christmasTree.getForest = (req, res) => {
       }
     })
     .catch(error => {
-      logger.error('christmasTree controller getForest error for forest abbr ' + req.params.id, error);
+      logger.error('ERROR: ServerError: christmasTree controller getForest error for forest abbr ' + req.params.id, error);
       res.status(400).json(error);
     });
 };
