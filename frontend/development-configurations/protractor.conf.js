@@ -51,6 +51,7 @@ exports.config = {
   suites: {
     'docker-smoke-test': '../e2e/authenticated/special-uses/noncommercial-learn-more.e2e-spec.ts',
     'app-temp': '../e2e/authenticated/special-uses/application-temp-outfitters.e2e-spec.ts',
+    'app-xmas': '../e2e/authenticated/christmas-trees/xmas-tree-application.e2e-spec.ts',
     'unauthenticated': ['../e2e/unauthenticated/**/*.e2e-spec.ts'],
     'circle-e2e-split': []
   }

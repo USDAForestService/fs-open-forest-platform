@@ -71,6 +71,7 @@ export class TreeApplicationFormComponent implements OnInit {
    */
   getApplicationForm(formBuilder, maxNumTrees) {
     return formBuilder.group({
+      acceptPII: [false, Validators.required],
       forestId: ['', [Validators.required]],
       forestAbbr: [''],
       orgStructureCode: ['', [Validators.required]],
@@ -88,7 +89,7 @@ export class TreeApplicationFormComponent implements OnInit {
    */
   createForm(forest, formBuilder) {
     this.applicationForm = this.getApplicationForm(formBuilder, forest.maxNumTrees);
-
+    this.applicationForm.get('acceptPII').setValue(false);
     this.applicationForm.get('forestId').setValue(forest.id);
     this.applicationForm.get('forestAbbr').setValue(forest.forestAbbr);
     this.applicationForm.get('orgStructureCode').setValue(forest.orgStructureCode);
@@ -218,6 +219,7 @@ export class TreeApplicationFormComponent implements OnInit {
     this.applicationForm.get('lastName').setValue(this.permit.lastName);
     this.applicationForm.get('emailAddress').setValue(this.permit.emailAddress);
     this.applicationForm.get('quantity').setValue(this.permit.quantity);
+    this.applicationForm.get('acceptPII').setValue(false);
     this.applicationRulesForm.get('acceptRules').setValue(false);
     this.quantityChange(this.permit.quantity);
     this.showRules = false;
@@ -228,7 +230,13 @@ export class TreeApplicationFormComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
-    this.applicationService.create(JSON.stringify(this.applicationForm.value)).subscribe(
+    const formValuesToSend = Object.keys(this.applicationForm.value)
+    .filter((key) => key !== 'acceptPII')
+    .reduce((aggregator, key) => {
+      aggregator[key] = this.applicationForm.value[key];
+      return aggregator;
+    }, {});
+    this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
       response => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
