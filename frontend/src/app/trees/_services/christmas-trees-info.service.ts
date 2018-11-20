@@ -90,8 +90,8 @@ export class ChristmasTreesInfoService {
       beforeYouCut: `${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
       whenYouCut: `${forest.forestAbbr}/cutting-instructions/measuring.md`,
       seasonDatesAdditionalInformation: `${forest.forestAbbr}/when-to-cut-your-tree.md`,
-      treeLocationsAllowed: `${forest.forestAbbr}/tree-locations/allowed.md`,
-      treeLocationsProhibited: `${forest.forestAbbr}/tree-locations/prohibited.md`,
+      whereToCutCuttingAreaMaps: `${forest.forestAbbr}/where-to-cut-your-tree/cutting-area-maps.md`,
+      treeLocationsProhibited: `${forest.forestAbbr}/where-to-cut-your-tree/prohibited.md`,
       howToPlanYourTrip: `${forest.forestAbbr}/how-to-plan-your-trip.md`,
       rules: `${forest.forestAbbr}/rules-to-know/rules.md`,
       permitRules: `common/permit-rules.md`
