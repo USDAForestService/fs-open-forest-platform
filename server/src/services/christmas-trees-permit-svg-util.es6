@@ -166,7 +166,7 @@ christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
  */
 christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
   let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
-  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/rules.md');
+  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/tree-cutting-rules.md');
   if (permitRules && forestRules) {
     return `${permitRules}\n${forestRules}`;
   } else {

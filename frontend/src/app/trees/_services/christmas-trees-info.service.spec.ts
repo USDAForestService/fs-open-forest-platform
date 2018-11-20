@@ -108,7 +108,7 @@ describe('ChristmasTreesInfoService', () => {
         '/assets/content/arp/where-to-cut-your-tree/cutting-area-maps.md',
         '/assets/content/arp/where-to-cut-your-tree/prohibited-areas.md',
         '/assets/content/arp/how-to-plan-your-trip.md',
-        '/assets/content/arp/rules.md',
+        '/assets/content/arp/tree-cutting-rules.md',
         '/assets/content/common/permit-rules.md'
       ];
 

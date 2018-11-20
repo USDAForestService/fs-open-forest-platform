@@ -93,7 +93,7 @@ export class ChristmasTreesInfoService {
       whereToCutCuttingAreaMaps: `${forest.forestAbbr}/where-to-cut-your-tree/cutting-area-maps.md`,
       whereToCutProhibited: `${forest.forestAbbr}/where-to-cut-your-tree/prohibited-areas.md`,
       howToPlanYourTrip: `${forest.forestAbbr}/how-to-plan-your-trip.md`,
-      rules: `${forest.forestAbbr}/rules.md`,
+      rules: `${forest.forestAbbr}/tree-cutting-rules.md`,
       permitRules: `common/permit-rules.md`
     };
   }
