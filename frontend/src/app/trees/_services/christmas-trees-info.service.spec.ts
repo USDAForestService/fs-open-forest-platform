@@ -108,7 +108,7 @@ describe('ChristmasTreesInfoService', () => {
         '/assets/content/arp/where-to-cut-your-tree/cutting-area-maps.md',
         '/assets/content/arp/where-to-cut-your-tree/prohibited-areas.md',
         '/assets/content/arp/how-to-plan-your-trip.md',
-        '/assets/content/arp/rules-to-know/rules.md',
+        '/assets/content/arp/rules.md',
         '/assets/content/common/permit-rules.md'
       ];
 
@@ -143,9 +143,9 @@ describe('ChristmasTreesInfoService', () => {
         contactUs: 'test1',
         beforeYouCut: 'test2',
         whenYouCut: 'test3',
-        seasonDatesAdditionalInformation: 'test6',
+        whenToCutInfo: 'test6',
         whereToCutCuttingAreaMaps: 'test7',
-        treeLocationsProhibited: 'test8',
+        whereToCutProhibited: 'test8',
         howToPlanYourTrip: 'test9',
         rules: 'test10',
         permitRules: 'test11'
