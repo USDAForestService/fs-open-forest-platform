@@ -102,8 +102,8 @@ describe('ChristmasTreesInfoService', () => {
       const mdRequestUrls = [
         '/assets/content/arp/introduction.md',
         '/assets/content/arp/contact-us.md',
-        '/assets/content/arp/cutting-instructions/measuring.md',
-        '/assets/content/arp/cutting-instructions/helpful-information.md',
+        '/assets/content/arp/how-to-cut/measuring.md',
+        '/assets/content/arp/how-to-cut/helpful-tips.md',
         '/assets/content/arp/when-to-cut-your-tree.md',
         '/assets/content/arp/where-to-cut-your-tree/cutting-area-maps.md',
         '/assets/content/arp/where-to-cut-your-tree/prohibited-areas.md',

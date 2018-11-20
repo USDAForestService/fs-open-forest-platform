@@ -87,8 +87,8 @@ export class ChristmasTreesInfoService {
     return {
       introduction: `${forest.forestAbbr}/introduction.md`,
       contactUs: `${forest.forestAbbr}/contact-us.md`,
-      beforeYouCut: `${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
-      whenYouCut: `${forest.forestAbbr}/cutting-instructions/measuring.md`,
+      beforeYouCut: `${forest.forestAbbr}/how-to-cut/helpful-tips.md`,
+      whenYouCut: `${forest.forestAbbr}/how-to-cut/measuring.md`,
       whenToCutInfo: `${forest.forestAbbr}/when-to-cut-your-tree.md`,
       whereToCutCuttingAreaMaps: `${forest.forestAbbr}/where-to-cut-your-tree/cutting-area-maps.md`,
       whereToCutProhibited: `${forest.forestAbbr}/where-to-cut-your-tree/prohibited-areas.md`,
