@@ -51,7 +51,7 @@ describe('ChristmasTreesInfoService', () => {
   it(
     'should get text',
     inject([ChristmasTreesInfoService], service => {
-      expect(service.getText('/assets/content/apr/contact-information/contact-us.md')).toEqual(jasmine.any(Observable));
+      expect(service.getText('/assets/content/apr/contact-us.md')).toEqual(jasmine.any(Observable));
     })
   );
 
@@ -101,13 +101,13 @@ describe('ChristmasTreesInfoService', () => {
 
       const mdRequestUrls = [
         '/assets/content/arp/introduction.md',
-        '/assets/content/arp/contact-information/contact-us.md',
+        '/assets/content/arp/contact-us.md',
         '/assets/content/arp/cutting-instructions/measuring.md',
         '/assets/content/arp/cutting-instructions/helpful-information.md',
-        '/assets/content/arp/season-dates/additional-information.md',
+        '/assets/content/arp/when-to-cut-your-tree.md',
         '/assets/content/arp/tree-locations/allowed.md',
         '/assets/content/arp/tree-locations/prohibited.md',
-        '/assets/content/arp/trip-planning/how-to-plan-your-trip.md',
+        '/assets/content/arp/how-to-plan-your-trip.md',
         '/assets/content/arp/rules-to-know/rules.md',
         '/assets/content/common/permit-rules.md'
       ];
