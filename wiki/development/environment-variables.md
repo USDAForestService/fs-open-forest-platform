@@ -42,7 +42,9 @@ To override the default VCAP_SERVICES that are configured for local development 
 
 ### VCAP_SERVICES
 
-  [Local or CI configuration](/server/environment-variables/local.json)
+  [Local configuration](/server/environment-variables/local.json)
+
+  [Test configuration](/server/environment-variables/test.json)
 
 ## Deployed Environment variables
 The following environment variables are required for staging and production. In general, these will be set within cloud.gov as `user-provided-services`
