@@ -2,15 +2,15 @@
 
 _Master_
 [![CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/20d074f212f583579782/maintainability)](https://codeclimate.com/github/18F/fs-open-forest-platform/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/20d074f212f583579782/test_coverage)](https://codeclimate.com/github/18F/fs-open-forest-platform/test_coverage)
-Frontend Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
-Server Badge: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
+
+Vulnerability Scans
+Frontend: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
+
+Server: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
 
 _Staging:_
-[![Trees-CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform.svg?style=shield)](https://circleci.com/gh/18F/fs-open-forest-platform)
-[![Trees-GitHub Issues](https://img.shields.io/github/issues/nciinc/fs-open-forest-platform.svg)](https://github.com/nciinc/fs-open-forest-platform/issues)
-[![Code Climate](https://codeclimate.com/github/nciinc/fs-open-forest-platform/badges/gpa.svg)](https://codeclimate.com/github/nciinc/fs-open-forest-platform)
+[![Staging CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev.svg?style=svg)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev)
+
 
 # U.S. Forest Service Permit Platform
 
@@ -330,7 +330,7 @@ frontend code for each build.  This date and version will display in the applica
 
 ## Content administration
 
-[Christmas trees README](/wiki/christmas-trees/README.md)
+[Christmas trees README](/wiki/christmas-trees/content/markdown-files.md)
 
 ### Christmas Trees Database and seeders
 
