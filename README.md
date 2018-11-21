@@ -330,7 +330,7 @@ frontend code for each build.  This date and version will display in the applica
 
 ## Content administration
 
-[Christmas trees README](/wiki/christmas-trees/README.md)
+[Christmas trees README](/wiki/christmas-trees/content/markdown-files.md)
 
 ### Christmas Trees Database and seeders
 
