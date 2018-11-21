@@ -49,8 +49,6 @@ The following environment variables are required for staging and production. In 
 
 VCAP_SERVICES
 
-  [Staging configuration](/server/environment-variables/staging.json)
-
 DATABASE_URL
 
 VCAP_APPLICATION
