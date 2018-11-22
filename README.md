@@ -153,7 +153,10 @@ permission. You will be prompted for the password.
 
 Then you can initialize your development database.
 
-    $ npm run db:create
+    $ npm run createdb
+    $ npm run migrate
+    $ npm run seed
+
 
 
 ##### Transactions
