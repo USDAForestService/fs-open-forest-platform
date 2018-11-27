@@ -84,7 +84,7 @@
   },
   "scripts": {
     "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
-    "dev": "npm run copy-frontend-assets; npm run migrate; NODE_ENV=local nodemon ./src/app.es6",
+    "dev": "npm run copy-frontend-assets; npm run migrate; NODE_ENV=local node ./src/app.es6",
     "dev:user": "npm run dev -- user",
     "copy-frontend-assets": "./copy-frontend-assets.sh",
     "lint": "eslint **/**/*.es6",
