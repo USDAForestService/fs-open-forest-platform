@@ -224,6 +224,9 @@ jobs:
             cd frontend
             npm run dist-trees
       - run:
+          name: Generate basic auth for staging
+          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
+      - run:
           name: copy frontend assets into server
           command: |
             cd server
