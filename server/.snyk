@@ -8,6 +8,6 @@ ignore:
         expires: '2018-11-01T16:10:24.155Z'
   SNYK-JS-PASSPORTSAML-72411:
     - passport-saml:
-        reason: Pinned to commit to fix
-        expires: '2018-11-21T15:40:12.851Z'
+        reason: have download pinned to commit that is fix
+        expires: '2018-12-27T18:50:58.023Z'
 patch: {}
