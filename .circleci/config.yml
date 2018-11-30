@@ -5,7 +5,6 @@ _defaults:
       environment:
         DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
         VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
-        PLATFORM: local
     - image: postgres:9.6.3
       environment:
           POSTGRES_USER: "ubuntu"

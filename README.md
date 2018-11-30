@@ -44,9 +44,9 @@ As the first two-way interaction-focused Forest Service online application, Open
 			- [PostgreSQL](#postgresql)
 	- [Clone the repository](#clone-the-repository)
 	- [Server development](#server-development)
+		- [Install dependencies](#install-dependencies)
 		- [Database](#database)
 		- [Environment Variables](#environment-variables)
-		- [Install dependencies](#install-dependencies)
 		- [Available commands](#available-commands)
 		- [Server API Documentation](#server-api-documentation)
 		- [Authentication](#authentication)
@@ -136,9 +136,28 @@ Navigate to cloned repo
 
 ### Server development
 
+#### Install dependencies
+
+Run `cd server` then run `npm install` to install dependencies.
+
+
 #### Database
 
-A running Postgresql database is required in order to run the server locally. Please make sure you have installed [Postgresql](https://www.postgresql.org/) locally and created a database for this project.
+A running Postgresql database is required in order to run the server locally.
+Please make sure you have installed [Postgresql](https://www.postgresql.org/).
+
+Create a new database user with the password `fs_open_forest` and the CREATEDB
+permission. You will be prompted for the password.
+
+    $ createuser fs_open_forest --createdb -P
+
+Then you can initialize your development database.
+
+    $ npm run createdb
+    $ npm run migrate
+    $ npm run seed
+
+
 
 ##### Transactions
 The database can support promisified transactions by leveraging the `server/dba/migrations/modules/transaction.js`
@@ -151,10 +170,6 @@ in order to have a shared ID across new permit types an `ALTER TABLE` query must
 There are environment variables that are required to be set in order to run tests and to run the server in general. Please set up these environment variables either in your shell or on the command line. We use a cloud foundry (the underlying framework for cloud.gov) specific manager of environment variables.
 
 [View list of required environment variables, installation instructions, and explanation of cloud.gov's VCAP-Services](/wiki/development/environment-variables.md)
-
-#### Install dependencies
-
-run `cd server` then run `yarn` to install dependencies.
 
 #### Available commands
 
@@ -182,7 +197,7 @@ Public users must authenticate with login.gov, and Forest Service admins must au
 
 Login.gov uses the openid-client passport plugin for the OpenID Connect protocol, and USDA eAuth uses the passport-saml plugin for the SAML protocol.
 
-Due to security restrictions testing can't be done locally, you must use a server on cloud.gov. Setting the PLATFORM environment variable will bypass all authentication checks.
+Due to security restrictions testing can't be done locally, you must use a server on cloud.gov.
 
 Note: we use `cookie-sessions` to with keys bound to the environment to allow for running in a clustered environment.
 

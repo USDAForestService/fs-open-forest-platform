@@ -16,7 +16,7 @@ The following environment variables are required to run the application locally,
 
   {"s3":[{"credentials":{"bucket":"","access_key_id":"","region":"us-east-1","secret_access_key":""},"label":"s3","name":"intake-s3"}]}
 
-  If AWS_CONFIG is not set, system will use the json file [here](/server/vcap-services/aws-config.json)
+  If AWS_CONFIG is not set, system will use the json file [here](/server/environment-variables/aws-config.json)
 
 ### SNYK_TOKEN
 
@@ -28,10 +28,6 @@ The following environment variables are only required to run the application loc
 ### DATABASE_URL
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
-
-### PLATFORM
-
-    local
 
 ### VCAP_APPLICATION
 
@@ -46,14 +42,14 @@ To override the default VCAP_SERVICES that are configured for local development 
 
 ### VCAP_SERVICES
 
-  [Local or CI configuration](/server/vcap-services/local-or-ci.json)
+  [Local configuration](/server/environment-variables/local.json)
+
+  [Test configuration](/server/environment-variables/test.json)
 
 ## Deployed Environment variables
 The following environment variables are required for staging and production. In general, these will be set within cloud.gov as `user-provided-services`
 
 VCAP_SERVICES
-
-  [Staging configuration](/server/vcap-services/staging.json)
 
 DATABASE_URL
 

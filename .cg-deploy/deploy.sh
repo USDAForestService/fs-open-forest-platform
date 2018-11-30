@@ -27,7 +27,6 @@ elif [ $SPACE = 'public-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  sed -i -e 's/npm run start/NODE_ENV=staging npm run start/' ./server/Procfile
 elif [ $SPACE = 'public-trees-staging' ]; then
   FRONTEND_NAME="forest-service-trees-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
@@ -35,7 +34,6 @@ elif [ $SPACE = 'public-trees-staging' ]; then
   API_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-api-trees-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
-  sed -i -e 's/npm run start/NODE_ENV=staging npm run start/' ./server/Procfile
 else
 echo "Unknown space: $SPACE"
 exit
