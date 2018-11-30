@@ -261,7 +261,7 @@ util.isProduction = () => {
  * @return {boolean} - true when test production authentication is enabled
  */
 util.isTestProductionAuthenticationEnabled = () => {
-  return !!process.env.TEST_PRODUCTION_AUTH;
+  return util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
 };
 
 /**
