@@ -239,14 +239,6 @@ util.getContentType = filename => {
 };
 
 /**
- * @function isLocalOrCI - Check for testing environment.
- * @return {boolean} - environment is local or CI or not
- */
-util.isLocalOrCI = () => {
-  return vcapConstants.isLocalOrCI;
-};
-
-/**
  * @function env - Return the current environment
  * @return {bool} - True if we are in an automated test environment
  */

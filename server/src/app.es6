@@ -5,8 +5,9 @@
  * @module app
  */
 const logger = require('./services/logger.es6');
+const util = require('./services/util.es6');
 const vcapConstants = require('./vcap-constants.es6');
-if (!vcapConstants.isLocalOrCI) {
+if (util.isProduction()) {
   logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
   require('newrelic'); // eslint-disable-line global-require
 } else {
@@ -21,7 +22,6 @@ const moment = require('moment');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
-const util = require('./services/util.es6');
 const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
@@ -102,7 +102,7 @@ moment.updateLocale('en', {
 passportConfig.setup(app);
 
 /** Pay.gov mock route */
-if (util.isLocalOrCI()) {
+if (!util.isProduction()) {
   app.use(payGovMocks.router);
 }
 app.use(loginGovMocks.router);
