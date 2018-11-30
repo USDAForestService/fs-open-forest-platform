@@ -255,12 +255,12 @@ util.isProduction = () => {
 };
 
 /**
- * @function isTestProductionAuthenticationEnabled - should production
+ * @function isTestAuthenticationEnabled - should production
  * authentication be used in tests (used in CI for more realistic test
  * conditions)
  * @return {boolean} - true when test production authentication is enabled
  */
-util.isTestProductionAuthenticationEnabled = () => {
+util.isTestAuthenticationEnabled = () => {
   return util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
 };
 

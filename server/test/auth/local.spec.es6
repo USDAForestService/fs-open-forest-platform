@@ -17,11 +17,11 @@ describe('local auth middleware', () => {
 
   describe('when production auth is disabled in test', () => {
     beforeEach(() => {
-      sinon.stub(util, 'isTestProductionAuthenticationEnabled').returns(false);
+      sinon.stub(util, 'isTestAuthenticationEnabled').returns(false);
     });
 
     afterEach(() => {
-      util.isTestProductionAuthenticationEnabled.restore();
+      util.isTestAuthenticationEnabled.restore();
     });
 
     it('sets the test user', (done) => {
@@ -36,11 +36,11 @@ describe('local auth middleware', () => {
 
   describe('when production auth is enbled in test', () => {
     beforeEach(() => {
-      sinon.stub(util, 'isTestProductionAuthenticationEnabled').returns(true);
+      sinon.stub(util, 'isTestAuthenticationEnabled').returns(true);
     });
 
     afterEach(() => {
-      util.isTestProductionAuthenticationEnabled.restore();
+      util.isTestAuthenticationEnabled.restore();
     });
 
     it('does not set the user', (done) => {
