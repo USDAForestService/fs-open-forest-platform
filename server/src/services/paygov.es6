@@ -36,26 +36,25 @@ paygov.createToken = (permitId) => {
  * @function createSuccessUrl - create success url for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
+ * @param {Boolean} cancel - whether to include the cancel query
  * @return {string} - success URL for payGov
  */
-paygov.createSuccessUrl = (forestAbbr, permitId) => {
-  const token = paygov.createToken(permitId);
-  return `${
-    vcapConstants.INTAKE_CLIENT_BASE_URL
-  }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?t=${token}`;
-};
+paygov.returnUrl = (forestAbbr, permitId, cancel) => {
+  let cancelQuery = '';
+  if (cancel) {
+    cancelQuery = 'cancel=true&';
+  }
+  return new Promise((resolve, reject) =>{
+    paygov.createToken(permitId)
+      .then(token => {
+        resolve(`${
+          vcapConstants.INTAKE_CLIENT_BASE_URL
+        }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?${cancelQuery}t=${token}`
+        );
+      })
+      .catch(error => reject(error));
+  });
 
-/**
- * @function createCancelUrl - create cancel url for paygov request
- * @param {string} forestAbbr - forest abbreviation
- * @param {string} permitId - permit id
- * @return {string} - cancel URL for payGov
- */
-paygov.createCancelUrl = (forestAbbr, permitId) => {
-  const token = paygov.createToken(permitId);
-  return `${
-    vcapConstants.INTAKE_CLIENT_BASE_URL
-  }/christmas-trees/forests/${forestAbbr}/applications/${permitId}?cancel=true&t=${token}`;
 };
 
 /**
@@ -67,81 +66,75 @@ paygov.createCancelUrl = (forestAbbr, permitId) => {
  */
 paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
-  let url_success = '';
-  try {
-    url_success = paygov.createSuccessUrl(forestAbbr, permit.permitId);
-  } catch (e) {
-    logger.error('problem creating success url for permit ' + permit.id, e);
-  }
-
-  let url_cancel;
-  try {
-    url_cancel = paygov.createCancelUrl(forestAbbr, permit.permitId);
-  } catch (e) {
-    logger.error('problem creating success url for permit ' + permit.id, e);
-  }
-
-  const xmlTemplate = [
-    {
-      'soap:Envelope': [
-        {
-          _attr: {
-            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
-          }
-        },
-        {
-          'soap:Body': [
-            {
-              'ns2:startOnlineCollection': [
-                {
-                  _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
-                  }
-                },
-                {
-                  startOnlineCollectionRequest: [
-                    {
-                      tcs_app_id: tcsAppID
-                    },
-                    {
-                      agency_tracking_id: permit.permitNumber
-                    },
-                    {
-                      transaction_type: 'Sale'
-                    },
-                    {
-                      transaction_amount: permit.totalCost
-                    },
-                    {
-                      language: 'EN'
-                    },
-                    {
-                      url_success: url_success
-                    },
-                    {
-                      url_cancel: url_cancel
-                    },
-                    {
-                      account_holder_name: permit.firstName + ' ' + permit.lastName
-                    },
-                    {
-                      custom_fields: [
-                        {
-                          custom_field_1: possFinancialId
-                        }
-                      ]
-                    }
-                  ]
+  return new Promise((resolve, reject) => {
+    Promise.all([
+      paygov.returnUrl(forestAbbr, permit.permitId, false),
+      paygov.returnUrl(forestAbbr, permit.permitId, true)
+    ])
+      .then((returnUrls) => {
+        const xmlTemplate = [
+          {
+            'soap:Envelope': [
+              {
+                _attr: {
+                  'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
                 }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ];
-
-  return xml(xmlTemplate);
+              },
+              {
+                'soap:Body': [
+                  {
+                    'ns2:startOnlineCollection': [
+                      {
+                        _attr: {
+                          'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
+                        }
+                      },
+                      {
+                        startOnlineCollectionRequest: [
+                          {
+                            tcs_app_id: tcsAppID
+                          },
+                          {
+                            agency_tracking_id: permit.permitNumber
+                          },
+                          {
+                            transaction_type: 'Sale'
+                          },
+                          {
+                            transaction_amount: permit.totalCost
+                          },
+                          {
+                            language: 'EN'
+                          },
+                          {
+                            url_success: returnUrls[0]
+                          },
+                          {
+                            url_cancel: returnUrls[1]
+                          },
+                          {
+                            account_holder_name: permit.firstName + ' ' + permit.lastName
+                          },
+                          {
+                            custom_fields: [
+                              {
+                                custom_field_1: possFinancialId
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ];
+        resolve(xml(xmlTemplate));
+      })
+      .catch(error => reject(error));
+  });
 };
 
 /**
@@ -198,7 +191,14 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
 paygov.getToken = result => {
   const startOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
-  return startOnlineCollectionResponse.token[0];
+  return new Promise((resolve, reject) => {
+    if (startOnlineCollectionResponse) {
+      resolve(startOnlineCollectionResponse.token[0]);
+    }
+    reject(new Error ('no token'));
+  });
+
+  
 };
 
 /**
@@ -207,25 +207,21 @@ paygov.getToken = result => {
  * @param {Object} result - response error object
  */
 paygov.getResponseError = (requestType, result) => {
-  let resultMesssage = { faultcode: '9999', faultstring: requestType };
-  try {
+  // let resultMesssage = { faultcode: '9999', faultstring: requestType };
+  let responseError = { errorCode: '9999', errorMessage: requestType};
+  return new Promise((resolve, reject) => {
     let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
-    resultMesssage.faultcode = faultMesssage.faultcode;
-    resultMesssage.faultstring = faultMesssage.faultstring;
-
-    if (faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]) {
-      resultMesssage.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
-      resultMesssage.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
+    if (faultMesssage) {
+      responseError.errorCode = faultMesssage.errorCode;
+      responseError.errorMessage = faultMesssage.faultMesssage;
+      if (faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]) {
+        responseError.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
+        responseError.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
+      }
+      resolve(responseError);
     }
-  } catch (e) {
-    logger.error('paygov error while parsing error response=', e);
-    // return the default error messages
-  } finally {
-    return {
-      errorCode: resultMesssage.faultcode,
-      errorMessage: resultMesssage.faultstring
-    };
-  }
+    reject(responseError);
+  });
 };
 
 /**
@@ -236,7 +232,13 @@ paygov.getResponseError = (requestType, result) => {
 paygov.getTrackingId = result => {
   const completeOnlineCollectionResponse =
     result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
-  return completeOnlineCollectionResponse.paygov_tracking_id[0];
+  return new Promise((resolve, reject) => {
+    if (completeOnlineCollectionResponse) {
+      resolve(completeOnlineCollectionResponse.paygov_tracking_id[0]);
+    }
+    reject(new Error('Collection not completed'));
+  });
+    
 };
 
 module.exports = paygov;

@@ -220,6 +220,48 @@ const getPermitError = (res, permit) => {
 };
 
 /**
+ * @function grabAndProcessPaygovToken - Private function to error objects from the permit's errors
+ * @param {Object} error - no valid token error from gettoken
+ * @param {Object} result - xmlpaygov pa
+ * @param {Object} permit - permit object from database
+ * @param {Object} res - http response
+ * @param {String} requestType - the name of the request when the error occured
+ * @return {Object} - promise of whether permit was updated with token
+ */
+const recordPayGovError = (error, result, res, permit, requestType) => {
+  logger.error(`ERROR: ServerError: Pay.gov- ${error}`);
+  return paygov.getResponseError(requestType, result)
+    .then(paygovError => updatePermitWithError(res, permit, paygovError))
+    .catch(updateError => {
+      logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${updateError}`);
+      util.handleErrorResponse(error, res);
+    });
+};
+
+/**
+ * @function grabAndProcessPaygovToken - Private function to error objects from the permit's errors
+ * @param {Object} xmlDatafromPayGov - xml from pay.gov 
+ * @param {Object} permit - permit object from database
+ * @param {Object} res - http response
+ * @return {Object} - promise of whether permit was updated with token
+ */
+const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
+  return new Promise((resolve, reject) => {
+    xml2jsParse(payGovXmlRes, function (parseErr, result) {
+      if (!parseErr) {
+        paygov.getToken(result)
+          .then(token => resolve(updatePermitWithToken(res, permit, token)))
+          .catch(error => {
+            reject(recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
+          });
+      }
+      reject(parseErr);
+    });
+  });
+
+};
+
+/**
  * @function create - API function to create permit application
  * @param {Object} req - http request
  * @param {Object} res - http response
@@ -242,26 +284,15 @@ christmasTree.create = (req, res) => {
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
             util.logControllerAction(req, 'christmasTree.create', permit);
-            const xmlData = paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit);
-            postPayGov(xmlData)
-              .then(xmlResponse => {
-                xml2jsParse(xmlResponse, function(err, result) {
-                  if (!err) {
-                    try {
-                      const token = paygov.getToken(result);
-                      return updatePermitWithToken(res, permit, token);
-                    } catch (error) {
-                      try {
-                        logger.error(`ERROR: ServerError: Pay.gov- ${error}`);
-                        const paygovError = paygov.getResponseError('startOnlineCollection', result);
-                        return updatePermitWithError(res, permit, paygovError);
-                      } catch (faultError) {
-                        logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${faultError}`);
-                        throwError(faultError);
-                      }
-                    }
-                  }
-                });
+            paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
+              .then(xmlData => {
+                postPayGov(xmlData)
+                  .then(xmlResponse => {
+                    grabAndProcessPaygovToken(xmlResponse, permit, res);
+                  })
+                  .catch(error => {
+                    util.handleErrorResponse(error, res);
+                  });
               })
               .catch(error => {
                 util.handleErrorResponse(error, res);
@@ -349,24 +380,17 @@ const updatePermit = (permit, updateObject) => {
  * @param {Object} permit - permit object
  * @return {string} - paygov tracking id
  */
-const parseXMLFromPayGov = (res, xmlResponse, permit) => {
+const parseXMLFromPayGov = (res, payGovXmlResponse, permit) => {
   return new Promise((resolve, reject) => {
-    xml2jsParse(xmlResponse, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        try {
-          const paygovTrackingId = paygov.getTrackingId(result);
-          resolve(paygovTrackingId);
-        } catch (error) {
-          try {
-            const paygovError = paygov.getResponseError('completeOnlineCollection', result);
-            return updatePermitWithError(res, permit, paygovError);
-          } catch (faultError) {
-            reject(faultError);
-          }
-        }
+    xml2jsParse(payGovXmlResponse, function (parseErr, result) {
+      if (!parseErr) {
+        paygov.getTrackingId(result)
+          .then(paygovTrackingId => resolve(paygovTrackingId))
+          .catch(error => {
+            reject(recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
+          });
       }
+      reject(parseErr);
     });
   });
 };
@@ -547,7 +571,6 @@ christmasTree.updatePermitApplication = (req, res) => {
                 })
                 .catch(error => {
                   logger.error(error);
-                  throwError(error);
                 });
             });
           } else {

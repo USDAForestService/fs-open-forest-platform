@@ -277,11 +277,11 @@ util.setAuthEmail = req => {
  * @returns {String} - user type
  */
 util.localUser = () => {
-  if (process.argv[2] == 'user'){
-    logger.info('Operating as an', process.argv[2]);
+  if (process.argv[2] == 'user') {
+    logger.info(`Operating as an ${process.argv[2]}`);
     return process.argv[2];
   }
-  logger.info('Operating as an', util.ADMIN_ROLE);
+  logger.info(`Operating as an ${util.ADMIN_ROLE}`);
   return util.ADMIN_ROLE;
 };
 
