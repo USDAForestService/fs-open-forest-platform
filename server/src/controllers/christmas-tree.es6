@@ -396,15 +396,6 @@ const parseXMLFromPayGov = (res, payGovXmlResponse, permit) => {
 };
 
 /**
- * @function throwError - Private function to return Error
- * @param {Object} error - error data
- * @return {Object} - error object
- */
-const throwError = err => {
-  throw new Error(err);
-};
-
-/**
  * @function permitExpireDate - Private function to check if permit expire date is in future
  * @param {date} permitExpireDate - expiration date
  * @return {boolean} - expiration date is is after current date

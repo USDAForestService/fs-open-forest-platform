@@ -6,7 +6,6 @@
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
-const logger = require('./logger.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
 const paygov = {};
