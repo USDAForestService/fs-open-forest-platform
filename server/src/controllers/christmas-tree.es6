@@ -185,7 +185,7 @@ const updatePermitWithToken = (res, permit, token) => {
  * @return {Object} - http response
  */
 const updatePermitWithError = (res, permit, paygovError) => {
-  updatePermit(permit, {
+  return updatePermit(permit, {
     status: 'Error',
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
@@ -220,7 +220,7 @@ const getPermitError = (res, permit) => {
 };
 
 /**
- * @function grabAndProcessPaygovToken - Private function to error objects from the permit's errors
+ * @function recordPayGovError - Private function to error objects from the permit's errors
  * @param {Object} error - no valid token error from gettoken
  * @param {Object} result - xmlpaygov pa
  * @param {Object} permit - permit object from database
@@ -252,6 +252,7 @@ const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
         paygov.getToken(result)
           .then(token => resolve(updatePermitWithToken(res, permit, token)))
           .catch(error => {
+            console.log('get token-error', error);
             reject(recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
           });
       }
@@ -288,7 +289,7 @@ christmasTree.create = (req, res) => {
               .then(xmlData => {
                 postPayGov(xmlData)
                   .then(xmlResponse => {
-                    grabAndProcessPaygovToken(xmlResponse, permit, res);
+                    return grabAndProcessPaygovToken(xmlResponse, permit, res);
                   })
                   .catch(error => {
                     util.handleErrorResponse(error, res);
@@ -383,14 +384,15 @@ const updatePermit = (permit, updateObject) => {
 const parseXMLFromPayGov = (res, payGovXmlResponse, permit) => {
   return new Promise((resolve, reject) => {
     xml2jsParse(payGovXmlResponse, function (parseErr, result) {
-      if (!parseErr) {
-        paygov.getTrackingId(result)
-          .then(paygovTrackingId => resolve(paygovTrackingId))
-          .catch(error => {
-            reject(recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
-          });
+      if (parseErr) {
+        reject(parseErr);
       }
-      reject(parseErr);
+      paygov.getTrackingId(result)
+        .then(id => resolve(id))
+        .catch(error => {
+          console.log('parsexml-trackingid !', error);
+          reject(recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
+        });
     });
   });
 };
@@ -515,6 +517,29 @@ christmasTree.printPermit = (req, res) => {
     });
 };
 
+const completePermitTransaction = (permit, res, req) => {
+  util.logControllerAction(req, 'christmasTree.updatePermitApplication#complete', permit);
+  const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
+  postPayGov(xmlData)
+    .then(xmlResponse => {
+      parseXMLFromPayGov(res, xmlResponse, permit)
+        .then((paygovTrackingId) => updatePermit(permit, {
+          paygovTrackingId: paygovTrackingId,
+          status: req.body.status
+        })
+          .then(updatedPermit => {
+            returnSavedPermit(res, permit);
+            christmasTree.generateRulesAndEmail(updatedPermit);
+          })
+          .catch(error => {
+            logger.error(error);
+          })
+        )
+        .catch(xmlError => util.handleErrorResponse(xmlError, res));
+    })
+    .catch((postError) => util.handleErrorResponse(postError, res));
+};
+
 /**
  * @function updatePermitApplication - API function to update permit
  * @param {Object} req - http request
@@ -543,27 +568,11 @@ christmasTree.updatePermitApplication = (req, res) => {
                 status: req.body.status
               })
               .then((permit)=>{
-                util.logControllerAction(req, 'christmasTree.updatePermitApplication', permit);
+                util.logControllerAction(req, 'christmasTree.updatePermitApplication#cancel', permit);
                 res.status(200).json(permit);
               });
           } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
-            const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-            postPayGov(xmlData).then(xmlResponse => {
-              parseXMLFromPayGov(res, xmlResponse, permit)
-                .then(paygovTrackingId => {
-                  return updatePermit(permit, {
-                    paygovTrackingId: paygovTrackingId,
-                    status: req.body.status
-                  });
-                })
-                .then(updatedPermit => {
-                  returnSavedPermit(res, permit);
-                  christmasTree.generateRulesAndEmail(updatedPermit);
-                })
-                .catch(error => {
-                  logger.error(error);
-                });
-            });
+            completePermitTransaction(permit, res, req);
           } else {
             logger.error('Permit status unknown. 404.');
             return res.status(404).send();

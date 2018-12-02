@@ -6,6 +6,7 @@
  */
 const jwt = require('jsonwebtoken');
 const xml = require('xml');
+
 const vcapConstants = require('../vcap-constants.es6');
 
 const paygov = {};
@@ -22,13 +23,19 @@ paygov.createToken = (permitId) => {
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  return jwt.sign(
-    {
-      data: permitId
-    },
-    vcapConstants.PERMIT_SECRET,
-    claims
-  );
+  return new Promise((resolve, reject) => {
+    const token = jwt.sign(
+      {
+        data: permitId
+      },
+      vcapConstants.PERMIT_SECRET,
+      claims
+    );
+    if (token) {
+      resolve(token);
+    }
+    reject(new Error('Unable to generate token'));
+  }); 
 };
 
 /**
@@ -188,9 +195,9 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
  * @return {string} - paygov token
  */
 paygov.getToken = result => {
-  const startOnlineCollectionResponse =
-    result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
   return new Promise((resolve, reject) => {
+    const startOnlineCollectionResponse =
+      result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]['startOnlineCollectionResponse'][0];
     if (startOnlineCollectionResponse) {
       resolve(startOnlineCollectionResponse.token[0]);
     }
