@@ -12,7 +12,7 @@ const vcapConstants = require('../vcap-constants.es6');
 const paygov = {};
 
 /**
- * @function createSuccessUrl - create success url for paygov request
+ * @function createToken - create success url for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @return {string} - jwt signed token
@@ -39,7 +39,7 @@ paygov.createToken = (permitId) => {
 };
 
 /**
- * @function createSuccessUrl - create success url for paygov request
+ * @function returnUrl - create success url for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} cancel - whether to include the cancel query
@@ -213,20 +213,20 @@ paygov.getToken = result => {
  * @param {Object} result - response error object
  */
 paygov.getResponseError = (requestType, result) => {
-  // let resultMesssage = { faultcode: '9999', faultstring: requestType };
   let responseError = { errorCode: '9999', errorMessage: requestType};
   return new Promise((resolve, reject) => {
-    let faultMesssage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
-    if (faultMesssage) {
-      responseError.errorCode = faultMesssage.errorCode;
-      responseError.errorMessage = faultMesssage.faultMesssage;
-      if (faultMesssage && faultMesssage['detail'][0]['TCSServiceFault'][0]) {
-        responseError.faultcode = faultMesssage['detail'][0]['TCSServiceFault'][0].return_code;
-        responseError.faultstring = faultMesssage['detail'][0]['TCSServiceFault'][0].return_detail;
+    let faultMessage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
+    if (faultMessage) {
+      responseError.errorCode = faultMessage.errorCode;
+      responseError.errorMessage = faultMessage.faultMessage;
+      if (faultMessage['detail'][0]['TCSServiceFault'][0]) {
+        responseError.errorCode = faultMessage['detail'][0]['TCSServiceFault'][0].return_code;
+        responseError.errorMessage = faultMessage['detail'][0]['TCSServiceFault'][0].return_detail;
       }
       resolve(responseError);
+    } else {
+      reject(responseError);
     }
-    reject(responseError);
   });
 };
 

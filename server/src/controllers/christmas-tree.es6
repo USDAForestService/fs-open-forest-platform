@@ -5,7 +5,6 @@
  * @module controllers/chrismtmas-tree
  */
 
-const request = require('request-promise');
 const uuid = require('uuid/v4');
 const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
@@ -100,8 +99,7 @@ christmasTree.getForest = (req, res) => {
 const postPayGov = xmlData => {
   const payGovPrivateKey = Buffer.from(vcapConstants.PAY_GOV_PRIVATE_KEY, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.PAY_GOV_CERT[0], 'utf8');
-
-  return request.post(
+  return util.request.post(
     {
       url: vcapConstants.PAY_GOV_URL,
       method: 'POST',
@@ -111,12 +109,6 @@ const postPayGov = xmlData => {
       body: xmlData,
       key: payGovPrivateKey,
       cert: payGovCert
-    },
-    function(error, response, body) {
-      if (error) {
-        return error;
-      }
-      return body;
     }
   );
 };
@@ -190,10 +182,9 @@ const updatePermitWithError = (res, permit, paygovError) => {
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
     logger.error(
-      `ERROR: ServerError: ${updatedPermit.emailAddress} 
-      modified ${updatedPermit.permitId} 
-      encountered an error at pay.gov 
-      ${updatedPermit.paygovError}`
+      `ERROR: ServerError: ${updatedPermit.emailAddress} \
+modified ${updatedPermit.permitId} encountered an error \
+at pay.gov ${updatedPermit.paygovError}`
     );
     return getPermitError(res, updatedPermit);
   });
@@ -229,11 +220,14 @@ const getPermitError = (res, permit) => {
  * @return {Object} - promise of whether permit was updated with token
  */
 const recordPayGovError = (error, result, res, permit, requestType) => {
-  logger.error(`ERROR: ServerError: Pay.gov- ${error}`);
+  logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error`);
   return paygov.getResponseError(requestType, result)
-    .then(paygovError => updatePermitWithError(res, permit, paygovError))
-    .catch(updateError => {
-      logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${updateError}`);
+    .then(paygovError => {
+      updatePermitWithError(res, permit, paygovError)
+        .catch(updateError => logger.error(`Error: ServerError: unable to mark permit as errored: ${updateError}`));
+    })
+    .catch(parseError => {
+      logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${parseError}`);
       util.handleErrorResponse(error, res);
     });
 };
@@ -252,7 +246,6 @@ const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
         paygov.getToken(result)
           .then(token => resolve(updatePermitWithToken(res, permit, token)))
           .catch(error => {
-            console.log('get token-error', error);
             reject(recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
           });
       }
@@ -390,7 +383,6 @@ const parseXMLFromPayGov = (res, payGovXmlResponse, permit) => {
       paygov.getTrackingId(result)
         .then(id => resolve(id))
         .catch(error => {
-          console.log('parsexml-trackingid !', error);
           reject(recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
         });
     });
@@ -418,7 +410,11 @@ christmasTree.generateRulesAndEmail = permit =>
       permitSvgService.generateRulesHtml(true, permit),
     ]))
     .then(([permitPng, rulesHtml]) => {
-      permit.permitUrl = paygov.createSuccessUrl(permit.christmasTreesForest.forestAbbr, permit.permitId);
+      permit.permitUrl = paygov.returnUrl(
+        permit.christmasTreesForest.forestAbbr,
+        permit.permitId,
+        false
+      );
       const rulesText = htmlToText.fromString(rulesHtml, {
         wordwrap: 130,
         ignoreImage: true
@@ -574,7 +570,10 @@ christmasTree.updatePermitApplication = (req, res) => {
           } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
             completePermitTransaction(permit, res, req);
           } else {
-            logger.error('Permit status unknown. 404.');
+            if (permit.status === 'Error'){
+              getPermitError(res, permit);
+            }
+            logger.error('Permit status unknown. 400.');
             return res.status(404).send();
           }
         } else {

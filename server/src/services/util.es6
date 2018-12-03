@@ -407,8 +407,8 @@ util.getUserRole = adminUsername => {
 util.handleErrorResponse = (error, res) => {
   if(error !== {}){
     let inFile = '';
-    if(error.filename){
-      inFile = `in ${error.filename}`;
+    if(error.fileName){
+      inFile = `in ${error.fileName}`;
       if(error.lineNumber){
         inFile = `${inFile} at ${error.lineNumber}`;
       }

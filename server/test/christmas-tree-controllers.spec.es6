@@ -161,6 +161,26 @@ describe('christmas tree controller tests', () => {
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
         .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.errors[0].permit.permitId;
+        })
+        .expect(400, done);
+    });
+    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
+      request(server)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
+        .expect('Content-Type', /json/)
         .expect(400, done);
     });
     it('POST should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', done => {
@@ -211,23 +231,6 @@ describe('christmas tree controller tests', () => {
           expect(res.body.errorCode).to.equal('1234');
         })
         .expect(200, done);
-    });
-    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
-      const completeApplication = {
-        permitId: permitId,
-        status: 'Completed'
-      };
-      const token = jwt.sign(
-        {
-          data: permitId
-        },
-        vcapConstants.PERMIT_SECRET
-      );
-      request(server)
-        .put(`/forests/christmas-trees/permits?t=${token}`)
-        .send(completeApplication)
-        .expect('Content-Type', /json/)
-        .expect(400, done);
     });
   });
 
