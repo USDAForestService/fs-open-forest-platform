@@ -246,7 +246,9 @@ const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
         paygov.getToken(result)
           .then(token => resolve(updatePermitWithToken(res, permit, token)))
           .catch(error => {
-            reject(recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
+            recordPayGovError(error, result, res, permit, 'startOnlineCollection')
+              .then(resolve)
+              .catch(reject);
           });
       }
       reject(parseErr);

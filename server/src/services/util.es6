@@ -8,7 +8,7 @@
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const moment = require('moment');
-const request = require('request-promise');
+const request = require('request-promise-native');
 const Sequelize = require('sequelize');
 
 const dbConfig = require('../../.sequelize.js');
