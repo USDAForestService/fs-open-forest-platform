@@ -39,6 +39,10 @@ export class ChristmasTreeForm {
     return element(by.id('rules'));
   }
 
+  infoConsentAccepted() {
+    return element(by.id('accept-pii-label'));
+  }
+
   rulesAccepted() {
     return element(by.id('accept-rules-label'));
   }
@@ -59,6 +63,7 @@ export class ChristmasTreeForm {
   }
 
   fillOutForm() {
+    this.infoConsentAccepted().click();
     element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
     element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
     element(by.id('email')).sendKeys('msdf@noemail.com');
@@ -74,6 +79,7 @@ export class ChristmasTreeForm {
   }
 
   fillOutFormAndSubmit(first = 'Sarah', last = 'Bell') {
+    this.infoConsentAccepted().click();
     element(by.css('.primary-permit-holder-first-name')).sendKeys(first);
     element(by.css('.primary-permit-holder-last-name')).sendKeys(last);
     element(by.id('email')).sendKeys('msdf@noemail.com');

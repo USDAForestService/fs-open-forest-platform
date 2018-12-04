@@ -7,22 +7,25 @@ const fs = require('fs-extra');
  * @module vcap-constants
  */
 
-const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION);
+const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["http://localhost:8080"]}');
 
 const vcapConstants = {};
-
-vcapConstants.isLocalOrCI = ['CI', 'local'].indexOf(process.env.PLATFORM) !== -1;
 
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
 if (process.env.VCAP_SERVICES) {
   vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 } else {
-  vcapServices = JSON.parse(fs.readFileSync('vcap-services/local-or-ci.json', 'utf8'));
+  if (process.env.NODE_ENV === 'test') {
+    vcapServices = JSON.parse(fs.readFileSync('environment-variables/test.json', 'utf8'));
+  } else {
+    vcapServices = JSON.parse(fs.readFileSync('environment-variables/local.json', 'utf8'));
+  }
+
   if (process.env.AWS_CONFIG) {
     vcapServices.s3 = JSON.parse(process.env.AWS_CONFIG).s3;
   } else {
-    vcapServices.s3 = JSON.parse(fs.readFileSync('vcap-services/aws-config.json', 'utf8')).s3;
+    vcapServices.s3 = JSON.parse(fs.readFileSync('environment-variables/aws-config.json', 'utf8')).s3;
   }
 }
 
@@ -92,6 +95,13 @@ vcapConstants.PAY_GOV_CLIENT_URL = payGov.client_url;
 vcapConstants.PAY_GOV_APP_ID = payGov.tcs_app_id;
 vcapConstants.PAY_GOV_CERT = payGov.certificate;
 vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.private_key;
+
+/** Database configuration */
+const database = getUserProvided('database') || {};
+vcapConstants.database = {
+  url: process.env.DATABASE_URL || database.url,
+  ssl: database.ssl !== undefined ? database.ssl : process.env.NODE_ENV === 'production'
+};
 
 /** New Relic */
 const newRelic = getUserProvided('new-relic');

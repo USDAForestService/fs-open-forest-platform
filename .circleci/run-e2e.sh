@@ -35,8 +35,8 @@ else
         echo 'No spec arguments accepted with -u flag. Ignoring all other arguments provided.'
       fi
 
-      #Rebuild server with PLATFORM set to something other than local to enable test to pass
-      export PLATFORM='ci-unauthenticated'
+      # Run server with production authentication enabled
+      export TEST_PRODUCTION_AUTH=1
 
       ARGUMENTS=" --suite=unauthenticated"
       ;;

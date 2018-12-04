@@ -5,7 +5,6 @@ _defaults:
       environment:
         DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
         VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
-        PLATFORM: local
     - image: postgres:9.6.3
       environment:
           POSTGRES_USER: "ubuntu"
@@ -224,7 +223,7 @@ jobs:
             cd frontend
             npm run dist-trees
       - run:
-          name: Generate basic auth
+          name: Generate basic auth for staging
           command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
       - run:
           name: copy frontend assets into server
@@ -277,9 +276,6 @@ jobs:
           command: |
             cd frontend
             npm run dist-prod
-      - run:
-          name: Generate basic auth - will remove as final launch task
-          command: echo "${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}" > frontend/dist/Staticfile.auth
       - run:
           name: copy frontend assets into server
           command: |

@@ -10,6 +10,7 @@ const logger = require('../services/logger.es6');
 
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
+const localAuth = require('./local.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
@@ -27,6 +28,12 @@ passportConfig.setup = app => {
   app.use(loginGov.router);
   app.use(eAuth.router);
   app.use(passportConfig.authErrorHandler);
+
+  // Stub authentication for non-production environments
+  if (!util.isProduction()) {
+    app.use(localAuth);
+  }
+
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -57,7 +64,7 @@ passportConfig.authErrorHandler = (err, req, res, next) => {
  * @param {Object} res - http response
  */
 passportConfig.getPassportUser = (req, res) => {
-  return res.send(util.getUser(req));
+  return res.send(req.user);
 };
 
 /**

@@ -12,7 +12,7 @@
     "volume_mounts": []
   }, {
     "credentials": {
-      "intake_client_base_url": "https://forest-service-trees-staging.app.cloud.gov/"
+      "intake_client_base_url": "http://localhost:4200"
     },
     "label": "user-provided",
     "name": "intake-client-service",
@@ -21,10 +21,10 @@
     "volume_mounts": []
   }, {
     "credentials": {
-      "entrypoint": "",
+      "entrypoint": "https://login.gov",
       "issuer": "",
       "private_key": "",
-      "base_url": "https://idp.int.login.gov/",
+      "base_url": "http://localhost:8080/mocks/login-gov/discovery-url/",
       "idp_username": "",
       "idp_password": "",
       "jwk": {
@@ -47,9 +47,12 @@
     "volume_mounts": []
   }, {
     "credentials": {
-      "whitelist": [],
+      "whitelist": [{
+        "admin_username": "TEST_USER",
+        "forests": ["arp", "mthood"]
+      }],
       "issuer": "",
-      "entrypoint": "",
+      "entrypoint": "https://www.eauth.usda.gov/",
       "cert": "",
       "private_key": ""
     },
@@ -60,8 +63,9 @@
     "volume_mounts": []
   }, {
     "credentials": {
-      "smtp_server": "",
-      "username": ""
+      "smtp_server": "smtp.gmail.com",
+      "username": "",
+      "password": ""
     },
     "label": "user-provided",
     "name": "smtp-service",
@@ -70,25 +74,38 @@
     "volume_mounts": []
   }, {
     "credentials": {
-      "url": "http://localhost:8080/mock-pay-gov",
-      "client_url": "http://localhost:4200/mock-pay-gov",
-      "tcs_app_id": "FS-100"
-    },
-    "label": "user-provided",
-    "name": "pay-gov",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
-  }, {
-    "credentials": {
-      "permit_secret": ""
+      "permit_secret": "secret"
     },
     "label": "user-provided",
     "name": "jwt"
+  }, {
+    "credentials": {
+      "url": "http://localhost:8080/mock-pay-gov",
+      "client_url": "http://localhost:4200/mock-pay-gov",
+      "tcs_app_id": "fs-100",
+      "certificate": [
+        "-----BEGIN CERTIFICATE-----\n cert1 -----END CERTIFICATE-----\n",
+        "-----BEGIN CERTIFICATE-----\n cert2 -----END CERTIFICATE-----\n",
+        "-----BEGIN CERTIFICATE-----\n cert3 -----END CERTIFICATE-----\n",
+        "-----BEGIN CERTIFICATE-----\n cert4 -----END CERTIFICATE-----\n",
+        "-----BEGIN CERTIFICATE-----\n cert5 -----END CERTIFICATE-----\n"
+      ],
+      "private_key": "-----BEGIN RSA PRIVATE KEY-----\n key \n-----END RSA PRIVATE KEY-----\n"
+    },
+    "label": "user-provided",
+    "name": "pay-gov"
   },
   {
     "credentials": {
-      "key": "NEW_RELIC_SUPPLIED_KEY",
+      "ssl": false,
+      "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest"
+    },
+    "label": "user-provided",
+    "name": "database"
+  },
+  {
+    "credentials": {
+      "key": "",
       "app_name": "Open Forest Server"
     },
     "label": "user-provided",
@@ -96,16 +113,5 @@
     "syslog_drain_url": "",
     "tags": [],
     "volume_mounts": []
-  }
-],
-  "s3": [{
-    "credentials": {
-      "bucket": "",
-      "access_key_id": "",
-      "region": "us-east-1",
-      "secret_access_key": ""
-    },
-    "label": "s3",
-    "name": "intake-s3"
   }]
 }

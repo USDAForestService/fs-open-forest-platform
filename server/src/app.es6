@@ -5,8 +5,9 @@
  * @module app
  */
 const logger = require('./services/logger.es6');
+const util = require('./services/util.es6');
 const vcapConstants = require('./vcap-constants.es6');
-if (!vcapConstants.isLocalOrCI) {
+if (util.isProduction()) {
   logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
   require('newrelic'); // eslint-disable-line global-require
 } else {
@@ -21,7 +22,6 @@ const moment = require('moment');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
-const util = require('./services/util.es6');
 const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
@@ -31,10 +31,13 @@ const loggerParams = { json: true, colorize: true, timestamp: true };
 const expressWinston = require('express-winston');
 var Keygrip = require('keygrip');
 
+vcapConstants.nodeEnv = process.env.NODE_ENV;
+
 // Create the express application.
 const app = express();
 
-vcapConstants.nodeEnv = process.env.NODE_ENV;
+// Trust the cloud.gov X-Forwarded- headers
+app.set('trust proxy', 1);
 
 /** Use helmet for increased security. */
 app.use(helmet());
@@ -75,6 +78,7 @@ app.use(expressWinston.errorLogger({
 }));
 
 /**  Cookies for session management. */
+const domain = vcapConstants.BASE_URL.replace(/https?:\/\//i, '');
 app.use(
   session({
     name: 'session',
@@ -82,7 +86,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: vcapConstants.BASE_URL,
+      domain: domain,
       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
@@ -98,7 +102,7 @@ moment.updateLocale('en', {
 passportConfig.setup(app);
 
 /** Pay.gov mock route */
-if (util.isLocalOrCI()) {
+if (!util.isProduction()) {
   app.use(payGovMocks.router);
 }
 app.use(loginGovMocks.router);

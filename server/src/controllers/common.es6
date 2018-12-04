@@ -11,7 +11,6 @@ const NoncommercialApplication = require('../models/noncommercial-application.es
 const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
 const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
-const util = require('../services/util.es6');
 const forestInfoService = require('../services/forest.service.es6');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -84,9 +83,9 @@ commonControllers.getPermitApplications = (req, res) => {
   if (orCondition.length === 0) {
     return res.status(404).send();
   }
-  if (util.getUser(req).role === 'user') {
+  if (req.user.role === 'user') {
     andCondition.push({
-      authEmail: util.getUser(req).email
+      authEmail: req.user.email
     });
   }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
@@ -156,15 +155,15 @@ commonControllers.getPermitApplications = (req, res) => {
  * @param {String} type - what kind of application
  */
 commonControllers.updateEmailSwitch = (req, res, app, type) => {
-  commonControllers.createRevision(util.getUser(req), app);
+  commonControllers.createRevision(req.user, app);
   app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
   if (app.status == 'Submitted'){
     email.sendEmail(`${type}ApplicationSubmittedConfirmation`, app);
     email.sendEmail(`${type}ApplicationSubmittedAdminConfirmation`, app);
   }
-  if (app.status === 'Cancelled' && util.getUser(req).role === 'user') {
+  if (app.status === 'Cancelled' && req.user.role === 'user') {
     email.sendEmail(`${type}ApplicationUser${app.status}`, app);
-  } else if (app.status === 'Review' && util.getUser(req).role === 'admin') {
+  } else if (app.status === 'Review' && req.user.role === 'admin') {
     email.sendEmail('${type}ApplicationRemoveHold', app);
   } else {
     email.sendEmail(`${type}Application${app.status}`, app);

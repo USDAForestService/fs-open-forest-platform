@@ -18,12 +18,16 @@ const middleware = {};
 middleware.setCorsHeaders = (req, res, next) => {
   // Don't cache the API calls.
   res.set('Cache-Control', 'no-cache');
-  if (process.env.PLATFORM === 'local' || process.env.PLATFORM === 'CI') {
+  if (!util.isProduction()) {
     res.set('Access-Control-Allow-Origin', 'http://localhost:4200');
     res.set('Access-Control-Allow-Credentials', true);
   } else {
     res.set('Access-Control-Allow-Origin', vcapConstants.INTAKE_CLIENT_BASE_URL);
     res.set('Access-Control-Allow-Credentials', true);
+
+    // Include a P3P policy for IE11
+    // https://github.com/18F/fs-open-forest-platform/issues/405
+    res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
   }
   next();
 };
@@ -34,14 +38,10 @@ middleware.setCorsHeaders = (req, res, next) => {
  * @param {Object} res - http response
  */
 middleware.checkPermissions = (req, res, next) => {
-  if (util.isLocalOrCI()) {
-    next();
+  if (!req.user) {
+    res.status(401).send();
   } else {
-    if (!req.user) {
-      res.status(401).send();
-    } else {
-      next();
-    }
+    next();
   }
 };
 
@@ -51,14 +51,10 @@ middleware.checkPermissions = (req, res, next) => {
  * @param {Object} res - http response
  */
 middleware.checkAdminPermissions = (req, res, next) => {
-  if (util.isLocalOrCI()) {
+  if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
     next();
   } else {
-    if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
-      next();
-    } else {
-      res.status(403).send();
-    }
+    res.status(403).send();
   }
 };
 

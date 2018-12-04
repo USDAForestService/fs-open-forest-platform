@@ -97,6 +97,14 @@
   },
   {
     "credentials": {
+      "ssl": false,
+      "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest_test"
+    },
+    "label": "user-provided",
+    "name": "database"
+  },
+  {
+    "credentials": {
       "key": "",
       "app_name": "Open Forest Server"
     },
