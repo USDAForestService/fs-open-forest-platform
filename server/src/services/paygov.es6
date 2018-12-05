@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const xml = require('xml');
 
 const vcapConstants = require('../vcap-constants.es6');
-
+const util = require('../services/util.es6');
 const paygov = {};
 
 /**
@@ -47,15 +47,17 @@ paygov.createToken = (permitId) => {
  */
 paygov.returnUrl = (forestAbbr, permitId, cancel) => {
   let cancelQuery = '';
+  let completeRoute = '/permits';
   if (cancel) {
     cancelQuery = 'cancel=true&';
+    completeRoute = '';
   }
   return new Promise((resolve, reject) =>{
     paygov.createToken(permitId)
       .then(token => {
         resolve(`${
           vcapConstants.INTAKE_CLIENT_BASE_URL
-        }/christmas-trees/forests/${forestAbbr}/applications/permits/${permitId}?${cancelQuery}t=${token}`
+        }/christmas-trees/forests/${forestAbbr}/applications${completeRoute}/${permitId}?${cancelQuery}t=${token}`
         );
       })
       .catch(error => reject(error));
@@ -245,6 +247,28 @@ paygov.getTrackingId = result => {
     reject(new Error('Collection not completed'));
   });
     
+};
+
+/**
+ * @function postPayGov - Private function to make a post request to pay.gov/mock pay.gov
+ * @param {String} xmlData - xml to be posted to payGov endpoint
+ * @return {Object} - response from payGov
+ */
+paygov.postPayGov = xmlData => {
+  const payGovPrivateKey = Buffer.from(vcapConstants.PAY_GOV_PRIVATE_KEY, 'utf8');
+  const payGovCert = Buffer.from(vcapConstants.PAY_GOV_CERT[0], 'utf8');
+  return util.request.post(
+    {
+      url: vcapConstants.PAY_GOV_URL,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/xml'
+      },
+      body: xmlData,
+      key: payGovPrivateKey,
+      cert: payGovCert
+    }
+  );
 };
 
 module.exports = paygov;

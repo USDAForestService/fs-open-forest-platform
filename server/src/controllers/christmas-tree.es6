@@ -92,28 +92,6 @@ christmasTree.getForest = (req, res) => {
 };
 
 /**
- * @function postPayGov - Private function to make a post request to pay.gov/mock pay.gov
- * @param {String} xmlData - xml to be posted to payGov endpoint
- * @return {Object} - response from payGov
- */
-const postPayGov = xmlData => {
-  const payGovPrivateKey = Buffer.from(vcapConstants.PAY_GOV_PRIVATE_KEY, 'utf8');
-  const payGovCert = Buffer.from(vcapConstants.PAY_GOV_CERT[0], 'utf8');
-  return util.request.post(
-    {
-      url: vcapConstants.PAY_GOV_URL,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/xml'
-      },
-      body: xmlData,
-      key: payGovPrivateKey,
-      cert: payGovCert
-    }
-  );
-};
-
-/**
  * @function permitResult - Private function to return formatted permit result
  * @param {Object} permit - permit object from database
  * @return {Object} - formatted permit object
@@ -507,11 +485,11 @@ christmasTree.printPermit = (req, res) => {
 };
 
 const completePermitTransaction = (permit, res, req) => {
-  util.logControllerAction(req, 'christmasTree.updatePermitApplication#complete', permit);
+  util.logControllerAction(req, 'christmasTree.completePermitTransaction', permit);
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-  postPayGov(xmlData)
+  paygov.postPayGov(xmlData)
     .then(xmlResponse => {
-      parseXMLFromPayGov(res, xmlResponse, permit)
+      return parseXMLFromPayGov(res, xmlResponse, permit)
         .then((paygovTrackingId) => updatePermit(permit, {
           paygovTrackingId: paygovTrackingId,
           status: req.body.status
