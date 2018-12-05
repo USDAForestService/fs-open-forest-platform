@@ -394,11 +394,11 @@ noncommercial.getOne = (req, res) => {
         })
         .catch(error => {
           logger.info('U fired');
-          util.handleErrorResponse(error, res);
+          util.handleErrorResponse(error, res, 'getOne#revisions');
         });
     })
     .catch(() => {
-      util.handleErrorResponse(new Error('Uncaught noncommericial error'), res);
+      util.handleErrorResponse(new Error('Uncaught noncommericial error'), res, 'getOne#end');
     });
 };
 
@@ -424,7 +424,7 @@ noncommercial.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'create#end');
     });
 };
 
@@ -462,11 +462,11 @@ noncommercial.update = (req, res) => {
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
               .catch(error => {
-                util.handleErrorResponse(error, res);
+                util.handleErrorResponse(error, res, 'updateApplicationModel#revision');
               });
           })
           .catch(error => {
-            util.handleErrorResponse(error, res);
+            util.handleErrorResponse(error, res, 'updateApplicationModel#acceptedpermit');
           });
       } else {
         app
@@ -476,7 +476,7 @@ noncommercial.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            util.handleErrorResponse(error, res);
+            util.handleErrorResponse(error, res, 'updateApplicationModel#emailswitch');
           });
       }
     })

@@ -115,7 +115,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           return returnPermitsReport(results, res);
         })
         .catch(error => {
-          util.handleErrorResponse(error, res);
+          util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
         });
     });
 };
@@ -150,7 +150,7 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      return util.handleErrorResponse(error, res);
+      return util.handleErrorResponse(error, res, 'getPermitReport#end');
     });
 };
 

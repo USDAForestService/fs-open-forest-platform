@@ -165,7 +165,7 @@ const updatePermitWithToken = (res, permit, token) => {
       });
     })
     .catch(error => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'updatePermitWithToken#end');
     });
 };
 
@@ -223,12 +223,11 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
   logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error`);
   return paygov.getResponseError(requestType, result)
     .then(paygovError => {
-      updatePermitWithError(res, permit, paygovError)
-        .catch(updateError => logger.error(`Error: ServerError: unable to mark permit as errored: ${updateError}`));
+      return updatePermitWithError(res, permit, paygovError);
     })
     .catch(parseError => {
       logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${parseError}`);
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'recordPayGovErrorParse#end');
     });
 };
 
@@ -276,30 +275,22 @@ christmasTree.create = (req, res) => {
         return res.status(404).send(); // season is closed or not yet started
       } else {
         req.body.expDate = forest.endDate;
-        treesDb.christmasTreesPermits
+        return treesDb.christmasTreesPermits
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
             util.logControllerAction(req, 'christmasTree.create', permit);
-            paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
+            return paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
               .then(xmlData => {
-                postPayGov(xmlData)
+                return paygov.postPayGov(xmlData)
                   .then(xmlResponse => {
                     return grabAndProcessPaygovToken(xmlResponse, permit, res);
-                  })
-                  .catch(error => {
-                    util.handleErrorResponse(error, res);
                   });
-              })
-              .catch(error => {
-                util.handleErrorResponse(error, res);
               });
-          })
-          .catch(error => {
-            util.handleErrorResponse(error, res);
           });
       }
     })
     .catch(error => {
+      logger.error('create#end');
       return res.status(400).json({
         errors: error.errors
       });
@@ -463,7 +454,7 @@ christmasTree.getOnePermit = (req, res) => {
       }
     })
     .catch(error => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'getOnePermit#end');
     });
 };
 
@@ -585,7 +576,7 @@ christmasTree.updatePermitApplication = (req, res) => {
       });
     })
     .catch((error) => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'updatePermit#end');
     });
 };
 

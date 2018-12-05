@@ -404,7 +404,7 @@ util.getUserRole = adminUsername => {
 * @param {Object} res - http response
 * @return {Object} - http response
 */
-util.handleErrorResponse = (error, res) => {
+util.handleErrorResponse = (error, res, method) => {
   if(error !== {}){
     let inFile = '';
     if(error.fileName){
@@ -413,10 +413,10 @@ util.handleErrorResponse = (error, res) => {
         inFile = `${inFile} at ${error.lineNumber}`;
       }
     }
-    logger.error(`ERROR: ServerError: ${error}${inFile}`);
+    logger.error(`ERROR: ServerError: ${error}${inFile} from ${method}`);
   }
   else {
-    logger.error('ERROR: ServerError: Unknown error 500');
+    logger.error('ERROR: ServerError: Unknown error 500 from ${method}');
   }
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({

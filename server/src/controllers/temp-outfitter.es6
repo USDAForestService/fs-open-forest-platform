@@ -549,7 +549,7 @@ tempOutfitter.getApplicationFileNames = (req, res) => {
       }
     })
     .catch((error) => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'getApplicationFiles#end');
     });
 };
 
@@ -605,11 +605,11 @@ tempOutfitter.attachFile = (req, res) => {
           return res.status(201).json(req.body);
         })
         .catch(error => {
-          util.handleErrorResponse(error, res);
+          util.handleErrorResponse(error, res, 'attachFile#attachfile');
         });
     })
     .catch(error => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'attachFile#end');
     });
 };
 
@@ -633,7 +633,7 @@ tempOutfitter.deleteFile = (req, res) => {
     })
     .catch((error) => {
       logger.error(`Failure to delete file ${req.params.id}`);
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'deleteFile#end');
     });
 };
 
@@ -657,7 +657,7 @@ tempOutfitter.create = (req, res) => {
       return res.status(201).json(req.body);
     })
     .catch(error => {
-      util.handleErrorResponse(error, res);
+      util.handleErrorResponse(error, res, 'create#end');
     });
 };
 
@@ -747,7 +747,7 @@ tempOutfitter.update = (req, res) => {
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
           .catch(error => {
-            util.handleErrorResponse(error, res);
+            util.handleErrorResponse(error, res, 'update#emailSwitch');
           });
       }
     })

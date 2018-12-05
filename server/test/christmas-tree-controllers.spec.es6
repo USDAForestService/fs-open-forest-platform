@@ -308,7 +308,7 @@ describe('christmas tree controller tests', () => {
   });
 
   describe('submit permit application for closed forest', () => {
-    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+    it('POST should return a 404 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
