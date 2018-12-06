@@ -198,14 +198,10 @@ const getPermitError = (res, permit) => {
  * @return {Object} - promise of whether permit was updated with token
  */
 const recordPayGovError = (error, result, res, permit, requestType) => {
-  logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error`);
+  logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error while ${requestType}`);
   return paygov.getResponseError(requestType, result)
     .then(paygovError => {
       return updatePermitWithError(res, permit, paygovError);
-    })
-    .catch(parseError => {
-      logger.error(`ERROR: ServerError: Pay.gov- FaultError: ${parseError}`);
-      util.handleErrorResponse(error, res, 'recordPayGovErrorParse#end');
     });
 };
 
@@ -223,15 +219,12 @@ const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
         paygov.getToken(result)
           .then(token => resolve(updatePermitWithToken(res, permit, token)))
           .catch(error => {
-            recordPayGovError(error, result, res, permit, 'startOnlineCollection')
-              .then(resolve)
-              .catch(reject);
+            return recordPayGovError(error, result, res, permit, 'startOnlineCollection');
           });
       }
       reject(parseErr);
     });
   });
-
 };
 
 /**
@@ -341,21 +334,22 @@ const updatePermit = (permit, updateObject) => {
 /**
  * @function parseXMLFromPayGov - Private function to parse the returned XML from payGov
  * @param {Object} res - http response
- * @param {string} xmlResponse - xml response from payGov api call
+ * @param {string} payGovXmlRes - xml response from payGov api call
  * @param {Object} permit - permit object
  * @return {string} - paygov tracking id
  */
-const parseXMLFromPayGov = (res, payGovXmlResponse, permit) => {
+const grabAndProcessTrackingId = (res, payGovXmlRes, permit) => {
   return new Promise((resolve, reject) => {
-    xml2jsParse(payGovXmlResponse, function (parseErr, result) {
-      if (parseErr) {
+    xml2jsParse(payGovXmlRes, function (parseErr, result) {
+      if (!parseErr) {
+        paygov.getTrackingId(result)
+          .then(token => resolve(updatePermitWithToken(res, permit, token)))
+          .catch(error => {
+            return recordPayGovError(error, result, res, permit, 'completeOnlineCollection');
+          });
+      } else {
         reject(parseErr);
       }
-      paygov.getTrackingId(result)
-        .then(id => resolve(id))
-        .catch(error => {
-          reject(recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
-        });
     });
   });
 };
@@ -489,22 +483,21 @@ const completePermitTransaction = (permit, res, req) => {
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   paygov.postPayGov(xmlData)
     .then(xmlResponse => {
-      return parseXMLFromPayGov(res, xmlResponse, permit)
+      return grabAndProcessTrackingId(res, xmlResponse, permit)
         .then((paygovTrackingId) => updatePermit(permit, {
           paygovTrackingId: paygovTrackingId,
           status: req.body.status
         })
           .then(updatedPermit => {
             returnSavedPermit(res, permit);
-            christmasTree.generateRulesAndEmail(updatedPermit);
+            return christmasTree.generateRulesAndEmail(updatedPermit);
           })
-          .catch(error => {
-            logger.error(error);
-          })
-        )
-        .catch(xmlError => util.handleErrorResponse(xmlError, res));
+        );
     })
-    .catch((postError) => util.handleErrorResponse(postError, res));
+    .catch((postError) => {
+      logger.log('end post error');
+      util.handleErrorResponse(postError, res, 'completePermitTransaction#end');
+    });
 };
 
 /**

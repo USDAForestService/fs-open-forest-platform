@@ -205,8 +205,6 @@ paygov.getToken = result => {
     }
     reject(new Error ('no token'));
   });
-
-  
 };
 
 /**
@@ -238,15 +236,14 @@ paygov.getResponseError = (requestType, result) => {
  * @return {string} - paygov tracking id 
  */
 paygov.getTrackingId = result => {
-  const completeOnlineCollectionResponse =
-    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
   return new Promise((resolve, reject) => {
+    const completeOnlineCollectionResponse =
+    result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]['completeOnlineCollectionResponse'][0];
     if (completeOnlineCollectionResponse) {
       resolve(completeOnlineCollectionResponse.paygov_tracking_id[0]);
     }
-    reject(new Error('Collection not completed'));
+    reject(new Error('no tracking id'));
   });
-    
 };
 
 /**
