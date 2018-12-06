@@ -150,7 +150,8 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
-    it('POST should return 400 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "1")', done => {
+    it('POST should return 400 response when submitted to get pay.gov token \
+    (mock returns error when firstName = "1" and lastName = "1")', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '1';
@@ -183,7 +184,8 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
-    it('POST should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', done => {
+    it('POST should return 500 response when submitted to get pay.gov token\
+     (mock returns error when firstName = "1" and lastName = "2")', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '2';
@@ -221,7 +223,8 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
-    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
+    it('POST should return a 200 response when submitted to mock pay.gov\
+     with invalid credit card with error code in last 4 digits', done => {
       const processTransaction = { token: paygovToken, cc: '0000000000001234' };
       request(server)
         .post('/mock-pay-gov-process')

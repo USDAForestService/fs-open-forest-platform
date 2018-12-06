@@ -251,17 +251,14 @@ christmasTree.create = (req, res) => {
           .then(permit => {
             util.logControllerAction(req, 'christmasTree.create', permit);
             return paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
-              .then(xmlData => {
-                return paygov.postPayGov(xmlData)
-                  .then(xmlResponse => {
-                    return grabAndProcessPaygovToken(xmlResponse, permit, res);
-                  });
-              });
+              .then(initPayGovTransactionXml => paygov.postPayGov(initPayGovTransactionXml)
+                .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
+                .catch(postError => util.handleErrorResponse(postError, res, 'create#postPay'))
+              );
           });
       }
     })
     .catch(error => {
-      logger.error('create#end');
       return res.status(400).json({
         errors: error.errors
       });
