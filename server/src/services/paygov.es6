@@ -8,7 +8,8 @@ const jwt = require('jsonwebtoken');
 const xml = require('xml');
 
 const vcapConstants = require('../vcap-constants.es6');
-const util = require('../services/util.es6');
+const util = require('./util.es6');
+const paygovTemplates = require('./paygovTemplates.es6');
 const paygov = {};
 
 /**
@@ -66,13 +67,13 @@ paygov.returnUrl = (forestAbbr, permitId, cancel) => {
 };
 
 /**
- * @function getXmlForToken - Generate XML from the template to use for getting pay.gov transaction token.
+ * @function getXmlStartCollection - Generate XML from the template to use for getting pay.gov transaction token.
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} possFinancialId - forest's financial id
  * @param {Object} permit - permit object from database
  * @return {string} - XML for payGov startOnlineCollection request
  */
-paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
+paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
   return new Promise((resolve, reject) => {
     Promise.all([
@@ -80,66 +81,42 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
       paygov.returnUrl(forestAbbr, permit.permitId, true)
     ])
       .then((returnUrls) => {
-        const xmlTemplate = [
-          {
-            'soap:Envelope': [
-              {
-                _attr: {
-                  'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
+        const startCollectionXML = JSON.parse(JSON.stringify(paygovTemplates.startCollection));
+        startCollectionXML[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:startOnlineCollection'][1]
+          .startOnlineCollectionRequest = [
+            {
+              tcs_app_id: tcsAppID
+            },
+            {
+              agency_tracking_id: permit.permitNumber
+            },
+            {
+              transaction_type: 'Sale'
+            },
+            {
+              transaction_amount: permit.totalCost
+            },
+            {
+              language: 'EN'
+            },
+            {
+              url_success: returnUrls[0]
+            },
+            {
+              url_cancel: returnUrls[1]
+            },
+            {
+              account_holder_name: permit.firstName + ' ' + permit.lastName
+            },
+            {
+              custom_fields: [
+                {
+                  custom_field_1: possFinancialId
                 }
-              },
-              {
-                'soap:Body': [
-                  {
-                    'ns2:startOnlineCollection': [
-                      {
-                        _attr: {
-                          'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
-                        }
-                      },
-                      {
-                        startOnlineCollectionRequest: [
-                          {
-                            tcs_app_id: tcsAppID
-                          },
-                          {
-                            agency_tracking_id: permit.permitNumber
-                          },
-                          {
-                            transaction_type: 'Sale'
-                          },
-                          {
-                            transaction_amount: permit.totalCost
-                          },
-                          {
-                            language: 'EN'
-                          },
-                          {
-                            url_success: returnUrls[0]
-                          },
-                          {
-                            url_cancel: returnUrls[1]
-                          },
-                          {
-                            account_holder_name: permit.firstName + ' ' + permit.lastName
-                          },
-                          {
-                            custom_fields: [
-                              {
-                                custom_field_1: possFinancialId
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ];
-        resolve(xml(xmlTemplate));
+              ]
+            }
+          ];
+        resolve(xml(startCollectionXML));
       })
       .catch(error => reject(error));
   });
@@ -151,43 +128,17 @@ paygov.getXmlForToken = (forestAbbr, possFinancialId, permit) => {
  * @return {string} - XML for payGov completeOnlineCollection request
  */
 paygov.getXmlToCompleteTransaction = paygovToken => {
-  const xmlTemplate = [
+  const xmlTemplate = JSON.parse(JSON.stringify(paygovTemplates.completeTransaction));
+  const requestDetails = [
     {
-      'soap:Envelope': [
-        {
-          _attr: {
-            'xmlns:soap': 'http://schemas.xmlsoap.org/soap/envelope/'
-          }
-        },
-        {
-          'soap:Header': []
-        },
-        {
-          'soap:Body': [
-            {
-              'ns2:completeOnlineCollection': [
-                {
-                  _attr: {
-                    'xmlns:ns2': 'http://fms.treas.gov/services/tcsonline'
-                  }
-                },
-                {
-                  completeOnlineCollectionRequest: [
-                    {
-                      tcs_app_id: vcapConstants.PAY_GOV_APP_ID
-                    },
-                    {
-                      token: paygovToken
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      tcs_app_id: vcapConstants.PAY_GOV_APP_ID
+    },
+    {
+      token: paygovToken
     }
   ];
+  xmlTemplate[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:completeOnlineCollection'][1]
+    .completeOnlineCollectionRequest = requestDetails;
   return xml(xmlTemplate);
 };
 

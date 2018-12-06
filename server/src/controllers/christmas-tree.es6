@@ -250,7 +250,7 @@ christmasTree.create = (req, res) => {
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
             util.logControllerAction(req, 'christmasTree.create', permit);
-            return paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
+            return paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit)
               .then(initPayGovTransactionXml => paygov.postPayGov(initPayGovTransactionXml)
                 .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
                 .catch(postError => {
