@@ -114,7 +114,7 @@ Install [Git](https://git-scm.com/)
 All contributors should use git-seekret
 (https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
 
-Project specific rules are defined on the [wiki](/wiki/git-seekret.md).
+Project specific rules are defined on the [wiki](/docs/git-seekret.md).
 
 #### Local development and deployment requirements
 
@@ -169,7 +169,7 @@ in order to have a shared ID across new permit types an `ALTER TABLE` query must
 
 There are environment variables that are required to be set in order to run tests and to run the server in general. Please set up these environment variables either in your shell or on the command line. We use a cloud foundry (the underlying framework for cloud.gov) specific manager of environment variables.
 
-[View list of required environment variables, installation instructions, and explanation of cloud.gov's VCAP-Services](/wiki/development/environment-variables.md)
+[View list of required environment variables, installation instructions, and explanation of cloud.gov's VCAP-Services](/docs/development/environment-variables.md)
 
 #### Available commands
 
@@ -280,7 +280,7 @@ Navigate to `/assets/typedoc/index.html`
 
 #### Available services
 
-[View services that are available to leverage in components.](/wiki/development/available-services.md)
+[View services that are available to leverage in components.](/docs/development/available-services.md)
 
 #### Pay.gov error mocking in local environment
 
@@ -296,7 +296,7 @@ Navigate to `/assets/typedoc/index.html`
 
 #### Christmas trees sidebar template
 
-[View instructions to use the Christmas trees sidebar template.](/wiki/development/christmas-trees-sidebar-template.md)
+[View instructions to use the Christmas trees sidebar template.](/docs/development/christmas-trees-sidebar-template.md)
 
 #### Basic Auth
 The `staging-deploy` and the `prod-deploy` currently have a basic auth file generated from ENV vars in circle.
@@ -309,15 +309,15 @@ This task should be removed prior to launch.
 
 As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
 
-[View instructions to get up and running with Docker](/wiki/development/docker-instructions.md)
+[View instructions to get up and running with Docker](/docs/development/docker-instructions.md)
 
-[View instructions to administer the forest json](/wiki/christmas-trees/content/forest-json-instructions.md)
+[View instructions to administer the forest json](/docs/christmas-trees/content/forest-json-instructions.md)
 
 ## Deployment
 
 ### Continuous Integration, Continuous Deployment
 
-[Circleci 2.0](/wiki/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/wiki/christmas-trees/process/circle-checks.md](/wiki/christmas-trees/process/circle-checks.md)
+[Circleci 2.0](/docs/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/docs/christmas-trees/process/circle-checks.md](/docs/christmas-trees/process/circle-checks.md)
 
 The circleci configuration separates the tests into three different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
@@ -345,13 +345,13 @@ frontend code for each build.  This date and version will display in the applica
 
 ## Content administration
 
-[Christmas trees README](/wiki/christmas-trees/content/markdown-files.md)
+[Christmas trees README](/docs/christmas-trees/content/markdown-files.md)
 
 ### Christmas Trees Database and seeders
 
 The database is used to store Christmas Trees permit applications for transaction purposes, and a minimal set of variables for each forest that are shared throughout the Christmas trees pages (e.g. on the permit svg and the guidelines.) The Christmas Trees Forests database contains the following fields:
 
-[View ChristmasTreesForest database structure](/wiki/christmas-trees/content/christmas-trees-forests-db-table.md)
+[View ChristmasTreesForest database structure](/docs/christmas-trees/content/christmas-trees-forests-db-table.md)
 
 ### Markdown and Christmas trees forest content
 
@@ -359,7 +359,7 @@ To update a forest’s informational content, you’ll need to find and modify m
 
 In the markdown files, database variables are indicated by curly brackets, such as {{treeHeight}}.
 
-[View a list of markdown files and their locations](/wiki/christmas-trees/content/markdown-files.md)
+[View a list of markdown files and their locations](/docs/christmas-trees/content/markdown-files.md)
 
 ### Christmas trees forest JSON content
 

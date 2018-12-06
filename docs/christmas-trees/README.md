@@ -1,11 +1,11 @@
-[Code structure](/wiki/christmas-trees/structure)
+[Code structure](/docs/christmas-trees/structure)
 
-[Content](/wiki/christmas-trees/content)
+[Content](/docs/christmas-trees/content)
 
-[Process](/wiki/christmas-trees/process)
+[Process](/docs/christmas-trees/process)
 
-[Scrum-ceremonies](/wiki/christmas-trees/scrum-ceremonies)
+[Scrum-ceremonies](/docs/christmas-trees/scrum-ceremonies)
 
-[Usability-testing](/wiki/christmas-trees/usability-testing)
+[Usability-testing](/docs/christmas-trees/usability-testing)
 
-[Purchase Flow](/wiki/christmas-trees/usability-testing)
+[Purchase Flow](/docs/christmas-trees/usability-testing)

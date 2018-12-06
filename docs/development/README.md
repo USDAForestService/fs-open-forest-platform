@@ -1,7 +1,7 @@
-[Available services](/wiki/development/available-services.md)
+[Available services](/docs/development/available-services.md)
 
-[Christmas-trees sidebar template](/wiki/development/christmas-trees-sidebar-template.md)
+[Christmas-trees sidebar template](/docs/development/christmas-trees-sidebar-template.md)
 
-[Docker instructions](/wiki/development/docker-instructions.md)
+[Docker instructions](/docs/development/docker-instructions.md)
 
-[Environment variables](/wiki/development/environment-variables.md)
+[Environment variables](/docs/development/environment-variables.md)
