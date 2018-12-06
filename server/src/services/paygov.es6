@@ -137,7 +137,7 @@ paygov.getXmlToCompleteTransaction = paygovToken => {
       token: paygovToken
     }
   ];
-  xmlTemplate[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:completeOnlineCollection'][1]
+  xmlTemplate[0]['soap:Envelope'][2]['soap:Body'][0]['ns2:completeOnlineCollection'][1]
     .completeOnlineCollectionRequest = requestDetails;
   return xml(xmlTemplate);
 };
