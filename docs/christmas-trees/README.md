@@ -7,3 +7,5 @@
 [Scrum-ceremonies](/wiki/christmas-trees/scrum-ceremonies)
 
 [Usability-testing](/wiki/christmas-trees/usability-testing)
+
+[Purchase Flow](/wiki/christmas-trees/usability-testing)
