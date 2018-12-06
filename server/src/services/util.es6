@@ -239,14 +239,6 @@ util.getContentType = filename => {
 };
 
 /**
- * @function isLocalOrCI - Check for testing environment.
- * @return {boolean} - environment is local or CI or not
- */
-util.isLocalOrCI = () => {
-  return vcapConstants.isLocalOrCI;
-};
-
-/**
  * @function env - Return the current environment
  * @return {bool} - True if we are in an automated test environment
  */
@@ -263,11 +255,13 @@ util.isProduction = () => {
 };
 
 /**
- * @function isStaging - is staging flag
- * @return {boolean} - NODE_ENV is staging
+ * @function isTestAuthenticationEnabled - should production
+ * authentication be used in tests (used in CI for more realistic test
+ * conditions)
+ * @return {boolean} - true when test production authentication is enabled
  */
-util.isStaging = () => {
-  return process.env.NODE_ENV === 'staging';
+util.isTestAuthenticationEnabled = () => {
+  return util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
 };
 
 /**
@@ -275,11 +269,7 @@ util.isStaging = () => {
  * @param {Object} req - http request
  */
 util.setAuthEmail = req => {
-  if (util.isLocalOrCI()) {
-    req.body.authEmail = 'test@test.com';
-  } else {
-    req.body.authEmail = req.user.email;
-  }
+  req.body.authEmail = req.user.email;
 };
 
 /**

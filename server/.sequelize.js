@@ -3,8 +3,13 @@
 const url = require('url');
 const Sequelize = require('sequelize');
 const logger = require('./src/services/logger.es6');
+const vcapConstants = require('./src/vcap-constants.es6');
 
-const dbParams = url.parse(process.env.DATABASE_URL, true);
+if (!vcapConstants.database || !vcapConstants.database.url) {
+  throw new Error('Database configuraction is not set. Please set DATABASE_URL environment variable or add it to configuration.');
+}
+
+const dbParams = url.parse(vcapConstants.database.url, true);
 const dbAuth = dbParams.auth.split(':');
 
 const dbConfig = {
@@ -22,7 +27,7 @@ const dbConfig = {
   operatorsAliases: false
 };
 
-if (dbParams.hostname !== 'localhost' && dbParams.hostname !== 'fs-intake-postgres') {
+if (vcapConstants.database.ssl) {
   dbConfig.ssl = true;
   dbConfig.dialectOptions = {
     ssl: {

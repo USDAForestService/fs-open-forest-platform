@@ -86,14 +86,14 @@ export class ChristmasTreesInfoService {
   getMdUrls(forest) {
     return {
       introduction: `${forest.forestAbbr}/introduction.md`,
-      contactUs: `${forest.forestAbbr}/contact-information/contact-us.md`,
-      beforeYouCut: `${forest.forestAbbr}/cutting-instructions/helpful-information.md`,
-      whenYouCut: `${forest.forestAbbr}/cutting-instructions/measuring.md`,
-      seasonDatesAdditionalInformation: `${forest.forestAbbr}/season-dates/additional-information.md`,
-      treeLocationsAllowed: `${forest.forestAbbr}/tree-locations/allowed.md`,
-      treeLocationsProhibited: `${forest.forestAbbr}/tree-locations/prohibited.md`,
-      howToPlanYourTrip: `${forest.forestAbbr}/trip-planning/how-to-plan-your-trip.md`,
-      rules: `${forest.forestAbbr}/rules-to-know/rules.md`,
+      contactUs: `${forest.forestAbbr}/contact-us.md`,
+      beforeYouCut: `${forest.forestAbbr}/how-to-cut/helpful-tips.md`,
+      whenYouCut: `${forest.forestAbbr}/how-to-cut/measuring.md`,
+      whenToCutInfo: `${forest.forestAbbr}/when-to-cut-your-tree.md`,
+      whereToCutCuttingAreaMaps: `${forest.forestAbbr}/where-to-cut-your-tree/cutting-area-maps.md`,
+      whereToCutProhibited: `${forest.forestAbbr}/where-to-cut-your-tree/prohibited-areas.md`,
+      howToPlanYourTrip: `${forest.forestAbbr}/how-to-plan-your-trip.md`,
+      rules: `${forest.forestAbbr}/tree-cutting-rules.md`,
       permitRules: `common/permit-rules.md`
     };
   }

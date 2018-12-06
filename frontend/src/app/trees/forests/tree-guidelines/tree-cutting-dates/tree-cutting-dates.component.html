@@ -11,6 +11,6 @@
   </div>
 </div>
 
-<markdown *ngIf="forest && forest.content" [data]="forest.content.seasonDatesAdditionalInformation" id="season-dates-markdown"></markdown>
+<markdown *ngIf="forest && forest.content" [data]="forest.content.whenToCutInfo" id="season-dates-markdown"></markdown>
 
 <button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" id="static-buy-permit-link" tabIndex="-1">Buy permit</button>

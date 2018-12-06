@@ -31,12 +31,12 @@
       <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsProhibited"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.whereToCutProhibited"></markdown>
 
       <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
 
       <hr class="trees-section-divider">
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.treeLocationsAllowed"></markdown>
+      <markdown *ngIf="forest && forest.content" [data]="forest.content.whereToCutCuttingAreaMaps"></markdown>
 
       <!--how to cut-->
       <hr class="thick" />
