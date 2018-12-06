@@ -91,7 +91,7 @@
 
 
   <div *ngIf="error && permit && forest">
-    <div id="pay-gov-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+    <div id="pay-gov-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert" aria-label="error">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Unable to process your permit. Your credit card has not been charged.</h3>
         <p class="usa-alert-text">{{error.message}}</p>

@@ -405,7 +405,7 @@ util.getUserRole = adminUsername => {
 * @return {Object} - http response
 */
 util.handleErrorResponse = (error, res, method) => {
-  if(error !== {}){
+  if (error !== {} && error !== 'null') {
     let inFile = '';
     if(error.fileName){
       inFile = `in ${error.fileName}`;

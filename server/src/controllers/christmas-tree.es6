@@ -253,12 +253,17 @@ christmasTree.create = (req, res) => {
             return paygov.getXmlForToken(forest.forestAbbr, forest.possFinancialId, permit)
               .then(initPayGovTransactionXml => paygov.postPayGov(initPayGovTransactionXml)
                 .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
-                .catch(postError => util.handleErrorResponse(postError, res, 'create#postPay'))
+                .catch(postError => {
+                  if (postError && postError !== 'null') {
+                    util.handleErrorResponse(postError, res, 'create#postPay');
+                  }
+                })
               );
           });
       }
     })
     .catch(error => {
+      logger.error(`ERROR: ServerError: ${error} from create#catch`);
       return res.status(400).json({
         errors: error.errors
       });
@@ -487,13 +492,15 @@ const completePermitTransaction = (permit, res, req) => {
         })
           .then(updatedPermit => {
             returnSavedPermit(res, permit);
-            return christmasTree.generateRulesAndEmail(updatedPermit);
+            christmasTree.generateRulesAndEmail(updatedPermit);
           })
+          .catch(processErr => util.handleErrorResponse(processErr, res, 'completePermitTransaction#process'))
         );
     })
-    .catch((postError) => {
-      logger.log('end post error');
-      util.handleErrorResponse(postError, res, 'completePermitTransaction#end');
+    .catch(postError => {
+      if (postError && postError !== 'null') {
+        util.handleErrorResponse(postError, res, 'completePermitTransaction#end');
+      }
     });
 };
 
