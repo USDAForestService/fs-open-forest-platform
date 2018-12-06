@@ -323,7 +323,7 @@ const updatePermit = (permit, updateObject) => {
       .update(updateObject)
       .then(permit => {
         logger.info(
-          `PermitID ${permit.permitId} created at ${permit.modifiedAt} by ${permit.emailAddress} `
+          `PermitID ${permit.permitId} updated at ${permit.modifiedAt} by ${permit.emailAddress} `
         );
         resolve(permit);
       })
@@ -340,12 +340,15 @@ const updatePermit = (permit, updateObject) => {
  * @param {Object} permit - permit object
  * @return {string} - paygov tracking id
  */
-const grabAndProcessTrackingId = (res, payGovXmlRes, permit) => {
+const grabAndProcessTrackingId = (res, payGovXmlRes, permit, status) => {
   return new Promise((resolve, reject) => {
     xml2jsParse(payGovXmlRes, function (parseErr, result) {
       if (!parseErr) {
         paygov.getTrackingId(result)
-          .then(token => resolve(updatePermitWithToken(res, permit, token)))
+          .then(paygovTrackingId => resolve(updatePermit(permit, {
+            paygovTrackingId: paygovTrackingId,
+            status: status
+          })))
           .catch(error => {
             return recordPayGovError(error, result, res, permit, 'completeOnlineCollection');
           });
@@ -485,17 +488,12 @@ const completePermitTransaction = (permit, res, req) => {
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   paygov.postPayGov(xmlData)
     .then(xmlResponse => {
-      return grabAndProcessTrackingId(res, xmlResponse, permit)
-        .then((paygovTrackingId) => updatePermit(permit, {
-          paygovTrackingId: paygovTrackingId,
-          status: req.body.status
+      return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
+        .then(updatedPermit => {
+          returnSavedPermit(res, permit);
+          christmasTree.generateRulesAndEmail(updatedPermit);
         })
-          .then(updatedPermit => {
-            returnSavedPermit(res, permit);
-            christmasTree.generateRulesAndEmail(updatedPermit);
-          })
-          .catch(processErr => util.handleErrorResponse(processErr, res, 'completePermitTransaction#process'))
-        );
+        .catch(processErr => util.handleErrorResponse(processErr, res, 'completePermitTransaction#process'));
     })
     .catch(postError => {
       if (postError && postError !== 'null') {
