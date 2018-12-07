@@ -513,7 +513,7 @@ const completePermitTransaction = (permit, res, req) => {
       })
       .catch(postError => {
         if (postError && postError !== 'null') {
-          postError.method = 'completePermitTransaction#end'
+          postError.method = 'completePermitTransaction#end';
           reject(postError);
         }
       });
