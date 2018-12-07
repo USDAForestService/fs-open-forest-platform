@@ -13,7 +13,7 @@ const paygovTemplates = require('./paygovTemplates.es6');
 const paygov = {};
 
 /**
- * @function createToken - create success url for paygov request
+ * @function createToken - create token for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @return {string} - jwt signed token
