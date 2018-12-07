@@ -298,8 +298,10 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
       content: new Buffer(rulesText, 'utf-8')
     }
   ];
-  new Promise((resolve) => {
-    resolve(email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments));
+  new Promise((resolve, reject) => {
+    email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments)
+      .then(resolve('sent'))
+      .catch(reject);
   });
   
 };
@@ -378,7 +380,7 @@ const checkPermitValid = permitExpireDate => {
  * @param {Object} permit - permit object
  */
 christmasTree.generateRulesAndEmail = permit => {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     permitSvgService
       .generatePermitSvg(permit)
       .then((permitSvg) => Promise.all([
@@ -395,7 +397,11 @@ christmasTree.generateRulesAndEmail = permit => {
           wordwrap: 130,
           ignoreImage: true
         });
-        resolve(sendEmail(permit, permitPng, rulesHtml, rulesText));
+        return sendEmail(permit, permitPng, rulesHtml, rulesText)
+          .then(resolve('sent'))
+          .catch(err => {
+            logger.log(`Email not sent ${err}`);
+          });
       })
       .catch(error => {
         reject(error);
@@ -491,6 +497,14 @@ christmasTree.printPermit = (req, res) => {
     });
 };
 
+/**
+ * @function completePermitTransaction - method to take an update request to complete the permit
+ * and send complete transaction request to pay.gov and generate the permit email
+ * @param {Object} permit - object model of an existing permit to be completed
+ * @param {Object} req - http request
+ * @param {Object} res - http response
+ * @return {Object} - promise that the email has been sent and response too
+ */
 const completePermitTransaction = (permit, res, req) => {
   util.logControllerAction(req, 'christmasTree.completePermitTransaction', permit);
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);

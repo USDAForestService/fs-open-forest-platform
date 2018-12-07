@@ -502,7 +502,7 @@ describe('christmas tree controller tests', () => {
   });
 
   describe('unit tests for xmas tree controller', () => {
-    it('should send and email and generate rules', () => {
+    it('should send and email and generate rules', (done) => {
       const permitApplication = christmasTreePermitFactory.create({
         firstName: 'Bonny',
         lastName: 'Clyde',
@@ -510,14 +510,14 @@ describe('christmas tree controller tests', () => {
         forestAbbr: 'mthood',
         orgStructureCode: '11-06-06'
       });
-      const result = christmasTreeController.generateRulesAndEmail(permitApplication);
       const permitSpy = sinon.spy(permitSvgService, 'generatePng');
-      return result.then((data) => {
-        expect(permitSpy.called).to.be.true;
-        expect(emailSendStub.called).to.be.true;
-        expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
-        expect(data).to.equal();
-      });
-    }).timeout(10000);
+      return christmasTreeController.generateRulesAndEmail(permitApplication)
+        .then((data) => {
+          expect(permitSpy.called).to.be.true;
+          expect(emailSendStub.called).to.be.true;
+          expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
+          expect(data).to.equal();
+        }).finally(done);
+    });
   });
 });
