@@ -43,13 +43,13 @@ paygov.createToken = (permitId) => {
  * @function returnUrl - create return url for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
- * @param {Boolean} cancel - whether to include the cancel query
+ * @param {Boolean} isCancelUrl - whether to include the cancel query
  * @return {string} - success URL for payGov
  */
-paygov.returnUrl = (forestAbbr, permitId, cancel) => {
+paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
   let cancelQuery = '';
   let completeRoute = '/permits';
-  if (cancel) {
+  if (isCancelUrl) {
     cancelQuery = 'cancel=true&';
     completeRoute = '';
   }
