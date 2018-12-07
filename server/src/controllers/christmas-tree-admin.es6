@@ -84,7 +84,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
     })
     .then(forest => {
       const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
-      const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
+      const startDate = moment.tz(req.params.startDate, forest.timezone);
       treesDb.christmasTreesPermits
         .findAll({
           attributes: [

@@ -7,25 +7,233 @@ require('./common.es6');
 const request = require('supertest');
 const moment = require('moment');
 
+const treesDb = require('../src/models/trees-db.es6');
+const { christmasTreesForests, christmasTreesPermits } = treesDb;
+
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
+const christmasTreesForestFactory = require('./data/christmas-trees-forest-factory.es6');
 const server = require('./mock-aws.spec.es6');
 
 const chai = require('chai');
 const expect = chai.expect;
 let permitId;
-let today = moment(new Date()).format('YYYY-MM-DD');
 
 describe('christmas tree admin controller tests', () => {
-  it('GET should return a 200 response for the given admin report parameters forest, start and end date', done => {
-    request(server)
-      .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(function(res) {
-        expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
-      })
-      .expect(200, done);
+  describe('given a forest in New York timezone', () => {
+    let forest;
+    let timezone = 'America/New_York';
+    beforeEach(() => {
+      forest = christmasTreesForests.build(christmasTreesForestFactory.create({
+        id: 7,
+        timezone,
+      }));
+
+      return forest.save();
+    });
+
+    afterEach(() => {
+      return forest.destroy();
+    });
+
+    describe('given a Completed permit at 2018-02-01 00:01', () => {
+      let permit;
+      beforeEach(() => {
+        permit = christmasTreesPermits.build(christmasTreePermitApplicationFactory.create({
+          forestId: forest.id,
+          christmasTreesForest: forest,
+          updatedAt: new Date(moment.tz('2018-02-01 00:01:00', timezone)),
+          status: 'Completed',
+        }));
+
+        return permit.save();
+      });
+
+      afterEach(() => {
+        return permit.destroy();
+      });
+
+      describe('given report for 2018-02-01', () => {
+        let startDate = '2018-02-01';
+        let endDate = startDate;
+
+        it('GET should return the permit', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(1);
+
+              // We do a match here because the permitNumber is formatted
+              // as 000001 while it's an integer in the model.
+              expect(permits[0].permitNumber).to.match(new RegExp(`^0+${permit.permitNumber}$`));
+            })
+            .expect(200);
+        });
+      });
+
+      describe('given report for 2018-01-31', () => {
+        let startDate = '2018-01-31';
+        let endDate = startDate;
+
+        it('GET should return 200', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(0);
+            })
+            .expect(200);
+        });
+      });
+
+      describe('given report for 2018-01-31 to 2018-02-01', () => {
+        let startDate = '2018-01-31';
+        let endDate = '2018-02-01';
+
+        it('GET should return the permit', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(1);
+
+              // We do a match here because the permitNumber is formatted
+              // as 000001 while it's an integer in the model.
+              expect(permits[0].permitNumber).to.match(new RegExp(`^0+${permit.permitNumber}$`));
+            })
+            .expect(200);
+        });
+      });
+    });
+
+    describe('given a Completed permit at 2018-02-01 11:59', () => {
+      let permit;
+      beforeEach(() => {
+        permit = christmasTreesPermits.build(christmasTreePermitApplicationFactory.create({
+          forestId: forest.id,
+          christmasTreesForest: forest,
+          updatedAt: new Date(moment.tz('2018-02-01 11:59:59', timezone)),
+          status: 'Completed',
+        }));
+
+        return permit.save();
+      });
+
+      afterEach(() => {
+        return permit.destroy();
+      });
+
+      describe('given report for 2018-02-01', () => {
+        let startDate = '2018-02-01';
+        let endDate = startDate;
+
+        it('GET should return the permit', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(1);
+
+              // We do a match here because the permitNumber is formatted
+              // as 000001 while it's an integer in the model.
+              expect(permits[0].permitNumber).to.match(new RegExp(`^0+${permit.permitNumber}$`));
+            })
+            .expect(200);
+        });
+      });
+
+      describe('given report for 2018-01-31', () => {
+        let startDate = '2018-01-31';
+        let endDate = startDate;
+
+        it('GET should return 200', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(0);
+            })
+            .expect(200);
+        });
+      });
+
+      describe('given report for 2018-01-31 to 2018-02-01', () => {
+        let startDate = '2018-01-31';
+        let endDate = '2018-02-01';
+
+        it('GET should return the permit', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(1);
+
+              // We do a match here because the permitNumber is formatted
+              // as 000001 while it's an integer in the model.
+              expect(permits[0].permitNumber).to.match(new RegExp(`^0+${permit.permitNumber}$`));
+            })
+            .expect(200);
+        });
+      });
+    });
+
+    describe('given non-Completed permits dated 2018-02-01 00:01', () => {
+      let permits;
+      beforeEach(() => {
+        // Just some arbitrary statuses
+        permits = ['Hold', 'Accepted', 'Cancelled'].map(status =>
+          christmasTreesPermits.build(christmasTreePermitApplicationFactory.create({
+            forestId: forest.id,
+            christmasTreesForest: forest,
+            updatedAt: new Date(moment.tz('2018-02-01 00:01:00', timezone)),
+            status,
+          })));
+
+        return Promise.all(permits.map(permit => permit.save()));
+      });
+
+      afterEach(() => {
+        return Promise.all(permits.map(permit => permit.destroy()));
+      });
+
+      describe('given report for 2018-02-01', () => {
+        let startDate = '2018-02-01';
+        let endDate = startDate;
+
+        it('GET should return 200', () => {
+          return request(server)
+            .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function(res) {
+              expect(res.body).to.include.all.keys('sumOfTrees', 'sumOfCost', 'numberOfPermits', 'permits');
+              const { permits } = res.body;
+              expect(permits).to.have.length(0);
+            })
+            .expect(200);
+        });
+      });
+    });
   });
+
   let submittedPermit, completedPermit;
   it('POST new permit to use in admin reports', done => {
     const permitApplication = christmasTreePermitApplicationFactory.create();

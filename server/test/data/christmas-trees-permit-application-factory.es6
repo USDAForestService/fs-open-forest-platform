@@ -21,4 +21,5 @@ module.exports = factory.factory({
   lastName: 'lName',
   // required string
   emailAddress: 'test@email.com',
+  permitExpireDate: new Date('2018-09-30T00:00:00Z'),
 });
