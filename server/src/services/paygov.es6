@@ -198,7 +198,7 @@ paygov.getTrackingId = result => {
 };
 
 /**
- * @function postPayGov - Private function to make a post request to pay.gov/mock pay.gov
+ * @function postPayGov - Function to make a post request to pay.gov/mock pay.gov
  * @param {String} xmlData - xml to be posted to payGov endpoint
  * @return {Object} - response from payGov
  */
