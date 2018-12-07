@@ -298,7 +298,10 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
       content: new Buffer(rulesText, 'utf-8')
     }
   ];
-  email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
+  new Promise((resolve) => {
+    resolve(email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments));
+  });
+  
 };
 
 /**
@@ -308,7 +311,9 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
  * @return {Object} - http response
  */
 const returnSavedPermit = (res, savedPermit) => {
-  return res.status(200).send(permitResult(savedPermit));
+  return new Promise((resolve) => {
+    resolve(res.status(200).send(permitResult(savedPermit)));
+  });
 };
 
 /**
@@ -372,28 +377,31 @@ const checkPermitValid = permitExpireDate => {
  * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
  * @param {Object} permit - permit object
  */
-christmasTree.generateRulesAndEmail = permit =>
-  permitSvgService
-    .generatePermitSvg(permit)
-    .then((permitSvg) => Promise.all([
-      permitSvgService.generatePng(permitSvg),
-      permitSvgService.generateRulesHtml(true, permit),
-    ]))
-    .then(([permitPng, rulesHtml]) => {
-      permit.permitUrl = paygov.returnUrl(
-        permit.christmasTreesForest.forestAbbr,
-        permit.permitId,
-        false
-      );
-      const rulesText = htmlToText.fromString(rulesHtml, {
-        wordwrap: 130,
-        ignoreImage: true
+christmasTree.generateRulesAndEmail = permit => {
+  new Promise((resolve, reject) => {
+    permitSvgService
+      .generatePermitSvg(permit)
+      .then((permitSvg) => Promise.all([
+        permitSvgService.generatePng(permitSvg),
+        permitSvgService.generateRulesHtml(true, permit),
+      ]))
+      .then(([permitPng, rulesHtml]) => {
+        permit.permitUrl = paygov.returnUrl(
+          permit.christmasTreesForest.forestAbbr,
+          permit.permitId,
+          false
+        );
+        const rulesText = htmlToText.fromString(rulesHtml, {
+          wordwrap: 130,
+          ignoreImage: true
+        });
+        resolve(sendEmail(permit, permitPng, rulesHtml, rulesText));
+      })
+      .catch(error => {
+        reject(error);
       });
-      return sendEmail(permit, permitPng, rulesHtml, rulesText);
-    })
-    .catch(error => {
-      logger.error(error);
-    });
+  });
+};
 
 /**
  * @function getOnePermit - API function to get a permit.
@@ -486,20 +494,30 @@ christmasTree.printPermit = (req, res) => {
 const completePermitTransaction = (permit, res, req) => {
   util.logControllerAction(req, 'christmasTree.completePermitTransaction', permit);
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-  paygov.postPayGov(xmlData)
-    .then(xmlResponse => {
-      return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
-        .then(updatedPermit => {
-          returnSavedPermit(res, permit);
-          christmasTree.generateRulesAndEmail(updatedPermit);
-        })
-        .catch(processErr => util.handleErrorResponse(processErr, res, 'completePermitTransaction#process'));
-    })
-    .catch(postError => {
-      if (postError && postError !== 'null') {
-        util.handleErrorResponse(postError, res, 'completePermitTransaction#end');
-      }
-    });
+  return new Promise((resolve, reject) => {
+    paygov.postPayGov(xmlData)
+      .then(xmlResponse => {
+        return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
+          .then(updatedPermit => {
+            Promise.all([
+              returnSavedPermit(res, permit),
+              christmasTree.generateRulesAndEmail(updatedPermit)
+            ])
+              .then(resolve('completed'))
+              .catch(reject);
+          })
+          .catch(processError => {
+            processError.method = 'completePermitTransaction#process';
+            reject(processError);
+          });
+      })
+      .catch(postError => {
+        if (postError && postError !== 'null') {
+          postError.method = 'completePermitTransaction#end'
+          reject(postError);
+        }
+      });
+  });
 };
 
 /**
@@ -534,7 +552,10 @@ christmasTree.updatePermitApplication = (req, res) => {
                 res.status(200).json(permit);
               });
           } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
-            completePermitTransaction(permit, res, req);
+            return completePermitTransaction(permit, res, req)
+              .then(logger.log(`PermitID ${permit.permitId} Successfully completed`))
+              .catch(error => logger.error(`ERROR: ServerError: christmasTree.completePermitTransaction\
+               did not complete ${error}`));
           } else {
             if (permit.status === 'Error'){
               getPermitError(res, permit);
@@ -549,7 +570,11 @@ christmasTree.updatePermitApplication = (req, res) => {
       });
     })
     .catch((error) => {
-      util.handleErrorResponse(error, res, 'updatePermit#end');
+      if (error && error.method) {
+        util.handleErrorResponse(error, res, error.method);
+      } else {
+        util.handleErrorResponse(error, res, 'updatePermit#end');
+      }
     });
 };
 
