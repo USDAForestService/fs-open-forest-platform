@@ -40,7 +40,7 @@ paygov.createToken = (permitId) => {
 };
 
 /**
- * @function returnUrl - create success url for paygov request
+ * @function returnUrl - create return url for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} cancel - whether to include the cancel query
