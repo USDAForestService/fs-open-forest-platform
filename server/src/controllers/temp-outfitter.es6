@@ -666,38 +666,39 @@ tempOutfitter.create = (req, res) => {
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
-tempOutfitter.getOne = (req, res) => {
-  TempOutfitterApplication.findOne({
-    where: {
-      app_control_number: req.params.id
-    }
-  })
-    .then(app => {
-      if (!app) {
-        return res.status(404).send();
+tempOutfitter.getOne = async (req, res) => {
+  try {
+    const app = await TempOutfitterApplication.findOne({
+      where: {
+        app_control_number: req.params.id
       }
-      if (!util.hasPermissions(req.user, app)) {
-        return res.status(403).send();
-      }
-      util.logControllerAction(req, 'tempOutfitter.getOne', app);
-      Revision.findAll({
-        where: {
-          applicationId: app.applicationId,
-          applicationType: app.type
-        }
-      })
-        .then(revisions => {
-          const formattedApp = translateFromDatabaseToClient(app);
-          formattedApp.revisions = revisions;
-          return res.status(200).json(formattedApp);
-        })
-        .catch(() => {
-          return res.status(500).send();
-        });
-    })
-    .catch(() => {
-      return res.status(500).send();
     });
+
+    if (!app) {
+      return res.status(404).send();
+    }
+
+    if (!util.hasPermissions(req.user, app)) {
+      return res.status(403).send();
+    }
+
+    util.logControllerAction(req, 'tempOutfitter.getOne', app);
+
+    const revisions = await Revision.findAll({
+      where: {
+        applicationId: app.applicationId,
+        applicationType: app.type
+      }
+    })
+
+    const formattedApp = translateFromDatabaseToClient(app);
+    formattedApp.revisions = revisions;
+
+    return res.status(200).json(formattedApp);
+
+  } catch (_error) {
+    return res.status(500).send();
+  }
 };
 
 /**
