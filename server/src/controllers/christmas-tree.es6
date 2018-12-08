@@ -20,7 +20,7 @@ const jwt = require('jsonwebtoken');
 const email = require('../email/email-util.es6');
 const forestService = require('../services/forest.service.es6');
 const util = require('../services/util.es6');
-
+const _ = require('lodash');
 
 const christmasTree = {};
 
@@ -128,22 +128,24 @@ const postPayGov = xmlData => {
  */
 const permitResult = permit => {
   return {
-    permitId: permit.permitId,
-    orgStructureCode: permit.orgStructureCode,
-    firstName: permit.firstName,
-    lastName: permit.lastName,
-    emailAddress: permit.emailAddress,
-    quantity: permit.quantity,
-    totalCost: permit.totalCost,
-    status: permit.status,
+    ..._.pick(permit, [
+      'permitId',
+      'orgStructureCode',
+      'firstName',
+      'lastName',
+      'emailAddress',
+      'quantity',
+      'totalCost',
+      'status',
+      'paygovTrackingId',
+    ]),
     transactionDate: permit.updatedAt,
-    paygovTrackingId: permit.paygovTrackingId,
     expirationDate: permit.permitExpireDate,
     permitNumber: zpad(permit.permitNumber, 8),
-    forest: {
-      forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
-      forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
-      forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
+    forest: permit.christmasTreesForest || {
+      forestName: null,
+      forestAbbr: null,
+      forestNameShort: null
     }
   };
 };
@@ -190,9 +192,9 @@ const updatePermitWithError = (res, permit, paygovError) => {
     paygovError: JSON.stringify(paygovError)
   }).then(updatedPermit => {
     logger.error(
-      `ERROR: ServerError: ${updatedPermit.emailAddress} 
-      modified ${updatedPermit.permitId} 
-      encountered an error at pay.gov 
+      `ERROR: ServerError: ${updatedPermit.emailAddress}
+      modified ${updatedPermit.permitId}
+      encountered an error at pay.gov
       ${updatedPermit.paygovError}`
     );
     return getPermitError(res, updatedPermit);
