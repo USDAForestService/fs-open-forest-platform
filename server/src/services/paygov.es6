@@ -44,7 +44,7 @@ paygov.createToken = (permitId) => {
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} isCancelUrl - whether to include the cancel query
- * @return {string} - success URL for payGov
+ * @return {Promise} - Promise that resolves to a success URL for payGov
  */
 paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
   let cancelQuery = '';
