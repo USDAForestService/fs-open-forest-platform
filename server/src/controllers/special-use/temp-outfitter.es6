@@ -2,7 +2,7 @@
 
 /**
  * Module for temp outfitter permit application controllers
- * @module controllers/temp-outfitter
+ * @module controllers/special-use/temp-outfitter
  */
 
 const cryptoRandomString = require('crypto-random-string');

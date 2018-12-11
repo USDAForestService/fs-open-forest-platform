@@ -2,7 +2,7 @@
 
 /**
  * Module for noncommercial permit application controllers
- * @module controllers/noncommercial
+ * @module controllers/special-use/noncommercial
  */
 
 const moment = require('moment');
