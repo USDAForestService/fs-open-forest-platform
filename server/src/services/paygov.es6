@@ -89,7 +89,7 @@ paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
         url_success: paygov.returnUrl(token, forestAbbr, permit.permitId, false)
       },
       {
-        url_cancel: paygov.returnUrl(token, permit.permitId, true)
+        url_cancel: paygov.returnUrl(token, forestAbbr, permit.permitId, true)
       },
       {
         account_holder_name: permit.firstName + ' ' + permit.lastName
