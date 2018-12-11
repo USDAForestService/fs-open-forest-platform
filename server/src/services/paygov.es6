@@ -16,7 +16,7 @@ const paygov = {};
  * @function createToken - create token for paygov request
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
- * @return {string} - jwt signed token
+ * @return {Promise} - Promise that resolves to a jwt signed token
  */
 paygov.createToken = (permitId) => {
   const claims = {
@@ -41,7 +41,7 @@ paygov.createToken = (permitId) => {
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} isCancelUrl - whether to include the cancel query
- * @return {string} - success URL for payGov
+ * @return {Promise} - Promise that resolves to a success URL for payGov
  */
 paygov.returnUrl = (token, forestAbbr, permitId, isCancelUrl) => {
   let cancelQuery = '';

@@ -487,7 +487,7 @@ christmasTree.printPermit = (req, res) => {
  * @param {Object} permit - object model of an existing permit to be completed
  * @param {Object} req - http request
  * @param {Object} res - http response
- * @return {Object} - promise that the email has been sent and response too
+ * @return {Promise} - promise that the email has been sent and response too
  */
 const completePermitTransaction = (permit, res, req) => {
   util.logControllerAction(req, 'christmasTree.completePermitTransaction', permit);
