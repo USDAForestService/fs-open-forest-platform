@@ -22,25 +22,22 @@ The following environment variables are required to run the application locally,
 
     (from https://snyk.io/account)
 
-## Local Development outside of docker
-The following environment variables are only required to run the application locally when not using docker:
-
 ### DATABASE_URL
+
+(optional) This variable can be used to connect to a different database.
 
     postgres://<user>:<pass>@localhost:<port>/<dbname>
 
 ### VCAP_APPLICATION
 
+(optional) This variable can be used to override the uri used for the
+application.
+
     {"uris":["http://localhost:8080"]}
 
-Note that depending on your shell, you may need to escape the quotation marks when setting this variable at the command line:
-
-    export VCAP_APPLICATION={\"uris\":[\"http://localhost:8080\"]}
-
-## 
-To override the default VCAP_SERVICES that are configured for local development and CI.
-
 ### VCAP_SERVICES
+
+To override the default VCAP_SERVICES that are configured for local development and CI.
 
   [Local configuration](/server/environment-variables/local.json)
 
