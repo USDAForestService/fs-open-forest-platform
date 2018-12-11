@@ -100,12 +100,14 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
         logger.error('problem creating permit svg=', err);
         reject(err);
       }
-      try {
-        const frag = JSDOM.fragment(svgData.toString('utf8'));
-        addApplicantInfo(permit, frag);
-        addForestSpecificInfo(permit, frag);
+
+      const frag = JSDOM.fragment(svgData.toString('utf8'));
+      addApplicantInfo(permit, frag);
+      addForestSpecificInfo(permit, frag);
+
+      if (frag && frag.firstChild && frag.firstChild.outerHTML) {
         resolve(frag.firstChild.outerHTML);
-      } catch (err) {
+      } else {
         logger.error('problem creating permit svg=', err);
         reject(err);
       }
@@ -120,6 +122,7 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
  */
 christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
+    console.log(svgBuffer.length);
     svg2png(svgBuffer, {
       width: 740,
       height: 958
@@ -128,6 +131,7 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
         resolve(data);
       })
       .catch(err => {
+        console.log('uncaught err');
         logger.error(err);
       });
   });
@@ -141,20 +145,16 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
  */
 christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
   return new Promise((resolve, reject) => {
-    try {
-      let rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
-      if (rulesMarkdown) {
-        let rulesHtml = markdown.toHTML(rulesMarkdown);
-        rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
-        resolve(
-          christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
-        );
-      } else {
-        reject('problem reading rules markdown files', permit.permitId);
-      }
-    } catch (err) {
-      logger.error('problen creating rules html for permit ' + permit.permitId, err);
-      reject(err);
+    let rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
+    if (rulesMarkdown) {
+      let rulesHtml = markdown.toHTML(rulesMarkdown);
+      rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
+      resolve(
+        christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
+      );
+    } else {
+      logger.error('problem creating rules html for permit ' + permit.permitId);
+      reject('problem reading rules markdown files', permit.permitId);
     }
   });
 };

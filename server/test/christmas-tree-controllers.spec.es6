@@ -510,14 +510,19 @@ describe('christmas tree controller tests', () => {
         forestAbbr: 'mthood',
         orgStructureCode: '11-06-06'
       });
-      const permitSpy = sinon.spy(permitSvgService, 'generatePng');
+      const buf = Buffer.from('abc');
+      const permitStub = sinon.stub(permitSvgService, 'generatePng').resolves(buf);
+
       christmasTreeController.generateRulesAndEmail(permitApplication)
         .then((data) => {
-          expect(permitSpy.called).to.be.true;
+          expect(permitStub.called).to.be.true;
           expect(emailSendStub.called).to.be.true;
           expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
           expect(data).to.equal();
-        }).finally(done);
+          done();
+
+          permitStub.restore();
+        });
     });
   });
 });

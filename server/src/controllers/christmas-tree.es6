@@ -373,8 +373,7 @@ const checkPermitValid = permitExpireDate => {
  * @param {Object} permit - permit object
  */
 christmasTree.generateRulesAndEmail = permit => {
-  return permitSvgService
-    .generatePermitSvg(permit)
+  return permitSvgService.generatePermitSvg(permit)
     .then((permitSvg) => Promise.all([
       permitSvgService.generatePng(permitSvg),
       permitSvgService.generateRulesHtml(true, permit),
