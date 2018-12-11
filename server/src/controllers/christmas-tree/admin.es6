@@ -2,7 +2,7 @@
 
 /**
  * Module for chrismtmas tree admin API
- * @module controllers/chrismtmas-tree/admin
+ * @module controllers/christmas-tree/admin
  */
 
 const moment = require('moment-timezone');
