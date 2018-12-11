@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module for chrismtmas tree public API to retrieve forests
+ * Module for christmas tree public API to retrieve forests
  * @module controllers/chrismtmas-tree/forests
  */
 
