@@ -2,7 +2,7 @@
 
 /**
  * Module for chrismtmas tree public API to create permits and manage transactions
- * @module controllers/chrismtmas-tree/permits
+ * @module controllers/christmas-tree/permits
  */
 
 const uuid = require('uuid/v4');
