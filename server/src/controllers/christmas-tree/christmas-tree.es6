@@ -10,15 +10,16 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
-const logger = require('../services/logger.es6');
-const vcapConstants = require('../vcap-constants.es6');
-const treesDb = require('../models/trees-db.es6');
-const paygov = require('../services/paygov.es6');
-const permitSvgService = require('../services/christmas-trees-permit-svg-util.es6');
 const jwt = require('jsonwebtoken');
-const email = require('../email/email-util.es6');
-const forestService = require('../services/forest.service.es6');
-const util = require('../services/util.es6');
+
+const logger = require('../../services/logger.es6');
+const vcapConstants = require('../../vcap-constants.es6');
+const treesDb = require('../../models/trees-db.es6');
+const paygov = require('../../services/paygov.es6');
+const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
+const email = require('../../email/email-util.es6');
+const forestService = require('../../services/forest.service.es6');
+const util = require('../../services/util.es6');
 
 
 const christmasTree = {};

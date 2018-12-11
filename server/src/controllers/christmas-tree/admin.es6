@@ -8,10 +8,10 @@
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 const zpad = require('zpad');
-const logger = require('../services/logger.es6');
+const logger = require('../../services/logger.es6');
 
-const treesDb = require('../models/trees-db.es6');
-const util = require('../services/util.es6');
+const treesDb = require('../../models/trees-db.es6');
+const util = require('../../services/util.es6');
 
 const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
