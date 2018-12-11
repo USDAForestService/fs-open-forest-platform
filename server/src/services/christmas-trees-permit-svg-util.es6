@@ -122,7 +122,6 @@ christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
  */
 christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
   return new Promise(resolve => {
-    console.log(svgBuffer.length);
     svg2png(svgBuffer, {
       width: 740,
       height: 958
@@ -131,7 +130,6 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
         resolve(data);
       })
       .catch(err => {
-        console.log('uncaught err');
         logger.error(err);
       });
   });
