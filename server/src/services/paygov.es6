@@ -24,45 +24,35 @@ paygov.createToken = (permitId) => {
     subject: 'christmas tree permit orders',
     audience: 'fs-trees-permit-api-users'
   };
-  return new Promise((resolve, reject) => {
-    const token = jwt.sign(
-      {
-        data: permitId
-      },
-      vcapConstants.PERMIT_SECRET,
-      claims
-    );
-    if (token) {
-      resolve(token);
-    }
-    reject(new Error('Unable to generate token'));
-  }); 
+  
+  const token = jwt.sign(
+    {
+      data: permitId
+    },
+    vcapConstants.PERMIT_SECRET,
+    claims
+  );
+  return token;
 };
 
 /**
  * @function returnUrl - create return url for paygov request
+ * * @param {String} token - jwt token for url validation
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} isCancelUrl - whether to include the cancel query
  * @return {string} - success URL for payGov
  */
-paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
+paygov.returnUrl = (token, forestAbbr, permitId, isCancelUrl) => {
   let cancelQuery = '';
   let completeRoute = '/permits';
   if (isCancelUrl) {
     cancelQuery = 'cancel=true&';
     completeRoute = '';
   }
-  return new Promise((resolve, reject) =>{
-    paygov.createToken(permitId)
-      .then(token => {
-        resolve(`${
-          vcapConstants.INTAKE_CLIENT_BASE_URL
-        }/christmas-trees/forests/${forestAbbr}/applications${completeRoute}/${permitId}?${cancelQuery}t=${token}`
-        );
-      })
-      .catch(error => reject(error));
-  });
+  return `${
+    vcapConstants.INTAKE_CLIENT_BASE_URL
+  }/christmas-trees/forests/${forestAbbr}/applications${completeRoute}/${permitId}?${cancelQuery}t=${token}`;
 
 };
 
@@ -75,51 +65,44 @@ paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
  */
 paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
-  return new Promise((resolve, reject) => {
-    Promise.all([
-      paygov.returnUrl(forestAbbr, permit.permitId, false),
-      paygov.returnUrl(forestAbbr, permit.permitId, true)
-    ])
-      .then((returnUrls) => {
-        const startCollectionXML = JSON.parse(JSON.stringify(paygovTemplates.startCollection));
-        startCollectionXML[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:startOnlineCollection'][1]
-          .startOnlineCollectionRequest = [
-            {
-              tcs_app_id: tcsAppID
-            },
-            {
-              agency_tracking_id: permit.permitNumber
-            },
-            {
-              transaction_type: 'Sale'
-            },
-            {
-              transaction_amount: permit.totalCost
-            },
-            {
-              language: 'EN'
-            },
-            {
-              url_success: returnUrls[0]
-            },
-            {
-              url_cancel: returnUrls[1]
-            },
-            {
-              account_holder_name: permit.firstName + ' ' + permit.lastName
-            },
-            {
-              custom_fields: [
-                {
-                  custom_field_1: possFinancialId
-                }
-              ]
-            }
-          ];
-        resolve(xml(startCollectionXML));
-      })
-      .catch(error => reject(error));
-  });
+  const token = paygov.createToken(permit.permitId);
+    
+  const startCollectionXML = JSON.parse(JSON.stringify(paygovTemplates.startCollection));
+  startCollectionXML[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:startOnlineCollection'][1]
+    .startOnlineCollectionRequest = [
+      {
+        tcs_app_id: tcsAppID
+      },
+      {
+        agency_tracking_id: permit.permitNumber
+      },
+      {
+        transaction_type: 'Sale'
+      },
+      {
+        transaction_amount: permit.totalCost
+      },
+      {
+        language: 'EN'
+      },
+      {
+        url_success: paygov.returnUrl(token, forestAbbr, permit.permitId, false)
+      },
+      {
+        url_cancel: paygov.returnUrl(token, permit.permitId, true)
+      },
+      {
+        account_holder_name: permit.firstName + ' ' + permit.lastName
+      },
+      {
+        custom_fields: [
+          {
+            custom_field_1: possFinancialId
+          }
+        ]
+      }
+    ];
+  return xml(startCollectionXML);
 };
 
 /**

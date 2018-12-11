@@ -511,7 +511,7 @@ describe('christmas tree controller tests', () => {
         orgStructureCode: '11-06-06'
       });
       const permitSpy = sinon.spy(permitSvgService, 'generatePng');
-      return christmasTreeController.generateRulesAndEmail(permitApplication)
+      christmasTreeController.generateRulesAndEmail(permitApplication)
         .then((data) => {
           expect(permitSpy.called).to.be.true;
           expect(emailSendStub.called).to.be.true;

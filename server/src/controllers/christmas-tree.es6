@@ -250,15 +250,14 @@ christmasTree.create = (req, res) => {
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
             util.logControllerAction(req, 'christmasTree.create', permit);
-            return paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit)
-              .then(initPayGovTransactionXml => paygov.postPayGov(initPayGovTransactionXml)
-                .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
-                .catch(postError => {
-                  if (postError && postError !== 'null') {
-                    util.handleErrorResponse(postError, res, 'create#postPay');
-                  }
-                })
-              );
+            const initPayGovTransactionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
+            return paygov.postPayGov(initPayGovTransactionXml)
+              .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
+              .catch(postError => {
+                if (postError && postError !== 'null') {
+                  util.handleErrorResponse(postError, res, 'create#postPay');
+                }
+              });
           });
       }
     })
@@ -298,12 +297,8 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
       content: new Buffer(rulesText, 'utf-8')
     }
   ];
-  new Promise((resolve, reject) => {
-    email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments)
-      .then(resolve('sent'))
-      .catch(reject);
-  });
-  
+
+  return email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
 
 /**
@@ -313,9 +308,7 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
  * @return {Object} - http response
  */
 const returnSavedPermit = (res, savedPermit) => {
-  return new Promise((resolve) => {
-    resolve(res.status(200).send(permitResult(savedPermit)));
-  });
+  return res.status(200).send(permitResult(savedPermit));
 };
 
 /**
@@ -380,33 +373,24 @@ const checkPermitValid = permitExpireDate => {
  * @param {Object} permit - permit object
  */
 christmasTree.generateRulesAndEmail = permit => {
-  return new Promise((resolve, reject) => {
-    permitSvgService
-      .generatePermitSvg(permit)
-      .then((permitSvg) => Promise.all([
-        permitSvgService.generatePng(permitSvg),
-        permitSvgService.generateRulesHtml(true, permit),
-      ]))
-      .then(([permitPng, rulesHtml]) => {
-        permit.permitUrl = paygov.returnUrl(
-          permit.christmasTreesForest.forestAbbr,
-          permit.permitId,
-          false
-        );
-        const rulesText = htmlToText.fromString(rulesHtml, {
-          wordwrap: 130,
-          ignoreImage: true
-        });
-        return sendEmail(permit, permitPng, rulesHtml, rulesText)
-          .then(resolve('sent'))
-          .catch(err => {
-            logger.log(`Email not sent ${err}`);
-          });
-      })
-      .catch(error => {
-        reject(error);
+  return permitSvgService
+    .generatePermitSvg(permit)
+    .then((permitSvg) => Promise.all([
+      permitSvgService.generatePng(permitSvg),
+      permitSvgService.generateRulesHtml(true, permit),
+    ]))
+    .then(([permitPng, rulesHtml]) => {
+      permit.permitUrl = paygov.returnUrl(
+        permit.christmasTreesForest.forestAbbr,
+        permit.permitId,
+        false
+      );
+      const rulesText = htmlToText.fromString(rulesHtml, {
+        wordwrap: 130,
+        ignoreImage: true
       });
-  });
+      return sendEmail(permit, permitPng, rulesHtml, rulesText);
+    });
 };
 
 /**
@@ -513,12 +497,8 @@ const completePermitTransaction = (permit, res, req) => {
       .then(xmlResponse => {
         return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
           .then(updatedPermit => {
-            Promise.all([
-              returnSavedPermit(res, permit),
-              christmasTree.generateRulesAndEmail(updatedPermit)
-            ])
-              .then(resolve('completed'))
-              .catch(reject);
+            returnSavedPermit(res, permit);
+            resolve(christmasTree.generateRulesAndEmail(updatedPermit));
           })
           .catch(processError => {
             processError.method = 'completePermitTransaction#process';
