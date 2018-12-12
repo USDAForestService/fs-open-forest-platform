@@ -7,15 +7,16 @@
 
 const express = require('express');
 
-const christmasTreeController = require('../controllers/christmas-tree.es6');
+const christmasTreeController = require('../controllers/christmas-tree/permits.es6');
+const christmasTreeForestController = require('../controllers/christmas-tree/forests.es6');
 
 const router = express.Router();
 
 /** get list of forests for christmas tree permits */
-router.get('/', christmasTreeController.getForests);
+router.get('/', christmasTreeForestController.getForests);
 
 /** get regulations for a single forest */
-router.get('/:id', christmasTreeController.getForest);
+router.get('/:id', christmasTreeForestController.getForest);
 
 /** POST a new christmas tree application */
 router.post('/christmas-trees/permits', christmasTreeController.create);

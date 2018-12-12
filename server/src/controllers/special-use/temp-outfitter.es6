@@ -2,23 +2,23 @@
 
 /**
  * Module for temp outfitter permit application controllers
- * @module controllers/temp-outfitter
+ * @module controllers/special-use/temp-outfitter
  */
 
 const cryptoRandomString = require('crypto-random-string');
 const moment = require('moment');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const logger = require('../services/logger.es6');
+const logger = require('../../services/logger.es6');
 
-const ApplicationFile = require('../models/application-files.es6');
-const email = require('../email/email-util.es6');
-const Revision = require('../models/revision.es6');
-const TempOutfitterApplication = require('../models/tempoutfitter-application.es6');
-const util = require('../services/util.es6');
-const commonControllers = require('./common.es6');
-const vcapConstants = require('../vcap-constants.es6');
-const forestInfoService = require('../services/forest.service.es6');
+const ApplicationFile = require('../../models/application-files.es6');
+const email = require('../../email/email-util.es6');
+const Revision = require('../../models/revision.es6');
+const TempOutfitterApplication = require('../../models/tempoutfitter-application.es6');
+const util = require('../../services/util.es6');
+const commonControllers = require('../common.es6');
+const vcapConstants = require('../../vcap-constants.es6');
+const forestInfoService = require('../../services/forest.service.es6');
 
 const tempOutfitter = {};
 

@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * Module for chrismtmas tree public API
- * @module controllers/chrismtmas-tree
+ * Module for chrismtmas tree public API to create permits and manage transactions
+ * @module controllers/christmas-tree/permits
  */
 
 const uuid = require('uuid/v4');
@@ -10,18 +10,18 @@ const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
-const logger = require('../services/logger.es6');
-const vcapConstants = require('../vcap-constants.es6');
-const treesDb = require('../models/trees-db.es6');
-const paygov = require('../services/paygov.es6');
-const permitSvgService = require('../services/christmas-trees-permit-svg-util.es6');
 const jwt = require('jsonwebtoken');
-const email = require('../email/email-util.es6');
-const forestService = require('../services/forest.service.es6');
-const util = require('../services/util.es6');
+
+const logger = require('../../services/logger.es6');
+const vcapConstants = require('../../vcap-constants.es6');
+const treesDb = require('../../models/trees-db.es6');
+const paygov = require('../../services/paygov.es6');
+const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
+const email = require('../../email/email-util.es6');
+const util = require('../../services/util.es6');
 
 
-const christmasTree = {};
+const christmasTreePermits = {};
 
 /**
  * @function translatePermitFromClientToDatabase - Private function to translate request data to the database json object
@@ -41,54 +41,6 @@ const translatePermitFromClientToDatabase = input => {
     totalCost: input.totalCost,
     permitExpireDate: input.expDate
   };
-};
-
-/**
- * @function getForests - API function to get all forests
- * @param {Object} req - http request
- * @param {Object} res - http response
- */
-christmasTree.getForests = (req, res) => {
-  treesDb.christmasTreesForests
-    .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone'],
-      order: [['id', 'ASC']]
-    })
-    .then(results => {
-      if (results) {
-        res.status(200).json(results);
-      } else {
-        res.status(404).send();
-      }
-    })
-    .catch(error => {
-      res.status(400).json(error);
-    });
-};
-
-/**
- * @function getForest - API function to get one forest by the forest abbreviation
- * @param {Object} req - http request
- * @param {Object} res - http response
- */
-christmasTree.getForest = (req, res) => {
-  treesDb.christmasTreesForests
-    .findOne({
-      where: {
-        forestAbbr: req.params.id
-      }
-    })
-    .then(app => {
-      if (app) {
-        res.status(200).json(forestService.translateForestFromDatabaseToClient(app));
-      } else {
-        res.status(404).send();
-      }
-    })
-    .catch(error => {
-      logger.error('ERROR: ServerError: christmasTree controller getForest error for forest abbr ' + req.params.id, error);
-      res.status(400).json(error);
-    });
 };
 
 /**
@@ -233,7 +185,7 @@ const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
  * @param {Object} res - http response
  * @return {Object} http response
  */
-christmasTree.create = (req, res) => {
+christmasTreePermits.create = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
       where: {
@@ -249,7 +201,7 @@ christmasTree.create = (req, res) => {
         return treesDb.christmasTreesPermits
           .create(translatePermitFromClientToDatabase(req.body))
           .then(permit => {
-            util.logControllerAction(req, 'christmasTree.create', permit);
+            util.logControllerAction(req, 'christmasTreePermits.create', permit);
             const initPayGovTransactionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
             return paygov.postPayGov(initPayGovTransactionXml)
               .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
@@ -372,7 +324,7 @@ const checkPermitValid = permitExpireDate => {
  * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
  * @param {Object} permit - permit object
  */
-christmasTree.generateRulesAndEmail = permit => {
+christmasTreePermits.generateRulesAndEmail = permit => {
   return permitSvgService.generatePermitSvg(permit)
     .then((permitSvg) => Promise.all([
       permitSvgService.generatePng(permitSvg),
@@ -398,7 +350,7 @@ christmasTree.generateRulesAndEmail = permit => {
  * @param {Object} res - http response
  * @return {Object} - saved permit object
  */
-christmasTree.getOnePermit = (req, res) => {
+christmasTreePermits.getOnePermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -417,7 +369,7 @@ christmasTree.getOnePermit = (req, res) => {
         const token = req.query.t;
         jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
           if (decoded) {
-            util.logControllerAction(req, 'christmasTree.getOnePermit', permit);
+            util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
             returnSavedPermit(res, permit);
           } else {
             return res.status(404).send();
@@ -438,7 +390,7 @@ christmasTree.getOnePermit = (req, res) => {
  * @param {Object} res - http response
  * @return {Object} http reponse with permit svg or riles html
  */
-christmasTree.printPermit = (req, res) => {
+christmasTreePermits.printPermit = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -451,7 +403,7 @@ christmasTree.printPermit = (req, res) => {
       ]
     })
     .then(permit => {
-      util.logControllerAction(req, 'christmasTree.printPermit', permit);
+      util.logControllerAction(req, 'christmasTreePermits.printPermit', permit);
       if (permit.status === 'Completed') {
         if (!checkPermitValid(permit.permitExpireDate)) {
           res.status(404).send();
@@ -489,7 +441,7 @@ christmasTree.printPermit = (req, res) => {
  * @return {Promise} - promise that the email has been sent and response too
  */
 const completePermitTransaction = (permit, res, req) => {
-  util.logControllerAction(req, 'christmasTree.completePermitTransaction', permit);
+  util.logControllerAction(req, 'christmasTreePermits.completePermitTransaction', permit);
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   return new Promise((resolve, reject) => {
     paygov.postPayGov(xmlData)
@@ -497,7 +449,7 @@ const completePermitTransaction = (permit, res, req) => {
         return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
           .then(updatedPermit => {
             returnSavedPermit(res, permit);
-            resolve(christmasTree.generateRulesAndEmail(updatedPermit));
+            resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
           })
           .catch(processError => {
             processError.method = 'completePermitTransaction#process';
@@ -519,7 +471,7 @@ const completePermitTransaction = (permit, res, req) => {
  * @param {Object} res - http response
  * @return {Object} - updated permit
  */
-christmasTree.updatePermitApplication = (req, res) => {
+christmasTreePermits.updatePermitApplication = (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -541,13 +493,13 @@ christmasTree.updatePermitApplication = (req, res) => {
                 status: req.body.status
               })
               .then((permit)=>{
-                util.logControllerAction(req, 'christmasTree.updatePermitApplication#cancel', permit);
+                util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', permit);
                 res.status(200).json(permit);
               });
           } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
             return completePermitTransaction(permit, res, req)
               .then(logger.log(`PermitID ${permit.permitId} Successfully completed`))
-              .catch(error => logger.error(`ERROR: ServerError: christmasTree.completePermitTransaction\
+              .catch(error => logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
                did not complete ${error}`));
           } else {
             if (permit.status === 'Error'){
@@ -571,4 +523,4 @@ christmasTree.updatePermitApplication = (req, res) => {
     });
 };
 
-module.exports = christmasTree;
+module.exports = christmasTreePermits;
