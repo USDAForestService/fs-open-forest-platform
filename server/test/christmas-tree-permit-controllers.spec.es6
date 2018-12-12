@@ -12,7 +12,7 @@ const christmasTreePermitApplicationFactory = require('./data/christmas-trees-pe
 const christmasTreePermitFactory = require('./data/christmas-trees-permit-factory.es6');
 const server = require('./mock-aws.spec.es6');
 
-const christmasTreeController = require('../src/controllers/christmas-tree.es6');
+const christmasTreeController = require('../src/controllers/christmas-tree/permits.es6');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -21,76 +21,7 @@ let invalidPermitId = '1111a111-2222-11a1-aaa1-123456789012';
 let paygovToken;
 let tcsAppID;
 
-describe('christmas tree controller tests', () => {
-  describe('get forests', () => {
-    it('should return a 200 response', done => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200, done);
-    });
-    it('should return more than 0 forests', done => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body.length).to.not.equal(0);
-        })
-        .expect(200, done);
-    });
-    it('should include name and ID for a forest', done => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
-        })
-        .expect(200, done);
-    });
-  });
-
-  describe('get forest info', () => {
-    it('should return a 200 response', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200, done);
-    });
-
-    it('should include fields for species and locations', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body).to.include.all.keys('startDate', 'endDate', 'treeCost', 'timezone');
-        })
-        .expect(200, done);
-    });
-
-    it('should include cutting areas as a json object', done => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body).to.include.all.keys('cuttingAreas');
-          expect(res.body.cuttingAreas !== null && typeof res.body.cuttingAreas === 'object');
-        })
-        .expect(200, done);
-    });
-
-    it('should return a 404 response when providing forest ID that does not exist.', done => {
-      request(server)
-        .get('/forests/-1205')
-        .set('Accept', 'application/json')
-        .expect(404, done);
-    });
-  });
+describe('christmas tree controller permit tests', () => {
   describe('submit permit application mthood national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
@@ -150,7 +81,8 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(400, done);
     });
-    it('POST should return 400 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "1")', done => {
+    it('POST should return 400 response when submitted to get pay.gov token \
+    (mock returns error when firstName = "1" and lastName = "1")', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '1';
@@ -161,9 +93,30 @@ describe('christmas tree controller tests', () => {
         .post('/forests/christmas-trees/permits')
         .send(permitApplication)
         .expect('Content-Type', /json/)
+        .expect(res => {
+          permitId = res.body.errors[0].permit.permitId;
+        })
         .expect(400, done);
     });
-    it('POST should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', done => {
+    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
+      const completeApplication = {
+        permitId: permitId,
+        status: 'Completed'
+      };
+      const token = jwt.sign(
+        {
+          data: permitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
+      request(server)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(completeApplication)
+        .expect('Content-Type', /json/)
+        .expect(400, done);
+    });
+    it('POST should return 500 response when submitted to get pay.gov token\
+     (mock returns error when firstName = "1" and lastName = "2")', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.firstName = '1';
       permitApplication.lastName = '2';
@@ -201,7 +154,8 @@ describe('christmas tree controller tests', () => {
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
-    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', done => {
+    it('POST should return a 200 response when submitted to mock pay.gov\
+     with invalid credit card with error code in last 4 digits', done => {
       const processTransaction = { token: paygovToken, cc: '0000000000001234' };
       request(server)
         .post('/mock-pay-gov-process')
@@ -211,23 +165,6 @@ describe('christmas tree controller tests', () => {
           expect(res.body.errorCode).to.equal('1234');
         })
         .expect(200, done);
-    });
-    it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', done => {
-      const completeApplication = {
-        permitId: permitId,
-        status: 'Completed'
-      };
-      const token = jwt.sign(
-        {
-          data: permitId
-        },
-        vcapConstants.PERMIT_SECRET
-      );
-      request(server)
-        .put(`/forests/christmas-trees/permits?t=${token}`)
-        .send(completeApplication)
-        .expect('Content-Type', /json/)
-        .expect(400, done);
     });
   });
 
@@ -305,7 +242,7 @@ describe('christmas tree controller tests', () => {
   });
 
   describe('submit permit application for closed forest', () => {
-    it('POST should return a 200 response when submitted to get pay.gov token', done => {
+    it('POST should return a 404 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 4;
       permitApplication.forestAbbr = 'shoshone';
@@ -496,7 +433,7 @@ describe('christmas tree controller tests', () => {
   });
 
   describe('unit tests for xmas tree controller', () => {
-    it('should send and email and generate rules', () => {
+    it('should send and email and generate rules', (done) => {
       const permitApplication = christmasTreePermitFactory.create({
         firstName: 'Bonny',
         lastName: 'Clyde',
@@ -504,14 +441,19 @@ describe('christmas tree controller tests', () => {
         forestAbbr: 'mthood',
         orgStructureCode: '11-06-06'
       });
-      const result = christmasTreeController.generateRulesAndEmail(permitApplication);
-      const permitSpy = sinon.spy(permitSvgService, 'generatePng');
-      return result.then((data) => {
-        expect(permitSpy.called).to.be.true;
-        expect(emailSendStub.called).to.be.true;
-        expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
-        expect(data).to.equal();
-      });
-    }).timeout(10000);
+      const buf = Buffer.from('abc');
+      const permitStub = sinon.stub(permitSvgService, 'generatePng').resolves(buf);
+
+      christmasTreeController.generateRulesAndEmail(permitApplication)
+        .then((data) => {
+          expect(permitStub.called).to.be.true;
+          expect(emailSendStub.called).to.be.true;
+          expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
+          expect(data).to.equal();
+          done();
+
+          permitStub.restore();
+        });
+    });
   });
 });
