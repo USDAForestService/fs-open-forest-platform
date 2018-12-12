@@ -90,15 +90,15 @@
   </div>
 
 
-  <div *ngIf="error && permit && forest">
-    <div id="pay-gov-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
+  <div *ngIf="error && permit && forest" class="usa-width-one-whole margin-top-2">
+    <div id="pay-gov-errors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert" aria-label="error">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Unable to process your permit. Your credit card has not been charged.</h3>
         <p class="usa-alert-text">{{error.message}}</p>
       </div>
     </div>
     <div class="margin-top-2 margin-bottom-2">
-      <p *ngIf="forest"><strong>Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/applications/' + permit.permitId">{{forest.forestName}} Christmas tree permit purchase form</a> and try again.</strong></p>
+      <p *ngIf="forest"><strong>Return to the <a [href]="'/christmas-trees/forests/' + forest.forestAbbr + '/applications/'">{{forest.forestName}} Christmas tree permit purchase form</a> and try again.</strong></p>
       <p>If the problem persists, please contact the U.S. Forest Service at (800) 832-1355 or <a href="mailto:fs-permitting-project@gsa.gov">fs-permitting-project@gsa.gov.</a></p>
     </div>
   </div>

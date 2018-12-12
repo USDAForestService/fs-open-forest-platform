@@ -7,8 +7,8 @@
 
 const express = require('express');
 const commonController = require('../controllers/common.es6');
-const noncommercialController = require('../controllers/noncommercial.es6');
-const tempOutfitterController = require('../controllers/temp-outfitter.es6');
+const noncommercialController = require('../controllers/special-use/noncommercial.es6');
+const tempOutfitterController = require('../controllers/special-use/temp-outfitter.es6');
 
 const router = express.Router();
 

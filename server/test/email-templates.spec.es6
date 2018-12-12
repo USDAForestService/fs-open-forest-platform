@@ -3,8 +3,8 @@
 const noncommercialPermitApplicationFactory = require('./data/noncommercial-permit-application-factory.es6');
 const tempOutfitterPermitApplicationFactory = require('./data/tempoutfitter-permit-application-factory.es6');
 const emails = require('../src/email/email-templates.es6');
-const noncommController = require('../src/controllers/noncommercial.es6');
-const tempOutfitterController = require('../src/controllers/temp-outfitter.es6');
+const noncommController = require('../src/controllers/special-use/noncommercial.es6');
+const tempOutfitterController = require('../src/controllers/special-use/temp-outfitter.es6');
 const expect = require('chai').expect;
 const moment = require('moment');
 require('./common.es6');
