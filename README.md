@@ -99,11 +99,7 @@ There are two options for local development - Docker or installing the dependenc
 
 ### Requirements
 
-#### Local development requirements
-
-##### Package Manager
-
-Install [yarn](https://yarnpkg.com/en/docs/install) package manager
+#### Version Control
 
 ##### Git
 
@@ -121,6 +117,10 @@ Project specific rules are defined on the [wiki](/docs/git-seekret.md).
 ##### Node
 
 Install [Node ^8.11.3](https://nodejs.org/en/)
+
+##### Package Manager
+
+Make sure [NPM](https://www.npmjs.com/) is up to date `npm install -g npm`
 
 ##### PostgreSQL
 
@@ -177,15 +177,15 @@ To run any of the server commands, either the environment variables above must b
 
 | Function | Command | Additional information |
 | ------------- |:-------------:| -------------:|
-| Setup Database | `yarn migrate` | |
-| Seed Database | `yarn seed` | Adds Christmas tree forest data |
-| Start the server logged in as a full admin | `yarn dev` | Server is accessible at http://localhost:8080 |
-| Start the server logged in as an authenicated special use public member | `yarn dev:user` | Server is accessible at http://localhost:8080 |
-| Revert the last database migration | `yarn undoLastMigrate` | |
-| Revert all of the database migrations and start with a blank database | `yarn undoAllMigrate` | |
-| Run eslint for linting | `yarn lint` | The linting results will be put into `server/lint-results.html`. |
-| To run all of the tests locally | `yarn test` | Be sure your Postgresql server is running |
-| To run code coverage locally | `yarn coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
+| Setup Database | `npm run migrate` | |
+| Seed Database | `npm run seed` | Adds Christmas tree forest data |
+| Start the server logged in as a full admin | `npm run dev` | Server is accessible at http://localhost:8080 |
+| Start the server logged in as an authenicated special use public member | `npm run dev:user` | Server is accessible at http://localhost:8080 |
+| Revert the last database migration | `npm run undoLastMigrate` | |
+| Revert all of the database migrations and start with a blank database | `npm run undoAllMigrate` | |
+| Run eslint for linting | `npm run lint` | The linting results will be put into `server/lint-results.html`. |
+| To run all of the tests locally | `npm run test` | Be sure your Postgresql server is running |
+| To run code coverage locally | `npm run coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
 
 #### Server API Documentation
 
@@ -230,7 +230,7 @@ The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
 #### Install angular cli
 
-Run `yarn global add @angular/cli`
+Run `npm install -g @angular/cli`
 
 #### Navigate to frontend directory
 
@@ -238,7 +238,7 @@ Run `yarn global add @angular/cli`
 
 #### Install dependencies
 
-Run `yarn`
+Run `npm install`
 
 #### Development server
 
@@ -250,13 +250,13 @@ Run `ng build --prod --env=prod --aot=false` to build the static files for the s
 
 #### Running unit tests
 
-Run `yarn test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Add `--code-coverage` flag to print out code coverage statistics.
 
 #### Running end-to-end tests
 
-Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 #### Testing WCAG2AA compliance with pa11y
 
@@ -264,7 +264,7 @@ To run pa11y-ci with the single page angular app with pushstate enabled, you nee
 
 Run pa11y-ci via docker: `cd docker; docker-compose up pa11y`
 
-Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
+Run pa11y-ci without docker: `cd frontend; npm run build-test-pa11y`
 
 #### Typedoc
 
@@ -397,7 +397,7 @@ The server dependency is JSDOM is currently a fork to pass security vulnerabilit
 ## Known UX debt
 
 #### Scaling to include more permit types: Architecture to support purchasing or applying for multiple products per transaction
-The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting. 
+The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting.
 
 #### Scaling to include more Forests: Form controls to help users choose from a greater number of options
 The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
@@ -407,7 +407,7 @@ The site was built to accommodate four pilot Forests. Scaling the application to
 - [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/district-dates)
 - [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/season-dates)
 
-**This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.* 
+**This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.*
 
 The details of how these pages and form controls should be designed in order to support users selecting from a large number of Forests will require additional user research.
 

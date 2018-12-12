@@ -48,11 +48,11 @@ else
       ;;
   esac
   cd server;
-  yarn start &
+  npm start &
   serverid=$!
   sleep 1
   cd ../frontend;
-  sudo yarn e2e $ARGUMENTS;
+  sudo npm run e2e $ARGUMENTS;
 
   e2ereturncode=$?
 
