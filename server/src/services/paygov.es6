@@ -61,7 +61,7 @@ paygov.returnUrl = (token, forestAbbr, permitId, isCancelUrl) => {
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} possFinancialId - forest's financial id
  * @param {Object} permit - permit object from database
- * @return {string} - XML for payGov startOnlineCollection request
+ * @return {Promise} - Promise that resolves to XML for payGov startOnlineCollection request
  */
 paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
