@@ -447,7 +447,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
   let role;
   let permitID;
   const subPath = controller.split('.');
-  if (subPath[0] === 'christmasTree'){
+  if (subPath[0] === 'christmasTreePermits'){
     userID = applicationOrPermit.emailAddress;
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
