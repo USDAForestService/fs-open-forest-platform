@@ -33,6 +33,11 @@ const getUserProvided = function(name) {
   const userProvided = vcapServices['user-provided'].find(element => {
     return element.name === name;
   });
+
+  if (!userProvided) {
+    throw new Error(`No user provided service: ${name}`);
+  }
+
   return userProvided.credentials;
 };
 
@@ -97,9 +102,9 @@ vcapConstants.PAY_GOV_CERT = payGov.certificate;
 vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.private_key;
 
 /** Database configuration */
-const database = getUserProvided('database') || {};
+const database = process.env.DATABASE_URL ? { url: process.env.DATABASE_URL } : getUserProvided('database');
 vcapConstants.database = {
-  url: process.env.DATABASE_URL || database.url,
+  url: database.url,
   ssl: database.ssl !== undefined ? database.ssl : process.env.NODE_ENV === 'production'
 };
 
