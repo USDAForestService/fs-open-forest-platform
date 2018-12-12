@@ -7,7 +7,7 @@
 
 const express = require('express');
 
-const christmasTreeAdminController = require('../controllers/christmas-tree-admin.es6');
+const christmasTreeAdminController = require('../controllers/christmas-tree/admin.es6');
 
 const router = express.Router();
 

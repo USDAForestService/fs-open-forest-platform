@@ -2,16 +2,16 @@
 
 /**
  * Module for chrismtmas tree admin API
- * @module controllers/chrismtmas-tree-admin
+ * @module controllers/christmas-tree/admin
  */
 
 const moment = require('moment-timezone');
 const Sequelize = require('sequelize');
 const zpad = require('zpad');
-const logger = require('../services/logger.es6');
+const logger = require('../../services/logger.es6');
 
-const treesDb = require('../models/trees-db.es6');
-const util = require('../services/util.es6');
+const treesDb = require('../../models/trees-db.es6');
+const util = require('../../services/util.es6');
 
 const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
@@ -115,7 +115,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           return returnPermitsReport(results, res);
         })
         .catch(error => {
-          util.handleErrorResponse(error, res);
+          util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
         });
     });
 };
@@ -150,7 +150,7 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
       }
     })
     .catch(error => {
-      return util.handleErrorResponse(error, res);
+      return util.handleErrorResponse(error, res, 'getPermitReport#end');
     });
 };
 

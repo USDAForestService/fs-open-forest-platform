@@ -8,7 +8,7 @@
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const moment = require('moment');
-const request = require('request-promise');
+const request = require('request-promise-native');
 const Sequelize = require('sequelize');
 
 const dbConfig = require('../../.sequelize.js');
@@ -277,11 +277,11 @@ util.setAuthEmail = req => {
  * @returns {String} - user type
  */
 util.localUser = () => {
-  if (process.argv[2] == 'user'){
-    logger.info('Operating as an', process.argv[2]);
+  if (process.argv[2] == 'user') {
+    logger.info(`Operating as an ${process.argv[2]}`);
     return process.argv[2];
   }
-  logger.info('Operating as an', util.ADMIN_ROLE);
+  logger.info(`Operating as an ${util.ADMIN_ROLE}`);
   return util.ADMIN_ROLE;
 };
 
@@ -404,19 +404,19 @@ util.getUserRole = adminUsername => {
 * @param {Object} res - http response
 * @return {Object} - http response
 */
-util.handleErrorResponse = (error, res) => {
-  if(error !== {}){
+util.handleErrorResponse = (error, res, method) => {
+  if (error !== {} && error !== 'null') {
     let inFile = '';
-    if(error.filename){
-      inFile = `in ${error.filename}`;
+    if(error.fileName){
+      inFile = `in ${error.fileName}`;
       if(error.lineNumber){
         inFile = `${inFile} at ${error.lineNumber}`;
       }
     }
-    logger.error(`ERROR: ServerError: ${error}${inFile}`);
+    logger.error(`ERROR: ServerError: ${error}${inFile} from ${method}`);
   }
   else {
-    logger.error('ERROR: ServerError: Unknown error 500');
+    logger.error('ERROR: ServerError: Unknown error 500 from ${method}');
   }
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({
@@ -447,7 +447,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
   let role;
   let permitID;
   const subPath = controller.split('.');
-  if (subPath[0] === 'christmasTree'){
+  if (subPath[0] === 'christmasTreePermits'){
     userID = applicationOrPermit.emailAddress;
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
