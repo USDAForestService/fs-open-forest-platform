@@ -52,7 +52,7 @@ else
   serverid=$!
   sleep 1
   cd ../frontend;
-  sudo npm run e2e $ARGUMENTS;
+  sudo npm run e2e --$ARGUMENTS;
 
   e2ereturncode=$?
 
