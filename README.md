@@ -255,7 +255,7 @@ Run `ng build --prod --env=prod --aot=false` to build the static files for the s
 
 #### Running unit tests
 
-Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Add `--code-coverage` flag to print out code coverage statistics.
 
