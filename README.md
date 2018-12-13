@@ -265,9 +265,10 @@ OR
 - Find the appropriate version of [Chromedriver](http://chromedriver.chromium.org/downloads)
 - Navigate to `https://chromedriver.storage.googleapis.com/index.html?path=<version>/` where `<version>` is replaced by the Chromedriver version you want
 - Click on the link for your operating system to download the `.zip` file
-- Extract the executable
-- Copy both the `.zip` file and the executable to `frontend/node_modules/protractor/node_modules/webdriver-manager/selenium/`
-- Remove the other Chromedriver files in that directory
+- Extract the executable and copy it somewhere that makes sense to you, (ex: `~/chromedriver/`)
+- Ensure that the environment variable `OPEN_FOREST_CHROME_DRIVER` is set to the absolute path to the chromedriver executable above, either by exporting it in your profile or providing it when running the e2e tests. Ex. `OPEN_FOREST_CHROME_DRIVER="/Users/davidmcorwin/Downloads/chromedriver" npm run e2e`
+
+**Note: The output still shows that it downloads the latest chromedriver, but it will actually USE the one specified.**
 
 #### Testing WCAG2AA compliance with pa11y
 
