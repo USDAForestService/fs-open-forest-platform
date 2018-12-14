@@ -59,7 +59,7 @@ describe('AppComponent', () => {
     );
 
     beforeEach(() => {
-      window['ga'] = () => {}
+      window['ga'] = () => {};
       fixture = TestBed.createComponent(AppComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
