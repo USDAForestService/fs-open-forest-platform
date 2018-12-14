@@ -8,7 +8,7 @@ These services are defined in the [Forest Service Cloud Migration Repository](ht
 
 To emulate the deployed environment variables we provide a list of local `VCAP_SERVICES` that will be automattically pulled in.
 
-## Local Development Enviroment Variables 
+## Local Development Enviroment Variables
 The following environment variables are required to run the application locally, in CI, or with docker:
 
 ### AWS_CONFIG
@@ -42,6 +42,10 @@ To override the default VCAP_SERVICES that are configured for local development 
   [Local configuration](/server/environment-variables/local.json)
 
   [Test configuration](/server/environment-variables/test.json)
+
+### OPEN_FOREST_CHROME_DRIVER
+
+(optional) Provide the absolute path to a specific chromedriver binary to use when running e2e tests **locally**.
 
 ## Deployed Environment variables
 The following environment variables are required for staging and production. In general, these will be set within cloud.gov as `user-provided-services`

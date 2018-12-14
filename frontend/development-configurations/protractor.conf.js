@@ -54,5 +54,6 @@ exports.config = {
     'app-xmas': '../e2e/authenticated/christmas-trees/xmas-tree-application.e2e-spec.ts',
     'unauthenticated': ['../e2e/unauthenticated/**/*.e2e-spec.ts'],
     'circle-e2e-split': []
-  }
+  },
+  chromeDriver: !isDocker && process.env['OPEN_FOREST_CHROME_DRIVER'],
 };
