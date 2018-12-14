@@ -7,6 +7,7 @@ const request = require('supertest');
 const emailSendStub = require('./common.es6');
 const sinon = require('sinon');
 const permitSvgService = require('../src/services/christmas-trees-permit-svg-util.es6');
+const logger = require('../src/services/logger.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
 const christmasTreePermitFactory = require('./data/christmas-trees-permit-factory.es6');
@@ -22,7 +23,7 @@ let paygovToken;
 let tcsAppID;
 
 describe('christmas tree controller permit tests', () => {
-  describe('submit permit application mthood national forest', () => {
+  describe.only('submit permit application mthood national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 3;
@@ -48,6 +49,7 @@ describe('christmas tree controller permit tests', () => {
         },
         vcapConstants.PERMIT_SECRET
       );
+
       request(server)
         .put(`/forests/christmas-trees/permits?t=${token}`)
         .send(completeApplication)
@@ -61,9 +63,18 @@ describe('christmas tree controller permit tests', () => {
         },
         vcapConstants.PERMIT_SECRET
       );
+
+      const loggerSpy = sinon.spy(logger, 'info');
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
-        .set('Accept', 'application/json')
+        .set('Accept', /json/)
+        .expect(res => {
+          expect(res.body.firstName).to.equal('fName');
+          expect(loggerSpy.called).to.be.true;
+          const loggingStatement = `CONTROLLER: GET:christmasTreePermits.getOnePermit \
+by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
+          expect(loggerSpy.calledWith(sinon.match(loggingStatement))).to.be.true;
+        })
         .expect(200, done);
     });
     it('GET should return a 404 response when requesting an invalid permit', done => {
@@ -425,7 +436,7 @@ describe('christmas tree controller permit tests', () => {
       request(server)
         .get(`/forests/christmas-trees/permits/${permitId}/print?rules=true`)
         .expect('Content-Type', /json/)
-        .expect(function(res) {
+        .expect((res) => {
           expect(res.body).to.include.all.keys('result');
         })
         .expect(200, done);
