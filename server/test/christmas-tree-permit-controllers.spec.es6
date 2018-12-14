@@ -23,7 +23,7 @@ let paygovToken;
 let tcsAppID;
 
 describe('christmas tree controller permit tests', () => {
-  describe.only('submit permit application mthood national forest', () => {
+  describe('submit permit application mthood national forest', () => {
     it('POST should return a 200 response when submitted to get pay.gov token', done => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = 3;
