@@ -5,7 +5,6 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
 import { Meta } from '@angular/platform-browser';
 import * as moment from 'moment-timezone';
-declare var ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -47,8 +46,6 @@ export class AppComponent implements OnInit {
           localStorage.removeItem('showLoggedIn');
           this.setStatus();
         }
-        // ga('set', 'page', event.urlAfterRedirects);
-        // ga('send', 'pageview');
       }
     });
   }
