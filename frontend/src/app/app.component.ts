@@ -5,6 +5,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UtilService } from './_services/util.service';
 import { Meta } from '@angular/platform-browser';
 import * as moment from 'moment-timezone';
+declare var ga: Function;
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
        content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
       });
     router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd) {        
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           setTimeout(() => {
@@ -46,9 +47,8 @@ export class AppComponent implements OnInit {
           localStorage.removeItem('showLoggedIn');
           this.setStatus();
         }
-
-        (<any>window).ga('set', 'page', event.urlAfterRedirects);
-        (<any>window).ga('send', 'pageview');
+        // ga('set', 'page', event.urlAfterRedirects);
+        // ga('send', 'pageview');
       }
     });
   }
