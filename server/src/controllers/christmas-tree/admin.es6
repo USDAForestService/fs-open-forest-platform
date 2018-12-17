@@ -25,7 +25,7 @@ const operator = Sequelize.Op;
 const getPermitResult = permit => {
   let eachPermit = {};
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
-  
+
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
     eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -79,12 +79,12 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
   treesDb.christmasTreesForests
     .findOne({
       where: {
-        id: req.params.forestId
+        id: req.query.forestId
       }
     })
     .then(forest => {
-      const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
-      const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
+      const nextDay = moment.tz(req.query.endDate, forest.timezone).add(1, 'days');
+      const startDate = moment.tz(req.query.startDate, forest.timezone).format(util.datetimeFormat);
       treesDb.christmasTreesPermits
         .findAll({
           attributes: [
@@ -102,7 +102,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
             }
           ],
           where: {
-            forestId: req.params.forestId,
+            forestId: req.query.forestId,
             status: 'Completed',
             updatedAt: {
               [operator.gte]: startDate,

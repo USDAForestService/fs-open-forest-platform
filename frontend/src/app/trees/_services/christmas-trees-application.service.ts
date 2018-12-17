@@ -84,8 +84,13 @@ export class ChristmasTreesApplicationService {
    * @returns Permits by date range and specific to forest
    */
   getAllByDateRange(forestId, startDate, endDate) {
+    const params = new HttpParams()
+      .set('forestId', forestId)
+      .set('startDate', startDate)
+      .set('endDate', endDate)
+
     return this.http
-      .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params })
       .catch(this.util.handleError);
   }
 

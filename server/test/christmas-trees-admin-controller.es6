@@ -18,7 +18,7 @@ let today = moment(new Date()).format('YYYY-MM-DD');
 describe('christmas tree admin controller tests', () => {
   it('GET should return a 200 response for the given admin report parameters forest, start and end date', done => {
     request(server)
-      .get(`/admin/christmas-trees/permits/1/${today}/${today}`)
+      .get(`/admin/christmas-trees/permits/summary?forestId=1&startDate=${today}&endDate=${today}`)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(function(res) {
