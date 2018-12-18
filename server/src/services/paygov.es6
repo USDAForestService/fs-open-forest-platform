@@ -131,8 +131,7 @@ paygov.getXmlToCompleteTransaction = (paygovToken) => {
  * @return {string} - paygov token
  */
 paygov.getToken = result => new Promise((resolve, reject) => {
-  const startOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]
-    .startOnlineCollectionResponse[0];
+  const startOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0].startOnlineCollectionResponse[0];
   if (startOnlineCollectionResponse) {
     resolve(startOnlineCollectionResponse.token[0]);
   }
@@ -168,8 +167,7 @@ paygov.getResponseError = (requestType, result) => {
  * @return {string} - paygov tracking id
  */
 paygov.getTrackingId = result => new Promise((resolve, reject) => {
-  const completeOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]
-    .completeOnlineCollectionResponse[0];
+  const completeOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0].completeOnlineCollectionResponse[0];
   if (completeOnlineCollectionResponse) {
     resolve(completeOnlineCollectionResponse.paygov_tracking_id[0]);
   }

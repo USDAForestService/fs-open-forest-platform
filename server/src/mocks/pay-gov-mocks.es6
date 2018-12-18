@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 
 
 const express = require('express');
@@ -37,9 +38,9 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
   ) {
     const startCollectionRequest = requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
     const accountHolderName = startCollectionRequest.account_holder_name;
-    if (accountHolderName && accountHolderName === '1 1') {
+    if (accountHolderName === '1' && accountHolderName == '1 1') {
       xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
-    } else if (accountHolderName && accountHolderName === '1 2') {
+    } else if (accountHolderName && accountHolderName == '1 2') {
       xmlResponse = templates.startOnlineCollectionRequest.noResponse();
     } else {
       xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
@@ -72,7 +73,6 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res) => {
-  const token = req.body.token;
   const cc = req.body.cc;
 
   let status = 'success';
@@ -84,8 +84,8 @@ payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res
       errorCode = code;
     }
   }
-  transactions[token] = { status, errorCode };
-  return res.status(200).json(transactions[token]);
+  transactions[req.body.token] = { status, errorCode };
+  return res.status(200).json(transactions[req.body.token]);
 });
 
 payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
@@ -102,8 +102,6 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
     })
     .then((permit) => {
       if (permit) {
-        const successUrl = tokens[req.query.token].successUrl;
-        const cancelUrl = tokens[req.query.token].cancelUrl;
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
@@ -112,8 +110,8 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
           amountOwed: permit.totalCost,
           tcsAppID: req.query.tcsAppID,
           orgStructureCode: permit.orgStructureCode,
-          successUrl,
-          cancelUrl
+          successUrl: tokens[req.query.token].successUrl,
+          cancelUrl: tokens[req.query.token].cancelUrl
         };
         return res.status(200).send(mockResponse);
       }

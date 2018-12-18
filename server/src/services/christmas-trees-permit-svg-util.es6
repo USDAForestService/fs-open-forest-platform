@@ -238,7 +238,7 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
   const cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
-    const cuttingAreas = forestService.parseCuttingAreas(forest.cuttingAreas);
+    const cuttingAreas = forest.cuttingAreas;
     if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
         `{{${key}Date}}`,

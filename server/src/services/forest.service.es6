@@ -5,27 +5,8 @@
  * @module services/forest-service
  */
 const moment = require('moment-timezone');
-const logger = require('./logger.es6');
 
 const forestService = {};
-
-/**
- * @function parseCuttingAreas - function to parse cutting areas JSON object.
- * @param {Object} cuttingAreas - forest cutting areas from database
- * @return {Object} - parsed cutting areas
- */
-forestService.parseCuttingAreas = (cuttingAreas) => {
-  let parsedCuttingArea;
-  try {
-    if (cuttingAreas !== null && typeof cuttingAreas === 'string') {
-      parsedCuttingArea = JSON.parse(cuttingAreas);
-    }
-  } catch (e) {
-    logger.error('problem parsing cutting areas', cuttingAreas);
-  }
-
-  return parsedCuttingArea;
-};
 
 /**
  * @function translateForestFromDatabaseToClient - function to translate database model to JSON object
@@ -39,7 +20,7 @@ forestService.translateForestFromDatabaseToClient = (input) => {
   return {
     id: input.id,
     forestName: input.forestName,
-    cuttingAreas: forestService.parseCuttingAreas(input.cuttingAreas),
+    cuttingAreas: input.cuttingAreas,
     description: input.description,
     forestAbbr: input.forestAbbr,
     forestNameShort: input.forestNameShort,
