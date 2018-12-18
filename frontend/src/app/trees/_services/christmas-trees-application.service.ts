@@ -87,7 +87,7 @@ export class ChristmasTreesApplicationService {
     const params = new HttpParams()
       .set('forestId', forestId)
       .set('startDate', startDate)
-      .set('endDate', endDate)
+      .set('endDate', endDate);
 
     return this.http
       .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params })
