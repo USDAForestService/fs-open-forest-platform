@@ -3,7 +3,7 @@ applications:
 - name: open-forest-platform-frontend-staging
   path: ../../../frontend/dist
   memory: 64M
-  host: open-forest-dev
+  host: open-forest-staging
   buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
   env:
     FORCE_HTTPS: true
