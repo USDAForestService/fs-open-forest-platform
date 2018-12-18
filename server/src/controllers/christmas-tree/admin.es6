@@ -101,7 +101,12 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
       ],
       include: [
         {
-          model: treesDb.christmasTreesForests
+          model: treesDb.christmasTreesForests,
+          where: {
+            forestAbbr: {
+              [operator.in]: req.user.forests
+            }
+          }
         }
       ],
       where: {
