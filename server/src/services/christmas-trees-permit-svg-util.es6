@@ -17,7 +17,6 @@ const svg2png = require('svg2png');
 const zpad = require('zpad');
 const markdown = require('markdown').markdown;
 const vcapConstants = require('../vcap-constants.es6');
-const forestService = require('./forest.service.es6');
 
 const christmasTreesPermitSvgUtil = {};
 const logger = require('./logger.es6');

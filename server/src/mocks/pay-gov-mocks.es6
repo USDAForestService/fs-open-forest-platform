@@ -38,7 +38,7 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
   ) {
     const startCollectionRequest = requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
     const accountHolderName = startCollectionRequest.account_holder_name;
-    if (accountHolderName === '1' && accountHolderName == '1 1') {
+    if (accountHolderName && accountHolderName == '1 1') {
       xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
     } else if (accountHolderName && accountHolderName == '1 2') {
       xmlResponse = templates.startOnlineCollectionRequest.noResponse();
