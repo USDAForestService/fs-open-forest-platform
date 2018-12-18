@@ -9,12 +9,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "no-console": ["off"],
-    "no-unsafe-finally": ["off"],
-    "max-len": [2, { "code": 125, "tabWidth": 2, "ignoreUrls": true }]
+    "comma-dangle": ["error", "never"],
+    "prefer-destructuring": ["warn"]
   }
 }
