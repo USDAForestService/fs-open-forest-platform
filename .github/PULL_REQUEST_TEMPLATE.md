@@ -14,6 +14,7 @@ Please note if fully resolves the issue per the acceptance criteria: Y/N
 - [ ] expected change 1
 
 ## This pull request is ready to merge when...
+- [ ] Feature branch is starts with the issue number
 - [ ] Is connected to its original issue via zenhub 👇
 - [ ] Tests have been updated 
 - [ ] All tests are passing and meet coverage, linting, and accessibility requirements. And no security vulnerabilities ⚫️(Circle)
