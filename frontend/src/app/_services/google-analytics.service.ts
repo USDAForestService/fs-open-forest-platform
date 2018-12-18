@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-declare var ga:Function; 
+declare var ga: Function;
 
 @Injectable()
 export class GoogleAnalyticsService {
@@ -11,7 +11,6 @@ export class GoogleAnalyticsService {
         ga('set', 'page', event.url);
         ga('send', 'pageview');
       }
-    })
+    });
   }
-
 }

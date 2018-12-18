@@ -41,7 +41,7 @@ import { PageFooterComponent } from './shared/footer/footer.component';
 import { UserResolver } from './user-resolver.service';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
-import {GoogleAnalyticsService} from "./_services/google-analytics.service";
+import { GoogleAnalyticsService } from './_services/google-analytics.service';
 
 @NgModule({
   declarations: [
@@ -77,6 +77,7 @@ import {GoogleAnalyticsService} from "./_services/google-analytics.service";
     ApplicationService,
     AccessControlService,
     AuthenticationService,
+    GoogleAnalyticsService,
     PermitBreadcrumbsResolver,
     SpecialUseInfoService,
     UtilService,
@@ -92,5 +93,5 @@ import {GoogleAnalyticsService} from "./_services/google-analytics.service";
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(protected _googleAnalyticsService: GoogleAnalyticsService) { } 
+  constructor(protected _googleAnalyticsService: GoogleAnalyticsService) { }
 }

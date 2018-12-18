@@ -1,7 +1,7 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {GoogleAnalyticsService} from './google-analytics.service';
 
-describe('GoogleAnalyticsService', () =>{
+describe('GoogleAnalyticsService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [GoogleAnalyticsService]
