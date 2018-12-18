@@ -7,13 +7,8 @@
 
 const winston = require('winston');
 
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, {
-  json: true,
-  colorize: true,
-  timestamp: true
-});
+const params = require('./expresslogger.es6');
 
-const logger = winston;
+const logger = winston.createLogger(params.loggerParams);
 
 module.exports = logger;

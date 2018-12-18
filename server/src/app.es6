@@ -1,12 +1,29 @@
-'use strict';
-
 /**
  * Module for FS Intake API Server
  * @module app
  */
+
+const bodyParser = require('body-parser');
+const express = require('express');
+const helmet = require('helmet');
+const session = require('cookie-session');
+const moment = require('moment');
+const swaggerUi = require('swagger-ui-express');
+const Keygrip = require('keygrip');
+
+const passportConfig = require('./auth/passport-config.es6');
+const router = require('./routers/router.es6');
+const payGovMocks = require('./mocks/pay-gov-mocks.es6');
+const loginGovMocks = require('./mocks/login-gov-mocks.es6');
+require('body-parser-xml')(bodyParser);
+
+const swaggerDocument = require('./docs/swagger.json');
+
 const logger = require('./services/logger.es6');
+const expressLogger = require('./services/expresslogger.es6');
 const util = require('./services/util.es6');
 const vcapConstants = require('./vcap-constants.es6');
+
 if (util.isProduction()) {
   logger.info(`Activating New Relic: ${vcapConstants.NEW_RELIC_APP_NAME}`);
   require('newrelic'); // eslint-disable-line global-require
@@ -14,22 +31,6 @@ if (util.isProduction()) {
   logger.warn('Skipping New Relic Activation');
 }
 
-const bodyParser = require('body-parser');
-const express = require('express');
-const helmet = require('helmet');
-const session = require('cookie-session');
-const moment = require('moment');
-
-const passportConfig = require('./auth/passport-config.es6');
-const router = require('./routers/router.es6');
-const payGovMocks = require('./mocks/pay-gov-mocks.es6');
-const loginGovMocks = require('./mocks/login-gov-mocks.es6');
-require('body-parser-xml')(bodyParser);
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./docs/swagger.json');
-const loggerParams = { json: true, colorize: true, timestamp: true };
-const expressWinston = require('express-winston');
-var Keygrip = require('keygrip');
 
 vcapConstants.nodeEnv = process.env.NODE_ENV;
 
@@ -52,30 +53,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.xml());
 
 /** Logging middleware */
-expressWinston.requestWhitelist = ['url',
-  'headers.host',
-  'headers.user-agent',
-  'method',
-  'httpVersion',
-  'originalUrl',
-  'referer',
-  'responseTime'
-];
-
 if (logger.levels[logger.level] >= 2) {
-  app.use(expressWinston.logger({
-    transports: [
-      new logger.transports.Console(loggerParams)
-    ],
-    bodyWhitelist: ['forestID', 'region', 'forest', 'type']
-  }));
+  app.use(expressLogger.Logger);
 }
 
-app.use(expressWinston.errorLogger({
-  transports: [
-    new logger.transports.Console(loggerParams)
-  ]
-}));
+app.use(expressLogger.Error);
 
 /**  Cookies for session management. */
 const domain = vcapConstants.BASE_URL.replace(/https?:\/\//i, '');
@@ -86,7 +68,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: domain,
+      domain,
       expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
     }
   })
