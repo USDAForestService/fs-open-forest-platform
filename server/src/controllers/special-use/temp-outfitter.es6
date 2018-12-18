@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable no-param-reassign */
+
 
 /**
  * Module for temp outfitter permit application controllers
@@ -37,30 +38,22 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
   output.applicantInfoDayPhonePrefix = input.applicantInfo.dayPhone.prefix;
   output.applicantInfoEmailAddress = input.applicantInfo.emailAddress;
-  output.applicantInfoEveningPhoneAreaCode =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
-      ? input.applicantInfo.eveningPhone.areaCode
-      : null;
-  output.applicantInfoEveningPhoneExtension =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
-      ? input.applicantInfo.eveningPhone.extension
-      : null;
-  output.applicantInfoEveningPhoneNumber =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
-      ? input.applicantInfo.eveningPhone.number
-      : null;
-  output.applicantInfoEveningPhonePrefix =
-    input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
-      ? input.applicantInfo.eveningPhone.prefix
-      : null;
-  output.applicantInfoFaxAreaCode =
-    input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
-  output.applicantInfoFaxExtension =
-    input.applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
-  output.applicantInfoFaxNumber =
-    input.applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
-  output.applicantInfoFaxPrefix =
-    input.applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
+  output.applicantInfoEveningPhoneAreaCode = input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.areaCode
+    ? input.applicantInfo.eveningPhone.areaCode
+    : null;
+  output.applicantInfoEveningPhoneExtension = input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.extension
+    ? input.applicantInfo.eveningPhone.extension
+    : null;
+  output.applicantInfoEveningPhoneNumber = input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.number
+    ? input.applicantInfo.eveningPhone.number
+    : null;
+  output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
+    ? input.applicantInfo.eveningPhone.prefix
+    : null;
+  output.applicantInfoFaxAreaCode = input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension = input.applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber = input.applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix = input.applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -68,10 +61,9 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
-  output.applicantInfoPrimaryMailingState =
-    input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
-      ? input.applicantInfo.primaryAddress.mailingState
-      : null;
+  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+    ? input.applicantInfo.primaryAddress.mailingState
+    : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
   output.applicantInfoWebsite = input.applicantInfo.website;
   output.authorizingOfficerName = input.authorizingOfficerName;
@@ -81,31 +73,19 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantMessage = input.applicantMessage;
   output.region = input.region;
   output.signature = input.signature;
-  output.tempOutfitterFieldsActDescFieldsAudienceDesc =
-    input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
-  output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration =
-    input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
-  output.tempOutfitterFieldsActDescFieldsEndDateTime =
-    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
-  output.tempOutfitterFieldsActDescFieldsListGovFacilities =
-    input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
-  output.tempOutfitterFieldsActDescFieldsListTempImprovements =
-    input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements;
-  output.tempOutfitterFieldsActDescFieldsLocationDesc =
-    input.tempOutfitterFields.activityDescriptionFields.locationDescription;
-  output.tempOutfitterFieldsActDescFieldsNumServiceDaysReq =
-    input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested;
+  output.tempOutfitterFieldsActDescFieldsAudienceDesc = input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
+  output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration = input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
+  output.tempOutfitterFieldsActDescFieldsEndDateTime = input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
+  output.tempOutfitterFieldsActDescFieldsListGovFacilities = input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
+  output.tempOutfitterFieldsActDescFieldsListTempImprovements = input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements;
+  output.tempOutfitterFieldsActDescFieldsLocationDesc = input.tempOutfitterFields.activityDescriptionFields.locationDescription;
+  output.tempOutfitterFieldsActDescFieldsNumServiceDaysReq = input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested;
   output.tempOutfitterFieldsActDescFieldsNumTrips = input.tempOutfitterFields.activityDescriptionFields.numberOfTrips;
-  output.tempOutfitterFieldsActDescFieldsServProvided =
-    input.tempOutfitterFields.activityDescriptionFields.servicesProvided;
-  output.tempOutfitterFieldsActDescFieldsStartDateTime =
-    input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
-  output.tempOutfitterFieldsActDescFieldsStmtAssignedSite =
-    input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
-  output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip =
-    input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
-  output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock =
-    input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
+  output.tempOutfitterFieldsActDescFieldsServProvided = input.tempOutfitterFields.activityDescriptionFields.servicesProvided;
+  output.tempOutfitterFieldsActDescFieldsStartDateTime = input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
+  output.tempOutfitterFieldsActDescFieldsStmtAssignedSite = input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
+  output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip = input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
+  output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock = input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
   output.tempOutfitterFieldsAdvertisingDescription = input.tempOutfitterFields.advertisingDescription;
   output.tempOutfitterFieldsAdvertisingUrl = input.tempOutfitterFields.advertisingURL;
   output.tempOutfitterFieldsClientCharges = input.tempOutfitterFields.clientCharges;
@@ -115,8 +95,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.type = input.type;
   output.tempOutfitterFieldsActDescFieldsPartySize = input.tempOutfitterFields.activityDescriptionFields.partySize;
   output.tempOutfitterFieldsExpAllCitations = input.tempOutfitterFields.experienceFields.listAllCitations;
-  output.tempOutfitterFieldsExpNatForestPermits =
-    input.tempOutfitterFields.experienceFields.listAllNationalForestPermits;
+  output.tempOutfitterFieldsExpNatForestPermits = input.tempOutfitterFields.experienceFields.listAllNationalForestPermits;
   output.tempOutfitterFieldsExpOtherPermits = input.tempOutfitterFields.experienceFields.listAllOtherPermits;
 
   return output;
@@ -127,7 +106,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
  * object from database format to client format.
  * @param {Object} input
  */
-const translateFromDatabaseToClient = input => {
+const translateFromDatabaseToClient = (input) => {
   const result = {
     applicantInfo: {
       dayPhone: {
@@ -144,9 +123,9 @@ const translateFromDatabaseToClient = input => {
         number: input.applicantInfoEveningPhoneNumber || '',
         extension: input.applicantInfoEveningPhoneExtension || '',
         tenDigit:
-          input.applicantInfoEveningPhoneAreaCode +
-          input.applicantInfoEveningPhonePrefix +
-          input.applicantInfoEveningPhoneNumber
+          input.applicantInfoEveningPhoneAreaCode
+          + input.applicantInfoEveningPhonePrefix
+          + input.applicantInfoEveningPhoneNumber
       },
       fax: {
         areaCode: input.applicantInfoFaxAreaCode || '',
@@ -229,8 +208,8 @@ const translateFromDatabaseToClient = input => {
         haveCitations:
           input.tempOutfitterFieldsExpAllCitations !== undefined && input.tempOutfitterFieldsExpAllCitations.length > 0,
         haveNationalForestPermits:
-          input.tempOutfitterFieldsExpNatForestPermits !== undefined &&
-          input.tempOutfitterFieldsExpNatForestPermits.length > 0,
+          input.tempOutfitterFieldsExpNatForestPermits !== undefined
+          && input.tempOutfitterFieldsExpNatForestPermits.length > 0,
         haveOtherPermits:
           input.tempOutfitterFieldsExpOtherPermits !== undefined && input.tempOutfitterFieldsExpOtherPermits.length > 0,
         listAllCitations: input.tempOutfitterFieldsExpAllCitations,
@@ -250,7 +229,7 @@ const translateFromDatabaseToClient = input => {
  * from database format to middle layer format..
  * @param {Object} application
  */
-tempOutfitter.translateFromIntakeToMiddleLayer = application => {
+tempOutfitter.translateFromIntakeToMiddleLayer = (application) => {
   const result = {
     intakeId: application.applicationId,
     region: application.region,
@@ -270,8 +249,8 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       eveningPhone: {
         areaCode: application.applicantInfoEveningPhoneAreaCode || application.applicantInfoDayPhoneAreaCode,
         number:
-          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber ||
-          application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
+          application.applicantInfoEveningPhonePrefix + application.applicantInfoEveningPhoneNumber
+          || application.applicantInfoDayPhonePrefix + application.applicantInfoDayPhoneNumber,
         extension:
           application.applicantInfoEveningPhoneExtension || application.applicantInfoDayPhoneExtension || undefined,
         phoneType: 'evening'
@@ -291,30 +270,30 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       activityDescription:
-        'Temporary Outfitter and Guides \nStart date: ' +
-        moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY') +
-        '\nEnd date: ' +
-        moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY') +
-        '\nNumber of Trips: ' +
-        application.tempOutfitterFieldsActDescFieldsNumTrips +
-        '\nParty size: ' +
-        application.tempOutfitterFieldsActDescFieldsPartySize +
-        '\nLocation Description: ' +
-        application.tempOutfitterFieldsActDescFieldsLocationDesc +
-        '\nServices Provided: ' +
-        application.tempOutfitterFieldsActDescFieldsServProvided +
-        '\nAudience Description: ' +
-        application.tempOutfitterFieldsActDescFieldsAudienceDesc +
-        '\nFacilities needed: ' +
-        application.tempOutfitterFieldsActDescFieldsListGovFacilities +
-        '\nTemporary improvements: ' +
-        application.tempOutfitterFieldsActDescFieldsListTempImprovements +
-        '\nMotorized use: ' +
-        application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip +
-        '\nLivestock use: ' +
-        application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock +
-        '\nCleanup activities: ' +
-        application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration,
+        `Temporary Outfitter and Guides \nStart date: ${
+          moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY')
+        }\nEnd date: ${
+          moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY')
+        }\nNumber of Trips: ${
+          application.tempOutfitterFieldsActDescFieldsNumTrips
+        }\nParty size: ${
+          application.tempOutfitterFieldsActDescFieldsPartySize
+        }\nLocation Description: ${
+          application.tempOutfitterFieldsActDescFieldsLocationDesc
+        }\nServices Provided: ${
+          application.tempOutfitterFieldsActDescFieldsServProvided
+        }\nAudience Description: ${
+          application.tempOutfitterFieldsActDescFieldsAudienceDesc
+        }\nFacilities needed: ${
+          application.tempOutfitterFieldsActDescFieldsListGovFacilities
+        }\nTemporary improvements: ${
+          application.tempOutfitterFieldsActDescFieldsListTempImprovements
+        }\nMotorized use: ${
+          application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip
+        }\nLivestock use: ${
+          application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock
+        }\nCleanup activities: ${
+          application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration}`,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
       clientCharges: application.tempOutfitterFieldsClientCharges,
@@ -330,63 +309,59 @@ tempOutfitter.translateFromIntakeToMiddleLayer = application => {
  * @param {string} key           - filename
  * @param {string} documentType
  */
-const getFile = (key, documentType) => {
-  return new Promise((resolve, reject) => {
-    s3.getObject(
-      {
-        Bucket: vcapConstants.BUCKET,
-        Key: key
-      },
-      (error, data) => {
-        if (error) {
-          logger.error(`ERROR: ServerError: s3- ${error}`);
-          reject(error);
-        } else {
-          logger.info(`File ${key} retrieved from s3`);
-          resolve({
-            fileBuffer: data.Body,
-            documentType: documentType,
-            key: key
-          });
-        }
+const getFile = (key, documentType) => new Promise((resolve, reject) => {
+  s3.getObject(
+    {
+      Bucket: vcapConstants.BUCKET,
+      Key: key
+    },
+    (error, data) => {
+      if (error) {
+        logger.error(`ERROR: ServerError: s3- ${error}`);
+        reject(error);
+      } else {
+        logger.info(`File ${key} retrieved from s3`);
+        resolve({
+          fileBuffer: data.Body,
+          documentType,
+          key
+        });
       }
-    );
-  });
-};
+    }
+  );
+});
 
 /**
  * @function getAllFiles - private function to get all file attachments for a permit application.
  * @param {string} applicationId
  */
-const getAllFiles = applicationId => {
-  return new Promise((resolve, reject) => {
-    ApplicationFile.findAll({
-      where: {
-        applicationId: applicationId
+const getAllFiles = applicationId => new Promise((resolve, reject) => {
+  ApplicationFile.findAll({
+    where: {
+      applicationId
+    }
+  })
+    .then((results) => {
+      const filePromises = [];
+      for (const item of results) {
+        filePromises.push(getFile(item.s3FileName, item.documentType));
       }
-    })
-      .then(results => {
-        let filePromises = [];
-        for (let item of results) {
-          filePromises.push(getFile(item.s3FileName, item.documentType));
+      Promise.all(filePromises).then((results) => {
+        const files = {};
+        for (const item of results) {
+          files[item.documentType] = {
+            buffer: item.fileBuffer,
+            filename: item.key
+          };
         }
-        Promise.all(filePromises).then(results => {
-          let files = {};
-          for (let item of results) {
-            files[item.documentType] = {
-              buffer: item.fileBuffer,
-              filename: item.key
-            };
-          }
-          resolve(files);
-        });
-      })
-      .catch(error => {
-        logger.error(`ERROR: ServerError: getAllFiles- ${error}`);
-        reject(error);
+        resolve(files);
       });
-  });
-};
+    })
+    .catch((error) => {
+      logger.error(`ERROR: ServerError: getAllFiles- ${error}`);
+      reject(error);
+    });
+});
 
 /**
  * @function streamFile - private function Stream a file from the S3 bucket.
@@ -408,13 +383,11 @@ const streamFile = (fileName, res) => {
  * @function getAllFileNames - Private function to get all file attachment names for a permit application
  * @param {string} applicationId
  */
-const getAllFileNames = applicationId => {
-  return ApplicationFile.findAll({
-    where: {
-      applicationId: applicationId
-    }
-  });
-};
+const getAllFileNames = applicationId => ApplicationFile.findAll({
+  where: {
+    applicationId
+  }
+});
 
 /**
  * @function updateApplicationModel - API function to update the permit application model based on permissions.
@@ -445,94 +418,92 @@ tempOutfitter.updateApplicationModel = (model, submitted, user) => {
  * @function acceptApplication - Private function to send an application to the middle layer.
  * @param {Object} application
  */
-const acceptApplication = application => {
-  return new Promise((resolve, reject) => {
-    getAllFiles(application.applicationId)
-      .then(files => {
-        const requestOptions = {
-          method: 'POST',
-          url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'permits/applications/special-uses/commercial/temp-outfitters/',
-          headers: {},
-          simple: true,
-          formData: {
-            body: JSON.stringify(tempOutfitter.translateFromIntakeToMiddleLayer(application))
+const acceptApplication = application => new Promise((resolve, reject) => {
+  getAllFiles(application.applicationId)
+    .then((files) => {
+      const requestOptions = {
+        method: 'POST',
+        url: `${vcapConstants.MIDDLE_LAYER_BASE_URL}permits/applications/special-uses/commercial/temp-outfitters/`,
+        headers: {},
+        simple: true,
+        formData: {
+          body: JSON.stringify(tempOutfitter.translateFromIntakeToMiddleLayer(application))
+        }
+      };
+
+      if (files['insurance-certificate']) {
+        requestOptions.formData.insuranceCertificate = {
+          value: files['insurance-certificate'].buffer,
+          options: {
+            filename: files['insurance-certificate'].filename,
+            contentType: util.getContentType(files['insurance-certificate'].filename)
           }
         };
+      }
 
-        if (files['insurance-certificate']) {
-          requestOptions.formData.insuranceCertificate = {
-            value: files['insurance-certificate'].buffer,
-            options: {
-              filename: files['insurance-certificate'].filename,
-              contentType: util.getContentType(files['insurance-certificate'].filename)
-            }
-          };
-        }
+      if (files['operating-plan']) {
+        requestOptions.formData.operatingPlan = {
+          value: files['operating-plan'].buffer,
+          options: {
+            filename: files['operating-plan'].filename,
+            contentType: util.getContentType(files['operating-plan'].filename)
+          }
+        };
+      }
 
-        if (files['operating-plan']) {
-          requestOptions.formData.operatingPlan = {
-            value: files['operating-plan'].buffer,
-            options: {
-              filename: files['operating-plan'].filename,
-              contentType: util.getContentType(files['operating-plan'].filename)
-            }
-          };
-        }
+      if (files['location-map']) {
+        requestOptions.formData.locationMap = {
+          value: files['location-map'].buffer,
+          options: {
+            filename: files['location-map'].filename,
+            contentType: util.getContentType(files['location-map'].filename)
+          }
+        };
+      }
 
-        if (files['location-map']) {
-          requestOptions.formData.locationMap = {
-            value: files['location-map'].buffer,
-            options: {
-              filename: files['location-map'].filename,
-              contentType: util.getContentType(files['location-map'].filename)
-            }
-          };
-        }
+      if (files['guide-document']) {
+        requestOptions.formData.guideDocumentation = {
+          value: files['guide-document'].buffer,
+          options: {
+            filename: files['guide-document'].filename,
+            contentType: util.getContentType(files['guide-document'].filename)
+          }
+        };
+      }
 
-        if (files['guide-document']) {
-          requestOptions.formData.guideDocumentation = {
-            value: files['guide-document'].buffer,
-            options: {
-              filename: files['guide-document'].filename,
-              contentType: util.getContentType(files['guide-document'].filename)
-            }
-          };
-        }
+      if (files['good-standing-evidence']) {
+        requestOptions.formData.goodStandingEvidence = {
+          value: files['good-standing-evidence'].buffer,
+          options: {
+            filename: files['good-standing-evidence'].filename,
+            contentType: util.getContentType(files['good-standing-evidence'].filename)
+          }
+        };
+      }
 
-        if (files['good-standing-evidence']) {
-          requestOptions.formData.goodStandingEvidence = {
-            value: files['good-standing-evidence'].buffer,
-            options: {
-              filename: files['good-standing-evidence'].filename,
-              contentType: util.getContentType(files['good-standing-evidence'].filename)
-            }
-          };
-        }
+      if (files['acknowledgement-of-risk-form']) {
+        requestOptions.formData.acknowledgementOfRiskForm = {
+          value: files['acknowledgement-of-risk-form'].buffer,
+          options: {
+            filename: files['acknowledgement-of-risk-form'].filename,
+            contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
+          }
+        };
+      }
 
-        if (files['acknowledgement-of-risk-form']) {
-          requestOptions.formData.acknowledgementOfRiskForm = {
-            value: files['acknowledgement-of-risk-form'].buffer,
-            options: {
-              filename: files['acknowledgement-of-risk-form'].filename,
-              contentType: util.getContentType(files['acknowledgement-of-risk-form'].filename)
-            }
-          };
-        }
-
-        util
-          .middleLayerAuth()
-          .then(token => {
-            requestOptions.headers['x-access-token'] = token;
-            util
-              .request(requestOptions)
-              .then(resolve)
-              .catch(reject);
-          })
-          .catch(reject);
-      })
-      .catch(reject);
-  });
-};
+      util
+        .middleLayerAuth()
+        .then((token) => {
+          requestOptions.headers['x-access-token'] = token;
+          util
+            .request(requestOptions)
+            .then(resolve)
+            .catch(reject);
+        })
+        .catch(reject);
+    })
+    .catch(reject);
+});
 
 /**
  * @function getApplicationFileNames - API function to get file attachment names for a permit application.
@@ -541,12 +512,11 @@ const acceptApplication = application => {
  */
 tempOutfitter.getApplicationFileNames = (req, res) => {
   getAllFileNames(req.params.id)
-    .then(app => {
+    .then((app) => {
       if (app) {
         return res.status(200).json(app);
-      } else {
-        return res.status(404).send();
       }
+      return res.status(404).send();
     })
     .catch((error) => {
       util.handleErrorResponse(error, res, 'getApplicationFiles#end');
@@ -567,12 +537,12 @@ tempOutfitter.streamFile = (req, res) => {
  */
 tempOutfitter.streamToS3 = multer({
   storage: multerS3({
-    s3: s3,
+    s3,
     bucket: vcapConstants.BUCKET,
-    metadata: function(req, file, next) {
+    metadata(req, file, next) {
       next(null, null, Object.assign({}, req.body));
     },
-    key: function(req, file, next) {
+    key(req, file, next) {
       next(null, `${cryptoRandomString(20)}/${file.originalname}`);
     }
   })
@@ -599,16 +569,16 @@ tempOutfitter.attachFile = (req, res) => {
         s3FileName: req.files[0].key,
         originalFileName: req.files[0].key
       })
-        .then(appfile => {
+        .then((appfile) => {
           util.logControllerAction(req, 'tempOutfitter.attachFile', appfile);
-          req.body['fileId'] = appfile.fileId;
+          req.body.fileId = appfile.fileId;
           return res.status(201).json(req.body);
         })
-        .catch(error => {
+        .catch((error) => {
           util.handleErrorResponse(error, res, 'attachFile#attachfile');
         });
     })
-    .catch(error => {
+    .catch((error) => {
       util.handleErrorResponse(error, res, 'attachFile#end');
     });
 };
@@ -627,8 +597,7 @@ tempOutfitter.deleteFile = (req, res) => {
     .then(() => {
       util.logControllerAction(req,
         'tempOutfitter.deleteFile',
-        {'updatedAt': new Date().toDateString()}
-      );
+        { updatedAt: new Date().toDateString() });
       return res.status(204);
     })
     .catch((error) => {
@@ -644,19 +613,19 @@ tempOutfitter.deleteFile = (req, res) => {
  */
 tempOutfitter.create = (req, res) => {
   util.setAuthEmail(req);
-  let model = {
-    authEmail: req.body.authEmail,
+  const model = {
+    authEmail: req.body.authEmail
   };
   tempOutfitter.translateFromClientToDatabase(req.body, model);
   TempOutfitterApplication.create(model)
-    .then(app => {
+    .then((app) => {
       util.logControllerAction(req, 'tempOutfitter.Create', app);
       app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-      req.body['applicationId'] = app.applicationId;
-      req.body['appControlNumber'] = app.appControlNumber;
+      req.body.applicationId = app.applicationId;
+      req.body.appControlNumber = app.appControlNumber;
       return res.status(201).json(req.body);
     })
-    .catch(error => {
+    .catch((error) => {
       util.handleErrorResponse(error, res, 'create#end');
     });
 };
@@ -672,7 +641,7 @@ tempOutfitter.getOne = (req, res) => {
       app_control_number: req.params.id
     }
   })
-    .then(app => {
+    .then((app) => {
       if (!app) {
         return res.status(404).send();
       }
@@ -686,18 +655,14 @@ tempOutfitter.getOne = (req, res) => {
           applicationType: app.type
         }
       })
-        .then(revisions => {
+        .then((revisions) => {
           const formattedApp = translateFromDatabaseToClient(app);
           formattedApp.revisions = revisions;
           return res.status(200).json(formattedApp);
         })
-        .catch(() => {
-          return res.status(500).send();
-        });
+        .catch(() => res.status(500).send());
     })
-    .catch(() => {
-      return res.status(500).send();
-    });
+    .catch(() => res.status(500).send());
 };
 
 /**
@@ -711,7 +676,7 @@ tempOutfitter.update = (req, res) => {
       app_control_number: req.params.id
     }
   })
-    .then(app => {
+    .then((app) => {
       if (!app) {
         return res.status(404).send();
       }
@@ -721,7 +686,7 @@ tempOutfitter.update = (req, res) => {
       tempOutfitter.updateApplicationModel(app, req.body, req.user);
       if (app.status === 'Accepted') {
         acceptApplication(app)
-          .then(response => {
+          .then((response) => {
             app.controlNumber = JSON.parse(response).controlNumber;
             app
               .save()
@@ -732,13 +697,9 @@ tempOutfitter.update = (req, res) => {
                 email.sendEmail(`tempOutfitterApplication${app.status}`, app);
                 return res.status(200).json(translateFromDatabaseToClient(app));
               })
-              .catch(() => {
-                return res.status(500).send();
-              });
+              .catch(() => res.status(500).send());
           })
-          .catch(() => {
-            return res.status(500).send();
-          });
+          .catch(() => res.status(500).send());
       } else {
         app
           .save()
@@ -746,14 +707,12 @@ tempOutfitter.update = (req, res) => {
             commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
             return res.status(200).json(translateFromDatabaseToClient(app));
           })
-          .catch(error => {
+          .catch((error) => {
             util.handleErrorResponse(error, res, 'update#emailSwitch');
           });
       }
     })
-    .catch(() => {
-      return res.status(500).send();
-    });
+    .catch(() => res.status(500).send());
 };
 
 module.exports = tempOutfitter;
