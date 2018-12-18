@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for intake permit application routes

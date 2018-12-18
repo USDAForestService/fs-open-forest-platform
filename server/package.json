@@ -94,6 +94,7 @@
     "dev:user": "npm run dev -- user",
     "copy-frontend-assets": "./copy-frontend-assets.sh",
     "lint": "eslint **/**/*.es6",
+    "lint:fix": "eslint **/**/*.es6 --fix",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
     "snyk-test": "snyk test --file=package.json",

@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for misc routes
@@ -29,7 +29,7 @@ router.use('/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions
 
 /** GET the number of seconds that this instance has been running. */
 router.get('/uptime', (req, res) => {
-  res.send('Uptime: ' + process.uptime() + ' seconds');
+  res.send(`Uptime: ${process.uptime()} seconds`);
 });
 
 /** Serve static code documentation pages. */

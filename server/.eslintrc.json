@@ -4,12 +4,29 @@
     "node": true,
     "mocha": true
   },
-  "extends": "eslint:recommended",
+  "extends": "eslint-config-airbnb",
   "parserOptions": {
     "sourceType": "module"
   },
   "rules": {
-    "comma-dangle": ["error", "never"],
-    "prefer-destructuring": ["warn"]
+    "no-console": [
+      "warn"
+    ],
+    "max-len": [
+      2,
+      {
+        "code": 125,
+        "tabWidth": 2,
+        "ignoreUrls": true
+      }
+    ],
+    "prefer-destructuring": [
+      "warn"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "no-restricted-syntax": ["warn"]
   }
 }

@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable no-param-reassign */
+
 
 /**
  * svg utility service for christmas trees
@@ -6,6 +7,7 @@
  */
 
 const jsdom = require('jsdom');
+
 const {
   JSDOM
 } = jsdom;
@@ -16,6 +18,7 @@ const zpad = require('zpad');
 const markdown = require('markdown').markdown;
 const vcapConstants = require('../vcap-constants.es6');
 const forestService = require('./forest.service.es6');
+
 const christmasTreesPermitSvgUtil = {};
 const logger = require('./logger.es6');
 
@@ -32,18 +35,17 @@ const addApplicantInfo = (permit, frag) => {
     .format('MMM DD, YYYY')
     .toUpperCase();
 
-  frag.querySelector('#full-name_1_').textContent =
-    `${permit.firstName
-      .substring(0, 18)
-      .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
+  frag.querySelector('#full-name_1_').textContent = `${permit.firstName
+    .substring(0, 18)
+    .toUpperCase()} ${permit.lastName.substring(0, 18).toUpperCase()}`;
 
   frag.querySelector('#quantity_1_').textContent = permit.quantity;
 
-  //set additional trees to blank so that user can fill them in
-  for (let i = 1; i < permit.quantity; i++) {
-    let querySelector = '#additional-tree-' + i + '-' + 1;
+  // set additional trees to blank so that user can fill them in
+  for (let i = 1; i < permit.quantity; i += 1) {
+    let querySelector = `#additional-tree-${i}-${1}`;
     frag.querySelector(querySelector).style = 'display:none';
-    querySelector = '#additional-tree-' + i + '-' + 2;
+    querySelector = `#additional-tree-${i}-${2}`;
     frag.querySelector(querySelector).style = 'display:none';
   }
 };
@@ -62,11 +64,10 @@ const addForestSpecificInfo = (permit, frag) => {
   }
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
-  frag.querySelector('#permit-expiration_1_').textContent =
-    moment
-      .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
-      .format('MMM D, YYYY')
-      .toUpperCase() + ' MIDNIGHT';
+  frag.querySelector('#permit-expiration_1_').textContent = `${moment
+    .tz(permit.christmasTreesForest.endDate, permit.christmasTreesForest.timezone)
+    .format('MMM D, YYYY')
+    .toUpperCase()} MIDNIGHT`;
   if (permit.christmasTreesForest.treeHeight > 0) {
     frag.querySelector('#tree-height_1_').textContent = permit.christmasTreesForest.treeHeight;
   } else {
@@ -93,47 +94,43 @@ const addForestSpecificInfo = (permit, frag) => {
  * @param {Object} permit - permit object from database
  * @return {Object} jsdom fragment with svg buffer
  */
-christmasTreesPermitSvgUtil.generatePermitSvg = permit => {
-  return new Promise((resolve, reject) => {
-    fs.readFile('src/templates/christmas-trees/permit-design.svg', function read(err, svgData) {
-      if (err) {
-        logger.error('problem creating permit svg=', err);
-        reject(err);
-      }
+christmasTreesPermitSvgUtil.generatePermitSvg = permit => new Promise((resolve, reject) => {
+  fs.readFile('src/templates/christmas-trees/permit-design.svg', (err, svgData) => {
+    if (err) {
+      logger.error('problem creating permit svg=', err);
+      reject(err);
+    }
 
-      const frag = JSDOM.fragment(svgData.toString('utf8'));
-      addApplicantInfo(permit, frag);
-      addForestSpecificInfo(permit, frag);
+    const frag = JSDOM.fragment(svgData.toString('utf8'));
+    addApplicantInfo(permit, frag);
+    addForestSpecificInfo(permit, frag);
 
-      if (frag && frag.firstChild && frag.firstChild.outerHTML) {
-        resolve(frag.firstChild.outerHTML);
-      } else {
-        logger.error('problem creating permit svg=', err);
-        reject(err);
-      }
-    });
+    if (frag && frag.firstChild && frag.firstChild.outerHTML) {
+      resolve(frag.firstChild.outerHTML);
+    } else {
+      logger.error('problem creating permit svg=', err);
+      reject(err);
+    }
   });
-};
+});
 
 /**
  * @function generatePng - Generate Permit PNG from the permit SVG buffer
  * @param {Object} svgBuffer - permit svg Buffer
  * @return {Object} - png buffer for the svg
  */
-christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
-  return new Promise(resolve => {
-    svg2png(svgBuffer, {
-      width: 740,
-      height: 958
+christmasTreesPermitSvgUtil.generatePng = svgBuffer => new Promise((resolve) => {
+  svg2png(svgBuffer, {
+    width: 740,
+    height: 958
+  })
+    .then((data) => {
+      resolve(data);
     })
-      .then(data => {
-        resolve(data);
-      })
-      .catch(err => {
-        logger.error(err);
-      });
-  });
-};
+    .catch((err) => {
+      logger.error(err);
+    });
+});
 
 /**
  * @function generateRulesHtml - Generate permit rules HTML from permit object
@@ -141,35 +138,32 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => {
  * @param {Object} permit - permit object
  * @return {string} - permit rules in html format
  */
-christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => {
-  return new Promise((resolve, reject) => {
-    let rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
-    if (rulesMarkdown) {
-      let rulesHtml = markdown.toHTML(rulesMarkdown);
-      rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
-      resolve(
-        christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
-      );
-    } else {
-      logger.error('problem creating rules html for permit ' + permit.permitId);
-      reject('problem reading rules markdown files', permit.permitId);
-    }
-  });
-};
+christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => new Promise((resolve, reject) => {
+  const rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
+  if (rulesMarkdown) {
+    let rulesHtml = markdown.toHTML(rulesMarkdown);
+    rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
+    resolve(
+      christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
+    );
+  } else {
+    logger.error(`problem creating rules html for permit ${permit.permitId}`);
+    reject(new Error(`problem reading rules markdown files in ${permit.permitId}`));
+  }
+});
 
 /**
  * @function getRulesMarkdown - Get the rules markdown files for the given forest
  * @param {string} forestAbbr - forest abbreviation
  * @return {string} - rules from markdown files
  */
-christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
-  let permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
-  let forestRules = fs.readFileSync('frontend-assets/content/' + forestAbbr + '/tree-cutting-rules.md');
+christmasTreesPermitSvgUtil.getRulesMarkdown = (forestAbbr) => {
+  const permitRules = fs.readFileSync('frontend-assets/content/common/permit-rules.md');
+  const forestRules = fs.readFileSync(`frontend-assets/content/${forestAbbr}/tree-cutting-rules.md`);
   if (permitRules && forestRules) {
     return `${permitRules}\n${forestRules}`;
-  } else {
-    return null;
   }
+  return null;
 };
 
 /**
@@ -182,33 +176,32 @@ christmasTreesPermitSvgUtil.getRulesMarkdown = forestAbbr => {
 christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest) => {
   let rulesHtml = '';
   if (createHtmlBody) {
-    rulesHtml =
-      '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>' +
-      '<body style="font-family:Arial; margin:20px;">';
+    rulesHtml = '<html lang="en"><head><title="U.S. National Forest Christmas Tree Permitting - Rules"></title></head>'
+      + '<body style="font-family:Arial; margin:20px;">';
   }
-  rulesHtml +=
-    '<div>' +
-    '<h1 style="background-color:#000; text-align:center; padding:8px;">' +
-    '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
+  rulesHtml
+    += '<div>'
+    + '<h1 style="background-color:#000; text-align:center; padding:8px;">'
+    + '<span style="color:#FFF; font-size: 36px;">CHRISTMAS TREE CUTTING RULES</span></h1>';
 
-  rulesHtml +=
-    '<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="' +
-    vcapConstants.INTAKE_CLIENT_BASE_URL +
-    '/assets/img/site-wide/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">' +
-    forest.forestName.toUpperCase() +
-    '</h2><br/>';
-  rulesHtml +=
-    'Christmas trees may be taken from the ' +
-    forest.forestName +
-    ' under the below rules and guidelines. Failure to follow these rules and guidelines may result in a fine<br/><br/>';
-  var regex = new RegExp('"/assets/', 'g');
-  rules = rules.replace(regex, '"' + vcapConstants.INTAKE_CLIENT_BASE_URL + '/assets/');
+  rulesHtml
+    += `<h2><img alt="Department of Agriculture - US Forest Service" class="fs-logo" role="img" src="${
+      vcapConstants.INTAKE_CLIENT_BASE_URL
+    }/assets/img/site-wide/usfslogo.svg" width="50" style="vertical-align: middle;padding-right: 1rem;">${
+      forest.forestName.toUpperCase()
+    }</h2><br/>`;
+  rulesHtml
+    += `Christmas trees may be taken from the ${
+      forest.forestName
+    } under the below rules and guidelines. Failure to follow these rules and guidelines may result in a fine<br/><br/>`;
+  const regex = new RegExp('"/assets/', 'g');
+  rules = rules.replace(regex, `"${vcapConstants.INTAKE_CLIENT_BASE_URL}/assets/`);
 
   rules = rules.replace(
     'alt="rules icon"',
     'alt="rules icon" style="width: 50px; vertical-align: middle; padding-right: 1rem;"'
   );
-  rulesHtml += rules + '</div>';
+  rulesHtml += `${rules}</div>`;
   if (createHtmlBody) {
     rulesHtml += '</body></html>';
   }
@@ -222,10 +215,10 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
  * @return {string} - processed rules html
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
-  let forest = permit.christmasTreesForest.dataValues;
-  for (var key in forest) {
-    if (forest.hasOwnProperty(key)) {
-      let textToReplace = '{{' + key + '}}';
+  const forest = permit.christmasTreesForest.dataValues;
+  for (const key in forest) {
+    if (Object.prototype.hasOwnProperty.call(forest, key)) {
+      const textToReplace = `{{${key}}}`;
       rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
       if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
         rulesHtml = christmasTreesPermitSvgUtil.parseCuttingAreaDates(rulesHtml, forest);
@@ -242,13 +235,13 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
  * @return {string} - processed rules
  */
 christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
-  let cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  const cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
     const cuttingAreas = forestService.parseCuttingAreas(forest.cuttingAreas);
     if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
       rulesText = rulesText.replace(
-        '{{' + key + 'Date}}',
+        `{{${key}Date}}`,
         christmasTreesPermitSvgUtil.formatCuttingAreaDate(
           forest.timezone,
           cuttingAreas[areaKey].startDate,

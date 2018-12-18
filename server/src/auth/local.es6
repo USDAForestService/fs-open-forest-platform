@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for local stub authentication in development and test. This
@@ -8,7 +8,7 @@
 
 const util = require('../services/util.es6');
 
-function localAuth(req, res, next) {
+const localAuth = (req, res, next) => {
   // Test authentication is enabled e.g do nothing and use production
   // authentication
   if (util.isTestAuthenticationEnabled()) {
@@ -22,7 +22,7 @@ function localAuth(req, res, next) {
     forests: util.getAdminForests('TEST_USER')
   };
 
-  next();
-}
+  return next();
+};
 
 module.exports = localAuth;

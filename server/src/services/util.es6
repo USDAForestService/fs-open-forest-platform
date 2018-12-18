@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for various utility functions and constants
@@ -15,7 +15,7 @@ const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
-let util = {};
+const util = {};
 
 util.ADMIN_ROLE = 'admin';
 util.USER_ROLE = 'user';
@@ -158,7 +158,6 @@ util.stateAndPossessionCodes = [
 ];
 
 
-
 /**
 * @function statusOptions - Enum for permit application status.
 * @return {array} - array of application statuses
@@ -169,20 +168,16 @@ util.statusOptions = ['Submitted', 'Incomplete', 'Hold', 'Review', 'Cancelled', 
  * @function validateDateTime - Validate a UTC datetime string.
  * @return {boolean} - datetime string validity
  */
-util.validateDateTime = input => {
-  return (
-    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input) &&
-    moment(input, util.datetimeFormat).isValid()
-  );
-};
+util.validateDateTime = input => (
+  /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)/.test(input)
+    && moment(input, util.datetimeFormat).isValid()
+);
 
 /**
  * @function getSequelizeConnection - Get a sequelize connection.
  * @return {Object} - Sequelize database connection object
  */
-util.getSequelizeConnection = () => {
-  return new Sequelize(dbConfig);
-};
+util.getSequelizeConnection = () => new Sequelize(dbConfig);
 
 /**
  * @function middleLayerAuth - Authenticate to the middle layer.
@@ -191,7 +186,7 @@ util.getSequelizeConnection = () => {
 util.middleLayerAuth = () => {
   const requestOptions = {
     method: 'POST',
-    url: vcapConstants.MIDDLE_LAYER_BASE_URL + 'auth',
+    url: `${vcapConstants.MIDDLE_LAYER_BASE_URL}auth`,
     json: true,
     simple: true,
     body: {
@@ -208,16 +203,14 @@ util.middleLayerAuth = () => {
  * @param {string} filename - filename
  * @return {string} - extension from the filename
  */
-const getExtension = filename => {
-  return filename.split('.').reverse()[0];
-};
+const getExtension = filename => filename.split('.').reverse()[0];
 
 /**
  * @function getContentType - Get the content type based on a file name.
  * @param {string} filename - filename
  * @return {string} - content type for the given file
  */
-util.getContentType = filename => {
+util.getContentType = (filename) => {
   if (getExtension(filename) === 'pdf') {
     return 'application/pdf';
   }
@@ -236,23 +229,20 @@ util.getContentType = filename => {
   if (getExtension(filename) === 'xlsx') {
     return 'application/vnd.ms-excel';
   }
+  return null;
 };
 
 /**
  * @function env - Return the current environment
  * @return {bool} - True if we are in an automated test environment
  */
-util.isTest = () => {
-  return process.env.NODE_ENV === 'test';
-};
+util.isTest = () => process.env.NODE_ENV === 'test';
 
 /**
  * @function isProduction - is production flag
  * @return {boolean} - NODE_ENV is production
  */
-util.isProduction = () => {
-  return process.env.NODE_ENV === 'production';
-};
+util.isProduction = () => process.env.NODE_ENV === 'production';
 
 /**
  * @function isTestAuthenticationEnabled - should production
@@ -260,15 +250,13 @@ util.isProduction = () => {
  * conditions)
  * @return {boolean} - true when test production authentication is enabled
  */
-util.isTestAuthenticationEnabled = () => {
-  return util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
-};
+util.isTestAuthenticationEnabled = () => util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
 
 /**
  * @function setAuthEmail - Set the request body's authenticated email based on the passport user.
  * @param {Object} req - http request
  */
-util.setAuthEmail = req => {
+util.setAuthEmail = (req) => {
   req.body.authEmail = req.user.email;
 };
 
@@ -277,7 +265,7 @@ util.setAuthEmail = req => {
  * @returns {String} - user type
  */
 util.localUser = () => {
-  if (process.argv[2] == 'user') {
+  if (process.argv[2] === 'user') {
     logger.info(`Operating as an ${process.argv[2]}`);
     return process.argv[2];
   }
@@ -291,16 +279,14 @@ util.localUser = () => {
  * @param {Object} applicationModel - application object
  * @return {boolean} - is user admin or application created user
  */
-util.hasPermissions = (user, applicationModel) => {
-  return user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
-};
+util.hasPermissions = (user, applicationModel) => user.role === util.ADMIN_ROLE || user.email === applicationModel.authEmail;
 
 /**
  * @function camelCaseToRegularForm - Convert a camel case string to regular form.
  * @param {string} string - string input
  * @return {string} - converted string
  */
-util.camelCaseToRegularForm = string => {
+util.camelCaseToRegularForm = (string) => {
   const spaced = string.replace(/([A-Z])/g, ' $1');
   const lowerCase = spaced.toLowerCase();
   return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
@@ -312,7 +298,7 @@ util.camelCaseToRegularForm = string => {
  * @param {Object} application - application object
  * @return {string} - business name out of application
  */
-util.businessNameElsePersonalName = application => {
+util.businessNameElsePersonalName = (application) => {
   let businessName = application.applicantInfoOrganizationName;
   if (!businessName) {
     businessName = `${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}`;
@@ -328,32 +314,32 @@ util.businessNameElsePersonalName = application => {
  */
 util.userApplicationLink = (application, plainText) => {
   let applicationType = application.type;
-  if (application.type == 'tempOutfitters') {
-    applicationType = 'temp-outfitter'; //for resolving url
+  if (application.type === 'tempOutfitters') {
+    applicationType = 'temp-outfitter'; // for resolving url
   }
   const applicationID = application.appControlNumber;
   const applicationStatus = application.status;
 
   let status;
   switch (applicationStatus) {
-  case 'Accepted':
-    status = 'accepted application';
-    break;
-  case 'Hold':
-    status = 'application which needs additional information';
-    break;
-  case 'Review':
-    status = 'application which is under review';
-    break;
-  case 'Cancelled':
-    status = 'cancelled application';
-    break;
-  case 'Submitted':
-    status = 'submitted application';
-    break;
-  default:
-    status = 'application';
-    break;
+    case 'Accepted':
+      status = 'accepted application';
+      break;
+    case 'Hold':
+      status = 'application which needs additional information';
+      break;
+    case 'Review':
+      status = 'application which is under review';
+      break;
+    case 'Cancelled':
+      status = 'cancelled application';
+      break;
+    case 'Submitted':
+      status = 'submitted application';
+      break;
+    default:
+      status = 'application';
+      break;
   }
   let text;
   if (plainText === true) {
@@ -362,7 +348,7 @@ util.userApplicationLink = (application, plainText) => {
     text = `View your ${status} here`;
   }
   const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/user/applications/${applicationType}/${applicationID}`;
-  return {text, url};
+  return { text, url };
 };
 
 /**
@@ -370,22 +356,19 @@ util.userApplicationLink = (application, plainText) => {
  * @param {integer} length - random string to be length
  * @return {string} - random string
  */
-util.getRandomString = length => {
-  return crypto.randomBytes(length).toString('hex');
-};
+util.getRandomString = length => crypto.randomBytes(length).toString('hex');
 
 /**
  * @function getAdminForests - Get the assigned forests to the christmas trees forest admins by email address
  * @param {string} adminUsername - admin username
  * @return {array} - assigned forests for the given user
  */
-util.getAdminForests = adminUsername => {
+util.getAdminForests = (adminUsername) => {
   const user = vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername);
   if (user && user.forests) {
     return user.forests;
-  } else {
-    return [];
   }
+  return [];
 };
 
 /**
@@ -393,10 +376,11 @@ util.getAdminForests = adminUsername => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = adminUsername => {
-  return vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername) ? util.ADMIN_ROLE :
-    util.USER_ROLE;
-};
+util.getUserRole = adminUsername => (
+  vcapConstants.EAUTH_USER_SAFELIST.find(
+    element => element.admin_username === adminUsername
+  ) ? util.ADMIN_ROLE
+    : util.USER_ROLE);
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
@@ -407,22 +391,21 @@ util.getUserRole = adminUsername => {
 util.handleErrorResponse = (error, res, method) => {
   if (error !== {} && error !== 'null') {
     let inFile = '';
-    if(error.fileName){
+    if (error.fileName) {
       inFile = `in ${error.fileName}`;
-      if(error.lineNumber){
+      if (error.lineNumber) {
         inFile = `${inFile} at ${error.lineNumber}`;
       }
     }
     logger.error(`ERROR: ServerError: ${error}${inFile} from ${method}`);
-  }
-  else {
-    logger.error('ERROR: ServerError: Unknown error 500 from ${method}');
+  } else {
+    logger.error(`ERROR: ServerError: Unknown error 500 from ${method}`);
   }
   if (error.name === 'SequelizeValidationError') {
     return res.status(400).json({
       errors: error.errors
     });
-  } else if (error.name === 'SequelizeDatabaseError') {
+  } if (error.name === 'SequelizeDatabaseError') {
     return res.status(404).send();
   }
   return res.status(500).send();
@@ -436,10 +419,9 @@ util.handleErrorResponse = (error, res, method) => {
 */
 util.logControllerAction = (req, controller, applicationOrPermit) => {
   let eventTime;
-  if(req.method == 'PUT'){
+  if (req.method === 'PUT') {
     eventTime = applicationOrPermit.updatedAt;
-  }
-  else{
+  } else {
     eventTime = applicationOrPermit.createdAt;
   }
 
@@ -447,12 +429,12 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
   let role;
   let permitID;
   const subPath = controller.split('.');
-  if (subPath[0] === 'christmasTreePermits'){
+  if (subPath[0] === 'christmasTreePermits') {
     userID = applicationOrPermit.emailAddress;
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
   } else {
-    let user = req.user;
+    const user = req.user;
     userID = user.email;
     role = util.getUserRole(req);
     permitID = applicationOrPermit.applicationId;
@@ -467,14 +449,9 @@ util.request = request;
  * @function getS3 - get S3 credentials
  * @return {Object} - AWS S3 object with credentials
  */
-util.getS3 = () => {
-  // Initialize our S3 BUCKET connection for file attachments
-  // if local or CI use aws credentials
-  return new AWS.S3({
-    region: vcapConstants.REGION,
-    accessKeyId: vcapConstants.accessKeyId,
-    secretAccessKey: vcapConstants.secretAccessKey
-  });
-};
-
+util.getS3 = () => new AWS.S3({
+  region: vcapConstants.REGION,
+  accessKeyId: vcapConstants.accessKeyId,
+  secretAccessKey: vcapConstants.secretAccessKey
+});
 module.exports = util;

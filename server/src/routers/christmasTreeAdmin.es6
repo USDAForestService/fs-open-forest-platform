@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for christmas trees admin routes
