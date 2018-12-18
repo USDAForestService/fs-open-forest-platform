@@ -2,6 +2,9 @@
 const winston = require('winston');
 const expressWinston = require('express-winston');
 
+/**
+ * loggerParams the general parameters for loggers
+ */
 const loggerParams = {
   format: winston.format.combine(
     winston.format.label({ label: 'Logger' }),
@@ -21,7 +24,10 @@ const loggerParams = {
   ]
 };
 
-const whitelist = {
+/**
+ * configuration for expressWinston on top of winston
+ */
+const expressWinstonConfig = {
   requestWhitelist:
   [
     'url',
@@ -36,10 +42,19 @@ const whitelist = {
   bodyWhitelist: ['forestID', 'region', 'forest', 'type']
 };
 
-const expressParams = Object.assign(loggerParams, whitelist);
+/**
+ * new object with all the params needed for express winston
+ */
+const expressParams = Object.assign(loggerParams, expressWinstonConfig);
 
+/**
+ * new Logger for expressWinston
+ */
 const Logger = expressWinston.logger(expressParams);
 
+/**
+ * new ErrorLogger for expressWinston
+ */
 const Error = expressWinston.errorLogger(expressParams);
 
 module.exports = { Logger, Error, loggerParams };
