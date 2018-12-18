@@ -69,11 +69,7 @@ const findOrCondition = (req) => {
       ];
       break;
     default:
-      orCondition = [
-        {
-          status: 'Submitted'
-        }
-      ];
+      break;
   }
   return orCondition;
 };
