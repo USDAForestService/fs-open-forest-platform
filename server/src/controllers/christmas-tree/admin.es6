@@ -76,47 +76,51 @@ const returnPermitsReport = (results, res) => {
  */
 christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
   logger.info(`${req.user} generated a report`);
-  treesDb.christmasTreesForests
-    .findOne({
+
+  // The report may include forests from multiple time zones. The previous implementation assumed
+  // one forest and seemed overly exact regarding the time zones. In order to avoid querying by
+  // forest individually, just assume that the provided dates in Eastern Time are good enough.
+  //
+  // If we need to be more exact and still don't want to query each forest individually, we can
+  // broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
+  // the returnes lists with the forest-specific timezones.
+  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0)
+  const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0).second(0);
+  const forestIds = [req.query.forestId]
+
+  treesDb.christmasTreesPermits
+    .findAll({
+      attributes: [
+        'forestId',
+        'permitNumber',
+        'updatedAt',
+        'quantity',
+        'totalCost',
+        'permitExpireDate',
+        'christmasTreesForest.timezone'
+      ],
+      include: [
+        {
+          model: treesDb.christmasTreesForests
+        }
+      ],
       where: {
-        id: req.query.forestId
-      }
+        forestId: {
+          [operator.in]: forestIds
+        },
+        status: 'Completed',
+        updatedAt: {
+          [operator.gte]: startDate,
+          [operator.lt]: endDate
+        }
+      },
+      order: [['updatedAt', 'ASC']]
     })
-    .then(forest => {
-      const nextDay = moment.tz(req.query.endDate, forest.timezone).add(1, 'days');
-      const startDate = moment.tz(req.query.startDate, forest.timezone).format(util.datetimeFormat);
-      treesDb.christmasTreesPermits
-        .findAll({
-          attributes: [
-            'forestId',
-            'permitNumber',
-            'updatedAt',
-            'quantity',
-            'totalCost',
-            'permitExpireDate',
-            'christmasTreesForest.timezone'
-          ],
-          include: [
-            {
-              model: treesDb.christmasTreesForests
-            }
-          ],
-          where: {
-            forestId: req.query.forestId,
-            status: 'Completed',
-            updatedAt: {
-              [operator.gte]: startDate,
-              [operator.lt]: nextDay
-            }
-          },
-          order: [['updatedAt', 'ASC']]
-        })
-        .then(results => {
-          return returnPermitsReport(results, res);
-        })
-        .catch(error => {
-          util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
-        });
+    .then(results => {
+      return returnPermitsReport(results, res);
+    })
+    .catch(error => {
+      util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
     });
 };
 
