@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for permit application revision history model
@@ -20,6 +20,10 @@ module.exports = util.getSequelizeConnection().define('revisions', {
   applicationType: { type: Sequelize.STRING, field: 'application_type', allowNull: false },
   status: { type: Sequelize.STRING, field: 'status', allowNull: false },
   email: { type: Sequelize.STRING, field: 'email', allowNull: false },
-  createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
-  updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
+  createdAt: {
+    type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created'
+  },
+  updatedAt: {
+    type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated'
+  }
 });

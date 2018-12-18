@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for noncommercial permit application model

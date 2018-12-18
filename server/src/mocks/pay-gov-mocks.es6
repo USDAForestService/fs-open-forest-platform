@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable eqeqeq */
+
 
 const express = require('express');
 const uuid = require('uuid/v4');
@@ -11,8 +12,8 @@ const templates = require('./pay-gov-templates.es6');
 
 const payGov = {};
 
-let transactions = {};
-let tokens = {};
+const transactions = {};
+const tokens = {};
 
 /** router for mock pay.gov  specific endpoints */
 payGov.router = express.Router();
@@ -23,7 +24,7 @@ payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
   res.send();
 });
 
-payGov.router.post('/mock-pay-gov', function(req, res) {
+payGov.router.post('/mock-pay-gov', (req, res) => {
   const requestBody = req.body['soap:Envelope']['soap:Body'][0];
 
   let xmlResponse = '';
@@ -32,11 +33,11 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   const paygovTrackingId = util.getRandomString(5).toUpperCase();
 
   if (
-    requestBody['ns2:startOnlineCollection'] &&
-    requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0]
+    requestBody['ns2:startOnlineCollection']
+    && requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0]
   ) {
-    let startCollectionRequest = requestBody['ns2:startOnlineCollection'][0]['startOnlineCollectionRequest'][0];
-    let accountHolderName = startCollectionRequest.account_holder_name;
+    const startCollectionRequest = requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
+    const accountHolderName = startCollectionRequest.account_holder_name;
     if (accountHolderName && accountHolderName == '1 1') {
       xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
     } else if (accountHolderName && accountHolderName == '1 2') {
@@ -46,14 +47,14 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
     }
     tokens[token] = { successUrl: startCollectionRequest.url_success[0], cancelUrl: startCollectionRequest.url_cancel[0] };
   } else if (
-    requestBody['ns2:completeOnlineCollection'] &&
-    requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0]
+    requestBody['ns2:completeOnlineCollection']
+    && requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0]
   ) {
-    let collectionRequest = requestBody['ns2:completeOnlineCollection'][0]['completeOnlineCollectionRequest'][0];
-    let requestToken = collectionRequest.token[0];
-    let transactionStatus = transactions[requestToken];
+    const collectionRequest = requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0];
+    const requestToken = collectionRequest.token[0];
+    const transactionStatus = transactions[requestToken];
 
-    if (transactionStatus && transactionStatus.status == 'failure') {
+    if (transactionStatus && transactionStatus.status === 'failure') {
       let returnCode = '0000';
       if (transactionStatus.errorCode) {
         returnCode = transactionStatus.errorCode;
@@ -71,24 +72,23 @@ payGov.router.post('/mock-pay-gov', function(req, res) {
   }
 });
 
-payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, function(req, res) {
-  const token = req.body.token;
+payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res) => {
   const cc = req.body.cc;
 
   let status = 'success';
   let errorCode;
   if (cc.startsWith('000000000000')) {
     status = 'failure';
-    let code = cc.slice(cc.length - 4, cc.length + 1);
-    if (code != '0000') {
+    const code = cc.slice(cc.length - 4, cc.length + 1);
+    if (code !== '0000') {
       errorCode = code;
     }
   }
-  transactions[token] = { status: status, errorCode: errorCode };
-  return res.status(200).json(transactions[token]);
+  transactions[req.body.token] = { status, errorCode };
+  return res.status(200).json(transactions[req.body.token]);
 });
 
-payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res) {
+payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -100,27 +100,24 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, function(req, res)
         }
       ]
     })
-    .then(permit => {
+    .then((permit) => {
       if (permit) {
-        const successUrl = tokens[req.query.token].successUrl;
-        const cancelUrl = tokens[req.query.token].cancelUrl;
         const mockResponse = {
           token: permit.permitId,
           paymentAmount: permit.totalCost,
-          applicantName: permit.firstName + ' ' + permit.lastName,
+          applicantName: `${permit.firstName} ${permit.lastName}`,
           applicantEmailAddress: permit.emailAddress,
           amountOwed: permit.totalCost,
           tcsAppID: req.query.tcsAppID,
           orgStructureCode: permit.orgStructureCode,
-          successUrl: successUrl,
-          cancelUrl: cancelUrl
+          successUrl: tokens[req.query.token].successUrl,
+          cancelUrl: tokens[req.query.token].cancelUrl
         };
         return res.status(200).send(mockResponse);
-      } else {
-        res.status(404).send();
       }
+      return res.status(404).send();
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(400).json(error);
     });
 });

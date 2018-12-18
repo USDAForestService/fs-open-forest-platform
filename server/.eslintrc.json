@@ -4,17 +4,29 @@
     "node": true,
     "mocha": true
   },
-  "extends": "eslint:recommended",
+  "extends": "eslint-config-airbnb",
   "parserOptions": {
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "no-console": ["off"],
-    "no-unsafe-finally": ["off"],
-    "max-len": [2, { "code": 125, "tabWidth": 2, "ignoreUrls": true }]
+    "no-console": [
+      "warn"
+    ],
+    "max-len": [
+      2,
+      {
+        "code": 125,
+        "tabWidth": 2,
+        "ignoreUrls": true
+      }
+    ],
+    "prefer-destructuring": [
+      "warn"
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+    "no-restricted-syntax": ["warn"]
   }
 }
