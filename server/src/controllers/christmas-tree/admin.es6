@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /**
  * Module for christmas tree admin API
  * @module controllers/christmas-tree/admin

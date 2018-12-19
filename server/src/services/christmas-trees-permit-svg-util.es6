@@ -14,7 +14,7 @@ const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
-const markdown = require('markdown').markdown;
+const Markdown = require('markdown');
 const vcapConstants = require('../vcap-constants.es6');
 
 const christmasTreesPermitSvgUtil = {};
@@ -139,7 +139,7 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => new Promise((resolve) => 
 christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => new Promise((resolve, reject) => {
   const rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
   if (rulesMarkdown) {
-    let rulesHtml = markdown.toHTML(rulesMarkdown);
+    let rulesHtml = Markdown.markdown.toHTML(rulesMarkdown);
     rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
     resolve(
       christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
