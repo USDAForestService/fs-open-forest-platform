@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
 
 /**
@@ -50,10 +50,14 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoEveningPhonePrefix = input.applicantInfo.eveningPhone && input.applicantInfo.eveningPhone.prefix
     ? input.applicantInfo.eveningPhone.prefix
     : null;
-  output.applicantInfoFaxAreaCode = input.applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
-  output.applicantInfoFaxExtension = input.applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
-  output.applicantInfoFaxNumber = input.applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
-  output.applicantInfoFaxPrefix = input.applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
+  output.applicantInfoFaxAreaCode = input
+    .applicantInfo.fax && input.applicantInfo.fax.areaCode ? input.applicantInfo.fax.areaCode : null;
+  output.applicantInfoFaxExtension = input
+    .applicantInfo.fax && input.applicantInfo.fax.extension ? input.applicantInfo.fax.extension : null;
+  output.applicantInfoFaxNumber = input
+    .applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
+  output.applicantInfoFaxPrefix = input
+    .applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -61,7 +65,8 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress.mailingAddress;
   output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress.mailingAddress2;
   output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress.mailingCity;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+  output.applicantInfoPrimaryMailingState = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
     ? input.applicantInfo.primaryAddress.mailingState
     : null;
   output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress.mailingZIP;
@@ -73,21 +78,36 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
   output.applicantMessage = input.applicantMessage;
   output.region = input.region;
   output.signature = input.signature;
-  output.tempOutfitterFieldsActDescFieldsAudienceDesc = input.tempOutfitterFields.activityDescriptionFields.audienceDescription;
-  output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration = input.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
-  output.tempOutfitterFieldsActDescFieldsEndDateTime = input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
-  output.tempOutfitterFieldsActDescFieldsListGovFacilities = input.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
-  output.tempOutfitterFieldsActDescFieldsListTempImprovements = input.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements;
-  output.tempOutfitterFieldsActDescFieldsLocationDesc = input.tempOutfitterFields.activityDescriptionFields.locationDescription;
-  output.tempOutfitterFieldsActDescFieldsNumServiceDaysReq = input.tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested;
-  output.tempOutfitterFieldsActDescFieldsNumTrips = input.tempOutfitterFields.activityDescriptionFields.numberOfTrips;
-  output.tempOutfitterFieldsActDescFieldsServProvided = input.tempOutfitterFields.activityDescriptionFields.servicesProvided;
-  output.tempOutfitterFieldsActDescFieldsStartDateTime = input.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
-  output.tempOutfitterFieldsActDescFieldsStmtAssignedSite = input.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
-  output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip = input.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
-  output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock = input.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
-  output.tempOutfitterFieldsAdvertisingDescription = input.tempOutfitterFields.advertisingDescription;
-  output.tempOutfitterFieldsAdvertisingUrl = input.tempOutfitterFields.advertisingURL;
+  output.tempOutfitterFieldsActDescFieldsAudienceDesc = input
+    .tempOutfitterFields.activityDescriptionFields.audienceDescription;
+  output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration = input
+    .tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
+  output.tempOutfitterFieldsActDescFieldsEndDateTime = input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
+  output.tempOutfitterFieldsActDescFieldsListGovFacilities = input
+    .tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
+  output.tempOutfitterFieldsActDescFieldsListTempImprovements = input
+    .tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements;
+  output.tempOutfitterFieldsActDescFieldsLocationDesc = input
+    .tempOutfitterFields.activityDescriptionFields.locationDescription;
+  output.tempOutfitterFieldsActDescFieldsNumServiceDaysReq = input
+    .tempOutfitterFields.activityDescriptionFields.numberServiceDaysRequested;
+  output.tempOutfitterFieldsActDescFieldsNumTrips = input
+    .tempOutfitterFields.activityDescriptionFields.numberOfTrips;
+  output.tempOutfitterFieldsActDescFieldsServProvided = input
+    .tempOutfitterFields.activityDescriptionFields.servicesProvided;
+  output.tempOutfitterFieldsActDescFieldsStartDateTime = input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
+  output.tempOutfitterFieldsActDescFieldsStmtAssignedSite = input
+    .tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
+  output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip = input
+    .tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment;
+  output.tempOutfitterFieldsActDescFieldsStmtTransportLivestock = input
+    .tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock;
+  output.tempOutfitterFieldsAdvertisingDescription = input
+    .tempOutfitterFields.advertisingDescription;
+  output.tempOutfitterFieldsAdvertisingUrl = input
+    .tempOutfitterFields.advertisingURL;
   output.tempOutfitterFieldsClientCharges = input.tempOutfitterFields.clientCharges;
   output.tempOutfitterFieldsExperienceList = input.tempOutfitterFields.experienceList;
   output.tempOutfitterFieldsIndividualCitizen = input.tempOutfitterFields.individualIsCitizen;
@@ -346,9 +366,9 @@ const getAllFiles = applicationId => new Promise((resolve, reject) => {
       for (const item of results) {
         filePromises.push(getFile(item.s3FileName, item.documentType));
       }
-      Promise.all(filePromises).then((results) => {
+      Promise.all(filePromises).then((retrievedFiles) => {
         const files = {};
-        for (const item of results) {
+        for (const item of retrievedFiles) {
           files[item.documentType] = {
             buffer: item.fileBuffer,
             filename: item.key
@@ -642,25 +662,25 @@ tempOutfitter.getOne = (req, res) => {
     }
   })
     .then((app) => {
-      if (!app) {
-        return res.status(404).send();
-      }
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      util.logControllerAction(req, 'tempOutfitter.getOne', app);
-      Revision.findAll({
-        where: {
-          applicationId: app.applicationId,
-          applicationType: app.type
-        }
-      })
-        .then((revisions) => {
-          const formattedApp = translateFromDatabaseToClient(app);
-          formattedApp.revisions = revisions;
-          return res.status(200).json(formattedApp);
+      if (app) {
+        util.logControllerAction(req, 'tempOutfitter.getOne', app);
+        Revision.findAll({
+          where: {
+            applicationId: app.applicationId,
+            applicationType: app.type
+          }
         })
-        .catch(() => res.status(500).send());
+          .then((revisions) => {
+            const formattedApp = translateFromDatabaseToClient(app);
+            formattedApp.revisions = revisions;
+            return res.status(200).json(formattedApp);
+          })
+          .catch(() => res.status(500).send());
+      }
+      return res.status(404).send();
     })
     .catch(() => res.status(500).send());
 };
@@ -677,40 +697,40 @@ tempOutfitter.update = (req, res) => {
     }
   })
     .then((app) => {
-      if (!app) {
-        return res.status(404).send();
-      }
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      tempOutfitter.updateApplicationModel(app, req.body, req.user);
-      if (app.status === 'Accepted') {
-        acceptApplication(app)
-          .then((response) => {
-            app.controlNumber = JSON.parse(response).controlNumber;
-            app
-              .save()
-              .then(() => {
-                util.logControllerAction(req, 'tempOutfitter.update', app);
-                commonControllers.createRevision(req.user, app);
-                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-                email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-                return res.status(200).json(translateFromDatabaseToClient(app));
-              })
-              .catch(() => res.status(500).send());
-          })
-          .catch(() => res.status(500).send());
-      } else {
-        app
-          .save()
-          .then(() => {
-            commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
-            return res.status(200).json(translateFromDatabaseToClient(app));
-          })
-          .catch((error) => {
-            util.handleErrorResponse(error, res, 'update#emailSwitch');
-          });
+      if (app) {
+        tempOutfitter.updateApplicationModel(app, req.body, req.user);
+        if (app.status === 'Accepted') {
+          acceptApplication(app)
+            .then((response) => {
+              app.controlNumber = JSON.parse(response).controlNumber;
+              app
+                .save()
+                .then(() => {
+                  util.logControllerAction(req, 'tempOutfitter.update', app);
+                  commonControllers.createRevision(req.user, app);
+                  app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+                  email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+                  return res.status(200).json(translateFromDatabaseToClient(app));
+                })
+                .catch(() => res.status(500).send());
+            })
+            .catch(() => res.status(500).send());
+        } else {
+          app
+            .save()
+            .then(() => {
+              commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
+              return res.status(200).json(translateFromDatabaseToClient(app));
+            })
+            .catch((error) => {
+              util.handleErrorResponse(error, res, 'update#emailSwitch');
+            });
+        }
       }
+      return res.status(404).send();
     })
     .catch(() => res.status(500).send());
 };

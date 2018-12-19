@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
 /**
  * Module for christmas tree public API to create permits and manage transactions
  * @module controllers/christmas-tree/permits
@@ -422,13 +423,13 @@ const completePermitTransaction = (permit, res, req) => {
           resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
         })
         .catch((processError) => {
-          processError.method = 'completePermitTransaction#process';
-          reject(processError);
+          const errorToSend = Object.assign(processError, { method: 'completePermitTransaction#process' });
+          reject(errorToSend);
         }))
       .catch((postError) => {
         if (postError && postError !== 'null') {
-          postError.method = 'completePermitTransaction#end';
-          reject(postError);
+          const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
+          reject(errorToSend);
         }
       });
   });

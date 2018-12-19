@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign */
+/* eslint no-param-reassign: ["error", { "props": false }] */
 
 /**
  * Module for noncommercial permit application controllers
@@ -43,54 +43,69 @@ noncommercial.translateFromClientToDatabase = (input, output) => {
     ? input.applicantInfo.eveningPhone.prefix
     : null;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
-  output.applicantInfoOrgMailingAddress = input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress
+  output.applicantInfoOrgMailingAddress = input
+    .applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress
     ? input.applicantInfo.organizationAddress.mailingAddress
     : null;
-  output.applicantInfoOrgMailingAddress2 = input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress2
+  output.applicantInfoOrgMailingAddress2 = input
+    .applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingAddress2
     ? input.applicantInfo.organizationAddress.mailingAddress2
     : null;
-  output.applicantInfoOrgMailingCity = input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingCity
+  output.applicantInfoOrgMailingCity = input
+    .applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingCity
     ? input.applicantInfo.organizationAddress.mailingCity
     : null;
-  output.applicantInfoOrgMailingState = input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingState
+  output.applicantInfoOrgMailingState = input
+    .applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingState
     ? input.applicantInfo.organizationAddress.mailingState
     : null;
-  output.applicantInfoOrgMailingZIP = input.applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingZIP
+  output.applicantInfoOrgMailingZIP = input
+    .applicantInfo.organizationAddress && input.applicantInfo.organizationAddress.mailingZIP
     ? input.applicantInfo.organizationAddress.mailingZIP
     : null;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
   output.applicantInfoPrimaryLastName = input.applicantInfo.primaryLastName;
-  output.applicantInfoPrimaryMailingAddress = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress
+  output.applicantInfoPrimaryMailingAddress = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress
     ? input.applicantInfo.primaryAddress.mailingAddress
     : null;
-  output.applicantInfoPrimaryMailingAddress2 = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress2
+  output.applicantInfoPrimaryMailingAddress2 = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingAddress2
     ? input.applicantInfo.primaryAddress.mailingAddress2
     : null;
-  output.applicantInfoPrimaryMailingCity = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingCity
+  output.applicantInfoPrimaryMailingCity = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingCity
     ? input.applicantInfo.primaryAddress.mailingCity
     : null;
-  output.applicantInfoPrimaryMailingState = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
+  output.applicantInfoPrimaryMailingState = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingState
     ? input.applicantInfo.primaryAddress.mailingState
     : null;
-  output.applicantInfoPrimaryMailingZIP = input.applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingZIP
+  output.applicantInfoPrimaryMailingZIP = input
+    .applicantInfo.primaryAddress && input.applicantInfo.primaryAddress.mailingZIP
     ? input.applicantInfo.primaryAddress.mailingZIP
     : null;
   output.applicantInfoSecondaryFirstName = input.applicantInfo.secondaryFirstName;
   output.applicantInfoSecondaryLastName = input.applicantInfo.secondaryLastName;
-  output.applicantInfoSecondaryMailingAddress = input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress
+  output.applicantInfoSecondaryMailingAddress = input
+    .applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress
     ? input.applicantInfo.secondaryAddress.mailingAddress
     : null;
-  output.applicantInfoSecondaryMailingAddress2 = input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress2
+  output.applicantInfoSecondaryMailingAddress2 = input
+    .applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingAddress2
     ? input.applicantInfo.secondaryAddress.mailingAddress2
     : null;
-  output.applicantInfoSecondaryMailingCity = input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingCity
+  output.applicantInfoSecondaryMailingCity = input
+    .applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingCity
     ? input.applicantInfo.secondaryAddress.mailingCity
     : null;
-  output.applicantInfoSecondaryMailingState = input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingState
+  output.applicantInfoSecondaryMailingState = input
+    .applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingState
     ? input.applicantInfo.secondaryAddress.mailingState
     : null;
-  output.applicantInfoSecondaryMailingZIP = input.applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingZIP
+  output.applicantInfoSecondaryMailingZIP = input
+    .applicantInfo.secondaryAddress && input.applicantInfo.secondaryAddress.mailingZIP
     ? input.applicantInfo.secondaryAddress.mailingZIP
     : null;
   output.applicantInfoWebsite = input.applicantInfo.website;
@@ -204,7 +219,8 @@ const translateFromDatabaseToClient = (input) => {
     authEmail: input.authEmail,
     type: input.type
   };
-  result.applicantInfo.addSecondaryPermitHolder = !!result.applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
+  result.applicantInfo.addSecondaryPermitHolder = !!result
+    .applicantInfo.secondaryFirstName && !!result.applicantInfo.secondaryFirstName;
   result.applicantInfo.secondaryAddressSameAsPrimary = !result.applicantInfo.secondaryAddress.mailingAddress
     && !result.applicantInfo.secondaryAddress.mailingAddress2
     && !result.applicantInfo.secondaryAddress.mailingCity
@@ -418,45 +434,45 @@ noncommercial.update = (req, res) => {
     }
   })
     .then((app) => {
-      if (!app) {
-        return res.status(404).send();
-      }
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      noncommercial.updateApplicationModel(app, req.body, req.user);
-      if (app.status === 'Accepted') {
-        noncommercial
-          .acceptApplication(app)
-          .then((response) => {
-            util.logControllerAction(req, 'noncommerical.update', app);
-            app.controlNumber = response.controlNumber;
-            app
-              .save()
-              .then(() => {
-                commonControllers.createRevision(req.user, app);
-                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-                email.sendEmail(`noncommercialApplication${app.status}`, app);
-                return res.status(200).json(translateFromDatabaseToClient(app));
-              })
-              .catch((error) => {
-                util.handleErrorResponse(error, res, 'updateApplicationModel#revision');
-              });
-          })
-          .catch((error) => {
-            util.handleErrorResponse(error, res, 'updateApplicationModel#acceptedpermit');
-          });
-      } else {
-        app
-          .save()
-          .then(() => {
-            commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
-            return res.status(200).json(translateFromDatabaseToClient(app));
-          })
-          .catch((error) => {
-            util.handleErrorResponse(error, res, 'updateApplicationModel#emailswitch');
-          });
+      if (app) {
+        noncommercial.updateApplicationModel(app, req.body, req.user);
+        if (app.status === 'Accepted') {
+          noncommercial
+            .acceptApplication(app)
+            .then((response) => {
+              util.logControllerAction(req, 'noncommerical.update', app);
+              app.controlNumber = response.controlNumber;
+              app
+                .save()
+                .then(() => {
+                  commonControllers.createRevision(req.user, app);
+                  app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+                  email.sendEmail(`noncommercialApplication${app.status}`, app);
+                  return res.status(200).json(translateFromDatabaseToClient(app));
+                })
+                .catch((error) => {
+                  util.handleErrorResponse(error, res, 'updateApplicationModel#revision');
+                });
+            })
+            .catch((error) => {
+              util.handleErrorResponse(error, res, 'updateApplicationModel#acceptedpermit');
+            });
+        } else {
+          app
+            .save()
+            .then(() => {
+              commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
+              return res.status(200).json(translateFromDatabaseToClient(app));
+            })
+            .catch((error) => {
+              util.handleErrorResponse(error, res, 'updateApplicationModel#emailswitch');
+            });
+        }
       }
+      return res.status(404).send();
     })
     .catch(() => res.status(500).send());
 };
