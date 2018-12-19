@@ -1,4 +1,4 @@
-'use strict';
+
 
 const factory = require('unionized');
 
@@ -17,8 +17,8 @@ module.exports = factory.factory({
   quantity: 2,
   // required string
   firstName: 'fName',
-  // required string 
+  // required string
   lastName: 'lName',
   // required string
-  emailAddress: 'test@email.com',
+  emailAddress: 'test@email.com'
 });

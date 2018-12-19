@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for authentication routes
