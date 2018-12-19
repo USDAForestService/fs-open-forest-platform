@@ -42,31 +42,28 @@ const getPermitResult = permit => {
 };
 
 /**
- * @function returnPermitsReport - Private function to return permits with number of trees and cost
+ * @private
+ * @function buildPermitsReport - Create a summary report for a group of permits
  * @param {Object} results - permits results from database
- * @param {Object} res - http response
+ * @param {Object} permitSummary - summary of permit information
  */
-const returnPermitsReport = (results, res) => {
-  if (results) {
-    let permits = [];
-    let sumOfTrees = 0;
-    let sumOfCost = 0;
+const buildPermitsReport = (results) => {
+  let permits = [];
+  let sumOfTrees = 0;
+  let sumOfCost = 0;
 
-    results.forEach(permit => {
-      sumOfTrees += permit.quantity;
-      sumOfCost += parseFloat(permit.totalCost);
-      permits.push(getPermitResult(permit));
-    });
+  results.forEach(permit => {
+    sumOfTrees += permit.quantity;
+    sumOfCost += parseFloat(permit.totalCost);
+    permits.push(getPermitResult(permit));
+  });
 
-    res.status(200).json({
-      sumOfTrees: sumOfTrees,
-      sumOfCost: sumOfCost.toFixed(2),
-      numberOfPermits: results.length,
-      permits: permits
-    });
-  } else {
-    res.status(404).send();
-  }
+  return {
+    sumOfTrees: sumOfTrees,
+    sumOfCost: sumOfCost.toFixed(2),
+    numberOfPermits: results.length,
+    permits: permits
+  };
 };
 
 /**
@@ -74,7 +71,7 @@ const returnPermitsReport = (results, res) => {
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
-christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
+christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   logger.info(`${req.user} generated a report`);
 
   // The report may include forests from multiple time zones. The previous implementation assumed
@@ -86,47 +83,47 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
   // the returnes lists with the forest-specific timezones.
   const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0)
   const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0).second(0);
-  const forestIds = [req.query.forestId]
 
-  treesDb.christmasTreesPermits
-    .findAll({
-      attributes: [
-        'forestId',
-        'permitNumber',
-        'updatedAt',
-        'quantity',
-        'totalCost',
-        'permitExpireDate',
-        'christmasTreesForest.timezone'
-      ],
-      include: [
-        {
-          model: treesDb.christmasTreesForests,
-          where: {
-            forestAbbr: {
-              [operator.in]: req.user.forests
-            }
+  const forestFilter = req.query.forestId === 'ALL' ? {} : { forestId: req.query.forestId };
+
+  const query = {
+    attributes: [
+      'forestId',
+      'permitNumber',
+      'updatedAt',
+      'quantity',
+      'totalCost',
+      'permitExpireDate',
+      'christmasTreesForest.timezone'
+    ],
+    include: [
+      {
+        model: treesDb.christmasTreesForests,
+        where: {
+          forestAbbr: {
+            [operator.in]: req.user.forests
           }
         }
-      ],
-      where: {
-        forestId: {
-          [operator.in]: forestIds
-        },
-        status: 'Completed',
-        updatedAt: {
-          [operator.gte]: startDate,
-          [operator.lt]: endDate
-        }
-      },
-      order: [['updatedAt', 'ASC']]
-    })
-    .then(results => {
-      return returnPermitsReport(results, res);
-    })
-    .catch(error => {
-      util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
-    });
+      }
+    ],
+    where: {
+      ...forestFilter,
+      status: 'Completed',
+      updatedAt: {
+        [operator.gte]: startDate,
+        [operator.lt]: endDate
+      }
+    },
+    order: [['updatedAt', 'ASC']]
+  };
+
+  try {
+    const permits = await treesDb.christmasTreesPermits.findAll(query)
+    const report = buildPermitsReport(permits);
+    res.status(200).json(report);
+  } catch(error) {
+    util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
+  };
 };
 
 /**
@@ -134,33 +131,33 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
+christmasTreeAdmin.getPermitReport = async (req, res) => {
+  const query = {
+    attributes: ['permitId', 'forestId', 'permitNumber', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+    where: {
+      permitNumber: req.params.permitNumber,
+      status: 'Completed'
+    }
+  };
 
-christmasTreeAdmin.getPermitReport = (req, res) => {
-  treesDb.christmasTreesPermits
-    .findOne({
-      attributes: ['permitId', 'forestId', 'permitNumber', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
-      where: {
-        permitNumber: req.params.permitNumber,
-        status: 'Completed'
-      }
-    })
-    .then(requestedPermit => {
-      if (requestedPermit === null) {
-        return res.status(400).json({
-          errors: [
-            {
-              errorCode: 'notFound',
-              message: `Permit number ${req.params.permitNumber} was not found.`
-            }
-          ]
-        });
-      } else {
-        return returnPermitsReport([requestedPermit], res);
-      }
-    })
-    .catch(error => {
-      return util.handleErrorResponse(error, res, 'getPermitReport#end');
-    });
+  try {
+    const permit = await treesDb.christmasTreesPermits.findOne(query)
+    if (permit === null) {
+      return res.status(400).json({
+        errors: [
+          {
+            errorCode: 'notFound',
+            message: `Permit number ${req.params.permitNumber} was not found.`
+          }
+        ]
+      });
+    }
+
+    const report = buildPermitsReport([permit]);
+    res.status(200).json(report);
+  } catch(error) {
+    util.handleErrorResponse(error, res, 'getPermitReport#end');
+  }
 };
 
 /**
