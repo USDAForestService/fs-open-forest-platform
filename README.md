@@ -55,6 +55,7 @@ As the first two-way interaction-focused Forest Service online application, Open
 		- [JWT Usage](#jwt-usage)
 		- [Pay.Gov integration](#paygov-integration)
 		- [SMTP relay configuration for sending emails](#smtp-relay-configuration-for-sending-emails)
+		- [Logging](#logging)
 	- [Frontend Development](#frontend-development)
 		- [Install angular cli](#install-angular-cli)
 		- [Navigate to frontend directory](#navigate-to-frontend-directory)
@@ -230,6 +231,9 @@ The current configuration implements email via google smtp relay. Follow the doc
 Authentication is set up to support safelisted IP addresses that are allowed to send emails, so no SMTP authentication is required.
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
+
+#### Logging
+We use [winston](https://www.npmjs.com/package/winston) logging and [express-winston](https://www.npmjs.com/package/express-winston) to modify logs to be viewed within cloud.gov.
 
 ### Frontend Development
 

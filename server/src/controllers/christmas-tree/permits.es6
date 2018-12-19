@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for chrismtmas tree public API to create permits and manage transactions
@@ -28,47 +28,43 @@ const christmasTreePermits = {};
  * @param {Object} input - christmas trees permit object from database
  * @return {Object} - formatted permit object
  */
-const translatePermitFromClientToDatabase = input => {
-  return {
-    permitId: uuid(),
-    forestId: input.forestId,
-    orgStructureCode: input.orgStructureCode,
-    firstName: input.firstName,
-    lastName: input.lastName,
-    emailAddress: input.emailAddress,
-    treeCost: input.treeCost,
-    quantity: input.quantity,
-    totalCost: input.totalCost,
-    permitExpireDate: input.expDate
-  };
-};
+const translatePermitFromClientToDatabase = input => ({
+  permitId: uuid(),
+  forestId: input.forestId,
+  orgStructureCode: input.orgStructureCode,
+  firstName: input.firstName,
+  lastName: input.lastName,
+  emailAddress: input.emailAddress,
+  treeCost: input.treeCost,
+  quantity: input.quantity,
+  totalCost: input.totalCost,
+  permitExpireDate: input.expDate
+});
 
 /**
  * @function permitResult - Private function to return formatted permit result
  * @param {Object} permit - permit object from database
  * @return {Object} - formatted permit object
  */
-const permitResult = permit => {
-  return {
-    permitId: permit.permitId,
-    orgStructureCode: permit.orgStructureCode,
-    firstName: permit.firstName,
-    lastName: permit.lastName,
-    emailAddress: permit.emailAddress,
-    quantity: permit.quantity,
-    totalCost: permit.totalCost,
-    status: permit.status,
-    transactionDate: permit.updatedAt,
-    paygovTrackingId: permit.paygovTrackingId,
-    expirationDate: permit.permitExpireDate,
-    permitNumber: zpad(permit.permitNumber, 8),
-    forest: {
-      forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
-      forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
-      forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
-    }
-  };
-};
+const permitResult = permit => ({
+  permitId: permit.permitId,
+  orgStructureCode: permit.orgStructureCode,
+  firstName: permit.firstName,
+  lastName: permit.lastName,
+  emailAddress: permit.emailAddress,
+  quantity: permit.quantity,
+  totalCost: permit.totalCost,
+  status: permit.status,
+  transactionDate: permit.updatedAt,
+  paygovTrackingId: permit.paygovTrackingId,
+  expirationDate: permit.permitExpireDate,
+  permitNumber: zpad(permit.permitNumber, 8),
+  forest: {
+    forestName: permit.christmasTreesForest ? permit.christmasTreesForest.forestName : null,
+    forestAbbr: permit.christmasTreesForest ? permit.christmasTreesForest.forestAbbr : null,
+    forestNameShort: permit.christmasTreesForest ? permit.christmasTreesForest.forestNameShort : null
+  }
+});
 
 /**
  * @function updatePermitWithToken - Private function to update permit with paygov token
@@ -83,18 +79,18 @@ const updatePermitWithToken = (res, permit, token) => {
     .update({
       paygovToken: token
     })
-    .then(savedPermit => {
+    .then((savedPermit) => {
       logger.info(
         `${savedPermit.emailAddress} modified ${savedPermit.permitId} with pay.gov token at ${savedPermit.updatedAt}`
       );
       return res.status(200).json({
-        token: token,
+        token,
         permitId: savedPermit.permitId,
         payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
-        tcsAppID: tcsAppID
+        tcsAppID
       });
     })
-    .catch(error => {
+    .catch((error) => {
       util.handleErrorResponse(error, res, 'updatePermitWithToken#end');
     });
 };
@@ -106,19 +102,17 @@ const updatePermitWithToken = (res, permit, token) => {
  * @param {string} paygovError - error from payGov
  * @return {Object} - http response
  */
-const updatePermitWithError = (res, permit, paygovError) => {
-  return updatePermit(permit, {
-    status: 'Error',
-    paygovError: JSON.stringify(paygovError)
-  }).then(updatedPermit => {
-    logger.error(
-      `ERROR: ServerError: ${updatedPermit.emailAddress} \
+const updatePermitWithError = (res, permit, paygovError) => updatePermit(permit, {
+  status: 'Error',
+  paygovError: JSON.stringify(paygovError)
+}).then((updatedPermit) => {
+  logger.error(
+    `ERROR: ServerError: ${updatedPermit.emailAddress} \
 modified ${updatedPermit.permitId} encountered an error \
 at pay.gov ${updatedPermit.paygovError}`
-    );
-    return getPermitError(res, updatedPermit);
-  });
-};
+  );
+  return getPermitError(res, updatedPermit);
+});
 
 /**
  * @function getPermitError - Private function to error objects from the permit's errors
@@ -127,7 +121,7 @@ at pay.gov ${updatedPermit.paygovError}`
  * @return {Object} - http response
  */
 const getPermitError = (res, permit) => {
-  let permitErrors = JSON.parse(permit.paygovError);
+  const permitErrors = JSON.parse(permit.paygovError);
   return res.status(400).json({
     errors: [
       {
@@ -152,32 +146,26 @@ const getPermitError = (res, permit) => {
 const recordPayGovError = (error, result, res, permit, requestType) => {
   logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error while ${requestType}`);
   return paygov.getResponseError(requestType, result)
-    .then(paygovError => {
-      return updatePermitWithError(res, permit, paygovError);
-    });
+    .then(paygovError => updatePermitWithError(res, permit, paygovError));
 };
 
 /**
  * @function grabAndProcessPaygovToken - Private function to error objects from the permit's errors
- * @param {Object} xmlDatafromPayGov - xml from pay.gov 
+ * @param {Object} xmlDatafromPayGov - xml from pay.gov
  * @param {Object} permit - permit object from database
  * @param {Object} res - http response
  * @return {Object} - promise of whether permit was updated with token
  */
-const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => {
-  return new Promise((resolve, reject) => {
-    xml2jsParse(payGovXmlRes, function (parseErr, result) {
-      if (!parseErr) {
-        paygov.getToken(result)
-          .then(token => resolve(updatePermitWithToken(res, permit, token)))
-          .catch(error => {
-            return recordPayGovError(error, result, res, permit, 'startOnlineCollection');
-          });
-      }
-      reject(parseErr);
-    });
+const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => new Promise((resolve, reject) => {
+  xml2jsParse(payGovXmlRes, (parseErr, result) => {
+    if (!parseErr) {
+      paygov.getToken(result)
+        .then(token => resolve(updatePermitWithToken(res, permit, token)))
+        .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
+    }
+    reject(parseErr);
   });
-};
+});
 
 /**
  * @function create - API function to create permit application
@@ -192,28 +180,27 @@ christmasTreePermits.create = (req, res) => {
         id: req.body.forestId
       }
     })
-    .then(forest => {
+    .then((forest) => {
       if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-        logger.error('Permit attempted to be created outside of season date for ${req.body.forestId}');
+        logger.error(`Permit attempted to be created outside of season date for ${req.body.forestId}`);
         return res.status(404).send(); // season is closed or not yet started
-      } else {
-        req.body.expDate = forest.endDate;
-        return treesDb.christmasTreesPermits
-          .create(translatePermitFromClientToDatabase(req.body))
-          .then(permit => {
-            util.logControllerAction(req, 'christmasTreePermits.create', permit);
-            const initPayGovTransactionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
-            return paygov.postPayGov(initPayGovTransactionXml)
-              .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
-              .catch(postError => {
-                if (postError && postError !== 'null') {
-                  util.handleErrorResponse(postError, res, 'create#postPay');
-                }
-              });
-          });
       }
+      req.body.expDate = forest.endDate;
+      return treesDb.christmasTreesPermits
+        .create(translatePermitFromClientToDatabase(req.body))
+        .then((permit) => {
+          util.logControllerAction(req, 'christmasTreePermits.create', permit);
+          const initPayGovTransactionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
+          return paygov.postPayGov(initPayGovTransactionXml)
+            .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
+            .catch((postError) => {
+              if (postError && postError !== 'null') {
+                util.handleErrorResponse(postError, res, 'create#postPay');
+              }
+            });
+        });
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(`ERROR: ServerError: ${error} from create#catch`);
       return res.status(400).json({
         errors: error.errors
@@ -232,21 +219,21 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
   const attachments = [
     {
       filename: 'permit.png',
-      content: new Buffer(permitPng, 'utf-8'),
+      content: Buffer.from(permitPng, 'utf-8'),
       cid: 'christmas-tree-permit-image'
     },
     {
       filename: 'permit-attachment.png',
-      content: new Buffer(permitPng, 'utf-8')
+      content: Buffer.from(permitPng, 'utf-8')
     },
     {
       filename: 'permit-rules.html',
-      content: new Buffer(rulesHtml, 'utf-8'),
+      content: Buffer.from(rulesHtml, 'utf-8'),
       contentType: 'text/html'
     },
     {
       filename: 'permit-rules.txt',
-      content: new Buffer(rulesText, 'utf-8')
+      content: Buffer.from(rulesText, 'utf-8')
     }
   ];
 
@@ -259,9 +246,7 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
  * @param {Object} savedPermit - permit from database
  * @return {Object} - http response
  */
-const returnSavedPermit = (res, savedPermit) => {
-  return res.status(200).send(permitResult(savedPermit));
-};
+const returnSavedPermit = (res, savedPermit) => res.status(200).send(permitResult(savedPermit));
 
 /**
  * @function updatePermit - Private function to update permit in database
@@ -269,21 +254,19 @@ const returnSavedPermit = (res, savedPermit) => {
  * @param {Object} updateObject - updated permit object
  * @return {Object} - saved permit
  */
-const updatePermit = (permit, updateObject) => {
-  return new Promise((resolve, reject) => {
-    permit
-      .update(updateObject)
-      .then(permit => {
-        logger.info(
-          `PermitID ${permit.permitId} updated at ${permit.modifiedAt} by ${permit.emailAddress} `
-        );
-        resolve(permit);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-};
+const updatePermit = (permit, updateObject) => new Promise((resolve, reject) => {
+  permit
+    .update(updateObject)
+    .then((updatedPermit) => {
+      logger.info(
+        `PermitID ${updatedPermit.permitId} updated at ${updatedPermit.modifiedAt} by ${permit.emailAddress} `
+      );
+      resolve(updatedPermit);
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});
 
 /**
  * @function parseXMLFromPayGov - Private function to parse the returned XML from payGov
@@ -292,57 +275,49 @@ const updatePermit = (permit, updateObject) => {
  * @param {Object} permit - permit object
  * @return {string} - paygov tracking id
  */
-const grabAndProcessTrackingId = (res, payGovXmlRes, permit, status) => {
-  return new Promise((resolve, reject) => {
-    xml2jsParse(payGovXmlRes, function (parseErr, result) {
-      if (!parseErr) {
-        paygov.getTrackingId(result)
-          .then(paygovTrackingId => resolve(updatePermit(permit, {
-            paygovTrackingId: paygovTrackingId,
-            status: status
-          })))
-          .catch(error => {
-            return recordPayGovError(error, result, res, permit, 'completeOnlineCollection');
-          });
-      } else {
-        reject(parseErr);
-      }
-    });
+const grabAndProcessTrackingId = (res, payGovXmlRes, permit, status) => new Promise((resolve, reject) => {
+  xml2jsParse(payGovXmlRes, (parseErr, result) => {
+    if (!parseErr) {
+      paygov.getTrackingId(result)
+        .then(paygovTrackingId => resolve(updatePermit(permit, {
+          paygovTrackingId,
+          status
+        })))
+        .catch(error => recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
+    } else {
+      reject(parseErr);
+    }
   });
-};
+});
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
  * @param {date} permitExpireDate - expiration date
  * @return {boolean} - expiration date is is after current date
  */
-const checkPermitValid = permitExpireDate => {
-  return moment(permitExpireDate).isAfter(moment());
-};
+const checkPermitValid = permitExpireDate => moment(permitExpireDate).isAfter(moment());
 
 /**
  * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
  * @param {Object} permit - permit object
  */
-christmasTreePermits.generateRulesAndEmail = permit => {
-  return permitSvgService.generatePermitSvg(permit)
-    .then((permitSvg) => Promise.all([
-      permitSvgService.generatePng(permitSvg),
-      permitSvgService.generateRulesHtml(true, permit),
-    ]))
-    .then(([permitPng, rulesHtml]) => {
-      permit.permitUrl = paygov.returnUrl(
-        permit.christmasTreesForest.forestAbbr,
-        permit.permitId,
-        false
-      );
-      const rulesText = htmlToText.fromString(rulesHtml, {
-        wordwrap: 130,
-        ignoreImage: true
-      });
-      return sendEmail(permit, permitPng, rulesHtml, rulesText);
+christmasTreePermits.generateRulesAndEmail = permit => permitSvgService.generatePermitSvg(permit)
+  .then(permitSvg => Promise.all([
+    permitSvgService.generatePng(permitSvg),
+    permitSvgService.generateRulesHtml(true, permit)
+  ]))
+  .then(([permitPng, rulesHtml]) => {
+    permit.permitUrl = paygov.returnUrl(
+      permit.christmasTreesForest.forestAbbr,
+      permit.permitId,
+      false
+    );
+    const rulesText = htmlToText.fromString(rulesHtml, {
+      wordwrap: 130,
+      ignoreImage: true
     });
-};
+    return sendEmail(permit, permitPng, rulesHtml, rulesText);
+  });
 
 /**
  * @function getOnePermit - API function to get a permit.
@@ -362,12 +337,12 @@ christmasTreePermits.getOnePermit = (req, res) => {
         }
       ]
     })
-    .then(permit => {
+    .then((permit) => {
       if (permit && permit.status === 'Error') {
         return getPermitError(res, permit);
-      } else if (permit) {
+      } if (permit) {
         const token = req.query.t;
-        jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
+        jwt.verify(token, vcapConstants.PERMIT_SECRET, (err, decoded) => {
           if (decoded) {
             util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
             returnSavedPermit(res, permit);
@@ -379,7 +354,7 @@ christmasTreePermits.getOnePermit = (req, res) => {
         return res.status(404).send();
       }
     })
-    .catch(error => {
+    .catch((error) => {
       util.handleErrorResponse(error, res, 'getOnePermit#end');
     });
 };
@@ -402,19 +377,19 @@ christmasTreePermits.printPermit = (req, res) => {
         }
       ]
     })
-    .then(permit => {
+    .then((permit) => {
       util.logControllerAction(req, 'christmasTreePermits.printPermit', permit);
       if (permit.status === 'Completed') {
         if (!checkPermitValid(permit.permitExpireDate)) {
           res.status(404).send();
         } else if (!req.query.rules || req.query.permit === 'true') {
-          permitSvgService.generatePermitSvg(permit).then(permitSvg => {
+          permitSvgService.generatePermitSvg(permit).then((permitSvg) => {
             res.status(200).json({
               result: permitSvg
             });
           });
         } else if (req.query.rules === 'true') {
-          permitSvgService.generateRulesHtml(false, permit).then(rulesHtml => {
+          permitSvgService.generateRulesHtml(false, permit).then((rulesHtml) => {
             res.status(200).json({
               result: rulesHtml
             });
@@ -426,7 +401,7 @@ christmasTreePermits.printPermit = (req, res) => {
         res.status(404).send();
       }
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(error);
       res.status(404).send();
     });
@@ -445,18 +420,16 @@ const completePermitTransaction = (permit, res, req) => {
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   return new Promise((resolve, reject) => {
     paygov.postPayGov(xmlData)
-      .then(xmlResponse => {
-        return grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
-          .then(updatedPermit => {
-            returnSavedPermit(res, permit);
-            resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
-          })
-          .catch(processError => {
-            processError.method = 'completePermitTransaction#process';
-            reject(processError);
-          });
-      })
-      .catch(postError => {
+      .then(xmlResponse => grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
+        .then((updatedPermit) => {
+          returnSavedPermit(res, permit);
+          resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
+        })
+        .catch((processError) => {
+          processError.method = 'completePermitTransaction#process';
+          reject(processError);
+        }))
+      .catch((postError) => {
         if (postError && postError !== 'null') {
           postError.method = 'completePermitTransaction#end';
           reject(postError);
@@ -483,35 +456,34 @@ christmasTreePermits.updatePermitApplication = (req, res) => {
         }
       ]
     })
-    .then(permit => {
+    .then((permit) => {
       const token = req.query.t;
-      jwt.verify(token, vcapConstants.PERMIT_SECRET, function(err, decoded) {
+      jwt.verify(token, vcapConstants.PERMIT_SECRET, (err, decoded) => {
         if (decoded && permit) {
           if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
             return permit
               .update({
                 status: req.body.status
               })
-              .then((permit)=>{
-                util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', permit);
-                res.status(200).json(permit);
+              .then((updatedPermit) => {
+                util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
+                res.status(200).json(updatedPermit);
               });
-          } else if (permit.status === 'Initiated' && req.body.status === 'Completed') {
+          }
+          if (permit.status === 'Initiated' && req.body.status === 'Completed') {
             return completePermitTransaction(permit, res, req)
-              .then(logger.log(`PermitID ${permit.permitId} Successfully completed`))
+              .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
               .catch(error => logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
                did not complete ${error}`));
-          } else {
-            if (permit.status === 'Error'){
-              getPermitError(res, permit);
-            }
-            logger.error('Permit status unknown. 400.');
-            return res.status(404).send();
           }
-        } else {
-          logger.error('Permit not loaded or JWT not decoded.');
+          if (permit.status === 'Error') {
+            getPermitError(res, permit);
+          }
+          logger.error('Permit status unknown. 400.');
           return res.status(404).send();
         }
+        logger.error('Permit not loaded or JWT not decoded.');
+        return res.status(404).send();
       });
     })
     .catch((error) => {
