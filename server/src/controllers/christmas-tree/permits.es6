@@ -428,8 +428,13 @@ const completePermitTransaction = (permit, res, req) => {
         }))
       .catch((postError) => {
         if (postError && postError !== 'null') {
-          const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
-          reject(errorToSend);
+          if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
+            // send to record error
+            grabAndProcessTrackingId(res, postError.response.body, permit, req.body.status);
+          } else {
+            const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
+            reject(errorToSend);
+          }
         }
       });
   });
