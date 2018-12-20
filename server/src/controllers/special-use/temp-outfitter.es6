@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 
@@ -665,22 +666,22 @@ tempOutfitter.getOne = (req, res) => {
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      if (app) {
-        util.logControllerAction(req, 'tempOutfitter.getOne', app);
-        Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
-          .then((revisions) => {
-            const formattedApp = translateFromDatabaseToClient(app);
-            formattedApp.revisions = revisions;
-            return res.status(200).json(formattedApp);
-          })
-          .catch(() => res.status(500).send());
+      if (!app) {
+        return res.status(404).send();
       }
-      return res.status(404).send();
+      util.logControllerAction(req, 'tempOutfitter.getOne', app);
+      Revision.findAll({
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
+        .then((revisions) => {
+          const formattedApp = translateFromDatabaseToClient(app);
+          formattedApp.revisions = revisions;
+          return res.status(200).json(formattedApp);
+        })
+        .catch(() => res.status(500).send());
     })
     .catch(() => res.status(500).send());
 };
@@ -700,37 +701,37 @@ tempOutfitter.update = (req, res) => {
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      if (app) {
-        tempOutfitter.updateApplicationModel(app, req.body, req.user);
-        if (app.status === 'Accepted') {
-          acceptApplication(app)
-            .then((response) => {
-              app.controlNumber = JSON.parse(response).controlNumber;
-              app
-                .save()
-                .then(() => {
-                  util.logControllerAction(req, 'tempOutfitter.update', app);
-                  commonControllers.createRevision(req.user, app);
-                  app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-                  email.sendEmail(`tempOutfitterApplication${app.status}`, app);
-                  return res.status(200).json(translateFromDatabaseToClient(app));
-                })
-                .catch(() => res.status(500).send());
-            })
-            .catch(() => res.status(500).send());
-        } else {
-          app
-            .save()
-            .then(() => {
-              commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
-              return res.status(200).json(translateFromDatabaseToClient(app));
-            })
-            .catch((error) => {
-              util.handleErrorResponse(error, res, 'update#emailSwitch');
-            });
-        }
+      if (!app) {
+        return res.status(404).send();
       }
-      return res.status(404).send();
+      tempOutfitter.updateApplicationModel(app, req.body, req.user);
+      if (app.status === 'Accepted') {
+        acceptApplication(app)
+          .then((response) => {
+            app.controlNumber = JSON.parse(response).controlNumber;
+            app
+              .save()
+              .then(() => {
+                util.logControllerAction(req, 'tempOutfitter.update', app);
+                commonControllers.createRevision(req.user, app);
+                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+                email.sendEmail(`tempOutfitterApplication${app.status}`, app);
+                return res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch(() => res.status(500).send());
+          })
+          .catch(() => res.status(500).send());
+      } else {
+        app
+          .save()
+          .then(() => {
+            commonControllers.updateEmailSwitch(req, res, app, 'tempOutfitter');
+            return res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch((error) => {
+            util.handleErrorResponse(error, res, 'update#emailSwitch');
+          });
+      }
     })
     .catch(() => res.status(500).send());
 };

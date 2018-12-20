@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
 /**
@@ -368,28 +369,27 @@ noncommercial.getOne = (req, res) => {
     }
   })
     .then((app) => {
-      if (app) {
-        if (!util.hasPermissions(req.user, app)) {
-          return res.status(403).send();
-        }
-        util.logControllerAction(req, 'noncommerical.getOne', app);
-        Revision.findAll({
-          where: {
-            applicationId: app.applicationId,
-            applicationType: app.type
-          }
-        })
-          .then((revisions) => {
-            const formattedApp = translateFromDatabaseToClient(app);
-            formattedApp.revisions = revisions;
-            return res.status(200).json(formattedApp);
-          })
-          .catch((error) => {
-            logger.info('U fired');
-            util.handleErrorResponse(error, res, 'getOne#revisions');
-          });
+      if (!app) {
+        return res.status(404).send();
       }
-      return res.status(404).send();
+      if (!util.hasPermissions(req.user, app)) {
+        return res.status(403).send();
+      }
+      util.logControllerAction(req, 'noncommerical.getOne', app);
+      Revision.findAll({
+        where: {
+          applicationId: app.applicationId,
+          applicationType: app.type
+        }
+      })
+        .then((revisions) => {
+          const formattedApp = translateFromDatabaseToClient(app);
+          formattedApp.revisions = revisions;
+          return res.status(200).json(formattedApp);
+        })
+        .catch((error) => {
+          util.handleErrorResponse(error, res, 'getOne#revisions');
+        });
     })
     .catch(() => {
       util.handleErrorResponse(new Error('Uncaught noncommericial error'), res, 'getOne#end');
@@ -434,45 +434,45 @@ noncommercial.update = (req, res) => {
     }
   })
     .then((app) => {
+      if (!app) {
+        return res.status(404).send();
+      }
       if (!util.hasPermissions(req.user, app)) {
         return res.status(403).send();
       }
-      if (app) {
-        noncommercial.updateApplicationModel(app, req.body, req.user);
-        if (app.status === 'Accepted') {
-          noncommercial
-            .acceptApplication(app)
-            .then((response) => {
-              util.logControllerAction(req, 'noncommerical.update', app);
-              app.controlNumber = response.controlNumber;
-              app
-                .save()
-                .then(() => {
-                  commonControllers.createRevision(req.user, app);
-                  app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-                  email.sendEmail(`noncommercialApplication${app.status}`, app);
-                  return res.status(200).json(translateFromDatabaseToClient(app));
-                })
-                .catch((error) => {
-                  util.handleErrorResponse(error, res, 'updateApplicationModel#revision');
-                });
-            })
-            .catch((error) => {
-              util.handleErrorResponse(error, res, 'updateApplicationModel#acceptedpermit');
-            });
-        } else {
-          app
-            .save()
-            .then(() => {
-              commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
-              return res.status(200).json(translateFromDatabaseToClient(app));
-            })
-            .catch((error) => {
-              util.handleErrorResponse(error, res, 'updateApplicationModel#emailswitch');
-            });
-        }
+      noncommercial.updateApplicationModel(app, req.body, req.user);
+      if (app.status === 'Accepted') {
+        noncommercial
+          .acceptApplication(app)
+          .then((response) => {
+            util.logControllerAction(req, 'noncommerical.update', app);
+            app.controlNumber = response.controlNumber;
+            app
+              .save()
+              .then(() => {
+                commonControllers.createRevision(req.user, app);
+                app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+                email.sendEmail(`noncommercialApplication${app.status}`, app);
+                return res.status(200).json(translateFromDatabaseToClient(app));
+              })
+              .catch((error) => {
+                util.handleErrorResponse(error, res, 'updateApplicationModel#revision');
+              });
+          })
+          .catch((error) => {
+            util.handleErrorResponse(error, res, 'updateApplicationModel#acceptedpermit');
+          });
+      } else {
+        app
+          .save()
+          .then(() => {
+            commonControllers.updateEmailSwitch(req, res, app, 'noncommercial');
+            return res.status(200).json(translateFromDatabaseToClient(app));
+          })
+          .catch((error) => {
+            util.handleErrorResponse(error, res, 'updateApplicationModel#emailswitch');
+          });
       }
-      return res.status(404).send();
     })
     .catch(() => res.status(500).send());
 };
