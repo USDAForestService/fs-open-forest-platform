@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
        content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
       });
     router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {        
+      if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
           setTimeout(() => {
