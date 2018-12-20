@@ -47,8 +47,6 @@ export class AppComponent implements OnInit {
           localStorage.removeItem('showLoggedIn');
           this.setStatus();
         }
-        ga('set', 'page', event.urlAfterRedirects);
-        ga('send', 'pageview');
       }
     });
   }
