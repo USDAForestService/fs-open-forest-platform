@@ -470,8 +470,14 @@ christmasTreePermits.updatePermitApplication = (req, res) => {
           if (permit.status === 'Initiated' && req.body.status === 'Completed') {
             return completePermitTransaction(permit, res, req)
               .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
-              .catch(error => logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
-               did not complete ${error}`));
+              // eslint-disable-next-line consistent-return
+              .catch((error) => {
+                logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
+did not complete ${error}`);
+                if (!res.headerSent) {
+                  return res.status(400).send();
+                }
+              });
           }
           if (permit.status === 'Error') {
             getPermitError(res, permit);
