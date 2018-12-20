@@ -1,7 +1,6 @@
-'use strict';
-
+/* eslint-disable prefer-destructuring */
 /**
- * Module for chrismtmas tree admin API
+ * Module for christmas tree admin API
  * @module controllers/christmas-tree/admin
  */
 
@@ -22,10 +21,10 @@ const operator = Sequelize.Op;
  * @param {Object} permit - input permit object
  * @return {Object} updated permit object
  */
-const getPermitResult = permit => {
-  let eachPermit = {};
+const getPermitResult = (permit) => {
+  const eachPermit = {};
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
-  
+
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
     eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
@@ -48,21 +47,21 @@ const getPermitResult = permit => {
  */
 const returnPermitsReport = (results, res) => {
   if (results) {
-    let permits = [];
+    const permits = [];
     let sumOfTrees = 0;
     let sumOfCost = 0;
 
-    results.forEach(permit => {
+    results.forEach((permit) => {
       sumOfTrees += permit.quantity;
       sumOfCost += parseFloat(permit.totalCost);
       permits.push(getPermitResult(permit));
     });
 
     res.status(200).json({
-      sumOfTrees: sumOfTrees,
+      sumOfTrees,
       sumOfCost: sumOfCost.toFixed(2),
       numberOfPermits: results.length,
-      permits: permits
+      permits
     });
   } else {
     res.status(404).send();
@@ -82,7 +81,7 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
         id: req.params.forestId
       }
     })
-    .then(forest => {
+    .then((forest) => {
       const nextDay = moment.tz(req.params.endDate, forest.timezone).add(1, 'days');
       const startDate = moment.tz(req.params.startDate, forest.timezone).format(util.datetimeFormat);
       treesDb.christmasTreesPermits
@@ -111,10 +110,8 @@ christmasTreeAdmin.getPermitSummaryReport = (req, res) => {
           },
           order: [['updatedAt', 'ASC']]
         })
-        .then(results => {
-          return returnPermitsReport(results, res);
-        })
-        .catch(error => {
+        .then(results => returnPermitsReport(results, res))
+        .catch((error) => {
           util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
         });
     });
@@ -135,7 +132,7 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
         status: 'Completed'
       }
     })
-    .then(requestedPermit => {
+    .then((requestedPermit) => {
       if (requestedPermit === null) {
         return res.status(400).json({
           errors: [
@@ -145,13 +142,10 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
             }
           ]
         });
-      } else {
-        return returnPermitsReport([requestedPermit], res);
       }
+      return returnPermitsReport([requestedPermit], res);
     })
-    .catch(error => {
-      return util.handleErrorResponse(error, res, 'getPermitReport#end');
-    });
+    .catch(error => util.handleErrorResponse(error, res, 'getPermitReport#end'));
 };
 
 /**
@@ -166,13 +160,11 @@ christmasTreeAdmin.getPermitReport = (req, res) => {
 const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
   forest
     .update({
-      startDate: startDate,
-      endDate: endDate,
-      cuttingAreas: cuttingAreas
+      startDate,
+      endDate,
+      cuttingAreas
     })
-    .then(savedForest => {
-      return res.status(200).json(savedForest);
-    });
+    .then(savedForest => res.status(200).json(savedForest));
 };
 
 /**
@@ -187,7 +179,7 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
         id: req.params.forestId
       }
     })
-    .then(forest => {
+    .then((forest) => {
       if (forest) {
         if (req.user.forests.includes(forest.forestAbbr) || req.user.forests.includes('all')) {
           let startDate = forest.startDate;
@@ -206,18 +198,16 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
               .format(util.datetimeFormat);
           }
           return updateForest(forest, startDate, endDate, cuttingAreas, res);
-        } else {
-          const errorMessage = { errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] };
-          logger.warn(errorMessage);
-          return res.status(403).json(errorMessage);
         }
-      } else {
-        const errorMessage = { errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] };
+        const errorMessage = { errors: [{ message: `Permission denied to Forest ${req.params.forestId}` }] };
         logger.warn(errorMessage);
-        return res.status(400).json(errorMessage);
+        return res.status(403).json(errorMessage);
       }
+      const errorMessage = { errors: [{ message: `Forest ${req.params.forestId} was not found.` }] };
+      logger.warn(errorMessage);
+      return res.status(400).json(errorMessage);
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(error);
       res.status(500).json(error);
     });

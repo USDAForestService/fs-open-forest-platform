@@ -1,11 +1,10 @@
-'use strict';
+
 
 const htmlTemplateStyle = require('./html-template-style.es6');
 
 const template = {};
 
-template.forestService = (content, title) => {
-  return `
+template.forestService = (content, title) => `
     ${htmlTemplateStyle}
     <!DOCTYPE html>
     <html lang="en">
@@ -29,7 +28,6 @@ template.forestService = (content, title) => {
     </body>
     </html>
   `;
-};
 
 template.attachments = [
   {
