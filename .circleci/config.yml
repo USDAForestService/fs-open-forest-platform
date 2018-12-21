@@ -272,10 +272,10 @@ jobs:
             cd frontend
             mkdir -p ./src/assets/typedoc && npm run docs
       - run:
-          name: Create frontend compiled distribution
+          name: Create frontend compiled distribution for shutdown
           command: |
             cd frontend
-            npm run dist-prod
+            npm run shutdown
       - run:
           name: copy frontend assets into server
           command: |
