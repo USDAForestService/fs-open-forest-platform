@@ -17,7 +17,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   @ViewChild('reportResults') reportResults: ElementRef;
 
   forests: any;
-  forest: any;
+  selectedForest: any;
   form: any;
   permitNumberSearchForm: any;
   result: any;
@@ -44,18 +44,18 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private titleService: Title,
     @Inject(DOCUMENT) private doc: Document
   ) {
-    this.form = formBuilder.group({
-      forestId: ['', [Validators.required]]
+    this.form = this.formBuilder.group({
+      forestSelection: ['', [Validators.required]]
     });
 
-    this.permitNumberSearchForm = formBuilder.group({
+    this.permitNumberSearchForm = this.formBuilder.group({
       permitNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]]
     });
 
-    this.form.get('forestId').valueChanges.subscribe(forestId => {
-      if (forestId) {
-        this.forest = this.getForestById(forestId);
-        this.setStartEndDate(this.forest, this.form);
+    this.form.get('forestSelection').valueChanges.subscribe(forestSelection => {
+      if (forestSelection) {
+        this.selectedForest = this.getForestById(forestSelection);
+        this.setStartEndDate(this.selectedForest, this.form);
       }
     });
   }
@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   resetForms() {
     this.result = null;
-    this.forest = this.forests[0];
+    this.selectedForest = this.forests[0];
     this.isDateSearch = !this.isDateSearch;
     this.apiErrors = null;
   }
@@ -78,9 +78,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     this.route.data.subscribe(data => {
       this.forests = data.forests;
-      this.forest = this.forests[0];
-      if (this.forest) {
-        this.form.get('forestId').setValue(this.forest.id);
+      if (this.forests.length > 0) {
+        this.form.get('forestSelection').setValue(this.forests[0].id);
       }
     });
   }
@@ -90,7 +89,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
     setTimeout(() => {
-      this.setStartEndDate(this.forest, this.form);
+      this.setStartEndDate(this.selectedForest, this.form);
     }, 0);
   }
 
@@ -119,7 +118,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * @returns forest by date
    */
   getForestDate(dateField) {
-    return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
+    return moment.tz(this.form.get(dateField).value, this.selectedForest.timezone).format('MM/DD/YYYY');
   }
 
   /**
@@ -136,7 +135,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName: this.forest.forestName,
+      forestName: this.selectedForest.forestName,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
       endDate: this.getForestDate('dateTimeRange.endDateTime')
     };
@@ -146,12 +145,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * get permit by date and set to this.result
    */
   private getPermitsByDate() {
-    if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
+    if (this.form.valid && !this.dateStatus.hasErrors && this.selectedForest) {
       this.setReportParameters();
       this.service.getAllByDateRange(
-          this.forest.id,
-          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
-          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
+          this.selectedForest.id,
+          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD'),
+          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD')
         )
         .subscribe(results => {
             this.result = {
