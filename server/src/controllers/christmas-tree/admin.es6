@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Module for chrismtmas tree admin API
  * @module controllers/christmas-tree/admin
@@ -22,8 +20,8 @@ const operator = Sequelize.Op;
  * @param {Object} permit - input permit object
  * @return {Object} updated permit object
  */
-const getPermitResult = permit => {
-  let eachPermit = {};
+const getPermitResult = (permit) => {
+  const eachPermit = {};
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
 
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
@@ -48,21 +46,21 @@ const getPermitResult = permit => {
  * @param {Object} permitSummary - summary of permit information
  */
 const buildPermitsReport = (results) => {
-  let permits = [];
+  const permits = [];
   let sumOfTrees = 0;
   let sumOfCost = 0;
 
-  results.forEach(permit => {
+  results.forEach((permit) => {
     sumOfTrees += permit.quantity;
     sumOfCost += parseFloat(permit.totalCost);
     permits.push(getPermitResult(permit));
   });
 
   return {
-    sumOfTrees: sumOfTrees,
+    sumOfTrees,
     sumOfCost: sumOfCost.toFixed(2),
     numberOfPermits: results.length,
-    permits: permits
+    permits
   };
 };
 
@@ -72,8 +70,9 @@ const buildPermitsReport = (results) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
-  logger.info(`${req.user} generated a report`);
-
+  // check query params -> 400
+  logger.info(`${req.user.adminUsername} generated a report`);
+  console.log({ user: req.user });
   // The report may include forests from multiple time zones. The previous implementation assumed
   // one forest and seemed overly exact regarding the time zones. In order to avoid querying by
   // forest individually, just assume that the provided dates in Eastern Time are good enough.
@@ -81,8 +80,9 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   // If we need to be more exact and still don't want to query each forest individually, we can
   // broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
   // the returnes lists with the forest-specific timezones.
-  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0)
-  const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0).second(0);
+  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0);
+  const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0)
+    .second(0);
 
   const forestFilter = req.query.forestId === 'ALL' ? {} : { forestId: req.query.forestId };
 
@@ -118,12 +118,12 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   };
 
   try {
-    const permits = await treesDb.christmasTreesPermits.findAll(query)
+    const permits = await treesDb.christmasTreesPermits.findAll(query);
     const report = buildPermitsReport(permits);
     res.status(200).json(report);
-  } catch(error) {
+  } catch (error) {
     util.handleErrorResponse(error, res, 'getPermitSummaryReport#end');
-  };
+  }
 };
 
 /**
@@ -141,7 +141,7 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
   };
 
   try {
-    const permit = await treesDb.christmasTreesPermits.findOne(query)
+    const permit = await treesDb.christmasTreesPermits.findOne(query);
     if (permit === null) {
       return res.status(400).json({
         errors: [
@@ -155,7 +155,7 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
 
     const report = buildPermitsReport([permit]);
     res.status(200).json(report);
-  } catch(error) {
+  } catch (error) {
     util.handleErrorResponse(error, res, 'getPermitReport#end');
   }
 };
@@ -172,13 +172,11 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
 const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
   forest
     .update({
-      startDate: startDate,
-      endDate: endDate,
-      cuttingAreas: cuttingAreas
+      startDate,
+      endDate,
+      cuttingAreas
     })
-    .then(savedForest => {
-      return res.status(200).json(savedForest);
-    });
+    .then(savedForest => res.status(200).json(savedForest));
 };
 
 /**
@@ -193,7 +191,7 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
         id: req.params.forestId
       }
     })
-    .then(forest => {
+    .then((forest) => {
       if (forest) {
         if (req.user.forests.includes(forest.forestAbbr) || req.user.forests.includes('all')) {
           let startDate = forest.startDate;
@@ -212,18 +210,16 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
               .format(util.datetimeFormat);
           }
           return updateForest(forest, startDate, endDate, cuttingAreas, res);
-        } else {
-          const errorMessage = { errors: [{ message: 'Permission denied to Forest ' + req.params.forestId }] };
-          logger.warn(errorMessage);
-          return res.status(403).json(errorMessage);
         }
-      } else {
-        const errorMessage = { errors: [{ message: 'Forest ' + req.params.forestId + ' was not found.' }] };
+        const errorMessage = { errors: [{ message: `Permission denied to Forest ${req.params.forestId}` }] };
         logger.warn(errorMessage);
-        return res.status(400).json(errorMessage);
+        return res.status(403).json(errorMessage);
       }
+      const errorMessage = { errors: [{ message: `Forest ${req.params.forestId} was not found.` }] };
+      logger.warn(errorMessage);
+      return res.status(400).json(errorMessage);
     })
-    .catch(error => {
+    .catch((error) => {
       logger.error(error);
       res.status(500).json(error);
     });

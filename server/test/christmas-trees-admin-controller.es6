@@ -1,23 +1,30 @@
-
-
+const chai = require('chai');
 const jwt = require('jsonwebtoken');
-const vcapConstants = require('../src/vcap-constants.es6');
-require('./common.es6');
-
-const request = require('supertest');
 const moment = require('moment');
+const request = require('supertest');
+
+const permit = require('../src/models/christmas-trees-permits.es6');
+const vcapConstants = require('../src/vcap-constants.es6');
 
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
+const christmasTreePermitFactory = require('./data/christmas-trees-permit-factory.es6');
 const server = require('./mock-aws.spec.es6');
 
-const chai = require('chai');
+require('./common.es6');
 
-const expect = chai.expect;
+const { expect } = chai;
+
 let permitId;
 const today = moment(new Date()).format('YYYY-MM-DD');
 
 describe('christmas tree admin controller tests', () => {
-  it('GET should return a 200 response for the given admin report parameters forest, start and end date', (done) => {
+  before(() => {
+    permit.create(
+      christmasTreePermitFactory.create({})
+    );
+  });
+
+  it.only('GET should return a 200 response for the given admin report parameters forest, start and end date', (done) => {
     request(server)
       .get(`/admin/christmas-trees/permits/summary?forestId=1&startDate=${today}&endDate=${today}`)
       .set('Accept', 'application/json')
