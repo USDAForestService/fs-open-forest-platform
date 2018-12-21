@@ -33,6 +33,7 @@ import { StyleGuideComponent } from './style-guide/style-guide.component';
 import { TempOutfitterDetailsComponent } from './applications/permit-application-view/temp-outfitter-details.component';
 import { TitleDirective } from './_directives/title.directive';
 import { TreesModule } from './trees/trees.module';
+import { ShutdownComponent } from './shutdown/shutdown.component';
 import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { UtilService } from './_services/util.service';
 import { WindowRef } from './_services/native-window.service';
@@ -59,6 +60,7 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     NoncommercialDetailsComponent,
     NotFoundComponent,
     ServerErrorComponent,
+    ShutdownComponent,
     PageFooterComponent,
     PageHeaderComponent,
     PermitApplicationListComponent,

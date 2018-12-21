@@ -15,6 +15,7 @@
     "ng": "ng",
     "pa11y": "./node_modules/pa11y-ci/bin/pa11y-ci.js",
     "serve-static-files": "./node_modules/superstatic/bin/server dist/ -c ./development-configurations/superstatic.json --port 4200",
+    "shutdown": "ng build --prod --configuration=shutdown",
     "build-test-pa11y": "./development-configurations/build-test-pa11y.sh",
     "snyk-test": "snyk test",
     "start": "ng serve",
