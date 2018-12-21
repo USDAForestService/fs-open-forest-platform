@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 /**
  * Module for christmas tree public API to create permits and manage transactions
@@ -95,12 +96,12 @@ const updatePermitWithToken = (res, permit, token) => {
 };
 
 /**
- * @function getPermitError - Private function to error objects from the permit's errors
+ * @function sendPermitError - Private function to error objects from the permit's errors
  * @param {Object} res - http response
  * @param {Object} permit - permit object from database
  * @return {Object} - http response
  */
-const getPermitError = (res, permit) => {
+const sendPermitError = (res, permit) => {
   const permitErrors = JSON.parse(permit.paygovError);
   return res.status(400).json({
     errors: [
@@ -135,25 +136,6 @@ const updatePermit = (permit, updateObject) => new Promise((resolve, reject) => 
 });
 
 /**
- * @function updatePermitWithError - Private function to update permit's status to error
- * @param {Object} res - http response
- * @param {Object} permit - permit object from database
- * @param {string} paygovError - error from payGov
- * @return {Object} - http response
- */
-const updatePermitWithError = (res, permit, paygovError) => updatePermit(permit, {
-  status: 'Error',
-  paygovError: JSON.stringify(paygovError)
-}).then((updatedPermit) => {
-  logger.error(
-    `ERROR: ServerError: ${updatedPermit.emailAddress} \
-modified ${updatedPermit.permitId} encountered an error \
-at pay.gov ${updatedPermit.paygovError}`
-  );
-  return getPermitError(res, updatedPermit);
-});
-
-/**
  * @function recordPayGovError - Private function to error objects from the permit's errors
  * @param {Object} error - no valid token error from gettoken
  * @param {Object} result - xmlpaygov pa
@@ -165,7 +147,11 @@ at pay.gov ${updatedPermit.paygovError}`
 const recordPayGovError = (error, result, res, permit, requestType) => {
   logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error while ${requestType}`);
   return paygov.getResponseError(requestType, result)
-    .then(paygovError => updatePermitWithError(res, permit, paygovError));
+    .then(paygovError => updatePermit(permit, {
+      status: 'Error',
+      paygovError: JSON.stringify(paygovError)
+    })
+      .then(updatedPermit => sendPermitError(res, updatedPermit)));
 };
 
 /**
@@ -260,21 +246,13 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
 };
 
 /**
- * @function returnSavedPermit - Private function to return permit
- * @param {Object} res - http response
- * @param {Object} savedPermit - permit from database
- * @return {Object} - http response
- */
-const returnSavedPermit = (res, savedPermit) => res.status(200).send(permitResult(savedPermit));
-
-/**
  * @function parseXMLFromPayGov - Private function to parse the returned XML from payGov
  * @param {Object} res - http response
  * @param {string} payGovXmlRes - xml response from payGov api call
  * @param {Object} permit - permit object
  * @return {string} - paygov tracking id
  */
-const grabAndProcessTrackingId = (res, payGovXmlRes, permit, status) => new Promise((resolve, reject) => {
+const handlePaygovCompleteResponse = (res, payGovXmlRes, permit, status) => new Promise((resolve, reject) => {
   xml2jsParse(payGovXmlRes, (parseErr, result) => {
     if (!parseErr) {
       paygov.getTrackingId(result)
@@ -325,35 +303,40 @@ christmasTreePermits.generateRulesAndEmail = permit => permitSvgService.generate
  * @return {Object} - saved permit object
  */
 christmasTreePermits.getOnePermit = (req, res) => {
-  treesDb.christmasTreesPermits
-    .findOne({
-      where: {
-        permitId: req.params.id
-      },
-      include: [
-        {
-          model: treesDb.christmasTreesForests
-        }
-      ]
-    })
-    .then((permit) => {
-      if (permit && permit.status === 'Error') {
-        return getPermitError(res, permit);
-      } if (permit) {
-        const token = req.query.t;
-        jwt.verify(token, vcapConstants.PERMIT_SECRET, (err, decoded) => {
-          if (decoded) {
-            util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
-            return returnSavedPermit(res, permit);
+  console.log('here-cool-bob');
+  const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
+  if (validToken) {
+    console.log('here-cool-thom');
+    treesDb.christmasTreesPermits
+      .findOne({
+        where: {
+          permitId: req.params.id
+        },
+        include: [
+          {
+            model: treesDb.christmasTreesForests
           }
-          return res.status(404).send();
-        });
-      }
-      return res.status(404).send();
-    })
-    .catch((error) => {
-      util.handleErrorResponse(error, res, 'getOnePermit#end');
-    });
+        ]
+      })
+      .then((permit) => {
+        console.log('here-cool');
+        if (permit && permit.status === 'Error') {
+          return sendPermitError(res, permit);
+        }
+        if (permit) {
+          util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
+          return res.status(200).send(permitResult(permit));
+        }
+        return res.status(404).send();
+      })
+      .catch((error) => {
+        console.log('here-cool-jack');
+        util.handleErrorResponse(error, res, 'getOnePermit#end');
+      });
+  } else {
+    console.log('here-cool-mike');
+    return res.status(404).send();
+  }
 };
 
 /**
@@ -417,9 +400,9 @@ const completePermitTransaction = (permit, res, req) => {
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   return new Promise((resolve, reject) => {
     paygov.postPayGov(xmlData)
-      .then(xmlResponse => grabAndProcessTrackingId(res, xmlResponse, permit, req.body.status)
+      .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, req.body.status)
         .then((updatedPermit) => {
-          returnSavedPermit(res, permit);
+          res.status(200).send(permitResult(updatedPermit));
           resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
         })
         .catch((processError) => {
@@ -430,7 +413,7 @@ const completePermitTransaction = (permit, res, req) => {
         if (postError && postError !== 'null') {
           if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
             // send to record error
-            grabAndProcessTrackingId(res, postError.response.body, permit, req.body.status);
+            reject(handlePaygovCompleteResponse(res, postError.response.body, permit, req.body.status));
           } else {
             const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
             reject(errorToSend);
@@ -447,60 +430,60 @@ const completePermitTransaction = (permit, res, req) => {
  * @return {Object} - updated permit
  */
 christmasTreePermits.updatePermitApplication = (req, res) => {
-  treesDb.christmasTreesPermits
-    .findOne({
-      where: {
-        permitId: req.body.permitId
-      },
-      include: [
-        {
-          model: treesDb.christmasTreesForests
-        }
-      ]
-    })
-    .then((permit) => {
-      const token = req.query.t;
-      jwt.verify(token, vcapConstants.PERMIT_SECRET, (err, decoded) => {
-        if (decoded && permit) {
-          if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
-            return permit
-              .update({
-                status: req.body.status
-              })
-              .then((updatedPermit) => {
-                util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
-                res.status(200).json(updatedPermit);
-              });
+  const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
+  if (validToken) {
+    treesDb.christmasTreesPermits
+      .findOne({
+        where: {
+          permitId: req.body.permitId
+        },
+        include: [
+          {
+            model: treesDb.christmasTreesForests
           }
-          if (permit.status === 'Initiated' && req.body.status === 'Completed') {
-            return completePermitTransaction(permit, res, req)
-              .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
-              // eslint-disable-next-line consistent-return
-              .catch((error) => {
-                logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
+        ]
+      })
+      .then((permit) => {
+        console.log('here')
+        if (permit && permit.status === 'Initiated' && req.body.status === 'Cancelled') {
+          return permit
+            .update({
+              status: req.body.status
+            })
+            .then((updatedPermit) => {
+              util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
+              res.status(200).json(updatedPermit);
+            });
+        }
+        if (permit && permit.status === 'Initiated' && req.body.status === 'Completed') {
+          return completePermitTransaction(permit, res, req)
+            .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
+            // eslint-disable-next-line consistent-return
+            .catch((error) => {
+              logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
 did not complete ${error}`);
-                if (!res.headerSent) {
-                  return res.status(400).send();
-                }
-              });
-          }
-          if (permit.status === 'Error') {
-            getPermitError(res, permit);
-          }
-          logger.error('Permit status unknown. 400.');
-          return res.status(404).send();
+              if (!res.headerSent) {
+                return res.status(400).send();
+              }
+            });
         }
-        logger.error('Permit not loaded or JWT not decoded.');
+        if (permit && permit.status === 'Error') {
+          sendPermitError(res, permit);
+        }
+        logger.error('Permit status unknown. 400.');
         return res.status(404).send();
+      })
+      .catch((error) => {
+        if (error && error.method) {
+          util.handleErrorResponse(error, res, error.method);
+        } else {
+          util.handleErrorResponse(error, res, 'updatePermit#end');
+        }
       });
-    })
-    .catch((error) => {
-      if (error && error.method) {
-        util.handleErrorResponse(error, res, error.method);
-      } else {
-        util.handleErrorResponse(error, res, 'updatePermit#end');
-      }
-    });
+  } else {
+    logger.error('Permit not loaded or JWT not decoded.');
+    return res.status(404).send();
+  }
 };
 
 module.exports = christmasTreePermits;
