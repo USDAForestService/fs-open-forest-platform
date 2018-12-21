@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for christmas trees routes
@@ -27,7 +27,7 @@ router.put('/christmas-trees/permits', christmasTreeController.updatePermitAppli
 /** get one permit */
 router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
 
-/** get printable copy of the permit*/
+/** get printable copy of the permit */
 router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);
 
 /**

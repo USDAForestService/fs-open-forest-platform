@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for Express middleware

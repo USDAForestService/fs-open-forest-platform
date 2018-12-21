@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for passport configuration
@@ -21,7 +21,7 @@ const passportConfig = {};
  * @function setup - Setup passport to integrate with login.gov and eAuth/
  * @param {Object} application
  */
-passportConfig.setup = app => {
+passportConfig.setup = (app) => {
   loginGov.setup();
   app.use(passport.initialize());
   app.use(passport.session());
@@ -47,7 +47,7 @@ passportConfig.setup = app => {
  * @param {Object} err - http error
  * @param {Object} req - http request
  * @param {Object} res - http response
- * @param {Object} next - next function 
+ * @param {Object} next - next function
  */
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
@@ -63,9 +63,7 @@ passportConfig.authErrorHandler = (err, req, res, next) => {
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
-passportConfig.getPassportUser = (req, res) => {
-  return res.send(req.user);
-};
+passportConfig.getPassportUser = (req, res) => res.send(req.user);
 
 /**
  * @function logout - Log out of eAuth or login.gov.
@@ -78,14 +76,13 @@ passportConfig.logout = (req, res) => {
     logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        vcapConstants.BASE_URL + '/auth/login-gov/openid/logout'
+        `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
-  } else {
-    logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
-    req.logout();
-    return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
   }
+  logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
+  req.logout();
+  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
 };
 
 module.exports = passportConfig;

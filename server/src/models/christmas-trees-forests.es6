@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable no-param-reassign */
+
 
 /**
  * Module for christmas tree forests model
@@ -8,7 +9,7 @@
 const moment = require('moment-timezone');
 const util = require('../services/util.es6');
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   const christmasTreesForests = sequelize.define(
     'christmasTreesForests',
     {
@@ -107,11 +108,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  christmasTreesForests.addHook('afterFind', forest => {
+  christmasTreesForests.addHook('afterFind', (forest) => {
     if (util.isTest()) {
       if (forest && forest.startDate) {
         // forest is closed and configured for testing uncomment this block and update
-        //the forest id
+        // the forest id
         if (forest.id === 1) {
           forest.startDate = moment()
             .tz(forest.timezone)

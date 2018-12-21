@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for temp outfitter permit application model

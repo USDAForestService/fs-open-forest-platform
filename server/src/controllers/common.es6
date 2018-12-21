@@ -1,10 +1,11 @@
-'use strict';
+
 
 /**
  * Module for common controllers
  * @module controllers/common
  */
 
+const Sequelize = require('sequelize');
 const logger = require('../services/logger.es6');
 
 const NoncommercialApplication = require('../models/noncommercial-application.es6');
@@ -12,7 +13,7 @@ const TempOutfitterApplication = require('../models/tempoutfitter-application.es
 const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
 const forestInfoService = require('../services/forest.service.es6');
-const Sequelize = require('sequelize');
+
 const Op = Sequelize.Op;
 
 const commonControllers = {};
@@ -22,51 +23,53 @@ const commonControllers = {};
  * @param {Object} req - http request
  * @return {Object} - set of statuses
  */
-const findOrCondition = req => {
+const findOrCondition = (req) => {
   const statusGroup = req.params.statusGroup;
   let orCondition = [];
   switch (statusGroup) {
-  case 'pending':
-    orCondition = [
-      {
-        status: 'Submitted'
-      },
-      {
-        status: 'Hold'
-      },
-      {
-        status: 'Review'
-      }
-    ];
-    break;
-  case 'accepted':
-    orCondition = [
-      {
-        status: 'Accepted'
-      }
-    ];
-    break;
-  case 'rejected':
-    orCondition = [
-      {
-        status: 'Rejected'
-      }
-    ];
-    break;
-  case 'cancelled':
-    orCondition = [
-      {
-        status: 'Cancelled'
-      }
-    ];
-    break;
-  case 'expired':
-    orCondition = [
-      {
-        status: 'Expired'
-      }
-    ];
-    break;
+    case 'pending':
+      orCondition = [
+        {
+          status: 'Submitted'
+        },
+        {
+          status: 'Hold'
+        },
+        {
+          status: 'Review'
+        }
+      ];
+      break;
+    case 'accepted':
+      orCondition = [
+        {
+          status: 'Accepted'
+        }
+      ];
+      break;
+    case 'rejected':
+      orCondition = [
+        {
+          status: 'Rejected'
+        }
+      ];
+      break;
+    case 'cancelled':
+      orCondition = [
+        {
+          status: 'Cancelled'
+        }
+      ];
+      break;
+    case 'expired':
+      orCondition = [
+        {
+          status: 'Expired'
+        }
+      ];
+      break;
+    default:
+      break;
   }
   return orCondition;
 };
@@ -132,19 +135,17 @@ commonControllers.getPermitApplications = (req, res) => {
     },
     order: [['createdAt', 'DESC']]
   });
-  Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
-    .then(results => {
-      for (let item of results[0]) {
+  return Promise.all([noncommercialApplicationsPromise, tempOutfitterApplicationPromise])
+    .then((results) => {
+      for (const item of results[0]) {
         item.type = 'Noncommercial';
       }
-      for (let item of results[1]) {
+      for (const item of results[1]) {
         item.type = 'Temp outfitter';
       }
       return res.status(200).json(results[0].concat(results[1]));
     })
-    .catch(() => {
-      return res.status(500).send();
-    });
+    .catch(() => res.status(500).send());
 };
 
 /**
@@ -156,19 +157,19 @@ commonControllers.getPermitApplications = (req, res) => {
  */
 commonControllers.updateEmailSwitch = (req, res, app, type) => {
   commonControllers.createRevision(req.user, app);
+  // eslint-disable-next-line no-param-reassign
   app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
-  if (app.status == 'Submitted'){
+  if (app.status === 'Submitted') {
     email.sendEmail(`${type}ApplicationSubmittedConfirmation`, app);
     email.sendEmail(`${type}ApplicationSubmittedAdminConfirmation`, app);
   }
   if (app.status === 'Cancelled' && req.user.role === 'user') {
     email.sendEmail(`${type}ApplicationUser${app.status}`, app);
   } else if (app.status === 'Review' && req.user.role === 'admin') {
-    email.sendEmail('${type}ApplicationRemoveHold', app);
+    email.sendEmail(`${type}ApplicationRemoveHold`, app);
   } else {
     email.sendEmail(`${type}Application${app.status}`, app);
   }
-  return;
 };
 
 /**
@@ -183,7 +184,7 @@ commonControllers.createRevision = (user, applicationModel) => {
     applicationType: applicationModel.type,
     status: applicationModel.status,
     email: revisionCreator
-  }).then(app =>{
+  }).then((app) => {
     logger.info(`${app.applicationId} was modified at ${app.modifiedAt} by ${revisionCreator}`);
   });
 };
