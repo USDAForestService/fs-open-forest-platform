@@ -32,6 +32,7 @@ import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dat
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
+import { ShutdownComponent } from './shutdown/shutdown.component';
 
 const appRoutes: Routes = [
   {
@@ -64,6 +65,10 @@ const appRoutes: Routes = [
         }
       }
     ]
+  },
+  {
+    path: 'shutdown',
+    component: ShutdownComponent
   },
   {
     path: 'admin/applications',
