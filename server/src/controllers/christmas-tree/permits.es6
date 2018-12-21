@@ -303,10 +303,8 @@ christmasTreePermits.generateRulesAndEmail = permit => permitSvgService.generate
  * @return {Object} - saved permit object
  */
 christmasTreePermits.getOnePermit = (req, res) => {
-  console.log('here-cool-bob');
   const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
   if (validToken) {
-    console.log('here-cool-thom');
     treesDb.christmasTreesPermits
       .findOne({
         where: {
@@ -319,7 +317,6 @@ christmasTreePermits.getOnePermit = (req, res) => {
         ]
       })
       .then((permit) => {
-        console.log('here-cool');
         if (permit && permit.status === 'Error') {
           return sendPermitError(res, permit);
         }
@@ -330,11 +327,9 @@ christmasTreePermits.getOnePermit = (req, res) => {
         return res.status(404).send();
       })
       .catch((error) => {
-        console.log('here-cool-jack');
         util.handleErrorResponse(error, res, 'getOnePermit#end');
       });
   } else {
-    console.log('here-cool-mike');
     return res.status(404).send();
   }
 };
@@ -444,7 +439,6 @@ christmasTreePermits.updatePermitApplication = (req, res) => {
         ]
       })
       .then((permit) => {
-        console.log('here')
         if (permit && permit.status === 'Initiated' && req.body.status === 'Cancelled') {
           return permit
             .update({
