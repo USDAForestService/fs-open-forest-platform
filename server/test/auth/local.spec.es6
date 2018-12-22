@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable no-unused-expressions */
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
@@ -8,7 +8,8 @@ const localAuth = require('../../src/auth/local.es6');
 
 
 describe('local auth middleware', () => {
-  let req, res;
+  let req; let
+    res;
 
   beforeEach(() => {
     req = {};

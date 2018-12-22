@@ -35,14 +35,15 @@ As the first two-way interaction-focused Forest Service online application, Open
 - [Development](#development)
 	- [Overview](#overview)
 	- [Requirements](#requirements)
-		- [Local development requirements](#local-development-requirements)
-			- [Package Manager](#package-manager)
+	  - [Version Control](#version-control)
 			- [Git](#git)
 			- [Git Seekret](#git-seekret)
-		- [Local development and deployment requirements](#local-development-and-deployment-requirements)
+			- [Clone the Repository](#clone-the-repository)
+		- [Local Environment](#local-environment)
 			- [Node](#node)
+			- [Package Manager](#package-manager)
 			- [PostgreSQL](#postgresql)
-	- [Clone the repository](#clone-the-repository)
+		- [Docker Environment](#docker-environment)
 	- [Server development](#server-development)
 		- [Install dependencies](#install-dependencies)
 		- [Database](#database)
@@ -54,6 +55,7 @@ As the first two-way interaction-focused Forest Service online application, Open
 		- [JWT Usage](#jwt-usage)
 		- [Pay.Gov integration](#paygov-integration)
 		- [SMTP relay configuration for sending emails](#smtp-relay-configuration-for-sending-emails)
+		- [Logging](#logging)
 	- [Frontend Development](#frontend-development)
 		- [Install angular cli](#install-angular-cli)
 		- [Navigate to frontend directory](#navigate-to-frontend-directory)
@@ -70,7 +72,6 @@ As the first two-way interaction-focused Forest Service online application, Open
 		- [Pay.gov in QA environment](#paygov-in-qa-environment)
 		- [Christmas trees sidebar template](#christmas-trees-sidebar-template)
 		- [Basic Auth](#basic-auth)
-	- [Docker Environment](#docker-environment)
 - [Deployment](#deployment)
 	- [Continuous Integration, Continuous Deployment](#continuous-integration-continuous-deployment)
 	- [Cloud.gov](#cloudgov)
@@ -91,42 +92,22 @@ As the first two-way interaction-focused Forest Service online application, Open
 ## Overview
 This repository comprises the application code for the platform. It includes a node.js server, and a Angular 2+ static frontend, currently deployed on [cloud.gov](https://cloud.gov/).
 
-## Local Development
+## Requirements
 
-There are two options for local development - Docker or installing the dependencies independently.
+### Version Control
 
-** The following instructions outline tools and procedures required for local development without docker **
-
-### Requirements
-
-#### Local development requirements
-
-##### Package Manager
-
-Install [yarn](https://yarnpkg.com/en/docs/install) package manager
-
-##### Git
+#### Git
 
 Install [Git](https://git-scm.com/)
 
-##### Git Seekret
+#### Git Seekret
 
 All contributors should use git-seekret
 (https://github.com/18f/laptop#git-seekret) to prevent accidental commits of sensitive data.
 
 Project specific rules are defined on the [wiki](/docs/git-seekret.md).
 
-#### Local development and deployment requirements
-
-##### Node
-
-Install [Node ^8.11.3](https://nodejs.org/en/)
-
-##### PostgreSQL
-
-Install [PostgreSQL](https://www.postgresql.org/)
-
-### Clone the repository
+#### Clone the repository
 
 `git clone [repository url] fs-open-forest-platform`
 
@@ -134,12 +115,37 @@ Navigate to cloned repo
 
 `cd fs-open-forest-platform`
 
+### Local Environment
+
+There are two options for development - Docker or installing the dependencies independently.
+
+** The following instructions outline tools and procedures required for local development without docker **
+
+#### Node
+
+Install [Node ^8.11.3](https://nodejs.org/en/)
+
+#### Package Manager
+
+Make sure [NPM](https://www.npmjs.com/) is up to date `npm install -g npm`
+
+#### PostgreSQL
+
+Install [PostgreSQL](https://www.postgresql.org/)
+
+### Docker Environment
+
+As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
+
+[View instructions to get up and running with Docker](/docs/development/docker-instructions.md)
+
+[View instructions to administer the forest json](/docs/christmas-trees/content/forest-json-instructions.md)
+
 ### Server development
 
 #### Install dependencies
 
 Run `cd server` then run `npm install` to install dependencies.
-
 
 #### Database
 
@@ -177,15 +183,15 @@ To run any of the server commands, either the environment variables above must b
 
 | Function | Command | Additional information |
 | ------------- |:-------------:| -------------:|
-| Setup Database | `yarn migrate` | |
-| Seed Database | `yarn seed` | Adds Christmas tree forest data |
-| Start the server logged in as a full admin | `yarn dev` | Server is accessible at http://localhost:8080 |
-| Start the server logged in as an authenicated special use public member | `yarn dev:user` | Server is accessible at http://localhost:8080 |
-| Revert the last database migration | `yarn undoLastMigrate` | |
-| Revert all of the database migrations and start with a blank database | `yarn undoAllMigrate` | |
-| Run eslint for linting | `yarn lint` | The linting results will be put into `server/lint-results.html`. |
-| To run all of the tests locally | `yarn test` | Be sure your Postgresql server is running |
-| To run code coverage locally | `yarn coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
+| Setup Database | `npm run migrate` | |
+| Seed Database | `npm run seed` | Adds Christmas tree forest data |
+| Start the server logged in as a full admin | `npm run dev` | Server is accessible at http://localhost:8080 |
+| Start the server logged in as an authenicated special use public member | `npm run dev:user` | Server is accessible at http://localhost:8080 |
+| Revert the last database migration | `npm run undoLastMigrate` | |
+| Revert all of the database migrations and start with a blank database | `npm run undoAllMigrate` | |
+| Run eslint for linting | `npm run lint` | The linting results will be put into `server/lint-results.html`. |
+| To run all of the tests locally | `npm run test` | Be sure your Postgresql server is running |
+| To run code coverage locally | `npm run coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
 
 #### Server API Documentation
 
@@ -226,11 +232,14 @@ Authentication is set up to support safelisted IP addresses that are allowed to 
 
 The `smtpserver` value in your VCAP_SERVICES should be `smtp-relay.gmail.com`
 
+#### Logging
+We use [winston](https://www.npmjs.com/package/winston) logging and [express-winston](https://www.npmjs.com/package/express-winston) to modify logs to be viewed within cloud.gov.
+
 ### Frontend Development
 
 #### Install angular cli
 
-Run `yarn global add @angular/cli`
+Run `npm install -g @angular/cli`
 
 #### Navigate to frontend directory
 
@@ -238,7 +247,7 @@ Run `yarn global add @angular/cli`
 
 #### Install dependencies
 
-Run `yarn`
+Run `npm install`
 
 #### Development server
 
@@ -250,13 +259,25 @@ Run `ng build --prod --env=prod --aot=false` to build the static files for the s
 
 #### Running unit tests
 
-Run `yarn test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 Add `--code-coverage` flag to print out code coverage statistics.
 
 #### Running end-to-end tests
 
-Run `yarn run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+If you receive an error that Chromedriver requires a different version of Chrome than what is currently installed, most likely you have an older version of Chrome that is not compatible with the newest version of Chromedriver that will be installed by Protractor. You can:
+##### Update your version of [Chrome](https://www.google.com/chrome/)
+OR
+##### Download a specific version of Chromedriver that is compatible with your version of Chrome
+- Find the appropriate version of [Chromedriver](http://chromedriver.chromium.org/downloads)
+- Navigate to `https://chromedriver.storage.googleapis.com/index.html?path=<version>/` where `<version>` is replaced by the Chromedriver version you want
+- Click on the link for your operating system to download the `.zip` file
+- Extract the executable and copy it somewhere that makes sense to you, (ex: `~/chromedriver/`)
+- Ensure that the environment variable `OPEN_FOREST_CHROME_DRIVER` is set to the absolute path to the chromedriver executable above, either by exporting it in your profile or providing it when running the e2e tests. Ex. `OPEN_FOREST_CHROME_DRIVER="/Users/<username>/Downloads/chromedriver" npm run e2e`
+
+**Note: The output still shows that it downloads the latest chromedriver, but it will actually USE the one specified.**
 
 #### Testing WCAG2AA compliance with pa11y
 
@@ -264,7 +285,7 @@ To run pa11y-ci with the single page angular app with pushstate enabled, you nee
 
 Run pa11y-ci via docker: `cd docker; docker-compose up pa11y`
 
-Run pa11y-ci without docker: `cd frontend; yarn run build-test-pa11y`
+Run pa11y-ci without docker: `cd frontend; npm run build-test-pa11y`
 
 #### Typedoc
 
@@ -303,15 +324,6 @@ The `staging-deploy` and the `prod-deploy` currently have a basic auth file gene
 `BASIC_AUTH_USER` and `BASIC_AUTH_PASS` which is a hash of the password (generated by HTPassword) are copied into a frontend/src/Staticfile.auth which is used by the cloud.gov static buildpack.
 
 This task should be removed prior to launch.
-
-
-### Docker Environment
-
-As an alternative to installing all the development tools necessary to run the entire environment on your computer, Docker can be used instead. These instructions will detail how to use Docker to setup a full environment to run the application.
-
-[View instructions to get up and running with Docker](/docs/development/docker-instructions.md)
-
-[View instructions to administer the forest json](/docs/christmas-trees/content/forest-json-instructions.md)
 
 ## Deployment
 
@@ -397,7 +409,7 @@ The server dependency is JSDOM is currently a fork to pass security vulnerabilit
 ## Known UX debt
 
 #### Scaling to include more permit types: Architecture to support purchasing or applying for multiple products per transaction
-The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting. 
+The site’s architecture is not optimized to support users purchasing more than one product in a single transaction. It was built (1) with the understanding that tree cutter’s do not typically purchase permits for more than one forest and (2) for ease in modularly onboarding additional Forests, each with their own unique rules and guidelines, to sell Christmas tree permits. However, there is some evidence that users may want to purchase or apply for more than one of the permit types that the ePermits platform will eventually offer. Enabling users to purchase or apply for more than one permit type, including Christmas tree permits, online will require some rearchitecting.
 
 #### Scaling to include more Forests: Form controls to help users choose from a greater number of options
 The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
@@ -407,7 +419,7 @@ The site was built to accommodate four pilot Forests. Scaling the application to
 - [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/district-dates)
 - [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/season-dates)
 
-**This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.* 
+**This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.*
 
 The details of how these pages and form controls should be designed in order to support users selecting from a large number of Forests will require additional user research.
 

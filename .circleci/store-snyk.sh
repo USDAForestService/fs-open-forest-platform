@@ -14,7 +14,7 @@ sudo cat ../snyk/snyk-frontend.json  \
 "../snyk/${SNYK_REPORT_FRONTEND}"
 echo "running server snyk"
 cd ../server
-yarn run snyk-protect
+npm run snyk-protect
 snyk test --json > ../snyk/snyk-server.json
 sudo cat ../snyk/snyk-server.json  \
 | jq -r '(.vulnerabilities[] | ["server", .packageName, .identifiers.CVE[0], .identifiers.CWE[0], .severity, .cvssScore, .title,.disclosureTime, .description, .from[1], .from[2]] )| @csv' >  \

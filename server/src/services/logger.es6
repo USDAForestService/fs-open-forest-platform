@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for logging
@@ -7,13 +7,12 @@
 
 const winston = require('winston');
 
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, { 
-  json: true, 
-  colorize: true,
-  timestamp: true
-} );
+const params = require('./expresslogger.es6');
 
-const logger = winston;
+/**
+ * @function logger - API function to update permit
+ * @param {Object} options - creates a new winston logger
+ */
+const logger = winston.createLogger(params.loggerParams);
 
 module.exports = logger;
