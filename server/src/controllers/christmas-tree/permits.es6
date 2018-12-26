@@ -116,24 +116,20 @@ const formatPermitError = (permit) => {
 };
 
 /**
- * @function updatePermit - Private function to update permit in database
+ * @function updatePermit - Update permit in database
+ * @private
  * @param {Object} permit - permit object from database
  * @param {Object} updateObject - updated permit object
- * @return {Object} - saved permit
+ * @return {Promise} - resolves to the saved and updated permit
  */
-const updatePermit = (permit, updateObject) => new Promise((resolve, reject) => {
-  permit
-    .update(updateObject)
-    .then((updatedPermit) => {
-      logger.info(
-        `PermitID ${updatedPermit.permitId} updated at ${updatedPermit.modifiedAt} by ${permit.emailAddress} `
-      );
-      resolve(updatedPermit);
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
+const updatePermit = (permit, updateObject) => permit
+  .update(updateObject)
+  .then((updatedPermit) => {
+    logger.info(
+      `PermitID ${updatedPermit.permitId} updated at ${updatedPermit.modifiedAt} by ${permit.emailAddress} `
+    );
+    return updatedPermit;
+  });
 
 /**
  * @function recordPayGovError - Private function to error objects from the permit's errors
