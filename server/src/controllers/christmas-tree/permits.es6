@@ -6,7 +6,6 @@
  */
 
 const uuid = require('uuid/v4');
-const xml2jsParse = require('xml2js').parseString;
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
@@ -19,7 +18,6 @@ const paygov = require('../../services/paygov.es6');
 const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
 const email = require('../../email/email-util.es6');
 const util = require('../../services/util.es6');
-
 
 const christmasTreePermits = {};
 
@@ -155,18 +153,12 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
  * @param {Object} xmlDatafromPayGov - xml from pay.gov
  * @param {Object} permit - permit object from database
  * @param {Object} res - http response
- * @return {Object} - promise of whether permit was updated with token
+ * @return {Promise} - resolves if permit was updated with token
  */
-const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => new Promise((resolve, reject) => {
-  xml2jsParse(payGovXmlRes, (parseErr, result) => {
-    if (!parseErr) {
-      paygov.getToken(result)
-        .then(token => resolve(updatePermitWithToken(res, permit, token)))
-        .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection'));
-    }
-    reject(parseErr);
-  });
-});
+const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => util.parseXml(payGovXmlRes)
+  .then(result => paygov.getToken(result)
+    .then(token => updatePermitWithToken(res, permit, token))
+    .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection')));
 
 /**
  * @function create - API function to create permit application
@@ -242,26 +234,18 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
 };
 
 /**
- * @function parseXMLFromPayGov - Private function to parse the returned XML from payGov
+ * @function handlePaygovCompleteResponse - Private function to parse the returned XML from payGov
+ * @private
  * @param {Object} res - http response
  * @param {string} payGovXmlRes - xml response from payGov api call
  * @param {Object} permit - permit object
- * @return {string} - paygov tracking id
+ * @param {String} status = permit status
+ * @return {Promise} - resolves if permit updated
  */
-const handlePaygovCompleteResponse = (res, payGovXmlRes, permit, status) => new Promise((resolve, reject) => {
-  xml2jsParse(payGovXmlRes, (parseErr, result) => {
-    if (!parseErr) {
-      paygov.getTrackingId(result)
-        .then(paygovTrackingId => resolve(updatePermit(permit, {
-          paygovTrackingId,
-          status
-        })))
-        .catch(error => recordPayGovError(error, result, res, permit, 'completeOnlineCollection'));
-    } else {
-      reject(parseErr);
-    }
-  });
-});
+const handlePaygovCompleteResponse = (res, payGovXmlRes, permit, status) => util.parseXml(payGovXmlRes)
+  .then(result => paygov.getTrackingId(result)
+    .then(paygovTrackingId => updatePermit(permit, { paygovTrackingId, status }))
+    .catch(error => recordPayGovError(error, result, res, permit, 'completeOnlineCollection')));
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
