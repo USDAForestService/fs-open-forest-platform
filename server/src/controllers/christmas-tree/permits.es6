@@ -96,14 +96,14 @@ const updatePermitWithToken = (res, permit, token) => {
 };
 
 /**
- * @function sendPermitError - Private function to error objects from the permit's errors
- * @param {Object} res - http response
+ * @function formatPermitError - Format error objects from the permit's errors
+ * @private
  * @param {Object} permit - permit object from database
- * @return {Object} - http response
+ * @return {Object} - formatted permit errors
  */
-const sendPermitError = (res, permit) => {
+const formatPermitError = (permit) => {
   const permitErrors = JSON.parse(permit.paygovError);
-  return res.status(400).json({
+  return {
     errors: [
       {
         status: 400,
@@ -112,7 +112,7 @@ const sendPermitError = (res, permit) => {
         permit: permitResult(permit)
       }
     ]
-  });
+  };
 };
 
 /**
@@ -151,7 +151,7 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
       status: 'Error',
       paygovError: JSON.stringify(paygovError)
     })
-      .then(updatedPermit => sendPermitError(res, updatedPermit)));
+      .then(updatedPermit => res.status(400).json(formatPermitError(updatedPermit))));
 };
 
 /**
@@ -318,7 +318,7 @@ christmasTreePermits.getOnePermit = (req, res) => {
       })
       .then((permit) => {
         if (permit && permit.status === 'Error') {
-          return sendPermitError(res, permit);
+          return res.status(400).json(formatPermitError(permit));
         }
         if (permit) {
           util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
@@ -462,7 +462,7 @@ did not complete ${error}`);
             });
         }
         if (permit && permit.status === 'Error') {
-          sendPermitError(res, permit);
+          res.status(400).json(formatPermitError(permit));
         }
         logger.error('Permit status unknown. 400.');
         return res.status(404).send();
