@@ -10,6 +10,7 @@ const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
 const jwt = require('jsonwebtoken');
+const _ = require('lodash/fp');
 
 const logger = require('../../services/logger.es6');
 const vcapConstants = require('../../vcap-constants.es6');
@@ -404,59 +405,50 @@ const completePermitTransaction = (permit, res, req) => {
  * @param {Object} res - http response
  * @return {Object} - updated permit
  */
-christmasTreePermits.updatePermitApplication = (req, res) => {
-  const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
-  if (validToken) {
-    treesDb.christmasTreesPermits
-      .findOne({
-        where: {
-          permitId: req.body.permitId
-        },
-        include: [
-          {
-            model: treesDb.christmasTreesForests
+christmasTreePermits.updatePermitApplication = async (req, res) => {
+  try {
+    const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
+    if (!validToken) {
+      logger.error('Permit not loaded or JWT not decoded.');
+      return res.status(404).send();
+    }
+
+    const query = {
+      where: { permitId: req.body.permitId },
+      include: [{ model: treesDb.christmasTreesForests }]
+    };
+
+    const permit = await treesDb.christmasTreesPermits.findOne(query);
+
+    if (!permit) {
+      logger.error('Permit status unknown. 400.');
+      return res.status(404).send();
+    }
+
+    if (permit.status === 'Error') {
+      const formattedPermit = formatPermitError(permit);
+      return res.status(400).json(formattedPermit);
+    }
+
+    if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
+      const updatedPermit = await permit.update({ status: req.body.status });
+      util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
+      return res.status(200).json(updatedPermit);
+    }
+
+    if (permit.status === 'Initiated' && req.body.status === 'Completed') {
+      return completePermitTransaction(permit, res, req)
+        .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
+        // eslint-disable-next-line consistent-return
+        .catch((error) => {
+          logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction did not complete ${error}`);
+          if (!res.headerSent) {
+            return res.status(400).send();
           }
-        ]
-      })
-      .then((permit) => {
-        if (permit && permit.status === 'Initiated' && req.body.status === 'Cancelled') {
-          return permit
-            .update({
-              status: req.body.status
-            })
-            .then((updatedPermit) => {
-              util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
-              res.status(200).json(updatedPermit);
-            });
-        }
-        if (permit && permit.status === 'Initiated' && req.body.status === 'Completed') {
-          return completePermitTransaction(permit, res, req)
-            .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
-            // eslint-disable-next-line consistent-return
-            .catch((error) => {
-              logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction\
-did not complete ${error}`);
-              if (!res.headerSent) {
-                return res.status(400).send();
-              }
-            });
-        }
-        if (permit && permit.status === 'Error') {
-          res.status(400).json(formatPermitError(permit));
-        }
-        logger.error('Permit status unknown. 400.');
-        return res.status(404).send();
-      })
-      .catch((error) => {
-        if (error && error.method) {
-          util.handleErrorResponse(error, res, error.method);
-        } else {
-          util.handleErrorResponse(error, res, 'updatePermit#end');
-        }
-      });
-  } else {
-    logger.error('Permit not loaded or JWT not decoded.');
-    return res.status(404).send();
+        });
+    }
+  } catch (error) {
+    util.handleErrorResponse(error, res, _.getOr('updatePermit#end', 'method', error));
   }
 };
 
