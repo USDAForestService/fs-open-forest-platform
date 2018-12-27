@@ -371,12 +371,11 @@ christmasTreePermits.printPermit = (req, res) => {
  * @param {Object} res - http response
  * @return {Promise} - promise that the email has been sent and response too
  */
-const completePermitTransaction = (permit, res, req) => {
-  util.logControllerAction(req, 'christmasTreePermits.completePermitTransaction', permit);
+const completePermitTransaction = (permit, res, requestedStatus) => {
   const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
   return new Promise((resolve, reject) => {
     paygov.postPayGov(xmlData)
-      .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, req.body.status)
+      .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, requestedStatus)
         .then((updatedPermit) => {
           res.status(200).send(permitResult(updatedPermit));
           resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
@@ -389,7 +388,9 @@ const completePermitTransaction = (permit, res, req) => {
         if (postError && postError !== 'null') {
           if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
             // send to record error
-            reject(handlePaygovCompleteResponse(res, postError.response.body, permit, req.body.status));
+            handlePaygovCompleteResponse(res, postError.response.body, permit, requestedStatus)
+              .then(reject)
+              .catch(reject);
           } else {
             const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
             reject(errorToSend);
@@ -403,7 +404,6 @@ const completePermitTransaction = (permit, res, req) => {
  * @function updatePermitApplication - API function to update permit
  * @param {Object} req - http request
  * @param {Object} res - http response
- * @return {Object} - updated permit
  */
 christmasTreePermits.updatePermitApplication = async (req, res) => {
   try {
@@ -413,8 +413,10 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
       return res.status(404).send();
     }
 
+    const { permitId, status: requestedStatus } = req.body;
+
     const query = {
-      where: { permitId: req.body.permitId },
+      where: { permitId },
       include: [{ model: treesDb.christmasTreesForests }]
     };
 
@@ -430,14 +432,15 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
       return res.status(400).json(formattedPermit);
     }
 
-    if (permit.status === 'Initiated' && req.body.status === 'Cancelled') {
-      const updatedPermit = await permit.update({ status: req.body.status });
+    if (permit.status === 'Initiated' && requestedStatus === 'Cancelled') {
+      const updatedPermit = await permit.update({ status: requestedStatus });
       util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
       return res.status(200).json(updatedPermit);
     }
 
-    if (permit.status === 'Initiated' && req.body.status === 'Completed') {
-      return completePermitTransaction(permit, res, req)
+    if (permit.status === 'Initiated' && requestedStatus === 'Completed') {
+      util.logControllerAction(req, 'christmasTreePermits.completePermitTransaction', permit);
+      return completePermitTransaction(permit, res, requestedStatus)
         .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
         // eslint-disable-next-line consistent-return
         .catch((error) => {
