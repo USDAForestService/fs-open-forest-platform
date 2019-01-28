@@ -34,7 +34,7 @@
     "nodemailer": "^4.6.8",
     "openid-client": "^2.4.5",
     "passport": "^0.4.0",
-    "passport-saml": "github:bergie/passport-saml#f82d14190e44dee2eb40585e220dbab3234ccaf8",
+    "passport-saml": "^1.0.0",
     "pg": "^6.0.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
