@@ -53,7 +53,7 @@
       }],
       "issuer": "",
       "entrypoint": "https://www.eauth.usda.gov/",
-      "cert": "",
+      "cert": "-----BEGIN CERTIFICATE-----\n cert1 -----END CERTIFICATE-----\n",
       "private_key": ""
     },
     "label": "user-provided",
