@@ -275,7 +275,7 @@ jobs:
           name: Create frontend compiled distribution
           command: |
             cd frontend
-            npm run prod
+            npm run dist-prod
       - run:
           name: copy frontend assets into server
           command: |
