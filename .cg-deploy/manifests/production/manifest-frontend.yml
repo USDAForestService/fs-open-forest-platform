@@ -1,6 +1,6 @@
 ---
 applications:
-- name: forest-service-epermit
+- name: open-forest-platform-frontend
   path: ../../../frontend/dist
   routes:
    - route: openforest.fs.usda.gov
