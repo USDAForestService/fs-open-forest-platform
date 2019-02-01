@@ -240,7 +240,7 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
-              then ./.cg-deploy/deploy.sh public-trees-staging;
+              then ./.cg-deploy/deploy.sh platform-staging;
             fi
 
   prod-deploy:
@@ -291,7 +291,7 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
-              then ./.cg-deploy/deploy.sh public-production;
+              then ./.cg-deploy/deploy.sh platform-production;
             fi
 
   nightly-snyk:
@@ -329,9 +329,9 @@ jobs:
       - run:
           name: Recycle Production instances
           command: |
-            cf t -o usda-forest-service -s public-production
-            cf recycle forest-service-epermit
-            cf recycle fs-intake-api
+            cf t -o usda-forest-service -s platform-production
+            cf recycle open-forest-platform-frontend
+            cf recycle open-forest-platform-api
 
 workflows:
   version: 2
