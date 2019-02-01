@@ -52,6 +52,18 @@
                 }
               ]
             },
+            "shutdown": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/app-routing.module.ts",
+                  "with": "src/app/app-shutdown-routing.module.ts"
+                },
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "production": {
               "aot": false,
               "fileReplacements": [
@@ -89,6 +101,9 @@
             },
             "staging": {
               "browserTarget": "frontend:build:staging"
+            },
+            "shutdown": {
+              "browserTarget": "frontend:build:shutdown"
             }
           }
         },

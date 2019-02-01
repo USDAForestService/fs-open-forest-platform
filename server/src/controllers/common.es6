@@ -14,8 +14,6 @@ const Revision = require('../models/revision.es6');
 const email = require('../email/email-util.es6');
 const forestInfoService = require('../services/forest.service.es6');
 
-const Op = Sequelize.Op;
-
 const commonControllers = {};
 
 /**
@@ -24,9 +22,8 @@ const commonControllers = {};
  * @return {Object} - set of statuses
  */
 const findOrCondition = (req) => {
-  const statusGroup = req.params.statusGroup;
   let orCondition = [];
-  switch (statusGroup) {
+  switch (req.params.statusGroup) {
     case 'pending':
       orCondition = [
         {
@@ -105,10 +102,10 @@ commonControllers.getPermitApplications = (req, res) => {
       'status'
     ],
     where: {
-      [Op.or]: orCondition,
-      [Op.and]: andCondition,
+      [Sequelize.Op.or]: orCondition,
+      [Sequelize.Op.and]: andCondition,
       noncommercialFieldsEndDateTime: {
-        [Op.gt]: new Date()
+        [Sequelize.Op.gt]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]
@@ -127,10 +124,10 @@ commonControllers.getPermitApplications = (req, res) => {
       'tempOutfitterFieldsActDescFieldsStartDateTime'
     ],
     where: {
-      [Op.or]: orCondition,
-      [Op.and]: andCondition,
+      [Sequelize.Op.or]: orCondition,
+      [Sequelize.Op.and]: andCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
-        [Op.gt]: new Date()
+        [Sequelize.Op.gt]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]

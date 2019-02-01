@@ -1,5 +1,6 @@
+/* eslint-disable prefer-destructuring */
 /**
- * Module for chrismtmas tree admin API
+ * Module for christmas tree admin API
  * @module controllers/christmas-tree/admin
  */
 
@@ -15,8 +16,8 @@ const christmasTreeAdmin = {};
 const operator = Sequelize.Op;
 
 /**
- * @function getPermitResult - Private function to get the updated permit object with formatted dates
- * and permit number padded with zeros
+ * @private
+ * @function getPermitResult - Format dates and pad permit number
  * @param {Object} permit - input permit object
  * @return {Object} updated permit object
  */
@@ -79,7 +80,7 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   //
   // If we need to be more exact and still don't want to query each forest individually, we can
   // broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
-  // the returnes lists with the forest-specific timezones.
+  // the returns lists with the forest-specific timezones.
   const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0);
   const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0)
     .second(0);
@@ -133,7 +134,15 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
  */
 christmasTreeAdmin.getPermitReport = async (req, res) => {
   const query = {
-    attributes: ['permitId', 'forestId', 'permitNumber', 'updatedAt', 'quantity', 'totalCost', 'permitExpireDate'],
+    attributes: [
+      'permitId',
+      'forestId',
+      'permitNumber',
+      'updatedAt',
+      'quantity',
+      'totalCost',
+      'permitExpireDate'
+    ],
     where: {
       permitNumber: req.params.permitNumber,
       status: 'Completed'
@@ -143,18 +152,17 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
   try {
     const permit = await treesDb.christmasTreesPermits.findOne(query);
     if (permit === null) {
-      return res.status(400).json({
-        errors: [
-          {
-            errorCode: 'notFound',
-            message: `Permit number ${req.params.permitNumber} was not found.`
-          }
-        ]
-      });
+      const err = {
+        errors: [{
+          errorCode: 'notFound',
+          message: `Permit number ${req.params.permitNumber} was not found.`
+        }]
+      };
+      res.status(400).json(err);
+    } else {
+      const report = buildPermitsReport([permit]);
+      res.status(200).json(report);
     }
-
-    const report = buildPermitsReport([permit]);
-    res.status(200).json(report);
   } catch (error) {
     util.handleErrorResponse(error, res, 'getPermitReport#end');
   }

@@ -1,7 +1,7 @@
 
 ---
 applications:
-- name: fs-intake-api
+- name: open-forest-platform-api
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
   memory: 256M
