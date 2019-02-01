@@ -1,6 +1,5 @@
 /* eslint-disable eqeqeq */
 
-
 const express = require('express');
 const uuid = require('uuid/v4');
 
@@ -73,6 +72,7 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
 });
 
 payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res) => {
+  // eslint-disable-next-line prefer-destructuring
   const cc = req.body.cc;
 
   let status = 'success';
