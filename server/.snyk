@@ -6,4 +6,7 @@ ignore:
     - ngx-md > marked:
         reason: No current remediation and requires internal attack vector.
         expires: '2019-03-06T22:39:07.646Z'
+      jsdoc > marked:
+        reason: No current remediation and requires internal attack vector.
+        expires: '2019-03-06T23:25:03.850Z'
 patch: {}
