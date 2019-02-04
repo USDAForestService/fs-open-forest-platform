@@ -155,6 +155,11 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
  * @param {Object} permit - permit object from database
  * @param {Object} res - http response
  * @return {Promise} - resolves if permit was updated with token
+ *
+ * Errors that originate from parsing and extracting data from the xml
+ * must be handled by the caller. Only errors that result from attempting
+ * to update the Permit in the database with a paygov token result in
+ * updating the Permit in the database with the error.
  */
 const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => util.parseXml(payGovXmlRes)
   .then(result => paygov.getToken(result)
