@@ -423,7 +423,7 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
     const permit = await treesDb.christmasTreesPermits.findOne(query);
 
     if (!permit) {
-      logger.error('Permit status unknown. 400.');
+      logger.error('Permit status unknown. 404.');
       return res.status(404).send();
     }
 
