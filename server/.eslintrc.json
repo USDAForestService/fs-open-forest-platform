@@ -27,6 +27,9 @@
       "error",
       "never"
     ],
-    "no-restricted-syntax": ["warn"]
+    "no-restricted-syntax": ["warn"],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/test/**/*.es6"]}]
   }
 }
+
+

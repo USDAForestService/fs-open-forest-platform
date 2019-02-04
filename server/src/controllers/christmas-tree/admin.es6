@@ -74,13 +74,15 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   // check query params -> 400
   logger.info(`${req.user.adminUsername} generated a report`);
   console.log({ user: req.user });
-  // The report may include forests from multiple time zones. The previous implementation assumed
-  // one forest and seemed overly exact regarding the time zones. In order to avoid querying by
-  // forest individually, just assume that the provided dates in Eastern Time are good enough.
-  //
-  // If we need to be more exact and still don't want to query each forest individually, we can
-  // broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
-  // the returns lists with the forest-specific timezones.
+  /**
+    The report may include forests from multiple time zones. The previous implementation assumed
+    one forest and seemed overly exact regarding the time zones. In order to avoid querying by
+    forest individually, just assume that the provided dates in Eastern Time are good enough.
+
+    If we need to be more exact and still don't want to query each forest individually, we can
+    broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
+    the returns lists with the forest-specific timezones.
+   */
   const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0);
   const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0)
     .second(0);
@@ -169,25 +171,6 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
 };
 
 /**
- * @function updateForest - Private function to update the forest in database
- * @param {Object} forest - forest database object
- * @param {string} startDate - new start date
- * @param {string} endDate - new end date
- * @param {string} cuttingAreas - new cutting areas
- * @param {Object} res - http response
- * @return {Object} http response
- */
-const updateForest = (forest, startDate, endDate, cuttingAreas, res) => {
-  forest
-    .update({
-      startDate,
-      endDate,
-      cuttingAreas
-    })
-    .then(savedForest => res.status(200).json(savedForest));
-};
-
-/**
  * @function updateForestDetails - Updage forest
  * @param {Object} req - http request
  * @param {Object} res - http response
@@ -217,7 +200,9 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
               .subtract(1, 'ms')
               .format(util.datetimeFormat);
           }
-          return updateForest(forest, startDate, endDate, cuttingAreas, res);
+          return forest
+            .update({ startDate, endDate, cuttingAreas })
+            .then(savedForest => res.status(200).json(savedForest));
         }
         const errorMessage = { errors: [{ message: `Permission denied to Forest ${req.params.forestId}` }] };
         logger.warn(errorMessage);
