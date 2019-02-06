@@ -1,4 +1,3 @@
-
 const winston = require('winston');
 const expressWinston = require('express-winston');
 
@@ -6,6 +5,7 @@ const expressWinston = require('express-winston');
  * loggerParams the general parameters for loggers
  */
 const loggerParams = {
+  level: process.env.NODE_ENV === 'test' ? 'warn' : 'info',
   format: winston.format.combine(
     winston.format.label({ label: 'Logger' }),
     winston.format.timestamp(),

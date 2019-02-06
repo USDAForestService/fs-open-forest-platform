@@ -71,9 +71,8 @@ const buildPermitsReport = (results) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
-  // check query params -> 400
   logger.info(`${req.user.adminUsername} generated a report`);
-  console.log({ user: req.user });
+
   /**
     The report may include forests from multiple time zones. The previous implementation assumed
     one forest and seemed overly exact regarding the time zones. In order to avoid querying by
@@ -83,9 +82,11 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
     broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
     the returns lists with the forest-specific timezones.
    */
-  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0);
+  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0)
+    .toDate();
   const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0)
-    .second(0);
+    .second(0)
+    .toDate();
 
   const forestFilter = req.query.forestId === 'ALL' ? {} : { forestId: req.query.forestId };
 
@@ -102,20 +103,16 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
     include: [
       {
         model: treesDb.christmasTreesForests,
-        where: {
-          forestAbbr: {
-            [operator.in]: req.user.forests
-          }
-        }
+        where: { forestAbbr: { [operator.in]: req.user.forests } }
       }
     ],
     where: {
       ...forestFilter,
       status: 'Completed',
-      updatedAt: {
-        [operator.gte]: startDate,
-        [operator.lt]: endDate
-      }
+      [operator.and]: [
+        { updatedAt: { [operator.gte]: startDate } },
+        { updatedAt: { [operator.lt]: endDate } }
+      ]
     },
     order: [['updatedAt', 'ASC']]
   };

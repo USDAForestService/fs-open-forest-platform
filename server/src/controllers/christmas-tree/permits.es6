@@ -375,6 +375,7 @@ christmasTreePermits.printPermit = (req, res) => {
       ]
     })
     .then((permit) => {
+      console.log('WUT');
       util.logControllerAction(req, 'christmasTreePermits.printPermit', permit);
       if (permit.status === 'Completed') {
         if (!checkPermitValid(permit.permitExpireDate)) {

@@ -1,34 +1,41 @@
-
-
 const request = require('supertest');
 const chai = require('chai');
 const server = require('./mock-aws.spec.es6');
-const expect = chai.expect;
 
-describe('christmas tree controller permit tests', () => {
+const { createForest, destroyAll } = require('./data/db-helper.es6');
+
+const { expect } = chai;
+
+describe('christmas tree controller forest tests', () => {
+  let forest;
+
+  before(async () => {
+    forest = await createForest();
+  });
+
+  after(async () => {
+    await destroyAll();
+  });
+
   describe('get forests', () => {
+    const getForests = () => request(server)
+      .get('/forests')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/);
+
     it('should return a 200 response', (done) => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
+      getForests()
         .expect(200, done);
     });
-    it('should return more than 0 forests', (done) => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
+    it('should return 1 forest', (done) => {
+      getForests()
         .expect((res) => {
-          expect(res.body.length).to.not.equal(0);
+          expect(res.body.length).to.equal(1);
         })
         .expect(200, done);
     });
     it('should include name and ID for a forest', (done) => {
-      request(server)
-        .get('/forests')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
+      getForests()
         .expect((res) => {
           expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
         })
@@ -37,41 +44,37 @@ describe('christmas tree controller permit tests', () => {
   });
 
   describe('get forest info', () => {
+    const getForestInfo = forestAbbr => request(server)
+      .get(`/forests/${forestAbbr}`)
+      .set('Accept', 'application/json');
+
     it('should return a 200 response', (done) => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
+      getForestInfo(forest.forestAbbr)
         .expect('Content-Type', /json/)
         .expect(200, done);
     });
 
     it('should include fields for species and locations', (done) => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
+      getForestInfo(forest.forestAbbr)
         .expect('Content-Type', /json/)
-        .expect((res) => {
-          expect(res.body).to.include.all.keys('startDate', 'endDate', 'treeCost', 'timezone');
+        .expect(({ body }) => {
+          expect(body).to.include.all.keys('startDate', 'endDate', 'treeCost', 'timezone');
         })
         .expect(200, done);
     });
 
     it('should include cutting areas as a json object', (done) => {
-      request(server)
-        .get('/forests/arp')
-        .set('Accept', 'application/json')
+      getForestInfo(forest.forestAbbr)
         .expect('Content-Type', /json/)
-        .expect((res) => {
-          expect(res.body).to.include.all.keys('cuttingAreas');
-          expect(res.body.cuttingAreas !== null && typeof res.body.cuttingAreas === 'object');
+        .expect(({ body }) => {
+          expect(body).to.include.all.keys('cuttingAreas');
+          expect(body.cuttingAreas !== null && typeof body.cuttingAreas === 'object');
         })
         .expect(200, done);
     });
 
     it('should return a 404 response when providing forest ID that does not exist.', (done) => {
-      request(server)
-        .get('/forests/-1205')
-        .set('Accept', 'application/json')
+      getForestInfo('-1205')
         .expect(404, done);
     });
   });
