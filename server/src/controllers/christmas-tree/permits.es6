@@ -9,8 +9,6 @@ const uuid = require('uuid/v4');
 const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
-const jwt = require('jsonwebtoken');
-const _ = require('lodash/fp');
 
 const logger = require('../../services/logger.es6');
 const vcapConstants = require('../../vcap-constants.es6');
@@ -289,35 +287,30 @@ christmasTreePermits.generateRulesAndEmail = permit => permitSvgService.generate
  * @return {Object} - saved permit object
  */
 christmasTreePermits.getOnePermit = (req, res) => {
-  const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
-  if (validToken) {
-    treesDb.christmasTreesPermits
-      .findOne({
-        where: {
-          permitId: req.params.id
-        },
-        include: [
-          {
-            model: treesDb.christmasTreesForests
-          }
-        ]
-      })
-      .then((permit) => {
-        if (permit && permit.status === 'Error') {
-          return res.status(400).json(formatPermitError(permit));
+  treesDb.christmasTreesPermits
+    .findOne({
+      where: {
+        permitId: req.params.id
+      },
+      include: [
+        {
+          model: treesDb.christmasTreesForests
         }
-        if (permit) {
-          util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
-          return res.status(200).send(permitResult(permit));
-        }
-        return res.status(404).send();
-      })
-      .catch((error) => {
-        util.handleErrorResponse(error, res, 'getOnePermit#end');
-      });
-  } else {
-    return res.status(404).send();
-  }
+      ]
+    })
+    .then((permit) => {
+      if (permit && permit.status === 'Error') {
+        return res.status(400).json(formatPermitError(permit));
+      }
+      if (permit) {
+        util.logControllerAction(req, 'christmasTreePermits.getOnePermit', permit);
+        return res.status(200).send(permitResult(permit));
+      }
+      return res.status(404).send();
+    })
+    .catch((error) => {
+      util.handleErrorResponse(error, res, 'getOnePermit#end');
+    });
 };
 
 /**
@@ -339,7 +332,6 @@ christmasTreePermits.printPermit = (req, res) => {
       ]
     })
     .then((permit) => {
-      console.log('WUT');
       util.logControllerAction(req, 'christmasTreePermits.printPermit', permit);
       if (permit.status === 'Completed') {
         if (!checkPermitValid(permit.permitExpireDate)) {
@@ -412,52 +404,52 @@ const completePermitTransaction = (permit, res, requestedStatus) => {
  * @param {Object} res - http response
  */
 christmasTreePermits.updatePermitApplication = async (req, res) => {
-  try {
-    const validToken = jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
-    if (!validToken) {
-      logger.error('Permit not loaded or JWT not decoded.');
-      return res.status(404).send();
-    }
+  util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication', req.body);
+  const { permitId, status: requestedStatus } = req.body;
 
-    const { permitId, status: requestedStatus } = req.body;
+  const query = {
+    where: { permitId },
+    include: [{ model: treesDb.christmasTreesForests }]
+  };
 
-    const query = {
-      where: { permitId },
-      include: [{ model: treesDb.christmasTreesForests }]
-    };
+  const permit = await treesDb.christmasTreesPermits.findOne(query);
 
-    const permit = await treesDb.christmasTreesPermits.findOne(query);
+  if (!permit) {
+    logger.error('Permit status unknown. 404.');
+    return res.status(404).send();
+  }
 
-    if (!permit) {
-      logger.error('Permit status unknown. 404.');
-      return res.status(404).send();
-    }
+  if (permit.status === 'Error') {
+    const formattedPermit = formatPermitError(permit);
+    return res.status(400).json(formattedPermit);
+  }
 
-    if (permit.status === 'Error') {
-      const formattedPermit = formatPermitError(permit);
-      return res.status(400).json(formattedPermit);
-    }
+  if (permit.status === 'Completed') {
+    return res.status(400).json({
+      errors: [{
+        status: 400,
+        message: 'Permit Completed',
+        permit: permitResult(permit)
+      }]
+    });
+  }
 
-    if (permit.status === 'Initiated' && requestedStatus === 'Cancelled') {
-      const updatedPermit = await permit.update({ status: requestedStatus });
-      util.logControllerAction(req, 'christmasTreePermits.updatePermitApplication#cancel', updatedPermit);
-      return res.status(200).json(updatedPermit);
-    }
+  if (permit.status === 'Initiated' && requestedStatus === 'Cancelled') {
+    const updatedPermit = await permit.update({ status: requestedStatus });
 
-    if (permit.status === 'Initiated' && requestedStatus === 'Completed') {
-      util.logControllerAction(req, 'christmasTreePermits.completePermitTransaction', permit);
-      return completePermitTransaction(permit, res, requestedStatus)
-        .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
-        // eslint-disable-next-line consistent-return
-        .catch((error) => {
-          logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction did not complete ${error}`);
-          if (!res.headerSent) {
-            return res.status(400).send();
-          }
-        });
-    }
-  } catch (error) {
-    util.handleErrorResponse(error, res, _.getOr('updatePermit#end', 'method', error));
+    return res.status(200).json(updatedPermit);
+  }
+
+  if (permit.status === 'Initiated' && requestedStatus === 'Completed') {
+    return completePermitTransaction(permit, res, requestedStatus)
+      .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
+    // eslint-disable-next-line consistent-return
+      .catch((error) => {
+        logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction did not complete ${error}`);
+        if (!res.headerSent) {
+          return res.status(400).send();
+        }
+      });
   }
 };
 

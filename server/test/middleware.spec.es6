@@ -1,6 +1,6 @@
-'use strict';
-
+/* eslint-disable no-unused-expressions */
 const chai = require('chai');
+const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
 
 const middleware = require('../src/services/middleware.es6');
@@ -8,7 +8,8 @@ const util = require('../src/services/util.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 chai.use(require('sinon-chai'));
-const expect = chai.expect;
+
+const { expect } = chai;
 
 describe('middleware', () => {
   it('should have CORS headers', () => {
@@ -165,6 +166,51 @@ describe('middleware', () => {
         expect(util.getUserRole).to.have.been.calledWith(req.user.adminUsername);
         expect(res.status).not.to.have.been.called;
         expect(res.send).not.to.have.been.called;
+      });
+    });
+  });
+
+  describe('checkToken', () => {
+    let res;
+    beforeEach(() => {
+      res = {
+        status: sinon.stub().returnsThis(),
+        send: sinon.spy()
+      };
+    });
+
+    describe('with an invalid token', () => {
+      let req;
+
+      beforeEach(() => {
+        req = {};
+      });
+
+      it('should call status with 401', () => {
+        const next = sinon.spy();
+        middleware.checkToken(req, res, next);
+        expect(next).not.to.have.been.called;
+        expect(res.status).to.have.been.calledWith(401);
+        expect(res.send).to.have.been.called;
+      });
+    });
+
+    describe('with a valid token', () => {
+      let req;
+
+      beforeEach(() => {
+        req = {
+          query: {
+            t: jwt.sign({ data: 1 }, vcapConstants.PERMIT_SECRET)
+          }
+        };
+      });
+
+      it('should pass user auth and call next', () => {
+        const next = sinon.spy();
+        middleware.checkToken(req, res, next);
+        expect(next).to.have.been.called;
+        expect(res.status).not.to.have.been.called;
       });
     });
   });

@@ -1,5 +1,8 @@
+const chai = require('chai');
 const request = require('supertest');
 const server = require('./mock-aws.spec.es6');
+
+const { expect } = chai;
 
 describe('mock pay gov', () => {
   // describe('GET', () => {

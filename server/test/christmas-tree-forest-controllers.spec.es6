@@ -23,21 +23,11 @@ describe('christmas tree controller forest tests', () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/);
 
-    it('should return a 200 response', (done) => {
+    it('should return successfully with details for 1 forest', (done) => {
       getForests()
-        .expect(200, done);
-    });
-    it('should return 1 forest', (done) => {
-      getForests()
-        .expect((res) => {
-          expect(res.body.length).to.equal(1);
-        })
-        .expect(200, done);
-    });
-    it('should include name and ID for a forest', (done) => {
-      getForests()
-        .expect((res) => {
-          expect(res.body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
+        .expect(({ body }) => {
+          expect(body.length).to.equal(1);
+          expect(body[0]).to.include.all.keys('id', 'forestName', 'description', 'forestAbbr');
         })
         .expect(200, done);
     });
@@ -48,13 +38,7 @@ describe('christmas tree controller forest tests', () => {
       .get(`/forests/${forestAbbr}`)
       .set('Accept', 'application/json');
 
-    it('should return a 200 response', (done) => {
-      getForestInfo(forest.forestAbbr)
-        .expect('Content-Type', /json/)
-        .expect(200, done);
-    });
-
-    it('should include fields for species and locations', (done) => {
+    it('should return successfully with fields for species and locations', (done) => {
       getForestInfo(forest.forestAbbr)
         .expect('Content-Type', /json/)
         .expect(({ body }) => {

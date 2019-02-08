@@ -1,5 +1,3 @@
-
-
 /**
  * Module for christmas trees routes
  * @module routers/christmasTree
@@ -9,6 +7,7 @@ const express = require('express');
 
 const christmasTreeController = require('../controllers/christmas-tree/permits.es6');
 const christmasTreeForestController = require('../controllers/christmas-tree/forests.es6');
+const middleware = require('../services/middleware.es6');
 
 const router = express.Router();
 
@@ -22,10 +21,10 @@ router.get('/:id', christmasTreeForestController.getForest);
 router.post('/christmas-trees/permits', christmasTreeController.create);
 
 /** Cancel or Complete permit application */
-router.put('/christmas-trees/permits', christmasTreeController.updatePermitApplication);
+router.put('/christmas-trees/permits', middleware.checkToken, christmasTreeController.updatePermitApplication);
 
 /** get one permit */
-router.get('/christmas-trees/permits/:id', christmasTreeController.getOnePermit);
+router.get('/christmas-trees/permits/:id', middleware.checkToken, christmasTreeController.getOnePermit);
 
 /** get printable copy of the permit */
 router.get('/christmas-trees/permits/:id/print', christmasTreeController.printPermit);

@@ -20,32 +20,33 @@ const christmasTreeController = require('../src/controllers/christmas-tree/permi
 
 const { expect } = chai;
 
-let openForest;
-let closedForest;
-let initiatedPermit;
-let completedPermit;
-let initiatedPermitToken;
-let completedPermitToken;
-
-before(async () => {
-  openForest = await createForest();
-  closedForest = await createForest({
-    forestAbbr: 'clsd',
-    orgStructureCode: '10-20-99T',
-    endDate: new Date('2018-12-24T12:00:00.000Z')
-  });
-  initiatedPermit = await createPermit({ status: 'Initiated', forestId: openForest.id });
-  completedPermit = await createPermit({ status: 'Completed', forestId: openForest.id });
-
-  initiatedPermitToken = jwt.sign({ data: initiatedPermit.permitId }, vcapConstants.PERMIT_SECRET);
-  completedPermitToken = jwt.sign({ data: completedPermit.permitId }, vcapConstants.PERMIT_SECRET);
-});
-
-after(async () => {
-  await destroyAll();
-});
-
 describe('christmas tree controller permit tests', () => {
+  const DATA = {};
+
+  before(async () => {
+    DATA.openForest = await createForest();
+    DATA.closedForest = await createForest({
+      forestAbbr: 'clsd',
+      orgStructureCode: '10-20-99T',
+      endDate: new Date('2018-12-24T12:00:00.000Z')
+    });
+    DATA.initiatedPermit = await createPermit({ status: 'Initiated', forestId: DATA.openForest.id });
+    DATA.completedPermit = await createPermit({ status: 'Completed', forestId: DATA.openForest.id });
+    DATA.errorPermit = await createPermit({
+      status: 'Error',
+      forestId: DATA.openForest.id,
+      paygovError: JSON.stringify({ errorCode: [], errorMessage: [] })
+    });
+
+    DATA.initiatedPermitToken = jwt.sign({ data: DATA.initiatedPermit.permitId }, vcapConstants.PERMIT_SECRET);
+    DATA.completedPermitToken = jwt.sign({ data: DATA.completedPermit.permitId }, vcapConstants.PERMIT_SECRET);
+    DATA.errorPermitToken = jwt.sign({ data: DATA.errorPermit.permitId }, vcapConstants.PERMIT_SECRET);
+  });
+
+  after(async () => {
+    await destroyAll();
+  });
+
   describe('.create', () => {
     const postPermit = application => request(server)
       .post('/forests/christmas-trees/permits')
@@ -55,9 +56,9 @@ describe('christmas tree controller permit tests', () => {
 
     beforeEach(() => {
       permitApplication = christmasTreePermitApplicationFactory.create({
-        forestId: openForest.id,
-        forestAbbr: openForest.forestAbbr,
-        orgStructureCode: openForest.orgStructureCode
+        forestId: DATA.openForest.id,
+        forestAbbr: DATA.openForest.forestAbbr,
+        orgStructureCode: DATA.openForest.orgStructureCode
       });
     });
 
@@ -99,9 +100,9 @@ describe('christmas tree controller permit tests', () => {
 
     it('should return a 404 response with a closed forest', (done) => {
       const closedApplication = christmasTreePermitApplicationFactory.create({
-        forestId: closedForest.id,
-        forestAbbr: closedForest.forestAbbr,
-        orgStructureCode: closedForest.orgStructureCode
+        forestId: DATA.closedForest.id,
+        forestAbbr: DATA.closedForest.forestAbbr,
+        orgStructureCode: DATA.closedForest.orgStructureCode
       });
 
       postPermit(closedApplication)
@@ -114,38 +115,40 @@ describe('christmas tree controller permit tests', () => {
       .put(`/forests/christmas-trees/permits?t=${token}`)
       .send(application);
 
-    // TODO
-    // it('PUT should return a 400 response when completing permit that has transaction errors within pay.gov', (done) => {
-    //   const application = {
-    //     permitId: completedPermit.permitId,
-    //     status: 'Completed'
-    //   };
+    it('should return a 401 when updating with an invalid token', (done) => {
+      const application = { };
 
-    //   putPermitApplication(application, completedPermitToken)
-    //     .expect('Content-Type', /json/)
-    //     .expect(400, done);
-    // });
+      putPermitApplication(application, null)
+        .expect(401, done);
+    });
 
     it('should return a 404 when cancelling a permit application with an invalid id', (done) => {
       const application = { permitId: '1111a111-2222-11a1-aaa1-123456789012', status: 'Cancelled' };
 
-      putPermitApplication(application, null)
+      putPermitApplication(application, DATA.completedPermitToken)
         .expect(404, done);
     });
 
-    it('should return 404 for a completed permit', (done) => {
-      const application = { permitId: completedPermit.permitId, status: 'Completed' };
+    it('should return 400 for a completed permit', (done) => {
+      const application = { permitId: DATA.completedPermit.permitId, status: 'Completed' };
 
-      putPermitApplication(application, completedPermitToken)
-        .expect(404, done);
+      putPermitApplication(application, DATA.completedPermitToken)
+        .expect(400, done);
     });
 
-    describe('for an initiated permit', () => {
+    it('should return 400 for a permit with errors', (done) => {
+      const application = { permitId: DATA.errorPermit.permitId, status: 'Completed' };
+
+      putPermitApplication(application, DATA.errorPermitToken)
+        .expect(400, done);
+    });
+
+    describe('for an "Initiated" permit', () => {
       let permit;
       let token;
 
       beforeEach(async () => {
-        permit = await createPermit({ status: 'Initiated', forestId: openForest.id });
+        permit = await createPermit({ status: 'Initiated', forestId: DATA.openForest.id });
         token = jwt.sign({ data: permit.permitId }, vcapConstants.PERMIT_SECRET);
       });
 
@@ -153,7 +156,7 @@ describe('christmas tree controller permit tests', () => {
         await permit.destroy();
       });
 
-      it('should return a 200 response when completing', (done) => {
+      it('should return a 200 response when completing an "Initiated" permit', (done) => {
         const application = { permitId: permit.permitId, status: 'Completed' };
 
         putPermitApplication(application, token)
@@ -161,7 +164,7 @@ describe('christmas tree controller permit tests', () => {
           .expect(200, done);
       });
 
-      it('should return a 200 response when cancelling', (done) => {
+      it('should return a 200 response when cancelling an "Initiated" permit', (done) => {
         const application = { permitId: permit.permitId, status: 'Cancelled' };
 
         putPermitApplication(application, token)
@@ -176,26 +179,46 @@ describe('christmas tree controller permit tests', () => {
       .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
       .set('Accept', /json/);
 
-    it('should return a 404 response when requesting an invalid permit', (done) => {
+    it('should return a 401 response with an invalid token', (done) => {
       getPermit('1111a111-2222-11a1-aaa1-123456789012', null)
+        .expect(401, done);
+    });
+
+    it('should return a 404 response with a valid token but an invalid permit', (done) => {
+      getPermit('1111a111-2222-11a1-aaa1-123456789012', DATA.initiatedPermitToken)
         .expect(404, done);
     });
 
-    it('should return a 200 response when requesting for already completed permit', (done) => {
-      const loggerSpy = sinon.spy(logger, 'info');
-      getPermit(completedPermit.permitId, completedPermitToken)
+    it('should return a 400 response when getting details of an "Error" permit', (done) => {
+      getPermit(DATA.errorPermit.permitId, DATA.errorPermitToken)
+        .expect(400, done);
+    });
+
+    it('should return a 200 response when getting details of "Initiated" permit', (done) => {
+      getPermit(DATA.initiatedPermit.permitId, DATA.initiatedPermitToken)
         .expect((res) => {
-          expect(res.body.firstName).to.equal(completedPermit.firstName);
-          expect(loggerSpy.called).to.be.true;
-          const loggingStatement = `CONTROLLER: GET:christmasTreePermits.getOnePermit \
-by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
-          expect(loggerSpy.calledWith(sinon.match(loggingStatement))).to.be.true;
+          expect(res.body.permitId).to.equal(DATA.initiatedPermit.permitId);
         })
         .expect(200, done);
     });
 
-    it('should return a 200 response when getting details of "initiated" permit', (done) => {
-      getPermit(initiatedPermit.permitId, initiatedPermitToken)
+    it('should return a 200 response when getting details of a "Completed" permit', (done) => {
+      getPermit(DATA.completedPermit.permitId, DATA.completedPermitToken)
+        .expect((res) => {
+          expect(res.body.permitId).to.equal(DATA.completedPermit.permitId);
+        })
+        .expect(200, done);
+    });
+
+    it('logs the successful request appropriately', (done) => {
+      const loggerSpy = sinon.spy(logger, 'info');
+      const logMsg = permit => `CONTROLLER: GET:christmasTreePermits.getOnePermit by ${permit.emailAddress}:PUBLIC for ${permit.permitId} at`;
+
+      getPermit(DATA.completedPermit.permitId, DATA.completedPermitToken)
+        .expect((res) => {
+          expect(loggerSpy.called).to.be.true;
+          expect(loggerSpy.calledWith(sinon.match(logMsg(res.body)))).to.be.true;
+        })
         .expect(200, done);
     });
   });
@@ -203,7 +226,7 @@ by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
   describe('.printPermit', () => {
     it('should return a 200 response when getting permit printable svg', (done) => {
       request(server)
-        .get(`/forests/christmas-trees/permits/${completedPermit.permitId}/print?permit=true`)
+        .get(`/forests/christmas-trees/permits/${DATA.completedPermit.permitId}/print?permit=true`)
         .expect('Content-Type', /json/)
         .expect((res) => {
           expect(res.body).to.include.all.keys('result');
@@ -213,7 +236,7 @@ by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
 
     it('GET should return a 200 response when getting permit rules printable html', (done) => {
       request(server)
-        .get(`/forests/christmas-trees/permits/${completedPermit.permitId}/print?rules=true`)
+        .get(`/forests/christmas-trees/permits/${DATA.completedPermit.permitId}/print?rules=true`)
         .expect('Content-Type', /json/)
         .expect((res) => {
           expect(res.body).to.include.all.keys('result');
