@@ -23,6 +23,7 @@ const operator = Sequelize.Op;
  */
 const getPermitResult = (permit) => {
   const eachPermit = {};
+  eachPermit.forestAbbr = permit.christmasTreesForest.forestAbbr;
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
 
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
@@ -98,7 +99,8 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
       'quantity',
       'totalCost',
       'permitExpireDate',
-      'christmasTreesForest.timezone'
+      'christmasTreesForest.timezone',
+      'christmasTreesForest.forest_abbr'
     ],
     include: [
       {

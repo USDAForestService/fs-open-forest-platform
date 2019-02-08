@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
 
     this.form.get('forestSelection').valueChanges.subscribe(forestSelection => {
       if (forestSelection) {
-        this.selectedForest = this.getForestById(forestSelection);
+        this.selectedForest = forestSelection;
         this.setStartEndDate(this.selectedForest, this.form);
       }
     });
@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   resetForms() {
     this.result = null;
-    this.selectedForest = this.forests[0];
+    this.selectedForest = this.forests[0].id;
     this.isDateSearch = !this.isDateSearch;
     this.apiErrors = null;
   }
@@ -97,7 +97,21 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * setStartEndDate
    */
   setStartEndDate(forest, form) {
-    this.treesAdminService.setStartEndDate(forest, form);
+    let forestDates;
+    if (forest === 'ALL') {
+      const minForestDate = moment.min(this.forests.map(forest => moment(forest.startDate)));
+      const maxForestDate = moment.max(this.forests.map(forest => moment(forest.endDate)));
+      const timezone = this.forests[0].timezone;
+      forestDates = {
+        startDate: minForestDate,
+        endDate: maxForestDate,
+        timezone
+      }
+    } else {
+      forestDates = this.getForestById(forest);
+    }
+
+    this.treesAdminService.setStartEndDate(forestDates, form);
   }
 
   /**
@@ -118,7 +132,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * @returns forest by date
    */
   getForestDate(dateField) {
-    return moment.tz(this.form.get(dateField).value, this.selectedForest.timezone).format('MM/DD/YYYY');
+    // return moment.tz(this.form.get(dateField).value, this.selectedForest.timezone).format('MM/DD/YYYY');
+    return moment.tz(this.form.get(dateField).value, this.forests[0].timezone).format('MM/DD/YYYY');
   }
 
   /**
@@ -135,7 +150,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName: this.selectedForest.forestName,
+      // forestName: this.selectedForest.forestName,
+      forestName: this.selectedForest,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
       endDate: this.getForestDate('dateTimeRange.endDateTime')
     };
@@ -148,9 +164,11 @@ export class ReportComponent implements OnInit, AfterViewInit {
     if (this.form.valid && !this.dateStatus.hasErrors && this.selectedForest) {
       this.setReportParameters();
       this.service.getAllByDateRange(
-          this.selectedForest.id,
-          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD'),
-          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD')
+          this.selectedForest,
+          // moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD'),
+          // moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.selectedForest.timezone).format('YYYY-MM-DD')
+          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forests[0].timezone).format('YYYY-MM-DD'),
+          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forests[0].timezone).format('YYYY-MM-DD')
         )
         .subscribe(results => {
             this.result = {

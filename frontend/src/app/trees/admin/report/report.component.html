@@ -76,18 +76,18 @@
              type="radio"
              [value]="forest.id"
              formControlName="forestSelection"
-             [checked]="forest.id === selectedForest.id"
+             [checked]="forest.id === selectedForest"
              [attr.aria-labelledby]="forest.id + '-button-label'"
             >
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
           </ng-container>
-          <ng-container *ngIf="forests.length > 1">
+          <ng-container *ngIf="forests[1]">
             <input
               id="all-button"
               type="radio"
               value="ALL"
               formControlName="forestSelection"
-              [checked]="'ALL' === selectedForest.id"
+              [checked]="'ALL' === selectedForest"
               attr.aria-labelledby="all-button-label"
             >
             <label for="all-button" id="all-button-label">All</label>
