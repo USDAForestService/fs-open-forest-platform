@@ -6,7 +6,7 @@
  */
 
 const express = require('express');
-const Issuer = require('openid-client').Issuer;
+const openIdClient = require('openid-client');
 const jose = require('node-jose');
 const passport = require('passport');
 const { Strategy } = require('openid-client');
@@ -43,9 +43,9 @@ loginGov.params = {
  */
 loginGov.setup = () => {
   logger.info('AUTHENTICATION: Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
-  Issuer.defaultHttpOptions = basicAuthOptions;
+  openIdClient.Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
-  Issuer.discover(`${vcapConstants.LOGIN_GOV_BASE_URL}.well-known/openid-configuration`)
+  openIdClient.Issuer.discover(`${vcapConstants.LOGIN_GOV_BASE_URL}.well-known/openid-configuration`)
     .then((loginGovIssuer) => {
       loginGov.issuer = loginGovIssuer;
       const keys = {

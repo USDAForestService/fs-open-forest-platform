@@ -1,4 +1,4 @@
-'use strict';
+
 
 /**
  * Module for christmas tree public API to retrieve forests
@@ -22,14 +22,14 @@ christmasTreeForests.getForests = (req, res) => {
       attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone'],
       order: [['id', 'ASC']]
     })
-    .then(results => {
+    .then((results) => {
       if (results) {
         res.status(200).json(results);
       } else {
         res.status(404).send();
       }
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(400).json(error);
     });
 };
@@ -46,15 +46,15 @@ christmasTreeForests.getForest = (req, res) => {
         forestAbbr: req.params.id
       }
     })
-    .then(app => {
+    .then((app) => {
       if (app) {
         res.status(200).json(forestService.translateForestFromDatabaseToClient(app));
       } else {
         res.status(404).send();
       }
     })
-    .catch(error => {
-      logger.error('ERROR: ServerError: christmasTree controller getForest error for forest abbr ' + req.params.id, error);
+    .catch((error) => {
+      logger.error(`ERROR: ServerError: christmasTree controller getForest error for forest abbr ${req.params.id}`, error);
       res.status(400).json(error);
     });
 };

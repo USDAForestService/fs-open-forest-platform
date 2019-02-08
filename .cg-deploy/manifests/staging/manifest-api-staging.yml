@@ -1,6 +1,6 @@
 ---
 applications:
-- name: fs-intake-api-trees-staging
+- name: open-forest-platform-api-staging
   host: fs-intake-api-trees
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack

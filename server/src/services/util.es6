@@ -1,5 +1,3 @@
-
-
 /**
  * Module for various utility functions and constants
  * @module services/util
@@ -10,6 +8,8 @@ const crypto = require('crypto');
 const moment = require('moment');
 const request = require('request-promise-native');
 const Sequelize = require('sequelize');
+const Util = require('util');
+const xml2js = require('xml2js');
 
 const dbConfig = require('../../.sequelize.js');
 const vcapConstants = require('../vcap-constants.es6');
@@ -434,8 +434,7 @@ util.logControllerAction = (req, controller, applicationOrPermit) => {
     role = 'PUBLIC';
     permitID = applicationOrPermit.permitId;
   } else {
-    const user = req.user;
-    userID = user.email;
+    userID = req.user.email;
     role = util.getUserRole(req);
     permitID = applicationOrPermit.applicationId;
   }
@@ -454,4 +453,7 @@ util.getS3 = () => new AWS.S3({
   accessKeyId: vcapConstants.accessKeyId,
   secretAccessKey: vcapConstants.secretAccessKey
 });
+
+util.parseXml = Util.promisify(xml2js.parseString);
+
 module.exports = util;

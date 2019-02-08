@@ -79,11 +79,25 @@ by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
         .expect(200, done);
     });
     it('GET should return a 404 response when requesting an invalid permit', (done) => {
+      const token = jwt.sign(
+        {
+          data: invalidPermitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
       request(server)
-        .get(`/forests/christmas-trees/permits/${invalidPermitId}`)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}?t=${token}`)
         .set('Accept', 'application/json')
         .expect(404, done);
     });
+
+    it('GET should return a 500 response when requesting an invalid permit without a token', (done) => {
+      request(server)
+        .get(`/forests/christmas-trees/permits/${invalidPermitId}`)
+        .set('Accept', 'application/json')
+        .expect(500, done);
+    });
+
     it('POST should return a 400 response when submitted with invalid data', (done) => {
       const permitApplication = christmasTreePermitApplicationFactory.create();
       permitApplication.forestId = undefined;
@@ -303,7 +317,7 @@ by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
         permitId
       };
       request(server)
-        .post('/forests/christmas-trees/permits/cancel')
+        .post('/forests/christmas-trees/permits/cancel?')
         .send(cancelApplication)
         .expect(404, done);
     });
@@ -346,10 +360,29 @@ by ${res.body.emailAddress}:PUBLIC for ${res.body.permitId} at`;
         permitId: invalidPermitId,
         status: 'Cancelled'
       };
+
+      const token = jwt.sign(
+        {
+          data: invalidPermitId
+        },
+        vcapConstants.PERMIT_SECRET
+      );
+      request(server)
+        .put(`/forests/christmas-trees/permits?t=${token}`)
+        .send(cancelApplication)
+        .expect(404, done);
+    });
+
+    it('POST should return a 500 response when submitted to cancel an invalid permit application without a token', (done) => {
+      const cancelApplication = {
+        permitId: invalidPermitId,
+        status: 'Cancelled'
+      };
+
       request(server)
         .put('/forests/christmas-trees/permits')
         .send(cancelApplication)
-        .expect(404, done);
+        .expect(500, done);
     });
   });
 

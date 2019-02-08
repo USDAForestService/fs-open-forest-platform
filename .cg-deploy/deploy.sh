@@ -13,25 +13,18 @@ exit
 fi
 
 
-if [ $SPACE = 'public-production' ]; then
-  FRONTEND_NAME="forest-service-epermit"
+if [ $SPACE = 'platform-production' ]; then
+  FRONTEND_NAME="open-forest-platform-frontend"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/production/manifest-frontend.yml"
-  API_NAME="fs-intake-api"
+  API_NAME="open-forest-platform-api"
   API_MANIFEST="./.cg-deploy/manifests/production/manifest-api.yml"
   CF_USERNAME=$CF_USERNAME_PROD
   CF_PASSWORD=$CF_PASSWORD_PROD
-elif [ $SPACE = 'public-staging' ]; then
-  FRONTEND_NAME="fs-intake-staging"
+elif [ $SPACE = 'platform-staging' ]; then
+  FRONTEND_NAME="open-forest-platform-frontend-staging"
   FRONTEND_MANIFEST="./.cg-deploy/manifests/staging/manifest-frontend-staging.yml"
-  API_NAME="fs-intake-api-staging"
+  API_NAME="open-forest-platform-api-staging"
   API_MANIFEST="./.cg-deploy/manifests/staging/manifest-api-staging.yml"
-  CF_USERNAME=$CF_USERNAME
-  CF_PASSWORD=$CF_PASSWORD
-elif [ $SPACE = 'public-trees-staging' ]; then
-  FRONTEND_NAME="forest-service-trees-staging"
-  FRONTEND_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-frontend-trees-staging.yml"
-  API_NAME="fs-intake-api-trees-staging"
-  API_MANIFEST="./.cg-deploy/manifests/trees-staging/manifest-api-trees-staging.yml"
   CF_USERNAME=$CF_USERNAME
   CF_PASSWORD=$CF_PASSWORD
 else
