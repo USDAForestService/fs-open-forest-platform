@@ -30,6 +30,7 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
 
   const token = uuid();
   const paygovTrackingId = util.getRandomString(5).toUpperCase();
+  let statusCode = 200;
 
   if (
     requestBody['ns2:startOnlineCollection']
@@ -57,6 +58,7 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
       let returnCode = '0000';
       if (transactionStatus.errorCode) {
         returnCode = transactionStatus.errorCode;
+        statusCode = 500;
       }
       xmlResponse = templates.completeOnlineCollectionRequest.cardError(returnCode);
     } else {
@@ -65,7 +67,7 @@ payGov.router.post('/mock-pay-gov', (req, res) => {
   }
   if (xmlResponse !== null) {
     res.set('Content-Type', 'application/xml; charset=utf-8');
-    res.send(xmlResponse);
+    res.status(statusCode).send(xmlResponse);
   } else {
     res.status(500).send();
   }

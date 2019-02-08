@@ -61,7 +61,6 @@ describe('christmas tree controller permit tests', () => {
       });
     });
 
-
     it('should return a 400 response with invalid data', (done) => {
       permitApplication.forestId = undefined;
 
