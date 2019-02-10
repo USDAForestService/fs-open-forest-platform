@@ -1,15 +1,22 @@
-
-
 /**
  * pay.gov utility
  * @module services/paygov
  */
 const jwt = require('jsonwebtoken');
+const _ = require('lodash/fp');
 const xml = require('xml');
 
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('./util.es6');
 const paygovTemplates = require('./paygovTemplates.es6');
+
+class PayGovError extends Error {
+  constructor(code, ...args) {
+    super(...args);
+    this.name = 'PayGovError';
+    this.code = code;
+  }
+}
 
 const paygov = {};
 
@@ -126,40 +133,36 @@ paygov.getXmlToCompleteTransaction = (paygovToken) => {
 };
 
 /**
- * @function getToken - Get token out of the paygov response XML
+ * @function extractToken - Get token out of the paygov response XML
  * @param {Object} result - payGov result for startOnlineCollection
  * @return {string} - paygov token
  */
-paygov.getToken = result => new Promise((resolve, reject) => {
-  const startOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]
-    .startOnlineCollectionResponse[0];
-  if (startOnlineCollectionResponse) {
-    resolve(startOnlineCollectionResponse.token[0]);
+paygov.extractToken = (result) => {
+  try {
+    return result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]
+      .startOnlineCollectionResponse[0].token[0];
+  } catch (_error) {
+    throw new Error('no token');
   }
-  reject(new Error('no token'));
-});
+};
 
 /**
- * @function getResponseError - Get error out of the paygov response XML
+ * @function extractError - Get error out of the paygov response XML
  * @param {string} requestType - type of paygov request: startOnlineCollection/completeOnlineCollection
  * @param {Object} result - response error object
  */
-paygov.getResponseError = (requestType, result) => {
-  const responseError = { errorCode: '9999', errorMessage: requestType };
-  return new Promise((resolve, reject) => {
-    const faultMessage = result['soapenv:Envelope']['soapenv:Body'][0]['soapenv:Fault'][0];
-    if (faultMessage) {
-      responseError.errorCode = faultMessage.errorCode;
-      responseError.errorMessage = faultMessage.faultMessage;
-      if (faultMessage.detail[0].TCSServiceFault[0]) {
-        responseError.errorCode = faultMessage.detail[0].TCSServiceFault[0].return_code;
-        responseError.errorMessage = faultMessage.detail[0].TCSServiceFault[0].return_detail;
-      }
-      resolve(responseError);
-    } else {
-      reject(responseError);
-    }
-  });
+paygov.extractError = (requestType, result) => {
+  const fault = _.get('S:Envelope.S:Body[0].S:Fault[0]', result);
+  if (!fault) {
+    return { errorCode: '9999', errorMessage: requestType };
+  }
+
+  const faultDetail = _.get('detail[0].TCSServiceFault[0]', fault);
+  if (faultDetail) {
+    return { errorCode: faultDetail.return_code, errorMessage: faultDetail.return_detail };
+  }
+
+  return { errorCode: fault.faultcode, errorMessage: fault.faultstring };
 };
 
 /**
@@ -195,14 +198,43 @@ paygov.postPayGov = (xmlData) => {
       key: payGovPrivateKey,
       cert: payGovCert
     }
-  );
+  ).catch((error) => {
+    const { errorCode, errorMessage } = paygov.extractError(error);
+    throw new PayGovError(errorCode, errorMessage);
+  });
 };
 
-paygov.startCollection = (forest, permit) => {
-  const startCollectionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
-  return paygov.postPayGov(startCollectionXml);
+/**
+ * @function - Start a "Collection" with Pay.gov. This returns a temporary, unique identifier for the collection
+ * to be used when redirecting the user to the hosted payment page and completing the collection.
+ *
+ * @param {Object} forest - an instance of christmasTreesForest
+ * @param {Object} permit - an instance of christmasTreesPermit
+ * @return {Promise<String>} Resolves to a Pay.gov token or rejects with an error
+ */
+paygov.startCollection = async (forest, permit) => {
+  try {
+    const startCollectionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
+    const result = await paygov.postPayGov(startCollectionXml);
+    const json = util.parseXml(result);
+    const token = paygov.extractToken(json);
+    return token;
+  } catch (error) {
+    if (error instanceof PayGovError) {
+      throw error;
+    } else {
+      throw new PayGovError('9999', error.message);
+    }
+  }
 };
 
+/**
+ * @function - Complete a "Collection" with Pay.gov. This returns a unique identifier for the collection
+ * to be used when fetching the collection in future.
+ *
+ * @param {String} paygovToken - a Pay.gov token
+ * @return {Promise<String>} Resolves to a Pay.gov tracking id or rejects with an error
+ */
 paygov.completeCollection = (paygovToken) => {
   const completeCollectionXml = paygov.getXmlToCompleteTransaction(paygovToken);
   return paygov.postPayGov(completeCollectionXml);

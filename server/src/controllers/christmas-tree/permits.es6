@@ -72,27 +72,27 @@ const permitResult = permit => ({
  * @param {string} token - paygov token
  * @return {Object} - http response
  */
-const updatePermitWithToken = (res, permit, token) => {
-  const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
-  permit
-    .update({
-      paygovToken: token
-    })
-    .then((savedPermit) => {
-      logger.info(
-        `${savedPermit.emailAddress} modified ${savedPermit.permitId} with pay.gov token at ${savedPermit.updatedAt}`
-      );
-      return res.status(200).json({
-        token,
-        permitId: savedPermit.permitId,
-        payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
-        tcsAppID
-      });
-    })
-    .catch((error) => {
-      util.handleErrorResponse(error, res, 'updatePermitWithToken#end');
-    });
-};
+// const updatePermitWithToken = (res, permit, token) => {
+//   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
+//   permit
+//     .update({
+//       paygovToken: token
+//     })
+//     .then((savedPermit) => {
+//       logger.info(
+//         `${savedPermit.emailAddress} modified ${savedPermit.permitId} with pay.gov token at ${savedPermit.updatedAt}`
+//       );
+//       return res.status(200).json({
+//         token,
+//         permitId: savedPermit.permitId,
+//         payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
+//         tcsAppID
+//       });
+//     })
+//     .catch((error) => {
+//       util.handleErrorResponse(error, res, 'updatePermitWithToken#end');
+//     });
+// };
 
 /**
  * @function formatPermitError - Format error objects from the permit's errors
@@ -161,10 +161,10 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
  * to update the Permit in the database with a paygov token result in
  * updating the Permit in the database with the error.
  */
-const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => util.parseXml(payGovXmlRes)
-  .then(result => paygov.getToken(result)
-    .then(token => updatePermitWithToken(res, permit, token))
-    .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection')));
+// const grabAndProcessPaygovToken = (payGovXmlRes, permit, res) => util.parseXml(payGovXmlRes)
+//   .then(result => paygov.getToken(result)
+//     .then(token => updatePermitWithToken(res, permit, token))
+//     .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection')));
 
 /**
  * @function create - API function to create permit application
@@ -182,7 +182,7 @@ christmasTreePermits.create = (req, res) => {
     .then((forest) => {
       if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
         logger.error(`Permit attempted to be created outside of season date for ${req.body.forestId}`);
-        return res.status(404).send(); // season is closed or not yet started
+        return res.status(409).send(); // season is closed or not yet started
       }
       req.body.expDate = forest.endDate;
       return treesDb.christmasTreesPermits
@@ -190,17 +190,28 @@ christmasTreePermits.create = (req, res) => {
         .then((permit) => {
           util.logControllerAction(req, 'christmasTreePermits.create', permit);
           return paygov.startCollection(forest, permit)
-            .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
-            .catch((postError) => {
-              if (postError && postError !== 'null') {
-                util.handleErrorResponse(postError, res, 'create#postPay');
-              }
-            });
+            .then(paygovToken => permit.update({ paygovToken })
+              .then((savedPermit) => {
+                const response = {
+                  token: paygovToken,
+                  permitId: savedPermit.permitId,
+                  payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
+                  tcsAppID: vcapConstants.PAY_GOV_APP_ID
+                };
+                res.status(200).json(response);
+              }))
+            .catch(paygovError => permit.update({
+              status: 'Error',
+              paygovError: `Paygov Error ${paygovError.code}: ${paygovError.message}`
+            })
+              .then((savedPermit) => {
+                res.status(500).json({ errors: [savedPermit.paygovError] });
+              }));
         });
     })
     .catch((error) => {
       logger.error(`ERROR: ServerError: ${error} from create#catch`);
-      return res.status(400).json({
+      return res.status(500).json({
         errors: error.errors
       });
     });
