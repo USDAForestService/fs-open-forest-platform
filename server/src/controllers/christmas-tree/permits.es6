@@ -189,8 +189,7 @@ christmasTreePermits.create = (req, res) => {
         .create(translatePermitFromClientToDatabase(req.body))
         .then((permit) => {
           util.logControllerAction(req, 'christmasTreePermits.create', permit);
-          const initPayGovTransactionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
-          return paygov.postPayGov(initPayGovTransactionXml)
+          return paygov.startCollection(forest, permit)
             .then(xmlResponse => grabAndProcessPaygovToken(xmlResponse, permit, res))
             .catch((postError) => {
               if (postError && postError !== 'null') {
@@ -376,34 +375,31 @@ christmasTreePermits.printPermit = (req, res) => {
  * @param {Object} res - http response
  * @return {Promise} - promise that the email has been sent and response too
  */
-const completePermitTransaction = (permit, res, requestedStatus) => {
-  const xmlData = paygov.getXmlToCompleteTransaction(permit.paygovToken);
-  return new Promise((resolve, reject) => {
-    paygov.postPayGov(xmlData)
-      .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, requestedStatus)
-        .then((updatedPermit) => {
-          res.status(200).send(permitResult(updatedPermit));
-          resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
-        })
-        .catch((processError) => {
-          const errorToSend = Object.assign(processError, { method: 'completePermitTransaction#process' });
+const completePermitTransaction = (permit, res, requestedStatus) => new Promise((resolve, reject) => {
+  paygov.completeCollection(permit.paygovToken)
+    .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, requestedStatus)
+      .then((updatedPermit) => {
+        res.status(200).send(permitResult(updatedPermit));
+        resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
+      })
+      .catch((processError) => {
+        const errorToSend = Object.assign(processError, { method: 'completePermitTransaction#process' });
+        reject(errorToSend);
+      }))
+    .catch((postError) => {
+      if (postError && postError !== 'null') {
+        if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
+          // send to record error
+          handlePaygovCompleteResponse(res, postError.response.body, permit, requestedStatus)
+            .then(reject)
+            .catch(reject);
+        } else {
+          const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
           reject(errorToSend);
-        }))
-      .catch((postError) => {
-        if (postError && postError !== 'null') {
-          if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
-            // send to record error
-            handlePaygovCompleteResponse(res, postError.response.body, permit, requestedStatus)
-              .then(reject)
-              .catch(reject);
-          } else {
-            const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
-            reject(errorToSend);
-          }
         }
-      });
-  });
-};
+      }
+    });
+});
 
 /**
  * @function updatePermitApplication - API function to update permit

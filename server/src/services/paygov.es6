@@ -198,4 +198,14 @@ paygov.postPayGov = (xmlData) => {
   );
 };
 
+paygov.startCollection = (forest, permit) => {
+  const startCollectionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
+  return paygov.postPayGov(startCollectionXml);
+};
+
+paygov.completeCollection = (paygovToken) => {
+  const completeCollectionXml = paygov.getXmlToCompleteTransaction(paygovToken);
+  return paygov.postPayGov(completeCollectionXml);
+};
+
 module.exports = paygov;
