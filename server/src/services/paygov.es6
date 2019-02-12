@@ -16,6 +16,10 @@ class PayGovError extends Error {
     this.name = 'PayGovError';
     this.code = code;
   }
+
+  toString() {
+    return `${this.name} ${this.code}: ${this.message}`;
+  }
 }
 
 const paygov = {};

@@ -166,55 +166,60 @@ const recordPayGovError = (error, result, res, permit, requestType) => {
 //     .then(token => updatePermitWithToken(res, permit, token))
 //     .catch(error => recordPayGovError(error, result, res, permit, 'startOnlineCollection')));
 
+// TODO - move to service
+function isForestOpen(forest) {
+  return moment().isBetween(forest.startDate, forest.endDate, null, '[]');
+}
+
+// TODO - move to service
+async function createPermit(application, forest) {
+  application.expDate = forest.endDate;
+  const transformed = translatePermitFromClientToDatabase(application);
+  const permit = await treesDb.christmasTreesPermits.create(transformed);
+
+  let paygovToken;
+
+  try {
+    paygovToken = await paygov.startCollection(forest, permit);
+  } catch (paygovError) {
+    await permit.update({ status: 'Error', paygovError: paygovError.toString() });
+    throw new Error('Paygov Error');
+  }
+
+  const savedPermit = await permit.update({ paygovToken });
+
+  const createPermitResponse = {
+    token: paygovToken,
+    permitId: savedPermit.permitId,
+    payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
+    tcsAppID: vcapConstants.PAY_GOV_APP_ID
+  };
+
+  return createPermitResponse;
+}
+
 /**
  * @function create - API function to create permit application
  * @param {Object} req - http request
  * @param {Object} res - http response
  * @return {Object} http response
  */
-christmasTreePermits.create = (req, res) => {
-  treesDb.christmasTreesForests
-    .findOne({
-      where: {
-        id: req.body.forestId
-      }
-    })
-    .then((forest) => {
-      if (!moment().isBetween(forest.startDate, forest.endDate, null, '[]')) {
-        logger.error(`Permit attempted to be created outside of season date for ${req.body.forestId}`);
-        return res.status(409).send(); // season is closed or not yet started
-      }
-      req.body.expDate = forest.endDate;
-      return treesDb.christmasTreesPermits
-        .create(translatePermitFromClientToDatabase(req.body))
-        .then((permit) => {
-          util.logControllerAction(req, 'christmasTreePermits.create', permit);
-          return paygov.startCollection(forest, permit)
-            .then(paygovToken => permit.update({ paygovToken })
-              .then((savedPermit) => {
-                const response = {
-                  token: paygovToken,
-                  permitId: savedPermit.permitId,
-                  payGovUrl: vcapConstants.PAY_GOV_CLIENT_URL,
-                  tcsAppID: vcapConstants.PAY_GOV_APP_ID
-                };
-                res.status(200).json(response);
-              }))
-            .catch(paygovError => permit.update({
-              status: 'Error',
-              paygovError: `Paygov Error ${paygovError.code}: ${paygovError.message}`
-            })
-              .then((savedPermit) => {
-                res.status(500).json({ errors: [savedPermit.paygovError] });
-              }));
-        });
-    })
-    .catch((error) => {
-      logger.error(`ERROR: ServerError: ${error} from create#catch`);
-      return res.status(500).json({
-        errors: error.errors
-      });
-    });
+christmasTreePermits.create = async (req, res) => {
+  try {
+    const application = req.body;
+    const query = { where: { id: application.forestId } };
+    const forest = await treesDb.christmasTreesForests.findOne(query);
+
+    if (!isForestOpen(forest)) {
+      logger.error(`Permit attempted to be created outside of season date for ${application.forestId}`);
+      return res.status(400).send(); // season is closed or not yet started, I think this should be a 409
+    }
+
+    const permitResponse = await createPermit(application, forest);
+    res.status(200).json(permitResponse);
+  } catch (error) {
+    util.handleErrorResponse(error, res, 'createPermit#end');
+  }
 };
 
 /**
