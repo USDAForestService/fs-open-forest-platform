@@ -78,7 +78,7 @@ module.exports = {
         stump_height: 4,
         stump_diameter: 0,
         start_date: '2018-11-19T07:00:00Z',
-        end_date: '2020-12-31T06:59:59Z',
+        end_date: '2018-12-31T06:59:59Z',
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-02-14',

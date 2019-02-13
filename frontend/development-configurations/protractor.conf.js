@@ -20,7 +20,7 @@ exports.config = {
       ? {
           args: ['--headless', 'no-sandbox', '--window-size=800x600']
         }
-      : {}
+      : {args: ['--headless', 'no-sandbox', '--window-size=800x600']}
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
