@@ -15,7 +15,6 @@ const paygov = require('./paygov.es6');
  */
 const startCollection = async (forest, permit) => {
   paygov.log('info', 'startCollection START', { permitId: permit.permitId });
-  paygov.log('info', 'BLARG', { forest });
   let paygovToken;
   try {
     const startCollectionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
