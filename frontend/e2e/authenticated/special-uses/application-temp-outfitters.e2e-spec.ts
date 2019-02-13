@@ -48,6 +48,13 @@ describe('Apply for a temp outfitters permit', () => {
   });
 
   it('should submit an application with only the required fields populated', () => {
+    element(by.css('.primary-permit-holder-first-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-last-name')).sendKeys('test');
+    element(by.css('.primary-permit-holder-address')).sendKeys('test');
+    element(by.css('.primary-permit-holder-city')).sendKeys('test');
+    element(by.css('.primary-permit-holder-state')).sendKeys('AK');
+    element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
+    element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('email')).sendKeys('test@test.com');
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
@@ -55,6 +62,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('start-day')).sendKeys('10');
     element(by.id('start-year')).sendKeys('2020');
     element(by.id('individual-label')).click();
+    element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('good-standing-evidence')).sendKeys(testSuccessFile);
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
@@ -100,6 +108,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('individual-label')).click();
     element(by.id('individual-citizen-label')).click();
     element(by.id('small-business-label')).click();
+    element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('good-standing-evidence')).sendKeys(testSuccessFile);
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');

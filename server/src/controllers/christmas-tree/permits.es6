@@ -452,7 +452,7 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
         const permitResponse = await completePermitTransaction(permit);
         res.status(200).send(permitResponse);
       } catch (error) {
-        return res.status(409).send(formatPermitError(permit));
+        return res.status(400).send(formatPermitError(permit));
       }
     }
   } catch (error) {
