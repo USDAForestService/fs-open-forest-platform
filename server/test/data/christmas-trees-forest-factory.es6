@@ -1,9 +1,14 @@
-
-
 const factory = require('unionized');
 
+// TODO - start at 5 for now until seeding is removed
+let id = 5;
+function autoIncrement() {
+  id += 1;
+  return id - 1;
+}
+
 module.exports = factory.factory({
-  id: 1,
+  id: autoIncrement,
   forestName: 'Arapaho and Roosevelt National Forests',
   description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
   forestAbbr: 'arp',

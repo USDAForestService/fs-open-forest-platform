@@ -6,15 +6,19 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash/fp');
 const xml = require('xml');
 
-const vcapConstants = require('../vcap-constants.es6');
-const util = require('./util.es6');
+const logger = require('../../services/logger.es6');
+const vcapConstants = require('../../vcap-constants.es6');
+const util = require('../util.es6');
 const paygovTemplates = require('./paygovTemplates.es6');
 
+const DEFAULT_ERROR_CODE = '9999';
+
 class PayGovError extends Error {
-  constructor(code, ...args) {
-    super(...args);
+  constructor(code = DEFAULT_ERROR_CODE, message, detail) {
+    super(message);
     this.name = 'PayGovError';
     this.code = code;
+    this.detail = detail;
   }
 
   toString() {
@@ -47,15 +51,17 @@ paygov.createToken = (permitId) => {
   return token;
 };
 
+
 /**
  * @function returnUrl - create return url for paygov request
- * @param {String} token - jwt token for url validation
  * @param {string} forestAbbr - forest abbreviation
  * @param {string} permitId - permit id
  * @param {Boolean} isCancelUrl - whether to include the cancel query
  * @return {Promise} - Promise that resolves to a success URL for payGov
  */
-paygov.returnUrl = (token, forestAbbr, permitId, isCancelUrl) => {
+paygov.returnUrl = (forestAbbr, permitId, isCancelUrl) => {
+  const token = paygov.createToken(permitId);
+
   let cancelQuery = '';
   let completeRoute = '/permits';
   if (isCancelUrl) {
@@ -76,7 +82,6 @@ paygov.returnUrl = (token, forestAbbr, permitId, isCancelUrl) => {
  */
 paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
   const tcsAppID = vcapConstants.PAY_GOV_APP_ID;
-  const token = paygov.createToken(permit.permitId);
 
   const startCollectionXML = JSON.parse(JSON.stringify(paygovTemplates.startCollection));
   startCollectionXML[0]['soap:Envelope'][1]['soap:Body'][0]['ns2:startOnlineCollection'][1]
@@ -97,10 +102,10 @@ paygov.getXmlStartCollection = (forestAbbr, possFinancialId, permit) => {
         language: 'EN'
       },
       {
-        url_success: paygov.returnUrl(token, forestAbbr, permit.permitId, false)
+        url_success: paygov.returnUrl(forestAbbr, permit.permitId, false)
       },
       {
-        url_cancel: paygov.returnUrl(token, forestAbbr, permit.permitId, true)
+        url_cancel: paygov.returnUrl(forestAbbr, permit.permitId, true)
       },
       {
         account_holder_name: `${permit.firstName} ${permit.lastName}`
@@ -137,111 +142,96 @@ paygov.getXmlToCompleteTransaction = (paygovToken) => {
 };
 
 /**
- * @function extractToken - Get token out of the paygov response XML
- * @param {Object} result - payGov result for startOnlineCollection
+ * @function extractToken - Get token out of the paygov response
+ * @param {Object} result - payGov result for startOnlineCollection as JSON
  * @return {string} - paygov token
  */
 paygov.extractToken = (result) => {
   try {
     return result['S:Envelope']['S:Body'][0]['ns2:startOnlineCollectionResponse'][0]
       .startOnlineCollectionResponse[0].token[0];
-  } catch (_error) {
-    throw new Error('no token');
+  } catch (error) {
+    throw new PayGovError(`extractToken: ${error}`, result);
   }
 };
 
 /**
- * @function extractError - Get error out of the paygov response XML
- * @param {string} requestType - type of paygov request: startOnlineCollection/completeOnlineCollection
- * @param {Object} result - response error object
+ * @function extractError - Get error out of the paygov response
+ * @param {Object} result - response error object as JSON
+ * @return {PayGovError}
  */
-paygov.extractError = (requestType, result) => {
+/* eslint-disable prefer-destructuring */
+paygov.extractError = (result) => {
+  let code = DEFAULT_ERROR_CODE;
+  let message = 'extractError: no message';
+
   const fault = _.get('S:Envelope.S:Body[0].S:Fault[0]', result);
-  if (!fault) {
-    return { errorCode: '9999', errorMessage: requestType };
+
+  if (fault) {
+    code = fault.faultcode[0];
+    message = fault.faultstring[0];
+
+    const faultDetail = _.get('detail[0].ns2:TCSServiceFault[0]', fault);
+    if (faultDetail) {
+      code = faultDetail.return_code[0];
+      message = faultDetail.return_detail[0];
+    }
   }
 
-  const faultDetail = _.get('detail[0].TCSServiceFault[0]', fault);
-  if (faultDetail) {
-    return { errorCode: faultDetail.return_code, errorMessage: faultDetail.return_detail };
-  }
-
-  return { errorCode: fault.faultcode, errorMessage: fault.faultstring };
+  return new PayGovError(code, message, result);
 };
+/* eslint-enable prefer-destructuring */
 
 /**
- * @function getTrackingId - Get paygov tracking id out of the paygov response XML
- * @param {Object} result - result from paygov request for completeOnlineCollection
+ * @function extractTrackingId - Get paygov tracking id out of the paygov response
+ * @param {Object} result - result from paygov request for completeOnlineCollection as JSON
  * @return {string} - paygov tracking id
  */
-paygov.getTrackingId = result => new Promise((resolve, reject) => {
-  const completeOnlineCollectionResponse = result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]
-    .completeOnlineCollectionResponse[0];
-  if (completeOnlineCollectionResponse) {
-    resolve(completeOnlineCollectionResponse.paygov_tracking_id[0]);
+paygov.extractTrackingId = (result) => {
+  try {
+    return result['S:Envelope']['S:Body'][0]['ns2:completeOnlineCollectionResponse'][0]
+      .completeOnlineCollectionResponse[0].paygov_tracking_id[0];
+  } catch (error) {
+    throw new PayGovError(`extractTrackingId: ${error}`, result);
   }
-  reject(new Error('no tracking id'));
-});
+};
 
 /**
  * @function postPayGov - Function to make a post request to pay.gov/mock pay.gov
  * @param {String} xmlData - xml to be posted to payGov endpoint
- * @return {Object} - response from payGov
+ * @return {Promise} - response from payGov
  */
-paygov.postPayGov = (xmlData) => {
+paygov.postPayGov = async (xmlData) => {
   const payGovPrivateKey = Buffer.from(vcapConstants.PAY_GOV_PRIVATE_KEY, 'utf8');
   const payGovCert = Buffer.from(vcapConstants.PAY_GOV_CERT[0], 'utf8');
-  return util.request.post(
-    {
-      url: vcapConstants.PAY_GOV_URL,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/xml'
-      },
-      body: xmlData,
-      key: payGovPrivateKey,
-      cert: payGovCert
-    }
-  ).catch((error) => {
-    const { errorCode, errorMessage } = paygov.extractError(error);
-    throw new PayGovError(errorCode, errorMessage);
-  });
-};
+  const request = {
+    url: vcapConstants.PAY_GOV_URL,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/xml'
+    },
+    body: xmlData,
+    key: payGovPrivateKey,
+    cert: payGovCert
+  };
 
-/**
- * @function - Start a "Collection" with Pay.gov. This returns a temporary, unique identifier for the collection
- * to be used when redirecting the user to the hosted payment page and completing the collection.
- *
- * @param {Object} forest - an instance of christmasTreesForest
- * @param {Object} permit - an instance of christmasTreesPermit
- * @return {Promise<String>} Resolves to a Pay.gov token or rejects with an error
- */
-paygov.startCollection = async (forest, permit) => {
   try {
-    const startCollectionXml = paygov.getXmlStartCollection(forest.forestAbbr, forest.possFinancialId, permit);
-    const result = await paygov.postPayGov(startCollectionXml);
-    const json = util.parseXml(result);
-    const token = paygov.extractToken(json);
-    return token;
+    return await util.request.post(request);
   } catch (error) {
-    if (error instanceof PayGovError) {
-      throw error;
-    } else {
-      throw new PayGovError('9999', error.message);
-    }
+    const json = await util.parseXml(error.error);
+    throw paygov.extractError(json);
   }
 };
 
-/**
- * @function - Complete a "Collection" with Pay.gov. This returns a unique identifier for the collection
- * to be used when fetching the collection in future.
- *
- * @param {String} paygovToken - a Pay.gov token
- * @return {Promise<String>} Resolves to a Pay.gov tracking id or rejects with an error
- */
-paygov.completeCollection = (paygovToken) => {
-  const completeCollectionXml = paygov.getXmlToCompleteTransaction(paygovToken);
-  return paygov.postPayGov(completeCollectionXml);
+paygov.handleError = (error) => {
+  if (error instanceof PayGovError) {
+    throw error;
+  }
+  throw new PayGovError(error.message);
+};
+
+paygov.log = (type, event, params) => {
+  logger[type](`PAYGOV: ${event} - ${JSON.stringify(params)}`);
 };
 
 module.exports = paygov;

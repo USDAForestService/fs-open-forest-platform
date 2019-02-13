@@ -10,12 +10,11 @@ const moment = require('moment-timezone');
 const zpad = require('zpad');
 const htmlToText = require('html-to-text');
 const jwt = require('jsonwebtoken');
-const _ = require('lodash/fp');
 
 const logger = require('../../services/logger.es6');
 const vcapConstants = require('../../vcap-constants.es6');
 const treesDb = require('../../models/trees-db.es6');
-const paygov = require('../../services/paygov.es6');
+const paygov = require('../../services/paygov');
 const permitSvgService = require('../../services/christmas-trees-permit-svg-util.es6');
 const email = require('../../email/email-util.es6');
 const util = require('../../services/util.es6');
@@ -100,19 +99,15 @@ const permitResult = permit => ({
  * @param {Object} permit - permit object from database
  * @return {Object} - formatted permit errors
  */
-const formatPermitError = (permit) => {
-  const permitErrors = JSON.parse(permit.paygovError);
-  return {
-    errors: [
-      {
-        status: 400,
-        errorCode: permitErrors.errorCode[0],
-        message: permitErrors.errorMessage[0],
-        permit: permitResult(permit)
-      }
-    ]
-  };
-};
+const formatPermitError = permit => ({
+  errors: [
+    {
+      status: 400,
+      message: permit.paygovError,
+      permit: permitResult(permit)
+    }
+  ]
+});
 
 /**
  * @function updatePermit - Update permit in database
@@ -121,14 +116,14 @@ const formatPermitError = (permit) => {
  * @param {Object} updateObject - updated permit object
  * @return {Promise} - resolves to the saved and updated permit
  */
-const updatePermit = (permit, updateObject) => permit
-  .update(updateObject)
-  .then((updatedPermit) => {
-    logger.info(
-      `PermitID ${updatedPermit.permitId} updated at ${updatedPermit.modifiedAt} by ${permit.emailAddress} `
-    );
-    return updatedPermit;
-  });
+// const updatePermit = (permit, updateObject) => permit
+//   .update(updateObject)
+//   .then((updatedPermit) => {
+//     logger.info(
+//       `PermitID ${updatedPermit.permitId} updated at ${updatedPermit.modifiedAt} by ${permit.emailAddress} `
+//     );
+//     return updatedPermit;
+//   });
 
 /**
  * @function recordPayGovError - Private function to error objects from the permit's errors
@@ -139,15 +134,15 @@ const updatePermit = (permit, updateObject) => permit
  * @param {String} requestType - the name of the request when the error occured
  * @return {Object} - promise of whether permit was updated with token
  */
-const recordPayGovError = (error, result, res, permit, requestType) => {
-  logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error while ${requestType}`);
-  return paygov.getResponseError(requestType, result)
-    .then(paygovError => updatePermit(permit, {
-      status: 'Error',
-      paygovError: JSON.stringify(paygovError)
-    })
-      .then(updatedPermit => res.status(400).json(formatPermitError(updatedPermit))));
-};
+// const recordPayGovError = (error, result, res, permit, requestType) => {
+//   logger.error(`ERROR: ServerError: Pay.gov- ${error}. Updating permit with error while ${requestType}`);
+//   return paygov.getResponseError(requestType, result)
+//     .then(paygovError => updatePermit(permit, {
+//       status: 'Error',
+//       paygovError: JSON.stringify(paygovError)
+//     })
+//       .then(updatedPermit => res.status(400).json(formatPermitError(updatedPermit))));
+// };
 
 /**
  * @function grabAndProcessPaygovToken - Private function to error objects from the permit's errors
@@ -172,7 +167,7 @@ function isForestOpen(forest) {
 }
 
 // TODO - move to service
-async function createPermit(application, forest) {
+async function createPermitTransaction(application, forest) {
   application.expDate = forest.endDate;
   const transformed = translatePermitFromClientToDatabase(application);
   const permit = await treesDb.christmasTreesPermits.create(transformed);
@@ -205,17 +200,22 @@ async function createPermit(application, forest) {
  * @return {Object} http response
  */
 christmasTreePermits.create = async (req, res) => {
+  util.logControllerAction(req, 'christmasTreePermits.create', req.body);
   try {
     const application = req.body;
     const query = { where: { id: application.forestId } };
     const forest = await treesDb.christmasTreesForests.findOne(query);
+
+    if (!forest) {
+      return res.status(400).send();
+    }
 
     if (!isForestOpen(forest)) {
       logger.error(`Permit attempted to be created outside of season date for ${application.forestId}`);
       return res.status(400).send(); // season is closed or not yet started, I think this should be a 409
     }
 
-    const permitResponse = await createPermit(application, forest);
+    const permitResponse = await createPermitTransaction(application, forest);
     res.status(200).json(permitResponse);
   } catch (error) {
     util.handleErrorResponse(error, res, 'createPermit#end');
@@ -263,10 +263,10 @@ const sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
  * @param {String} status = permit status
  * @return {Promise} - resolves if permit updated
  */
-const handlePaygovCompleteResponse = (res, payGovXmlRes, permit, status) => util.parseXml(payGovXmlRes)
-  .then(result => paygov.getTrackingId(result)
-    .then(paygovTrackingId => updatePermit(permit, { paygovTrackingId, status }))
-    .catch(error => recordPayGovError(error, result, res, permit, 'completeOnlineCollection')));
+// const handlePaygovCompleteResponse = (res, payGovXmlRes, permit, status) => util.parseXml(payGovXmlRes)
+//   .then(result => paygov.getTrackingId(result)
+//     .then(paygovTrackingId => updatePermit(permit, { paygovTrackingId, status }))
+//     .catch(error => recordPayGovError(error, result, res, permit, 'completeOnlineCollection')));
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
@@ -391,31 +391,19 @@ christmasTreePermits.printPermit = (req, res) => {
  * @param {Object} res - http response
  * @return {Promise} - promise that the email has been sent and response too
  */
-const completePermitTransaction = (permit, res, requestedStatus) => new Promise((resolve, reject) => {
-  paygov.completeCollection(permit.paygovToken)
-    .then(xmlResponse => handlePaygovCompleteResponse(res, xmlResponse, permit, requestedStatus)
-      .then((updatedPermit) => {
-        res.status(200).send(permitResult(updatedPermit));
-        resolve(christmasTreePermits.generateRulesAndEmail(updatedPermit));
-      })
-      .catch((processError) => {
-        const errorToSend = Object.assign(processError, { method: 'completePermitTransaction#process' });
-        reject(errorToSend);
-      }))
-    .catch((postError) => {
-      if (postError && postError !== 'null') {
-        if (postError.name === 'StatusCodeError') { // when pay.gov returns a non 2xx status code
-          // send to record error
-          handlePaygovCompleteResponse(res, postError.response.body, permit, requestedStatus)
-            .then(reject)
-            .catch(reject);
-        } else {
-          const errorToSend = Object.assign(postError, { method: 'completePermitTransaction#end' });
-          reject(errorToSend);
-        }
-      }
-    });
-});
+// TODO - move to service
+async function completePermitTransaction(permit) {
+  let paygovTrackingId;
+  try {
+    paygovTrackingId = await paygov.completeCollection(permit.paygovToken);
+  } catch (paygovError) {
+    await permit.update({ status: 'Error', paygovError: paygovError.toString() });
+    throw new Error('Paygov Error');
+  }
+  const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed' });
+  christmasTreePermits.generateRulesAndEmail(updatedPermit);
+  return permitResult(updatedPermit);
+}
 
 /**
  * @function updatePermitApplication - API function to update permit
@@ -445,8 +433,11 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
     }
 
     if (permit.status === 'Error') {
-      const formattedPermit = formatPermitError(permit);
-      return res.status(400).json(formattedPermit);
+      return res.status(400).json(formatPermitError(permit));
+    }
+
+    if (permit.status === 'Completed') {
+      return res.status(400).json();
     }
 
     if (permit.status === 'Initiated' && requestedStatus === 'Cancelled') {
@@ -457,18 +448,15 @@ christmasTreePermits.updatePermitApplication = async (req, res) => {
 
     if (permit.status === 'Initiated' && requestedStatus === 'Completed') {
       util.logControllerAction(req, 'christmasTreePermits.completePermitTransaction', permit);
-      return completePermitTransaction(permit, res, requestedStatus)
-        .then(logger.info(`PermitID ${permit.permitId} Successfully completed`))
-        // eslint-disable-next-line consistent-return
-        .catch((error) => {
-          logger.error(`ERROR: ServerError: christmasTreePermits.completePermitTransaction did not complete ${error}`);
-          if (!res.headerSent) {
-            return res.status(400).send();
-          }
-        });
+      try {
+        const permitResponse = await completePermitTransaction(permit);
+        res.status(200).send(permitResponse);
+      } catch (error) {
+        return res.status(409).send(formatPermitError(permit));
+      }
     }
   } catch (error) {
-    util.handleErrorResponse(error, res, _.getOr('updatePermit#end', 'method', error));
+    util.handleErrorResponse(error, res, 'updartePermit#end');
   }
 };
 
