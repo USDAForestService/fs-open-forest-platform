@@ -56,8 +56,10 @@ permitService.permitResult = permit => ({
 
 
 permitService.createPermitTransaction = async (application, forest) => {
-  application.expDate = forest.endDate;
-  const transformed = permitService.translatePermitFromClientToDatabase(application);
+  const transformed = permitService.translatePermitFromClientToDatabase({
+    ...application,
+    expDate: forest.endDate
+  });
   const permit = await treesDb.christmasTreesPermits.create(transformed);
 
   let paygovToken;
@@ -80,6 +82,29 @@ permitService.createPermitTransaction = async (application, forest) => {
 
   return createPermitResponse;
 };
+
+/**
+ * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
+ * @param {Object} permit - permit object
+ */
+permitService.generateRulesAndEmail = permit => permitSvgService.generatePermitSvg(permit)
+  .then(permitSvg => Promise.all([
+    permitSvgService.generatePng(permitSvg),
+    permitSvgService.generateRulesHtml(true, permit)
+  ]))
+  .then(([permitPng, rulesHtml]) => {
+    const permitUrl = paygov.returnUrl(
+      permit.christmasTreesForest.forestAbbr,
+      permit.permitId,
+      false
+    );
+    const updatedPermit = { ...permit, permitUrl };
+    const rulesText = htmlToText.fromString(rulesHtml, {
+      wordwrap: 130,
+      ignoreImage: true
+    });
+    return permitService.sendEmail(updatedPermit, permitPng, rulesHtml, rulesText);
+  });
 
 /**
  * @function completePermitTransaction - method to take an update request to complete the permit
@@ -133,30 +158,6 @@ permitService.sendEmail = (savedPermit, permitPng, rulesHtml, rulesText) => {
 
   return email.sendEmail('christmasTreesPermitCreated', savedPermit, attachments);
 };
-
-
-/**
- * @function generateRulesAndEmail - Private function to generate svg, png, and rules html of a permit and send out email
- * @param {Object} permit - permit object
- */
-permitService.generateRulesAndEmail = permit => permitSvgService.generatePermitSvg(permit)
-  .then(permitSvg => Promise.all([
-    permitSvgService.generatePng(permitSvg),
-    permitSvgService.generateRulesHtml(true, permit)
-  ]))
-  .then(([permitPng, rulesHtml]) => {
-    permit.permitUrl = paygov.returnUrl(
-      permit.christmasTreesForest.forestAbbr,
-      permit.permitId,
-      false
-    );
-    const rulesText = htmlToText.fromString(rulesHtml, {
-      wordwrap: 130,
-      ignoreImage: true
-    });
-    return permitService.sendEmail(permit, permitPng, rulesHtml, rulesText);
-  });
-
 
 /**
  * @function permitExpireDate - Private function to check if permit expire date is in future
