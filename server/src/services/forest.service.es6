@@ -1,5 +1,3 @@
-
-
 /**
  * Module for Forest service service functions
  * @module services/forest-service
@@ -49,5 +47,7 @@ forestService.specialUseForestName = (forestCode) => {
   }
   return '';
 };
+
+forestService.isForestOpen = forest => moment().isBetween(forest.startDate, forest.endDate, null, '[]');
 
 module.exports = forestService;
