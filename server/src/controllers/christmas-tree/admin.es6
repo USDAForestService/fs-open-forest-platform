@@ -28,9 +28,7 @@ const getPermitResult = (permit) => {
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
     eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
-    eachPermit.expireDate = moment
-      .tz(permit.permitExpireDate, permit.christmasTreesForest.timezone)
-      .format('MM/DD/YYYY');
+    eachPermit.expireDate = moment.tz(permit.permitExpireDate, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
   } else {
     eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
     eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');

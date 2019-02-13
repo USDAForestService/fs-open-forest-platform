@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
@@ -49,7 +56,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     });
 
     this.permitNumberSearchForm = formBuilder.group({
-      permitNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]]
+      permitNumber: [
+        '',
+        [Validators.required, Validators.pattern(/^[0-9]{8}$/)]
+      ]
     });
 
     this.form.get('forestId').valueChanges.subscribe(forestId => {
@@ -74,7 +84,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * Set data from route resolver
    */
   ngOnInit() {
-    this.titleService.setTitle('Christmas trees permits admin reports | U.S. Forest Service Open Forest');
+    this.titleService.setTitle(
+      'Christmas trees permits admin reports | U.S. Forest Service Open Forest'
+    );
 
     this.route.data.subscribe(data => {
       this.forests = data.forests;
@@ -112,14 +124,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * @returns forest by id
    */
   getForestById(id) {
-    return this.forests.find(forest => forest.id === parseInt(id, 10)) ;
+    return this.forests.find(forest => forest.id === parseInt(id, 10));
   }
 
   /**
    * @returns forest by date
    */
   getForestDate(dateField) {
-    return moment.tz(this.form.get(dateField).value, this.forest.timezone).format('MM/DD/YYYY');
+    return moment.utc(this.form.get(dateField).value).format('MM/DD/YYYY');
   }
 
   /**
@@ -148,12 +160,18 @@ export class ReportComponent implements OnInit, AfterViewInit {
   private getPermitsByDate() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
       this.setReportParameters();
-      this.service.getAllByDateRange(
+      this.service
+        .getAllByDateRange(
           this.forest.id,
-          moment.tz(this.form.get('dateTimeRange.startDateTime').value, this.forest.timezone).format('YYYY-MM-DD'),
-          moment.tz(this.form.get('dateTimeRange.endDateTime').value, this.forest.timezone).format('YYYY-MM-DD')
+          moment
+            .utc(this.form.get('dateTimeRange.startDateTime').value)
+            .format('YYYY-MM-DD'),
+          moment
+            .utc(this.form.get('dateTimeRange.endDateTime').value)
+            .format('YYYY-MM-DD')
         )
-        .subscribe(results => {
+        .subscribe(
+          results => {
             this.result = {
               numberOfPermits: results.numberOfPermits,
               sumOfTrees: results.sumOfTrees,
@@ -189,22 +207,29 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.afs.touchAllFields(this.permitNumberSearchForm);
     this.result = null;
     if (this.permitNumberSearchForm.valid) {
-      this.service.getReportByPermitNumber(this.permitNumberSearchForm.get('permitNumber').value).subscribe(
-        results => {
-          this.result = {
-            numberOfPermits: 1,
-            sumOfTrees: results.permits[0].quantity,
-            sumOfCost: results.permits[0].totalCost,
-            permits: results.permits,
-            parameters: null
-          };
-          this.focusAndScroll('report-results');
-        },  err => {
-          this.apiErrors = err;
-          this.permitNumberSearchForm.controls['permitNumber'].setErrors({'notFound': true});
-          this.doc.getElementById('report-alerts-container').focus();
-        }
-      );
+      this.service
+        .getReportByPermitNumber(
+          this.permitNumberSearchForm.get('permitNumber').value
+        )
+        .subscribe(
+          results => {
+            this.result = {
+              numberOfPermits: 1,
+              sumOfTrees: results.permits[0].quantity,
+              sumOfCost: results.permits[0].totalCost,
+              permits: results.permits,
+              parameters: null
+            };
+            this.focusAndScroll('report-results');
+          },
+          err => {
+            this.apiErrors = err;
+            this.permitNumberSearchForm.controls['permitNumber'].setErrors({
+              notFound: true
+            });
+            this.doc.getElementById('report-alerts-container').focus();
+          }
+        );
     }
   }
 }
