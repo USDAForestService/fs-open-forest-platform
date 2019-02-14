@@ -10,7 +10,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
@@ -131,7 +131,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * @returns forest by date
    */
   getForestDate(dateField) {
-    return moment.utc(this.form.get(dateField).value).format('MM/DD/YYYY');
+    return this.form.get(dateField).value;
   }
 
   /**
