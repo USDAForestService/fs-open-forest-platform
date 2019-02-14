@@ -1,13 +1,7 @@
-/* eslint no-param-reassign: ["error", { "props": false }] */
-
 /**
  * Module for christmas tree forests model
  * @module models/christmas-trees-forests
  */
-
-const moment = require('moment-timezone');
-const util = require('../services/util.es6');
-
 module.exports = (sequelize, DataTypes) => {
   const christmasTreesForests = sequelize.define(
     'christmasTreesForests',
@@ -106,47 +100,6 @@ module.exports = (sequelize, DataTypes) => {
       freezeTableName: true
     }
   );
-
-  christmasTreesForests.addHook('afterFind', (forest) => {
-    if (util.isTest()) {
-      if (forest && forest.startDate) {
-        // forest is closed and configured for testing uncomment this block and update
-        // the forest id
-        if (forest.id === 1) {
-          forest.startDate = moment()
-            .tz(forest.timezone)
-            .add(6, 'months')
-            .format('YYYY-MM-DD HH:mm:ss');
-          forest.endDate = moment()
-            .tz(forest.timezone)
-            .add(8, 'months')
-            .format('YYYY-MM-DD HH:mm:ss');
-        }
-        // open forest
-        if (forest.id === 3) {
-          forest.startDate = moment()
-            .tz(forest.timezone)
-            .subtract(2, 'months')
-            .format('YYYY-MM-DD HH:mm:ss');
-          forest.endDate = moment()
-            .tz(forest.timezone)
-            .add(1, 'months')
-            .format('YYYY-MM-DD HH:mm:ss');
-        }
-        // closed forest with nothing configured yet
-        if (forest.id === 4) {
-          forest.startDate = moment()
-            .tz(forest.timezone)
-            .subtract(2, 'years')
-            .format('YYYY-MM-DD HH:mm:ss');
-          forest.endDate = moment()
-            .tz(forest.timezone)
-            .subtract(1, 'years')
-            .format('YYYY-MM-DD HH:mm:ss');
-        }
-      }
-    }
-  });
 
   return christmasTreesForests;
 };
