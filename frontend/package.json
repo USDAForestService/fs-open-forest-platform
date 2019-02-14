@@ -4,9 +4,8 @@
   "license": "MIT",
   "scripts": {
     "build": "ng build",
-    "dist": "ng build --prod --configuration=production",
-    "dist-trees": "ng build --configuration=trees",
-    "dist-prod": "ng build --configuration=production",
+    "dist-trees": "ng build --prod --output-hashing=all --configuration=trees",
+    "dist-prod": "ng build --prod --output-hashing=all --configuration=production",
     "docs": "typedoc --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
     "e2e:cidkr": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:xmas": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=app-xmas",
