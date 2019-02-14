@@ -160,8 +160,8 @@ describe('christmas tree admin controller tests', () => {
 
     let forest;
     const timezone = 'America/Denver';
-    const startDate = '2017-11-01';
-    const endDate = '2017-11-02';
+    const startDate = '2018-11-01';
+    const endDate = '2018-11-02';
     const tooEarly = { permit_id: uuid(), permit_number: zpad(991, 8) };
     const tooLate = { permit_id: uuid(), permit_number: zpad(992, 8) };
     const justRight = { permit_id: uuid(), permit_number: zpad(993, 8) };
@@ -172,16 +172,16 @@ describe('christmas tree admin controller tests', () => {
         id: 10,
         forestAbbr: 'foo',
         orgStructureCode: '99-99-99F',
-        startDate: '2018-11-19T07:00:00Z',
+        startDate: '2018-10-19T07:00:00Z',
         endDate: '2025-11-19T07:00:00Z',
         timezone
       });
 
       await bulkInsertPermits([
-        buildRawPermit(forest, '2017-10-31 11:59:59', tooEarly),
-        buildRawPermit(forest, '2017-11-03 00:00:00', tooLate),
-        buildRawPermit(forest, '2017-11-01 00:00:01', justRight),
-        buildRawPermit(forest, '2017-11-02 23:59:59', justRight2)
+        buildRawPermit(forest, '2018-10-31 11:59:59', tooEarly),
+        buildRawPermit(forest, '2018-11-03 00:00:00', tooLate),
+        buildRawPermit(forest, '2018-11-01 00:00:01', justRight),
+        buildRawPermit(forest, '2018-11-02 23:59:59', justRight2)
       ]);
     });
 
