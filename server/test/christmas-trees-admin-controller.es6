@@ -142,7 +142,7 @@ describe('christmas tree admin controller tests', () => {
       .expect(400, done);
   });
 
-  describe.only('.getPermitSummaryReport', () => {
+  describe('.getPermitSummaryReport', () => {
     const buildRawPermit = (forest, updated, params) => ({
       forest_id: forest.id,
       created: moment().format(),
@@ -196,7 +196,6 @@ describe('christmas tree admin controller tests', () => {
       request(server)
         .get(`/admin/christmas-trees/permits/${forest.id}/${startDate}/${endDate}`)
         .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
         .expect(({ body }) => {
           expect(body.numberOfPermits).to.eq(2);
           const permitNumbers = body.permits.map(permit => permit.permitNumber);
