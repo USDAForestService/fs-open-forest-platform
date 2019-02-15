@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 
 @Injectable()
 export class ChristmasTreesApplicationService {
@@ -115,10 +115,10 @@ export class ChristmasTreesApplicationService {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
     const format = 'YYYY-MM-DDTHH:mm:ss';
 
-    const tzStartDate = moment.tz(startDate, format, forest.timezone);
+    const tzStartDate = moment(startDate, format);
     tzStartDate.utc();
 
-    const tzEndDate = moment.tz(endDate, format, forest.timezone);
+    const tzEndDate = moment(endDate, format);
     tzEndDate.utc();
 
     cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
