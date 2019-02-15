@@ -111,18 +111,18 @@ export class ChristmasTreesApplicationService {
   /**
    * @returns Update distrct dates for forest district
    */
+
+  //  double check before commit, should be good though
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
-    const format = 'YYYY-MM-DDTHH:mm:ss';
+    const format = 'MM-DD-YYYY';
 
     const tzStartDate = moment(startDate, format);
-    tzStartDate.utc();
 
     const tzEndDate = moment(endDate, format);
-    tzEndDate.utc();
 
-    cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
-    cuttingAreas[districtName].endDate = tzEndDate.format(format) + 'Z';
+    cuttingAreas[districtName].startDate = tzStartDate.format(format);
+    cuttingAreas[districtName].endDate = tzEndDate.format(format);
 
     const body = { cuttingAreas: cuttingAreas };
 

@@ -46,7 +46,7 @@
 
             <ng-container *ngFor="let district of districts; let i = index">
               <input id="{{district.id}}-button" type="radio" [value]="district.id" formControlName="districtId" [checked]="i === 0">
-              <label for="{{district.id}}-button" id="{{district.id}}-button-label">{{district.name}}</label>
+              <label for="{{district.id}}-button" id="{{district.id}}-button-label">{{district.id}}</label>
             </ng-container>
           </fieldset>
           <div>
