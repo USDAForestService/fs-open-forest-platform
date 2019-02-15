@@ -35,61 +35,65 @@ describe('DateTimeRange', () => {
     })
   );
 
-  function setValues(sm, sd, sy, em, ed, ey) {
+  function setValues(sm, sd, sy, sh, smin, sp, em, ed, ey, eh, emin, ep) {
     component.dateTimeRange.controls['startDay'].setValue(sd);
     component.dateTimeRange.controls['startMonth'].setValue(sm);
     component.dateTimeRange.controls['startYear'].setValue(sy);
-
+    component.dateTimeRange.controls['startHour'].setValue(sh);
+    component.dateTimeRange.controls['startMinutes'].setValue(smin);
+    component.dateTimeRange.controls['startPeriod'].setValue(sp);
 
     component.dateTimeRange.controls['endDay'].setValue(ed);
     component.dateTimeRange.controls['endMonth'].setValue(em);
     component.dateTimeRange.controls['endYear'].setValue(ey);
-
+    component.dateTimeRange.controls['endHour'].setValue(eh);
+    component.dateTimeRange.controls['endMinutes'].setValue(emin);
+    component.dateTimeRange.controls['endPeriod'].setValue(ep);
   }
 
   it('should be valid if all date and time fields are entered correctly', () => {
-    setValues('10', '10', '2024', '10', '10', '2024');
+    setValues('10', '10', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeTruthy();
   });
 
   it('should be invalid if start month field is not a valid month', () => {
-    setValues('13', '10', '2024', '10', '10', '2024');
+    setValues('13', '10', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if start day field is not a valid day', () => {
-    setValues('11', '31', '2024', '10', '10', '2024');
+    setValues('11', '31', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if end month field is not a valid month', () => {
-    setValues('13', '10', '2024', '10', '10', '2024');
+    setValues('13', '10', '2024', '13', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if end day field is not a valid day', () => {
-    setValues('11', '31', '2024', '10', '10', '2024');
+    setValues('11', '31', '2024', '10', '32', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if start day field is not completed', () => {
-    setValues('10', '', '2024', '10', '10', '2024');
+    setValues('10', '', '2024', '06', '10', 'AM', '10', '10', '2024', '02', '45', 'PM');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if end fields are not completed', () => {
-    setValues('10', '', '2024', '', '', '');
+    setValues('10', '', '2024', '06', '10', 'AM', '', '', '', '', '', '');
     expect(component.dateTimeRange.valid).toBeFalsy();
   });
 
   it('should be invalid if start date is before today', () => {
-    setValues('10', '10', '2015', '10', '10', '2015');
+    setValues('10', '10', '2015', '06', '10', 'AM', '10', '10', '2015', '02', '45', 'PM');
     component.dateTimeRangeValidator(component.dateTimeRange.value);
     expect(component.dateStatus.startAfterToday).toBeFalsy();
   });
 
   it('should be invalid if end date is before start date', () => {
-    setValues('10', '10', '2024', '10', '09', '2024');
+    setValues('10', '10', '2024', '06', '10', 'AM', '10', '09', '2024', '02', '45', 'PM');
     component.dateTimeRangeValidator(component.dateTimeRange.value);
     expect(component.dateStatus.startBeforeEnd).toBeFalsy();
   });
@@ -184,12 +188,12 @@ describe('DateTimeRange', () => {
     expect(component.dateTimeRange.controls['endYear'].valid).toBeTruthy();
   });
 
-  // it('should set default time on date only', () => {
-  //   component.dateOnly = true;
-  //   component.ngOnInit();
-  //   expect(component.defaultStartHour).toBe('12');
-  //   expect(component.defaultEndHour).toBe('12');
-  //   expect(component.defaultStartPeriod).toBe('a.m.');
-  //   expect(component.defaultEndPeriod).toBe('p.m.');
-  // });
+  it('should set default time on date only', () => {
+    component.dateOnly = true;
+    component.ngOnInit();
+    expect(component.defaultStartHour).toBe('12');
+    expect(component.defaultEndHour).toBe('12');
+    expect(component.defaultStartPeriod).toBe('a.m.');
+    expect(component.defaultEndPeriod).toBe('p.m.');
+  });
 });

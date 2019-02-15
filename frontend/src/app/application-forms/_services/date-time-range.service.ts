@@ -9,8 +9,8 @@ export class DateTimeRangeService {
    * Combine individual date fields to one moment date/time object
    * @returns      moment object
    */
-  parseDateTime(year, month, day) {
-    return moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+  parseDateTime(year, month, day, hour, minutes, period) {
+    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD HH:mm a');
   }
 
   /**
@@ -34,10 +34,18 @@ export class DateTimeRangeService {
     return (
       values.startMonth &&
       values.startDay &&
-      values.startYear && values.startYear.toString().length === 4 &&
+      values.startYear &&
+      values.startYear.toString().length === 4 &&
+      values.startHour &&
+      values.startMinutes &&
+      values.startPeriod &&
       values.endMonth &&
       values.endDay &&
-      values.endYear
+      values.endYear &&
+      values.endYear.toString().length === 4 &&
+      values.endHour &&
+      values.endMinutes &&
+      values.endPeriod
     );
   }
 }

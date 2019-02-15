@@ -25,6 +25,13 @@ export class DateTimeRangeComponent implements OnInit {
   };
 
   dateTimeRange: any;
+  hours = Hours;
+  minutes = Minutes;
+
+  defaultStartHour = '';
+  defaultEndHour = '';
+  defaultStartPeriod = '';
+  defaultEndPeriod = '';
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -38,6 +45,12 @@ export class DateTimeRangeComponent implements OnInit {
    *  Intitialize date time form
    */
   ngOnInit() {
+    if (this.dateOnly) {
+      this.defaultStartHour = '12';
+      this.defaultEndHour = '12';
+      this.defaultEndPeriod = 'p.m.';
+      this.defaultStartPeriod = 'a.m.';
+    }
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group(
       {
@@ -72,6 +85,18 @@ export class DateTimeRangeComponent implements OnInit {
             numberValidator()
           ]
         ],
+        endHour: [
+          this.defaultEndHour,
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        endMinutes: [
+          '00',
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        endPeriod: [
+          this.defaultEndPeriod,
+          [Validators.required, Validators.maxLength(4)]
+        ],
 
         startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
         startDay: [
@@ -104,6 +129,18 @@ export class DateTimeRangeComponent implements OnInit {
             numberValidator()
           ]
         ],
+        startHour: [
+          this.defaultStartHour,
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        startMinutes: [
+          '00',
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        startPeriod: [
+          this.defaultStartPeriod,
+          [Validators.required, Validators.maxLength(4)]
+        ]
       },
       {
         validator: this.validateDateTimeRange.bind(this)
@@ -128,9 +165,15 @@ export class DateTimeRangeComponent implements OnInit {
       'startMonth',
       'startDay',
       'startYear',
+      'startHour',
+      'startMinutes',
+      'startPeriod',
       'endMonth',
       'endDay',
-      'endYear'
+      'endYear',
+      'endHour',
+      'endMinutes',
+      'endPeriod'
     ];
     for (const field of dateFieldsToWatch) {
       this.parentForm
@@ -152,7 +195,10 @@ export class DateTimeRangeComponent implements OnInit {
       const startDateTime = this.dateTimeRangeService.parseDateTime(
         values.startYear,
         values.startMonth,
-        values.startDay
+        values.startDay,
+        values.startHour,
+        values.startMinutes,
+        values.startYear
       );
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
       if (this.dateStatus.startAfterToday) {
@@ -177,12 +223,18 @@ export class DateTimeRangeComponent implements OnInit {
       const startDateTime = this.dateTimeRangeService.parseDateTime(
         values.startYear,
         values.startMonth,
-        values.startDay
+        values.startDay,
+        values.startHour,
+        values.startMinutes,
+        values.startYear
       );
       const endDateTime = this.dateTimeRangeService.parseDateTime(
         values.endYear,
         values.endMonth,
-        values.endDay
+        values.endDay,
+        values.endHour,
+        values.endMinutes,
+        values.endYear
       );
       this.processDateStatus(startDateTime, endDateTime);
     } else {
