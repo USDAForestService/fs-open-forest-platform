@@ -6,6 +6,7 @@
 
 ## Tasks
 - [ ] 
+- [ ] PO approved
 
 ## Definition of Done
 - [ ] Pull requests meet technical defintion of done
