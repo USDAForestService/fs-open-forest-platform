@@ -8,7 +8,7 @@
  */
 
 const cryptoRandomString = require('crypto-random-string');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const logger = require('../../services/logger.es6');
@@ -34,11 +34,13 @@ const s3 = util.getS3();
  * @param {Object} output
  */
 tempOutfitter.translateFromClientToDatabase = (input, output) => {
+  // TODO - Update hardcoded timezone when adapting for multiple forests
+  const timezone = 'America/Los_Angeles';
   const startDateTime = moment.tz(input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime, input.forest.timezone).utc().format();
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime, timezone).utc().format();
 
   const endDateTime = moment.tz(input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime, input.forest.timezone).utc().format();
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime, timezone).utc().format();
 
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
