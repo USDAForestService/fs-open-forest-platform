@@ -6,91 +6,106 @@ const uuid = require('uuid/v4');
 const util = require('../services/util.es6');
 const treesDb = require('../models/trees-db.es6');
 const middleware = require('../services/middleware.es6');
-
+const paygov = require('../services/paygov');
 const templates = require('./pay-gov-templates.es6');
 
-const payGov = {};
+const mockPayGov = {};
 
 const transactions = {};
-const tokens = {};
 
-/** router for mock pay.gov  specific endpoints */
-payGov.router = express.Router();
+function isStartCollection(requestBody) {
+  return requestBody['ns2:startOnlineCollection']
+    && requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
+}
 
-payGov.router.options('*', middleware.setCorsHeaders, (req, res) => {
+function isCompleteCollection(requestBody) {
+  return requestBody['ns2:completeOnlineCollection']
+    && requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0];
+}
+
+function handleStartCollection(requestBody) {
+  const startCollectionRequest = requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
+  const applicantName = startCollectionRequest.account_holder_name[0];
+
+  let response;
+
+  if (/^unknown/.test(applicantName)) {
+    response = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id[0]);
+    return [500, response];
+  }
+
+  if (/^noresponse/.test(applicantName)) {
+    response = templates.startOnlineCollectionRequest.noResponse();
+    return [500, response];
+  }
+
+  if (/^duplicate/.test(applicantName)) {
+    response = templates.startOnlineCollectionRequest.agencyTrackingIdError();
+    return [500, response];
+  }
+
+  response = templates.startOnlineCollectionRequest.successfulResponse(uuid());
+  return [200, response];
+}
+
+function handleCompleteCollection(requestBody) {
+  const collectionRequest = requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0];
+  const requestToken = collectionRequest.token[0];
+
+  let response = transactions[requestToken];
+  if (response) {
+    return [500, response];
+  }
+
+  if (requestToken === 'carderror') {
+    response = templates.completeOnlineCollectionRequest.cardError();
+    return [500, response];
+  }
+
+  if (requestToken === 'badtoken') {
+    response = templates.completeOnlineCollectionRequest.badToken();
+    return [500, response];
+  }
+
+  response = templates.completeOnlineCollectionRequest.successfulResponse(util.getRandomString(5).toUpperCase());
+  return [200, response];
+}
+
+/** router for mock pay.gov specific endpoints */
+mockPayGov.router = express.Router();
+
+mockPayGov.router.options('*', middleware.setCorsHeaders, (_req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
   res.send();
 });
 
-payGov.router.post('/mock-pay-gov', (req, res) => {
+mockPayGov.router.post('/mock-pay-gov', (req, res) => {
   const requestBody = req.body['soap:Envelope']['soap:Body'][0];
 
-  let xmlResponse = '';
+  let status = 500;
+  let response = '';
 
-  const token = uuid();
-  const paygovTrackingId = util.getRandomString(5).toUpperCase();
-  let statusCode = 200;
-
-  if (
-    requestBody['ns2:startOnlineCollection']
-    && requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0]
-  ) {
-    const startCollectionRequest = requestBody['ns2:startOnlineCollection'][0].startOnlineCollectionRequest[0];
-    const accountHolderName = startCollectionRequest.account_holder_name;
-    if (accountHolderName && accountHolderName == '1 1') {
-      xmlResponse = templates.startOnlineCollectionRequest.applicationError(startCollectionRequest.tcs_app_id);
-    } else if (accountHolderName && accountHolderName == '1 2') {
-      xmlResponse = templates.startOnlineCollectionRequest.noResponse();
-    } else {
-      xmlResponse = templates.startOnlineCollectionRequest.successfulResponse(token);
-    }
-    tokens[token] = { successUrl: startCollectionRequest.url_success[0], cancelUrl: startCollectionRequest.url_cancel[0] };
-  } else if (
-    requestBody['ns2:completeOnlineCollection']
-    && requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0]
-  ) {
-    const collectionRequest = requestBody['ns2:completeOnlineCollection'][0].completeOnlineCollectionRequest[0];
-    const requestToken = collectionRequest.token[0];
-    const transactionStatus = transactions[requestToken];
-
-    if (transactionStatus && transactionStatus.status === 'failure') {
-      let returnCode = '0000';
-      if (transactionStatus.errorCode) {
-        returnCode = transactionStatus.errorCode;
-        statusCode = 500;
-      }
-      xmlResponse = templates.completeOnlineCollectionRequest.cardError(returnCode);
-    } else {
-      xmlResponse = templates.completeOnlineCollectionRequest.successfulResponse(paygovTrackingId);
-    }
+  if (isStartCollection(requestBody)) {
+    [status, response] = handleStartCollection(requestBody);
+  } else if (isCompleteCollection(requestBody)) {
+    [status, response] = handleCompleteCollection(requestBody);
   }
-  if (xmlResponse !== null) {
-    res.set('Content-Type', 'application/xml; charset=utf-8');
-    res.status(statusCode).send(xmlResponse);
-  } else {
-    res.status(500).send();
-  }
+
+  res.set('Content-Type', 'application/xml; charset=utf-8');
+  res.status(status).send(response);
 });
 
-payGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res) => {
-  // eslint-disable-next-line prefer-destructuring
-  const cc = req.body.cc;
+mockPayGov.router.post('/mock-pay-gov-process', middleware.setCorsHeaders, (req, res) => {
+  const { cc, token } = req.body;
 
-  let status = 'success';
-  let errorCode;
   if (cc.startsWith('000000000000')) {
-    status = 'failure';
-    const code = cc.slice(cc.length - 4, cc.length + 1);
-    if (code !== '0000') {
-      errorCode = code;
-    }
+    transactions[token] = templates.completeOnlineCollectionRequest.cardError();
   }
-  transactions[req.body.token] = { status, errorCode };
-  return res.status(200).json(transactions[req.body.token]);
+  res.status(200).json(null);
 });
 
-payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
+mockPayGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
   treesDb.christmasTreesPermits
     .findOne({
       where: {
@@ -112,8 +127,8 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
           amountOwed: permit.totalCost,
           tcsAppID: req.query.tcsAppID,
           orgStructureCode: permit.orgStructureCode,
-          successUrl: tokens[req.query.token].successUrl,
-          cancelUrl: tokens[req.query.token].cancelUrl
+          successUrl: paygov.returnUrl(permit.christmasTreesForest.forestAbbr, permit.permitId, false),
+          cancelUrl: paygov.returnUrl(permit.christmasTreesForest.forestAbbr, permit.permitId, true)
         };
         return res.status(200).send(mockResponse);
       }
@@ -124,4 +139,4 @@ payGov.router.get('/mock-pay-gov', middleware.setCorsHeaders, (req, res) => {
     });
 });
 
-module.exports = payGov;
+module.exports = mockPayGov;

@@ -6,7 +6,7 @@
  * @module controllers/special-use/noncommercial
  */
 
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const email = require('../../email/email-util.es6');
 const NoncommercialApplication = require('../../models/noncommercial-application.es6');
@@ -25,6 +25,11 @@ const noncommercial = {};
  * @param {Object} output
  */
 noncommercial.translateFromClientToDatabase = (input, output) => {
+  // TODO - Update hardcoded timezone when adapting for multiple forests
+  const timezone = 'America/Los_Angeles';
+  const startDateTime = moment.tz(input.dateTimeRange.startDateTime, timezone).utc().format();
+  const endDateTime = moment.tz(input.dateTimeRange.endDateTime, timezone).utc().format();
+
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -115,11 +120,11 @@ noncommercial.translateFromClientToDatabase = (input, output) => {
   output.eventName = input.eventName;
   output.forest = input.forest;
   output.noncommercialFieldsActivityDescription = input.noncommercialFields.activityDescription;
-  output.noncommercialFieldsEndDateTime = input.dateTimeRange.endDateTime;
+  output.noncommercialFieldsEndDateTime = endDateTime;
   output.noncommercialFieldsLocationDescription = input.noncommercialFields.locationDescription;
   output.noncommercialFieldsNumberParticipants = input.noncommercialFields.numberParticipants;
   output.noncommercialFieldsSpectatorCount = input.noncommercialFields.numberSpectators;
-  output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
+  output.noncommercialFieldsStartDateTime = startDateTime;
   output.region = input.region;
   output.signature = input.signature;
   output.type = 'noncommercial';

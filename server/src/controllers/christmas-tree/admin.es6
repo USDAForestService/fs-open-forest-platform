@@ -83,9 +83,9 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
     broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
     the returns lists with the forest-specific timezones.
    */
-  const startDate = moment.tz(req.query.startDate, 'America/Toronto').hour(0).minute(0).second(0)
+  const startDate = moment.tz(req.query.startDate, 'America/Denver').hour(0).minute(0).second(0)
     .toDate();
-  const endDate = moment.tz(req.query.endDate, 'America/Toronto').add(1, 'days').hour(0).minute(0)
+  const endDate = moment.tz(req.query.endDate, 'America/Denver').add(1, 'days').hour(0).minute(0)
     .second(0)
     .toDate();
 

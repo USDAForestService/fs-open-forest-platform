@@ -2,10 +2,18 @@
 const chai = require('chai');
 const moment = require('moment');
 const request = require('supertest');
+const uuid = require('uuid');
+const zpad = require('zpad');
 
 const util = require('../src/services/util.es6');
 
-const { createForest, createPermit, destroyAll } = require('./data/db-helper.es6');
+const {
+  bulkDeletePermits,
+  bulkInsertPermits,
+  createForest,
+  createPermit,
+  destroyAll
+} = require('./data/db-helper.es6');
 const server = require('./mock-aws.spec.es6');
 
 require('./common.es6');
@@ -76,7 +84,7 @@ describe('christmas tree admin controller', () => {
           .expect(200, done);
       });
 
-      it('returns a report with no premits when the user is not authorized to view the forest ', (done) => {
+      it('returns a report with no permits when the user is not authorized to view the forest ', (done) => {
         const forestId = unauthorizedForest.id;
         getPermitSummaryReport(forestId, today, tomorrow)
           .expect('Content-Type', /json/)
@@ -98,6 +106,69 @@ describe('christmas tree admin controller', () => {
             expect(permitNumbers).not.to.include(String(unauthorizedPermit.permitNumber));
           })
           .expect(200, done);
+      });
+
+      describe('with multiple permits', () => {
+        const buildRawPermit = (forest, updated, params) => ({
+          forest_id: forest.id,
+          created: moment().format(),
+          updated: moment.tz(updated, forest.timezone).format(),
+          org_structure_code: forest.orgStructureCode,
+          first_name: 'Smokey',
+          last_name: 'Bear',
+          email_address: 'a@a.c',
+          tree_cost: '5.00',
+          quantity: 1,
+          total_cost: '5.00',
+          status: 'Completed',
+          ...params
+        });
+
+        let forest;
+        const timezone = 'America/Denver';
+        const startDate = '2018-11-01';
+        const endDate = '2018-11-02';
+        const tooEarly = { permit_id: uuid(), permit_number: zpad(991, 8) };
+        const tooLate = { permit_id: uuid(), permit_number: zpad(992, 8) };
+        const justRight = { permit_id: uuid(), permit_number: zpad(993, 8) };
+        const justRight2 = { permit_id: uuid(), permit_number: zpad(994, 8) };
+
+        before(async () => {
+          forest = await createForest({
+            forestAbbr: 'foo',
+            orgStructureCode: '99-99-99F',
+            startDate: '2018-10-19T07:00:00Z',
+            endDate: '2025-11-19T07:00:00Z',
+            timezone
+          });
+
+          await bulkInsertPermits([
+            buildRawPermit(forest, '2018-10-31 11:59:59', tooEarly),
+            buildRawPermit(forest, '2018-11-03 00:00:00', tooLate),
+            buildRawPermit(forest, '2018-11-01 00:00:01', justRight),
+            buildRawPermit(forest, '2018-11-02 23:59:59', justRight2)
+          ]);
+        });
+
+        after(async () => {
+          await Promise.all([
+            forest.destroy(),
+            bulkDeletePermits([tooEarly, tooLate, justRight, justRight2].map(d => d.permit_id))
+          ]);
+        });
+
+        it.only('returns the correct permits', (done) => {
+          getPermitSummaryReport(forest.id, startDate, endDate)
+            .expect(({ body }) => {
+              expect(body.numberOfPermits).to.eq(2);
+              const permitNumbers = body.permits.map(permit => permit.permitNumber);
+              expect(permitNumbers).to.include(justRight.permit_number);
+              expect(permitNumbers).to.include(justRight2.permit_number);
+              expect(permitNumbers).not.to.include(tooEarly.permit_number);
+              expect(permitNumbers).not.to.include(tooLate.permit_number);
+            })
+            .expect(200, done);
+        });
       });
     });
 

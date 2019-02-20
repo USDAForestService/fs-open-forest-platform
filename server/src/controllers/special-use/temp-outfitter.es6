@@ -8,7 +8,7 @@
  */
 
 const cryptoRandomString = require('crypto-random-string');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 const logger = require('../../services/logger.es6');
@@ -34,6 +34,14 @@ const s3 = util.getS3();
  * @param {Object} output
  */
 tempOutfitter.translateFromClientToDatabase = (input, output) => {
+  // TODO - Update hardcoded timezone when adapting for multiple forests
+  const timezone = 'America/Los_Angeles';
+  const startDateTime = moment.tz(input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime, timezone).utc().format();
+
+  const endDateTime = moment.tz(input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime, timezone).utc().format();
+
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -83,8 +91,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .tempOutfitterFields.activityDescriptionFields.audienceDescription;
   output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration = input
     .tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
-  output.tempOutfitterFieldsActDescFieldsEndDateTime = input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
+  output.tempOutfitterFieldsActDescFieldsEndDateTime = endDateTime;
   output.tempOutfitterFieldsActDescFieldsListGovFacilities = input
     .tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
   output.tempOutfitterFieldsActDescFieldsListTempImprovements = input
@@ -97,8 +104,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .tempOutfitterFields.activityDescriptionFields.numberOfTrips;
   output.tempOutfitterFieldsActDescFieldsServProvided = input
     .tempOutfitterFields.activityDescriptionFields.servicesProvided;
-  output.tempOutfitterFieldsActDescFieldsStartDateTime = input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
+  output.tempOutfitterFieldsActDescFieldsStartDateTime = startDateTime;
   output.tempOutfitterFieldsActDescFieldsStmtAssignedSite = input
     .tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
   output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip = input

@@ -3,7 +3,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment-timezone';
+// import * as moment from 'moment-timezone';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { environment } from '../../../../environments/environment';
@@ -117,8 +117,8 @@ export class AdminDistrictDatesComponent implements OnInit {
    */
   setStartEndDate(forest, area, form) {
     const formGroup = { startDate: null, endDate: null };
-    formGroup.startDate = moment(area.startDate).tz(forest.timezone);
-    formGroup.endDate = moment(area.endDate).tz(forest.timezone);
+    formGroup.startDate = area.startDate;
+    formGroup.endDate = area.endDate;
     this.treesAdminService.setStartEndDate(formGroup, form);
     this.treesAdminService.setStartEndTimes(formGroup, form);
   }
@@ -148,7 +148,7 @@ export class AdminDistrictDatesComponent implements OnInit {
       const newEnd = this.form.get('dateTimeRange.endDateTime').value;
       this.service.updateDistrictDates(this.forest, this.district.id, newStart, newEnd).subscribe(
         () => {
-          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.name} have been updated.`;
+          this.updateStatus = `Area dates for ${this.forest.forestName} - ${this.district.id} have been updated.`;
           this.doc.getElementById('district-updated-alert-container').focus();
         },
         err => {

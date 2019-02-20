@@ -25,13 +25,13 @@ export class DateTimeRangeComponent implements OnInit {
   };
 
   dateTimeRange: any;
-
   hours = Hours;
   minutes = Minutes;
 
   defaultStartHour = '';
   defaultEndHour = '';
-  defaultPeriod = '';
+  defaultStartPeriod = '';
+  defaultEndPeriod = '';
 
   @Output() updateDateStatus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -46,96 +46,119 @@ export class DateTimeRangeComponent implements OnInit {
    */
   ngOnInit() {
     if (this.dateOnly) {
-      this.defaultStartHour = '01';
-      this.defaultEndHour = '02';
-      this.defaultPeriod = 'a.m.';
+      this.defaultStartHour = '12';
+      this.defaultEndHour = '12';
+      this.defaultEndPeriod = 'p.m.';
+      this.defaultStartPeriod = 'a.m.';
     }
     this.formName = 'dateTimeRange';
-    this[this.formName] = this.formBuilder.group({
-      endDateTime: ['', [Validators.required, Validators.maxLength(255)]],
-      endDay: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(2),
-          Validators.pattern('(0?[1-9]|1[0-9]|2[0-9]|3[01])'),
-          numberValidator()
+    this[this.formName] = this.formBuilder.group(
+      {
+        endDateTime: ['', [Validators.required, Validators.maxLength(255)]],
+        endDay: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(2),
+            Validators.pattern('(0?[1-9]|1[0-9]|2[0-9]|3[01])'),
+            numberValidator()
+          ]
+        ],
+        endMonth: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(2),
+            Validators.pattern('(0?[1-9]|1[012])'),
+            numberValidator()
+          ]
+        ],
+        endYear: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(4),
+            Validators.pattern('([0-9]{4})'),
+            numberValidator()
+          ]
+        ],
+        endHour: [
+          this.defaultEndHour,
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        endMinutes: [
+          '00',
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        endPeriod: [
+          this.defaultEndPeriod,
+          [Validators.required, Validators.maxLength(4)]
+        ],
+
+        startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
+        startDay: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(2),
+            Validators.pattern('(0?[1-9]|1[0-9]|2[0-9]|3[01])'),
+            numberValidator()
+          ]
+        ],
+        startMonth: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(2),
+            Validators.pattern('(0?[1-9]|1[012])'),
+            numberValidator()
+          ]
+        ],
+        startYear: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(4),
+            Validators.pattern('([0-9]{4})'),
+            numberValidator()
+          ]
+        ],
+        startHour: [
+          this.defaultStartHour,
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        startMinutes: [
+          '00',
+          [Validators.required, Validators.maxLength(2), numberValidator()]
+        ],
+        startPeriod: [
+          this.defaultStartPeriod,
+          [Validators.required, Validators.maxLength(4)]
         ]
-      ],
-      endMonth: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(2),
-          Validators.pattern('(0?[1-9]|1[012])'),
-          numberValidator()
-        ]
-      ],
-      endYear: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4),
-          Validators.pattern('([0-9]{4})'),
-          numberValidator()
-        ]
-      ],
-      endHour: [this.defaultEndHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
-      endMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      endPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(4)]],
-      startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
-      startDay: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(2),
-          Validators.pattern('(0?[1-9]|1[0-9]|2[0-9]|3[01])'),
-          numberValidator()
-        ]
-      ],
-      startMonth: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(2),
-          Validators.pattern('(0?[1-9]|1[012])'),
-          numberValidator()
-        ]
-      ],
-      startYear: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(4),
-          Validators.pattern('([0-9]{4})'),
-          numberValidator()
-        ]
-      ],
-      startHour: [this.defaultStartHour, [Validators.required, Validators.maxLength(2), numberValidator()]],
-      startMinutes: ['00', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      startPeriod: [this.defaultPeriod, [Validators.required, Validators.maxLength(4)]]
-    },
-    {
-      validator: this.validateDateTimeRange.bind(this)
-    }
-  );
+      },
+      {
+        validator: this.validateDateTimeRange.bind(this)
+      }
+    );
 
     this.parentForm.addControl(this.formName, this[this.formName]);
     this.dateTimeRange = this.parentForm.get('dateTimeRange');
 
     const startDateFieldsToWatch = ['startMonth', 'startDay', 'startYear'];
     for (const field of startDateFieldsToWatch) {
-      this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
-        const values = this.parentForm.get('dateTimeRange').value;
-        values[field] = value;
-        this.startDateChangeHandler(values);
-      });
+      this.parentForm
+        .get('dateTimeRange.' + field)
+        .valueChanges.subscribe(value => {
+          const values = this.parentForm.get('dateTimeRange').value;
+          values[field] = value;
+          this.startDateChangeHandler(values);
+        });
     }
 
     const dateFieldsToWatch = [
@@ -153,15 +176,15 @@ export class DateTimeRangeComponent implements OnInit {
       'endPeriod'
     ];
     for (const field of dateFieldsToWatch) {
-      this.parentForm.get('dateTimeRange.' + field).valueChanges.subscribe(value => {
-        const values = this.parentForm.get('dateTimeRange').value;
-        values[field] = value;
-        this.dateTimeRangeValidator(values);
-      });
+      this.parentForm
+        .get('dateTimeRange.' + field)
+        .valueChanges.subscribe(value => {
+          const values = this.parentForm.get('dateTimeRange').value;
+          values[field] = value;
+          this.dateTimeRangeValidator(values);
+        });
     }
   }
-
-
 
   /**
    *  If all start dates are filled in, copy values to end dates
@@ -169,12 +192,25 @@ export class DateTimeRangeComponent implements OnInit {
   startDateChangeHandler(values) {
     if (this.dateTimeRangeService.checkHasStartAndNoEnd(values)) {
       const today = moment();
-      const startDateTime = this.dateTimeRangeService.parseDateTime(values.startYear, values.startMonth, values.startDay, 0, 0, 'AM');
+      const startDateTime = this.dateTimeRangeService.parseDateTime(
+        values.startYear,
+        values.startMonth,
+        values.startDay,
+        values.startHour,
+        values.startMinutes,
+        values.startYear
+      );
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
       if (this.dateStatus.startAfterToday) {
-        this.parentForm.patchValue({ dateTimeRange: { endMonth: values.startMonth } });
-        this.parentForm.patchValue({ dateTimeRange: { endDay: values.startDay } });
-        this.parentForm.patchValue({ dateTimeRange: { endYear: values.startYear } });
+        this.parentForm.patchValue({
+          dateTimeRange: { endMonth: values.startMonth }
+        });
+        this.parentForm.patchValue({
+          dateTimeRange: { endDay: values.startDay }
+        });
+        this.parentForm.patchValue({
+          dateTimeRange: { endYear: values.startYear }
+        });
       }
     }
   }
@@ -190,7 +226,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.startDay,
         values.startHour,
         values.startMinutes,
-        values.startPeriod
+        values.startYear
       );
       const endDateTime = this.dateTimeRangeService.parseDateTime(
         values.endYear,
@@ -198,7 +234,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.endDay,
         values.endHour,
         values.endMinutes,
-        values.endPeriod
+        values.endYear
       );
       this.processDateStatus(startDateTime, endDateTime);
     } else {
@@ -227,9 +263,13 @@ export class DateTimeRangeComponent implements OnInit {
    *  Set dateStatus
    */
   private processDateStatus(startDateTime, endDateTime) {
-    const outputFormat = 'YYYY-MM-DDTHH:mm:ss';
-    this.parentForm.patchValue({ dateTimeRange: { startDateTime: startDateTime.format(outputFormat) + 'Z' } });
-    this.parentForm.patchValue({ dateTimeRange: { endDateTime: endDateTime.format(outputFormat) + 'Z' } });
+    const outputFormat = 'MM/DD/YYYY';
+    this.parentForm.patchValue({
+      dateTimeRange: { startDateTime: startDateTime.format(outputFormat)}
+    });
+    this.parentForm.patchValue({
+      dateTimeRange: { endDateTime: endDateTime.format(outputFormat)}
+    });
 
     this.setValidity(startDateTime, endDateTime);
 
@@ -249,15 +289,26 @@ export class DateTimeRangeComponent implements OnInit {
   setValidity(startDateTime, endDateTime) {
     this.resetDateTimeRangeValidation();
     const today = moment();
-    this.dateStatus.startDateTimeValid = this.setError(startDateTime.isValid(), 'startDateTime', {
-      invalidDate: true
-    });
+    this.dateStatus.startDateTimeValid = this.setError(
+      startDateTime.isValid(),
+      'startDateTime',
+      {
+        invalidDate: true
+      }
+    );
 
-    this.dateStatus.endDateTimeValid = this.setError(endDateTime.isValid(), 'endDateTime', {
-      invalidDate: true
-    });
+    this.dateStatus.endDateTimeValid = this.setError(
+      endDateTime.isValid(),
+      'endDateTime',
+      {
+        invalidDate: true
+      }
+    );
 
-    if (this.dateStatus.endDateTimeValid && this.dateStatus.startDateTimeValid) {
+    if (
+      this.dateStatus.endDateTimeValid &&
+      this.dateStatus.startDateTimeValid
+    ) {
       this.dateStatus.startAfterToday = this.setError(
         today.isBefore(startDateTime),
         'startDateTime',
@@ -267,9 +318,13 @@ export class DateTimeRangeComponent implements OnInit {
         this.includePastDates
       );
 
-       this.dateStatus.startBeforeEnd = this.setError(startDateTime.isBefore(endDateTime), 'startDateTime', {
-        startDateAfterEndDate: true
-      });
+      this.dateStatus.startBeforeEnd = this.setError(
+        startDateTime.isBefore(endDateTime) || startDateTime.isSame(endDateTime),
+        'startDateTime',
+        {
+          startDateAfterEndDate: true
+        }
+      );
     }
   }
 
@@ -290,11 +345,14 @@ export class DateTimeRangeComponent implements OnInit {
    * Validate date time range errors as part of the core form validation
    */
   validateDateTimeRange(group: FormGroup) {
-    if (group.controls.startDateTime.value && group.controls.endDateTime.value) {
-     this.setValidity(
-       moment(group.controls.startDateTime.value, 'YYYY-MM-DD HH:mm a'),
-       moment(group.controls.endDateTime.value, 'YYYY-MM-DD HH:mm a')
-     );
+    if (
+      group.controls.startDateTime.value &&
+      group.controls.endDateTime.value
+    ) {
+      this.setValidity(
+        moment(group.controls.startDateTime.value, 'MM/DD/YYYY'),
+        moment(group.controls.endDateTime.value, 'MM/DD/YYYY')
+      );
     }
   }
 }

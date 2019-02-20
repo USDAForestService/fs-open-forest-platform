@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 
 @Injectable()
 export class ChristmasTreesInfoService {
@@ -155,8 +155,8 @@ export class ChristmasTreesInfoService {
    * @returns cutting area dates text with variables replaced with forest specific text
    */
   formatCuttingAreaDate(forest, startDate, endDate) {
-    const start = moment(startDate).tz(forest.timezone);
-    const end = moment(endDate).tz(forest.timezone);
+    const start = moment(startDate);
+    const end = moment(endDate);
     let startFormat = 'MMM D -';
     let endFormat = ' D, YYYY';
 
@@ -174,12 +174,10 @@ export class ChristmasTreesInfoService {
    */
   formatCuttingAreaTime(forest, startDate, endDate) {
     const start = moment(startDate)
-      .tz(forest.timezone)
       .format('h:mm a - ');
     return (
       start +
       moment(endDate)
-        .tz(forest.timezone)
         .format('h:mm a')
     );
   }

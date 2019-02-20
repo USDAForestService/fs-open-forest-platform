@@ -4,19 +4,12 @@ const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
 const request = require('supertest');
 
-const permitSvgService = require('../src/services/christmas-trees-permit-svg-util.es6');
 const logger = require('../src/services/logger.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
-const emailSendStub = require('./common.es6');
-
 const christmasTreePermitApplicationFactory = require('./data/christmas-trees-permit-application-factory.es6');
-const christmasTreeForestFactory = require('./data/christmas-trees-forest-factory.es6');
-const christmasTreePermitFactory = require('./data/christmas-trees-permit-factory.es6');
 const { createForest, createPermit, destroyAll } = require('./data/db-helper.es6');
 const server = require('./mock-aws.spec.es6');
-
-const christmasTreeController = require('../src/controllers/christmas-tree/permits.es6');
 
 const { expect } = chai;
 
@@ -62,26 +55,22 @@ describe('christmas tree controller permit tests', () => {
       });
     });
 
-    it('should return a 400 response with invalid data', (done) => {
+    it('should return a 400 response with an unknown forest id', (done) => {
       permitApplication.forestId = undefined;
 
       postPermit(permitApplication)
-        .expect('Content-Type', /json/)
         .expect(400, done);
     });
 
-    it('should return 400 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "1")', (done) => {
-      permitApplication.firstName = '1';
-      permitApplication.lastName = '1';
+    it('should return 500 response when triggering an unknown app id error with pay.gov', (done) => {
+      permitApplication.firstName = 'unknown';
 
       postPermit(permitApplication)
-        .expect('Content-Type', /json/)
-        .expect(400, done);
+        .expect(500, done);
     });
 
-    it('should return 500 response when submitted to get pay.gov token (mock returns error when firstName = "1" and lastName = "2")', (done) => {
-      permitApplication.firstName = '1';
-      permitApplication.lastName = '2';
+    it('should return 500 response when triggering an agency tracking id error with pay.gov', (done) => {
+      permitApplication.firstName = 'duplicate';
 
       postPermit(permitApplication)
         .expect(500, done);
@@ -98,7 +87,7 @@ describe('christmas tree controller permit tests', () => {
         .expect(200, done);
     });
 
-    it('should return a 404 response with a closed forest', (done) => {
+    it('should return a 400 response with a closed forest', (done) => {
       const closedApplication = christmasTreePermitApplicationFactory.create({
         forestId: DATA.closedForest.id,
         forestAbbr: DATA.closedForest.forestAbbr,
@@ -106,7 +95,7 @@ describe('christmas tree controller permit tests', () => {
       });
 
       postPermit(closedApplication)
-        .expect(404, done);
+        .expect(400, done);
     });
   });
 
@@ -116,7 +105,7 @@ describe('christmas tree controller permit tests', () => {
       .send(application);
 
     it('should return a 401 when updating with an invalid token', (done) => {
-      const application = { };
+      const application = {};
 
       putPermitApplication(application, null)
         .expect(401, done);
@@ -209,18 +198,6 @@ describe('christmas tree controller permit tests', () => {
         })
         .expect(200, done);
     });
-
-    it('logs the successful request appropriately', (done) => {
-      const loggerSpy = sinon.spy(logger, 'info');
-      const logMsg = permit => `CONTROLLER: GET:christmasTreePermits.getOnePermit by ${permit.emailAddress}:PUBLIC for ${permit.permitId} at`;
-
-      getPermit(DATA.completedPermit.permitId, DATA.completedPermitToken)
-        .expect((res) => {
-          expect(loggerSpy.called).to.be.true;
-          expect(loggerSpy.calledWith(sinon.match(logMsg(res.body)))).to.be.true;
-        })
-        .expect(200, done);
-    });
   });
 
   describe('.printPermit', () => {
@@ -242,33 +219,6 @@ describe('christmas tree controller permit tests', () => {
           expect(res.body).to.include.all.keys('result');
         })
         .expect(200, done);
-    });
-  });
-
-  describe('unit tests for xmas tree controller', () => {
-    it('should send and email and generate rules', (done) => {
-      const permitApplication = christmasTreePermitFactory.create({
-        firstName: 'Bonny',
-        lastName: 'Clyde',
-        forestId: 3,
-        orgStructureCode: '11-06-06',
-        christmasTreesForest: christmasTreeForestFactory.create({
-          forestAbbr: 'mthood'
-        })
-      });
-      const buf = Buffer.from('abc');
-      const permitStub = sinon.stub(permitSvgService, 'generatePng').resolves(buf);
-
-      christmasTreeController.generateRulesAndEmail(permitApplication)
-        .then((data) => {
-          expect(permitStub.called).to.be.true;
-          expect(emailSendStub.called).to.be.true;
-          expect(emailSendStub.getCall(0).args[4]).to.have.length(6);
-          expect(data).to.equal();
-          done();
-
-          permitStub.restore();
-        });
     });
   });
 });
