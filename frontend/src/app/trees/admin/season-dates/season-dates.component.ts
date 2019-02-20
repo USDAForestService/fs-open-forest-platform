@@ -3,7 +3,7 @@ import { ApplicationFieldsService } from '../../../application-forms/_services/a
 import { ActivatedRoute } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../_services/christmas-trees-application.service';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { environment } from '../../../../environments/environment';
 import { DOCUMENT } from '@angular/common';
@@ -111,8 +111,8 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
    */
   private updateDates() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
-      const newStart = moment.utc(this.form.get('dateTimeRange.startDateTime').value).subtract(1, 'hour');
-      const newEnd = moment.utc(this.form.get('dateTimeRange.endDateTime').value).subtract(2, 'hour');
+      const newStart = moment(this.form.get('dateTimeRange.startDateTime').value);
+      const newEnd = moment(this.form.get('dateTimeRange.endDateTime').value);
       this.service
       .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
       .subscribe(

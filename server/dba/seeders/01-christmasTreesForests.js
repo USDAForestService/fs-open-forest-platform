@@ -1,8 +1,8 @@
-'use strict';
+
 
 module.exports = {
-  up: function(queryInterface, Sequelize) {
-    let forests = [
+  up(queryInterface, Sequelize) {
+    const forests = [
       {
         id: 1,
         forest_name: 'Arapaho and Roosevelt National Forests',
@@ -10,8 +10,8 @@ module.exports = {
         tree_height: 0,
         stump_height: 6,
         stump_diameter: 6,
-        start_date: '2018-11-01T06:00:00Z',
-        end_date: '2019-01-06T06:59:59Z',
+        start_date: '2017-11-01T06:00:00Z',
+        end_date: '2017-01-06T06:59:59Z',
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-02-10T',
@@ -22,10 +22,10 @@ module.exports = {
         forest_name_short: 'Arapaho and Roosevelt',
         timezone: 'America/Denver',
         cutting_areas:
-          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z", "name": "Elk Creek"},' +
-          '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Red Feather Lakes"},' +
-          '"SULPHUR": {"startDate": "2017-11-01 15:00:00Z", "endDate": "2018-01-06 22:30:00Z", "name": "Sulphur"},' +
-          '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }',
+          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z", "name": "Elk Creek"},'
+          + '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Red Feather Lakes"},'
+          + '"SULPHUR": {"startDate": "2017-11-01 15:00:00Z", "endDate": "2018-01-06 22:30:00Z", "name": "Sulphur"},'
+          + '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }',
         poss_financial_id: '999900004'
       },
       {
@@ -36,7 +36,7 @@ module.exports = {
         stump_height: 8,
         stump_diameter: 4,
         start_date: '2018-11-15T07:00:00Z',
-        end_date: '2019-01-02T06:59:59Z',
+        end_date: '2020-01-02T06:59:59Z',
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-01-10',
@@ -57,7 +57,7 @@ module.exports = {
         stump_height: 6,
         stump_diameter: 6,
         start_date: '2018-11-01T07:00:00Z',
-        end_date: '2018-12-31T07:59:59Z',
+        end_date: '2020-12-31T07:59:59Z',
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-06-06',
@@ -95,7 +95,7 @@ module.exports = {
     ];
     return queryInterface.bulkInsert('christmasTreesForests', forests);
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     const operator = Sequelize.Op;
     return queryInterface.bulkDelete('christmasTreesForests', {
       id: {
