@@ -24,7 +24,7 @@ describe('Admin applications page', () => {
   it('should have three call to action buttons', () => {
     page.navigateTo();
     element(by.css(`.application-field-list-values .application-details .usa-button`)).click();
-    browser.sleep(500);
+    browser.sleep(750);
 
     expect(element(by.id('accept-application-btn')).isPresent()).toBeTruthy();
     expect(element(by.id('hold-application-btn')).isPresent()).toBeTruthy();

@@ -111,7 +111,7 @@ export class TreeApplicationFormComponent implements OnInit {
    * Redirect to tree guidelines if forest start date is after today
    */
   checkSeasonStartDate(forest) {
-    if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
+    if (forest && moment(forest.startDate).isAfter(moment())) {
       this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
   }

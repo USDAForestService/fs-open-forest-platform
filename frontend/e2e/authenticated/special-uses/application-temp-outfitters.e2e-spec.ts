@@ -64,6 +64,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('individual-label')).click();
     element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('good-standing-evidence')).sendKeys(testSuccessFile);
+    element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
@@ -110,6 +111,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('small-business-label')).click();
     element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('good-standing-evidence')).sendKeys(testSuccessFile);
+    element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
     element(by.id('start-month')).sendKeys('10');

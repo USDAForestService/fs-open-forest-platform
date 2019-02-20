@@ -1,7 +1,5 @@
-
-
 module.exports = {
-  up(queryInterface, Sequelize) {
+  up(queryInterface) {
     const forests = [
       {
         id: 1,
@@ -10,8 +8,8 @@ module.exports = {
         tree_height: 0,
         stump_height: 6,
         stump_diameter: 6,
-        start_date: '2018-11-01T06:00:00Z',
-        end_date: '2020-01-06T06:59:59Z',
+        start_date: '2017-11-01T06:00:00Z',
+        end_date: '2017-01-06T06:59:59Z',
         created: 'now()',
         updated: 'now()',
         org_structure_code: '11-02-10T',
