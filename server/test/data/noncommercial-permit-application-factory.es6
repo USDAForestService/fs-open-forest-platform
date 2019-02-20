@@ -129,9 +129,9 @@ module.exports = factory.factory({
   },
   // required
   dateTimeRange: {
-    // required string UTC datetime
-    startDateTime: '2018-12-12T13:00:00Z',
-    // required string UTC datetime
-    endDateTime: '2018-12-12T21:00:00Z'
+    // required string datetime
+    startDateTime: '2018-12-12T13:00:00',
+    // required string datetime
+    endDateTime: '2018-12-12T21:00:00'
   }
 });
