@@ -164,9 +164,6 @@ describe('District Dates Admin Component', () => {
       component.form.get('dateTimeRange.startHour').setValue('08');
       component.form.get('dateTimeRange.startMinutes').setValue('30');
       component.form.get('dateTimeRange.startPeriod').setValue('AM');
-      component.form.get('dateTimeRange.endHour').setValue('08');
-      component.form.get('dateTimeRange.endMinutes').setValue('30');
-      component.form.get('dateTimeRange.endPeriod').setValue('AM');
       expect(component.form.valid).toBeTruthy();
       component.updateSeasonDates();
     });
