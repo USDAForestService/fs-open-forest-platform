@@ -73,8 +73,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
     browser.sleep(3000);
-    // expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
-    expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual('Errors occured while uploading files.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
   it('should navigate back to temp outfitter', () => {
@@ -142,7 +141,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
     browser.sleep(5000);
-    // expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
-    expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual('Errors occured while uploading files.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 });
