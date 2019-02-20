@@ -34,6 +34,12 @@ const s3 = util.getS3();
  * @param {Object} output
  */
 tempOutfitter.translateFromClientToDatabase = (input, output) => {
+  const startDateTime = moment.tz(input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime, input.forest.timezone).utc().format();
+
+  const endDateTime = moment.tz(input
+    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime, input.forest.timezone).utc().format();
+
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -83,8 +89,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .tempOutfitterFields.activityDescriptionFields.audienceDescription;
   output.tempOutfitterFieldsActDescFieldsDescCleanupRestoration = input
     .tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration;
-  output.tempOutfitterFieldsActDescFieldsEndDateTime = input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime;
+  output.tempOutfitterFieldsActDescFieldsEndDateTime = endDateTime;
   output.tempOutfitterFieldsActDescFieldsListGovFacilities = input
     .tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities;
   output.tempOutfitterFieldsActDescFieldsListTempImprovements = input
@@ -97,8 +102,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .tempOutfitterFields.activityDescriptionFields.numberOfTrips;
   output.tempOutfitterFieldsActDescFieldsServProvided = input
     .tempOutfitterFields.activityDescriptionFields.servicesProvided;
-  output.tempOutfitterFieldsActDescFieldsStartDateTime = input
-    .tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime;
+  output.tempOutfitterFieldsActDescFieldsStartDateTime = startDateTime;
   output.tempOutfitterFieldsActDescFieldsStmtAssignedSite = input
     .tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite;
   output.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip = input
