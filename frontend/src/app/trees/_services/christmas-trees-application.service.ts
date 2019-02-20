@@ -115,7 +115,7 @@ export class ChristmasTreesApplicationService {
   //  double check before commit, should be good though
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
-    const format = 'MM-DD-YYYY';
+    const format = 'YYYY-MM-DDTHH:mm:ss';
 
     const tzStartDate = moment(startDate, format);
 
