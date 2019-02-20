@@ -25,6 +25,10 @@ const noncommercial = {};
  * @param {Object} output
  */
 noncommercial.translateFromClientToDatabase = (input, output) => {
+  const startDateTime = moment.tz(input.dateTimeRange.startDateTime, input.forest.timezone).utc().format();
+
+  const endDateTime = moment.tz(input.dateTimeRange.endDateTime, input.forest.timezone).utc().format();
+
   output.applicantInfoDayPhoneAreaCode = input.applicantInfo.dayPhone.areaCode;
   output.applicantInfoDayPhoneExtension = input.applicantInfo.dayPhone.extension;
   output.applicantInfoDayPhoneNumber = input.applicantInfo.dayPhone.number;
@@ -115,11 +119,11 @@ noncommercial.translateFromClientToDatabase = (input, output) => {
   output.eventName = input.eventName;
   output.forest = input.forest;
   output.noncommercialFieldsActivityDescription = input.noncommercialFields.activityDescription;
-  output.noncommercialFieldsEndDateTime = input.dateTimeRange.endDateTime;
+  output.noncommercialFieldsEndDateTime = endDateTime;
   output.noncommercialFieldsLocationDescription = input.noncommercialFields.locationDescription;
   output.noncommercialFieldsNumberParticipants = input.noncommercialFields.numberParticipants;
   output.noncommercialFieldsSpectatorCount = input.noncommercialFields.numberSpectators;
-  output.noncommercialFieldsStartDateTime = input.dateTimeRange.startDateTime;
+  output.noncommercialFieldsStartDateTime = startDateTime;
   output.region = input.region;
   output.signature = input.signature;
   output.type = 'noncommercial';
