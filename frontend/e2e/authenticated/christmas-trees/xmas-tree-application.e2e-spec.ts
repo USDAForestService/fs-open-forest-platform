@@ -197,15 +197,15 @@ describe('Apply for a Christmas tree permit', () => {
       christmasTreeForm = new ChristmasTreeForm();
       christmasTreeForm.navigateTo(forestId);
     });
-    it('should show 500 error if first name is 1 and last name is 2', () => {
-      christmasTreeForm.fillOutFormAndSubmit('1', '2');
+    it('should show 500 error if first name is unknown', () => {
+      christmasTreeForm.fillOutFormAndSubmit('unknown', '2');
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'
       );
     });
 
-    it('should show 500 error if first name is 1 and last name is 1', () => {
-      christmasTreeForm.fillOutFormAndSubmit('1', '1');
+    it('should show 500 error if first name is duplicate', () => {
+      christmasTreeForm.fillOutFormAndSubmit('duplicate', '1');
       browser.sleep(500);
       expect<any>(element(by.css('.usa-alert-heading')).getText()).toEqual(
         'Sorry, we were unable to process your request. Please try again.'

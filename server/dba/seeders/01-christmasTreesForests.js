@@ -1,7 +1,5 @@
-
-
 module.exports = {
-  up(queryInterface, Sequelize) {
+  up(queryInterface) {
     const forests = [
       {
         id: 1,
