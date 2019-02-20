@@ -164,6 +164,9 @@ describe('District Dates Admin Component', () => {
       component.form.get('dateTimeRange.startHour').setValue('08');
       component.form.get('dateTimeRange.startMinutes').setValue('30');
       component.form.get('dateTimeRange.startPeriod').setValue('AM');
+      component.form.get('dateTimeRange.endHour').setValue('08');
+      component.form.get('dateTimeRange.endMinutes').setValue('30');
+      component.form.get('dateTimeRange.endPeriod').setValue('AM');
       expect(component.form.valid).toBeTruthy();
       component.updateSeasonDates();
     });
@@ -204,9 +207,9 @@ describe('District Dates Admin Component', () => {
       expect(component.form.get('dateTimeRange.endDay').value).toEqual('09');
       expect(component.form.get('dateTimeRange.endYear').value).toEqual('2017');
 
-      expect(component.form.get('dateTimeRange.endHour').value).toEqual('04');
+      expect(component.form.get('dateTimeRange.endHour').value).toEqual('10');
       expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
-      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('p.m.');
+      expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('a.m.');
     });
 
     it('should call set forest', () => {
