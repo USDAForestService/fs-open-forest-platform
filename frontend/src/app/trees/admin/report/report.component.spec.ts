@@ -11,6 +11,7 @@ import { UtilService } from '../../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { Title } from '@angular/platform-browser';
+import * as moment from 'moment/moment';
 
 describe('ReportComponent', () => {
   let component: ReportComponent;
@@ -100,25 +101,23 @@ describe('ReportComponent', () => {
     fixture = TestBed.createComponent(ReportComponent);
     component = fixture.debugElement.componentInstance;
     formBuilder = new FormBuilder();
-    component.form = formBuilder.group({
-      forestId: ['', [Validators.required]],
-      dateTimeRange: formBuilder.group({
-        endDateTime: [''],
-        endDay: [''],
-        endMonth: [''],
-        endYear: [''],
-        endHour: [''],
-        endMinutes: ['00'],
-        endPeriod: [''],
-        startDateTime: [''],
-        startDay: [''],
-        startMonth: [''],
-        startYear: [''],
-        startHour: [''],
-        startMinutes: ['00'],
-        startPeriod: ['']
-      })
+    const dateTimeRangeForm = formBuilder.group({
+      endDateTime: [''],
+      endDay: [''],
+      endMonth: [''],
+      endYear: [''],
+      endHour: [''],
+      endMinutes: ['00'],
+      endPeriod: [''],
+      startDateTime: [''],
+      startDay: [''],
+      startMonth: [''],
+      startYear: [''],
+      startHour: [''],
+      startMinutes: ['00'],
+      startPeriod: ['']
     });
+    component.form.addControl('dateTimeRange', dateTimeRangeForm);
     fixture.detectChanges();
   });
 
@@ -137,7 +136,7 @@ describe('ReportComponent', () => {
     component.selectedForest = '1'
 
     component.dateStatus.hasErrors = false;
-    component.form.get('forestId').setValue('1');
+    component.form.get('forestSelection').setValue('1');
     component.form.get('dateTimeRange.startMonth').setValue('10');
     component.form.get('dateTimeRange.startDay').setValue('10');
     component.form.get('dateTimeRange.startYear').setValue('2017');
@@ -181,7 +180,7 @@ describe('ReportComponent', () => {
 
     component.selectedForest = '5';
     component.setStartEndDate(component.selectedForest, component.form);
-    expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
+    expect(component.form.get('dateTimeRange.endYear').value).toEqual(String(moment().year()));
   });
 
   it('should get report by permit number', () => {
