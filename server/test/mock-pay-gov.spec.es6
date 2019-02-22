@@ -43,15 +43,5 @@ describe('mock pay gov', () => {
       postMockPayGovProcess(transaction)
         .expect(200, done);
     });
-
-    it('POST should return a 200 response when submitted to mock pay.gov with invalid credit card with error code in last 4 digits', (done) => {
-      const transaction = { token: 'abc123', cc: '0000000000001234' };
-
-      postMockPayGovProcess(transaction)
-        .expect((res) => {
-          expect(res.body.errorCode).to.equal('1234');
-        })
-        .expect(200, done);
-    });
   });
 });

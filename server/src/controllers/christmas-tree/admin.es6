@@ -72,24 +72,20 @@ const buildPermitsReport = (results) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
-  logger.info(`${req.user.adminUsername} generated a report`);
+  const { endDate, forestId, startDate } = req.query;
+  const { adminUsername, forests: userForests } = req.user;
 
-  /**
-    The report may include forests from multiple time zones. The previous implementation assumed
-    one forest and seemed overly exact regarding the time zones. In order to avoid querying by
-    forest individually, just assume that the provided dates in Eastern Time are good enough.
+  logger.info(`${adminUsername} generated a report`);
 
-    If we need to be more exact and still don't want to query each forest individually, we can
-    broaden the initial date criteria to ensure the inlusion of all possible forests, then filter
-    the returns lists with the forest-specific timezones.
-   */
-  const startDate = moment.tz(req.query.startDate, 'America/Denver').hour(0).minute(0).second(0)
-    .toDate();
-  const endDate = moment.tz(req.query.endDate, 'America/Denver').add(1, 'days').hour(0).minute(0)
-    .second(0)
-    .toDate();
+  const startDatetime = moment(startDate).hour(0).minute(0).second(0)
+    .format('YYYY-MM-DDTHH:mm:ss');
+  const endDatetime = moment(endDate).hour(23).minute(59).second(59)
+    .format('YYYY-MM-DDTHH:mm:ss');
 
-  const forestFilter = req.query.forestId === 'ALL' ? {} : { forestId: req.query.forestId };
+  const forestIdFilter = forestId === 'ALL' ? {} : { forestId };
+  const forestFilter = userForests[0] === 'all' ? {} : { forestAbbr: { [operator.in]: userForests } };
+  // eslint-disable-next-line max-len
+  const dateComparison = Sequelize.literal(`( "christmasTreesPermits".updated AT TIME ZONE "christmasTreesForest".timezone ) BETWEEN '${startDatetime}' AND '${endDatetime}'`);
 
   const query = {
     attributes: [
@@ -105,16 +101,13 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
     include: [
       {
         model: treesDb.christmasTreesForests,
-        where: { forestAbbr: { [operator.in]: req.user.forests } }
+        where: forestFilter
       }
     ],
     where: {
-      ...forestFilter,
+      ...forestIdFilter,
       status: 'Completed',
-      [operator.and]: [
-        { updatedAt: { [operator.gte]: startDate } },
-        { updatedAt: { [operator.lt]: endDate } }
-      ]
+      [operator.and]: [dateComparison]
     },
     order: [['updatedAt', 'ASC']]
   };
@@ -134,6 +127,8 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
  * @param {Object} res - http response
  */
 christmasTreeAdmin.getPermitReport = async (req, res) => {
+  const { permitNumber } = req.params;
+
   const query = {
     attributes: [
       'permitId',
@@ -142,30 +137,34 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
       'updatedAt',
       'quantity',
       'totalCost',
-      'permitExpireDate'
+      'permitExpireDate',
+      'christmasTreesForest.timezone',
+      'christmasTreesForest.forest_abbr'
     ],
+    include: [{ model: treesDb.christmasTreesForests }],
     where: {
-      permitNumber: req.params.permitNumber,
+      permitNumber,
       status: 'Completed'
     }
   };
 
   try {
     const permit = await treesDb.christmasTreesPermits.findOne(query);
-    if (permit === null) {
+
+    if (!permit) {
       const err = {
         errors: [{
           errorCode: 'notFound',
-          message: `Permit number ${req.params.permitNumber} was not found.`
+          message: `Permit number ${permitNumber} was not found.`
         }]
       };
-      res.status(400).json(err);
-    } else {
-      const report = buildPermitsReport([permit]);
-      res.status(200).json(report);
+      return res.status(400).json(err);
     }
+
+    const report = buildPermitsReport([permit]);
+    return res.status(200).json(report);
   } catch (error) {
-    util.handleErrorResponse(error, res, 'getPermitReport#end');
+    return util.handleErrorResponse(error, res, 'getPermitReport#end');
   }
 };
 
