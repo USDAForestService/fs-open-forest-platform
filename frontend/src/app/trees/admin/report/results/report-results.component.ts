@@ -41,6 +41,7 @@ export class ReportResultsComponent implements OnChanges {
     const orderedPermits = [];
     for (const permit of this.result.permits) {
       orderedPermits.push({
+        forestAbbr: permit.forestAbbr,
         permitNumber: permit.permitNumber,
         issueDate: permit.issueDate,
         quantity: permit.quantity,
