@@ -9,6 +9,7 @@ export class ReportResultsComponent implements OnChanges {
   @Input() result: any;
   permits: any;
   titles = {
+    forestAbbr: 'Forest',
     permitNumber: 'Permit number',
     issueDate: 'Issue date',
     quantity: 'Number of trees',

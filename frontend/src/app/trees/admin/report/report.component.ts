@@ -108,22 +108,19 @@ export class ReportComponent implements OnInit, AfterViewInit {
   /**
    * setStartEndDate
    */
-  setStartEndDate(forest, form) {
-    let forestDates;
-    if (forest === 'ALL') {
-      const minForestDate = moment.min(this.forests.map(forest => moment(forest.startDate)));
-      const maxForestDate = moment.max(this.forests.map(forest => moment(forest.endDate)));
-      const timezone = this.forests[0].timezone;
-      forestDates = {
-        startDate: minForestDate,
-        endDate: maxForestDate,
-        timezone
-      }
+  setStartEndDate(forestId, form) {
+    let startDate;
+    let endDate;
+    if (forestId === 'ALL') {
+      startDate = moment.min(this.forests.map(forest => moment(forest.startDate)));
+      endDate = moment.max(this.forests.map(forest => moment(forest.endDate)));
     } else {
-      forestDates = this.getForestById(forest);
+      const forest = this.getForestById(forestId);
+      startDate = forest.startDate;
+      endDate = forest.endDate;
     }
 
-    this.treesAdminService.setStartEndDate(forestDates, form);
+    this.treesAdminService.setStartEndDate({ startDate, endDate }, form);
   }
 
   /**
@@ -161,7 +158,6 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      // forestName: this.selectedForest.forestName,
       forestName: this.selectedForest,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
       endDate: this.getForestDate('dateTimeRange.endDateTime')

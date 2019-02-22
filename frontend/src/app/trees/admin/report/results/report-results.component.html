@@ -23,7 +23,7 @@
     <tbody>
       <tr *ngFor="let permit of permits | slice:1">
         <th scope="row">{{permit.forestAbbr}}</th>
-        <td>{{permit.permitNumber}}</th>
+        <td>{{permit.permitNumber}}</td>
         <td>{{permit.issueDate}}</td>
         <td>{{permit.quantity}}</td>
         <td>${{permit.totalCost}}</td>
