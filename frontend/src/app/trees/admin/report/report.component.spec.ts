@@ -134,12 +134,7 @@ describe('ReportComponent', () => {
   it('should get report', () => {
     component.result = {};
     component.isDateSearch = true;
-    component.forest = {
-      id: 1,
-      forestName: 'Arapaho and Roosevelt National Forests',
-      description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
-      forestAbbr: 'arp'
-    };
+    component.selectedForest = '1'
 
     component.dateStatus.hasErrors = false;
     component.form.get('forestId').setValue('1');
@@ -174,9 +169,9 @@ describe('ReportComponent', () => {
   });
 
   it('should set start and end dates', () => {
-    component.forest = component.getForestById('2');
+    component.selectedForest = '2';
 
-    component.setStartEndDate(component.forest, component.form);
+    component.setStartEndDate(component.selectedForest, component.form);
     expect(component.form.get('dateTimeRange.startMonth').value).toEqual('10');
     expect(component.form.get('dateTimeRange.startDay').value).toEqual('31');
     expect(component.form.get('dateTimeRange.startYear').value).toEqual('2018');
@@ -184,15 +179,15 @@ describe('ReportComponent', () => {
     expect(component.form.get('dateTimeRange.endDay').value).toEqual('30');
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
 
-    component.forest = component.getForestById('5');
-    component.setStartEndDate(component.forest, component.form);
+    component.selectedForest = '5';
+    component.setStartEndDate(component.selectedForest, component.form);
     expect(component.form.get('dateTimeRange.endYear').value).toEqual('2019');
   });
 
   it('should get report by permit number', () => {
     component.result = {};
     component.isDateSearch = false;
-    component.forest = null;
+    component.selectedForest = null;
     component.permitNumberSearchForm.get('permitNumber').setValue('11111111');
     expect(component.permitNumberSearchForm.valid).toBeTruthy();
     component.getPermitByNumber();
