@@ -133,7 +133,7 @@ describe('ReportComponent', () => {
   it('should get report', () => {
     component.result = {};
     component.isDateSearch = true;
-    component.selectedForest = '1'
+    component.selectedForest = '1';
 
     component.dateStatus.hasErrors = false;
     component.form.get('forestSelection').setValue('1');
