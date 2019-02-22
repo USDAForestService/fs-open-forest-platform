@@ -7,7 +7,7 @@ const forests = [
     stump_height: 6,
     stump_diameter: 6,
     start_date: '2018-11-01T06:00:00Z',
-    end_date: '2019-01-06T06:59:59Z',
+    end_date: '2021-01-06T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-02-10T',
@@ -32,7 +32,7 @@ const forests = [
     stump_height: 8,
     stump_diameter: 4,
     start_date: '2018-11-15T07:00:00Z',
-    end_date: '2019-01-02T06:59:59Z',
+    end_date: '2021-01-02T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-01-10',
@@ -53,7 +53,7 @@ const forests = [
     stump_height: 6,
     stump_diameter: 6,
     start_date: '2018-11-01T07:00:00Z',
-    end_date: '2018-12-31T07:59:59Z',
+    end_date: '2021-12-31T07:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-06-06',
@@ -74,7 +74,7 @@ const forests = [
     stump_height: 4,
     stump_diameter: 0,
     start_date: '2018-11-19T07:00:00Z',
-    end_date: '2018-12-31T06:59:59Z',
+    end_date: '2021-12-31T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-02-14',
@@ -95,6 +95,6 @@ module.exports = {
     return queryInterface.bulkInsert('christmasTreesForests', forests);
   },
   down(queryInterface) {
-    return queryInterface.bulkDelete('christmasTreesForests', { where: {}, force: true });
+    return queryInterface.bulkDelete('christmasTreesForests');
   }
 };
