@@ -64,6 +64,7 @@
     "async": "^2.6.1",
     "codelyzer": "^3.1.1",
     "emoji-regex": "^6.5.0",
+    "highlight.js": "9.13.1",
     "is-docker": "^1.1.0",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^4.1.1",
@@ -82,7 +83,7 @@
     "superstatic": "^6.0.4",
     "ts-node": "^3.1.0",
     "tslint": "^5.12.1",
-    "typedoc": "^0.13.0",
+    "typedoc": "^0.14.2",
     "typescript": "^2.8.4"
   }
 }
