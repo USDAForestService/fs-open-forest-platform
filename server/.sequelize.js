@@ -11,6 +11,9 @@ if (!vcapConstants.database || !vcapConstants.database.url) {
 
 const dbParams = url.parse(vcapConstants.database.url, true);
 const dbAuth = dbParams.auth.split(':');
+const dbLogging = !vcapConstants.database.quiet;
+
+const dbLogger = (sql, sequelizeObject) => logger.info(`SEQUELIZE: ${sql}`);
 
 const dbConfig = {
   database: dbParams.pathname.split('/')[1],
@@ -21,9 +24,7 @@ const dbConfig = {
   ssl: false,
   dialect: dbParams.protocol.split(':')[0],
   seederStorage: 'sequelize',
-  logging: function(sql, sequelizeObject) {
-       logger.info(`SEQUELIZE: ${sql}`);
-  },
+  logging: dbLogging && dbLogger,
   operatorsAliases: false
 };
 

@@ -1,9 +1,8 @@
-
-
 /**
  * Module for Express middleware
  * @module services/middleware
  */
+const jwt = require('jsonwebtoken');
 
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('./util.es6');
@@ -46,7 +45,7 @@ middleware.checkPermissions = (req, res, next) => {
 };
 
 /**
- * @function checkAdminPermissions - Check for admin permsissions.
+ * @function checkAdminPermissions - Check for admin permissions.
  * @param {Object} req - http request
  * @param {Object} res - http response
  */
@@ -55,6 +54,20 @@ middleware.checkAdminPermissions = (req, res, next) => {
     next();
   } else {
     res.status(403).send();
+  }
+};
+
+/**
+ * @function checkToken - Check for a valid permit token.
+ * @param {Object} req - http request
+ * @param {Object} res - http response
+ */
+middleware.checkToken = (req, res, next) => {
+  try {
+    jwt.verify(req.query.t, vcapConstants.PERMIT_SECRET);
+    next();
+  } catch (e) {
+    res.status(401).send();
   }
 };
 

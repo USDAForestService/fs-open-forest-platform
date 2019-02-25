@@ -24,7 +24,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   @ViewChild('reportResults') reportResults: ElementRef;
 
   forests: any;
-  forest: any;
+  selectedForest: any;
   form: any;
   permitNumberSearchForm: any;
   result: any;
@@ -51,8 +51,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
     private titleService: Title,
     @Inject(DOCUMENT) private doc: Document
   ) {
-    this.form = formBuilder.group({
-      forestId: ['', [Validators.required]]
+    this.form = this.formBuilder.group({
+      forestSelection: ['', [Validators.required]]
     });
 
     this.permitNumberSearchForm = formBuilder.group({
@@ -62,10 +62,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
       ]
     });
 
-    this.form.get('forestId').valueChanges.subscribe(forestId => {
-      if (forestId) {
-        this.forest = this.getForestById(forestId);
-        this.setStartEndDate(this.forest, this.form);
+    this.form.get('forestSelection').valueChanges.subscribe(forestSelection => {
+      if (forestSelection) {
+        this.selectedForest = forestSelection;
+        this.setStartEndDate(this.selectedForest, this.form);
       }
     });
   }
@@ -75,7 +75,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   resetForms() {
     this.result = null;
-    this.forest = this.forests[0];
+    this.selectedForest = this.forests[0].id;
     this.isDateSearch = !this.isDateSearch;
     this.apiErrors = null;
   }
@@ -87,12 +87,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
     this.titleService.setTitle(
       'Christmas trees permits admin reports | U.S. Forest Service Open Forest'
     );
-
     this.route.data.subscribe(data => {
       this.forests = data.forests;
-      this.forest = this.forests[0];
-      if (this.forest) {
-        this.form.get('forestId').setValue(this.forest.id);
+      if (this.forests.length > 0) {
+        this.form.get('forestSelection').setValue(this.forests[0].id);
       }
     });
   }
@@ -102,15 +100,28 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   ngAfterViewInit() {
     setTimeout(() => {
-      this.setStartEndDate(this.forest, this.form);
+      this.setStartEndDate(this.selectedForest, this.form);
     }, 0);
   }
 
   /**
    * setStartEndDate
    */
-  setStartEndDate(forest, form) {
-    this.treesAdminService.setStartEndDate(forest, form);
+  setStartEndDate(forestId, form) {
+    let startDate = moment();
+    let endDate = moment();
+    if (forestId === 'ALL') {
+      startDate = moment.min(this.forests.map(forest => moment(forest.startDate)));
+      endDate = moment.max(this.forests.map(forest => moment(forest.endDate)));
+    } else {
+      const forest = this.getForestById(forestId);
+      if (forest) {
+        startDate = forest.startDate;
+        endDate = forest.endDate;
+      }
+    }
+
+    this.treesAdminService.setStartEndDate({ startDate, endDate }, form);
   }
 
   /**
@@ -148,7 +159,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName: this.forest.forestName,
+      forestName: this.selectedForest === 'ALL' ? 'All' : this.getForestById(this.selectedForest).forestName,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
       endDate: this.getForestDate('dateTimeRange.endDateTime')
     };
@@ -158,34 +169,29 @@ export class ReportComponent implements OnInit, AfterViewInit {
    * get permit by date and set to this.result
    */
   private getPermitsByDate() {
-    if (this.form.valid && !this.dateStatus.hasErrors && this.forest) {
+    if (this.form.valid && !this.dateStatus.hasErrors && this.selectedForest) {
       this.setReportParameters();
-      this.service
-        .getAllByDateRange(
-          this.forest.id,
-          moment(this.form.get('dateTimeRange.startDateTime').value).format(
-            'YYYY-MM-DD'
-          ),
-          moment(this.form.get('dateTimeRange.endDateTime').value).format(
-            'YYYY-MM-DD'
-          )
-        )
-        .subscribe(
-          results => {
-            this.result = {
-              numberOfPermits: results.numberOfPermits,
-              sumOfTrees: results.sumOfTrees,
-              sumOfCost: results.sumOfCost,
-              permits: results.permits,
-              parameters: this.reportParameters
-            };
-            this.focusAndScroll('report-results');
-          },
-          err => {
-            this.apiErrors = err;
-            this.doc.getElementById('report-alerts-container').focus();
-          }
-        );
+      this.service.getAllByDateRange(
+        this.selectedForest,
+        moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
+        moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
+      )
+      .subscribe(
+        results => {
+          this.result = {
+            numberOfPermits: results.numberOfPermits,
+            sumOfTrees: results.sumOfTrees,
+            sumOfCost: results.sumOfCost,
+            permits: results.permits,
+            parameters: this.reportParameters
+          };
+          this.focusAndScroll('report-results');
+        },
+        err => {
+          this.apiErrors = err;
+          this.doc.getElementById('report-alerts-container').focus();
+        }
+      );
     } else {
       this.afs.scrollToFirstError();
     }

@@ -15,8 +15,6 @@ module.exports = factory.factory({
   quantity: 1,
   totalCost: '5.00',
   status: 'Completed',
-  createdAt: new Date('2018-01-19T17:15:51.435Z'),
-  updatedAt: new Date('2018-01-19T17:15:59.077Z'),
   paygovToken: 'de29d79e-aeb0-49ec-9276-b8b5c6d820e2',
   paygovTrackingId: 'C81BBB6BED',
   permitExpireDate: new Date('2019-12-24T12:00:00.000Z'),

@@ -98,7 +98,8 @@
   {
     "credentials": {
       "ssl": false,
-      "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest_test"
+      "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest_test",
+      "quiet": true
     },
     "label": "user-provided",
     "name": "database"
