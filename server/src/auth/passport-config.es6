@@ -79,7 +79,7 @@ passportConfig.logout = (req, res) => {
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   }
-  prev = req.headers.referrer || req.headers.referer;
+  prev = req.headers.referer;
   if (prev.indexOf('christmas-trees') > -1) {
     logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
     req.logout();
