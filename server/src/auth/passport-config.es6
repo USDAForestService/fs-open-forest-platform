@@ -20,7 +20,7 @@ const passportConfig = {};
  * @function setup - Setup passport to integrate with login.gov and eAuth/
  * @param {Object} application
  */
-passportConfig.setup = app => {
+passportConfig.setup = (app) => {
   loginGov.setup();
   app.use(passport.initialize());
   app.use(passport.session());

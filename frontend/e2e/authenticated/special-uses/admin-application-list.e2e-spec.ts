@@ -31,7 +31,7 @@ describe('Apply for a ', () => {
     expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
     expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
     expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
-    expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
+    expect<any>(element(by.id('view-applications')).isPresent()).toBeTruthy();
     expect<any>(element(by.id('login-to-suds')).isPresent()).toBeFalsy();
   });
 
