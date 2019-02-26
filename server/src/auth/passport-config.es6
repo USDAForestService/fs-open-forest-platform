@@ -1,5 +1,3 @@
-
-
 /**
  * Module for passport configuration
  * @module auth/passport-config
@@ -14,6 +12,7 @@ const localAuth = require('./local.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
+let prev = '';
 
 const passportConfig = {};
 
@@ -21,7 +20,7 @@ const passportConfig = {};
  * @function setup - Setup passport to integrate with login.gov and eAuth/
  * @param {Object} application
  */
-passportConfig.setup = (app) => {
+passportConfig.setup = app => {
   loginGov.setup();
   app.use(passport.initialize());
   app.use(passport.session());
@@ -79,6 +78,12 @@ passportConfig.logout = (req, res) => {
         `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
+  }
+  prev = req.headers.referrer || req.headers.referer;
+  if (prev.indexOf('christmas-trees') > -1) {
+    logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
+    req.logout();
+    return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/`);
   }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();

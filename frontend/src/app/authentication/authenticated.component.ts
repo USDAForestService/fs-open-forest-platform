@@ -15,6 +15,7 @@ export class AuthenticatedComponent implements OnInit {
   user;
   showAdminNav = false;
   showSUDS = false;
+  specialUse = false;
 
   constructor(
     public authentication: AuthenticationService,
@@ -91,6 +92,7 @@ export class AuthenticatedComponent implements OnInit {
         this.setShowSUDS(this.user);
         this.displayLogin = data.displayLogin;
         this.showAdminNav = data.showAdmin;
+        this.specialUse = data.specialUse;
       });
   }
 }

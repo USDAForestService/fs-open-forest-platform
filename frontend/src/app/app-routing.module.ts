@@ -46,7 +46,8 @@ const appRoutes: Routes = [
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
       text: 'Apply for a permit with Open Forest',
-      displayLogin: true
+      displayLogin: true,
+      specialUse: true
     },
     resolve: {
       user: UserResolver
@@ -75,7 +76,8 @@ const appRoutes: Routes = [
     data: {
       breadcrumbs: true,
       text: 'Permit applications',
-      admin: true
+      admin: true,
+      specialUse: true
     },
     canActivate: [AccessControlService],
     resolve: {
@@ -144,7 +146,8 @@ const appRoutes: Routes = [
     path: 'user/applications',
     component: PermitApplicationListComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Submitted Open Forest applications' },
+    data: { title: 'Submitted Open Forest applications',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -153,7 +156,8 @@ const appRoutes: Routes = [
     path: 'user/applications/:type/:id',
     component: PermitApplicationViewComponent,
     canActivate: [AccessControlService],
-    data: { title: 'View submitted Open Forest application' },
+    data: { title: 'View submitted Open Forest application',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -162,7 +166,8 @@ const appRoutes: Routes = [
     path: 'mbs/applications/noncommercial-group-use/new',
     component: ApplicationNoncommercialGroupComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Apply for a noncommercial group use permit with Open Forest' },
+    data: { title: 'Apply for a noncommercial group use permit with Open Forest',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -179,7 +184,8 @@ const appRoutes: Routes = [
   {
     path: 'mbs/applications/noncommercial-group-use/learn-more',
     component: NoncommercialLearnMoreComponent,
-    data: { title: 'Learn more about a noncommercial group use permit' },
+    data: { title: 'Learn more about a noncommercial group use permit',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -187,7 +193,8 @@ const appRoutes: Routes = [
   {
     path: 'mbs/applications/:type/submitted/:id',
     component: ApplicationSubmittedComponent,
-    data: { title: 'Application submitted for review with Open Forest' },
+    data: { title: 'Application submitted for review with Open Forest',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -196,7 +203,8 @@ const appRoutes: Routes = [
     path: 'mbs/applications/temp-outfitters/new',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Apply for a temporary outfitters permit with Open Forest' },
+    data: { title: 'Apply for a temporary outfitters permit with Open Forest',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -205,7 +213,8 @@ const appRoutes: Routes = [
     path: 'mbs/applications/temp-outfitters/:id/edit',
     component: TemporaryOutfittersComponent,
     canActivate: [AccessControlService],
-    data: { title: 'Edit your temporary outfitters permit  with Open Forest' },
+    data: { title: 'Edit your temporary outfitters permit  with Open Forest',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }
@@ -213,7 +222,8 @@ const appRoutes: Routes = [
   {
     path: 'mbs/applications/temp-outfitters/learn-more',
     component: TemporaryOutfittersLearnMoreComponent,
-    data: { title: 'Learn more about a temporary outfitters permit' },
+    data: { title: 'Learn more about a temporary outfitters permit',
+    specialUse: true },
     resolve: {
       user: UserResolver
     }

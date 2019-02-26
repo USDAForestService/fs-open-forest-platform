@@ -10,7 +10,8 @@
     <span *ngIf="user.role === 'admin'">admin {{ user.adminUsername | AdminUserFormatterPipe }}</span>
     <span *ngIf="user.role ==='user'">{{ user.email }}</span>
     <nav class="user-link" id="authentication-nav" aria-label="Authentication">
-      <a id="view-applications" href="#" *ngIf="user.role !== 'admin'" routerLink="/user/applications"> View applications. | </a>
+      <a id="view-applications" href="#" *ngIf="specialUse && user.role === 'admin'" routerLink="/admin/applications"> View applications. | </a>
+      <a id="view-applications" href="#" *ngIf="specialUse && user.role !== 'admin'" routerLink="/user/applications"> View applications. | </a>
       <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="showSUDS"> Log in to SUDS. | </a>
       <a id="log-out" class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
     </nav>
