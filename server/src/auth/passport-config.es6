@@ -12,8 +12,6 @@ const localAuth = require('./local.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 
-let prev = '';
-
 const passportConfig = {};
 
 /**
@@ -79,15 +77,12 @@ passportConfig.logout = (req, res) => {
       )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
     );
   }
-  prev = req.headers.referer;
-  if (prev.indexOf('christmas-trees') > -1) {
-    logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
-    req.logout();
-    return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/`);
-  }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
+  const prev = req.headers.referer;
+  return prev.indexOf('christmas-trees') > -1
+    ? res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/`)
+    : res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
 };
 
 module.exports = passportConfig;

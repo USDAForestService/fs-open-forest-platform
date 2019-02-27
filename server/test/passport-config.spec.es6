@@ -2,7 +2,6 @@
 
 const expect = require('chai').expect;
 const sinon = require('sinon');
-
 const passportConfig = require('../src/auth/passport-config.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 

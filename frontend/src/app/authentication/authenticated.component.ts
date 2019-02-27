@@ -16,6 +16,7 @@ export class AuthenticatedComponent implements OnInit {
   showAdminNav = false;
   showSUDS = false;
   specialUse = false;
+  useRoute;
 
   constructor(
     public authentication: AuthenticationService,
@@ -64,6 +65,19 @@ export class AuthenticatedComponent implements OnInit {
    */
   setShowSUDS(user) {
     this.showSUDS = user && user.role === 'admin' && (!user.forests || user.forests.length === 0);
+  }
+
+  /**
+   * determine user role, and display applications if correct role
+   * set route for viewing applications
+   */
+  adminOrUser() {
+    if (this.user.role === 'admin' && this.specialUse){
+       return this.useRoute = '/admin/applications'
+    } else if (this.user.role === 'user' && this.specialUse){
+       return this.useRoute = '/user/applications'
+    } 
+    return false;
   }
   /**
    * Add user to route for display login on every NavigationEnd
