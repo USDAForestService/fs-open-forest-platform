@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
+import { setupRouter } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-authenticated',
@@ -72,13 +73,20 @@ export class AuthenticatedComponent implements OnInit {
    * set route for viewing applications
    */
   adminOrUser() {
-    if (this.user.role === 'admin' && this.specialUse){
-       return this.useRoute = '/admin/applications'
-    } else if (this.user.role === 'user' && this.specialUse){
-       return this.useRoute = '/user/applications'
+    if ( this.user && this.user.role === 'admin' && this.specialUse){
+      this.setRoute(this.user);
+      return true  
+    } else if (this.user && (this.user.role === 'user' && this.specialUse)){
+      this.setRoute(this.user);
+      return true
     } 
     return false;
   }
+
+  setRoute(user) {
+    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications'
+  }
+  
   /**
    * Add user to route for display login on every NavigationEnd
    */
