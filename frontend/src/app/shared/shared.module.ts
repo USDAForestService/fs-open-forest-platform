@@ -12,7 +12,7 @@ import { AdminUserFormatterPipe } from './../_pipes/admin-user-formatter.pipe';
 import { UrlPipe } from './../_pipes/url.pipe';
 import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { CamelToHyphensPipe } from './../_pipes/camel-to-hyphens.pipe';
-import { MarkdownModule } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
 import { InViewportModule } from 'ng-in-viewport';
 import { ApiErrorComponent } from '../api-error/api-error.component';
@@ -23,7 +23,7 @@ import { ChristmasTreeProgressBarComponent } from '../trees/forests/christmas-tr
 import { DatexPipe } from '../_pipes/datex.pipe';
 
 @NgModule({
-  imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule.forRoot(), MarkdownModule.forRoot()],
+  imports: [CommonModule, AppRoutingModule, SpinnerModule, InViewportModule, NgxMdModule.forRoot()],
   declarations: [
     AdminUserFormatterPipe,
     ApiErrorComponent,
@@ -65,7 +65,7 @@ import { DatexPipe } from '../_pipes/datex.pipe';
     TrackScrollDirective,
     UrlPipe,
     ProgressComponent,
-    MarkdownModule
+    NgxMdModule
   ],
   providers: [SidebarConfigService]
 })

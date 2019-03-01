@@ -177,7 +177,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
         moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
       )
       .subscribe(
-        results => {
+        (results : any) => {
           this.result = {
             numberOfPermits: results.numberOfPermits,
             sumOfTrees: results.sumOfTrees,
@@ -218,7 +218,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.permitNumberSearchForm.get('permitNumber').value
         )
         .subscribe(
-          results => {
+          (results : any) => {
             this.result = {
               numberOfPermits: 1,
               sumOfTrees: results.permits[0].quantity,

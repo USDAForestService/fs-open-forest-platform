@@ -11,7 +11,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { WindowRef } from '../../_services/native-window.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
-    public markdownService: MarkdownService,
+    public markdownService: NgxMdModule,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private christmasTreesInfoService: ChristmasTreesInfoService,
@@ -237,7 +237,7 @@ export class TreeApplicationFormComponent implements OnInit {
       return aggregator;
     }, {});
     this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
-      response => {
+      (response : any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {

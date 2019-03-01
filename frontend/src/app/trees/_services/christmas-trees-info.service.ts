@@ -1,10 +1,11 @@
 /* tslint:disable:no-shadowed-variable prefer-const */
 
+
+import {mergeMap, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable ,  forkJoin } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import * as moment from 'moment/moment';
 
 @Injectable()
@@ -25,12 +26,12 @@ export class ChristmasTreesInfoService {
    * @returns forest by id
    */
   getOne(id) {
-    return this.http.get<any>(this.endpoint + id).flatMap(forest =>
-      this.getJSON(forest.forestAbbr).map(forestJSON => {
+    return this.http.get<any>(this.endpoint + id).pipe(mergeMap(forest =>
+      this.getJSON(forest.forestAbbr).pipe(map(forestJSON => {
         forest.species = forestJSON.treeSpecies;
         return forest;
-      })
-    );
+      }))
+    ));
   }
 
   /**
@@ -38,15 +39,15 @@ export class ChristmasTreesInfoService {
    */
   getForestWithContent(id) {
     let content;
-    return this.http.get<any>(this.endpoint + id).flatMap(forest =>
-      this.joinMdRequests(forest).flatMap(content =>
-        this.getJSON(forest.forestAbbr).map(forestJSON => {
+    return this.http.get<any>(this.endpoint + id).pipe(mergeMap(forest =>
+      this.joinMdRequests(forest).pipe(mergeMap(content =>
+        this.getJSON(forest.forestAbbr).pipe(map(forestJSON => {
           forest.species = forestJSON.treeSpecies;
           forest.content = this.nameMdArray(content, forest);
           return forest;
-        })
-      )
-    );
+        }))
+      ))
+    ));
   }
 
   /**

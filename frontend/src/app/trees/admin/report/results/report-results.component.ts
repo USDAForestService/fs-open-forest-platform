@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Angular2CsvModule } from 'angular2-csv';
 
 @Component({
   selector: 'app-report-results',
@@ -50,6 +50,6 @@ export class ReportResultsComponent implements OnChanges {
       });
     }
 
-    const ng2csv = new Angular2Csv(orderedPermits, 'Christmas Trees Permits Report', options);
+    // const ng2csv = new Angular2CsvModule(orderedPermits, 'Christmas Trees Permits Report', options);
   }
 }

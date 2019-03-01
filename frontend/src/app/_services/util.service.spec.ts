@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UtilService } from './util.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 import * as sinon from 'sinon';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -41,7 +41,7 @@ describe('UtilService', () => {
 
   it('should throw an observable if response has status 400', () => {
     const response = new HttpErrorResponse({ status: 400, error: { errors: ['error'] } });
-    expect(service.handleError(response)).toEqual(Observable.throw(['error']));
+    expect(service.handleError(response)).toEqual(throwError(['error']));
   });
 
   it('should throw an observable if response has status 401', () => {

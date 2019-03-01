@@ -116,7 +116,7 @@ export class AdminSeasonDatesComponent implements OnInit, AfterViewInit {
       this.service
       .updateSeasonDates(this.forest.id, newStart.format('YYYY-MM-DD'), newEnd.format('YYYY-MM-DD'))
       .subscribe(
-        (updatedForest) => {
+        (updatedForest : any) => {
           this.updateStatus = `Season dates for ${this.forest.forestName} are now ${newStart.format(
             'MMM DD, YYYY'
           )} to  ${newEnd.format('MMM DD, YYYY')}.`;

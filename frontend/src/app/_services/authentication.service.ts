@@ -1,9 +1,12 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
+
 import { environment } from '../../environments/environment';
 import { UtilService } from './util.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,7 +23,7 @@ export class AuthenticationService {
     const user = this.getUser();
 
     if (doLogin) {
-      return this.isAuthenticated().map(
+      return this.isAuthenticated().pipe(map(
         (result: any) => {
           if (result) {
             this.setUser(result);
@@ -33,11 +36,11 @@ export class AuthenticationService {
           this.removeUser();
           console.error(e);
         }
-      );
+      ));
     } else if (user) {
-        return Observable.of(user);
+        return observableOf(user);
     } else {
-      return Observable.of(null); // no user but don't login
+      return observableOf(null); // no user but don't login
     }
   }
 
@@ -52,7 +55,7 @@ export class AuthenticationService {
    * Check if user is authenticated
    */
   isAuthenticated() {
-    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).catch(this.util.handleError);
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -85,12 +88,12 @@ export class AuthenticationService {
    */
   removeUser() {
     this.user = null;
-    return this.isAuthenticated().map(user => {
+    return this.isAuthenticated().pipe(map(user => {
       if (user) {
         localStorage.removeItem('user');
       }
       return user;
-    });
+    }));
 
 
   }

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class TreeGuidelinesComponent implements OnInit {
     private titleService: Title,
     private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
-    public markdownService: MarkdownService,
+    public markdownService: NgxMdModule,
     private meta: Meta
   ) {
     this.meta.addTag({
