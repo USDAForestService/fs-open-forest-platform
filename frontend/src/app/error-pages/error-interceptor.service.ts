@@ -37,7 +37,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.util.setProgress(false);
         this.handleRoute(err.status);
         return observableThrowError(err);
-      }),);
+      })
+    );
   }
   /*
   * handle route for the error codes 404, 403, and 500

@@ -111,7 +111,9 @@ export class ReportComponent implements OnInit, AfterViewInit {
     let startDate = moment();
     let endDate = moment();
     if (forestId === 'ALL') {
-      startDate = moment.min(this.forests.map(forest => moment(forest.startDate)));
+      startDate = moment.min(
+        this.forests.map(forest => moment(forest.startDate))
+      );
       endDate = moment.max(this.forests.map(forest => moment(forest.endDate)));
     } else {
       const forest = this.getForestById(forestId);
@@ -159,7 +161,10 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName: this.selectedForest === 'ALL' ? 'All' : this.getForestById(this.selectedForest).forestName,
+      forestName:
+        this.selectedForest === 'ALL'
+          ? 'All'
+          : this.getForestById(this.selectedForest).forestName,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
       endDate: this.getForestDate('dateTimeRange.endDateTime')
     };
@@ -171,27 +176,32 @@ export class ReportComponent implements OnInit, AfterViewInit {
   private getPermitsByDate() {
     if (this.form.valid && !this.dateStatus.hasErrors && this.selectedForest) {
       this.setReportParameters();
-      this.service.getAllByDateRange(
-        this.selectedForest,
-        moment(this.form.get('dateTimeRange.startDateTime').value).format('YYYY-MM-DD'),
-        moment(this.form.get('dateTimeRange.endDateTime').value).format('YYYY-MM-DD')
-      )
-      .subscribe(
-        (results : any) => {
-          this.result = {
-            numberOfPermits: results.numberOfPermits,
-            sumOfTrees: results.sumOfTrees,
-            sumOfCost: results.sumOfCost,
-            permits: results.permits,
-            parameters: this.reportParameters
-          };
-          this.focusAndScroll('report-results');
-        },
-        err => {
-          this.apiErrors = err;
-          this.doc.getElementById('report-alerts-container').focus();
-        }
-      );
+      this.service
+        .getAllByDateRange(
+          this.selectedForest,
+          moment(this.form.get('dateTimeRange.startDateTime').value).format(
+            'YYYY-MM-DD'
+          ),
+          moment(this.form.get('dateTimeRange.endDateTime').value).format(
+            'YYYY-MM-DD'
+          )
+        )
+        .subscribe(
+          (results: any) => {
+            this.result = {
+              numberOfPermits: results.numberOfPermits,
+              sumOfTrees: results.sumOfTrees,
+              sumOfCost: results.sumOfCost,
+              permits: results.permits,
+              parameters: this.reportParameters
+            };
+            this.focusAndScroll('report-results');
+          },
+          err => {
+            this.apiErrors = err;
+            this.doc.getElementById('report-alerts-container').focus();
+          }
+        );
     } else {
       this.afs.scrollToFirstError();
     }
@@ -218,7 +228,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
           this.permitNumberSearchForm.get('permitNumber').value
         )
         .subscribe(
-          (results : any) => {
+          (results: any) => {
             this.result = {
               numberOfPermits: 1,
               sumOfTrees: results.permits[0].quantity,

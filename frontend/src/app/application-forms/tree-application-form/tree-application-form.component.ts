@@ -237,7 +237,7 @@ export class TreeApplicationFormComponent implements OnInit {
       return aggregator;
     }, {});
     this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
-      (response : any) => {
+      (response: any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {

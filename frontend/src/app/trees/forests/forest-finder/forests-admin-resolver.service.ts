@@ -46,6 +46,7 @@ export class ForestsAdminResolver implements Resolve<any> {
     first(),
       catchError(err => {
       return observableOf(null);
-    }),);
+    })
+    );
   }
 }
