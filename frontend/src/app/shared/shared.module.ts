@@ -14,7 +14,7 @@ import { SpacesToDashesPipe } from './../_pipes/spaces-to-dashes.pipe';
 import { CamelToHyphensPipe } from './../_pipes/camel-to-hyphens.pipe';
 import { NgxMdModule } from 'ngx-md';
 import { TrackScrollDirective } from './../_directives/scroll.directive';
-import { InViewportModule } from 'ng-in-viewport';
+import { InViewportModule, InViewportConfig } from 'ng-in-viewport';
 import { ApiErrorComponent } from '../api-error/api-error.component';
 import { SidebarConfigService } from '../sidebar/sidebar-config.service';
 import { SpinnerModule } from 'angular2-spinner/dist';
