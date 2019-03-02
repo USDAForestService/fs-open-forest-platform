@@ -38,7 +38,7 @@
     "@angular/router": "^7.2.7",
     "@types/google.analytics": "0.0.39",
     "@types/jasminewd2": "^2.0.6",
-    "angular2-csv": "0.2.9",
+    "angular2-csv": "0.2.5",
     "angular2-spinner": "^1.0.10",
     "classlist.js": "^1.1.20150312",
     "core-js": "2.6.1",
