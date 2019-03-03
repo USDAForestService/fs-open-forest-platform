@@ -16,13 +16,9 @@ export class SectionHeadingComponent {
   /**
    * If element is in view add or remove in-view class
    */
-  elementInView(event) {
-    if (event && event.value) {
-      this.renderer.addClass(event.target, 'in-view');
-    } else {
-      this.renderer.removeClass(event.target, 'in-view');
-    }
-    this.setCurrentSection();
+   elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
+    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
   }
 
   /**
