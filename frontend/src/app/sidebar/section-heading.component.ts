@@ -1,6 +1,7 @@
 import { Component, Input, Renderer2 } from '@angular/core';
 import { UtilService } from '../_services/util.service';
 
+
 @Component({
   selector: 'app-section-heading',
   templateUrl: './section-heading.component.html'
@@ -16,9 +17,10 @@ export class SectionHeadingComponent {
   /**
    * If element is in view add or remove in-view class
    */
-   elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+  elementInView({ target, visible }: { target: Element; visible: boolean }): void {
     this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
     this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
+    this.setCurrentSection();
   }
 
   /**

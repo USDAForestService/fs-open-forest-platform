@@ -4,6 +4,7 @@ import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MockRouter } from '../../_mocks/routes.mock';
 
@@ -41,10 +42,12 @@ describe('Christmas Trees Application Service', () => {
   it(
     'resolve resolver error',
     inject([ChristmasTreesApplicationService], service => {
-      expect(service.resolverError([{ status: 400 }])).toEqual(Observable.of({ error: { status: 400 } }));
-      expect(service.resolverError([])).toEqual(Observable.of([]));
-      service.resolverError([{ status: 404 }], '/test');
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/test']);
+      service.resolverError([{ status: 400 }])
+      .pipe(catchError(result => expect(result).toEqual({ error: { status: 400 } })))
+      .subscribe();
+      service.resolverError([])
+      .pipe(catchError(result => expect(result).toEqual([])))
+      .subscribe();
     })
   );
 

@@ -170,11 +170,11 @@ describe('TreeApplicationFormComponent', () => {
     });
   });
 
-  it('should render markdown', () => {
-    expect(
-      component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}')
-    ).toEqual('Test 12 and 6 and 6');
-  });
+  // it('should render markdown', () => {
+  //   expect(
+  //     component.markdownService.renderer.text('Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}}')
+  //   ).toEqual('Test 12 and 6 and 6');
+  // });
 
   it('should submit application rules form', () => {
     component.applicationForm.get('forestId').setValue('arp');

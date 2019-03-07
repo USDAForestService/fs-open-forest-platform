@@ -1,9 +1,5 @@
-
-import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-
-
-
+import { Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -130,32 +126,32 @@ export class UtilService {
         switch (error.status) {
           case 400:
             errors = error.error.errors || '';
-            return Observable;
+            break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
             return Observable;
           case 403:
             errors = [{ status: error.status, message: 'Access denied.' }];
-            return Observable;
+            break;
           case 404:
             errors = [{ status: error.status, message: 'The requested application is not found.' }];
-            return Observable;
+            break;
           case 500:
             errors = [
               { status: error.status, message: 'Sorry, we were unable to process your request. Please try again.' }
             ];
-            return Observable;
+            break;
           default:
             errors = [{ status: error.status }];
         }
-        return observableThrowError(errors);
+        return throwError(errors);
       }
     }
     try {
       errors = error.error.errors;
-      return observableThrowError(errors);
+      return throwError(errors);
     } catch (err) {
-      return observableThrowError([
+      return throwError([
         { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
       ]);
     }

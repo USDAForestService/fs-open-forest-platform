@@ -1,5 +1,5 @@
 import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
@@ -26,7 +26,8 @@ export class TreeGuidelinesComponent implements OnInit {
     private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
     public markdownService: NgxMdModule,
-    private meta: Meta
+    private meta: Meta,
+    public renderer: Renderer2
   ) {
     this.meta.addTag({
       name: 'description', content: `Learn more about how to purchase\
