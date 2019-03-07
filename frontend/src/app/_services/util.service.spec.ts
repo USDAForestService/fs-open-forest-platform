@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { UtilService } from './util.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as sinon from 'sinon';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -40,7 +40,7 @@ describe('UtilService', () => {
     expect(service.handleError(response)).toEqual(jasmine.any(Observable));
   });
 
-  it('should throw an observable if response has status 400 and super new test!', () => {
+  it('should throw an observable if response has status 400', () => {
     const response = new HttpErrorResponse({ status: 400, error: { errors: ['error'] } });
     service.handleError(response);
     catchError(result => expect(result).toEqual({ status: 400, error: { errors: ['error'] } }));
@@ -76,14 +76,6 @@ describe('UtilService', () => {
       message: 'Redirecting to login page, please wait.'
     });
   });
-
-  // it('should emit an error on subscription', (done) => {
-  //   source$.subscribe({
-  //     error(err) {
-  //       expect(err.message).toEqual('some message');
-  //     }
-  //   });
-  // });
 
   it('should add request to requests', () => {
     service.addRequest();
