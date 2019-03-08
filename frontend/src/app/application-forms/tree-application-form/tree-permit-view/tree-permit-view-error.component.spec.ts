@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { WindowRef } from '../../../_services/native-window.service';
 import { ChristmasTreesApplicationService } from '../../../trees/_services/christmas-trees-application.service';
-import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx-breadcrumbs';
+import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx6-angular-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 

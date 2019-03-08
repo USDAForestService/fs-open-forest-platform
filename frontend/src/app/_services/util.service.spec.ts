@@ -42,7 +42,7 @@ describe('UtilService', () => {
 
   it('should throw an observable if response has status 400', () => {
     const response = new HttpErrorResponse({ status: 400, error: { errors: ['error'] } });
-    service.handleError(response);
+    service.handleError(response)
     catchError(result => expect(result).toEqual({ status: 400, error: { errors: ['error'] } }));
   });
 

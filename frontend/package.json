@@ -48,7 +48,7 @@
     "newrelic": "^4.13.0",
     "ng-in-viewport": "6.0.3",
     "ng2-file-upload": "^1.2.1",
-    "ngx-breadcrumbs": "^0.0.3",
+    "ngx6-angular-breadcrumbs": "^0.0.3",
     "ngx-md": "^7.1.1",
     "rxjs": "6.4.0",
     "tslib": "^1.9.0",

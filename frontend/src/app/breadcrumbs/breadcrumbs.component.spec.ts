@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BreadcrumbsComponent } from './breadcrumbs.component';
-import { McBreadcrumbsConfig, McBreadcrumbsService } from 'ngx-breadcrumbs';
+import { McBreadcrumbsConfig, McBreadcrumbsService } from 'ngx6-angular-breadcrumbs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Component, DebugElement } from '@angular/core';

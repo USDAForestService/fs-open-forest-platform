@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { MockRouter } from '../_mocks/routes.mock';
 import { PermitBreadcrumbsResolver } from './permit-breadcrumbs.resolver';
-import { McBreadcrumbsResolver } from 'ngx-breadcrumbs';
+import { McBreadcrumbsResolver } from 'ngx6-angular-breadcrumbs';
 import * as sinon from 'sinon';
 
 class MockMcBreadcrumbsResolver {

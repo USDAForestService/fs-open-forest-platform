@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IBreadcrumb, McBreadcrumbsService } from 'ngx-breadcrumbs';
+import { IBreadcrumb, McBreadcrumbsService } from 'ngx6-angular-breadcrumbs';
 
 @Component({
   selector: 'app-breadcrumbs',
