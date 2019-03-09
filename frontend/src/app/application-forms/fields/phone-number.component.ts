@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 
+
 @Component({
   selector: 'app-phone-number',
   templateUrl: './phone-number.component.html'
