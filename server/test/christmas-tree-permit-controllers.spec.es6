@@ -49,9 +49,7 @@ describe('christmas tree controller permit tests', () => {
 
     beforeEach(() => {
       permitApplication = christmasTreePermitApplicationFactory.create({
-        forestId: DATA.openForest.id,
-        forestAbbr: DATA.openForest.forestAbbr,
-        orgStructureCode: DATA.openForest.orgStructureCode
+        forestId: DATA.openForest.id
       });
     });
 
@@ -89,13 +87,30 @@ describe('christmas tree controller permit tests', () => {
 
     it('should return a 400 response with a closed forest', (done) => {
       const closedApplication = christmasTreePermitApplicationFactory.create({
-        forestId: DATA.closedForest.id,
-        forestAbbr: DATA.closedForest.forestAbbr,
-        orgStructureCode: DATA.closedForest.orgStructureCode
+        forestId: DATA.closedForest.id
       });
 
       postPermit(closedApplication)
         .expect(400, done);
+    });
+
+    it.only('should ignore treeCost, totalCost', (done) => {
+      permitApplication.treeCost = 1000;
+      permitApplication.totalCost = 1000;
+
+      postPermit(permitApplication)
+        .expect(200)
+        .then(({ body: { permitId } }) => {
+          const token = jwt.sign({ data: permitId }, vcapConstants.PERMIT_SECRET);
+          request(server)
+            .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
+            .set('Accept', /json/)
+            .expect(200)
+            .expect(({ body }) => {
+              expect(Number(body.totalCost)).to.equal(parseFloat(DATA.openForest.treeCost) * permitApplication.quantity);
+            })
+            .end(done);
+        });
     });
   });
 
