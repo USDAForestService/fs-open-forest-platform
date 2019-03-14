@@ -1,11 +1,13 @@
 import { SpecialUseHomepage } from '../authenticated/special-uses/app.po';
 import { browser, by, element, Key } from 'protractor';
 
+
 describe('frontend App', () => {
   let page: SpecialUseHomepage;
 
   beforeEach(() => {
     page = new SpecialUseHomepage();
+    browser.executeScript('localStorage.removeItem("user");');
   });
 
   it('should display login and create account links', () => {

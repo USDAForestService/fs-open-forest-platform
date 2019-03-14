@@ -49,7 +49,7 @@
     "ng-in-viewport": "6.0.3",
     "ng2-file-upload": "^1.2.1",
     "ngx6-angular-breadcrumbs": "^0.0.3",
-    "ngx-md": "7.0.0",
+    "ngx-md": "^7.1.0",
     "rxjs": "6.4.0",
     "tslib": "^1.9.0",
     "uswds": "^1.6.9",

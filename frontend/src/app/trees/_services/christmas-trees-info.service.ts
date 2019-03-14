@@ -197,11 +197,11 @@ export class ChristmasTreesInfoService {
    * @returns Replace variables in markdown files with forest specific text.
    */
   updateMarkdownText(markdownService, forest) {
-    markdownService.renderer = {};
     markdownService.renderer.text = (text: string) => {
       const replaceArray = Object.keys(forest);
       if (forest && text.indexOf('{{') > -1) {
         text = this.replaceText(forest, text, replaceArray);
+        return text;
       }
       text = this.updateMapDescriptionLinks(text);
       return text;

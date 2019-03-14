@@ -79,7 +79,7 @@ describe('Xmas tree - Update District Dates', () => {
           'Start date and time must be before end date and time.'
         );
         page.startYearInput().clear();
-        page.startYearInput().sendKeys('2014');
+        page.startYearInput().sendKeys('2004');
         expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
 
       });
