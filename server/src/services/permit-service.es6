@@ -98,12 +98,13 @@ permitService.generateRulesAndEmail = permit => permitSvgService.generatePermitS
       permit.permitId,
       false
     );
-    const updatedPermit = { ...permit, permitUrl };
+    // eslint-disable-next-line no-param-reassign
+    permit.permitUrl = permitUrl;
     const rulesText = htmlToText.fromString(rulesHtml, {
       wordwrap: 130,
       ignoreImage: true
     });
-    return permitService.sendEmail(updatedPermit, permitPng, rulesHtml, rulesText);
+    return permitService.sendEmail(permit, permitPng, rulesHtml, rulesText);
   });
 
 /**
