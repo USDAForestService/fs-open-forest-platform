@@ -94,7 +94,7 @@ describe('christmas tree controller permit tests', () => {
         .expect(400, done);
     });
 
-    it.only('should ignore treeCost, totalCost', (done) => {
+    it('should ignore treeCost, totalCost', (done) => {
       permitApplication.treeCost = 1000;
       permitApplication.totalCost = 1000;
 
