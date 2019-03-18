@@ -48,6 +48,7 @@ describe('Xmas tree - Admin Reports', () => {
         expect<any>(page.startMonthError().getText()).toEqual('Start month requires a 1 or 2 digit number that is less than 13.');
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('10');
+        page.startMonthInput().sendKeys(protractor.Key.TAB);
         expect<any>(page.startMonthError().isPresent()).toBeFalsy();
 
         page.startDayInput().clear();
