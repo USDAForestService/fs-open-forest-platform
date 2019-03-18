@@ -120,7 +120,7 @@ export class ChristmasTreesApplicationService {
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
     const startDateTime = new Date(startDate);
-    const endDateTime = new Date(endDate)
+    const endDateTime = new Date(endDate);
     const tzStartDate = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
     const tzEndDate = moment(endDateTime).format('YYYY-MM-DD HH:mm:ss');
     cuttingAreas[districtName].startDate = tzStartDate;
