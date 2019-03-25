@@ -1,8 +1,9 @@
+
 <!--errorCode is used for external (pay.gov) error codes-->
 <div id="api-error" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert" aria-label="error">
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length === 1 && !errors[0].errorCode">{{ errors[0].message }}</h3>
-    <h3 class="usa-alert-heading" *ngIf="errors">
+    <h3 class="usa-alert-heading" *ngIf="(errors && errors.length === 1 && errors[0].errorCode) || !errors">
       Sorry, we were unable to process your request. Please try again.</h3>
     <h3 class="usa-alert-heading" *ngIf="errors && errors.length > 1">The application received the following errors.</h3>
     <ul *ngIf="errors && errors.length > 1">

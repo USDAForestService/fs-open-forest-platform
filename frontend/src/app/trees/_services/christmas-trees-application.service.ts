@@ -30,7 +30,7 @@ export class ChristmasTreesApplicationService {
       headers: headers
     };
 
-    return this.http.post(`${this.endpoint}/permits`, body, options);
+    return this.http.post(`${this.endpoint}/permits`, body, options).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -42,7 +42,7 @@ export class ChristmasTreesApplicationService {
       params = { params: new HttpParams().set('t', token) };
     }
     const body = { permitId: id, status: status };
-    return this.http.put(`${this.endpoint}/permits`, body, params);
+    return this.http.put(`${this.endpoint}/permits`, body, params).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -53,7 +53,7 @@ export class ChristmasTreesApplicationService {
     if (token) {
       params = { params: new HttpParams().set('t', token) };
     }
-    return this.http.get(`${this.endpoint}/permits/${id}`, params);
+    return this.http.get(`${this.endpoint}/permits/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -76,7 +76,7 @@ export class ChristmasTreesApplicationService {
     if (rules) {
       queryParam = 'rules=true';
     }
-    return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`);
+    return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -89,7 +89,8 @@ export class ChristmasTreesApplicationService {
       .set('endDate', endDate);
 
     return this.http
-      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params });
+      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -97,7 +98,8 @@ export class ChristmasTreesApplicationService {
    */
   getReportByPermitNumber(permitNumber) {
     return this.http
-      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true });
+      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -106,7 +108,8 @@ export class ChristmasTreesApplicationService {
   updateSeasonDates(forestId, startDate, endDate) {
     const body = { startDate: startDate, endDate: endDate };
     return this.http
-      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true });
+      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -124,8 +127,10 @@ export class ChristmasTreesApplicationService {
     cuttingAreas[districtName].endDate = tzEndDate;
 
     const body = { cuttingAreas: cuttingAreas };
+    console.log(body);
     return this.http
-      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true });
+      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**

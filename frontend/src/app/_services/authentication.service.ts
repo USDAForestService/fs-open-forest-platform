@@ -1,4 +1,3 @@
-
 import {of as observableOf,  Observable } from 'rxjs';
 
 import {catchError, map} from 'rxjs/operators';
@@ -55,7 +54,7 @@ export class AuthenticationService {
    * Check if user is authenticated
    */
   isAuthenticated() {
-    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true });
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).pipe(catchError(this.util.handleError));
   }
 
   /**

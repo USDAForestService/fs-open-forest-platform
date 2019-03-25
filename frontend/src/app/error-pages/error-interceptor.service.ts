@@ -1,4 +1,3 @@
-
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 
 import {catchError, tap} from 'rxjs/operators';
@@ -33,9 +32,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
       }),
       catchError((err: HttpErrorResponse) => {
-        this.handleRoute(err);
         this.util.setRequests(0);
         this.util.setProgress(false);
+        this.handleRoute(err.status);
         return observableThrowError(err);
       })
     );
@@ -43,20 +42,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   /*
   * handle route for the error codes 404, 403, and 500
   */
-  handleRoute(err) {
-    if (err.status === 401) {
-      err.message = 'Please log in.';
-    } else if (err.status === 403) {
+  handleRoute(status) {
+    if (status === 404 || status === 403 ) {
       localStorage.removeItem('showLoggedIn');
       localStorage.removeItem('requestingUrl');
       this.router.navigate(['/' + status]);
-      err.message = 'Access denied.';
-    } else if (err.status === 404) {
-      localStorage.removeItem('showLoggedIn');
-      localStorage.removeItem('requestingUrl');
-      this.router.navigate(['/' + status]);
-      err.message = 'The requested application is not found.';
-    } else if (err.status === 0) {
+    } else if (status === 0) {
       localStorage.setItem('requestingUrl', window.location.pathname);
       localStorage.removeItem('showLoggedIn');
       this.router.navigate(['/500']);
