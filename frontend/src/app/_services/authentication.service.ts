@@ -55,7 +55,7 @@ export class AuthenticationService {
    * Check if user is authenticated
    */
   isAuthenticated() {
-    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true }).pipe(catchError(this.util.handleError));
+    return this.http.get(this.endpoint + 'auth/user', { withCredentials: true });
   }
 
   /**

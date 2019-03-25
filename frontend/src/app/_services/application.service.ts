@@ -26,15 +26,15 @@ export class ApplicationService {
       withCredentials: true
     };
 
-    return this.http.post(this.endpoint + type, body, options).pipe(catchError(this.util.handleError));
+    return this.http.post(this.endpoint + type, body, options);
   }
 
   get(params = '') {
-    return this.http.get(this.endpoint + params, { withCredentials: true }).pipe(catchError(this.util.handleError));
+    return this.http.get(this.endpoint + params, { withCredentials: true });
   }
 
   getOne(id, params = '') {
-    return this.http.get(this.endpoint + params + id, { withCredentials: true }).pipe(catchError(this.util.handleError));
+    return this.http.get(this.endpoint + params + id, { withCredentials: true });
   }
 
   update(body, type) {
@@ -44,8 +44,7 @@ export class ApplicationService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
     return this.http
-      .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options).pipe(
-      catchError(this.util.handleError));
+      .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options);
   }
 
   handleStatusCode(status) {

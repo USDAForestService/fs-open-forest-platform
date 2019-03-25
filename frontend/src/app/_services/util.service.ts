@@ -116,44 +116,5 @@ export class UtilService {
       .substring(0, 20);
   }
 
-  /**
-   * Handle error response for HTTP requets
-   */
-  handleError(error: HttpErrorResponse | any) {
-    let errors: any = [];
-    if (error instanceof HttpErrorResponse) {
-      if (error.status) {
-        switch (error.status) {
-          case 400:
-            errors = error.error.errors || '';
-            break;
-          case 401:
-            errors = [{ status: error.status, message: 'Please log in.' }];
-            return Observable;
-          case 403:
-            errors = [{ status: error.status, message: 'Access denied.' }];
-            break;
-          case 404:
-            errors = [{ status: error.status, message: 'The requested application is not found.' }];
-            break;
-          case 500:
-            errors = [
-              { status: error.status, message: 'Sorry, we were unable to process your request. Please try again.' }
-            ];
-            break;
-          default:
-            errors = [{ status: error.status }];
-        }
-        return throwError(errors);
-      }
-    }
-    try {
-      errors = error.error.errors;
-      return throwError(errors);
-    } catch (err) {
-      return throwError([
-        { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
-      ]);
-    }
-  }
+
 }
