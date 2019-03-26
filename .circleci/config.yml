@@ -1,7 +1,7 @@
 _defaults:
   docker_image_browser: &docker_image_browser
     docker:
-    - image: circleci/node:8.11.3-browsers
+    - image: circleci/node:8.15.1-browsers
       environment:
         DATABASE_URL: "postgres://ubuntu@localhost/circle_test"
         VCAP_APPLICATION: '{"uris":["http://localhost:8080/"]}'
@@ -186,7 +186,7 @@ jobs:
 
   staging-deploy:
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:8.15.1
     steps:
       - checkout
       - restore_cache:
@@ -245,7 +245,7 @@ jobs:
 
   prod-deploy:
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:8.15.1
     steps:
       - checkout
       - restore_cache:
@@ -296,7 +296,7 @@ jobs:
 
   nightly-snyk:
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:8.15.1
     steps:
       - checkout
       - restore_cache:
@@ -312,7 +312,7 @@ jobs:
 
   recycle-production:
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:8.15.1
     steps:
       - run: *install_cf
       - run:
