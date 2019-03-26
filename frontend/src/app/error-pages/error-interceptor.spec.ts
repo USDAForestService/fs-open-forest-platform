@@ -56,13 +56,13 @@ describe('HttpClient testing', () => {
       );
 
     const req = httpTestingController.expectOne(
-      req => req.headers.has('Authorization')
+      s => s.headers.has('Authorization')
     );
     req.flush(httpTest);
   });
 
   it('can test for multiple asyn requests', () => {
-    let httpTest: Data[] = [
+    const httpTest: Data[] = [
       { name: 'bob' }, { name: 'carol' },
       { name: 'ted' }, { name: 'alice' }
     ];
