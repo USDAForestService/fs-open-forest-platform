@@ -96,7 +96,7 @@
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r ."
   },
   "engines": {
-    "node": "^8.11.3"
+    "node": "^8.15.1"
   },
   "nyc": {
     "extension": [
