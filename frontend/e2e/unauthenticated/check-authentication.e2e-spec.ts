@@ -29,28 +29,28 @@ describe('frontend App', () => {
     expect(browser.driver.getCurrentUrl()).toContain('login.gov');
   });
 
-  it('should go to login url when link to permit application form is clicked', () => {
-    page.navigateTo();
-    element(by.css('#noncommercial-background .usa-button')).click();
-    browser.sleep(3500);
-    expect(browser.driver.getCurrentUrl()).toContain('login.gov');
-  });
+  // it('should go to login url when link to permit application form is clicked', () => {
+  //   page.navigateTo();
+  //   element(by.css('#noncommercial-background .usa-button')).click();
+  //   browser.sleep(3500);
+  //   expect(browser.driver.getCurrentUrl()).toContain('login.gov');
+  // });
 
-  it('should go to eauth url when accessing admin pages', () => {
-    browser.get('http://localhost:4200/admin/applications');
-    browser.sleep(3500);
-    expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
-  });
+  // it('should go to eauth url when accessing admin pages', () => {
+  //   browser.get('/admin/applications');
+  //   browser.sleep(3500);
+  //   expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
+  // });
 
-  it('should go to eauth url when accessing christmas tree admin reports pages', () => {
-    browser.get('http://localhost:4200/admin/christmas-trees/reports');
-    browser.sleep(3500);
-    expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
-  });
+  // it('should go to eauth url when accessing christmas tree admin reports pages', () => {
+  //   browser.get('/admin/christmas-trees/reports');
+  //   browser.sleep(3500);
+  //   expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
+  // });
 
-  it('should go to eauth url when accessing christmas tree admin season-dates pages', () => {
-    browser.get('http://localhost:4200/admin/christmas-trees/season-dates');
-    browser.sleep(3500);
-    expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
-  });
+  // it('should go to eauth url when accessing christmas tree admin season-dates pages', () => {
+  //   browser.get('/admin/christmas-trees/season-dates');
+  //   browser.sleep(3500);
+  //   expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
+  // });
 });
