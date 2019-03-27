@@ -9,6 +9,11 @@ describe('frontend App', () => {
     page = new SpecialUseHomepage();
   });
 
+  afterEach(function() {
+    browser.executeScript('window.sessionStorage.clear();');
+    browser.executeScript('window.localStorage.clear();');
+  });
+
   it('should display login and create account links', () => {
     page.navigateTo();
     expect<any>(element(by.id('log-in')).isPresent()).toBeTruthy();
@@ -19,14 +24,12 @@ describe('frontend App', () => {
   });
 
   it('should go to login url when login is clicked', () => {
-    browser.executeScript('localStorage.removeItem("user");');
     element(by.id('log-in')).click();
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('login.gov');
   });
 
   it('should go to login url when link to permit application form is clicked', () => {
-    browser.executeScript('localStorage.removeItem("user");');
     page.navigateTo();
     element(by.css('#noncommercial-background .usa-button')).click();
     browser.sleep(3500);
@@ -34,21 +37,18 @@ describe('frontend App', () => {
   });
 
   it('should go to eauth url when accessing admin pages', () => {
-    browser.executeScript('localStorage.removeItem("user");');
     browser.driver.get('http://localhost:4200/admin/applications');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
 
   it('should go to eauth url when accessing christmas tree admin reports pages', () => {
-    browser.executeScript('localStorage.removeItem("user");');
     browser.driver.get('http://localhost:4200/admin/christmas-trees/reports');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
 
   it('should go to eauth url when accessing christmas tree admin season-dates pages', () => {
-    browser.executeScript('localStorage.removeItem("user");');
     browser.driver.get('http://localhost:4200/admin/christmas-trees/season-dates');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
