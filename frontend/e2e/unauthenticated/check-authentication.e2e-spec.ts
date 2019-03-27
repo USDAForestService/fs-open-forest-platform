@@ -37,19 +37,19 @@ describe('frontend App', () => {
   });
 
   it('should go to eauth url when accessing admin pages', () => {
-    browser.driver.get('http://localhost:4200/admin/applications');
+    browser.get('http://localhost:4200/admin/applications');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
 
   it('should go to eauth url when accessing christmas tree admin reports pages', () => {
-    browser.driver.get('http://localhost:4200/admin/christmas-trees/reports');
+    browser.get('http://localhost:4200/admin/christmas-trees/reports');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
 
   it('should go to eauth url when accessing christmas tree admin season-dates pages', () => {
-    browser.driver.get('http://localhost:4200/admin/christmas-trees/season-dates');
+    browser.get('http://localhost:4200/admin/christmas-trees/season-dates');
     browser.sleep(3500);
     expect(browser.driver.getCurrentUrl()).toContain('usda.gov');
   });
