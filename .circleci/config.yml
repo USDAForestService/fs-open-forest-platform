@@ -306,9 +306,28 @@ jobs:
           - fs-epermit-deps-
       - run: *install_dependencies
       - run:
-          name: Snyk and upload
+          name: Generate Snyk report
           command: |
-            ./.circleci/store-snyk.sh
+            export DATE_STRING=`date +"%m-%d-%Y-%H"`
+            export SNYK_DIR=snyk
+            export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
+            ./.circleci/generate-snyk.sh
+      - run:
+          name: Upload Snyk report to S3
+          command: |
+            ./.circleci/upload-snyk.sh
+      - run: *install_cf
+      - run:
+          name: Login to cloud.gov Production
+          command: |
+            CF_API="https://api.fr.cloud.gov"
+            cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
+            cf t -o usda-forest-service -s platform-production
+      - run:
+          name: Email Snyk Report
+          command: |
+            cd server
+            cf run-task open-forest-platform-api "npm run snyk-email -- ${DATE_STRING} ../${SNYK_DIR}/${SNYK_REPORT}"
 
   recycle-production:
     docker:
