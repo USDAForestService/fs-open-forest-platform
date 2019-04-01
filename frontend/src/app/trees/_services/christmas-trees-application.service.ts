@@ -8,7 +8,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 
 @Injectable()
 export class ChristmasTreesApplicationService {
@@ -84,8 +84,13 @@ export class ChristmasTreesApplicationService {
    * @returns Permits by date range and specific to forest
    */
   getAllByDateRange(forestId, startDate, endDate) {
+    const params = new HttpParams()
+      .set('forestId', forestId)
+      .set('startDate', startDate)
+      .set('endDate', endDate);
+
     return this.http
-      .get(`${this.adminEndpoint}/permits/${forestId}/${startDate}/${endDate}`, { withCredentials: true })
+      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params })
       .catch(this.util.handleError);
   }
 
@@ -111,18 +116,18 @@ export class ChristmasTreesApplicationService {
   /**
    * @returns Update distrct dates for forest district
    */
+
+  //  double check before commit, should be good though
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
     const format = 'YYYY-MM-DDTHH:mm:ss';
 
-    const tzStartDate = moment.tz(startDate, format, forest.timezone);
-    tzStartDate.utc();
+    const tzStartDate = moment(startDate, format);
 
-    const tzEndDate = moment.tz(endDate, format, forest.timezone);
-    tzEndDate.utc();
+    const tzEndDate = moment(endDate, format);
 
-    cuttingAreas[districtName].startDate = tzStartDate.format(format) + 'Z';
-    cuttingAreas[districtName].endDate = tzEndDate.format(format) + 'Z';
+    cuttingAreas[districtName].startDate = tzStartDate.format(format);
+    cuttingAreas[districtName].endDate = tzEndDate.format(format);
 
     const body = { cuttingAreas: cuttingAreas };
 

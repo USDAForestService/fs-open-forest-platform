@@ -39,15 +39,24 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     },
     treeCost: {
       type: DataTypes.DOUBLE,
-      field: 'tree_cost'
+      field: 'tree_cost',
+      validate: {
+        min: 0
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
-      field: 'quantity'
+      field: 'quantity',
+      validate: {
+        min: 0
+      }
     },
     totalCost: {
       type: DataTypes.DOUBLE,
-      field: 'total_cost'
+      field: 'total_cost',
+      validate: {
+        min: 0
+      }
     },
     status: {
       type: DataTypes.STRING(50),

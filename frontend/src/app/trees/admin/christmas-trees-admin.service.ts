@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import * as moment from 'moment-timezone';
+import * as moment from 'moment/moment';
 
 @Injectable()
 export class ChristmasTreesAdminService {
@@ -9,8 +9,8 @@ export class ChristmasTreesAdminService {
    */
   setStartEndDate(forest, form) {
     if (forest && form.get('dateTimeRange')) {
-      const startDate = moment.tz(forest.startDate, forest.timezone);
-      const endDate = moment.tz(forest.endDate, forest.timezone);
+      const startDate = moment(forest.startDate);
+      const endDate = moment(forest.endDate);
       form.get('dateTimeRange.startMonth').setValue(startDate.format('MM'));
       form.get('dateTimeRange.startDay').setValue(startDate.format('DD'));
       form.get('dateTimeRange.startYear').setValue(startDate.format('YYYY'));

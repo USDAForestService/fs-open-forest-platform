@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-declare var ga: Function;
+declare var gas: Function;
 
 @Injectable()
 export class GoogleAnalyticsService {
@@ -8,8 +8,7 @@ export class GoogleAnalyticsService {
   constructor(router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        ga('set', 'page', event.url);
-        ga('send', 'pageview');
+        gas('send', 'pageview', event.url, document.title);
       }
     });
   }

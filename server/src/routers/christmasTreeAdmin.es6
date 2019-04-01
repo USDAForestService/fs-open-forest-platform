@@ -12,10 +12,7 @@ const christmasTreeAdminController = require('../controllers/christmas-tree/admi
 const router = express.Router();
 
 /** GET christmas tree permit */
-router.get(
-  '/christmas-trees/permits/:forestId/:startDate/:endDate',
-  christmasTreeAdminController.getPermitSummaryReport
-);
+router.get('/christmas-trees/permits/summary', christmasTreeAdminController.getPermitSummaryReport);
 
 router.get('/christmas-trees/permits/:permitNumber', christmasTreeAdminController.getPermitReport);
 

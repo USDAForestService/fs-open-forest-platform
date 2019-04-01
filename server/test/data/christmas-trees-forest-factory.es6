@@ -1,9 +1,13 @@
-
-
 const factory = require('unionized');
 
+let id = 1;
+function autoIncrement() {
+  id += 1;
+  return id - 1;
+}
+
 module.exports = factory.factory({
-  id: 1,
+  id: autoIncrement,
   forestName: 'Arapaho and Roosevelt National Forests',
   description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
   forestAbbr: 'arp',

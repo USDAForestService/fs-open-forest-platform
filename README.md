@@ -123,7 +123,7 @@ There are two options for development - Docker or installing the dependencies in
 
 #### Node
 
-Install [Node ^8.11.3](https://nodejs.org/en/)
+Install [Node ^8.15.1](https://nodejs.org/en/)
 
 #### Package Manager
 
@@ -305,15 +305,15 @@ Navigate to `/assets/typedoc/index.html`
 
 #### Pay.gov error mocking in local environment
 
-* To mock a pay.gov token error, in the Christmas trees application form, set the first name to 1 and last name to 1.
+* To mock a pay.gov error when beginning the transaction, in the Christmas trees application form, set the first name to `unknown`.
 
-* To mock a pay.gov 500 error, in the Christmas trees application form, set the first name to 1 and last name to 2.
-
-* To mock a pay.gov complete collection error, use credit card number `000000000000XXXX`. The last four XXXX represent the pay.gov error code.
+* To mock a pay.gov error when completing the transaction, use credit card number `000000000000XXXX`.
 
 #### Pay.gov in QA environment
 
 * A valid credit card number in staging environment is `4111111111111111`.
+
+* To mock a expired card pay.gov error when completing the transaction, use credit card number `4005550000000001`.
 
 #### Christmas trees sidebar template
 

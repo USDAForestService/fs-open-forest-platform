@@ -456,4 +456,8 @@ util.getS3 = () => new AWS.S3({
 
 util.parseXml = Util.promisify(xml2js.parseString);
 
+util.logPaygov = (event, params) => {
+  logger.info(`PAYGOV: ${event} - ${JSON.stringify(params)}`);
+};
+
 module.exports = util;

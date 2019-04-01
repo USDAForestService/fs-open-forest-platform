@@ -111,7 +111,7 @@ export class TreeApplicationFormComponent implements OnInit {
    * Redirect to tree guidelines if forest start date is after today
    */
   checkSeasonStartDate(forest) {
-    if (forest && moment(forest.startDate).isAfter(moment().tz(forest.timezone))) {
+    if (forest && moment(forest.startDate).isAfter(moment())) {
       this.router.navigate(['/christmas-trees/forests/', forest.forestAbbr]);
     }
   }
@@ -230,8 +230,12 @@ export class TreeApplicationFormComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
+    const paramsWhitelist = [
+      'forestId', 'firstName', 'lastName', 'emailAddress', 'quantity'
+    ];
+
     const formValuesToSend = Object.keys(this.applicationForm.value)
-    .filter((key) => key !== 'acceptPII')
+    .filter((key) => paramsWhitelist.includes(key))
     .reduce((aggregator, key) => {
       aggregator[key] = this.applicationForm.value[key];
       return aggregator;

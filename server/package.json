@@ -85,9 +85,10 @@
     "seed": "sequelize db:seed:all",
     "snyk-test": "snyk test --file=package.json",
     "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
-    "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
+    "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
     "docs": "npm run jsdoc",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
@@ -95,7 +96,7 @@
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r ."
   },
   "engines": {
-    "node": "^8.11.3"
+    "node": "^8.15.1"
   },
   "nyc": {
     "extension": [

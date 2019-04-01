@@ -42,8 +42,7 @@ a Christmas tree permit with the United States Forest Service on your National F
     forest.seasonOpenAlert = this.seasonOpenAlert;
     if (forest.endDate && forest.startDate) {
       forest.isSeasonOpen = moment(forest.endDate)
-        .tz(forest.timezone)
-        .isAfter(moment().tz(forest.timezone));
+        .isAfter(moment());
       if (forest.isSeasonOpen) {
         forest.seasonOpenAlert = '';
         forest = this.checkSeasonStartDate(forest);
@@ -58,8 +57,7 @@ a Christmas tree permit with the United States Forest Service on your National F
   private checkSeasonStartDate(forest) {
     if (
       moment(forest.startDate)
-        .tz(forest.timezone)
-        .isAfter(moment().tz(forest.timezone))
+        .isAfter(moment())
     ) {
       forest.isSeasonOpen = false;
       forest.seasonOpenAlert = `Online permits become available for purchase on ${moment(forest.startDate).format(

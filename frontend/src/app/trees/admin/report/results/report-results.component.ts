@@ -9,6 +9,7 @@ export class ReportResultsComponent implements OnChanges {
   @Input() result: any;
   permits: any;
   titles = {
+    forestAbbr: 'Forest',
     permitNumber: 'Permit number',
     issueDate: 'Issue date',
     quantity: 'Number of trees',
@@ -40,6 +41,7 @@ export class ReportResultsComponent implements OnChanges {
     const orderedPermits = [];
     for (const permit of this.result.permits) {
       orderedPermits.push({
+        forestAbbr: permit.forestAbbr,
         permitNumber: permit.permitNumber,
         issueDate: permit.issueDate,
         quantity: permit.quantity,
