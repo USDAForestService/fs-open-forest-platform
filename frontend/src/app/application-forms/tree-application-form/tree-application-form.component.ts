@@ -236,8 +236,12 @@ export class TreeApplicationFormComponent implements OnInit {
    * If errors, return to application form.
    */
   createApplication() {
+    const paramsWhitelist = [
+      'forestId', 'firstName', 'lastName', 'emailAddress', 'quantity'
+    ];
+
     const formValuesToSend = Object.keys(this.applicationForm.value)
-    .filter((key) => key !== 'acceptPII')
+    .filter((key) => paramsWhitelist.includes(key))
     .reduce((aggregator, key) => {
       aggregator[key] = this.applicationForm.value[key];
       return aggregator;

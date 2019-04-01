@@ -123,7 +123,7 @@ There are two options for development - Docker or installing the dependencies in
 
 #### Node
 
-Install [Node ^8.11.3](https://nodejs.org/en/)
+Install [Node ^8.15.1](https://nodejs.org/en/)
 
 #### Package Manager
 

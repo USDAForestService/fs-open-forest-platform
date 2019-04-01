@@ -85,6 +85,7 @@
     "seed": "sequelize db:seed:all",
     "snyk-test": "snyk test --file=package.json",
     "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
