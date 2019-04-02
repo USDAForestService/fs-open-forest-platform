@@ -22,7 +22,7 @@
     "snyk-test": "snyk test",
     "start": "ng serve",
     "test:ci": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --code-coverage --watch=false --source-map=false --progress=false",
-    "test": "snyk test && NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
+    "test": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf",
     "test:coverage": "NODE_ENV=test ng test --karma-config ./development-configurations/karma.conf --watch=false --source-map --code-coverage",
     "update-version": "node ./replace.build.js"
   },

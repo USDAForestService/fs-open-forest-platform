@@ -34,7 +34,6 @@ export class AccessControlService implements CanActivate {
     const requestingUrl = window.location.pathname;
     let isAdminRoute = false;
     if (route.data) {
-      // debugger;
       isAdminRoute = route.data.admin;
     }
     let authorized = false;

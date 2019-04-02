@@ -127,7 +127,6 @@ export class ChristmasTreesApplicationService {
     cuttingAreas[districtName].endDate = tzEndDate;
 
     const body = { cuttingAreas: cuttingAreas };
-    console.log(body);
     return this.http
       .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true }).pipe(
       catchError(this.util.handleError));
