@@ -16,17 +16,18 @@ const permitService = {};
  * @param {Object} input - christmas trees permit object from database
  * @return {Object} - formatted permit object
  */
-permitService.translatePermitFromClientToDatabase = input => ({
+permitService.translatePermitFromClientToDatabase = (permit, forest) => ({
   permitId: uuid(),
-  forestId: input.forestId,
-  orgStructureCode: input.orgStructureCode,
-  firstName: input.firstName,
-  lastName: input.lastName,
-  emailAddress: input.emailAddress,
-  treeCost: input.treeCost,
-  quantity: input.quantity,
-  totalCost: input.totalCost,
-  permitExpireDate: input.expDate
+  firstName: permit.firstName,
+  lastName: permit.lastName,
+  emailAddress: permit.emailAddress,
+  quantity: permit.quantity,
+  // This matches the current logic, but we may want to be more specific about this number
+  totalCost: parseInt(permit.quantity, 10) * forest.treeCost,
+  forestId: forest.id,
+  orgStructureCode: forest.orgStructureCode,
+  treeCost: forest.treeCost,
+  permitExpireDate: forest.endDate
 });
 
 /**
@@ -56,10 +57,7 @@ permitService.permitResult = permit => ({
 
 
 permitService.createPermitTransaction = async (application, forest) => {
-  const transformed = permitService.translatePermitFromClientToDatabase({
-    ...application,
-    expDate: forest.endDate
-  });
+  const transformed = permitService.translatePermitFromClientToDatabase(application, forest);
   const permit = await treesDb.christmasTreesPermits.create(transformed);
 
   let paygovToken;
@@ -98,12 +96,13 @@ permitService.generateRulesAndEmail = permit => permitSvgService.generatePermitS
       permit.permitId,
       false
     );
-    const updatedPermit = { ...permit, permitUrl };
+    // eslint-disable-next-line no-param-reassign
+    permit.permitUrl = permitUrl;
     const rulesText = htmlToText.fromString(rulesHtml, {
       wordwrap: 130,
       ignoreImage: true
     });
-    return permitService.sendEmail(updatedPermit, permitPng, rulesHtml, rulesText);
+    return permitService.sendEmail(permit, permitPng, rulesHtml, rulesText);
   });
 
 /**
