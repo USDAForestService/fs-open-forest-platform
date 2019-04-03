@@ -297,6 +297,10 @@ jobs:
   nightly-snyk:
     docker:
       - image: circleci/node:8.15.1
+        environment:
+          DATE_STRING: '`date +"%m-%d-%Y-%H"`'
+          SNYK_DIR: "snyk"
+          SNYK_REPORT: "snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv"
     steps:
       - checkout
       - restore_cache:
@@ -308,9 +312,6 @@ jobs:
       - run:
           name: Generate Snyk report
           command: |
-            export DATE_STRING=`date +"%m-%d-%Y-%H"`
-            export SNYK_DIR=snyk
-            export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
             ./.circleci/generate-snyk.sh
       - run:
           name: Upload Snyk report to S3
