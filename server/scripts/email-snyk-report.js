@@ -29,7 +29,7 @@ function emailSnykReport(reportDate, reportPath) {
   }
 
   const mailOptions = {
-    from: `Open Forest Security Monitoring" <${SMTP_USERNAME}>`,
+    from: `"Open Forest Security Monitoring" <${SMTP_USERNAME}>`,
     to: SNYK_RECIPIENTS,
     subject: `Snyk Report for ${reportDate}`,
     attachments: [{ path: path.resolve(reportPath) }],
@@ -45,7 +45,7 @@ function emailSnykReport(reportDate, reportPath) {
     if (error) {
       console.error('NODE_MAILER_SMTP_ERROR', error);
     } else {
-      console.info('Snyk report successfully sent');
+      console.log('Snyk report successfully sent');
     }
   });
 }
