@@ -298,9 +298,7 @@ jobs:
     docker:
       - image: circleci/node:8.15.1
         environment:
-          DATE_STRING: '`date +"%m-%d-%Y-%H"`'
           SNYK_DIR: "snyk"
-          SNYK_REPORT: "snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv"
     steps:
       - checkout
       - restore_cache:
@@ -327,6 +325,8 @@ jobs:
       - run:
           name: Email Snyk Report
           command: |
+            export DATE_STRING=`date +"%m-%d-%Y-%H"`
+            export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
             cd server
             cf run-task open-forest-platform-api "npm run snyk-email -- ${DATE_STRING} ../${SNYK_DIR}/${SNYK_REPORT}"
 

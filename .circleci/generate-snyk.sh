@@ -1,3 +1,5 @@
+export DATE_STRING=`date +"%m-%d-%Y-%H"`
+export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
 export SNYK_REPORT_SERVER=snyk-${CIRCLE_PROJECT_REPONAME}-server-${DATE_STRING}.csv
 export SNYK_REPORT_FRONTEND=snyk-${CIRCLE_PROJECT_REPONAME}-frontend-${DATE_STRING}.csv
 
@@ -19,3 +21,5 @@ sudo cat ../snyk/snyk-server.json  \
 cd ..
 
 cat "./${SNYK_DIR}/${SNYK_REPORT_FRONTEND}" "./${SNYK_DIR}/${SNYK_REPORT_SERVER}" > "${SNYK_DIR}/${SNYK_REPORT}"
+
+echo "generated ${SNYK_DIR}/${SNYK_REPORT}"

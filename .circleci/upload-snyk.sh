@@ -1,3 +1,6 @@
+export DATE_STRING=`date +"%m-%d-%Y-%H"`
+export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
+
 sudo apt-get install -y awscli
 echo "uploading snyk"
 export STORE_BUCKET=`echo "${LOG_S3}" | jq -r .bucket`
