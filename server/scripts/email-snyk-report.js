@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 const path = require('path');
 const nodemailer = require('nodemailer');
-
 const {
   SMTP_HOST,
   SMTP_PORT,
   SMTP_USERNAME,
+  SMTP_PASSWORD,
   SNYK_RECIPIENTS
-} = process.env;
+} = require('../src/vcap-constants.es6');
 
 function emailSnykReport(reportDate, reportPath) {
   const smtpConfig = {
@@ -17,9 +17,20 @@ function emailSnykReport(reportDate, reportPath) {
     requireTLS: true
   };
 
+  /*
+  * If smtp username and password are set in VCAP_SERVICES,
+  * we assume that smtp host is configured to authenticate with username and password.
+  */
+  if (SMTP_USERNAME && SMTP_PASSWORD) {
+    smtpConfig.auth = {
+      user: SMTP_USERNAME,
+      pass: SMTP_PASSWORD
+    };
+  }
+
   const mailOptions = {
     from: `Open Forest Security Monitoring" <${SMTP_USERNAME}>`,
-    to: JSON.parse(SNYK_RECIPIENTS),
+    to: SNYK_RECIPIENTS,
     subject: `Snyk Report for ${reportDate}`,
     attachments: [{ path: path.resolve(reportPath) }],
     text: `

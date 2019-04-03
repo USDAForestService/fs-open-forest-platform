@@ -328,7 +328,7 @@ jobs:
             export DATE_STRING=`date +"%m-%d-%Y-%H"`
             export SNYK_REPORT=snyk-${CIRCLE_PROJECT_REPONAME}-${DATE_STRING}.csv
             cd server
-            npm run snyk-email -- ${DATE_STRING} ../${SNYK_DIR}/${SNYK_REPORT}
+            cf run-task open-forest-platform-api "npm run snyk-email -- ${DATE_STRING} ../${SNYK_DIR}/${SNYK_REPORT}"
 
   recycle-production:
     docker:
