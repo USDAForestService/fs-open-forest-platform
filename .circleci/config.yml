@@ -393,4 +393,3 @@ workflows:
             branches:
               only:
                 - master
-                - 572_email-daily-snyk-reports
