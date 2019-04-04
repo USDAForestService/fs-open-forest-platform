@@ -263,7 +263,7 @@ export class DateTimeRangeComponent implements OnInit {
    *  Set dateStatus
    */
   private processDateStatus(startDateTime, endDateTime) {
-    const outputFormat = 'MM/DD/YYYY';
+    const outputFormat = 'MM-DD-YYYY hh:mm:ss';
     this.parentForm.patchValue({
       dateTimeRange: { startDateTime: startDateTime.format(outputFormat)}
     });

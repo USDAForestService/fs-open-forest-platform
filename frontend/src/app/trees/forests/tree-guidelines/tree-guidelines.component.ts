@@ -1,10 +1,10 @@
 import { Title, Meta } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SidebarConfigService } from '../../../sidebar/sidebar-config.service';
 import * as moment from 'moment-timezone';
 import { environment } from '../../../../environments/environment';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdService } from 'ngx-md';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 
 @Component({
@@ -25,8 +25,9 @@ export class TreeGuidelinesComponent implements OnInit {
     private titleService: Title,
     private christmasTreesInfoService: ChristmasTreesInfoService,
     private configService: SidebarConfigService,
-    public markdownService: MarkdownService,
-    private meta: Meta
+    public markdownService: NgxMdService,
+    private meta: Meta,
+    public renderer: Renderer2
   ) {
     this.meta.addTag({
       name: 'description', content: `Learn more about how to purchase\

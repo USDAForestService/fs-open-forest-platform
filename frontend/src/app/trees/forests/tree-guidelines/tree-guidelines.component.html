@@ -20,7 +20,7 @@
           <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
         </div>
       </div>
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.introduction"></markdown>
+      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.introduction"></ngx-md>
 
       <!--when to cut-->
       <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
@@ -31,12 +31,12 @@
       <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
       <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.whereToCutProhibited"></markdown>
+      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutProhibited"></ngx-md>
 
       <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
 
       <hr class="trees-section-divider">
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.whereToCutCuttingAreaMaps"></markdown>
+      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutCuttingAreaMaps"></ngx-md>
 
       <!--how to cut-->
       <hr class="thick" />
@@ -44,11 +44,11 @@
 
       <app-section-heading heading="Measuring your tree" id="cutting-instructions-measuring" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <markdown id="tree-measuring-container" *ngIf="forest && forest.content" [data]="forest.content.whenYouCut"></markdown>
+      <ngx-md id="tree-measuring-container" *ngIf="forest && forest.content" [data]="forest.content.whenYouCut"></ngx-md>
 
       <app-section-heading heading="Helpful cutting tips" id="cutting-instructions-helpful" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></markdown>
+      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></ngx-md>
 
       <app-section-heading heading="Identifying tree species" id="cutting-instructions-tree-selection" tabIndex="-1" selector="h3"></app-section-heading>
       <hr class="trees-section-divider">
@@ -57,13 +57,13 @@
 
       <hr class="thick" />
       <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
-      <markdown id="how-to-plan-container" *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></markdown>
+      <ngx-md id="how-to-plan-container" *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></ngx-md>
 
 
       <hr class="thick" />
 
       <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
-      <markdown *ngIf="forest && forest.content" [data]="forest.content.contactUs"></markdown>
+      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.contactUs"></ngx-md>
 
     </div>
   </div>

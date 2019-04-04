@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Angular2Csv } from 'angular2-csv';
 
 @Component({
   selector: 'app-report-results',

@@ -1,12 +1,14 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+
+import {of as observableOf,  Observable ,  forkJoin } from 'rxjs';
+
+import {catchError, first, map} from 'rxjs/operators';
+
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { AuthenticationService } from '../../../_services/authentication.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class ForestsAdminResolver implements Resolve<any> {
@@ -23,7 +25,7 @@ export class ForestsAdminResolver implements Resolve<any> {
     const forests = this.service.getAll();
     const users = this.authenticationService.getAuthenticatedUser();
 
-    return forkJoin([forests, users]).map(results => {
+    return forkJoin([forests, users]).pipe(map(results => {
       const user = results[1];
       const allForests = results[0];
 
@@ -40,10 +42,11 @@ export class ForestsAdminResolver implements Resolve<any> {
         return false;
       }
 
+    }),
+    first(),
+      catchError(err => {
+      return observableOf(null);
     })
-    .first()
-      .catch(err => {
-      return Observable.of(null);
-    });
+    );
   }
 }

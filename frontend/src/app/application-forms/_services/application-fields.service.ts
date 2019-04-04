@@ -4,6 +4,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { numberValidator } from '../validators/number-validation';
 import { stateValidator } from '../validators/state-validation';
 import { DOCUMENT } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class ApplicationFieldsService {
@@ -99,7 +100,7 @@ export class ApplicationFieldsService {
 
   phoneChangeSubscribers(parentForm, type) {
     parentForm.get(`${type}.tenDigit`).valueChanges
-    .filter(data => parentForm.get(`${type}.tenDigit`).valid)
+    .pipe(filter(data => parentForm.get(`${type}.tenDigit`).valid))
     .subscribe(value => {
       if (value) {
         parentForm.patchValue({ [type]: { areaCode: value.substring(0, 3) } });

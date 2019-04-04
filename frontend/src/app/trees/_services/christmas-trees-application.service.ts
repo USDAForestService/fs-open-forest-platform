@@ -1,10 +1,9 @@
+
+import {of as observableOf,  Observable ,  forkJoin } from 'rxjs';
+
+import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { UtilService } from '../../_services/util.service';
@@ -31,7 +30,7 @@ export class ChristmasTreesApplicationService {
       headers: headers
     };
 
-    return this.http.post(`${this.endpoint}/permits`, body, options).catch(this.util.handleError);
+    return this.http.post(`${this.endpoint}/permits`, body, options).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -43,7 +42,7 @@ export class ChristmasTreesApplicationService {
       params = { params: new HttpParams().set('t', token) };
     }
     const body = { permitId: id, status: status };
-    return this.http.put(`${this.endpoint}/permits`, body, params).catch(this.util.handleError);
+    return this.http.put(`${this.endpoint}/permits`, body, params).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -54,7 +53,7 @@ export class ChristmasTreesApplicationService {
     if (token) {
       params = { params: new HttpParams().set('t', token) };
     }
-    return this.http.get(`${this.endpoint}/permits/${id}`, params).catch(this.util.handleError);
+    return this.http.get(`${this.endpoint}/permits/${id}`, params).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -77,7 +76,7 @@ export class ChristmasTreesApplicationService {
     if (rules) {
       queryParam = 'rules=true';
     }
-    return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`).catch(this.util.handleError);
+    return this.http.get(`${this.endpoint}/permits/${id}/print?${queryParam}`).pipe(catchError(this.util.handleError));
   }
 
   /**
@@ -90,8 +89,8 @@ export class ChristmasTreesApplicationService {
       .set('endDate', endDate);
 
     return this.http
-      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params })
-      .catch(this.util.handleError);
+      .get(`${this.adminEndpoint}/permits/summary`, { withCredentials: true, params }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -99,8 +98,8 @@ export class ChristmasTreesApplicationService {
    */
   getReportByPermitNumber(permitNumber) {
     return this.http
-      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true })
-      .catch(this.util.handleError);
+      .get(`${this.adminEndpoint}/permits/${permitNumber}`, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -109,8 +108,8 @@ export class ChristmasTreesApplicationService {
   updateSeasonDates(forestId, startDate, endDate) {
     const body = { startDate: startDate, endDate: endDate };
     return this.http
-      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true })
-      .catch(this.util.handleError);
+      .put(`${this.adminEndpoint}/forests/${forestId}`, body, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -120,20 +119,17 @@ export class ChristmasTreesApplicationService {
   //  double check before commit, should be good though
   updateDistrictDates(forest, districtName, startDate, endDate) {
     const cuttingAreas = Object.assign({}, forest.cuttingAreas);
-    const format = 'YYYY-MM-DDTHH:mm:ss';
-
-    const tzStartDate = moment(startDate, format);
-
-    const tzEndDate = moment(endDate, format);
-
-    cuttingAreas[districtName].startDate = tzStartDate.format(format);
-    cuttingAreas[districtName].endDate = tzEndDate.format(format);
+    const startDateTime = new Date(startDate);
+    const endDateTime = new Date(endDate);
+    const tzStartDate = moment(startDateTime).format('YYYY-MM-DD HH:mm:ss');
+    const tzEndDate = moment(endDateTime).format('YYYY-MM-DD HH:mm:ss');
+    cuttingAreas[districtName].startDate = tzStartDate;
+    cuttingAreas[districtName].endDate = tzEndDate;
 
     const body = { cuttingAreas: cuttingAreas };
-
     return this.http
-      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true })
-      .catch(this.util.handleError);
+      .put(`${this.adminEndpoint}/forests/${forest.id}`, body, { withCredentials: true }).pipe(
+      catchError(this.util.handleError));
   }
 
   /**
@@ -144,8 +140,8 @@ export class ChristmasTreesApplicationService {
       if (error && error.status === 404) {
         this.router.navigate([route]);
       }
-      return Observable.of({ error: error });
+      return observableOf({ error: error });
     }
-    return Observable.of(errors);
+    return observableOf(errors);
   }
 }
