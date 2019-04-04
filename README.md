@@ -90,7 +90,7 @@ As the first two-way interaction-focused Forest Service online application, Open
 <!-- /TOC -->
 
 ## Overview
-This repository comprises the application code for the platform. It includes a node.js server, and a Angular 2+ static frontend, currently deployed on [cloud.gov](https://cloud.gov/).
+This repository comprises the application code for the platform. It includes a node.js server, and a Angular 7 static frontend, currently deployed on [cloud.gov](https://cloud.gov/).
 
 ## Requirements
 
