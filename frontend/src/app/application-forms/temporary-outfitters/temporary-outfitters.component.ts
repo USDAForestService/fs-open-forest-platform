@@ -1,3 +1,4 @@
+
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';
@@ -264,7 +265,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
 
   getApplication(id) {
     this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
-      application => {
+      ( application: any) => {
         this.application = application;
         this.applicationId = application.applicationId;
         this.applicationForm.patchValue(this.application);
@@ -278,7 +279,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   }
 
   getFiles(id) {
-    this.applicationService.get(`/special-uses/temp-outfitter/${id}/files`).subscribe(files => {
+    this.applicationService.get(`/special-uses/temp-outfitter/${id}/files`).subscribe((files: any) => {
       for (const file of files) {
         let type = '';
         switch (file.documentType) {
@@ -310,7 +311,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.applicationService
       .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
       .subscribe(
-        persistedApplication => {
+        (persistedApplication: any) => {
           this.application = persistedApplication;
           this.applicationId = persistedApplication.applicationId;
           this.showFileUploadProgress = true;
@@ -360,18 +361,17 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     this.uploadFiles = true;
   }
 
-  elementInView(event) {
-    if (event.value) {
-      this.renderer.addClass(event.target, 'in-view');
-    } else {
-      this.renderer.removeClass(event.target, 'in-view');
-    }
+
+  public elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
+    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
 
     const viewableElements = document.getElementsByClassName('in-view');
     if (viewableElements[0]) {
       this.currentSection = viewableElements[0].id;
     }
   }
+
 
   ngDoCheck() {
     if (this.fileUploadService.fileUploadError) {

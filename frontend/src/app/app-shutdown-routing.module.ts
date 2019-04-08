@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ShutdownComponent } from './shutdown/shutdown.component';
-import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
+import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
 
 const appRoutes: Routes = [
   {

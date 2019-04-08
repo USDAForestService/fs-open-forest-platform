@@ -74,28 +74,30 @@
     "unionized": "^5.0.0"
   },
   "scripts": {
+    "copy-frontend-assets": "./copy-frontend-assets.sh",
     "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
     "dev:user": "npm run dev -- user",
-    "copy-frontend-assets": "./copy-frontend-assets.sh",
+    "docs": "npm run jsdoc",
+    "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r .",
     "lint": "eslint **/**/*.es6 **/**/**/*.es6",
     "lint:fix": "eslint **/**/*.es6 **/**/**/*.es6 --fix",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
+    "snyk-email": "node scripts/email-snyk-report.js",
     "snyk-test": "snyk test --file=package.json",
     "snyk-protect": "snyk protect",
+    "snyk-wizard": "snyk wizard",
     "start": "node ./src/app.es6",
     "test": "npm run test:db && NODE_ENV=test mocha ./test/**/*.es6 ./test/*.es6 --exit",
-    "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
-    "docs": "npm run jsdoc",
+    "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
-    "undoLastMigrate": "sequelize db:migrate:undo",
-    "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r ."
+    "undoLastMigrate": "sequelize db:migrate:undo"
   },
   "engines": {
-    "node": "^8.11.3"
+    "node": "^8.15.1"
   },
   "nyc": {
     "extension": [

@@ -1,5 +1,7 @@
-# Use node 8.11.3 as the base image
-FROM circleci/node:8.11.3
+
+# Use node 8.15.1 as the base image
+
+FROM circleci/node:8.15.1
 
 RUN sudo apt-get update \
     && sudo apt-get install lsb-release libappindicator3-1 curl libasound2 libnspr4 libnss3 libxss1 xdg-utils fonts-liberation \
@@ -8,7 +10,7 @@ RUN sudo apt-get update \
     && sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome \
     && sudo rm google-chrome.deb
 
-RUN google-chrome --version 
+RUN google-chrome --version
 
 # set working directory
 WORKDIR /usr/src/app

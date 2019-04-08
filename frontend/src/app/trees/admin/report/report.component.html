@@ -25,7 +25,8 @@
       <label for="date-search-button" id="date-search-button-label">Date range</label>
 
       <input id="permit-id-search-button"
-             type="radio" (change)="resetForms()"
+             type="radio"
+             (change)="resetForms()"
              name="isDateSearch"
              [value]="false"
              [ngModel]="isDateSearch"
@@ -33,12 +34,9 @@
              aria-labelledby="permit-id-search-button-label"
       >
       <label for="permit-id-search-button" id="permit-id-search-button-label">Permit number</label>
-
     </fieldset>
 
     <form *ngIf="!isDateSearch" [formGroup]="permitNumberSearchForm" class="usa-form-large" novalidate (ngSubmit)="getPermitByNumber()">
-
-
       <fieldset class="usa-form-group">
         <legend class="fs-datetime-legend">
           To generate a report, please enter an 8 digit permit number, e.g. 00000001.
@@ -75,17 +73,28 @@
           <ng-container *ngFor="let forest of forests; let i = index">
             <input
              id="{{forest.id}}-button"
-             type="radio" [value]="forest.id"
-             formControlName="forestId"
-             [checked]="i === 0"
+             type="radio"
+             [value]="forest.id"
+             formControlName="forestSelection"
+             [checked]="forest.id === selectedForest"
              [attr.aria-labelledby]="forest.id + '-button-label'"
             >
             <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
           </ng-container>
+          <ng-container *ngIf="forests[1]">
+            <input
+              id="all-button"
+              type="radio"
+              value="ALL"
+              formControlName="forestSelection"
+              [checked]="'ALL' === selectedForest"
+              attr.aria-labelledby="all-button-label"
+            >
+            <label for="all-button" id="all-button-label">All</label>
+          </ng-container>
         </fieldset>
 
         <p>If your forest is not listed, please <a href="{{changeRequestFormUrl}}">request access</a>.</p>
-
 
         <div>
           <app-date-time-range
@@ -98,7 +107,6 @@
       </div>
 
       <button id="get-report" class="usa-button-primary usa-button-big" type="submit">Get report</button>
-
     </form>
 
     <hr>

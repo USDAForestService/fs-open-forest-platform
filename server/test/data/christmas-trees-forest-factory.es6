@@ -1,7 +1,6 @@
 const factory = require('unionized');
 
-// TODO - start at 5 for now until seeding is removed
-let id = 5;
+let id = 1;
 function autoIncrement() {
   id += 1;
   return id - 1;

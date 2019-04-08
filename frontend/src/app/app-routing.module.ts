@@ -26,7 +26,7 @@ import { ChristmasTreeMapDetailsComponent } from './trees/forests/christmas-tree
 import { ForestFinderComponent } from './trees/forests/forest-finder/forest-finder.component';
 import { TreeApplicationFormComponent } from './application-forms/tree-application-form/tree-application-form.component';
 import { TreePermitViewComponent } from './application-forms/tree-application-form/tree-permit-view/tree-permit-view.component';
-import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
+import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';

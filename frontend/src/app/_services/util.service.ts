@@ -1,8 +1,6 @@
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -147,14 +145,14 @@ export class UtilService {
           default:
             errors = [{ status: error.status }];
         }
-        return Observable.throw(errors);
+        return throwError(errors);
       }
     }
     try {
       errors = error.error.errors;
-      return Observable.throw(errors);
+      return throwError(errors);
     } catch (err) {
-      return Observable.throw([
+      return throwError([
         { status: 500, message: 'Sorry, we were unable to process your request. Please try again.' }
       ]);
     }

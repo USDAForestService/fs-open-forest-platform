@@ -49,9 +49,7 @@ describe('christmas tree controller permit tests', () => {
 
     beforeEach(() => {
       permitApplication = christmasTreePermitApplicationFactory.create({
-        forestId: DATA.openForest.id,
-        forestAbbr: DATA.openForest.forestAbbr,
-        orgStructureCode: DATA.openForest.orgStructureCode
+        forestId: DATA.openForest.id
       });
     });
 
@@ -89,13 +87,30 @@ describe('christmas tree controller permit tests', () => {
 
     it('should return a 400 response with a closed forest', (done) => {
       const closedApplication = christmasTreePermitApplicationFactory.create({
-        forestId: DATA.closedForest.id,
-        forestAbbr: DATA.closedForest.forestAbbr,
-        orgStructureCode: DATA.closedForest.orgStructureCode
+        forestId: DATA.closedForest.id
       });
 
       postPermit(closedApplication)
         .expect(400, done);
+    });
+
+    it('should ignore treeCost, totalCost', (done) => {
+      permitApplication.treeCost = 1000;
+      permitApplication.totalCost = 1000;
+
+      postPermit(permitApplication)
+        .expect(200)
+        .then(({ body: { permitId } }) => {
+          const token = jwt.sign({ data: permitId }, vcapConstants.PERMIT_SECRET);
+          request(server)
+            .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
+            .set('Accept', /json/)
+            .expect(200)
+            .expect(({ body }) => {
+              expect(Number(body.totalCost)).to.equal(parseFloat(DATA.openForest.treeCost) * permitApplication.quantity);
+            })
+            .end(done);
+        });
     });
   });
 
@@ -104,11 +119,11 @@ describe('christmas tree controller permit tests', () => {
       .put(`/forests/christmas-trees/permits?t=${token}`)
       .send(application);
 
-    it('should return a 500 when updating with an invalid token', (done) => {
-      const application = { };
+    it('should return a 401 when updating with an invalid token', (done) => {
+      const application = {};
 
       putPermitApplication(application, null)
-        .expect(500, done);
+        .expect(401, done);
     });
 
     it('should return a 404 when cancelling a permit application with an invalid id', (done) => {
@@ -168,9 +183,9 @@ describe('christmas tree controller permit tests', () => {
       .get(`/forests/christmas-trees/permits/${permitId}?t=${token}`)
       .set('Accept', /json/);
 
-    it('should return a 500 response with an invalid token', (done) => {
+    it('should return a 401 response with an invalid token', (done) => {
       getPermit('1111a111-2222-11a1-aaa1-123456789012', null)
-        .expect(500, done);
+        .expect(401, done);
     });
 
     it('should return a 404 response with a valid token but an invalid permit', (done) => {
@@ -195,18 +210,6 @@ describe('christmas tree controller permit tests', () => {
       getPermit(DATA.completedPermit.permitId, DATA.completedPermitToken)
         .expect((res) => {
           expect(res.body.permitId).to.equal(DATA.completedPermit.permitId);
-        })
-        .expect(200, done);
-    });
-
-    it('logs the successful request appropriately', (done) => {
-      const loggerSpy = sinon.spy(logger, 'info');
-      const logMsg = permit => `CONTROLLER: GET:christmasTreePermits.getOnePermit by ${permit.emailAddress}:PUBLIC for ${permit.permitId} at`;
-
-      getPermit(DATA.completedPermit.permitId, DATA.completedPermitToken)
-        .expect((res) => {
-          expect(loggerSpy.called).to.be.true;
-          expect(loggerSpy.calledWith(sinon.match(logMsg(res.body)))).to.be.true;
         })
         .expect(200, done);
     });

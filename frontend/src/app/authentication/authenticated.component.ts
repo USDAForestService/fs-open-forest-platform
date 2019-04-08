@@ -1,3 +1,4 @@
+import { mergeMap, map, filter } from 'rxjs/operators';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -34,7 +35,8 @@ export class AuthenticatedComponent implements OnInit {
   login() {
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
-      this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/login-gov/openid/login';
+      this.winRef.getNativeWindow().location.href =
+        environment.apiUrl + 'auth/login-gov/openid/login';
     }, 1000);
   }
 
@@ -44,7 +46,10 @@ export class AuthenticatedComponent implements OnInit {
    */
   logout(e: Event) {
     e.preventDefault();
-    const status = { message: 'You have successfully logged out of Forest Service permits.', header: '' };
+    const status = {
+      message: 'You have successfully logged out of Forest Service permits.',
+      header: ''
+    };
     localStorage.setItem('status', JSON.stringify(status));
     localStorage.removeItem('requestingUrl');
     localStorage.removeItem('user');
@@ -53,19 +58,22 @@ export class AuthenticatedComponent implements OnInit {
 
     this.authentication.removeUser().subscribe(user => {
       if (user != null) {
-        this.winRef.getNativeWindow().location.href = environment.apiUrl + 'auth/logout';
+        this.winRef.getNativeWindow().location.href =
+          environment.apiUrl + 'auth/logout';
       } else {
         this.router.navigate(['/']);
       }
     });
-
   }
 
   /**
    * determine if SUDS login displays in header
    */
   setShowSUDS(user) {
-    this.showSUDS = user && user.role === 'admin' && (!user.forests || user.forests.length === 0);
+    this.showSUDS =
+      user &&
+      user.role === 'admin' &&
+      (!user.forests || user.forests.length === 0);
   }
 
   /**
@@ -92,23 +100,25 @@ export class AuthenticatedComponent implements OnInit {
    */
   ngOnInit() {
     this.router.events
-      .filter(e => e instanceof NavigationEnd)
-      .map(() => {
-        let route = this.activatedRoute.firstChild;
-        let child = route;
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        map(() => {
+          let route = this.activatedRoute.firstChild;
+          let child = route;
 
-        while (child) {
-          if (child.firstChild) {
-            child = child.firstChild;
-            route = child;
-          } else {
-            child = null;
+          while (child) {
+            if (child.firstChild) {
+              child = child.firstChild;
+              route = child;
+            } else {
+              child = null;
+            }
           }
-        }
 
-        return route;
-      })
-      .mergeMap(route => route.data)
+          return route;
+        }),
+        mergeMap(route => route.data)
+      )
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);

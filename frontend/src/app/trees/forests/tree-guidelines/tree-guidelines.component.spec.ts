@@ -8,7 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment-timezone';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { MockMarkdownService } from '../../../_mocks/markdownService.mock';
 import { forest } from '../../../_mocks/forest.mock';
@@ -28,7 +28,7 @@ describe('TreeGuidelinesComponent', () => {
         schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
         providers: [
           ChristmasTreesInfoService,
-          { provide: MarkdownService, useClass: MockMarkdownService },
+          { provide: NgxMdModule, useClass: MockMarkdownService },
           { provide: Title, useClass: Title },
           { provide: SidebarConfigService, useClass: SidebarConfigService }
         ],

@@ -57,11 +57,17 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
     },
     treeCost: {
       type: DataTypes.DOUBLE,
-      field: 'tree_cost'
+      field: 'tree_cost',
+      validate: {
+        min: 0
+      }
     },
     maxNumTrees: {
       type: DataTypes.INTEGER,
-      field: 'max_num_trees'
+      field: 'max_num_trees',
+      validate: {
+        min: 0
+      }
     },
     allowAdditionalHeight: {
       type: DataTypes.BOOLEAN,

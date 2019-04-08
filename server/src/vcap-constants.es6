@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs-extra');
 
 /**
@@ -29,10 +27,8 @@ if (process.env.VCAP_SERVICES) {
   }
 }
 
-const getUserProvided = function(name) {
-  const userProvided = vcapServices['user-provided'].find(element => {
-    return element.name === name;
-  });
+const getUserProvided = (name) => {
+  const userProvided = vcapServices['user-provided'].find(element => element.name === name);
 
   if (!userProvided) {
     throw new Error(`No user provided service: ${name}`);
@@ -42,16 +38,14 @@ const getUserProvided = function(name) {
 };
 
 /** Base URL of this instance */
-vcapConstants.BASE_URL = 'https://' + vcapApplication.uris[0];
+vcapConstants.BASE_URL = `https://${vcapApplication.uris[0]}`;
 
-/** jwt token used to generate permit confirmation URL **/
+/** jwt token used to generate permit confirmation URL * */
 const jwt = getUserProvided('jwt');
 vcapConstants.PERMIT_SECRET = jwt.permit_secret;
 
 /** S3 BUCKET settings */
-const intakeS3 = vcapServices['s3'].find(element => {
-  return element.name === 'intake-s3';
-});
+const intakeS3 = vcapServices.s3.find(element => element.name === 'intake-s3');
 if (intakeS3.credentials.access_key_id && intakeS3.credentials.secret_access_key) {
   vcapConstants.accessKeyId = intakeS3.credentials.access_key_id;
   vcapConstants.secretAccessKey = intakeS3.credentials.secret_access_key;
@@ -92,6 +86,7 @@ vcapConstants.SMTP_USERNAME = smtp.username;
 vcapConstants.SMTP_PASSWORD = smtp.password;
 vcapConstants.SMTP_PORT = smtp.port;
 vcapConstants.SPECIAL_USE_ADMIN_EMAIL_ADDRESSES = smtp.admins;
+vcapConstants.SNYK_RECIPIENTS = smtp.security;
 
 /** Pay.gov */
 const payGov = getUserProvided('pay-gov');
@@ -105,7 +100,8 @@ vcapConstants.PAY_GOV_PRIVATE_KEY = payGov.private_key;
 const database = process.env.DATABASE_URL ? { url: process.env.DATABASE_URL } : getUserProvided('database');
 vcapConstants.database = {
   url: database.url,
-  ssl: database.ssl !== undefined ? database.ssl : process.env.NODE_ENV === 'production'
+  ssl: database.ssl !== undefined ? database.ssl : process.env.NODE_ENV === 'production',
+  quiet: database.quiet
 };
 
 /** New Relic */

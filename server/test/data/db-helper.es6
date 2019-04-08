@@ -1,18 +1,17 @@
+const _ = require('lodash/fp');
+
 const treesDb = require('../../src/models/trees-db.es6');
 const permitFactory = require('./christmas-trees-permit-factory.es6');
 const forestFactory = require('./christmas-trees-forest-factory.es6');
 
 const queryInterface = treesDb.sequelize.getQueryInterface();
-const operator = treesDb.Sequelize.Op;
+
+const snakeKeys = _.mapKeys(_.snakeCase);
 
 module.exports = {
   bulkInsertPermits(items) {
-    return queryInterface.bulkInsert('christmasTreesPermits', items);
-  },
-  bulkDeletePermits(permitIds) {
-    return queryInterface.bulkDelete('christmasTreesPermits', {
-      permit_id: { [operator.in]: permitIds }
-    });
+    const mapped = items.map(p => permitFactory.create(p)).map(snakeKeys);
+    return queryInterface.bulkInsert('christmasTreesPermits', mapped, { returning: true });
   },
   createForest(forest) {
     return treesDb.christmasTreesForests.create(forestFactory.create(forest));
