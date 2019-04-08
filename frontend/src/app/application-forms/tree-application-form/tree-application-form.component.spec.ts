@@ -14,7 +14,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import * as moment from 'moment-timezone';
 import { forest } from '../../_mocks/forest.mock';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { MockMarkdownService } from '../../_mocks/markdownService.mock';
 import { Location } from '@angular/common';
 import { WindowRef } from '../../_services/native-window.service';
@@ -44,7 +44,7 @@ describe('TreeApplicationFormComponent', () => {
           declarations: [TreeApplicationFormComponent],
           providers: [
             UtilService,
-            { provide: MarkdownService, useClass: MockMarkdownService },
+            { provide: NgxMdModule, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
             ChristmasTreesInfoService,
@@ -97,7 +97,7 @@ describe('TreeApplicationFormComponent', () => {
           declarations: [TreeApplicationFormComponent],
           providers: [
             UtilService,
-            { provide: MarkdownService, useClass: MockMarkdownService },
+            { provide: NgxMdModule, useClass: MockMarkdownService },
             { provide: FormBuilder, useClass: FormBuilder },
             { provide: Title, useClass: Title },
             ChristmasTreesInfoService,

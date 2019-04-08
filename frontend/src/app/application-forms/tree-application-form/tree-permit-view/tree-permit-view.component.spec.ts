@@ -8,7 +8,7 @@ import { ChristmasTreesApplicationService } from '../../../trees/_services/chris
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UtilService } from '../../../_services/util.service';
 import { WindowRef } from '../../../_services/native-window.service';
-import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx-breadcrumbs';
+import { McBreadcrumbsConfig, McBreadcrumbsModule, McBreadcrumbsService } from 'ngx6-angular-breadcrumbs';
 import { BreadcrumbsComponent } from '../../../breadcrumbs/breadcrumbs.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MockSanitizer } from '../../../_mocks/domSanitizer.mock';

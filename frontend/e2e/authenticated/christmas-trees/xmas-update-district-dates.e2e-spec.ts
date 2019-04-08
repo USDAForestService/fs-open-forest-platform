@@ -50,6 +50,7 @@ describe('Xmas tree - Update District Dates', () => {
         expect<any>(page.startMonthError().getText()).toEqual('Start month requires a 1 or 2 digit number that is less than 13.');
         page.startMonthInput().clear();
         page.startMonthInput().sendKeys('10');
+        page.startMonthInput().sendKeys(protractor.Key.TAB);
         expect<any>(page.startMonthError().isPresent()).toBeFalsy();
 
         page.startDayInput().clear();
@@ -58,6 +59,7 @@ describe('Xmas tree - Update District Dates', () => {
         expect<any>(page.startDayError().getText()).toEqual('Start day requires a 1 or 2 digit number.');
         page.startDayInput().clear();
         page.startDayInput().sendKeys('10');
+        page.startMonthInput().sendKeys(protractor.Key.TAB);
         expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
       });
 
@@ -79,7 +81,7 @@ describe('Xmas tree - Update District Dates', () => {
           'Start date and time must be before end date and time.'
         );
         page.startYearInput().clear();
-        page.startYearInput().sendKeys('2014');
+        page.startYearInput().sendKeys('2004');
         expect<any>(page.startDateTimeError().isPresent()).toBeFalsy();
 
       });

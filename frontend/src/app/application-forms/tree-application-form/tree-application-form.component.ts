@@ -2,7 +2,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
@@ -11,7 +11,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
 import * as moment from 'moment-timezone';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdService } from 'ngx-md';
 import { WindowRef } from '../../_services/native-window.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class TreeApplicationFormComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     public formBuilder: FormBuilder,
-    public markdownService: MarkdownService,
+    public markdownService: NgxMdService,
     public applicationService: ChristmasTreesApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private christmasTreesInfoService: ChristmasTreesInfoService,
@@ -49,6 +49,12 @@ export class TreeApplicationFormComponent implements OnInit {
     this.meta.addTag({
       name: 'description', content: `Purchase a Christmas tree permit with the\
  United States Forest Service on your National Forest.`
+    });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
+    });
+    this.applicationRulesForm = new FormGroup({
+      acceptRules: new FormControl()
     });
   }
 
@@ -241,7 +247,7 @@ export class TreeApplicationFormComponent implements OnInit {
       return aggregator;
     }, {});
     this.applicationService.create(JSON.stringify(formValuesToSend)).subscribe(
-      response => {
+      (response: any) => {
         this.winRef.getNativeWindow().location.href = `${response.payGovUrl}?token=${response.token}&tcsAppID=${response.tcsAppID}`;
       },
       (error: any) => {

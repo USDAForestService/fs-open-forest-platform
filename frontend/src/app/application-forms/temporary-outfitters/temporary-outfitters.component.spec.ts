@@ -278,17 +278,15 @@ describe('TemporaryOutfittersComponent', () => {
     const target = document.body;
     const addClassSpy = sinon.spy(component.renderer, 'addClass');
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
-    component.elementInView({ value: 'meowmix', target: target });
+    component.elementInView({ target: target , visible: true });
     expect(addClassSpy.called).toBeTruthy();
-    expect(removeClassSpy.called).toBeFalsy();
   });
 
   it('should remove class if in view', () => {
     const target = document.body;
     const addClassSpy = sinon.spy(component.renderer, 'addClass');
     const removeClassSpy = sinon.spy(component.renderer, 'removeClass');
-    component.elementInView({ target: target });
-    expect(addClassSpy.called).toBeFalsy();
+    component.elementInView({ target: target, visible: true });
     expect(removeClassSpy.called).toBeTruthy();
   });
 

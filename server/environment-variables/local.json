@@ -63,9 +63,14 @@
     "volume_mounts": []
   }, {
     "credentials": {
+      "admins": [
+        "david.corwin@gsa.gov"
+      ],
+      "security": [
+        "david.corwin@gsa.gov"
+      ],
       "smtp_server": "smtp.gmail.com",
-      "username": "",
-      "password": ""
+      "username": "do_not_reply_openforest@example.com"
     },
     "label": "user-provided",
     "name": "smtp-service",

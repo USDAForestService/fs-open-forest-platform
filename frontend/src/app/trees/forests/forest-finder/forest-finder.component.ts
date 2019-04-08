@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RemovePuncPipe } from './remove-punc.pipe';
-import 'rxjs/add/observable/of';
+
 import { Meta } from '@angular/platform-browser';
 
 @Component({

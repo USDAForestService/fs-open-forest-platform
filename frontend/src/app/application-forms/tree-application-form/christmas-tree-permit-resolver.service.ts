@@ -1,7 +1,9 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+
+import {catchError} from 'rxjs/operators';
+
+
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { ChristmasTreesApplicationService } from '../../trees/_services/christmas-trees-application.service';
 
@@ -17,8 +19,8 @@ export class ChristmasTreePermitResolver implements Resolve<any> {
     const permitId = route.paramMap.get('permitId');
     const forest = route.paramMap.get('id');
     const token = route.queryParams['t'];
-    return this.service.getPermit(permitId, token).catch(err => {
+    return this.service.getPermit(permitId, token).pipe(catchError(err => {
       return this.service.resolverError(err, `christmas-trees/forests/${forest}/applications`);
-    });
+    }));
   }
 }

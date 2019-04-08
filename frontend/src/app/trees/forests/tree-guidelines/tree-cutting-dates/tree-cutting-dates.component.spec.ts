@@ -4,7 +4,7 @@ import { FilterPipe } from '../../../../_pipes/filter.pipe';
 import { forest } from '../../../../_mocks/forest.mock';
 import { TreeCuttingDatesComponent } from './tree-cutting-dates.component';
 import { WindowRef } from '../../../../_services/native-window.service';
-import { MarkdownService } from 'ngx-md';
+import { NgxMdModule } from 'ngx-md';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DatexPipe } from '../../../../_pipes/datex.pipe';
 
@@ -16,7 +16,7 @@ describe('TreeCuttingDatesComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TreeCuttingDatesComponent, FilterPipe, DatexPipe],
-        providers: [WindowRef, MarkdownService],
+        providers: [WindowRef, NgxMdModule],
         schemas: [NO_ERRORS_SCHEMA],
         imports: [HttpClientTestingModule]
       }).compileComponents();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { McBreadcrumbsResolver } from 'ngx-breadcrumbs';
+import { McBreadcrumbsResolver } from 'ngx6-angular-breadcrumbs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()

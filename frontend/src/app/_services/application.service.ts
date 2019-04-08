@@ -1,7 +1,8 @@
+import {catchError} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+
+
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -24,15 +25,15 @@ export class ApplicationService {
       withCredentials: true
     };
 
-    return this.http.post(this.endpoint + type, body, options).catch(this.util.handleError);
+    return this.http.post(this.endpoint + type, body, options).pipe(catchError(this.util.handleError));
   }
 
   get(params = '') {
-    return this.http.get(this.endpoint + params, { withCredentials: true }).catch(this.util.handleError);
+    return this.http.get(this.endpoint + params, { withCredentials: true }).pipe(catchError(this.util.handleError));
   }
 
   getOne(id, params = '') {
-    return this.http.get(this.endpoint + params + id, { withCredentials: true }).catch(this.util.handleError);
+    return this.http.get(this.endpoint + params + id, { withCredentials: true }).pipe(catchError(this.util.handleError));
   }
 
   update(body, type) {
@@ -42,8 +43,8 @@ export class ApplicationService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
     return this.http
-      .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options)
-      .catch(this.util.handleError);
+      .put(`${this.endpoint}/special-uses/${type}/${body.appControlNumber}`, body, options).pipe(
+      catchError(this.util.handleError));
   }
 
   handleStatusCode(status) {
