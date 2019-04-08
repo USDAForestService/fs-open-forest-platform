@@ -16,16 +16,12 @@ RUN google-chrome --version
 WORKDIR /usr/src/app
 
 # install and cache app dependencies
-COPY ./frontend/package.json /usr/src/app/package.json
+COPY ./frontend/package*.json ./
 USER root
 RUN npm install
-RUN npm install -g @angular/cli@7.3.3
-
-# add `/usr/src/app/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # add app
-COPY ./frontend /usr/src/app
+COPY ./frontend ./
 
 # start app
-CMD ng serve --host 0.0.0.0
+CMD npm start -- --host 0.0.0.0

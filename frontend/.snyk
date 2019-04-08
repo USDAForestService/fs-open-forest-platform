@@ -4,6 +4,10 @@ version: v1.13.3
 ignore:
   SNYK-JS-MARKED-73637:
     - ngx-md > marked:
-        reason: No current remediation and requires internal attack vector.
-        expires: '2019-04-06T22:39:07.646Z'
+        reason: 'Medium severity, no remediation available.'
+        expires: '2019-05-08T15:58:50.360Z'
+  SNYK-JS-MARKED-174116:
+    - ngx-md > marked:
+        reason: 'Medium severity, no remediation available.'
+        expires: '2019-05-08T15:58:50.360Z'
 patch: {}
