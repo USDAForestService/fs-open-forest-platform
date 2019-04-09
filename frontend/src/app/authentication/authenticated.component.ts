@@ -81,20 +81,16 @@ export class AuthenticatedComponent implements OnInit {
    * set route for viewing applications
    */
   adminOrUser() {
-    if ( this.user && this.user.role === 'admin' && this.specialUse){
-      this.setRoute(this.user);
-      return true  
-    } else if (this.user && (this.user.role === 'user' && this.specialUse)){
-      this.setRoute(this.user);
-      return true
-    } 
+    if ( this.user && (this.user.role === 'admin' || this.user.role === 'user') && this.specialUse) {
+      return true;
+    }
     return false;
   }
 
   setRoute(user) {
-    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications'
+    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications';
   }
-  
+
   /**
    * Add user to route for display login on every NavigationEnd
    */
@@ -122,6 +118,7 @@ export class AuthenticatedComponent implements OnInit {
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);
+        this.setRoute(this.user);
         this.displayLogin = data.displayLogin;
         this.showAdminNav = data.showAdmin;
         this.specialUse = data.specialUse;
