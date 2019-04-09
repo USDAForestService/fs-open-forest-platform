@@ -6,4 +6,8 @@ ignore:
     - ngx-md > marked:
         reason: No current remediation and requires internal attack vector.
         expires: '2019-05-09T22:39:07.646Z'
+  SNYK-JS-MARKED-174116:
+    - ngx-md > marked:
+        reason: No current remediation
+        expires: '2019-05-09T13:37:19.819Z'
 patch: {}
