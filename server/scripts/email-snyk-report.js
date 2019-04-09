@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-const path = require('path');
 const nodemailer = require('nodemailer');
 const {
   SMTP_HOST,
@@ -9,7 +8,7 @@ const {
   SNYK_RECIPIENTS
 } = require('../src/vcap-constants.es6');
 
-function emailSnykReport(reportDate, reportPath) {
+function emailSnykReport(reportDate, reportFilename, reportContent) {
   const smtpConfig = {
     host: SMTP_HOST,
     port: SMTP_PORT || 587,
@@ -32,7 +31,10 @@ function emailSnykReport(reportDate, reportPath) {
     from: `"Open Forest Security Monitoring" <${SMTP_USERNAME}>`,
     to: SNYK_RECIPIENTS,
     subject: `Snyk Report for ${reportDate}`,
-    attachments: [{ path: path.resolve(reportPath) }],
+    attachments: [{
+      filename: reportFilename,
+      content: reportContent
+    }],
     text: `
       See attached Snyk report for ${reportDate}.
 
@@ -44,6 +46,7 @@ function emailSnykReport(reportDate, reportPath) {
   nodemailer.createTransport(smtpConfig).sendMail(mailOptions, (error) => {
     if (error) {
       console.error('NODE_MAILER_SMTP_ERROR', error);
+      process.exit(1);
     } else {
       console.log('Snyk report successfully sent');
     }
