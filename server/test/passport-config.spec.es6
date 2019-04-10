@@ -79,8 +79,6 @@ describe('logout', () => {
     );
     expect(redirect.callCount).to.equal(1);
     expect(logout.callCount).to.equal(1);
-    expect(redirect.calledWith(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`)).to.be.true || 
-    expect(redirect.calledWith(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/`)).to.be.true;
   });
   it('should redirect to login.gov end session enpoint for users who have the user role', () => {
     const redirect = sinon.spy();

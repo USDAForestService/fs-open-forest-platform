@@ -45,6 +45,7 @@ export class AuthenticatedComponent implements OnInit {
    * Remove local storage items.
    */
   logout(e: Event) {
+
     e.preventDefault();
     const status = {
       message: 'You have successfully logged out of Forest Service permits.',
@@ -55,16 +56,13 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.user = null;
-
-    this.authentication.removeUser().subscribe(user => {
-      if (user != null) {
-        this.winRef.getNativeWindow().location.href =
-          environment.apiUrl + 'auth/logout';
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+    this.authentication.removeUser();
+    if (this.router.url.includes('/christmas-trees')) {
+     this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/mbs']);
+    }
+    }
 
   /**
    * determine if SUDS login displays in header

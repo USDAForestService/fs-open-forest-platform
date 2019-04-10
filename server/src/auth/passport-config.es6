@@ -79,10 +79,6 @@ passportConfig.logout = (req, res) => {
   }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();
-  const prev = req.headers.referer;
-  return prev.indexOf('christmas-trees') > -1
-    ? res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/`)
-    : res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
 };
 
 module.exports = passportConfig;
