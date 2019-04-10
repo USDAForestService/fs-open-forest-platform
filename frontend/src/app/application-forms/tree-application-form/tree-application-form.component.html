@@ -24,7 +24,6 @@
           Christmas trees cost ${{costPerTree}} each, and a household is allowed to cut up to {{maxNumberOfTrees}} trees.
           All permits are non-refundable.
         </p>
-        <p><b>Your permit must be printed to be valid and cannot be stored on a mobile device.</b></p>
         <div id="form-errors"
           *ngIf="(submitted && !applicationForm.valid)"
           class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
@@ -35,9 +34,16 @@
         </div>
 
       <fieldset>
-        <p>All form fields are required unless otherwise noted.</p>
+        <legend>Permit information</legend>
+        <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
+        <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
+      </fieldset>
+      <fieldset>
         <legend>Permit holder information</legend>
+        <p>All form fields are required unless otherwise noted.</p>
         <p>The permit holder’s name is on the permit. Permit holder must be present at time of tree cutting and transport.</p>
+        <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
+        <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
         <div class="trees-applications-pii-accept-checkbox-container">
           <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
           <label id='accept-pii-label' for="accept-pii">By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
@@ -45,10 +51,6 @@
           <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII"></app-error-message>
         </div>
-        <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
-        <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
-        <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
-        <label class="margin-top-2 total-cost">Total cost for Christmas tree permit: <span id="total-cost" class="margin-left-1">${{applicationForm.controls.totalCost.value}}</span></label>
       </fieldset>
 
         <button id="application-next" class="usa-button-primary usa-button-big" type="submit">Next</button>
