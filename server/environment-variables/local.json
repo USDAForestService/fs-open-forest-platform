@@ -1,9 +1,9 @@
 {
   "user-provided": [{
     "credentials": {
-      "middlelayer_base_url": "https://fs-middlelayer-api-staging.app.cloud.gov/",
-      "middlelayer_password": "",
-      "middlelayer_username": ""
+      "middlelayer_base_url": "http://localhost:8000/",
+      "middlelayer_password": "password",
+      "middlelayer_username": "admin"
     },
     "label": "user-provided",
     "name": "middlelayer-service",

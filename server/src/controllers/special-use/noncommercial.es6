@@ -283,7 +283,8 @@ noncommercial.translateFromIntakeToMiddleLayer = (input) => {
       locationDescription: input.noncommercialFieldsLocationDescription,
       startDateTime: input.noncommercialFieldsStartDateTime,
       endDateTime: input.noncommercialFieldsEndDateTime,
-      numberParticipants: Number(input.noncommercialFieldsNumberParticipants)
+      numberParticipants: Number(input.noncommercialFieldsNumberParticipants),
+      numberSpectators: Number(input.noncommercialFieldsSpectatorCount)
     }
   };
 
