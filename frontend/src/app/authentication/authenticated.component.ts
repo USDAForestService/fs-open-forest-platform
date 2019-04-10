@@ -116,7 +116,7 @@ export class AuthenticatedComponent implements OnInit {
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);
-        if(this.user){
+        if (this.user) {
           this.setRoute(this.user);
         }
         this.displayLogin = data.displayLogin;
