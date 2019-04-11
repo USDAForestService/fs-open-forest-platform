@@ -94,7 +94,7 @@ loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
   // destroy the session
   req.logout();
   // res.redirect doesn't pass the Blink's Content Security Policy directive
-  return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}'</script>`);
+  return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs'</script>`);
 });
 
 // Callback from login.gov.

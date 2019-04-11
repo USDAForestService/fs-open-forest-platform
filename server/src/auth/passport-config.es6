@@ -1,5 +1,3 @@
-
-
 /**
  * Module for passport configuration
  * @module auth/passport-config
@@ -13,7 +11,6 @@ const loginGov = require('./login-gov.es6');
 const localAuth = require('./local.es6');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
-
 
 const passportConfig = {};
 
