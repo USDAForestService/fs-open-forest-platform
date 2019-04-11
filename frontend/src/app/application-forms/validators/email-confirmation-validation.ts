@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 export function emailConfirmationValidator(emailControl: string, confirmControl: string): ValidatorFn {
   return (control: FormGroup): ValidationErrors | null => {

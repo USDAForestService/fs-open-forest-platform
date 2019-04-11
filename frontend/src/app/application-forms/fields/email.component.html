@@ -6,12 +6,4 @@
     [attr.aria-invalid]="afs.hasError(applicantInfo.controls.emailAddress)"
   />
   <app-error-message fieldId="email-error" name="Email address" [control]="applicantInfo.controls.emailAddress"></app-error-message>
-  <label class="usa-input" for='email-confirmation' id="email-confirmation-label">Email address confirmation</label>
-  <span id="email-confirmation-hint-text" class="help-text usa-form-hint"><span>Please verify your email address</span></span>
-  <input id="email-confirmation" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" formControlName="emailAddressConfirmation" aria-required="true"
-    [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.emailAddressConfirmation, 'email-confirmation-label email-confirmation-hint-text', 'email-confirmation-error')"
-    [attr.aria-invalid]="afs.hasError(applicantInfo.controls.emailAddressConfirmation) || applicationInfo.errors.emailConfirmationRequirement === true"
-  />
-  <app-error-message fieldId="email-confirmation-error" name="Email address confirmation" [control]="applicantInfo.controls.emailAddressConfirmation"></app-error-message>
-  <app-error-message fieldId="email-group-error" name="Email group" [control]="applicantInfo"></app-error-message>
 </ng-container>
