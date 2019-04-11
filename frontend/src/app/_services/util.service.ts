@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
@@ -130,7 +130,7 @@ export class UtilService {
             break;
           case 401:
             errors = [{ status: error.status, message: 'Please log in.' }];
-            break;
+            return of(null);
           case 403:
             errors = [{ status: error.status, message: 'Access denied.' }];
             break;

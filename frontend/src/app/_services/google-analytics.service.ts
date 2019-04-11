@@ -8,6 +8,12 @@ export class GoogleAnalyticsService {
   constructor(router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+
+        // `gas` may not be available if blocked by an ad blocker
+        if (typeof gas === 'undefined') {
+          return;
+        }
+
         gas('send', 'pageview', event.url, document.title);
       }
     });
