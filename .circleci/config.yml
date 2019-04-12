@@ -32,17 +32,41 @@ _run:
       curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx
       sudo mv cf /usr/local/bin
 
+  login_cf_platform-production: &login_cf_platform-production
+    name: Login to Cloud.gov targeting space `platform-production`
+    command: |
+      CF_API="https://api.fr.cloud.gov"
+      cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
+      cf t -o usda-forest-service -s platform-production
+
+  _cache:
+    restore_cache: &restore_cache
+      keys:
+        - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
+        # fallback to using the latest cache if no exact match is found
+        - fs-epermit-deps-
+
+    save_cache: &save_cache
+      paths:
+        - ./frontend/node_modules
+        - ./server/node_modules
+      key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+
 version: 2
 jobs:
+  run-snyk:
+    docker:
+      - image: circleci/node:8.15.1
+    steps:
+      - checkout
+      - restore_cache: *restore_cache
+      - run: *install_dependencies
+
   run-all-other-tests:
     <<: *docker_image_browser
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run: *install_dependencies
       - run:
           name: Frontend - lint
@@ -62,11 +86,7 @@ jobs:
           name: Install sequelize
           command: sudo npm i -g sequelize-cli
 
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - save_cache: *save_cache
       - run:
           name: Server - lint
           command: |
@@ -106,11 +126,7 @@ jobs:
     parallelism: 4
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run: *install_dependencies
       - run:
           name: Install latest chrome
@@ -123,11 +139,7 @@ jobs:
             rm google-chrome.deb
             google-chrome --version
 
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - save_cache: *save_cache
       - run:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
@@ -154,11 +166,7 @@ jobs:
     <<: *docker_image_browser
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run: *install_dependencies
       - run:
           name: pa11y test
@@ -189,19 +197,11 @@ jobs:
       - image: circleci/node:8.15.1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - save_cache: *save_cache
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
@@ -248,19 +248,11 @@ jobs:
       - image: circleci/node:8.15.1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run:
           name: install dependencies
           command: .circleci/install-deployment-dependencies.sh
-      - save_cache:
-          paths:
-            - ./frontend/node_modules
-            - ./server/node_modules
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+      - save_cache: *save_cache
       - run:
           name: Run update-version to set frontend builddate and version in environment.ts for footer
           command: |
@@ -301,11 +293,7 @@ jobs:
           SNYK_DIR: "snyk"
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - fs-epermit-deps-
+      - restore_cache: *restore_cache
       - run: *install_dependencies
       - run:
           name: Generate Snyk report
@@ -316,12 +304,7 @@ jobs:
           command: |
             ./.circleci/upload-snyk.sh
       - run: *install_cf
-      - run:
-          name: Login to cloud.gov Production
-          command: |
-            CF_API="https://api.fr.cloud.gov"
-            cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
-            cf t -o usda-forest-service -s platform-production
+      - run: *login_cf_platform-production
       - run:
           name: Email Snyk Report
           command: |
@@ -341,15 +324,10 @@ jobs:
             curl -L -o cf-recycle-plugin https://github.com/rogeruiz/cf-recycle-plugin/releases/download/v1.0.0/cf-recycle-plugin.linux64
             chmod +x cf-recycle-plugin
             cf install-plugin cf-recycle-plugin -f
-      - run:
-          name: Login to cloud.gov Production
-          command: |
-            CF_API="https://api.fr.cloud.gov"
-            cf login -a ${CF_API} -u ${CF_USERNAME_PROD} -p ${CF_PASSWORD_PROD}
+      - run: *login_cf_platform-production
       - run:
           name: Recycle Production instances
           command: |
-            cf t -o usda-forest-service -s platform-production
             cf recycle open-forest-platform-frontend
             cf recycle open-forest-platform-api
 
