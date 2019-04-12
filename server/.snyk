@@ -33,8 +33,4 @@ ignore:
     - jsdoc > marked:
         reason: 'Medium severity, no remediation available.'
         expires: '2019-05-08T15:56:53.989Z'
-  SNYK-JS-SEQUELIZE-174167:
-    - sequelize:
-        reason: 'Remediation will be handled in issue #598'
-        expires: '2019-05-12T20:06:12.781Z'
 patch: {}
