@@ -156,17 +156,22 @@ commonControllers.updateEmailSwitch = (req, res, app, type) => {
   commonControllers.createRevision(req.user, app);
   // eslint-disable-next-line no-param-reassign
   app.forestName = forestInfoService.specialUseForestName(app.region + app.forest);
+
+  let emails;
   if (app.status === 'Submitted') {
-    email.sendEmail(`${type}ApplicationSubmittedConfirmation`, app);
-    email.sendEmail(`${type}ApplicationSubmittedAdminConfirmation`, app);
+    emails = Promise.all([
+      email.sendEmail(`${type}ApplicationSubmittedConfirmation`, app),
+      email.sendEmail(`${type}ApplicationSubmittedAdminConfirmation`, app)
+    ]);
   }
   if (app.status === 'Cancelled' && req.user.role === 'user') {
-    email.sendEmail(`${type}ApplicationUser${app.status}`, app);
-  } else if (app.status === 'Review' && req.user.role === 'admin') {
-    email.sendEmail(`${type}ApplicationRemoveHold`, app);
-  } else {
-    email.sendEmail(`${type}Application${app.status}`, app);
+    emails = email.sendEmail(`${type}ApplicationUser${app.status}`, app);
+  } if (app.status === 'Review' && req.user.role === 'admin') {
+    emails = email.sendEmail(`${type}ApplicationRemoveHold`, app);
   }
+  emails = email.sendEmail(`${type}Application${app.status}`, app);
+
+  return emails.catch(() => { /* Swallowing this error */ });
 };
 
 /**

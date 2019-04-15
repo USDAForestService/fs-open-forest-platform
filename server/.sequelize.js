@@ -24,8 +24,7 @@ const dbConfig = {
   ssl: false,
   dialect: dbParams.protocol.split(':')[0],
   seederStorage: 'sequelize',
-  logging: dbLogging && dbLogger,
-  operatorsAliases: false
+  logging: dbLogging && dbLogger
 };
 
 if (vcapConstants.database.ssl) {

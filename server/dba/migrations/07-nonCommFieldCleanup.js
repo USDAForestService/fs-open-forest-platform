@@ -1,6 +1,6 @@
-'use strict';
 
-let doTransaction = require('./modules/transaction');
+
+const doTransaction = require('./modules/transaction');
 
 const TABLE_NAME = 'noncommercialApplications';
 
@@ -8,7 +8,7 @@ const TABLE_NAME = 'noncommercialApplications';
 // remove phone type
 
 module.exports = {
-  up: function(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     let operations = [
       {
         operation: 'add',
@@ -177,7 +177,7 @@ module.exports = {
 
     return doTransaction(TABLE_NAME, queryInterface, operations);
   },
-  down: function(queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     let operations = [
       {
         operation: 'remove',
