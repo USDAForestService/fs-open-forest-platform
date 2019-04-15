@@ -1,0 +1,22 @@
+.forest-title{
+    text-align: center !important;
+    text-align-last:center;
+    direction: inherit;
+    background-color: #e2dcc9;
+    color: #333 !important;
+    line-height: 60px;
+    margin: 0px;
+    min-width: 100%;
+    background-position: right 40rem center;
+}
+#forest-title-drop {
+    @extend .forest-title;
+    font-size: 3rem;
+    font-weight: 700;
+    min-height: 60px;
+    line-height: 60px;
+    padding: 0px;
+    clear: both;
+    border: 0px !important;
+    font-family: "Merriweather", "Georgia", "Cambria", "Times New Roman", "Times", serif;
+}

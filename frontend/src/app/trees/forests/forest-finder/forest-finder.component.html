@@ -1,3 +1,15 @@
+
+<select
+role="listbox"
+[(ngModel)]="selectedForest"
+id="forest-title-drop"
+name="forestFinderSelect"
+>
+  <option value="" disabled selected>Select a forest</option>
+  <option role='option' *ngFor="let forest of forests" [ngValue]="forest">{{ forest.description }}</option>
+</select>
+
+
 <section id="forest-finder-intro" class="usa-hero">
   <div class="usa-grid">
     <div class="usa-hero-callout usa-section-dark">
