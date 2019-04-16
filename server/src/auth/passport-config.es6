@@ -68,13 +68,15 @@ passportConfig.getPassportUser = (req, res) => res.send(req.user);
  * @param {Object} res - http response
  */
 passportConfig.logout = (req, res) => {
-  let backURL = (req.header('Referer') || ' ');
-  if (backURL.indexOf('christmas-trees') > -1) {
-    backURL = '';
+  // setting reroute based on referrer
+  let backURL = '';
+  if (req.header) {
+    logger.info(req.header('Referer'));
+    if (req.header('Referer').indexOf('mbs') > -1 || req.header('Referer').indexOf('admin/applications') > -1) {
+      backURL = 'mbs';
+    }
   }
-  if (backURL.indexOf('mbs') > -1 || backURL.indexOf('admin/applications') > -1) {
-    backURL = 'mbs';
-  }
+
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
     logger.info(`${loginGov.params.state}`);
