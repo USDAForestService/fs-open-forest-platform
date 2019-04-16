@@ -57,7 +57,6 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('token');
     this.user = null;
 
-    // new code 
     this.authentication.removeUser().subscribe(user => {
       if (user != null) {
         this.winRef.getNativeWindow().location.href =
@@ -66,14 +65,6 @@ export class AuthenticatedComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
-
-    // route code
-    // this.authentication.removeUser();
-    // if (this.router.url.includes('/christmas-trees')) {
-    //  this.router.navigate(['/']);
-    // } else {
-    //   this.router.navigate(['/mbs']);
-    // }
     }
 
   /**
