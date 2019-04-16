@@ -1,0 +1,10 @@
+<ng-container [formGroup]="applicantInfo">
+  <label class="usa-input" for='email-confirmation' id="email-confirmation-label">Email address confirmation</label>
+  <span id="email-confirmation-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
+  <input id="email-confirmation" type="email" pattern="(^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$)" formControlName="emailAddressConfirmation" aria-required="true"
+    [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.emailAddressConfirmation, 'email-confirmation-label email-confirmation-hint-text', 'email-confirmation-error')"
+    [attr.aria-invalid]="afs.hasError(applicantInfo.controls.emailAddressConfirmation)"
+  />
+  <app-error-message fieldId="email-confirmation-error" name="Email address confirmation" [control]="applicantInfo.controls.emailAddressConfirmation"></app-error-message>
+  <app-error-message *ngIf="afs.hasError(applicantInfo.controls.emailAddressConfirmation) === 'false'" fieldId="email-group-error" name="Email group" [control]="applicantInfo"></app-error-message>
+</ng-container>

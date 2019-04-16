@@ -16,14 +16,21 @@ export class ChristmasTreeForm {
   lastNameError() {
     return element(by.css('span[id$="primary-permit-holder-last-name-error"]'));
   }
-
   email() {
     return element(by.css('input[id$="email"]'));
   }
   emailError() {
     return element(by.css('span[id$="email-error"]'));
   }
-
+  emailConfirmation() {
+    return element(by.css('input[id$="email-confirmation"]'));
+  }
+  emailConfirmationError() {
+    return element(by.css('span[id$="email-confirmation-error"]'));
+  }
+  emailGroupError() {
+    return element(by.css('span[id$="email-group-error"]'));
+  }
   treeAmount() {
     return element(by.css('input[id$="quantity"]'));
   }
@@ -67,6 +74,7 @@ export class ChristmasTreeForm {
     element(by.css('.primary-permit-holder-first-name')).sendKeys('Sarah');
     element(by.css('.primary-permit-holder-last-name')).sendKeys('Bell');
     element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('quantity')).sendKeys('2');
   }
 
@@ -83,6 +91,7 @@ export class ChristmasTreeForm {
     element(by.css('.primary-permit-holder-first-name')).sendKeys(first);
     element(by.css('.primary-permit-holder-last-name')).sendKeys(last);
     element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('quantity')).sendKeys('2');
     this.submit().click();
     this.rulesAccepted().click();
