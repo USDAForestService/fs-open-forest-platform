@@ -64,14 +64,8 @@ jobs:
   install_dependencies:
     <<: *docker_image
     steps:
-      - restore_cache:
-          keys:
-            - v1-fs-epermit-repo-{{ .Environment.CIRCLE_SHA1 }}
-            - v1-fs-epermit-repo-
-      - restore_cache:
-          keys:
-            - fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
-            - fs-epermit-deps-
+      - <<: *restore_repo
+      - <<: *restore_deps
       - run:
           name: Install frontend dependencies
           command: cd frontend; npm install
