@@ -68,8 +68,16 @@ passportConfig.getPassportUser = (req, res) => res.send(req.user);
  * @param {Object} res - http response
  */
 passportConfig.logout = (req, res) => {
+  let backURL = (req.header('Referer') || ' ');
+  if (backURL.indexOf('christmas-trees') > -1) {
+    backURL = '';
+  }
+  if (backURL.indexOf('mbs') > -1 || backURL.indexOf('admin/applications') > -1) {
+    backURL = 'mbs';
+  }
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
+    logger.info(`${loginGov.params.state}`);
     logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
     return res.redirect(
       `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
@@ -79,7 +87,7 @@ passportConfig.logout = (req, res) => {
   }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
+  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/${backURL}`);
 };
 
 module.exports = passportConfig;

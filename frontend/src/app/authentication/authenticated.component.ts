@@ -56,12 +56,24 @@ export class AuthenticatedComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.user = null;
-    this.authentication.removeUser();
-    if (this.router.url.includes('/christmas-trees')) {
-     this.router.navigate(['/']);
-    } else {
-      this.router.navigate(['/mbs']);
-    }
+
+    // new code 
+    this.authentication.removeUser().subscribe(user => {
+      if (user != null) {
+        this.winRef.getNativeWindow().location.href =
+          environment.apiUrl + 'auth/logout';
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
+
+    // route code
+    // this.authentication.removeUser();
+    // if (this.router.url.includes('/christmas-trees')) {
+    //  this.router.navigate(['/']);
+    // } else {
+    //   this.router.navigate(['/mbs']);
+    // }
     }
 
   /**
