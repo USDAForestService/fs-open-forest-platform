@@ -73,7 +73,7 @@ jobs:
           name: Install server dependencies
           command: cd server; npm install
       - save_cache:
-          key: fs-epermit-deps-{{ checksum "server/package.json" }}-{{ checksum "frontend/package.json" }}
+          key: fs-epermit-deps-{{ checksum "frontend/package.json" }}-{{ checksum "server/package.json" }}
           paths:
             - ./frontend/node_modules
             - ./server/node_modules
