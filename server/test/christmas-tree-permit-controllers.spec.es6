@@ -54,7 +54,7 @@ describe('christmas tree controller permit tests', () => {
     });
 
     it('should return a 400 response with an unknown forest id', (done) => {
-      permitApplication.forestId = undefined;
+      permitApplication.forestId = null;
 
       postPermit(permitApplication)
         .expect(400, done);

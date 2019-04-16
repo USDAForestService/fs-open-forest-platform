@@ -98,6 +98,10 @@ export class ErrorMessageComponent {
     return `It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.`;
   }
 
+  emailConfirmationRequirement(errors) {
+    return `Email confirmation does not match email.`;
+  }
+
   pattern(errors) {
     let result = '';
 

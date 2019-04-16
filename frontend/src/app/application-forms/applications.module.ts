@@ -13,6 +13,7 @@ import { ExperienceComponent } from './fields/experience.component';
 import { DateTimeRangeComponent } from './fields/date-time-range.component';
 import { DateTimeRangeService } from './_services/date-time-range.service';
 import { EmailComponent } from './fields/email.component';
+import { EmailConfirmationComponent } from './fields/email-confirmation.component';
 import { FaxComponent } from './fields/fax.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FileUploadComponent } from './fields/file-upload.component';
@@ -44,6 +45,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ClientChargesComponent,
     DateTimeRangeComponent,
     EmailComponent,
+    EmailConfirmationComponent,
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
@@ -72,6 +74,7 @@ import { TreePermitRulesComponent } from './tree-application-form/tree-permit-ru
     ClientChargesComponent,
     DateTimeRangeComponent,
     EmailComponent,
+    EmailConfirmationComponent,
     ExperienceComponent,
     FaxComponent,
     FileUploadComponent,
