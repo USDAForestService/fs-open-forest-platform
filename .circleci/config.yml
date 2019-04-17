@@ -52,7 +52,7 @@ _cache:
 
 version: 2
 jobs:
-  checkout_code:
+  checkout-code:
     <<: *docker_image
     steps:
       - checkout
@@ -61,7 +61,7 @@ jobs:
           paths:
             - ./
 
-  install_dependencies:
+  install-dependencies:
     <<: *docker_image
     steps:
       - <<: *restore_repo
@@ -297,37 +297,37 @@ workflows:
   version: 2
   build-deploy:
     jobs:
-      - checkout_code
-      - install_dependencies:
+      - checkout-code
+      - install-dependencies:
           requires:
-            - checkout_code
+            - checkout-code
       - run-unit-tests:
           requires:
-            - install_dependencies
+            - install-dependencies
       - run-e2e:
           requires:
-            - install_dependencies
+            - install-dependencies
       - run-pa11y:
           requires:
-            - install_dependencies
+            - install-dependencies
       - run-lint:
           requires:
-            - install_dependencies
-      - run_snyk:
+            - install-dependencies
+      - run-snyk:
           requires:
-            - install_dependencies
+            - install-dependencies
           filters:
             branches:
               only: dev
       - build-docker:
           requires:
-            - install_dependencies
+            - install-dependencies
           filters:
             branches:
               only: dev
       - staging-deploy:
           requires:
-            - run_snyk
+            - run-snyk
             - run-unit-tests
             - run-e2e
             - run-pa11y
@@ -338,7 +338,7 @@ workflows:
               only: dev
       - prod-deploy:
           requires:
-            - run_snyk
+            - run-snyk
             - run-unit-tests
             - run-e2e
             - run-pa11y
