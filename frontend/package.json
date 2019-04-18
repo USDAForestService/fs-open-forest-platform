@@ -19,6 +19,7 @@
     "serve-static-files": "./node_modules/superstatic/bin/server dist/ -c ./development-configurations/superstatic.json --port 4200",
     "shutdown": "ng build --prod --configuration=shutdown",
     "build-test-pa11y": "./development-configurations/build-test-pa11y.sh",
+    "snyk-protect": "snyk protect",
     "snyk-test": "snyk test",
     "snyk-wizard": "snyk wizard",
     "start": "ng serve",
