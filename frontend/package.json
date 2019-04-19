@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "build": "ng build",
+    "dist-dev": "ng build --prod --output-hashing=all --configuration=dev",
     "dist-trees": "ng build --prod --output-hashing=all --configuration=trees",
     "dist-prod": "ng build --prod --output-hashing=all --configuration=production",
     "docs": "typedoc --out ./src/assets/typedoc --exclude '**/*.spec.ts' ./src/ --module commonjs",
