@@ -344,7 +344,7 @@ file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at s
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
 
-We have a development environment configured to support ad hoc testing that cannot be done locally, for example the EAuth integration. This environment is connected to the same services as the staging environment. Pushing to this environment must be done manually by making sure you are logged into Cloud.gov and:
+We have a development environment configured to support ad hoc testing that cannot be done locally, for example the EAuth integration. This environment is connected to the same services as the staging environment except for the middlelayer, which is the `dev` environment (which is connected to staging SUDS, etc). Pushing to this environment must be done manually by making sure you are logged into Cloud.gov and:
 
 - `cd frontend`
 - `npm run dist-dev`
