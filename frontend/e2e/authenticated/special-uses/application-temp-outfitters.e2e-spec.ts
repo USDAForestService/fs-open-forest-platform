@@ -79,7 +79,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should navigate back to temp outfitter', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
   });
 
   fieldValidation.validateFileUploadField('guide-document', 'xls');
