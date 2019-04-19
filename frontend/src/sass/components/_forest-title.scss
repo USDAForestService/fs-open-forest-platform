@@ -1,8 +1,9 @@
 .forest-title{
     text-align: center;
     background-color: $fs-tan-dark;
-    color: $black;
+    color: $black !important;
     line-height: 2.0em;
     margin: 0px;
+    @include h2;
 }
 

@@ -4,3 +4,8 @@
   -o-transition: all $duration $effect;
   transition: all $duration $effect;
 }
+
+@mixin h2 {
+  font-size: $h2-font-size;
+  font-weight: $font-bold;
+}
