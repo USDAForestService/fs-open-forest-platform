@@ -125,6 +125,8 @@ There are two options for development - Docker or installing the dependencies in
 
 Install [Node ^8.15.1](https://nodejs.org/en/)
 
+We recommend installing `node` such that it does not require the `sudo` command to run and different versions can be easily managed, for example, using [NVM](https://github.com/creationix/nvm#installation)
+
 #### Package Manager
 
 Make sure [NPM](https://www.npmjs.com/) is up to date `npm install -g npm`
@@ -163,12 +165,12 @@ Then you can initialize your development database.
     $ npm run migrate
     $ npm run seed
 
-
-
 ##### Transactions
+
 The database can support promisified transactions by leveraging the `server/dba/migrations/modules/transaction.js`
 
 ## Special use shared ID sequence
+
 in order to have a shared ID across new permit types an `ALTER TABLE` query must be used. See migration `36` how to construct this.
 
 #### Environment Variables
@@ -193,6 +195,8 @@ To run any of the server commands, either the environment variables above must b
 | To run all of the tests locally | `npm run test` | Be sure your Postgresql server is running |
 | To run code coverage locally | `npm run coverage` | Be sure your Postgresql server is running. The coverage results can be found in `server/coverage/index.html` |
 
+Please see the [package.json](/server/package.json) for the complete list.
+
 #### Server API Documentation
 
 With your local Node server running, browse to http://localhost:8080/docs/api in order to view the interactive Swagger API documentation. This documentation will allow interactive access to the API endpoints.
@@ -205,13 +209,13 @@ Login.gov uses the openid-client passport plugin for the OpenID Connect protocol
 
 Due to security restrictions testing can't be done locally, you must use a server on cloud.gov.
 
-Note: we use `cookie-sessions` to with keys bound to the environment to allow for running in a clustered environment.
+Note: we use `cookie-sessions` with keys bound to the environment to allow for running in a clustered environment.
 
 #### Forest start and end dates
 
 Forest tree cutting start and end dates are saved in the database as a UTC DateTime object. When updating the start and end dates for the forest in the database, you must consider daylight savings, the forest timezone and calculate the offset.
 
-Forest dates on the frontend use the forest's timezone to calculate the correct date and time.
+Forest dates on the frontend assume the forest's timezone and do NOT specify the timezone.
 
 For local development, go to an [the changes season dates page to open a forest](http://localhost:4200/admin/christmas-trees/season-dates)
 
@@ -237,10 +241,6 @@ We use [winston](https://www.npmjs.com/package/winston) logging and [express-win
 
 ### Frontend Development
 
-#### Install angular cli
-
-Run `npm install -g @angular/cli`
-
 #### Navigate to frontend directory
 
 `cd frontend`
@@ -251,11 +251,11 @@ Run `npm install`
 
 #### Development server
 
-Run `ng serve` for a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a development server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 #### Build
 
-Run `ng build --prod --env=prod --aot=false` to build the static files for the single paged app. The build artifacts that can be deployed will be stored in the `dist/` directory.
+Run `npm run dist-<env>` where `env` is one of `dev`, `trees` (staging), `prod` to build the static files for the single paged app. The build artifacts that can be deployed will be stored in the `dist/` directory.
 
 #### Running unit tests
 
@@ -331,9 +331,9 @@ This task should be removed prior to launch.
 
 [Circleci 2.0](/docs/christmas-trees/process/Circleci-2-implementation.md) is used for continuous integration/deployment. The configuration file for circleci are found at [/.circleci/config.yml](/circleci/config.yml). An explaination of the checks performed by circleci are found at [/docs/christmas-trees/process/circle-checks.md](/docs/christmas-trees/process/circle-checks.md)
 
-The circleci configuration separates the tests into three different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
+The circleci configuration separates the tests into different jobs that run simultaneously to decrease build time e2e, pa11y tests, and all other tests.
 
-Deployment to a staging server is configured to run on the sprint branch only.
+Deployment to a staging server is configured to run on the `dev` branch only.
 
 #### Snyk
 
@@ -343,6 +343,18 @@ file is managed by the `snyk wizard`. `snyk-protect` is run in the Procfile at s
 ### Cloud.gov
 
 Deployment to cloud.gov is configured in the [.cg-deploy](/.cg-deploy) directory. The website's client (frontend) and server (backend) are deployed to separate servers. Each deployment environment (staging, production) require their own manifest files. The manifests are attached to the environment via the [deploy script](/.cg-deploy/deploy.sh), that authenticates with cloud.gov and pushes the files.
+
+We have a development environment configured to support ad hoc testing that cannot be done locally, for example the EAuth integration. This environment is connected to the same services as the staging environment except for the middlelayer, which is the `dev` environment (which is connected to staging SUDS, etc). Pushing to this environment must be done manually by making sure you are logged into Cloud.gov and:
+
+- `cd frontend`
+- `npm run dist-dev`
+- `cd ../server`
+- `./copy-frontend-assets.sh`
+- `cd ..`
+- `cf t -o usda-forest-service -s platform-dev`
+- `cf zero-downtime-push open-forest-platform-frontend-dev -f .cg-deploy/manifests/dev/manifest-frontend-dev.yml`
+- `cf zero-downtime-push open-forest-platform-api-dev -f .cg-deploy/manifests/dev/manifest-api-dev.yml`
+
 
 ### Build versioning
 
