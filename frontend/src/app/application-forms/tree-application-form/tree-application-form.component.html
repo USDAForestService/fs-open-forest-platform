@@ -1,4 +1,3 @@
-<h1 class="forest-title">{{forest.forestName}}</h1>
 <section id="application" class="usa-section">
   <div class="usa-grid">
     <app-breadcrumbs></app-breadcrumbs>
@@ -10,10 +9,10 @@
       </div>
     </div>
 
-    <h2 id="skip-nav-target" tabindex="-1">
+    <h1 id="skip-nav-target" tabindex="-1">
       <span [hidden]="showRules">Buy a Christmas tree permit</span>
       <span [hidden]="!showRules">Christmas tree cutting rules</span>
-    </h2>
+    </h1>
 
     <h2 *ngIf="forest">{{forest.forestName}}</h2>
 
