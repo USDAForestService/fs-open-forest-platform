@@ -5,7 +5,7 @@ applications:
     - route: fs-intake-api-staging.app.cloud.gov
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-  memory: 256M
+  memory: 128M
   instances: 1
   services:
     - eauth-service-provider
