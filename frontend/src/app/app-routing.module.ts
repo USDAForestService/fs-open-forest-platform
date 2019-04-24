@@ -5,6 +5,7 @@ import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
+import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
@@ -79,7 +80,7 @@ const appRoutes: Routes = [
       admin: true,
       specialUse: true
     },
-    canActivate: [AccessControlService],
+    canActivate: [AdminAccessControlService],
     resolve: {
       user: UserResolver
     },
@@ -103,7 +104,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin/christmas-trees',
-    canActivate: [AccessControlService],
+    canActivate: [AdminAccessControlService],
     data: {
       admin: true,
       showAdmin: true

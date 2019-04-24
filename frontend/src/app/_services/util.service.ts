@@ -157,4 +157,12 @@ export class UtilService {
       ]);
     }
   }
+
+  /**
+   * Navigate to an external URL
+   * @param url Navigate to an external URL
+   */
+  navigateExternal(url: string) {
+    window.location.href = url;
+  }
 }

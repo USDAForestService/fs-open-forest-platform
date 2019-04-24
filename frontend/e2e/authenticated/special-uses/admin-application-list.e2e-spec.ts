@@ -21,7 +21,7 @@ describe('Apply for a ', () => {
     list = new AdminApplicationList();
   });
 
-  it('should display forest name', () => {
+  fit('should display forest name', () => {
     list.navigateTo();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });

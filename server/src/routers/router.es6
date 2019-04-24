@@ -23,9 +23,10 @@ router.options('*', middleware.setCorsHeaders, (req, res) => {
 
 /** Plug in subroutes. */
 router.use('/auth', middleware.setCorsHeaders, middleware.checkPermissions, authRouter);
-router.use('/permits/applications', middleware.setCorsHeaders, middleware.checkPermissions, specialUseRouter);
+router.use('/permits/applications/special-uses', middleware.setCorsHeaders, middleware.checkPermissions, specialUseRouter);
 router.use('/forests', middleware.setCorsHeaders, christmasTreeRouter);
-router.use('/admin', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
+router.use('/admin/christmas-trees', middleware.setCorsHeaders, middleware.checkAdminPermissions, christmasTreeAdminRouter);
+router.use('/admin/special-uses', middleware.setCorsHeaders, middleware.checkAdminPermissions, specialUseRouter);
 
 /** GET the number of seconds that this instance has been running. */
 router.get('/uptime', (req, res) => {
