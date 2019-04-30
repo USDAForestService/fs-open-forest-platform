@@ -13,10 +13,8 @@ const Keygrip = require('keygrip');
 
 const passportConfig = require('./auth/passport-config.es6');
 const router = require('./routers/router.es6');
-const payGovMocks = require('./mocks/pay-gov-mocks.es6');
-const loginGovMocks = require('./mocks/login-gov-mocks.es6');
 require('body-parser-xml')(bodyParser);
-
+const payGovMocks = require('./mocks/pay-gov-mocks.es6');
 const swaggerDocument = require('./docs/swagger.json');
 
 const logger = require('./services/logger.es6');
@@ -30,7 +28,6 @@ if (util.isProduction()) {
 } else {
   logger.warn('Skipping New Relic Activation');
 }
-
 
 vcapConstants.nodeEnv = process.env.NODE_ENV;
 
@@ -51,6 +48,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.xml());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /** Logging middleware */
 if (logger.levels[logger.level] >= 2) {
@@ -76,7 +74,7 @@ app.use(
 
 /** set meridiem format to a.m. and p.m. */
 moment.updateLocale('en', {
-  meridiem(hour, minute, isLowerCase) {
+  meridiem(hour) {
     return hour < 12 ? 'a.m.' : 'p.m.';
   }
 });
@@ -87,13 +85,34 @@ passportConfig.setup(app);
 if (!util.isProduction()) {
   app.use(payGovMocks.router);
 }
-app.use(loginGovMocks.router);
 
 /** serve up docs api */
 app.use('/docs/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+/** Serve static code documentation pages. */
+app.use('/docs/code', express.static('docs/code'));
+
+/** GET the number of seconds that this instance has been running. */
+app.get('/uptime', (_req, res) => {
+  res.send(`Uptime: ${process.uptime()} seconds`);
+});
+
 /** Add the routes. */
 app.use(router);
+
+app.get('/mocks/auth/login', (req, res) => {
+  const { role } = req.query;
+  res.send(`
+    <h1 style="text-transform: capitalize;">Mock ${role} Login</h1>
+    <form action="/auth/${role}/callback" method="POST">
+      <label for="email">Email</label>
+      <input type="email" name="email" required>
+      <label for="password">Password</label>
+      <input type="text" name="password" required>
+      <button type="submit">Log In</button>
+    </form>
+  `);
+});
 
 /** Listen on port. */
 app.listen(process.env.PORT || 8080, () => {

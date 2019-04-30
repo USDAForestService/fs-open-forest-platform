@@ -1,14 +1,12 @@
-
-
 /**
  * Module for login.gov integration
  * @module auth/login-gov
  */
 
-const express = require('express');
+// const express = require('express');
 const openIdClient = require('openid-client');
 const jose = require('node-jose');
-const passport = require('passport');
+// const passport = require('passport');
 const { Strategy } = require('openid-client');
 const url = require('url');
 const util = require('../services/util.es6');
@@ -41,7 +39,7 @@ loginGov.params = {
 /**
  * @function setup - Setup the passport OpenIDConnectStrategy.
  */
-loginGov.setup = () => {
+loginGov.setup = (name, passport) => {
   logger.info('AUTHENTICATION: Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
   openIdClient.Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
@@ -61,7 +59,7 @@ loginGov.setup = () => {
         joseKeystore);
         // instantiate the passport strategy
         passport.use(
-          'oidc',
+          name,
           new Strategy({
             client,
             params: loginGov.params
@@ -83,28 +81,32 @@ loginGov.setup = () => {
     });
 };
 
-// router for login.gov specific endpoints
-loginGov.router = express.Router();
+loginGov.logout = (req, res) => {
+  res.redirect(
+    `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
+      `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
+    )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
+  );
+};
 
-// Initiate authentication via login.gov.
-loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
+// router for login.gov specific endpoints
+// loginGov.router = express.Router();
 
 // Initiate logging out of login.gov
-loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
-  // destroy the session
-  req.logout();
-  // res.redirect doesn't pass the Blink's Content Security Policy directive
-  return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs'</script>`);
-});
+// loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
+//   // destroy the session
+//   req.logout();
+//   // res.redirect doesn't pass the Blink's Content Security Policy directive
+//   return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs'</script>`);
+// });
 
 // Callback from login.gov.
-loginGov.router.get(
-  '/auth/login-gov/openid/callback',
-  // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
-  passport.authenticate('oidc', {
-    failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
-  }), (req, res) => res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`)
-
-);
+// loginGov.router.get(
+//   '/auth/login-gov/openid/callback',
+//   // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
+//   passport.authenticate('public', {
+//     failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
+//   }), (req, res) => res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`)
+// );
 
 module.exports = loginGov;

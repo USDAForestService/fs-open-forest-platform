@@ -1,12 +1,10 @@
-
-
 /**
  * Module for USDA eAuth integration
  * @module auth/usda-eauth
  */
 
-const express = require('express');
-const passport = require('passport');
+// const express = require('express');
+// const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
@@ -14,25 +12,23 @@ const logger = require('../services/logger.es6');
 
 const eAuth = {};
 
-eAuth.loginPath = '/auth/usda-eauth/saml/login';
+// eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
 
 // Instantiate the passport SamlStrategy
-passport.use(
-  new SamlStrategy(
-    {
-      path: vcapConstants.BASE_URL + eAuth.callbackPath,
-      entryPoint: `${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`,
-      issuer: vcapConstants.EAUTH_ISSUER,
-      privateCert: vcapConstants.EAUTH_PRIVATE_KEY,
-      cert: vcapConstants.EAUTH_CERT
-    },
-    (profile, done) => done(null, eAuth.setUserObject(profile))
-  )
+eAuth.strategy = () => new SamlStrategy(
+  {
+    path: vcapConstants.BASE_URL + eAuth.callbackPath,
+    entryPoint: `${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`,
+    issuer: vcapConstants.EAUTH_ISSUER,
+    privateCert: vcapConstants.EAUTH_PRIVATE_KEY,
+    cert: vcapConstants.EAUTH_CERT
+  },
+  (profile, done) => done(null, eAuth.setUserObject(profile))
 );
 
 // router for eAuth specific endpoints
-eAuth.router = express.Router();
+// eAuth.router = express.Router();
 
 /**
  * @function setUserObject - set user profile in the eAuth authentication response
@@ -59,18 +55,18 @@ eAuth.setUserObject = (profile) => {
 };
 
 // Initiate authentication via eAuth.
-eAuth.router.get(eAuth.loginPath, (req, res) => {
-  logger.info('AUTHENTICATION: Init eAuth Admin authentication request.');
-  return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
-});
+// eAuth.router.get(eAuth.loginPath, (req, res) => {
+//   logger.info('AUTHENTICATION: Init eAuth Admin authentication request.');
+//   return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
+// });
 
 // Callback from eAuth.
-eAuth.router.post(eAuth.callbackPath, passport.authenticate('saml'), (req, res) => {
-  // Include a P3P policy for IE11
-  // https://github.com/18F/fs-open-forest-platform/issues/405
-  res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
+// eAuth.router.post(eAuth.callbackPath, passport.authenticate('admin'), (req, res) => {
+//   // Include a P3P policy for IE11
+//   // https://github.com/18F/fs-open-forest-platform/issues/405
+//   res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
 
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
-});
+//   return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
+// });
 
 module.exports = eAuth;

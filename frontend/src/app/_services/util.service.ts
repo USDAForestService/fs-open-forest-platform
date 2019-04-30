@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WindowRef } from './native-window.service';
 
 @Injectable()
 export class UtilService {
@@ -12,6 +13,8 @@ export class UtilService {
     display: false,
     message: 'Loading, please wait.'
   };
+
+  constructor(private winRef: WindowRef) {}
 
   /**
    *  Set current section on page. Typically used on pages with sidebar navigation.
@@ -99,8 +102,8 @@ export class UtilService {
       this.currentSubSection = fragment;
       if (element) {
         element.scrollIntoView(true);
-        const scrolledY = window.pageYOffset || document.documentElement.scrollTop;
-        window.scroll(0, scrolledY - 80);
+        const scrolledY = this.winRef.getNativeWindow().pageYOffset || document.documentElement.scrollTop;
+        this.winRef.getNativeWindow().scroll(0, scrolledY - 80);
         document.getElementById(fragment).focus();
         return fragment;
       }
@@ -163,6 +166,6 @@ export class UtilService {
    * @param url Navigate to an external URL
    */
   navigateExternal(url: string) {
-    window.location.href = url;
+    this.winRef.getNativeWindow().location.href = url;
   }
 }

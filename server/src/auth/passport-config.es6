@@ -5,31 +5,36 @@
 
 const passport = require('passport');
 const logger = require('../services/logger.es6');
-
+const vcapConstants = require('../vcap-constants.es6');
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
-const localAuth = require('./local.es6');
-const util = require('../services/util.es6');
-const vcapConstants = require('../vcap-constants.es6');
+const localAdmin = require('./local-admin.es6');
+const localPublic = require('./local-public.es6');
+
+const mockAdminAuth = true;
+const mockPublicAuth = true;
 
 const passportConfig = {};
 
 /**
- * @function setup - Setup passport to integrate with login.gov and eAuth/
+ * @function setup - Setup passport to integrate with login.gov and eAuth
  * @param {Object} application
  */
 passportConfig.setup = (app) => {
-  loginGov.setup();
+  // Configure Admin Authentication
+  passport.use('admin', mockAdminAuth ? localAdmin('/mocks/auth/login?role=admin') : eAuth.strategy());
+
+  // Configure Public Authentication
+  if (mockPublicAuth) {
+    passport.use('public', localPublic('/mocks/auth/login?role=public'));
+    // app.use(loginGovMocks.router);
+  } else {
+    loginGov.setup('public', passport);
+  }
+
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(loginGov.router);
-  app.use(eAuth.router);
   app.use(passportConfig.authErrorHandler);
-
-  // Stub authentication for non-production environments
-  if (!util.isProduction()) {
-    app.use(localAuth);
-  }
 
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -79,13 +84,8 @@ passportConfig.logout = (req, res) => {
 
   // login.gov requires the user to visit the idp to logout
   if (req.user && req.user.role === 'user' && loginGov.issuer) {
-    logger.info(`${loginGov.params.state}`);
     logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
-    return res.redirect(
-      `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
-      )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
-    );
+    return loginGov.logout(req, res);
   }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();

@@ -1,5 +1,3 @@
-
-
 /**
  * Module for intake permit application routes
  * @module routers/applications

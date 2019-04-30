@@ -1,5 +1,3 @@
-
-
 /**
  * Module for christmas trees admin routes
  * @module routers/christmasTreeAdmin
