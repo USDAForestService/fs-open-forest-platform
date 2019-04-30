@@ -6,10 +6,11 @@ import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { UtilService } from '../../_services/util.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { WindowRef } from '../../_services/native-window.service';
 import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
 describe('ApplicationNoncommercialGroupComponent', () => {
@@ -23,12 +24,12 @@ describe('ApplicationNoncommercialGroupComponent', () => {
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
           UtilService,
+          { provide: WindowRef },
           { provide: ApplicationService, useClass: ApplicationService },
           { provide: ApplicationFieldsService, useClass: ApplicationFieldsService },
           { provide: FormBuilder, useClass: FormBuilder },
           AlertService,
           AuthenticationService,
-          UtilService,
           SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]

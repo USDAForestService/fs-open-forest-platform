@@ -50,7 +50,7 @@ middleware.checkPermissions = (req, res, next) => {
  * @param {Object} res - http response
  */
 middleware.checkAdminPermissions = (req, res, next) => {
-  if (req.user && util.getUserRole(req.user.adminUsername) === util.ADMIN_ROLE) {
+  if (req.user && req.user.role === util.ADMIN_ROLE) {
     next();
   } else {
     res.status(403).send();

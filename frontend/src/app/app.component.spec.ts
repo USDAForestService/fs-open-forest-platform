@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
-import { AppComponent } from './app.component';
-import { AuthenticationService } from './_services/authentication.service';
-import { UsaBannerComponent } from './usa-banner/usa-banner.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { UtilService } from './_services/util.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Observable } from 'rxjs/Observable';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NavigationEnd, Router, Routes } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AppComponent } from './app.component';
+import { UsaBannerComponent } from './usa-banner/usa-banner.component';
+import { AuthenticationService } from './_services/authentication.service';
+import { UtilService } from './_services/util.service';
+import { WindowRef } from './_services/native-window.service';
 
 export class MockAuthenticationService {
   user = { email: 'test@test.com', role: 'admin' };
@@ -51,6 +52,7 @@ describe('AppComponent', () => {
           providers: [
             { provide: AuthenticationService, useClass: MockAuthenticationService },
             UtilService,
+            { provide: WindowRef },
             { provide: Router, useClass: MockServices }
           ],
           schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
@@ -93,7 +95,11 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
           imports: [RouterTestingModule, HttpClientTestingModule],
           declarations: [AppComponent, UsaBannerComponent],
-          providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
+          providers: [
+            { provide: AuthenticationService, useClass: MockAuthenticationService },
+            UtilService,
+            { provide: WindowRef }
+          ],
           schemas: [CUSTOM_ELEMENTS_SCHEMA]
         }).compileComponents();
       })
@@ -132,7 +138,11 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
           imports: [RouterTestingModule, HttpClientTestingModule],
           declarations: [AppComponent, UsaBannerComponent],
-          providers: [{ provide: AuthenticationService, useClass: MockAuthenticationService }, UtilService],
+          providers: [
+            { provide: AuthenticationService, useClass: MockAuthenticationService },
+            UtilService,
+            { provide: WindowRef }
+          ],
           schemas: [CUSTOM_ELEMENTS_SCHEMA]
         }).compileComponents();
       })

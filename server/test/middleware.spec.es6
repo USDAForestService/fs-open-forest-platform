@@ -81,7 +81,8 @@ describe('middleware', () => {
       beforeEach(() => {
         req = {
           user: {
-            email: 'test@example.com'
+            email: 'test@example.com',
+            role: 'user'
           }
         };
       });
@@ -125,7 +126,7 @@ describe('middleware', () => {
       beforeEach(() => {
         req = {
           user: {
-            role: 'foo',
+            role: 'user',
             email: '123@example.com'
           }
         };
@@ -144,26 +145,19 @@ describe('middleware', () => {
       let req;
 
       beforeEach(() => {
-        sinon.stub(util, 'getUserRole').returns('admin');
-
         req = {
           user: {
             adminUsername: 'administrator',
-            role: 'foo',
+            role: 'admin',
             email: '123@example.com'
           }
         };
-      });
-
-      afterEach(() => {
-        util.getUserRole.restore();
       });
 
       it('should pass admin auth', () => {
         const next = sinon.spy();
         middleware.checkAdminPermissions(req, res, next);
         expect(next).to.have.been.calledWith();
-        expect(util.getUserRole).to.have.been.calledWith(req.user.adminUsername);
         expect(res.status).not.to.have.been.called;
         expect(res.send).not.to.have.been.called;
       });

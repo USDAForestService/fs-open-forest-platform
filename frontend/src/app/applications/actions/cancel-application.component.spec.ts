@@ -4,6 +4,7 @@ import { ApplicationService } from '../../_services/application.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { AlertService } from '../../_services/alert.service';
 import { UtilService } from '../../_services/util.service';
+import { WindowRef } from '../../_services/native-window.service';
 import { CancelApplicationComponent } from './cancel-application.component';
 import { Observable } from 'rxjs/Observable';
 import { CamelToHyphensPipe } from '../../_pipes/camel-to-hyphens.pipe';
@@ -40,7 +41,8 @@ describe('Cancel application', () => {
           { provide: AuthenticationService, useClass: MockApplicationService },
           CamelToHyphensPipe,
           AlertService,
-          UtilService
+          UtilService,
+          { provide: WindowRef }
         ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();

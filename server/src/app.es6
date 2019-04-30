@@ -41,14 +41,9 @@ app.set('trust proxy', 1);
 app.use(helmet());
 
 /** Body parsers are necessary for restful JSON and passport. */
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.xml());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 /** Logging middleware */
 if (logger.levels[logger.level] >= 2) {
@@ -99,20 +94,6 @@ app.get('/uptime', (_req, res) => {
 
 /** Add the routes. */
 app.use(router);
-
-app.get('/mocks/auth/login', (req, res) => {
-  const { role } = req.query;
-  res.send(`
-    <h1 style="text-transform: capitalize;">Mock ${role} Login</h1>
-    <form action="/auth/${role}/callback" method="POST">
-      <label for="email">Email</label>
-      <input type="email" name="email" required>
-      <label for="password">Password</label>
-      <input type="text" name="password" required>
-      <button type="submit">Log In</button>
-    </form>
-  `);
-});
 
 /** Listen on port. */
 app.listen(process.env.PORT || 8080, () => {

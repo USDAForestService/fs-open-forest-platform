@@ -10,6 +10,7 @@ const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
 const localAdmin = require('./local-admin.es6');
 const localPublic = require('./local-public.es6');
+const authMockRoutes = require('../mocks/auth-mocks.es6');
 
 const mockAdminAuth = true;
 const mockPublicAuth = true;
@@ -42,6 +43,10 @@ passportConfig.setup = (app) => {
   passport.deserializeUser((user, done) => {
     done(null, user);
   });
+
+  if (mockPublicAuth || mockAdminAuth) {
+    app.use(authMockRoutes);
+  }
 };
 
 /**

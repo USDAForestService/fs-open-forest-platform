@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder } from '@angular/forms';
 import { noncommercialMock } from './noncommercial.mock';
 import { UtilService } from '../../_services/util.service';
+import { WindowRef } from '../../_services/native-window.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
@@ -51,6 +52,7 @@ describe('Noncommercial with mock application service', () => {
           AlertService,
           AuthenticationService,
           UtilService,
+          { provide: WindowRef },
           SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]

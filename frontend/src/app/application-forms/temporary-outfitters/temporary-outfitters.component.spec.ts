@@ -12,6 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tempOutfitterMock } from './temp-outfitter.mock';
 import { UtilService } from '../../_services/util.service';
+import { WindowRef } from '../../_services/native-window.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SpecialUseInfoService } from 'app/_services/special-use-info.service';
 
@@ -70,6 +71,7 @@ describe('TemporaryOutfittersComponent', () => {
           AlertService,
           AuthenticationService,
           UtilService,
+          { provide: WindowRef },
           SpecialUseInfoService
         ],
         imports: [RouterTestingModule, HttpClientTestingModule]

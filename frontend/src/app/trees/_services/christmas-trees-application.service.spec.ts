@@ -1,11 +1,10 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 import * as sinon from 'sinon';
 import { ChristmasTreesApplicationService } from './christmas-trees-application.service';
 import { UtilService } from '../../_services/util.service';
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { WindowRef } from '../../_services/native-window.service';
 import { MockRouter } from '../../_mocks/routes.mock';
 
 describe('Christmas Trees Application Service', () => {
@@ -15,7 +14,12 @@ describe('Christmas Trees Application Service', () => {
     mockRouter = new MockRouter();
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [UtilService, ChristmasTreesApplicationService, { provide: Router, useValue: mockRouter }]
+      providers: [
+        UtilService,
+        { provide: WindowRef },
+        ChristmasTreesApplicationService,
+        { provide: Router, useValue: mockRouter }
+      ]
     });
   });
 

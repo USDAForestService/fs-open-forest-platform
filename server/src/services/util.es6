@@ -245,32 +245,11 @@ util.isTest = () => process.env.NODE_ENV === 'test';
 util.isProduction = () => process.env.NODE_ENV === 'production';
 
 /**
- * @function isTestAuthenticationEnabled - should production
- * authentication be used in tests (used in CI for more realistic test
- * conditions)
- * @return {boolean} - true when test production authentication is enabled
- */
-util.isTestAuthenticationEnabled = () => util.isTest() && !!process.env.TEST_PRODUCTION_AUTH;
-
-/**
  * @function setAuthEmail - Set the request body's authenticated email based on the passport user.
  * @param {Object} req - http request
  */
 util.setAuthEmail = (req) => {
   req.body.authEmail = req.user.email;
-};
-
-/**
- * @function localUser - A helper function to run locally as a user or admin
- * @returns {String} - user type
- */
-util.localUser = () => {
-  if (process.argv[2] === 'user') {
-    logger.info(`Operating as an ${process.argv[2]}`);
-    return process.argv[2];
-  }
-  logger.info(`Operating as an ${util.ADMIN_ROLE}`);
-  return util.ADMIN_ROLE;
 };
 
 /**
