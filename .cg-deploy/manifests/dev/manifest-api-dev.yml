@@ -1,0 +1,20 @@
+---
+applications:
+- name: open-forest-platform-api-dev
+  routes:
+    - route: fs-intake-api-staging.app.cloud.gov
+  path: ../../../server
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack
+  memory: 128M
+  instances: 1
+  services:
+    - eauth-service-provider
+    - intake-client-service
+    - intake-db
+    - intake-s3
+    - login-service-provider
+    - middlelayer-service
+    - smtp-service
+    - pay-gov
+    - jwt
+    - new-relic

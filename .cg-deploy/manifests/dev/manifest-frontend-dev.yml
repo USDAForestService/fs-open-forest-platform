@@ -1,0 +1,12 @@
+---
+applications:
+- name: open-forest-platform-frontend-dev
+  path: ../../../frontend/dist
+  memory: 64M
+  routes:
+   - route: open-forest-dev.app.cloud.gov
+  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
+  env:
+    FORCE_HTTPS: true
+  services:
+    - new-relic

@@ -35,6 +35,6 @@ ignore:
         expires: '2019-05-08T15:56:53.989Z'
   SNYK-JS-SEQUELIZECLI-174320:
     - sequelize-cli:
-        reason: No current remediation available
-        expires: '2019-05-16T21:17:57.954Z'
+        reason: 'Remediation will be handled in issue #598'
+        expires: '2019-05-16T17:48:14.137Z'
 patch: {}
