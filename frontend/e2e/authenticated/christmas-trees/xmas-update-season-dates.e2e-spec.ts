@@ -1,19 +1,20 @@
+import { browser, element, by, protractor } from 'protractor';
+import { loginAdmin } from '../../support/auth-helper';
 import { TreesAdminDatesPage } from './xmas-tree-admin-dates.po';
-import { browser, element, by, Key, protractor } from 'protractor';
+
+const page = new TreesAdminDatesPage();
 
 describe('Xmas tree - Update Season Dates', () => {
-  let page: TreesAdminDatesPage;
-
   describe('Season dates admin page', () => {
     beforeAll(() => {
-      page = new TreesAdminDatesPage();
-      browser.driver
-        .manage()
-        .window()
-        .setSize(1400, 900);
+      browser.driver.manage().deleteAllCookies();
+      browser.driver.manage().window().setSize(1400, 900);
+
       page.navigateTo();
-      browser.sleep(800);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/admin/christmas-trees/season-dates');
+
+      loginAdmin();
+
+      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/admin/christmas-trees/season-dates');
     });
 
     describe('basic elements', () => {

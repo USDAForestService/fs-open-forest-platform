@@ -80,7 +80,6 @@
     "coverage": "nyc --check-coverage --lines 90 --reporter=html --reporter=text --reporter=lcov --extension .es6 npm test",
     "createdb": "sequelize db:create",
     "dev": "npm run copy-frontend-assets; npm run migrate; nodemon ./src/app.es6",
-    "dev:user": "npm run dev -- user",
     "docs": "npm run jsdoc",
     "jsdoc": "jsdoc -c .jsdoc.json -d docs/code -t ./node_modules/ink-docstrap/template -r .",
     "lint": "eslint **/**/*.es6 **/**/**/*.es6",

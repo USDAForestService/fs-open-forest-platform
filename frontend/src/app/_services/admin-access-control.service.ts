@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { UtilService } from './util.service';
 
-const LOGIN_URL = `${environment.apiUrl}auth/usda-eauth/saml/login`;
+const LOGIN_URL = `${environment.apiUrl}auth/admin/login`;
 
 @Injectable()
 export class AdminAccessControlService implements CanActivate {

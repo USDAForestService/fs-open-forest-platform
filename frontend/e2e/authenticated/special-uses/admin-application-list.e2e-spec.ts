@@ -1,33 +1,34 @@
+import { browser, element, by } from 'protractor';
+import { loginAdmin, loginPublic } from '../../support/auth-helper';
 import { AdminApplicationList, NoncommercialGroupForm } from './app.po';
 import { NoncommercialApplicationForm } from './noncommercial-application-form.po';
-import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key } from 'protractor';
+
+const page = new AdminApplicationList();
+const noncommercial = new NoncommercialGroupForm();
+const applicationForm = new NoncommercialApplicationForm();
 
 describe('Apply for a ', () => {
-  let list: AdminApplicationList;
-  let noncommercial: NoncommercialGroupForm;
-  let applicationForm: NoncommercialApplicationForm;
-
   beforeAll(() => {
-    noncommercial = new NoncommercialGroupForm;
-    applicationForm = new NoncommercialApplicationForm;
+    browser.driver.manage().deleteAllCookies();
+
     noncommercial.navigateTo();
-    browser.sleep(500);
-    expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/mbs/applications/noncommercial-group-use/new');
+
+    loginPublic();
+
+    expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/mbs/applications/noncommercial-group-use/new');
     applicationForm.createApplication();
   });
 
-  beforeEach(() => {
-    list = new AdminApplicationList();
+  beforeAll(() => {
+    page.navigateTo();
+    loginAdmin();
   });
 
-  fit('should display forest name', () => {
-    list.navigateTo();
+  it('should display forest name', () => {
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mount Baker-Snoqualmie National Forest');
   });
 
   it('should display header links for authenticated user', () => {
-    list.navigateTo();
     expect<any>(element(by.id('log-in')).isPresent()).toBeFalsy();
     expect<any>(element(by.id('create-account')).isPresent()).toBeFalsy();
     expect<any>(element(by.id('log-out')).isPresent()).toBeTruthy();
@@ -36,7 +37,6 @@ describe('Apply for a ', () => {
   });
 
   it('should display have a heading that says pending permit applications', () => {
-    list.navigateTo();
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Pending permit applications for Open Forest');
   });
 

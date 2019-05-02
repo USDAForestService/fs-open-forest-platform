@@ -13,7 +13,7 @@ const logger = require('../services/logger.es6');
 const eAuth = {};
 
 // eAuth.loginPath = '/auth/usda-eauth/saml/login';
-eAuth.callbackPath = '/auth/usda-eauth/saml/callback';
+eAuth.callbackPath = '/auth/admin/callback';
 
 // Instantiate the passport SamlStrategy
 eAuth.strategy = () => new SamlStrategy(

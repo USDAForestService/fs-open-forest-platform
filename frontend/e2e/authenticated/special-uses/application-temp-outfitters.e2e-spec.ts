@@ -1,21 +1,25 @@
+import { browser, element, by } from 'protractor';
+import { loginPublic } from '../../support/auth-helper';
 import { TempOutfittersForm } from './app.po';
 import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key } from 'protractor';
+const path = require('path');
+
+const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
+
+const page = new TempOutfittersForm();
+const fieldValidation = new FieldValidation();
 
 describe('Apply for a temp outfitters permit', () => {
-  let page: TempOutfittersForm;
-  let fieldValidation: FieldValidation;
-  fieldValidation = new FieldValidation();
-  const path = require('path');
-  const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
-
-  beforeEach(() => {
-    page = new TempOutfittersForm();
+  beforeAll(() => {
+    browser.driver.manage().deleteAllCookies();
     browser.driver.manage().window().setSize(1400, 900);
+
+    page.navigateTo();
+
+    loginPublic();
   });
 
   it('should display the permit name in the header', () => {
-    page.navigateTo();
     expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
   });
 
@@ -64,7 +68,6 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('individual-label')).click();
     element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('good-standing-evidence')).sendKeys(testSuccessFile);
-    element(by.id('insurance-certificate')).sendKeys(testSuccessFile);
     element(by.id('location-description')).sendKeys('test');
     element(by.id('services-provided')).sendKeys('test');
     element(by.id('audience-description')).sendKeys('test');
@@ -73,7 +76,11 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('client-charges')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
-    browser.sleep(3000);
+
+    /* TODO - remove when S3 is mocked correctly */
+    element(by.buttonText('Retry uploading files.')).click();
+    /*                                           */
+
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 
@@ -142,7 +149,11 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('list-all-citations')).sendKeys('test');
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
-    browser.sleep(5000);
+
+    /* TODO - remove when S3 is mocked correctly */
+    element(by.buttonText('Retry uploading files.')).click();
+    /*                                           */
+
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
   });
 });

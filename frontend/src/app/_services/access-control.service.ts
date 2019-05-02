@@ -6,7 +6,7 @@ import { AuthenticationService } from './authentication.service';
 import { environment } from '../../environments/environment';
 import { UtilService } from './util.service';
 
-const LOGIN_URL = `${environment.apiUrl}auth/login-gov/openid/login`;
+const LOGIN_URL = `${environment.apiUrl}auth/public/login`;
 
 @Injectable()
 export class AccessControlService implements CanActivate {

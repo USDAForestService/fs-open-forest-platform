@@ -35,10 +35,4 @@ router.post('/admin/callback', passport.authenticate('admin', {
   successRedirect: `${INTAKE_CLIENT_BASE_URL}/logged-in`
 }));
 
-// TODO - remove
-router.get('/login-gov/openid/login', (_req, res) => { res.redirect('/auth/public/login'); });
-router.get('/login-gov/openid/callback', (_req, res) => { res.redirect('/auth/public/callback'); });
-router.get('/usda-eauth/saml/login', (_req, res) => { res.redirect('/auth/admin/login'); });
-router.post('/usda-eauth/saml/callback', (_req, res) => { res.redirect('/auth/admin/callback'); });
-
 module.exports = router;

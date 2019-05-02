@@ -1,19 +1,20 @@
+import { browser, element, by, protractor } from 'protractor';
+import { loginAdmin } from '../../support/auth-helper';
 import { TreesAdminDistrictDatesPage } from './xmas-tree-admin-district-dates.po';
-import { browser, element, by, Key, protractor } from 'protractor';
+
+const page = new TreesAdminDistrictDatesPage();
 
 describe('Xmas tree - Update District Dates', () => {
-  let page: TreesAdminDistrictDatesPage;
-
   describe('District Dates admin page', () => {
     beforeAll(() => {
-      page = new TreesAdminDistrictDatesPage();
-      browser.driver
-        .manage()
-        .window()
-        .setSize(1400, 900);
+      browser.driver.manage().deleteAllCookies();
+      browser.driver.manage().window().setSize(1400, 900);
+
       page.navigateTo();
-      browser.sleep(800);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/admin/christmas-trees/district-dates');
+
+      loginAdmin();
+
+      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/admin/christmas-trees/district-dates');
     });
 
     describe('basic elements', () => {
@@ -90,7 +91,7 @@ describe('Xmas tree - Update District Dates', () => {
         element(by.id('3-button-label')).click();
         element(by.id('1-button-label')).click();
         page.updateDatesSubmit().click();
-        expect(page.districtUpdatedAlert().isDisplayed()).toBeTruthy();
+        expect<any>(page.districtUpdatedAlert().isDisplayed()).toBeTruthy();
       });
     });
    });

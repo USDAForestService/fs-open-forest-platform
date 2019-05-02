@@ -5,7 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { UtilService } from '../_services/util.service';
 
-const LOGIN_URL = `${environment.apiUrl}auth/login-gov/openid/login`;
+const LOGIN_URL = `${environment.apiUrl}auth/public/login`;
 const LOGOUT_URL = `${environment.apiUrl}auth/logout`;
 
 @Component({
