@@ -84,12 +84,6 @@
       "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest"
     }
   }, {
-    "name": "new-relic",
-    "credentials": {
-      "key": "",
-      "app_name": "Open Forest Server"
-    }
-  }, {
     "name": "feature-flags",
     "credentials": {
       "mock_admin_auth": true,

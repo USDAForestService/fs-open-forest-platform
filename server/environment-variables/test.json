@@ -80,13 +80,6 @@
       "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest_test",
       "quiet": true
     }
-  },
-  {
-    "name": "new-relic",
-    "credentials": {
-      "key": "",
-      "app_name": "Open Forest Server"
-    }
   }, {
     "name": "feature-flags",
     "credentials": {

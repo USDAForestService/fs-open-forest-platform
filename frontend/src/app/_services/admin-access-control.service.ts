@@ -1,6 +1,6 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, CanActivateChild } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { AuthenticationService } from './authentication.service';
 import { UtilService } from './util.service';
@@ -8,7 +8,7 @@ import { UtilService } from './util.service';
 const LOGIN_URL = `${environment.apiUrl}auth/admin/login`;
 
 @Injectable()
-export class AdminAccessControlService implements CanActivate {
+export class AdminAccessControlService implements CanActivate, CanActivateChild {
   constructor(private authentication: AuthenticationService, public util: UtilService) {}
 
   /**
@@ -20,6 +20,14 @@ export class AdminAccessControlService implements CanActivate {
     return this.authentication.getAuthenticatedUser(true).pipe(map((user: any) => {
       return this.validateUser(user);
     }));
+  }
+
+  /**
+   * Determine if user can access the child route
+   * @returns boolean
+   */
+  canActivateChild() {
+    return this.canActivate();
   }
 
   /**

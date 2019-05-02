@@ -84,8 +84,9 @@ passportConfig.logout = (req, res) => {
   // setting reroute based on referrer
   let backURL = '';
   if (req.header) {
-    logger.info(req.header('Referer'));
-    if (req.header('Referer').indexOf('mbs') > -1 || req.header('Referer').indexOf('admin/applications') > -1) {
+    const referer = req.header('Referer');
+    logger.info(referer);
+    if (referer.indexOf('mbs') > -1 || referer.indexOf('admin/applications') > -1 || referer.indexOf('user/applications') > -1) {
       backURL = 'mbs';
     }
   }

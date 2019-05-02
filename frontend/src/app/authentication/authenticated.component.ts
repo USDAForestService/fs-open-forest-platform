@@ -5,7 +5,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { UtilService } from '../_services/util.service';
 
-const LOGIN_URL = `${environment.apiUrl}auth/public/login`;
+const ADMIN_LOGIN_URL = `${environment.apiUrl}auth/admin/login`;
+const PUBLIC_LOGIN_URL = `${environment.apiUrl}auth/public/login`;
 const LOGOUT_URL = `${environment.apiUrl}auth/logout`;
 
 @Component({
@@ -29,13 +30,16 @@ export class AuthenticatedComponent implements OnInit {
   ) {}
 
   /**
-   * Set message indicating user is being redirect to login.gov.
-   * Redirect user to login.gov
+   * Set message indicating user is being redirected to login.
+   * Redirect user
    */
   login() {
+    const requestingUrl = window.location.pathname;
+    localStorage.setItem('requestingUrl', requestingUrl);
+    const loginUrl = this.user && this.user.role === 'admin' ? ADMIN_LOGIN_URL : PUBLIC_LOGIN_URL;
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
-      this.util.navigateExternal(LOGIN_URL);
+      this.util.navigateExternal(loginUrl);
     }, 1000);
   }
 
