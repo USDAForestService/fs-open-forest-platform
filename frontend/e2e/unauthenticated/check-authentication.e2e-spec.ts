@@ -1,9 +1,13 @@
-import { by, element } from 'protractor';
+import { browser, by, element } from 'protractor';
 import { SpecialUseHomepage } from '../authenticated/special-uses/app.po';
 
 const page = new SpecialUseHomepage();
 
 describe('frontend App', () => {
+  beforeAll(() => {
+    browser.driver.manage().deleteAllCookies();
+  });
+
   it('should display login and create account links', () => {
     page.navigateTo();
     expect<any>(element(by.id('log-in')).isPresent()).toBeTruthy();
