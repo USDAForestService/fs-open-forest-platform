@@ -159,7 +159,7 @@ jobs:
             echo 'This container is running the following tests:'
             echo ${TESTFILES}
             cd ../..
-            .circleci/run-e2e.sh --specs='${TESTFILES}''
+            .circleci/run-e2e.sh --specs='${TESTFILES}'
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
