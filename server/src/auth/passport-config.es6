@@ -86,7 +86,10 @@ passportConfig.logout = (req, res) => {
   if (req.header) {
     const referer = req.header('Referer');
     logger.info(referer);
-    if (referer.indexOf('mbs') > -1 || referer.indexOf('admin/applications') > -1 || referer.indexOf('user/applications') > -1) {
+    if (referer.indexOf('mbs') > -1
+      || referer.indexOf('admin/applications') > -1
+      || referer.indexOf('user/applications') > -1
+    ) {
       backURL = 'mbs';
     }
   }
