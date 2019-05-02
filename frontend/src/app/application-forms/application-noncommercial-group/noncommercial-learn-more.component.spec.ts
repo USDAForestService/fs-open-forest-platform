@@ -13,7 +13,7 @@ describe('NoncommercialLearnMoreComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [NoncommercialLearnMoreComponent],
-        providers: [UtilService, { provide: WindowRef },SpecialUseInfoService],
+        providers: [UtilService, { provide: WindowRef }, SpecialUseInfoService],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

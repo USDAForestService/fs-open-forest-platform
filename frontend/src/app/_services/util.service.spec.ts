@@ -20,7 +20,7 @@ describe('UtilService', () => {
 
   afterEach(() => {
     jasmine.clock().uninstall();
-  })
+  });
 
   it('should set the current section', () => {
     service.setCurrentSection('test');
