@@ -12,8 +12,12 @@ const localAdmin = require('./local-admin.es6');
 const localPublic = require('./local-public.es6');
 const authMock = require('../mocks/auth-mocks.es6');
 
-const mockAdminAuth = true;
-const mockPublicAuth = true;
+const {
+  INTAKE_CLIENT_BASE_URL,
+  FEATURES: {
+    MOCK_ADMIN_AUTH, MOCK_PUBLIC_AUTH
+  }
+} = vcapConstants;
 
 const passportConfig = {};
 
@@ -23,12 +27,11 @@ const passportConfig = {};
  */
 passportConfig.setup = (app) => {
   // Configure Admin Authentication
-  passport.use('admin', mockAdminAuth ? localAdmin('/mocks/auth/login?role=admin') : eAuth.strategy());
+  passport.use('admin', MOCK_ADMIN_AUTH ? localAdmin('/mocks/auth/login?role=admin') : eAuth.strategy());
 
   // Configure Public Authentication
-  if (mockPublicAuth) {
+  if (MOCK_PUBLIC_AUTH) {
     passport.use('public', localPublic('/mocks/auth/login?role=public'));
-    // app.use(loginGovMocks.router);
   } else {
     loginGov.setup('public', passport);
   }
@@ -44,7 +47,7 @@ passportConfig.setup = (app) => {
     done(null, user);
   });
 
-  if (mockPublicAuth || mockAdminAuth) {
+  if (MOCK_PUBLIC_AUTH || MOCK_ADMIN_AUTH) {
     app.use(authMock.router);
   }
 };
@@ -59,7 +62,7 @@ passportConfig.setup = (app) => {
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
     logger.warn('ERROR: ServerError: AUTHENTICATION-', err);
-    res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
+    res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();
   }
@@ -94,7 +97,7 @@ passportConfig.logout = (req, res) => {
   }
   logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
   req.logout();
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/${backURL}`);
+  return res.redirect(`${INTAKE_CLIENT_BASE_URL}/${backURL}`);
 };
 
 module.exports = passportConfig;

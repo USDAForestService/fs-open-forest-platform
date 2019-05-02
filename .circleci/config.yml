@@ -151,15 +151,12 @@ jobs:
           command: cd server; ./copy-frontend-assets.sh
       - run: *populate_server
       - run:
-          name: Run authenticated e2e tests
+          name: Run e2e tests
           command: |
-            export TESTFILES=$(cd frontend;circleci tests glob "./e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
+            export TESTFILES=$(cd frontend;circleci tests glob "./e2e/**/*spec.ts" | circleci tests split)
             echo 'This container is running the following tests:'
             echo ${TESTFILES}
-            .circleci/run-e2e.sh -a ${TESTFILES}
-      - run:
-          name: Run unauthenticated e2e tests
-          command: .circleci/run-e2e.sh -u
+            .circleci/run-e2e.sh --specs=${TESTFILES}
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
