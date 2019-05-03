@@ -152,13 +152,7 @@ jobs:
       - run: *populate_server
       - run:
           name: Run e2e tests
-          command: |
-            cd frontend/development-configurations
-            export TESTFILES=$(circleci tests split xmas su unauthenticated)
-            echo 'This container is running the following tests:'
-            echo ${TESTFILES}
-            cd ../..
-            .circleci/run-e2e.sh --suite=${TESTFILES}
+          command: .circleci/run-e2e.sh
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
