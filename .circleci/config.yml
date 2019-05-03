@@ -132,7 +132,7 @@ jobs:
 
   run-e2e:
     <<: *docker_image_browser
-    parallelism: 4
+    parallelism: 3
     steps:
       - <<: *restore_repo
       - <<: *restore_deps

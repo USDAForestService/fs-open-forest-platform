@@ -13,6 +13,9 @@ then
     2)
       SUITE="unauthenticated"
       ;;
+    *)
+      exit 0
+      ;;
   esac
 fi
 
