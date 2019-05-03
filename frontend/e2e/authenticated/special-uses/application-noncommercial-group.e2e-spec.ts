@@ -41,7 +41,8 @@ describe('Apply for a noncommercial group use permit', () => {
   });
 
   it('should display the permit name in the header', () => {
-    expect<any>(element(by.css('app-root h1')).getText()).toEqual('Apply for a noncommercial group use permit with Open Forest.');
+    page.navigateTo();
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a noncommercial group use permit with Open Forest.');
   });
 
   it('should submit an application as individual with only the required fields populated', () => {
