@@ -9,7 +9,7 @@ const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
 const page = new TempOutfittersForm();
 const fieldValidation = new FieldValidation();
 
-describe('Apply for a temp outfitters permit', () => {
+fdescribe('Apply for a temp outfitters permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     browser.driver.manage().window().setSize(1400, 900);
@@ -77,8 +77,8 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
 
-    /* TODO - remove when S3 is mocked correctly */
-    element(by.buttonText('Retry uploading files.')).click();
+    /* TODO - remove when S3 is mocked correctly locally */
+    element.all(by.buttonText('Retry uploading files.')).each(el => el.click());
     /*                                           */
 
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
@@ -150,8 +150,8 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.id('signature')).sendKeys('test');
     element(by.id('submit-application')).click();
 
-    /* TODO - remove when S3 is mocked correctly */
-    element(by.buttonText('Retry uploading files.')).click();
+    /* TODO - remove when S3 is mocked correctly locally */
+    element.all(by.buttonText('Retry uploading files.')).each(el => el.click());
     /*                                           */
 
     expect<any>(element(by.css('app-root h2')).getText()).toEqual('Submitted for review!');
