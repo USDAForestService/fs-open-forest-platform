@@ -153,13 +153,12 @@ jobs:
       - run:
           name: Run e2e tests
           command: |
-            # The test filepaths must be relative to the protractors configuration
             cd frontend/development-configurations
-            export TESTFILES=$(circleci tests glob "../e2e/**/*spec.ts" | circleci tests split)
+            export TESTFILES=$(circleci tests split xmas su unauthenticated)
             echo 'This container is running the following tests:'
             echo ${TESTFILES}
             cd ../..
-            .circleci/run-e2e.sh --specs='${TESTFILES}'
+            .circleci/run-e2e.sh --suite=${TESTFILES}
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh
