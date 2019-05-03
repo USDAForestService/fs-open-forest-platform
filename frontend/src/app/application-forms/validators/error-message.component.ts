@@ -29,7 +29,7 @@ export class ErrorMessageComponent {
   }
 
   email(errors) {
-    return `${this.name} requires a valid email address. `;
+    return `${this.name} requires a valid email address. I.E. you@email.com `;
   }
 
   required(errors) {

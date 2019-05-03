@@ -51,7 +51,7 @@ describe('ErrorMessageComponent', () => {
       min: ['', Validators.min(1)]
     });
     form.get('emailAddress').setValue('test');
-    expect(component.parseErrors(form.get('emailAddress').errors)).toEqual('Test requires a valid email address. ');
+    expect(component.parseErrors(form.get('emailAddress').errors)).toEqual('Test requires a valid email address. I.E. you@email.com ');
     form.get('emailAddress').setValue('test@test.com');
 
     expect(component.parseErrors(form.get('primaryFirstName').errors)).toEqual('Test is required. ');
