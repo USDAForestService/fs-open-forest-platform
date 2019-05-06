@@ -132,7 +132,7 @@ jobs:
 
   run-e2e:
     <<: *docker_image_browser
-    parallelism: 4
+    parallelism: 3
     steps:
       - <<: *restore_repo
       - <<: *restore_deps
@@ -151,15 +151,8 @@ jobs:
           command: cd server; ./copy-frontend-assets.sh
       - run: *populate_server
       - run:
-          name: Run authenticated e2e tests
-          command: |
-            export TESTFILES=$(cd frontend;circleci tests glob "./e2e/authenticated/**/*.e2e-spec.ts" | circleci tests split)
-            echo 'This container is running the following tests:'
-            echo ${TESTFILES}
-            .circleci/run-e2e.sh -a ${TESTFILES}
-      - run:
-          name: Run unauthenticated e2e tests
-          command: .circleci/run-e2e.sh -u
+          name: Run e2e tests
+          command: .circleci/run-e2e.sh
       - run:
           name: Install dependencies and clean s3 bucket
           command: ./.circleci/clean-s3-bucket.sh

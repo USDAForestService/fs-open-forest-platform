@@ -1,17 +1,11 @@
+import { browser, by, element } from 'protractor';
 import { SpecialUseHomepage } from '../authenticated/special-uses/app.po';
-import { browser, by, element, Key } from 'protractor';
 
+const page = new SpecialUseHomepage();
 
 describe('frontend App', () => {
-  let page: SpecialUseHomepage;
-
-  beforeEach(() => {
-    page = new SpecialUseHomepage();
-  });
-
-  afterEach(function() {
-    browser.executeScript('window.sessionStorage.clear();');
-    browser.executeScript('window.localStorage.clear();');
+  beforeAll(() => {
+    browser.driver.manage().deleteAllCookies();
   });
 
   it('should display login and create account links', () => {
@@ -22,5 +16,4 @@ describe('frontend App', () => {
     expect<any>(element(by.id('view-applications')).isPresent()).toBeFalsy();
     expect<any>(element(by.id('login-to-suds')).isPresent()).toBeFalsy();
   });
-
 });

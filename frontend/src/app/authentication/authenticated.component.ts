@@ -3,9 +3,11 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
-import { setupRouter } from '@angular/router/src/router_module';
+
+const ADMIN_LOGIN_URL = `${environment.apiUrl}auth/admin/login`;
+const PUBLIC_LOGIN_URL = `${environment.apiUrl}auth/public/login`;
+const LOGOUT_URL = `${environment.apiUrl}auth/logout`;
 
 @Component({
   selector: 'app-authenticated',
@@ -24,19 +26,20 @@ export class AuthenticatedComponent implements OnInit {
     public authentication: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public util: UtilService,
-    private winRef: WindowRef
+    public util: UtilService
   ) {}
 
   /**
-   * Set message indicating user is being redirect to login.gov.
-   * Redirect user to login.gov
+   * Set message indicating user is being redirected to login.
+   * Redirect user
    */
   login() {
+    const requestingUrl = window.location.pathname;
+    localStorage.setItem('requestingUrl', requestingUrl);
+    const loginUrl = this.user && this.user.role === 'admin' ? ADMIN_LOGIN_URL : PUBLIC_LOGIN_URL;
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
-      this.winRef.getNativeWindow().location.href =
-        environment.apiUrl + 'auth/login-gov/openid/login';
+      this.util.navigateExternal(loginUrl);
     }, 1000);
   }
 
@@ -59,8 +62,7 @@ export class AuthenticatedComponent implements OnInit {
 
     this.authentication.removeUser().subscribe(user => {
       if (user != null) {
-        this.winRef.getNativeWindow().location.href =
-          environment.apiUrl + 'auth/logout';
+        this.util.navigateExternal(LOGOUT_URL);
       } else {
         this.router.navigate(['/']);
       }

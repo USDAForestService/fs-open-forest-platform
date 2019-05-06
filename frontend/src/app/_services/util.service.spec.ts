@@ -1,19 +1,25 @@
 import { TestBed } from '@angular/core/testing';
-import { UtilService } from './util.service';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import * as sinon from 'sinon';
-import { HttpErrorResponse } from '@angular/common/http';
+import { UtilService } from './util.service';
+import { WindowRef } from './native-window.service';
 
 describe('UtilService', () => {
   let service: UtilService;
 
   beforeEach(() => {
-    service = new UtilService();
-
     TestBed.configureTestingModule({
-      providers: [{ provide: UtilService }]
+      providers: [
+        UtilService,
+        { provide: WindowRef }
+      ]
     });
+    service = TestBed.get(UtilService);
+
+    jasmine.clock().install();
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
   });
 
   it('should set the current section', () => {
@@ -22,7 +28,7 @@ describe('UtilService', () => {
   });
 
   it('should format string to ID', () => {
-    const value: any = 'Test value';
+    const value = 'Test value';
     expect(service.createId(value)).toEqual('test-value');
   });
 
@@ -43,10 +49,9 @@ describe('UtilService', () => {
 
   it('should add request to requests', () => {
     service.addRequest();
+    jasmine.clock().tick(250);
     expect(service.requests).toEqual(1);
-    setTimeout(() => {
-      expect(service.progress.display).toEqual(true);
-    }, 260);
+    expect(service.progress.display).toEqual(true);
   });
 
   it('should remove request if requests are greator than 0', () => {
@@ -61,9 +66,8 @@ describe('UtilService', () => {
 
   it('should set requests', () => {
     service.setRequests(4);
+    jasmine.clock().tick(250);
     expect(service.requests).toEqual(4);
-    setTimeout(() => {
-      expect(service.progress.display).toEqual(true);
-    }, 260);
+    expect(service.progress.display).toEqual(true);
   });
 });

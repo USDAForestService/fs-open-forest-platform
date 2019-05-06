@@ -1,17 +1,17 @@
-import { browser, element, by, Key, protractor } from 'protractor';
+import { browser } from 'protractor';
+import { loginAdmin } from '../../support/auth-helper';
 import { TreesReportPage } from './xmas-tree-admin.po';
 
-describe('Xmas admin navbar', () => {
-  let page: TreesReportPage;
+const page = new TreesReportPage();
 
+describe('Xmas admin navbar', () => {
   beforeAll(() => {
-    page = new TreesReportPage();
-    browser.driver
-      .manage()
-      .window()
-      .setSize(1400, 900);
+    browser.driver.manage().deleteAllCookies();
+    browser.driver.manage().window().setSize(1400, 900);
+
     page.navigateTo();
-    browser.sleep(900);
+
+    loginAdmin();
   });
 
   it('should have a admin nav menu', () => {
@@ -40,35 +40,25 @@ describe('Xmas admin navbar', () => {
 
   it('should navigate to the season-dates page when season-dates clicked', () => {
     page.adminSeasons().click();
-    browser.sleep(500);
-    expect(browser.getCurrentUrl()).toContain(
-      `season-dates`
-    );
+    browser.sleep(1);
+    expect<any>(browser.getCurrentUrl()).toContain('season-dates');
   });
 
   it('should navigate to the areas page when areas clicked', () => {
     page.adminAreas().click();
-    browser.sleep(500);
-    expect(browser.getCurrentUrl()).toContain(
-      `district-dates`
-    );
+    browser.sleep(1);
+    expect<any>(browser.getCurrentUrl()).toContain('district-dates');
   });
 
   it('should navigate to the reports page when reports clicked', () => {
     page.adminReports().click();
-    browser.sleep(500);
-    expect(browser.getCurrentUrl()).toContain(
-      `reports`
-    );
+    browser.sleep(1);
+    expect<any>(browser.getCurrentUrl()).toContain('reports');
   });
 
 
   it('should have a menu button and hide sidebar nav when resized to mobile', () => {
-    browser.driver
-      .manage()
-      .window()
-      .setSize(800, 1280);
-    browser.sleep(900);
+    browser.driver.manage().window().setSize(800, 1280);
     expect<any>(page.forestAdminMobileMenuButton().isDisplayed()).toBeTruthy();
     expect<any>(page.forestAdminNav().isDisplayed()).toBeFalsy();
   });
@@ -76,7 +66,7 @@ describe('Xmas admin navbar', () => {
   it('should open menu if menu button is clicked', () => {
     expect<any>(page.forestAdminMobileMenuButton().isDisplayed()).toBeTruthy();
     page.forestAdminMobileMenuButton().click();
-    browser.sleep(500);
+    browser.sleep(1);
     expect<any>(page.forestAdminMobileNav().isDisplayed()).toBeTruthy();
   });
 
@@ -99,6 +89,4 @@ describe('Xmas admin navbar', () => {
   it('should have a mobile form link', () => {
     expect<any>(page.adminFormMobile().getText()).toEqual('Request a content change');
   });
-
-
 });

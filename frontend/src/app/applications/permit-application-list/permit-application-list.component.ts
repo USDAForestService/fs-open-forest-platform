@@ -75,7 +75,7 @@ export class PermitApplicationListComponent implements OnInit {
   }
 
   getApplications(type) {
-    this.applicationService.get(`/${type}`).subscribe(
+    this.applicationService.get(`/special-uses/${type}`).subscribe(
       (applications: any) => {
         this.applications = applications;
       },

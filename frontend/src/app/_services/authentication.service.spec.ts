@@ -4,6 +4,7 @@ import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { ApplicationService } from '../_services/application.service';
 import { UtilService } from './util.service';
+import { WindowRef } from './native-window.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
@@ -37,7 +38,8 @@ describe('Authentication Service', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ApplicationService, useClass: MockApplicationService },
-        UtilService
+        UtilService,
+        { provide: WindowRef }
       ],
       imports: [RouterTestingModule, HttpClientTestingModule]
     });
@@ -108,12 +110,10 @@ describe('Authentication Service', () => {
 
       })
     );
-
   });
 
   it('isAdmin should return if user is admin', () => {
     service.user = { email: 'test@test.com', role: 'admin' };
     expect(service.isAdmin()).toBeTruthy();
   });
-
 });

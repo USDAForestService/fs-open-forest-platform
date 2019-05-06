@@ -4,13 +4,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import * as sinon from 'sinon';
 import { UtilService } from './util.service';
+import { WindowRef } from './native-window.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('Application Service', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule, RouterTestingModule],
-      providers: [UtilService, ApplicationService]
+      providers: [UtilService, { provide: WindowRef }, ApplicationService]
     });
   });
 

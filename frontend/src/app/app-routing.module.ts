@@ -5,6 +5,7 @@ import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
 import { AccessControlService } from './_services/access-control.service';
+import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
@@ -64,7 +65,66 @@ const appRoutes: Routes = [
           title: 'Help me find a permit',
           breadcrumbs: 'Help me find a permit available on Open Forest'
         }
-      }
+      },
+      {
+        path: 'applications/noncommercial-group-use/learn-more',
+        component: NoncommercialLearnMoreComponent,
+        data: {
+          title: 'Learn more about a noncommercial group use permit',
+        }
+      },
+      {
+        path: 'applications/temp-outfitters/learn-more',
+        component: TemporaryOutfittersLearnMoreComponent,
+        data: {
+          title: 'Learn more about a temporary outfitters permit',
+        },
+      },
+      {
+        path: 'applications',
+        canActivateChild: [AccessControlService],
+        children: [
+          {
+            path: '',
+            component: HomeComponent,
+          },
+          {
+            path: 'noncommercial-group-use/new',
+            component: ApplicationNoncommercialGroupComponent,
+            data: {
+              title: 'Apply for a noncommercial group use permit with Open Forest',
+            },
+          },
+          {
+            path: 'noncommercial-group-use/:id/edit',
+            component: ApplicationNoncommercialGroupComponent,
+            data: {
+              title: 'Edit your noncommercial group use permit with Open Forest'
+            },
+          },
+          {
+            path: ':type/submitted/:id',
+            component: ApplicationSubmittedComponent,
+            data: {
+              title: 'Application submitted for review with Open Forest',
+            },
+          },
+          {
+            path: 'temp-outfitters/new',
+            component: TemporaryOutfittersComponent,
+            data: {
+              title: 'Apply for a temporary outfitters permit with Open Forest',
+            },
+          },
+          {
+            path: 'temp-outfitters/:id/edit',
+            component: TemporaryOutfittersComponent,
+            data: {
+              title: 'Edit your temporary outfitters permit with Open Forest',
+            },
+          },
+        ]
+      },
     ]
   },
   {
@@ -73,13 +133,14 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin/applications',
+    canActivateChild: [AdminAccessControlService],
     data: {
       breadcrumbs: true,
       text: 'Permit applications',
+      displayLogin: true,
       admin: true,
       specialUse: true
     },
-    canActivate: [AccessControlService],
     resolve: {
       user: UserResolver
     },
@@ -103,10 +164,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'admin/christmas-trees',
-    canActivate: [AccessControlService],
+    canActivateChild: [AdminAccessControlService],
     data: {
       admin: true,
-      showAdmin: true
+      showAdmin: true,
+      displayLogin: true,
     },
     resolve: {
       user: UserResolver,
@@ -119,7 +181,6 @@ const appRoutes: Routes = [
         data: {
           title: 'Christmas trees permits report | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits report',
-          admin: true
         }
       },
       {
@@ -128,7 +189,6 @@ const appRoutes: Routes = [
         data: {
           title: 'Christmas trees permits season dates admin | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits season dates',
-          admin: true
         }
       },
       {
@@ -137,96 +197,36 @@ const appRoutes: Routes = [
         data: {
           title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits Ranger District dates',
-          admin: true
         }
       }
     ]
   },
   {
     path: 'user/applications',
-    component: PermitApplicationListComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'Submitted Open Forest applications',
-    specialUse: true },
+    data: {
+      displayLogin: true,
+      specialUse: true
+    },
+    canActivateChild: [AccessControlService],
     resolve: {
       user: UserResolver
-    }
-  },
-  {
-    path: 'user/applications/:type/:id',
-    component: PermitApplicationViewComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'View submitted Open Forest application',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/noncommercial-group-use/new',
-    component: ApplicationNoncommercialGroupComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'Apply for a noncommercial group use permit with Open Forest',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/noncommercial-group-use/:id/edit',
-    component: ApplicationNoncommercialGroupComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'Edit your noncommercial group use permit with Open Forest' },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/noncommercial-group-use/learn-more',
-    component: NoncommercialLearnMoreComponent,
-    data: { title: 'Learn more about a noncommercial group use permit',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/:type/submitted/:id',
-    component: ApplicationSubmittedComponent,
-    data: { title: 'Application submitted for review with Open Forest',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/temp-outfitters/new',
-    component: TemporaryOutfittersComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'Apply for a temporary outfitters permit with Open Forest',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/temp-outfitters/:id/edit',
-    component: TemporaryOutfittersComponent,
-    canActivate: [AccessControlService],
-    data: { title: 'Edit your temporary outfitters permit  with Open Forest',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
-  },
-  {
-    path: 'mbs/applications/temp-outfitters/learn-more',
-    component: TemporaryOutfittersLearnMoreComponent,
-    data: { title: 'Learn more about a temporary outfitters permit',
-    specialUse: true },
-    resolve: {
-      user: UserResolver
-    }
+    },
+    children: [
+      {
+        path: '',
+        component: PermitApplicationListComponent,
+        data: {
+          title: 'Submitted Open Forest applications',
+        },
+      },
+      {
+        path: ':type/:id',
+        component: PermitApplicationViewComponent,
+        data: {
+          title: 'View submitted Open Forest application',
+        },
+      },
+    ]
   },
   {
     path: 'christmas-trees/forests',
@@ -234,7 +234,6 @@ const appRoutes: Routes = [
       breadcrumbs: true,
       text: 'Christmas tree permits',
       title: 'Christmas tree permits | U.S. Forest Service Open Forest',
-      requireLogin: false,
       showAdmin: true
     },
     resolve: {

@@ -9,6 +9,7 @@ import { ApplicationService } from './_services/application.service';
 import { ApplicationsModule } from './application-forms/applications.module';
 import { AuthenticatedComponent } from './authentication/authenticated.component';
 import { AccessControlService } from './_services/access-control.service';
+import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
 import { CancelApplicationComponent } from './applications/actions/cancel-application.component';
@@ -78,6 +79,7 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     AlertService,
     ApplicationService,
     AccessControlService,
+    AdminAccessControlService,
     AuthenticationService,
     GoogleAnalyticsService,
     PermitBreadcrumbsResolver,

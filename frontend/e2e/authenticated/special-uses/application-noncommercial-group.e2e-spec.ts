@@ -1,6 +1,6 @@
+import { browser, element, by, protractor } from 'protractor';
+import { loginPublic } from '../../support/auth-helper';
 import { NoncommercialGroupForm } from './app.po';
-import { FieldValidation } from './field-validation.po';
-import { browser, element, by, Key, protractor } from 'protractor';
 
 const checkForPrimaryPermitHolderAddress = function(state) {
   expect<any>(element(by.id('primary-permit-holder-address')).isPresent()).toBe(state);
@@ -31,13 +31,13 @@ const checkForAdditionalPhone = function(state) {
   expect<any>(element(by.id('evening-phone-ext')).isPresent()).toBe(state);
 };
 
-describe('Apply for a noncommercial group use permit', () => {
-  let page: NoncommercialGroupForm;
-  let fieldValidation: FieldValidation;
-  fieldValidation = new FieldValidation();
+const page = new NoncommercialGroupForm();
 
-  beforeEach(() => {
-    page = new NoncommercialGroupForm();
+describe('Apply for a noncommercial group use permit', () => {
+  beforeAll(() => {
+    browser.driver.manage().deleteAllCookies();
+    page.navigateTo();
+    loginPublic();
   });
 
   it('should display the permit name in the header', () => {

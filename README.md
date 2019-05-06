@@ -187,8 +187,7 @@ To run any of the server commands, either the environment variables above must b
 | ------------- |:-------------:| -------------:|
 | Setup Database | `npm run migrate` | |
 | Seed Database | `npm run seed` | Adds Christmas tree forest data |
-| Start the server logged in as a full admin | `npm run dev` | Server is accessible at http://localhost:8080 |
-| Start the server logged in as an authenicated special use public member | `npm run dev:user` | Server is accessible at http://localhost:8080 |
+| Start the server | `npm run dev` | Server is accessible at http://localhost:8080 |
 | Revert the last database migration | `npm run undoLastMigrate` | |
 | Revert all of the database migrations and start with a blank database | `npm run undoAllMigrate` | |
 | Run eslint for linting | `npm run lint` | The linting results will be put into `server/lint-results.html`. |

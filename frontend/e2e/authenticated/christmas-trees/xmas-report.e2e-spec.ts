@@ -1,28 +1,29 @@
+import { browser, element, by, protractor } from 'protractor';
+import { loginAdmin } from '../../support/auth-helper';
 import { TreesReportPage } from './xmas-tree-admin.po';
-import { browser, element, by, Key, protractor } from 'protractor';
+
+const page = new TreesReportPage();
 
 describe('Xmas tree - Admin Reports', () => {
-  let page: TreesReportPage;
-
   describe('Permit report page', () => {
     beforeAll(() => {
-      page = new TreesReportPage();
-      browser.driver
-        .manage()
-        .window()
-        .setSize(1400, 900);
+      browser.driver.manage().deleteAllCookies();
+      browser.driver.manage().window().setSize(1400, 900);
+
       page.navigateTo();
-      browser.sleep(800);
-      expect(browser.getCurrentUrl()).toEqual('http://localhost:4200/admin/christmas-trees/reports');
+
+      loginAdmin();
+
+      expect<any>(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/admin/christmas-trees/reports');
     });
 
     describe('basic elements', () => {
       it('should have a date search radio', () => {
-        expect(page.dateReportRadio().isPresent()).toBeTruthy();
+        expect<any>(page.dateReportRadio().isPresent()).toBeTruthy();
       });
 
       it('should have a permit number search radio', () => {
-        expect(page.permitNumberReportRadio().isPresent()).toBeTruthy();
+        expect<any>(page.permitNumberReportRadio().isPresent()).toBeTruthy();
       });
 
       it('should display a start date', () => {
@@ -75,7 +76,6 @@ describe('Xmas tree - Admin Reports', () => {
     describe('report summary', () => {
       beforeAll(() => {
         page.reportSubmit().click();
-        browser.sleep(2000);
       });
 
       it('should have a details table', () => {
@@ -107,7 +107,7 @@ describe('Xmas tree - Admin Reports', () => {
   describe('search by permit number', () => {
     beforeAll(() => {
       page.permitNumberReportRadio().click();
-      browser.sleep(500);
+      browser.sleep(1);
     });
 
     it('should show a required message if not permit number is entered', () => {

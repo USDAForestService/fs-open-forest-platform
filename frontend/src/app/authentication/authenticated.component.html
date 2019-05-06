@@ -1,20 +1,22 @@
 <div class="authentication">
-  <ng-container *ngIf="displayLogin && !user">
-    <a id="log-in" href="javascript:void(0)" (click)="login()">Log in</a>
-    or
-    <a id="create-account" href="javascript:void(0)" (click)="login()">create an account</a>
-  </ng-container>
+  <ng-container *ngIf="displayLogin">
+    <ng-container *ngIf="!user">
+      <a id="log-in" href="javascript:void(0)" (click)="login()">Log in</a>
+      or
+      <a id="create-account" href="javascript:void(0)" (click)="login()">create an account</a>
+    </ng-container>
 
-  <ng-container *ngIf="user">
-    Welcome
-    <span *ngIf="user.role === 'admin'">admin {{ user.adminUsername | AdminUserFormatterPipe }}</span>
-    <span *ngIf="user.role ==='user'">{{ user.email }}</span>
-    <nav class="user-link" id="authentication-nav" aria-label="Authentication">
-      <a id="view-applications" href="#" *ngIf="adminOrUser()" routerLink={{useRoute}}> View applications | </a>
-      <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="showSUDS"> Log in to SUDS. | </a>
-      <a id="log-out" class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
-    </nav>
+    <ng-container *ngIf="user">
+      Welcome
+      <span *ngIf="user.role === 'admin'">admin {{ user.adminUsername | AdminUserFormatterPipe }}</span>
+      <span *ngIf="user.role ==='user'">{{ user.email }}</span>
+      <nav class="user-link" id="authentication-nav" aria-label="Authentication">
+        <a id="view-applications" href="#" *ngIf="adminOrUser()" routerLink={{useRoute}}> View applications | </a>
+        <a id="login-to-suds" href="https://iweb.fs.usda.gov/login/common.jsp?option=7" *ngIf="showSUDS"> Log in to SUDS. | </a>
+        <a id="log-out" class="cursor-pointer" href="#" (click)="logout($event)">Log out</a>
+      </nav>
 
+    </ng-container>
   </ng-container>
 </div>
 <app-forests-admin-nav *ngIf='showAdminNav' [user]="user"></app-forests-admin-nav>
