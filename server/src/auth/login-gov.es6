@@ -3,10 +3,8 @@
  * @module auth/login-gov
  */
 
-// const express = require('express');
 const openIdClient = require('openid-client');
 const jose = require('node-jose');
-// const passport = require('passport');
 const { Strategy } = require('openid-client');
 const url = require('url');
 const util = require('../services/util.es6');
@@ -88,25 +86,5 @@ loginGov.logout = (req, res) => {
     )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
   );
 };
-
-// router for login.gov specific endpoints
-// loginGov.router = express.Router();
-
-// Initiate logging out of login.gov
-// loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
-//   // destroy the session
-//   req.logout();
-//   // res.redirect doesn't pass the Blink's Content Security Policy directive
-//   return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs'</script>`);
-// });
-
-// Callback from login.gov.
-// loginGov.router.get(
-//   '/auth/login-gov/openid/callback',
-//   // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
-//   passport.authenticate('public', {
-//     failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
-//   }), (req, res) => res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`)
-// );
 
 module.exports = loginGov;

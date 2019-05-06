@@ -3,8 +3,6 @@
  * @module auth/usda-eauth
  */
 
-// const express = require('express');
-// const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 const vcapConstants = require('../vcap-constants.es6');
 const util = require('../services/util.es6');
@@ -12,7 +10,6 @@ const logger = require('../services/logger.es6');
 
 const eAuth = {};
 
-// eAuth.loginPath = '/auth/usda-eauth/saml/login';
 eAuth.callbackPath = '/auth/admin/callback';
 
 // Instantiate the passport SamlStrategy
@@ -28,7 +25,6 @@ eAuth.strategy = () => new SamlStrategy(
 );
 
 // router for eAuth specific endpoints
-// eAuth.router = express.Router();
 
 /**
  * @function setUserObject - set user profile in the eAuth authentication response
@@ -53,20 +49,5 @@ eAuth.setUserObject = (profile) => {
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
 };
-
-// Initiate authentication via eAuth.
-// eAuth.router.get(eAuth.loginPath, (req, res) => {
-//   logger.info('AUTHENTICATION: Init eAuth Admin authentication request.');
-//   return res.redirect(`${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`);
-// });
-
-// Callback from eAuth.
-// eAuth.router.post(eAuth.callbackPath, passport.authenticate('admin'), (req, res) => {
-//   // Include a P3P policy for IE11
-//   // https://github.com/18F/fs-open-forest-platform/issues/405
-//   res.set('P3P', 'CP="NOI ADM DEV PSAi OUR OTRo STP IND COM NAV DEM"');
-
-//   return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in`);
-// });
 
 module.exports = eAuth;
