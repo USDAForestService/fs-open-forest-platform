@@ -73,10 +73,7 @@ describe('Apply for a Christmas tree permit', () => {
       christmasTreeForm.emailConfirmation().sendKeys('aaaaaa');
       expect<any>(christmasTreeForm.emailConfirmationError().isDisplayed()).toBeTruthy();
       expect<any>(christmasTreeForm.emailGroupError().isPresent()).toBeTruthy();
-      christmasTreeForm.emailConfirmation().sendKeys('@a');
-      expect<any>(christmasTreeForm.emailConfirmationError().isPresent()).toBeTruthy();
-      expect<any>(christmasTreeForm.emailGroupError().isPresent()).toBeTruthy();
-      christmasTreeForm.emailConfirmation().sendKeys('aa.com');
+      christmasTreeForm.emailConfirmation().sendKeys('@aa.com');
       expect<any>(christmasTreeForm.emailConfirmationError().isPresent()).toBeFalsy();
       expect<any>(christmasTreeForm.emailGroupError().isPresent()).toBeFalsy();
     });
