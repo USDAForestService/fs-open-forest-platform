@@ -5,7 +5,7 @@ applications:
     - route: fs-intake-api-staging.app.cloud.gov
   path: ../../../server
   buildpack: https://github.com/cloudfoundry/nodejs-buildpack
-  memory: 128M
+  memory: 256M
   instances: 1
   services:
     - eauth-service-provider
@@ -18,3 +18,4 @@ applications:
     - pay-gov
     - jwt
     - new-relic
+    - feature-flags
