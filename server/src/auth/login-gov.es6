@@ -28,7 +28,7 @@ loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
   nonce: util.getRandomString(32),
   prompt: 'select_account',
-  redirect_uri: `${vcapConstants.BASE_URL}/auth/login-gov/openid/callback`,
+  redirect_uri: `${vcapConstants.BASE_URL}/auth/public/callback`,
   response_type: 'code',
   scope: 'openid email',
   state: util.getRandomString(32)
@@ -82,7 +82,7 @@ loginGov.setup = (name, passport) => {
 loginGov.logout = (req, res) => {
   res.redirect(
     `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-      `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
+      `${vcapConstants.BASE_URL}/auth/logout`
     )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
   );
 };
