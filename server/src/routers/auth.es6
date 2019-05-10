@@ -15,27 +15,30 @@ const router = express.Router();
 router.get('/user', middleware.checkPermissions, passportConfig.getPassportUser);
 
 /* Universal passport logout. */
-router.get('/logout', middleware.checkPermissions, passportConfig.logout);
+router.get('/logout', passportConfig.logout);
 
 /* Public user authentication */
 router.get('/public/login', passport.authenticate('public'));
 router.get('/public/callback',
   passport.authenticate('public', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.redirect(`${INTAKE_CLIENT_BASE_URL}/logged-in`));
+  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
 
 router.post('/public/callback',
   passport.authenticate('public', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.redirect(`${INTAKE_CLIENT_BASE_URL}/logged-in`));
+  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
 
 /* Admin user authentication */
 router.get('/admin/login', passport.authenticate('admin'));
 router.post('/admin/callback',
   passport.authenticate('admin', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.redirect(`${INTAKE_CLIENT_BASE_URL}/logged-in`));
+  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
 
-// TODO - remove
+// TODO - eventually remove
 router.get('/login-gov/openid/callback', (_req, res) => {
   res.redirect('/auth/public/callback');
+});
+router.post('/usda-eauth/saml/callback', (_req, res) => {
+  res.redirect('/auth/admin/callback');
 });
 
 module.exports = router;
