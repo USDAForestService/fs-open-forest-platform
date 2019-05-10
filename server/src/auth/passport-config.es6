@@ -82,25 +82,26 @@ passportConfig.getPassportUser = (req, res) => res.send(req.user);
  */
 passportConfig.logout = (req, res) => {
   // setting reroute based on referrer
-  let backURL = '';
+  let backURL = 'mbs';
   if (req.header) {
     const referer = req.header('Referer');
-    logger.info(referer);
-    if (referer.indexOf('mbs') > -1
-      || referer.indexOf('admin/applications') > -1
-      || referer.indexOf('user/applications') > -1
-    ) {
-      backURL = 'mbs';
+    if (referer.indexOf('christmas') > -1) {
+      backURL = '';
     }
   }
 
-  // login.gov requires the user to visit the idp to logout
-  if (req.user && req.user.role === 'user' && loginGov.issuer) {
-    logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
-    return loginGov.logout(req, res);
+  const { user } = req;
+
+  if (user) {
+    req.logout();
+
+    // login.gov requires the user to visit the idp to logout
+    if (user.role === 'user' && !MOCK_PUBLIC_AUTH) {
+      logger.info(`AUTHENTICATION: ${user.email} logging out via Login.gov.`);
+      return res.redirect(loginGov.logoutUrl(user.token));
+    }
   }
-  logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
-  req.logout();
+
   return res.redirect(`${INTAKE_CLIENT_BASE_URL}/${backURL}`);
 };
 
