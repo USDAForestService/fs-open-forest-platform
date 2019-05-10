@@ -10,12 +10,10 @@ const logger = require('../services/logger.es6');
 
 const eAuth = {};
 
-eAuth.callbackPath = '/auth/admin/callback';
-
 // Instantiate the passport SamlStrategy
 eAuth.strategy = () => new SamlStrategy(
   {
-    path: vcapConstants.BASE_URL + eAuth.callbackPath,
+    path: `${vcapConstants.BASE_URL}/auth/usda-eauth/saml/callback`,
     entryPoint: `${vcapConstants.EAUTH_ENTRY_POINT}?SPID=${vcapConstants.EAUTH_ISSUER}`,
     issuer: vcapConstants.EAUTH_ISSUER,
     privateCert: vcapConstants.EAUTH_PRIVATE_KEY,
