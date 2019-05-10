@@ -226,7 +226,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.startDay,
         values.startHour,
         values.startMinutes,
-        values.startYear
+        values.startPeriod
       );
       const endDateTime = this.dateTimeRangeService.parseDateTime(
         values.endYear,
@@ -234,7 +234,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.endDay,
         values.endHour,
         values.endMinutes,
-        values.endYear
+        values.endPeriod
       );
       this.processDateStatus(startDateTime, endDateTime);
     } else {
@@ -263,7 +263,7 @@ export class DateTimeRangeComponent implements OnInit {
    *  Set dateStatus
    */
   private processDateStatus(startDateTime, endDateTime) {
-    const outputFormat = 'MM-DD-YYYY hh:mm:ss';
+    const outputFormat = 'MM-DD-YYYY HH:mm:ss';
     this.parentForm.patchValue({
       dateTimeRange: { startDateTime: startDateTime.format(outputFormat)}
     });
@@ -350,9 +350,11 @@ export class DateTimeRangeComponent implements OnInit {
       group.controls.endDateTime.value
     ) {
       this.setValidity(
-        moment(group.controls.startDateTime.value, 'MM/DD/YYYY'),
-        moment(group.controls.endDateTime.value, 'MM/DD/YYYY')
+        moment(group.controls.startDateTime.value, 'MM/DD/YYYY hh:mm a'),
+        moment(group.controls.endDateTime.value, 'MM/DD/YYYY hh:mm a')
       );
     }
   }
 }
+
+
