@@ -350,8 +350,8 @@ export class DateTimeRangeComponent implements OnInit {
       group.controls.endDateTime.value
     ) {
       this.setValidity(
-        moment(group.controls.startDateTime.value, 'MM/DD/YYYY hh:mm a'),
-        moment(group.controls.endDateTime.value, 'MM/DD/YYYY hh:mm a')
+        moment(group.controls.startDateTime.value, 'MM/DD/YYYY hh:mm A'),
+        moment(group.controls.endDateTime.value, 'MM/DD/YYYY hh:mm A')
       );
     }
   }
