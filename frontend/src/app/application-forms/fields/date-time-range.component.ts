@@ -48,8 +48,8 @@ export class DateTimeRangeComponent implements OnInit {
     if (this.dateOnly) {
       this.defaultStartHour = '12';
       this.defaultEndHour = '12';
-      this.defaultEndPeriod = 'p.m.';
-      this.defaultStartPeriod = 'a.m.';
+      this.defaultEndPeriod = 'PM';
+      this.defaultStartPeriod = 'AM';
     }
     this.formName = 'dateTimeRange';
     this[this.formName] = this.formBuilder.group(
@@ -95,7 +95,7 @@ export class DateTimeRangeComponent implements OnInit {
         ],
         endPeriod: [
           this.defaultEndPeriod,
-          [Validators.required, Validators.maxLength(4)]
+          [Validators.required, Validators.maxLength(2)]
         ],
 
         startDateTime: ['', [Validators.required, Validators.maxLength(255)]],
@@ -139,7 +139,7 @@ export class DateTimeRangeComponent implements OnInit {
         ],
         startPeriod: [
           this.defaultStartPeriod,
-          [Validators.required, Validators.maxLength(4)]
+          [Validators.required, Validators.maxLength(2)]
         ]
       },
       {
@@ -198,7 +198,7 @@ export class DateTimeRangeComponent implements OnInit {
         values.startDay,
         values.startHour,
         values.startMinutes,
-        values.startYear
+        values.startPeriod
       );
       this.dateStatus.startAfterToday = today.isBefore(startDateTime);
       if (this.dateStatus.startAfterToday) {
