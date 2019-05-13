@@ -10,4 +10,8 @@ ignore:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
         expires: '2019-06-09T16:35:43.427Z'
+  SNYK-JS-COREJS-174627:
+    - core-js:
+        reason: No remediation available
+        expires: '2019-06-12T23:18:30.879Z'
 patch: {}
