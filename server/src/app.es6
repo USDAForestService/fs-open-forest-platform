@@ -70,7 +70,7 @@ app.use(
 /** set meridiem format to a.m. and p.m. */
 moment.updateLocale('en', {
   meridiem(hour) {
-    return hour < 12 ? 'a.m.' : 'p.m.';
+    return hour < 12 ? 'AM' : 'PM';
   }
 });
 
