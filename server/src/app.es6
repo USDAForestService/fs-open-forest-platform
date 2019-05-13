@@ -67,7 +67,7 @@ app.use(
   })
 );
 
-/** set meridiem format to a.m. and p.m. */
+/** set meridiem format to AM and PM */
 moment.updateLocale('en', {
   meridiem(hour) {
     return hour < 12 ? 'AM' : 'PM';
