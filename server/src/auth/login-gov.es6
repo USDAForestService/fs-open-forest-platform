@@ -11,6 +11,8 @@ const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
+const POST_LOGOUT_REDIRECT_URI = encodeURIComponent(`${vcapConstants.BASE_URL}/auth/logout`);
+
 const loginGov = {};
 
 // Basic auth is needed for the int version of login.gov.
@@ -79,12 +81,11 @@ loginGov.setup = (name, passport) => {
     });
 };
 
-loginGov.logout = (req, res) => {
-  res.redirect(
-    `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-      `${vcapConstants.BASE_URL}/auth/logout`
-    )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
-  );
-};
+loginGov.logoutUrl = token => [
+  loginGov.issuer.end_session_endpoint,
+  `?post_logout_redirect_uri=${POST_LOGOUT_REDIRECT_URI}`,
+  `&state=${loginGov.params.state}`,
+  `&id_token_hint=${token}`
+].join('');
 
 module.exports = loginGov;
