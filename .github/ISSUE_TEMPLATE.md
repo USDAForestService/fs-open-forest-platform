@@ -9,6 +9,6 @@
 - [ ] PO approved
 
 ## Definition of Done
-- [ ] Pull requests meet technical defintion of done
+- [ ] Pull requests meet technical definition of done
 - [ ] Compare finished design with mockup
 - [ ] Usability tested
