@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
     window.scrollTo(0, 0);
     moment.updateLocale('en', {
       meridiem(hour, minute, isLowerCase) {
-        return hour < 12 ? 'a.m.' : 'p.m.';
+        return hour < 12 ? 'AM' : 'PM';
       }
     });
   }

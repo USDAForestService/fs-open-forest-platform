@@ -10,7 +10,7 @@ export class DateTimeRangeService {
    * @returns      moment object
    */
   parseDateTime(year, month, day, hour, minutes, period) {
-    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD hh:mm a');
+    return moment(`${year}-${month}-${day} ${hour}:${minutes} ${period}`, 'YYYY-MM-DD hh:mm A');
   }
 
   /**

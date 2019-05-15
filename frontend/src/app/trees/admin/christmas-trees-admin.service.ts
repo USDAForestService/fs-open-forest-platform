@@ -25,12 +25,14 @@ export class ChristmasTreesAdminService {
    */
   setStartEndTimes(formGroup, form) {
     if (formGroup && form.get('dateTimeRange')) {
+      console.log(form.get('dateTimeRange.endPeriod'));
+      console.log(form.get('dateTimeRange.startHour'));
       form.get('dateTimeRange.startHour').setValue(moment(formGroup.startDate).format('hh'));
       form.get('dateTimeRange.startMinutes').setValue(moment(formGroup.startDate).format('mm'));
-      form.get('dateTimeRange.startPeriod').setValue(moment(formGroup.startDate).format('a'));
+      form.get('dateTimeRange.startPeriod').setValue(moment(formGroup.startDate).format('A'));
       form.get('dateTimeRange.endHour').setValue(moment(formGroup.endDate).format('hh'));
       form.get('dateTimeRange.endMinutes').setValue(moment(formGroup.endDate).format('mm'));
-      form.get('dateTimeRange.endPeriod').setValue(moment(formGroup.endDate).format('a'));
+      form.get('dateTimeRange.endPeriod').setValue(moment(formGroup.endDate).format('A'));
     }
   }
 
