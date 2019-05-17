@@ -11,6 +11,10 @@ const middleware = require('../services/middleware.es6');
 
 const router = express.Router();
 
+const SCRIPT_REDIRECT = (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`);
+const publicPassport = passport.authenticate('public', { failureRedirect: INTAKE_CLIENT_BASE_URL });
+const adminPassport = passport.authenticate('admin', { failureRedirect: INTAKE_CLIENT_BASE_URL });
+
 /* GET the universal passport user. */
 router.get('/user', middleware.checkPermissions, passportConfig.getPassportUser);
 
@@ -19,29 +23,17 @@ router.get('/logout', passportConfig.logout);
 
 /* Public user authentication */
 router.get('/public/login', passport.authenticate('public'));
-router.get('/public/callback',
-  passport.authenticate('public', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
-
-router.post('/public/callback',
-  passport.authenticate('public', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
+router.get('/public/callback', publicPassport, SCRIPT_REDIRECT);
+router.post('/public/callback', publicPassport, SCRIPT_REDIRECT);
+// TODO - eventually remove
+router.get('/login-gov/openid/callback', publicPassport, SCRIPT_REDIRECT);
+router.post('/login-gov/openid/callback', publicPassport, SCRIPT_REDIRECT);
+router.get('/login-gov/openid/logout', (_req, res) => res.redirect('/auth/logout'));
 
 /* Admin user authentication */
 router.get('/admin/login', passport.authenticate('admin'));
-router.post('/admin/callback',
-  passport.authenticate('admin', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
-
+router.post('/admin/callback', adminPassport, SCRIPT_REDIRECT);
 // TODO - eventually remove
-router.get('/login-gov/openid/callback', (_req, res) => {
-  res.redirect('/auth/public/callback');
-});
-router.get('/login-gov/openid/logout', (_req, res) => {
-  res.redirect('/auth/logout');
-});
-router.post('/usda-eauth/saml/callback',
-  passport.authenticate('admin', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
-  (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
+router.post('/usda-eauth/saml/callback', adminPassport, SCRIPT_REDIRECT);
 
 module.exports = router;
