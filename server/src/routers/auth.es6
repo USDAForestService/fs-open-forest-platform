@@ -37,6 +37,9 @@ router.post('/admin/callback',
 router.get('/login-gov/openid/callback', (_req, res) => {
   res.redirect('/auth/public/callback');
 });
+router.get('/login-gov/openid/logout', (_req, res) => {
+  res.redirect('/auth/logout');
+});
 router.post('/usda-eauth/saml/callback',
   passport.authenticate('admin', { failureRedirect: INTAKE_CLIENT_BASE_URL }),
   (_req, res) => res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/logged-in'</script>`));
