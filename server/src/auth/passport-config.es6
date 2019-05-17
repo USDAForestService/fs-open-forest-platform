@@ -1,5 +1,3 @@
-
-
 /**
  * Module for passport configuration
  * @module auth/passport-config
@@ -7,32 +5,40 @@
 
 const passport = require('passport');
 const logger = require('../services/logger.es6');
-
+const vcapConstants = require('../vcap-constants.es6');
 const eAuth = require('./usda-eauth.es6');
 const loginGov = require('./login-gov.es6');
-const localAuth = require('./local.es6');
-const util = require('../services/util.es6');
-const vcapConstants = require('../vcap-constants.es6');
+const localAdmin = require('./local-admin.es6');
+const localPublic = require('./local-public.es6');
+const authMock = require('../mocks/auth-mocks.es6');
 
+const {
+  INTAKE_CLIENT_BASE_URL,
+  FEATURES: {
+    MOCK_ADMIN_AUTH, MOCK_PUBLIC_AUTH
+  }
+} = vcapConstants;
 
 const passportConfig = {};
 
 /**
- * @function setup - Setup passport to integrate with login.gov and eAuth/
+ * @function setup - Setup passport to integrate with login.gov and eAuth
  * @param {Object} application
  */
 passportConfig.setup = (app) => {
-  loginGov.setup();
+  // Configure Admin Authentication
+  passport.use('admin', MOCK_ADMIN_AUTH ? localAdmin('/mocks/auth/login?role=admin') : eAuth.strategy());
+
+  // Configure Public Authentication
+  if (MOCK_PUBLIC_AUTH) {
+    passport.use('public', localPublic('/mocks/auth/login?role=public'));
+  } else {
+    loginGov.setup('public', passport);
+  }
+
   app.use(passport.initialize());
   app.use(passport.session());
-  app.use(loginGov.router);
-  app.use(eAuth.router);
   app.use(passportConfig.authErrorHandler);
-
-  // Stub authentication for non-production environments
-  if (!util.isProduction()) {
-    app.use(localAuth);
-  }
 
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -40,6 +46,10 @@ passportConfig.setup = (app) => {
   passport.deserializeUser((user, done) => {
     done(null, user);
   });
+
+  if (MOCK_PUBLIC_AUTH || MOCK_ADMIN_AUTH) {
+    app.use(authMock.router);
+  }
 };
 
 /**
@@ -52,7 +62,7 @@ passportConfig.setup = (app) => {
 passportConfig.authErrorHandler = (err, req, res, next) => {
   if (err) {
     logger.warn('ERROR: ServerError: AUTHENTICATION-', err);
-    res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/500'</script>`);
+    res.send(`<script>window.location = '${INTAKE_CLIENT_BASE_URL}/500'</script>`);
   } else {
     next();
   }
@@ -71,18 +81,28 @@ passportConfig.getPassportUser = (req, res) => res.send(req.user);
  * @param {Object} res - http response
  */
 passportConfig.logout = (req, res) => {
-  // login.gov requires the user to visit the idp to logout
-  if (req.user && req.user.role === 'user' && loginGov.issuer) {
-    logger.info(`AUTHENTICATION: ${req.user.email} logged out via Login.gov.`);
-    return res.redirect(
-      `${loginGov.issuer.end_session_endpoint}?post_logout_redirect_uri=${encodeURIComponent(
-        `${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`
-      )}&state=${loginGov.params.state}&id_token_hint=${req.user.token}`
-    );
+  // setting reroute based on referrer
+  let backURL = 'mbs';
+  if (req.header) {
+    const referer = req.header('Referer');
+    if (referer.indexOf('christmas') > -1) {
+      backURL = '';
+    }
   }
-  logger.info(`AUTHENTICATION: ${req.user.email} logged out via eAuth.`);
-  req.logout();
-  return res.redirect(`${vcapConstants.INTAKE_CLIENT_BASE_URL}/mbs`);
+
+  const { user } = req;
+
+  if (user) {
+    req.logout();
+
+    // login.gov requires the user to visit the idp to logout
+    if (user.role === 'user' && !MOCK_PUBLIC_AUTH) {
+      logger.info(`AUTHENTICATION: ${user.email} logging out via Login.gov.`);
+      return res.redirect(loginGov.logoutUrl(user.token));
+    }
+  }
+
+  return res.redirect(`${INTAKE_CLIENT_BASE_URL}/${backURL}`);
 };
 
 module.exports = passportConfig;

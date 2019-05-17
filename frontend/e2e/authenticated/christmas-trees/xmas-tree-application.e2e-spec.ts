@@ -60,8 +60,20 @@ describe('Apply for a Christmas tree permit', () => {
       expect<any>(christmasTreeForm.email().isDisplayed()).toBeTruthy();
       christmasTreeForm.email().sendKeys('aaaaaa');
       expect<any>(christmasTreeForm.emailError().isDisplayed()).toBeTruthy();
-      christmasTreeForm.email().sendKeys('@aaa');
+      christmasTreeForm.email().sendKeys('@aaa.com');
       expect<any>(christmasTreeForm.emailError().isPresent()).toBeFalsy();
+    });
+
+    it('should display an error for an invalid email address confirmation', () => {
+      expect<any>(christmasTreeForm.emailConfirmation().isDisplayed()).toBeTruthy();
+      christmasTreeForm.email().clear();
+      christmasTreeForm.email().sendKeys('aaaaaa@aaa.com');
+      christmasTreeForm.emailConfirmation().sendKeys('aaaaaa');
+      expect<any>(christmasTreeForm.emailConfirmationError().isDisplayed()).toBeTruthy();
+      expect<any>(christmasTreeForm.emailGroupError().isPresent()).toBeFalsy();
+      christmasTreeForm.emailConfirmation().sendKeys('@aaa.com');
+      expect<any>(christmasTreeForm.emailConfirmationError().isPresent()).toBeFalsy();
+      expect<any>(christmasTreeForm.emailGroupError().isPresent()).toBeFalsy();
     });
 
     it('should display an error for an invalid tree amount', () => {

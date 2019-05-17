@@ -1,62 +1,38 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { AuthenticationService } from './authentication.service';
 import { AccessControlService } from './access-control.service';
 import { UtilService } from './util.service';
 
 describe('AccessControlService', () => {
   let service: AccessControlService;
-  let util: UtilService;
+  let utilSpy: jasmine.SpyObj<UtilService>;
 
   beforeEach(() => {
-    service = new AccessControlService(null, null, null);
-    service.redirect = () => {
-      return false;
-    };
-    service.navigate = () => {
-      return true;
-    };
+    const spy = jasmine.createSpyObj('UtilService', ['navigateExternal', 'setLoginRedirectMessage']);
+
     TestBed.configureTestingModule({
-      providers: [AccessControlService, UtilService],
-      imports: [RouterTestingModule]
+      providers: [AccessControlService,
+        { provide: UtilService, useValue: spy },
+        { provide: AuthenticationService }
+      ]
     });
-    util = new UtilService();
+    service = TestBed.get(AccessControlService);
+    utilSpy = TestBed.get(UtilService);
   });
 
-  it('should allow an admin user to access an admin route', () => {
+  it('should not allow an admin user to access an admin route', () => {
     const valid = service.validateUser(
-      { email: 'test@test.com', role: 'admin' },
-      { routeConfig: { path: 'admin/applications' } }
-    );
-    expect(valid).toBeTruthy();
-  });
-
-  it('should not allow a normal user to access an admin route', () => {
-    const valid = service.validateUser(
-      { email: 'test@test.com', role: 'user' },
-      { data: { admin: true }, routeConfig: { path: 'admin/applications' } }
+      { email: 'test@test.com', role: 'admin' }
     );
     expect(valid).toBeFalsy();
+    expect(utilSpy.setLoginRedirectMessage).toHaveBeenCalled();
   });
 
-  it('should allow an admin user to access a normal restricted route', () => {
+  it('should allow a user to access a normal restricted route', () => {
     const valid = service.validateUser(
-      { email: 'test@test.com', role: 'admin' },
-      { routeConfig: { path: 'applications/temp-outfitters/new' } }
+      { email: 'test@test.com', role: 'user' }
     );
     expect(valid).toBeTruthy();
-  });
-
-  it('should allow a normal user to access a normal restricted route', () => {
-    const valid = service.validateUser(
-      { email: 'test@test.com', role: 'user' },
-      { routeConfig: { path: 'applications/temp-outfitters/new' } }
-    );
-    expect(valid).toBeTruthy();
-  });
-
-  it('should not allow a non-authenticated user to access a normal restricted route', () => {
-    service.util = new UtilService();
-    const valid = service.validateUser(null, { routeConfig: { path: 'applications/temp-outfitters/new' } });
-    expect(valid).toBeFalsy();
+    expect(utilSpy.setLoginRedirectMessage).not.toHaveBeenCalled();
   });
 });

@@ -24,7 +24,7 @@ describe('frontend App', () => {
 
     it('should display page title', () => {
       page.navigateTo();
-      expect<any>(page.getParagraphText()).toEqual('Apply for a permit with Open Forest');
+      expect<any>(page.getParagraphText()).toEqual('Mt. Baker-Snoqualmie National Forest');
     });
 
     it('should show correct page title when navigating by link', () => {

@@ -199,14 +199,14 @@ const translateFromDatabaseToClient = (input) => {
       startYear: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('YYYY'),
       startHour: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('hh'),
       startMinutes: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('mm'),
-      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('a'),
+      startPeriod: moment(input.noncommercialFieldsStartDateTime, util.datetimeFormat).format('A'),
       endDateTime: input.noncommercialFieldsEndDateTime,
       endMonth: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('M'),
       endDay: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('D'),
       endYear: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('YYYY'),
       endHour: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('hh'),
       endMinutes: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('mm'),
-      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('a')
+      endPeriod: moment(input.noncommercialFieldsEndDateTime, util.datetimeFormat).format('A')
     },
     authorizingOfficerName: input.authorizingOfficerName,
     authorizingOfficerTitle: input.authorizingOfficerTitle,
@@ -283,7 +283,8 @@ noncommercial.translateFromIntakeToMiddleLayer = (input) => {
       locationDescription: input.noncommercialFieldsLocationDescription,
       startDateTime: input.noncommercialFieldsStartDateTime,
       endDateTime: input.noncommercialFieldsEndDateTime,
-      numberParticipants: Number(input.noncommercialFieldsNumberParticipants)
+      numberParticipants: Number(input.noncommercialFieldsNumberParticipants),
+      numberSpectators: Number(input.noncommercialFieldsSpectatorCount)
     }
   };
 
@@ -478,7 +479,9 @@ noncommercial.update = (req, res) => {
           });
       }
     })
-    .catch(() => res.status(500).send());
+    .catch(() => {
+      res.status(500).send();
+    });
 };
 
 

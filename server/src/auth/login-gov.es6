@@ -1,19 +1,17 @@
-
-
 /**
  * Module for login.gov integration
  * @module auth/login-gov
  */
 
-const express = require('express');
 const openIdClient = require('openid-client');
 const jose = require('node-jose');
-const passport = require('passport');
 const { Strategy } = require('openid-client');
 const url = require('url');
 const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
+
+const POST_LOGOUT_REDIRECT_URI = encodeURIComponent(`${vcapConstants.BASE_URL}/auth/logout`);
 
 const loginGov = {};
 
@@ -32,7 +30,7 @@ loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
   nonce: util.getRandomString(32),
   prompt: 'select_account',
-  redirect_uri: `${vcapConstants.BASE_URL}/auth/login-gov/openid/callback`,
+  redirect_uri: `${vcapConstants.BASE_URL}/auth/public/callback`,
   response_type: 'code',
   scope: 'openid email',
   state: util.getRandomString(32)
@@ -41,7 +39,7 @@ loginGov.params = {
 /**
  * @function setup - Setup the passport OpenIDConnectStrategy.
  */
-loginGov.setup = () => {
+loginGov.setup = (name, passport) => {
   logger.info('AUTHENTICATION: Login.gov passport.js middlelayer OpenIDConnectStrategy initiated.');
   openIdClient.Issuer.defaultHttpOptions = basicAuthOptions;
   // issuer discovery
@@ -61,7 +59,7 @@ loginGov.setup = () => {
         joseKeystore);
         // instantiate the passport strategy
         passport.use(
-          'oidc',
+          name,
           new Strategy({
             client,
             params: loginGov.params
@@ -83,28 +81,11 @@ loginGov.setup = () => {
     });
 };
 
-// router for login.gov specific endpoints
-loginGov.router = express.Router();
-
-// Initiate authentication via login.gov.
-loginGov.router.get('/auth/login-gov/openid/login', passport.authenticate('oidc'));
-
-// Initiate logging out of login.gov
-loginGov.router.get('/auth/login-gov/openid/logout', (req, res) => {
-  // destroy the session
-  req.logout();
-  // res.redirect doesn't pass the Blink's Content Security Policy directive
-  return res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}'</script>`);
-});
-
-// Callback from login.gov.
-loginGov.router.get(
-  '/auth/login-gov/openid/callback',
-  // the failureRedirect is used for a return to app link on login.gov, it's not actually an error in this case
-  passport.authenticate('oidc', {
-    failureRedirect: vcapConstants.INTAKE_CLIENT_BASE_URL
-  }), (req, res) => res.send(`<script>window.location = '${vcapConstants.INTAKE_CLIENT_BASE_URL}/logged-in'</script>`)
-
-);
+loginGov.logoutUrl = token => [
+  loginGov.issuer.end_session_endpoint,
+  `?post_logout_redirect_uri=${POST_LOGOUT_REDIRECT_URI}`,
+  `&state=${loginGov.params.state}`,
+  `&id_token_hint=${token}`
+].join('');
 
 module.exports = loginGov;

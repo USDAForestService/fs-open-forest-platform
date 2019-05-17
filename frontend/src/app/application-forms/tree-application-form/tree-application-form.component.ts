@@ -5,6 +5,7 @@ import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { currencyValidator } from '../validators/currency-validation';
+import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
 import { lessThanOrEqualValidator } from '../validators/less-than-or-equal-validation';
 import { ChristmasTreesInfoService } from '../../trees/_services/christmas-trees-info.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
@@ -85,9 +86,10 @@ export class TreeApplicationFormComponent implements OnInit {
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+      emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
       quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
       totalCost: [0, [Validators.required, currencyValidator()]]
-    });
+    }, { validators: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation') });
   }
 
   /**

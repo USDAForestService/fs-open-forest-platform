@@ -20,7 +20,7 @@ if (isDocker) {
 
 exports.config = {
   allScriptsTimeout: 11000,
-  specs: ['../e2e/authenticated/**/*.e2e-spec.ts'],
+  specs: ['../e2e/**/*spec.ts'],
   capabilities: {
     browserName: 'chrome',
     chromeOptions
@@ -52,11 +52,10 @@ exports.config = {
     });
   },
   suites: {
-    'docker-smoke-test': '../e2e/authenticated/special-uses/noncommercial-learn-more.e2e-spec.ts',
-    'app-temp': '../e2e/authenticated/special-uses/application-temp-outfitters.e2e-spec.ts',
-    'app-xmas': '../e2e/authenticated/christmas-trees/xmas-tree-application.e2e-spec.ts',
-    'unauthenticated': ['../e2e/unauthenticated/**/*.e2e-spec.ts'],
-    'circle-e2e-split': []
+    'docker-smoke-test': '../e2e/unauthenticated/**/*spec.ts',
+    'su': '../e2e/authenticated/special-uses/**/*spec.ts',
+    'xmas': '../e2e/authenticated/christmas-trees/**/*spec.ts',
+    'unauthenticated': '../e2e/unauthenticated/**/*spec.ts'
   },
   chromeDriver: !isDocker && process.env['OPEN_FOREST_CHROME_DRIVER'],
 };

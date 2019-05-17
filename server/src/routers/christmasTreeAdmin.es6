@@ -1,5 +1,3 @@
-
-
 /**
  * Module for christmas trees admin routes
  * @module routers/christmasTreeAdmin
@@ -12,10 +10,10 @@ const christmasTreeAdminController = require('../controllers/christmas-tree/admi
 const router = express.Router();
 
 /** GET christmas tree permit */
-router.get('/christmas-trees/permits/summary', christmasTreeAdminController.getPermitSummaryReport);
+router.get('/permits/summary', christmasTreeAdminController.getPermitSummaryReport);
 
-router.get('/christmas-trees/permits/:permitNumber', christmasTreeAdminController.getPermitReport);
+router.get('/permits/:permitNumber', christmasTreeAdminController.getPermitReport);
 
-router.put('/christmas-trees/forests/:forestId', christmasTreeAdminController.updateForestDetails);
+router.put('/forests/:forestId', christmasTreeAdminController.updateForestDetails);
 
 module.exports = router;

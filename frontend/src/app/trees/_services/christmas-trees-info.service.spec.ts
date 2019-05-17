@@ -175,7 +175,7 @@ describe('ChristmasTreesInfoService', () => {
     'should return formatted cutting hours',
     inject([ChristmasTreesInfoService], service => {
       expect(service.formatCuttingAreaTime(forest, '2017-11-02 10:00:00Z', '2017-12-09 20:00:00Z')).toEqual(
-        '10:00 a.m. - 8:00 p.m.'
+        '10:00 AM - 8:00 PM'
       );
     })
   );

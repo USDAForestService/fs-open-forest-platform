@@ -9,6 +9,8 @@ const vcapApplication = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["ht
 
 const vcapConstants = {};
 
+vcapConstants.nodeEnv = process.env.NODE_ENV;
+
 /** VCAP environment variables are used by cloud.gov to pass in instance specific settings. */
 let vcapServices;
 if (process.env.VCAP_SERVICES) {
@@ -27,18 +29,27 @@ if (process.env.VCAP_SERVICES) {
   }
 }
 
-const getUserProvided = (name) => {
+const getUserProvided = (name, required = true) => {
   const userProvided = vcapServices['user-provided'].find(element => element.name === name);
 
-  if (!userProvided) {
+  if (!userProvided && required) {
     throw new Error(`No user provided service: ${name}`);
   }
 
-  return userProvided.credentials;
+  return userProvided ? userProvided.credentials : null;
 };
 
 /** Base URL of this instance */
 vcapConstants.BASE_URL = `https://${vcapApplication.uris[0]}`;
+
+/** Feature Flags */
+const featureFlags = getUserProvided('feature-flags', false) || {};
+vcapConstants.FEATURES = {
+  MOCK_ADMIN_AUTH: featureFlags.mock_admin_auth === true,
+  MOCK_PUBLIC_AUTH: featureFlags.mock_public_auth === true,
+  MOCK_PAY_GOV: featureFlags.mock_pay_gov === true,
+  NEW_RELIC: !(featureFlags.new_relic === false)
+};
 
 /** jwt token used to generate permit confirmation URL * */
 const jwt = getUserProvided('jwt');
@@ -78,6 +89,7 @@ vcapConstants.EAUTH_ISSUER = eAuthService.issuer;
 vcapConstants.EAUTH_ENTRY_POINT = eAuthService.entrypoint;
 vcapConstants.EAUTH_CERT = eAuthService.cert;
 vcapConstants.EAUTH_PRIVATE_KEY = eAuthService.private_key;
+vcapConstants.EAUTH_IDENTIFIER_FORMAT = eAuthService.identifier_format;
 
 /** SMTP settings */
 const smtp = getUserProvided('smtp-service');
@@ -105,8 +117,10 @@ vcapConstants.database = {
 };
 
 /** New Relic */
-const newRelic = getUserProvided('new-relic');
-vcapConstants.NEW_RELIC_KEY = newRelic.key;
-vcapConstants.NEW_RELIC_APP_NAME = newRelic.app_name;
+if (vcapConstants.FEATURES.NEW_RELIC) {
+  const newRelic = getUserProvided('new-relic');
+  vcapConstants.NEW_RELIC_KEY = newRelic.key;
+  vcapConstants.NEW_RELIC_APP_NAME = newRelic.app_name;
+}
 
 module.exports = vcapConstants;

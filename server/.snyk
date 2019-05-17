@@ -12,25 +12,29 @@ ignore:
   SNYK-JS-LODASHMERGE-173732:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
     - openid-client > node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
   SNYK-JS-LODASHMERGE-173733:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
     - openid-client > node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-05-08T15:56:53.989Z'
+        expires: '2019-06-09T16:33:28.786Z'
   SNYK-JS-MARKED-174116:
     - jsdoc > marked:
         reason: 'Medium severity, no remediation available.'
         expires: '2019-05-08T15:56:53.989Z'
+  SNYK-JS-SEQUELIZECLI-174320:
+    - sequelize-cli:
+        reason: 'Remediation will be handled in issue #598'
+        expires: '2019-05-16T17:48:14.137Z'
 patch: {}

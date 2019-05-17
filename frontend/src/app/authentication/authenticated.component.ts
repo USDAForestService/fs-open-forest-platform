@@ -3,8 +3,11 @@ import { AuthenticationService } from '../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { WindowRef } from '../_services/native-window.service';
 import { UtilService } from '../_services/util.service';
+
+const ADMIN_LOGIN_URL = `${environment.apiUrl}auth/admin/login`;
+const PUBLIC_LOGIN_URL = `${environment.apiUrl}auth/public/login`;
+const LOGOUT_URL = `${environment.apiUrl}auth/logout`;
 
 @Component({
   selector: 'app-authenticated',
@@ -16,24 +19,27 @@ export class AuthenticatedComponent implements OnInit {
   user;
   showAdminNav = false;
   showSUDS = false;
+  specialUse = false;
+  useRoute;
 
   constructor(
     public authentication: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public util: UtilService,
-    private winRef: WindowRef
+    public util: UtilService
   ) {}
 
   /**
-   * Set message indicating user is being redirect to login.gov.
-   * Redirect user to login.gov
+   * Set message indicating user is being redirected to login.
+   * Redirect user
    */
   login() {
+    const requestingUrl = window.location.pathname;
+    localStorage.setItem('requestingUrl', requestingUrl);
+    const loginUrl = this.user && this.user.role === 'admin' ? ADMIN_LOGIN_URL : PUBLIC_LOGIN_URL;
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
-      this.winRef.getNativeWindow().location.href =
-        environment.apiUrl + 'auth/login-gov/openid/login';
+      this.util.navigateExternal(loginUrl);
     }, 1000);
   }
 
@@ -42,6 +48,7 @@ export class AuthenticatedComponent implements OnInit {
    * Remove local storage items.
    */
   logout(e: Event) {
+
     e.preventDefault();
     const status = {
       message: 'You have successfully logged out of Forest Service permits.',
@@ -55,13 +62,12 @@ export class AuthenticatedComponent implements OnInit {
 
     this.authentication.removeUser().subscribe(user => {
       if (user != null) {
-        this.winRef.getNativeWindow().location.href =
-          environment.apiUrl + 'auth/logout';
+        this.util.navigateExternal(LOGOUT_URL);
       } else {
         this.router.navigate(['/']);
       }
     });
-  }
+    }
 
   /**
    * determine if SUDS login displays in header
@@ -72,6 +78,22 @@ export class AuthenticatedComponent implements OnInit {
       user.role === 'admin' &&
       (!user.forests || user.forests.length === 0);
   }
+
+  /**
+   * determine user role, and display applications if correct role
+   * set route for viewing applications
+   */
+  adminOrUser() {
+    if ( this.user && (this.user.role === 'admin' || this.user.role === 'user') && this.specialUse) {
+      return true;
+    }
+    return false;
+  }
+
+  setRoute(user) {
+    user.role === 'admin' ? this.useRoute = '/admin/applications' : this.useRoute = '/user/applications';
+  }
+
   /**
    * Add user to route for display login on every NavigationEnd
    */
@@ -99,8 +121,12 @@ export class AuthenticatedComponent implements OnInit {
       .subscribe(data => {
         this.user = data.user ? data.user : null;
         this.setShowSUDS(this.user);
+        if (this.user) {
+          this.setRoute(this.user);
+        }
         this.displayLogin = data.displayLogin;
         this.showAdminNav = data.showAdmin;
+        this.specialUse = data.specialUse;
       });
   }
 }

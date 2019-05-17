@@ -30,7 +30,7 @@ import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit
     ForestFinderComponent,
     ChristmasTreeMapDetailsComponent,
     BuyPermitBarComponent,
-    RemovePuncPipe
+    RemovePuncPipe,
   ],
   exports: [
     ReportComponent,

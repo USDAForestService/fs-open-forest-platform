@@ -29,7 +29,7 @@ export class ErrorMessageComponent {
   }
 
   email(errors) {
-    return `${this.name} requires a valid email address. `;
+    return `${this.name} requires a valid email address— i.e. you@email.com `;
   }
 
   required(errors) {
@@ -96,6 +96,10 @@ export class ErrorMessageComponent {
 
   notEnoughAttendees(errors) {
     return `It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.`;
+  }
+
+  emailConfirmationRequirement(errors) {
+    return `Email confirmation does not match email.`;
   }
 
   pattern(errors) {

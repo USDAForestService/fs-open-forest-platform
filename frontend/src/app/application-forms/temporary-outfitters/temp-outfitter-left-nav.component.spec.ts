@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TempOutfitterLeftNavComponent } from './temp-outfitter-left-nav.component';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { UtilService } from '../../_services/util.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { WindowRef } from '../../_services/native-window.service';
 
 describe('TempOutfitterLeftNavComponent', () => {
   let component: TempOutfitterLeftNavComponent;
@@ -13,7 +14,12 @@ describe('TempOutfitterLeftNavComponent', () => {
     async(() => {
       TestBed.configureTestingModule({
         declarations: [TempOutfitterLeftNavComponent],
-        providers: [{ provide: UtilService, useClass: UtilService }, ApplicationFieldsService, FormBuilder],
+        providers: [
+          { provide: UtilService },
+          { provide: WindowRef },
+          ApplicationFieldsService,
+          FormBuilder
+        ],
         schemas: [NO_ERRORS_SCHEMA]
       }).compileComponents();
     })

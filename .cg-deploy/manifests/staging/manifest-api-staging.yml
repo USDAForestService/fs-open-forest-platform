@@ -17,3 +17,4 @@ applications:
     - pay-gov
     - jwt
     - new-relic
+    - feature-flags

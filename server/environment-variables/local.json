@@ -1,25 +1,18 @@
 {
   "user-provided": [{
-    "credentials": {
-      "middlelayer_base_url": "https://fs-middlelayer-api-staging.app.cloud.gov/",
-      "middlelayer_password": "",
-      "middlelayer_username": ""
-    },
-    "label": "user-provided",
     "name": "middlelayer-service",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+    "credentials": {
+      "middlelayer_base_url": "http://localhost:8000/",
+      "middlelayer_password": "password",
+      "middlelayer_username": "admin"
+    }
   }, {
+    "name": "intake-client-service",
     "credentials": {
       "intake_client_base_url": "http://localhost:4200"
-    },
-    "label": "user-provided",
-    "name": "intake-client-service",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+    }
   }, {
+    "name": "login-service-provider",
     "credentials": {
       "entrypoint": "https://login.gov",
       "issuer": "",
@@ -39,13 +32,9 @@
         "q": "1234",
         "qi": "1234"
       }
-    },
-    "label": "user-provided",
-    "name": "login-service-provider",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+    }
   }, {
+    "name": "eauth-service-provider",
     "credentials": {
       "whitelist": [{
         "admin_username": "TEST_USER",
@@ -55,13 +44,9 @@
       "entrypoint": "https://www.eauth.usda.gov/",
       "cert": "w==",
       "private_key": ""
-    },
-    "label": "user-provided",
-    "name": "eauth-service-provider",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+    }
   }, {
+    "name": "smtp-service",
     "credentials": {
       "admins": [
         "david.corwin@gsa.gov"
@@ -71,19 +56,14 @@
       ],
       "smtp_server": "smtp.gmail.com",
       "username": "do_not_reply_openforest@example.com"
-    },
-    "label": "user-provided",
-    "name": "smtp-service",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+    }
   }, {
+    "name": "jwt",
     "credentials": {
       "permit_secret": "secret"
-    },
-    "label": "user-provided",
-    "name": "jwt"
+    }
   }, {
+    "name": "pay-gov",
     "credentials": {
       "url": "http://localhost:8080/mock-pay-gov",
       "client_url": "http://localhost:4200/mock-pay-gov",
@@ -96,27 +76,20 @@
         "-----BEGIN CERTIFICATE-----\n cert5 -----END CERTIFICATE-----\n"
       ],
       "private_key": "-----BEGIN RSA PRIVATE KEY-----\n key \n-----END RSA PRIVATE KEY-----\n"
-    },
-    "label": "user-provided",
-    "name": "pay-gov"
-  },
-  {
+    }
+  }, {
+    "name": "database",
     "credentials": {
       "ssl": false,
       "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest"
-    },
-    "label": "user-provided",
-    "name": "database"
-  },
-  {
+    }
+  }, {
+    "name": "feature-flags",
     "credentials": {
-      "key": "",
-      "app_name": "Open Forest Server"
-    },
-    "label": "user-provided",
-    "name": "new-relic",
-    "syslog_drain_url": "",
-    "tags": [],
-    "volume_mounts": []
+      "mock_admin_auth": true,
+      "mock_public_auth": true,
+      "mock_pay_gov": true,
+      "new_relic": false
+    }
   }]
 }
