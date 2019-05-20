@@ -11,7 +11,7 @@ const util = require('../services/util.es6');
 const vcapConstants = require('../vcap-constants.es6');
 const logger = require('../services/logger.es6');
 
-const POST_LOGOUT_REDIRECT_URI = encodeURIComponent(`${vcapConstants.BASE_URL}/auth/logout`);
+const POST_LOGOUT_REDIRECT_URI = encodeURIComponent(`${vcapConstants.BASE_URL}/auth/login-gov/openid/logout`);
 
 const loginGov = {};
 
@@ -30,7 +30,7 @@ loginGov.params = {
   acr_values: 'http://idmanagement.gov/ns/assurance/loa/1',
   nonce: util.getRandomString(32),
   prompt: 'select_account',
-  redirect_uri: `${vcapConstants.BASE_URL}/auth/public/callback`,
+  redirect_uri: `${vcapConstants.BASE_URL}/auth/login-gov/openid/callback`,
   response_type: 'code',
   scope: 'openid email',
   state: util.getRandomString(32)
