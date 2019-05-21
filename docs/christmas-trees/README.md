@@ -1,4 +1,3 @@
-[Code structure](/docs/christmas-trees/structure)
 
 [Content](/docs/christmas-trees/content)
 
