@@ -28,10 +28,6 @@ export class ErrorMessageComponent {
     return message;
   }
 
-  email(errors) {
-    return `${this.name} requires a valid email address— i.e. you@email.com `;
-  }
-
   required(errors) {
     return `${this.name} is required. `;
   }
@@ -104,7 +100,7 @@ export class ErrorMessageComponent {
 
   pattern(errors) {
     let result = '';
-
+    
     if (errors.pattern.requiredPattern === '^https?://.+$') {
       result = `${this.name} requires a valid URL and must include http://.`;
     } else if (errors.pattern.requiredPattern === '^(0?[1-9]|1[0-9]|2[0-9]|3[01])$') {
@@ -115,6 +111,8 @@ export class ErrorMessageComponent {
       result = `${this.name} requires a 4 digit number. `;
     } else if (errors.pattern.requiredPattern === '/^[0-9]{8}$/') {
       result = `${this.name} requires an 8 digit number. `;
+    } else if (errors.pattern.requiredPattern === "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"){
+      result = `${this.name} requires a valid email address— i.e. you@email.com `;
     }
 
     return result;

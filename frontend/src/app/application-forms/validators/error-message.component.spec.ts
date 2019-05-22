@@ -36,7 +36,7 @@ describe('ErrorMessageComponent', () => {
   it('should parse errors correctly', () => {
     formBuilder = new FormBuilder();
     const form = formBuilder.group({
-      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
       organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
       primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lengthField: ['', [Validators.minLength(2), Validators.maxLength(5)]],

@@ -85,10 +85,10 @@ export class TreeApplicationFormComponent implements OnInit {
       treeCost: [''],
       firstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
       lastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
-      emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.maxLength(255)]],
+      emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
+      emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
       quantity: ['', [Validators.required, Validators.min(1), Validators.max(maxNumTrees)]],
-      totalCost: [0, [Validators.required, currencyValidator()]]
+      totalCost: [0, [Validators.required, currencyValidator()]], 
     }, { validators: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation') });
   }
 
