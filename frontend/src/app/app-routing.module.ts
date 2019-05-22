@@ -176,6 +176,11 @@ const appRoutes: Routes = [
     },
     children: [
       {
+        path: '',
+        redirectTo: 'reports',
+        pathMatch: 'full'
+      },
+      {
         path: 'reports',
         component: ReportComponent,
         data: {
