@@ -73,7 +73,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, Validators.maxLength(255), alphanumericValidator()]],
+        emailAddress: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255), alphanumericValidator()]],
         organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
