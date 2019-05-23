@@ -90,6 +90,7 @@ vcapConstants.EAUTH_ENTRY_POINT = eAuthService.entrypoint;
 vcapConstants.EAUTH_CERT = eAuthService.cert;
 vcapConstants.EAUTH_PRIVATE_KEY = eAuthService.private_key;
 vcapConstants.EAUTH_IDENTIFIER_FORMAT = eAuthService.identifier_format;
+vcapConstants.EAUTH_DISABLE_AUTHN_CONTEXT = eAuthService.disable_authn_context;
 
 /** SMTP settings */
 const smtp = getUserProvided('smtp-service');
