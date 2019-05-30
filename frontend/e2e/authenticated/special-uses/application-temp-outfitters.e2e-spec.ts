@@ -61,6 +61,7 @@ describe('Apply for a temp outfitters permit', () => {
     element(by.css('.primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('email')).sendKeys('test@test.com');
+    element(by.id('email-confirmation')).sendKeys('test@test.com');
     element(by.id('number-of-trips')).sendKeys('10');
     element(by.id('party-size')).sendKeys('11');
     element(by.id('start-month')).sendKeys('10');
