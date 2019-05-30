@@ -6,5 +6,5 @@
     [attr.aria-invalid]="afs.hasError(applicantInfo.controls.emailAddressConfirmation)"
   />
   <app-error-message fieldId="email-confirmation-error" name="Email address confirmation" [control]="applicantInfo.controls.emailAddressConfirmation"></app-error-message>
-  <app-error-message *ngIf="afs.hasError(applicantInfo.controls.emailAddressConfirmation) === 'false'" fieldId="email-group-error" name="Email group" [control]="applicantInfo"></app-error-message>
+  <app-error-message *ngIf="afs.hasError('emailConfirmationRequirement')" fieldId="email-group-error" name="Email group" [control]="applicantInfo"></app-error-message>
 </ng-container>
