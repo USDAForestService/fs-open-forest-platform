@@ -86,6 +86,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.organization-state')).sendKeys('WI');
     element(by.css('.organization-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('day-phone-ext')).sendKeys('2222');
     element(by.id('add-additional-phone-label')).click();
@@ -137,6 +138,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.organization-state')).sendKeys('WI');
     element(by.css('.organization-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('2222222222');
     element(by.id('website')).sendKeys('http://test.com');
     element(by.css('#organization-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
