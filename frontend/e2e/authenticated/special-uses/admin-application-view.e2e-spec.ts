@@ -28,6 +28,7 @@ describe('Admin applications page', () => {
     beforeAll(() => {
       page.navigateTo();
       element.all(by.css(`.application-field-list-values .application-details .usa-button`)).first().click();
+      browser.sleep(2000);
     });
 
     it('should have three call to action buttons', () => {
