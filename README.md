@@ -83,7 +83,8 @@ As the first two-way interaction-focused Forest Service online application, Open
 	- [Enable html5 pushstate on cloud.gov](#enable-html5-pushstate-on-cloudgov)
 		- [Logging SMTP errors](#logging-SMTP-errors)
 - [Usability testing](#usability-testing)
-- [Known technical Debt](#known-technical-debt)
+- [Known technical debt](#known-technical-debt)
+- [Known UX debt](#known-ux-debt)
 - [Contributing](#contributing)
 - [Public domain](#public-domain)
 
