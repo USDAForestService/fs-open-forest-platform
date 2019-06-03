@@ -9,6 +9,7 @@ export class NoncommercialApplicationForm {
     element(by.css('#person-primary-address .primary-permit-holder-state')).sendKeys('WI');
     element(by.css('#person-primary-address .primary-permit-holder-zip')).sendKeys('55555');
     element(by.id('email')).sendKeys('msdf@noemail.com');
+    element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('3333333333');
     element(by.id('name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
