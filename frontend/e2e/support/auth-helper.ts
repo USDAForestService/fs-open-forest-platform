@@ -7,7 +7,7 @@ export const login = (email: string, password: string) => {
   element(by.name('password')).sendKeys(password);
   element(by.tagName('button')).click();
   browser.waitForAngularEnabled(true);
-  browser.sleep(500);
+  browser.sleep(1000);
 };
 
 export const loginAdmin = () => login('test@test.com', 'password');
