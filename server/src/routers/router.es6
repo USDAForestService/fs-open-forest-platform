@@ -15,11 +15,11 @@ const specialUseRouter = require('./specialuse.es6');
 
 const router = express.Router();
 
-var origin = 'http://localhost:4200';
+let origin = 'http://localhost:4200';
 if (util.isProduction()) {
   origin = vcapConstants.INTAKE_CLIENT_BASE_URL
 }
-var corsOpts = {
+let corsOpts = {
   origin: origin,
   optionsSuccessStatus: 200,
   credentials: true,
