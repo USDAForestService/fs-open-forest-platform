@@ -21,9 +21,11 @@ _Staging:_
 
 The U.S. Forest Service is engaged in an ongoing effort to modernize and simplify its permitting processes. One facet of this effort is to make special use permits available to obtain online. The USForest Service and GSA's 18F acquisition built this open source platform for noncommercial group use, temporary outfitter and guide, and Christmas tree permits.
 
-## Opportunity Statement
+## Vision
 
-As the first two-way interaction-focused Forest Service online application, Open Forest will strengthen the connection between the public and the National Forests. The online permitting application will broaden and increase the public’s responsible access to public lands through online availability; a predictable, responsive and friendly experience; and reduced administrative burden. These enhancements will drive increased customer satisfaction and quality of public engagement.
+As the first two-way interaction-focused Forest Service online application, Open Forest will strengthen the connection between the public and the National Forests. The application will broaden and increase the public’s responsible access to public lands through online availability; a predictable, responsive and friendly experience; and reduced administrative burden. These enhancements will drive increased customer satisfaction and quality of public engagement.
+
+The Forest Service will use agile development methods and modular procurements to develop the application, ensuring an adaptive process that responds to emergent user needs and changing requirements.
 
 ## Table of contents
 
