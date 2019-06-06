@@ -5,6 +5,7 @@ import { applicationTypeValidator } from '../validators/application-type-validat
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
 import { FileUploadService } from '../_services/file-upload.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
@@ -87,13 +88,15 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
         organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
-      }),
+      },
+      {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
       guideIdentification: ['', [Validators.maxLength(255)]],
       operatingPlan: ['', [Validators.maxLength(255)]],
       liabilityInsurance: ['', [Validators.maxLength(255)]],

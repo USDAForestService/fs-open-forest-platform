@@ -38,8 +38,9 @@
           <app-address id="organization-address" [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
         </div>
 
-        <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
         <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number"></app-phone-number>
+        <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
+        <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
 
         <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
           <app-website [applicantInfo]="applicationForm.controls.applicantInfo"></app-website>
