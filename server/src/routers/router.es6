@@ -31,6 +31,7 @@ const corsOpts = {
 router.options('*', cors(corsOpts), (_req, res) => {
   res.set('Access-Control-Allow-Headers', 'accept, content-type');
   res.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS, PATCH');
+  res.set('Cache-Control', 'no-cache');
   res.send();
 });
 
