@@ -1,4 +1,4 @@
----
+﻿---
 name: Release Pull Request Template
 about: A pull request template for PRs from `dev` to `master` and thus release to production
 
@@ -28,5 +28,4 @@ Please note if fully resolves the issue per the acceptance criteria: Y/N
 - [ ] Documentation / readme.md updated (manual)
 - [ ] API docs updated if need (manual)
 - [ ] JSDocs updated (manual)
-- [ ] Docker updated if needed (manual)
 - [ ] This code has been reviewed by someone other than the original author
