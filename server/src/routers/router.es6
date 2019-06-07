@@ -17,15 +17,15 @@ const router = express.Router();
 
 let origin = 'http://localhost:4200';
 if (util.isProduction()) {
-  origin = vcapConstants.INTAKE_CLIENT_BASE_URL
+  origin = vcapConstants.INTAKE_CLIENT_BASE_URL;
 }
-let corsOpts = {
-  origin: origin,
+const corsOpts = {
+  origin,
   optionsSuccessStatus: 200,
   credentials: true,
   allowedHeaders: 'accept, content-type',
   methods: 'GET, PUT, POST, DELETE, OPTIONS, PATCH'
-}
+};
 
 /** Allow any server to check the preflights. */
 router.options('*', cors(corsOpts), (_req, res) => {
