@@ -169,26 +169,6 @@ jobs:
           name: pa11y test
           command: cd frontend; npm run build-test-pa11y
 
-  build-docker:
-    machine: true
-    steps:
-      - <<: *restore_repo
-      - <<: *restore_deps
-      - run:
-          name: Copy shared assets from frontend into server
-          command: cd server; ./copy-frontend-assets.sh
-      - run:
-          name: docker e2e smoke screen test
-          command: |
-            cd docker
-            docker-compose run fs-intake-frontend sudo npm run e2e:cidkr
-            e2ereturncode=$?
-            if [[ $e2ereturncode = 0 ]]
-              then echo 'SUCCESS'
-            else echo 'FAIL'
-            fi
-            exit $e2ereturncode
-
   staging-deploy:
     <<: *docker_image
     steps:
@@ -312,12 +292,6 @@ workflows:
           filters:
             branches:
               only: dev
-      - build-docker:
-          requires:
-            - install-dependencies
-          filters:
-            branches:
-              only: dev
       - staging-deploy:
           requires:
             - run-snyk
@@ -325,7 +299,6 @@ workflows:
             - run-e2e
             - run-pa11y
             - run-lint
-            - build-docker
           filters:
             branches:
               only: dev
