@@ -38,7 +38,7 @@ router.options('*', cors(corsOpts), (_req, res) => {
 router.use((_req, res, next) => {
   res.set('Cache-Control', 'no-cache');
   next();
-})
+});
 
 /** Plug in subroutes. */
 router.use('/auth', cors(corsOpts), authRouter);
