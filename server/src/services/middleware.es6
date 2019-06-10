@@ -27,7 +27,7 @@ const corsOpts = {
 * @param {Object} req - http request
 * @param {Object} res - http response
 */
-middleware.setCorsHeaders = cors(corsOpts)
+middleware.setCorsHeaders = cors(corsOpts);
 
 /**
  * @function checkPermissions - Check for a valid user.

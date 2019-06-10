@@ -4,8 +4,6 @@
  */
 
 const express = require('express');
-const vcapConstants = require('../vcap-constants.es6');
-const util = require('../services/util.es6');
 const middleware = require('../services/middleware.es6');
 const authRouter = require('./auth.es6');
 const christmasTreeRouter = require('./christmasTree.es6');
