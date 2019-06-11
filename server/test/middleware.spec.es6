@@ -15,7 +15,7 @@ const { expect } = chai;
 
 const testGetURL = '/forests';
 
-describe.only('middleware', () => {
+describe('middleware', () => {
   it('should provide a status code to use for successful OPTIONS requests', done => {
     request(server)
       .options(testGetURL)
