@@ -2,6 +2,7 @@
 const chai = require('chai');
 const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
+const request = require('supertest');
 
 const middleware = require('../src/services/middleware.es6');
 const util = require('../src/services/util.es6');
