@@ -30,6 +30,7 @@ module.exports = {
       paygovTrackingId: { type: Sequelize.STRING, field: 'paygov_tracking_id' },
       paygovError: { type: Sequelize.STRING(500), field: 'paygov_error' },
       createdAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'created' },
+      purchasedAt: { type: Sequelize.DATE, field: 'purchased' },
       updatedAt: { type: Sequelize.DATE, defaultValue: Sequelize.NOW, allowNull: false, field: 'updated' }
     });
   },

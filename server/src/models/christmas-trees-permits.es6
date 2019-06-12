@@ -72,6 +72,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       field: 'updated',
       allowNull: false
     },
+    purchasedAt: {
+      type: DataTypes.DATE,
+      field: 'purchased'
+    },
     paygovToken: {
       type: DataTypes.STRING,
       field: 'paygov_token'
