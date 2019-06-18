@@ -121,7 +121,7 @@ permitService.completePermitTransaction = async (permit) => {
     await permit.update({ status: 'Error', paygovError: paygovError.toString() });
     throw new Error('Paygov Error');
   }
-  const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchasedAt: new Date() });
+  const updatedPermit = await permit.update({ paygovTrackingId, status: 'Completed', purchaseDate: new Date() });
   permitService.generateRulesAndEmail(updatedPermit);
   return permitService.permitResult(updatedPermit);
 };
