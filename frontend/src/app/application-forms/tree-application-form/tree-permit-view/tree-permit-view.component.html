@@ -6,7 +6,28 @@
       <h1 id="skip-nav-target" tabindex="-1" class="usa-heading">Christmas tree permit order confirmation</h1>
     </div>
 
-    <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container">
+    <div *ngIf="!isPermitExpired" id="toPrint" hidden="true" [innerHTML]="image"></div>
+
+    <div class="confirmation-details-container clear usa-width-one-whole margin-top-2">
+      <h2 class="usa-heading">Print permit</h2>
+      <hr class="header-divider">
+      <div id="printing-instructions">
+          Your permit and the Christmas tree cutting rules and guidelines were emailed to you at <b>{{permit.emailAddress}}</b>. If for some reason this email address is incorrect, please ensure you print your permit below with rules and guidelines.<br><br>
+          You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
+      </div>
+      <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
+      <label for="includeRules">Include a copy of the Christmas tree cutting rules and guidelines</label>
+      <button
+       id="tree-print-permit"
+       class="usa-button-primary usa-button-big"
+       type="button"
+       [disabled]="isPermitExpired"
+       (click)="printPermit()">
+        Print
+      </button>
+    </div>
+
+    <div *ngIf="forest" id='tree-order-summary-container' class="confirmation-details-container clear margin-top-2">
       <div *ngIf="isPermitExpired" class="usa-alert usa-alert-error permit-expiration-warning">
         <div class="usa-alert-body">
           <h3 class="usa-alert-heading">This permit was issued on {{permit.transactionDate | date: 'shortDate'}} and expired on {{permit.expirationDate | date: 'shortDate'}}</h3>
@@ -32,26 +53,6 @@
           <dd><b>${{permit.totalCost}}</b></dd>
         </dl>
       </div>
-    </div>
-
-    <div *ngIf="!isPermitExpired" id="toPrint" hidden="true" [innerHTML]="image"></div>
-
-    <div class="confirmation-details-container clear usa-width-one-whole margin-top-2">
-      <h2 class="usa-heading">Print permit</h2>
-      <hr class="header-divider">
-      <div id="printing-instructions">
-        You must print this permit and have it properly displayed on your vehicle when cutting down your Christmas tree. When printing your permit, use plain white paper. The printed permit will have instructions on how to properly place it on your vehicle.
-      </div>
-      <input id="includeRules" type="checkbox" name="includeRules" [checked]="includeRules" (change)="includeRules = !includeRules">
-      <label for="includeRules">Include a copy of the Christmas tree cutting rules and guidelines</label>
-      <button
-       id="tree-print-permit"
-       class="usa-button-primary usa-button-big"
-       type="button"
-       [disabled]="isPermitExpired"
-       (click)="printPermit()">
-        Print
-      </button>
     </div>
 
     <div *ngIf="permit" id='tree-confirmation-details-container' class="usa-width-one-whole margin-top-2">

@@ -4,6 +4,7 @@ import { numberValidator } from '../validators/number-validation';
 import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
 import { Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -73,7 +74,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, Validators.maxLength(255), alphanumericValidator()]],
+        emailAddress: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255), alphanumericValidator()]],
+        emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
         organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
@@ -83,7 +85,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]]
-      })
+      },
+      {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
     });
   }
 

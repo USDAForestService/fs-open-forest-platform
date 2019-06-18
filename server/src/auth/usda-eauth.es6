@@ -18,7 +18,8 @@ eAuth.strategy = () => new SamlStrategy(
     issuer: vcapConstants.EAUTH_ISSUER,
     privateCert: vcapConstants.EAUTH_PRIVATE_KEY,
     cert: vcapConstants.EAUTH_CERT,
-    identifierFormat: vcapConstants.EAUTH_IDENTIFIER_FORMAT || undefined
+    identifierFormat: vcapConstants.EAUTH_IDENTIFIER_FORMAT || undefined,
+    disableRequestedAuthnContext: vcapConstants.EAUTH_DISABLE_AUTHN_CONTEXT || undefined
   },
   (profile, done) => done(null, eAuth.setUserObject(profile))
 );

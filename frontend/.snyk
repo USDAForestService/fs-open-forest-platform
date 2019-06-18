@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-MARKED-73637:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2019-06-09T16:35:43.427Z'
+        expires: '2019-07-14T22:43:13.952Z'
   SNYK-JS-MARKED-174116:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2019-06-09T16:35:43.427Z'
+        expires: '2019-07-14T22:43:13.952Z'
   SNYK-JS-COREJS-174627:
     - core-js:
         reason: No remediation available

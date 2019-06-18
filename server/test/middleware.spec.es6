@@ -2,52 +2,25 @@
 const chai = require('chai');
 const jwt = require('jsonwebtoken');
 const sinon = require('sinon');
+const request = require('supertest');
 
 const middleware = require('../src/services/middleware.es6');
 const util = require('../src/services/util.es6');
+const server = require('./mock-aws.spec.es6');
 const vcapConstants = require('../src/vcap-constants.es6');
 
 chai.use(require('sinon-chai'));
 
 const { expect } = chai;
 
+const testGetURL = '/forests';
+
 describe('middleware', () => {
-  it('should have CORS headers', () => {
-    const req = {};
-    const res = {
-      headers: {}
-    };
-    res.set = (key, value) => {
-      res.headers[key] = value;
-    };
-    const next = () => {
-      expect(res.headers['Cache-Control'], 'no-cache');
-      expect(res.headers['Access-Control-Allow-Origin'], 'http://localhost:4200');
-    };
-    middleware.setCorsHeaders(req, res, next);
-  });
-
-  describe('given production environment', () => {
-    beforeEach(() => {
-      sinon.stub(util, 'isProduction').returns(true);
-    });
-
-    afterEach(() => {
-      util.isProduction.restore();
-    });
-
-    it('should have CORS headers set', (done) => {
-      const req = {};
-      const res = {
-        set: sinon.spy()
-      };
-
-      middleware.setCorsHeaders(req, res, () => {
-        expect(res.set).to.have.been.calledWith('Cache-Control', 'no-cache');
-        expect(res.set).to.have.been.calledWith('Access-Control-Allow-Origin', vcapConstants.INTAKE_CLIENT_BASE_URL);
-        done();
-      });
-    });
+  it('should provide a status code to use for successful OPTIONS requests', done => {
+    request(server)
+      .options(testGetURL)
+      .set('origin', 'http://localhost:4200')
+      .expect(200, done);
   });
 
   describe('checkPermissions', () => {
