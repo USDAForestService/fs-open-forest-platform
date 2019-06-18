@@ -1,6 +1,6 @@
 'use strict';
 
-const TABLE_NAME = 'christmasTreesPermits';
+const TABLE_NAME = "christmasTreesPermits";
 
 module.exports = {
   up: function(queryInterface, Sequelize) {
