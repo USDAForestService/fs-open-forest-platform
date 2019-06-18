@@ -66,7 +66,7 @@ describe('Xmas admin navbar', () => {
   it('should open menu if menu button is clicked', () => {
     expect<any>(page.forestAdminMobileMenuButton().isDisplayed()).toBeTruthy();
     page.forestAdminMobileMenuButton().click();
-    browser.sleep(1);
+    browser.sleep(500);
     expect<any>(page.forestAdminMobileNav().isDisplayed()).toBeTruthy();
   });
 
