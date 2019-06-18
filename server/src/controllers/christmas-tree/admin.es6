@@ -27,13 +27,13 @@ const getPermitResult = (permit) => {
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
 
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
-    eachPermit.issueDate = moment.tz(permit.updatedAt, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
+    eachPermit.issueDate = moment.tz(permit.purchaseDate, permit.christmasTreesForest.timezone).format('MM/DD/YYYY');
 
     eachPermit.expireDate = moment
       .tz(permit.permitExpireDate, permit.christmasTreesForest.timezone)
       .format('MM/DD/YYYY');
   } else {
-    eachPermit.issueDate = moment(permit.updatedAt).format('MM/DD/YYYY');
+    eachPermit.issueDate = moment(permit.purchaseDate).format('MM/DD/YYYY');
     eachPermit.expireDate = moment(permit.permitExpireDate).format('MM/DD/YYYY');
   }
   eachPermit.quantity = permit.quantity;
@@ -92,6 +92,7 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
       'forestId',
       'permitNumber',
       'updatedAt',
+      'purchaseDate',
       'quantity',
       'totalCost',
       'permitExpireDate',
@@ -135,6 +136,7 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
       'forestId',
       'permitNumber',
       'updatedAt',
+      'purchaseDate',
       'quantity',
       'totalCost',
       'permitExpireDate',
