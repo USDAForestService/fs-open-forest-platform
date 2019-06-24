@@ -53,12 +53,14 @@ describe('christmas tree admin controller', () => {
     ].map(updated => ({
       forestId: authorizedForest.id,
       created: moment().format(),
-      updated: moment.tz(updated, authorizedForest.timezone).format()
+      updated: moment.tz(updated, authorizedForest.timezone).format(),
+      purchase_date: moment.tz(updated, authorizedForest.timezone).format()
     })),
     {
       forestId: authorizedForest2.id,
       created: moment().format(),
-      updated: moment.tz('2018-11-01 00:00:01', authorizedForest2.timezone).format()
+      updated: moment.tz('2018-11-01 00:00:01', authorizedForest2.timezone).format(),
+      purchase_date: moment.tz('2018-11-01 00:00:01', authorizedForest2.timezone).format()
     }]);
 
     // Necessary to specify the `updated` datetime
@@ -70,7 +72,8 @@ describe('christmas tree admin controller', () => {
     ].map(updated => ({
       forestId: unauthorizedForest.id,
       created: moment().format(),
-      updated: moment.tz(updated, unauthorizedForest.timezone).format()
+      updated: moment.tz(updated, unauthorizedForest.timezone).format(),
+      purchase_date: moment.tz(updated, unauthorizedForest.timezone).format()
     })));
   });
 
