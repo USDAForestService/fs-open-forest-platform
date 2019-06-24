@@ -85,7 +85,7 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   const forestIdFilter = forestId === 'ALL' ? {} : { forestId };
   const forestFilter = userForests[0] === 'all' ? {} : { forestAbbr: { [operator.in]: userForests } };
   // eslint-disable-next-line max-len
-  const dateComparison = Sequelize.literal(`( "christmasTreesPermits".updated AT TIME ZONE "christmasTreesForest".timezone ) BETWEEN '${startDatetime}' AND '${endDatetime}'`);
+  const dateComparison = Sequelize.literal(`( "christmasTreesPermits".purchase_date AT TIME ZONE "christmasTreesForest".timezone ) BETWEEN '${startDatetime}' AND '${endDatetime}'`);
 
   const query = {
     attributes: [
