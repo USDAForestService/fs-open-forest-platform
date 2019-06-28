@@ -213,16 +213,23 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
  * @return {string} - processed rules html
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
-  const forest = permit.christmasTreesForest.dataValues;
-  for (const key in forest) {
-    if (Object.prototype.hasOwnProperty.call(forest, key)) {
-      const textToReplace = `{{${key}}}`;
-      const rulesHtmlWithForest = rulesHtml.replace(textToReplace, forest[key]);
-      if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
-        return christmasTreesPermitSvgUtil.parseCuttingAreaDates(rulesHtmlWithForest, forest);
-      }
-      return rulesHtmlWithForest;
-    }
+  let forest = permit.christmasTreesForest.dataValues;
+  let cuttingAreas = forest.cuttingAreas;
+  if (cuttingAreas.SULPHUR) {
+    forest.sulphurDate = cuttingAreas.SULPHUR.startDate + ' to ' + cuttingAreas.SULPHUR.endDate;
+  }
+  if (cuttingAreas.ELKCREEK) {
+    forest.elkCreekDate = cuttingAreas.ELKCREEK.startDate + ' to ' + cuttingAreas.ELKCREEK.endDate;
+  }
+  if (cuttingAreas.CANYONLAKES) {
+    forest.canyonLakesDate = cuttingAreas.CANYONLAKES.startDate + ' to ' + cuttingAreas.CANYONLAKES.endDate;
+  }
+  if (cuttingAreas.REDFEATHERLAKES) {
+    forest.redFeatherLakesDate = cuttingAreas.REDFEATHERLAKES.startDate + ' to ' + cuttingAreas.REDFEATHERLAKES.endDate;
+  }
+  for (let key in forest) {
+    let textToReplace = `{{${key}}}`;
+    rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
   }
   return rulesHtml;
 };
