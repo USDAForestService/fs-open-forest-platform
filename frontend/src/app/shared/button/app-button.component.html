@@ -1,4 +1,4 @@
-<a *ngIf="!btnAlt" class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
+<a *ngIf="!btnAlt && !learnMore" class="usa-button-inverse usa-button usa-button-big" [routerLink]="link">
   {{buttonText}}
   <span *ngIf="!authentication.user"  class="button-hint usa-form-hint">Sign in with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  to apply
   </span>
@@ -6,9 +6,17 @@
 </a>
 
 <div *ngIf="btnAlt">
-  <a class="usa-button-primary-alt usa-button usa-button-big display-inline" [routerLink]="link" (click)="setRequestingUrl()">
+  <a class="usa-button-primary-alt usa-button usa-button display-inline" [routerLink]="link" (click)="setRequestingUrl()">
     {{buttonText}}
     <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Apply now</span>
   </a>
   <span *ngIf="!authentication.user" class="button-hint usa-form-hint display-inline">Sign in with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  to apply</span>
 </div>
+
+<div *ngIf="learnMore">
+    <a class="usa-button-inverse usa-button" [routerLink]="link" (click)="setRequestingUrl()">
+      {{buttonText}}
+      <span *ngIf="authentication.user"  class="button-hint usa-form-hint">Learn More</span>
+    </a>
+    <span *ngIf="!authentication.user" class="button-hint usa-form-hint display-inline">Sign in with <img src="/assets/img/site-wide/login.gov-logo.svg" alt="login.gov" class="login-gov" role="img" />  to apply</span>
+  </div>

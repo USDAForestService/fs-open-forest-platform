@@ -6,9 +6,9 @@
       <p>If you know which permit you need, click on the permit type below to submit an application using a login.gov account.<br/> If you are unsure of which permit you need, click on “Help me find a permit,” and we’ll provide you with additional guidance. </p>
     </div>
   </div>
-  <div class="usa-grid" style="max-width:1400px;">
+  <div class="usa-grid" style="max-width:1300px;">
 
-    <div class="usa-width-one-half wrapper" style="padding-top:0px;" >
+    <div class="usa-width-one-half wrapper" style="padding-top:0px; margin-right:0px" >
         <div class="usa-width-one-half wrapper" style="background-color:#1a232c; height: 700px; margin-right:0px;">
             <h4 style="color:white; text-align:left;">Non-commercial permit</h4>
             <ul>
@@ -17,8 +17,9 @@
                 <li>The event’s primary purpose isn’t selling goods or services.</li>
                 <li>This type of permit is free.</li>
               </ul>
-              <app-button link="/mbs/applications/noncommercial-group-use/new" buttonText="Noncommercial permit"></app-button>
-              <p><a class="learn-more-link" routerLink="/mbs/applications/noncommercial-group-use/learn-more" aria-label="Click here to learn more about the noncommercial permit.">Click here to learn more about this permit.</a></p>
+              <app-button link="/mbs/applications/noncommercial-group-use/new" btnAlt="true" style="margin-top: 15px;"></app-button>
+              <app-button link="/mbs/applications/noncommercial-group-use/learn-more" learnMore="true" style="margin-top: 15px;"></app-button>
+              <!-- <p><a class="learn-more-link" routerLink="/mbs/applications/noncommercial-group-use/learn-more" aria-label="Click here to learn more about the noncommercial permit.">Click here to learn more about this permit.</a></p> -->
         </div>
         <div class="usa-width-one-half wrapper"  style="height:700px" id="noncommercial-background">
         </div>
@@ -33,34 +34,21 @@
                 <li>Used in increments of 50 <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>.</li>
                 <li>Valid for up to 200 service days in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
               </ul>
-              <app-button link="/mbs/applications/temp-outfitters/new" buttonText="Temp outfitter's permit"></app-button>
-              <p><a class="learn-more-link" routerLink="/mbs/applications/temp-outfitters/learn-more" aria-label="Click here to learn more about the temporary outfitter's permit.">Click here to learn more about this permit.</a></p>
+              <app-button link="/mbs/applications/temp-outfitters/new" btnAlt="true" style="margin-top: 15px;"></app-button>
+              <app-button link="/mbs/applications/temp-outfitters/learn-more" learnMore="true" style="margin-top: 15px;"></app-button>
         </div>
         <div class="usa-width-one-half wrapper"  style="height:700px" id="tempoutfitter-background">
         </div>
     </div>
 
-    <!-- <div class="usa-width-one-half wrapper" style="height:700px;" id="tempoutfitter-background">
-      <div class="option-content option-content-one-half">
-        <h2>Temporary outfitter’s permit</h2>
-        <ul>
-          <li>For outfitters &amp; guides.</li>
-          <li>Authorizes short-term, non-renewable outfitting and guiding.</li>
-          <li>Used in increments of 50 <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>.</li>
-          <li>Valid for up to 200 service days in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
-        </ul>
-      </div>
-      <app-button link="/mbs/applications/temp-outfitters/new" buttonText="Temp outfitter's permit"></app-button>
-      <p><a class="learn-more-link" routerLink="/mbs/applications/temp-outfitters/learn-more" aria-label="Click here to learn more about the temporary outfitter's permit.">Click here to learn more about this permit.</a></p>
-    </div> -->
   </div>
-  <div class="usa-grid" style="max-width:1400px;">
-    <div class="usa-width-one-whole wrapper" id="notsure-background">
-      <div class="option-content">
-        <h2>I’m not sure</h2>
-        <p>If you’re not sure about what kind of permit you need, click on the button below to answer a few questions. We will guide you to the permit that best meets your needs.</p>
-      </div>
-      <a id="help-find-permit" class="usa-button-inverse usa-button usa-button-big" routerLink="/mbs/help-me-pick/1">Help me find a permit</a>
+
+  <div class="usa-width-one-whole wrapper" id="notsure-background">
+    <div class="option-content">
+      <h2>I’m not sure</h2>
+      <p>If you’re not sure about what kind of permit you need, click on the button below to answer a few questions. We will guide you to the permit that best meets your needs.</p>
     </div>
+    <a id="help-find-permit" class="usa-button-primary-alt usa-button usa-button-big display-inline" routerLink="/mbs/help-me-pick/1">Help me find a permit</a>
   </div>
+
 </section>

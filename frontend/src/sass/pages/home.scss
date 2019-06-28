@@ -3,6 +3,9 @@
 section#home {
   text-align: center;
 
+  a {
+    color: white;
+  }
   ul {
     text-align: left;
   }
@@ -26,7 +29,7 @@ section#home {
   }
 
   .usa-button {
-    margin: 0;
+    margin: 20px 0px 0px 0px;
   }
 
   #noncommercial-background {
