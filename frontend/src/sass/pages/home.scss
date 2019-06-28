@@ -3,26 +3,40 @@
 section#home {
   text-align: center;
 
-  a {
-    color: white;
-  }
   ul {
     text-align: left;
   }
-
+  .fixed-height{
+    height: 700px;
+  }
+  .usa-grid-wide {
+    max-width: 1300px;
+  }
+  .darkbg{
+    background-color: $dark-blue-grey;
+  }
+  .no-rmargin{
+    margin-right: 0px;
+  }
   .wrapper {
     background-position: top;
     color: white;
     margin-bottom: 15px;
     padding: 30px;
-    h2 {
+    h4 {
       color: white;
       margin-top: 0;
+      text-align: left;
     }
+    ul > li > a {
+      color: white;
+    }
+
     p {
       font-style: italic;
     }
   }
+
 
   .description {
     margin-bottom: 40px;
