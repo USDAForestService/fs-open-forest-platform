@@ -9,6 +9,7 @@ export class AppButtonComponent {
   @Input() link: string;
   @Input() buttonText: string;
   @Input() btnAlt: false;
+  @Input() learnMore: false;
 
   constructor(public authentication: AuthenticationService) {}
 
