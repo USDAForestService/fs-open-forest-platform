@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MARKED-73637:
@@ -37,4 +37,34 @@ ignore:
     - sequelize-cli:
         reason: 'Remediation will be handled in issue #598'
         expires: '2019-05-16T17:48:14.137Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - newrelic > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - html-to-text > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - openid-client > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - express-winston > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdoc > requizzle > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - sequelize > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - xml-encryption > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - winston > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdoc > catharsis > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - passport-saml > xml-encryption > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - juice > web-resource-inliner > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
