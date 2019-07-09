@@ -20,7 +20,9 @@ section#home {
     background-color: $dark-blue-grey;
     padding: 20px;
     .usa-button{
-      min-width: 70%;
+      // min-width: 70%;
+      // max-width: 70%;
+      width: 80%;
     }
   }
   .no-rmargin{
