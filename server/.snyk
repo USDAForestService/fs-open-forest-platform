@@ -37,4 +37,104 @@ ignore:
     - sequelize-cli:
         reason: 'Remediation will be handled in issue #598'
         expires: '2019-05-16T17:48:14.137Z'
-patch: {}
+  SNYK-JS-LODASH-450202:
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        reason: No upgrade path available
+        expires: '2019-08-08T16:11:43.777Z'
+  SNYK-JS-LODASHMERGEWITH-174136:
+    - ink-docstrap > sanitize-html > lodash.mergewith:
+        reason: No upgrade path available
+        expires: '2019-08-08T16:11:43.777Z'
+  SNYK-JS-MARKED-451341:
+    - jsdoc > marked:
+        reason: No Upgrade path available
+        expires: '2019-08-08T16:11:43.777Z'
+  SNYK-JS-JSYAML-173999:
+    - snyk > snyk-policy > js-yaml:
+        reason: triggers js yaml
+        expires: '2019-08-08T17:26:01.695Z'
+  SNYK-JS-JSYAML-174129:
+    - snyk > snyk-policy > js-yaml:
+        reason: triggers vuln js yaml
+        expires: '2019-08-08T17:26:01.695Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - newrelic > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - html-to-text > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - openid-client > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - express-winston > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdoc > requizzle > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - sequelize > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - xml-encryption > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - winston > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdoc > catharsis > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - passport-saml > xml-encryption > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - juice > web-resource-inliner > async > lodash:
+        patched: '2019-07-09T13:48:06.032Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > snyk-php-plugin > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - juice > web-resource-inliner > async > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - passport-saml > xml-encryption > async > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - winston > async > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - sequelize > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - openid-client > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - html-to-text > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - '@snyk/dep-graph > lodash':
+        patched: '2019-07-09T16:09:19.221Z'
+    - express-winston > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - xml-encryption > async > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - jsdoc > requizzle > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - '@snyk/dep-graph > graphlib > lodash':
+        patched: '2019-07-09T16:09:19.221Z'
+    - newrelic > async > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - jsdoc > catharsis > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
+    - snyk > lodash:
+        patched: '2019-07-09T16:09:19.221Z'
