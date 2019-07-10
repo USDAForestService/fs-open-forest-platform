@@ -214,10 +214,13 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   let forest = permit.christmasTreesForest.dataValues;
-  let cuttingAreas = forest.cuttingAreas;
+  let cuttingAreas = {};
+  if (forest && forest.cuttingAreas) {
+    cuttingAreas = forest.cuttingAreas;
+  }
 
   for (let cuttingArea in cuttingAreas) {
-    forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate)
+    forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate);
   }
 
   for (let key in forest) {
