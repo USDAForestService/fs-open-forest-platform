@@ -213,21 +213,24 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
  * @return {string} - processed rules html
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
-  let forest = permit.christmasTreesForest.dataValues;
+  const forest = permit.christmasTreesForest.dataValues;
   let cuttingAreas = {};
+  let textWithReplacements = '';
   if (forest && forest.cuttingAreas) {
     cuttingAreas = forest.cuttingAreas;
+    for (const cuttingArea in cuttingAreas) {
+      forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(
+        forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate
+      );
+    }
   }
-
-  for (let cuttingArea in cuttingAreas) {
-    forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate);
+  if (forest) {
+    for (const key in forest) {
+      const textToReplace = `{{${key}}}`;
+      textWithReplacements = rulesHtml.replace(textToReplace, forest[key]);
+    }
   }
-
-  for (let key in forest) {
-    let textToReplace = `{{${key}}}`;
-    rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
-  }
-  return rulesHtml;
+  return textWithReplacements;
 };
 
 /**
