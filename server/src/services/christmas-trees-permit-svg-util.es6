@@ -215,18 +215,11 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   let forest = permit.christmasTreesForest.dataValues;
   let cuttingAreas = forest.cuttingAreas;
-  if (cuttingAreas.SULPHUR) {
-    forest.sulphurDate = cuttingAreas.SULPHUR.startDate + ' to ' + cuttingAreas.SULPHUR.endDate;
+
+  for (let cuttingArea in cuttingAreas) {
+    forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate)
   }
-  if (cuttingAreas.ELKCREEK) {
-    forest.elkCreekDate = cuttingAreas.ELKCREEK.startDate + ' to ' + cuttingAreas.ELKCREEK.endDate;
-  }
-  if (cuttingAreas.CANYONLAKES) {
-    forest.canyonLakesDate = cuttingAreas.CANYONLAKES.startDate + ' to ' + cuttingAreas.CANYONLAKES.endDate;
-  }
-  if (cuttingAreas.REDFEATHERLAKES) {
-    forest.redFeatherLakesDate = cuttingAreas.REDFEATHERLAKES.startDate + ' to ' + cuttingAreas.REDFEATHERLAKES.endDate;
-  }
+
   for (let key in forest) {
     let textToReplace = `{{${key}}}`;
     rulesHtml = rulesHtml.replace(textToReplace, forest[key]);
