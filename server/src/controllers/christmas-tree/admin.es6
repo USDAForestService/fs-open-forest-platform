@@ -24,6 +24,7 @@ const operator = Sequelize.Op;
 const getPermitResult = (permit) => {
   const eachPermit = {};
   eachPermit.forestAbbr = permit.christmasTreesForest.forestAbbr;
+  eachPermit.forestNameShort = permit.christmasTreesForest.forestNameShort;
   eachPermit.permitNumber = zpad(permit.permitNumber, 8); // Adds padding to each permit number for readiblity
 
   if (permit.christmasTreesForest && permit.christmasTreesForest.timezone) {
@@ -78,12 +79,12 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   logger.info(`${adminUsername} generated a report`);
 
   const startDatetime = moment(startDate).hour(0).minute(0).second(0)
-    .format('YYYY-MM-DDTHH:mm:ss');
+    .format('MM/DD/YYYY');
   const endDatetime = moment(endDate).hour(23).minute(59).second(59)
-    .format('YYYY-MM-DDTHH:mm:ss');
+    .format('MM/DD/YYYY');
 
-  const forestIdFilter = forestId === 'ALL' ? {} : { forestId };
-  const forestFilter = userForests[0] === 'all' ? {} : { forestAbbr: { [operator.in]: userForests } };
+  const forestIdFilter = forestId === 'ALL Forests' ? {} : { forestId };
+  const forestFilter = userForests[0] === 'all forests' ? {} : { forestAbbr: { [operator.in]: userForests } };
   // eslint-disable-next-line max-len
   const dateComparison = Sequelize.literal(`( "christmasTreesPermits".purchase_date AT TIME ZONE "christmasTreesForest".timezone ) BETWEEN '${startDatetime}' AND '${endDatetime}'`);
 
@@ -97,7 +98,8 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
       'totalCost',
       'permitExpireDate',
       'christmasTreesForest.timezone',
-      'christmasTreesForest.forest_abbr'
+      'christmasTreesForest.forest_abbr',
+      'christmasTreesForest.forest_name_short'
     ],
     include: [
       {
@@ -141,7 +143,8 @@ christmasTreeAdmin.getPermitReport = async (req, res) => {
       'totalCost',
       'permitExpireDate',
       'christmasTreesForest.timezone',
-      'christmasTreesForest.forest_abbr'
+      'christmasTreesForest.forest_abbr',
+      'christmasTreesForest.forest_name_short'
     ],
     include: [{ model: treesDb.christmasTreesForests }],
     where: {
