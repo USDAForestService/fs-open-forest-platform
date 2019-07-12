@@ -161,12 +161,12 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName:
+      forestNameShort:
         this.selectedForest === 'ALL Forests'
           ? 'All Forests'
-          : this.getForestById(this.selectedForest).forestName,
-      startDate: this.getForestDate('dateTimeRange.startDateTime'),
-      endDate: this.getForestDate('dateTimeRange.endDateTime')
+          : this.getForestById(this.selectedForest).forestNameShort,
+      startDate: moment(this.getForestDate('dateTimeRange.startDateTime')).format('MM/DD/YYYY'),
+      endDate: moment(this.getForestDate('dateTimeRange.endDateTime')).format('MM/DD/YYYY')
     };
   }
 
