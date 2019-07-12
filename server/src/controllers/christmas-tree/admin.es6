@@ -79,9 +79,9 @@ christmasTreeAdmin.getPermitSummaryReport = async (req, res) => {
   logger.info(`${adminUsername} generated a report`);
 
   const startDatetime = moment(startDate).hour(0).minute(0).second(0)
-    .format('MM/DD/YYYY');
+    .format('YYYY-MM-DDTHH:mm:ss');
   const endDatetime = moment(endDate).hour(23).minute(59).second(59)
-    .format('MM/DD/YYYY');
+    .format('YYYY-MM-DDTHH:mm:ss');
 
   const forestIdFilter = forestId === 'ALL Forests' ? {} : { forestId };
   const forestFilter = userForests[0] === 'all forests' ? {} : { forestAbbr: { [operator.in]: userForests } };
