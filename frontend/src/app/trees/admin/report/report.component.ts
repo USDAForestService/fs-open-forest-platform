@@ -165,8 +165,8 @@ export class ReportComponent implements OnInit, AfterViewInit {
         this.selectedForest === 'ALL Forests'
           ? 'All Forests'
           : this.getForestById(this.selectedForest).forestNameShort,
-      startDate: moment(this.getForestDate('dateTimeRange.startDateTime')).format('MM/DD/YYYY'),
-      endDate: moment(this.getForestDate('dateTimeRange.endDateTime')).format('MM/DD/YYYY')
+      startDate: moment(this.getForestDate('dateTimeRange.startDateTime')).format('MM-DD-YYYY'),
+      endDate: moment(this.getForestDate('dateTimeRange.endDateTime')).format('MM-DD-YYYY')
     };
   }
 
