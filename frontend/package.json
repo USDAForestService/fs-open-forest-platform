@@ -50,7 +50,7 @@
     "intl": "^1.2.5",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.21",
-    "newrelic": "^4.13.0",
+    "newrelic": "^5.10.0",
     "ng-in-viewport": "6.0.3",
     "ng2-file-upload": "^1.2.1",
     "ngx6-angular-breadcrumbs": "^0.0.3",
