@@ -145,7 +145,7 @@ describe('ReportComponent', () => {
     component.form.get('dateTimeRange.endYear').setValue('2018');
     expect(component.form.valid).toBeTruthy();
     component.getReport();
-    expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
+    expect(component.result.parameters.forestNameShort).toEqual('Arapaho and Roosevelt');
   });
 
   it('should update date status', () => {
