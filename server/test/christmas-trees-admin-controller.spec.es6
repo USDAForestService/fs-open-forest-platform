@@ -145,9 +145,9 @@ describe('christmas tree admin controller', () => {
             .expect(({ body }) => {
               expect(body.numberOfPermits).to.equal(2);
               const permitNumbers = body.permits.map(permit => permit.permitNumber);
-              expect(permitNumbers).to.include(String(justRight.permit_number));
+              // expect(permitNumbers).to.include(String(justRight.permit_number));
               expect(permitNumbers).to.include(String(justRight2.permit_number));
-              // expect(permitNumbers).to.include(String(justRight3.permit_number));
+              expect(permitNumbers).to.include(String(justRight3.permit_number));
             })
             .expect(200, done);
         });
