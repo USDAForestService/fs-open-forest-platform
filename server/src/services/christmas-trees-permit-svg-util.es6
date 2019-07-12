@@ -215,7 +215,7 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   const forest = permit.christmasTreesForest.dataValues;
   let cuttingAreas = {};
-  let textWithReplacements = '';
+  let textWithReplacements = rulesHtml;
   if (forest && forest.cuttingAreas) {
     cuttingAreas = forest.cuttingAreas;
     for (const cuttingArea in cuttingAreas) {
@@ -228,8 +228,7 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   }
   for (const key in forest) {
     if (Object.prototype.hasOwnProperty.call(forest, key)) {
-      textWithReplacements = rulesHtml.replace(`{{${key}}}`, forest[key]);
-      rulesHtml = textWithReplacements;
+      textWithReplacements = textWithReplacements.replace(`{{${key}}}`, forest[key]);
     }
   }
   return textWithReplacements;
