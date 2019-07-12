@@ -45,11 +45,11 @@ describe('christmas tree admin controller', () => {
     ]);
 
     // Necessary to specify the `updated` datetime
-    [_tooEarly, _tooLate, justRight, justRight2, justRight3] = await bulkInsertPermits([...[
+    [_tooEarly, _tooLate, justRight, justRight2] = await bulkInsertPermits([...[
       '2018-10-31 11:59:59',
       '2018-11-03 00:00:00',
       '2018-11-01 00:00:01',
-      '2018-11-02 23:59:59'
+      '2018-11-01 23:59:59'
     ].map(updated => ({
       forestId: authorizedForest.id,
       created: moment().format(),
@@ -68,7 +68,7 @@ describe('christmas tree admin controller', () => {
       '2018-10-31 11:59:59',
       '2018-11-03 00:00:00',
       '2018-11-01 00:00:01',
-      '2018-11-02 23:59:59'
+      '2018-11-01 23:59:59'
     ].map(updated => ({
       forestId: unauthorizedForest.id,
       created: moment().format(),
@@ -130,7 +130,6 @@ describe('christmas tree admin controller', () => {
               expect(body.numberOfPermits).to.eq(1);
               const permitNumbers = body.permits.map(permit => permit.permitNumber);
               expect(permitNumbers).to.include(String(justRight.permit_number));
-              // expect(permitNumbers).to.include(String(justRight2.permit_number));
             })
             .expect(200, done);
         });
@@ -145,9 +144,8 @@ describe('christmas tree admin controller', () => {
             .expect(({ body }) => {
               expect(body.numberOfPermits).to.equal(2);
               const permitNumbers = body.permits.map(permit => permit.permitNumber);
-              // expect(permitNumbers).to.include(String(justRight.permit_number));
+              expect(permitNumbers).to.include(String(justRight.permit_number));
               expect(permitNumbers).to.include(String(justRight2.permit_number));
-              expect(permitNumbers).to.include(String(justRight3.permit_number));
             })
             .expect(200, done);
         });
