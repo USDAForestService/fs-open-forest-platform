@@ -228,8 +228,8 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   }
   for (const key in forest) {
     if (Object.prototype.hasOwnProperty.call(forest, key)) {
-      const textToReplace = `{{${key}}}`;
-      textWithReplacements = rulesHtml.replace(textToReplace, forest[key]);
+      textWithReplacements = rulesHtml.replace(`{{${key}}}`, forest[key]);
+      rulesHtml = textWithReplacements;
     }
   }
   return textWithReplacements;
