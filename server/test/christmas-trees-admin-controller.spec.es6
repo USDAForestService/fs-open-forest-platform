@@ -137,7 +137,7 @@ describe('christmas tree admin controller', () => {
       });
 
       describe('for ALL forests', () => {
-        const forestId = 'ALL';
+        const forestId = 'ALL Forests';
 
         it('includes only permits that which the user is authorized to see', (done) => {
           agent.get(getPermitSummaryReportUrl(forestId, reportStartDate, reportEndDate))
