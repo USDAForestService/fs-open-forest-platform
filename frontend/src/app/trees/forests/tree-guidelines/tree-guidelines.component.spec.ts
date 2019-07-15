@@ -60,7 +60,7 @@ describe('TreeGuidelinesComponent', () => {
     it('should render markdown', () => {
       expect(
         component.markdownService.renderer.text(
-          'Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{elkCreekDate}} and {{redFeatherLakesDate}} and {{sulphurDate}} and {{canyonLakesDate}}'
+          'Test {{treeHeight}} and {{stumpHeight}} and {{stumpDiameter}} and {{ELKCREEKDate}} and {{REDFEATHERLAKESDate}} and {{SULPHURDate}} and {{CANYONLAKESDate}}'
         )
       ).toEqual(
         'Test 12 and 6 and 6 and Dec 2 - 9, 2017 and Dec 2 - 10, 2017 and Nov 1, 2017 -  Jan 6, 2018 and Nov 27 - Dec 10, 2017'
