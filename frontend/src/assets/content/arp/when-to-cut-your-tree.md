@@ -1,12 +1,12 @@
-[comment]: <> ({{elkCreekDate}}, {{elkCreekTime}} etc are replaced with the values in the christmasTreesForests table cutting_areas JSON in the database and include special formatting.)
+[comment]: <> ({{ELKCREEKDate}}, {{ELKCREEKTime}} etc are replaced with the values in the christmasTreesForests table cutting_areas JSON in the database and include special formatting.)
 
 ### You can cut your tree at:
 
 Cutting Areas | Cutting Dates
 -------------|-------------
-Sulphur Ranger District | {{sulphurDate}}
-Elk Creek special cutting area | {{elkCreekDate}} {{elkCreekTime}}
-Red Feather special cutting area | {{redFeatherLakesDate}} {{redFeatherLakesTime}}
+Sulphur Ranger District | {{SULPHURDate}}
+Elk Creek special cutting area | {{ELKCREEKDate}} {{ELKCREEKTime}}
+Red Feather special cutting area | {{REDFEATHERLAKESDate}} {{REDFEATHERLAKESTime}}
 
 * Christmas tree cutting is not available on the Boulder and Clear Creek Ranger Districts.
 

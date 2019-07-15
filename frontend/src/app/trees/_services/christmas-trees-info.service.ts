@@ -11,7 +11,7 @@ import * as moment from 'moment/moment';
 @Injectable()
 export class ChristmasTreesInfoService {
   private endpoint = environment.apiUrl + 'forests/';
-  private CUTTING_AREA_KEYS = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  private CUTTING_AREA_KEYS = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
 
   constructor(private http: HttpClient) {}
 

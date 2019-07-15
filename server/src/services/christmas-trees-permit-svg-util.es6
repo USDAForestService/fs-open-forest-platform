@@ -241,7 +241,7 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
  * @return {string} - processed rules
  */
 christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
-  const cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
   let rulesTextWithDate = rulesText;
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
