@@ -13,32 +13,32 @@ ignore:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
-      juice > cheerio > lodash.merge:
-        reason: None given
-        expires: '2019-08-16T20:55:57.832Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
-      node-jose > lodash.merge:
+    - openid-client > node-jose > lodash.merge:
         reason: None given
         expires: '2019-08-16T20:55:57.832Z'
-    - openid-client > node-jose > lodash.merge:
+    - juice > cheerio > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
+    - node-jose > lodash.merge:
         reason: None given
         expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-LODASHMERGE-173733:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
-      juice > cheerio > lodash.merge:
-        reason: None given
-        expires: '2019-08-16T20:55:57.832Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
-      node-jose > lodash.merge:
+    - openid-client > node-jose > lodash.merge:
         reason: None given
         expires: '2019-08-16T20:55:57.832Z'
-    - openid-client > node-jose > lodash.merge:
+    - juice > cheerio > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
+    - node-jose > lodash.merge:
         reason: None given
         expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-MARKED-174116:
