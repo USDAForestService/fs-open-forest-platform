@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MARKED-73637:
@@ -13,22 +13,34 @@ ignore:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+      juice > cheerio > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+      node-jose > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
     - openid-client > node-jose > lodash.merge:
-        reason: 'Low severity, no remediation available.'
-        expires: '2019-07-17T15:21:54.755Z'
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-LODASHMERGE-173733:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+      juice > cheerio > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+      node-jose > lodash.merge:
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
     - openid-client > node-jose > lodash.merge:
-        reason: 'Low severity, no remediation available.'
-        expires: '2019-07-17T15:21:54.755Z'
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-MARKED-174116:
     - jsdoc > marked:
         reason: 'Medium severity, no remediation available.'
@@ -43,12 +55,12 @@ ignore:
         expires: '2019-08-08T16:11:43.777Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
-        reason: No upgrade path available
-        expires: '2019-08-08T16:11:43.777Z'
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-MARKED-451341:
     - jsdoc > marked:
-        reason: No Upgrade path available
-        expires: '2019-08-08T16:11:43.777Z'
+        reason: None given
+        expires: '2019-08-16T20:55:57.832Z'
   SNYK-JS-JSYAML-173999:
     - snyk > snyk-policy > js-yaml:
         reason: triggers js yaml
