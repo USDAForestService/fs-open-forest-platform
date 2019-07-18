@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MARKED-73637:
@@ -12,23 +12,29 @@ ignore:
   SNYK-JS-LODASHMERGE-173732:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-07-17T15:21:54.755Z'
+        expires: '2019-08-17T04:16:00.748Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
     - openid-client > node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+    - juice > cheerio > lodash.merge:
+        reason: 'Low severity, no remediation available.'
+        expires: '2019-08-17T04:14:34.805Z'
   SNYK-JS-LODASHMERGE-173733:
     - node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
-        expires: '2019-07-17T15:21:54.755Z'
+        expires: '2019-08-17T04:16:00.748Z'
     - juice > cheerio > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
     - openid-client > node-jose > lodash.merge:
         reason: 'Low severity, no remediation available.'
         expires: '2019-07-17T15:21:54.755Z'
+    - juice > cheerio > lodash.merge:
+        reason: 'Low severity, no remediation available.'
+        expires: '2019-08-17T04:14:34.805Z'
   SNYK-JS-MARKED-174116:
     - jsdoc > marked:
         reason: 'Medium severity, no remediation available.'
@@ -41,6 +47,9 @@ ignore:
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         reason: No upgrade path available
         expires: '2019-08-08T16:11:43.777Z'
+    - openid-client > node-jose > lodash:
+        reason: not actually patching
+        expires: '2019-08-17T04:16:00.748Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
         reason: No upgrade path available
