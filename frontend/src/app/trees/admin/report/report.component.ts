@@ -110,7 +110,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
   setStartEndDate(forestId, form) {
     let startDate = moment();
     let endDate = moment();
-    if (forestId === 'ALL') {
+    if (forestId === 'ALL Forests') {
       startDate = moment.min(
         this.forests.map(forest => moment(forest.startDate))
       );
@@ -161,12 +161,14 @@ export class ReportComponent implements OnInit, AfterViewInit {
    */
   private setReportParameters() {
     this.reportParameters = {
-      forestName:
-        this.selectedForest === 'ALL'
-          ? 'All'
-          : this.getForestById(this.selectedForest).forestName,
+      forestNameShort:
+        this.selectedForest === 'ALL Forests'
+          ? 'All Forests'
+          : this.getForestById(this.selectedForest).forestNameShort,
       startDate: this.getForestDate('dateTimeRange.startDateTime'),
-      endDate: this.getForestDate('dateTimeRange.endDateTime')
+      endDate: this.getForestDate('dateTimeRange.endDateTime'),
+      startDateDisplay: moment(this.getForestDate('dateTimeRange.startDateTime')).format('MM-DD-YYYY'),
+      endDateDisplay: moment(this.getForestDate('dateTimeRange.endDateTime')).format('MM-DD-YYYY'),
     };
   }
 

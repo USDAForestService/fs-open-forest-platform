@@ -25,6 +25,7 @@ describe('ReportComponent', () => {
         {
           id: 1,
           forestName: 'Arapaho and Roosevelt National Forests',
+          forestNameShort: 'Arapaho and Roosevelt',
           description: 'Arapaho & Roosevelt | Colorado | Fort Collins, CO',
           forestAbbr: 'arp',
           startDate: '10/30/2018',
@@ -33,6 +34,7 @@ describe('ReportComponent', () => {
         {
           id: 2,
           forestName: 'Flathead National Forest',
+          forestNameShort: 'Flathead',
           description: 'Flathead | Montana | Kalispell, MT',
           forestAbbr: 'flathead',
           startDate: '10/31/2018',
@@ -41,12 +43,14 @@ describe('ReportComponent', () => {
         {
           id: 3,
           forestName: 'Mt. Hood National Forest',
+          forestNameShort: 'Mt. Hood',
           description: 'Mt. Hood | Oregon | Portland, OR',
           forestAbbr: 'mthood'
         },
         {
           id: 4,
           forestName: 'Shoshone National Forest',
+          forestNameShort: 'Shoshone',
           description: 'Shoshone | Montana, Wyoming | Cody, WY, Jackson, WY',
           forestAbbr: 'shoshone'
         }
@@ -145,7 +149,7 @@ describe('ReportComponent', () => {
     component.form.get('dateTimeRange.endYear').setValue('2018');
     expect(component.form.valid).toBeTruthy();
     component.getReport();
-    expect(component.result.parameters.forestName).toEqual('Arapaho and Roosevelt National Forests');
+    expect(component.result.parameters.forestNameShort).toEqual('Arapaho and Roosevelt');
   });
 
   it('should update date status', () => {

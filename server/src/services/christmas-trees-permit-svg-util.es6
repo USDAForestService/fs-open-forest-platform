@@ -14,7 +14,7 @@ const moment = require('moment-timezone');
 const fs = require('fs-extra');
 const svg2png = require('svg2png');
 const zpad = require('zpad');
-const Markdown = require('markdown');
+const marked = require('marked');
 const vcapConstants = require('../vcap-constants.es6');
 
 const christmasTreesPermitSvgUtil = {};
@@ -139,7 +139,7 @@ christmasTreesPermitSvgUtil.generatePng = svgBuffer => new Promise((resolve) => 
 christmasTreesPermitSvgUtil.generateRulesHtml = (createHtmlBody, permit) => new Promise((resolve, reject) => {
   const rulesMarkdown = christmasTreesPermitSvgUtil.getRulesMarkdown(permit.christmasTreesForest.forestAbbr);
   if (rulesMarkdown) {
-    let rulesHtml = Markdown.markdown.toHTML(rulesMarkdown);
+    let rulesHtml = marked(rulesMarkdown);
     rulesHtml = christmasTreesPermitSvgUtil.processRulesText(rulesHtml, permit);
     resolve(
       christmasTreesPermitSvgUtil.createRulesHtmlPage(createHtmlBody, rulesHtml, permit.christmasTreesForest)
@@ -214,17 +214,24 @@ christmasTreesPermitSvgUtil.createRulesHtmlPage = (createHtmlBody, rules, forest
  */
 christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
   const forest = permit.christmasTreesForest.dataValues;
-  for (const key in forest) {
-    if (Object.prototype.hasOwnProperty.call(forest, key)) {
-      const textToReplace = `{{${key}}}`;
-      const rulesHtmlWithForest = rulesHtml.replace(textToReplace, forest[key]);
-      if (key === 'cuttingAreas' && Object.keys(forest.cuttingAreas).length > 0) {
-        return christmasTreesPermitSvgUtil.parseCuttingAreaDates(rulesHtmlWithForest, forest);
+  let cuttingAreas = {};
+  let textWithReplacements = rulesHtml;
+  if (forest && forest.cuttingAreas) {
+    cuttingAreas = forest.cuttingAreas;
+    for (const cuttingArea in cuttingAreas) {
+      if (Object.prototype.hasOwnProperty.call(cuttingAreas, cuttingArea)) {
+        forest[`${cuttingArea}Date`] = christmasTreesPermitSvgUtil.formatCuttingAreaDate(
+          forest.timezone, cuttingAreas[cuttingArea].startDate, cuttingAreas[cuttingArea].endDate
+        );
       }
-      return rulesHtmlWithForest;
     }
   }
-  return rulesHtml;
+  for (const key in forest) {
+    if (Object.prototype.hasOwnProperty.call(forest, key)) {
+      textWithReplacements = textWithReplacements.replace(`{{${key}}}`, forest[key]);
+    }
+  }
+  return textWithReplacements;
 };
 
 /**
@@ -234,7 +241,7 @@ christmasTreesPermitSvgUtil.processRulesText = (rulesHtml, permit) => {
  * @return {string} - processed rules
  */
 christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
-  const cuttingAreaKeys = ['elkCreek', 'redFeatherLakes', 'sulphur', 'canyonLakes'];
+  const cuttingAreaKeys = ['ELKCREEK', 'REDFEATHERLAKES', 'SULPHUR', 'CANYONLAKES'];
   let rulesTextWithDate = rulesText;
   for (const key of cuttingAreaKeys) {
     const areaKey = key.toUpperCase();
