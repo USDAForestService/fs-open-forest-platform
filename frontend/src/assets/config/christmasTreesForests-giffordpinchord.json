@@ -1,0 +1,35 @@
+{
+  "forest": "shoshone",
+  "treeSpecies": [
+    {
+      "id": "engelmann-spruce",
+      "name": "Engelmann Spruce",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "subalpine-fir",
+      "name": "Subalpine Fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "blue-spruce",
+      "name": "Blue Spruce",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    }
+  ]
+}
