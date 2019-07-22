@@ -1,12 +1,7 @@
 {
-  "forest": "shoshone",
+  "forest": "Gifford",
   "treeSpecies": [
-    {
-      "id": "engelmann-spruce",
-      "name": "Engelmann Spruce",
-      "status": "recommended",
-      "photoCredits": "Susan McDougal"
-    },
+
     {
       "id": "douglas-fir",
       "name": "Douglas-fir",
@@ -14,22 +9,22 @@
       "photoCredits": "J.S. Peterson"
     },
     {
-      "id": "lodgepole-pine",
-      "name": "Lodgepole Pine",
+      "id": "noble-fir",
+      "name": "Noble Fir",
       "status": "recommended",
-      "photoCredits": "J.S. Peterson"
+      "photoCredits": "Susan McDougal"
     },
     {
-      "id": "subalpine-fir",
-      "name": "Subalpine Fir",
+      "id": "pacific-silver-fir",
+      "name": "Pacific Silver Fir",
       "status": "recommended",
-      "photoCredits": "J.S. Peterson"
+      "photoCredits": "Susan McDougal"
     },
     {
-      "id": "blue-spruce",
-      "name": "Blue Spruce",
-      "status": "recommended",
-      "photoCredits": "J.S. Peterson"
+      "id": "pacific-yew",
+      "name": "Pacific Yew",
+      "status": "prohibited",
+      "photoCredits": "Susan McDougal"
     }
   ]
 }
