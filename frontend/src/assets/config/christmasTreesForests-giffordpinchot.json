@@ -1,0 +1,30 @@
+{
+  "forest": "Gifford",
+  "treeSpecies": [
+
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "noble-fir",
+      "name": "Noble Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "pacific-silver-fir",
+      "name": "Pacific Silver Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "pacific-yew",
+      "name": "Pacific Yew",
+      "status": "prohibited",
+      "photoCredits": "Susan McDougal"
+    }
+  ]
+}
