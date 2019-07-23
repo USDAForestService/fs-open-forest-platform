@@ -108,7 +108,49 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900014'
-  }
+  },
+  {
+    id: 6,
+    forest_name: 'Banana Pinchot National Forest',
+    forest_url: 'https://www.fs.usda.gov/main/giffordpinchot',
+    tree_height: 12,
+    stump_height: 12,
+    stump_diameter: 0,
+    start_date: '2018-11-19T07:00:00Z',
+    end_date: '2018-12-31T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '11-02-14',
+    description: 'Banana Pinchot | Washington',
+    forest_abbr: 'Banana',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Banana',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900014'
+  },
+  {
+    id: 7,
+    forest_name: 'Stranger National Forest',
+    forest_url: 'https://www.fs.usda.gov/main/giffordpinchot',
+    tree_height: 12,
+    stump_height: 12,
+    stump_diameter: 0,
+    start_date: '2018-11-19T07:00:00Z',
+    end_date: '2018-12-31T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '11-02-14',
+    description: 'Stranger Pinchot | Washington',
+    forest_abbr: 'Stranger',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Stranger',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900014'
+  },
 ];
 
 module.exports = {
