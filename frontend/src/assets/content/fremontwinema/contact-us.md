@@ -1,25 +1,45 @@
-You can buy Christmas tree permits in person at the following Gifford Pinchot National Forest ranger district offices or at local vendors. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+You can buy Christmas tree permits in person at the following Fremont-Winema National Forest ranger district offices or at local vendors. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
-### Gifford Pinchot National Forest Headquarters
-Fort Vancouver Visitor Center
-1501 E. Evergreen Blvd, Vancouver, WA 98661
-Hours: Tuesday through Saturday from 9:00 a.m. to 4:00 p.m. (360) 891-5001
+### Bly Ranger Station
+61100 Hwy 140 E
+Bly, OR 97622
+541-353-2427
 
-### Mt. Adams Ranger District
-12455 Highway 141, Trout Lake, WA  98650
-Office Hours: Monday through Friday from 8:00 a.m. to 4:30 p.m. (closed for lunch from noon until 1 p.m. daily) (509) 395-3400
+### Chemult Ranger Station
+110500 Hwy 97 N
+Chemult, OR 97731
+541-365-7001
 
-### Spotted Bear Ranger District
-District office location changes seasonally.
+### Chiloquin Ranger Station
+38500 Hwy 97 N
+Chiloquin, OR 97624
+541-783-4001
 
-### Cowlitz Valley Ranger District
-10024 US Hwy 12 – PO Box 670, Randle, WA  98377
-Office Hours:  Monday through Friday from 8:00 a.m.4:30 p.m. (closed for lunch from noon until 1 p.m. daily) (360) 497-1100
+### Forest Supervisor’s Office/Lakeview Interagency Office
+1301 S. G St.
+Lakeview, OR 97630
+541-947-2151
 
-### Mount St. Helens National Volcanic Monument  
-42218 NE Yale Bridge Rd., Amboy, WA  98607
-Office Hours:  Monday through Friday from 8:00 a.m.4:00 p.m. (360) 449-7800
+### Klamath Ranger District
+2819 Dahlia St., Suite A
+Klamath Falls, OR 97601
+541-883-6714
 
-***
+### Lakeview Ranger Station
+18049 Hwy 395 N
+Lakeview, OR 97630
+541-947-3334
 
-Visit [Gifford Pinchot Forest](https://www.fs.usda.gov/giffordpinchot/) for more information.
+### Paisley Ranger Station
+303 Hwy 31
+Paisley, OR 97636
+541-943-3114
+
+### Silver Lake Ranger Station
+65600 Hwy 31
+Silver Lake, OR 97638
+541-576-2107
+
+---
+
+Visit [Fremont-Winema-National Forest](https://www.fs.usda.gov/fremont-winema/) for more information.
