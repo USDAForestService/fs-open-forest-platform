@@ -19,12 +19,6 @@
       "name": "Pacific Silver Fir",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
-    },
-    {
-      "id": "pacific-yew",
-      "name": "Pacific Yew",
-      "status": "prohibited",
-      "photoCredits": "Susan McDougal"
     }
   ]
 }

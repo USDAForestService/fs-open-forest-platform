@@ -104,7 +104,7 @@ const forests = [
     forest_abbr: 'giffordpinchot',
     tree_cost: 5,
     max_num_trees: 5,
-    forest_name_short: 'Gifford',
+    forest_name_short: 'Gifford Pinchot',
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900014'
