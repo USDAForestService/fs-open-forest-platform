@@ -120,7 +120,7 @@ const forests = [
     end_date: '2018-12-31T06:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '11-02-14',
+    org_structure_code: '06-02',
     description: 'Fremont-Winema | Oregon',
     forest_abbr: 'fremont-winema',
     tree_cost: 5,
