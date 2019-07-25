@@ -1,4 +1,25 @@
-When searching for your Christmas tree at the {{forestName}},
-be sure to use designated motorized roads and to be aware of seasonal road closures.
-[Maps and travel publications](https://www.fs.usda.gov/main/giffordpinchot/maps-pubs "Gifford Pinchotmaps and publications") are available online and at ranger district offices.
-The [2017 Special Forest Products Map](https://www.avenzamaps.com/maps/670768/gifford-pinchot-national-forest-special-forest-products-map "Gifford Pinchot downloadable maps") is also available online.
+Below are Christmas tree cutting maps for North Bend, Enumclaw ##1, Enumclaw #2, Enumclaw #3, and Skykomish (Hwy 2).
+
+[Download our cutting location maps](https://www.fs.usda.gov/detail/mbs/passes-permits/forestproducts/?cid=fseprd602862)
+
+[Christmas tree map of **North Bend**. (Click to view larger map)](/assets/img/maps/northbend-map.png)
+
+[![Christmas tree map of North Bend Cutting Areas](/assets/img/maps/northbend-map-thumb.png)](/assets/img/maps/northbend-map.png)
+
+[Christmas tree map of **Enumclaw #1** (Click to view larger map)](/assets/img/maps/enumclaw1-map.png)
+
+[![Christmas tree map of EnumClaw #1](/assets/img/maps/enumclaw1-map-thumb.png)](/assets/img/maps/enumclaw1-map.png)
+
+[Christmas tree map of **Enumclaw #2** (Click to view larger map)](/assets/img/maps/enumclaw2-map.png)
+
+[![Christmas tree map of EnumClaw #2](/assets/img/maps/enumclaw2-map-thumb.png)](/assets/img/maps/enumclaw2-map.png)
+
+[Christmas tree map of **Enumclaw #3** (Click to view larger map)](/assets/img/maps/enumclaw3-map.png)
+
+[![Christmas tree map of EnumClaw #3](/assets/img/maps/enumclaw3-map-thumb.png)](/assets/img/maps/enumclaw3-map.png)
+
+[Christmas tree map of **Skykomish** (Click to view larger map)](/assets/img/maps/skykomish-map.png)
+
+[![Christmas tree map of Skykomish](/assets/img/maps/skykomish-map-thumb.png)](/assets/img/maps/skykomish-map.png)
+
+
