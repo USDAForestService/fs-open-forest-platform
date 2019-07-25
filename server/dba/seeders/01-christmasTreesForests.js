@@ -170,7 +170,7 @@ const forests = [
     forest_name_short: 'Deschutes',
     timezone: 'America/Seattle',
     cutting_areas: '{}',
-    poss_financial_id: '999900010'
+    poss_financial_id: '999900008'
   }
 ];
 
