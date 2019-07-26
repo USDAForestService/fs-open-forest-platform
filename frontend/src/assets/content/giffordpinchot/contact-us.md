@@ -2,28 +2,25 @@ You can buy Christmas tree permits in person at the following Gifford Pinchot Na
 
 ### Gifford Pinchot National Forest Headquarters
 Fort Vancouver Visitor Center
-1501 E. Evergreen Blvd 
+1501 E. Evergreen Blvd
 Vancouver, WA 98661
 
 (360) 891-5001
 
 ### Mt. Adams Ranger District
-12455 Highway 141 
+12455 Highway 141
 Trout Lake, WA  98650
 
 (509) 395-3400
 
-### Spotted Bear Ranger District
-District office location changes seasonally.
-
 ### Cowlitz Valley Ranger District
-10024 US Hwy 12 – PO Box 670 
+10024 US Hwy 12 – PO Box 670
 Randle, WA  98377
 
 (360) 497-1100
 
 ### Mount St. Helens National Volcanic Monument  
-42218 NE Yale Bridge Rd. 
+42218 NE Yale Bridge Rd.
 Amboy, WA  98607
 
 (360) 449-7800
