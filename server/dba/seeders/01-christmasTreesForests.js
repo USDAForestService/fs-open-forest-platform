@@ -108,6 +108,48 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900014'
+  }, 
+  {
+    id: 6,
+    forest_name: 'Fremont-Winema National Forest',
+    forest_url: 'https://www.fs.usda.gov/fremont-winema',
+    tree_height: 0,
+    stump_height: 0,
+    stump_diameter: 0,
+    start_date: '2018-11-19T07:00:00Z',
+    end_date: '2018-12-31T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Fremont-Winema | Oregon',
+    forest_abbr: 'fremont-winema',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Freemont-Winema',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900015'
+  },
+  {
+    id: 7,
+    forest_name: 'Mt. Baker-Snoqualmie Forest ',
+    forest_url: 'https://www.fs.usda.gov/detail/mbs',
+    tree_height: 12,
+    stump_height: 12,
+    stump_diameter: 0,
+    start_date: '2018-11-19T07:00:00Z',
+    end_date: '2018-12-31T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Mt. Baker-Snoqualmie | Washington',
+    forest_abbr: 'mbs',
+    tree_cost: 10,
+    max_num_trees: 5,
+    forest_name_short: 'Mt. Baker-Snoqualmie',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900010'
   }
 ];
 
