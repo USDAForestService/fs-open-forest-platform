@@ -1,0 +1,36 @@
+{
+  "forest": "Deschutes National Forest",
+  "treeSpecies": [
+
+    {
+      "id": "douglas-fir",
+      "name": "Douglas-fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "incense-cedar",
+      "name": "Incense Cedar",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "white-fir",
+      "name": "White Fir",
+      "status": "recommended",
+      "photoCredits": "Photo from: https://www.fs.usda.gov/detail/sierra/home/?cid=stelprdb5150508"
+    },
+    {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "ponderosa-pine",
+      "name": "Ponderosa Pine",
+      "status": "not recommended",
+      "photoCredits": "J.S. Peterson"
+    }
+  ]
+}
