@@ -11,7 +11,7 @@
     "e2e:cidkr": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:su": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:xmas": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=xmas",
-    "e2e": "HEADLESS=true ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200 --webdriver-update=false",
+    "e2e": "HEADLESS=true ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
     "e2e:cidkr:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:su:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:xmas:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=xmas",
