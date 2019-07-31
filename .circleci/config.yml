@@ -137,6 +137,8 @@ jobs:
     steps:
       - <<: *restore_repo
       - <<: *restore_deps
+      # uncomment below once selenium and protractor are updated by respective teams
+
       # - run:
           # name: Install latest chrome
           # command: |
