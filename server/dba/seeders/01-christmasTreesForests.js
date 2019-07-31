@@ -171,6 +171,27 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900008'
+  },
+  {
+    id: 9,
+    forest_name: 'Willamette Forest ',
+    forest_url: 'https://www.fs.usda.gov/willamette',
+    tree_height: 0,
+    stump_height: 0,
+    stump_diameter: 0,
+    start_date: '2019-11-09T07:00:00Z',
+    end_date: '2018-12-25T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Willamette | Oregon',
+    forest_abbr: 'willamette',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Willamette',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900012'
   }
 ];
 
