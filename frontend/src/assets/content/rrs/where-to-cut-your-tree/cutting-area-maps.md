@@ -11,3 +11,11 @@ Christmas tree maps are provided at the time of permit purchase [and available o
 [Christmas tree map of **Medford South**. (Click to view larger map)](/assets/img/maps/medford-south-map.png) 
 
 [![Christmas tree map of Medford South Cutting Areas](/assets/img/maps/medford-south-map-thumb.png)](/assets/img/maps/medford-south-map.png)
+
+[Christmas tree map of **Grants Pass West**. (Click to view larger map)](/assets/img/maps/grants-pass-west-map.png) 
+
+[![Christmas tree map of Grants Pass West Cutting Areas](/assets/img/maps/grants-pass-west-map-thumb.png)](/assets/img/maps/grants-pass-west-map.png)
+
+[Christmas tree map of **Grants Pass East**. (Click to view larger map)](/assets/img/maps/grants-pass-east-map.png) 
+
+[![Christmas tree map of Grants Pass East Cutting Areas](/assets/img/maps/grants-pass-east-map-thumb.png)](/assets/img/maps/grants-pass-east-map.png)
