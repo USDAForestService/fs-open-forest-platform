@@ -174,7 +174,7 @@ const forests = [
   },
   {
     id: 9,
-    forest_name: 'Willamette Forest ',
+    forest_name: 'Willamette National Forest ',
     forest_url: 'https://www.fs.usda.gov/willamette',
     tree_height: 0,
     stump_height: 0,
