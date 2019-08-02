@@ -192,6 +192,27 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900012'
+  },
+  {
+    id: 10,
+    forest_name: 'Rogue River-Siskiyou Forest ',
+    forest_url: 'https://www.fs.usda.gov/willamette',
+    tree_height: 12,
+    stump_height: 12,
+    stump_diameter: 0,
+    start_date: '2019-11-09T07:00:00Z',
+    end_date: '2019-12-25T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Rogue River-Siskiyou | Oregon',
+    forest_abbr: 'rrs',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Rogue River-Siskiyou',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900009'
   }
 ];
 

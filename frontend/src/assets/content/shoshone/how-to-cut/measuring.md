@@ -8,4 +8,4 @@ At the {{forestName}} we have limitations on the size of the tree you can cut. S
 
 If snow is on the ground, remove it from around the stump so you can accurately measure the stump and tree height.
 
-To cut a tree over 20 feet tall, a permit must be purchased in person at a forest ranger district office.
+To cut a tree over {{treeHeight}} feet tall, a permit must be purchased in person at a forest ranger district office.
