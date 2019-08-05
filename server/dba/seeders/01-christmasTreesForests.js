@@ -213,7 +213,8 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900009'
-  },{
+  },
+  {
     id: 11,
     forest_name: 'Okanogan Wenatchee National Forest',
     forest_url: 'https://www.fs.usda.gov/main/okawen/home',
@@ -233,7 +234,28 @@ const forests = [
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900011'
-  }
+  },
+  {
+    id: 12,
+    forest_name: 'Umatilla National Forest',
+    forest_url: 'http://www.fs.usda.gov/umatilla',
+    tree_height: 14,
+    stump_height: 10,
+    stump_diameter: 0,
+    start_date: '2019-11-01T07:00:00Z',
+    end_date: '2019-12-25T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Umatilla | Washington',
+    forest_abbr: 'umatilla',
+    tree_cost: 5,
+    max_num_trees: 1,
+    forest_name_short: 'Umatilla',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900013'
+  },
 ];
 
 module.exports = {
