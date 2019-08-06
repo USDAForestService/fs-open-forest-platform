@@ -216,7 +216,7 @@ const forests = [
   },
   {
     id: 11,
-    forest_name: 'Okanogan Wenatchee National Forest',
+    forest_name: 'Okanogan-Wenatchee National Forest',
     forest_url: 'https://www.fs.usda.gov/main/okawen/home',
     tree_height: 15,
     stump_height: 6,
@@ -226,11 +226,11 @@ const forests = [
     created: 'now()',
     updated: 'now()',
     org_structure_code: '06-02',
-    description: 'Okanogan | Washington',
+    description: 'Okanogan-Wenatchee | Washington',
     forest_abbr: 'okawen',
     tree_cost: 5,
     max_num_trees: 5,
-    forest_name_short: 'Okanogan',
+    forest_name_short: 'Okanogan-Wenatchee',
     timezone: 'America/Seattle',
     cutting_areas: '{}',
     poss_financial_id: '999900011'

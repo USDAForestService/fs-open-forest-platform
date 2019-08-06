@@ -1,7 +1,7 @@
 At the {{forestName}}, we have limitations on the size of the tree you can cut. See below
 to help you measure and choose a tree that meets your permit's restrictions.
 
-![Length across stump](/assets/img/site-wide/tree-diameter-icon.svg "stump diameter")  **Stump diameter:** {{stumpDiameter}} inches maximum
+![Height of the tree from the ground](/assets/img/site-wide/tree-height-icon.svg "tree height")  **Tree height:** {{treeHeight}} feet maximum
 
 ![Height of the stump from the ground](/assets/img/site-wide/tree-stump-height-icon.svg "stump height")  **Stump height:** {{stumpHeight}} inches maximum
 
