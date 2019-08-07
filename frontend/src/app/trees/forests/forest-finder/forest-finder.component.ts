@@ -34,6 +34,20 @@ export class ForestFinderComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.forests = data.forests;
+
+      // sort forests alphabetically
+      this.forests.sort(function(a, b) {
+        let forestA = a.description;
+        let forestB = b.description;
+
+        if (forestA < forestB) {
+          return -1;
+        }
+        if (forestA > forestB) {
+          return 1;
+        }
+        return 0;
+      });
     });
   }
 
