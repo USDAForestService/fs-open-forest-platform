@@ -37,8 +37,8 @@ export class ForestFinderComponent implements OnInit {
 
       // sort forests alphabetically
       this.forests.sort(function(a, b) {
-        let forestA = a.description;
-        let forestB = b.description;
+        const forestA = a.description;
+        const forestB = b.description;
 
         if (forestA < forestB) {
           return -1;
