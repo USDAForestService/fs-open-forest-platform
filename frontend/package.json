@@ -53,14 +53,14 @@
     "newrelic": "^5.10.0",
     "ng-in-viewport": "6.0.3",
     "ng2-file-upload": "^1.2.1",
-    "ngx6-angular-breadcrumbs": "^0.0.3",
     "ngx-md": "^7.1.0",
+    "ngx6-angular-breadcrumbs": "^0.0.3",
     "rxjs": "6.4.0",
+    "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.9.0",
     "uswds": "^1.6.9",
     "web-animations-js": "^2.2.5",
-    "zone.js": "^0.8.29",
-    "rxjs-compat": "^6.0.0-rc.0"
+    "zone.js": "^0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
@@ -86,7 +86,7 @@
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
     "replace-in-file": "^2.5.2",
     "sinon": "^4.4.6",
-    "snyk": "^1.123.0",
+    "snyk": "^1.216.0",
     "superstatic": "^6.0.4",
     "ts-node": "^3.1.0",
     "tslint": "^5.12.1",

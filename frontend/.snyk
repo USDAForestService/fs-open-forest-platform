@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MARKED-73637:
@@ -17,9 +17,9 @@ ignore:
   SNYK-JS-LODASH-450202:
     - newrelic > async > lodash:
         reason: no upgrade available
-        expires: '2019-08-07T20:55:58.800Z'
+        expires: '2019-09-11T15:20:28.468Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
         reason: no upgrade available
-        expires: '2019-08-07T20:55:58.800Z'
+        expires: '2019-09-09T15:28:00.059Z'
 patch: {}

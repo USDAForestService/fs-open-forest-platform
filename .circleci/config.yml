@@ -21,6 +21,7 @@ _run:
     name: populate db for server
     command: |
       cd server
+      npm run undoAllSeed
       npm run migrate
       npm run seed
 
@@ -136,16 +137,18 @@ jobs:
     steps:
       - <<: *restore_repo
       - <<: *restore_deps
-      - run:
-          name: Install latest chrome
-          command: |
-            sudo apt-get update
-            sudo apt-get install lsb-release libappindicator3-1
-            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo dpkg -i google-chrome.deb
-            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
-            rm google-chrome.deb
-            google-chrome --version
+      # uncomment below once selenium and protractor are updated by respective teams
+
+      # - run:
+          # name: Install latest chrome
+          # command: |
+          #   sudo apt-get update
+          #   sudo apt-get install lsb-release libappindicator3-1
+          #   curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_73.0.3683.103-1_amd64.deb
+          #   sudo dpkg -i google-chrome.deb
+          #   sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+          #   rm google-chrome.deb
+          #   google-chrome --version
       - run:
           name: Copy shared assets from frontend into server
           command: cd server; ./copy-frontend-assets.sh
