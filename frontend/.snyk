@@ -20,6 +20,12 @@ ignore:
         expires: '2019-08-07T20:55:58.800Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
-        reason: no upgrade available
-        expires: '2019-09-09T15:28:00.059Z'
-patch: {}
+        reason: no patch available
+        expires: '2019-09-11T14:20:57.143Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - '@snyk/dep-graph > graphlib > lodash':
+        patched: '2019-08-12T14:15:25.151Z'
+    - '@snyk/dep-graph > lodash':
+        patched: '2019-08-12T14:15:25.151Z'
