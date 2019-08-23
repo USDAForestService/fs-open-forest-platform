@@ -50,6 +50,12 @@ ignore:
     - openid-client > node-jose > lodash:
         reason: not actually patching
         expires: '2019-08-17T04:16:00.748Z'
+    - openid-client > node-jose > lodash:
+        reason: not actually patching
+        expires: '2019-09-19T14:58:22.562Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: None given
+        expires: '2019-09-19T14:59:24.052Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
         reason: No upgrade path available
@@ -66,6 +72,10 @@ ignore:
     - snyk > snyk-policy > js-yaml:
         reason: triggers vuln js yaml
         expires: '2019-08-08T17:26:01.695Z'
+  SNYK-JS-SEQUELIZE-459751:
+    - sequelize:
+        reason: None given
+        expires: '2019-09-19T14:15:28.935Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
