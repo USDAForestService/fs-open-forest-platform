@@ -199,7 +199,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "USDAForestService" ];
               then ./.cg-deploy/deploy.sh platform-staging;
             fi
 
@@ -227,7 +227,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            if [ "${CIRCLE_PROJECT_USERNAME}" == "18F" ];
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "USDAForestService" ];
               then ./.cg-deploy/deploy.sh platform-production;
             fi
 
