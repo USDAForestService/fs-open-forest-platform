@@ -86,7 +86,7 @@
     "protractor-jasmine2-screenshot-reporter": "^0.5.0",
     "replace-in-file": "^2.5.2",
     "sinon": "^4.4.6",
-    "snyk": "^1.216.0",
+    "snyk": "^1.226.2",
     "superstatic": "^6.0.4",
     "ts-node": "^3.1.0",
     "tslint": "^5.12.1",
