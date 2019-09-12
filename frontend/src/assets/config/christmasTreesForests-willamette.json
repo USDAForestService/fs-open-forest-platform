@@ -18,6 +18,18 @@
       "name": "Douglas-fir",
       "status": "recommended",
       "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "grand-fir",
+      "name": "Grand Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "pacific-yew",
+      "name": "Pacific Yew",
+      "status": "prohibited",
+      "photoCredits": "Susan McDougal"
     }
   ]
 }
