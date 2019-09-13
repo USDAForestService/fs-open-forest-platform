@@ -1,6 +1,6 @@
 Cut trees only within the national forest boundary and respect surrounding private property.   
 
-No cutting or removing trees within" statement, add "Five-needle pines (sugar and white pines) cannot be cut.   
+Five-needle pines (sugar and white pines) cannot be cut.   
 
 No cutting or removing trees within:
 * 50 feet of trails and paved roads.
