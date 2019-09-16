@@ -8,6 +8,8 @@ to help you measure and choose a tree that meets your permit's restrictions.
 
 ![No cutting tops of trees off](/assets/img/site-wide/tree-top-icon.svg "no tree-topping")  **Take the whole tree.** Cutting the tree top off is prohibited.
 
-Remove snow around tree base so you can accurately measure the stump and tree height. 
+Remove snow from around the base of the tree so that you can accurately measure the stump and tree height. 
 
 Cut off live limbs remaining on the stump.
+
+To cut a tree over 12 feet tall a permit must be purchased in person at a forest ranger district office.
