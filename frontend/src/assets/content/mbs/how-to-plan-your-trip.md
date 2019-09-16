@@ -10,7 +10,8 @@
 ![dress for the weather](/assets/img/site-wide/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
 
-
+* Parking at a Sno-Park requires a valid Sno-Park permit displayed in your vehicle.
+* Parking at a trailhead may require a Northwest Forest Pass or Federal Interagency Pass.
 * **Roads may not be plowed.** Carry tire chains, shovel(s) and a tow chain. 
 * Bring plenty of food and water with you as well as an overnight survival kit in case you become stranded.
 * Be sure your vehicle has a full tank of gas.
