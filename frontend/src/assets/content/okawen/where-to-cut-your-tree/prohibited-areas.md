@@ -1,6 +1,6 @@
 Cut trees only within the national forest boundary and respect surrounding private property.
 
-No cutting ore removing trees within:
+### No cutting or removing trees within:
 
 * Congressionally designated Wilderness Areas.
 * Fire Closure Areas.
