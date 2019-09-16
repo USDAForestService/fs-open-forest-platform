@@ -1,4 +1,4 @@
-Cut trees only within the national forest boundary and respet surrounding private property.
+Cut trees only within the national forest boundary and respect surrounding private property.
 ### No cutting or removing trees within:
 * 200 feet of Bluewood or Spout Springs Ski Areas, summer home sites, Tollgate Work Center, or Forest Service Guard Stations.
 * These specific areas of the Pomeroy Ranger District: 
