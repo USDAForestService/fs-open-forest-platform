@@ -16,8 +16,8 @@ ignore:
         expires: '2019-06-12T23:18:30.879Z'
   SNYK-JS-LODASH-450202:
     - newrelic > async > lodash:
-        reason: 'Upgrade path did not work, patching for now'
-        expires: '2019-10-12T16:18:13.016Z'
+        reason: ignore
+        expires: '2019-10-17T15:18:31.753Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
         reason: no upgrade available
