@@ -3,3 +3,4 @@
 - Be aware of where the tree will fall and please ensure all people and vehicles are out of the path of the falling tree.
 - Cut the leftover branches from the stump and scatter them.
 - Fill in the hole created when digging up a live tree.
+- Cut your tree a bit longer than you'll need (6-12"), so that you'll have room to make a fresh cut on the bottom before putting it in water.
