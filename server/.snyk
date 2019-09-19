@@ -47,9 +47,15 @@ ignore:
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         reason: No upgrade path available
         expires: '2019-08-08T16:11:43.777Z'
+      openid-client > node-jose > lodash:
+        reason: not actually patching
+        expires: '2019-10-19T19:32:13.828Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
         expires: '2019-08-17T04:16:00.748Z'
+      snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: snyk re-install does not update lodash
+        expires: '2019-10-19T19:32:13.828Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
         expires: '2019-09-19T14:58:22.562Z'
@@ -74,8 +80,8 @@ ignore:
         expires: '2019-08-08T17:26:01.695Z'
   SNYK-JS-SEQUELIZE-459751:
     - sequelize:
-        reason: None given
-        expires: '2019-09-19T14:15:28.935Z'
+        reason: sequilize upgrade not yet tested
+        expires: '2019-10-19T19:32:13.828Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
