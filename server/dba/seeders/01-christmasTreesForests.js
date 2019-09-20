@@ -195,8 +195,8 @@ const forests = [
   },
   {
     id: 10,
-    forest_name: 'Rogue River-Siskiyou Forest ',
-    forest_url: 'https://www.fs.usda.gov/willamette',
+    forest_name: 'Rogue River-Siskiyou National Forest ',
+    forest_url: 'https://www.fs.usda.gov/rogue-siskiyou/',
     tree_height: 12,
     stump_height: 12,
     stump_diameter: 0,
