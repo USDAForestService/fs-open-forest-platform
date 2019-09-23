@@ -1,9 +1,24 @@
 #### Christmas tree cutting
 
+* Do not cut five-needle pines (sugar and white pines) or Pacific yew.
+* Your tree must be less than {{treeHeight}} feet in height.
+* You must leave a stump heigt of {{stumpHeight}} inches or less. 
 * Only cut trees within the national forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree. 
 * Cut the leftover branches from the stump and scatter them.
-* Select trees that are growing close to other trees. Cutting from dense clumps will thin areas with too many trees, thereby reducing competition and promoting growth of remaining trees.
-* Cutting of trees is prohibited within all designated wildlife areas, marked timber sales, and within 300 feet of campgrounds, lodges, summer homes, private lands and administrative sites. 
+* Clear branches and debris from road banks and ditches.
+* Choose a tree that has another tree within 8 feet of the one you're cutting.
+* Only cut trees within the national forest boundary.
+* An Oregon Sno-Park permit is required for parking at designated Sno-Parks.
 
+### Do not cut trees within:
 
+* 50 feet of trails,
+* 300 feet of campgrounds,
+* 100 feet of streams,
+* Areas posted "Christmas Tree Cutting Prohibited",
+* Botanical areas and fenced plantations,
+* Congressionally designated wilderness areas,
+* Research natural areas,
+* Scenic areas,
+* Areas with rare, threatened or endangered plants.
