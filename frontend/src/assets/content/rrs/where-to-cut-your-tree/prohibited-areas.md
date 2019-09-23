@@ -1,4 +1,4 @@
-Cut your Christmas tree only within national forest boundary.
+Cut trees only within the national forest boundary and respect surrounding private property.
 
 ### No cutting or removing trees within:
 * Wilderness Areas or Wild and Scenic River Corridors.

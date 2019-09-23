@@ -10,6 +10,7 @@
 ![dress for the weather](/assets/img/site-wide/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
 
+* Do not park at a Sno-Park unless you have a valid Oregon Sno-Park permit displayed in your vehicle.
 * **Roads may not be plowed.** Carry tire chains, shovel(s) and a tow chain. 
 * Bring plenty of food and water with you as well as an overnight survival kit in case you become stranded.
 * Be sure your vehicle has a full tank of gas.
