@@ -1,10 +1,20 @@
-### Measuring your tree
+### Christmas tree cutting
 
-At the Rogue River-Siskiyou National Forest, we have limitations on the size of the tree you can cut. See below to help you measure and choose a tree that meets your permit’s restrictions.
+* You must leave a stump of {{stumpHeight}} inches in height or less.
+* Your tree must be less than {{treeHeight}} feet in height. 
+* Tree topping is prohibited. Cut down the whole tree.
+* Cut the leftover branches from the stump and scatter them.
+* Only cut trees within the national forest boundary.
+* Choose a tree that has another tree within 12 feet of the one you cut.
+* An Oregon Sno-Park permit is required for parking at designated Sno-Parks.
 
-* Stump height: 12 inches or less above the ground
-* Tree height: 12 feet maximum
-* Take the whole tree: cutting the tree top off is prohibited
-* Remove snow around tree base so you can accurately measure the stump and tree height. 
-* Cut off live limbs remaining on the stump.
-* Fill in the hole created when digging up a live tree.
+### Do not cut trees within:
+
+* Wilderness areas,
+* Research Natural Areas,
+* areas currently closed for public health and safety,
+* 150 feet for state highways,
+* 300 feet of streams or bodies of water,
+* posted young tree plantations,
+* private property, and
+* areas where trees are marked with paint.
