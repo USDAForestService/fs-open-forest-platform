@@ -1,5 +1,7 @@
 You can buy Christmas tree permits in person at the following Okanogan-Wenatchee National Forest ranger district offices or at [local vendors](https://www.fs.usda.gov/detail/okawen/passes-permits/forestproducts/?cid=fsbdev3_053596). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
+A PDF version of our Christmas Tree cutting information is available to view or print in either English or Spanish.
+
 ### Okanogan-Wenatchee National Forest Headquarters
 215 Melody Lane   
 Wenatchee, WA 98801
