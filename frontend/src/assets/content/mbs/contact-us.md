@@ -44,4 +44,6 @@ Enumclaw, WA
 
 360-825-6585
 
+***
+
 Visit [Mt. Baker-Snoqualmie National Forest](https://www.fs.usda.gov/main/mbs/home) for more information.
