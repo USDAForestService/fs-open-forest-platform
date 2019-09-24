@@ -180,7 +180,7 @@ const forests = [
     stump_height: 6,
     stump_diameter: 0,
     start_date: '2019-11-09T07:00:00Z',
-    end_date: '2018-12-25T06:59:59Z',
+    end_date: '2020-01-06T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '06-02',
