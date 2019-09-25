@@ -1,9 +1,18 @@
-### Measuring your tree
+### Christmas tree cutting
 
-At the Umatilla National Forest, we have limitations on the size of the tree you can cut. See below to help you measure and choose a tree that meets your permit’s restrictions.
+* You must leave a stump of {{stumpHeight}} inches in height or less.
+* Your tree must be less than {{treeHeight}} feet in height.
+* Tree topping is prohibited. Cut down the whole tree.
+* Choose a tree that has another tree within 8 feet of the one you are cutting. 
+* Cut the leftover branches from the stump and scatter them.
 
-* Stump height: 10 inches or less above the ground
-* Tree height: 14 feet maximum
-* Take the whole tree: cutting the tree top off is prohibited.
-* Remove snow around tree base so you can accurately measure the stump and tree height. 
-* Cut off live limbs remaining on the stump.
+### Do not cut trees within:
+
+* 200 feet of Bluewood or Spout Springs Ski Areas, summer home sites, Tollgate Work Center, or Forest Service Guard Stations.
+* Park and Cook Ridges (Pomeroy Ranger District).
+* Lick Creek area, including Sheep Creek Cabin, Capehorn, and Mud Springs Ridges (Pomery Ranger District).
+* Private property,
+* designated campgrounds,
+* active timber sale areas,
+* tree plantations, and
+* congressionaly designated Wilderness areas.
