@@ -4,7 +4,7 @@
 * Your tree must be less than {{treeHeight}} feet in height.
 * Tree topping is prohibited. Cut down the whole tree.
 * Choose a tree that has another tree within 8 feet of the one you are cutting. 
-* Cut the leftover branches from the stump and scatter them.
+* Cut the leftover branches from the stump and scatter them.  A minor amount of bough material (tree branches) may be removed under your permit (up to 25 pounds).
 
 ### Do not cut trees within:
 
