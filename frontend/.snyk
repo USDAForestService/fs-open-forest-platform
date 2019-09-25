@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-MARKED-73637:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2019-09-25T18:04:57.495Z'
+        expires: '2020-01-25T18:04:57.495Z'
   SNYK-JS-MARKED-174116:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2019-09-25T18:04:57.495Z'
+        expires: '2020-01-25T18:04:57.495Z'
   SNYK-JS-COREJS-174627:
     - core-js:
         reason: No remediation available
@@ -17,9 +17,9 @@ ignore:
   SNYK-JS-LODASH-450202:
     - newrelic > async > lodash:
         reason: 'Upgrade path did not work, patching for now'
-        expires: '2019-10-12T16:18:13.016Z'
+        expires: '2020-01-25T16:18:13.016Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
         reason: no upgrade available
-        expires: '2019-10-09T23:02:43.714Z'
+        expires: '2020-01-25T23:02:43.714Z'
 patch: {}
