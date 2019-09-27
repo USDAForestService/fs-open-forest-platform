@@ -256,6 +256,27 @@ const forests = [
     cutting_areas: '{}',
     poss_financial_id: '999900013'
   },
+  {
+    id: 13,
+    forest_name: 'Ochoco National Forest',
+    forest_url: 'https://www.fs.usda.gov/ochoco',
+    tree_height: 12,
+    stump_height: 12,
+    stump_diameter: 0,
+    start_date: '2019-11-18T07:00:00Z',
+    end_date: '2019-12-25T06:59:59Z',
+    created: 'now()',
+    updated: 'now()',
+    org_structure_code: '06-02',
+    description: 'Ochoco | Oregon',
+    forest_abbr: 'ochoco',
+    tree_cost: 5,
+    max_num_trees: 5,
+    forest_name_short: 'Ochoco',
+    timezone: 'America/Seattle',
+    cutting_areas: '{}',
+    poss_financial_id: '999900016'
+  }
 ];
 
 module.exports = {
