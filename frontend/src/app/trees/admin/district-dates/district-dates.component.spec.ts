@@ -187,28 +187,6 @@ describe('District Dates Admin Component', () => {
       });
     });
 
-    // it('should set start and end dates', () => {
-    //   component.forest = component.forests.find(forest => forest.id === 1);
-    //   component.district = component.forest.cuttingAreas.ELKCREEK;
-    //
-    //   component.setStartEndDate(component.forest, component.district, component.form);
-    //   expect(component.form.get('dateTimeRange.startMonth').value).toEqual('12');
-    //   expect(component.form.get('dateTimeRange.startDay').value).toEqual('02');
-    //   expect(component.form.get('dateTimeRange.startYear').value).toEqual('2017');
-    //
-    //   expect(component.form.get('dateTimeRange.startHour').value).toEqual('03');
-    //   expect(component.form.get('dateTimeRange.startMinutes').value).toEqual('30');
-    //   expect(component.form.get('dateTimeRange.startPeriod').value).toEqual('PM');
-    //
-    //   expect(component.form.get('dateTimeRange.endMonth').value).toEqual('12');
-    //   expect(component.form.get('dateTimeRange.endDay').value).toEqual('09');
-    //   expect(component.form.get('dateTimeRange.endYear').value).toEqual('2017');
-    //
-    //   expect(component.form.get('dateTimeRange.endHour').value).toEqual('09');
-    //   expect(component.form.get('dateTimeRange.endMinutes').value).toEqual('30');
-    //   expect(component.form.get('dateTimeRange.endPeriod').value).toEqual('PM');
-    // });
-
     it('should call set forest', () => {
       component.setForest('arp');
       expect(component.district.name).toEqual('Elk Creek');
