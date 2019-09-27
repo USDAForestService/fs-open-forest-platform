@@ -6,8 +6,8 @@ const forests = [
     tree_height: 0,
     stump_height: 6,
     stump_diameter: 6,
-    start_date: '2018-11-01T06:00:00Z',
-    end_date: '2021-01-06T06:59:59Z',
+    start_date: '2019-11-01T06:00:00Z',
+    end_date: '2020-01-06T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-02-10T',
@@ -18,10 +18,10 @@ const forests = [
     forest_name_short: 'Arapaho and Roosevelt',
     timezone: 'America/Denver',
     cutting_areas:
-          '{ "ELKCREEK": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-09 21:30:00Z", "name": "Elk Creek"},'
-          + '"REDFEATHERLAKES": {"startDate": "2017-12-02 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Red Feather Lakes"},'
-          + '"SULPHUR": {"startDate": "2017-11-01 15:00:00Z", "endDate": "2018-01-06 22:30:00Z", "name": "Sulphur"},'
-          + '"CANYONLAKES": {"startDate": "2017-11-27 15:30:00Z", "endDate": "2017-12-10 21:30:00Z", "name": "Canyon Lakes"} }',
+          '{ "ELKCREEK": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Elk Creek"},'
+          + '"REDFEATHERLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Red Feather Lakes"},'
+          + '"SULPHUR": {"startDate": "2019-11-01 15:00:00Z", "endDate": "2020-01-06 22:30:00Z", "name": "Sulphur"},'
+          + '"CANYONLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Canyon Lakes"} }',
     poss_financial_id: '999900004'
   },
   {
@@ -31,8 +31,8 @@ const forests = [
     tree_height: 0,
     stump_height: 8,
     stump_diameter: 4,
-    start_date: '2018-11-15T07:00:00Z',
-    end_date: '2021-01-02T06:59:59Z',
+    start_date: '2019-11-15T07:00:00Z',
+    end_date: '2019-12-31T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-01-10',
@@ -52,8 +52,8 @@ const forests = [
     tree_height: 12,
     stump_height: 6,
     stump_diameter: 6,
-    start_date: '2018-11-01T07:00:00Z',
-    end_date: '2021-12-31T07:59:59Z',
+    start_date: '2019-11-14T07:00:00Z',
+    end_date: '2019-12-24T07:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-06-06',
@@ -73,8 +73,8 @@ const forests = [
     tree_height: 20,
     stump_height: 4,
     stump_diameter: 0,
-    start_date: '2018-11-19T07:00:00Z',
-    end_date: '2018-12-31T06:59:59Z',
+    start_date: '2019-11-18T07:00:00Z',
+    end_date: '2019-12-30T06:59:59Z',
     created: 'now()',
     updated: 'now()',
     org_structure_code: '11-02-14',
@@ -95,7 +95,7 @@ const forests = [
     tree_height: 12,
     stump_height: 12,
     stump_diameter: 0,
-    start_date: '2019-11-01T07:00:00Z',
+    start_date: '2019-11-14T07:00:00Z',
     end_date: '2019-12-31T06:59:59Z',
     created: 'now()',
     updated: 'now()',
@@ -179,7 +179,7 @@ const forests = [
     tree_height: 12,
     stump_height: 6,
     stump_diameter: 0,
-    start_date: '2019-11-09T07:00:00Z',
+    start_date: '2019-11-12T07:00:00Z',
     end_date: '2020-01-06T06:59:59Z',
     created: 'now()',
     updated: 'now()',
