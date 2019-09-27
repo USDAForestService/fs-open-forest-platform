@@ -7,26 +7,26 @@ Christmas tree maps are provided at the time of permit purchase [and available o
 
 [Click to view map of Grants Pass West in Avenza](https://www.avenzamaps.com/maps/850985/rogue-river-siskiyou-nf-grants-pass-west-christmas-tree-harvest-map).
 
-[Christmas tree map of Medford North cutting areas. (Click to view larger map)](/assets/img/maps/medford-north.png)
+[Christmas tree map of Medford North cutting areas. (Click to view larger map)](/assets/img/maps/rrs-medford-north.png)
 
-[![Medford North](/assets/img/maps/medford-north-thumb.png)](/assets/img/maps/medford-north.png)
+[![Medford North](/assets/img/maps/rrs-medford-north-thumb.png)](/assets/img/maps/rrs-medford-north.png)
 
 [Medford North map description](/christmas-trees/forests/rrs/maps/medford-north)
 
-[Christmas tree map of Medford South cutting areas. (Click to view larger map)](/assets/img/maps/medford-south.png)
+[Christmas tree map of Medford South cutting areas. (Click to view larger map)](/assets/img/maps/rrs-medford-south.png)
 
-[![Medford South](/assets/img/maps/medford-south-thumb.png)](/assets/img/maps/medford-south.png)
+[![Medford South](/assets/img/maps/rrs-medford-south-thumb.png)](/assets/img/maps/rrs-medford-south.png)
 
 [Medford South map description](/christmas-trees/forests/rrs/maps/medford-south)
 
-[Christmas tree map of Medford West cutting areas. (Click to view larger map)](/assets/img/maps/medford-west.png)
+[Christmas tree map of Grants Pass West cutting areas. (Click to view larger map)](/assets/img/maps/rrs-grants-pass-west.png)
 
-[![Medford West](/assets/img/maps/medford-west-thumb.png)](/assets/img/maps/medford-west.png)
+[![Grants Pass West](/assets/img/maps/rrs-grants-pass-west-thumb.png)](/assets/img/maps/rrs-grants-pass-west.png)
 
-[Medford West map description](/christmas-trees/forests/rrs/maps/medford-west)
+[Grants Pass West map description](/christmas-trees/forests/rrs/maps/grants-pass-west)
 
-[Christmas tree map of Medford East cutting areas. (Click to view larger map)](/assets/img/maps/medford-east.png)
+[Christmas tree map of Grants Pass East cutting areas. (Click to view larger map)](/assets/img/maps/rrs-grants-pass-east.png)
 
-[![Medford East](/assets/img/maps/medford-east-thumb.png)](/assets/img/maps/medford-east.png)
+[![Medford East](/assets/img/maps/rrs-grants-pass-east-thumb.png)](/assets/img/maps/rrs-grants-pass-east.png)
 
-[Medford East map description](/christmas-trees/forests/rrs/maps/medford-east)
+[Medford East map description](/christmas-trees/forests/rrs/maps/grants-pass-east)
