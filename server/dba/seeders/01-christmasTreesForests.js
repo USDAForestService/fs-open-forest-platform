@@ -200,7 +200,7 @@ const forests = [
     tree_height: 12,
     stump_height: 12,
     stump_diameter: 0,
-    start_date: '2019-11-09T07:00:00Z',
+    start_date: '2019-11-08T07:00:00Z',
     end_date: '2019-12-25T06:59:59Z',
     created: 'now()',
     updated: 'now()',

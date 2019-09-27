@@ -2,14 +2,8 @@
   "forest": "rrs",
   "treeSpecies": [
     {
-      "id": "noble-fir",
-      "name": "Noble Fir",
-      "status": "recommended",
-      "photoCredits": "Susan McDougal"
-    },
-    {
-      "id": "pacific-silver-fir",
-      "name": "Pacific Silver Fir",
+      "id": "shasta-fir",
+      "name": "Shasta Fir",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
     },
@@ -18,6 +12,12 @@
       "name": "Douglas-fir",
       "status": "not recommended",
       "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "pacific-silver-fir",
+      "name": "Pacific Silver Fir",
+      "status": "recommended",
+      "photoCredits": "Susan McDougal"
     }
   ]
 }
