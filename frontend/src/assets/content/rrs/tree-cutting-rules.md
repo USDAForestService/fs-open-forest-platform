@@ -11,6 +11,8 @@
 ### Do not cut trees within:
 
 * Wilderness areas,
+* Wild and Scenic River corridors,
+* National Monuments,
 * Research Natural Areas,
 * areas currently closed for public health and safety,
 * 150 feet for state highways,
