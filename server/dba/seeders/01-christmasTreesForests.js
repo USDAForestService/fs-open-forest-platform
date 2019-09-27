@@ -267,7 +267,7 @@ const forests = [
     end_date: '2019-12-25T06:59:59Z',
     created: 'now()',
     updated: 'now()',
-    org_structure_code: '06-02',
+    org_structure_code: '060607',
     description: 'Ochoco | Oregon',
     forest_abbr: 'ochoco',
     tree_cost: 5,
