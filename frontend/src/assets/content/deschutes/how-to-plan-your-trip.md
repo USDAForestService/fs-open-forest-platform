@@ -10,7 +10,7 @@
 ![dress for the weather](/assets/img/site-wide/winter-warm-icon.svg "dress for the weather") **Dress warmly and take extra dry clothes.**
 Expect winter weather, including cold temperatures, snow and winds.
 
-
+* An Oregon Sno-Park permit is required for parking at designated Sno-Parks.
 * **Roads may not be plowed.** Carry tire chains, shovel(s) and a tow chain.
 * Bring plenty of food and water with you as well as an overnight survival kit in case you become stranded.
 * Be sure your vehicle has a full tank of gas.
@@ -18,7 +18,4 @@ Expect winter weather, including cold temperatures, snow and winds.
 * Park in areas so that traffic can get by safely, and **do not block gates**.
 * Start your day early. Be sure to find your tree and leave the woods before dark.
 * Forest Service roads that are plowed in the winter may have heavy logging traffic. Stay alert and give log truck and equipment plenty of space.
-
-As a reminder, weather conditions at higher elevations can be dramatically different from local conditions and the public should be prepared for cold and unpredictable weather. Additionally, most forest roads are not maintained for winter driving, so snow patches or debris may be encountered.
-
-The Forest Service reminds permit holders that Oregon Department of Transportation requires  Sno-Park permits for parking at area Sno-Parks. Forest Service officials also encourage people to hike or cross-country ski at a safe distance from roads when collecting trees, and to take appropriate precautions when traveling to the forest on winter days.
+* Make sure you are at a safe distance from roads when collecting trees.

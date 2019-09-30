@@ -1,0 +1,1 @@
+cutting area map of medford east

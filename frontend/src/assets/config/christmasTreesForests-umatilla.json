@@ -2,14 +2,20 @@
   "forest": "umatilla",
   "treeSpecies": [
     {
-      "id": "noble-fir",
-      "name": "Noble Fir",
+      "id": "subalpine-fir",
+      "name": "Subalpine Fir",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "grand-fir",
+      "name": "Grand Fir",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
     },
     {
-      "id": "pacific-silver-fir",
-      "name": "Pacific Silver Fir",
+      "id": "engelmann-spruce",
+      "name": "Engelmann Spruce",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
     },

@@ -1,12 +1,15 @@
 The Christmas tree permits from the Fremont-Winema National Forest are valid for use on the forest in Klamath and Lake Counties.
 Cut trees only within the national forest boundary and respect surrounding private property.
 
-No cutting ore removing trees within:
+A valid Sno-Park Permit is required for parking at designated Sno-Parks.
 
+### No cutting or removing trees within:
+
+* 100 feet of stream banks.
 * Wilderness Areas.
+* Active timber sales.
 * Experimental forests.
-* Developed campgrounds
+* Tree plantations.
+* Developed recreation areas.
 * Administrative sites.
-* Within 300 feet of streams.
-* On private or state-owned lands within national forest boundaries.
 * In any other posted area.

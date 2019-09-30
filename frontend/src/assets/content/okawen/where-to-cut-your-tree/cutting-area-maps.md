@@ -1,7 +1,13 @@
-[Maps for the designated cutting areas](https://www.fs.usda.gov/detail/okawen/passes-permits/?cid=fsbdev3_053596) can be found here.
+Cut trees only in cutting areas shown in green on these maps.
 
-When searching for your Christmas tree at the {{forestName}},
-be sure to use designated motorized roads and to be aware of seasonal road closures.
-[Maps and travel publications](https://www.fs.usda.gov/main/okawen/maps-pubs 'Okanogan-Wenatchee
-    maps and publications')
-are available online and at ranger district offices.
+[Christmas tree map of Wenatchee Area. (Click to view larger map)](/assets/img/maps/wenatchee-map.png)
+
+[![Wenatchee](/assets/img/maps/wenatchee-map-thumb.png)](/assets/img/maps/wenatchee-map.png)
+
+[Christmas tree map of Leavenworth Area. (Click to view larger map)](/assets/img/maps/leavenworth-map.png)
+
+[![Leavenworth](/assets/img/maps/leavenworth-map-thumb.png)](/assets/img/maps/leavenworth-map.png)
+
+[Christmas tree map of Chelan Area. (Click to view larger map)](/assets/img/maps/chelan-map.png)
+
+[![Chelan](/assets/img/maps/chelan-map-thumb.png)](/assets/img/maps/chelan-map.png)

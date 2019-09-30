@@ -1,24 +1,29 @@
 {
   "forest": "Freemont-Winema",
   "treeSpecies": [
-
     {
-      "id": "noble-fir",
-      "name": "Noble Fir",
+      "id": "white-fir",
+      "name": "White Fir",
       "status": "recommended",
-      "photoCredits": "Susan McDougal"
+      "photoCredits": "https://www.fs.usda.gov/detail/sierra/home/?cid=stelprdb5150508"
     },
     {
-      "id": "pacific-silver-fir",
-      "name": "Pacific Silver Fir",
-      "status": "recommended",
-      "photoCredits": "Susan McDougal"
+      "id": "ponderosa-pine",
+      "name": "Ponderosa Pine",
+      "status": "not recommended",
+      "photoCredits": "J.S. Peterson"
     },
     {
-      "id": "douglas-fir",
-      "name": "Douglas-fir",
+      "id": "incense-cedar",
+      "name": "Incense Cedar",
       "status": "recommended",
       "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "juniper",
+      "name": "Juniper",
+      "status": "recommended",
+      "photoCredits": "G.A. Cooper"
     }
   ]
 }
