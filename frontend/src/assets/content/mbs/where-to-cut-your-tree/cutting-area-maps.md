@@ -32,4 +32,14 @@ Below are Christmas tree cutting maps for North Bend, Enumclaw ##1, Enumclaw #2,
 
 [Skykomish Ranger District East map description](/christmas-trees/forests/willamette/maps/skykomish)
 
+[Christmas tree map of **Skagit** (Click to view larger map)](/assets/img/maps/skagit-map.png)
 
+[![Christmas tree map of Skagit](/assets/img/maps/skagit-map-thumb.png)](/assets/img/maps/skagit-map.png)
+
+[Skagit Area map description](/christmas-trees/forests/willamette/maps/skagit)
+
+[Christmas tree map of **North Fork Nooksack Area** (Click to view larger map)](/assets/img/maps/nooksack-map.png)
+
+[![Christmas tree map of North Fork Nooksack Area](/assets/img/maps/nooksack-map-thumb.png)](/assets/img/maps/nooksack-map.png)
+
+[North Fork Nooksack Area map description](/christmas-trees/forests/willamette/maps/nooksack)
