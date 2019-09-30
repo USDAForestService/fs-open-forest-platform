@@ -134,7 +134,7 @@ const forests = [
     id: 7,
     forest_name: 'Mt. Baker-Snoqualmie National Forest',
     forest_url: 'https://www.fs.usda.gov/detail/mbs',
-    tree_height: 12,
+    tree_height: 15,
     stump_height: 12,
     stump_diameter: 0,
     start_date: '2019-11-12T07:00:00Z',
