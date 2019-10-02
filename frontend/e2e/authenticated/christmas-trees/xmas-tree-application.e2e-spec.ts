@@ -5,7 +5,8 @@ import { ChristmasTreeForm } from './christmas-tree-form.po';
 
 describe('Apply for a Christmas tree permit', () => {
   let christmasTreeForm: ChristmasTreeForm;
-  let confirmPage: ChristmasTreeOrderConfirmation;
+  let confirmPage: {};
+  confirmPage = ChristmasTreeOrderConfirmation;
   const forestId = 'mthood';
 
   describe('fill out basic user info', () => {
