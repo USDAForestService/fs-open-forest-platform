@@ -5,7 +5,7 @@ export class ChristmasTreeForm {
     return browser.get('christmas-trees/forests/' + forestId + '/applications');
   }
   firstName() {
-    return element(by.css('input[id$="primary-permit-holder-first-name"]'));
+    return element(by.id('primary-permit-holder-first-name'));
   }
   firstNameError() {
     return element(by.css('span[id$="primary-permit-holder-first-name-error"]'));
