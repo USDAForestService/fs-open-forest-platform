@@ -11,6 +11,8 @@
 Expect winter weather, including cold temperatures, snow and winds.
 
 
+* A Washington Sno-Park permit is required for parking at designated Sno-Parks.
+* A valid [Recreation Pass](https://www.fs.usda.gov/main/okawen/passes-permits/recreation) is required at designated recreation fee sites.
 * **Roads may not be plowed.** Carry tire chains, shovel(s) and a tow chain.
 * Bring plenty of food and water with you as well as an overnight survival kit in case you become stranded.
 * Be sure your vehicle has a full tank of gas.

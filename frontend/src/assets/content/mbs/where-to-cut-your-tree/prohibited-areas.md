@@ -10,5 +10,4 @@ No cutting or removing trees within:
 * On private or state-owned lands within national forest boundaries.
 * In any other posted area.
 
-[Download our Christmas Tree Cutting Sheet](https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/fseprd605054.pdf "MBS Cutting Sheet")
 

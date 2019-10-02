@@ -1,11 +1,19 @@
 #### Christmas tree cutting
 
-* The tree stump must be less than {{stumpDiameter}} inches in diameter.
 * You must leave a stump of {{stumpHeight}} inches in height or less.
+* Your tree must be less than {{treeHeight}} feet in height.
 * Only cut trees within the national forest boundary.
 * Tree-topping is prohibited. Cut down the whole tree.
 * Cut the leftover branches from the stump and scatter them.
-* Motorized travel off designated roads and trails is prohibited. Motor Vehicle Use Maps for designated motorized roads and seasonal closures are available at all Gifford Pinchot Forest offices. 
-* Cutting is prohibited in plantations, previously thinned stands of trees, timber sale areas, or areas posted as closed to Christmas tree cutting.
-* You must choose a tree at least 200 feet away from main roads, recreation sites and campgrounds, and 300 feet away from streams, rivers or lakes.
-* Do not remove Whitebark Pine trees.
+* A Washington Sno-Park permit is required for parking at designated Sno-Parks.
+* A valid Recreation Pass is required at designated recreation fee sites.
+
+### Do not cut trees within:
+
+* developed campgrounds and picnic areas,
+* trail heads,
+* administrative sites,
+* designated Wilderness areas,
+* 150 feet of any stream, lake, pond, or wetland areas,
+* private or state-owned lands within national forest boundaries, and
+* any posted area.

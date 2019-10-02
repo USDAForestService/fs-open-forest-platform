@@ -21,6 +21,7 @@ _run:
     name: populate db for server
     command: |
       cd server
+      npm run undoAllSeed
       npm run migrate
       npm run seed
 

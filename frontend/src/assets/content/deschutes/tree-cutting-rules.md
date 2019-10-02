@@ -1,10 +1,17 @@
-#### Christmas tree cutting
+### Christmas tree cutting
 
+* You must leave a stump of less than {{stumpHeight}} inches in height.
+* Your tree must be less than {{treeHeight}} feet in height. 
 * Another tree must be within 20 feet of the one you cut.
-* You must be on National Forest land.
-* You must leave a stump of less than 12 inches  in height.
-* The tree you cut must be less than 12 feet tall.
-* Respect road and area closures.
-* Take the whole tree – do not cut only the top of a standing tree.
-* Leave no trace – Pack it in Pack it out.
-* Safety is your responsibility.
+* Only cut trees within the national forest boundary.
+* Tree-topping is prohibited. Cut down the whole tree.
+* Cut the leftover branches from the stump and scatter them.
+* An Oregon Sno-Park permit is required for parking at designated Sno-Parks.
+
+### Do not cut trees within:
+
+* Private property,
+* Wilderness areas or the Newberry National Volcanic Monument,
+* Forest Service nurseries and plantations (nursery-grown seedlings planted for future forests),
+* 300 feet of streams, and
+* 150 feet of state highways, picnic areas, campgrounds, and other developed areas.

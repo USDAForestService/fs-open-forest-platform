@@ -1,4 +1,4 @@
-You can buy Christmas tree permits in person at the following Fremont-Winema National Forest ranger district offices or at local vendors. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+You can buy Christmas tree permits in person at the following Fremont-Winema National Forest ranger district offices or at local vendors. Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays and weekends.
 
 ### Bly Ranger Station
 61100 Hwy 140 E   
@@ -24,7 +24,7 @@ Lakeview, OR 97630
 
 541-947-2151
 
-### Klamath Ranger District
+### Klamath Ranger Station
 2819 Dahlia St., Suite A   
 Klamath Falls, OR 97601
 

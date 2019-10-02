@@ -1,5 +1,4 @@
-You can buy Christmas tree permits in person at the following [Willamette National Forest ranger district offices](https://www.fs.usda.gov/detail/willamette/about-forest/offices) or at [local vendors](https://www.fs.usda.gov/detail/willamette/passes-permits/forestproducts/?cid=fseprd564462). Each district office has different hours. Call first to make sure someone is available to sell permits. 
-All offices are closed on federal holidays.
+You can buy Christmas tree permits in person at the following Willamette National Forest ranger district offices or at local vendors [local vendors](https://www.fs.usda.gov/detail/willamette/passes-permits/forestproducts/?cid=fseprd564462). District offices have different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 
 ### Supervisor's Office

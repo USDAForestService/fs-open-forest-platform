@@ -1,0 +1,1 @@
+Cutting area map for Skagit

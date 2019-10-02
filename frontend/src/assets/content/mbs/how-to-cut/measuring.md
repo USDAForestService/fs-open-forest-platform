@@ -2,12 +2,12 @@ At the {{forestName}}, we have limitations on the size of the tree you can cut. 
 to help you measure and choose a tree that meets your permit's restrictions.
 
 
-![Height of the stump from the ground](/assets/img/site-wide/tree-stump-height-icon.svg "stump height")  **Stump height:** {{stumpHeight}} inches or less above the ground
+![Height of the stump from the ground](/assets/img/site-wide/tree-stump-height-icon.svg "stump height")  **Stump height:** {{stumpHeight}} inches maximum.
 
-![Height of the tree from the ground](/assets/img/site-wide/tree-height-icon.svg "tree height")  **Tree height:** {{treeHeight}} feet maximum
+![Height of the tree from the ground](/assets/img/site-wide/tree-height-icon.svg "tree height")  **Tree height:** {{treeHeight}} feet maximum.
 
 ![No cutting tops of trees off](/assets/img/site-wide/tree-top-icon.svg "no tree-topping")  **Take the whole tree.** Cutting the tree top off is prohibited.
 
-Remove snow around tree base so you can accurately measure the stump and tree height. 
+Remove snow from around the base of the tree so that you can accurately measure the stump and tree height.
 
 Cut off live limbs remaining on the stump.

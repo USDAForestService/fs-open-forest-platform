@@ -9,3 +9,5 @@ to help you measure and choose a tree that meets your permit's restrictions.
 ![No cutting tops of trees off](/assets/img/site-wide/tree-top-icon.svg "no tree-topping")  **Take the whole tree.** Cutting the tree top off is prohibited.
 
 If snow is on the ground, remove it from around the stump so you can accurately measure the stump and tree height.
+
+Make sure that another tree is within 20 feet of the one you cut.

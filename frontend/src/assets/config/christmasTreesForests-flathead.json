@@ -42,6 +42,12 @@
       "name": "Whitebark Pine",
       "status": "prohibited",
       "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "western-white-pine",
+      "name": "Western White Pine",
+      "status": "prohibited",
+      "photoCredits": "Susan McDougal"
     }
   ]
 }

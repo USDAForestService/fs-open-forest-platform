@@ -19,6 +19,12 @@
       "name": "Pacific Silver Fir",
       "status": "recommended",
       "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "western-hemlock",
+      "name": "Western Hemlock",
+      "status": "avoid",
+      "photoCredits": "Mary Clay Stensvold"
     }
   ]
 }
