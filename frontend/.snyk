@@ -25,5 +25,5 @@ ignore:
   SNYK-JS-HTTPSPROXYAGENT-469131:
     - newrelic > https-proxy-agent:
         reason: ignore for 30days
-        expires: '2019-11-01T18:45:56.816Z'
+        expires: '2020-01-25T18:45:56.816Z'
 patch: {}
