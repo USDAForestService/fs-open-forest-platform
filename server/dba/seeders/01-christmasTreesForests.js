@@ -105,7 +105,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Gifford Pinchot',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900014'
   },
@@ -126,7 +126,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Freemont-Winema',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900015'
   },
@@ -147,7 +147,7 @@ const forests = [
     tree_cost: 10,
     max_num_trees: 5,
     forest_name_short: 'Mt. Baker-Snoqualmie',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900010'
   },
@@ -168,7 +168,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Deschutes',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900008'
   },
@@ -189,7 +189,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Willamette',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900012'
   },
@@ -210,7 +210,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Rogue River-Siskiyou',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900009'
   },
@@ -231,7 +231,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 2,
     forest_name_short: 'Okanogan-Wenatchee',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900011'
   },
@@ -252,7 +252,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 1,
     forest_name_short: 'Umatilla',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900013'
   },
@@ -273,7 +273,7 @@ const forests = [
     tree_cost: 5,
     max_num_trees: 5,
     forest_name_short: 'Ochoco',
-    timezone: 'America/Seattle',
+    timezone: 'America/Vancouver',
     cutting_areas: '{}',
     poss_financial_id: '999900016'
   }
