@@ -163,3 +163,10 @@ patch:
         patched: '2019-07-09T16:09:19.221Z'
     - snyk > lodash:
         patched: '2019-07-09T16:09:19.221Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - snyk > proxy-agent > https-proxy-agent:
+        patched: '2019-10-07T16:05:39.497Z'
+    - snyk > proxy-agent > pac-proxy-agent > https-proxy-agent:
+        patched: '2019-10-07T16:05:39.497Z'
+    - newrelic > https-proxy-agent:
+        patched: '2019-10-07T16:05:39.497Z'
