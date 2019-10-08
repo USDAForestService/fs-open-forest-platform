@@ -12,7 +12,7 @@
 ### Do not cut trees within 200 feet of the following roads:
 * Highway 410, Highway 12, and Forest Service Roads 1200, 1800, and 1900 (Naches District),
 * the Entiat Valley Road (Entiat Ranger District),
-* Highway 20 over Loup Loup Pass between Twisp and Okanogan-Wenatchee (Methow Valley Ranger District), and
+* Highway 20 over Loup Loup Pass between Twisp and Okanogan (Methow Valley Ranger District), and
 * along Harts Pass road 5400 and the North Cascades Scenic Highway between the east and west scenic highway portaly signs, including all side roads (Methow Valley Ranger District).
 
 ### Do not cut trees within
