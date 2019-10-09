@@ -60,6 +60,13 @@ const addForestSpecificInfo = (permit, frag) => {
   } else {
     frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FOREST';
   }
+  if (frag.querySelector('#forest-name_1_').textContent === 'DESCHUTES') {
+    frag.querySelector('#forest-name_1_').textContent = 'DESCHUTES AND OCHOCO';
+    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FORESTS';
+  } else if (frag.querySelector('#forest-name_1_').textContent === 'OCHOCO') {
+    frag.querySelector('#forest-name_1_').textContent = 'DESCHUTES AND OCHOCO';
+    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FORESTS';
+  }
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
   frag.querySelector('#permit-expiration_1_').textContent = `${moment
