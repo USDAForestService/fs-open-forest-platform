@@ -54,18 +54,17 @@ const addApplicantInfo = (permit, frag) => {
  * @param {Object} fragment - jsdom fragment
  */
 const addForestSpecificInfo = (permit, frag) => {
-  frag.querySelector('#forest-name_1_').textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
-  if (permit.christmasTreesForest.forestNameShort.indexOf(' and ') > 0) {
-    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FORESTS';
-  } else {
-    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FOREST';
+  const name = frag.querySelector('#forest-name_1_');
+  const nationalForest = frag.querySelector('#national-forest_1_');
+  name.textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
+  if (name.textContent === 'DESCHUTES' || name.textContent === 'OCHOCO') {
+    nationalForest.textContent = 'NATIONAL FORESTS';
+    name.textContent = 'DESCHUTES AND OCHOCO';
   }
-  if (frag.querySelector('#forest-name_1_').textContent === 'DESCHUTES') {
-    frag.querySelector('#forest-name_1_').textContent = 'DESCHUTES AND OCHOCO';
-    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FORESTS';
-  } else if (frag.querySelector('#forest-name_1_').textContent === 'OCHOCO') {
-    frag.querySelector('#forest-name_1_').textContent = 'DESCHUTES AND OCHOCO';
-    frag.querySelector('#national-forest_1_').textContent = 'NATIONAL FORESTS';
+  if (permit.christmasTreesForest.forestNameShort.indexOf(' and ') > 0) {
+    nationalForest.textContent = 'NATIONAL FORESTS';
+  } else {
+    nationalForest.textContent = 'NATIONAL FOREST';
   }
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
