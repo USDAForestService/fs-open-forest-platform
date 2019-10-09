@@ -82,6 +82,10 @@ ignore:
     - sequelize:
         reason: sequilize upgrade not yet tested
         expires: '2019-10-19T19:32:13.828Z'
+  SNYK-JS-MARKDOWNIT-459438:
+    - jsdoc > markdown-it:
+        reason: None given
+        expires: '2019-11-08T18:09:41.408Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
