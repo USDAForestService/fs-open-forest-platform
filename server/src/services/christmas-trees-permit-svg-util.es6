@@ -57,14 +57,14 @@ const addForestSpecificInfo = (permit, frag) => {
   const name = frag.querySelector('#forest-name_1_');
   const nationalForest = frag.querySelector('#national-forest_1_');
   name.textContent = permit.christmasTreesForest.forestNameShort.toUpperCase();
-  if (name.textContent === 'DESCHUTES' || name.textContent === 'OCHOCO') {
-    nationalForest.textContent = 'NATIONAL FORESTS';
-    name.textContent = 'DESCHUTES AND OCHOCO';
-  }
   if (permit.christmasTreesForest.forestNameShort.indexOf(' and ') > 0) {
     nationalForest.textContent = 'NATIONAL FORESTS';
   } else {
     nationalForest.textContent = 'NATIONAL FOREST';
+  }
+  if (name.textContent === 'DESCHUTES' || name.textContent === 'OCHOCO') {
+    nationalForest.textContent = 'NATIONAL FORESTS';
+    name.textContent = 'DESCHUTES AND OCHOCO';
   }
   frag.querySelector('#permit-year-vertical_1_').textContent = permit.christmasTreesForest.startDate.getFullYear();
 
