@@ -1,0 +1,1 @@
+Christmas tree cutting areas are shown as green shaded areas. No cutting areas are illustrated with crosshatch marks. Recreation sites, main roads, and main water bodies are also illustrated on the map. Map scale is 1in=2mi.
