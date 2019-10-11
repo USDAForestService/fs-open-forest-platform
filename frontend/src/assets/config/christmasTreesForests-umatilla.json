@@ -2,6 +2,12 @@
   "forest": "umatilla",
   "treeSpecies": [
     {
+      "id": "lodgepole-pine",
+      "name": "Lodgepole Pine",
+      "status": "recommended",
+      "photoCredits": "J.S. Peterson"
+    },
+    {
       "id": "subalpine-fir",
       "name": "Subalpine Fir",
       "status": "recommended",
