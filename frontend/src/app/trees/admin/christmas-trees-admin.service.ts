@@ -45,6 +45,7 @@ export class ChristmasTreesAdminService {
       { id: 'forest-admin-reports', routerLink: '/admin/christmas-trees/reports', title: 'Generate reports'},
       { id: 'forest-admin-seasons', routerLink: '/admin/christmas-trees/season-dates', title: 'Change season dates'},
       { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'},
+      { id: 'forest-admin-feedback', routerLink: '/admin/christmas-trees/feedback-review', title: 'Feedback'},
       { id: 'forest-admin-form', href: environment.changeRequestForm, title: 'Request a content change' }
     ];
   }
