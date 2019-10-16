@@ -36,7 +36,6 @@ export class FeedbackService {
    * @returns all feedback
    */
   getAll() {
-    console.log('getAll from frontend')
     return this.http.get(this.endpoint);
   }
 

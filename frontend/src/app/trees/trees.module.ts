@@ -18,9 +18,11 @@ import { AdminDistrictDatesComponent } from './admin/district-dates/district-dat
 import { AdminFeedbackReviewComponent } from './admin/feedback-review/feedback-review.component';
 import { ChristmasTreeMapDetailsComponent } from './forests/christmas-tree-map-details/christmas-tree-map-details.component';
 import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit-bar/buy-permit-bar.component';
+import { SubmitFeedbackComponent } from './forests/feedback/submit-feedback.component';
 
 @NgModule({
   declarations: [
+    SubmitFeedbackComponent,
     ReportComponent,
     ReportResultsComponent,
     AdminDistrictDatesComponent,
@@ -36,6 +38,7 @@ import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit
     RemovePuncPipe,
   ],
   exports: [
+    SubmitFeedbackComponent,
     ReportComponent,
     ReportResultsComponent,
     TreeCuttingRulesComponent,

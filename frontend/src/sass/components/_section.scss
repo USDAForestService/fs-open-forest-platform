@@ -1,5 +1,26 @@
 .usa-section {
   &.usa-section-tan-dark {
-    background: $fs-tan-dark;  
+    background: $fs-tan-dark;
+  }
+}
+
+.feedback-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin: auto;
+  h1 {
+    margin-top: 40px;
+  }
+  .feedback-info {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  .feedback-label {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  button {
+    width: 100px;
   }
 }

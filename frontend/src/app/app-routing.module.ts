@@ -35,6 +35,7 @@ import { AdminFeedbackReviewComponent } from './trees/admin/feedback-review/feed
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
+import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
 
 const appRoutes: Routes = [
   {
@@ -317,6 +318,11 @@ const appRoutes: Routes = [
     path: 'mock-pay-gov',
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
+  },
+  {
+    path: 'feedback',
+    component: SubmitFeedbackComponent,
+    data: { title: 'Submit Feedback' }
   },
 
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
