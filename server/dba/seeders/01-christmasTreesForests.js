@@ -18,8 +18,8 @@ const forests = [
     forest_name_short: 'Arapaho and Roosevelt',
     timezone: 'America/Denver',
     cutting_areas:
-          '{ "ELKCREEK": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Elk Creek"},'
-          + '"REDFEATHERLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Red Feather Lakes"},'
+          '{ "ELKCREEK": {"startDate": "2019-12-01 14:00:00Z", "endDate": "2019-12-08 21:00:00Z", "name": "Elk Creek"},'
+          + '"REDFEATHERLAKES": {"startDate": "2019-12-07 13:30:00Z", "endDate": "2019-12-15 19:30:00Z", "name": "Red Feather Lakes"},'
           + '"SULPHUR": {"startDate": "2019-11-01 15:00:00Z", "endDate": "2020-01-06 22:30:00Z", "name": "Sulphur"},'
           + '"CANYONLAKES": {"startDate": "2019-12-07 15:30:00Z", "endDate": "2019-12-14 21:30:00Z", "name": "Canyon Lakes"} }',
     poss_financial_id: '999900004'

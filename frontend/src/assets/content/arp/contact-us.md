@@ -10,7 +10,7 @@ Fort Collins, CO 80526
 
 email: [clrdvis@fs.fed.us](mailto:clrdvis@fs.fed.us)
 
-Permits are available for purchase in person at the Canyon Lakes office Dec. 1 - Dec. 9, 2018. The office is closed on Wednesdays. Permits for the Red Feather cutting area are also available on-site the first two weekends in December.
+Permits are available for purchase in person at the Canyon Lakes office Nov. 25 - Dec. 13, 2019. The office is closed on Wednesdays. Permits for the Red Feather cutting area are also available on-site the first two weekends in December.
 
 
 ### Sulphur Ranger District
