@@ -21,7 +21,7 @@ The below rules are specific to the Sulphur Ranger District:
 
 ##### Elk Creek cutting area
 
-The Elk Creek cutting area, located in the Sulphur Ranger District, is only open for Christmas tree cutting from {{ELKCREEKDate}}. Below are rules specific to this cutting area:
+The Elk Creek cutting area, located in the Sulphur Ranger District, is only open for Christmas tree cutting from {{ELKCREEKDate}}. The last car will be allowed in at 2:00 PM. Below are rules specific to this cutting area:
 
 * The entrance gate opens at 9 a.m. The entrance gate closes at 2 p.m. You must leave the cutting area by 4 p.m.
 * Chains, 4WD, or AWD vehicles with traction tires are required.
@@ -36,7 +36,7 @@ The Canyon Lakes Ranger District only allows Christmas tree cutting in the Red F
 
 ##### Red Feather Lakes cutting area
 
-Below are the rules specific to this cutting area:
+Red feather special cutting area Cutting Dates are from {{REDFEATHERLAKESDate}}. For safety reasons, leave the area by 4:00 PM.
 
 * The entrance gate opens at 8:30 a.m. The entrance gate closes at 2:30 p.m. You must leave the cutting area by 4 p.m.
 * Chains or 4WD vehicles are required (no AWD vehicles).
