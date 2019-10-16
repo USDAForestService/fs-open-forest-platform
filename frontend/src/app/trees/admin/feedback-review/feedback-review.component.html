@@ -17,9 +17,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let entry of entries">
-            <td>{{entry.date}}</td>
-            <td>{{entry.forest}}</td>
-            <td>{{entry.feedback}}</td>
+            <td>{{entry.created}}</td>
+            <td><span *ngFor="let forest of entry.forests">{{forest.forest_name_short}}</span></td>
+            <td>{{entry.message}}</td>
           </tr>
         </tbody>
       </table>

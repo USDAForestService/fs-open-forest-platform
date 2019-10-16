@@ -19,9 +19,8 @@ const feedback = {};
  * @param {Object} res - http response
  */
 feedback.getEntries = (req, res) => {
-  logger.info('GET ENTRIES YAY')
   feedbackModel.findAll({
-    attributes: ['id', 'feedback', 'email', 'forests'],
+    attributes: ['id', 'email', 'message', 'forests'],
     order: [['id', 'ASC']]
   }).then((results) => {
     if (results) {
@@ -62,7 +61,7 @@ feedback.getEntry = (req, res) => {
 feedback.createEntry = async (req, res) => {
   util.logControllerAction(req, '  feedback.create  ', req.body);
   feedbackModel.findAll({
-    attributes: ['id', 'email', 'feedback', 'forests'],
+    attributes: ['id', 'email', 'message', 'forests'],
     order: [['id', 'ASC']]
   }).then((results) => {
     if (results) {

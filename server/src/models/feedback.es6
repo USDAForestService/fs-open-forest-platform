@@ -10,12 +10,12 @@ const Sequelize = require('sequelize');
 const util = require('../services/util.es6');
 
 module.exports = util.getSequelizeConnection().define(
-  'feedback',
+  'feedbackEntries',
   {
     id: {
       type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true, field: 'id', allowNull: false
     },
-    feedback: { type: Sequelize.STRING, field: 'feedback', allowNull: false },
+    message: { type: Sequelize.STRING, field: 'message', allowNull: false },
     email: { type: Sequelize.STRING, field: 'email', allowNull: false },
     forests: {
         type: Sequelize.ARRAY(Sequelize.STRING),

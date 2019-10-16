@@ -18,9 +18,9 @@ export class FeedbackService {
   create(body) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    let newFeedback = {
+    let newFeedbackEntry = {
       email: body.email,
-      feedback: body.feedback,
+      message: body.message,
       forests: []
     }
 
@@ -29,7 +29,7 @@ export class FeedbackService {
       withCredentials: true
     };
 
-    return this.http.post(this.endpoint + 'create', newFeedback, options);
+    return this.http.post(this.endpoint + 'create', newFeedbackEntry, options);
   }
 
   /**
