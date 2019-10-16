@@ -34,10 +34,6 @@ describe('Xmas admin navbar', () => {
     expect<any>(page.adminAreas().getText()).toEqual('Change cutting area dates');
   });
 
-  it('should have a form link', () => {
-    expect<any>(page.adminForm().getText()).toEqual('Request a content change');
-  });
-
   it('should navigate to the season-dates page when season-dates clicked', () => {
     page.adminSeasons().click();
     browser.sleep(1);
@@ -84,9 +80,5 @@ describe('Xmas admin navbar', () => {
 
   it('should have a mobile areas link', () => {
     expect<any>(page.adminAreasMobile().getText()).toEqual('Change cutting area dates');
-  });
-
-  it('should have a mobile form link', () => {
-    expect<any>(page.adminFormMobile().getText()).toEqual('Request a content change');
   });
 });
