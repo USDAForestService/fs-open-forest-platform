@@ -7,6 +7,7 @@ import { TreeGuidelinesComponent } from './forests/tree-guidelines/tree-guidelin
 import { TreeCuttingDatesComponent } from './forests/tree-guidelines/tree-cutting-dates/tree-cutting-dates.component';
 import { TreeSpeciesComponent } from './forests/tree-guidelines/tree-species/tree-species.component';
 import { ChristmasTreesInfoService } from './_services/christmas-trees-info.service';
+import { FeedbackService } from './_services/feedback.service';
 import { TreeCuttingRulesComponent } from './forests/tree-guidelines/tree-cutting-rules/tree-cutting-rules.component';
 import { ForestFinderComponent } from './forests/forest-finder/forest-finder.component';
 import { RemovePuncPipe } from './forests/forest-finder/remove-punc.pipe';
@@ -46,6 +47,7 @@ import { BuyPermitBarComponent } from './forests/tree-guidelines/tree-buy-permit
   ],
   imports: [SharedModule, ApplicationsModule],
   providers: [
+    FeedbackService,
     ChristmasTreesInfoService,
     ChristmasTreesAdminService,
     ChristmasTreesApplicationService

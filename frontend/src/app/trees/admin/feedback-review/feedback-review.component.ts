@@ -1,5 +1,10 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Injectable } from '@angular/core';
 import { Angular2Csv } from 'angular2-csv';
+import { FeedbackService } from '../../_services/feedback.service';
+import { Title } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-feedback-review',
@@ -9,16 +14,28 @@ export class AdminFeedbackReviewComponent implements OnInit {
   @Input() result: any;
   entries: any;
 
+  constructor(
+    private http: HttpClient,
+    private service: FeedbackService,
+    private titleService: Title,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
+  }
+
   ngOnInit() {
-    this.entries = [{
-      date: 1,
-      forest: 'arapaho',
-      feedback: 'beautiful forest'
-    }, {
-      date: 4,
-      forest: 'okewan',
-      feedback: 'one of the best forests ever'
-    }]
+    this.service.getAll().subscribe(res => {
+        this.entries = res
+    })
+    // this.entries = [{
+    //   date: 1,
+    //   forest: 'arapaho',
+    //   feedback: 'beautiful forest'
+    // }, {
+    //   date: 4,
+    //   forest: 'okewan',
+    //   feedback: 'one of the best forests ever'
+    // }]
   }
 
   /**
