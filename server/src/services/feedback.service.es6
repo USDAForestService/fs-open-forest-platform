@@ -15,9 +15,7 @@ const feedbackService = {};
 feedbackService.translateFeedbackFromDatabaseToClient = (input) => {
 
   return {
-    id: input.id,
-    email: input.email,
-    feedback: input.feedback,
+    message: input.message,
     forests: input.forests
   };
 };

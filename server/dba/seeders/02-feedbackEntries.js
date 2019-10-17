@@ -1,15 +1,11 @@
 const feedbackEntries = [
   {
-    id: 1,
-    email: 'bdavidson@cynerge.com',
-    forests: ['{"forest_name_short": "Arapaho and Roosevelt", "id": "1"}', '{"id": "2", "forest_name_short": "Flathead"}'],
+    forests: 'Arapaho',
     message: 'these forests are fantastic',
     created: 'now()',
     updated: 'now()'
   }, {
-    id: 2,
-    email: 'mlaney@cynerge.com',
-    forests: ['{"id": "1", "forest_name_short": "Arapaho and Roosevelt"}'],
+    forests: 'Foresty forest',
     message: 'this is my favorite forest',
     created: 'now()',
     updated: 'now()'

@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { FeedbackService } from '../../_services/feedback.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-submit-feedback',
@@ -8,13 +10,24 @@ import { Component, Input } from '@angular/core';
 export class SubmitFeedbackComponent {
   forests: any;
   message: any;
-  constructor() {
+  constructor(
+    private service: FeedbackService,
+    private router: Router
+  ) {
 
   }
 
   submitFeedback() {
-    console.log('submitFeedback()')
-    console.log(this.forests)
-    console.log(this.message)
+    let feedback = {
+      forests: this.forests,
+      message: this.message
+    }
+    if (this.forests.length && this.message.length) {
+      this.service.create(feedback).subscribe(data => {
+        this.forests = ''
+        this.message = ''
+        this.router.navigate(['/'])
+      })
+    }
   }
 }

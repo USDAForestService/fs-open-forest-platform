@@ -18,7 +18,7 @@
         <tbody>
           <tr *ngFor="let entry of entries">
             <td>{{entry.created}}</td>
-            <td><span *ngFor="let forest of entry.forests">{{forest.forest_name_short}}</span></td>
+            <td>{{entry.forests}}</td>
             <td>{{entry.message}}</td>
           </tr>
         </tbody>

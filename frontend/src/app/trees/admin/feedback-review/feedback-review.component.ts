@@ -27,15 +27,6 @@ export class AdminFeedbackReviewComponent implements OnInit {
     this.service.getAll().subscribe(res => {
         this.entries = res
     })
-    // this.entries = [{
-    //   date: 1,
-    //   forest: 'arapaho',
-    //   feedback: 'beautiful forest'
-    // }, {
-    //   date: 4,
-    //   forest: 'okewan',
-    //   feedback: 'one of the best forests ever'
-    // }]
   }
 
   /**

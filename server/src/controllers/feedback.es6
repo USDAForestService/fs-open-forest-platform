@@ -20,8 +20,8 @@ const feedback = {};
  */
 feedback.getEntries = (req, res) => {
   feedbackModel.findAll({
-    attributes: ['id', 'email', 'message', 'forests'],
-    order: [['id', 'ASC']]
+    attributes: ['message', 'forests', 'created'],
+    order: [['created', 'ASC']]
   }).then((results) => {
     if (results) {
       res.status(200).json(results);
@@ -59,31 +59,12 @@ feedback.getEntry = (req, res) => {
 
 // API function to create a new feedback entry
 feedback.createEntry = async (req, res) => {
-  util.logControllerAction(req, '  feedback.create  ', req.body);
-  feedbackModel.findAll({
-    attributes: ['id', 'email', 'message', 'forests'],
-    order: [['id', 'ASC']]
-  }).then((results) => {
-    if (results) {
-      feedbackModel.create({
-        id: results.length + 1,
-        feedback: req.body.feedback,
-        email: req.body.email,
-        forests: req.body.forests
-      }).then((entry) => {
-        res.status(200).json(entry)
-      }).catch((error) => {
-        res.status(500).json(error)
-        util.handleErrorResponse(error, res, '  createEntry#end  ');
-      })
-    } else {
-      logger.error("404 from createEntry")
-      res.status(404).send();
-    }
+  feedbackService.createFeedback(req.body).then((entry) => {
+    res.status(200).json(entry)
   }).catch((error) => {
-    res.status(400).json(error);
-  });
-
+    res.status(500).json(error)
+    util.handleErrorResponse(error, res, '  createEntry#end  ');
+  })
 };
 
 // API function to delete an openforest entry
