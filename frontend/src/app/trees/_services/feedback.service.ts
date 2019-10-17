@@ -16,7 +16,7 @@ export class FeedbackService {
 
   constructor(private http: HttpClient, public util: UtilService) {}
 
-  // create an openforest feedback entry
+  // create a feedback entry
   create(body) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -32,23 +32,9 @@ export class FeedbackService {
     return this.http.post(this.endpoint + 'create', newFeedbackEntry, options);
   }
 
-  /**
-   * @returns all feedback
-   */
+  // get all feedback
   getAll() {
     return this.http.get(this.endpoint);
-  }
-
-  /**
-   * @returns user by id
-   */
-  getOne(id) {
-    return this.http.get<any>(this.endpoint + id);
-  }
-
-  // delete openforest user
-  delete(id) {
-    return this.http.get(this.endpoint + id + '/delete');
   }
 
 }
