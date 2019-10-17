@@ -17,12 +17,14 @@ export class SubmitFeedbackComponent {
 
   }
 
+  // user hits submit button
   submitFeedback() {
     let feedback = {
       forests: this.forests,
       message: this.message
     }
-    if (this.forests.length && this.message.length) {
+    // validate fields and create entry
+    if (this.forests && this.message) {
       this.service.create(feedback).subscribe(data => {
         this.forests = ''
         this.message = ''

@@ -1,12 +1,12 @@
 const feedbackEntries = [
   {
-    forests: 'Arapaho',
-    message: 'these forests are fantastic',
+    forests: 'Deschutes',
+    message: 'I was able to cut down the perfect christmas tree, thanks Open Forest!',
     created: 'now()',
     updated: 'now()'
   }, {
-    forests: 'Foresty forest',
-    message: 'this is my favorite forest',
+    forests: 'Okanogan',
+    message: 'I love Open Forest!',
     created: 'now()',
     updated: 'now()'
   }

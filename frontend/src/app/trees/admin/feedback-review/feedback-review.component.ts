@@ -4,6 +4,7 @@ import { FeedbackService } from '../../_services/feedback.service';
 import { Title } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as moment from 'moment/moment';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -25,6 +26,9 @@ export class AdminFeedbackReviewComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(res => {
+        for (let entry in res) {
+          res[entry].created = moment(res[entry].created).format('MM-DD-YYYY')
+        }
         this.entries = res
     })
   }

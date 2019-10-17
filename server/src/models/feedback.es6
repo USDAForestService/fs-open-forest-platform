@@ -12,9 +12,6 @@ const util = require('../services/util.es6');
 module.exports = util.getSequelizeConnection().define(
   'feedbackEntries',
   {
-    // id: {
-    //   type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true
-    // },
     message: { type: Sequelize.STRING, field: 'message', allowNull: false },
     forests: { type: Sequelize.STRING, field: 'forests'},
     createdAt: {
