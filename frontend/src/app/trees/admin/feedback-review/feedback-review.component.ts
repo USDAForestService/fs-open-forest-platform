@@ -33,9 +33,7 @@ export class AdminFeedbackReviewComponent implements OnInit {
     })
   }
 
-  /**
-   * Download csv report of feedback entries
-   */
+  // download report of feedback
   downloadReport() {
     const options = {
       fieldSeparator: ',',
@@ -46,6 +44,22 @@ export class AdminFeedbackReviewComponent implements OnInit {
       useBom: false
     };
 
-    const ng2csv = new Angular2Csv(this.entries, 'Feedback Report', options);
+    // initialize report with a headers row
+    const orderedFeedback = [{
+      created: 'Date',
+      forests: 'Forest\s',
+      message: 'Feedback'
+    }];
+
+    // push the values in to the rows in order that matches table headers
+    for (const entry of this.entries) {
+      orderedFeedback.push({
+        created: entry.created,
+        forests: entry.forests,
+        message: entry.message
+      });
+    }
+
+    const ng2csv = new Angular2Csv(orderedFeedback, 'Feedback Report', options);
   }
 }
