@@ -106,8 +106,11 @@
   float: right;
   text-decoration: none;
   position: relative;
-  right: 100px;
+  right: 98px;
   top: 72px;
+  @media (max-width: $nav-width - 1) {
+    top: 35px;
+  }
 }
 
 .fs-official {
