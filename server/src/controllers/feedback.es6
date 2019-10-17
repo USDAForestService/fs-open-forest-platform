@@ -6,10 +6,9 @@
  */
 
 const logger = require('../services/logger.es6');
-const feedbackModel = require('../models/feedback.es6')
+const feedbackModel = require('../models/feedback.es6');
 const feedbackService = require('../services/feedback.service.es6');
 const util = require('../services/util.es6');
-const uuid = require('uuid/v4');
 
 const feedback = {};
 
@@ -26,7 +25,7 @@ feedback.getEntries = (req, res) => {
     if (results) {
       res.status(200).json(results);
     } else {
-      logger.error("404 from getFeedback")
+      logger.error('404 from getFeedback');
       res.status(404).send();
     }
   }).catch((error) => {
@@ -44,11 +43,11 @@ feedback.getEntry = (req, res) => {
     where: {
       id: req.params.id
     }
-  }).then((entry) => {
+  }).then(() => {
     if (feedback) {
       res.status(200).json(feedbackService.translateFeedbackFromDatabaseToClient(feedback));
     } else {
-      logger.error('404 from getEntry')
+      logger.error('404 from getEntry');
       res.status(404).send();
     }
   }).catch((error) => {
@@ -60,11 +59,11 @@ feedback.getEntry = (req, res) => {
 // API function to create a new feedback entry
 feedback.createEntry = async (req, res) => {
   feedbackService.createFeedback(req.body).then((entry) => {
-    res.status(200).json(entry)
+    res.status(200).json(entry);
   }).catch((error) => {
-    res.status(500).json(error)
+    res.status(500).json(error);
     util.handleErrorResponse(error, res, '  createEntry#end  ');
-  })
+  });
 };
 
 // API function to delete an openforest entry
@@ -74,9 +73,9 @@ feedback.deleteEntry = (req, res) => {
       id: req.params.id
     }
   }).then((result) => {
-    res.status(200).json(result)
+    res.status(200).json(result);
   }).catch((error) => {
-    res.status(500).json(error)
+    res.status(500).json(error);
     logger.error(`Failure to delete entry ${req.params.id}`);
     util.handleErrorResponse(error, res, 'deleteEntry#end');
   });

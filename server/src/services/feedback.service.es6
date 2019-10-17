@@ -2,7 +2,6 @@
  * Module for Feedback service functions
  * @module services/feedback-service
  */
-const moment = require('moment-timezone');
 const feedbackModel = require('../models/feedback.es6');
 
 const feedbackService = {};
@@ -13,11 +12,11 @@ const feedbackService = {};
  * @return {Object} - formatted data object
  */
 feedbackService.translateFeedbackFromDatabaseToClient = (input) => {
-
-  return {
+  const feedback = {
     message: input.message,
     forests: input.forests
   };
+  return feedback;
 };
 
 feedbackService.createFeedback = async (feedback) => {

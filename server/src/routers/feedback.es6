@@ -6,7 +6,6 @@
 const express = require('express');
 
 const feedbackController = require('../controllers/feedback.es6');
-const middleware = require('../services/middleware.es6');
 
 const router = express.Router();
 
