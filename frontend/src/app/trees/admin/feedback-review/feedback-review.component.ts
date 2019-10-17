@@ -26,11 +26,13 @@ export class AdminFeedbackReviewComponent implements OnInit {
 
   ngOnInit() {
     this.service.getAll().subscribe(res => {
-        for (let entry in res) {
-          res[entry].created = moment(res[entry].created).format('MM-DD-YYYY')
+      for (const entry in res) {
+        if (res[entry]) {
+          res[entry].created = moment(res[entry].created).format('MM-DD-YYYY');
         }
-        this.entries = res
-    })
+      }
+      this.entries = res;
+    });
   }
 
   // download report of feedback

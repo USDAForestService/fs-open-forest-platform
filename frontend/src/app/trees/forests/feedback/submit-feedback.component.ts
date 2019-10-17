@@ -19,17 +19,17 @@ export class SubmitFeedbackComponent {
 
   // user hits submit button
   submitFeedback() {
-    let feedback = {
+    const feedback = {
       forests: this.forests,
       message: this.message
-    }
+    };
     // validate fields and create entry
     if (this.forests && this.message) {
       this.service.create(feedback).subscribe(data => {
-        this.forests = ''
-        this.message = ''
-        this.router.navigate(['/'])
-      })
+        this.forests = '';
+        this.message = '';
+        this.router.navigate(['/']);
+      });
     }
   }
 }

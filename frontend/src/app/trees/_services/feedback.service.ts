@@ -23,13 +23,13 @@ export class FeedbackService {
     let newFeedbackEntry = {
       message: body.message,
       forests: body.forests
-    }
+    };
 
     const options = {
       headers: headers
     };
 
-    return this.http.post(this.endpoint + 'create', newFeedbackEntry, options)
+    return this.http.post(this.endpoint + 'create', newFeedbackEntry, options);
   }
 
   /**
@@ -48,7 +48,7 @@ export class FeedbackService {
 
   // delete openforest user
   delete(id) {
-    return this.http.get(this.endpoint + id + '/delete')
+    return this.http.get(this.endpoint + id + '/delete');
   }
 
 }
