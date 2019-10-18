@@ -44,8 +44,7 @@ export class ChristmasTreesAdminService {
       { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
       { id: 'forest-admin-reports', routerLink: '/admin/christmas-trees/reports', title: 'Generate reports'},
       { id: 'forest-admin-seasons', routerLink: '/admin/christmas-trees/season-dates', title: 'Change season dates'},
-      { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'},
-      { id: 'forest-admin-form', href: environment.changeRequestForm, title: 'Request a content change' }
+      { id: 'forest-admin-areas', routerLink: '/admin/christmas-trees/district-dates', title: 'Change cutting area dates'}
     ];
   }
 }

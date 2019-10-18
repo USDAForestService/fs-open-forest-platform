@@ -1,0 +1,1 @@
+Christmas tree cutting areas are shown as green shaded areas. Recreation sites, towns, main roads, and main water bodies are also illustrated on the map.

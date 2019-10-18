@@ -18,3 +18,4 @@ applications:
     - jwt
     - new-relic
     - feature-flags
+    - splunk
