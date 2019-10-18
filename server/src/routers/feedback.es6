@@ -9,23 +9,13 @@ const feedbackController = require('../controllers/feedback.es6');
 
 const router = express.Router();
 
-/** get feedback entries */
+// get all feedback
 router.get('/', feedbackController.getEntries);
 
-/** get info for a single feedback entry */
+// get feedback by id
 router.get('/:id', feedbackController.getEntry);
 
-// delete an entry
-router.get('/:id/delete', feedbackController.deleteEntry);
-
-/** POST a new entry */
+// create new feedback entry
 router.post('/create', feedbackController.createEntry);
 
-// /** Update entry */
-// router.put('/feedback', middleware.checkToken, feedbackController.updateEntry);
-
-/**
- * feedback module routes
- * @exports routers/feedback
- */
 module.exports = router;
