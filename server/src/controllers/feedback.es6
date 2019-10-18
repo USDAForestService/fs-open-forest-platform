@@ -66,19 +66,4 @@ feedback.createEntry = async (req, res) => {
   });
 };
 
-// API function to delete an openforest entry
-feedback.deleteEntry = (req, res) => {
-  feedbackModel.destroy({
-    where: {
-      id: req.params.id
-    }
-  }).then((result) => {
-    res.status(200).json(result);
-  }).catch((error) => {
-    res.status(500).json(error);
-    logger.error(`Failure to delete entry ${req.params.id}`);
-    util.handleErrorResponse(error, res, 'deleteEntry#end');
-  });
-};
-
 module.exports = feedback;
