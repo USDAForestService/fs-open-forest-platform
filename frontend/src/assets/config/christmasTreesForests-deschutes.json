@@ -8,11 +8,17 @@
       "status": "recommended",
       "photoCredits": "J.S. Peterson"
     },
-    {
-      "id": "grand-fir",
-      "name": "Grand Fir",
+      {
+      "id": "incense-cedar",
+      "name": "Incense Cedar",
       "status": "recommended",
-      "photoCredits": "Susan McDougal"
+      "photoCredits": "J.S. Peterson"
+    },
+    {
+      "id": "white-fir",
+      "name": "White Fir",
+      "status": "recommended",
+      "photoCredits": "Al Schneider"
     },
     {
       "id": "lodgepole-pine",
