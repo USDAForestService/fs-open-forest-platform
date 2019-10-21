@@ -31,9 +31,11 @@ import { McBreadcrumbsModule } from 'ngx6-angular-breadcrumbs';
 import { UserResolver } from './user-resolver.service';
 import { AdminSeasonDatesComponent } from './trees/admin/season-dates/season-dates.component';
 import { AdminDistrictDatesComponent } from './trees/admin/district-dates/district-dates.component';
+import { AdminFeedbackReviewComponent } from './trees/admin/feedback-review/feedback-review.component';
 import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolver';
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
+import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
 
 const appRoutes: Routes = [
   {
@@ -203,6 +205,14 @@ const appRoutes: Routes = [
           title: 'Christmas trees permits Ranger District dates admin | U.S. Forest Service Open Forest',
           breadcrumbs: 'Christmas trees permits Ranger District dates',
         }
+      },
+      {
+        path: 'feedback-review',
+        component: AdminFeedbackReviewComponent,
+        data: {
+          title: 'Christmas trees feedback',
+          breadcrumbs: 'Christmas trees feedback'
+        }
       }
     ]
   },
@@ -308,6 +318,11 @@ const appRoutes: Routes = [
     path: 'mock-pay-gov',
     component: LandingPageComponent,
     data: { title: 'Complete your Christmas Tree permit transaction' }
+  },
+  {
+    path: 'feedback',
+    component: SubmitFeedbackComponent,
+    data: { title: 'Submit Feedback' }
   },
 
   { path: 'logged-in', component: LoggedInComponent, data: { title: 'Logged in' } },
