@@ -47,9 +47,15 @@ ignore:
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         reason: No upgrade path available
         expires: '2019-08-08T16:11:43.777Z'
+      openid-client > node-jose > lodash:
+        reason: not actually patching
+        expires: '2019-11-21T16:18:33.936Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
         expires: '2019-08-17T04:16:00.748Z'
+      snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        reason: snyk re-install does not update lodash
+        expires: '2019-11-21T16:18:33.936Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
         expires: '2019-09-19T14:58:22.562Z'
