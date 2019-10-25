@@ -322,6 +322,9 @@ const appRoutes: Routes = [
   {
     path: 'feedback',
     component: SubmitFeedbackComponent,
+    resolve: {
+      user: UserResolver
+    },
     data: { title: 'Submit Feedback' }
   },
 
