@@ -24,7 +24,7 @@ export class SubmitFeedbackComponent implements OnInit {
       if (data && data.user) {
         this.user = data.user;
       }
-    })
+    });
   }
 
   isAdmin() {
@@ -60,7 +60,7 @@ export class SubmitFeedbackComponent implements OnInit {
   goHome() {
     this.forests = '';
     this.message = '';
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
 }
