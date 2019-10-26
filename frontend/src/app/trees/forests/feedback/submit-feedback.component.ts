@@ -50,4 +50,12 @@ export class SubmitFeedbackComponent implements OnInit {
       });
     }
   }
+
+  // user hits return home button
+  goHome() {
+    this.forests = '';
+    this.message = '';
+    this.router.navigate(['/'])
+  }
+
 }
