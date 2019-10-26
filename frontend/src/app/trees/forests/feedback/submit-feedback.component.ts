@@ -41,14 +41,17 @@ export class SubmitFeedbackComponent implements OnInit {
       forests: this.forests,
       message: this.message
     };
-    // validate fields and create entry
+
+    // validate fields
     if (this.message) {
       const status = {
         message: 'Thank you for sharing your feedback.',
         header: ''
       };
-      localStorage.setItem('status', JSON.stringify(status));
+      // create feedback entry
       this.service.create(feedback).subscribe(data => {
+        // show success message
+        localStorage.setItem('status', JSON.stringify(status));
         this.forests = '';
         this.message = '';
         this.router.navigate(['/']);
