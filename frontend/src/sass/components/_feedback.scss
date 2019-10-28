@@ -15,7 +15,8 @@
     font-weight: bold;
     margin-top: 20px;
   }
-  button {
-    width: 100px;
+  .feedback-buttons {
+    display: flex;
+    flex-direction: row;
   }
 }
