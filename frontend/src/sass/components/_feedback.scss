@@ -20,3 +20,14 @@
     flex-direction: row;
   }
 }
+
+.give-feedback-link {
+  float: right;
+  text-decoration: none;
+  &.no-login-display {
+    margin-top: 45px;
+  }
+  @media (max-width: $nav-width - 1) {
+    top: 35px;
+  }
+}
