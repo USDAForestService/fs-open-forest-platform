@@ -36,8 +36,15 @@
   min-width: 115px;
 }
 
+.feedback-forests {
+  min-width: 140px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .feedback-message {
-  max-width: 800px;
+  max-width: 750px;
   text-overflow: ellipsis;
   overflow: hidden;
 }
