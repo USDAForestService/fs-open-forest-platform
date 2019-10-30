@@ -31,3 +31,11 @@
     top: 35px;
   }
 }
+.feedback-created {
+  min-width: 115px;
+}
+
+.feedback-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
