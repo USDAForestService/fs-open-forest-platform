@@ -50,11 +50,6 @@
             </ng-container>
           </fieldset>
           <div>
-            <p>To update, remove, or create a new area please
-              <a href="{{changeRequestFormUrl}}">submit a request</a>.
-            </p>
-          </div>
-          <div>
             <app-date-time-range [parentForm]="form" includePastDates="true"
                                  (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
           </div>
