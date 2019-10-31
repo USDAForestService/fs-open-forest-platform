@@ -1,0 +1,29 @@
+<ng-container>
+  <section class="usa-section">
+    <div class="usa-grid">
+
+      <h1 id="skip-nav-target" tabindex="-1">Feedback</h1>
+
+      <table id="feedback-table" *ngIf="entries">
+        <caption>
+          <button id="download-report" class="usa-button-primary" (click)="downloadReport()">Download as Excel/CSV</button>
+        </caption>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Forest/s</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of entries">
+            <td class="feedback-created"><span>{{entry.created}}</span></td>
+            <td class="feedback-forests"><span>{{entry.forests}}</span></td>
+            <td class="feedback-message"><span>{{entry.message}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </section>
+</ng-container>

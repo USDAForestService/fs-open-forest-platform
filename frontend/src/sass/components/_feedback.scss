@@ -1,0 +1,50 @@
+.feedback-section {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  padding: 20px 50px;
+  margin: auto;
+  h1 {
+    margin-top: 40px;
+  }
+  .feedback-info {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  .feedback-label {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .feedback-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.give-feedback-link {
+  float: right;
+  text-decoration: none;
+  &.no-login-display {
+    margin-top: 45px;
+  }
+  @media (max-width: $nav-width - 1) {
+    top: 35px;
+  }
+}
+
+.feedback-created {
+  min-width: 115px;
+}
+
+.feedback-forests {
+  min-width: 140px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feedback-message {
+  max-width: 750px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

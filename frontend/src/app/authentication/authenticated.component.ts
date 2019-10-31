@@ -69,6 +69,11 @@ export class AuthenticatedComponent implements OnInit {
     });
     }
 
+  // navigate user to /feedback
+  goToFeedback() {
+    this.router.navigate(['/feedback']);
+  }
+
   /**
    * determine if SUDS login displays in header
    */

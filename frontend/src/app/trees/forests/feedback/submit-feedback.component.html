@@ -1,0 +1,12 @@
+<div class="feedback-section">
+  <h1>Give feedback for Open Forest</h1>
+  <span class="feedback-info">We'd like to know how we can improve this permit experience for you.</span>
+  <span *ngIf="isAdmin()" class="feedback-label">Let us know the forest/s you are giving feedback for:</span>
+  <textarea maxlength="140" *ngIf="isAdmin()" [(ngModel)]="forests"></textarea>
+  <span class="feedback-label">Please share your feedback here:</span>
+  <textarea required minlength="1" maxlength="140" [(ngModel)]="message"></textarea>
+  <div class="feedback-buttons">
+    <button class="usa-button usa-button-primary" (click)="goHome()">Return Home</button>
+    <button (click)="submitFeedback()" class="usa-button">Submit</button>
+  </div>
+</div>
