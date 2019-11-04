@@ -47,6 +47,7 @@ describe('Apply for a noncommercial group use permit', () => {
 
   it('should submit an application as individual with only the required fields populated', () => {
     page.navigateTo();
+    element(by.id('accept-pii')).click();
     element(by.css('#person-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.css('#person-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
     element(by.css('#person-primary-address .primary-permit-holder-address')).sendKeys('933 Easy St');
