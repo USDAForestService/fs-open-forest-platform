@@ -134,6 +134,7 @@ describe('Apply for a noncommercial group use permit', () => {
     const ec = protractor.ExpectedConditions;
     browser.wait(ec.presenceOf(element(by.id('organization-label'))));
     element(by.id('organization-label')).click();
+    element(by.id('accept-pii-label')).click();
     element(by.id('organization-name')).sendKeys('Test organization');
     element(by.css('.organization-address')).sendKeys('933 Easy St');
     element(by.css('.organization-city')).sendKeys('Madison');
