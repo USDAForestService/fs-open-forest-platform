@@ -8,6 +8,7 @@
 * A Washington Sno-Park permit is required for parking at designated Sno-Parks.
 * A valid Recreation Pass is required at designated recreation fee sites.
 * Cut the leftover branches from the stump and scatter them.
+* If you dug up your tree, fill in the hole that was created when digging it up.
 
 ### Do not cut trees within 200 feet of the following roads:
 * Highway 410, Highway 12, and Forest Service Roads 1200, 1800, and 1900 (Naches District),
