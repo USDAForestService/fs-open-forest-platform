@@ -7,7 +7,7 @@ import { ApplicationFieldsService } from '../_services/application-fields.servic
 import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
 import { Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -55,7 +55,11 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
  use permit on the Mount Baker Snoqualmie\
  National Forest with Open Forest.'
     });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
+    });
     this.applicationForm = this.formBuilder.group({
+      acceptPII: [false, Validators.required],
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
       createdAt: ['', [Validators.maxLength(255)]],
