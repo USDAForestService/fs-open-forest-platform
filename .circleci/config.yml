@@ -323,7 +323,7 @@ workflows:
       - schedule:
           # every night at 2:11 AM UTC (10:11 PM ET)
           # temp set to 16:30 UTC (12:30 PM ET)
-          cron: "30 26 * * *"
+          cron: "30 2 * * *"
           filters:
             branches:
               only:
