@@ -1,5 +1,6 @@
 ### Christmas tree cutting
 
+* The tree stump must be less than {{stumpDiameter}} inches in diameter.
 * You must leave a stump of {{stumpHeight}} inches in height or less.
 * Your tree must be less than {{treeHeight}} feet in height.
 * Only cut trees within the national forest boundary.
