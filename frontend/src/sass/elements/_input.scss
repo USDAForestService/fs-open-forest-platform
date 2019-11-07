@@ -147,3 +147,7 @@ input[disabled] {
 .invalid-override {
   border: 3px solid $fs-red-dark !important;
 }
+
+.required-fields-asterisk {
+  color: $fs-red;
+}
