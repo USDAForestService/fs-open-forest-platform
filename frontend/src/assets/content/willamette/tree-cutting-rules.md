@@ -1,6 +1,6 @@
 #### Christmas tree cutting
 
-* Do not cut five-needle pines (sugar and white pines) or Pacific yew.
+* Do not cut five-needle pines.
 * Your tree must be less than {{treeHeight}} feet in height.
 * You must leave a stump heigt of {{stumpHeight}} inches or less. 
 * Only cut trees within the national forest boundary.

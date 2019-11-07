@@ -26,8 +26,14 @@
       "photoCredits": "Susan McDougal"
     },
     {
-      "id": "pacific-yew",
-      "name": "Pacific Yew",
+      "id": "whitebark-pine",
+      "name": "Whitebark Pine",
+      "status": "prohibited",
+      "photoCredits": "Susan McDougal"
+    },
+    {
+      "id": "western-white-pine",
+      "name": "Western White Pine",
       "status": "prohibited",
       "photoCredits": "Susan McDougal"
     }
