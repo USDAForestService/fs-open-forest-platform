@@ -3,7 +3,7 @@
     <span id="twoDigitHint" class="display-none" aria-disabled="true">For example: 01</span>
     <span id="fourDigitHint" class="display-none" aria-disabled="true">For example: 2020</span>
     <fieldset>
-      <legend class="fs-datetime-legend">Start date</legend>
+      <legend class="fs-datetime-legend">Start date <span class="required-fields-asterisk">*</span></legend>
       <span class="usa-form-hint" id="startDateHint">For example: 01 31 2020</span>
 
       <div class="usa-form-group usa-form-group-month">
@@ -46,7 +46,7 @@
     ></app-error-message>
 
     <fieldset *ngIf="!dateOnly">
-      <legend class="fs-datetime-legend">Start time</legend>
+      <legend class="fs-datetime-legend">Start time <span class="required-fields-asterisk">*</span></legend>
       <div class="usa-form-group usa-form-group-year">
         <label for="start-hour">Hour</label>
         <select class="usa-input-inline" id="start-hour" formControlName="startHour" aria-required="true">
@@ -78,7 +78,7 @@
     ></app-error-message>
 
     <fieldset>
-      <legend class="fs-datetime-legend">End date</legend>
+      <legend class="fs-datetime-legend">End date <span class="required-fields-asterisk">*</span></legend>
       <span class="usa-form-hint" id="endDateHint">For example: 01 31 2020</span>
 
       <div class="usa-form-group usa-form-group-month">
@@ -123,7 +123,7 @@
 
 
     <fieldset *ngIf="!dateOnly">
-      <legend class="fs-datetime-legend">End time </legend>
+      <legend class="fs-datetime-legend">End time <span class="required-fields-asterisk">*</span></legend>
       <div class="usa-form-group usa-form-group-year">
         <label for="end-hour">Hour</label>
         <select class="usa-input-inline" id="end-hour" formControlName="endHour" aria-required="true">
