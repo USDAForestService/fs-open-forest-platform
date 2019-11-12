@@ -1,5 +1,5 @@
 <ng-container [formGroup]="applicantInfo">
-  <label class="usa-input" for='email' id="email-label">Email address</label>
+  <label class="usa-input" for='email' id="email-label">Email address <span class="required-fields-asterisk">*</span></label>
   <span id="email-hint-text" class="help-text usa-form-hint"><span *ngIf="hintText">{{hintText}}</span></span>
   <input id="email" type="email" formControlName="emailAddress" aria-required="true"
     [attr.aria-labelledby]="afs.labelledBy(applicantInfo.controls.emailAddress, 'email-label email-hint-text', 'email-error')"
@@ -7,4 +7,3 @@
   />
   <app-error-message fieldId="email-error" name="Email address" [control]="applicantInfo.controls.emailAddress"></app-error-message>
 </ng-container>
-

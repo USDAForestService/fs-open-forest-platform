@@ -1,5 +1,5 @@
 <fieldset [formGroup]="applicantInfo" *ngIf="type === 'simple'">
-  <legend class="fs-mini-legend">Are you applying as an individual or organization?</legend>
+  <legend class="fs-mini-legend"><span class="required-fields-asterisk">*</span> Are you applying as an individual or organization?</legend>
   <ul class="usa-unstyled-list">
     <li>
       <input id="individual" type="radio" value="Person" name="orgType" formControlName="orgType">
@@ -13,7 +13,7 @@
 </fieldset>
 
 <fieldset [formGroup]="applicantInfo" *ngIf="type === 'complex'">
-  <legend class="fs-mini-legend">As an applicant, are you:</legend>
+  <legend class="fs-mini-legend"><span class="required-fields-asterisk">*</span> As an applicant, are you:</legend>
   <ul class="usa-unstyled-list">
     <li>
       <input id="individual" type="radio" value="Person" name="orgType" formControlName="orgType">

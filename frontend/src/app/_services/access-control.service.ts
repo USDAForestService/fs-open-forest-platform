@@ -37,7 +37,9 @@ export class AccessControlService implements CanActivate, CanActivateChild {
    * @returns      boolean
    */
   validateUser(user) {
-    localStorage.removeItem('requestingUrl');
+    if (window.location.pathname !== '/mbs') {
+      localStorage.removeItem('requestingUrl');
+    }
 
     if (user && user.role === 'user') {
       return true;
@@ -52,7 +54,9 @@ export class AccessControlService implements CanActivate, CanActivateChild {
    */
   sendToAuthentication() {
     const requestingUrl = window.location.pathname;
-    localStorage.setItem('requestingUrl', requestingUrl);
+    if (window.location.pathname !== '/mbs') {
+      localStorage.setItem('requestingUrl', requestingUrl);
+    }
     this.util.setLoginRedirectMessage();
     setTimeout(() => {
       this.util.navigateExternal(LOGIN_URL);

@@ -2,6 +2,7 @@ import { element, by } from 'protractor';
 
 export class NoncommercialApplicationForm {
   createApplication() {
+    element(by.id('accept-pii-label')).click();
     element(by.css('#person-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.css('#person-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
     element(by.css('#person-primary-address .primary-permit-holder-address')).sendKeys('933 Easy St');

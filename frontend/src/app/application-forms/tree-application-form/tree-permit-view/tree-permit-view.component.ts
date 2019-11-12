@@ -16,7 +16,7 @@ export class TreePermitViewComponent implements OnInit {
   error: any = null;
   nativeWindow: any;
   isPermitExpired = false;
-  includeRules = false;
+  includeRules = true;
   jwtToken: string;
 
   constructor(

@@ -9,7 +9,7 @@ import { emailConfirmationValidator } from '../validators/email-confirmation-val
 import { FileUploadService } from '../_services/file-upload.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 import { Meta } from '@angular/platform-browser';
@@ -66,8 +66,12 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       name: 'description', content: 'Apply for a temporary outffitter\
  and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
     });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
+    });
 
     this.applicationForm = this.formBuilder.group({
+      acceptPII: [false, Validators.required],
       appControlNumber: ['', [Validators.maxLength(255)]],
       applicationId: ['', [Validators.maxLength(255)]],
       createdAt: ['', [Validators.maxLength(255)]],

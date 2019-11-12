@@ -1,7 +1,7 @@
 <ng-container [formGroup]="tempOutfitterFields">
   <fieldset>
     <legend>Client Charges</legend>
-    <label class="usa-input" id="client-charges-label">Provide a description of client charges and fees and what they cover (account for any additional fees, scholarships, etc.).</label>
+    <label class="usa-input" id="client-charges-label">Provide a description of client charges and fees and what they cover (account for any additional fees, scholarships, etc.). <span class="required-fields-asterisk">*</span></label>
     <p id="client-charges-hint-text" class="help-text usa-form-hint">What you enter will not change what you will be charged. Charges for a temporary outfitter permit are based on a flat rate (see costs on the <a routerLink="/mbs/applications/temp-outfitters/learn-more" aria-label="Temporary outfitter permit learn more page." target="_blank">learn more page</a>).</p>
     <textarea id="client-charges" type="text" formControlName="clientCharges" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(tempOutfitterFields.controls.clientCharges, 'client-charges-label client-charges-hint-text', 'client-charges-error')"
