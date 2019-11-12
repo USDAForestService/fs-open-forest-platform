@@ -40,14 +40,14 @@
       </fieldset>
       <fieldset>
         <legend>Permit holder information</legend>
-        <p>All form fields are required unless otherwise noted.</p>
+        <p>required field <span class="required-fields-asterisk">*</span></p>
         <p>The permit holder’s name is on the permit. Permit holder must be present at time of tree cutting and transport.</p>
         <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
         <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
         <app-email-confirmation [applicantInfo]="applicationForm" hintText="Please verify your email address"></app-email-confirmation>
         <div class="trees-applications-pii-accept-checkbox-container">
           <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii">By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
           information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
           <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII"></app-error-message>
@@ -73,7 +73,7 @@
           </div>
           <div class="trees-applications-rules-checkbox-container">
             <input id="accept-rules" type="checkbox" formControlName='acceptRules' name="accept-rules" required>
-            <label id='accept-rules-label' for="accept-rules">By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
+            <label id='accept-rules-label' for="accept-rules"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that I have read, understand, and agree to the Christmas tree cutting rules and guidelines.</label>
             <app-error-message fieldId="accept-rules-error" name="To purchase a tree permit, agreeing to the rules" [control]="applicationRulesForm.controls.acceptRules"></app-error-message>
           </div>
        </div>
