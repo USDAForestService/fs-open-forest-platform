@@ -16,7 +16,7 @@ describe('Apply for a Christmas tree permit', () => {
 
     it('should display the permit name in the header', () => {
       christmasTreeForm.navigateTo(forestId);
-      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Mt. Hood National Forest Christmas Tree permit information');
+      expect<any>(element(by.css('app-root h1')).getText()).toEqual('Buy a Christmas tree permit');
     });
 
     it('should show the breadcrumb', () => {

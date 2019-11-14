@@ -253,14 +253,12 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
     const areaKey = key.toUpperCase();
     const cuttingAreas = forest.cuttingAreas;
     if (cuttingAreas && cuttingAreas[areaKey] && cuttingAreas[areaKey].startDate) {
-      rulesTextWithDate = rulesText.replace(
-        `{{${key}Date}}`,
+      rulesTextWithDate = rulesText.replace(new RegExp(`{{${key}Date}}`, 'g'),
         christmasTreesPermitSvgUtil.formatCuttingAreaDate(
           forest.timezone,
           cuttingAreas[areaKey].startDate,
           cuttingAreas[areaKey].endDate
-        )
-      );
+        ));
     }
   }
   return rulesTextWithDate;
