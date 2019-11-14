@@ -258,8 +258,7 @@ christmasTreesPermitSvgUtil.parseCuttingAreaDates = (rulesText, forest) => {
           forest.timezone,
           cuttingAreas[areaKey].startDate,
           cuttingAreas[areaKey].endDate
-        )
-      );
+        ));
     }
   }
   return rulesTextWithDate;
