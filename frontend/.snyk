@@ -26,4 +26,11 @@ ignore:
     - newrelic > https-proxy-agent:
         reason: ignore for 30days
         expires: '2020-01-25T18:45:56.816Z'
+  SNYK-JS-ELLIPTIC-511941:
+    - uswds > browserify > crypto-browserify > browserify-sign > elliptic:
+        reason: ignore for more days
+        expires: '2020-01-25T18:26:03.902Z'
+    - uswds > browserify > crypto-browserify > create-ecdh > elliptic:
+        reason: ignore for more days
+        expires: '2020-01-25T18:26:03.902Z'
 patch: {}

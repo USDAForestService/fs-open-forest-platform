@@ -11,4 +11,4 @@ applications:
     FORCE_HTTPS: true
   services:
     - new-relic
-    - splunk
+   
