@@ -64,10 +64,6 @@ describe('Christmas tree  - When to Cut Your Tree page', () => {
     it('should display a season start and end date for the overall forest', () => {
       expect<any>(page.cuttingDatesSeasonStartAndEnd().isPresent()).toBeTruthy();
     });
-
-    it('should show the season not open info alert', () => {
-      expect<any>(page.seasonOpenAlert().isDisplayed()).toBeTruthy();
-    });
   });
 
   describe('Flathead', () => {
