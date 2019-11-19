@@ -10,6 +10,7 @@
 
 ### Do not cut trees within:
 
+* Research natural areas,
 * developed campgrounds and picnic areas,
 * trail heads,
 * administrative sites,
