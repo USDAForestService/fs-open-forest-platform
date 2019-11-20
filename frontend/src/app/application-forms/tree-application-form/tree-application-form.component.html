@@ -39,6 +39,8 @@
           </div>
         </div>
 
+      <p>required field <span class="required-fields-asterisk">*</span></p>
+
       <fieldset>
         <legend>Permit information</legend>
         <app-quantity [parentGroup]="applicationForm" label="Number of Christmas trees" hintText="Up to {{maxNumberOfTrees}} trees allowed per household."></app-quantity>
@@ -46,7 +48,6 @@
       </fieldset>
       <fieldset>
         <legend>Permit holder information</legend>
-        <p>required field <span class="required-fields-asterisk">*</span></p>
         <p>The permit holder’s name is on the permit. Permit holder must be present at time of tree cutting and transport.</p>
         <app-permit-holder-name [applicantInfo]="applicationForm"></app-permit-holder-name>
         <app-email [applicantInfo]="applicationForm" hintText="Your permit will be sent to the email address you provide and must be printed. Please enter your email address so that your permit can be emailed to you."></app-email>
