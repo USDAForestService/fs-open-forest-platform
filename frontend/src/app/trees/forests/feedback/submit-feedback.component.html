@@ -6,7 +6,7 @@
   <span class="feedback-label">Please share your feedback here:</span>
   <textarea required minlength="1" maxlength="140" [(ngModel)]="message"></textarea>
   <div class="feedback-buttons">
-    <button class="usa-button usa-button-primary" (click)="goHome()">Return Home</button>
     <button (click)="submitFeedback()" class="usa-button">Submit</button>
+    <span class="previous-from-feedback" (click)="goPrevious()">Return to previous page</span>
   </div>
 </div>

@@ -54,16 +54,18 @@ export class SubmitFeedbackComponent implements OnInit {
         localStorage.setItem('status', JSON.stringify(status));
         this.forests = '';
         this.message = '';
-        this.router.navigate(['/']);
+        const redirectUrl = localStorage.getItem('feedbackRedirect');
+        this.router.navigate([redirectUrl]);
       });
     }
   }
 
-  // user hits return home button
-  goHome() {
+  // user hits return to previous page button
+  goPrevious() {
     this.forests = '';
     this.message = '';
-    this.router.navigate(['/']);
+    const redirectUrl = localStorage.getItem('feedbackRedirect');
+    this.router.navigate([redirectUrl]);
   }
 
 }
