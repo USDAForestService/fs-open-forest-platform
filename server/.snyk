@@ -46,13 +46,13 @@ ignore:
   SNYK-JS-LODASH-450202:
     - snyk > snyk-nodejs-lockfile-parser > lodash:
         reason: No upgrade path available
-        expires: '2019-08-08T16:11:43.777Z'
+        expires: '2020-02-08T16:11:43.777Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
-        expires: '2019-08-17T04:16:00.748Z'
+        expires: '2020-02-08T04:16:00.748Z'
     - openid-client > node-jose > lodash:
         reason: not actually patching
-        expires: '2019-09-19T14:58:22.562Z'
+        expires: '2020-02-08T14:58:22.562Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
         reason: None given
         expires: '2019-09-19T14:59:24.052Z'
@@ -67,19 +67,19 @@ ignore:
         expires: '2019-11-21T16:18:33.936Z'
     - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
         reason: snyk re-install does not update lodash
-        expires: '2019-11-21T16:18:33.936Z'
+        expires: '2020-02-21T16:18:33.936Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > lodash:
         reason: None given
-        expires: '2019-11-21T16:22:41.008Z'
+        expires: '2020-02-21T16:22:41.008Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > lodash:
         reason: None given
-        expires: '2019-11-21T16:22:41.008Z'
+        expires: '2020-02-21T16:22:41.008Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/dep-graph > graphlib > lodash:
         reason: None given
-        expires: '2019-11-21T16:22:41.008Z'
+        expires: '2020-02-21T16:22:41.008Z'
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
         reason: None given
-        expires: '2019-11-21T16:22:41.008Z'
+        expires: '2020-02-21T16:22:41.008Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
         reason: No upgrade path available
