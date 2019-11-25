@@ -11,13 +11,6 @@
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
 
         <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a temporary outfitters permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
-        </div>
         <div id="form-errors"
           *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
           class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
@@ -207,6 +200,14 @@
           />
           <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
         </fieldset>
+
+        <div class="outfitters-applications-pii-accept-checkbox-container">
+          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
+          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
+          <app-error-message fieldId="accept-rules-error" name="To purchase a temporary outfitters permit, consenting to our collection of your name and email"
+            [control]="applicationForm.controls.acceptPII"></app-error-message>
+        </div>
 
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
         <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
