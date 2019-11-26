@@ -7,6 +7,7 @@ import { ApplicationSubmittedComponent } from './application-forms/application-s
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
+import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -42,8 +43,10 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: 'christmas-trees/forests',
     pathMatch: 'full'
-  },
-  {
+  }, {
+    path: 'ChristmasTreePermit',
+    component: DummyComponent
+  }, {
     path: 'mbs',
     data: {
       title: 'US Forest Service Open Forest',

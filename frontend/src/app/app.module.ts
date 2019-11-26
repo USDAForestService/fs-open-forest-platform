@@ -14,6 +14,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { Base64 } from './_pipes/base64.pipe';
 import { CancelApplicationComponent } from './applications/actions/cancel-application.component';
 import { DaysToOrDate } from './_pipes/days-to-or-date.pipe';
+import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ErrorInterceptor } from './error-pages/error-interceptor.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
 import { HoursFromOrDate } from './_pipes/hours-from-or-date.pipe';
@@ -53,6 +54,7 @@ import { GoogleAnalyticsService } from './_services/google-analytics.service';
     Base64,
     CancelApplicationComponent,
     DaysToOrDate,
+    DummyComponent,
     ForestAdminNavComponent,
     HelpMePickComponent,
     HomeComponent,
