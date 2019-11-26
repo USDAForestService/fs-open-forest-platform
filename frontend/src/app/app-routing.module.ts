@@ -51,7 +51,7 @@ const appRoutes: Routes = [
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Apply for a permit with Open Forest',
+      text: 'Mount Baker-Snoqualmie special use permits',
       displayLogin: true,
       specialUse: true
     },
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
-          breadcrumbs: 'Help me find a permit available on Open Forest'
+          breadcrumbs: 'Help me pick'
         }
       },
       {
@@ -76,6 +76,7 @@ const appRoutes: Routes = [
         component: NoncommercialLearnMoreComponent,
         data: {
           title: 'Learn more about a noncommercial group use permit',
+          breadcrumbs: 'Learn more'
         }
       },
       {
@@ -83,6 +84,7 @@ const appRoutes: Routes = [
         component: TemporaryOutfittersLearnMoreComponent,
         data: {
           title: 'Learn more about a temporary outfitters permit',
+          breadcrumbs: 'Learn more'
         },
       },
       {
@@ -98,13 +100,15 @@ const appRoutes: Routes = [
             component: ApplicationNoncommercialGroupComponent,
             data: {
               title: 'Apply for a noncommercial group use permit with Open Forest',
+              breadcrumbs: 'Apply'
             },
           },
           {
             path: 'noncommercial-group-use/:id/edit',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Edit your noncommercial group use permit with Open Forest'
+              title: 'Edit your noncommercial group use permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
           {
@@ -119,6 +123,7 @@ const appRoutes: Routes = [
             component: TemporaryOutfittersComponent,
             data: {
               title: 'Apply for a temporary outfitters permit with Open Forest',
+              breadcrumbs: 'Apply'
             },
           },
           {
@@ -126,6 +131,7 @@ const appRoutes: Routes = [
             component: TemporaryOutfittersComponent,
             data: {
               title: 'Edit your temporary outfitters permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
         ]
@@ -154,7 +160,8 @@ const appRoutes: Routes = [
         path: '',
         component: PermitApplicationListComponent,
         data: {
-          title: 'Application administration listing'
+          title: 'Application administration listing',
+          breadcrumbs: 'View applications'
         }
       },
       {
@@ -162,7 +169,7 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View application',
-          breadcrumbs: 'View application'
+          breadcrumbs: 'Application details'
         }
       }
     ]
