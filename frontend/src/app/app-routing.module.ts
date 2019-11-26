@@ -166,7 +166,7 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View application',
-          breadcrumbs: 'Application Details'
+          breadcrumbs: 'Application details'
         }
       }
     ]
