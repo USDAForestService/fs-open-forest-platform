@@ -47,7 +47,7 @@
           <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }}</h3>
+            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
             <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
             <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
               [applicationId]="applicationId"
@@ -149,7 +149,7 @@
         [inViewportOptions]="{ partial: true }"
         (inViewportAction)="elementInView($event)">
 
-          <legend id="insurance-certificate-label">Liability insurance</legend>
+          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
 
           <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
