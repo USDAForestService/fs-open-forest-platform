@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FeedbackService } from '../../_services/feedback.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 
 @Component({
   selector: 'app-submit-feedback',
@@ -8,10 +10,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class SubmitFeedbackComponent implements OnInit {
+
   user: any;
   forests: any;
   message: any;
+  feedbackFormGroup: FormGroup;
+
   constructor(
+    private formBuilder: FormBuilder,
+    public afs: ApplicationFieldsService,
     private service: FeedbackService,
     private router: Router,
     private route: ActivatedRoute
@@ -25,6 +32,16 @@ export class SubmitFeedbackComponent implements OnInit {
         this.user = data.user;
       }
     });
+
+    this.feedbackFormGroup = new FormGroup({
+      feedbackText: new FormControl()
+    });
+    this.feedbackFormGroup = this.formBuilder.group({
+      feedbackText: ['', [Validators.required, Validators.maxLength(1000)]],
+    });
+
+    const feedbackMessage = this.feedbackFormGroup.get('feedbackText');
+    this.afs.updateValidators(feedbackMessage, true, 1000);
   }
 
   isAdmin() {
