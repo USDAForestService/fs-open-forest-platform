@@ -69,8 +69,6 @@ export class SubmitFeedbackComponent implements OnInit {
       this.service.create(feedback).subscribe(data => {
         // show success message
         localStorage.setItem('status', JSON.stringify(status));
-        this.forests = '';
-        this.message = '';
         const redirectUrl = localStorage.getItem('feedbackRedirect');
         this.router.navigate([redirectUrl]);
       });
