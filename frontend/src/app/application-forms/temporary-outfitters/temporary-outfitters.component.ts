@@ -103,7 +103,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
       guideIdentification: ['', [Validators.maxLength(255)]],
       operatingPlan: ['', [Validators.maxLength(255)]],
-      liabilityInsurance: ['', [Validators.maxLength(255)]],
+      liabilityInsurance: ['', [Validators.required, Validators.maxLength(255)]],
       acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
       locationMap: ['', [Validators.maxLength(255)]],
       tempOutfitterFields: this.formBuilder.group({

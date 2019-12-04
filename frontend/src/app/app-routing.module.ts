@@ -7,6 +7,7 @@ import { ApplicationSubmittedComponent } from './application-forms/application-s
 import { AccessControlService } from './_services/access-control.service';
 import { AdminAccessControlService } from './_services/admin-access-control.service';
 import { ChristmasTreePermitResolver } from './application-forms/tree-application-form/christmas-tree-permit-resolver.service';
+import { DummyComponent } from './print-permit-dummy-page/dummy.component';
 import { ForestResolver } from './trees/forests/tree-guidelines/forest-resolver.service';
 import { ForestsResolver } from './trees/forests/forest-finder/forests-resolver.service';
 import { HelpMePickComponent } from './help-me-pick/help-me-pick.component';
@@ -42,13 +43,15 @@ const appRoutes: Routes = [
     path: '',
     redirectTo: 'christmas-trees/forests',
     pathMatch: 'full'
-  },
-  {
+  }, {
+    path: 'ChristmasTreePermit',
+    component: DummyComponent
+  }, {
     path: 'mbs',
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Apply for a permit with Open Forest',
+      text: 'Mount Baker-Snoqualmie special use permits',
       displayLogin: true,
       specialUse: true
     },
@@ -65,7 +68,7 @@ const appRoutes: Routes = [
         component: HelpMePickComponent,
         data: {
           title: 'Help me find a permit',
-          breadcrumbs: 'Help me find a permit available on Open Forest'
+          breadcrumbs: 'Help me find a permit'
         }
       },
       {
@@ -73,6 +76,7 @@ const appRoutes: Routes = [
         component: NoncommercialLearnMoreComponent,
         data: {
           title: 'Learn more about a noncommercial group use permit',
+          breadcrumbs: 'Learn more'
         }
       },
       {
@@ -80,6 +84,7 @@ const appRoutes: Routes = [
         component: TemporaryOutfittersLearnMoreComponent,
         data: {
           title: 'Learn more about a temporary outfitters permit',
+          breadcrumbs: 'Learn more'
         },
       },
       {
@@ -95,13 +100,15 @@ const appRoutes: Routes = [
             component: ApplicationNoncommercialGroupComponent,
             data: {
               title: 'Apply for a noncommercial group use permit with Open Forest',
+              breadcrumbs: 'Application'
             },
           },
           {
             path: 'noncommercial-group-use/:id/edit',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Edit your noncommercial group use permit with Open Forest'
+              title: 'Edit your noncommercial group use permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
           {
@@ -109,6 +116,7 @@ const appRoutes: Routes = [
             component: ApplicationSubmittedComponent,
             data: {
               title: 'Application submitted for review with Open Forest',
+              breadcrumbs: 'Application submitted'
             },
           },
           {
@@ -116,6 +124,7 @@ const appRoutes: Routes = [
             component: TemporaryOutfittersComponent,
             data: {
               title: 'Apply for a temporary outfitters permit with Open Forest',
+              breadcrumbs: 'Application'
             },
           },
           {
@@ -123,6 +132,7 @@ const appRoutes: Routes = [
             component: TemporaryOutfittersComponent,
             data: {
               title: 'Edit your temporary outfitters permit with Open Forest',
+              breadcrumbs: 'Application edit'
             },
           },
         ]
@@ -137,11 +147,11 @@ const appRoutes: Routes = [
     path: 'admin/applications',
     canActivateChild: [AdminAccessControlService],
     data: {
-      breadcrumbs: true,
-      text: 'Permit applications',
       displayLogin: true,
       admin: true,
-      specialUse: true
+      specialUse: true,
+      breadcrumbs: true,
+      text: 'Admin applications'
     },
     resolve: {
       user: UserResolver
@@ -151,7 +161,7 @@ const appRoutes: Routes = [
         path: '',
         component: PermitApplicationListComponent,
         data: {
-          title: 'Application administration listing'
+          title: 'Application administration listing',
         }
       },
       {
@@ -159,7 +169,7 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View application',
-          breadcrumbs: 'View application'
+          breadcrumbs: 'Application details'
         }
       }
     ]
@@ -220,7 +230,9 @@ const appRoutes: Routes = [
     path: 'user/applications',
     data: {
       displayLogin: true,
-      specialUse: true
+      specialUse: true,
+      breadcrumbs: true,
+      text: 'User Applications'
     },
     canActivateChild: [AccessControlService],
     resolve: {
@@ -239,6 +251,7 @@ const appRoutes: Routes = [
         component: PermitApplicationViewComponent,
         data: {
           title: 'View submitted Open Forest application',
+          breadcrumbs: 'Application details'
         },
       },
     ]

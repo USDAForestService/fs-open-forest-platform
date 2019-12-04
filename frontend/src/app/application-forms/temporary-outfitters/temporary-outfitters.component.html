@@ -1,6 +1,7 @@
 <h1 class="forest-title">{{forest}}</h1>
 <section id="application" class="usa-section">
   <div class="usa-grid">
+      <app-breadcrumbs></app-breadcrumbs>
     <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
       [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
     <div class="usa-width-two-thirds temp-outfitter-main-content">
@@ -11,13 +12,6 @@
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
 
         <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a temporary outfitters permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
-        </div>
         <div id="form-errors"
           *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
           class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
@@ -54,7 +48,7 @@
           <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
 
           <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }}</h3>
+            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
             <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
             <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
               [applicationId]="applicationId"
@@ -156,7 +150,7 @@
         [inViewportOptions]="{ partial: true }"
         (inViewportAction)="elementInView($event)">
 
-          <legend id="insurance-certificate-label">Liability insurance</legend>
+          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
 
           <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
@@ -207,6 +201,14 @@
           />
           <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
         </fieldset>
+
+        <div class="outfitters-applications-pii-accept-checkbox-container">
+          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
+          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
+          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
+          <app-error-message fieldId="accept-rules-error" name="To purchase a temporary outfitters permit, consenting to our collection of your name and email"
+            [control]="applicationForm.controls.acceptPII"></app-error-message>
+        </div>
 
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
         <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>

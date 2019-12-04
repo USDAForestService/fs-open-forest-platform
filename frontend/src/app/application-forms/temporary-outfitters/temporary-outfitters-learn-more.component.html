@@ -1,6 +1,7 @@
 <h1 class="forest-title">{{forest}}</h1>
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       <app-sidebar [items]="items"></app-sidebar>
     </aside>
@@ -9,6 +10,7 @@
       <p>If you charge a fee for someone to participate in a service that you are providing or otherwise stand to gain from providing that service, you generally need a permit.
          This includes non-profit organizations.</p>
       <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">See definitions</a> for “Commercial Use”, “Guiding”, “Outfitting”.</p>
+      <p>It may take approximately 40-65 minutes to complete this online application.</p>
       <ng-container *ngFor="let item of items">
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>

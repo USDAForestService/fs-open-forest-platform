@@ -1,6 +1,7 @@
 <h1 class="forest-title">{{forest}}</h1>
 <section id="sidebar-page" class="usa-section usa-content">
   <div class="usa-grid">
+    <app-breadcrumbs></app-breadcrumbs>
     <aside class="usa-width-one-third usa-layout-docs-sidenav">
       <app-sidebar [items]="items"></app-sidebar>
     </aside>
@@ -11,6 +12,7 @@ more people on National Forest Service land where there is no participant fee
 charged, and where there is no sale of goods or services. Examples include:
 weddings, religious gatherings, races, regattas, camping trips, hikes, music
 festivals, rallies and graduations.</p>
+      <p>It may take approximately 20-30 minutes to complete this online application.</p>
       <ng-container *ngFor="let item of items">
         <app-section-heading [heading]="item.sectionName" [elementId]="util.createId(item.sectionName)"></app-section-heading>
         <div [innerHtml]="item.sectionCopy"></div>

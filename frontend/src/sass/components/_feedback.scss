@@ -17,7 +17,16 @@
   }
   .feedback-buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    button {
+      width: 90px;
+    }
+    .previous-from-feedback {
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: underline;
+      color: $fs-green;
+    }
   }
 }
 
