@@ -10,7 +10,11 @@
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
-
+        <br>
+        <p>It may take a while to complete the application. To save time, have all of your documents ready.
+          You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
+        </p>
+        <br>
         <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
         <div id="form-errors"
           *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"

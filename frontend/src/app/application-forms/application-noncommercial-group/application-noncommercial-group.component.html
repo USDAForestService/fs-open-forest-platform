@@ -6,7 +6,7 @@
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
     <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit(applicationForm)" novalidate>
-      <p class="form-directions">required fields<span class="required-fields-asterisk">*</span></p>
+      <p>Your application will be saved once it is submitted. You won't be able to save the application to complete it later.</p>
       <legend>Application process</legend>
       <div>
         <ol>
@@ -16,6 +16,9 @@
           <li>Once your application is approved, you will receive your permit within 2 weeks. If your application is not approved, you will be notified via email.</li>
         </ol>
       </div>
+
+      <br>
+      <p class="form-directions">required fields<span class="required-fields-asterisk">*</span></p>
 
       <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
         <div class="usa-alert-body">
