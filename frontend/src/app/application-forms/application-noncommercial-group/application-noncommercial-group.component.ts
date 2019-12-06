@@ -78,8 +78,11 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255), alphanumericValidator()]],
-        emailAddressConfirmation: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddressConfirmation: [
+          '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
+            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
+          ), Validators.maxLength(255)]],
         organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
