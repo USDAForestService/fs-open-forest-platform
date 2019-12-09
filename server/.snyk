@@ -104,6 +104,10 @@ ignore:
     - jsdoc > markdown-it:
         reason: None given
         expires: '2020-02-08T18:09:41.408Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        reason: no upgrade path currenty
+        expires: '2020-01-08T15:38:05.011Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
