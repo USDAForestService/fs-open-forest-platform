@@ -52,7 +52,10 @@ describe('frontend App', () => {
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('no', 'Does your activity involve more than 75 people (spectators and participants)?');
-    helpMePick.landingPage('Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.', 'Thanks for checking!');
+    helpMePick.landingPage(
+      `Your activity does not require a permit. However, if you are planning a large group activity, it may be
+      helpful to contact your local office to find out about any special restrictions, or get helpful information.`, 'Thanks for checking!'
+      );
     helpMePick.questionStep('no', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');

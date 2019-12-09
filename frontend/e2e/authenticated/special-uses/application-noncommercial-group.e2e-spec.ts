@@ -172,21 +172,24 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('organization-label')).click();
     element(by.id('participants')).sendKeys('0');
     element(by.id('spectators')).sendKeys('0');
-    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
+    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('5');
     });
     element(by.id('spectators')).clear().then(function() {
       element(by.id('spectators')).sendKeys('0');
     });
-    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
+    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('5');
     });
     element(by.id('spectators')).clear().then(function() {
       element(by.id('spectators')).sendKeys('5');
     });
-    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual('It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.');
+    expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
+    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('50');
     });
