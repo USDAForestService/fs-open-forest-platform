@@ -91,7 +91,7 @@ export class ErrorMessageComponent {
   }
 
   notEnoughAttendees(errors) {
-    return `It appears you have entered fewer than 75 total attendees. For fewer than 75, you do not need a permit.`;
+    return `It appears you have entered fewer than 75 total attendees. For fewer than 75 people, a permit is not required. Contact your local office for more information.`;
   }
 
   emailConfirmationRequirement(errors) {

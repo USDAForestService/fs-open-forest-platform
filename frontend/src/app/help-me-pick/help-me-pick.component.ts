@@ -28,7 +28,7 @@ export class HelpMePickComponent implements OnInit {
         this.title = 'Does your activity involve more than 75 people (spectators and participants)?';
         break;
       case '4':
-        this.title = 'Your activity does not require a permit.';
+        this.title = 'Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.';
         break;
       case '5':
         this.title = 'Does your activity involve guiding or outfitting?';

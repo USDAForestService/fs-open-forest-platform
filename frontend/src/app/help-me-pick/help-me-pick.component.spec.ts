@@ -48,7 +48,7 @@ describe('HelpMePickComponent', () => {
     component.getTitle('3');
     expect(component.title).toEqual('Does your activity involve more than 75 people (spectators and participants)?');
     component.getTitle('4');
-    expect(component.title).toEqual('Your activity does not require a permit.');
+    expect(component.title).toEqual('Your activity does not require a permit. However, if you are planning a large group activity, it may be helpful to contact your local office to find out about any special restrictions, or get helpful information.');
     component.getTitle('5');
     expect(component.title).toEqual('Does your activity involve guiding or outfitting?');
     component.getTitle('6');
