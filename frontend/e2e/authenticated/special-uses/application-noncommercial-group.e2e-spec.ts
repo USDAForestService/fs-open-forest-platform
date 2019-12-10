@@ -173,7 +173,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('participants')).sendKeys('0');
     element(by.id('spectators')).sendKeys('0');
     expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
-    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
+     For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('5');
     });
@@ -181,7 +181,7 @@ describe('Apply for a noncommercial group use permit', () => {
       element(by.id('spectators')).sendKeys('0');
     });
     expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
-    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
+     For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('5');
     });
@@ -189,7 +189,7 @@ describe('Apply for a noncommercial group use permit', () => {
       element(by.id('spectators')).sendKeys('5');
     });
     expect<any>(element(by.id('total-attendees-error')).getText()).toEqual(`It appears you have entered fewer than 75 total attendees.
-    For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
+     For fewer than 75 people, a permit is not required. Contact your local office for more information.`);
     element(by.id('participants')).clear().then(function() {
       element(by.id('participants')).sendKeys('50');
     });
