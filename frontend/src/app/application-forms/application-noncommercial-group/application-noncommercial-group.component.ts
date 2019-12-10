@@ -5,7 +5,7 @@ import { urlValidator } from '../validators/url-validation';
 import { ApplicationService } from '../../_services/application.service';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
 import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +20,7 @@ import { SpecialUseInfoService } from '../../_services/special-use-info.service'
 export class ApplicationNoncommercialGroupComponent implements OnInit {
   apiErrors: any;
   application: any = {};
+  currentSection: any;
   forest = this.specialUseInfoService.getOne('0605');
   mode = 'Observable';
   primaryPermitHolderSameAddress = true;
@@ -27,6 +28,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   submitted = false;
   applicantInfo: any;
   orgType: any;
+  eventDetails: any;
+  signatureGroup: any;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -44,6 +47,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     private applicationService: ApplicationService,
     public applicationFieldsService: ApplicationFieldsService,
     private authentication: AuthenticationService,
+    public renderer: Renderer2,
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -73,8 +77,12 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       region: ['06', [Validators.required, Validators.maxLength(2), numberValidator()]],
       forest: ['05', [Validators.required, Validators.maxLength(2), numberValidator()]],
       type: ['noncommercial', [Validators.required, applicationTypeValidator(), Validators.maxLength(255)]],
-      eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
+      eventDetails: this.formBuilder.group({
+        eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      }),
+      signatureGroup: this.formBuilder.group({
+        signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
+      }),
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],
@@ -132,6 +140,16 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
         true,
         255
       );
+    }
+  }
+
+  public elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
+    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
+
+    const viewableElements = document.getElementsByClassName('in-view');
+    if (viewableElements.length) {
+      this.currentSection = viewableElements[viewableElements.length - 1].id;
     }
   }
 

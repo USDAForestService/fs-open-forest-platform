@@ -1,4 +1,3 @@
-
 import { alphanumericValidator } from '../validators/alphanumeric-validation';
 import { urlValidator } from '../validators/url-validation';
 import { applicationTypeValidator } from '../validators/application-type-validation';

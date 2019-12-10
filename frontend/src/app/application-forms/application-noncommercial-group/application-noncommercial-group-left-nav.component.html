@@ -1,0 +1,48 @@
+<aside role="navigation" aria-label="left" class="sidebar-container">
+  &nbsp;
+  <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
+    <li [ngClass]="getGroupStatus(applicationForm.applicantInfo, applicantInfoErrors)">
+      <a id="nav-individual" href="#" (click)="gotoHashtag('individual', $event)"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-individual'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-individual' ? 'step' : null"
+        >
+        STEP 1: Applicant information
+        <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.applicantInfo, applicantInfoErrors) === 'ng-valid'">
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section applicant info is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.applicantInfo, applicantInfoErrors) === 'ng-invalid'">
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section applicant info is invalid" />
+        </span>
+      </a>
+    </li>
+    <li [ngClass]="getGroupStatus(applicationForm.eventDetails, eventDetailsErrors)">
+      <a id="nav-name" href="#" (click)="gotoHashtag('name', $event)"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-name'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-name' ? 'step' : null"
+        >
+        STEP 2: Event Details
+        <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.applicantInfo, eventDetailsErrors) === 'ng-valid'">
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Section description of proposed activity is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getGroupStatus(applicationForm.applicantInfo, eventDetailsErrors) === 'ng-invalid'">
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Section description of proposed activity is invalid" />
+        </span>
+      </a>
+    </li>
+    <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
+      <a id="nav-signature" href="#" (click)="gotoHashtag('signature', $event)"
+        [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}"
+        [attr.aria-current]="currentSection && currentSection === 'section-signature' ? 'step' : null"
+        >
+        STEP 3: Signature
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.signatureGroup) === 'ng-valid'">
+          <img src="/assets/img/site-wide/checkmark.svg" alt="Signature is valid" />
+        </span>
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.signatureGroup) === 'ng-invalid'">
+          <img src="/assets/img/site-wide/error-icon.svg" alt="Signature is invalid" />
+        </span>
+      </a>
+
+    </li>
+  </ul>
+</aside>
