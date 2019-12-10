@@ -28,6 +28,7 @@ export class NoncommercialLearnMoreComponent {
         type: 'anchor',
         sectionCopy: `
         <ul>
+        <li>According to the regulation, permits are required for 75 or more people. However, some forest may have special considerations, contact your local forest if you have questions.</li>
         <li>Authorization for non-commercial groups to use national Forest Service land.</li>
         <li>Required for groups of 75 or more people (participants and spectators).</li>
         <li>Important to minimize resource and environmental impacts on forest lands.</li>
