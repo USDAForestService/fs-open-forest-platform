@@ -29,7 +29,7 @@ export class HelpMePickComponent implements OnInit {
         break;
       case '4':
         this.title = `Your activity does not require a permit. However, if you are planning a large group activity, it may be
-        helpful to contact your local office to find out about any special restrictions, or get helpful information.`;
+         helpful to contact your local office to find out about any special restrictions, or get helpful information.`;
         break;
       case '5':
         this.title = 'Does your activity involve guiding or outfitting?';
