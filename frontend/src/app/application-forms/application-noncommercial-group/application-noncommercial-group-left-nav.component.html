@@ -35,10 +35,10 @@
         [attr.aria-current]="currentSection && currentSection === 'section-signature' ? 'step' : null"
         >
         STEP 3: Signature
-        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.signature) === 'ng-valid'">
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-valid'">
           <img src="/assets/img/site-wide/checkmark.svg" alt="Signature is valid" />
         </span>
-        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.signature) === 'ng-invalid'">
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-invalid'">
           <img src="/assets/img/site-wide/error-icon.svg" alt="Signature is invalid" />
         </span>
       </a>

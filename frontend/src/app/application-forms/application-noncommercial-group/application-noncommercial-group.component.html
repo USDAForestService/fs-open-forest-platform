@@ -3,6 +3,8 @@
   <div class="usa-grid">
 
     <app-breadcrumbs></app-breadcrumbs>
+
+    <!-- left nav -->
     <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
     <div class="usa-width-two-thirds temp-outfitter-main-content">
@@ -25,7 +27,6 @@
         </div>
         <br>
         <p class="form-directions">required fields<span class="required-fields-asterisk">*</span></p>
-
         <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
           <div class="usa-alert-body">
             <h3 class="usa-alert-heading">There are errors in your application.</h3>
@@ -84,43 +85,40 @@
           </div>
         </ng-container>
 
-        <!-- event detals -->
-        <!-- <ng-container formGroupName="eventDetails"> -->
-          <fieldset id="section-name" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
-            <legend>Event details</legend>
-            <label id="name-label" class="usa-input">Event Name <span class="required-fields-asterisk">*</span></label>
-            <input id="name"
-              formControlName="eventName"
-              type="text"
-              aria-required="true"
-              [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.eventName, 'name-label', 'name-error')"
-              [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.eventName)"
-            />
-            <app-error-message fieldId="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
-            <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
-            <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
-          </fieldset>
-        <!-- </ng-container> -->
+        <!-- event details -->
+        <fieldset id="section-name" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <legend>Event details</legend>
+          <label id="name-label" class="usa-input">Event Name <span class="required-fields-asterisk">*</span></label>
+          <input id="name"
+            formControlName="eventName"
+            type="text"
+            aria-required="true"
+            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.eventName, 'name-label', 'name-error')"
+            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.eventName)"
+          />
+          <app-error-message fieldId="name-error" name="Event name" [control]="applicationForm.controls.eventName"></app-error-message>
+          <app-noncommercial-fields [parentForm]="applicationForm"></app-noncommercial-fields>
+          <app-date-time-range [parentForm]="applicationForm" (updateDateStatus)="updateDateStatus($event)"></app-date-time-range>
+        </fieldset>
 
         <!-- signature -->
-        <!-- <ng-container formGroupName="signatureGroup"> -->
-          <fieldset id="section-signature" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
-            <legend>Signature</legend>
-            <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-            <input id="signature"
-              name="signature"
-              type="text"
-              minlength="2"
-              maxlength="3"
-              formControlName="signature"
-              aria-required="true"
-              [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
-              [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
-            />
-            <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
-          </fieldset>
-        <!-- </ng-container> -->
+        <fieldset id="section-signature" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <legend>Signature</legend>
+          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
+          <input id="signature"
+            name="signature"
+            type="text"
+            minlength="2"
+            maxlength="3"
+            formControlName="signature"
+            aria-required="true"
+            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
+            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
+          />
+          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
+        </fieldset>
 
+        <!-- accept PII -->
         <div class="noncommercial-applications-pii-accept-checkbox-container">
           <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
           <label id='accept-pii-label' for="accept-pii">
@@ -134,6 +132,7 @@
           </app-error-message>
         </div>
 
+        <!-- action buttons -->
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
         <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
         <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
