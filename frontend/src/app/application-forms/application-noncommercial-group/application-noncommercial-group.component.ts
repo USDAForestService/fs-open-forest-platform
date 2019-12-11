@@ -28,8 +28,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   submitted = false;
   applicantInfo: any;
   orgType: any;
-  eventDetails: any;
-  signatureGroup: any;
+  // eventDetails: any;
+  // signatureGroup: any;
 
   dateStatus = {
     startDateTimeValid: true,
@@ -77,12 +77,8 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       region: ['06', [Validators.required, Validators.maxLength(2), numberValidator()]],
       forest: ['05', [Validators.required, Validators.maxLength(2), numberValidator()]],
       type: ['noncommercial', [Validators.required, applicationTypeValidator(), Validators.maxLength(255)]],
-      eventDetails: this.formBuilder.group({
-        eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      }),
-      signatureGroup: this.formBuilder.group({
-        signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
-      }),
+      eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
       applicantInfo: this.formBuilder.group({
         addAdditionalPhone: [false],
         addSecondaryPermitHolder: [false],

@@ -124,10 +124,10 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
         this.applicationForm.controls.applicantInfo
       );
       this.eventDetailsErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.eventDetails
+        this.applicationForm.controls.noncommercialFields
       );
       this.signatureGroupErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.signatureGroup
+        this.applicationForm.signature
       );
     });
   }

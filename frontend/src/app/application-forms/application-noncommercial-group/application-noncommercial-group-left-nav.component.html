@@ -15,7 +15,7 @@
         </span>
       </a>
     </li>
-    <li [ngClass]="getGroupStatus(applicationForm.eventDetails, eventDetailsErrors)">
+    <li [ngClass]="getGroupStatus(applicationForm.noncommercialFields, eventDetailsErrors)">
       <a id="nav-name" href="#" (click)="gotoHashtag('name', $event)"
         [ngClass]="{'usa-current': currentSection && currentSection === 'section-name'}"
         [attr.aria-current]="currentSection && currentSection === 'section-name' ? 'step' : null"
@@ -35,10 +35,10 @@
         [attr.aria-current]="currentSection && currentSection === 'section-signature' ? 'step' : null"
         >
         STEP 3: Signature
-        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.signatureGroup) === 'ng-valid'">
+        <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.signature) === 'ng-valid'">
           <img src="/assets/img/site-wide/checkmark.svg" alt="Signature is valid" />
         </span>
-        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.signatureGroup) === 'ng-invalid'">
+        <span class="status-icon invalid" *ngIf="getControlStatus(applicationForm.signature) === 'ng-invalid'">
           <img src="/assets/img/site-wide/error-icon.svg" alt="Signature is invalid" />
         </span>
       </a>
