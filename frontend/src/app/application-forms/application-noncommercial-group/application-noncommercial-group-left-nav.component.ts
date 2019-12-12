@@ -4,14 +4,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { UtilService } from '../../_services/util.service';
 
 @Component({
-  selector: 'app-temp-outfitter-left-nav',
-  templateUrl: './temp-outfitter-left-nav.component.html'
+  selector: 'app-noncommercial-group-left-nav',
+  templateUrl: './application-noncommercial-group-left-nav.component.html'
 })
-export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
+export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, OnChanges {
   @Input() applicationForm: any;
   @Input() currentSection: any;
   applicantInfoErrors: boolean;
   activityDescriptionErrors: boolean;
+  eventDetailsErrors: boolean;
+  signatureGroupErrors: boolean;
   experienceErrors: boolean;
   scrollAmount: string;
   bottom: string;
@@ -101,18 +103,14 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
   ngOnChanges() {
     let field = null;
     switch (this.currentSection) {
-      case 'section-guide-identification':
-        field = this.applicationForm.controls.guideIdentification;
+      case 'section-individual':
+        field = this.applicationForm.controls.applicantInfo.controls.orgType;
         break;
-      case 'section-operating-plan':
-        field = this.applicationForm.controls.operatingPlan;
+      case 'section-name':
+        field = this.applicationForm.controls.eventName;
         break;
-      case 'section-acknowledgement-of-risk':
-        field = this.applicationForm.controls.acknowledgementOfRisk;
-        break;
-      case 'section-experience':
-        field = this.applicationForm.controls.tempOutfitterFields.controls.experienceFields.controls
-          .listAllNationalForestPermits;
+      case 'section-signature':
+        field = this.applicationForm.controls.signature;
         break;
     }
     if (field) {
@@ -125,11 +123,11 @@ export class TempOutfitterLeftNavComponent implements OnInit, OnChanges {
       this.applicantInfoErrors = this.applicationFieldsService.doesControlHaveErrors(
         this.applicationForm.controls.applicantInfo
       );
-      this.activityDescriptionErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.tempOutfitterFields.controls.activityDescriptionFields
+      this.eventDetailsErrors = this.applicationFieldsService.doesControlHaveErrors(
+        this.applicationForm.controls.noncommercialFields
       );
-      this.experienceErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.tempOutfitterFields.controls.experienceFields
+      this.signatureGroupErrors = this.applicationFieldsService.doesControlHaveErrors(
+        this.applicationForm.signature
       );
     });
   }
