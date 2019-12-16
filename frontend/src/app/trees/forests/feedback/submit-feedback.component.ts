@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FeedbackService } from '../../_services/feedback.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 
@@ -14,6 +14,7 @@ export class SubmitFeedbackComponent implements OnInit {
   user: any;
   forests: any;
   message: any;
+  mailLink: any;
   feedbackFormGroup: FormGroup;
 
   constructor(
@@ -62,13 +63,17 @@ export class SubmitFeedbackComponent implements OnInit {
     // validate fields
     if (this.message) {
       const status = {
-        message: 'Thank you for sharing your feedback.',
+        message: `
+        <p>Thank you for sharing your feedback. For help or technical questions, email us at <a href="google.com">SM.FS.OpnFrstCsSup@usda.gov.</a></p>
+        `,
         header: ''
       };
       // create feedback entry
       this.service.create(feedback).subscribe(data => {
         // show success message
-        localStorage.setItem('status', JSON.stringify(status));
+        
+        localStorage.setItem('status', status.message);
+        console.log(status.message)
         const redirectUrl = localStorage.getItem('feedbackRedirect');
         this.router.navigate([redirectUrl]);
       });
