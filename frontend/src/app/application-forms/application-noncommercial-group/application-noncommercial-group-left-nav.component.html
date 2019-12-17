@@ -2,9 +2,9 @@
   &nbsp;
   <ul id="sidebar-nav" class="usa-sidenav-list" [style.bottom]="bottom" [style.top]="top" [style.position]="position">
     <li [ngClass]="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors)">
-      <a id="nav-applicant-information" href="#" (click)="gotoHashtag('applicant-information', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-applicant-information'}"
-        [attr.aria-current]="currentSection && currentSection === 'section-applicant-information' ? 'step' : null"
+      <a id="nav-applicant-information" href="#" (click)="gotoHashtag('section-applicant-information', $event)"
+        [ngClass]="{'usa-current': currentSection === 'section-applicant-information'}"
+        [attr.aria-current]="currentSection === 'section-applicant-information' ? 'step' : null"
         >
         STEP 1: Applicant information
         <span class="status-icon valid" *ngIf="getGroupStatus(applicationForm.controls.applicantInfo, applicantInfoErrors) === 'ng-valid'">
@@ -16,9 +16,9 @@
       </a>
     </li>
     <li [ngClass]="getEventGroupStatus(applicationForm, eventDetailsErrors)">
-      <a id="nav-event-details" href="#" (click)="gotoHashtag('event-details', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-event-details'}"
-        [attr.aria-current]="currentSection && currentSection === 'section-event-details' ? 'step' : null"
+      <a href="#" (click)="gotoHashtag('section-event-details', $event)"
+        [ngClass]="{'usa-current': currentSection === 'section-event-details'}"
+        [attr.aria-current]="currentSection === 'section-event-details' ? 'step' : null"
         >
         STEP 2: Event Details
         <span class="status-icon valid" *ngIf="getEventGroupStatus(applicationForm, eventDetailsErrors) === 'ng-valid'">
@@ -30,9 +30,9 @@
       </a>
     </li>
     <li [ngClass]="getControlStatus(applicationForm.controls.signature)">
-      <a id="nav-signature" href="#" (click)="gotoHashtag('signature', $event)"
-        [ngClass]="{'usa-current': currentSection && currentSection === 'section-signature'}"
-        [attr.aria-current]="currentSection && currentSection === 'section-signature' ? 'step' : null"
+      <a id="nav-signature" href="#" (click)="gotoHashtag('section-signature', $event)"
+        [ngClass]="{'usa-current': currentSection === 'section-signature'}"
+        [attr.aria-current]="currentSection === 'section-signature' ? 'step' : null"
         >
         STEP 3: Signature
         <span class="status-icon valid" *ngIf="getControlStatus(applicationForm.controls.signature) === 'ng-valid'">
