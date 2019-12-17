@@ -1,5 +1,5 @@
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UtilService } from '../../_services/util.service';
 
@@ -7,7 +7,7 @@ import { UtilService } from '../../_services/util.service';
   selector: 'app-noncommercial-group-left-nav',
   templateUrl: './application-noncommercial-group-left-nav.component.html'
 })
-export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, OnChanges {
+export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit {
   @Input() applicationForm: any;
   @Input() currentSection: any;
   applicantInfoErrors: boolean;
@@ -62,27 +62,33 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
   * @returns      css class
   */
   getEventGroupStatus(group: FormGroup, errors) {
-    let event_name = this.applicationForm.controls.eventName;
-    let noncommerc = this.applicationForm.controls.noncommercialFields;
-    let date_time_range = this.applicationForm.controls.dateTimeRange;
-    let controls = [];
+    const event_name = this.applicationForm.controls.eventName;
+    const noncommerc = this.applicationForm.controls.noncommercialFields;
+    const date_time_range = this.applicationForm.controls.dateTimeRange;
+    const controls = [];
     let status = 'ng-untouched';
     let allValid = true;
 
     // get all the event controls
     controls.push(event_name);
-    for (let i in noncommerc.controls) {
-      controls.push(noncommerc.controls[i])
+    for (const i in noncommerc.controls) {
+      if (noncommerc.controls[i]) {
+        controls.push(noncommerc.controls[i]);
+      }
     }
-    for (let i in date_time_range.controls) {
-      controls.push(date_time_range.controls[i])
+    for (const i in date_time_range.controls) {
+      if (date_time_range[i]) {
+        controls.push(date_time_range.controls[i]);
+      }
     }
 
     // if all the event controls are valid, show the valid symbol in the left nav
-    for (let i in controls) {
-      let control = controls[i]
-      if (control.invalid) {
-        allValid = false;
+    for (const i in controls) {
+      if (controls[i]) {
+        const control = controls[i];
+        if (control.invalid) {
+          allValid = false;
+        }
       }
     }
     if (allValid) {
@@ -91,11 +97,13 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
     }
 
     // if one of the fields has been touched and is invalid show the error symbol in the left nav
-    for (let i in controls) {
-      let control = controls[i]
-      if (control.invalid && control.touched) {
-        status = 'ng-invalid';
-        return status;
+    for (const i in controls) {
+      if (controls[i]) {
+        const control = controls[i];
+        if (control.invalid && control.touched) {
+          status = 'ng-invalid';
+          return status;
+        }
       }
     }
 
