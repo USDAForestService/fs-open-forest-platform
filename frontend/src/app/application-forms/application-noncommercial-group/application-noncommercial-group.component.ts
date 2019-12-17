@@ -28,8 +28,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   submitted = false;
   applicantInfo: any;
   orgType: any;
-  // eventDetails: any;
-  // signatureGroup: any;
 
   dateStatus = {
     startDateTimeValid: true,

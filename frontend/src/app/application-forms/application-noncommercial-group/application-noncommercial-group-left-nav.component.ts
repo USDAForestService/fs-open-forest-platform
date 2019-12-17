@@ -58,6 +58,51 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
   }
 
   /**
+  * @param group  Form group to be validated
+  * @returns      css class
+  */
+  getEventGroupStatus(group: FormGroup, errors) {
+    let event_name = this.applicationForm.controls.eventName;
+    let noncommerc = this.applicationForm.controls.noncommercialFields;
+    let date_time_range = this.applicationForm.controls.dateTimeRange;
+    let controls = [];
+    let status = 'ng-untouched';
+    let allValid = true;
+
+    // get all the event controls
+    controls.push(event_name);
+    for (let i in noncommerc.controls) {
+      controls.push(noncommerc.controls[i])
+    }
+    for (let i in date_time_range.controls) {
+      controls.push(date_time_range.controls[i])
+    }
+
+    // if all the event controls are valid, show the valid symbol in the left nav
+    for (let i in controls) {
+      let control = controls[i]
+      if (control.invalid) {
+        allValid = false;
+      }
+    }
+    if (allValid) {
+      status = 'ng-valid';
+      return status;
+    }
+
+    // if one of the fields has been touched and is invalid show the error symbol in the left nav
+    for (let i in controls) {
+      let control = controls[i]
+      if (control.invalid && control.touched) {
+        status = 'ng-invalid';
+        return status;
+      }
+    }
+
+    return status;
+  }
+
+  /**
   * @param advertControls  Form group to be validated
   * @returns      css class
   */
@@ -100,31 +145,13 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
     this.currentSection = this.util.gotoHashtag(fragment, event);
   }
 
-  ngOnChanges() {
-    let field = null;
-    switch (this.currentSection) {
-      case 'section-individual':
-        field = this.applicationForm.controls.applicantInfo.controls.orgType;
-        break;
-      case 'section-name':
-        field = this.applicationForm.controls.eventName;
-        break;
-      case 'section-signature':
-        field = this.applicationForm.controls.signature;
-        break;
-    }
-    if (field) {
-      this.applicationFieldsService.touchField(field);
-    }
-  }
-
   ngOnInit() {
     this.applicationForm.valueChanges.subscribe(data => {
       this.applicantInfoErrors = this.applicationFieldsService.doesControlHaveErrors(
         this.applicationForm.controls.applicantInfo
       );
       this.eventDetailsErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.noncommercialFields
+        this.applicationForm.eventName
       );
       this.signatureGroupErrors = this.applicationFieldsService.doesControlHaveErrors(
         this.applicationForm.signature
