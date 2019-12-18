@@ -1,6 +1,6 @@
 <div class="feedback-section">
   <h1>Give feedback for Open Forest</h1>
-  <span class="feedback-info">We'd like to know how we can improve this permit experience for you.</span>
+  <span class="feedback-info">Tell us what you like about the website or what we can be doing better.</span>
   <span *ngIf="isAdmin()" class="feedback-label">Let us know the forest/s you are giving feedback for:</span>
   <ng-container [formGroup]="feedbackFormGroup">
     <textarea maxlength="140" *ngIf="isAdmin()" [(ngModel)]="forests"></textarea>
@@ -9,6 +9,7 @@
     <app-error-message fieldId="services-provided-error" name="Feedback" [control]="feedbackFormGroup.get('feedbackText')"></app-error-message>
     <div class="feedback-buttons">
       <button (click)="submitFeedback()" class="usa-button">Submit</button>
+      <p>Your feedback is anonymous. If you have questions, or would like a response, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov</a></p>.
       <span class="previous-from-feedback" (click)="goPrevious()">Return to previous page</span>
     </div>
   </ng-container>
