@@ -104,10 +104,10 @@ found here</a>.</p>
         `
       },
       {
-        sectionName: 'Costs',
+        sectionName: 'Cost estimate',
         type: 'anchor',
         sectionCopy: `
-        <h3>Cost chart</h3>
+        <h3>Cost estimate chart</h3>
         <table class="faq-table">
           <tr>
             <th>Number of service days</th>

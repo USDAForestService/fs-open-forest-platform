@@ -89,24 +89,55 @@
             ></app-file-upload-field>
         </fieldset>
 
+        <!-- cost estimate table -->
+        <br>
+        <legend>Estimate your permit cost</legend>
+        <table class="faq-table">
+          <tr>
+            <th>Number of service days</th>
+            <th>Flat fee</th>
+            <th>Maximum gross revenue for each period of service days</th>
+          </tr>
+          <tr>
+            <td>1 to 50</td>
+            <td>$150</td>
+            <td>$10,000</td>
+          </tr>
+          <tr>
+            <td>51 to 100</td>
+            <td>$300</td>
+            <td>$20,000</td>
+          </tr>
+          <tr>
+            <td>101 to 150</td>
+            <td>$450</td>
+            <td>$30,000</td>
+          </tr>
+          <tr>
+            <td>151 to 200</td>
+            <td>$600</td>
+            <td>$40,000</td>
+          </tr>
+        </table>
+
         <app-advertising id="section-advertising" tabindex="-1"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           inViewport
           [inViewportOptions]="{ partial: true }"
           (inViewportAction)="elementInView($event)">
-</app-advertising>
+        </app-advertising>
 
         <app-client-charges id="section-client-charges" tabindex="-1"
           [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
           inViewport
           [inViewportOptions]="{ partial: true }"
           (inViewportAction)="elementInView($event)">
-</app-client-charges>
+        </app-client-charges>
 
         <fieldset id="section-guide-identification" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
+          inViewport
+          [inViewportOptions]="{ partial: true }"
+          (inViewportAction)="elementInView($event)">
 
           <legend id="guide-document-label">Guide identification</legend>
           <ul>
@@ -126,18 +157,15 @@
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.guideIdentification"
-            allowXls="true"
-            ></app-file-upload-field>
-
+            allowXls="true">
+          </app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-operating-plan" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
+          inViewport
+          [inViewportOptions]="{ partial: true }"
+          (inViewportAction)="elementInView($event)">
           <legend id="operating-plan-label">Operating plan</legend>
-
           <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
           <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
           <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
@@ -146,16 +174,15 @@
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.operatingPlan"></app-file-upload-field>
+            [field]="applicationForm.controls.operatingPlan">
+          </app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-liability-insurance" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
+          inViewport
+          [inViewportOptions]="{ partial: true }"
+          (inViewportAction)="elementInView($event)">
           <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-
           <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Liability insurance" type="insurance-certificate"
@@ -163,23 +190,23 @@
             [applicationId]="applicationId"
             [required]="!applicationForm.controls.liabilityInsurance.value"
             [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.liabilityInsurance"></app-file-upload-field>
+            [field]="applicationForm.controls.liabilityInsurance">
+          </app-file-upload-field>
         </fieldset>
 
         <fieldset id="section-acknowledgement-of-risk" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
+          inViewport
+          [inViewportOptions]="{ partial: true }"
+          (inViewportAction)="elementInView($event)">
           <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form</legend>
-
           <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
           <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.acknowledgementOfRisk"></app-file-upload-field>
+            [field]="applicationForm.controls.acknowledgementOfRisk">
+          </app-file-upload-field>
         </fieldset>
 
         <app-experience id="section-experience" tabindex="-1"
@@ -188,17 +215,15 @@
           inViewport
           [inViewportOptions]="{ partial: true }"
           (inViewportAction)="elementInView($event)">
-</app-experience>
+        </app-experience>
 
         <fieldset id="section-signature" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
+          inViewport
+          [inViewportOptions]="{ partial: true }"
+          (inViewportAction)="elementInView($event)">
           <legend>Signature</legend>
           <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
           <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-
           <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
             [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
             [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
