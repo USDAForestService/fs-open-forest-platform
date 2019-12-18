@@ -9,6 +9,7 @@
     <app-error-message fieldId="services-provided-error" name="Feedback" [control]="feedbackFormGroup.get('feedbackText')"></app-error-message>
     <div class="feedback-buttons">
       <button (click)="submitFeedback()" class="usa-button">Submit</button>
+      <p>Your feedback is anonymous. If you have questions, or would like a response, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov</a></p>.
       <span class="previous-from-feedback" (click)="goPrevious()">Return to previous page</span>
     </div>
   </ng-container>

@@ -63,16 +63,14 @@ export class SubmitFeedbackComponent implements OnInit {
     // validate fields
     if (this.message) {
       const status = {
-        message: `
-        <p>Thank you for sharing your feedback. For help or technical questions, email us at <a href="google.com">SM.FS.OpnFrstCsSup@usda.gov.</a></p>
-        `,
+        message: 'Thank you for sharing your feedback.<br>For help or technical questions, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov.</a>',
         header: ''
       };
       // create feedback entry
       this.service.create(feedback).subscribe(data => {
         // show success message
         
-        localStorage.setItem('status', status.message);
+        localStorage.setItem('status', JSON.stringify(status));
         console.log(status.message)
         const redirectUrl = localStorage.getItem('feedbackRedirect');
         this.router.navigate([redirectUrl]);

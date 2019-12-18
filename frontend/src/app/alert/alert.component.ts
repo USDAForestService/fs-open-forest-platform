@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertComponent {
   @Input() heading: string;
-  @Input() message: string;
+  @Input() message: any;
 }
