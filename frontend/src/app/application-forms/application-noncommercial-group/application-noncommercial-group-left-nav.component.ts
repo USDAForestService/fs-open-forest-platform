@@ -1,5 +1,5 @@
 import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { Component, HostListener, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UtilService } from '../../_services/util.service';
 
@@ -7,7 +7,7 @@ import { UtilService } from '../../_services/util.service';
   selector: 'app-noncommercial-group-left-nav',
   templateUrl: './application-noncommercial-group-left-nav.component.html'
 })
-export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, OnChanges {
+export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit {
   @Input() applicationForm: any;
   @Input() currentSection: any;
   applicantInfoErrors: boolean;
@@ -58,6 +58,59 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
   }
 
   /**
+  * @param group  Form group to be validated
+  * @returns      css class
+  */
+  getEventGroupStatus(group: FormGroup, errors) {
+    const event_name = this.applicationForm.controls.eventName;
+    const noncommerc = this.applicationForm.controls.noncommercialFields;
+    const date_time_range = this.applicationForm.controls.dateTimeRange;
+    const controls = [];
+    let status = 'ng-untouched';
+    let allValid = true;
+
+    // get all the event controls
+    controls.push(event_name);
+    for (const i in noncommerc.controls) {
+      if (noncommerc.controls[i]) {
+        controls.push(noncommerc.controls[i]);
+      }
+    }
+    for (const i in date_time_range.controls) {
+      if (date_time_range[i]) {
+        controls.push(date_time_range.controls[i]);
+      }
+    }
+
+    // if all the event controls are valid, show the valid symbol in the left nav
+    for (const i in controls) {
+      if (controls[i]) {
+        const control = controls[i];
+        if (control.invalid) {
+          allValid = false;
+        }
+      }
+    }
+    if (allValid) {
+      status = 'ng-valid';
+      return status;
+    }
+
+    // if one of the fields has been touched and is invalid show the error symbol in the left nav
+    for (const i in controls) {
+      if (controls[i]) {
+        const control = controls[i];
+        if (control.invalid && control.touched) {
+          status = 'ng-invalid';
+          return status;
+        }
+      }
+    }
+
+    return status;
+  }
+
+  /**
   * @param advertControls  Form group to be validated
   * @returns      css class
   */
@@ -100,31 +153,13 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit, On
     this.currentSection = this.util.gotoHashtag(fragment, event);
   }
 
-  ngOnChanges() {
-    let field = null;
-    switch (this.currentSection) {
-      case 'section-individual':
-        field = this.applicationForm.controls.applicantInfo.controls.orgType;
-        break;
-      case 'section-name':
-        field = this.applicationForm.controls.eventName;
-        break;
-      case 'section-signature':
-        field = this.applicationForm.controls.signature;
-        break;
-    }
-    if (field) {
-      this.applicationFieldsService.touchField(field);
-    }
-  }
-
   ngOnInit() {
     this.applicationForm.valueChanges.subscribe(data => {
       this.applicantInfoErrors = this.applicationFieldsService.doesControlHaveErrors(
         this.applicationForm.controls.applicantInfo
       );
       this.eventDetailsErrors = this.applicationFieldsService.doesControlHaveErrors(
-        this.applicationForm.controls.noncommercialFields
+        this.applicationForm.eventName
       );
       this.signatureGroupErrors = this.applicationFieldsService.doesControlHaveErrors(
         this.applicationForm.signature
