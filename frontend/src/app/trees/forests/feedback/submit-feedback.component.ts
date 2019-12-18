@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FeedbackService } from '../../_services/feedback.service';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../../../application-forms/_services/application-fields.service';
 
@@ -14,7 +14,6 @@ export class SubmitFeedbackComponent implements OnInit {
   user: any;
   forests: any;
   message: any;
-  mailLink: any;
   feedbackFormGroup: FormGroup;
 
   constructor(
@@ -69,9 +68,7 @@ export class SubmitFeedbackComponent implements OnInit {
       // create feedback entry
       this.service.create(feedback).subscribe(data => {
         // show success message
-        
         localStorage.setItem('status', JSON.stringify(status));
-        console.log(status.message)
         const redirectUrl = localStorage.getItem('feedbackRedirect');
         this.router.navigate([redirectUrl]);
       });
