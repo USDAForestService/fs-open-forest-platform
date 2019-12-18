@@ -33,7 +33,7 @@ const checkForAdditionalPhone = function(state) {
 
 const page = new NoncommercialGroupForm();
 
-describe('Apply for a noncommercial group use permit', () => {
+fdescribe('Apply for a noncommercial group use permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     page.navigateTo();
@@ -57,7 +57,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('email')).sendKeys('msdf@noemail.com');
     element(by.id('email-confirmation')).sendKeys('msdf@noemail.com');
     element(by.id('day-phone')).sendKeys('3333333333');
-    element(by.id('name')).sendKeys('Walk in the park');
+    element(by.id('event-name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
     element(by.id('participants')).sendKeys('50');
     element(by.id('spectators')).sendKeys('100');
@@ -110,7 +110,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.css('.secondary-permit-holder-city')).sendKeys('Madison');
     element(by.css('.secondary-permit-holder-state')).sendKeys('WI');
     element(by.css('.secondary-permit-holder-zip')).sendKeys('55555');
-    element(by.id('name')).sendKeys('Walk in the park');
+    element(by.id('event-name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
     element(by.id('participants')).sendKeys('50');
     element(by.id('spectators')).sendKeys('100');
@@ -146,7 +146,7 @@ describe('Apply for a noncommercial group use permit', () => {
     element(by.id('website')).sendKeys('http://test.com');
     element(by.css('#organization-primary-name .primary-permit-holder-first-name')).sendKeys('Micky');
     element(by.css('#organization-primary-name .primary-permit-holder-last-name')).sendKeys('Watson');
-    element(by.id('name')).sendKeys('Walk in the park');
+    element(by.id('event-name')).sendKeys('Walk in the park');
     element(by.id('location')).sendKeys('Forest');
     element(by.id('participants')).sendKeys('50');
     element(by.id('spectators')).sendKeys('100');
