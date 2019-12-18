@@ -62,7 +62,7 @@ export class SubmitFeedbackComponent implements OnInit {
     // validate fields
     if (this.message) {
       const status = {
-        message: 'Thank you for sharing your feedback.',
+        message: 'Thank you for sharing your feedback.<br>For help or technical questions, email us at <a href="mailto:SM.FS.OpnFrstCsSup@usda.gov">SM.FS.OpnFrstCsSup@usda.gov.</a>',
         header: ''
       };
       // create feedback entry
