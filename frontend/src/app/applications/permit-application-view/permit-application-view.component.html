@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="usa-grid cancel-application-wrapper">
-    <app-cancel-application (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application."></app-cancel-application>
+    <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel application."></app-cancel-application>
   </div>
   <div class="sticky-bar bottom app-ctas" [class.fixed]="fixedCtas" *ngIf="isAdmin && (application.status === 'Hold' || ['Submitted', 'Review'].indexOf(application.status) !== -1)">
     <div id="cta-buttons" *ngIf="!reasonOrCancel.open">
