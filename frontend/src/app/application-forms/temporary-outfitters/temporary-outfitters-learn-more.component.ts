@@ -135,7 +135,6 @@ found here</a>.</p>
             <td>$40,000</td>
           </tr>
         </table>
-        <p>(See <a href="http://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf">FSH 2709.11</a>, sec. 37.21c)</p>
         `
       },
       {
