@@ -58,11 +58,14 @@ app.use(
   session({
     name: 'session',
     keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
+    saveUninitialized: false,
+    resave: true,
+    rolling: true,
     cookie: {
       secure: true,
       httpOnly: true,
       domain,
-      expires: new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+      maxAge: 20 * 60 * 1000 // 1 hour
     }
   })
 );

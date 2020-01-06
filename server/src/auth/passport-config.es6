@@ -91,10 +91,9 @@ passportConfig.logout = (req, res) => {
   }
 
   const { user } = req;
-
   if (user) {
     req.logout();
-
+    req.session = null;
     // login.gov requires the user to visit the idp to logout
     if (user.role === 'user' && !MOCK_PUBLIC_AUTH) {
       logger.info(`AUTHENTICATION: ${user.email} logging out via Login.gov.`);
