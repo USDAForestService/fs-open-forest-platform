@@ -104,10 +104,10 @@ found here</a>.</p>
         `
       },
       {
-        sectionName: 'Costs',
+        sectionName: 'Cost estimate',
         type: 'anchor',
         sectionCopy: `
-        <h3>Cost chart</h3>
+        <h3>Cost estimate chart</h3>
         <table class="faq-table">
           <tr>
             <th>Number of service days</th>
@@ -135,7 +135,6 @@ found here</a>.</p>
             <td>$40,000</td>
           </tr>
         </table>
-        <p>(See <a href="http://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf">FSH 2709.11</a>, sec. 37.21c)</p>
         `
       },
       {

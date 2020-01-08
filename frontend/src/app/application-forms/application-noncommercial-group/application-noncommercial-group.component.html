@@ -36,9 +36,9 @@
 
         <!-- applicant info -->
         <ng-container formGroupName="applicantInfo">
-          <fieldset id="section-individual" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <fieldset id="section-applicant-information" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
             <legend>Applicant information</legend>
-            <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
+            <app-org-type id="applicant-information" [applicantInfo]="applicationForm.controls.applicantInfo" type="simple"></app-org-type>
             <div [hidden]="applicationForm.get('applicantInfo.orgType').value !== 'Person'">
               <app-permit-holder-name id="person-primary-name" [applicantInfo]="applicationForm.controls.applicantInfo" type="primary" name="Primary permit holder"></app-permit-holder-name>
               <app-address id="person-primary-address" [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
@@ -86,10 +86,10 @@
         </ng-container>
 
         <!-- event details -->
-        <fieldset id="section-name" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
-          <legend>Event details</legend>
+        <fieldset id="section-event-details" tabindex="-1" inViewport [inViewportOptions]="{ partial: true }" (inViewportAction)="elementInView($event)">
+          <legend id="event-details">Event details</legend>
           <label id="name-label" class="usa-input">Event Name <span class="required-fields-asterisk">*</span></label>
-          <input id="name"
+          <input id="event-name"
             formControlName="eventName"
             type="text"
             aria-required="true"
