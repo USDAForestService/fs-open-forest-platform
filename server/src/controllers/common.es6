@@ -62,6 +62,24 @@ const findOrCondition = (req) => {
       orCondition = [
         {
           status: 'Expired'
+        },
+        {
+          status: 'Submitted'
+        },
+        {
+          status: 'Hold'
+        },
+        {
+          status: 'Rejected'
+        },
+        {
+          status: 'Cancelled'
+        },
+        {
+          status: 'Accepted'
+        },
+        {
+          status: 'Review'
         }
       ];
       break;
@@ -88,6 +106,10 @@ commonControllers.getPermitApplications = (req, res) => {
       authEmail: req.user.email
     });
   }
+  let expiredCondition = Sequelize.Op.gt;
+  if (req.params.statusGroup === 'expired') {
+    expiredCondition = Sequelize.Op.lt;
+  }
   const noncommercialApplicationsPromise = NoncommercialApplication.findAll({
     attributes: [
       'appControlNumber',
@@ -105,7 +127,7 @@ commonControllers.getPermitApplications = (req, res) => {
       [Sequelize.Op.or]: orCondition,
       [Sequelize.Op.and]: andCondition,
       noncommercialFieldsEndDateTime: {
-        [Sequelize.Op.gt]: new Date()
+        [expiredCondition]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]
@@ -127,7 +149,7 @@ commonControllers.getPermitApplications = (req, res) => {
       [Sequelize.Op.or]: orCondition,
       [Sequelize.Op.and]: andCondition,
       tempOutfitterFieldsActDescFieldsEndDateTime: {
-        [Sequelize.Op.gt]: new Date()
+        [expiredCondition]: new Date()
       }
     },
     order: [['createdAt', 'DESC']]
