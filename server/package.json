@@ -100,7 +100,7 @@
     "prepare": "npm run snyk-protect"
   },
   "engines": {
-    "node": "^8.15.1"
+    "node": "^10.18.0"
   },
   "nyc": {
     "extension": [
