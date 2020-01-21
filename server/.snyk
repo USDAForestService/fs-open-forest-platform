@@ -80,6 +80,39 @@ ignore:
     - snyk > @snyk/snyk-cocoapods-plugin > @snyk/cocoapods-lockfile-parser > @snyk/dep-graph > graphlib > lodash:
         reason: None given
         expires: '2020-02-21T16:22:41.008Z'
+    - express-winston > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - html-to-text > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - newrelic > async > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - openid-client > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - passport-saml > xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - request-promise-native > request-promise-core > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - sequelize > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - snyk > @snyk/dep-graph > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - winston > async > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
+    - xml-encryption > async > lodash:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
   SNYK-JS-LODASHMERGEWITH-174136:
     - ink-docstrap > sanitize-html > lodash.mergewith:
         reason: No upgrade path available
@@ -108,6 +141,10 @@ ignore:
     - snyk > snyk-sbt-plugin > tree-kill:
         reason: no upgrade path currenty
         expires: '2020-03-08T15:38:05.011Z'
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - newrelic > https-proxy-agent:
+        reason: None given
+        expires: '2020-02-20T21:18:10.419Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
