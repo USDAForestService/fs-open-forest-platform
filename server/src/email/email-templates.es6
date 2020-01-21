@@ -98,12 +98,12 @@ emailTemplates.tempOutfitterApplicationReview = application => specialUseApplica
   defaultTempApplicationDetails
 );
 
-emailTemplates.noncommercialApplicationReview = application => specialUseApplicationReviewAdmin(
+emailTemplates.noncommercialApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
   defaultNoncommerialApplicationDetails
 );
 
-emailTemplates.tempOutfitterApplicationReview = application => specialUseApplicationReviewAdmin(
+emailTemplates.tempOutfitterApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
   defaultTempApplicationDetails
 );
