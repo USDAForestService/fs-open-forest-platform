@@ -49,7 +49,8 @@
     "name": "smtp-service",
     "credentials": {
       "admins": [
-        "david.corwin@gsa.gov"
+        "david.corwin@gsa.gov",
+        "mtlaney@gmail.com"
       ],
       "security": [
         "david.corwin@gsa.gov"
