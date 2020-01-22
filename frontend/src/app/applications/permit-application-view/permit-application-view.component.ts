@@ -19,6 +19,7 @@ export class PermitApplicationViewComponent implements OnInit {
   userType: string;
   application: any = {};
   fixedCtas = false;
+  message: any;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
     confirmButtonText: '',
@@ -130,11 +131,11 @@ export class PermitApplicationViewComponent implements OnInit {
         reasonOrCancelText: new FormControl()
       });
       this.reasonOrCancelFormGroup = this.formBuilder.group({
-        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(255)]],
+        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(1000)]],
       });
   
       const reasonOrCancelMessage = this.reasonOrCancelFormGroup.get('reasonOrCancelText');
-      this.afs.updateValidators(reasonOrCancelMessage, true, 255);
+      this.afs.updateValidators(reasonOrCancelMessage, true, 1000);
     
   }
 
