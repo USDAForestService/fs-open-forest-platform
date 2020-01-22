@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../../application-forms/_services/application-fields.service';
 
 @Component({
   selector: 'app-permit-application-view',
@@ -25,8 +27,11 @@ export class PermitApplicationViewComponent implements OnInit {
     status: '',
     message: ''
   };
+  reasonOrCancelFormGroup: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
+    public afs: ApplicationFieldsService,
     public alertService: AlertService,
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
@@ -119,7 +124,18 @@ export class PermitApplicationViewComponent implements OnInit {
       this.id = params['id'];
       this.getApplication(this.type, this.id);
       this.titleService.setTitle(`View ${this.type} application ${this.id} | U.S. Forest Service Open Forest`);
-    });
+      });
+
+      this.reasonOrCancelFormGroup = new FormGroup({
+        reasonOrCancelText: new FormControl()
+      });
+      this.reasonOrCancelFormGroup = this.formBuilder.group({
+        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(255)]],
+      });
+  
+      const reasonOrCancelMessage = this.reasonOrCancelFormGroup.get('reasonOrCancelText');
+      this.afs.updateValidators(reasonOrCancelMessage, true, 255);
+    
   }
 
   enter() {
