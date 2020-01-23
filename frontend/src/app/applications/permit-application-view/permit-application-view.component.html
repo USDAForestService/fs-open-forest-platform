@@ -38,7 +38,7 @@
         <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
         <ng-container [formGroup]="reasonOrCancelFormGroup">
         <!--<textarea id="reason-for-return" [(ngModel)]="reasonOrCancel.message" required minlength="1" maxlength="256"></textarea>-->
-        <textarea id="reason-for-return" formControlName="reasonOrCancelText" required minlength="1" maxlength="1001" [(ngModel)]="reasonOrCancel.message"></textarea>
+        <textarea id="reason-for-return" formControlName="reasonOrCancelText" required minlength="1" maxlength="256" [(ngModel)]="reasonOrCancel.message"></textarea>
         <app-error-message name="This field" [control]="reasonOrCancelFormGroup.get('reasonOrCancelText')"></app-error-message>
         <div class="reason-for-action-buttons">
           <button class="usa-button-secondary-alt" (click)="reasonOrCancel.open = false;">Cancel</button>

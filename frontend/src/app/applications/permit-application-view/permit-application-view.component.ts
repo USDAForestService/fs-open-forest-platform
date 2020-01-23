@@ -131,11 +131,11 @@ export class PermitApplicationViewComponent implements OnInit {
         reasonOrCancelText: new FormControl()
       });
       this.reasonOrCancelFormGroup = this.formBuilder.group({
-        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(1000)]],
+        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(255)]],
       });
   
       const reasonOrCancelMessage = this.reasonOrCancelFormGroup.get('reasonOrCancelText');
-      this.afs.updateValidators(reasonOrCancelMessage, true, 1000);
+      this.afs.updateValidators(reasonOrCancelMessage, true, 255);
     
   }
 
