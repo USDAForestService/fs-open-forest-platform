@@ -35,12 +35,15 @@
       <div class="usa-width-one-whole">
         <div class="close-reason-for-action" aria-label="Close" (click)="reasonOrCancel.open = false;">Close</div>
         <label for="reason-for-return">{{ reasonOrCancel.label }}</label>
-        <textarea id="reason-for-return" [(ngModel)]="reasonOrCancel.message"></textarea>
-        <div class="reason-for-action-buttons">
-          <button class="usa-button-secondary-alt" (click)="reasonOrCancel.open = false;">Cancel</button>
-          <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>
+        <ng-container [formGroup]="reasonOrCancelFormGroup">
+          <textarea id="reason-for-return"  formControlName="reasonOrCancelText" required minlength="1" maxlength="256" [(ngModel)]="reasonOrCancel.message"></textarea>
+          <app-error-message fieldId="services-provided-error" name="This field" [control]="reasonOrCancelFormGroup.get('reasonOrCancelText')"></app-error-message>
+          <div class="reason-for-action-buttons">
+            <button class="usa-button-secondary-alt" (click)="reasonOrCancel.open = false;">Cancel</button>
+            <button class="{{ reasonOrCancel.buttonClass }}" (click)="updateApplicationStatus(application, reasonOrCancel.status)">{{ reasonOrCancel.confirmButtonText }}</button>
+          </div>
+        </ng-container>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
