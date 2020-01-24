@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-/* eslint no-param-reassign: ["error", { "props": false }] */
+/* eslint no-param-reassign: ['error', { 'props': false }] */
 
 
 /**
@@ -455,8 +455,27 @@ const acceptApplication = application => new Promise((resolve, reject) => {
         simple: true,
         formData: {
           body: JSON.stringify(tempOutfitter.translateFromIntakeToMiddleLayer(application))
-        }
+        },
+        valid: multer({
+          fileFilter: (req, file, cb) => {
+            if (
+              !file.mimetype.includes('pdf') &&
+              !file.mimetype.includes('doc') &&
+              !file.mimetype.includes('docx') &&
+              !file.mimetype.includes('rtf')
+            ) {
+              return cb(null, false, new Error('Only images or documents are allowed'));
+            }
+            if (
+              file.size < 10485760
+            ) {
+              return cb(null, false, new Error('File size too large'));
+            }
+            cb(null, true);
+          }
+        })
       };
+
 
       if (files['insurance-certificate']) {
         requestOptions.formData.insuranceCertificate = {
@@ -522,10 +541,12 @@ const acceptApplication = application => new Promise((resolve, reject) => {
         .middleLayerAuth()
         .then((token) => {
           requestOptions.headers['x-access-token'] = token;
-          util
-            .request(requestOptions)
-            .then(resolve)
-            .catch(reject);
+          if (requestOptions.valid) {
+            util
+              .request(requestOptions)
+              .then(resolve)
+              .catch(reject);
+          }
         })
         .catch(reject);
     })
