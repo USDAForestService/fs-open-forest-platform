@@ -460,6 +460,8 @@ const acceptApplication = application => new Promise((resolve, reject) => {
           fileFilter: (req, file, cb) => {
             if (
               !file.mimetype.includes('pdf')
+              && !file.mimetype.includes('png')
+              && !file.mimetype.includes('jpg')
               && !file.mimetype.includes('doc')
               && !file.mimetype.includes('docx')
               && !file.mimetype.includes('rtf')
