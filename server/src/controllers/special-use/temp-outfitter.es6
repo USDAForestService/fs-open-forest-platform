@@ -459,10 +459,10 @@ const acceptApplication = application => new Promise((resolve, reject) => {
         valid: multer({
           fileFilter: (req, file, cb) => {
             if (
-              !file.mimetype.includes('pdf') &&
-              !file.mimetype.includes('doc') &&
-              !file.mimetype.includes('docx') &&
-              !file.mimetype.includes('rtf')
+              !file.mimetype.includes('pdf')
+              && !file.mimetype.includes('doc')
+              && !file.mimetype.includes('docx')
+              && !file.mimetype.includes('rtf')
             ) {
               return cb(null, false, new Error('Only images or documents are allowed'));
             }
