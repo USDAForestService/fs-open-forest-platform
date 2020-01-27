@@ -192,7 +192,7 @@ commonControllers.updateEmailSwitch = (req, res, app, type) => {
     emails = Promise.all([
       email.sendEmail(`${type}ApplicationAdminReview`, app),
       email.sendEmail(`${type}ApplicationRemoveHold`, app)
-    ])
+    ]);
   }
   emails = email.sendEmail(`${type}Application${app.status}`, app);
 
