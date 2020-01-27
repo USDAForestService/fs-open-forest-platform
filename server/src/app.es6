@@ -58,17 +58,24 @@ app.use(
   session({
     name: 'session',
     keys: new Keygrip([vcapConstants.PERMIT_SECRET], 'sha256', 'base64'),
-    saveUninitialized: false,
-    resave: true,
-    rolling: true,
+    maxAge: 3600000, // 1 hour
     cookie: {
       secure: true,
       httpOnly: true,
-      domain,
-      maxAge: 20 * 60 * 1000 // 1 hour
+      domain
     }
   })
 );
+
+// eslint-disable-next-line prefer-arrow-callback
+app.get('*', function refresh(req, res, next) {
+  // To update the session expiration time we need to send the new
+  // expiration in the response cookie.
+  // To send again the response cookie to the client we need to
+  // update the session object.
+  req.session.fake = Date.now();
+  next();
+});
 
 /** set meridiem format to AM and PM */
 moment.updateLocale('en', {

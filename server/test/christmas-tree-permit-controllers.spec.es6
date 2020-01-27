@@ -214,5 +214,4 @@ describe('christmas tree controller permit tests', () => {
         .expect(200, done);
     });
   });
-
 });

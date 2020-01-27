@@ -71,7 +71,12 @@ export class AuthenticatedComponent implements OnInit {
 
   // navigate user to /feedback
   goToFeedback() {
-    localStorage.setItem('feedbackRedirect', window.location.pathname);
+    // store redirect in localStorage
+    const origin = window.location.origin;
+    const href = window.location.href;
+    const split = href.split(origin);
+    const redirect = split[1];
+    localStorage.setItem('feedbackRedirect', redirect);
     this.router.navigate(['/feedback']);
   }
 
