@@ -188,8 +188,11 @@ commonControllers.updateEmailSwitch = (req, res, app, type) => {
   }
   if (app.status === 'Cancelled' && req.user.role === 'user') {
     emails = email.sendEmail(`${type}ApplicationUser${app.status}`, app);
-  } if (app.status === 'Review' && req.user.role === 'admin') {
-    emails = email.sendEmail(`${type}ApplicationRemoveHold`, app);
+  } if (app.status === 'Review') {
+    emails = Promise.all([
+      email.sendEmail(`${type}ApplicationAdminReview`, app),
+      email.sendEmail(`${type}ApplicationRemoveHold`, app)
+    ]);
   }
   emails = email.sendEmail(`${type}Application${app.status}`, app);
 
