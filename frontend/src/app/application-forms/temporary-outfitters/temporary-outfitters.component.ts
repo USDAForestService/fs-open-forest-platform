@@ -95,7 +95,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
         primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
@@ -158,13 +158,13 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
     const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
     const orgName = this.applicationForm.get('applicantInfo.organizationName');
     this.applicationFieldsService.updateValidators(gse, true, 255);
-    this.applicationFieldsService.updateValidators(orgName, true, 255);
+    this.applicationFieldsService.updateValidators(orgName, true, 60);
     switch (type) {
       case 'Person':
         this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
         this.pointOfView = 'I';
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
-        this.applicationFieldsService.updateValidators(orgName, false, 255);
+        this.applicationFieldsService.updateValidators(orgName, false, 60);
         break;
       case 'Corporation':
         this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';

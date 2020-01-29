@@ -354,12 +354,12 @@ module.exports = util.getSequelizeConnection().define(
       }
     },
     applicantInfoOrganizationName: {
-      type: Sequelize.STRING(255),
+      type: Sequelize.STRING(60),
       field: 'applicant_info_org_name',
       validate: {
         len: {
-          args: [0, 255],
-          msg: 'applicantInfoOrganizationName must be less than 255 characters in length'
+          args: [0, 60],
+          msg: 'applicantInfoOrganizationName must be less than 60 characters in length'
         }
       }
     },
