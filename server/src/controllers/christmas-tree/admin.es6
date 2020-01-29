@@ -200,7 +200,7 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
             endDate = moment
               .tz(req.body.endDate, forest.timezone)
               .add(0, 'days')
-              .subtract(1, 'ms')
+              .subtract(0, 'ms')
               .format(util.datetimeFormat);
           }
           return forest
