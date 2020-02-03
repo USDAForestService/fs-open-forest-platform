@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApplicationFieldsService } from '../../application-forms/_services/application-fields.service';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-permit-application-view',
@@ -27,7 +29,9 @@ export class PermitApplicationViewComponent implements OnInit {
     label: '',
     open: false,
     status: '',
-    message: ''
+    message: '',
+    ReactiveFormsModule,
+    FormsModule
   };
 
   constructor(
