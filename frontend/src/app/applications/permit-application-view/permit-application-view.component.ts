@@ -28,8 +28,8 @@ export class PermitApplicationViewComponent implements OnInit {
     confirmButtonText: '',
     label: '',
     open: false,
-// status: '',
-// message: '',
+    status: '',
+    message: '',
     ReactiveFormsModule,
     FormsModule
   };
@@ -49,7 +49,8 @@ export class PermitApplicationViewComponent implements OnInit {
   }
 
   getApplication(type, id) {
-    this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
+    const applicationService = this.applicationService;
+    applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
         this.apiErrors = e;
