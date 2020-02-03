@@ -42,7 +42,6 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "sequelize": "^5.15.1",
-    "snyk": "^1.279.0",
     "svg2png": "^4.1.1",
     "swagger-ui-express": "^2.0.15",
     "tough-cookie": "^2.4.3",
