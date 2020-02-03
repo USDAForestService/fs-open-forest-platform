@@ -30,8 +30,6 @@ export class PermitApplicationViewComponent implements OnInit {
   };
 
   constructor(
-    private formBuilder: FormBuilder,
-    public afs: ApplicationFieldsService,
     public alertService: AlertService,
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
