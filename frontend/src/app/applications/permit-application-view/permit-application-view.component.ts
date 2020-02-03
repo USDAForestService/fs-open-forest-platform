@@ -12,7 +12,7 @@ import { ApplicationFieldsService } from '../../application-forms/_services/appl
   templateUrl: './permit-application-view.component.html'
 })
 export class PermitApplicationViewComponent implements OnInit {
-  message: any;
+  message: '';
   apiErrors: any;
   id: string;
   type: string;
