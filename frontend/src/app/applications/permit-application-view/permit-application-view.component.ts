@@ -13,6 +13,7 @@ import { ApplicationFieldsService } from '../../application-forms/_services/appl
 })
 export class PermitApplicationViewComponent implements OnInit {
   message: '';
+  reasonOrCancelFormGroup: FormGroup;
   apiErrors: any;
   id: string;
   type: string;
