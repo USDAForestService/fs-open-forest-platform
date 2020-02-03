@@ -23,6 +23,8 @@ export class PermitApplicationViewComponent implements OnInit {
   userType: string;
   application: any = {};
   fixedCtas = false;
+  ReactiveFormsModule;
+  FormsModule;
   reasonOrCancel = {
     buttonClass: 'fs-button-green',
     confirmButtonText: '',
@@ -30,8 +32,6 @@ export class PermitApplicationViewComponent implements OnInit {
     open: false,
     status: '',
     message: '',
-    ReactiveFormsModule,
-    FormsModule
   };
 
   constructor(
@@ -49,8 +49,7 @@ export class PermitApplicationViewComponent implements OnInit {
   }
 
   getApplication(type, id) {
-    const applicationService = this.applicationService;
-    applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
+    this.applicationService.getOne(id, `/special-uses/${type}/`).subscribe(
       application => (this.application = application),
       (e: any) => {
         this.apiErrors = e;
