@@ -4,6 +4,8 @@ import { AuthenticationService } from '../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ApplicationFieldsService } from '../../application-forms/_services/application-fields.service';
 
 @Component({
   selector: 'app-permit-application-view',
