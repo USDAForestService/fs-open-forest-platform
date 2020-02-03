@@ -28,8 +28,8 @@ export class PermitApplicationViewComponent implements OnInit {
     confirmButtonText: '',
     label: '',
     open: false,
-    status: '',
-    message: '',
+// status: '',
+// message: '',
     ReactiveFormsModule,
     FormsModule
   };
