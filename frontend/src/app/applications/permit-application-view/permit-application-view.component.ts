@@ -31,8 +31,8 @@ export class PermitApplicationViewComponent implements OnInit {
   };
 
   constructor(
-    private formBuilder: FormBuilder,
-    // public afs: ApplicationFieldsService,
+    public formBuilder: FormBuilder,
+    public afs: ApplicationFieldsService,
     public alertService: AlertService,
     public applicationService: ApplicationService,
     private route: ActivatedRoute,
@@ -126,6 +126,16 @@ export class PermitApplicationViewComponent implements OnInit {
       this.getApplication(this.type, this.id);
       this.titleService.setTitle(`View ${this.type} application ${this.id} | U.S. Forest Service Open Forest`);
     });
+    this.reasonOrCancelFormGroup = new FormGroup(
+      {
+        reasonOrCancelText: new FormControl()
+      });
+      this.reasonOrCancelFormGroup = this.formBuilder.group(
+      {
+        reasonOrCancelText: ['', [Validators.required, Validators.maxLength(255)]],
+      });
+      const reasonOrCancelMessage = this.reasonOrCancelFormGroup.get('reasonOrCancelText');
+      this.afs.updateValidators(reasonOrCancelMessage, true, 255);
   }
 
   enter() {
