@@ -48,6 +48,12 @@ forestService.specialUseForestName = (forestCode) => {
   return '';
 };
 
-forestService.isForestOpen = forest => moment().isBetween(forest.startDate, forest.endDate, null, '[]');
+forestService.isForestOpen = (forest) => {
+  let start = moment(forest.startDate)
+  let end = moment(forest.endDate)
+  start = start.startOf('day')
+  end = end.endOf('day')
+  return moment().isBetween(start, end, null, '[]');
+}
 
 module.exports = forestService;
