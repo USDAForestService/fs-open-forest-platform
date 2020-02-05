@@ -39,8 +39,9 @@ eAuth.setUserObject = (profile) => {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
   let eauthrole = `${profile.usdaapproles}`;
-  logger.info(`ROLES FROM EAUTH : ${eauthrole} `);
   
+  logger.info(`ROLES FROM EAUTH : ${eauthrole} `);
+
   role = util.getUserRole(adminUsername);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
   const adminUserObject = {
