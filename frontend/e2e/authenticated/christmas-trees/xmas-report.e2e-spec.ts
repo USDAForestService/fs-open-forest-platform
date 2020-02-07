@@ -104,7 +104,7 @@ describe('Xmas tree - Admin Reports', () => {
     });
   });
 
-  describe('search by permit number', () => {
+  xdescribe('search by permit number', () => {
     beforeAll(() => {
       page.permitNumberReportRadio().click();
       browser.sleep(1);
