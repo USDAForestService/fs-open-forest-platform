@@ -38,8 +38,8 @@ eAuth.setUserObject = (profile) => {
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-  let eauthrole = '';
-  eauthrole = profile.usdaapproles;
+  //let eauthrole = '';
+  //eauthrole = profile.usdaapproles;
 
   logger.info(`ROLES FROM EAUTH : ${profile}`);
 
