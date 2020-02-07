@@ -41,7 +41,7 @@ eAuth.setUserObject = (profile) => {
   let eauthrole = '';
   eauthrole = profile.usdaapproles;
 
-  logger.info(`ROLES FROM EAUTH : ${eauthrole}`);
+  logger.info(`ROLES FROM EAUTH : ${profile}`);
 
   role = util.getUserRole(adminUsername);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
