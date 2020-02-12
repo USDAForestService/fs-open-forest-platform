@@ -113,7 +113,7 @@ export class ChristmasTreesApplicationService {
   }
 
   /**
-   * @returns Update distrct dates for forest district
+   * @returns Update district dates for forest district
    */
 
   //  double check before commit, should be good though
