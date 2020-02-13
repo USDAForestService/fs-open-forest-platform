@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-MARKED-73637:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2020-01-25T18:04:57.495Z'
+        expires: '2020-03-25T18:04:57.495Z'
   SNYK-JS-MARKED-174116:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2020-01-25T18:04:57.495Z'
+        expires: '2020-03-25T18:04:57.495Z'
   SNYK-JS-COREJS-174627:
     - core-js:
         reason: No remediation available
@@ -17,20 +17,20 @@ ignore:
   SNYK-JS-LODASH-450202:
     - newrelic > async > lodash:
         reason: ignore for more days
-        expires: '2020-01-25T18:45:56.815Z'
+        expires: '2020-03-25T18:45:56.815Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
         reason: no upgrade available
-        expires: '2020-01-25T23:02:43.714Z'
+        expires: '2020-04-25T23:02:43.714Z'
   SNYK-JS-HTTPSPROXYAGENT-469131:
     - newrelic > https-proxy-agent:
         reason: ignore for 30days
-        expires: '2020-01-25T18:45:56.816Z'
+        expires: '2020-04-25T18:45:56.816Z'
   SNYK-JS-ELLIPTIC-511941:
     - uswds > browserify > crypto-browserify > browserify-sign > elliptic:
         reason: ignore for more days
-        expires: '2020-01-25T18:26:03.902Z'
+        expires: '2020-04-25T18:26:03.902Z'
     - uswds > browserify > crypto-browserify > create-ecdh > elliptic:
         reason: ignore for more days
-        expires: '2020-01-25T18:26:03.902Z'
+        expires: '2020-04-25T18:26:03.902Z'
 patch: {}

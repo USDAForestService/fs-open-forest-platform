@@ -25,8 +25,6 @@ export class ChristmasTreesAdminService {
    */
   setStartEndTimes(formGroup, form) {
     if (formGroup && form.get('dateTimeRange')) {
-      console.log(form.get('dateTimeRange.endPeriod'));
-      console.log(form.get('dateTimeRange.startHour'));
       form.get('dateTimeRange.startHour').setValue(moment(formGroup.startDate).format('hh'));
       form.get('dateTimeRange.startMinutes').setValue(moment(formGroup.startDate).format('mm'));
       form.get('dateTimeRange.startPeriod').setValue(moment(formGroup.startDate).format('A'));
