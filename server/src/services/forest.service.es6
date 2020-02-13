@@ -12,8 +12,8 @@ const forestService = {};
  * @return {Object} - formatted data object
  */
 forestService.translateForestFromDatabaseToClient = (input) => {
-  const startDate = moment(input.startDate);
-  const endDate = moment(input.endDate);
+  const startDate = moment(input.startDate).local();
+  const endDate = moment(input.endDate).local();
 
   return {
     id: input.id,
@@ -27,8 +27,8 @@ forestService.translateForestFromDatabaseToClient = (input) => {
     treeHeight: input.treeHeight,
     stumpHeight: input.stumpHeight,
     stumpDiameter: input.stumpDiameter,
-    startDate: startDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
-    endDate: endDate.tz(input.timezone).format('YYYY-MM-DD HH:mm:ss'),
+    startDate: startDate.format('YYYY-MM-DD HH:mm:ss'),
+    endDate: endDate.format('YYYY-MM-DD HH:mm:ss'),
     treeCost: input.treeCost,
     maxNumTrees: input.maxNumTrees,
     allowAdditionalHeight: input.allowAdditionalHeight,

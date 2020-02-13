@@ -196,11 +196,13 @@ christmasTreeAdmin.updateForestDetails = (req, res) => {
             cuttingAreas = req.body.cuttingAreas;
           }
           if (req.body.startDate && req.body.endDate) {
-            startDate = moment.tz(req.body.startDate, forest.timezone).format(util.datetimeFormat);
+            startDate = moment
+              .tz(req.body.startDate, forest.timezone)
+              .add(1, 'hours')
+              .format(util.datetimeFormat);
             endDate = moment
               .tz(req.body.endDate, forest.timezone)
-              .add(0, 'days')
-              .subtract(1, 'ms')
+              .add(1, 'hours')
               .format(util.datetimeFormat);
           }
           return forest
