@@ -344,16 +344,19 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
+
 /**
 * @function getUserRole - Check if the given user is admin, return user role if not find
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = adminUsername => (
-  vcapConstants.EAUTH_USER_SAFELIST.find(
-    element => element.admin_username === adminUsername
-  ) ? util.ADMIN_ROLE
-    : util.USER_ROLE);
+util.getUserRole = adminUsername => { 
+  const str = adminUsername.split('^').includes("FS_OpenForest_Super-User");
+  if(str){
+    util.ADMIN_ROLE;
+  }
+    util.USER_ROLE;
+};
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
