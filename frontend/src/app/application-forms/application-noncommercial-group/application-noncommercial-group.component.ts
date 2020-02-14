@@ -85,14 +85,14 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
           '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(30)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
         primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, Validators.maxLength(255), alphanumericValidator()]],
+        primaryFirstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
+        primaryLastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
         secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
-        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(36)]],
+        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]]
       },
       {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
@@ -135,7 +135,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       this.applicationFieldsService.updateValidators(
         this.applicationForm.get('applicantInfo.organizationName'),
         true,
-        30
+        60
       );
     }
   }

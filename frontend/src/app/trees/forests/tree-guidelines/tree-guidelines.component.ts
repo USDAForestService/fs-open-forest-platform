@@ -43,7 +43,8 @@ a Christmas tree permit with the United States Forest Service on your National F
     forest.seasonOpenAlert = this.seasonOpenAlert;
     if (forest.endDate && forest.startDate) {
       forest.isSeasonOpen = moment(forest.endDate)
-        .isAfter(moment());
+        .isSameOrAfter(moment().startOf('day').toString());
+
       if (forest.isSeasonOpen) {
         forest.seasonOpenAlert = '';
         forest = this.checkSeasonStartDate(forest);

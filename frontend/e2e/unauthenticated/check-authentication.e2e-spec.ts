@@ -3,7 +3,7 @@ import { SpecialUseHomepage } from '../authenticated/special-uses/app.po';
 
 const page = new SpecialUseHomepage();
 
-describe('frontend App', () => {
+xdescribe('frontend App', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
   });
