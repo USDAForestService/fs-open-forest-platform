@@ -21,7 +21,7 @@ pipeline {
        
                 script {
                     currentBuild.displayName = "#$BUILD_NUMBER fs-open-forest-platform Deploy"
-                    currentBuild.description = "fs-open-forest-platform Deployment"          
+                    currentBuild.description = "fs-open-forest-platform Deploy"          
                 }
 
              
