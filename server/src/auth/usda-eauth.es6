@@ -38,8 +38,8 @@ eAuth.setUserObject = (profile) => {
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-  let approles = '';
-  let approles1 = 'FS_OpenForest_Super-User'.includes('Super');
+  const approles = 'FS_OpenForest_Super-User';
+  const approles1 = 'FS_OpenForest_Super-User'.includes('Super');
   logger.info(`ROLES FROM EAUTH: ${profile.usdafirstname}:${profile.usdaapproles}`);
   logger.info(`APP ROLES : ${approles}`);
   logger.info(`APP ROLES : ${approles1}`);
