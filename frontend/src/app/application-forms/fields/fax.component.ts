@@ -36,7 +36,6 @@ export class FaxComponent implements OnInit {
           .get('fax.tenDigit')
           .setValidators([Validators.minLength(10), Validators.maxLength(10), Validators.required]);
         this.parentForm.get('fax.tenDigit').updateValueAndValidity();
-
       } else {
         this.parentForm.get('fax.tenDigit').setValidators([Validators.minLength(10), Validators.maxLength(10)]);
         this.parentForm.get('fax.tenDigit').updateValueAndValidity();
