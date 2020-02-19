@@ -350,7 +350,7 @@ util.getAdminForests = (adminUsername) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-til.getUserRole = adminUsername => (
+util.getUserRole = adminUsername => (
   vcapConstants.EAUTH_USER_SAFELIST.find(
     element => element.admin_username === adminUsername
   ) ? util.ADMIN_ROLE
