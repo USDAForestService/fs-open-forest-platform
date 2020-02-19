@@ -39,10 +39,10 @@ eAuth.setUserObject = (profile) => {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
   let approles = '';
-  approles = `${profile.usdaapproles}`;
+  approles = 'FS_OpenForest_Super-User';
   logger.info(`ROLES FROM EAUTH: ${profile.usdafirstname}:${profile.usdaapproles}`);
   logger.info(`APP ROLES : ${approles}`);
-  role = util.getUserRole(adminUsername);
+  role = util.getUserRole(approles);
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
   const adminUserObject = {
     adminUsername: role === 'admin' ? adminUsername : '',
