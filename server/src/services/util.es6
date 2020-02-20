@@ -351,7 +351,7 @@ util.getAdminForests = (adminUsername) => {
 * @return {string} - user role ADMIN or USER
 */
 util.getUserRole = (approles) => {
-  const str = approles.includes('Super');
+  const str = 'FS_OpenForest_Super-User'.includes('Super');
   logger.info(`APP ROLES IN UTIL: ${str}`);
   if (str) {
     return util.ADMIN_ROLE;
