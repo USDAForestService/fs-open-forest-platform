@@ -351,10 +351,15 @@ util.getAdminForests = (adminUsername) => {
 * @return {string} - user role ADMIN or USER
 */
 util.getUserRole = (approles) => {
+  const str = '';
   if (typeof approles === 'string') {
-    const str = approles.includes('Super');
-    logger.info(`APP ROLES IN UTIL: ${str}`);
+    str = approles.includes('Super');
   }
+    logger.info(`APP ROLES IN UTIL: ${str}`);
+    if (str) {
+      return util.ADMIN_ROLE;
+    }
+    return util.USER_ROLE;
 };
 
 
