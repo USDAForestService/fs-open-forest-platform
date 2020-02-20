@@ -355,11 +355,11 @@ util.getUserRole = (approles) => {
   if (typeof approles === 'string') {
     str = approles.includes('Super');
   }
-    logger.info(`APP ROLES IN UTIL: ${str}`);
-    if (str) {
-      return util.ADMIN_ROLE;
-    }
-    return util.USER_ROLE;
+  logger.info(`APP ROLES IN UTIL: ${str}`);
+  if (str) {
+    return util.ADMIN_ROLE;
+  }
+  return util.USER_ROLE;
 };
 
 
