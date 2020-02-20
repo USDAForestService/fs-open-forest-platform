@@ -350,11 +350,15 @@ util.getAdminForests = (adminUsername) => {
 * @param {string} adminUsername - admin user name
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = adminUsername => (
-  vcapConstants.EAUTH_USER_SAFELIST.find(
-    element => element.admin_username === adminUsername
-  ) ? util.ADMIN_ROLE
-    : util.USER_ROLE);
+util.getUserRole = (approles) => {
+  const str = approles.includes('Super');
+  logger.info(`APP ROLES IN UTIL: ${str}`);
+  if (str) {
+    return util.ADMIN_ROLE;
+  }
+  return util.USER_ROLE;
+};
+
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
