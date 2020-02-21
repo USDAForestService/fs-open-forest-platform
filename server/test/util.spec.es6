@@ -55,11 +55,11 @@ describe('util tests', () => {
     });
 
     it('should return admin role', () => {
-      expect(util.getUserRole('FS_OpenForest_Super-User')).to.equal('FS_OpenForest_Super-User');
+      expect(util.getUserRole('FS_OpenForest_Super-User')).to.equal('admin');
     });
 
     it('should return user role', () => {
-      expect(util.getUserRole('FS_OpenForest_Super-Read')).to.equal('FS_OpenForest_Super-Read');
+      expect(util.getUserRole('FS_OpenForest_Read')).to.equal('user');
     });
 
     it('should get admin forests', () => {
