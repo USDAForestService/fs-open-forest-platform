@@ -351,6 +351,7 @@ util.getAdminForests = (adminUsername) => {
 * @return {string} - user role ADMIN or USER
 */
 util.getUserRole = (approles) => {
+  logger.info(`IN UTIL: ${approles}`);
   let str = '';
   if (typeof approles === 'string') {
     str = approles.includes('Super');
