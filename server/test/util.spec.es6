@@ -63,7 +63,7 @@ describe('util tests', () => {
     });
 
     it('should get admin forests', () => {
-      expect(util.getAdminForests('TEST_USER')[0]).to.equal('arp');
+      expect(util.getAdminForests('all')).to.equal('all');
     });
   });
 
