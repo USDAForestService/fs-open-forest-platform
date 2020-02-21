@@ -39,7 +39,7 @@ eAuth.setUserObject = (profile) => {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
   const approles = `${profile.usdaapproles}`;
-  const appforests = 'all';
+  let appforests = 'all';
   logger.info(`ROLES FROM EAUTH: ${profile.usdafirstname}:${profile.usdaapproles}`);
   logger.info(`APP ROLES : ${approles}`);
   role = util.getUserRole(approles);
