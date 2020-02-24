@@ -58,6 +58,6 @@ describe('HelpMePickComponent', () => {
     component.getTitle('7');
     expect(component.title).toEqual('The correct permit for you is the "noncommercial group use application."');
     component.getTitle('8');
-    expect(component.title).toEqual('The correct permit for you is the "temporary outfitter and guide permit."');
+    expect(component.title).toEqual('The correct permit for you is the "Temporary Outfitting and Guiding permit."');
   });
 });
