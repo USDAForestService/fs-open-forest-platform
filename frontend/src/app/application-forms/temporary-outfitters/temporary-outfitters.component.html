@@ -1,1004 +1,168 @@
-<h1 class="forest-title">{{forest}}</h1>
-<section id="application" class="usa-section">
-  <div class="usa-grid">
-      <app-breadcrumbs></app-breadcrumbs>
-    <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
-      [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
-    <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Temporary Outfitting and Guiding permit with Open Forest.</h2>
-
-      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
-
-      <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
-        <br>
-        <p>It may take a while to complete the application. To save time, have all of your documents ready.
-          You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
-        </p>
-        <br>
-        <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div id="form-errors"
-          *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
-          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
-        </div>
-
-        <fieldset id="section-applicant-info" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend>Applicant information</legend>
-
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
-            type="primary" name="Applicant"></app-permit-holder-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
-          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
-          <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
-          <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-          <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
-          <app-website [applicantInfo]="applicationForm.controls.applicantInfo" (blurWebsite)="matchUrls()"></app-website>
-
-          <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
-
-          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
-            [formGroup]="applicationForm.controls.tempOutfitterFields">
-            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
-            <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-          </div>
-
-          <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
-
-          <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
-            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-            <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
-              [applicationId]="applicationId"
-              [checkFileUploadHasError]="submitted"
-              [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
-              [required]="!applicationForm.controls.applicantInfo.controls.goodStandingEvidence.value"></app-file-upload-field>
-          </div>
-
-          <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
-
-        </fieldset>
-
-        <fieldset id="section-activity-description" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
-          <legend>Description of proposed activity</legend>
-          <p>Please fill out the following fields to the best of your knowledge at this point.</p>
-          <app-activity-description
-            [parentForm]="applicationForm.get('tempOutfitterFields')"
-            [pointOfView]="pointOfView"
-            (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
-
-          <label id="location-map-label" class="usa-input">Map of proposed activity</label>
-          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
-          <app-file-upload-field name="Location map" type="location-map"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.locationMap"
-            allowImg="true"
-            ></app-file-upload-field>
-        </fieldset>
-
-        <!-- cost estimate table -->
-        <br>
-        <legend>Estimate your permit cost</legend>
-        <table class="faq-table">
-          <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
-          </tr>
-          <tr>
-            <td>1 to 50</td>
-            <td>$150</td>
-            <td>$10,000</td>
-          </tr>
-          <tr>
-            <td>51 to 100</td>
-            <td>$300</td>
-            <td>$20,000</td>
-          </tr>
-          <tr>
-            <td>101 to 150</td>
-            <td>$450</td>
-            <td>$30,000</td>
-          </tr>
-          <tr>
-            <td>151 to 200</td>
-            <td>$600</td>
-            <td>$40,000</td>
-          </tr>
-        </table>
-
-        <app-advertising id="section-advertising" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-advertising>
-
-        <app-client-charges id="section-client-charges" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-client-charges>
-
-        <fieldset id="section-guide-identification" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend id="guide-document-label">Guide identification</legend>
-          <ul>
-            <li>Include a list of all guides who will be working under the permit.</li>
-            <li>Include relevant licensing information if applicable.</li>
-            <li>Describe your requirements for employment and staff training programs.</li>
-            <li>Include applicable certifications for guides and their expiration dates.</li>
-            <li>Please do not enter social security or passport numbers.</li>
-            <li>Include driver license numbers only if driving is part of the outfitting and guiding service.</li>
-          </ul>
-          <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here to download a guide identification template</a>.</p>
-
-          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Guide document" type="guide-document"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.guideIdentification"
-            allowXls="true">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-operating-plan" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="operating-plan-label">Operating plan</legend>
-          <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
-          <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.operatingPlan">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-liability-insurance" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Liability insurance" type="insurance-certificate"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [required]="!applicationForm.controls.liabilityInsurance.value"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.liabilityInsurance">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-acknowledgement-of-risk" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form</legend>
-          <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.acknowledgementOfRisk">
-          </app-file-upload-field>
-        </fieldset>
-
-        <app-experience id="section-experience" tabindex="-1"
-          [parentForm]="applicationForm.get('tempOutfitterFields')"
-          [pointOfView]="pointOfView"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-experience>
-
-        <fieldset id="section-signature" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend>Signature</legend>
-          <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-          <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
-            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
-            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
-          />
-          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
-        </fieldset>
-
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a Temporary Outfitting and Guiding permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
-        </div>
-
-        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
-
-      </form>
-
-    </div>
+<div class="usa-grid event-name no-padding padding-top-1">
+  <button *ngIf="application.status === 'Hold' && !isAdmin" class="usa-button-secondary-alt float-right" routerLink="/mbs/applications/temp-outfitters/{{application.appControlNumber}}/edit">Edit application</button>
+  <div class="usa-width-three-fourths">
+    <h1 id="skip-nav-target" tabindex="-1">{{ application.applicantInfo.organizationName }}
+      <span *ngIf="['Submitted'].indexOf(application.status) === -1" class="usa-label" [ngClass]="{
+        'success': application.status === 'Accepted',
+        'warning': application.status === 'Hold',
+        'danger': application.status === 'Rejected',
+        'black': application.status === 'Cancelled'
+      }">{{ application.status }}</span>
+    </h1>
   </div>
-</section>
-<app-progress *ngIf="showFileUploadProgress" message="Submitting your application." [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
-<h1 class="forest-title">{{forest}}</h1>
-<section id="application" class="usa-section">
-  <div class="usa-grid">
-      <app-breadcrumbs></app-breadcrumbs>
-    <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
-      [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
-    <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Temporary Outfitting and Guiding permit with Open Forest.</h2>
-
-      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
-
-      <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
-        <br>
-        <p>It may take a while to complete the application. To save time, have all of your documents ready.
-          You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
-        </p>
-        <br>
-        <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div id="form-errors"
-          *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
-          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
-        </div>
-
-        <fieldset id="section-applicant-info" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend>Applicant information</legend>
-
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
-            type="primary" name="Applicant"></app-permit-holder-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
-          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
-          <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
-          <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-          <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
-          <app-website [applicantInfo]="applicationForm.controls.applicantInfo" (blurWebsite)="matchUrls()"></app-website>
-
-          <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
-
-          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
-            [formGroup]="applicationForm.controls.tempOutfitterFields">
-            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
-            <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-          </div>
-
-          <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
-
-          <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
-            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-            <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
-              [applicationId]="applicationId"
-              [checkFileUploadHasError]="submitted"
-              [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
-              [required]="!applicationForm.controls.applicantInfo.controls.goodStandingEvidence.value"></app-file-upload-field>
-          </div>
-
-          <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
-
-        </fieldset>
-
-        <fieldset id="section-activity-description" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
-          <legend>Description of proposed activity</legend>
-          <p>Please fill out the following fields to the best of your knowledge at this point.</p>
-          <app-activity-description
-            [parentForm]="applicationForm.get('tempOutfitterFields')"
-            [pointOfView]="pointOfView"
-            (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
-
-          <label id="location-map-label" class="usa-input">Map of proposed activity</label>
-          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
-          <app-file-upload-field name="Location map" type="location-map"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.locationMap"
-            allowImg="true"
-            ></app-file-upload-field>
-        </fieldset>
-
-        <!-- cost estimate table -->
-        <br>
-        <legend>Estimate your permit cost</legend>
-        <table class="faq-table">
-          <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
-          </tr>
-          <tr>
-            <td>1 to 50</td>
-            <td>$150</td>
-            <td>$10,000</td>
-          </tr>
-          <tr>
-            <td>51 to 100</td>
-            <td>$300</td>
-            <td>$20,000</td>
-          </tr>
-          <tr>
-            <td>101 to 150</td>
-            <td>$450</td>
-            <td>$30,000</td>
-          </tr>
-          <tr>
-            <td>151 to 200</td>
-            <td>$600</td>
-            <td>$40,000</td>
-          </tr>
-        </table>
-
-        <app-advertising id="section-advertising" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-advertising>
-
-        <app-client-charges id="section-client-charges" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-client-charges>
-
-        <fieldset id="section-guide-identification" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend id="guide-document-label">Guide identification</legend>
-          <ul>
-            <li>Include a list of all guides who will be working under the permit.</li>
-            <li>Include relevant licensing information if applicable.</li>
-            <li>Describe your requirements for employment and staff training programs.</li>
-            <li>Include applicable certifications for guides and their expiration dates.</li>
-            <li>Please do not enter social security or passport numbers.</li>
-            <li>Include driver license numbers only if driving is part of the outfitting and guiding service.</li>
-          </ul>
-          <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here to download a guide identification template</a>.</p>
-
-          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Guide document" type="guide-document"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.guideIdentification"
-            allowXls="true">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-operating-plan" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="operating-plan-label">Operating plan</legend>
-          <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
-          <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.operatingPlan">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-liability-insurance" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Liability insurance" type="insurance-certificate"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [required]="!applicationForm.controls.liabilityInsurance.value"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.liabilityInsurance">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-acknowledgement-of-risk" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form</legend>
-          <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.acknowledgementOfRisk">
-          </app-file-upload-field>
-        </fieldset>
-
-        <app-experience id="section-experience" tabindex="-1"
-          [parentForm]="applicationForm.get('tempOutfitterFields')"
-          [pointOfView]="pointOfView"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-experience>
-
-        <fieldset id="section-signature" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend>Signature</legend>
-          <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-          <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
-            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
-            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
-          />
-          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
-        </fieldset>
-
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a Temporary Outfitting and Guiding permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
-        </div>
-
-        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
-
-      </form>
-
+</div>
+<div class="usa-grid margin-top-1 no-padding">
+  <div class="usa-width-one-half">
+    <h2>Application identification</h2>
+    <h3>Identification number:</h3>
+    <span>{{ application.applicationId }}</span>
+    <ng-container *ngIf="isAdmin && application.status === 'Accepted'">
+      <h3>SUDS identification number:</h3>
+      <span id="suds-id">EP-{{ application.region }}{{ application.forest }}-{{ application.applicationId }}</span>
+    </ng-container>
+    <h3>Permit application type:</h3>
+    <span>Temporary Outfitting and Guiding</span>
+    <h2 class="app-item-label padding-right-1">Applicant information</h2>
+    <div class="margin-bottom-1">
+      <span class="display-block">{{ application.applicantInfo.primaryFirstName }} {{ application.applicantInfo.primaryLastName }}</span>
+      <div *ngIf="application.applicantInfo.primaryAddress">
+        <span class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress }}</span>
+        <span *ngIf="application.applicantInfo.primaryAddress.mailingAddress2" class="display-block">{{ application.applicantInfo.primaryAddress.mailingAddress2 }}</span>
+        <span class="display-block">
+          {{ application.applicantInfo.primaryAddress.mailingCity }}, {{ application.applicantInfo.primaryAddress.mailingState }} {{ application.applicantInfo.primaryAddress.mailingZIP }}
+        </span>
+      </div>
     </div>
-  </div>
-</section>
-<app-progress *ngIf="showFileUploadProgress" message="Submitting your application." [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
-<h1 class="forest-title">{{forest}}</h1>
-<section id="application" class="usa-section">
-  <div class="usa-grid">
-      <app-breadcrumbs></app-breadcrumbs>
-    <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
-      [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
-    <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Temporary Outfitting and Guiding permit with Open Forest.</h2>
-
-      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
-
-      <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
-        <br>
-        <p>It may take a while to complete the application. To save time, have all of your documents ready.
-          You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
-        </p>
-        <br>
-        <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div id="form-errors"
-          *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
-          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
-        </div>
-
-        <fieldset id="section-applicant-info" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend>Applicant information</legend>
-
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
-            type="primary" name="Applicant"></app-permit-holder-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
-          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
-          <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
-          <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-          <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
-          <app-website [applicantInfo]="applicationForm.controls.applicantInfo" (blurWebsite)="matchUrls()"></app-website>
-
-          <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
-
-          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
-            [formGroup]="applicationForm.controls.tempOutfitterFields">
-            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
-            <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-          </div>
-
-          <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
-
-          <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
-            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-            <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
-              [applicationId]="applicationId"
-              [checkFileUploadHasError]="submitted"
-              [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
-              [required]="!applicationForm.controls.applicantInfo.controls.goodStandingEvidence.value"></app-file-upload-field>
-          </div>
-
-          <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
-
-        </fieldset>
-
-        <fieldset id="section-activity-description" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
-          <legend>Description of proposed activity</legend>
-          <p>Please fill out the following fields to the best of your knowledge at this point.</p>
-          <app-activity-description
-            [parentForm]="applicationForm.get('tempOutfitterFields')"
-            [pointOfView]="pointOfView"
-            (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
-
-          <label id="location-map-label" class="usa-input">Map of proposed activity</label>
-          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
-          <app-file-upload-field name="Location map" type="location-map"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.locationMap"
-            allowImg="true"
-            ></app-file-upload-field>
-        </fieldset>
-
-        <!-- cost estimate table -->
-        <br>
-        <legend>Estimate your permit cost</legend>
-        <table class="faq-table">
-          <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
-          </tr>
-          <tr>
-            <td>1 to 50</td>
-            <td>$150</td>
-            <td>$10,000</td>
-          </tr>
-          <tr>
-            <td>51 to 100</td>
-            <td>$300</td>
-            <td>$20,000</td>
-          </tr>
-          <tr>
-            <td>101 to 150</td>
-            <td>$450</td>
-            <td>$30,000</td>
-          </tr>
-          <tr>
-            <td>151 to 200</td>
-            <td>$600</td>
-            <td>$40,000</td>
-          </tr>
-        </table>
-
-        <app-advertising id="section-advertising" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-advertising>
-
-        <app-client-charges id="section-client-charges" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-client-charges>
-
-        <fieldset id="section-guide-identification" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend id="guide-document-label">Guide identification</legend>
-          <ul>
-            <li>Include a list of all guides who will be working under the permit.</li>
-            <li>Include relevant licensing information if applicable.</li>
-            <li>Describe your requirements for employment and staff training programs.</li>
-            <li>Include applicable certifications for guides and their expiration dates.</li>
-            <li>Please do not enter social security or passport numbers.</li>
-            <li>Include driver license numbers only if driving is part of the outfitting and guiding service.</li>
-          </ul>
-          <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here to download a guide identification template</a>.</p>
-
-          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Guide document" type="guide-document"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.guideIdentification"
-            allowXls="true">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-operating-plan" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="operating-plan-label">Operating plan</legend>
-          <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
-          <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.operatingPlan">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-liability-insurance" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Liability insurance" type="insurance-certificate"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [required]="!applicationForm.controls.liabilityInsurance.value"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.liabilityInsurance">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-acknowledgement-of-risk" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form</legend>
-          <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.acknowledgementOfRisk">
-          </app-file-upload-field>
-        </fieldset>
-
-        <app-experience id="section-experience" tabindex="-1"
-          [parentForm]="applicationForm.get('tempOutfitterFields')"
-          [pointOfView]="pointOfView"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-experience>
-
-        <fieldset id="section-signature" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend>Signature</legend>
-          <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-          <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
-            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
-            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
-          />
-          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
-        </fieldset>
-
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a Temporary Outfitting and Guiding permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
-        </div>
-
-        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
-
-      </form>
-
+    <div class="margin-bottom-1">
+      <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
+      <span class="display-block" *ngIf="application.applicantInfo.dayPhone">
+        Phone: {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
+        <span *ngIf="application.applicantInfo.dayPhone.extension"> ext. {{ application.applicantInfo.dayPhone.extension }}</span>
+      </span>
+      <span *ngIf="application.applicantInfo.eveningPhone && application.applicantInfo.eveningPhone.number" class="display-block">
+        Phone2: {{ application.applicantInfo.eveningPhone.areaCode }}-{{ application.applicantInfo.eveningPhone.prefix }}-{{ application.applicantInfo.eveningPhone.number }}
+        <span *ngIf="application.applicantInfo.eveningPhone.extension"> ext. {{ application.applicantInfo.eveningPhone.extension }}</span>
+      </span>
+      <span *ngIf="application.applicantInfo.fax && application.applicantInfo.fax.number" class="display-block">
+        Fax: {{ application.applicantInfo.fax.areaCode }}-{{ application.applicantInfo.fax.prefix }}-{{ application.applicantInfo.fax.number }}
+        <span *ngIf="application.applicantInfo.fax.extension"> ext. {{ application.applicantInfo.fax.extension }}</span>
+      </span>
+      <span class="display: block" *ngIf="application.applicantInfo.website">
+        Website: <a href="{{application.applicantInfo.website | UrlPipe }}" target="_blank">{{application.applicantInfo.website}}</a>
+      </span>
     </div>
-  </div>
-</section>
-<app-progress *ngIf="showFileUploadProgress" message="Submitting your application." [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
-<h1 class="forest-title">{{forest}}</h1>
-<section id="application" class="usa-section">
-  <div class="usa-grid">
-      <app-breadcrumbs></app-breadcrumbs>
-    <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
-      [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
-    <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Temporary Outfitting and Guiding permit with Open Forest.</h2>
 
-      <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
+    <div class="margin-bottom-1">
+      <span class="display-block">Organization Type: {{ application.applicantInfo.orgType }}</span>
+      <span class="display-block" *ngIf="application.applicantInfo.orgType === 'Person'">
+        Applicant is US citizen:
+        <span *ngIf="application.tempOutfitterFields.individualIsCitizen">true</span>
+        <span *ngIf="!application.tempOutfitterFields.individualIsCitizen">false</span>
+      </span>
+      <h2 class="app-item-label padding-right-1">File uploads</h2>
 
-      <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
-        <br>
-        <p>It may take a while to complete the application. To save time, have all of your documents ready.
-          You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
-        </p>
-        <br>
-        <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
-        <div id="form-errors"
-          *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors || invalidFileUpload"
-          class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
-          <div class="usa-alert-body">
-            <h3 class="usa-alert-heading">There are errors in your application.</h3>
-            <p class="usa-alert-text">Please correct the errors before submitting.</p>
-          </div>
+      <ul *ngFor="let file of files">
+        <li *ngIf="file.documentType !== 'good-standing-evidence' ||
+        ['Person', 'State Govt', 'Local Govt'].indexOf(application.applicantInfo.orgType) === -1"
+        ><a href="{{ url }}permits/applications/special-uses/temp-outfitter/{{file.applicationId}}/files/{{file.s3FileName | base64 }}">{{ file.documentType }}</a></li>
+      </ul>
+
+      <h2 class="app-item-label padding-right-1" *ngIf="application.tempOutfitterFields.advertisingURL || application.tempOutfitterFields.advertisingDescription">Advertising</h2>
+      <div *ngIf="application.tempOutfitterFields.advertisingURL">
+        <h3>Promotional website:</h3>
+        <a href="{{ application.tempOutfitterFields.advertisingURL | UrlPipe }}">{{ application.tempOutfitterFields.advertisingURL }}</a>
+      </div>
+      <div *ngIf="application.tempOutfitterFields.advertisingDescription">
+        <h3>Advertising description:</h3>
+        <span>{{ application.tempOutfitterFields.advertisingDescription }}</span>
+      </div>
+
+      <h2 class="app-item-label padding-right-1">Client charges</h2>
+      <h3>Description of client charges and fees and what they cover:</h3>
+      <span>{{ application.tempOutfitterFields.clientCharges }}</span>
+
+      <h2 class="app-item-label padding-right-1">Experience</h2>
+      <ng-container *ngIf="application.tempOutfitterFields.experienceFields">
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllNationalForestPermits">
+          <h3>Permits for outfitting and guiding on National Forest System lands in the past 3 years:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllNationalForestPermits }}</span>
         </div>
-
-        <fieldset id="section-applicant-info" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend>Applicant information</legend>
-
-          <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
-            type="primary" name="Applicant"></app-permit-holder-name>
-          <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
-          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
-          <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
-          <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
-          <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
-          <app-website [applicantInfo]="applicationForm.controls.applicantInfo" (blurWebsite)="matchUrls()"></app-website>
-
-          <app-org-type [applicantInfo]="applicationForm.controls.applicantInfo" type="complex"></app-org-type>
-
-          <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Person'"
-            [formGroup]="applicationForm.controls.tempOutfitterFields">
-            <input id="individual-citizen" type="checkbox" formControlName="individualIsCitizen" />
-            <label id="individual-citizen-label" class="usa-input" for="individual-citizen">Are you a citizen of the United States?</label>
-          </div>
-
-          <app-organization-name *ngIf="applicationForm.get('applicantInfo.orgType').value && applicationForm.get('applicantInfo.orgType').value !== 'Person'" [applicantInfo]="applicationForm.controls.applicantInfo" name="Business name"></app-organization-name>
-
-          <div id="good-standing-evidence-wrapper" class="usa-file-upload-wrapper" *ngIf="orgTypeFileUpload">
-            <h3 id="good-standing-evidence-label">{{ goodStandingEvidenceMessage }} <span class="required-fields-asterisk">*</span></h3>
-            <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-            <app-file-upload-field name="{{goodStandingEvidenceMessage}}" type="good-standing-evidence" [uploadFiles]="uploadFiles"
-              [applicationId]="applicationId"
-              [checkFileUploadHasError]="submitted"
-              [field]="applicationForm.controls.applicantInfo.controls.goodStandingEvidence"
-              [required]="!applicationForm.controls.applicantInfo.controls.goodStandingEvidence.value"></app-file-upload-field>
-          </div>
-
-          <app-small-business [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"></app-small-business>
-
-        </fieldset>
-
-        <fieldset id="section-activity-description" tabindex="-1"
-        inViewport
-        [inViewportOptions]="{ partial: true }"
-        (inViewportAction)="elementInView($event)">
-
-          <legend>Description of proposed activity</legend>
-          <p>Please fill out the following fields to the best of your knowledge at this point.</p>
-          <app-activity-description
-            [parentForm]="applicationForm.get('tempOutfitterFields')"
-            [pointOfView]="pointOfView"
-            (updateRootDateStatus)="updateDateStatus($event)"></app-activity-description>
-
-          <label id="location-map-label" class="usa-input">Map of proposed activity</label>
-          <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
-          <app-file-upload-field name="Location map" type="location-map"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.locationMap"
-            allowImg="true"
-            ></app-file-upload-field>
-        </fieldset>
-
-        <!-- cost estimate table -->
-        <br>
-        <legend>Estimate your permit cost</legend>
-        <table class="faq-table">
-          <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
-          </tr>
-          <tr>
-            <td>1 to 50</td>
-            <td>$150</td>
-            <td>$10,000</td>
-          </tr>
-          <tr>
-            <td>51 to 100</td>
-            <td>$300</td>
-            <td>$20,000</td>
-          </tr>
-          <tr>
-            <td>101 to 150</td>
-            <td>$450</td>
-            <td>$30,000</td>
-          </tr>
-          <tr>
-            <td>151 to 200</td>
-            <td>$600</td>
-            <td>$40,000</td>
-          </tr>
-        </table>
-
-        <app-advertising id="section-advertising" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-advertising>
-
-        <app-client-charges id="section-client-charges" tabindex="-1"
-          [tempOutfitterFields]="applicationForm.controls.tempOutfitterFields"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-client-charges>
-
-        <fieldset id="section-guide-identification" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-
-          <legend id="guide-document-label">Guide identification</legend>
-          <ul>
-            <li>Include a list of all guides who will be working under the permit.</li>
-            <li>Include relevant licensing information if applicable.</li>
-            <li>Describe your requirements for employment and staff training programs.</li>
-            <li>Include applicable certifications for guides and their expiration dates.</li>
-            <li>Please do not enter social security or passport numbers.</li>
-            <li>Include driver license numbers only if driving is part of the outfitting and guiding service.</li>
-          </ul>
-          <p>These guide identification details are not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/guide-identification-template.xlsx" target="_blank">click here to download a guide identification template</a>.</p>
-
-          <p>File must be in .xls, .xlsx, .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Guide document" type="guide-document"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.guideIdentification"
-            allowXls="true">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-operating-plan" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="operating-plan-label">Operating plan</legend>
-          <p>An operating plan addresses client and visitor safety, evacuation and emergency procedures, and resource protection with respect to your proposed operations and location.</p>
-          <p>An operating plan is not required to apply, but will be required before your application is approved.</p>
-          <p>If needed, <a href="/assets/files/operating-plan-template.docx" target="_blank">click here to download an operating plan template</a>.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Operating plan" type="operating-plan"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.operatingPlan">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-liability-insurance" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="insurance-certificate-label">Liability insurance <span class="required-fields-asterisk">*</span></legend>
-          <p>The permit holder will be required to obtain liability insurance in an amount satisfactory to the authorized officer (<a href="https://www.fs.usda.gov/Internet/FSE_DOCUMENTS/stelprdb5295497.pdf" target="_blank">see FSM 2713.1</a>).  The insurance policy must name the United States as an additional insured entity.  A copy of the certificate of insurance must be provided to the authorized officer prior to issuance of a permit.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Liability insurance" type="insurance-certificate"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [required]="!applicationForm.controls.liabilityInsurance.value"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.liabilityInsurance">
-          </app-file-upload-field>
-        </fieldset>
-
-        <fieldset id="section-acknowledgement-of-risk" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend id="acknowledgement-of-risk-form-label">Client's acknowledgement of risk form</legend>
-          <p>If your clients are required to sign an acknowledgement of risk form, you will need to provide a copy before your application can be approved.</p>
-          <p>File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
-          <app-file-upload-field name="Client's acknowledgement of risk form" type="acknowledgement-of-risk-form"
-            [uploadFiles]="uploadFiles"
-            [applicationId]="applicationId"
-            [checkFileUploadHasError]="submitted"
-            [field]="applicationForm.controls.acknowledgementOfRisk">
-          </app-file-upload-field>
-        </fieldset>
-
-        <app-experience id="section-experience" tabindex="-1"
-          [parentForm]="applicationForm.get('tempOutfitterFields')"
-          [pointOfView]="pointOfView"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-        </app-experience>
-
-        <fieldset id="section-signature" tabindex="-1"
-          inViewport
-          [inViewportOptions]="{ partial: true }"
-          (inViewportAction)="elementInView($event)">
-          <legend>Signature</legend>
-          <p id="signature-hint-text">I hereby certify that I am of legal age and am authorized to do business in the State or Commonwealth of Washington.  I have personally examined the information contained in this application and certify that this information is correct to the best of my knowledge.  I hereby acknowledge that this is an application only, and that the use and occupancy of National Forest System lands is not authorized until a special use permit is signed and issued by an authorized officer.</p>
-          <label id="signature-label" class="usa-input">Please sign your application by typing your initials here. <span class="required-fields-asterisk">*</span></label>
-          <input id="signature" type="text" minlength="2" maxlength="3" formControlName="signature" aria-required="true"
-            [attr.aria-labelledby]="applicationFieldsService.labelledBy(applicationForm.controls.signature, 'signature-label signature-hint-text', 'signature-error')"
-            [attr.aria-invalid]="applicationFieldsService.hasError(applicationForm.controls.signature)"
-          />
-          <app-error-message fieldId="signature-error" name="Signature" [control]="applicationForm.controls.signature"></app-error-message>
-        </fieldset>
-
-        <div class="outfitters-applications-pii-accept-checkbox-container">
-          <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
-          <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
-          information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a Temporary Outfitting and Guiding permit, consenting to our collection of your name and email"
-            [control]="applicationForm.controls.acceptPII"></app-error-message>
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllOtherPermits">
+          <h3>Permits with other federal or state agencies in the past 3 years:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllOtherPermits }}</span>
         </div>
-
-        <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
-        <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
-
-      </form>
-
+        <div *ngIf="application.tempOutfitterFields.experienceFields.listAllCitations">
+          <h3>Citations or violations in association with outfitting and guiding activities:</h3>
+          <span>{{ application.tempOutfitterFields.experienceFields.listAllCitations }}</span>
+        </div>
+      </ng-container>
     </div>
+    <app-revision-history id="desktop-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>
   </div>
-</section>
-<app-progress *ngIf="showFileUploadProgress" message="Submitting your application." [numberOfFiles]="numberOfFiles" [fileUploadProgress]="fileUploadProgress" [fileUploadError]="fileUploadError" (retryFileUpload)="retryFileUpload($event)"></app-progress>
+
+
+  <div class="usa-width-one-half">
+    <ng-container *ngIf="application.tempOutfitterFields && application.tempOutfitterFields.activityDescriptionFields">
+      <h2>Description of proposed activity</h2>
+      <h3>Start date:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.startDateTime | date: 'MM/dd/yyyy': 'UTC' }}</span>
+
+      <h3>End date:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.dateTimeRange.endDateTime | date: 'MM/dd/yyyy': 'UTC' }}</span>
+
+      <h3>The anticipated number of trips:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.numberOfTrips }}</span>
+
+      <h3>The anticipated party size:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.partySize }}</span>
+
+      <h3>Location of routes and starting and ending points for the proposed operations:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.locationDescription }}</span>
+
+      <h3>Services being offered:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.servicesProvided }}</span>
+
+      <h3>Description of your client base or audience:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.audienceDescription }}</span>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities">
+        <h3>List of government facilities requested:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfGovernmentFacilities }}</span>
+      </div>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
+        <h3>List of temporary improvements:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
+      </div>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment">
+        <h3>Motorized equipment usage:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfMotorizedEquipment }}</span>
+      </div>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock">
+        <h3>Transportation of livestock:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfTransportationOfLivestock }}</span>
+      </div>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite">
+        <h3>Need assiged site:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.statementOfAssignedSite }}</span>
+      </div>
+
+      <div *ngIf="application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements">
+        <h3>List of temporary improvements:</h3>
+        <span>{{ application.tempOutfitterFields.activityDescriptionFields.listOfTemporaryImprovements }}</span>
+      </div>
+
+      <h3>Description of cleanup and restoration during and after the proposed operations:</h3>
+      <span>{{ application.tempOutfitterFields.activityDescriptionFields.descriptionOfCleanupAndRestoration }}</span>
+    </ng-container>
+
+    <h3>
+      <span *ngIf="application.signature" class="electronic-signature-success"></span>
+      Electronic signature
+    </h3>
+  </div>
+</div>
+<app-revision-history id="mobile-revision-history" [application]="application" *ngIf="application.revisions.length"></app-revision-history>
