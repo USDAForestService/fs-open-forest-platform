@@ -79,13 +79,12 @@
 
           <label id="location-map-label" class="usa-input">Map of proposed activity</label>
           <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
+          <p class="help-text usa-form-hint">File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Location map" type="location-map"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.locationMap"
-            allowImg="true"
             ></app-file-upload-field>
         </fieldset>
 
@@ -235,7 +234,7 @@
           <input id="accept-pii" type="checkbox" formControlName='acceptPII' name="accept-pii" required>
           <label id='accept-pii-label' for="accept-pii"><span class="required-fields-asterisk">*</span> By checking this box, I acknowledge that Open Forest will collect and store my name and email address. For more
           information, please see our <a href="/assets/files/OpenForestePermits-Privacy-Impact-Assessment-2018.pdf">privacy impact assessment</a>. </label>
-          <app-error-message fieldId="accept-rules-error" name="To purchase a Temporary Outfitting and Guiding permit, consenting to our collection of your name and email"
+          <app-error-message fieldId="accept-rules-error" name="To purchase a temporary outfitters permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII"></app-error-message>
         </div>
 
