@@ -9,7 +9,7 @@ const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
 const page = new TempOutfittersForm();
 const fieldValidation = new FieldValidation();
 
-describe('Apply for a temp outfitters permit', () => {
+describe('Apply for a Temporary Outfitting and Guiding permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     browser.driver.manage().window().setSize(1400, 900);
@@ -21,7 +21,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Temporary Outfitting and Guiding permit with Open Forest.');
   });
 
   it('should not show errors by default', () => {
@@ -54,7 +54,7 @@ describe('Apply for a temp outfitters permit', () => {
 
   it('should navigate back to temp outfitter', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a temporary outfitters permit with Open Forest.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Temporary Outfitting and Guiding permit with Open Forest.');
   });
 
   fieldValidation.validateFileUploadField('guide-document', 'xls');
