@@ -346,7 +346,7 @@ util.getAdminForests = (appforests) => {
 
 /**
 * @function getUserRole - Check if the given user is admin, return user role if not find
-* @param {string} adminUsername - admin user name
+* @param {string} approles - user roles
 * @return {string} - user role ADMIN or USER
 */
 util.getUserRole = (approles) => {
