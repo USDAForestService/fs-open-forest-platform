@@ -16,7 +16,7 @@ export class HomeComponent {
     this.forest = this.specialUseInfoService.getOne('0605');
     this.meta.addTags([
       { name: 'description', content: 'Use Open Forest to apply for noncommercial\
-and temporary outfitter permits with the United States Forest Service.' },
+or Temporary Outfitting and Guiding permits with the United States Forest Service.' },
       { name: 'keywords', content: 'Angular, Meta Service' }
     ]);
   }

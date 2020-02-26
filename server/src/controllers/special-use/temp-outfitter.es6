@@ -297,7 +297,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = (application) => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       activityDescription:
-        `Temporary Outfitter and Guides \nStart date: ${
+        `Temporary Outfitting and Guiding \nStart date: ${
           moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY')
         }\nEnd date: ${
           moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY')
