@@ -126,7 +126,7 @@ describe('Special use email templates', () =>{
 
     it('should build an object of email content for temp outfitter app submission to user', () => {
       application.status = 'Submitted';
-      const specialUseSubjectCustom = 'Your temporary outfitting and guiding permit application has been submitted for review!';
+      const specialUseSubjectCustom = 'Your Temp outfitters Open Forest permit application has been submitted for review!';
       application.tempOutfitterFieldsActDescFieldsEndDateTime = '2018-12-14T21:00:00Z';
       const emailContent = emails.tempOutfitterApplicationSubmittedConfirmation(application);
 
