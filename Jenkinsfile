@@ -48,7 +48,7 @@ pipeline {
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
 	
-curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=aa6398294e0b4839271c8662c2b8a14b2073b033 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'
+curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=aa6398294e0b4839271c8662c2b8a14b2073b033 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/$JOB_NAME/$BUILD_NUMBER/console"}'
 	'''		 
                 }      	     
 	} 
@@ -68,7 +68,7 @@ curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/stat
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
 	
-curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=aa6398294e0b4839271c8662c2b8a14b2073b033 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'
+curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=aa6398294e0b4839271c8662c2b8a14b2073b033 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/$JOB_NAME/$BUILD_NUMBER/console"}'
 	'''
         }
     }
