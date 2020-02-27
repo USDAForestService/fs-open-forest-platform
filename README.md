@@ -25,7 +25,7 @@ The U.S. Forest Service is engaged in an ongoing effort to modernize and simplif
 
 As the first two-way interaction-focused Forest Service online application, Open Forest will strengthen the connection between the public and the National Forests. The application will broaden and increase the public’s responsible access to public lands through online availability; a predictable, responsive and friendly experience; and reduced administrative burden. These enhancements will drive increased customer satisfaction and quality of public engagement.
 
-The Forest Service will use agile development methods and modular procurements to develop the application, ensuring an adaptive process that responds to emergent user needs and changing requirements.
+The Forest Service will use agile development methods and modular procurements to develop the application, ensuring an adaptive process that responds to emergent user needs and changing requirements
 
 ## Table of contents
 
