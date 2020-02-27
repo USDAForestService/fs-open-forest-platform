@@ -10,8 +10,7 @@ module.exports = {
     Contact us
     *********************************
 
-    If you have questions or need to contact the\
- permit staff at the National Forest Service, please use a method listed below.
+    If you'd like to contact the special use permit administration staff at the Forest, please use a method listed below.
 
     Contact
     Name: ${contactInfo.name}
@@ -24,8 +23,7 @@ module.exports = {
 `,
   html: `
   <h2>Contact us</h2>
-  <p>If you have questions or need to contact the permit staff at the National Forest Service,
-   please use a method listed below.</p>
+  <p>If you'd like to contact the special use permit administration staff at the Forest, please use a method listed below.</p>
    <h3>Contact</h3>
        <table class="bordered" cellpadding="0" cellspacing="0">
       <tr>
