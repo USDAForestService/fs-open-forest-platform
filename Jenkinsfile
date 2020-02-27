@@ -15,7 +15,6 @@ pipeline {
         BRANCH_NAME = "blueOcean_build2"
         SONAR_LOGIN = "686109daf6b0ac668b501a65556918f2803a3aa0"
         SONAR_HOST = "http://10.0.0.117:9090"
-        // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
 	
