@@ -257,11 +257,12 @@ jobs:
     steps:
       - run: *install_cf
       - run:
-          name: Install cf-recycle-plugin 1.0.0 release
+          name: Install cf-recycle-plugin 2.0.1 release
           command: |
-            curl -L -o cf-recycle-plugin https://github.com/rogeruiz/cf-recycle-plugin/releases/download/v1.0.0/cf-recycle-plugin.linux64
-            chmod +x cf-recycle-plugin
-            cf install-plugin cf-recycle-plugin -f
+            sudo wget https://github.com/Comcast/cf-recycle-plugin/releases/download/v2.0.1/cf-recycle-plugin-2.0.1.tgz
+            sudo tar -zxvf cf-recycle-plugin-2.0.1.tgz
+            cf install-plugin cf-recycle-plugin-linux -f
+            cf plugins
       - run: *login_cf_platform-production
       - run:
           name: Recycle Production instances
