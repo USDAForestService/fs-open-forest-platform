@@ -58,7 +58,7 @@ pipeline {
         }
     }
 
-parallel{
+
   stage('run-lint'){
     steps {
         sh 'echo "run lint"'
@@ -91,7 +91,6 @@ parallel{
     steps {
         sh 'echo "run pa11y"'
         }
-    }
     }
 
 
