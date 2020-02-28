@@ -15,6 +15,7 @@ pipeline {
         BRANCH_NAME = "blueOcean_build2"
         SONAR_LOGIN = "686109daf6b0ac668b501a65556918f2803a3aa0"
         SONAR_HOST = "http://10.0.0.117:9090"
+        // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
 	
@@ -39,15 +40,9 @@ pipeline {
                 script {
                    currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	
-		     
-	       
-	       	   sh '''
-	export REPO_NAME='fs-open-forest-platform'
-	export REPO_OWNER_NAME='USDAForestService'
-        export JOB_NAME='fs-open-forest-platform-dev'
-        export JENKINS_URL='https://jenkins.fedgovcloud.us'
- curl -H "Authorization: token 30abf866063d52ace98beaf611b909c85176608f" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
-	'''		 
+
+	     
+
                 }      	     
 	} 
 	 post {
@@ -57,18 +52,52 @@ pipeline {
             }	
     }
     
-  stage('Run e2e'){
+  stage('install-dependencies'){
     steps {
-        sh 'echo "Run e2e"'
-	sh '''
-	export REPO_NAME='fs-open-forest-platform'
-	export REPO_OWNER_NAME='USDAForestService'
-        export JOB_NAME='fs-open-forest-platform-dev'
-        export JENKINS_URL='https://jenkins.fedgovcloud.us'
+        sh 'echo "Install dependencies"'
+        }
+    }
 
-curl -H "Authorization: token 30abf866063d52ace98beaf611b909c85176608f" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
+parallel{
+  stage('run-lint'){
+    steps {
+        sh 'echo "run lint"'
+        }
+    }
 
-	'''
+
+  stage('run-sonarqube'){
+    steps {
+        sh 'echo "run-sonarqube"'
+        }
+    }
+
+
+  stage('run-unit-tests'){
+    steps {
+        sh 'echo "run-unit-tests"'
+        }
+    }
+
+
+  stage('run-e2e'){
+    steps {
+        sh 'echo "run e2e"'
+        }
+    }
+
+
+  stage('run pa11y'){
+    steps {
+        sh 'echo "run pa11y"'
+        }
+    }
+    }
+
+
+  stage('dev-deploy'){
+    steps {
+        sh 'echo "dev-deploy"'
         }
     }
 
