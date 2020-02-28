@@ -46,8 +46,7 @@ pipeline {
 	export REPO_OWNER_NAME='USDAForestService'
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
-	
-curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=1112bad2297d7c03e4a46f5b3f5b74b5bb79bbf5 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'
+curl -u kilara77:07df02b467874d221549125e73dc0905c53357f1 https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
 	'''		 
                 }      	     
 	} 
@@ -66,8 +65,9 @@ curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/stat
 	export REPO_OWNER_NAME='USDAForestService'
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
-	
-curl https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT?access_token=1112bad2297d7c03e4a46f5b3f5b74b5bb79bbf5 -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/$JOB_NAME/$BUILD_NUMBER/console"}'
+
+curl -u kilara77:07df02b467874d221549125e73dc0905c53357f1 https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
+
 	'''
         }
     }
