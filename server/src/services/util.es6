@@ -324,6 +324,13 @@ util.userApplicationLink = (application, plainText) => {
   return { text, url };
 };
 
+
+/**
+ * @function adminApplicationUrl - Get the user's application URL
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - application url
+*/
 util.adminApplicationLink = (application, plainText) => {
   let applicationType = application.type;
   if (application.type === 'tempOutfitters') {
