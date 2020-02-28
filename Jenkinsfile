@@ -46,7 +46,7 @@ pipeline {
 	export REPO_OWNER_NAME='USDAForestService'
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
-curl -u kilara77:8e57253c9ae97ed9e4f3f30f8d4cc727cc9ea8dc https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
+ curl -H "Authorization: token 4e9c51f5a992b34fc7a892388c8dd244f982158e" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"cijenkins checkout-code","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
 	'''		 
                 }      	     
 	} 
@@ -66,7 +66,7 @@ curl -u kilara77:8e57253c9ae97ed9e4f3f30f8d4cc727cc9ea8dc https://api.github.com
         export JOB_NAME='fs-open-forest-platform-dev'
         export JENKINS_URL='https://jenkins.fedgovcloud.us'
 
-curl -u kilara77:8e57253c9ae97ed9e4f3f30f8d4cc727cc9ea8dc https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
+curl -H "Authorization: token 4e9c51f5a992b34fc7a892388c8dd244f982158e" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$GIT_COMMIT -H "Content-Type: application/json" -X POST -d '{"state": "success","context":"ci/jenkins: run e2e","description":"Your tests passed on Jenkins!","target_url":"https://jenkins.fedgovcloud.us/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"}'	
 
 	'''
         }
