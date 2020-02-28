@@ -47,7 +47,8 @@
           <span *ngIf="application.status === 'Review'" class="usa-label">{{reviewText}}</span>
         </div>
         <label *ngIf="isAdmin">Type</label>
-        <div class="application-type" *ngIf="isAdmin">{{ application.type }}</div>
+        <div class="application-type" *ngIf="isAdmin && application.type !== 'Temp outfitter'">{{ application.type }}</div>
+        <div class="application-type" *ngIf="isAdmin && application.type === 'Temp outfitter'">Temporary Outfitting & Guiding</div>
         <label>Identification Number</label>
         <div class="application-id">{{ application.applicationId }}</div>
         <label>Submitted</label>
