@@ -55,6 +55,12 @@ pipeline {
   stage('install-dependencies'){
     steps {
         sh 'echo "Install dependencies"'
+	sh '''
+	pwd
+	cd frontend
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install	
+	'''
         }
     }
 
