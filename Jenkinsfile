@@ -24,6 +24,10 @@ pipeline {
         JOB_NAME="fs-open-forest-platform-dev"
         JENKINS_URL="https://jenkins.fedgovcloud.us"
 	JENKINS_URL1="Test"
+   	BASIC_AUTH_PASS="$apr1$x20Ygr5T$2rwtzcgkjv.UM8NojJymN."	
+	BASIC_AUTH_USER="devuser"
+	CF_USERNAME="fe2a169e-ff89-4b67-ad12-77879b593644"
+        CF_PASSWORD="ZFZFkhgm+2FA/_/ahSCYGWo-cA--_e7i"
         
     }
     
@@ -86,14 +90,14 @@ stage('run-unit-tests'){
 	
 	printenv | sort
         
-	sudo npm run test:ci
+	 npm run test:ci
 	
         cd ../server
 	
-	sudo npm run undoAllSeed	
-	sudo npm run migrate	
-	sudo npm run seed	
-	sudo npm run coverage
+	 npm run undoAllSeed	
+	 npm run migrate	
+	 npm run seed	
+	 npm run coverage
 	'''
         }
     }
@@ -174,14 +178,17 @@ stage('run-unit-tests'){
 	cd frontend
 	npm run update-version 
 	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	sudo npm run dist-dev
+	npm run dist-dev
 	 
 	cd ../server
 	./copy-frontend-assets.sh
-	sudo npm run docs
+	npm run docs
 	
-	cd ..
+	cd ..	
 	pwd
+	echo $CF_USERNAME
+	echo $CF_PASSWORD
+	./.cg-deploy/deploy.sh platform-dev
 
 	'''
 	    
