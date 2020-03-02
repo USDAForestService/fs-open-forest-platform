@@ -82,7 +82,9 @@ stage('run-unit-tests'){
         pwd 
 	cd ../frontend		
 	pwd
-        export CHROME_BIN=/usr/bin/chromium-browser
+	source ~/.bashrc
+	printenv | sort
+        
 	sudo npm run test:ci
 	
         cd ../server
