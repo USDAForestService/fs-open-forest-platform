@@ -24,7 +24,7 @@ pipeline {
         JOB_NAME="fs-open-forest-platform-dev"
         JENKINS_URL="https://jenkins.fedgovcloud.us"
 	JENKINS_URL1="Test"
-        CHROME_BIN=/usr/bin/chromium-browser
+        CHROME_BIN="/usr/bin/chromium-browser"
     }
     
     options {
