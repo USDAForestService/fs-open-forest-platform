@@ -83,7 +83,14 @@ stage('run-unit-tests'){
 	cd ../frontend		
 	pwd
         export CHROME_BIN=/usr/bin/chromium-browser
-	npm run test:ci
+	sudo npm run test:ci
+	
+        cd ../server
+	
+	sudo npm run undoAllSeed	
+	sudo npm run migrate	
+	sudo npm run seed	
+	sudo npm run coverage
 	'''
         }
     }
