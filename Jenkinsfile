@@ -80,8 +80,7 @@ pipeline {
 			sh 'echo "run-sonarqube"'
 			}
 		    }
-		  }
-	  }
+		
 
   stage('run-unit-tests'){
     steps {
@@ -111,6 +110,8 @@ pipeline {
         }
     }
 
+		 }
+	  }
 
   stage('dev-deploy'){
     steps {
