@@ -55,19 +55,40 @@ pipeline {
   stage('install-dependencies'){
     steps {
         sh 'echo "Install dependencies"'
-	sh '''
+	    	sh '''
 	pwd
 	cd frontend
 	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install	
 	cd ../server
 	pwd
-	'''
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install		
+	'''	
         }
     }
 
  stage('run tests')
 	  {
 		 parallel{
+stage('run-unit-tests'){
+    steps {
+        sh 'echo "run-unit-tests"'
+	sh '''
+	pwd
+	cd server
+	./copy-frontend-assets.sh
+        pwd 
+	cd ../frontend		
+	pwd
+        export CHROME_BIN=/usr/bin/chromium-browser
+	npm run test:ci
+	'''
+        }
+    }
+			 
+			 
 		  stage('run-lint'){
 		    steps {
 			sh 'echo "run lint"'
@@ -82,19 +103,7 @@ pipeline {
 		    }
 		
 
-  stage('run-unit-tests'){
-    steps {
-        sh 'echo "run-unit-tests"'
-	sh '''
-	pwd
-	cd server
-        pwd 
-	cd ../frontend	
-	pwd
-        export CHROME_BIN=/usr/bin/chromium-browser
-	'''
-        }
-    }
+ 
 
 
   stage('run-e2e'){
