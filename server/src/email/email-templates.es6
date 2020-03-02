@@ -12,7 +12,7 @@ const tempSubmittedAdminConfirm = require('./templates/temp-outfitter/applicatio
 const specialUseApplicationAccepted = require('./templates/special-use-common/application-accepted.es6');
 const specialUseApplicationCancelled = require('./templates/special-use-common/application-cancelled.es6');
 
-const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');Papp
+const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');
 const tempOutfitterApplicationUserCancelled = require('./templates/temp-outfitter/application-user-cancelled.es6');
 
 const specialUseApplicationRejected = require('./templates/special-use-common/application-rejected.es6');
