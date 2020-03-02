@@ -65,20 +65,23 @@ pipeline {
         }
     }
 
+ stage('run tests')
+	  {
+		 parallel{
+		  stage('run-lint'){
+		    steps {
+			sh 'echo "run lint"'
+			}
+		    }
 
-  stage('run-lint'){
-    steps {
-        sh 'echo "run lint"'
-        }
-    }
 
-
-  stage('run-sonarqube'){
-    steps {
-        sh 'echo "run-sonarqube"'
-        }
-    }
-
+		  stage('run-sonarqube'){
+		    steps {
+			sh 'echo "run-sonarqube"'
+			}
+		    }
+		  }
+	  }
 
   stage('run-unit-tests'){
     steps {
