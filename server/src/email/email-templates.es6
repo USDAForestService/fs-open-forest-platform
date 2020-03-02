@@ -4,12 +4,6 @@
 const defaultNoncommerialApplicationDetails = require('./templates/noncommercial/default-application-details.es6');
 const defaultTempApplicationDetails = require('./templates/temp-outfitter/default-application-details.es6');
 
-const defaultAdminNoncommerialApplicationDetails = require(
-  './templates/noncommercial/default-admin-application-details.es6'
-);
-
-const defaultAdminTempApplicationDetails = require('./templates/temp-outfitter/default-admin-application-details.es6');
-
 const specialUseSubmittedConfirm = require('./templates/special-use-common/application-submitted-confirmation.es6');
 
 const noncommercialSubmittedAdminConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
@@ -18,7 +12,7 @@ const tempSubmittedAdminConfirm = require('./templates/temp-outfitter/applicatio
 const specialUseApplicationAccepted = require('./templates/special-use-common/application-accepted.es6');
 const specialUseApplicationCancelled = require('./templates/special-use-common/application-cancelled.es6');
 
-const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');
+const noncommercialApplicationUserCancelled = require('./templates/noncommercial/application-user-cancelled.es6');Papp
 const tempOutfitterApplicationUserCancelled = require('./templates/temp-outfitter/application-user-cancelled.es6');
 
 const specialUseApplicationRejected = require('./templates/special-use-common/application-rejected.es6');
@@ -106,12 +100,12 @@ emailTemplates.tempOutfitterApplicationReview = application => specialUseApplica
 
 emailTemplates.noncommercialApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
-  defaultAdminNoncommerialApplicationDetails
+  defaultNoncommerialApplicationDetails
 );
 
 emailTemplates.tempOutfitterApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
-  defaultAdminTempApplicationDetails
+  defaultTempApplicationDetails
 );
 
 emailTemplates.noncommercialApplicationRemoveHold = application => specialUseApplicationRemoveHold(
