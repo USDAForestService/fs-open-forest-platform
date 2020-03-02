@@ -197,7 +197,6 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       application => {
         this.application = application;
         this.applicationForm.patchValue(application);
-        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;
