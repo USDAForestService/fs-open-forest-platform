@@ -102,23 +102,52 @@ stage('run-unit-tests'){
 		  stage('run-lint'){
 		    steps {
 			sh 'echo "run lint"'
+			    sh '''
+			    pwd
+			    cd frontend
+			    npm run lint 
+			    cd ../server
+			    npm run lint 
+			    '''
 			}
 		    }
 
 
 		  stage('run-sonarqube'){
 		    steps {
-			sh 'echo "run-sonarqube"'
-			}
-		    }
-		
+			sh 'echo "run-sonarqube"'	    
 
- 
+    script {
 
+        def scannerhome = tool 'SonarQubeScanner';
+
+        withSonarQubeEnv('SonarQube') {      		
+        sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=686109daf6b0ac668b501a65556918f2803a3aa0 -Dsonar.projectKey=fs-openforest-platform -Dsonar.sources=.'''
+      
+          sh 'sleep 30'
+      	  sh 'rm -rf sonarqubereports'
+          sh 'mkdir sonarqubereports'
+          sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t 686109daf6b0ac668b501a65556918f2803a3aa0 -s http://10.0.0.117:9090 -p fs-openforest-platform -o sonarqubereports'
+          sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
+          sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  
+       }
+      }    
+	}
+   }
 
   stage('run-e2e'){
     steps {
         sh 'echo "run e2e"'
+	sh '''
+	pwd
+	cd server
+	./copy-frontend-assets.sh
+	cd ../frontend/node_modules/protractor
+	sudo npm i webdriver-manager@latest
+	cd ../..
+	npm i typescript@3.1.6 --save-dev --save-exact
+	
+	'''
         }
     }
 
@@ -126,6 +155,10 @@ stage('run-unit-tests'){
   stage('run pa11y'){
     steps {
         sh 'echo "run pa11y"'
+	sh '''
+	cd frontend
+        npm run build-test-pa11y 
+	'''
         }
     }
 
