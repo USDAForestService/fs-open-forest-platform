@@ -58,8 +58,9 @@ pipeline {
 	sh '''
 	pwd
 	cd frontend
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
-	npm install	
+	pwd
+	cd ../server
+	pwd
 	'''
         }
     }
@@ -82,6 +83,14 @@ pipeline {
   stage('run-unit-tests'){
     steps {
         sh 'echo "run-unit-tests"'
+	sh '''
+	pwd
+	cd server
+        pwd 
+	cd ../frontend	
+	pwd
+        export CHROME_BIN=/usr/bin/chromium-browser
+	'''
         }
     }
 
