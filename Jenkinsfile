@@ -168,6 +168,23 @@ stage('run-unit-tests'){
   stage('dev-deploy'){
     steps {
         sh 'echo "dev-deploy"'
+	sh '''
+	pwd
+	printenv | sort
+	cd frontend
+	npm run update-version 
+	mkdir -p ./src/assets/typedoc && sudo npm run docs 
+	sudo npm run dist-dev
+	 
+	cd ../server
+	./copy-frontend-assets.sh
+	sudo npm run docs
+	
+	cd ..
+	pwd
+
+	'''
+	    
         }
     }
 
