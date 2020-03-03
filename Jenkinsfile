@@ -26,6 +26,8 @@ pipeline {
 	JENKINS_URL1="Test"
    	BASIC_AUTH_PASS='$apr1$x20Ygr5T$2rwtzcgkjv.UM8NojJymN.'	
 	BASIC_AUTH_USER="devuser"
+	CF_USERNAME = credentials('CF_USERNAME')
+        CF_PASSWORD = credentials('CF_PASSWORD')  
 	
         
     }
@@ -44,8 +46,8 @@ pipeline {
                 script {
                    currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
-			echo "${env.CURRENT_BUILDDESCRIPTION}"
-			echo "${env.CF_USERNAME}"
+			echo "$CF_USERNAME"
+			echo "$CF_PASSWORD"
 
                 }      	     
 	} 
