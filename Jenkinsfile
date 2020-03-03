@@ -44,8 +44,8 @@ pipeline {
                 script {
                    currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
-			echo '${env.CURRENT_BUILDDESCRIPTION}'
-			echo '${env.CF_USERNAME}'
+			echo "${env.CURRENT_BUILDDESCRIPTION}"
+			echo "${env.CF_USERNAME}"
 
                 }      	     
 	} 
