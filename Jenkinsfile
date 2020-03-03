@@ -82,11 +82,11 @@ pipeline {
 	npm i typescript@3.1.6 --save-dev --save-exact
 	npm run update-version 
 	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	npm run dist-dev
+	sudo npm run dist-dev
 	 
 	cd ../server
 	./copy-frontend-assets.sh
-	npm run docs
+	sudo npm run docs
 	
 	cd ..	
 	pwd
