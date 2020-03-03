@@ -132,7 +132,7 @@ export class ApplicationNoncommercialGroupLeftNavComponent implements OnInit {
     const footer = document.getElementById('footer');
 
     if (nav) {
-      if (container.getBoundingClientRect().top < 20) {
+      if (container.getBoundingClientRect().top < -60) {
         this.top = '40px';
         this.bottom = 'auto';
         this.position = 'fixed';
