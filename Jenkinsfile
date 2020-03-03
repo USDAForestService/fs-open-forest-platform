@@ -9,12 +9,12 @@ pipeline {
 
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
-        GITHUB_URL = credentials('GITHUB_URL')
-	GITHUB_API_URL=credentials('GITHUB_API_URL')
-        GITHUB_CREDENTIAL = credentials('GITHUB_CREDENTIAL')
+  //      GITHUB_URL = credentials('GITHUB_URL')
+	//GITHUB_API_URL=credentials('GITHUB_API_URL')
+        //GITHUB_CREDENTIAL = credentials('GITHUB_CREDENTIAL')
         BRANCH_NAME = "blueOcean_build2"
-        SONAR_LOGIN = credentials('SONAR_LOGIN')
-        SONAR_HOST = credentials('SONAR_HOST')
+        //SONAR_LOGIN = credentials('SONAR_LOGIN')
+        //SONAR_HOST = credentials('SONAR_HOST')
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
