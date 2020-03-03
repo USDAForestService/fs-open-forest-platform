@@ -57,6 +57,23 @@ pipeline {
                 }
             }	
     }
+	  
+	  stage('install-dependencies'){
+    steps {
+        sh 'echo "Install dependencies"'
+	    	sh '''
+	pwd
+	cd frontend
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install	
+	cd ../server
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install		
+	'''	
+        }
+    }
 
 	  stage('dev-deploy'){
     steps {
