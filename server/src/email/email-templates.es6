@@ -10,6 +10,8 @@ const defaultAdminNoncommerialApplicationDetails = require(
 
 const defaultAdminTempApplicationDetails = require('./templates/temp-outfitter/default-admin-application-details.es6');
 
+const specialUseApplicationReviewAdmin = require('./templates/special-use-common/application-review-admin.es6');
+
 const specialUseSubmittedConfirm = require('./templates/special-use-common/application-submitted-confirmation.es6');
 
 const noncommercialSubmittedAdminConfirm = require('./templates/noncommercial/application-submitted-admin-confirmation.es6');
@@ -24,7 +26,6 @@ const tempOutfitterApplicationUserCancelled = require('./templates/temp-outfitte
 const specialUseApplicationRejected = require('./templates/special-use-common/application-rejected.es6');
 
 const specialUseApplicationReview = require('./templates/special-use-common/application-review.es6');
-const specialUseApplicationReviewAdmin = require('./templates/special-use-common/application-review-admin.es6');
 const specialUseApplicationRemoveHold = require('./templates/special-use-common/application-remove-hold.es6');
 
 const specialUseApplicationHold = require('./templates/special-use-common/application-hold.es6');
@@ -99,11 +100,6 @@ emailTemplates.noncommercialApplicationReview = application => specialUseApplica
   defaultNoncommerialApplicationDetails
 );
 
-emailTemplates.tempOutfitterApplicationReview = application => specialUseApplicationReview(
-  application,
-  defaultTempApplicationDetails
-);
-
 emailTemplates.noncommercialApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
   defaultAdminNoncommerialApplicationDetails
@@ -112,6 +108,11 @@ emailTemplates.noncommercialApplicationAdminReview = application => specialUseAp
 emailTemplates.tempOutfitterApplicationAdminReview = application => specialUseApplicationReviewAdmin(
   application,
   defaultAdminTempApplicationDetails
+);
+
+emailTemplates.tempOutfitterApplicationReview = application => specialUseApplicationReview(
+  application,
+  defaultTempApplicationDetails
 );
 
 emailTemplates.noncommercialApplicationRemoveHold = application => specialUseApplicationRemoveHold(

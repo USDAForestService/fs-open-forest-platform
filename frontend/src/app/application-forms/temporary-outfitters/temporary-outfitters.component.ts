@@ -279,6 +279,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.applicationId = application.applicationId;
         this.applicationForm.patchValue(this.application);
         this.getFiles(this.application.applicationId);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;

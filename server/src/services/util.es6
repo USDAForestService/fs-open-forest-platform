@@ -324,7 +324,6 @@ util.userApplicationLink = (application, plainText) => {
   return { text, url };
 };
 
-
 /**
  * @function adminApplicationUrl - Get the user's application URL
  * based on the data in the permit application.

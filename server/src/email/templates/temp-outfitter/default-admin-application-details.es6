@@ -7,7 +7,6 @@ module.exports = {
     return `
   Application details
   *********************************
-
   Application identification number: ${application.applicationId}
   Contact name: ${application.applicantInfoPrimaryFirstName} ${application.applicantInfoPrimaryLastName}
   Business name: ${application.applicantInfoOrganizationName}
@@ -19,7 +18,6 @@ module.exports = {
   Number of trips: ${application.tempOutfitterFieldsActDescFieldsNumTrips}
   Number of participants: ${application.tempOutfitterFieldsActDescFieldsPartySize}
   Services provided: ${application.tempOutfitterFieldsActDescFieldsServProvided}
-
   ${linkDetails.text}: ${linkDetails.url}`;
   },
   html: application => {
