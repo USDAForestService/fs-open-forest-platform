@@ -13,13 +13,13 @@ module.exports = (application, defaultAdminApplicationDetails) => {
       Application details
       **************************************
 
-      ${defaultApplicationDetails.text(application)}
+      ${defaultAdminApplicationDetails.text(application)}
 
     `, 
     html: `
         <h2>Open Forest permit application status update</h2>
         <p>An update to a recent Open Forest permit application has been submitted for review.</p>
-        ${defaultApplicationDetails.html(application)}
+        ${defaultAdminApplicationDetails.html(application)}
 `
   };
 };
