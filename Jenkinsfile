@@ -9,12 +9,12 @@ pipeline {
 
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
-        GITHUB_URL = "https://github.com/USDAForestService/fs-open-forest-platform.git"
+        GITHUB_URL = credentials('GITHUB_URL')
 	GITHUB_API_URL="https://api.github.com"
-        GITHUB_CREDENTIAL = "1cec576b-8a73-433c-bba3-c7b245faf4a9"
+        GITHUB_CREDENTIAL = GITHUB_CREDENTIAL
         BRANCH_NAME = "blueOcean_build2"
-        SONAR_LOGIN = "686109daf6b0ac668b501a65556918f2803a3aa0"
-        SONAR_HOST = "http://10.0.0.117:9090"
+        SONAR_LOGIN = credentials('SONAR_LOGIN')
+        SONAR_HOST = credentials('SONAR_HOST')
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
@@ -46,9 +46,6 @@ pipeline {
                 script {
                    currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
-			echo "$CF_USERNAME"
-			echo "$CF_PASSWORD"
-
                 }      	     
 	} 
 	 post {
@@ -82,6 +79,7 @@ pipeline {
 	pwd
 	printenv | sort
 	cd frontend
+	npm i typescript@3.1.6 --save-dev --save-exact
 	npm run update-version 
 	mkdir -p ./src/assets/typedoc && sudo npm run docs 
 	npm run dist-dev
