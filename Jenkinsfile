@@ -58,6 +58,31 @@ pipeline {
             }	
     }
 
+	  stage('dev-deploy'){
+    steps {
+        sh 'echo "dev-deploy"'
+	sh '''
+	pwd
+	printenv | sort
+	cd frontend
+	npm run update-version 
+	mkdir -p ./src/assets/typedoc && npm run docs 
+	npm run dist-dev
+	 
+	cd ../server
+	./copy-frontend-assets.sh
+	npm run docs
+	
+	cd ..	
+	pwd
+	echo $CF_USERNAME
+	echo $CF_PASSWORD
+	./.cg-deploy/deploy.sh platform-dev
+
+	'''
+	    
+        }
+    }
     
     
     }
