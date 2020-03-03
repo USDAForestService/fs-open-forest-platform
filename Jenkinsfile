@@ -83,7 +83,7 @@ pipeline {
 	printenv | sort
 	cd frontend
 	npm run update-version 
-	mkdir -p ./src/assets/typedoc && npm run docs 
+	mkdir -p ./src/assets/typedoc && sudo npm run docs 
 	npm run dist-dev
 	 
 	cd ../server
