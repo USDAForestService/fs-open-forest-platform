@@ -24,8 +24,8 @@ pipeline {
         JOB_NAME="fs-open-forest-platform-dev"
         JENKINS_URL="https://jenkins.fedgovcloud.us"
 	JENKINS_URL1="Test"
-   	BASIC_AUTH_PASS='$apr1$x20Ygr5T$2rwtzcgkjv.UM8NojJymN.'	
-	BASIC_AUTH_USER="devuser"
+   	BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
+	BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
 	CF_USERNAME = credentials('CF_USERNAME')
         CF_PASSWORD = credentials('CF_PASSWORD')  
 	
