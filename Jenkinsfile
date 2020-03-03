@@ -77,25 +77,19 @@ pipeline {
         sh 'echo "dev-deploy"'
 	sh '''
 	pwd
-	printenv | sort
+	//printenv | sort
 	cd frontend
 	npm i typescript@3.1.6 --save-dev --save-exact
 	npm run update-version 
 	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	sudo npm run dist-dev
-	 
+	sudo npm run dist-dev	 
 	cd ../server
 	./copy-frontend-assets.sh
-	sudo npm run docs
-	
+	sudo npm run docs	
 	cd ..	
 	pwd
-	echo $CF_USERNAME
-	echo $CF_PASSWORD
 	./.cg-deploy/deploy.sh platform-dev
-
-	'''
-	    
+	'''	    
         }
     }
     
