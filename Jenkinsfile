@@ -70,7 +70,7 @@ stage('Notification'){
 	    }  
 	    
 	    echo "${EMAIL_BODY}"  
-	    emailext attachLog: true, attachmentsPattern: '', body: ${EMAIL_BODY}, replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
+	    emailext attachLog: true, attachmentsPattern: '', body: '${EMAIL_BODY}', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
         }		
     }    	
 	  
