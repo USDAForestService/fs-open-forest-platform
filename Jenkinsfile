@@ -14,7 +14,8 @@ pipeline {
         //GITHUB_CREDENTIAL = credentials('GITHUB_CREDENTIAL')
         BRANCH_NAME = "blueOcean_build2"
         //SONAR_LOGIN = credentials('SONAR_LOGIN')
-        //SONAR_HOST = credentials('SONAR_HOST')
+        SONAR_HOST = credentials('SONAR_HOST_URL')
+	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')    
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
@@ -55,44 +56,29 @@ pipeline {
             }	
     }
 	  
-	  stage('install-dependencies'){
-    steps {
-        sh 'echo "Install dependencies"'
-	    	sh '''
-	pwd
-	cd frontend
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
-	npm install	
-	cd ../server
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
-	npm install		
-	'''	
-        }
-    }
+  stage('run-sonarqube'){
+		    steps {
+			sh 'echo "run-sonarqube"'	    
 
-	  stage('dev-deploy'){
-    steps {
-        sh 'echo "dev-deploy"'
-	sh '''
-	pwd
-	//printenv | sort
-	cd frontend
-	npm i typescript@3.1.6 --save-dev --save-exact
-	npm run update-version 
-	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	sudo npm run dist-dev	 
-	cd ../server
-	./copy-frontend-assets.sh
-	sudo npm run docs	
-	cd ..	
-	pwd
-	./.cg-deploy/deploy.sh platform-dev
-	'''	    
-        }
-    }
-    
+    script {
+
+        def scannerhome = tool 'SonarQubeScanner';
+
+        withSonarQubeEnv('SonarQube') {      		
+        sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=.'''
+      
+
+      	  sh 'rm -rf sonarqubereports'
+          sh 'mkdir sonarqubereports'
+          sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
+          sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
+          sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  
+       }
+      }    
+	}
+   }	  
+	  
+	  
     
     }
     
