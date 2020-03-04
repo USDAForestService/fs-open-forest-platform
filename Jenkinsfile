@@ -37,7 +37,6 @@ pipeline {
 	DeployStatus = "Success"	       
 	NotificationStatus = "Success"
 	RunSonarQubeStatus = "Success"	    
-	
         
     }
     
@@ -54,7 +53,9 @@ pipeline {
        steps {              
                 script {
                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
-                  currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
+                  currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	
+		  echo ${env.CheckoutStatus}	
+  		echo $CheckoutStatus	
                 }      	     
 	} 	
     }
