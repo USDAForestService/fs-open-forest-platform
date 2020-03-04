@@ -37,16 +37,19 @@ import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolv
 import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admin-resolver.service';
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
+import { MainLandingComponent } from './main-landing/main-landing.component';
+
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'christmas-trees/forests',
-    pathMatch: 'full'
+    component: MainLandingComponent
   }, {
     path: 'ChristmasTreePermit',
     component: DummyComponent
-  }, {
+  }, 
+  // start of MBS and children routes
+  {
     path: 'mbs',
     data: {
       title: 'US Forest Service Open Forest',
@@ -139,10 +142,13 @@ const appRoutes: Routes = [
       },
     ]
   },
+    // end of MBS and children routes
+
   {
     path: 'shutdown',
     component: ShutdownComponent
   },
+  // start of admin applications and children routes
   {
     path: 'admin/applications',
     canActivateChild: [AdminAccessControlService],
@@ -174,6 +180,9 @@ const appRoutes: Routes = [
       }
     ]
   },
+    // end of admin applications and children routes
+
+      // start of admin trees and children routes
   {
     path: 'admin/christmas-trees',
     canActivateChild: [AdminAccessControlService],
@@ -226,6 +235,9 @@ const appRoutes: Routes = [
       }
     ]
   },
+  // end of admin trees and children routes
+
+  // start of user applications and children routes    
   {
     path: 'user/applications',
     data: {
@@ -256,6 +268,8 @@ const appRoutes: Routes = [
       },
     ]
   },
+  // end of user applications and children routes
+
   {
     path: 'christmas-trees/forests',
     data: {

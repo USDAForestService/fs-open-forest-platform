@@ -11,7 +11,8 @@
     "e2e:cidkr": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:su": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:xmas": "HEADLESS=true ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=xmas",
-    "e2e": "HEADLESS=true ng e2e --protractor-config ./development-configurations/protractor.conf --port=4200",
+    "pree2e": "webdriver-manager update --standalone false --gecko false --versions.chrome 2.44",
+    "e2e": "HEADLESS=true ng e2e --webdriver-update=false --protractor-config ./development-configurations/protractor.conf --port=4200",
     "e2e:cidkr:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=docker-smoke-test",
     "e2e:su:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=su",
     "e2e:xmas:head": "ng e2e --port=4200 --protractor-config ./development-configurations/protractor.conf.js --suite=xmas",
@@ -60,6 +61,7 @@
     "tslib": "^1.9.0",
     "uswds": "^1.6.9",
     "web-animations-js": "^2.2.5",
+    "webdriver-manager": "^12.1.7",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
