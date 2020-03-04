@@ -67,7 +67,6 @@ pipeline {
         steps {
 	sh 'echo "run-sonarqube"'	    
 	sh 'echo ${GIT_BRANCH}'	    
-		sh 'echo ${env.BUILD_NUMBER}'	    
 		sh 'echo $GIT_BRANCH'	    
 		sh 'echo $BUILD_NUMBER'	    
     script {
