@@ -6,13 +6,12 @@ pipeline {
     }  
     
     environment {        
-
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
   //      GITHUB_URL = credentials('GITHUB_URL')
 	//GITHUB_API_URL=credentials('GITHUB_API_URL')
         //GITHUB_CREDENTIAL = credentials('GITHUB_CREDENTIAL')
-        BRANCH_NAME = "blueOcean_build2"
+  //      BRANCH_NAME = $GIT_BRANCH
         //SONAR_LOGIN = credentials('SONAR_LOGIN')
         SONAR_HOST = credentials('SONAR_HOST')
 	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')    
@@ -47,6 +46,7 @@ pipeline {
                 script {
                    currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
+			echo 'Branch Name $GIT_BRANCH'
                 }      	     
 	} 
 	 post {
@@ -57,29 +57,22 @@ pipeline {
     }
 	  
   stage('run-sonarqube'){
-		    steps {
-			sh 'echo "run-sonarqube"'	    
-
+        steps {
+	sh 'echo "run-sonarqube"'	    
     script {
-
         def scannerhome = tool 'SonarQubeScanner';
-
         withSonarQubeEnv('SonarQube') {      		
-        sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
-      
-
+          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
       	  sh 'rm -rf sonarqubereports'
           sh 'mkdir sonarqubereports'
+  	  sh 'sleep 30'
           sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
           sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
           sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  
        }
       }    
-	}
-   }	  
-	  
-	  
-    
     }
+   }  
     
+   }    
 }
