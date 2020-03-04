@@ -66,11 +66,11 @@ stage('Notification'){
     steps {
 	    echo "${CHECKOUT_STATUS}"  
 	    script {
-	    BODY = "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CHECKOUT_STATUS} Check console output at $BUILD_URL to view the results."
+	    EMAIL_BODY = "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CHECKOUT_STATUS} Check console output at $BUILD_URL to view the results."
 	    }  
 	    
-	    echo "${BODY}"  
-	    emailext attachLog: true, attachmentsPattern: '', body: ${BODY}, replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
+	    echo "${EMAIL_BODY}"  
+	    emailext attachLog: true, attachmentsPattern: '', body: ${EMAIL_BODY}, replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
         }		
     }    	
 	  
