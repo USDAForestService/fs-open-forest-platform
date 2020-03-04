@@ -69,41 +69,23 @@ pipeline {
           sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
           sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
           sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  
+		
+   withCredentials([
+                    usernamePassword(
+                        credentialsId: "${env.GITHUB_CREDENTIAL}", 
+                        passwordVariable: 'GIT_PASSWORD', 
+                        usernameVariable: 'GIT_USERNAME'
+                        )]) {
+                             sh "git config crediential.helper '!f(){sleep 1;echo username=${GIT_USERNAME}\npassword=${GIT_PASSWORD};};f'"
+                             sh "hub release create -a sonarqubereports/sonarqubeanalysisreport.docx -m 'Jenkins Release' tag-name"
+                        }		
+		
        }
       }    
     }
    }  
 	  
-stage('dev-deploy'){
-    steps {
-        sh 'echo "dev-deploy"'
-	sh '''
-	pwd
-	sudo chown -R Jenkins:Jenkins frontend
-	sudo chown -R Jenkins:Jenkins server
-	chmod -R 777 frontend
-	chmod -R 777 server
-	cd frontend
-	npm run update-version 
-	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	sudo chown -R Jenkins:Jenkins frontend
-	npm run dist-dev
-	 
-	cd ../server	
-	./copy-frontend-assets.sh
-	npm i typescript@3.1.6 --save-dev --save-exact
-	npm run docs
-	sudo chown -R Jenkins:Jenkins server	
-	cd ..	
-	pwd
-	echo $CF_USERNAME
-	echo $CF_PASSWORD
-	./.cg-deploy/deploy.sh platform-dev
 
-	'''
-	    
-        }
-    }
 	  
     
    }    
