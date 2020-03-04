@@ -59,7 +59,6 @@ pipeline {
 	 post {
                 failure {
 			script {
-		    env.CheckoutStatus = "Failed"	
                     echo 'FAILED (in stage checkout code)'
 			}
                 }
