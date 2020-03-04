@@ -55,6 +55,7 @@ pipeline {
                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	
 		  echo '${env.CheckoutStatus}'	  		
+		echo '$CheckoutStatus'	  	
                 }      	     
 	} 	
     }
