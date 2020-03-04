@@ -18,7 +18,7 @@ pipeline {
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
-	CheckoutStatus = "Success"
+	CHECKOUT_STATUS = "Success"
         InstallDependenciesStatus = "Success"
 	RunLintStatus = "Success"
 	RunUnitTestsStatus = "Success"
@@ -55,7 +55,7 @@ pipeline {
                 script {
                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	
-		  echo '${CheckoutStatus}'	  		
+		  echo '${CHECKOUT_STATUS}'	  		
 
                 }      	     
 	} 	
@@ -64,7 +64,7 @@ pipeline {
 
 stage('Notification'){
     steps {
-        emailext attachLog: true, attachmentsPattern: '', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CheckoutStatus} - $CheckoutStatus Check console output at $BUILD_URL to view the results.', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
+        emailext attachLog: true, attachmentsPattern: '', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CHECKOUT_STATUS} - $CHECKOUT_STATUS Check console output at $BUILD_URL to view the results.', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
         }		
     }    	
 	  
