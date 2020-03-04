@@ -156,13 +156,13 @@ stage('run pa11y'){
 	cd frontend
 	npm run update-version 
 	mkdir -p ./src/assets/typedoc && sudo npm run docs 
-	sudo chown -R Jenkins:Jenkins frontend
+	sudo chown -R Jenkins:Jenkins ../frontend
 	npm run dist-dev
 	 
 	cd ../server	
 	./copy-frontend-assets.sh
 	npm run docs
-	sudo chown -R Jenkins:Jenkins server	
+	sudo chown -R Jenkins:Jenkins ../server	
 	cd ..	
 	pwd
 	echo $CF_USERNAME
