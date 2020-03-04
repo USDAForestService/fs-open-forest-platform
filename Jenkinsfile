@@ -56,24 +56,76 @@ pipeline {
             }	
     }
 	  
-  
+stage('install-dependencies'){
+    steps {
+        sh 'echo "Install dependencies"'
+	sh '''
+	pwd
+	cd frontend
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install	
+	npm i typescript@3.1.6 --save-dev --save-exact
+	cd ../server
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install		
+	'''	
+        }
+    }	  
 	 
  stage('run tests')
 	  {
       parallel{	  
 	      
+stage('run-unit-tests'){
+    steps {
+        sh 'echo "run-unit-tests"'
+	sh '''
+	pwd
+	cd server
+	./copy-frontend-assets.sh
+        pwd 
+	cd ../frontend		
+	pwd        
+	npm run test:ci	
+        cd ../server	
+	 npm run undoAllSeed	
+	 npm run migrate	
+	 npm run seed	
+	'''
+        }
+    }
+			 
+			 
+  stage('run-lint'){
+    steps {
+	sh 'echo "run lint"'
+	    sh '''
+	    pwd
+	    cd frontend
+	    npm run lint 
+	    cd ../server
+	    npm run lint 
+	    '''
+	}
+    }	      
 	      
   stage('run-sonarqube'){
         steps {
 	sh 'echo "run-sonarqube"'	    
-	sh 'echo ${GIT_BRANCH}'	    
-		sh 'echo $GIT_BRANCH'	    
-		sh 'echo $BUILD_NUMBER'	    
     script {
         def scannerhome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQube') {      		
-       	
-          sh '''
+          sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
+      	  sh 'rm -rf sonarqubereports'
+          sh 'mkdir sonarqubereports'
+  	  sh 'sleep 30'
+          sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
+          sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
+          sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  	
+  	
+	  sh '''
 	pwd
 	chmod 765 createrelease.sh
 	./createrelease.sh
@@ -84,9 +136,30 @@ pipeline {
     }
    }  
 	 
+stage('run pa11y'){
+    steps {
+        sh 'echo "run pa11y"'
+	sh '''
+	cd frontend
+        npm run build-test-pa11y 
+	'''
+        }
+    }
+
 		 }
 	  }	      
 	  
+ stage('dev-deploy'){
+    steps {
+        sh 'echo "dev-deploy"'
+	sh '''
+	pwd
+	chmod 765 deploydev.sh
+	./deploydev.sh
+	'''
+	    
+        }
+    }
 	  
     
    }    
