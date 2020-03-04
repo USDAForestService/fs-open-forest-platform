@@ -18,6 +18,15 @@ pipeline {
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = "ikumarasamy@techtrend.us, mahfuzur.rahman@usda.gov"
+	CheckoutStatus = "Success"
+        InstallDependenciesStatus = "Success"
+	RunLintStatus = "Success"
+	RunUnitTestsStatus = "Success"
+	Rune2eStatus = "Success"
+	RunPa11yStatus = "Success"	    
+	DeployStatus = "Success"	       
+	NotificationStatus = "Success"
+	RunSonarQubeStatus = "Success"	    
 	
 	REPO_NAME="fs-open-forest-platform"
 	REPO_OWNER_NAME="USDAForestService"
@@ -28,15 +37,7 @@ pipeline {
 	CF_USERNAME = credentials('CF_USERNAME')
         CF_PASSWORD = credentials('CF_PASSWORD')  
 	
-	CheckoutStatus = "Success"
-        InstallDependenciesStatus = "Success"
-	RunLintStatus = "Success"
-	RunUnitTestsStatus = "Success"
-	Rune2eStatus = "Success"
-	RunPa11yStatus = "Success"	    
-	DeployStatus = "Success"	       
-	NotificationStatus = "Success"
-	RunSonarQubeStatus = "Success"	    
+	
         
     }
     
@@ -63,7 +64,7 @@ pipeline {
 
 stage('Notification'){
     steps {
-        emailext attachLog: true, attachmentsPattern: '', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CheckoutStatus} Check console output at $BUILD_URL to view the results.', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
+        emailext attachLog: true, attachmentsPattern: '', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Checkout-code ${CheckoutStatus} - $CheckoutStatus Check console output at $BUILD_URL to view the results.', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'ikumarasamy@techtrend.us'
         }		
     }    	
 	  
