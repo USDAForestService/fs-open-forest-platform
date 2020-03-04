@@ -56,60 +56,12 @@ pipeline {
             }	
     }
 	  
-stage('install-dependencies'){
-    steps {
-        sh 'echo "Install dependencies"'
-	sh '''
-	pwd
-	cd frontend
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
-	npm install	
-	npm i typescript@3.1.6 --save-dev --save-exact
-	cd ../server
-	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
-	npm install		
-	'''	
-        }
-    }	  
+  
 	 
  stage('run tests')
 	  {
       parallel{	  
 	      
-stage('run-unit-tests'){
-    steps {
-        sh 'echo "run-unit-tests"'
-	sh '''
-	pwd
-	cd server
-	./copy-frontend-assets.sh
-        pwd 
-	cd ../frontend		
-	pwd        
-	npm run test:ci	
-        cd ../server	
-	 npm run undoAllSeed	
-	 npm run migrate	
-	 npm run seed	
-	'''
-        }
-    }
-			 
-			 
-  stage('run-lint'){
-    steps {
-	sh 'echo "run lint"'
-	    sh '''
-	    pwd
-	    cd frontend
-	    npm run lint 
-	    cd ../server
-	    npm run lint 
-	    '''
-	}
-    }	      
 	      
   stage('run-sonarqube'){
         steps {
@@ -124,37 +76,16 @@ stage('run-unit-tests'){
           sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
           sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
           sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  	
-  	
+          sh 'hub release create -a sonarqubereports/sonarqubeissuesreport.xlsx -a sonarqubereports/sonarqubeanalysisreport.docx -m 'Jenkins-${GIT_BRANCH}-Build-${env.BUILD_NUMBER}' Jenkins-${GIT_BRANCH}-Build-${env.BUILD_NUMBER}'  	
 		
        }
       }    
     }
    }  
 	 
-stage('run pa11y'){
-    steps {
-        sh 'echo "run pa11y"'
-	sh '''
-	cd frontend
-        npm run build-test-pa11y 
-	'''
-        }
-    }
-
 		 }
 	  }	      
 	  
- stage('dev-deploy'){
-    steps {
-        sh 'echo "dev-deploy"'
-	sh '''
-	pwd
-	chmod 765 deploydev.sh
-	./deploydev.sh
-	'''
-	    
-        }
-    }
 	  
     
    }    
