@@ -48,7 +48,8 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '3'))
     }  
 
-  stages {   
+  stages { 
+	  
     stage('Checkout Code'){
        steps {              
                 script {
@@ -58,9 +59,7 @@ pipeline {
 	} 
 	 post {
                 failure {
-			script {
                     echo 'FAILED (in stage checkout code)'
-			}
                 }
             }	
     }
