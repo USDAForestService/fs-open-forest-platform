@@ -50,18 +50,18 @@ pipeline {
 
   stages {   
     stage('Checkout Code'){
-       steps {       
-       
+       steps {              
                 script {
-                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
+                  currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
-			echo 'Branch Name $GIT_BRANCH'
                 }      	     
 	} 
 	 post {
                 failure {
+			script {
 		    env.CheckoutStatus = "Failed"	
                     echo 'FAILED (in stage checkout code)'
+			}
                 }
             }	
     }
