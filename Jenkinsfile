@@ -93,7 +93,6 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed	
 	 npm run migrate	
 	 npm run seed	
-	 npm run coverage
 	'''
         }
     }
@@ -124,17 +123,8 @@ stage('run-unit-tests'){
   	  sh 'sleep 30'
           sh 'java -jar /home/Jenkins/sonar-cnes-report-3.1.0.jar -t $SONAR_TOKEN -s $SONAR_HOST -p $SONAR_PROJECT_NAME -o sonarqubereports'
           sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
-          sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  
-		
-   withCredentials([
-                    usernamePassword(
-                        credentialsId: "${env.GITHUB_CREDENTIAL}", 
-                        passwordVariable: 'GIT_PASSWORD', 
-                        usernameVariable: 'GIT_USERNAME'
-                        )]) {
-                             sh "git config crediential.helper '!f(){sleep 1;echo username=${GIT_USERNAME}\npassword=${GIT_PASSWORD};};f'"
-                             sh "hub release create -a sonarqubereports/sonarqubeanalysisreport.docx -m 'Jenkins Release' tag-name"
-                        }		
+          sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  	
+  	
 		
        }
       }    
