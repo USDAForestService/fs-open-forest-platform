@@ -14,7 +14,7 @@ pipeline {
         //GITHUB_CREDENTIAL = credentials('GITHUB_CREDENTIAL')
         BRANCH_NAME = "blueOcean_build2"
         //SONAR_LOGIN = credentials('SONAR_LOGIN')
-        SONAR_HOST = credentials('SONAR_HOST_URL')
+        SONAR_HOST = credentials('SONAR_HOST')
 	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')    
         // SONAR_SCANNER_PATH = 
         SONAR_PROJECT_NAME = "fs-openforest-platform"
@@ -65,7 +65,7 @@ pipeline {
         def scannerhome = tool 'SonarQubeScanner';
 
         withSonarQubeEnv('SonarQube') {      		
-        sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=.'''
+        sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
       
 
       	  sh 'rm -rf sonarqubereports'
