@@ -56,6 +56,62 @@ pipeline {
             }	
     }
 	  
+stage('install-dependencies'){
+    steps {
+        sh 'echo "Install dependencies"'
+	sh '''
+	pwd
+	cd frontend
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install	
+	npm i typescript@3.1.6 --save-dev --save-exact
+	cd ../server
+	pwd
+	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	npm install		
+	'''	
+        }
+    }	  
+	 
+ stage('run tests')
+	  {
+      parallel{	  
+	      
+stage('run-unit-tests'){
+    steps {
+        sh 'echo "run-unit-tests"'
+	sh '''
+	pwd
+	cd server
+	./copy-frontend-assets.sh
+        pwd 
+	cd ../frontend		
+	pwd        
+	npm run test:ci	
+        cd ../server	
+	 npm run undoAllSeed	
+	 npm run migrate	
+	 npm run seed	
+	 npm run coverage
+	'''
+        }
+    }
+			 
+			 
+  stage('run-lint'){
+    steps {
+	sh 'echo "run lint"'
+	    sh '''
+	    pwd
+	    cd frontend
+	    npm run lint 
+	    cd ../server
+	    npm run lint 
+	    '''
+	}
+    }	      
+	      
   stage('run-sonarqube'){
         steps {
 	sh 'echo "run-sonarqube"'	    
@@ -84,8 +140,49 @@ pipeline {
       }    
     }
    }  
-	  
+	 
+stage('run pa11y'){
+    steps {
+        sh 'echo "run pa11y"'
+	sh '''
+	cd frontend
+        npm run build-test-pa11y 
+	'''
+        }
+    }
 
+		 }
+	  }	      
+	  
+ stage('dev-deploy'){
+    steps {
+        sh 'echo "dev-deploy"'
+	sh '''
+	pwd
+	sudo chown -R Jenkins:Jenkins frontend
+	sudo chown -R Jenkins:Jenkins server
+	chmod -R 777 frontend
+	chmod -R 777 server
+	cd frontend
+	npm run update-version 
+	mkdir -p ./src/assets/typedoc && sudo npm run docs 
+	sudo chown -R Jenkins:Jenkins frontend
+	npm run dist-dev
+	 
+	cd ../server	
+	./copy-frontend-assets.sh
+	npm run docs
+	sudo chown -R Jenkins:Jenkins server	
+	cd ..	
+	pwd
+	echo $CF_USERNAME
+	echo $CF_PASSWORD
+	./.cg-deploy/deploy.sh platform-dev
+
+	'''
+	    
+        }
+    }
 	  
     
    }    
