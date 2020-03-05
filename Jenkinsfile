@@ -175,6 +175,7 @@ stage('run-sonarqube'){
 		    
 		        RUN_SONARQUBE_STATUS= 'Success'
             }
+            }
     }
 	post {
                 failure {
