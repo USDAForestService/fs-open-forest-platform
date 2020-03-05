@@ -11,7 +11,7 @@ pipeline {
         SONAR_HOST = credentials('SONAR_HOST')
 	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')    
         SONAR_PROJECT_NAME = "fs-openforest-platform"
-        MAILING_LIST = 'ikumarasamy@techtrend.us'
+        MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,Abdul.Qureshi@usda.gov'
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
