@@ -6,7 +6,7 @@ export function phoneNumberMinValidator(): ValidatorFn {
     if (val && val.length) {
       const phoneNmbrRegex = /^[0-9-]{2,}[0-9]$/;
       let isTenOrLess = false;
-      if (val.length < 10){
+      if (val.length < 10) {
         isTenOrLess = true;
       }
       const valid = phoneNmbrRegex.test(val) && isTenOrLess === false;
