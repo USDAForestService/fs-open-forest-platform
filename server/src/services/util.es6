@@ -355,7 +355,7 @@ util.getUserRole = (approles) => {
   let str1 = '';
   if (typeof approles === 'string') {
     str = approles.includes('Super-User');
-    str1 = approles.includes('POC1');    
+    str1 = approles.includes('POC1');
   }
   logger.info(`APP ROLES IN UTIL: ${str}`);
   if (str) {
