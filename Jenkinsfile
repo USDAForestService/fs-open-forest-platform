@@ -60,7 +60,7 @@ pipeline {
 			script {
         		CHECKOUT_STATUS= 'Failed'
  sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "Failed","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failed","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
       '''				
         	   	sh 'echo "FAILED in stage checkout code"'
                 }
@@ -74,7 +74,7 @@ pipeline {
         		
         		sh 'echo "Install dependencies"'
       sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "Pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running tasks!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running tasks!"}'
       '''					    
 		    sh '''
 	pwd
