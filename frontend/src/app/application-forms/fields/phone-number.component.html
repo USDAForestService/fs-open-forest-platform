@@ -1,12 +1,12 @@
 <ng-container [formGroup]="parentForm">
   <ng-container formGroupName="{{ dayPhone }}">
-    <div class="fs-input-grid-wrapper">
+    <div class="fs-input-grid-wrapper phone-number-section">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label id="day-phone-label" class="usa-input">{{ name }} (10 digits) <span class="required-fields-asterisk">*</span></label>
-        <input id="day-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true"
+        <label id="day-phone-label" class="usa-input">{{ name }}<span class="required-fields-asterisk">*</span></label>
+        <input id="day-phone" type="text" formControlName="tenDigit" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.tenDigit'), 'day-phone-label', 'day-phone-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))" />
-        <app-error-message fieldId="day-phone-error" name="Day phone" [control]="parentForm.get('dayPhone.tenDigit')"></app-error-message>
+        <app-error-message fieldId="day-phone-error" name="Phone number" [control]="parentForm.get('dayPhone.tenDigit')">What do we have here?</app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
         <label id="day-phone-ext-label" class="usa-input">Ext</label>
@@ -21,10 +21,10 @@
   <input id="add-additional-phone" name="add-additional-phone" type="checkbox" formControlName="addAdditionalPhone"  />
   <label class="usa-input" id="add-additional-phone-label" for="add-additional-phone">Add additional phone number.</label>
 
-  <div class="fs-input-grid-wrapper" *ngIf="parentForm.get('addAdditionalPhone').value">
+  <div class="fs-input-grid-wrapper phone-number-section" *ngIf="parentForm.get('addAdditionalPhone').value">
     <ng-container formGroupName="{{ eveningPhone }}">
       <div class="usa-input-grid usa-input-grid-medium">
-        <label id="evening-phone-label" class="usa-input">{{ name }} (10 digits) <span class="required-fields-asterisk">*</span></label>
+        <label id="evening-phone-label" class="usa-input">{{ name }}<span class="required-fields-asterisk">*</span></label>
         <input id="evening-phone" type="text" minlength="10" maxlength="10" pattern="(^\d{10}$)" formControlName="tenDigit" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('eveningPhone.tenDigit'), 'evening-phone-label', 'evening-phone-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get('eveningPhone.tenDigit'))" />
