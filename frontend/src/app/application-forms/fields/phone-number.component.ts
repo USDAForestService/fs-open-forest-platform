@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { phoneNumberMinValidator } from '../validators/phone-number-min-length-validation';
+import { phoneNumberMaxValidator } from '../validators/phone-number-max-length-validation';
 
 @Component({
   selector: 'app-phone-number',
@@ -32,7 +34,7 @@ export class PhoneNumberComponent implements OnInit {
       extension: [, [Validators.minLength(1), Validators.maxLength(6)]],
       number: [null, Validators.maxLength(4)],
       prefix: [null, Validators.maxLength(3)],
-      tenDigit: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+      tenDigit: ['', [Validators.required, phoneNumberMinValidator(), phoneNumberMaxValidator()]]
     });
     this.parentForm.addControl('dayPhone', dayPhone);
 
@@ -48,10 +50,10 @@ export class PhoneNumberComponent implements OnInit {
 
   addRemoveValidators(value) {
     if (value) {
-      this.parentForm.get('eveningPhone.extension').setValidators([Validators.minLength(1), Validators.maxLength(6)]);
+      this.parentForm.get('eveningPhone.extension').setValidators([phoneNumberMinValidator(), Validators.maxLength(6)]);
       this.parentForm
         .get('eveningPhone.tenDigit')
-        .setValidators([Validators.required, Validators.minLength(10), Validators.maxLength(10)]);
+        .setValidators([phoneNumberMinValidator(), phoneNumberMaxValidator()]);
     } else {
       this.parentForm.get('eveningPhone.extension').setValidators(null);
       this.parentForm.get('eveningPhone.tenDigit').setValidators(null);
