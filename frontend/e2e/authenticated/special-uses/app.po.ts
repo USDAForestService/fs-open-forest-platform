@@ -36,13 +36,13 @@ export class TempOutfittersForm {
 
 export class AdminApplicationList {
   navigateTo() {
-    return browser.get('/admin/applications');
+    return browser.get('/special-use/admin/applications');
   }
 }
 
 export class UserApplicationList {
   navigateTo() {
-    return browser.get('/user/applications');
+    return browser.get('/special-use/user/applications');
   }
 }
 

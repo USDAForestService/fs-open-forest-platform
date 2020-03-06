@@ -150,7 +150,7 @@ const appRoutes: Routes = [
   },
   // start of admin applications and children routes
   {
-    path: 'admin/applications',
+    path: 'special-use/admin/applications',
     canActivateChild: [AdminAccessControlService],
     data: {
       displayLogin: true,
@@ -239,7 +239,7 @@ const appRoutes: Routes = [
 
   // start of user applications and children routes    
   {
-    path: 'user/applications',
+    path: 'special-use/user/applications',
     data: {
       displayLogin: true,
       specialUse: true,
