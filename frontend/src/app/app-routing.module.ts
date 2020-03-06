@@ -47,7 +47,7 @@ const appRoutes: Routes = [
   }, {
     path: 'ChristmasTreePermit',
     component: DummyComponent
-  }, 
+  },
   // start of MBS and children routes
   {
     path: 'special-use',
@@ -237,7 +237,7 @@ const appRoutes: Routes = [
   },
   // end of admin trees and children routes
 
-  // start of user applications and children routes    
+  // start of user applications and children routes
   {
     path: 'special-use/user/applications',
     data: {
