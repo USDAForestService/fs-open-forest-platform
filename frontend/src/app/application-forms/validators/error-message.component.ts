@@ -33,12 +33,20 @@ export class ErrorMessageComponent {
   }
 
   minlength(errors) {
-    return `${this.name} requires a minimum of ${errors.minlength.requiredLength} characters. `;
+      return `${this.name} requires a minimum of ${errors.minlength.requiredLength} characters. `;
   }
 
   maxlength(errors) {
-    return `${this.name} allows a maximum of ${errors.maxlength.requiredLength} characters. `;
+      return `${this.name} allows a maximum of ${errors.maxlength.requiredLength} characters. `;
   }
+  
+  phoneNumberMinRequirement(errors) {
+      return `${this.name} requires a minimum of 10 characters. ex: 5551234567`;
+  }
+
+  phoneNumberMaxRequirement(errors) {
+    return `${this.name} allows a maximum of 10 characters. ex: 5551234567`;
+}
 
   alphanumericRequirement(errors) {
     return `${this.name} requires at least one alphanumeric character. `;
