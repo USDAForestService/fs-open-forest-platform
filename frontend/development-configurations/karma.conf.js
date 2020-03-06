@@ -28,12 +28,12 @@ module.exports = function (config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
+  autoWatch: false,
+ browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
-      ChromeHeadless1024X768: {
+      ChromeHeadlessNoSandbox: {
         base: "ChromeHeadless",
-        flags: isDocker ? ["--window-size=1024,768", "--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox"] : ["--window-size=1024,768"]
+        flags: ['--no-sandbox']
       }
     },
     singleRun: false
