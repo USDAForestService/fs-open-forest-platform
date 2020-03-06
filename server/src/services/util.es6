@@ -336,11 +336,11 @@ util.getRandomString = length => crypto.randomBytes(length).toString('hex');
  * @param {string} adminUsername - admin username
  * @return {array} - assigned forests for the given user
  */
-util.getAdminForests = (appforests) => {
-  if (appforests) {
-    return appforests;
-  }
-  return [];
+util.getAdminForests = (approles) => {
+  let str = '';
+  str = approles.split('FS_Open-Forest_')[0];
+  logger.info(`IN UTIL1234: ${str}`);
+  return 'all';
 };
 
 
@@ -352,11 +352,16 @@ util.getAdminForests = (appforests) => {
 util.getUserRole = (approles) => {
   logger.info(`IN UTIL: ${approles}`);
   let str = '';
+  let str1 = '';
   if (typeof approles === 'string') {
     str = approles.includes('Super-User');
+    str1 = approles.includes('POC1');    
   }
   logger.info(`APP ROLES IN UTIL: ${str}`);
   if (str) {
+    return util.ADMIN_ROLE;
+  }
+  if (str1) {
     return util.ADMIN_ROLE;
   }
   return util.USER_ROLE;

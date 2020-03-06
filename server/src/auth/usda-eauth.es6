@@ -39,7 +39,6 @@ eAuth.setUserObject = (profile) => {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
   const approles = `${profile.usdaapproles}`;
-  const appforests = 'all';
   logger.info(`ROLES FROM EAUTH: ${profile.usdafirstname}:${profile.usdaapproles}`);
   logger.info(`APP ROLES : ${approles}: ${appforests}`);
   role = util.getUserRole(approles);
@@ -48,7 +47,7 @@ eAuth.setUserObject = (profile) => {
     adminUsername: role === 'admin' ? adminUsername : '',
     email,
     role,
-    forests: 'util.getAdminForests(appforests)'
+    forests: 'util.getAdminForests(approles)'
   };
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
