@@ -50,10 +50,10 @@ export class PhoneNumberComponent implements OnInit {
 
   addRemoveValidators(value) {
     if (value) {
-      this.parentForm.get('eveningPhone.extension').setValidators([phoneNumberMinValidator(), Validators.maxLength(6)]);
+      this.parentForm.get('eveningPhone.extension').setValidators([Validators.minLength(1), Validators.maxLength(6)]);
       this.parentForm
         .get('eveningPhone.tenDigit')
-        .setValidators([phoneNumberMinValidator(), phoneNumberMaxValidator()]);
+        .setValidators([Validators.required, phoneNumberMinValidator(), phoneNumberMaxValidator()]);
     } else {
       this.parentForm.get('eveningPhone.extension').setValidators(null);
       this.parentForm.get('eveningPhone.tenDigit').setValidators(null);
