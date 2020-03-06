@@ -37,7 +37,7 @@
           <app-permit-holder-name [applicantInfo]="applicationForm.controls.applicantInfo"
             type="primary" name="Applicant"></app-permit-holder-name>
           <app-address [parentForm]="applicationForm.get('applicantInfo')" formName="primaryAddress" type="primary-permit-holder"></app-address>
-          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Telephone number"></app-phone-number>
+          <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number (10 digits. No special characters.)"></app-phone-number>
           <app-fax [parentForm]="applicationForm.get('applicantInfo')" name="Fax number"></app-fax>
           <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
           <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
