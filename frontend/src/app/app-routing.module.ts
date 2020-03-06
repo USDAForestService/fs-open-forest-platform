@@ -184,7 +184,7 @@ const appRoutes: Routes = [
 
       // start of admin trees and children routes
   {
-    path: 'admin/christmas-trees',
+    path: 'christmas-trees/admin',
     canActivateChild: [AdminAccessControlService],
     data: {
       admin: true,
