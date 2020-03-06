@@ -50,13 +50,13 @@ const appRoutes: Routes = [
   }, 
   // start of MBS and children routes
   {
-    path: 'mbs',
+    path: 'special-use',
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
       text: 'Mount Baker-Snoqualmie special use permits',
       displayLogin: true,
-      specialUse: true
+      specialUse: true,
     },
     resolve: {
       user: UserResolver
