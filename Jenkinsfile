@@ -9,7 +9,8 @@ pipeline {
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
         SONAR_HOST = credentials('SONAR_HOST')
-	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')    
+	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')   
+        GITHUB_TOKEN = credentials('GITHUB_TOKEN')    
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,Abdul.Qureshi@usda.gov'
 	CHECKOUT_STATUS = 'Pending'
@@ -20,7 +21,7 @@ pipeline {
 	RUN_PA11Y_STATUS = 'Pending'	    
 	DEPLOY_STATUS = 'Pending'	       	
 	RUN_SONARQUBE_STATUS = 'Pending'	
-	    AUTHOR = 'kilara77'
+	AUTHOR = 'kilara77'
 	
 	REPO_NAME="fs-open-forest-platform"
 	REPO_OWNER_NAME="USDAForestService"
@@ -45,9 +46,12 @@ pipeline {
 	  
     stage('Checkout Code'){
        steps {              
-                script {
+                script {			
                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
+     sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      '''			
   		  CHECKOUT_STATUS= 'Success'
                 }      	     
 	} 
@@ -55,6 +59,9 @@ pipeline {
                 failure {
 			script {
         		CHECKOUT_STATUS= 'Failed'
+ sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "Failed","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      '''				
         	   	sh 'echo "FAILED in stage checkout code"'
                 }
             }	
@@ -66,6 +73,9 @@ pipeline {
 	    script {
         		
         		sh 'echo "Install dependencies"'
+      sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "Pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running tasks!"}'
+      '''					    
 		    sh '''
 	pwd
 	cd frontend
@@ -78,6 +88,10 @@ pipeline {
 	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install		
 	'''	
+sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      '''					    		    
+		    
 		    INSTALL_DEPENDENCIES_STATUS= 'Success'
     		}
         }
@@ -85,6 +99,10 @@ pipeline {
                 failure {
 			script {
         		INSTALL_DEPENDENCIES_STATUS= 'Failed'
+
+sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failed","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      '''					
         	   	sh 'echo "FAILED in stage install dependencies"'
     		}                 
                 }
