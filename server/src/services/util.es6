@@ -361,9 +361,9 @@ util.getUserRole = (approles) => {
   if (str) {
     return util.ADMIN_ROLE;
   }
-  if (str1) {
-    return util.ADMIN_ROLE;
-  }
+  //if (str1) {
+  //  return util.ADMIN_ROLE;
+  //}
   return util.USER_ROLE;
 };
 
