@@ -336,14 +336,13 @@ util.getRandomString = length => crypto.randomBytes(length).toString('hex');
  * @param {string} adminUsername - admin username
  * @return {array} - assigned forests for the given user
  */
-util.getAdminForests = (approles) => {
-  let str = '';
-  str = approles.split('FS_Open-Forest_')[0];
-  logger.info(`IN UTIL1234: ${str}`);
-  return 'all';
+util.getAdminForests = (adminUsername) => {
+  const user = vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername);
+  if (user && user.forests) {
+    return user.forests;
+  }
+  return [];
 };
-
-
 /**
 * @function getUserRole - Check if the given user is admin, return user role if not find
 * @param {string} approles - user roles
@@ -351,6 +350,10 @@ util.getAdminForests = (approles) => {
 */
 util.getUserRole = (approles) => {
   logger.info(`IN UTIL: ${approles}`);
+
+  let str12 = '';
+  str12 = approles.split('FS_Open-Forest_')[0];
+  logger.info(`IN UTIL1234: ${str12}`);
   let str = '';
   let str1 = '';
   if (typeof approles === 'string') {
@@ -361,9 +364,9 @@ util.getUserRole = (approles) => {
   if (str) {
     return util.ADMIN_ROLE;
   }
-  //if (str1) {
-  //  return util.ADMIN_ROLE;
-  //}
+  if (str1) {
+    return util.ADMIN_ROLE;
+  }
   return util.USER_ROLE;
 };
 
