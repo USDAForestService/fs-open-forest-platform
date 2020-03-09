@@ -344,17 +344,18 @@ util.getAdminForests = (adminUsername) => {
   return [];
 };
 
-/** 
+/**
  * Method added for getting attributes from eauth
- * 
+ *
 */
 util.getEauthForests = (approles) => {
   let forest = '';
+  let openforest = '';
   if (typeof approles === 'string') {
     openforest = approles.split('FS_Open-Forest_')[1];
-    logger.info(`IN getAdminForests: ${forest}`);
+    logger.info(`IN getAdminForests: ${openforest}`);
     forest = openforest.split('-')[0];
-    if (forest === 'Super'){
+    if (forest === 'Super') {
       return ['all'];
     }
     return [forest];
