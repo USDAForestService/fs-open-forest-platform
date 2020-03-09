@@ -336,12 +336,27 @@ util.getRandomString = length => crypto.randomBytes(length).toString('hex');
  * @param {string} adminUsername - admin username
  * @return {array} - assigned forests for the given user
  */
-util.getAdminForests = (approles) => {
+util.getAdminForests = (adminUsername) => {
+  const user = vcapConstants.EAUTH_USER_SAFELIST.find(element => element.admin_username === adminUsername);
+  if (user && user.forests) {
+    return user.forests;
+  }
+  return [];
+};
+
+/** 
+ * Method added for getting attributes from eauth
+ * 
+*/
+util.getEauthForests = (approles) => {
   let forest = '';
   if (typeof approles === 'string') {
     openforest = approles.split('FS_Open-Forest_')[1];
     logger.info(`IN getAdminForests: ${forest}`);
     forest = openforest.split('-')[0];
+    if (forest === 'Super'){
+      return ['all'];
+    }
     return [forest];
   }
   return [];
