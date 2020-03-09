@@ -351,8 +351,11 @@ util.getAdminForests = (adminUsername) => {
 */
 util.getUserRole = (approles) => {
   let str = '';
+  let forest = '';
   if (typeof approles === 'string') {
     str = approles.includes('Super-User');
+    forest = approles.split('FS_Open-Forest_')[0];
+    logger.info(`IN getUserRole: ${forest}`);
   }
   logger.info(`APP ROLES IN UTIL: ${str}`);
   if (str) {
