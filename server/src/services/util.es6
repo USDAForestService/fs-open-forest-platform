@@ -356,7 +356,7 @@ util.getEauthForests = (approles) => {
     logger.info(`IN getAdminForests: ${openforest}`);
     forest = openforest.split('-')[0];
     if (forest === 'Super') {
-      logger.info(`User is super user`);
+      logger.info('User is super user');
       return ['all'];
     }
     logger.info(`User forest is: ${forest}`);
