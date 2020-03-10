@@ -15,6 +15,7 @@ export class PermitApplicationListComponent implements OnInit {
   warningMessage: string;
   successMessage: string;
   applicationStatus = 'pending';
+  appStatusMessage = 'Applications that have been submitted/received and are awaiting a review or action.';
   isAdmin: boolean;
   userType: string;
   holdText: string;
@@ -44,6 +45,24 @@ export class PermitApplicationListComponent implements OnInit {
     this.alertService.clear();
     this.successMessage = null;
     this.getApplications(this.applicationStatus);
+
+    switch (this.applicationStatus) {
+      case 'pending':
+        this.appStatusMessage = 'Applications that have been submitted/received and are awaiting a review or action.';
+        break;
+      case 'accepted':
+        this.appStatusMessage = 'Applications that are under further review.';
+        break;
+      case 'rejected':
+        this.appStatusMessage = 'Applications that have been rejected for reasons provided by the permit administrator.';
+        break;
+      case 'cancelled':
+        this.appStatusMessage = 'Applications that have been submitted and subsequently cancelled by the applicant.';
+        break;
+      case 'expired':
+        this.appStatusMessage = 'Applications that have expired due to inactivity.';
+        break;
+    }
   }
 
   isOverTwoDaysOld(submittedDateTime) {
