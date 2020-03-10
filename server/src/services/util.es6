@@ -376,7 +376,7 @@ util.getUserRole = (approles) => {
   if (typeof approles === 'string') {
     str = approles.includes('Super-User');
     str1 = approles.includes('POC1');
-  }  
+  }
   if (str) {
     logger.info(`IS USER A SUPER USER: ${str}`);
     return util.ADMIN_ROLE;
