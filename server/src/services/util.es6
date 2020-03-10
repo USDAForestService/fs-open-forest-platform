@@ -356,8 +356,10 @@ util.getEauthForests = (approles) => {
     logger.info(`IN getAdminForests: ${openforest}`);
     forest = openforest.split('-')[0];
     if (forest === 'Super') {
+      logger.info(`User is super user`);
       return ['all'];
     }
+    logger.info(`User forest is: ${forest}`);
     return [forest];
   }
   return [];
@@ -375,7 +377,7 @@ util.getUserRole = (approles) => {
     str = approles.includes('Super-User');
     str1 = approles.includes('POC1');
   }
-  logger.info(`APP ROLES IN UTIL: ${str}`);
+  logger.info(`IS USER AN ADMIN: ${str}`);
   if (str) {
     return util.ADMIN_ROLE;
   }
