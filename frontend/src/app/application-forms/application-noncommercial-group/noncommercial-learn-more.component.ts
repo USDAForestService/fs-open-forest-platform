@@ -19,7 +19,7 @@ export class NoncommercialLearnMoreComponent {
       name: 'description',
       content: 'Learn more about how to use Open Forest\
  to apply for noncommercial group use permits on the\
- Mount Baker Snoqualmie National Forest.'
+ Mt. Baker-Snoqualmie National Forest.'
     });
     this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
