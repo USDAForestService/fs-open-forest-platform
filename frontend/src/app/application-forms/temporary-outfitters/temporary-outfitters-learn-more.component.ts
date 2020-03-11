@@ -1,172 +1,435 @@
-import { Component } from '@angular/core';
-import { UtilService } from '../../_services/util.service';
+import { alphanumericValidator } from '../validators/alphanumeric-validation';
+import { urlValidator } from '../validators/url-validation';
+import { applicationTypeValidator } from '../validators/application-type-validation';
+import { AlertService } from '../../_services/alert.service';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { ApplicationFieldsService } from '../_services/application-fields.service';
+import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
+import { FileUploadService } from '../_services/file-upload.service';
+import { ApplicationService } from '../../_services/application.service';
+import { Component, DoCheck, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-temporary-outfitters-learn-more',
-  templateUrl: './temporary-outfitters-learn-more.component.html'
+  selector: 'app-temporary-outfitters',
+  templateUrl: './temporary-outfitters.component.html'
 })
-export class TemporaryOutfittersLearnMoreComponent {
-  items: any;
-  forest: string;
+export class TemporaryOutfittersComponent implements DoCheck, OnInit {
+  apiErrors: any;
+  application: any;
+  applicationId: number;
+  currentSection: any;
+  forest = this.specialUseInfoService.getOne('0605');
+  mode = 'Observable';
+  submitted = false;
+  uploadFiles = false;
+  filesUploaded = false;
+  goodStandingEvidenceMessage: string;
+  orgTypeFileUpload: boolean;
+  applicationForm: FormGroup;
+  pointOfView = 'We';
+  showFileUploadProgress = false;
+  fileUploadProgress: number;
+  fileUploadError = false;
+  numberOfFiles: number;
+
+  dateStatus = {
+    startDateTimeValid: true,
+    endDateTimeValid: true,
+    startBeforeEnd: true,
+    startAfterToday: true,
+    hasErrors: false
+  };
+
+  invalidFileUpload: boolean;
+
   constructor(
-    public util: UtilService,
+    private alertService: AlertService,
+    private authentication: AuthenticationService,
+    private element: ElementRef,
+    public applicationService: ApplicationService,
+    public applicationFieldsService: ApplicationFieldsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    public formBuilder: FormBuilder,
+    public renderer: Renderer2,
+    public fileUploadService: FileUploadService,
     private specialUseInfoService: SpecialUseInfoService,
     private meta: Meta
   ) {
-    this.forest = this.specialUseInfoService.getOne('0605');
+
     this.meta.addTag({
-        name: 'description', content: 'Learn more about how to use Open Forest\
- to apply for temporary outffitter and guide permits on the Mount Baker\
- Snoqualmie National Forest.'
-        });
-    this.items = [
-      {
-        sectionName: 'A temporary use permit is',
-        type: 'anchor',
-        sectionCopy: `
-        <ul>
-          <li>Authorization to conduct short-term outfitted or guided use on national Forest
-  Service land.</li>
-          <li>Held by an outfitter qualified to provide the service.</li>
-          <li>Valid for up to 200
-<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
-in a 180-day period per <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a>.</li>
-          <li>Based on a flat-rate fee schedule (see “Costs” below).</li>
-          <li>Non-renewable and non-competitive.</li>
-          <li>Revocable, suspendable and not appealable.</li>
-        </ul>
-        `
+      name: 'description', content: 'Apply for a temporary outffitter\
+ and guide on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+    });
+    this.applicationForm = new FormGroup({
+      acceptPII: new FormControl()
+    });
+
+    this.applicationForm = this.formBuilder.group({
+      acceptPII: [false, Validators.required],
+      appControlNumber: ['', [Validators.maxLength(255)]],
+      applicationId: ['', [Validators.maxLength(255)]],
+      createdAt: ['', [Validators.maxLength(255)]],
+      applicantMessage: ['', [Validators.maxLength(255)]],
+      status: ['', [Validators.maxLength(255)]],
+      authEmail: ['', [Validators.maxLength(255)]],
+      authorizingOfficerName: ['', [Validators.maxLength(255)]],
+      authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
+      revisions: [''],
+      district: ['11', [Validators.required, Validators.maxLength(2)]],
+      region: ['06', [Validators.required, Validators.maxLength(2)]],
+      forest: ['05', [Validators.required, Validators.maxLength(2)]],
+      type: [
+        'tempOutfitters',
+        [Validators.required, alphanumericValidator(), applicationTypeValidator(), Validators.maxLength(255)]
+      ],
+      signature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(3), alphanumericValidator()]],
+      applicantInfo: this.formBuilder.group({
+        addAdditionalPhone: [false],
+        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
+        emailAddressConfirmation: [
+          '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
+            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
+          ), Validators.maxLength(255)]],
+        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
+        orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        website: ['', [urlValidator(), Validators.maxLength(255)]],
+        goodStandingEvidence: ['', [Validators.maxLength(255)]]
       },
-      {
-        sectionName: 'Applicant requirements',
-        type: 'anchor',
-        sectionCopy: `
-        <p>Qualified applicants must submit the following documentation as part of the
-permit application process:</p>
-        <ul>
-          <li>Annual use reports</li>
-          <li>Liability insurance</li>
-          <li>Operating plan</li>
-          <li>NOTE: Violations of laws, customer complaints, and adverse performance
-and/or permit compliance will be considered in evaluating qualifications.</li>
-        </ul>
-        `
-      },
-      {
-        sectionName: 'Number of permits and service days',
-        type: 'anchor',
-        sectionCopy: `
-        <p>Permits and service days are managed by use area.
-The maximum allowable <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">service days</a>
-varies by <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">use area</a> and is dependent
-on their availability and demand. Only one temporary permit may be obtained per use area every 180 days up to the maximum number of service
-days per use area (no more than 200 service days). See the various <a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">permit pool documents</a>
-for descriptions of use areas and the maximum number of service days that may be permitted for each area.</p>
-        <ul>
-          <li><strong>Example 1:</strong> Use Area "A" = 1000 total
-<a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295777">pool days</a> with with a maximum of 200 days per permit.
-This means you can apply for 1 permit up to 200 days, every 6 months.</li>
-          <li><strong>Example 2:</strong> Use Area "B" = 150 total pool days, with a maximum of 50 days per permit.
-This means you can apply for 1 permit up to 50 days, every 6 months.</li>
-          <li><strong>Example 3:</strong> Use Area "A" + "B" = a maximum of 200 days for "A" + a
-maximum of 50 days for "B" = a maximum of 250 days for use areas "A" and "B." This means you can apply for days from multiple use areas at the
-same time.</li>
-        </ul>
-        `
-      },
-      {
-        sectionName: 'Benefits of a temporary use permit',
-        type: 'anchor',
-        sectionCopy: `
-        <ul>
-          <li>Allows for short-term allocation of use to meet seasonal needs</li>
-          <li>Provides an opportunity to try new activities and locations</li>
-          <li>Increases flexibility in locations</li>
-          <li>Decreases time spent processing paperwork</li>
-          <li>Promotes opportunities for church, youth, and educational groups to obtain short term permits for brief and non-recurring outings</li>
-        </ul>
-        `
-      },
-      {
-        sectionName: 'Activities and locations',
-        type: 'anchor',
-        sectionCopy: `
-        <ul>
-          <li>Land-based outfitting and guide permits are available throughout the forest at the discretion of district rangers.</li>
-          <li><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496"> River-based guiding permits are currently only available for select locations</a>.</li>
-          <li>Permit inquiries for other forests should be directed to those forests.</li>
-        </ul>
-        <p><a href="https://www.fs.fed.us/">Information for National Forests within the United States can be
-found here</a>.</p>
-        <p>NOTE: The Forest Service may add, remove, or modify the activities and locations at our discretion.</p>
-        `
-      },
-      {
-        sectionName: 'Cost estimate',
-        type: 'anchor',
-        sectionCopy: `
-        <h3>Cost estimate chart</h3>
-        <table class="faq-table">
-          <tr>
-            <th>Number of service days</th>
-            <th>Flat fee</th>
-            <th>Maximum gross revenue for each period of service days</th>
-          </tr>
-          <tr>
-            <td>1 to 50</td>
-            <td>$150</td>
-            <td>$10,000</td>
-          </tr>
-          <tr>
-            <td>51 to 100</td>
-            <td>$300</td>
-            <td>$20,000</td>
-          </tr>
-          <tr>
-            <td>101 to 150</td>
-            <td>$450</td>
-            <td>$30,000</td>
-          </tr>
-          <tr>
-            <td>151 to 200</td>
-            <td>$600</td>
-            <td>$40,000</td>
-          </tr>
-        </table>
-        `
-      },
-      {
-        sectionName: 'Application due dates',
-        type: 'anchor',
-        sectionCopy: `
-        <p><a href="https://www.fs.usda.gov/detail/mbs/passes-permits/event-commercial/?cid=stelprdb5295496">
-        Administration of the temporary permits varies by pool and is specified in the land or river pool permit documents found here</a>.</p>
-        <p>Ideally, there would be plenty of service days available to allow all temporary use permits
-to be issued on a first-come, first-served basis. However, some permit pools have high demand and are limited in service day capacity.
-In this case, we will allocate the permits using a lottery based on due date. Due dates are months ahead of their respective permit period so that applicants who
-are granted a permit by means of our lottery will have plenty of time to advertise and prepare. In the event there are unallocated
-days left over after the lottery, additional permits may be issued on a first-come,
-first-served basis.</p>
-        <p>For more information on Forest Service outfitter and guide policies and
-regulations, <a href="https://www.fs.fed.us/specialuses/special_outfitting.shtml">visit the national website</a>.</p>
-        `
-      },
-      {
-        sectionName: 'Contact us',
-        type: 'anchor',
-        sectionCopy: `
-        <p>If you'd like to contact the special use permit administration staff at the Forest, please use a method listed below.</p>
-        <div class="contact-details">
-          <p class="title-description">
-            Sue Sherman-Biery<br>
-            <span class="italic">Special use administrator</span>
-          </p>
-          <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
-          <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
-        </div>`
+      {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
+      guideIdentification: ['', [Validators.maxLength(255)]],
+      operatingPlan: ['', [Validators.maxLength(255)]],
+      liabilityInsurance: ['', [Validators.required, Validators.maxLength(255)]],
+      acknowledgementOfRisk: ['', [Validators.maxLength(255)]],
+      locationMap: ['', [Validators.maxLength(255)]],
+      tempOutfitterFields: this.formBuilder.group({
+        individualIsCitizen: [false],
+        smallBusiness: [false],
+        advertisingDescription: ['', [alphanumericValidator(), Validators.maxLength(255)]],
+        advertisingURL: ['', [Validators.required, urlValidator(), Validators.maxLength(255)]],
+        noPromotionalWebsite: ['', Validators.maxLength(10)],
+        clientCharges: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
+        experienceList: ['', [alphanumericValidator(), Validators.maxLength(512)]]
+      })
+    });
+
+    this.applicationForm.get('tempOutfitterFields.noPromotionalWebsite').valueChanges.subscribe(value => {
+      this.advertisingRequirementToggle(
+        value,
+        this.applicationForm.get('tempOutfitterFields.advertisingURL'),
+        this.applicationForm.get('tempOutfitterFields.advertisingDescription')
+      );
+    });
+
+    this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
+      this.orgTypeChange(type);
+    });
+  }
+
+  advertisingRequirementToggle(value, advertisingUrl, advertisingDescription) {
+    if (value) {
+      advertisingDescription.setValidators([Validators.required, alphanumericValidator()]);
+      advertisingDescription.updateValueAndValidity();
+      advertisingUrl.setValidators([alphanumericValidator(), urlValidator(), Validators.maxLength(255)]);
+      advertisingUrl.updateValueAndValidity();
+    } else {
+      advertisingUrl.setValidators([
+        Validators.required,
+        alphanumericValidator(),
+        urlValidator(),
+        Validators.maxLength(255)
+      ]);
+      advertisingUrl.updateValueAndValidity();
+      advertisingDescription.setValidators(null);
+      advertisingDescription.updateValueAndValidity();
+    }
+  }
+
+  orgTypeChange(type): void {
+    this.pointOfView = 'We';
+    this.goodStandingEvidenceMessage = '';
+    this.orgTypeFileUpload = true;
+    const gse = this.applicationForm.get('applicantInfo.goodStandingEvidence');
+    const orgName = this.applicationForm.get('applicantInfo.organizationName');
+    this.applicationFieldsService.updateValidators(gse, true, 255);
+    this.applicationFieldsService.updateValidators(orgName, true, 60);
+    switch (type) {
+      case 'Person':
+        this.goodStandingEvidenceMessage = 'Are you a citizen of the United States?';
+        this.pointOfView = 'I';
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
+        this.applicationFieldsService.updateValidators(orgName, false, 60);
+        break;
+      case 'Corporation':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
+        break;
+      case 'Limited Liability Company':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your certificate of good standing or state equivalent.';
+        break;
+      case 'Limited Partnership':
+        this.goodStandingEvidenceMessage = 'Provide a copy of your partnership or association agreement.';
+        break;
+      case 'State Govt':
+        this.orgTypeFileUpload = false;
+        this.applicationFieldsService.updateValidators(gse, false);
+        break;
+      case 'Local Govt':
+        this.orgTypeFileUpload = false;
+        this.applicationFieldsService.updateValidators(gse, false);
+        break;
+      case 'Non profit org':
+        this.goodStandingEvidenceMessage = 'Please attach a copy of your IRS Form 990';
+        break;
+    }
+  }
+
+  matchUrls(): void {
+    const website = this.applicationForm.get('applicantInfo.website');
+    const value = website.value;
+    const url = this.applicationForm.get('tempOutfitterFields.advertisingURL').value;
+    if (value.trim().length > 0 && url.trim().length === 0 && website.valid) {
+      // Reproduce the url typed into the website input into the advertising url input
+      // if the advertising url is empty
+      this.applicationForm.get('tempOutfitterFields.advertisingURL').setValue(value);
+    }
+  }
+
+  updateDateStatus(dateStatus: any): void {
+    this.dateStatus = dateStatus;
+  }
+
+  checkFileUploadValidity() {
+    const untouchedRequired = document.querySelectorAll('.usa-file-input.ng-untouched.required');
+    const invalid = document.querySelectorAll('.usa-file-input.ng-invalid');
+    this.invalidFileUpload = !!(untouchedRequired.length || invalid.length);
+  }
+
+  numberOfFilesToUpload() {
+    this.numberOfFiles = this.fileUploadService.getNumberOfFiles();
+  }
+
+  /**
+  * Remove data that has not been used and should not be sent to the api.
+  * There are fields that are conditionally added or removed from the form.
+  */
+
+  removeUnusedData() {
+    const form = this.applicationForm;
+    if (form.get('applicantInfo')) {
+      if (!form.get('applicantInfo.addAdditionalPhone').value) {
+        this.applicationFieldsService.removeAdditionalPhone(form.get('applicantInfo'));
       }
-    ];
+    }
+    this.removeDataWrapper(form, 'activityDescriptionFields');
+    this.removeDataWrapper(form, 'experienceFields');
+  }
+
+  removeDataWrapper(form, fieldGroup) {
+    if (form.get(`tempOutfitterFields.${fieldGroup}`)) {
+      if (fieldGroup === 'activityDescriptionFields') {
+        this.removeUnusedActivityDescription(form);
+      } else {
+        this.removedUnusedExperience(form);
+      }
+    }
+  }
+
+  removeUnusedActivityDescription(form) {
+    const fieldGroup = 'tempOutfitterFields.activityDescriptionFields';
+    if (!form.get(`${fieldGroup}.needGovernmentFacilities`).value) {
+      form.get(`${fieldGroup}.listOfGovernmentFacilities`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needTemporaryImprovements`).value) {
+      form.get(`${fieldGroup}.listOfTemporaryImprovements`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveMotorizedEquipment`).value) {
+      form.get(`${fieldGroup}.statementOfMotorizedEquipment`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveLivestock`).value) {
+      form.get(`${fieldGroup}.statementOfTransportationOfLivestock`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.needAssignedSite`).value) {
+      form.get(`${fieldGroup}.statementOfAssignedSite`).setValue('');
+    }
+  }
+
+  removedUnusedExperience(form) {
+    const fieldGroup = 'tempOutfitterFields.experienceFields';
+    if (!form.get(`${fieldGroup}.haveNationalForestPermits`).value) {
+      form.get(`${fieldGroup}.listAllNationalForestPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveOtherPermits`).value) {
+      form.get(`${fieldGroup}.listAllOtherPermits`).setValue('');
+    }
+    if (!form.get(`${fieldGroup}.haveCitations`).value) {
+      form.get(`${fieldGroup}.listAllCitations`).setValue('');
+    }
+  }
+
+  getApplication(id) {
+    this.applicationService.getOne(id, `/special-uses/temp-outfitter/`).subscribe(
+      ( application: any) => {
+        this.application = application;
+        this.applicationId = application.applicationId;
+        this.applicationForm.patchValue(this.application);
+        this.getFiles(this.application.applicationId);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
+      },
+      (e: any) => {
+        this.apiErrors = e;
+        window.scrollTo(0, 200);
+      }
+    );
+  }
+
+  getFiles(id) {
+    this.applicationService.get(`/special-uses/temp-outfitter/${id}/files`).subscribe((files: any) => {
+      for (const file of files) {
+        let type = '';
+        switch (file.documentType) {
+          case 'acknowledgement-of-risk-form':
+            type = 'acknowledgementOfRisk';
+            break;
+          case 'good-standing-evidence':
+            type = 'applicantInfo.goodStandingEvidence';
+            break;
+          case 'insurance-certificate':
+            type = 'liabilityInsurance';
+            break;
+          case 'guide-document':
+            type = 'guideIdentification';
+            break;
+          case 'operating-plan':
+            type = 'operatingPlan';
+            break;
+          case 'location-map':
+            type = 'locationMap';
+            break;
+        }
+        this.applicationForm.get(type).setValue(file.originalFileName);
+      }
+    });
+  }
+
+  createApplication() {
+    this.applicationService
+      .create(JSON.stringify(this.applicationForm.value), '/special-uses/temp-outfitter/')
+      .subscribe(
+        (persistedApplication: any) => {
+          this.application = persistedApplication;
+          this.applicationId = persistedApplication.applicationId;
+          this.showFileUploadProgress = true;
+          this.uploadFiles = true;
+        },
+        (e: any) => {
+          this.apiErrors = e;
+          window.scroll(0, 0);
+        }
+      );
+  }
+
+  updateApplication() {
+    this.applicationService.update(this.applicationForm.value, 'temp-outfitter').subscribe(
+      (data: any) => {
+        this.showFileUploadProgress = true;
+        this.uploadFiles = true;
+      },
+      (e: any) => {
+        this.apiErrors = e;
+        window.scrollTo(0, 200);
+      }
+    );
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    this.numberOfFilesToUpload();
+    this.checkFileUploadValidity();
+    this.applicationFieldsService.touchAllFields(this.applicationForm);
+    if (!this.applicationForm.valid || this.dateStatus.hasErrors || this.invalidFileUpload) {
+      this.applicationFieldsService.scrollToFirstError();
+    } else {
+      this.removeUnusedData();
+      if (this.applicationFieldsService.getEditApplication()) {
+        this.updateApplication();
+      } else {
+        this.createApplication();
+      }
+    }
+  }
+
+  retryFileUpload(event) {
+    this.fileUploadService.setFileUploadError(false);
+    this.fileUploadError = false;
+    this.numberOfFilesToUpload();
+    this.uploadFiles = true;
+  }
+
+
+  public elementInView({ target, visible }: { target: Element; visible: boolean }): void {
+    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
+    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
+
+    const viewableElements = document.getElementsByClassName('in-view');
+    if (viewableElements[0]) {
+      this.currentSection = viewableElements[0].id;
+    }
+  }
+
+
+  ngDoCheck() {
+    if (this.fileUploadService.fileUploadError) {
+      this.fileUploadError = true;
+      this.uploadFiles = false;
+    }
+    if (this.uploadFiles) {
+      this.fileUploadProgress = this.fileUploadService.getFileUploadProgress(this.numberOfFiles + 1);
+      if (this.fileUploadService.getNumberOfFiles() < 1) {
+        this.endOfUpload();
+      }
+    }
+  }
+
+  endOfUpload() {
+      this.uploadFiles = false;
+      this.showFileUploadProgress = false;
+      this.fileUploadError = false;
+      if (this.applicationFieldsService.getEditApplication()) {
+        this.alertService.addSuccessMessage('Permit application was successfully updated.');
+        if (this.authentication.isAdmin()) {
+          this.router.navigate([`admin/applications/temp-outfitter/${this.application.appControlNumber}`]);
+        } else {
+          this.router.navigate([`user/applications/temp-outfitter/${this.application.appControlNumber}`]);
+        }
+      } else {
+        this.application.status = 'Submitted';
+        this.applicationService.update(this.application, 'temp-outfitter').subscribe(
+          (data: any) => {
+            this.router.navigate([`mbs/applications/temp-outfitter/submitted/${this.application.appControlNumber}`]);
+          },
+          (e: any) => {
+            this.apiErrors = e;
+            window.scrollTo(0, 200);
+          }
+        );
+      }
+
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.getApplication(params['id']);
+        this.applicationFieldsService.setEditApplication(true);
+      } else {
+        this.applicationFieldsService.setEditApplication(false);
+      }
+    });
   }
 }
