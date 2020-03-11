@@ -54,7 +54,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
     this.meta.addTag({
       name: 'description',
       content: 'Apply for a noncommercial group\
- use permit on the Mount Baker Snoqualmie\
+ use permit on the Mt. Baker-Snoqualmie\
  National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
