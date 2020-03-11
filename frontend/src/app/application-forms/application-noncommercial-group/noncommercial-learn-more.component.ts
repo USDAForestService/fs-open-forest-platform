@@ -17,7 +17,7 @@ export class NoncommercialLearnMoreComponent {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Learn more about how to use Open Forest\to apply for noncommercial group use permits on the\Mt. Baker-Snoqualmie National Forest.'
+      content: 'Learn more about how to use Open Forest to apply for noncommercial group use permits on the Mt. Baker-Snoqualmie National Forest.'
     });
     this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
