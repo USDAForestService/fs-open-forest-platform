@@ -51,7 +51,7 @@ const appRoutes: Routes = [
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Mount Baker-Snoqualmie special use permits',
+      text: 'Mt. Baker-Snoqualmie special use permits',
       displayLogin: true,
       specialUse: true
     },
