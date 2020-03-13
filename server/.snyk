@@ -135,8 +135,8 @@ ignore:
         expires: '2019-10-19T19:32:13.828Z'
   SNYK-JS-MARKDOWNIT-459438:
     - jsdoc > markdown-it:
-        reason: None given
-        expires: '2020-05-08T18:09:41.408Z'
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.683Z'
   SNYK-JS-TREEKILL-536781:
     - snyk > snyk-sbt-plugin > tree-kill:
         reason: no upgrade path currenty
@@ -145,6 +145,25 @@ ignore:
     - newrelic > https-proxy-agent:
         reason: None given
         expires: '2020-06-20T21:18:10.419Z'
+  SNYK-JS-MINIMIST-559764:
+    - html-to-text > optimist > minimist:
+        reason: None given
+        expires: '2020-06-12T19:47:42.683Z'
+    - jsdoc > mkdirp > minimist:
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.683Z'
+    - multer > mkdirp > minimist:
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.683Z'
+    - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.683Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.684Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: ignore for more days
+        expires: '2020-06-12T19:47:42.684Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
