@@ -107,3 +107,83 @@ section#home {
     }
   }
 }
+
+
+.main {
+  width: 100%;
+}
+
+.card-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5em 0;
+}
+
+.city {
+  width: 90%;
+  margin: 0.5em auto;
+  background-color: white;
+}
+
+.city-image,
+.description {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.city-image {
+  padding: 1.2em 1em;
+} 
+
+.description {
+  padding: 1em 2em;
+}
+
+.city-image img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+.description h2 {
+  padding-bottom: 0.5em;
+}
+
+/* FLEXBOX STYLES */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+
+@media (min-width: 640px) { 
+
+.card-container {
+      display: flex;
+      flex-flow: wrap;
+  }
+
+.city {
+  flex: 1 0 48%;
+  margin: 1%;
+}
+
+@media (min-width: 1001px) {
+  .city {
+      flex: 1 0 22%;
+  }
+
+  .city:last-of-type {
+      flex-grow: 0;
+  }
+}
+}

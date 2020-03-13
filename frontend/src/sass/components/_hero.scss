@@ -20,4 +20,36 @@
       }
     }
   }
+  .usa-main {
+    background: black;
+    background-size: cover;
+    .usa-main-callout {
+        margin: auto;
+        text-align: center;
+        color: $white;
+        h1, h2, h3, h4, span {
+          color: $white !important;
+        }
+        h3 {
+          padding-top: 150px;
+          margin-top: 0px;
+        }
+        h1 {
+          padding: 30px;
+          font-size: 4em;
+        }
+        h4 {
+          padding-bottom: 150px;
+        }
+        .usa-button {
+          margin-top: 2rem;
+          margin-bottom: 0;
+        }
+     }
+    @media screen and (min-width: $small-screen) {
+      .usa-main-callout {
+        max-width: 70rem;
+      }
+    }
+  }
 }
