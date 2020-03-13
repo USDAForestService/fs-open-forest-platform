@@ -145,6 +145,39 @@ ignore:
     - newrelic > https-proxy-agent:
         reason: None given
         expires: '2020-06-20T21:18:10.419Z'
+  SNYK-JS-ACORN-559469:
+    - jsdom > acorn:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - jsdom > acorn-globals > acorn:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+  SNYK-JS-DOTPROP-543489:
+    - snyk > configstore > dot-prop:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - snyk > update-notifier > configstore > dot-prop:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+  SNYK-JS-MINIMIST-559764:
+    - snyk > update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - snyk > update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - html-to-text > optimist > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - jsdoc > mkdirp > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - multer > mkdirp > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
+    - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: None given
+        expires: '2020-04-12T20:20:22.049Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
