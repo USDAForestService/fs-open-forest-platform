@@ -135,8 +135,8 @@ ignore:
         expires: '2019-10-19T19:32:13.828Z'
   SNYK-JS-MARKDOWNIT-459438:
     - jsdoc > markdown-it:
-        reason: None given
-        expires: '2020-05-08T18:09:41.408Z'
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
   SNYK-JS-TREEKILL-536781:
     - snyk > snyk-sbt-plugin > tree-kill:
         reason: no upgrade path currenty
@@ -163,21 +163,39 @@ ignore:
     - snyk > update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      html-to-text > optimist > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
     - snyk > update-notifier > latest-version > package-json > registry-url > rc > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      jsdoc > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
     - html-to-text > optimist > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      multer > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
     - jsdoc > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
     - multer > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      snyk > @snyk/update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
     - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
+      snyk > @snyk/update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
