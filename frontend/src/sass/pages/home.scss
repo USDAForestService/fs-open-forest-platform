@@ -108,52 +108,60 @@ section#home {
   }
 }
 
-
-.main {
-  width: 100%;
+.usa-target {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .card-container {
   width: 100%;
   margin: 0 auto;
   padding: 0.5em 0;
+  .card{
+    width: 90%;
+    background-color: white;
+    min-height: 65vh;
+    .description{
+      background-color: rgba($color: white, $alpha: 0.8);
+      padding: 10px;
+      min-height: 35%;
+      width: 90%;
+      margin: 25px auto;
+      h3 {
+        margin-top: .5em;
+        color: $fs-green;
+      }
+      p {
+        margin: 0px;
+        color: $fs-brown;
+      }
+    }
+  }
 }
 
-.city {
-  width: 90%;
-  margin: 0.5em auto;
-  background-color: white;
+.tree-card{
+  background-image: url(/assets/img/site-wide/tree-card.png);
+  background-size: cover;
 }
 
-.city-image,
-.description {
-  width: 90%;
-  margin: 0 auto;
+.mushroom-card{
+  background-image: url(/assets/img/site-wide/mushroom-card.png);
+  background-size: cover;
 }
 
-.city-image {
-  padding: 1.2em 1em;
-} 
-
-.description {
-  padding: 1em 2em;
+.huckleberry-card{
+  background-image: url(/assets/img/site-wide/huckleberry-card.png);
+  background-size: cover;
 }
 
-.city-image img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  height: auto;
+.firewood-card{
+  background-image: url(/assets/img/site-wide/firewood-card.png);
+  background-size: cover;
 }
 
 a {
-  color: white;
   text-decoration: none;
-  font-family: sans-serif;
-}
-
-.description h2 {
-  padding-bottom: 0.5em;
 }
 
 /* FLEXBOX STYLES */
@@ -172,18 +180,26 @@ a {
       flex-flow: wrap;
   }
 
-.city {
+.card {
   flex: 1 0 48%;
   margin: 1%;
 }
 
 @media (min-width: 1001px) {
-  .city {
+  .card {
       flex: 1 0 22%;
   }
 
-  .city:last-of-type {
+  .card:last-of-type {
       flex-grow: 0;
   }
 }
+}
+
+// remove this later
+.map-grid {
+  background-color: $fs-brown;
+  min-height: 65vh;
+  text-align: center;
+  width: 100%;
 }
