@@ -1,5 +1,8 @@
 #home {
   padding-top: 0px;
+  ul {
+    padding-top: 0px;
+  }
 }
 
 .mbs-section {
@@ -8,7 +11,7 @@
   .mbs-image-container {
     position: relative;
     margin: 0px 10px;
-    min-height: 766px;
+    min-height: 760px;
     width: 100%;
     &.left-image {
       background-image: url(/assets/img/site-wide/mbs-left-big.png);
@@ -22,7 +25,7 @@
       font-weight: bold;
       position: absolute;
       bottom: 25px;
-      height: 250px;
+      height: 230px;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 15px;
       width: calc(100% - 50px);
@@ -32,6 +35,9 @@
       h3 {
         color: #005400;
         margin-left: 10px;
+      }
+      .link-text {
+        cursor: pointer;
       }
       .hero-icon {
         // background-color: rgba(238, 236, 229, 0.8);
