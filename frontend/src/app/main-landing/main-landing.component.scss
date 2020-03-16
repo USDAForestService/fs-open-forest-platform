@@ -1,0 +1,59 @@
+#home {
+  padding-top: 0px;
+  ul {
+    padding-top: 0px;
+  }
+}
+
+.mbs-section {
+  display: flex;
+  justify-content: center;
+  .mbs-image-container {
+    position: relative;
+    margin: 0px 10px;
+    min-height: 760px;
+    width: 100%;
+    &.left-image {
+      background-image: url(/assets/img/site-wide/mbs-left-big.png);
+      background-size: cover;
+    }
+    &.right-image {
+      background-image: url(/assets/img/site-wide/mbs-right-big.png);
+      background-size: cover;
+    }
+    .mbs-image-hero {
+      font-weight: bold;
+      position: absolute;
+      bottom: 25px;
+      height: 230px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 15px;
+      width: calc(100% - 50px);
+      text-align: left;
+      left: 50%;
+      transform: translateX(-50%);
+      h3 {
+        color: #005400;
+        margin-left: 10px;
+      }
+      .link-text {
+        cursor: pointer;
+      }
+      .hero-icon {
+        // background-color: rgba(238, 236, 229, 0.8);
+        position: absolute;
+        top: -50px;
+        left: 25px;
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        background-image: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 50%
+        );
+      }
+    }
+  }
+}
