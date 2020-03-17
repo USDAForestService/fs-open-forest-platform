@@ -1,0 +1,156 @@
+#home {
+    padding-top: 0px;
+    ul {
+      padding-top: 0px;
+    }
+  }
+  
+  .usa-target {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .card-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.5em 0;
+    .card{
+      width: 90%;
+      background-color: white;
+      min-height: 65vh;
+      .description{
+        background-color: rgba($color: white, $alpha: 0.8);
+        padding: 7px;
+        min-height: 25%;
+        width: 90%;
+        margin: 25px auto;
+        h3 {
+          margin-top: .5em;
+          color: $fs-green;
+        }
+        p {
+          margin: 0px;
+          color: $fs-brown;
+        }
+      }
+    }
+  }
+  
+  .tree-card{
+    background-image: url(/assets/img/site-wide/tree-card.png);
+    background-size: cover;
+  }
+  
+  .mushroom-card{
+    background-image: url(/assets/img/site-wide/mushroom-card.png);
+    background-size: cover;
+  }
+  
+  .huckleberry-card{
+    background-image: url(/assets/img/site-wide/huckleberry-card.png);
+    background-size: cover;
+  }
+  
+  .firewood-card{
+    background-image: url(/assets/img/site-wide/firewood-card.png);
+    background-size: cover;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* FLEXBOX STYLES */
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } 
+  
+  
+  @media (min-width: 640px) { 
+  
+  .card-container {
+        display: flex;
+        flex-flow: wrap;
+    }
+  
+  .card {
+    flex: 1 0 48%;
+    margin: 1%;
+  }
+  
+  @media (min-width: 1001px) {
+    .card {
+        flex: 1 0 22%;
+    }
+  
+    .card:last-of-type {
+        flex-grow: 0;
+    }
+  }
+  }
+  
+  // remove this later
+  .map-grid {
+    background-color: $fs-brown;
+    min-height: 65vh;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .mbs-section {
+    display: flex;
+    justify-content: center;
+    .mbs-image-container {
+      position: relative;
+      margin: 0px 10px;
+      min-height: 760px;
+      width: 100%;
+      &.left-image {
+        background-image: url(/assets/img/site-wide/mbs-left-big.png);
+        background-size: cover;
+      }
+      &.right-image {
+        background-image: url(/assets/img/site-wide/mbs-right-big.png);
+        background-size: cover;
+      }
+      .mbs-image-hero {
+        font-weight: bold;
+        position: absolute;
+        bottom: 25px;
+        height: 230px;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 15px;
+        width: calc(100% - 50px);
+        text-align: left;
+        left: 50%;
+        transform: translateX(-50%);
+        h3 {
+          color: #005400;
+          margin-left: 10px;
+        }
+        .link-text {
+          cursor: pointer;
+        }
+        .hero-icon {
+          // background-color: rgba(238, 236, 229, 0.8);
+          position: absolute;
+          top: -50px;
+          left: 25px;
+          height: 100px;
+          width: 100px;
+          border-radius: 100%;
+          background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 50%
+          );
+        }
+      }
+    }
+  }
+  
