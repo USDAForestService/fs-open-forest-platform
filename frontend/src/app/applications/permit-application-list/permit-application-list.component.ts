@@ -62,6 +62,8 @@ export class PermitApplicationListComponent implements OnInit {
       case 'expired':
         this.appStatusMessage = 'Applications that have expired due to inactivity.';
         break;
+      default:
+        this.appStatusMessage = 'Applications that have been submitted/received and are awaiting a review or action.';
     }
   }
 
