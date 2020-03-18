@@ -1,7 +1,22 @@
 #home {
     padding-top: 0px;
+    padding-bottom: 0px;
     ul {
       padding-top: 0px;
+    }
+  }
+
+  #help-pick-background{
+      background-color: $fs-tan-dark;
+      padding: 20px 200px;
+      margin-top: 40px;
+      color: $dark-blue-grey;
+  }
+  #fs-background{
+    padding: 40px 200px;
+    color: $dark-blue-grey;
+    .big-col{
+        width: 80%;
     }
   }
   
@@ -60,39 +75,11 @@
   a {
     text-decoration: none;
   }
-  
-  /* FLEXBOX STYLES */
-  
   .header {
     display: flex;
     align-items: center;
     justify-content: center;
-  } 
-  
-  
-  @media (min-width: 640px) { 
-  
-  .card-container {
-        display: flex;
-        flex-flow: wrap;
-    }
-  
-  .card {
-    flex: 1 0 48%;
-    margin: 1%;
   }
-  
-  @media (min-width: 1001px) {
-    .card {
-        flex: 1 0 22%;
-    }
-  
-    .card:last-of-type {
-        flex-grow: 0;
-    }
-  }
-  }
-  
   // remove this later
   .map-grid {
     background-color: $fs-brown;
@@ -103,6 +90,7 @@
   
   .mbs-section {
     display: flex;
+    flex-flow: wrap;
     justify-content: center;
     .mbs-image-container {
       position: relative;
@@ -136,7 +124,6 @@
           cursor: pointer;
         }
         .hero-icon {
-          // background-color: rgba(238, 236, 229, 0.8);
           position: absolute;
           top: -50px;
           left: 25px;
@@ -149,8 +136,74 @@
             rgba(255, 255, 255, 0.8) 50%,
             rgba(255, 255, 255, 0) 50%
           );
+          .usa-ico{
+              top: 10px;
+              position: relative;
+          }
+          .fa-users{
+            left: 20px;
+            font-size: 3em;
+        }
+        .fa-hiking{
+            left: 25px;
+            font-size: 3.5em;
+        }
         }
       }
     }
   }
+
+  .usa-ico{
+      color: $fs-green;
+  }
+  .left-align{
+      text-align: left;
+  }
+  .help-pick-flex{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .small-col{
+        width: 20%;
+        justify-content: space-around;
+        
+    }
+    .big-col{
+        width: 70%;
+        justify-content: space-around;
+        h2 {
+            margin-top: 0px;
+        }
+    }
+    .usa-ico{
+        font-size: 4em;
+    }
+  }
+
+
+
+@media (min-width: 640px) { 
+    .card-container {
+            display: flex;
+            flex-flow: wrap;
+        }
+    .card {
+        flex: 1 0 48%;
+        margin: 1%;
+    }
+    .mbs-image-container {
+        flex: 1 0 88%;
+    }
+    @media (min-width: 1001px) {
+      .card {
+          flex: 1 0 22%;
+      }
+      .mbs-image-container {
+          flex: 1 0 48%;
+      }
+      .card:last-of-type {
+          flex-grow: 0;
+      }
+    }
+}
   
