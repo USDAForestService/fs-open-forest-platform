@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
   apiurl = environment.apiUrl;
   currentUrl = '/';
   user: any;
+  browserName: string;
+  warningMessage: string;
   status = {
     heading: '',
     message: ''
@@ -26,6 +28,7 @@ export class AppComponent implements OnInit {
     public authentication: AuthenticationService,
     public util: UtilService,
     private meta: Meta) {
+    this.warningMessage = '',
     this.meta.addTag(
       { name: 'keywords',
        content: 'Forest Service, permitting, permits, christmas trees, national forest, national forests'
@@ -40,7 +43,6 @@ export class AppComponent implements OnInit {
         } else {
           window.scrollTo(0, 0);
         }
-
         if (this.authentication.user && localStorage.getItem('showLoggedIn')) {
           this.setLoggedInMessage(this.authentication.user);
         } else {
@@ -50,6 +52,35 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  getBrowserName() {
+    const  usrAgent = navigator.userAgent;
+    let tem;
+    let browserInfo = usrAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if (/trident/i.test(browserInfo[1])) {
+
+        tem = /\brv[ :]+(\d+)/g.exec(usrAgent) || [];
+
+        return { name: 'IE', version: (tem[1] || '') };
+
+        }
+
+    if (browserInfo[1] === 'Chrome') {
+
+        tem = usrAgent.match (/\bOPR|Edge\/(\d+)/);
+
+        if (tem != null)   { return { name: 'Opera', version: tem[1] }; }
+
+        }
+
+      browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [navigator.appName, navigator.appVersion, '-?'];
+
+    if (( tem = usrAgent.match(/version\/(\d+)/i)) != null) { browserInfo.splice(1, 1, tem[1]); }
+
+    this.browserName = browserInfo[0];
+
+    return this.browserName;
+ }
 
   /**
    *  Set status message
@@ -90,5 +121,25 @@ export class AppComponent implements OnInit {
         return hour < 12 ? 'AM' : 'PM';
       }
     });
-  }
+   }
+  //   function throwWrnMsg() {
+
+  //     var browser = get_browser();
+
+  //     if(browser.name !== "Chrome") {
+
+  //      this.warningMessage = "Your browser is crap. Sorry for the inconvenience."
+
+  //     }
+
+  //     else{
+
+  //         console.log("Chrome in Use, Version: " + browser.version);
+
+  //     }
+
+  // }
+
+
+  // }
 }
