@@ -49,7 +49,7 @@
           color: $fs-brown;
         }
       }
-    }
+  }
   }
   
   .tree-card{
@@ -82,7 +82,8 @@
   }
   // remove this later
   .map-grid {
-    background-color: $fs-brown;
+    background: url(/assets/img/site-wide/map_place.png);
+    background-size: cover;
     min-height: 65vh;
     text-align: center;
     width: 100%;
@@ -169,7 +170,7 @@
         
     }
     .big-col{
-        width: 70%;
+        width: 60%;
         justify-content: space-around;
         h2 {
             margin-top: 0px;
@@ -179,7 +180,6 @@
         font-size: 4em;
     }
   }
-
 
 
 @media (min-width: 640px) { 
