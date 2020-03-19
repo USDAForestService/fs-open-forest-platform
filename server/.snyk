@@ -163,39 +163,43 @@ ignore:
     - snyk > update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      html-to-text > optimist > minimist:
-        reason: ignore for 30days
-        expires: '2020-04-12T20:45:56.284Z'
     - snyk > update-notifier > latest-version > package-json > registry-url > rc > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      jsdoc > mkdirp > minimist:
-        reason: ignore for 30days
-        expires: '2020-04-12T20:45:56.284Z'
     - html-to-text > optimist > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      multer > mkdirp > minimist:
-        reason: ignore for 30days
-        expires: '2020-04-12T20:45:56.284Z'
     - jsdoc > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
-        reason: ignore for 30days
-        expires: '2020-04-12T20:45:56.284Z'
     - multer > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      snyk > @snyk/update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
-        reason: ignore for 30days
-        expires: '2020-04-12T20:45:56.284Z'
     - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
         reason: None given
         expires: '2020-04-12T20:20:22.049Z'
-      snyk > @snyk/update-notifier > latest-version > package-json > registry-url > rc > minimist:
+    - html-to-text > optimist > minimist:
         reason: ignore for 30days
         expires: '2020-04-12T20:45:56.284Z'
+    - jsdoc > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
+    - multer > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
+    - svg2png > phantomjs-prebuilt > extract-zip > mkdirp > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-auth-token > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
+    - snyk > @snyk/update-notifier > latest-version > package-json > registry-url > rc > minimist:
+        reason: ignore for 30days
+        expires: '2020-04-12T20:45:56.284Z'
+  SNYK-JS-YARGSPARSER-560381:
+    - svg2png > yargs > yargs-parser:
+        reason: No upgrade avail
+        expires: '2020-04-18T16:36:01.376Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   SNYK-JS-LODASH-450202:
