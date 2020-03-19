@@ -59,4 +59,8 @@ ignore:
     - webdriver-manager > minimist:
         reason: None given
         expires: '2020-04-12T20:19:47.858Z'
+  SNYK-JS-YARGSPARSER-560381:
+    - uswds > yargs > yargs-parser:
+        reason: Not ready to upgrade
+        expires: '2020-04-18T16:35:27.164Z'
 patch: {}
