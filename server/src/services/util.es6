@@ -325,6 +325,51 @@ util.userApplicationLink = (application, plainText) => {
 };
 
 /**
+ * @function adminApplicationUrl - Get the user's application URL
+ * based on the data in the permit application.
+ * @param {Object} application - application object
+ * @return {string} - application url
+*/
+util.adminApplicationLink = (application, plainText) => {
+  let applicationType = application.type;
+  if (application.type === 'tempOutfitters') {
+    applicationType = 'temp-outfitter'; // for resolving url
+  }
+  const applicationID = application.appControlNumber;
+  const applicationStatus = application.status;
+
+  let status;
+  switch (applicationStatus) {
+    case 'Accepted':
+      status = 'accepted application';
+      break;
+    case 'Hold':
+      status = 'application which needs additional information';
+      break;
+    case 'Review':
+      status = 'application which is under review';
+      break;
+    case 'Cancelled':
+      status = 'cancelled application';
+      break;
+    case 'Submitted':
+      status = 'submitted application';
+      break;
+    default:
+      status = 'application';
+      break;
+  }
+  let text;
+  if (plainText === true) {
+    text = `You can view the ${status} here`;
+  } else {
+    text = `View the ${status} here`;
+  }
+  const url = `${vcapConstants.INTAKE_CLIENT_BASE_URL}/admin/applications/${applicationType}/${applicationID}`;
+  return { text, url };
+};
+
+/**
  * @function getRandomString - Create a random hex string.
  * @param {integer} length - random string to be length
  * @return {string} - random string

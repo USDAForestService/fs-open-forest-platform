@@ -5,14 +5,16 @@
     <app-temp-outfitter-left-nav class="usa-width-one-third usa-layout-docs-sidenav"
       [applicationForm]="applicationForm" [currentSection]="currentSection"></app-temp-outfitter-left-nav>
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a temporary outfitters permit with Open Forest.</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a Temporary Outfitting and Guiding permit with Open Forest.</h2>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit()" novalidate>
         <br>
-        <p>It may take a while to complete the application. To save time, have all of your documents ready.
+        <p *ngIf="!applicationFieldsService.getEditApplication()">It may take a while to complete the application. To save time, have all of your documents ready.
           You won’t be able to save the application to complete it later. The application will be saved once it’s submitted.
+        </p>
+        <p *ngIf="applicationFieldsService.getEditApplication()">You are about to update your permit application. Once you click "Save Edits & Submit" you will not be able to make any further updates unless your application is placed on hold again.
         </p>
         <br>
         <p class="form-directions">required fields <span class="required-fields-asterisk">*</span></p>
@@ -79,13 +81,12 @@
 
           <label id="location-map-label" class="usa-input">Map of proposed activity</label>
           <p id="location-map-hint-text" class="help-text usa-form-hint">In addition to the description provided above, you may also include a map for further clarification of the specific areas you will be using within the forest.</p>
-          <p class="help-text usa-form-hint">File must be in .jpg, .png, or .pdf format, and less than 10MB.</p>
+          <p class="help-text usa-form-hint">File must be in .pdf, .doc, .docx., or .rtf format, and less than 10MB.</p>
           <app-file-upload-field name="Location map" type="location-map"
             [uploadFiles]="uploadFiles"
             [applicationId]="applicationId"
             [checkFileUploadHasError]="submitted"
             [field]="applicationForm.controls.locationMap"
-            allowImg="true"
             ></app-file-upload-field>
         </fieldset>
 
@@ -241,7 +242,7 @@
 
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
         <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/temp-outfitter/{{applicationForm.controls.appControlNumber.value}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
+        <button *ngIf="applicationFieldsService.getEditApplication()" id="save-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save Edits & Submit</button>
 
       </form>
 

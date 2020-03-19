@@ -41,7 +41,7 @@ export class HelpMePickComponent implements OnInit {
         this.title = 'The correct permit for you is the "noncommercial group use application."';
         break;
       case '8':
-        this.title = 'The correct permit for you is the "temporary outfitter and guide permit."';
+        this.title = 'The correct permit for you is the "Temporary Outfitting and Guiding permit."';
         break;
     }
   }

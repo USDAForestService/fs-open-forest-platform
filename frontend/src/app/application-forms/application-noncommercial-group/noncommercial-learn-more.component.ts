@@ -17,9 +17,7 @@ export class NoncommercialLearnMoreComponent {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Learn more about how to use Open Forest\
- to apply for noncommercial group use permits on the\
- Mount Baker Snoqualmie National Forest.'
+      content: 'Learn more about how to use Open Forest to apply for noncommercial group use permits on the Mt. Baker-Snoqualmie National Forest.'
     });
     this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
@@ -66,7 +64,7 @@ export class NoncommercialLearnMoreComponent {
         sectionName: 'Contact us',
         type: 'anchor',
         sectionCopy: `
-        <p>If you have questions or need to contact the permit staff at the National Forest Service, please use a method listed below.</p>
+        <p>If you'd like to contact the special use permit administration staff at the Forest, please use a method listed below.</p>
         <div class="contact-details">
           <h3>Noncommercial contact</h3>
           <p class="title-description">

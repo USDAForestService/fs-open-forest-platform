@@ -53,9 +53,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a noncommercial group\
- use permit on the Mount Baker Snoqualmie\
- National Forest with Open Forest.'
+      content: 'Apply for a noncommercial group use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -197,6 +195,7 @@ export class ApplicationNoncommercialGroupComponent implements OnInit {
       application => {
         this.application = application;
         this.applicationForm.patchValue(application);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;

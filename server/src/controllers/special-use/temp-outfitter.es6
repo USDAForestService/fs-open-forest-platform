@@ -297,30 +297,30 @@ tempOutfitter.translateFromIntakeToMiddleLayer = (application) => {
       individualIsCitizen: application.tempOutfitterFieldsIndividualCitizen,
       smallBusiness: application.tempOutfitterFieldsSmallBusiness,
       activityDescription:
-        `Temporary Outfitter and Guides \nStart date: ${
-          moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY')
-        }\nEnd date: ${
-          moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY')
-        }\nNumber of Trips: ${
-          application.tempOutfitterFieldsActDescFieldsNumTrips
-        }\nParty size: ${
-          application.tempOutfitterFieldsActDescFieldsPartySize
-        }\nLocation Description: ${
-          application.tempOutfitterFieldsActDescFieldsLocationDesc
-        }\nServices Provided: ${
-          application.tempOutfitterFieldsActDescFieldsServProvided
-        }\nAudience Description: ${
-          application.tempOutfitterFieldsActDescFieldsAudienceDesc
-        }\nFacilities needed: ${
-          application.tempOutfitterFieldsActDescFieldsListGovFacilities
-        }\nTemporary improvements: ${
-          application.tempOutfitterFieldsActDescFieldsListTempImprovements
-        }\nMotorized use: ${
-          application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip
-        }\nLivestock use: ${
-          application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock
-        }\nCleanup activities: ${
-          application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration}`,
+      `Temporary Outfitter and Guides \nStart date: ${
+        moment(application.tempOutfitterFieldsActDescFieldsStartDateTime).format('MM/DD/YYYY')
+      }\nEnd date: ${
+        moment(application.tempOutfitterFieldsActDescFieldsEndDateTime).format('MM/DD/YYYY')
+      }\nNumber of Trips: ${
+        application.tempOutfitterFieldsActDescFieldsNumTrips
+      }\nParty size: ${
+        application.tempOutfitterFieldsActDescFieldsPartySize
+      }\nLocation Description: ${
+        application.tempOutfitterFieldsActDescFieldsLocationDesc
+      }\nServices Provided: ${
+        application.tempOutfitterFieldsActDescFieldsServProvided
+      }\nAudience Description: ${
+        application.tempOutfitterFieldsActDescFieldsAudienceDesc
+      }\nFacilities needed: ${
+        application.tempOutfitterFieldsActDescFieldsListGovFacilities
+      }\nTemporary improvements: ${
+        application.tempOutfitterFieldsActDescFieldsListTempImprovements
+      }\nMotorized use: ${
+        application.tempOutfitterFieldsActDescFieldsStmtMotorizedEquip
+      }\nLivestock use: ${
+        application.tempOutfitterFieldsActDescFieldsStmtTransportLivestock
+      }\nCleanup activities: ${
+        application.tempOutfitterFieldsActDescFieldsDescCleanupRestoration}`,
       advertisingURL: application.tempOutfitterFieldsAdvertisingUrl,
       advertisingDescription: application.tempOutfitterFieldsAdvertisingDescription,
       clientCharges: application.tempOutfitterFieldsClientCharges,
@@ -462,6 +462,7 @@ const acceptApplication = application => new Promise((resolve, reject) => {
               !file.mimetype.includes('pdf')
               && !file.mimetype.includes('png')
               && !file.mimetype.includes('jpg')
+              && !file.mimetype.includes('jpeg')
               && !file.mimetype.includes('doc')
               && !file.mimetype.includes('docx')
               && !file.mimetype.includes('rtf')

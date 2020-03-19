@@ -41,8 +41,12 @@ export class FaxComponent implements OnInit {
         this.parentForm.get('fax.tenDigit').updateValueAndValidity();
       }
     });
-
     this.afs.phoneChangeSubscribers(this.parentForm, 'fax');
+    this.parentForm.get('fax.tenDigit').valueChanges.subscribe(value => {
+      if (value === 0) {
+        this.parentForm.patchValue({fax: { tenDigit: null }});
+      }
+    });
   }
 
   ngOnInit() {
@@ -50,5 +54,3 @@ export class FaxComponent implements OnInit {
     this.changeSubscribers();
   }
 }
-
-

@@ -74,7 +74,7 @@ describe('frontend App', () => {
     helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
     helpMePick.landingPage(
-      'The correct permit for you is the "temporary outfitter and guide permit."',
+      'The correct permit for you is the "Temporary Outfitting and Guiding permit."',
       'You can apply online.'
     );
   });

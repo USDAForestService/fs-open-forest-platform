@@ -15,13 +15,14 @@
       <form class="usa-form-large" [formGroup]="applicationForm" (ngSubmit)="onSubmit(applicationForm)" novalidate>
 
         <!-- application process -->
-        <p>Your application will be saved once it is submitted. You won't be able to save the application to complete it later.</p>
+        <p *ngIf="!applicationFieldsService.getEditApplication()">Your application will be saved once it is submitted. You won't be able to save the application to complete it later.</p>
+        <p *ngIf="applicationFieldsService.getEditApplication()">You are about to update your permit application. Once you click "Save Edits & Submit" you will not be able to make any further updates unless your application is placed on hold again.</p>
         <legend>Application process</legend>
         <div>
           <ol>
             <li>Fill out and submit the application below.</li>
             <li>Once submitted, your application will go through a preliminary review within two business days.</li>
-            <li>If additional information is needed following the preliminary review and acceptance, a representative of the National Forest Service will contact you via email.</li>
+            <li>If additional information is needed following the preliminary review and acceptance, a Special Use Administrator will contact you by email.</li>
             <li>Once your application is approved, you will receive your permit within 2 weeks. If your application is not approved, you will be notified via email.</li>
           </ol>
         </div>
@@ -135,7 +136,7 @@
         <!-- action buttons -->
         <button *ngIf="!applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big" type="submit">Submit your application.</button>
         <a *ngIf="applicationFieldsService.getEditApplication()" class="usa-button usa-button-secondary-alt usa-button-big" routerLink="/user/applications/noncommercial/{{application.appControlNumber}}">Cancel</a>
-        <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save</button>
+        <button *ngIf="applicationFieldsService.getEditApplication()" id="submit-application" class="usa-button-primary-alt usa-button-big save-button" type="submit">Save Edits & Submit</button>
 
       </form>
     </div>

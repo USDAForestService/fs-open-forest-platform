@@ -62,8 +62,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
   ) {
 
     this.meta.addTag({
-      name: 'description', content: 'Apply for a temporary outffitter\
- and guide on the Mount Baker Snoqualmie National Forest with Open Forest.'
+      name: 'description',
+      content: 'Apply for a temporary outffitting and guiding permit for the Mt. Baker-Snoqualmie National Forest with Open Forest.'
     });
     this.applicationForm = new FormGroup({
       acceptPII: new FormControl()
@@ -96,8 +96,8 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
             '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
           ), Validators.maxLength(255)]],
         organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
-        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+        primaryFirstName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(36)]],
+        primaryLastName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(60)]],
         orgType: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
         website: ['', [urlValidator(), Validators.maxLength(255)]],
         goodStandingEvidence: ['', [Validators.maxLength(255)]]
@@ -279,6 +279,7 @@ export class TemporaryOutfittersComponent implements DoCheck, OnInit {
         this.applicationId = application.applicationId;
         this.applicationForm.patchValue(this.application);
         this.getFiles(this.application.applicationId);
+        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
       },
       (e: any) => {
         this.apiErrors = e;

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AccessDeniedComponent } from './error-pages/access-denied.component';
 import { ApplicationNoncommercialGroupComponent } from './application-forms/application-noncommercial-group/application-noncommercial-group.component';
 import { ApplicationSubmittedComponent } from './application-forms/application-submitted/application-submitted.component';
@@ -51,7 +50,7 @@ const appRoutes: Routes = [
     data: {
       title: 'US Forest Service Open Forest',
       breadcrumbs: true,
-      text: 'Mount Baker-Snoqualmie special use permits',
+      text: 'Mt. Baker-Snoqualmie special use permits',
       displayLogin: true,
       specialUse: true
     },
@@ -83,7 +82,7 @@ const appRoutes: Routes = [
         path: 'applications/temp-outfitters/learn-more',
         component: TemporaryOutfittersLearnMoreComponent,
         data: {
-          title: 'Learn more about a temporary outfitters permit',
+          title: 'Learn more about a Temporary Outfitting and Guiding permit',
           breadcrumbs: 'Learn more'
         },
       },
@@ -123,7 +122,7 @@ const appRoutes: Routes = [
             path: 'temp-outfitters/new',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Apply for a temporary outfitters permit with Open Forest',
+              title: 'Apply for a Temporary Outfitting and Guiding permit with Open Forest',
               breadcrumbs: 'Application'
             },
           },
@@ -131,7 +130,7 @@ const appRoutes: Routes = [
             path: 'temp-outfitters/:id/edit',
             component: TemporaryOutfittersComponent,
             data: {
-              title: 'Edit your temporary outfitters permit with Open Forest',
+              title: 'Edit your Temporary Outfitting and Guiding permit with Open Forest',
               breadcrumbs: 'Application edit'
             },
           },
@@ -355,3 +354,4 @@ const appRoutes: Routes = [
   providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
+
