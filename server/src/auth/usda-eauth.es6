@@ -31,6 +31,7 @@ eAuth.strategy = () => new SamlStrategy(
  * @param {Object} profile
  */
 eAuth.setUserObject = (profile) => {
+  console.dir(profile)
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
