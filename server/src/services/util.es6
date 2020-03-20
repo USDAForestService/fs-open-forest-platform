@@ -411,7 +411,7 @@ util.getEauthForests = (approles) => {
       }
     }
   }
-  return forests;
+  return [...new Set(forests)];
 };
 
 /**

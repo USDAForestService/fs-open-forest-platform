@@ -31,7 +31,6 @@ eAuth.strategy = () => new SamlStrategy(
  * @param {Object} profile
  */
 eAuth.setUserObject = (profile) => {
-  console.dir(profile)
   // profile.usdaemail does not return for every users, so we create an ID from first and last names
   let adminUsername = '';
   let role = 'user';
@@ -54,8 +53,8 @@ eAuth.setUserObject = (profile) => {
     adminUsername: role === 'admin' ? adminUsername : '',
     email,
     role,
-    forests: 'util.getAdminForests(adminUsername)',
-    foresteauth: util.getEauthForests(approles)
+    oldforests: 'util.getAdminForests(adminUsername)',
+    forests: util.getEauthForests(approles)
   };
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;
