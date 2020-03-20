@@ -54,32 +54,41 @@ export class AppComponent implements OnInit {
   }
 
   getBrowserName() {
-    const  usrAgent = navigator.userAgent;
+    const  userAgent = navigator.userAgent;
     let tem;
-    let browserInfo = usrAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    let browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
         if (/trident/i.test(browserInfo[1])) {
 
-        tem = /\brv[ :]+(\d+)/g.exec(usrAgent) || [];
+          tem = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
 
-        return { name: 'IE', version: (tem[1] || '') };
+          return { name: 'IE', version: (tem[1] || '') };
 
         }
 
     if (browserInfo[1] === 'Chrome') {
 
-        tem = usrAgent.match (/\bOPR|Edge\/(\d+)/);
+        tem = userAgent.match (/\bOPR|Edge\/(\d+)/);
 
-        if (tem != null)   { return { name: 'Opera', version: tem[1] }; }
+        if (tem != null)   {
+
+            return { name: 'Opera', version: tem[1] };
+
+          }
 
         }
 
       browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [navigator.appName, navigator.appVersion, '-?'];
 
-    if (( tem = usrAgent.match(/version\/(\d+)/i)) != null) { browserInfo.splice(1, 1, tem[1]); }
+    if (( tem = userAgent.match(/version\/(\d+)/i)) != null) {
 
-    this.browserName = browserInfo[0];
+      browserInfo.splice(1, 1, tem[1]);
 
-    return this.browserName;
+    }
+
+     this.browserName = browserInfo[0];
+
+     return this.browserName;
+
  }
 
   /**
@@ -122,24 +131,4 @@ export class AppComponent implements OnInit {
       }
     });
    }
-  //   function throwWrnMsg() {
-
-  //     var browser = get_browser();
-
-  //     if(browser.name !== "Chrome") {
-
-  //      this.warningMessage = "Your browser is crap. Sorry for the inconvenience."
-
-  //     }
-
-  //     else{
-
-  //         console.log("Chrome in Use, Version: " + browser.version);
-
-  //     }
-
-  // }
-
-
-  // }
 }
