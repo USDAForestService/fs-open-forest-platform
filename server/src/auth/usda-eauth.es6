@@ -36,19 +36,26 @@ eAuth.setUserObject = (profile) => {
   let adminUsername = '';
   let role = 'user';
   let email = '';
+  let approles = '';
+
   if (profile.usdafirstname && profile.usdalastname) {
     adminUsername = `${profile.usdafirstname}_${profile.usdalastname}`.toUpperCase().replace(/\s/g, '_');
   }
-  const approles = `${profile.usdaapproles}`;
+
+  if (profile.usdaapproles) {
+    approles = `${profile.usdaapproles}`;
+  }
   logger.info(`APP ROLES : ${approles}`);
+
   role = util.getUserRole(approles);
+
   email = profile.usdaemail && profile.usdaemail !== 'EEMSCERT@ftc.usda.gov' ? profile.usdaemail : '';
   const adminUserObject = {
     adminUsername: role === 'admin' ? adminUsername : '',
     email,
     role,
     forests: 'util.getAdminForests(adminUsername)',
-    foresteauth: 'util.getEauthForests(approles)'
+    foresteauth: util.getEauthForests(approles)
   };
   logger.info(`AUTHENTICATION: ${adminUserObject.role.toUpperCase()}: ${adminUsername} has logged in via USDA eAuth.`);
   return adminUserObject;

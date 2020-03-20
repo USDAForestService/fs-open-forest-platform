@@ -390,24 +390,28 @@ util.getAdminForests = (adminUsername) => {
 };
 
 /**
- * Method added for getting attributes from eauth
+ * Return an array of forests (short names) that are parsed out from the provided eAuth approles string
  *
 */
 util.getEauthForests = (approles) => {
-  let forest = '';
-  let openforest = '';
-  if (typeof approles === 'string') {
-    openforest = approles.split('FS_Open-Forest_')[1];
-    logger.info(`IN getAdminForests: ${openforest}`);
-    forest = openforest.split('-')[0];
-    if (forest === 'Super') {
-      logger.info('User is super user');
-      return ['all'];
+  // split the roles from one long string into an array of roles
+  let roles = approles.split('^');
+  let forests = [];
+  let forest = ''
+
+  // check each role for a forest
+  for (var i = 0; i < roles.length; i++) {
+    // check if the role is related to Open Forest
+    if (roles[i].includes('FS_Open-Forest' || 'FS_OpenForest')) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '').replace('-POC1', '').replace('-POC', '').replace('FS_Open-Forest_', '').replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest)
+      }
     }
-    logger.info(`User forest is: ${forest}`);
-    return [forest];
   }
-  return [];
+  return forests;
 };
 
 /**
@@ -416,21 +420,7 @@ util.getEauthForests = (approles) => {
 * @return {string} - user role ADMIN or USER
 */
 util.getUserRole = (approles) => {
-  let str = '';
-  let str1 = '';
-  if (typeof approles === 'string') {
-    str = approles.includes('Super-User');
-    str1 = approles.includes('POC1');
-  }
-  if (str) {
-    logger.info(`IS USER A SUPER USER: ${str}`);
-    return util.ADMIN_ROLE;
-  }
-  if (str1) {
-    logger.info(`IS USER A POC1: ${str1}`);
-    return util.ADMIN_ROLE;
-  }
-  return util.USER_ROLE;
+  return approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user';
 };
 
 
