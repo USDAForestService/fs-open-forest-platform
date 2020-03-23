@@ -30,8 +30,7 @@ pipeline {
    	BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
 	BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
 	CF_USERNAME = credentials('CF_USERNAME')
-        CF_PASSWORD = credentials('CF_PASSWORD')  
-	
+        CF_PASSWORD = credentials('CF_PASSWORD')	
         
     }
     
