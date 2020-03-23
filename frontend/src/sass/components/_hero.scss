@@ -32,7 +32,7 @@
           color: $white !important;
         }
         h2 {
-          padding-top: 170px;
+          padding-top: 50px;
           margin-top: 0px;
         }
         h1 {
@@ -40,7 +40,7 @@
           font-size: 4em;
         }
         h3 {
-          padding-bottom: 150px;
+          padding-bottom: 50px;
         }
         .usa-button {
           margin-top: 2rem;
@@ -50,6 +50,12 @@
     @media screen and (min-width: $small-screen) {
       .usa-main-callout {
         max-width: 70rem;
+        h2 {
+          padding-top: 170px;
+        }
+        h3 {
+          padding-bottom: 150px;
+        }
       }
     }
   }
