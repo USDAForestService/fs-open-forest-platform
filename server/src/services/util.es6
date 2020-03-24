@@ -395,19 +395,23 @@ util.getAdminForests = (adminUsername) => {
 */
 util.getEauthForests = (approles) => {
   // split the roles from one long string into an array of roles
-  let roles = approles.split('^');
-  let forests = [];
-  let forest = ''
+  let const = approles.split('^');
+  let const = [];
+  let forest = '';
 
   // check each role for a forest
-  for (var i = 0; i < roles.length; i++) {
+  for (let i = 0; i < roles.length; i = i + 1) {
     // check if the role is related to Open Forest
     if (roles[i].includes('FS_Open-Forest' || 'FS_OpenForest')) {
       // strip the role down to just a forest
-      forest = roles[i].replace('-POC2', '').replace('-POC1', '').replace('-POC', '').replace('FS_Open-Forest_', '').replace('FS_OpenForest_', '');
+      forest = roles[i].replace('-POC2', '')
+        .replace('-POC1', '')
+        .replace('-POC', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
       // if we found a forest in the role, add it to the forests array
       if (forest.length > 0) {
-        forests.push(forest)
+        forests.push(forest);
       }
     }
   }
@@ -419,10 +423,7 @@ util.getEauthForests = (approles) => {
 * @param {string} approles - user roles
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = (approles) => {
-  return approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user';
-};
-
+util.getUserRole = (approles) => approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user';
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
