@@ -56,23 +56,23 @@ export class AppComponent implements OnInit {
   getBrowserName() {
     const  userAgent = navigator.userAgent;
     let browserInfo = userAgent.match (/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    let parseBrowserInfo;
-    
+    let parsedBrowserInfo;
+
         if (/trident/i.test(browserInfo[1])) {
 
-          parseBrowserInfo = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+          parsedBrowserInfo = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
 
-          return { name: 'IE', version: (parseBrowserInfo[1] || '') };
+          return { name: 'IE', version: (parsedBrowserInfo[1] || '') };
 
         }
 
     if (browserInfo[1] === 'Chrome') {
 
-        parseBrowserInfo = userAgent.match (/\bOPR|Edge\/(\d+)/);
+        parsedBrowserInfo = userAgent.match (/\bOPR|Edge\/(\d+)/);
 
-        if (parseBrowserInfo != null)   {
+        if (parsedBrowserInfo != null)   {
 
-            return { name: 'Opera', version: parseBrowserInfo[1] };
+            return { name: 'Opera', version: parsedBrowserInfo[1] };
 
           }
 
@@ -80,9 +80,9 @@ export class AppComponent implements OnInit {
 
       browserInfo = browserInfo[2] ? [browserInfo[1], browserInfo[2]] : [navigator.appName, navigator.appVersion, '-?'];
 
-    if (( parseBrowserInfo = userAgent.match(/version\/(\d+)/i)) != null) {
+    if (( parsedBrowserInfo = userAgent.match(/version\/(\d+)/i)) != null) {
 
-      browserInfo.splice(1, 1, parseBrowserInfo[1]);
+      browserInfo.splice(1, 1, parsedBrowserInfo[1]);
 
     }
 
