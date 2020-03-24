@@ -82,7 +82,7 @@
     "name": "database",
     "credentials": {
       "ssl": false,
-      "url": "postgres://fs_open_forest:fs_open_forest@localhost/fs_open_forest"
+      "url": "postgres://fs_open_forest:fs_open_forest@127.0.0.1/fs_open_forest"
     }
   }, {
     "name": "feature-flags",
