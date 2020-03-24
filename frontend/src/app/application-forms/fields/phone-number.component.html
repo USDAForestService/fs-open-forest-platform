@@ -6,7 +6,7 @@
         <input id="day-phone" type="text" formControlName="tenDigit" aria-required="true"
         [attr.aria-labelledby]="afs.labelledBy(parentForm.get('dayPhone.tenDigit'), 'day-phone-label', 'day-phone-error')"
         [attr.aria-invalid]="afs.hasError(parentForm.get('dayPhone.tenDigit'))" />
-        <app-error-message fieldId="day-phone-error" name="Phone number" [control]="parentForm.get('dayPhone.tenDigit')">What do we have here?</app-error-message>
+        <app-error-message fieldId="day-phone-error" name="Phone number" [control]="parentForm.get('dayPhone.tenDigit')"></app-error-message>
       </div>
       <div class="usa-input-grid usa-input-grid-small">
         <label id="day-phone-ext-label" class="usa-input">Ext</label>
