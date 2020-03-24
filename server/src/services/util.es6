@@ -400,7 +400,7 @@ util.getEauthForests = (approles) => {
   let forest = '';
 
   // check each role for a forest
-  for (let i = 0; i < roles.length; i = i + 1) {
+  for (let i = 0; i < roles.length; i += 1) {
     // check if the role is related to Open Forest
     if (roles[i].includes('FS_Open-Forest' || 'FS_OpenForest')) {
       // strip the role down to just a forest
@@ -423,7 +423,7 @@ util.getEauthForests = (approles) => {
 * @param {string} approles - user roles
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = (approles) => approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user';
+util.getUserRole = approles => (approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user');
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
