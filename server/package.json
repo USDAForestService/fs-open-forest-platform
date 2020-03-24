@@ -91,7 +91,7 @@
     "test:db": "export NODE_ENV=test; sequelize db:drop; sequelize db:create && sequelize db:migrate",
     "undoAllSeed": "sequelize db:seed:undo:all",
     "undoAllMigrate": "sequelize db:migrate:undo:all",
-    "undoLastMigrate": "sequelize db:migrate:undo", 
+    "undoLastMigrate": "sequelize db:migrate:undo"
   },
   "engines": {
     "node": "^10.18.0"
