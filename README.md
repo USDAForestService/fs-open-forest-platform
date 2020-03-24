@@ -6,7 +6,7 @@ _Master_
 Vulnerability Scans
 Frontend: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=frontend%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=frontend%2Fpackage.json)
 
-Server: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json)
+Server: [![Known Vulnerabilities](https://snyk.io/test/github/18f/fs-open-forest-platform/badge.svg?targetFile=server%2Fpackage.json)](https://snyk.io/test/github/18f/fs-open-forest-platform?targetFile=server%2Fpackage.json).
 
 _Staging:_
 [![Staging CircleCI](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev.svg?style=svg)](https://circleci.com/gh/18F/fs-open-forest-platform/tree/dev)
