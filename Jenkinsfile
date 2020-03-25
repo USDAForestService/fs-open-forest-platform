@@ -257,7 +257,6 @@ sh '''
 		cd ../..
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..
-		.circleci/run-e2e.sh		
 	'''
 			
 
