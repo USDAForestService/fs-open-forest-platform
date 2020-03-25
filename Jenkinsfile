@@ -131,8 +131,7 @@ stage('run-unit-tests'){
         cd ../server	
 	 npm run undoAllSeed	
 	 npm run migrate	
-	 npm run seed	
-	 
+	 npm run seed		 
 	 npm run coverage
 	'''
 
@@ -401,7 +400,7 @@ env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
 	    {
 	    	env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
  	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
-env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
+  env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
 env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
 env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
 env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
