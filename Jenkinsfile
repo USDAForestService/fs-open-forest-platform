@@ -1,3 +1,6 @@
+def jobnameparts = JOB_NAME.tokenize('/') as String[]
+def jobconsolename = jobnameparts[0]
+
 pipeline {
     agent {
     node {
@@ -9,30 +12,28 @@ pipeline {
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
         SONAR_HOST = credentials('SONAR_HOST')
-	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')   
+	    SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')   
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')    
+        GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = 'ikumarasamy@techtrend.us'
-	CHECKOUT_STATUS = 'Pending'
+	    CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
-	RUN_LINT_STATUS = 'Pending'
-	RUN_UNIT_TESTS_STATUS = 'Pending'
-	RUN_E2E_STATUS = 'Pending'
-	RUN_PA11Y_STATUS = 'Pending'	    
-	DEPLOY_STATUS = 'Pending'	       	
-	RUN_SONARQUBE_STATUS = 'Pending'	
-	AUTHOR = 'kilara77'
-	
-	REPO_NAME="fs-open-forest-platform"
-	REPO_OWNER_NAME="USDAForestService"
-        JOB_NAME="fs-open-forest-platform-dev"
-        JENKINS_URL="https://jenkins.fedgovcloud.us"
-   	BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
-	BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
-	CF_USERNAME = credentials('CF_USERNAME')
+		RUN_LINT_STATUS = 'Pending'
+		RUN_UNIT_TESTS_STATUS = 'Pending'
+		RUN_E2E_STATUS = 'Pending'
+		RUN_PA11Y_STATUS = 'Pending'	    
+		DEPLOY_STATUS = 'Pending'	       	
+		RUN_SONARQUBE_STATUS = 'Pending'	
+		AUTHOR = 'kilara77'	
+
+		BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
+		BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
+		CF_USERNAME = credentials('CF_USERNAME')
         CF_PASSWORD = credentials('CF_PASSWORD')	
 	    
-	   SONARQUBE_URL="https://sca.fedgovcloud.us/dashboard?id=fs-openforest-platform"
+        JENKINS_URL="https://jenkins.fedgovcloud.us"
+        SONARQUBE_URL="https://sca.fedgovcloud.us/dashboard?id=fs-openforest-platform"
         
     }
     
@@ -133,6 +134,8 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed	
 	 npm run migrate	
 	 npm run seed	
+	 
+	 npm run coverage
 	'''
 
     sh '''
@@ -244,6 +247,19 @@ sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
       '''
 		    
+	sh '''
+		pwd
+		cd server
+		./copy-frontend-assets.sh
+        pwd 
+		cd ../frontend/node_modules/protractor
+		sudo npm i webdriver-manager@latest
+		cd ../..
+		npm i typescript@3.1.6 --save-dev --save-exact
+		cd ..
+		.circleci/run-e2e.sh		
+	'''
+			
 
   sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
@@ -363,7 +379,7 @@ env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
 		    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"		        
 		    env.LGIT_BRANCH = "${GIT_BRANCH}"		        
 		    env.LGIT_AUTHOR = "${AUTHOR}"		        
-		    env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${BUILD_NUMBER}/pipeline"	    
+  env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"	    		    
 	    	    env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
 		    env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
 		    env.LSONARQUBE_URL="${SONARQUBE_URL}"
@@ -396,7 +412,7 @@ env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"
 		    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"	
 		    env.LGIT_BRANCH = "${GIT_BRANCH}"		        
 		    env.LGIT_AUTHOR = "${AUTHOR}"
-		    env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${BUILD_NUMBER}/pipeline"	    		    
+  env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
 		     env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
 		    env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
 		    env.LSONARQUBE_URL="${SONARQUBE_URL}"
