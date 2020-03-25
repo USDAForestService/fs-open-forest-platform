@@ -82,12 +82,12 @@ pipeline {
 	pwd
 	cd frontend
 	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	sudo rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install	
 	npm i typescript@3.1.6 --save-dev --save-exact
 	cd ../server
 	pwd
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	sudo rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install		
 	'''	
 sh '''
