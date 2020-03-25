@@ -26,7 +26,10 @@
 
     <app-error-message fieldId="total-attendees-error" name="Total attendees" [control]="noncommercialFields"></app-error-message>
 
-    <label id="activity-description-label" class="usa-input">Description of proposed activity <span class="required-fields-asterisk">*</span></label>
+    <label id="activity-description-label" class="usa-input">Description of proposed activity
+      <span class="required-fields-asterisk">*</span>
+      <span class="help-text usa-form-hint character-limit-hint">(1000 character limit)</span>
+    </label>
     <textarea id="activity-description" formControlName="activityDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.activityDescription, 'activity-description-label', 'activity-description-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.activityDescription)"></textarea>
