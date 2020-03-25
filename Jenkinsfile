@@ -16,7 +16,7 @@ pipeline {
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')    
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
-        MAILING_LIST = 'ikumarasamy@techtrend.us'
+        MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov'
 	    CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 		RUN_LINT_STATUS = 'Pending'
