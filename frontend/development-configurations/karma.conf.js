@@ -34,7 +34,7 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadless1024X768: {
         base: "ChromeHeadless",
-        flags: isDocker ? ["--window-size=1024,768", "--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox"] : ["--window-size=1024,768", "--no-sandbox"]
+        flags: isDocker ? ["--window-size=1024,768", "--disable-gpu", "--no-sandbox", "--disable-setuid-sandbox"] : ["--window-size=1024,768"]
       }
     },
     singleRun: false
