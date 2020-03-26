@@ -48,7 +48,7 @@
               <app-organization-name [applicantInfo]="applicationForm.controls.applicantInfo" required="true" name="Organization name"></app-organization-name>
               <app-address id="organization-address" [parentForm]="applicationForm.get('applicantInfo')" formName="organizationAddress" type="organization"></app-address>
             </div>
-            <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number"></app-phone-number>
+            <app-phone-number [parentForm]="applicationForm.get('applicantInfo')" name="Phone number (10 digits. No special characters.)"></app-phone-number>
             <app-email [applicantInfo]="applicationForm.controls.applicantInfo"></app-email>
             <app-email-confirmation [applicantInfo]="applicationForm.controls.applicantInfo"></app-email-confirmation>
             <div *ngIf="applicationForm.get('applicantInfo.orgType').value === 'Corporation'">
