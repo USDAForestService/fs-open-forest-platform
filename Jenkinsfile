@@ -12,25 +12,24 @@ pipeline {
         CURRENTBUILD_DISPLAYNAME = "fs-open-forest-platform Build #$BUILD_NUMBER"
         CURRENT_BUILDDESCRIPTION = "fs-open-forest-platform Build #$BUILD_NUMBER"
         SONAR_HOST = credentials('SONAR_HOST')
-	    SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')   
+	SONAR_TOKEN = credentials('SONAR_TOKEN_FSOPENFOREST')   
         GITHUB_TOKEN = credentials('GITHUB_TOKEN')    
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
-        MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov'
-	    CHECKOUT_STATUS = 'Pending'
+        MAILING_LIST = 'ikumarasamy@techtrend.us,matthew.reiss@usda.gov,abdul.qureshi@usda.gov,SM.FS.OpenFrstOps@usda.gov,michael.laney@usda.gov,Brian.Davidson2@usda.gov,Dylan.Mcafee@usda.gov,Rebekah.Hernandez@usda.gov,jonathan.lerner@usda.gov,shadat.mahmud@usda.gov'
+	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
-		RUN_LINT_STATUS = 'Pending'
-		RUN_UNIT_TESTS_STATUS = 'Pending'
-		RUN_E2E_STATUS = 'Pending'
-		RUN_PA11Y_STATUS = 'Pending'	    
-		DEPLOY_STATUS = 'Pending'	       	
-		RUN_SONARQUBE_STATUS = 'Pending'	
-		AUTHOR = 'kilara77'	
-		BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
-		BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
-		CF_USERNAME = credentials('CF_USERNAME')
-        CF_PASSWORD = credentials('CF_PASSWORD')	
-	    
+	RUN_LINT_STATUS = 'Pending'
+	RUN_UNIT_TESTS_STATUS = 'Pending'
+	RUN_E2E_STATUS = 'Pending'
+	RUN_PA11Y_STATUS = 'Pending'	    
+	DEPLOY_STATUS = 'Pending'	       	
+	RUN_SONARQUBE_STATUS = 'Pending'	
+	AUTHOR = 'kilara77'	
+	BASIC_AUTH_PASS=credentials('BASIC_AUTH_PASS')
+	BASIC_AUTH_USER=credentials('BASIC_AUTH_USER')
+	CF_USERNAME = credentials('CF_USERNAME')
+        CF_PASSWORD = credentials('CF_PASSWORD')	    
         JENKINS_URL="https://jenkins.fedgovcloud.us"
         SONARQUBE_URL="https://sca.fedgovcloud.us/dashboard?id=fs-openforest-platform"        
     }
@@ -50,7 +49,7 @@ pipeline {
                   currentBuild.displayName = "${env.CURRENTBUILD_DISPLAYNAME}"
                   currentBuild.description = "${env.CURRENT_BUILDDESCRIPTION}"	     
      sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''			
   		  CHECKOUT_STATUS= 'Success'
                 }      	     
@@ -60,9 +59,8 @@ pipeline {
 			script {
         		CHECKOUT_STATUS= 'Failed'
  sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: checkout-code", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''				
-        	   	sh 'echo "FAILED in stage checkout code"'
                 }
             }	
     }
@@ -70,11 +68,9 @@ pipeline {
 
     stage('install-dependencies'){
     steps {
-	    script {
-        		
-        		sh 'echo "Install dependencies"'
+	    script {        		
       sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''					    
 		    sh '''
 	pwd
@@ -88,8 +84,8 @@ pipeline {
 	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
 	npm install		
 	'''	
-sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''					    		    
 		    
 		    INSTALL_DEPENDENCIES_STATUS= 'Success'
@@ -101,9 +97,8 @@ sh '''
         		INSTALL_DEPENDENCIES_STATUS= 'Failed'
 
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: install-dependencies", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''					
-        	   	sh 'echo "FAILED in stage install dependencies"'
     		}                 
                 }
             }	
@@ -116,9 +111,8 @@ stage('run tests')
 stage('run-unit-tests'){
     steps {
         script {
-        sh 'echo "run-unit-tests"'
   sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''		
 			sh '''
 	pwd
@@ -136,7 +130,7 @@ stage('run-unit-tests'){
 	'''
 
     sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''
 		
         RUN_UNIT_TESTS_STATUS= 'Success'
@@ -148,9 +142,8 @@ stage('run-unit-tests'){
                     script {
         		RUN_UNIT_TESTS_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''			    
-			      	sh 'echo "FAILED in stage unit tests"'
     		}
                 }
             }	
@@ -161,9 +154,8 @@ sh '''
     steps {	    
         script
         {
-	        sh 'echo "run lint"'
  sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''		
 		   sh '''
 	    pwd
@@ -173,7 +165,7 @@ sh '''
 	    npm run lint 
 	    '''
     sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''		
 	        RUN_LINT_STATUS= 'Success'
         }
@@ -183,9 +175,8 @@ sh '''
                      script {
         		RUN_LINT_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''				     
-         	   	sh 'echo "FAILED in stage lint"'
     		}
                 }
             }	
@@ -195,11 +186,10 @@ sh '''
 stage('run-sonarqube'){
         steps {
             script{
-	            sh 'echo "run-sonarqube"'
-sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+	sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''			    
-		     def scannerhome = tool 'SonarQubeScanner';
+	def scannerhome = tool 'SonarQubeScanner';
         withSonarQubeEnv('SonarQube') {      		
           sh label: '', script: '''/home/Jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=frontend/node_modules/**,frontend/dist/**,frontend/e2e/**,,server/node_modules/**,server/docs/**,server/frontend-assets/**,server/dba/**,server/test/**,docs/**'''
       	  sh 'rm -rf sonarqubereports'
@@ -209,14 +199,9 @@ sh '''
           sh 'cp sonarqubereports/*analysis-report.docx sonarqubereports/sonarqubeanalysisreport.docx'
           sh 'cp sonarqubereports/*issues-report.xlsx sonarqubereports/sonarqubeissuesreport.xlsx' 	  	
   	  archiveArtifacts artifacts: 'sonarqubereports/sonarqubeanalysisreport.docx', fingerprint: true
-   	  archiveArtifacts artifacts: 'sonarqubereports/sonarqubeissuesreport.xlsx', fingerprint: true
-	  //sh '''
-	//pwd
-	//chmod 765 createrelease.sh
-	//./createrelease.sh
-	//''' 
+   	  archiveArtifacts artifacts: 'sonarqubereports/sonarqubeissuesreport.xlsx', fingerprint: true	
   sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''			    
 		        RUN_SONARQUBE_STATUS= 'Success'
             }
@@ -227,9 +212,9 @@ sh '''
                        script {
         		RUN_SONARQUBE_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
-      '''				       
-        	   	sh 'echo "FAILED in stage SonarQube"'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-sonarqube", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
+      '''		       
+        	   	
     		}
                 }
             }	
@@ -238,30 +223,26 @@ sh '''
 
 stage('run-e2e'){
         steps {
-            script {
-	            sh 'echo "run-e2e"'
+            script {	            
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''
 		    
 	sh '''
 		pwd
 		cd server
 		./copy-frontend-assets.sh
-        pwd 
+        	pwd 
 		cd ../frontend/node_modules/protractor
 		npm i webdriver-manager@latest
 		cd ../..
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..
-	'''
-			
+	'''			
 
   sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
-      '''			    		    
-		    
-		    
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
+      '''    
 		        RUN_E2E_STATUS= 'Success'
             }
     }
@@ -270,10 +251,8 @@ sh '''
                        script {
         		RUN_E2E_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
-      '''				       
-			       
-        	   	sh 'echo "FAILED in stage e2e"'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-e2e", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
+      '''      
     		}
                 }
             }	
@@ -281,10 +260,9 @@ sh '''
 
 stage('run pa11y'){
     steps {
-        script {
-            sh 'echo "run pa11y"'
+        script {            
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''		
 		sh '''
 	cd frontend
@@ -292,7 +270,7 @@ sh '''
 	'''
 		
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
       '''		
 	        RUN_PA11Y_STATUS= 'Success'
         }
@@ -302,37 +280,30 @@ sh '''
 			 script {
         		RUN_PA11Y_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: run-pa11y", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''				 
-        	      sh 'echo "FAILED in stage pa11y"'
     		}                 
                 }
-            }	
-
-	  }	      
-
-     
+            }
+	  }
       }
       }
-
 
  stage('dev-deploy'){
     steps {
         script {
-            sh 'echo "dev-deploy"'	
-sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests are queued behind your running builds!"}'
-      '''		
-		sh '''
+	sh '''
+      		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
+      	'''		
+	sh '''
 	pwd
 	chmod 765 deploydev.sh
 	./deploydev.sh ${WORKSPACE}
 	'''
-sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests passed on Jenkins!"}'
-      '''		
-		
-	        DEPLOY_STATUS= 'Success'
+	sh '''
+      		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
+      	'''	
+        DEPLOY_STATUS= 'Success'
         }
         }
 		post {
@@ -340,9 +311,8 @@ sh '''
                      script {
         		DEPLOY_STATUS= 'Failed'
 sh '''
-      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/","description": "Your tests failed on Jenkins!"}'
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
       '''				     
-        	      sh 'echo "FAILED in stage deploy"'
     		}          
                 }
             }	
@@ -351,68 +321,44 @@ sh '''
  
 post{
     success {
-	    echo "Checkout Status ${CHECKOUT_STATUS}"  
-	    echo "INSTALL_DEPENDENCIES_STATUS  ${INSTALL_DEPENDENCIES_STATUS}"  
-	    echo "RUN_LINT_STATUS  ${RUN_LINT_STATUS}"  
-	    echo "RUN_UNIT_TESTS_STATUS  ${RUN_UNIT_TESTS_STATUS}"  
-	    echo "RUN_E2E_STATUS  ${RUN_E2E_STATUS}"  
-	    echo "RUN_PA11Y_STATUS  ${RUN_PA11Y_STATUS}"  
-	    echo "DEPLOY_STATUS  ${DEPLOY_STATUS}"  
-	    echo "RUN_SONARQUBE_STATUS  ${RUN_SONARQUBE_STATUS}"  
-	    echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} on ${env.BUILD_URL}"
-	    
-	    echo "JENKINS HOME ${env.JENKINS_HOME}"
-	    echo "Job Success"
 	    script
 	    {
 	    	env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
- 	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
-env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
-env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
-env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
-env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
-env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"		    
-		    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"		        
-		    env.LGIT_BRANCH = "${GIT_BRANCH}"		        
-		    env.LGIT_AUTHOR = "${AUTHOR}"		        
-  env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"	    		    
-	    	    env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
-		    env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
-		    env.LSONARQUBE_URL="${SONARQUBE_URL}"
-		    echo "${env.BLUE_OCEAN_URL}"    
-		    echo "${GIT_BRANCH}"		
-      	emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest.template"}''', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
+ 	    	env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
+		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
+		env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
+		env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
+		env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
+		env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"		    
+  	        env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"		        
+		env.LGIT_BRANCH = "${GIT_BRANCH}"		        
+		env.LGIT_AUTHOR = "${AUTHOR}"		        
+  		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"	    		    
+	    	env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
+		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
+		env.LSONARQUBE_URL="${SONARQUBE_URL}"
+      		emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest.template"}''', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
 	    }
         }	
    	
-    failure {
-	    echo "Checkout Status ${CHECKOUT_STATUS}"  
-	    echo "INSTALL_DEPENDENCIES_STATUS  ${INSTALL_DEPENDENCIES_STATUS}"  
-	    echo "RUN_LINT_STATUS  ${RUN_LINT_STATUS}"  
-	    echo "RUN_UNIT_TESTS_STATUS  ${RUN_UNIT_TESTS_STATUS}"  
-	    echo "RUN_E2E_STATUS  ${RUN_E2E_STATUS}"  
-	    echo "RUN_PA11Y_STATUS  ${RUN_PA11Y_STATUS}"  
-	    echo "DEPLOY_STATUS  ${DEPLOY_STATUS}"  
-	    echo "RUN_SONARQUBE_STATUS  ${RUN_SONARQUBE_STATUS}"  
-	    echo "Job Failed"  	    
-	    
+    failure {	    
 	        script
 	    {
 	    	env.LCHECKOUT_STATUS = "${CHECKOUT_STATUS}"
- 	    env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
-  env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
-env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
-env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
-env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
-env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"		    
-		    env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"	
-		    env.LGIT_BRANCH = "${GIT_BRANCH}"		        
-		    env.LGIT_AUTHOR = "${AUTHOR}"
-  env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
-		     env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
-		    env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
-		    env.LSONARQUBE_URL="${SONARQUBE_URL}"
-	    emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest.template"}''', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
+ 	    	env.LINSTALL_DEPENDENCIES_STATUS = "${INSTALL_DEPENDENCIES_STATUS}"
+  		env.LRUN_LINT_STATUS = "${RUN_LINT_STATUS}"
+		env.LRUN_UNIT_TESTS_STATUS = "${RUN_UNIT_TESTS_STATUS}"
+		env.LRUN_E2E_STATUS = "${RUN_E2E_STATUS}"
+		env.LRUN_PA11Y_STATUS = "${RUN_PA11Y_STATUS}"
+		env.LRUN_SONARQUBE_STATUS = "${RUN_SONARQUBE_STATUS}"		    
+		env.LDEPLOY_STATUS = "${DEPLOY_STATUS}"	
+		env.LGIT_BRANCH = "${GIT_BRANCH}"		        
+		env.LGIT_AUTHOR = "${AUTHOR}"
+  		env.BLUE_OCEAN_URL="${env.JENKINS_URL}/blue/organizations/jenkins/${jobconsolename}/detail/${GIT_BRANCH}/${BUILD_NUMBER}/pipeline"
+		env.BLUE_OCEAN_URL_SQ_DOCX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeanalysisreport.docx"	    
+		env.BLUE_OCEAN_URL_SQ_XLSX="${env.BUILD_URL}artifact/sonarqubereports/sonarqubeissuesreport.xlsx"	    
+		env.LSONARQUBE_URL="${SONARQUBE_URL}"
+	        emailext attachLog: false, attachmentsPattern: '', body: '''${SCRIPT, template="openforest.template"}''', replyTo: 'notifications@usda.gov', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: "${MAILING_LIST}"
 	    }
         }	
     } 
