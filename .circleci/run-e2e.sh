@@ -1,6 +1,6 @@
 export NODE_ENV=test
 
-SUITE="xmas"
+SUITE=""
 if [ $CIRCLE_NODE_TOTAL -ge 3 ]
 then
   case $CIRCLE_NODE_INDEX in
