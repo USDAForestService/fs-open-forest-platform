@@ -9,7 +9,7 @@
   }, {
     "name": "intake-client-service",
     "credentials": {
-      "intake_client_base_url": "http://localhost:4200"
+      "intake_client_base_url": "http://127.0.0.1:4200"
     }
     }, {
     "name": "login-service-provider",
@@ -17,7 +17,7 @@
       "entrypoint": "https://login.gov",
       "issuer": "",
       "private_key": "",
-      "base_url": "http://localhost:8080/mocks/login-gov/discovery-url/",
+      "base_url": "http://127.0.0.1:8080/mocks/login-gov/discovery-url/",
       "idp_username": "",
       "idp_password": "",
       "jwk": {
