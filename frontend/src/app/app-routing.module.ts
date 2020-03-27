@@ -38,6 +38,7 @@ import { ForestsAdminResolver } from './trees/forests/forest-finder/forests-admi
 import { ShutdownComponent } from './shutdown/shutdown.component';
 import { SubmitFeedbackComponent } from './trees/forests/feedback/submit-feedback.component';
 import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ProductsComponent } from './products/products.component';
 
 
 const appRoutes: Routes = [
@@ -47,6 +48,13 @@ const appRoutes: Routes = [
   }, {
     path: 'ChristmasTreePermit',
     component: DummyComponent
+  }, {
+    path: 'products',
+    component: ProductsComponent,
+    data: {
+      title: 'US Forest Service Open Forest',
+      breadcrumbs: true,
+    }
   },
   // start of MBS and children routes
   {

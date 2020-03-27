@@ -19,7 +19,7 @@ const christmasTreeForests = {};
 christmasTreeForests.getForests = (req, res) => {
   treesDb.christmasTreesForests
     .findAll({
-      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone'],
+      attributes: ['id', 'forestName', 'forestNameShort', 'description', 'forestAbbr', 'startDate', 'endDate', 'timezone', 'state'],
       order: [['id', 'ASC']]
     })
     .then((results) => {
