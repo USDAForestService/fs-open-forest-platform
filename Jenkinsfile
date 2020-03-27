@@ -288,6 +288,35 @@ sh '''
 	  }
       }
       }
+	 
+ stage('dev-deploy'){
+    steps {
+        script {
+	sh '''
+      		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
+      	'''		
+	sh '''
+	pwd
+	chmod 765 deploydev.sh
+	./deploydev.sh ${WORKSPACE}
+	'''
+	sh '''
+      		curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "success","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests passed on Jenkins!"}'
+      	'''	
+        DEPLOY_STATUS= 'Success'
+        }
+        }
+		post {
+                failure {
+                     script {
+        		DEPLOY_STATUS= 'Failed'
+sh '''
+      curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "failure","context":"ci/jenkins: build-deploy", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests failed on Jenkins!"}'
+      '''				     
+    		}          
+                }
+            }	
+    }	 
 
  
  } 
