@@ -131,10 +131,13 @@
 }
 
 .phone-number-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   @media (min-width: 600px) {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
   }
-  
+
 }
