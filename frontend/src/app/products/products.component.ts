@@ -8,15 +8,14 @@ import { ChristmasTreesInfoService } from '../trees/_services/christmas-trees-in
 export class ProductsComponent implements OnInit {
   forests: any;
   selectedForest = null;
-  testForest: any;
 
   constructor(
-    private service: ChristmasTreesInfoService,
+    private christmasTreesInfoService: ChristmasTreesInfoService,
   ) {
   }
 
   ngOnInit() {
-    this.service.getAll().subscribe(res => {
+    this.christmasTreesInfoService.getAll().subscribe(res => {
       this.forests = res;
       console.log(this.forests)
     });
