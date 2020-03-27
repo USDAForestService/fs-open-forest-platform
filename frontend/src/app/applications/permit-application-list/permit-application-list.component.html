@@ -81,7 +81,7 @@
         <label>Permit holder</label>
         <div class="permit-holder-name">{{ application.applicantInfoPrimaryFirstName}} {{ application.applicantInfoPrimaryLastName }}</div>
         <div class="application-details">
-          <a class="usa-button usa-button-secondary-alt" routerLink="/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
+          <a class="usa-button usa-button-secondary-alt" routerLink="/special-use/{{userType}}/applications/{{ application.type | SpacesToDashes }}/{{application.appControlNumber}}">Details</a>
         </div>
         <div>
           <app-cancel-application *ngIf="!isAdmin" (applicationCancelled)="applicationCancelled($event)" [application]="application" text="Cancel"></app-cancel-application>
@@ -90,7 +90,7 @@
     </div>
     <div *ngIf="!isAdmin"class="usa-width-one-whole">
       <div class="float-right">
-        <button class="usa-button margin-right-0" routerLink="/mbs">Apply for another permit.</button>
+        <button class="usa-button margin-right-0" routerLink="/special-use">Apply for another permit.</button>
       </div>
     </div>
   </div>

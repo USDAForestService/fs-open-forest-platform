@@ -44,7 +44,7 @@ describe('LoggedInComponent', () => {
   });
 
   it('It should redirect if user is admin', () => {
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/admin/applications']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/special-use/admin/applications']);
   });
 
   it('should redirect if requestingUrl is set in local storage', () => {

@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class TreesReportPage {
   navigateTo() {
-    return browser.get('/admin/christmas-trees/reports');
+    return browser.get('/christmas-trees/admin/reports');
   }
 
   forestAdminNav() {

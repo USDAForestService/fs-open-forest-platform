@@ -60,8 +60,8 @@
   }, {
     "name": "pay-gov",
     "credentials": {
-      "url": "http://localhost:8080/mock-pay-gov",
-      "client_url": "http://localhost:4200/mock-pay-gov",
+      "url": "http://127.0.0.1:8080/mock-pay-gov",
+      "client_url": "http://127.0.0.1:4200/mock-pay-gov",
       "tcs_app_id": "fs-100",
       "certificate": [
         "-----BEGIN CERTIFICATE-----\n cert1 -----END CERTIFICATE-----\n",

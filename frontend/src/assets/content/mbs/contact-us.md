@@ -1,4 +1,4 @@
-You can buy Christmas tree permits in person at the following Mt. Baker-Snoqualmie National Forest ranger district offices, public service centers, or at [local vendors](https://www.fs.usda.gov/detail/mbs/passes-permits/forestproducts/?cid=fseprd602862). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
+You can buy Christmas tree permits in person at the following Mt. Baker-Snoqualmie National Forest ranger district offices, public service centers, or at [local vendors](https://www.fs.usda.gov/detail/special-use/passes-permits/forestproducts/?cid=fseprd602862). Each district office has different hours during the Christmas tree cutting season. Call first to make sure someone is available to sell permits. All offices are closed on federal holidays.
 
 ### Mt. Baker Ranger Station
 810 State Route 20    
@@ -46,4 +46,4 @@ Enumclaw, WA
 
 ***
 
-Visit [Mt. Baker-Snoqualmie National Forest](https://www.fs.usda.gov/main/mbs/home) for more information.
+Visit [Mt. Baker-Snoqualmie National Forest](https://www.fs.usda.gov/main/special-use/home) for more information.
