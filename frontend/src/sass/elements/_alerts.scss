@@ -12,12 +12,3 @@
 .usa-alert a.usa-button:hover {
   color: white;
 }
-
-.application-browser-alert {
-  margin-top: 0rem;
-  max-width: 115rem;
-  @media (min-width: $large-screen) {
-    margin-left: 32rem;
-    margin-right: 32rem;
-  }
-}
