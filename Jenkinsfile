@@ -118,7 +118,7 @@ stage('run-unit-tests'){
 			sh '''
 	pwd
 	cd server
-	./copy-frontend-assets.sh
+
         pwd 
 	cd ../frontend		
 	pwd        
@@ -232,7 +232,7 @@ sh '''
 	sh '''
 		pwd
 		cd server
-		./copy-frontend-assets.sh
+
         	pwd 
 		cd ../frontend/node_modules/protractor
 		npm i webdriver-manager@latest
