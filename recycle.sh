@@ -2,8 +2,8 @@ set -e
 
 cf install-plugin autopilot -f -r CF-Community
 
-sudo wget https://github.com/Comcast/cf-recycle-plugin/releases/download/v2.0.1/cf-recycle-plugin-2.0.1.tgz
-sudo tar -zxvf cf-recycle-plugin-2.0.1.tgz
+wget https://github.com/Comcast/cf-recycle-plugin/releases/download/v2.0.1/cf-recycle-plugin-2.0.1.tgz
+tar -zxvf cf-recycle-plugin-2.0.1.tgz
 cf install-plugin cf-recycle-plugin-linux -f
 cf plugins
 
