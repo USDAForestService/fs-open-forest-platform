@@ -17,7 +17,6 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.christmasTreesInfoService.getAll().subscribe(res => {
       this.forests = res;
-      console.log(this.forests)
     });
   }
 }
