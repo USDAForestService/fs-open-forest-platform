@@ -12,7 +12,7 @@ export class PageHeaderComponent {
 
   constructor(public router: Router,
     private meta: Meta) {
-    this.warningMessage = ''
+    this.warningMessage = '';
   }
 
   getBrowserName() {
