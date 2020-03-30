@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 
 @Component({
@@ -10,7 +9,7 @@ export class PageHeaderComponent {
   browserName: string;
   warningMessage: string;
 
-  constructor(public router: Router,
+  constructor(
     private meta: Meta) {
     this.warningMessage = '';
   }
