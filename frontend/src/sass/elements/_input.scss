@@ -30,9 +30,6 @@ label {
   font-size: 17px;
   font-weight: 700;
 }
-label, span, .character-limit-hint{
-  font-weight: 500;
-}
 
 .form-directions {
   margin-bottom: 3em;
@@ -66,6 +63,15 @@ label, span, .character-limit-hint{
   clear: none;
   float: left;
   margin-right: 1.5rem;
+}
+
+// .number-input-wrapper {
+//   display: flex;
+//   flex-direction: row;
+// }
+
+input.number-input-sizing {
+  width: 9rem;
 }
 
 input.ng-valid.ng-touched,
