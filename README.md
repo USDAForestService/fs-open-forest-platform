@@ -211,7 +211,7 @@ Forest tree cutting start and end dates are saved in the database as a UTC DateT
 
 Forest dates on the frontend assume the forest's timezone and do NOT specify the timezone.
 
-For local development, go to an [the changes season dates page to open a forest](http://localhost:4200/admin/christmas-trees/season-dates)
+For local development, go to an [the changes season dates page to open a forest](http://localhost:4200/christmas-trees/admin/season-dates)
 
 #### JWT Usage
 
@@ -421,9 +421,9 @@ The site’s architecture is not optimized to support users purchasing more than
 The site was built to accommodate four pilot Forests. Scaling the application to include more Forests will require that a number of form controls be redesigned to support users in choosing their forest from greater than four options. Pages impacted:
 
 - [Landing page](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/forests)
-- [Generate a report*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/reports)
-- [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/district-dates)
-- [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/season-dates)
+- [Generate a report*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/reports)
+- [Change cutting area dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/district-dates)
+- [Change season dates*](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/season-dates)
 
 **This page will need to support users’ selection from a greater number of options only if the FS Product Owner and leadership decide that Forest administrators should have access to other Forests in the application, in addition to their own.*
 

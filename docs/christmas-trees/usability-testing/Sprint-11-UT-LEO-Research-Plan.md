@@ -34,9 +34,9 @@ Development web server links
 
 |Admin update pages                     |                                                                                               |
 |:--------------------------------------|:----------------------------------------------------------------------------------------------|
-|Update season dates                    |[link](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/season-dates)  |
-|Update district season dates and times |[link](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees/district-dates)|
+|Update season dates                    |[link](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/season-dates)  |
+|Update district season dates and times |[link](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin/district-dates)|
 
 |Admin reports |                                                                                |
 |:-------------|:-------------------------------------------------------------------------------|
-|Reporting     |[link](https://forest-service-trees-staging.app.cloud.gov/admin/christmas-trees)|
+|Reporting     |[link](https://forest-service-trees-staging.app.cloud.gov/christmas-trees/admin)|
