@@ -17,7 +17,6 @@ pipeline {
         GITHUB_PROJECT_NAME = "USDAForestService/fs-open-forest-platform"
         SONAR_PROJECT_NAME = "fs-openforest-platform"
         MAILING_LIST = 'ikumarasamy@techtrend.us'
-
 	CHECKOUT_STATUS = 'Pending'
         INSTALL_DEPENDENCIES_STATUS= 'Pending'
 	RUN_LINT_STATUS = 'Pending'
