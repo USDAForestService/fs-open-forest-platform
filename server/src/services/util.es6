@@ -415,6 +415,12 @@ util.getEauthForests = (approles) => {
       }
     }
   }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
   return [...new Set(forests)];
 };
 
