@@ -8,28 +8,32 @@
     />
     <app-error-message fieldId="location-error" name="Location" [control]="noncommercialFields.controls.locationDescription"></app-error-message>
 
-    <label id="participants-label" class="usa-input">Estimated number of participants <span class="required-fields-asterisk">*</span></label>
-    <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of event participants.</span>
-    <input id="participants" type="number" (keypress)="numberOnly($event)" formControlName="numberParticipants" aria-required="true" min="1"
+    <div class="number-input-wrapper">
+      <div class="number-input-label">
+        <label id="participants-label" class="usa-input">Estimated number of participants <span class="required-fields-asterisk">*</span></label>
+        <span id="participants-hint-text" class="help-text usa-form-hint">Please provide the number of event participants (Note: The use of a dash is permitted to supply a possible range).</span>
+      </div>
+      <input class ="number-input-sizing" id="participants" type="tel" pattern="[0-9\-]+" maxlength="7" (keypress)="numberOnly($event)" formControlName="numberParticipants" aria-required="true" min="1"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberParticipants, 'participants-label participants-hint-text', 'participants-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberParticipants)"
-    />
-    <app-error-message fieldId="participants-error" name="Participants" [control]="noncommercialFields.controls.numberParticipants"></app-error-message>
+      />
+      <app-error-message fieldId="participants-error" name="Participants" [control]="noncommercialFields.controls.numberParticipants"></app-error-message>
+    </div>
 
-    <label id="spectators-label" class="usa-input">Estimated number of spectators <span class="required-fields-asterisk">*</span></label>
-    <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as a sporting event), please provide the number of spectators.</span>
-    <input id="spectators" type="number" (keypress)="numberOnly($event)" formControlName="numberSpectators" aria-required="true"
-      [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberSpectators, 'spectators-label spectators-hint-text', 'spectators-error')"
-      [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberSpectators)"
-    />
-    <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
+    <div class="number-input-wrapper">
+      <div class="number-input-label">
+        <label id="spectators-label" class="usa-input">Estimated number of spectators <span class="required-fields-asterisk">*</span></label>
+        <span id="spectators-hint-text" class="help-text usa-form-hint">If your event will have spectators (such as a sporting event), please provide the number of spectators (Note: The use of a dash is permitted to supply a possible range).</span>
+      </div>
+        <input class ="number-input-sizing" id="spectators" type="tel" pattern="[0-9\-]+" maxlength="7" (keypress)="numberOnly($event)" formControlName="numberSpectators" aria-required="true"
+        [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.numberSpectators, 'spectators-label spectators-hint-text', 'spectators-error')"
+        [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.numberSpectators)"
+      />
+      <app-error-message fieldId="spectators-error" name="Spectators" [control]="noncommercialFields.controls.numberSpectators"></app-error-message>
+      <app-error-message fieldId="total-attendees-error" name="Total attendees" [control]="noncommercialFields"></app-error-message>
+    </div>
 
-    <app-error-message fieldId="total-attendees-error" name="Total attendees" [control]="noncommercialFields"></app-error-message>
-
-    <label id="activity-description-label" class="usa-input">Description of proposed activity
-      <span class="required-fields-asterisk">*</span>
-      <span class="help-text usa-form-hint character-limit-hint">(1000 character limit)</span>
-    </label>
+    <label id="activity-description-label" class="usa-input">Description of proposed activity <span class="required-fields-asterisk">*</span></label>
     <textarea id="activity-description" formControlName="activityDescription" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(noncommercialFields.controls.activityDescription, 'activity-description-label', 'activity-description-error')"
       [attr.aria-invalid]="afs.hasError(noncommercialFields.controls.activityDescription)"></textarea>
