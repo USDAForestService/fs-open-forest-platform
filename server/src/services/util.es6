@@ -396,7 +396,7 @@ util.getAdminForests = (adminUsername) => {
 util.getEauthForests = (approles) => {
   // split the roles from one long string into an array of roles
   const roles = approles.split('^');
-  const forests = [];
+  let forests = [];
   let forest = '';
 
   // check each role for a forest
