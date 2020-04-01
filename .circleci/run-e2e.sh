@@ -34,7 +34,7 @@ sudo npm run e2e $PARAMS;
 
 e2ereturncode=$?
 
-if [[ $e2ereturncode = 0 ]]
+if [ $e2ereturncode = 0 ]
 then
   echo 'SUCCESS'
 else
