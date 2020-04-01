@@ -29,8 +29,8 @@ export class NoncommercialFieldsComponent implements OnInit {
     this[this.formName] = this.formBuilder.group({
       activityDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(512)]],
       locationDescription: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      numberParticipants: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      numberSpectators: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
+      numberParticipants: ['', [Validators.required, alphanumericValidator(), Validators.minLength(1), Validators.maxLength(7),numberValidator()]],
+      numberSpectators: ['',	[Validators.required, alphanumericValidator(), Validators.minLength(1), Validators.maxLength(7), numberValidator()]]
     },
     {
       validator: this.validatePermitNeeded
