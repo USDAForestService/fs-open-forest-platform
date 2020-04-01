@@ -46,6 +46,7 @@ import { PermitBreadcrumbsResolver } from './_services/permit-breadcrumbs.resolv
 import { ForestAdminNavComponent } from './authentication/forests-admin-nav.component';
 import { GoogleAnalyticsService } from './_services/google-analytics.service';
 import { MainLandingComponent } from './main-landing/main-landing.component';
+import { ForestTemplateComponent } from './forest-pages/forest-template/forest-template.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { MainLandingComponent } from './main-landing/main-landing.component';
     TempOutfitterDetailsComponent,
     TitleDirective,
     UsaBannerComponent,
-    MainLandingComponent
+    MainLandingComponent,
+    ForestTemplateComponent
   ],
   imports: [ApplicationsModule, BrowserModule, HttpClientModule, PayGovMocksModule, SharedModule, TreesModule],
   providers: [
