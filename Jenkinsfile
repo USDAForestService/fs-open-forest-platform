@@ -127,7 +127,7 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed
 	 npm run migrate
 	 npm run seed
-	 sudo npm run coverage
+	 
 	'''
 
     sh '''
@@ -272,6 +272,8 @@ sh '''
 		cd ../..
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..
+		sudo kill -9 $(sudo lsof -t -i:8080)
+		.circleci/run-e2e.sh
 	'''
 
   sh '''
