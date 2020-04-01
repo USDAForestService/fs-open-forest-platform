@@ -31,6 +31,10 @@ label {
   font-weight: 700;
 }
 
+label, span, .character-limit-hint{
+  font-weight: 500;
+}
+
 .form-directions {
   margin-bottom: 3em;
 }
