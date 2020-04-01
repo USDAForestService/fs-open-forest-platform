@@ -273,6 +273,7 @@ sh '''
 		npm i typescript@3.1.6 --save-dev --save-exact
 		cd ..
 		sudo kill -9 $(sudo lsof -t -i:8080)
+		sudo kill -9 $(sudo lsof -t -i:4200)
 		.circleci/run-e2e.sh
 	'''
 
