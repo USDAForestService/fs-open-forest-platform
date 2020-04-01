@@ -423,7 +423,7 @@ util.getEauthForests = (approles) => {
 * @param {string} approles - user roles
 * @return {string} - user role ADMIN or USER
 */
-util.getUserRole = approles => (approles.includes('FS_OpenForest_Super-User') ? 'admin' : 'user');
+util.getUserRole = approles => (['Super', 'POC', 'POC1', 'POC2'].some(role => approles.includes(role)) ? 'admin' : 'user');
 
 /**
 * @function handleErrorResponse - Handle database errors with http response
