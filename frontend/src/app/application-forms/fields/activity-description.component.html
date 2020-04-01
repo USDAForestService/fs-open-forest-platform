@@ -19,7 +19,7 @@
     <app-error-message fieldId="party-size-error" name="Party size" [control]="parentForm.get('activityDescriptionFields.partySize')"></app-error-message>
 
     <label id="services-provided-label" class="usa-input">Services being offered. <span class="required-fields-asterisk">*</span></label>
-    <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide a brief overview of the services you will be providing your attendees. Please make note of any services that will be provided by a party other than the permit holder.</p>
+    <p id="services-provided-hint-text" class="help-text usa-form-hint">Please provide a brief overview of the services you will be providing your attendees. Please make note of any services that will be provided by a party other than the permit holder (1000 character limit).</p>
     <textarea id="services-provided"  type="text" formControlName="servicesProvided" aria-required="true"
       [attr.aria-labelledby]="afs.labelledBy(parentForm.get('activityDescriptionFields.servicesProvided'), 'services-provided-label services-provided-hint-text', 'services-provided-error')"
       [attr.aria-invalid]="afs.hasError(parentForm.get('activityDescriptionFields.servicesProvided'))"></textarea>
