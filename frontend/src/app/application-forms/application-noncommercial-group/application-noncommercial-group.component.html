@@ -8,7 +8,7 @@
     <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a noncommercial group use permit with Open Forest.</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-commercial group use permit with Open Forest.</h2>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -128,7 +128,7 @@
           </label>
           <app-error-message
             fieldId="accept-rules-error"
-            name="To purchase a noncommercial permit, consenting to our collection of your name and email"
+            name="To purchase a Non-commercial permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII">
           </app-error-message>
         </div>
