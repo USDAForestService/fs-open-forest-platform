@@ -59,4 +59,18 @@
       }
     }
   }
+  .products-main{
+    background-image: url(/assets/img/site-wide/products-banner.png);
+    background-size: cover;
+    background-position: 0px;
+    background-repeat: no-repeat;
+    color: $white;
+    .products-main-callout{
+      h1{
+        padding-top: 100px;
+        padding-bottom: 100px;
+        color: $white !important;
+      }
+    }
+  }
 }
