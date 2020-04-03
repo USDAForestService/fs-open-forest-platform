@@ -9,7 +9,6 @@ const checkForPrimaryPermitHolderAddress = function(state) {
   expect<any>(element(by.id('primary-permit-holder-state')).isPresent()).toBe(state);
   expect<any>(element(by.id('primary-permit-holder-zip')).isPresent()).toBe(state);
 };
-
 const checkForSecondPermitHolderAddress = function(state) {
   expect<any>(element(by.id('secondary-permit-holder-address')).isPresent()).toBe(state);
   expect<any>(element(by.id('secondary-permit-holder-address-line-2')).isPresent()).toBe(state);
