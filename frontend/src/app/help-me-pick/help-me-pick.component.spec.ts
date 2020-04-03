@@ -56,7 +56,7 @@ describe('HelpMePickComponent', () => {
     component.getTitle('6');
     expect(component.title).toEqual('Your activity requires a permit, but not one available online.');
     component.getTitle('7');
-    expect(component.title).toEqual('The correct permit for you is the "Non-commercial group use application."');
+    expect(component.title).toEqual('The correct permit for you is the "Non-Commercial Group Use permit."');
     component.getTitle('8');
     expect(component.title).toEqual('The correct permit for you is the "Temporary Outfitting and Guiding permit."');
   });
