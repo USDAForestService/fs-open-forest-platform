@@ -33,7 +33,7 @@ const checkForAdditionalPhone = function(state) {
 
 const page = new NoncommercialGroupForm();
 
-describe('Apply for a Non-commercial group use permit', () => {
+describe('Apply for a Non-Commercial Group Use permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     page.navigateTo();
@@ -42,7 +42,7 @@ describe('Apply for a Non-commercial group use permit', () => {
 
   it('should display the permit name in the header', () => {
     page.navigateTo();
-    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Non-commercial group use permit with Open Forest.');
+    expect<any>(element(by.css('app-root h2')).getText()).toEqual('Apply for a Non-Commercial Group Use permit with Open Forest.');
   });
 
   it('should submit an application as individual with only the required fields populated', () => {
