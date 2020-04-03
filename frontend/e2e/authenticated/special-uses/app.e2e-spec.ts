@@ -59,7 +59,7 @@ describe('frontend App', () => {
     helpMePick.questionStep('no', 'Is the purpose of your activity selling goods or services?');
     helpMePick.questionStep('yes', 'Does your activity involve more than 75 people (spectators and participants)?');
     helpMePick.landingPage(
-      'The correct permit for you is the "noncommercial group use application."',
+      'The correct permit for you is the "Non-Commercial Group Use permit."',
       'You can apply online.'
     );
 
