@@ -1,9 +1,9 @@
 <section class="usa-section">
   <div class="usa-grid">
     <app-breadcrumbs></app-breadcrumbs>
-    <h1 id="skip-nav-target" tabindex="-1">Mount Baker-Snoqualmie National Forest</h1>
+    <h1 id="skip-nav-target" tabindex="-1">Mt. Baker-Snoqualmie National Forest</h1>
     <div class="application-status-toggle-wrapper">
-      <label for="application-status-toggle">Filter by</label>
+      <label for="application-status-toggle">Filter by Application Status:</label>
       <select class="usa-input-inline" id="application-status-toggle" (change)="applicationStatusChange($event)">
         <option value="pending" selected>Pending</option>
         <option value="accepted">Accepted</option>
@@ -12,7 +12,8 @@
         <option value="expired">Expired</option>
       </select>
     </div>
-    <h2><span class="permit-application-type">{{applicationStatus}}</span> permit applications for Open Forest</h2>
+
+    <h3>{{appStatusMessage}}</h3>
 
     <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -95,3 +96,4 @@
     </div>
   </div>
 </section>
+

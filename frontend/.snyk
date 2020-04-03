@@ -5,11 +5,11 @@ ignore:
   SNYK-JS-MARKED-73637:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2020-03-25T18:04:57.495Z'
+        expires: '2020-06-25T18:04:57.495Z'
   SNYK-JS-MARKED-174116:
     - ngx-md > marked:
         reason: 'Medium severity, no remediation available.'
-        expires: '2020-03-25T18:04:57.495Z'
+        expires: '2020-06-25T18:04:57.495Z'
   SNYK-JS-COREJS-174627:
     - core-js:
         reason: No remediation available
@@ -17,46 +17,50 @@ ignore:
   SNYK-JS-LODASH-450202:
     - newrelic > async > lodash:
         reason: ignore for more days
-        expires: '2020-03-25T18:45:56.815Z'
+        expires: '2020-06-25T18:45:56.815Z'
   SNYK-JS-MARKED-451341:
     - ngx-md > marked:
         reason: no upgrade available
-        expires: '2020-04-25T23:02:43.714Z'
+        expires: '2020-06-25T23:02:43.714Z'
   SNYK-JS-HTTPSPROXYAGENT-469131:
     - newrelic > https-proxy-agent:
         reason: ignore for 30days
-        expires: '2020-04-25T18:45:56.816Z'
+        expires: '2020-06-25T18:45:56.816Z'
   SNYK-JS-ELLIPTIC-511941:
     - uswds > browserify > crypto-browserify > browserify-sign > elliptic:
         reason: ignore for more days
-        expires: '2020-04-25T18:26:03.902Z'
+        expires: '2020-06-25T18:26:03.902Z'
     - uswds > browserify > crypto-browserify > create-ecdh > elliptic:
         reason: ignore for more days
-        expires: '2020-04-25T18:26:03.902Z'
+        expires: '2020-06-25T18:26:03.902Z'
   SNYK-JS-ACORN-559469:
     - uswds > browserify > insert-module-globals > acorn-node > acorn:
         reason: None given
-        expires: '2020-04-12T20:19:47.857Z'
+        expires: '2020-06-12T20:19:47.857Z'
     - uswds > browserify > syntax-error > acorn-node > acorn:
         reason: None given
-        expires: '2020-04-12T20:19:47.857Z'
+        expires: '2020-06-12T20:19:47.857Z'
     - uswds > browserify > insert-module-globals > undeclared-identifiers > acorn-node > acorn:
         reason: None given
-        expires: '2020-04-12T20:19:47.857Z'
+        expires: '2020-06-12T20:19:47.857Z'
     - uswds > browserify > module-deps > detective > acorn:
         reason: None given
-        expires: '2020-04-12T20:19:47.857Z'
+        expires: '2020-06-12T20:19:47.857Z'
   SNYK-JS-MINIMIST-559764:
     - uswds > browserify > subarg > minimist:
         reason: None given
-        expires: '2020-04-12T20:19:47.858Z'
+        expires: '2020-06-12T20:19:47.858Z'
     - uswds > browserify > deps-sort > subarg > minimist:
         reason: None given
-        expires: '2020-04-12T20:19:47.858Z'
+        expires: '2020-06-12T20:19:47.858Z'
     - uswds > browserify > module-deps > subarg > minimist:
         reason: None given
-        expires: '2020-04-12T20:19:47.858Z'
+        expires: '2020-06-12T20:19:47.858Z'
     - webdriver-manager > minimist:
         reason: None given
-        expires: '2020-04-12T20:19:47.858Z'
+        expires: '2020-06-12T20:19:47.858Z'
+  SNYK-JS-YARGSPARSER-560381:
+    - uswds > yargs > yargs-parser:
+        reason: Not ready to upgrade
+        expires: '2020-06-18T16:35:27.164Z'
 patch: {}
