@@ -17,7 +17,7 @@ export class NoncommercialLearnMoreComponent {
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Learn more about how to use Open Forest to apply for Non-commercial group use permits on the Mt. Baker-Snoqualmie National Forest.'
+      content: 'Learn more about how to use Open Forest to apply for non-commercial group use permits on the Mt. Baker-Snoqualmie National Forest.'
     });
     this.forest = this.specialUseInfoService.getOne('0605');
     this.items = [
@@ -27,7 +27,7 @@ export class NoncommercialLearnMoreComponent {
         sectionCopy: `
         <ul>
         <li>According to the regulation, permits are required for 75 or more people. However, some forest may have special considerations, contact your local forest if you have questions.</li>
-        <li>Authorization for Non-commercial groups to use national Forest Service land.</li>
+        <li>Authorization for non-commercial groups to use national Forest Service land.</li>
         <li>Required for groups of 75 or more people (participants and spectators).</li>
         <li>Important to minimize resource and environmental impacts on forest lands.</li>
         <li>Valid for the event or activity only.</li>
@@ -42,7 +42,7 @@ export class NoncommercialLearnMoreComponent {
         <ul>
         <li>Must be at least 21 years old.</li>
         <li>Must sign the permit on behalf of the group (but will not be held personally responsible for the group’s actions).</li>
-        <li>Insurance is NOT required for Non-commercial permits.</li>
+        <li>Insurance is NOT required for non-commercial permits.</li>
         </ul>`
       },
       {
@@ -58,7 +58,7 @@ export class NoncommercialLearnMoreComponent {
         primarily if it violates public safety or public health laws or regulations.
         If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
 
-        <p>For more information about Non-commercial group use and regulations, <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">visit our FAQ page</a></p>`
+        <p>For more information about non-commercial group use and regulations, <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">visit our FAQ page</a></p>`
       },
       {
         sectionName: 'Contact us',
