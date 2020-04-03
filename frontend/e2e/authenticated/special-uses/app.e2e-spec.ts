@@ -70,7 +70,6 @@ describe('frontend App', () => {
       'Your activity requires a permit, but not one available online.',
       'Learn about other permit types (available via a paper application) at Mt. Baker-Snoqualmie.'
     );
-
     helpMePick.questionStep('yes', 'Are you charging a participation fee for your activity?');
     helpMePick.questionStep('yes', 'Does your activity involve guiding or outfitting?');
     helpMePick.landingPage(
