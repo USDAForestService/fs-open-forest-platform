@@ -1,291 +1,80 @@
-import { alphanumericValidator } from '../validators/alphanumeric-validation';
-import { applicationTypeValidator } from '../validators/application-type-validation';
-import { numberValidator } from '../validators/number-validation';
-import { urlValidator } from '../validators/url-validation';
-import { ApplicationService } from '../../_services/application.service';
-import { ApplicationFieldsService } from '../_services/application-fields.service';
-import { emailConfirmationValidator } from '../validators/email-confirmation-validation';
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from '../../_services/alert.service';
-import { AuthenticationService } from '../../_services/authentication.service';
+import { Component } from '@angular/core';
+import { UtilService } from '../../_services/util.service';
 import { SpecialUseInfoService } from '../../_services/special-use-info.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-application-noncommercial-group',
-  templateUrl: './application-noncommercial-group.component.html'
+  selector: 'app-noncommercial-learn-more',
+  templateUrl: './noncommercial-learn-more.component.html'
 })
-export class ApplicationNoncommercialGroupComponent implements OnInit {
-  apiErrors: any;
-  application: any = {};
-  currentSection: any;
-  forest = this.specialUseInfoService.getOne('0605');
-  mode = 'Observable';
-  primaryPermitHolderSameAddress = true;
-  secondaryPermitHolderSameAddress = true;
-  submitted = false;
-  applicantInfo: any;
-  orgType: any;
-
-  dateStatus = {
-    startDateTimeValid: true,
-    endDateTimeValid: true,
-    startBeforeEnd: true,
-    startAfterToday: true,
-    hasErrors: false
-  };
-
-  public applicationForm: FormGroup;
-
+export class NoncommercialLearnMoreComponent {
+  items: any;
+  forest: string;
   constructor(
-    private alertService: AlertService,
+    public util: UtilService,
     private specialUseInfoService: SpecialUseInfoService,
-    private applicationService: ApplicationService,
-    public applicationFieldsService: ApplicationFieldsService,
-    private authentication: AuthenticationService,
-    public renderer: Renderer2,
-    private route: ActivatedRoute,
-    private router: Router,
-    private formBuilder: FormBuilder,
     private meta: Meta
   ) {
     this.meta.addTag({
       name: 'description',
-      content: 'Apply for a noncommercial group use permit on the Mt. Baker-Snoqualmie National Forest with Open Forest.'
+      content: 'Learn more about how to use Open Forest to apply for noncommercial group use permits on the Mt. Baker-Snoqualmie National Forest.'
     });
-    this.applicationForm = new FormGroup({
-      acceptPII: new FormControl()
-    });
-    this.applicationForm = this.formBuilder.group({
-      acceptPII: [false, Validators.required],
-      appControlNumber: ['', [Validators.maxLength(255)]],
-      applicationId: ['', [Validators.maxLength(255)]],
-      createdAt: ['', [Validators.maxLength(255)]],
-      applicantMessage: ['', [Validators.maxLength(255)]],
-      status: ['', [Validators.maxLength(255)]],
-      authEmail: ['', [Validators.maxLength(255)]],
-      authorizingOfficerName: ['', [Validators.maxLength(255)]],
-      authorizingOfficerTitle: ['', [Validators.maxLength(255)]],
-      revisions: [''],
-      district: ['11', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      region: ['06', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      forest: ['05', [Validators.required, Validators.maxLength(2), numberValidator()]],
-      type: ['noncommercial', [Validators.required, applicationTypeValidator(), Validators.maxLength(255)]],
-      eventName: ['', [Validators.required, alphanumericValidator(), Validators.maxLength(255)]],
-      signature: ['', [Validators.required, Validators.maxLength(3), alphanumericValidator()]],
-      applicantInfo: this.formBuilder.group({
-        addAdditionalPhone: [false],
-        addSecondaryPermitHolder: [false],
-        emailAddress: ['', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'), Validators.maxLength(255)]],
-        emailAddressConfirmation: [
-          '', [Validators.required, Validators.email, alphanumericValidator(), Validators.pattern(
-            '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$'
-          ), Validators.maxLength(255)]],
-        organizationName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
-        orgType: ['Person', [Validators.required, Validators.maxLength(255)]],
-        primaryAddressSameAsOrganization: [true],
-        primaryFirstName: ['', [Validators.required, Validators.maxLength(36), alphanumericValidator()]],
-        primaryLastName: ['', [Validators.required, Validators.maxLength(60), alphanumericValidator()]],
-        secondaryAddressSameAsPrimary: [true],
-        secondaryFirstName: ['', [alphanumericValidator(), Validators.maxLength(36)]],
-        secondaryLastName: ['', [alphanumericValidator(), Validators.maxLength(60)]],
-        website: ['', [urlValidator(), Validators.maxLength(255)]]
+    this.forest = this.specialUseInfoService.getOne('0605');
+    this.items = [
+      {
+        sectionName: 'Who  has to get a permit under the regulation?',
+        type: 'anchor',
+        sectionCopy: `
+        <ul>
+        <li>According to the regulation, permits are required for 75 or more people. However, some forest may have special considerations, contact your local forest if you have questions.</li>
+        <li>Authorization for non-commercial groups to use national Forest Service land.</li>
+        <li>Required for groups of 75 or more people (participants and spectators).</li>
+        <li>Important to minimize resource and environmental impacts on forest lands.</li>
+        <li>Valid for the event or activity only.</li>
+        <li>Free of charge.</li>
+        </ul>
+        `
       },
-      {validator: emailConfirmationValidator('emailAddress', 'emailAddressConfirmation')}),
-    });
-  }
-
-  addressChangeListeners() {
-    this.applicationForm.get('applicantInfo.orgType').valueChanges.subscribe(type => {
-      this.orgTypeChange(type);
-    });
-
-    this.applicationForm.get('applicantInfo.primaryAddressSameAsOrganization').valueChanges.subscribe(value => {
-      this.addRemoveAddress('primaryAddress', value);
-    });
-
-    this.applicationForm.get('applicantInfo.secondaryAddressSameAsPrimary').valueChanges.subscribe(value => {
-      this.addRemoveAddress('secondaryAddress', value);
-    });
-
-    this.applicationForm.get('applicantInfo.addSecondaryPermitHolder').valueChanges.subscribe(value => {
-      this.addSecondaryPermitHolder(value);
-    });
-  }
-
-  orgTypeChange(type): void {
-    if (type === 'Person') {
-      this.applicationFieldsService.removeAddressValidation(
-        this.applicationForm.get('applicantInfo'),
-        'organizationAddress'
-      );
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.organizationName'),
-        false
-      );
-    } else if (type === 'Corporation') {
-      this.applicationFieldsService.addAddressValidation(
-        this.applicationForm.get('applicantInfo'),
-        'organizationAddress'
-      );
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.organizationName'),
-        true,
-        60
-      );
-    }
-  }
-
-  public elementInView({ target, visible }: { target: Element; visible: boolean }): void {
-    this.renderer.addClass(target, visible ? 'in-view' : 'inactive');
-    this.renderer.removeClass(target, visible ? 'inactive' : 'in-view');
-
-    const viewableElements = document.getElementsByClassName('in-view');
-    if (viewableElements.length) {
-      this.currentSection = viewableElements[viewableElements.length - 1].id;
-    }
-  }
-
-  /**
-  * @param type  Address type and name of address field group, e.g. primaryAddress
-  * @param Value  Boolean that determines if address fields should be required or not.
-  *  This function removes the address validation or adds the address validations if the fields are required.
-  */
-
-  addRemoveAddress(type, value) {
-    if (value) {
-      this.applicationFieldsService.removeAddressValidation(this.applicationForm.get('applicantInfo'), type);
-    } else {
-      this.applicationFieldsService.addAddressValidation(this.applicationForm.get('applicantInfo'), type);
-    }
-  }
-
-  addSecondaryPermitHolder(value) {
-    if (value) {
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.secondaryFirstName'),
-        true,
-        255
-      );
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.secondaryLastName'),
-        true,
-        255
-      );
-    } else {
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.secondaryFirstName'),
-        false
-      );
-      this.applicationFieldsService.updateValidators(
-        this.applicationForm.get('applicantInfo.secondaryLastName'),
-        false
-      );
-    }
-  }
-
-  updateDateStatus(dateStatus: any): void {
-    this.dateStatus = dateStatus;
-  }
-
-  getApplication(id) {
-    this.applicationService.getOne(id, `/special-uses/noncommercial/`).subscribe(
-      application => {
-        this.application = application;
-        this.applicationForm.patchValue(application);
-        this.applicationForm.patchValue({ applicantInfo: { emailAddressConfirmation: application.applicantInfo.emailAddress }});
+      {
+        sectionName: 'Applicant requirements',
+        type: 'anchor',
+        sectionCopy: `
+        <ul>
+        <li>Must be at least 21 years old.</li>
+        <li>Must sign the permit on behalf of the group (but will not be held personally responsible for the group’s actions).</li>
+        <li>Insurance is NOT required for non-commercial permits.</li>
+        </ul>`
       },
-      (e: any) => {
-        this.apiErrors = e;
-        window.scrollTo(0, 200);
-      }
-    );
-  }
+      {
+        sectionName: 'Evaluation process',
+        type: 'anchor',
+        sectionCopy: `
+        <p>Permit applications must be submitted at least 72 hours in advance of the proposed activity
+        and will be evaluated by the Forest Service within two business days of receipt. Otherwise,
+        they are deemed granted. All permit applications will be evaluated using the same criteria,
+        regardless of the content of the event or gathering.</p>
 
-  createApplication() {
-    this.applicationService
-      .create(JSON.stringify(this.applicationForm.value), '/special-uses/noncommercial/')
-      .subscribe(
-        (persistedApplication: any) => {
-          this.router.navigate([`mbs/applications/noncommercial/submitted/${persistedApplication.appControlNumber}`]);
-        },
-        (e: any) => {
-          this.apiErrors = e;
-          window.scroll(0, 0);
-        }
-      );
-  }
+        <p>A permit can be denied only if it does not meet the evaluation criteria,
+        primarily if it violates public safety or public health laws or regulations.
+        If the permit is denied, an officer is required to explain the reasons to the applicant in writing.</p>
 
-  updateApplication() {
-    this.applicationService.update(this.applicationForm.value, 'noncommercial').subscribe(
-      (data: any) => {
-        this.alertService.addSuccessMessage('Permit application was successfully updated.');
-        if (this.authentication.isAdmin()) {
-          this.router.navigate([`admin/applications/noncommercial/${data.appControlNumber}`]);
-        } else {
-          this.router.navigate([`user/applications/noncommercial/${data.appControlNumber}`]);
-        }
+        <p>For more information about non-commercial group use and regulations, <a href="https://www.fs.fed.us/specialuses/special_non_com_uses.shtml">visit our FAQ page</a></p>`
       },
-      (e: any) => {
-        this.apiErrors = e;
-        window.scroll(0, 0);
+      {
+        sectionName: 'Contact us',
+        type: 'anchor',
+        sectionCopy: `
+        <p>If you'd like to contact the special use permit administration staff at the Forest, please use a method listed below.</p>
+        <div class="contact-details">
+          <h3>Noncommercial contact</h3>
+          <p class="title-description">
+            Sue Sherman-Biery<br>
+            <span class="italic">Special use administrator</span>
+          </p>
+          <p class="contact"><strong>Phone: </strong>(360) 854-2660</p>
+          <p class="contact"><strong>Email: </strong><a href="mailto:sshermanbiery@fs.fed.us">sshermanbiery@fs.fed.us</a></p>
+        </div>`
       }
-    );
-  }
-
-  removeUnusedData() {
-    const form = this.applicationForm;
-    const service = this.applicationFieldsService;
-    if (form.get('applicantInfo.orgType').value === 'Person') {
-      form.get('applicantInfo.organizationName').setValue('');
-      form.get('applicantInfo.website').setValue('');
-      service.removeAddress(form.get('applicantInfo'), 'organizationAddress');
-    }
-    if (!form.get('applicantInfo.addSecondaryPermitHolder').value) {
-      form.get('applicantInfo.secondaryFirstName').setValue('');
-      form.get('applicantInfo.secondaryLastName').setValue('');
-    }
-    if (form.get('applicantInfo.secondaryAddressSameAsPrimary').value) {
-      service.removeAddress(form.get('applicantInfo'), 'secondaryAddress');
-    }
-    if (!form.get('applicantInfo.addAdditionalPhone').value) {
-      service.removeAdditionalPhone(form.get('applicantInfo'));
-    }
-  }
-
-  onSubmit(form) {
-    this.submitted = true;
-    if (form.get('applicantInfo.orgType').value === 'Corporation' && form.get('applicantInfo.primaryAddressSameAsOrganization').value) {
-      this.applicationFieldsService.copyValues(
-        form.get('applicantInfo'),
-        'organizationAddress',
-        'primaryAddress'
-      );
-    }
-    this.applicationFieldsService.touchAllFields(this.applicationForm);
-    if (!form.valid || this.dateStatus.hasErrors) {
-      this.applicationFieldsService.scrollToFirstError();
-    } else {
-      this.removeUnusedData();
-      if (this.applicationFieldsService.getEditApplication()) {
-        this.updateApplication();
-      } else {
-        this.createApplication();
-      }
-    }
-  }
-
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.getApplication(params['id']);
-        this.applicationFieldsService.setEditApplication(true);
-      } else {
-        this.applicationFieldsService.setEditApplication(false);
-      }
-    });
-    this.addressChangeListeners();
+    ];
   }
 }
