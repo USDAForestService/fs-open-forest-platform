@@ -8,7 +8,7 @@
     <app-noncommercial-group-left-nav class="usa-width-one-third usa-layout-docs-sidenav" [applicationForm]="applicationForm" [currentSection]="currentSection"></app-noncommercial-group-left-nav>
 
     <div class="usa-width-two-thirds temp-outfitter-main-content">
-      <h2 id="skip-nav-target" tabindex="-1">Apply for a Non-Commercial Group Use permit with Open Forest.</h2>
+      <h2 id="skip-nav-target" tabindex="-1">Apply for a noncommercial group use permit with Open Forest.</h2>
 
       <app-api-error *ngIf="apiErrors" [errors]="apiErrors"></app-api-error>
 
@@ -18,7 +18,6 @@
         <p *ngIf="!applicationFieldsService.getEditApplication()">Your application will be saved once it is submitted. You won't be able to save the application to complete it later.</p>
         <p *ngIf="applicationFieldsService.getEditApplication()">You are about to update your permit application. Once you click "Save Edits & Submit" you will not be able to make any further updates unless your application is placed on hold again.</p>
         <legend>Application process</legend>
-        
         <div>
           <ol>
             <li>Fill out and submit the application below.</li>
@@ -27,7 +26,6 @@
             <li>Once your application is approved, you will receive your permit within 2 weeks. If your application is not approved, you will be notified via email.</li>
           </ol>
         </div>
-        
         <br>
         <p class="form-directions">required fields<span class="required-fields-asterisk">*</span></p>
         <div id="form-errors" *ngIf="(submitted && !applicationForm.valid) || dateStatus.hasErrors" class="usa-alert usa-alert-error" aria-live="assertive" aria-hidden="false" role="alert">
@@ -130,7 +128,7 @@
           </label>
           <app-error-message
             fieldId="accept-rules-error"
-            name="To purchase a Non-Commercial Group Use permit, consenting to our collection of your name and email"
+            name="To purchase a noncommercial permit, consenting to our collection of your name and email"
             [control]="applicationForm.controls.acceptPII">
           </app-error-message>
         </div>
