@@ -402,11 +402,14 @@ util.getEauthForests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     // check if the role is related to Open Forest
-    if (roles[i].includes('FS_Open-Forest' || 'FS_OpenForest')) {
+    if (roles[i].includes('FS_Open-Forest') || roles[i].includes('FS_OpenForest')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
         .replace('-POC1', '')
+        .replace('_POC1', '')
         .replace('-POC', '')
+        .replace('_POC', '')
         .replace('FS_Open-Forest_', '')
         .replace('FS_OpenForest_', '');
       // if we found a forest in the role, add it to the forests array
@@ -437,7 +440,7 @@ util.getPOC1Forests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     // check if the role is or POC1 access
-    if (roles[i].includes('-POC1' || '_POC1')) {
+    if (roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')
@@ -475,7 +478,7 @@ util.getPOC2Forests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     // check if the role is or POC2 access (POC1 inherits POC2)
-    if (roles[i].includes('-POC2' || '_POC2' || '-POC1' || '_POC1')) {
+    if (roles[i].includes('POC2') || roles[i].includes('POC1')) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
         .replace('_POC2', '')

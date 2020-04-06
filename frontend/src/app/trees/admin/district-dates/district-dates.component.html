@@ -24,8 +24,10 @@
             To update individual area dates and times, please select a forest.
           </legend>
           <ng-container *ngFor="let forest of forests; let i = index">
-            <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
-            <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+            <ng-container *ngIf="user.poc1_forests.includes(forest.forestAbbr)">
+              <input id="{{forest.id}}-button" type="radio" [value]="forest.forestAbbr" formControlName="forestAbbr" [checked]="i === 0">
+              <label for="{{forest.id}}-button" id="{{forest.id}}-button-label">{{forest.forestName}}</label>
+            </ng-container>
           </ng-container>
         </fieldset>
 
