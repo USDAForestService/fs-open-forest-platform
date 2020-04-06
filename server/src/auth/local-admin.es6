@@ -9,7 +9,9 @@ const localAdminStrategy = (loginUrl) => {
         adminUsername: username,
         email: 'admin@example.com',
         role: 'admin',
-        forests: util.getAdminForests(username)
+        forests: util.getAdminForests(username),
+        poc1_forests: util.getPOC1Forests(username),
+        poc2_forests: util.getPOC2Forests(username)
       });
     }
     return done(null, false);
