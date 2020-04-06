@@ -9,7 +9,7 @@ import { WindowRef } from '../_services/native-window.service';
 
 class MockAuthenticationService {
   getAuthenticatedUser(): Observable<{}> {
-    return Observable.of({ role: 'admin', forests: ['mthood'] });
+    return Observable.of({ role: 'admin', forests: ['mthood'], poc1_forests: ['mthood'], poc2_forests: ['mthood'] });
   }
   setUser(obj) {
     return '';
@@ -67,4 +67,3 @@ describe('ForestAdminNavComponent', () => {
     expect(component.menuBtnPosition).toEqual('absolute');
   });
 });
-

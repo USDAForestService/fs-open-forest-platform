@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Christmas tree  - Contact Us', () => {
+xdescribe('Christmas tree  - Contact Us', () => {
   let page: TreesSidebarPage;
 
   describe('Mt Hood', () => {

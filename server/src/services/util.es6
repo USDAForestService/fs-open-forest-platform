@@ -428,7 +428,7 @@ util.getEauthForests = (approles) => {
 };
 
 /**
- * Return an array of forests (short names) that are parsed out from the provided eAuth approles string that the user has POC1 access to
+ * Return an array of POC1 forests (short names) from the provided eAuth approles string
  *
 */
 util.getPOC1Forests = (approles) => {
@@ -466,7 +466,7 @@ util.getPOC1Forests = (approles) => {
 };
 
 /**
- * Return an array of forests (short names) that are parsed out from the provided eAuth approles string that the user has POC2 access to
+ * Return an array of POC2 forests (short names) from the provided eAuth approles string
  *
 */
 util.getPOC2Forests = (approles) => {

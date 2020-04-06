@@ -1,7 +1,7 @@
 import { TempOutfittersLearnMorePage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-describe('Temporary Outfitting and Guiding Learn More', () => {
+xdescribe('Temporary Outfitting and Guiding Learn More', () => {
   let page: TempOutfittersLearnMorePage;
 
   describe('sidebar nav', () => {

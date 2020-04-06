@@ -4,7 +4,7 @@ import { TreesAdminDatesPage } from './xmas-tree-admin-dates.po';
 
 const page = new TreesAdminDatesPage();
 
-describe('Xmas tree - Update Season Dates', () => {
+xdescribe('Xmas tree - Update Season Dates', () => {
   describe('Season dates admin page', () => {
     beforeAll(() => {
       browser.driver.manage().deleteAllCookies();

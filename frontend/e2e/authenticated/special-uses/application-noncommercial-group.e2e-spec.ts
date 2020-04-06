@@ -33,7 +33,7 @@ const checkForAdditionalPhone = function(state) {
 
 const page = new NoncommercialGroupForm();
 
-describe('Apply for a noncommercial group use permit', () => {
+xdescribe('Apply for a noncommercial group use permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     page.navigateTo();

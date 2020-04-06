@@ -4,7 +4,7 @@ import { TreesReportPage } from './xmas-tree-admin.po';
 
 const page = new TreesReportPage();
 
-describe('Xmas admin navbar', () => {
+xdescribe('Xmas admin navbar', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     browser.driver.manage().window().setSize(1400, 900);

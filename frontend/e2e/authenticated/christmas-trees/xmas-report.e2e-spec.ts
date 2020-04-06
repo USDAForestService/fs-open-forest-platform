@@ -4,7 +4,7 @@ import { TreesReportPage } from './xmas-tree-admin.po';
 
 const page = new TreesReportPage();
 
-describe('Xmas tree - Admin Reports', () => {
+xdescribe('Xmas tree - Admin Reports', () => {
   describe('Permit report page', () => {
     beforeAll(() => {
       browser.driver.manage().deleteAllCookies();
