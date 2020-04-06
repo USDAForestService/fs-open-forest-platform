@@ -1,68 +1,42 @@
-<app-trees-buy-permit-bar [forest]="forest"></app-trees-buy-permit-bar>
-<section id="sidebar-page" class="usa-section usa-content tree-guidelines">
+<section id="forest-finder-intro" class="usa-main">
   <div class="usa-grid">
-    <div class="usa-width-one-whole">
-      <app-breadcrumbs></app-breadcrumbs>
-      <app-tree-progress-bar *ngIf='forest.isSeasonOpen' step="details"></app-tree-progress-bar>
+    <div class="usa-main-callout">
+      <h1 id="skip-nav-target" tabindex="-1">{{forest.forestName}}</h1>
     </div>
+  </div>
+</section>
 
-    <div id="skip-nav-target" tabindex="-1" class="usa-width-two-thirds sidebar-page-main-content">
-      <h1 *ngIf="forest">{{forest.forestName}} Christmas Tree permit information</h1>
-      <div id="forest-season-open-alert" [hidden]="forest.isSeasonOpen" role="alert" aria-label="info" class="usa-alert usa-alert-info">
-        <div class="usa-alert-body">
-          <p class="usa-alert-text">{{ forest.seasonOpenAlert }}</p>
+<section id="forest-template">
+    <div id="skip-nav-target" tabindex="-1" class="usa-width-one-whole">
+      <app-section-heading heading="This Forest's Products" id="forest-list" tabIndex="-1"></app-section-heading>
+      <div *ngFor="let item of forest| keyvalue">
+        {{ item.key }} - {{ item.value }}
+      </div>
+
+      <div class="help-pick-flex" id="fs-background">
+        <div class="small-col">
+          <img alt="tree image" role="img" alt="Image of Trees" src="/assets/img/site-wide/test_home.jpg">
+          <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
+        </div>
+        <div class="big-col">
+          <h2>Christmas Trees</h2>
+          <p>{{forest.forestName}} allows you to purchase a Christmas tree permit online with Open Forest</p>
+          <div class="button-row">
+            <button [routerLink]="['/christmas-trees/forests/', forest.forestAbbr]" class="usa-button margin-top-1" tabIndex="-1">Learn More</button>
+            <!-- testing season is open -->
+            <button #staticBuyButton [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" tabIndex="-1">Get permit</button>
+            <!-- <button #staticBuyButton *ngIf="forest.isSeasonOpen" [routerLink]="['/christmas-trees/forests/', forest.forestAbbr, 'applications']" class="usa-button margin-top-1" tabIndex="-1">Get permit</button> -->
+          </div>
         </div>
       </div>
-      <div id="forest-mock-data-alert" [hidden]="!forest.isMockData" role="alert" aria-label="info" class="usa-alert usa-alert-info">
-        <div class="usa-alert-body">
-          <p class="usa-alert-text">{{ forest.mockDataAlert }}</p>
-        </div>
-      </div>
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.introduction"></ngx-md>
+      <!-- <ngx-md *ngIf="forest && forest.content" [data]="forest.content.introduction"></ngx-md> -->
 
       <!--when to cut-->
-      <app-section-heading heading="When to cut your tree" id="season-dates" tabIndex="-1"></app-section-heading>
-      <app-tree-cutting-dates [forest]="forest"></app-tree-cutting-dates>
-
-      <!--where to cut-->
-      <hr class="thick" />
-      <app-section-heading heading="Where to cut your tree" id="tree-locations" tabIndex="-1"></app-section-heading>
-      <app-section-heading heading="Prohibited areas and restrictions" id="tree-locations-prohibited" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutProhibited"></ngx-md>
-
-      <app-section-heading heading="Cutting area maps" id="tree-locations-allowed" tabIndex="-1" selector="h3"></app-section-heading>
-
-      <hr class="trees-section-divider">
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.whereToCutCuttingAreaMaps"></ngx-md>
-
-      <!--how to cut-->
-      <hr class="thick" />
-      <app-section-heading heading="How to cut your tree" id="cutting-instructions" tabIndex="-1"></app-section-heading>
-
-      <app-section-heading heading="Measuring your tree" id="cutting-instructions-measuring" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <ngx-md id="tree-measuring-container" *ngIf="forest && forest.content" [data]="forest.content.whenYouCut"></ngx-md>
-
-      <app-section-heading heading="Helpful cutting tips" id="cutting-instructions-helpful" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <ngx-md *ngIf="forest && forest.content" [data]="forest.content.beforeYouCut"></ngx-md>
-
-      <app-section-heading heading="Identifying tree species" id="cutting-instructions-tree-selection" tabIndex="-1" selector="h3"></app-section-heading>
-      <hr class="trees-section-divider">
-      <app-tree-species [forest]="forest"></app-tree-species>
-
-
-      <hr class="thick" />
-      <app-section-heading heading="How to plan your trip" id="trip-planning" tabIndex="-1"></app-section-heading>
-      <ngx-md id="how-to-plan-container" *ngIf="forest && forest.content" [data]="forest.content.howToPlanYourTrip"></ngx-md>
-
-
-      <hr class="thick" />
+      
+      
 
       <app-section-heading heading="Contact us" tabIndex="-1" id="contact-information"></app-section-heading>
       <ngx-md *ngIf="forest && forest.content" [data]="forest.content.contactUs"></ngx-md>
 
     </div>
-  </div>
 </section>

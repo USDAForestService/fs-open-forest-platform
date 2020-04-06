@@ -80,6 +80,7 @@ a Christmas tree permit with the United States Forest Service on your National F
         this.forest = this.setSeasonStatus(this.forest);
         if (this.forest) {
           this.christmasTreesInfoService.updateMarkdownText(this.markdownService, this.forest);
+          console.log(this.forest);
         }
 
         this.titleService.setTitle(`${this.forest.forestName} | U.S. Forest Service Open Forest`);
