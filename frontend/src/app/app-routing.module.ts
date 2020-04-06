@@ -98,7 +98,7 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/new',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Apply for a noncommercial group use permit with Open Forest',
+              title: 'Apply for a Non-Commercial Group Use permit with Open Forest',
               breadcrumbs: 'Application'
             },
           },
@@ -354,3 +354,4 @@ const appRoutes: Routes = [
   providers: [ForestResolver, ForestsResolver, ForestsAdminResolver]
 })
 export class AppRoutingModule {}
+
