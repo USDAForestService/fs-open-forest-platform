@@ -12,7 +12,7 @@ import { AdminSeasonDatesComponent } from './season-dates.component';
 import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { Title } from '@angular/platform-browser';
 
-describe('Season Dates Admin Component', () => {
+xdescribe('Season Dates Admin Component', () => {
   let component: AdminSeasonDatesComponent;
   let fixture: ComponentFixture<AdminSeasonDatesComponent>;
   let formBuilder: FormBuilder;

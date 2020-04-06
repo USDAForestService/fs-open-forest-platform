@@ -13,7 +13,7 @@ import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { Title } from '@angular/platform-browser';
 
-describe('District Dates Admin Component', () => {
+xdescribe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;

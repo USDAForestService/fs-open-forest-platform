@@ -16,7 +16,7 @@ class MockAuthenticationService {
   }
 }
 
-describe('ForestAdminNavComponent', () => {
+xdescribe('ForestAdminNavComponent', () => {
   let component: ForestAdminNavComponent;
   let fixture: ComponentFixture<ForestAdminNavComponent>;
 

@@ -42,12 +42,12 @@ export class ChristmasTreesAdminService {
       { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'}
     ];
 
-    if (user.poc1_forests.length > 0) {
+    if (user.poc1_forests && user.poc1_forests.length > 0) {
       navItems.push({ id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
       navItems.push({ id: 'forest-admin-seasons', routerLink: '/christmas-trees/admin/season-dates', title: 'Change season dates'});
       navItems.push({ id: 'forest-admin-areas', routerLink: '/christmas-trees/admin/district-dates', title: 'Change cutting area dates'});
       navItems.push({ id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'});
-    } else if (user.poc2_forests.length > 0) {
+    } else if (user.poc2_forests && user.poc2_forests.length > 0) {
       navItems.push({ id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'});
       navItems.push({ id: 'forest-admin-feedback', routerLink: '/christmas-trees/admin/feedback-review', title: 'Feedback'});
     }
