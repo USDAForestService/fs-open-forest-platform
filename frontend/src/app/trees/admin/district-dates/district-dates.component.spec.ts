@@ -13,7 +13,7 @@ import { ChristmasTreesAdminService } from '../christmas-trees-admin.service';
 import { ChristmasTreesInfoService } from '../../_services/christmas-trees-info.service';
 import { Title } from '@angular/platform-browser';
 
-xdescribe('District Dates Admin Component', () => {
+describe('District Dates Admin Component', () => {
   let component: AdminDistrictDatesComponent;
   let fixture: ComponentFixture<AdminDistrictDatesComponent>;
   let formBuilder: FormBuilder;
@@ -65,7 +65,7 @@ xdescribe('District Dates Admin Component', () => {
   const mockActivatedRoute = {
     params: Observable.of({ id: 1 }),
     data: Observable.of({
-      user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'] },
+      user: { email: 'test@test.com', role: 'admin', forests: ['arp', 'mthood', 'flathead'], poc1_forests: ['arp', 'mthood', 'flathead'], poc2_forests: ['arp', 'mthood', 'flathead'] },
       forests: forests
     })
   };

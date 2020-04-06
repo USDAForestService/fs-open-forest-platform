@@ -1,7 +1,7 @@
 import { TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-xdescribe('Map details page', () => {
+describe('Map details page', () => {
   let page: TreesSidebarPage;
   let redLink, sulphurLink, elkLink, clackamasLink, zigzagLink: any;
 

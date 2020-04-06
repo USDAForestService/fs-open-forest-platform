@@ -1,7 +1,7 @@
 import { TreesForestFinderPage, TreesSidebarPage } from './xmas-tree-info.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-xdescribe('Xmas tree  - Find a forest', () => {
+describe('Xmas tree  - Find a forest', () => {
   let page: TreesForestFinderPage;
 
   describe('text search', () => {

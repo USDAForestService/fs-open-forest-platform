@@ -9,7 +9,7 @@ const testSuccessFile = path.resolve(__dirname, 'test-files/success.pdf');
 const page = new TempOutfittersForm();
 const fieldValidation = new FieldValidation();
 
-xdescribe('Apply for a Temporary Outfitting and Guiding permit', () => {
+describe('Apply for a Temporary Outfitting and Guiding permit', () => {
   beforeAll(() => {
     browser.driver.manage().deleteAllCookies();
     browser.driver.manage().window().setSize(1400, 900);

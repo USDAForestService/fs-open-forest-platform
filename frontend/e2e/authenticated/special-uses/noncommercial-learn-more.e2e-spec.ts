@@ -1,7 +1,7 @@
 import { NonCommercialLearnMorePage } from './app.po';
 import { browser, element, by, Key, protractor } from 'protractor';
 
-xdescribe('NonCommercial Learn More', () => {
+describe('NonCommercial Learn More', () => {
   let page: NonCommercialLearnMorePage;
 
   describe('sidebar nav', () => {
