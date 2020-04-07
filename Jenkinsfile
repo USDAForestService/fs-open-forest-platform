@@ -127,7 +127,7 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed
 	 npm run migrate
 	 npm run seed
-	sudo npm run coverage --silent
+	 npm run coverage --silent
 	'''
 
     sh '''
