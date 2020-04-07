@@ -118,7 +118,7 @@ stage('run-unit-tests'){
 			sh '''
 	pwd
 	cd server
-
+	./copy-frontend-assets.sh
         pwd
 	cd ../frontend
 	pwd
@@ -127,7 +127,7 @@ stage('run-unit-tests'){
 	 npm run undoAllSeed
 	 npm run migrate
 	 npm run seed
-
+	sudo npm run coverage --silent
 	'''
 
     sh '''
