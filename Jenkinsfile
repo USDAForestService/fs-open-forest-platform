@@ -64,7 +64,7 @@ pipeline {
 
     stage('install-dependencies'){
         when{
-            branch 'master'
+            branch 'eauth-roles-integration-ilaya'
         }
         steps {
             echo 'run this stage - ony if the branch = master branch'
