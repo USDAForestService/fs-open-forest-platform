@@ -70,7 +70,7 @@ pipeline {
             echo 'run this stage - ony if the branch = master branch'
         }   
     }
- 
+ }
 
 post{
     success {
