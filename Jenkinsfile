@@ -117,17 +117,16 @@ stage('run-unit-tests'){
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-unit-tests", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''		
 			sh '''
-	pwd
+
 	cd server
-        pwd 
+	./copy-frontend-assets.sh
 	cd ../frontend		
-	pwd        
 	npm run test:ci	
         cd ../server	
 	 npm run undoAllSeed	
 	 npm run migrate	
 	 npm run seed		 
-	 
+	 npm run coverage --silent
 	'''
 
     sh '''
@@ -159,7 +158,6 @@ sh '''
       curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/USDAForestService/fs-open-forest-platform/statuses/$(git rev-parse HEAD) -d '{"state": "pending","context":"ci/jenkins: run-lint", "target_url": "https://jenkins.fedgovcloud.us/blue/organizations/jenkins/fs-open-forest-platform/activity","description": "Your tests are queued behind your running builds!"}'
       '''		
 		   sh '''
-	    pwd
 	    cd frontend
 	    npm run lint 
 	    cd ../server
