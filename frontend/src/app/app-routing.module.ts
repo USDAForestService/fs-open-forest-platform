@@ -74,7 +74,7 @@ const appRoutes: Routes = [
         path: 'applications/noncommercial-group-use/learn-more',
         component: NoncommercialLearnMoreComponent,
         data: {
-          title: 'Learn more about a noncommercial group use permit',
+          title: 'Learn more about a Non-Commercial Group Use permit',
           breadcrumbs: 'Learn more'
         }
       },
@@ -98,7 +98,7 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/new',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Apply for a noncommercial group use permit with Open Forest',
+              title: 'Apply for a Non-Commercial Group Use permit with Open Forest',
               breadcrumbs: 'Application'
             },
           },
@@ -106,7 +106,7 @@ const appRoutes: Routes = [
             path: 'noncommercial-group-use/:id/edit',
             component: ApplicationNoncommercialGroupComponent,
             data: {
-              title: 'Edit your noncommercial group use permit with Open Forest',
+              title: 'Edit your Non-Commercial Group Use permit with Open Forest',
               breadcrumbs: 'Application edit'
             },
           },
