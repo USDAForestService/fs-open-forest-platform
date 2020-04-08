@@ -276,7 +276,6 @@ pipeline {
     steps {
 
 
-
 	    script {
 
 
@@ -309,7 +308,7 @@ pipeline {
 
 
 
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+
 
 
 
@@ -329,7 +328,7 @@ pipeline {
 
 
 
-	rm package-lock.json && rm -rf node_modules && rm -rf ~/.node-gyp
+	
 
 
 
