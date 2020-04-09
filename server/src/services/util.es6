@@ -410,6 +410,9 @@ util.getEauthForests = (approles) => {
         .replace('_POC1', '')
         .replace('-POC', '')
         .replace('_POC', '')
+        .replace('SuperUser', '')
+        .replace('Super-User', '')
+        .replace('Regional', '')
         .replace('FS_Open-Forest_', '')
         .replace('FS_OpenForest_', '');
       // if we found a forest in the role, add it to the forests array
@@ -420,9 +423,9 @@ util.getEauthForests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  // if (approles.includes('Super')) {
-  //   forests = ['all'];
-  // }
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
 
   return [...new Set(forests)];
 };
@@ -458,9 +461,9 @@ util.getPOC1Forests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  // if (approles.includes('Super')) {
-  //   forests = ['all'];
-  // }
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
 
   return [...new Set(forests)];
 };
@@ -496,9 +499,9 @@ util.getPOC2Forests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  // if (approles.includes('Super')) {
-  //   forests = ['all'];
-  // }
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
 
   return [...new Set(forests)];
 };
