@@ -402,11 +402,90 @@ util.getEauthForests = (approles) => {
   // check each role for a forest
   for (let i = 0; i < roles.length; i += 1) {
     // check if the role is related to Open Forest
-    if (roles[i].includes('FS_Open-Forest' || 'FS_OpenForest')) {
+    if (['FS_Open-Forest', 'FS_OpenForest'].some(role => roles[i].includes(role))) {
       // strip the role down to just a forest
       forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
         .replace('-POC1', '')
+        .replace('_POC1', '')
         .replace('-POC', '')
+        .replace('_POC', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest);
+      }
+    }
+  }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
+  return [...new Set(forests)];
+};
+
+/**
+ * Return an array of POC1 forests (short names) from the provided eAuth approles string
+ *
+*/
+util.getPOC1Forests = (approles) => {
+  // split the roles from one long string into an array of roles
+  const roles = approles.split('^');
+  let forests = [];
+  let forest = '';
+
+  // check each role for a forest
+  for (let i = 0; i < roles.length; i += 1) {
+    // check if the role is or POC1 access
+    if (roles[i].includes('POC1')) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
+        .replace('-POC1', '')
+        .replace('_POC1', '')
+        .replace('-POC', '')
+        .replace('_POC', '')
+        .replace('FS_Open-Forest_', '')
+        .replace('FS_OpenForest_', '');
+      // if we found a forest in the role, add it to the forests array
+      if (forest.length > 0) {
+        forests.push(forest);
+      }
+    }
+  }
+
+  // if the user is a superuser return all forests
+  if (approles.includes('Super')) {
+    forests = ['all'];
+  }
+
+  return [...new Set(forests)];
+};
+
+/**
+ * Return an array of POC2 forests (short names) from the provided eAuth approles string
+ *
+*/
+util.getPOC2Forests = (approles) => {
+  // split the roles from one long string into an array of roles
+  const roles = approles.split('^');
+  let forests = [];
+  let forest = '';
+
+  // check each role for a forest
+  for (let i = 0; i < roles.length; i += 1) {
+    // check if the role is or POC2 access (POC1 inherits POC2)
+    if (['POC1', 'POC2'].some(role => roles[i].includes(role))) {
+      // strip the role down to just a forest
+      forest = roles[i].replace('-POC2', '')
+        .replace('_POC2', '')
+        .replace('-POC1', '')
+        .replace('_POC1', '')
+        .replace('-POC', '')
+        .replace('_POC', '')
         .replace('FS_Open-Forest_', '')
         .replace('FS_OpenForest_', '');
       // if we found a forest in the role, add it to the forests array
