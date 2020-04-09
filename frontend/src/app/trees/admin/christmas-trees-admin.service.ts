@@ -38,6 +38,8 @@ export class ChristmasTreesAdminService {
    * @returns admin navigation links
    */
   getAdminNavItems() {
+    console.log('from get nav items')
+    console.dir(this)
     return [
       { id: 'forest-admin-permits', routerLink: '/christmas-trees/forests', title: 'Christmas tree permits'},
       { id: 'forest-admin-reports', routerLink: '/christmas-trees/admin/reports', title: 'Generate reports'},

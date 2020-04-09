@@ -420,9 +420,9 @@ util.getEauthForests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  if (approles.includes('Super')) {
-    forests = ['all'];
-  }
+  // if (approles.includes('Super')) {
+  //   forests = ['all'];
+  // }
 
   return [...new Set(forests)];
 };
@@ -458,9 +458,9 @@ util.getPOC1Forests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  if (approles.includes('Super')) {
-    forests = ['all'];
-  }
+  // if (approles.includes('Super')) {
+  //   forests = ['all'];
+  // }
 
   return [...new Set(forests)];
 };
@@ -496,9 +496,9 @@ util.getPOC2Forests = (approles) => {
   }
 
   // if the user is a superuser return all forests
-  if (approles.includes('Super')) {
-    forests = ['all'];
-  }
+  // if (approles.includes('Super')) {
+  //   forests = ['all'];
+  // }
 
   return [...new Set(forests)];
 };
