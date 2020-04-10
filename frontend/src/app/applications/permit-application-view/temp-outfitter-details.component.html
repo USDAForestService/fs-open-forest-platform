@@ -33,7 +33,7 @@
         </span>
       </div>
     </div>
-    <div class="margin-bottom-1">
+    <div class="margin-bottom-1 temp-outfitter-info-display">
       <span class="display-block"><a href="mailto:{{ application.applicantInfo.emailAddress }}">{{ application.applicantInfo.emailAddress }}</a></span>
       <span class="display-block" *ngIf="application.applicantInfo.dayPhone">
         Phone: {{ application.applicantInfo.dayPhone.areaCode }}-{{ application.applicantInfo.dayPhone.prefix }}-{{ application.applicantInfo.dayPhone.number }}
@@ -49,6 +49,9 @@
       </span>
       <span class="display: block" *ngIf="application.applicantInfo.website">
         Website: <a href="{{application.applicantInfo.website | UrlPipe }}" target="_blank">{{application.applicantInfo.website}}</a>
+      </span>
+      <span class="display: block" *ngIf="application.applicantInfo.mapUrl">
+        Map Link: <a href="{{application.applicantInfo.mapUrl | UrlPipe }}" target="_blank">{{application.applicantInfo.mapUrl}}</a>
       </span>
     </div>
 
