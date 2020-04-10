@@ -21,7 +21,7 @@ module.exports = factory.factory({
   applicantInfo: {
     // required string email address
     emailAddress: 'theodore@twombly.com',
-     // optional string(255) URL
+    // optional string(255) URL
     mapUrl: 'http://twombly.com',
     // required string
     primaryFirstName: 'Theodore',
