@@ -258,6 +258,16 @@ module.exports = util.getSequelizeConnection().define(
         is: /^$|[0-9]{5}/
       }
     },
+    applicantInfoMapUrl: {
+      type: Sequelize.STRING(255),
+      field: 'applicant_info_map_url',
+      validate: {
+        len: {
+          args: [0, 255],
+          msg: 'applicantInfoMapUrl must be less than 255 characters in length'
+        }
+      }
+    },
     applicantInfoOrganizationName: {
       type: Sequelize.STRING(60),
       field: 'applicant_info_org_name',
