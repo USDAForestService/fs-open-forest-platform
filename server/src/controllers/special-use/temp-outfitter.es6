@@ -67,6 +67,7 @@ tempOutfitter.translateFromClientToDatabase = (input, output) => {
     .applicantInfo.fax && input.applicantInfo.fax.number ? input.applicantInfo.fax.number : null;
   output.applicantInfoFaxPrefix = input
     .applicantInfo.fax && input.applicantInfo.fax.prefix ? input.applicantInfo.fax.prefix : null;
+  output.applicantInfoMapUrl = input.applicantInfo.mapUrl;
   output.applicantInfoOrganizationName = input.applicantInfo.organizationName;
   output.applicantInfoOrgType = input.applicantInfo.orgType;
   output.applicantInfoPrimaryFirstName = input.applicantInfo.primaryFirstName;
@@ -169,6 +170,7 @@ const translateFromDatabaseToClient = (input) => {
         mailingZIP: input.applicantInfoPrimaryMailingZIP || ''
       },
       emailAddress: input.applicantInfoEmailAddress,
+      mapUrl: input.applicantInfoMapUrl || '',
       orgType: input.applicantInfoOrgType,
       primaryFirstName: input.applicantInfoPrimaryFirstName,
       primaryLastName: input.applicantInfoPrimaryLastName,
@@ -288,6 +290,7 @@ tempOutfitter.translateFromIntakeToMiddleLayer = (application) => {
       mailingCity: application.applicantInfoPrimaryMailingCity,
       mailingState: application.applicantInfoPrimaryMailingState,
       mailingZIP: application.applicantInfoPrimaryMailingZIP,
+      mapUrl: application.applicantInfoMapUrl,
       organizationName: application.applicantInfoOrganizationName,
       website: application.applicantInfoWebsite,
       orgType: application.applicantInfoOrgType
